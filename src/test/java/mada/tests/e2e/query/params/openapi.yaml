@@ -1,0 +1,105 @@
+---
+openapi: 3.0.3
+info:
+  title: code-with-quarkus API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /queryparams:
+    get:
+      tags:
+      - Query Params
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /queryparams/byte/{byteId}:
+    get:
+      tags:
+      - Query Params
+      parameters:
+      - name: byteId
+        in: path
+        required: true
+        schema:
+          format: byte
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /queryparams/int/{intId}:
+    get:
+      tags:
+      - Query Params
+      parameters:
+      - name: intId
+        in: path
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /queryparams/long/{longId}:
+    get:
+      tags:
+      - Query Params
+      parameters:
+      - name: longId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /queryparams/short/{shortId}:
+    get:
+      tags:
+      - Query Params
+      parameters:
+      - name: shortId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /queryparams/string/{stringId}:
+    get:
+      tags:
+      - Query Params
+      parameters:
+      - name: stringId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
