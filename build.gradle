@@ -29,7 +29,6 @@ dependencies {
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 	testImplementation('org.junit.jupiter:junit-jupiter-api')
 	testImplementation('org.junit.platform:junit-platform-runner')
-	testImplementation('org.junit.platform:junit-platform-suite-engine')
 	testImplementation("org.assertj:assertj-core:3.21.0")
 }
 

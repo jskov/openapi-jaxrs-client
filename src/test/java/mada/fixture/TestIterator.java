@@ -15,11 +15,19 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.logging.LoggerConfig;
+
+// Using JunitPlatform is deprecated, but @Suite and @TestFactory does
+// not appear to work in Eclipse.
+@SuppressWarnings("deprecation")
 @RunWith(JUnitPlatform.class)
 class TestIterator {
 	private static final Logger logger = LoggerFactory.getLogger(TestIterator.class);
+	
 	@TestFactory
 	List<DynamicTest> makeTests() throws IOException {
+		LoggerConfig.loadConfig("/logging-test.properties");
+		
 		Path rootDir = Paths.get("src/test/java/mada/tests/e2e").toAbsolutePath();
 		Path outputDir = Paths.get("build/e2e");
 		logger.info("Scanning for tests in {}", rootDir);
