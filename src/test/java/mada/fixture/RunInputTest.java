@@ -29,11 +29,14 @@ import dk.mada.jaxrs.Generator;
 public class RunInputTest {
 	private static final Logger logger = LoggerFactory.getLogger(RunInputTest.class);
 	
-	public void runTest(Path testDir, Path outputDir) throws IOException {
+	public void runTest(String pkgPrefix, Path testDir, Path outputDir) throws IOException {
 		String testName = testDir.getFileName().toString();
 		Path input = testDir.resolve("openapi.yaml");
 
 		Properties testOptions = readTestOptions(testDir);
+		
+		testOptions.setProperty("apiPackage", pkgPrefix + ".api");
+		testOptions.setProperty("modelPackage", pkgPrefix + ".dto");
 		
 		DirectoryDeleter.delete(outputDir);
 		

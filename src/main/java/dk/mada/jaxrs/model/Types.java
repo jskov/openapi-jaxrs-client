@@ -19,6 +19,9 @@ public class Types {
 			.collect(toSet());
 	}
 	
+	public Set<Type> get() {
+		return types;
+	}
 	
 	@Override
 	public String toString() {

@@ -3,6 +3,7 @@ package dk.mada.jaxrs.openapi;
 import java.nio.file.Path;
 import java.util.List;
 
+import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Operations;
 import dk.mada.jaxrs.model.Types;
@@ -27,9 +28,10 @@ public class Parser {
 	    SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, parseOpts);
 	    OpenAPI specification = result.getOpenAPI();
 
+	    Info info = new InfoTransformer().transform(specification);
 	    Operations ops = new OpsTransformer().transform(specification);
 	    Types types = new TypeTransformer().transform(specification);
 	    
-	    return new Model(ops, types);
+	    return new Model(info, ops, types);
 	}
 }

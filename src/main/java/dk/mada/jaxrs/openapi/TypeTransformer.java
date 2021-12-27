@@ -39,6 +39,7 @@ public class TypeTransformer {
 		Map<String, Schema> allDefinitions = ModelUtils.getSchemas(openApi);
     	allDefinitions.forEach((schemaName, schema) -> {
     		String modelName = getModelName(schemaName, schema);
+    		
     		Type type = ImmutableType.builder()
     			.name(modelName)
     			.build();

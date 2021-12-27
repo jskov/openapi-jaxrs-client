@@ -1,20 +1,21 @@
 package dk.mada.jaxrs;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import dk.mada.jaxrs.generator.ApiGenerator;
+import dk.mada.jaxrs.generator.DtoGenerator;
+import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.generator.ImmutableGeneratorOpts;
+import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.openapi.Parser;
 
 public class Generator {
-	private static final Logger logger = LoggerFactory.getLogger(Generator.class);
-
+	
+	private static final String OPT_API_PACKAGE = "apiPackage";
+	private static final String OPT_MODEL_PACKAGE = "modelPackage";
+	
 	public void generate(Path input, Properties options, Path outputDir) {
 	    Model model = new Parser().parse(input);
 	    
@@ -22,39 +23,17 @@ public class Generator {
 	    	Path apiDir = outputDir.resolve("api");
 		    Path dtoDir = outputDir.resolve("dto");
 		    
-		    generateApiClasses(model, apiDir);
-		    generateDtoClasses(model, dtoDir);
+		    GeneratorOpts genOpts = ImmutableGeneratorOpts.builder()
+		    	.apiPackage(options.getProperty(OPT_API_PACKAGE, "api"))
+		    	.dtoPackage(options.getProperty(OPT_MODEL_PACKAGE, "dto"))
+		    	.build();
+		    
+		    var templates = new Templates(genOpts);
+		    new DtoGenerator(templates, model).generateDtoClasses(dtoDir);
+		    new ApiGenerator(templates, model).generateApiClasses(apiDir);
+		    
 	    } catch (Exception e) {
 	    	throw new GeneratorException("Failed", e);
 	    }
-	}
-		
-	private void generateDtoClasses(Model model, Path dtoDir) throws IOException {
-		Files.createDirectories(dtoDir);
-		model.types().getTypeNames()
-			.forEach(name -> {
-				Path f = dtoDir.resolve(name + ".java");
-				logger.info(" generate type {}", name);
-				touch(f);
-			});
-	}
-	
-	private void generateApiClasses(Model model, Path apiDir) throws IOException {
-		Files.createDirectories(apiDir);
-		
-		model.operations().getApiNames()
-			.forEach(name -> {
-				Path f = apiDir.resolve(name + ".java");
-				logger.info(" generate API {}", name);
-				touch(f);
-			});
-	}
-	
-	private void touch(Path file) {
-		try {
-			Files.createFile(file);
-		} catch (IOException e) {
-			throw new UncheckedIOException(e);
-		}
 	}
 }

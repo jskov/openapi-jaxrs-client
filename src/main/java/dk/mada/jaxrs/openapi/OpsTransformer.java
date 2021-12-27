@@ -38,7 +38,7 @@ public class OpsTransformer {
 	        			.build());
 	        }
 	        
-	        logger.debug(" {} : {}", resourcePath, op);
+	        logger.debug(" {}", resourcePath);
 	    }
 	    
 	    return new Operations(ops);

@@ -28,7 +28,8 @@ class TestIterator {
 	List<DynamicTest> makeTests() throws IOException {
 		LoggerConfig.loadConfig("/logging-test.properties");
 		
-		Path rootDir = Paths.get("src/test/java/mada/tests/e2e").toAbsolutePath();
+		Path testSrcDir = Paths.get("src/test/java").toAbsolutePath();
+		Path rootDir = testSrcDir.resolve("mada/tests/e2e");
 		Path outputDir = Paths.get("build/e2e");
 		logger.info("Scanning for tests in {}", rootDir);
 		
@@ -51,11 +52,14 @@ class TestIterator {
 			.filter(testFilter)
 			.map(testInput -> {
 				Path testRootDir = testInput.getParent();
-				Path testPath = rootDir.relativize(testRootDir);
+				Path testPath = testSrcDir.relativize(testRootDir);
 				Path testOutputDir = outputDir.resolve(testPath);
 				
 				String name = testPath.toString().replace("/", ".");
-				return DynamicTest.dynamicTest(name, () -> new RunInputTest().runTest(testRootDir, testOutputDir));
+				
+				String pkgPrefix = testSrcDir.relativize(testRootDir).toString().replace("/", ".");
+				
+				return DynamicTest.dynamicTest(name, () -> new RunInputTest().runTest(pkgPrefix, testRootDir, testOutputDir));
 			})
 			.sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
 			.collect(Collectors.toList());
