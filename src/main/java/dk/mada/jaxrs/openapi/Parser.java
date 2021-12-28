@@ -6,7 +6,7 @@ import java.util.List;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Operations;
-import dk.mada.jaxrs.model.Types;
+import dk.mada.jaxrs.model.Dtos;
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.AuthorizationValue;
@@ -30,7 +30,7 @@ public class Parser {
 
 	    Info info = new InfoTransformer().transform(specification);
 	    Operations ops = new OpsTransformer().transform(specification);
-	    Types types = new TypeTransformer().transform(specification);
+	    Dtos types = new DtoTransformer().transform(specification);
 	    
 	    return new Model(info, ops, types);
 	}

@@ -18,17 +18,21 @@ import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 
 import dk.mada.jaxrs.GeneratorException;
-import dk.mada.jaxrs.model.Model;
-import dk.mada.jaxrs.model.Type;
+import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
 
 public class Templates {
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(Templates.class);
 	
+	@SuppressWarnings("unused")
 	private final GeneratorOpts opts;
+
+	private final Template dtoTemplate;
 
 	public Templates(GeneratorOpts opts) {
 		this.opts = opts;
+
+		dtoTemplate = compileTemplate("model");
 	}
 	
 	public void touch(Path file) {
@@ -39,24 +43,24 @@ public class Templates {
 		}
 	}
 
-	public void writeDto(Model model, Type type, Path outputFile) {
-		try (Reader r = openReader("model");
-			Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
-
-			Template m = Mustache.compiler()
-				.withLoader(n -> openReader(n))
-				.compile(r);
-
-			CtxModel ctx = ImmutableCtxModel.builder()
-					.type(type)
-					.info(model.info())
-					.packageName(opts.dtoPackage())
-					.build();
-			
-			m.execute(ctx, w);
+	public void writeDto(CtxDto context, Path outputFile) {
+		try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
+			dtoTemplate.execute(context, w);
 		} catch (IOException e) {
 			throw new GeneratorException("Failed to generate DTO " + outputFile, e);
 		}
+	}
+	
+	private Template compileTemplate(String resourceName) {
+		try (Reader r = openReader(resourceName)) {
+			return Mustache.compiler()
+					.defaultValue("")
+					.withLoader(n -> openReader(n))
+					.compile(r);
+		} catch (IOException e) {
+			throw new GeneratorException("Failed to read template " + resourceName, e);
+		}
+		
 	}
 	
 	private Reader openReader(String templateName) {

@@ -17,14 +17,14 @@ public class InfoTransformer {
 		String description = orEmpty(info.getDescription());
 		String tos = orEmpty(info.getTermsOfService());
 
-		String email = "";
-		String name = "";
-		String url = "";
+		String email = null;
+		String name = null;
+		String url = null;
 		io.swagger.v3.oas.models.info.Contact contact = info.getContact();
 		if (contact != null) {
-			email = orEmpty(contact.getEmail());
-			name = orEmpty(contact.getName());
-			url = orEmpty(contact.getUrl());
+			email = contact.getEmail();
+			name = contact.getName();
+			url = contact.getUrl();
 		}
 		
 		return ImmutableInfo.builder()

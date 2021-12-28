@@ -29,7 +29,7 @@ public class Generator {
 		    	.build();
 		    
 		    var templates = new Templates(genOpts);
-		    new DtoGenerator(templates, model).generateDtoClasses(dtoDir);
+		    new DtoGenerator(genOpts, templates, model).generateDtoClasses(dtoDir);
 		    new ApiGenerator(templates, model).generateApiClasses(apiDir);
 		    
 	    } catch (Exception e) {

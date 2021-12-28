@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.model;
 
+import javax.annotation.Nullable;
+
 import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
 
@@ -29,19 +31,22 @@ public abstract class Info {
 	
 	@Immutable
 	public static abstract class Contact {
+		@Nullable
 		@Default
 		public String name() {
-			return "";
+			return null;
 		}
 
+		@Nullable
 		@Default
 		public String url() {
-			return "";
+			return null;
 		}
 
+		@Nullable
 		@Default
 		public String email() {
-			return "";
+			return null;
 		}
 	}
 }

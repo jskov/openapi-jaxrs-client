@@ -6,20 +6,20 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Types {
-	private final Set<Type> types;
+public class Dtos {
+	private final Set<Dto> types;
 	
-	public Types(Collection<Type> types) {
+	public Dtos(Collection<Dto> types) {
 		this.types = new HashSet<>(types);
 	}
 
-	public Set<String> getTypeNames() {
+	public Set<String> getDtoNames() {
 		return types.stream()
 			.map(t -> t.name())
 			.collect(toSet());
 	}
 	
-	public Set<Type> get() {
+	public Set<Dto> get() {
 		return types;
 	}
 	

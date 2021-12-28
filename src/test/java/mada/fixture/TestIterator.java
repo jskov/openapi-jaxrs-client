@@ -36,10 +36,11 @@ class TestIterator {
 		String testDir = System.getProperty("testDir", "");
 		
 		// Replace with partial test name (or empty to run all tests)
-		String testNameContains = "";
+		// Handy when working on a single test
+		String testNameContains = "primi";
 		
 		Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
-		Predicate<? super Path> filterByName = p -> p.toString().contains(testNameContains) || !System.getProperty("user.name").contains("jskov");
+		Predicate<? super Path> filterByName = p -> p.toString().contains(testNameContains) || Boolean.parseBoolean(System.getProperty("run_all_tests"));
 		
 		Predicate<? super Path> testFilter = testDir.isEmpty() ? filterByName : filterByProperty;
 		

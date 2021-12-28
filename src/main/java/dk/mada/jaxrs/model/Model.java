@@ -3,9 +3,9 @@ package dk.mada.jaxrs.model;
 public class Model {
 	private final Info info;
 	private final Operations operations;
-	private final Types types;
+	private final Dtos types;
 
-	public Model(Info info, Operations operations, Types types) {
+	public Model(Info info, Operations operations, Dtos types) {
 		this.info = info;
 		this.operations = operations;
 		this.types = types;
@@ -19,7 +19,7 @@ public class Model {
 		return operations;
 	}
 
-	public Types types() {
+	public Dtos types() {
 		return types;
 	}
 	

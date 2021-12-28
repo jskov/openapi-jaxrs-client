@@ -22,4 +22,4 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 
 ## Testing
 
-In Eclipse, add build/e2e as a source folder to get easy access to test output.
+In Eclipse, add build/e2e as a source folder (and exclude **/*.java) to get easy access to test output.
