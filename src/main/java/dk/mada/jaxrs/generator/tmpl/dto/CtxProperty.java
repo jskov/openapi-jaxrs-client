@@ -15,7 +15,14 @@ public interface CtxProperty {
 	String datatypeWithEnum();
 	String getter();
 	String setter();
+	
+	@Nullable
+	String defaultValue();
 
 	@Nullable
 	String description();
+	
+	boolean isArray();
+	@Nullable
+	String innerDatatypeWithEnum();
 }

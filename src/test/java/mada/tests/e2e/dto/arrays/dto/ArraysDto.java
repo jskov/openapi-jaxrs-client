@@ -12,28 +12,38 @@
 package mada.tests.e2e.dto.arrays.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * ArraysDto
  */
 public class ArraysDto   {
-  private boolean[] booleans;
+  private List<Boolean> booleans = new ArrayList<>();
 
   private byte[] bytes;
 
-  private short[] shorts;
+  private List<Short> shorts = new ArrayList<>();
 
-  private int[] ints;
+  private List<Integer> ints = new ArrayList<>();
 
-  private long[] longs;
+  private List<Long> longs = new ArrayList<>();
 
-  private String[] strings;
+  private List<String> strings = new ArrayList<>();
 
-  private Simple[] refs;
+  private List<Simple> refs = new ArrayList<>();
 
-  public ArraysDto booleans(boolean[] booleans) {
+  public ArraysDto booleans(List<Boolean> booleans) {
     this.booleans = booleans;
+    return this;
+  }
+
+  public ArraysDto addBooleansItem(boolean booleansItem) {
+    if (this.booleans == null) {
+      this.booleans = new ArrayList<>();
+    }
+    this.booleans.add(booleansItem);
     return this;
   }
 
@@ -43,11 +53,11 @@ public class ArraysDto   {
    **/
   @ApiModelProperty(value = "")
   
-  public boolean[] getBooleans() {
+  public List<Boolean> getBooleans() {
     return booleans;
   }
 
-  public void setBooleans(boolean[] booleans) {
+  public void setBooleans(List<Boolean> booleans) {
     this.booleans = booleans;
   }
 
@@ -70,8 +80,16 @@ public class ArraysDto   {
     this.bytes = bytes;
   }
 
-  public ArraysDto shorts(short[] shorts) {
+  public ArraysDto shorts(List<Short> shorts) {
     this.shorts = shorts;
+    return this;
+  }
+
+  public ArraysDto addShortsItem(short shortsItem) {
+    if (this.shorts == null) {
+      this.shorts = new ArrayList<>();
+    }
+    this.shorts.add(shortsItem);
     return this;
   }
 
@@ -81,16 +99,24 @@ public class ArraysDto   {
    **/
   @ApiModelProperty(value = "")
   
-  public short[] getShorts() {
+  public List<Short> getShorts() {
     return shorts;
   }
 
-  public void setShorts(short[] shorts) {
+  public void setShorts(List<Short> shorts) {
     this.shorts = shorts;
   }
 
-  public ArraysDto ints(int[] ints) {
+  public ArraysDto ints(List<Integer> ints) {
     this.ints = ints;
+    return this;
+  }
+
+  public ArraysDto addIntsItem(int intsItem) {
+    if (this.ints == null) {
+      this.ints = new ArrayList<>();
+    }
+    this.ints.add(intsItem);
     return this;
   }
 
@@ -100,16 +126,24 @@ public class ArraysDto   {
    **/
   @ApiModelProperty(value = "")
   
-  public int[] getInts() {
+  public List<Integer> getInts() {
     return ints;
   }
 
-  public void setInts(int[] ints) {
+  public void setInts(List<Integer> ints) {
     this.ints = ints;
   }
 
-  public ArraysDto longs(long[] longs) {
+  public ArraysDto longs(List<Long> longs) {
     this.longs = longs;
+    return this;
+  }
+
+  public ArraysDto addLongsItem(long longsItem) {
+    if (this.longs == null) {
+      this.longs = new ArrayList<>();
+    }
+    this.longs.add(longsItem);
     return this;
   }
 
@@ -119,16 +153,24 @@ public class ArraysDto   {
    **/
   @ApiModelProperty(value = "")
   
-  public long[] getLongs() {
+  public List<Long> getLongs() {
     return longs;
   }
 
-  public void setLongs(long[] longs) {
+  public void setLongs(List<Long> longs) {
     this.longs = longs;
   }
 
-  public ArraysDto strings(String[] strings) {
+  public ArraysDto strings(List<String> strings) {
     this.strings = strings;
+    return this;
+  }
+
+  public ArraysDto addStringsItem(String stringsItem) {
+    if (this.strings == null) {
+      this.strings = new ArrayList<>();
+    }
+    this.strings.add(stringsItem);
     return this;
   }
 
@@ -138,16 +180,24 @@ public class ArraysDto   {
    **/
   @ApiModelProperty(value = "")
   
-  public String[] getStrings() {
+  public List<String> getStrings() {
     return strings;
   }
 
-  public void setStrings(String[] strings) {
+  public void setStrings(List<String> strings) {
     this.strings = strings;
   }
 
-  public ArraysDto refs(Simple[] refs) {
+  public ArraysDto refs(List<Simple> refs) {
     this.refs = refs;
+    return this;
+  }
+
+  public ArraysDto addRefsItem(Simple refsItem) {
+    if (this.refs == null) {
+      this.refs = new ArrayList<>();
+    }
+    this.refs.add(refsItem);
     return this;
   }
 
@@ -157,11 +207,11 @@ public class ArraysDto   {
    **/
   @ApiModelProperty(value = "")
   
-  public Simple[] getRefs() {
+  public List<Simple> getRefs() {
     return refs;
   }
 
-  public void setRefs(Simple[] refs) {
+  public void setRefs(List<Simple> refs) {
     this.refs = refs;
   }
 

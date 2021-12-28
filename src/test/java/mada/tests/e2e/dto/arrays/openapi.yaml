@@ -4,7 +4,7 @@ info:
   title: openapi-examples API
   version: 1.0.0-SNAPSHOT
 paths:
-  /dtos/arrays:
+  /dtos/collections/array:
     get:
       tags:
       - Resource Dtos
@@ -15,6 +15,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArraysDto'
+  /dtos/collections/list:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListsDto'
 components:
   schemas:
     ArraysDto:

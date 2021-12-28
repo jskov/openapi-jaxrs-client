@@ -60,12 +60,17 @@ public class DtoTransformer {
     	
     	allDefinitions.forEach((schemaName, schema) -> {
     		String modelName = getModelName(schemaName, schema);
+
+    		SortedSet<String> dtoImports = new TreeSet<>(DTO_TEMPLATE_IMPORTS);
     		
     		List<Property> props = readProperties(schema);
     		
+    		props.stream()
+    			.forEach(p -> dtoImports.addAll(p.type().neededImports()));
+    		
     		Dto dto = ImmutableDto.builder()
     			.name(modelName)
-    			.imports(new TreeSet<>(DTO_TEMPLATE_IMPORTS))
+    			.imports(dtoImports)
     			.properties(props)
     			.openapiName(schemaName)
     			.build();
@@ -126,16 +131,6 @@ public class DtoTransformer {
 		if (schema instanceof BinarySchema b) {
 			return ByteArray.getArray();
 		}
-		
-			
-			
-			
-			
-//			ModelUtils.isArraySchema(target)) {
-//	            Schema<?> items = getSchemaItems((ArraySchema) schema);
-//	            return getSchemaType(target) + "<" + getTypeDeclaration(items) + ">";
-	            
-		
 
 		throw new IllegalStateException("No type found for " + schema);
     }

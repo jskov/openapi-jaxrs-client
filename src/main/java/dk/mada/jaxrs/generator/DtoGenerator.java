@@ -14,6 +14,7 @@ import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxProperty;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxDto;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxProperty;
+import dk.mada.jaxrs.model.ContainerArray;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
@@ -79,6 +80,16 @@ public class DtoGenerator {
 	private CtxProperty toCtxProperty(Property p) {
 		String name = p.name();
 		String nameCamelized = p.nameCamelized();
+		
+		String defaultValue = null;
+		boolean isArray = false;
+		String innerType = null;
+		if (p.type() instanceof ContainerArray ca) {
+			isArray = true;
+			innerType = ca.innerType().typeName();
+			defaultValue = "new ArrayList<>()";
+		}
+		
 		return ImmutableCtxProperty.builder()
 				.baseName(name)
 				.datatypeWithEnum(p.type().typeName())
@@ -87,6 +98,9 @@ public class DtoGenerator {
 				.getter("get" + nameCamelized)
 				.setter("set" + nameCamelized)
 				.description(p.description())
+				.isArray(isArray)
+				.innerDatatypeWithEnum(innerType)
+				.defaultValue(defaultValue)
 				.build();
 	}
 }

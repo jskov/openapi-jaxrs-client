@@ -48,6 +48,6 @@ public class Dtos {
 	
 	@Override
 	public String toString() {
-		return "Types [types=" + dtos + "]";
+		return "Types [types#=" + dtos.size() + "]";
 	}
 }
