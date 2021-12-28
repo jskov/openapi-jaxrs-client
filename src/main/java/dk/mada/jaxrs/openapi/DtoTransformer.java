@@ -13,15 +13,18 @@ import org.openapitools.codegen.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.model.ByteArray;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
+import dk.mada.jaxrs.model.ImmutableContainerArray;
 import dk.mada.jaxrs.model.ImmutableDto;
 import dk.mada.jaxrs.model.ImmutableProperty;
-import dk.mada.jaxrs.model.ImmutableRefDto;
 import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Type;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.media.ArraySchema;
+import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.Schema;
 
 /**
@@ -40,22 +43,20 @@ public class DtoTransformer {
 			"io.swagger.annotations.ApiModelProperty"
 			));
 
-	private final Dtos dtos = new Dtos();
+	private final Dtos dtos;
+	@SuppressWarnings("rawtypes")
+	private Map<String, Schema> allDefinitions;
 
-	public Dtos transform(OpenAPI specification) {
-		extractDtos(specification);
-		return dtos;
+	public DtoTransformer(OpenAPI specification) {
+    	allDefinitions = ModelUtils.getSchemas(specification);
+    	
+    	dtos = new Dtos(allDefinitions.keySet());
 	}
 
-    private Map<String, Dto> extractDtos(OpenAPI openApi) {
+	public Dtos transform() {
     	Map<String, Dto> types = new HashMap<>();
     	
-    	@SuppressWarnings("rawtypes")
-		Map<String, Schema> allDefinitions = ModelUtils.getSchemas(openApi);
-    	
     	logger.info("See schemas: {}", allDefinitions.keySet());
-    	
-    	
     	
     	allDefinitions.forEach((schemaName, schema) -> {
     		String modelName = getModelName(schemaName, schema);
@@ -73,7 +74,7 @@ public class DtoTransformer {
 		});
     	logger.info("Types {}: {}", allDefinitions.size(), types);
     	
-    	return types;
+    	return dtos;
     }
 
     private List<Property> readProperties(Schema<?> schema) {
@@ -106,27 +107,46 @@ public class DtoTransformer {
 		logger.debug("ref {}", schema.get$ref());
 		
 		Type type = Primitive.find(schemaType, schemaFormat);
-		if (type == null) {
-			String ref = schema.get$ref();
-			if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
-				String refName = ref.substring(REF_COMPONENTS_SCHEMAS.length());
-				logger.info("Look for schema {}", refName);
-				type = ImmutableRefDto.builder()
-						.openapiName(refName)
-						.dtos(dtos)
-						.build();
-			}
+		if (type != null) {
+			return type;
+		}
+
+		type = findSiblingType(schema.get$ref());
+		if (type != null) {
+			return type;
 		}
 		
-		if (type == null) {
-			throw new IllegalStateException("No type found for " + schema);
+		if (schema instanceof ArraySchema a) {
+			Type innerType = getType(a.getItems());
+			return ImmutableContainerArray.builder()
+				.innerType(innerType)
+				.build();
 		}
 		
+		if (schema instanceof BinarySchema b) {
+			return ByteArray.getArray();
+		}
 		
-		logger.info(" Type: {}", type);
-		return type;
+			
+			
+			
+			
+//			ModelUtils.isArraySchema(target)) {
+//	            Schema<?> items = getSchemaItems((ArraySchema) schema);
+//	            return getSchemaType(target) + "<" + getTypeDeclaration(items) + ">";
+	            
+		
+
+		throw new IllegalStateException("No type found for " + schema);
     }
     
+    private Type findSiblingType(String ref) {
+		if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
+			String refName = ref.substring(REF_COMPONENTS_SCHEMAS.length());
+			return dtos.findSibling(refName);
+		}
+		return null;
+    }
     
     private String getModelName(String schemaName, Schema<?> schema) {
 		String name = schema.getTitle();

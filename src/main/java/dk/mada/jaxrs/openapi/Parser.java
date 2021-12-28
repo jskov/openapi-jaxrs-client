@@ -30,7 +30,7 @@ public class Parser {
 
 	    Info info = new InfoTransformer().transform(specification);
 	    Operations ops = new OpsTransformer().transform(specification);
-	    Dtos types = new DtoTransformer().transform(specification);
+	    Dtos types = new DtoTransformer(specification).transform();
 	    
 	    return new Model(info, ops, types);
 	}

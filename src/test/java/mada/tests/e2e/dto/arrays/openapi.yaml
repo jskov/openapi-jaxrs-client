@@ -1,0 +1,56 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/arrays:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArraysDto'
+components:
+  schemas:
+    ArraysDto:
+      type: object
+      properties:
+        booleans:
+          type: array
+          items:
+            type: boolean
+        bytes:
+          format: binary
+          type: string
+        shorts:
+          type: array
+          items:
+            type: integer
+        ints:
+          type: array
+          items:
+            format: int32
+            type: integer
+        longs:
+          type: array
+          items:
+            format: int64
+            type: integer
+        strings:
+          type: array
+          items:
+            type: string
+        refs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
