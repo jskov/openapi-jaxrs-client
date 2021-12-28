@@ -1,0 +1,29 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/references:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/References'
+components:
+  schemas:
+    References:
+      type: object
+      properties:
+        simple:
+          $ref: '#/components/schemas/Simple'
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean

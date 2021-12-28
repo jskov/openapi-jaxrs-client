@@ -11,5 +11,4 @@ public interface Property {
 	Type type();
 	@Nullable
 	String description();
-	String typeStr();
 }
