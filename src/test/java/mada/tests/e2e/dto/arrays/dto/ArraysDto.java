@@ -11,7 +11,6 @@
 
 package mada.tests.e2e.dto.arrays.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -51,8 +50,6 @@ public class ArraysDto   {
    * Get booleans
    * @return booleans
    **/
-  @ApiModelProperty(value = "")
-  
   public List<Boolean> getBooleans() {
     return booleans;
   }
@@ -70,8 +67,6 @@ public class ArraysDto   {
    * Get bytes
    * @return bytes
    **/
-  @ApiModelProperty(value = "")
-  
   public byte[] getBytes() {
     return bytes;
   }
@@ -97,8 +92,6 @@ public class ArraysDto   {
    * Get shorts
    * @return shorts
    **/
-  @ApiModelProperty(value = "")
-  
   public List<Short> getShorts() {
     return shorts;
   }
@@ -124,8 +117,6 @@ public class ArraysDto   {
    * Get ints
    * @return ints
    **/
-  @ApiModelProperty(value = "")
-  
   public List<Integer> getInts() {
     return ints;
   }
@@ -151,8 +142,6 @@ public class ArraysDto   {
    * Get longs
    * @return longs
    **/
-  @ApiModelProperty(value = "")
-  
   public List<Long> getLongs() {
     return longs;
   }
@@ -178,8 +167,6 @@ public class ArraysDto   {
    * Get strings
    * @return strings
    **/
-  @ApiModelProperty(value = "")
-  
   public List<String> getStrings() {
     return strings;
   }
@@ -205,8 +192,6 @@ public class ArraysDto   {
    * Get refs
    * @return refs
    **/
-  @ApiModelProperty(value = "")
-  
   public List<Simple> getRefs() {
     return refs;
   }
@@ -214,7 +199,6 @@ public class ArraysDto   {
   public void setRefs(List<Simple> refs) {
     this.refs = refs;
   }
-
 
   @Override
   public boolean equals(Object o) {

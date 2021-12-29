@@ -32,8 +32,7 @@ public class DtoGenerator {
 	private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
 
 	private static final SortedSet<String> POJO_TEMPLATE_IMPORTS = new TreeSet<>(Set.of(
-			"java.util.Objects",
-			"io.swagger.annotations.ApiModelProperty"
+			"java.util.Objects"
 			));
 	private static final SortedSet<String> ENUM_TEMPLATE_IMPORTS = new TreeSet<>(Set.of(
 			));
@@ -94,6 +93,9 @@ public class DtoGenerator {
 		type.properties().stream()
 			.forEach(p -> dtoImports.addAll(p.type().neededImports()));
 
+		if (vars.stream().anyMatch(CtxProperty::isRenderApiModelProperty)) {
+			dtoImports.add("io.swagger.annotations.ApiModelProperty");
+		}
 		
 		return ImmutableCtxDto.builder()
 				.appName(info.title())
@@ -141,6 +143,10 @@ public class DtoGenerator {
 			defaultValue = "new HashMap<>()";
 		}
 
+		boolean isRenderApiModelProperty = p.isRequired()
+				|| isNotBlank(p.example())
+				|| isNotBlank(p.description());
+		
 		return ImmutableCtxProperty.builder()
 				.baseName(name)
 				.datatypeWithEnum(p.type().typeName())
@@ -153,6 +159,11 @@ public class DtoGenerator {
 				.isMap(isMap)
 				.innerDatatypeWithEnum(innerType)
 				.defaultValue(defaultValue)
+				.isRenderApiModelProperty(isRenderApiModelProperty)
 				.build();
+	}
+	
+	private boolean isNotBlank(String s) {
+		return s != null && !s.isBlank();
 	}
 }

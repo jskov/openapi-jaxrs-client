@@ -11,7 +11,6 @@
 
 package mada.tests.e2e.dto.enums.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 /**
@@ -31,8 +30,6 @@ public class EnumsDto   {
    * Get inner
    * @return inner
    **/
-  @ApiModelProperty(value = "")
-  
   public InnerEnum getInner() {
     return inner;
   }
@@ -50,8 +47,6 @@ public class EnumsDto   {
    * Get external
    * @return external
    **/
-  @ApiModelProperty(value = "")
-  
   public ExternalEnum getExternal() {
     return external;
   }
@@ -59,7 +54,6 @@ public class EnumsDto   {
   public void setExternal(ExternalEnum external) {
     this.external = external;
   }
-
 
   @Override
   public boolean equals(Object o) {

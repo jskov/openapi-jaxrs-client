@@ -11,7 +11,6 @@
 
 package mada.tests.e2e.dto.references.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 /**
@@ -29,8 +28,6 @@ public class Simple   {
    * Get aBoolean
    * @return aBoolean
    **/
-  @ApiModelProperty(value = "")
-  
   public boolean getABoolean() {
     return aBoolean;
   }
@@ -38,7 +35,6 @@ public class Simple   {
   public void setABoolean(boolean aBoolean) {
     this.aBoolean = aBoolean;
   }
-
 
   @Override
   public boolean equals(Object o) {

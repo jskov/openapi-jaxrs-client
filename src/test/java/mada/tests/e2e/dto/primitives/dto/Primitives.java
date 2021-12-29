@@ -11,7 +11,6 @@
 
 package mada.tests.e2e.dto.primitives.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 /**
@@ -39,8 +38,6 @@ public class Primitives   {
    * Get aBoolean
    * @return aBoolean
    **/
-  @ApiModelProperty(value = "")
-  
   public boolean getABoolean() {
     return aBoolean;
   }
@@ -58,8 +55,6 @@ public class Primitives   {
    * Get aByte
    * @return aByte
    **/
-  @ApiModelProperty(value = "")
-  
   public byte getAByte() {
     return aByte;
   }
@@ -77,8 +72,6 @@ public class Primitives   {
    * Get aShort
    * @return aShort
    **/
-  @ApiModelProperty(value = "")
-  
   public short getAShort() {
     return aShort;
   }
@@ -96,8 +89,6 @@ public class Primitives   {
    * Get anInt
    * @return anInt
    **/
-  @ApiModelProperty(value = "")
-  
   public int getAnInt() {
     return anInt;
   }
@@ -115,8 +106,6 @@ public class Primitives   {
    * Get aLong
    * @return aLong
    **/
-  @ApiModelProperty(value = "")
-  
   public long getALong() {
     return aLong;
   }
@@ -134,8 +123,6 @@ public class Primitives   {
    * Get aString
    * @return aString
    **/
-  @ApiModelProperty(value = "")
-  
   public String getAString() {
     return aString;
   }
@@ -143,7 +130,6 @@ public class Primitives   {
   public void setAString(String aString) {
     this.aString = aString;
   }
-
 
   @Override
   public boolean equals(Object o) {

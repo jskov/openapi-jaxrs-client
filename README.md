@@ -23,3 +23,9 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 ## Testing
 
 In Eclipse, add build/e2e as a source folder (and exclude **/*.java) to get easy access to test output.
+
+Bulk update:
+
+	./gradlew test
+	cp -r build/e2e/mada/tests src/test/java/mada/
+	# Then look at diff

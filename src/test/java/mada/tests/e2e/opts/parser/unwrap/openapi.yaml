@@ -1,0 +1,41 @@
+---
+openapi: 3.0.1
+info:
+  title: Test
+  version: 1.0.0
+security:
+- JWT: []
+tags:
+- name: Tag
+paths:
+  /add:
+    post:
+      tags:
+      - Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchivePDF'
+      responses:
+        "200":
+          description: Success
+components:
+  schemas:
+    ArchivePDF:
+      type: object
+      properties:
+        stringList:
+          type: array
+          items:
+            type: string
+        byteList:
+          type: array
+          items:
+            type: string
+            format: binary
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: jwt

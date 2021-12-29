@@ -10,6 +10,7 @@ import dk.mada.jaxrs.generator.ImmutableGeneratorOpts;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.openapi.Parser;
+import dk.mada.jaxrs.openapi.ParserOpts;
 
 public class Generator {
 	
@@ -17,7 +18,8 @@ public class Generator {
 	private static final String OPT_MODEL_PACKAGE = "modelPackage";
 	
 	public void generate(Path input, Properties options, Path outputDir) {
-	    Model model = new Parser().parse(input);
+		var parserOpts = new ParserOpts(options);
+	    Model model = new Parser(parserOpts).parse(input);
 	    
 	    try {
 	    	Path apiDir = outputDir.resolve("api");

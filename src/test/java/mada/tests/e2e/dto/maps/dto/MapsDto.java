@@ -11,7 +11,6 @@
 
 package mada.tests.e2e.dto.maps.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -67,8 +66,6 @@ public class MapsDto   {
    * Get booleans
    * @return booleans
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Boolean> getBooleans() {
     return booleans;
   }
@@ -94,8 +91,6 @@ public class MapsDto   {
    * Get bytes
    * @return bytes
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Byte> getBytes() {
     return bytes;
   }
@@ -121,8 +116,6 @@ public class MapsDto   {
    * Get shorts
    * @return shorts
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Short> getShorts() {
     return shorts;
   }
@@ -148,8 +141,6 @@ public class MapsDto   {
    * Get ints
    * @return ints
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Integer> getInts() {
     return ints;
   }
@@ -175,8 +166,6 @@ public class MapsDto   {
    * Get longs
    * @return longs
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Long> getLongs() {
     return longs;
   }
@@ -202,8 +191,6 @@ public class MapsDto   {
    * Get strings
    * @return strings
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, String> getStrings() {
     return strings;
   }
@@ -229,8 +216,6 @@ public class MapsDto   {
    * Get refs
    * @return refs
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Simple> getRefs() {
     return refs;
   }
@@ -256,8 +241,6 @@ public class MapsDto   {
    * Get bothBooleans
    * @return bothBooleans
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Boolean> getBothBooleans() {
     return bothBooleans;
   }
@@ -283,8 +266,6 @@ public class MapsDto   {
    * Get bothBytes
    * @return bothBytes
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Byte> getBothBytes() {
     return bothBytes;
   }
@@ -310,8 +291,6 @@ public class MapsDto   {
    * Get bothShorts
    * @return bothShorts
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Short> getBothShorts() {
     return bothShorts;
   }
@@ -337,8 +316,6 @@ public class MapsDto   {
    * Get bothInts
    * @return bothInts
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Integer> getBothInts() {
     return bothInts;
   }
@@ -364,8 +341,6 @@ public class MapsDto   {
    * Get bothLongs
    * @return bothLongs
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Long> getBothLongs() {
     return bothLongs;
   }
@@ -391,8 +366,6 @@ public class MapsDto   {
    * Get bothStrings
    * @return bothStrings
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, String> getBothStrings() {
     return bothStrings;
   }
@@ -418,8 +391,6 @@ public class MapsDto   {
    * Get bothRefs
    * @return bothRefs
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Simple> getBothRefs() {
     return bothRefs;
   }
@@ -445,8 +416,6 @@ public class MapsDto   {
    * Get objects
    * @return objects
    **/
-  @ApiModelProperty(value = "")
-  
   public Map<String, Object> getObjects() {
     return objects;
   }
@@ -454,7 +423,6 @@ public class MapsDto   {
   public void setObjects(Map<String, Object> objects) {
     this.objects = objects;
   }
-
 
   @Override
   public boolean equals(Object o) {

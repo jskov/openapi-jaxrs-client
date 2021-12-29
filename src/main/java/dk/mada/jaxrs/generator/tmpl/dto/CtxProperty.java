@@ -26,4 +26,6 @@ public interface CtxProperty {
 	boolean isMap();
 	@Nullable
 	String innerDatatypeWithEnum();
+	
+	 boolean isRenderApiModelProperty();
 }

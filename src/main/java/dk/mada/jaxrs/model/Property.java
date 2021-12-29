@@ -11,4 +11,8 @@ public interface Property {
 	Type type();
 	@Nullable
 	String description();
+	@Nullable
+	String example();
+	
+	boolean isRequired();
 }

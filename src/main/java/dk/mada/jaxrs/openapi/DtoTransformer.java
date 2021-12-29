@@ -4,8 +4,11 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 import org.openapitools.codegen.utils.ModelUtils;
 import org.openapitools.codegen.utils.StringUtils;
@@ -26,6 +29,7 @@ import dk.mada.jaxrs.model.TypeObject;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
+import io.swagger.v3.oas.models.media.FileSchema;
 import io.swagger.v3.oas.models.media.MapSchema;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
@@ -44,9 +48,12 @@ public class DtoTransformer {
 
 	private final Dtos dtos;
 	@SuppressWarnings("rawtypes")
-	private Map<String, Schema> allDefinitions;
+	private final Map<String, Schema> allDefinitions;
+	private final ParserOpts opts;
 
-	public DtoTransformer(OpenAPI specification) {
+	public DtoTransformer(ParserOpts opts, OpenAPI specification) {
+		this.opts = opts;
+		
     	allDefinitions = ModelUtils.getSchemas(specification);
     	
     	dtos = new Dtos(allDefinitions.keySet());
@@ -100,6 +107,11 @@ public class DtoTransformer {
     		return List.of();
     	}
     	
+    	Set<String> requiredProperyNames = new HashSet<>();
+    	if (schema.getRequired() != null) {
+    		requiredProperyNames.addAll(schema.getRequired());
+    	}
+    	
     	List<Property> props = new ArrayList<>();
 		for (var e : schemaProps.entrySet()) {
     		String name = e.getKey();
@@ -107,11 +119,15 @@ public class DtoTransformer {
     		
     		Type type = getType(propSchema);
     		
-    		props.add(ImmutableProperty.builder()
+    		String exampleStr = Objects.toString(propSchema.getExample(), null);
+    		
+			props.add(ImmutableProperty.builder()
     			.name(name)
     			.nameCamelized(StringUtils.camelize(name))
     			.type(type)
     			.description(propSchema.getDescription())
+    			.example(exampleStr)
+    			.isRequired(requiredProperyNames.contains(name))
     			.build());
     	}
 
@@ -139,12 +155,17 @@ public class DtoTransformer {
 		
 		if (schema instanceof ArraySchema a) {
 			Type innerType = getType(a.getItems());
+			
+			if (innerType instanceof ByteArray && opts.isUnwrapByteArrayList()) {
+				return ByteArray.getArray();
+			}
+			
 			return ImmutableContainerArray.builder()
 				.innerType(innerType)
 				.build();
 		}
-		
-		if (schema instanceof BinarySchema b) {
+
+		if (schema instanceof BinarySchema || schema instanceof FileSchema) {
 			return ByteArray.getArray();
 		}
 		

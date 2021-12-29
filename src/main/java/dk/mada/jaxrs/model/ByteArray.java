@@ -36,4 +36,9 @@ public class ByteArray implements Type {
 	public String typeName() {
 		return "byte[]";
 	}
+
+	@Override
+	public String toString() {
+		return isArray() ? "ByteArray[]" : "Stream";
+	}
 }
