@@ -41,7 +41,6 @@ public class DtoGenerator {
 	private final Templates templates;
 	private final Model model;
 
-
 	public DtoGenerator(GeneratorOpts opts, Templates templates, Model model) {
 		this.opts = opts;
 		this.templates = templates;
@@ -96,6 +95,16 @@ public class DtoGenerator {
 		if (vars.stream().anyMatch(CtxProperty::isRenderApiModelProperty)) {
 			dtoImports.add("io.swagger.annotations.ApiModelProperty");
 		}
+
+		if (opts.isJacksonFasterxml()) {
+			dtoImports.add("com.fasterxml.jackson.annotation.JsonProperty");
+			dtoImports.add("com.fasterxml.jackson.annotation.JsonPropertyOrder");
+		}
+		
+		if (opts.isJacksonCodehaus()) {
+			dtoImports.add("org.codehaus.jackson.annotate.JsonProperty");
+			dtoImports.add("org.codehaus.jackson.annotate.JsonPropertyOrder");
+		}		 
 		
 		return ImmutableCtxDto.builder()
 				.appName(info.title())
@@ -113,6 +122,11 @@ public class DtoGenerator {
 				
 				.allowableValues(ctxEnum)
 				.dataType("String")
+				
+				.jackson(opts.isJackson())
+				
+				.generatorClass(this.getClass().getName())
+				.generatedDate(opts.getGeneratedAtTime())
 				
 				.build();
 	}
@@ -152,6 +166,7 @@ public class DtoGenerator {
 				.datatypeWithEnum(p.type().typeName())
 				.name(name)
 				.nameInCamelCase(nameCamelized)
+				.nameInSnakeCase(p.nameSnaked())
 				.getter("get" + nameCamelized)
 				.setter("set" + nameCamelized)
 				.description(p.description())
@@ -160,6 +175,7 @@ public class DtoGenerator {
 				.innerDatatypeWithEnum(innerType)
 				.defaultValue(defaultValue)
 				.isRenderApiModelProperty(isRenderApiModelProperty)
+				.required(p.isRequired())
 				.build();
 	}
 	

@@ -12,6 +12,7 @@ public interface CtxProperty {
 	String name();
 	String baseName();
 	String nameInCamelCase();
+	String nameInSnakeCase();
 	String datatypeWithEnum();
 	String getter();
 	String setter();
@@ -27,5 +28,7 @@ public interface CtxProperty {
 	@Nullable
 	String innerDatatypeWithEnum();
 	
-	 boolean isRenderApiModelProperty();
+	boolean isRenderApiModelProperty();
+	
+	boolean required();
 }

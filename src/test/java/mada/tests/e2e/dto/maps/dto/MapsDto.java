@@ -18,6 +18,7 @@ import java.util.Objects;
 /**
  * MapsDto
  */
+@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class MapsDto   {
   private Map<String, Boolean> booleans = new HashMap<>();
 

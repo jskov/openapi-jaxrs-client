@@ -16,6 +16,7 @@ import java.util.Objects;
 /**
  * Simple
  */
+@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class Simple   {
   private boolean aBoolean;
 

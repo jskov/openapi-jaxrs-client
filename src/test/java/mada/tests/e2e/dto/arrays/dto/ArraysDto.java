@@ -18,6 +18,7 @@ import java.util.Objects;
 /**
  * ArraysDto
  */
+@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class ArraysDto   {
   private List<Boolean> booleans = new ArrayList<>();
 

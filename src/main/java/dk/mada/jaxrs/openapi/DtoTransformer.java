@@ -121,9 +121,13 @@ public class DtoTransformer {
     		
     		String exampleStr = Objects.toString(propSchema.getExample(), null);
     		
+    		String camelized = StringUtils.camelize(name);
+    		String snaked = StringUtils.underscore(camelized).toUpperCase();
+    		
 			props.add(ImmutableProperty.builder()
     			.name(name)
-    			.nameCamelized(StringUtils.camelize(name))
+    			.nameCamelized(camelized)
+    			.nameSnaked(snaked)
     			.type(type)
     			.description(propSchema.getDescription())
     			.example(exampleStr)

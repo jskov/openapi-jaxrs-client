@@ -35,8 +35,8 @@ public class RunInputTest {
 
 		Properties testOptions = readTestOptions(testDir);
 		
-		testOptions.setProperty("apiPackage", pkgPrefix + ".api");
-		testOptions.setProperty("modelPackage", pkgPrefix + ".dto");
+		testOptions.setProperty("generator-api-package", pkgPrefix + ".api");
+		testOptions.setProperty("generator-dto-package", pkgPrefix + ".dto");
 		
 		DirectoryDeleter.delete(outputDir);
 		
@@ -49,18 +49,18 @@ public class RunInputTest {
 		deleteUnwantedOutput(testOptions, outputDir);
 
 		OutputDiff differ = new OutputDiff(testName);
-		if (!Boolean.parseBoolean(testOptions.getProperty("testSkipApiComparison"))) {
+		if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"))) {
 			logger.info("Comparing APIs");
 			differ.compareDirs(outputDir.resolve("api"), testDir.resolve("api"));
 		}
-		if (!Boolean.parseBoolean(testOptions.getProperty("testSkipDtoComparison"))) {
+		if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"))) {
 			logger.info("Comparing DTOs");
 			differ.compareDirs(outputDir.resolve("dto"), testDir.resolve("dto"));
 		}
 	}
 
 	private void deleteUnwantedOutput(Properties testOptions, Path output) throws IOException {
-		String deleteFiles = testOptions.getProperty("testDeleteFiles");
+		String deleteFiles = testOptions.getProperty("test-delete-files");
 		if (deleteFiles != null) {
 			for (String p : deleteFiles.split(",")) {
 				Path f = output.resolve(p.trim());

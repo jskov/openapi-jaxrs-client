@@ -16,6 +16,7 @@ import java.util.Objects;
 /**
  * References
  */
+@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class References   {
   private Simple simple;
 

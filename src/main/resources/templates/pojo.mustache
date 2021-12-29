@@ -9,6 +9,7 @@
 {{/vars}}
 })
 {{/jackson}}
+{{>generatedAnnotation}}
 {{#todo}}
 {{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}{{#discriminator}}{{>typeInfoAnnotation}}{{/discriminator}}
 {{/todo}}
@@ -88,9 +89,6 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   {{#vendorExtensions.x-extra-annotation}}
   {{{vendorExtensions.x-extra-annotation}}}
   {{/vendorExtensions.x-extra-annotation}}
-  {{#jackson}}
-  @JsonProperty(value = "{{baseName}}"{{#isReadOnly}}, access = JsonProperty.Access.READ_ONLY{{/isReadOnly}}{{#isWriteOnly}}, access = JsonProperty.Access.WRITE_ONLY{{/isWriteOnly}})
-  {{/jackson}}
   {{#isRenderApiModelProperty}}
   @ApiModelProperty({{#example}}example = "{{{.}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}value = "{{{description}}}")
   {{/isRenderApiModelProperty}}

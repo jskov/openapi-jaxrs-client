@@ -1,0 +1,32 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/serializer:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SerializerInfoDto'
+components:
+  schemas:
+    SerializerInfoDto:
+      required:
+      - mustInclude
+      type: object
+      properties:
+        beta:
+          type: string
+        alpha:
+          type: string
+        zapRenamed:
+          type: string
+        mustInclude:
+          type: string

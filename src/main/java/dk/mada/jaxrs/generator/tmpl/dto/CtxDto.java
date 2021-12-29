@@ -37,4 +37,14 @@ public interface CtxDto {
 	default boolean isEnum() {
 		return allowableValues() != null;
 	};
+	
+	boolean jackson();
+	
+	String generatorClass();
+	@Nullable
+	String generatedDate();
+	
+	default boolean hideGenerationTimestamp() {
+		return generatedDate() == null;
+	}
 }

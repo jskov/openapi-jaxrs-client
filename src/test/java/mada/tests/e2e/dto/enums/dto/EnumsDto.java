@@ -16,6 +16,7 @@ import java.util.Objects;
 /**
  * EnumsDto
  */
+@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class EnumsDto   {
   private InnerEnum inner;
 

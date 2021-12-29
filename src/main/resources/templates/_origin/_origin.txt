@@ -1,5 +1,8 @@
 This document should keep track of the upstream templates cloned into this project
 
+generatedAnnotation.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/Java/generatedAnnotation.mustache
+
 licenseInfo.mustache
  5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/Java/licenseInfo.mustache
 
