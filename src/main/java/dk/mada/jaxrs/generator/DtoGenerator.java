@@ -6,13 +6,20 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
+import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum;
+import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxProperty;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxDto;
+import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnum;
+import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnumEntry;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxProperty;
 import dk.mada.jaxrs.model.ContainerArray;
 import dk.mada.jaxrs.model.ContainerMap;
@@ -23,6 +30,13 @@ import dk.mada.jaxrs.model.Property;
 
 public class DtoGenerator {
 	private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
+
+	private static final SortedSet<String> POJO_TEMPLATE_IMPORTS = new TreeSet<>(Set.of(
+			"java.util.Objects",
+			"io.swagger.annotations.ApiModelProperty"
+			));
+	private static final SortedSet<String> ENUM_TEMPLATE_IMPORTS = new TreeSet<>(Set.of(
+			));
 
 	private final GeneratorOpts opts;
 	private final Templates templates;
@@ -61,13 +75,33 @@ public class DtoGenerator {
 			.map(this::toCtxProperty)
 			.collect(toList());
 		
+		CtxEnum ctxEnum = null;
+		if (type.isEnum()) {
+			List<CtxEnumEntry> values = type.enumValues().stream()
+					.map(this::toEnumEntry)
+					.collect(toList());
+			ctxEnum = ImmutableCtxEnum.builder()
+					.enumVars(values)
+					.build();
+		}
+		
+		SortedSet<String> dtoImports = new TreeSet<>();
+		if (type.isEnum()) {
+			dtoImports.addAll(ENUM_TEMPLATE_IMPORTS);
+		} else {
+			dtoImports.addAll(POJO_TEMPLATE_IMPORTS);
+		}
+		type.properties().stream()
+			.forEach(p -> dtoImports.addAll(p.type().neededImports()));
+
+		
 		return ImmutableCtxDto.builder()
 				.appName(info.title())
 				.appDescription(info.description())
 				.version(info.version())
 				.infoEmail(info.contact().email())
 				
-				.imports(type.imports())
+				.imports(dtoImports)
 
 				.packageName(opts.dtoPackage())
 				.classname(type.name())
@@ -75,6 +109,16 @@ public class DtoGenerator {
 				
 				.vars(vars)
 				
+				.allowableValues(ctxEnum)
+				.dataType("String")
+				
+				.build();
+	}
+
+	private CtxEnumEntry toEnumEntry(String v) {
+		return ImmutableCtxEnumEntry.builder()
+				.name(v)
+				.value("\"" + v + "\"")
 				.build();
 	}
 

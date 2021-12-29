@@ -7,7 +7,13 @@ model.mustache
  5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/Java/model.mustache
  # Removed all imports - handled in code
  
+modelEnum.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/modelEnum.mustache
+ # Removed additionalEnumTypeAnnotations
+ # Removed gson
+
 pojo.mustache
  5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/pojo.mustache
  # Removed all java6 support
+ 
  

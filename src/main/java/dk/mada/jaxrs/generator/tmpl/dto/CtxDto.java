@@ -26,8 +26,15 @@ public interface CtxDto {
 	String classVarName();
 	
 	List<CtxProperty> vars();
-	
 	default boolean hasVars() {
 		return !vars().isEmpty();
 	}
+	
+	@Nullable
+	CtxEnum allowableValues();
+	@Nullable
+	String dataType();
+	default boolean isEnum() {
+		return allowableValues() != null;
+	};
 }

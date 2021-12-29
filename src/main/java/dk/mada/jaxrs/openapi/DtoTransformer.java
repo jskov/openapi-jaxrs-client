@@ -1,12 +1,11 @@
 package dk.mada.jaxrs.openapi;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.openapitools.codegen.utils.ModelUtils;
 import org.openapitools.codegen.utils.StringUtils;
@@ -42,10 +41,6 @@ import io.swagger.v3.oas.models.media.Schema;
 public class DtoTransformer {
 	private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
 	private static final Logger logger = LoggerFactory.getLogger(DtoTransformer.class);
-	private static final SortedSet<String> DTO_TEMPLATE_IMPORTS = new TreeSet<>(Set.of(
-			"java.util.Objects",
-			"io.swagger.annotations.ApiModelProperty"
-			));
 
 	private final Dtos dtos;
 	@SuppressWarnings("rawtypes")
@@ -65,18 +60,15 @@ public class DtoTransformer {
     	allDefinitions.forEach((schemaName, schema) -> {
     		String modelName = getModelName(schemaName, schema);
 
-    		SortedSet<String> dtoImports = new TreeSet<>(DTO_TEMPLATE_IMPORTS);
-    		
     		List<Property> props = readProperties(schema);
     		
-    		props.stream()
-    			.forEach(p -> dtoImports.addAll(p.type().neededImports()));
+    		List<String> enumValues = getEnumValues(schema);
     		
     		Dto dto = ImmutableDto.builder()
     			.name(modelName)
-    			.imports(dtoImports)
     			.properties(props)
     			.openapiName(schemaName)
+    			.enumValues(enumValues)
     			.build();
     		
     		dtos.addDto(dto);
@@ -86,10 +78,30 @@ public class DtoTransformer {
     	return dtos;
     }
 
+	private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
+		List<?> schemaEnumValues = schema.getEnum();
+		if (schemaEnumValues == null) {
+			return null;
+		}
+		
+		List<String> enumValues = null;
+		if (schemaEnumValues != null) {
+			enumValues = schemaEnumValues.stream()
+				.map(Object::toString)
+				.collect(toList());
+		}
+		return enumValues;
+	}
+
     private List<Property> readProperties(Schema<?> schema) {
-    	List<Property> props = new ArrayList<>();
+    	@SuppressWarnings("rawtypes")
+		Map<String, Schema> schemaProps = schema.getProperties();
+    	if (schemaProps == null || schemaProps.isEmpty()) {
+    		return List.of();
+    	}
     	
-    	for (var e : schema.getProperties().entrySet()) {
+    	List<Property> props = new ArrayList<>();
+		for (var e : schemaProps.entrySet()) {
     		String name = e.getKey();
     		Schema<?> propSchema = e.getValue();
     		

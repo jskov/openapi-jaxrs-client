@@ -6,4 +6,4 @@ package {{packageName}};
 import {{.}};
 {{/imports}}
 
-{{>pojo}}
+{{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{>pojo}}{{/isEnum}}
