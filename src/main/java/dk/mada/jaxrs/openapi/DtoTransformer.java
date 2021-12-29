@@ -17,14 +17,18 @@ import dk.mada.jaxrs.model.ByteArray;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.ImmutableContainerArray;
+import dk.mada.jaxrs.model.ImmutableContainerMap;
 import dk.mada.jaxrs.model.ImmutableDto;
 import dk.mada.jaxrs.model.ImmutableProperty;
 import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Type;
+import dk.mada.jaxrs.model.TypeObject;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
+import io.swagger.v3.oas.models.media.MapSchema;
+import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 
 /**
@@ -130,6 +134,20 @@ public class DtoTransformer {
 		
 		if (schema instanceof BinarySchema b) {
 			return ByteArray.getArray();
+		}
+		
+		if (schema instanceof MapSchema m) {
+			Object additionalProperties = m.getAdditionalProperties();
+			if (additionalProperties instanceof Schema<?> innerSchema) {
+				Type innerType = getType(innerSchema);
+				return ImmutableContainerMap.builder()
+						.innerType(innerType)
+						.build();
+			}
+		}
+		
+		if (schema instanceof ObjectSchema o) {
+			return TypeObject.get();
 		}
 
 		throw new IllegalStateException("No type found for " + schema);

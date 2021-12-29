@@ -23,6 +23,7 @@ public interface CtxProperty {
 	String description();
 	
 	boolean isArray();
+	boolean isMap();
 	@Nullable
 	String innerDatatypeWithEnum();
 }

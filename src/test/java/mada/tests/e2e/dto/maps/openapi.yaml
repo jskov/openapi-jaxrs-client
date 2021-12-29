@@ -1,0 +1,93 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/collections/map:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapsDto'
+components:
+  schemas:
+    MapsDto:
+      type: object
+      properties:
+        booleans:
+          type: object
+          additionalProperties:
+            type: boolean
+        bytes:
+          type: object
+          additionalProperties:
+            format: byte
+            type: string
+        shorts:
+          type: object
+          additionalProperties:
+            type: integer
+        ints:
+          type: object
+          additionalProperties:
+            format: int32
+            type: integer
+        longs:
+          type: object
+          additionalProperties:
+            format: int64
+            type: integer
+        strings:
+          type: object
+          additionalProperties:
+            type: string
+        refs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Simple'
+        bothBooleans:
+          type: object
+          additionalProperties:
+            type: boolean
+        bothBytes:
+          type: object
+          additionalProperties:
+            format: byte
+            type: string
+        bothShorts:
+          type: object
+          additionalProperties:
+            type: integer
+        bothInts:
+          type: object
+          additionalProperties:
+            format: int32
+            type: integer
+        bothLongs:
+          type: object
+          additionalProperties:
+            format: int64
+            type: integer
+        bothStrings:
+          type: object
+          additionalProperties:
+            type: string
+        bothRefs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Simple'
+        objects:
+          type: object
+          additionalProperties:
+            type: object
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
