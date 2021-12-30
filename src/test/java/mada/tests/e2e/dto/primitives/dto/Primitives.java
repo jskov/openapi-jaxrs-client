@@ -18,23 +18,23 @@ import java.util.Objects;
  */
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class Primitives   {
-  private boolean aBoolean;
+  private Boolean aBoolean;
 
-  private byte aByte;
+  private Byte aByte;
 
-  private short aShort;
+  private Short aShort;
 
-  private int anInt;
+  private Integer anInt;
 
-  private long aLong;
+  private Long aLong;
 
-  private float aFloat;
+  private Float aFloat;
 
-  private double aDouble;
+  private Double aDouble;
 
   private String aString;
 
-  public Primitives aBoolean(boolean aBoolean) {
+  public Primitives aBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
     return this;
   }
@@ -43,15 +43,15 @@ public class Primitives   {
    * Get aBoolean
    * @return aBoolean
    **/
-  public boolean getABoolean() {
+  public Boolean getABoolean() {
     return aBoolean;
   }
 
-  public void setABoolean(boolean aBoolean) {
+  public void setABoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
   }
 
-  public Primitives aByte(byte aByte) {
+  public Primitives aByte(Byte aByte) {
     this.aByte = aByte;
     return this;
   }
@@ -60,15 +60,15 @@ public class Primitives   {
    * Get aByte
    * @return aByte
    **/
-  public byte getAByte() {
+  public Byte getAByte() {
     return aByte;
   }
 
-  public void setAByte(byte aByte) {
+  public void setAByte(Byte aByte) {
     this.aByte = aByte;
   }
 
-  public Primitives aShort(short aShort) {
+  public Primitives aShort(Short aShort) {
     this.aShort = aShort;
     return this;
   }
@@ -77,15 +77,15 @@ public class Primitives   {
    * Get aShort
    * @return aShort
    **/
-  public short getAShort() {
+  public Short getAShort() {
     return aShort;
   }
 
-  public void setAShort(short aShort) {
+  public void setAShort(Short aShort) {
     this.aShort = aShort;
   }
 
-  public Primitives anInt(int anInt) {
+  public Primitives anInt(Integer anInt) {
     this.anInt = anInt;
     return this;
   }
@@ -94,15 +94,15 @@ public class Primitives   {
    * Get anInt
    * @return anInt
    **/
-  public int getAnInt() {
+  public Integer getAnInt() {
     return anInt;
   }
 
-  public void setAnInt(int anInt) {
+  public void setAnInt(Integer anInt) {
     this.anInt = anInt;
   }
 
-  public Primitives aLong(long aLong) {
+  public Primitives aLong(Long aLong) {
     this.aLong = aLong;
     return this;
   }
@@ -111,15 +111,15 @@ public class Primitives   {
    * Get aLong
    * @return aLong
    **/
-  public long getALong() {
+  public Long getALong() {
     return aLong;
   }
 
-  public void setALong(long aLong) {
+  public void setALong(Long aLong) {
     this.aLong = aLong;
   }
 
-  public Primitives aFloat(float aFloat) {
+  public Primitives aFloat(Float aFloat) {
     this.aFloat = aFloat;
     return this;
   }
@@ -128,15 +128,15 @@ public class Primitives   {
    * Get aFloat
    * @return aFloat
    **/
-  public float getAFloat() {
+  public Float getAFloat() {
     return aFloat;
   }
 
-  public void setAFloat(float aFloat) {
+  public void setAFloat(Float aFloat) {
     this.aFloat = aFloat;
   }
 
-  public Primitives aDouble(double aDouble) {
+  public Primitives aDouble(Double aDouble) {
     this.aDouble = aDouble;
     return this;
   }
@@ -145,11 +145,11 @@ public class Primitives   {
    * Get aDouble
    * @return aDouble
    **/
-  public double getADouble() {
+  public Double getADouble() {
     return aDouble;
   }
 
-  public void setADouble(double aDouble) {
+  public void setADouble(Double aDouble) {
     this.aDouble = aDouble;
   }
 

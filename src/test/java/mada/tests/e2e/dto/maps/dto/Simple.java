@@ -18,9 +18,9 @@ import java.util.Objects;
  */
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class Simple   {
-  private boolean aBoolean;
+  private Boolean aBoolean;
 
-  public Simple aBoolean(boolean aBoolean) {
+  public Simple aBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
     return this;
   }
@@ -29,11 +29,11 @@ public class Simple   {
    * Get aBoolean
    * @return aBoolean
    **/
-  public boolean getABoolean() {
+  public Boolean getABoolean() {
     return aBoolean;
   }
 
-  public void setABoolean(boolean aBoolean) {
+  public void setABoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
   }
 

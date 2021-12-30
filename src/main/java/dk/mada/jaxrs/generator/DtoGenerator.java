@@ -26,6 +26,7 @@ import dk.mada.jaxrs.model.ContainerMap;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
+import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.openapi._OpenapiGenerator;
 
@@ -147,7 +148,6 @@ public class DtoGenerator {
 		String nameCamelized = _OpenapiGenerator.camelize(varName);
 		String nameSnaked = _OpenapiGenerator.underscore(nameCamelized).toUpperCase();
 		
-		
 		logger.info("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 		
 		String defaultValue = null;
@@ -165,13 +165,19 @@ public class DtoGenerator {
 			defaultValue = "new HashMap<>()";
 		}
 
-		boolean isRenderApiModelProperty = p.isRequired()
+		String typeName = p.type().typeName();
+		if (p.type() instanceof Primitive prim) {
+			typeName = prim.wrapperType();
+		}
+
+		boolean isRequired = p.isRequired();
+		boolean isRenderApiModelProperty = isRequired
 				|| isNotBlank(p.example())
 				|| isNotBlank(p.description());
 		
 		return ImmutableCtxProperty.builder()
 				.baseName(name)
-				.datatypeWithEnum(p.type().typeName())
+				.datatypeWithEnum(typeName)
 				.name(varName)
 				.nameInCamelCase(nameCamelized)
 				.nameInSnakeCase(nameSnaked)
@@ -183,7 +189,7 @@ public class DtoGenerator {
 				.innerDatatypeWithEnum(innerType)
 				.defaultValue(defaultValue)
 				.isRenderApiModelProperty(isRenderApiModelProperty)
-				.required(p.isRequired())
+				.required(isRequired)
 				.build();
 	}
 	
