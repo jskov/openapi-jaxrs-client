@@ -14,13 +14,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
+import dk.mada.jaxrs.generator.tmpl.dto.CtxDtoExt;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxProperty;
+import dk.mada.jaxrs.generator.tmpl.dto.CtxPropertyExt;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxDto;
+import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxDtoExt;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnum;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnumEntry;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxProperty;
+import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxPropertyExt;
 import dk.mada.jaxrs.model.ContainerArray;
 import dk.mada.jaxrs.model.ContainerMap;
 import dk.mada.jaxrs.model.Dto;
@@ -95,7 +99,7 @@ public class DtoGenerator {
 		type.properties().stream()
 			.forEach(p -> dtoImports.addAll(p.type().neededImports()));
 
-		if (vars.stream().anyMatch(CtxProperty::isRenderApiModelProperty)) {
+		if (vars.stream().anyMatch(p -> p.mada().isRenderApiModelProperty())) {
 			dtoImports.add("io.swagger.annotations.ApiModelProperty");
 		}
 
@@ -113,6 +117,10 @@ public class DtoGenerator {
 		if (jacksonJsonSerializeOptions != null) {
 			dtoImports.add("org.codehaus.jackson.map.annotate.JsonSerialize");
 		}
+		
+		CtxDtoExt mada = ImmutableCtxDtoExt.builder()
+				.jacksonJsonSerializeOptions(jacksonJsonSerializeOptions)
+				.build();
 		
 		return ImmutableCtxDto.builder()
 				.appName(info.title())
@@ -132,10 +140,11 @@ public class DtoGenerator {
 				.dataType("String")
 				
 				.jackson(opts.isJackson())
-				.jacksonJsonSerializeOptions(jacksonJsonSerializeOptions)
 				
 				.generatorClass(this.getClass().getName())
 				.generatedDate(opts.getGeneratedAtTime())
+				
+				.mada(mada)
 				
 				.build();
 	}
@@ -181,6 +190,11 @@ public class DtoGenerator {
 				|| isNotBlank(p.example())
 				|| isNotBlank(p.description());
 		
+		CtxPropertyExt mada = ImmutableCtxPropertyExt.builder()
+				.innerDatatypeWithEnum(innerType)
+				.isRenderApiModelProperty(isRenderApiModelProperty)
+				.build();
+		
 		return ImmutableCtxProperty.builder()
 				.baseName(name)
 				.datatypeWithEnum(typeName)
@@ -192,10 +206,9 @@ public class DtoGenerator {
 				.description(p.description())
 				.isArray(isArray)
 				.isMap(isMap)
-				.innerDatatypeWithEnum(innerType)
 				.defaultValue(defaultValue)
-				.isRenderApiModelProperty(isRenderApiModelProperty)
 				.required(isRequired)
+				.mada(mada)
 				.build();
 	}
 	

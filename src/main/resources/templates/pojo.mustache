@@ -8,9 +8,9 @@
   {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
 {{/vars}}
 })
-{{#jacksonJsonSerializeOptions}}
-@JsonSerialize({{{jacksonJsonSerializeOptions}}})
-{{/jacksonJsonSerializeOptions}}
+{{#mada.jacksonJsonSerializeOptions}}
+@JsonSerialize({{{mada.jacksonJsonSerializeOptions}}})
+{{/mada.jacksonJsonSerializeOptions}}
 {{/jackson}}
 {{>generatedAnnotation}}
 {{#todo}}
@@ -51,7 +51,7 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   }
   {{#isArray}}
 
-  public {{classname}} add{{nameInCamelCase}}Item({{{innerDatatypeWithEnum}}} {{name}}Item) {
+  public {{classname}} add{{nameInCamelCase}}Item({{{mada.innerDatatypeWithEnum}}} {{name}}Item) {
     {{^required}}
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};
@@ -63,7 +63,7 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   {{/isArray}}
   {{#isMap}}
 
-  public {{classname}} put{{nameInCamelCase}}Item(String key, {{{innerDatatypeWithEnum}}} {{name}}Item) {
+  public {{classname}} put{{nameInCamelCase}}Item(String key, {{{mada.innerDatatypeWithEnum}}} {{name}}Item) {
     {{^required}}
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};
@@ -89,12 +89,17 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   {{/maximum}}
    * @return {{name}}
    **/
-  {{#vendorExtensions.x-extra-annotation}}
+ {{#vendorExtensions.x-extra-annotation}}
   {{{vendorExtensions.x-extra-annotation}}}
   {{/vendorExtensions.x-extra-annotation}}
-  {{#isRenderApiModelProperty}}
+  {{#mada.off}}
+  {{#jackson}}
+  @JsonProperty(value = "{{baseName}}"{{#isReadOnly}}, access = JsonProperty.Access.READ_ONLY{{/isReadOnly}}{{#isWriteOnly}}, access = JsonProperty.Access.WRITE_ONLY{{/isWriteOnly}})
+  {{/jackson}}
+  {{/mada.off}}
+  {{#mada.isRenderApiModelProperty}}
   @ApiModelProperty({{#example}}example = "{{{.}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}value = "{{{description}}}")
-  {{/isRenderApiModelProperty}}
+  {{/mada.isRenderApiModelProperty}}
   {{#useBeanValidation}}
   {{>beanValidation}}
   {{/useBeanValidation}}

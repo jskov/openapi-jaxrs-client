@@ -25,10 +25,8 @@ public interface CtxProperty {
 	
 	boolean isArray();
 	boolean isMap();
-	@Nullable
-	String innerDatatypeWithEnum();
-	
-	boolean isRenderApiModelProperty();
 	
 	boolean required();
+	
+	CtxPropertyExt mada();
 }

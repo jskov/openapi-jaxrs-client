@@ -39,8 +39,6 @@ public interface CtxDto {
 	};
 	
 	boolean jackson();
-	@Nullable
-	String jacksonJsonSerializeOptions();
 	
 	String generatorClass();
 	@Nullable
@@ -49,4 +47,6 @@ public interface CtxDto {
 	default boolean hideGenerationTimestamp() {
 		return generatedDate() == null;
 	}
+	
+	CtxDtoExt mada();
 }
