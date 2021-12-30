@@ -57,6 +57,10 @@ public class GeneratorOpts {
 		}
 		return get("generator-jackson-json-serialize-options");
 	}
+
+	public boolean isUseBigDecimalForDouble() {
+		return bool("generator-use-bigdecimal-for-double");
+	}
 	
 	public String getGeneratedAtTime() {
 		if (isShowGenerationTimestamp()) {
@@ -68,7 +72,7 @@ public class GeneratorOpts {
 	private boolean isShowGenerationTimestamp() {
 		return bool("generator-show-generation-timestamp");
 	}
-	
+
 	@SuppressWarnings("unused")
 	private boolean bool(String name, String compatOptionName) {
 		return Boolean.parseBoolean(get(name, compatOptionName));

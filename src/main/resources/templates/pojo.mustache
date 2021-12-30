@@ -49,6 +49,13 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
     this.{{name}} = {{name}};
     return this;
   }
+  {{#mada.isUseBigDecimalForDouble}}
+
+  public {{classname}} {{name}}(BigDecimal {{name}}) {
+    this.{{name}} = {{name}} == null ? null : {{name}}.doubleValue();
+    return this;
+  }
+  {{/mada.isUseBigDecimalForDouble}}
   {{#isArray}}
 
   public {{classname}} add{{nameInCamelCase}}Item({{{mada.innerDatatypeWithEnum}}} {{name}}Item) {
@@ -106,11 +113,27 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   public {{{datatypeWithEnum}}} {{getter}}() {
     return {{name}};
   }
+  {{#mada.isUseBigDecimalForDouble}}
 
-  {{#vendorExtensions.x-setter-extra-annotation}}{{{vendorExtensions.x-setter-extra-annotation}}}
-  {{/vendorExtensions.x-setter-extra-annotation}}public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
+  @JsonIgnore
+  public BigDecimal {{mada.getter}}() {
+    return {{name}} == null ? null : new BigDecimal({{name}});
+  }
+  {{/mada.isUseBigDecimalForDouble}}
+
+  {{#vendorExtensions.x-setter-extra-annotation}}
+  {{{vendorExtensions.x-setter-extra-annotation}}}
+  {{/vendorExtensions.x-setter-extra-annotation}}
+  public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
     this.{{name}} = {{name}};
   }
+  {{#mada.isUseBigDecimalForDouble}}
+
+  @JsonIgnore
+  public void {{mada.setter}}(BigDecimal {{name}}) {
+    this.{{name}} = {{name}} == null ? null : {{name}}.doubleValue();
+  }
+  {{/mada.isUseBigDecimalForDouble}}
 
   {{/vars}}
   @Override

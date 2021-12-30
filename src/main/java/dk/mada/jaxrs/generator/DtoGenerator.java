@@ -102,6 +102,11 @@ public class DtoGenerator {
 		if (vars.stream().anyMatch(p -> p.mada().isRenderApiModelProperty())) {
 			dtoImports.add("io.swagger.annotations.ApiModelProperty");
 		}
+		
+		if (vars.stream().anyMatch(p -> p.mada().isUseBigDecimalForDouble())) {
+			dtoImports.add("org.codehaus.jackson.annotate.JsonIgnore");
+			dtoImports.add("java.math.BigDecimal");
+		}
 
 		if (opts.isJacksonFasterxml()) {
 			dtoImports.add("com.fasterxml.jackson.annotation.JsonProperty");
@@ -185,6 +190,17 @@ public class DtoGenerator {
 			typeName = prim.wrapperType();
 		}
 
+		String getter = "get" + nameCamelized;
+		String setter = "set" + nameCamelized;
+		String extGetter = getter;
+		String extSetter = setter;
+		boolean isUseBigDecimalForDouble = opts.isUseBigDecimalForDouble()
+				&& p.type() == Primitive.DOUBLE;
+		if (isUseBigDecimalForDouble) {
+			getter = getter+"Double";
+			setter = setter+"Double";
+		}
+
 		boolean isRequired = p.isRequired();
 		boolean isRenderApiModelProperty = isRequired
 				|| isNotBlank(p.example())
@@ -193,6 +209,9 @@ public class DtoGenerator {
 		CtxPropertyExt mada = ImmutableCtxPropertyExt.builder()
 				.innerDatatypeWithEnum(innerType)
 				.isRenderApiModelProperty(isRenderApiModelProperty)
+				.isUseBigDecimalForDouble(isUseBigDecimalForDouble)
+				.getter(extGetter)
+				.setter(extSetter)
 				.build();
 		
 		return ImmutableCtxProperty.builder()
@@ -201,8 +220,8 @@ public class DtoGenerator {
 				.name(varName)
 				.nameInCamelCase(nameCamelized)
 				.nameInSnakeCase(nameSnaked)
-				.getter("get" + nameCamelized)
-				.setter("set" + nameCamelized)
+				.getter(getter)
+				.setter(setter)
 				.description(p.description())
 				.isArray(isArray)
 				.isMap(isMap)

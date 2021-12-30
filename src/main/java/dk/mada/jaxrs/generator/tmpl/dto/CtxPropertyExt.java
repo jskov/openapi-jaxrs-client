@@ -14,4 +14,8 @@ public interface CtxPropertyExt {
 	String innerDatatypeWithEnum();
 	
 	boolean isRenderApiModelProperty();
+	boolean isUseBigDecimalForDouble();
+	
+	String getter();
+	String setter();
 }
