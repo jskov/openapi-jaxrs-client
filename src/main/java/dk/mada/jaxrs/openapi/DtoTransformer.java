@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import org.openapitools.codegen.utils.ModelUtils;
-import org.openapitools.codegen.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +52,7 @@ public class DtoTransformer {
 	public DtoTransformer(ParserOpts opts, OpenAPI specification) {
 		this.opts = opts;
 		
-    	allDefinitions = ModelUtils.getSchemas(specification);
+    	allDefinitions = _OpenapiGenerator.getSchemas(specification);
     	
     	dtos = new Dtos(allDefinitions.keySet());
 	}
@@ -121,8 +119,8 @@ public class DtoTransformer {
     		
     		String exampleStr = Objects.toString(propSchema.getExample(), null);
     		
-    		String camelized = StringUtils.camelize(name);
-    		String snaked = StringUtils.underscore(camelized).toUpperCase();
+    		String camelized = _OpenapiGenerator.camelize(name);
+    		String snaked = _OpenapiGenerator.underscore(camelized).toUpperCase();
     		
 			props.add(ImmutableProperty.builder()
     			.name(name)
@@ -204,6 +202,6 @@ public class DtoTransformer {
     		name = schemaName;
     	}
    	
-    	return StringUtils.camelize(name);
+    	return _OpenapiGenerator.camelize(name);
     }
 }
