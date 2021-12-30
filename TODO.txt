@@ -1,3 +1,7 @@
 o Make options self-documenting
 o Make executable jar
 o Generator option to use wrapper classes for optional primitive fields (so they can be null-checked)
+o Handle name conflicts when making identifiers valid.
+  Add counter or something.
+o Prevent keyword collisions in identifiers.
+

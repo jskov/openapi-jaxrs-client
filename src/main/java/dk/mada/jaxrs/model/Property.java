@@ -7,8 +7,6 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 public interface Property {
 	String name();
-	String nameCamelized();
-	String nameSnaked();
 	Type type();
 	@Nullable
 	String description();

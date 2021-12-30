@@ -23,6 +23,9 @@ import java.util.Objects;
   SerializerInfoDto.JSON_PROPERTY_BETA,
   SerializerInfoDto.JSON_PROPERTY_ALPHA,
   SerializerInfoDto.JSON_PROPERTY_ZAP_RENAMED,
+  SerializerInfoDto.JSON_PROPERTY_UPPER_CASE,
+  SerializerInfoDto.JSON_PROPERTY_WITH_DASHES,
+  SerializerInfoDto.JSON_PROPERTY_WITH_DIGIT,
   SerializerInfoDto.JSON_PROPERTY_MUST_INCLUDE
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
@@ -38,6 +41,18 @@ public class SerializerInfoDto   {
   public static final String JSON_PROPERTY_ZAP_RENAMED = "zapRenamed";
   @JsonProperty(JSON_PROPERTY_ZAP_RENAMED)
   private String zapRenamed;
+
+  public static final String JSON_PROPERTY_UPPER_CASE = "UpperCase";
+  @JsonProperty(JSON_PROPERTY_UPPER_CASE)
+  private String upperCase;
+
+  public static final String JSON_PROPERTY_WITH_DASHES = "with-Dashes-";
+  @JsonProperty(JSON_PROPERTY_WITH_DASHES)
+  private String with_Dashes_;
+
+  public static final String JSON_PROPERTY_WITH_DIGIT = "0withDigit";
+  @JsonProperty(JSON_PROPERTY_WITH_DIGIT)
+  private String _withDigit;
 
   public static final String JSON_PROPERTY_MUST_INCLUDE = "mustInclude";
   @JsonProperty(JSON_PROPERTY_MUST_INCLUDE)
@@ -94,6 +109,57 @@ public class SerializerInfoDto   {
     this.zapRenamed = zapRenamed;
   }
 
+  public SerializerInfoDto upperCase(String upperCase) {
+    this.upperCase = upperCase;
+    return this;
+  }
+
+  /**
+   * Get upperCase
+   * @return upperCase
+   **/
+  public String getUpperCase() {
+    return upperCase;
+  }
+
+  public void setUpperCase(String upperCase) {
+    this.upperCase = upperCase;
+  }
+
+  public SerializerInfoDto with_Dashes_(String with_Dashes_) {
+    this.with_Dashes_ = with_Dashes_;
+    return this;
+  }
+
+  /**
+   * Get with_Dashes_
+   * @return with_Dashes_
+   **/
+  public String getWithDashes() {
+    return with_Dashes_;
+  }
+
+  public void setWithDashes(String with_Dashes_) {
+    this.with_Dashes_ = with_Dashes_;
+  }
+
+  public SerializerInfoDto _withDigit(String _withDigit) {
+    this._withDigit = _withDigit;
+    return this;
+  }
+
+  /**
+   * Get _withDigit
+   * @return _withDigit
+   **/
+  public String getWithDigit() {
+    return _withDigit;
+  }
+
+  public void setWithDigit(String _withDigit) {
+    this._withDigit = _withDigit;
+  }
+
   public SerializerInfoDto mustInclude(String mustInclude) {
     this.mustInclude = mustInclude;
     return this;
@@ -124,12 +190,15 @@ public class SerializerInfoDto   {
     return Objects.equals(this.beta, other.beta) &&
         Objects.equals(this.alpha, other.alpha) &&
         Objects.equals(this.zapRenamed, other.zapRenamed) &&
+        Objects.equals(this.upperCase, other.upperCase) &&
+        Objects.equals(this.with_Dashes_, other.with_Dashes_) &&
+        Objects.equals(this._withDigit, other._withDigit) &&
         Objects.equals(this.mustInclude, other.mustInclude);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(beta, alpha, zapRenamed, mustInclude);
+    return Objects.hash(beta, alpha, zapRenamed, upperCase, with_Dashes_, _withDigit, mustInclude);
   }
 
   @Override
@@ -140,6 +209,9 @@ public class SerializerInfoDto   {
     sb.append("    beta: ").append(toIndentedString(beta)).append("\n");
     sb.append("    alpha: ").append(toIndentedString(alpha)).append("\n");
     sb.append("    zapRenamed: ").append(toIndentedString(zapRenamed)).append("\n");
+    sb.append("    upperCase: ").append(toIndentedString(upperCase)).append("\n");
+    sb.append("    with_Dashes_: ").append(toIndentedString(with_Dashes_)).append("\n");
+    sb.append("    _withDigit: ").append(toIndentedString(_withDigit)).append("\n");
     sb.append("    mustInclude: ").append(toIndentedString(mustInclude)).append("\n");
     sb.append("}");
     return sb.toString();

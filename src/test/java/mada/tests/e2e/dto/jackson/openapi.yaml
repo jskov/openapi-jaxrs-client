@@ -28,5 +28,11 @@ components:
           type: string
         zapRenamed:
           type: string
+        UpperCase:
+          type: string
+        with-Dashes-:
+          type: string
+        "0withDigit":
+          type: string
         mustInclude:
           type: string

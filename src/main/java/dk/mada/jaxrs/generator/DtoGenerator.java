@@ -27,6 +27,7 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.openapi._OpenapiGenerator;
 
 public class DtoGenerator {
 	private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
@@ -40,6 +41,7 @@ public class DtoGenerator {
 	private final GeneratorOpts opts;
 	private final Templates templates;
 	private final Model model;
+	private final Identifiers identifiers = new Identifiers();
 
 	public DtoGenerator(GeneratorOpts opts, Templates templates, Model model) {
 		this.opts = opts;
@@ -140,7 +142,13 @@ public class DtoGenerator {
 
 	private CtxProperty toCtxProperty(Property p) {
 		String name = p.name();
-		String nameCamelized = p.nameCamelized();
+		String varName = identifiers.makeValidVariableName(name);
+
+		String nameCamelized = _OpenapiGenerator.camelize(varName);
+		String nameSnaked = _OpenapiGenerator.underscore(nameCamelized).toUpperCase();
+		
+		
+		logger.info("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 		
 		String defaultValue = null;
 		boolean isArray = false;
@@ -164,9 +172,9 @@ public class DtoGenerator {
 		return ImmutableCtxProperty.builder()
 				.baseName(name)
 				.datatypeWithEnum(p.type().typeName())
-				.name(name)
+				.name(varName)
 				.nameInCamelCase(nameCamelized)
-				.nameInSnakeCase(p.nameSnaked())
+				.nameInSnakeCase(nameSnaked)
 				.getter("get" + nameCamelized)
 				.setter("set" + nameCamelized)
 				.description(p.description())
