@@ -39,6 +39,8 @@ public interface CtxDto {
 	};
 	
 	boolean jackson();
+	@Nullable
+	String jacksonJsonSerializeOptions();
 	
 	String generatorClass();
 	@Nullable

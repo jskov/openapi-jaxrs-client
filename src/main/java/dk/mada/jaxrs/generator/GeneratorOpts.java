@@ -51,6 +51,13 @@ public class GeneratorOpts {
 		return activatedSerializerApis == 0 || bool("generator-jsonb");
 	}
 
+	public String getJsonSerializeOptions() {
+		if (!isJackson()) {
+			return null;
+		}
+		return get("generator-jackson-json-serialize-options");
+	}
+	
 	public String getGeneratedAtTime() {
 		if (isShowGenerationTimestamp()) {
 			return generatedAtTime;
@@ -73,10 +80,18 @@ public class GeneratorOpts {
 
 	private String get(String name, String compatibleOptionName) {
 		String compat = options.getProperty(compatibleOptionName);
-		return options.getProperty(name, compat);
+		String value = options.getProperty(name, compat);
+		if (value == null) {
+			return null;
+		}
+		return value.trim();
 	}
 
 	private String get(String name) {
-		return options.getProperty(name);
+		String value = options.getProperty(name);
+		if (value == null) {
+			return null;
+		}
+		return value.trim();
 	}
 }

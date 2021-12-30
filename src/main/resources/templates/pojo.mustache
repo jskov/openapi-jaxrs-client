@@ -8,6 +8,9 @@
   {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
 {{/vars}}
 })
+{{#jacksonJsonSerializeOptions}}
+@JsonSerialize({{{jacksonJsonSerializeOptions}}})
+{{/jacksonJsonSerializeOptions}}
 {{/jackson}}
 {{>generatedAnnotation}}
 {{#todo}}

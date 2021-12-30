@@ -3,6 +3,8 @@ package dk.mada.jaxrs.openapi;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,22 +25,28 @@ public class OpsTransformer {
 	private static final Logger logger = LoggerFactory.getLogger(OpsTransformer.class);
 
 	public Operations transform(OpenAPI specification) {
-		List<Operation> ops = new ArrayList<>();
 	    Paths paths = specification.getPaths();
-	//    logger.info("paths: {}", paths);
-	    for (Map.Entry<String, PathItem> pathsEntry : paths.entrySet()) {
-	        String resourcePath = pathsEntry.getKey();
-	        PathItem path = pathsEntry.getValue();
-	        
-	        io.swagger.v3.oas.models.Operation op = path.getGet();
-	        if (op != null) {
-	        	ops.add(ImmutableOperation.builder()
-	        			.group("GroupFixme")
-	        			.path(resourcePath)
-	        			.build());
-	        }
-	        
-	        logger.debug(" {}", resourcePath);
+	    if (paths == null) {
+	    	return new Operations(List.of());
+	    }
+
+	    List<Operation> ops = new ArrayList<>();
+		Set<Entry<String, PathItem>> pathEntries = paths.entrySet();
+	    if (pathEntries != null) {
+			for (Map.Entry<String, PathItem> pathsEntry : pathEntries) {
+		        String resourcePath = pathsEntry.getKey();
+		        PathItem path = pathsEntry.getValue();
+		        
+		        io.swagger.v3.oas.models.Operation op = path.getGet();
+		        if (op != null) {
+		        	ops.add(ImmutableOperation.builder()
+		        			.group("GroupFixme")
+		        			.path(resourcePath)
+		        			.build());
+		        }
+		        
+		        logger.debug(" {}", resourcePath);
+		    }
 	    }
 	    
 	    return new Operations(ops);

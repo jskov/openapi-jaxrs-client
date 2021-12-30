@@ -1,0 +1,12 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+components:
+  schemas:
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean

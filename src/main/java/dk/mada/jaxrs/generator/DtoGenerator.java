@@ -109,6 +109,11 @@ public class DtoGenerator {
 			dtoImports.add("org.codehaus.jackson.annotate.JsonPropertyOrder");
 		}		 
 		
+		String jacksonJsonSerializeOptions = opts.getJsonSerializeOptions();
+		if (jacksonJsonSerializeOptions != null) {
+			dtoImports.add("org.codehaus.jackson.map.annotate.JsonSerialize");
+		}
+		
 		return ImmutableCtxDto.builder()
 				.appName(info.title())
 				.appDescription(info.description())
@@ -127,6 +132,7 @@ public class DtoGenerator {
 				.dataType("String")
 				
 				.jackson(opts.isJackson())
+				.jacksonJsonSerializeOptions(jacksonJsonSerializeOptions)
 				
 				.generatorClass(this.getClass().getName())
 				.generatedDate(opts.getGeneratedAtTime())
