@@ -9,12 +9,12 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.jackson.dto;
+package mada.tests.e2e.dto.jackson_codehaus.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 /**
  * SerializerInfoDto
@@ -26,7 +26,9 @@ import java.util.Objects;
   SerializerInfoDto.JSON_PROPERTY_UPPER_CASE,
   SerializerInfoDto.JSON_PROPERTY_WITH_DASHES,
   SerializerInfoDto.JSON_PROPERTY_WITH_DIGIT,
-  SerializerInfoDto.JSON_PROPERTY_MUST_INCLUDE
+  SerializerInfoDto.JSON_PROPERTY_MUST_INCLUDE,
+  SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS,
+  SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class SerializerInfoDto   {
@@ -48,7 +50,7 @@ public class SerializerInfoDto   {
 
   public static final String JSON_PROPERTY_WITH_DASHES = "with-Dashes-";
   @JsonProperty(JSON_PROPERTY_WITH_DASHES)
-  private String with_Dashes_;
+  private String withDashes;
 
   public static final String JSON_PROPERTY_WITH_DIGIT = "0withDigit";
   @JsonProperty(JSON_PROPERTY_WITH_DIGIT)
@@ -57,6 +59,14 @@ public class SerializerInfoDto   {
   public static final String JSON_PROPERTY_MUST_INCLUDE = "mustInclude";
   @JsonProperty(JSON_PROPERTY_MUST_INCLUDE)
   private String mustInclude;
+
+  public static final String JSON_PROPERTY_MP_ANNOTATIONS = "mpAnnotations";
+  @JsonProperty(JSON_PROPERTY_MP_ANNOTATIONS)
+  private MicroprofileAnnotations mpAnnotations;
+
+  public static final String JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY = "mpAnnotationsPropsOnly";
+  @JsonProperty(JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY)
+  private MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly;
 
   public SerializerInfoDto beta(String beta) {
     this.beta = beta;
@@ -126,21 +136,21 @@ public class SerializerInfoDto   {
     this.upperCase = upperCase;
   }
 
-  public SerializerInfoDto with_Dashes_(String with_Dashes_) {
-    this.with_Dashes_ = with_Dashes_;
+  public SerializerInfoDto withDashes(String withDashes) {
+    this.withDashes = withDashes;
     return this;
   }
 
   /**
-   * Get with_Dashes_
-   * @return with_Dashes_
+   * Get withDashes
+   * @return withDashes
    **/
   public String getWithDashes() {
-    return with_Dashes_;
+    return withDashes;
   }
 
-  public void setWithDashes(String with_Dashes_) {
-    this.with_Dashes_ = with_Dashes_;
+  public void setWithDashes(String withDashes) {
+    this.withDashes = withDashes;
   }
 
   public SerializerInfoDto _withDigit(String _withDigit) {
@@ -178,6 +188,40 @@ public class SerializerInfoDto   {
     this.mustInclude = mustInclude;
   }
 
+  public SerializerInfoDto mpAnnotations(MicroprofileAnnotations mpAnnotations) {
+    this.mpAnnotations = mpAnnotations;
+    return this;
+  }
+
+  /**
+   * Get mpAnnotations
+   * @return mpAnnotations
+   **/
+  public MicroprofileAnnotations getMpAnnotations() {
+    return mpAnnotations;
+  }
+
+  public void setMpAnnotations(MicroprofileAnnotations mpAnnotations) {
+    this.mpAnnotations = mpAnnotations;
+  }
+
+  public SerializerInfoDto mpAnnotationsPropsOnly(MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly) {
+    this.mpAnnotationsPropsOnly = mpAnnotationsPropsOnly;
+    return this;
+  }
+
+  /**
+   * Get mpAnnotationsPropsOnly
+   * @return mpAnnotationsPropsOnly
+   **/
+  public MicroProfileAnnotationsPropsOnly getMpAnnotationsPropsOnly() {
+    return mpAnnotationsPropsOnly;
+  }
+
+  public void setMpAnnotationsPropsOnly(MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly) {
+    this.mpAnnotationsPropsOnly = mpAnnotationsPropsOnly;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -191,14 +235,16 @@ public class SerializerInfoDto   {
         Objects.equals(this.alpha, other.alpha) &&
         Objects.equals(this.zapRenamed, other.zapRenamed) &&
         Objects.equals(this.upperCase, other.upperCase) &&
-        Objects.equals(this.with_Dashes_, other.with_Dashes_) &&
+        Objects.equals(this.withDashes, other.withDashes) &&
         Objects.equals(this._withDigit, other._withDigit) &&
-        Objects.equals(this.mustInclude, other.mustInclude);
+        Objects.equals(this.mustInclude, other.mustInclude) &&
+        Objects.equals(this.mpAnnotations, other.mpAnnotations) &&
+        Objects.equals(this.mpAnnotationsPropsOnly, other.mpAnnotationsPropsOnly);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(beta, alpha, zapRenamed, upperCase, with_Dashes_, _withDigit, mustInclude);
+    return Objects.hash(beta, alpha, zapRenamed, upperCase, withDashes, _withDigit, mustInclude, mpAnnotations, mpAnnotationsPropsOnly);
   }
 
   @Override
@@ -210,9 +256,11 @@ public class SerializerInfoDto   {
     sb.append("    alpha: ").append(toIndentedString(alpha)).append("\n");
     sb.append("    zapRenamed: ").append(toIndentedString(zapRenamed)).append("\n");
     sb.append("    upperCase: ").append(toIndentedString(upperCase)).append("\n");
-    sb.append("    with_Dashes_: ").append(toIndentedString(with_Dashes_)).append("\n");
+    sb.append("    withDashes: ").append(toIndentedString(withDashes)).append("\n");
     sb.append("    _withDigit: ").append(toIndentedString(_withDigit)).append("\n");
     sb.append("    mustInclude: ").append(toIndentedString(mustInclude)).append("\n");
+    sb.append("    mpAnnotations: ").append(toIndentedString(mpAnnotations)).append("\n");
+    sb.append("    mpAnnotationsPropsOnly: ").append(toIndentedString(mpAnnotationsPropsOnly)).append("\n");
     sb.append("}");
     return sb.toString();
   }

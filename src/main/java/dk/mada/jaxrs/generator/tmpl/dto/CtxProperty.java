@@ -28,5 +28,8 @@ public interface CtxProperty {
 	
 	boolean required();
 	
+	@Nullable
+	String example();
+	
 	CtxPropertyExt mada();
 }

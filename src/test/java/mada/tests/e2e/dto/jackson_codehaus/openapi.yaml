@@ -17,6 +17,12 @@ paths:
                 $ref: '#/components/schemas/SerializerInfoDto'
 components:
   schemas:
+    MicroProfileAnnotationsPropsOnly:
+      type: object
+      properties:
+        withDescription:
+          description: property description
+          type: string
     SerializerInfoDto:
       required:
       - mustInclude
@@ -36,3 +42,17 @@ components:
           type: string
         mustInclude:
           type: string
+        mpAnnotations:
+          $ref: '#/components/schemas/microprofile-annotations'
+        mpAnnotationsPropsOnly:
+          $ref: '#/components/schemas/MicroProfileAnnotationsPropsOnly'
+    microprofile-annotations:
+      description: class description
+      type: object
+      properties:
+        withDescription:
+          description: property description
+          type: string
+        withExample:
+          type: string
+          example: property example

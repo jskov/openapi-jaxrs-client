@@ -13,6 +13,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.generator.Identifiers;
 import dk.mada.jaxrs.model.ByteArray;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
@@ -50,6 +51,7 @@ public class DtoTransformer {
 	@SuppressWarnings("rawtypes")
 	private final Map<String, Schema> allDefinitions;
 	private final ParserOpts opts;
+	private final Identifiers identifiers = new Identifiers();
 
 	public DtoTransformer(ParserOpts opts, OpenAPI specification) {
 		this.opts = opts;
@@ -203,6 +205,6 @@ public class DtoTransformer {
     		name = schemaName;
     	}
    	
-    	return _OpenapiGenerator.camelize(name);
+    	return identifiers.makeValidTypeName(name);
     }
 }

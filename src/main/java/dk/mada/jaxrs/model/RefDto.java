@@ -19,6 +19,6 @@ public interface RefDto extends Type {
 	
 	@Override
 	default String typeName() {
-		return dereference().openapiName();
+		return dereference().name();
 	}
 }

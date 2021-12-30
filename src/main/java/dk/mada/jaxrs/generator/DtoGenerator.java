@@ -69,20 +69,20 @@ public class DtoGenerator {
 			});
 	}
 	
-	private String dtoOutputName(Dto type) {
-		return type.name() + ".java";
+	private String dtoOutputName(Dto dto) {
+		return dto.name() + ".java";
 	}
 	
-	private CtxDto toCtx(Dto type) {
+	private CtxDto toCtx(Dto dto) {
 		Info info = model.info();
 		
-		List<CtxProperty> vars = type.properties().stream()
+		List<CtxProperty> vars = dto.properties().stream()
 			.map(this::toCtxProperty)
 			.collect(toList());
 		
 		CtxEnum ctxEnum = null;
-		if (type.isEnum()) {
-			List<CtxEnumEntry> values = type.enumValues().stream()
+		if (dto.isEnum()) {
+			List<CtxEnumEntry> values = dto.enumValues().stream()
 					.map(this::toEnumEntry)
 					.collect(toList());
 			ctxEnum = ImmutableCtxEnum.builder()
@@ -91,12 +91,12 @@ public class DtoGenerator {
 		}
 		
 		SortedSet<String> dtoImports = new TreeSet<>();
-		if (type.isEnum()) {
+		if (dto.isEnum()) {
 			dtoImports.addAll(ENUM_TEMPLATE_IMPORTS);
 		} else {
 			dtoImports.addAll(POJO_TEMPLATE_IMPORTS);
 		}
-		type.properties().stream()
+		dto.properties().stream()
 			.forEach(p -> dtoImports.addAll(p.type().neededImports()));
 
 		if (vars.stream().anyMatch(p -> p.mada().isRenderApiModelProperty())) {
@@ -136,7 +136,7 @@ public class DtoGenerator {
 				.imports(dtoImports)
 
 				.packageName(opts.dtoPackage())
-				.classname(type.name())
+				.classname(dto.name())
 				.classVarName("other")
 				
 				.vars(vars)
@@ -227,6 +227,7 @@ public class DtoGenerator {
 				.isMap(isMap)
 				.defaultValue(defaultValue)
 				.required(isRequired)
+				.example(p.example())
 				.mada(mada)
 				.build();
 	}
