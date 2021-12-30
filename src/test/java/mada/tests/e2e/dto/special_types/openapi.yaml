@@ -1,0 +1,24 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/special-types:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecialTypes'
+components:
+  schemas:
+    SpecialTypes:
+      type: object
+      properties:
+        aBigDecimal:
+          type: number

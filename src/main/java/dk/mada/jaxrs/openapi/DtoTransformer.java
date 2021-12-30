@@ -23,12 +23,14 @@ import dk.mada.jaxrs.model.ImmutableProperty;
 import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Type;
+import dk.mada.jaxrs.model.TypeBigDecimal;
 import dk.mada.jaxrs.model.TypeObject;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.FileSchema;
 import io.swagger.v3.oas.models.media.MapSchema;
+import io.swagger.v3.oas.models.media.NumberSchema;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 
@@ -179,6 +181,10 @@ public class DtoTransformer {
 						.innerType(innerType)
 						.build();
 			}
+		}
+		
+		if (schema instanceof NumberSchema ns) {
+			return TypeBigDecimal.get();
 		}
 		
 		if (schema instanceof ObjectSchema o) {
