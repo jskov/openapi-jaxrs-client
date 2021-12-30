@@ -28,6 +28,10 @@ public class Primitives   {
 
   private long aLong;
 
+  private float aFloat;
+
+  private double aDouble;
+
   private String aString;
 
   public Primitives aBoolean(boolean aBoolean) {
@@ -115,6 +119,40 @@ public class Primitives   {
     this.aLong = aLong;
   }
 
+  public Primitives aFloat(float aFloat) {
+    this.aFloat = aFloat;
+    return this;
+  }
+
+  /**
+   * Get aFloat
+   * @return aFloat
+   **/
+  public float getAFloat() {
+    return aFloat;
+  }
+
+  public void setAFloat(float aFloat) {
+    this.aFloat = aFloat;
+  }
+
+  public Primitives aDouble(double aDouble) {
+    this.aDouble = aDouble;
+    return this;
+  }
+
+  /**
+   * Get aDouble
+   * @return aDouble
+   **/
+  public double getADouble() {
+    return aDouble;
+  }
+
+  public void setADouble(double aDouble) {
+    this.aDouble = aDouble;
+  }
+
   public Primitives aString(String aString) {
     this.aString = aString;
     return this;
@@ -146,12 +184,14 @@ public class Primitives   {
         Objects.equals(this.aShort, other.aShort) &&
         Objects.equals(this.anInt, other.anInt) &&
         Objects.equals(this.aLong, other.aLong) &&
+        Objects.equals(this.aFloat, other.aFloat) &&
+        Objects.equals(this.aDouble, other.aDouble) &&
         Objects.equals(this.aString, other.aString);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBoolean, aByte, aShort, anInt, aLong, aString);
+    return Objects.hash(aBoolean, aByte, aShort, anInt, aLong, aFloat, aDouble, aString);
   }
 
   @Override
@@ -164,6 +204,8 @@ public class Primitives   {
     sb.append("    aShort: ").append(toIndentedString(aShort)).append("\n");
     sb.append("    anInt: ").append(toIndentedString(anInt)).append("\n");
     sb.append("    aLong: ").append(toIndentedString(aLong)).append("\n");
+    sb.append("    aFloat: ").append(toIndentedString(aFloat)).append("\n");
+    sb.append("    aDouble: ").append(toIndentedString(aDouble)).append("\n");
     sb.append("    aString: ").append(toIndentedString(aString)).append("\n");
     sb.append("}");
     return sb.toString();

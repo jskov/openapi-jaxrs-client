@@ -3,12 +3,14 @@ package dk.mada.jaxrs.model;
 import java.util.Objects;
 
 public enum Primitive implements Type {
-	BOOLEAN("boolean:",   "boolean", "Boolean"),
-	BYTE("string:byte",   "byte",    "Byte"),
-	SHORT("integer:",     "short",   "Short"),
-	INT("integer:int32",  "int",     "Integer"),
-	LONG("integer:int64", "long",    "Long"),
-	STRING("string:",     "String",  "String");
+	BOOLEAN("boolean:",    "boolean", "Boolean"),
+	BYTE("string:byte",    "byte",    "Byte"),
+	SHORT("integer:",      "short",   "Short"),
+	INT("integer:int32",   "int",     "Integer"),
+	LONG("integer:int64",  "long",    "Long"),
+	FLOAT("number:float",  "float",   "Float"),
+	DOUBLE("number:double","double",  "Double"),
+	STRING("string:",      "String",  "String");
 	
 	/** The OpenApi type:format **/
 	private String typeFormat;

@@ -1,2 +1,3 @@
 o Make options self-documenting
 o Make executable jar
+o Generator option to use wrapper classes for optional primitive fields (so they can be null-checked)
