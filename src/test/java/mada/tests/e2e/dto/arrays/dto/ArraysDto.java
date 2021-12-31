@@ -227,28 +227,20 @@ public class ArraysDto   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ArraysDto {\n");
-    
-    sb.append("    booleans: ").append(toIndentedString(booleans)).append("\n");
-    sb.append("    bytes: ").append(toIndentedString(bytes)).append("\n");
-    sb.append("    shorts: ").append(toIndentedString(shorts)).append("\n");
-    sb.append("    ints: ").append(toIndentedString(ints)).append("\n");
-    sb.append("    longs: ").append(toIndentedString(longs)).append("\n");
-    sb.append("    strings: ").append(toIndentedString(strings)).append("\n");
-    sb.append("    refs: ").append(toIndentedString(refs)).append("\n");
-    sb.append("}");
+    sb.append("class ArraysDto {");
+    sb.append("\n    booleans: ").append(toIndentedString(booleans));
+    sb.append("\n    bytes: ").append(toIndentedString(bytes));
+    sb.append("\n    shorts: ").append(toIndentedString(shorts));
+    sb.append("\n    ints: ").append(toIndentedString(ints));
+    sb.append("\n    longs: ").append(toIndentedString(longs));
+    sb.append("\n    strings: ").append(toIndentedString(strings));
+    sb.append("\n    refs: ").append(toIndentedString(refs));
+    sb.append("\n}");
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return Objects.toString(o).replace("\n", "\n    ");
   }
 }
 

@@ -9,7 +9,7 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.jackson_codehaus.dto;
+package mada.tests.e2e.dto.jackson.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
@@ -66,14 +66,22 @@ public class MicroProfileAnnotationsPropsOnly   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MicroProfileAnnotationsPropsOnly {");
-    sb.append("\n    withDescription: ").append(toIndentedString(withDescription));
-    sb.append("\n}");
+    sb.append("class MicroProfileAnnotationsPropsOnly {\n");
+    
+    sb.append("    withDescription: ").append(toIndentedString(withDescription)).append("\n");
+    sb.append("}");
     return sb.toString();
   }
 
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
   private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 }
 

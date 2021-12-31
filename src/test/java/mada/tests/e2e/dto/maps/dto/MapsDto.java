@@ -459,36 +459,28 @@ public class MapsDto   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MapsDto {\n");
-    
-    sb.append("    booleans: ").append(toIndentedString(booleans)).append("\n");
-    sb.append("    bytes: ").append(toIndentedString(bytes)).append("\n");
-    sb.append("    shorts: ").append(toIndentedString(shorts)).append("\n");
-    sb.append("    ints: ").append(toIndentedString(ints)).append("\n");
-    sb.append("    longs: ").append(toIndentedString(longs)).append("\n");
-    sb.append("    strings: ").append(toIndentedString(strings)).append("\n");
-    sb.append("    refs: ").append(toIndentedString(refs)).append("\n");
-    sb.append("    bothBooleans: ").append(toIndentedString(bothBooleans)).append("\n");
-    sb.append("    bothBytes: ").append(toIndentedString(bothBytes)).append("\n");
-    sb.append("    bothShorts: ").append(toIndentedString(bothShorts)).append("\n");
-    sb.append("    bothInts: ").append(toIndentedString(bothInts)).append("\n");
-    sb.append("    bothLongs: ").append(toIndentedString(bothLongs)).append("\n");
-    sb.append("    bothStrings: ").append(toIndentedString(bothStrings)).append("\n");
-    sb.append("    bothRefs: ").append(toIndentedString(bothRefs)).append("\n");
-    sb.append("    objects: ").append(toIndentedString(objects)).append("\n");
-    sb.append("}");
+    sb.append("class MapsDto {");
+    sb.append("\n    booleans: ").append(toIndentedString(booleans));
+    sb.append("\n    bytes: ").append(toIndentedString(bytes));
+    sb.append("\n    shorts: ").append(toIndentedString(shorts));
+    sb.append("\n    ints: ").append(toIndentedString(ints));
+    sb.append("\n    longs: ").append(toIndentedString(longs));
+    sb.append("\n    strings: ").append(toIndentedString(strings));
+    sb.append("\n    refs: ").append(toIndentedString(refs));
+    sb.append("\n    bothBooleans: ").append(toIndentedString(bothBooleans));
+    sb.append("\n    bothBytes: ").append(toIndentedString(bothBytes));
+    sb.append("\n    bothShorts: ").append(toIndentedString(bothShorts));
+    sb.append("\n    bothInts: ").append(toIndentedString(bothInts));
+    sb.append("\n    bothLongs: ").append(toIndentedString(bothLongs));
+    sb.append("\n    bothStrings: ").append(toIndentedString(bothStrings));
+    sb.append("\n    bothRefs: ").append(toIndentedString(bothRefs));
+    sb.append("\n    objects: ").append(toIndentedString(objects));
+    sb.append("\n}");
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return Objects.toString(o).replace("\n", "\n    ");
   }
 }
 

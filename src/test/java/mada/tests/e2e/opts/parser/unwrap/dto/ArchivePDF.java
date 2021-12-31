@@ -87,23 +87,15 @@ public class ArchivePDF   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ArchivePDF {\n");
-    
-    sb.append("    stringList: ").append(toIndentedString(stringList)).append("\n");
-    sb.append("    byteList: ").append(toIndentedString(byteList)).append("\n");
-    sb.append("}");
+    sb.append("class ArchivePDF {");
+    sb.append("\n    stringList: ").append(toIndentedString(stringList));
+    sb.append("\n    byteList: ").append(toIndentedString(byteList));
+    sb.append("\n}");
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return Objects.toString(o).replace("\n", "\n    ");
   }
 }
 

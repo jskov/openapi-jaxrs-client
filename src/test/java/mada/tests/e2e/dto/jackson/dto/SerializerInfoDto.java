@@ -9,7 +9,7 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.jackson_codehaus.dto;
+package mada.tests.e2e.dto.jackson.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
@@ -250,22 +250,30 @@ public class SerializerInfoDto   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SerializerInfoDto {");
-    sb.append("\n    beta: ").append(toIndentedString(beta));
-    sb.append("\n    alpha: ").append(toIndentedString(alpha));
-    sb.append("\n    zapRenamed: ").append(toIndentedString(zapRenamed));
-    sb.append("\n    upperCase: ").append(toIndentedString(upperCase));
-    sb.append("\n    withDashes: ").append(toIndentedString(withDashes));
-    sb.append("\n    _withDigit: ").append(toIndentedString(_withDigit));
-    sb.append("\n    mustInclude: ").append(toIndentedString(mustInclude));
-    sb.append("\n    mpAnnotations: ").append(toIndentedString(mpAnnotations));
-    sb.append("\n    mpAnnotationsPropsOnly: ").append(toIndentedString(mpAnnotationsPropsOnly));
-    sb.append("\n}");
+    sb.append("class SerializerInfoDto {\n");
+    
+    sb.append("    beta: ").append(toIndentedString(beta)).append("\n");
+    sb.append("    alpha: ").append(toIndentedString(alpha)).append("\n");
+    sb.append("    zapRenamed: ").append(toIndentedString(zapRenamed)).append("\n");
+    sb.append("    upperCase: ").append(toIndentedString(upperCase)).append("\n");
+    sb.append("    withDashes: ").append(toIndentedString(withDashes)).append("\n");
+    sb.append("    _withDigit: ").append(toIndentedString(_withDigit)).append("\n");
+    sb.append("    mustInclude: ").append(toIndentedString(mustInclude)).append("\n");
+    sb.append("    mpAnnotations: ").append(toIndentedString(mpAnnotations)).append("\n");
+    sb.append("    mpAnnotationsPropsOnly: ").append(toIndentedString(mpAnnotationsPropsOnly)).append("\n");
+    sb.append("}");
     return sb.toString();
   }
 
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
   private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 }
 

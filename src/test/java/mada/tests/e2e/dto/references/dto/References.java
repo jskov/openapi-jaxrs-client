@@ -57,22 +57,14 @@ public class References   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class References {\n");
-    
-    sb.append("    simple: ").append(toIndentedString(simple)).append("\n");
-    sb.append("}");
+    sb.append("class References {");
+    sb.append("\n    simple: ").append(toIndentedString(simple));
+    sb.append("\n}");
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return Objects.toString(o).replace("\n", "\n    ");
   }
 }
 

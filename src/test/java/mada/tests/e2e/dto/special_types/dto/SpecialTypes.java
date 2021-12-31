@@ -58,22 +58,14 @@ public class SpecialTypes   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SpecialTypes {\n");
-    
-    sb.append("    aBigDecimal: ").append(toIndentedString(aBigDecimal)).append("\n");
-    sb.append("}");
+    sb.append("class SpecialTypes {");
+    sb.append("\n    aBigDecimal: ").append(toIndentedString(aBigDecimal));
+    sb.append("\n}");
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return Objects.toString(o).replace("\n", "\n    ");
   }
 }
 

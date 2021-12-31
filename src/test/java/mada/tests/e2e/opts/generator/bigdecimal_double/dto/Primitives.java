@@ -214,29 +214,21 @@ public class Primitives   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Primitives {\n");
-    
-    sb.append("    aBoolean: ").append(toIndentedString(aBoolean)).append("\n");
-    sb.append("    aByte: ").append(toIndentedString(aByte)).append("\n");
-    sb.append("    aShort: ").append(toIndentedString(aShort)).append("\n");
-    sb.append("    anInt: ").append(toIndentedString(anInt)).append("\n");
-    sb.append("    aLong: ").append(toIndentedString(aLong)).append("\n");
-    sb.append("    aFloat: ").append(toIndentedString(aFloat)).append("\n");
-    sb.append("    aDouble: ").append(toIndentedString(aDouble)).append("\n");
-    sb.append("    aString: ").append(toIndentedString(aString)).append("\n");
-    sb.append("}");
+    sb.append("class Primitives {");
+    sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
+    sb.append("\n    aByte: ").append(toIndentedString(aByte));
+    sb.append("\n    aShort: ").append(toIndentedString(aShort));
+    sb.append("\n    anInt: ").append(toIndentedString(anInt));
+    sb.append("\n    aLong: ").append(toIndentedString(aLong));
+    sb.append("\n    aFloat: ").append(toIndentedString(aFloat));
+    sb.append("\n    aDouble: ").append(toIndentedString(aDouble));
+    sb.append("\n    aString: ").append(toIndentedString(aString));
+    sb.append("\n}");
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return Objects.toString(o).replace("\n", "\n    ");
   }
 }
 

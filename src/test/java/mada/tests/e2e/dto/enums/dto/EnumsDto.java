@@ -77,23 +77,15 @@ public class EnumsDto   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class EnumsDto {\n");
-    
-    sb.append("    inner: ").append(toIndentedString(inner)).append("\n");
-    sb.append("    external: ").append(toIndentedString(external)).append("\n");
-    sb.append("}");
+    sb.append("class EnumsDto {");
+    sb.append("\n    inner: ").append(toIndentedString(inner));
+    sb.append("\n    external: ").append(toIndentedString(external));
+    sb.append("\n}");
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return Objects.toString(o).replace("\n", "\n    ");
   }
 }
 
