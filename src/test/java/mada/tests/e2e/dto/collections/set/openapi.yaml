@@ -1,0 +1,111 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/collections/set:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetsDto'
+components:
+  schemas:
+    SetsDto:
+      required:
+      - requiredBooleans
+      - requiredBytes
+      - requiredShorts
+      - requiredInts
+      - requiredLongs
+      - requiredStrings
+      - requiredRefs
+      type: object
+      properties:
+        booleans:
+          uniqueItems: true
+          type: array
+          items:
+            type: boolean
+        bytes:
+          uniqueItems: true
+          type: array
+          items:
+            format: byte
+            type: string
+        shorts:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+        ints:
+          uniqueItems: true
+          type: array
+          items:
+            format: int32
+            type: integer
+        longs:
+          uniqueItems: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        strings:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        refs:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
+        requiredBooleans:
+          uniqueItems: true
+          type: array
+          items:
+            type: boolean
+        requiredBytes:
+          uniqueItems: true
+          type: array
+          items:
+            format: byte
+            type: string
+        requiredShorts:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+        requiredInts:
+          uniqueItems: true
+          type: array
+          items:
+            format: int32
+            type: integer
+        requiredLongs:
+          uniqueItems: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        requiredStrings:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        requiredRefs:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean

@@ -27,6 +27,7 @@ import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxProperty;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxPropertyExt;
 import dk.mada.jaxrs.model.ContainerArray;
 import dk.mada.jaxrs.model.ContainerMap;
+import dk.mada.jaxrs.model.ContainerSet;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
@@ -174,6 +175,7 @@ public class DtoGenerator {
 		boolean isRequired = p.isRequired();
 		boolean isArray = false;
 		boolean isMap = false;
+		boolean isSet = false;
 		String innerType = null;
 
 		if (p.type() instanceof ContainerArray ca) {
@@ -186,8 +188,16 @@ public class DtoGenerator {
 			innerType = cm.innerType().typeName();
 			defaultValue = "new HashMap<>()";
 		}
+		if (p.type() instanceof ContainerSet cs) {
+			isSet = true;
+			innerType = cs.innerType().typeName();
+			defaultValue = "new HashSet<>()";
+			
+			// In templates, array is used for both set and list
+			isArray = true;
+		}
 
-		boolean isContainer = isArray || isMap;
+		boolean isContainer = isArray || isMap || isSet;
 		
 		String typeName = p.type().typeName();
 		if (p.type() instanceof Primitive prim) {
@@ -239,6 +249,8 @@ public class DtoGenerator {
 				.description(p.description())
 				.isArray(isArray)
 				.isMap(isMap)
+				.isSet(isSet)
+				.isContainer(isContainer)
 				.defaultValue(defaultValue)
 				.required(isRequired)
 				.example(p.example())

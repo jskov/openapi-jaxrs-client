@@ -9,7 +9,7 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.arrays.dto;
+package mada.tests.e2e.dto.collections.map.dto;
 
 import java.util.Objects;
 

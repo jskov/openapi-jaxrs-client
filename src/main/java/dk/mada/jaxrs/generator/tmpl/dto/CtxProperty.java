@@ -25,9 +25,8 @@ public interface CtxProperty {
 	
 	boolean isArray();
 	boolean isMap();
-	default boolean isContainer() {
-		return isArray() || isMap();
-	}
+	boolean isSet();
+	boolean isContainer();
 	
 	boolean required();
 	

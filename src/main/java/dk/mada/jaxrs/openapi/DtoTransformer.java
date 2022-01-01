@@ -19,6 +19,7 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.ImmutableContainerArray;
 import dk.mada.jaxrs.model.ImmutableContainerMap;
+import dk.mada.jaxrs.model.ImmutableContainerSet;
 import dk.mada.jaxrs.model.ImmutableDto;
 import dk.mada.jaxrs.model.ImmutableProperty;
 import dk.mada.jaxrs.model.Primitive;
@@ -123,6 +124,7 @@ public class DtoTransformer {
     		
     		String exampleStr = Objects.toString(propSchema.getExample(), null);
     		
+    		
 			props.add(ImmutableProperty.builder()
     			.name(name)
     			.type(type)
@@ -156,6 +158,13 @@ public class DtoTransformer {
 		
 		if (schema instanceof ArraySchema a) {
 			Type innerType = getType(a.getItems());
+
+			Boolean isUnique = a.getUniqueItems();
+			if (isUnique != null && isUnique.booleanValue()) {
+				return ImmutableContainerSet.builder()
+						.innerType(innerType)
+						.build();
+			}
 			
 			if (innerType instanceof ByteArray && opts.isUnwrapByteArrayList()) {
 				return ByteArray.getArray();

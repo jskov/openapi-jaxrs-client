@@ -9,7 +9,7 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.maps.dto;
+package mada.tests.e2e.dto.collections.map.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
