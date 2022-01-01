@@ -4,6 +4,17 @@ info:
   title: openapi-examples API
   version: 1.0.0-SNAPSHOT
 paths:
+  /dtos/collections/array:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArraysDto'
   /dtos/collections/map:
     get:
       tags:
@@ -17,6 +28,75 @@ paths:
                 $ref: '#/components/schemas/MapsDto'
 components:
   schemas:
+    ArraysDto:
+      required:
+      - requiredBooleans
+      - requiredBytes
+      - requiredShorts
+      - requiredInts
+      - requiredLongs
+      - requiredStrings
+      - requiredRefs
+      type: object
+      properties:
+        booleans:
+          type: array
+          items:
+            type: boolean
+        bytes:
+          format: binary
+          type: string
+        shorts:
+          type: array
+          items:
+            type: integer
+        ints:
+          type: array
+          items:
+            format: int32
+            type: integer
+        longs:
+          type: array
+          items:
+            format: int64
+            type: integer
+        strings:
+          type: array
+          items:
+            type: string
+        refs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
+        requiredBooleans:
+          type: array
+          items:
+            type: boolean
+        requiredBytes:
+          format: binary
+          type: string
+        requiredShorts:
+          type: array
+          items:
+            type: integer
+        requiredInts:
+          type: array
+          items:
+            format: int32
+            type: integer
+        requiredLongs:
+          type: array
+          items:
+            format: int64
+            type: integer
+        requiredStrings:
+          type: array
+          items:
+            type: string
+        requiredRefs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
     MapsDto:
       required:
       - requiredBooleans

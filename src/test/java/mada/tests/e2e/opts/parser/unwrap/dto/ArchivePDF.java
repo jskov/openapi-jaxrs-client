@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class ArchivePDF   {
-  private List<String> stringList = new ArrayList<>();
+  private List<String> stringList = null;
 
   private byte[] byteList;
 

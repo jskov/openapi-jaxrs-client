@@ -4,4 +4,6 @@ o Generator option to use primitive types for non-optional fields
 o Handle name conflicts when making identifiers valid.
   Add counter or something.
 o Prevent keyword collisions in identifiers.
-
+o JsonIgnore in bigdecimal option
+o Avoid this. in getters + add
+o @ApiModelProperty for required should use jackson flag instead

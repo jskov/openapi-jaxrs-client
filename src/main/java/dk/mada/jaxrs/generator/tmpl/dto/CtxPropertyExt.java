@@ -15,6 +15,7 @@ public interface CtxPropertyExt {
 	
 	boolean isRenderApiModelProperty();
 	boolean isUseBigDecimalForDouble();
+	boolean isUseEmptyCollections();
 	
 	String getter();
 	String setter();

@@ -171,9 +171,11 @@ public class DtoGenerator {
 		logger.info("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 		
 		String defaultValue = null;
+		boolean isRequired = p.isRequired();
 		boolean isArray = false;
 		boolean isMap = false;
 		String innerType = null;
+
 		if (p.type() instanceof ContainerArray ca) {
 			isArray = true;
 			innerType = ca.innerType().typeName();
@@ -185,6 +187,8 @@ public class DtoGenerator {
 			defaultValue = "new HashMap<>()";
 		}
 
+		boolean isContainer = isArray || isMap;
+		
 		String typeName = p.type().typeName();
 		if (p.type() instanceof Primitive prim) {
 			typeName = prim.wrapperType();
@@ -194,15 +198,24 @@ public class DtoGenerator {
 		String setter = "set" + nameCamelized;
 		String extGetter = getter;
 		String extSetter = setter;
-		boolean isUseBigDecimalForDouble = opts.isUseBigDecimalForDouble()
+		boolean isUseBigDecimalForDouble =
+				opts.isUseBigDecimalForDouble()
 				&& p.type() == Primitive.DOUBLE;
 		if (isUseBigDecimalForDouble) {
 			getter = getter+"Double";
 			setter = setter+"Double";
 		}
 
-		boolean isRequired = p.isRequired();
-		boolean isRenderApiModelProperty = isRequired
+		boolean isUseEmptyCollections =
+				opts.isUseEmptyCollections()
+				&& isContainer
+				&& !isRequired;
+		if (isUseEmptyCollections) {
+			getter = getter+"Nullable";
+		}
+
+		boolean isRenderApiModelProperty =
+				isRequired
 				|| isNotBlank(p.example())
 				|| isNotBlank(p.description());
 		
@@ -210,6 +223,7 @@ public class DtoGenerator {
 				.innerDatatypeWithEnum(innerType)
 				.isRenderApiModelProperty(isRenderApiModelProperty)
 				.isUseBigDecimalForDouble(isUseBigDecimalForDouble)
+				.isUseEmptyCollections(isUseEmptyCollections)
 				.getter(extGetter)
 				.setter(extSetter)
 				.build();

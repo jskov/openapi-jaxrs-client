@@ -15,20 +15,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArraysDto'
-  /dtos/collections/list:
-    get:
-      tags:
-      - Resource Dtos
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListsDto'
 components:
   schemas:
     ArraysDto:
+      required:
+      - requiredBooleans
+      - requiredBytes
+      - requiredShorts
+      - requiredInts
+      - requiredLongs
+      - requiredStrings
+      - requiredRefs
       type: object
       properties:
         booleans:
@@ -57,6 +54,35 @@ components:
           items:
             type: string
         refs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
+        requiredBooleans:
+          type: array
+          items:
+            type: boolean
+        requiredBytes:
+          format: binary
+          type: string
+        requiredShorts:
+          type: array
+          items:
+            type: integer
+        requiredInts:
+          type: array
+          items:
+            format: int32
+            type: integer
+        requiredLongs:
+          type: array
+          items:
+            format: int64
+            type: integer
+        requiredStrings:
+          type: array
+          items:
+            type: string
+        requiredRefs:
           type: array
           items:
             $ref: '#/components/schemas/Simple'

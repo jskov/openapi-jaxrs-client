@@ -9,44 +9,90 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.arrays.dto;
+package mada.tests.e2e.opts.generator.collections_empty.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 /**
  * ArraysDto
  */
+@JsonPropertyOrder({
+  ArraysDto.JSON_PROPERTY_BOOLEANS,
+  ArraysDto.JSON_PROPERTY_BYTES,
+  ArraysDto.JSON_PROPERTY_SHORTS,
+  ArraysDto.JSON_PROPERTY_INTS,
+  ArraysDto.JSON_PROPERTY_LONGS,
+  ArraysDto.JSON_PROPERTY_STRINGS,
+  ArraysDto.JSON_PROPERTY_REFS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_BOOLEANS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_BYTES,
+  ArraysDto.JSON_PROPERTY_REQUIRED_SHORTS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_INTS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_LONGS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_STRINGS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_REFS
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class ArraysDto   {
+  public static final String JSON_PROPERTY_BOOLEANS = "booleans";
+  @JsonProperty(JSON_PROPERTY_BOOLEANS)
   private List<Boolean> booleans = null;
 
+  public static final String JSON_PROPERTY_BYTES = "bytes";
+  @JsonProperty(JSON_PROPERTY_BYTES)
   private byte[] bytes;
 
+  public static final String JSON_PROPERTY_SHORTS = "shorts";
+  @JsonProperty(JSON_PROPERTY_SHORTS)
   private List<Short> shorts = null;
 
+  public static final String JSON_PROPERTY_INTS = "ints";
+  @JsonProperty(JSON_PROPERTY_INTS)
   private List<Integer> ints = null;
 
+  public static final String JSON_PROPERTY_LONGS = "longs";
+  @JsonProperty(JSON_PROPERTY_LONGS)
   private List<Long> longs = null;
 
+  public static final String JSON_PROPERTY_STRINGS = "strings";
+  @JsonProperty(JSON_PROPERTY_STRINGS)
   private List<String> strings = null;
 
+  public static final String JSON_PROPERTY_REFS = "refs";
+  @JsonProperty(JSON_PROPERTY_REFS)
   private List<Simple> refs = null;
 
+  public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
   private List<Boolean> requiredBooleans = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_BYTES)
   private byte[] requiredBytes;
 
+  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_SHORTS)
   private List<Short> requiredShorts = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_INTS)
   private List<Integer> requiredInts = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_LONGS)
   private List<Long> requiredLongs = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   private List<String> requiredStrings = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_REFS)
   private List<Simple> requiredRefs = new ArrayList<>();
 
   public ArraysDto booleans(List<Boolean> booleans) {
@@ -66,8 +112,15 @@ public class ArraysDto   {
    * Get booleans
    * @return booleans
    **/
-  public List<Boolean> getBooleans() {
+  public List<Boolean> getBooleansNullable() {
     return booleans;
+  }
+
+  public List<Boolean> getBooleans() {
+    if (this.booleans == null) {
+      this.booleans = new ArrayList<>();
+    }
+    return this.booleans;
   }
 
   public void setBooleans(List<Boolean> booleans) {
@@ -108,8 +161,15 @@ public class ArraysDto   {
    * Get shorts
    * @return shorts
    **/
-  public List<Short> getShorts() {
+  public List<Short> getShortsNullable() {
     return shorts;
+  }
+
+  public List<Short> getShorts() {
+    if (this.shorts == null) {
+      this.shorts = new ArrayList<>();
+    }
+    return this.shorts;
   }
 
   public void setShorts(List<Short> shorts) {
@@ -133,8 +193,15 @@ public class ArraysDto   {
    * Get ints
    * @return ints
    **/
-  public List<Integer> getInts() {
+  public List<Integer> getIntsNullable() {
     return ints;
+  }
+
+  public List<Integer> getInts() {
+    if (this.ints == null) {
+      this.ints = new ArrayList<>();
+    }
+    return this.ints;
   }
 
   public void setInts(List<Integer> ints) {
@@ -158,8 +225,15 @@ public class ArraysDto   {
    * Get longs
    * @return longs
    **/
-  public List<Long> getLongs() {
+  public List<Long> getLongsNullable() {
     return longs;
+  }
+
+  public List<Long> getLongs() {
+    if (this.longs == null) {
+      this.longs = new ArrayList<>();
+    }
+    return this.longs;
   }
 
   public void setLongs(List<Long> longs) {
@@ -183,8 +257,15 @@ public class ArraysDto   {
    * Get strings
    * @return strings
    **/
-  public List<String> getStrings() {
+  public List<String> getStringsNullable() {
     return strings;
+  }
+
+  public List<String> getStrings() {
+    if (this.strings == null) {
+      this.strings = new ArrayList<>();
+    }
+    return this.strings;
   }
 
   public void setStrings(List<String> strings) {
@@ -208,8 +289,15 @@ public class ArraysDto   {
    * Get refs
    * @return refs
    **/
-  public List<Simple> getRefs() {
+  public List<Simple> getRefsNullable() {
     return refs;
+  }
+
+  public List<Simple> getRefs() {
+    if (this.refs == null) {
+      this.refs = new ArrayList<>();
+    }
+    return this.refs;
   }
 
   public void setRefs(List<Simple> refs) {

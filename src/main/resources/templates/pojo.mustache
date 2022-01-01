@@ -46,13 +46,23 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   {{/vars}}
   {{#vars}}
   public {{classname}} {{name}}({{{datatypeWithEnum}}} {{name}}) {
+    {{#required}}
+    this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
+    {{/required}}
+    {{^required}}
     this.{{name}} = {{name}};
+    {{/required}}
     return this;
   }
   {{#mada.isUseBigDecimalForDouble}}
 
   public {{classname}} {{name}}(BigDecimal {{name}}) {
+    {{#required}}
+    this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
+    {{/required}}
+    {{^required}}
     this.{{name}} = {{name}} == null ? null : {{name}}.doubleValue();
+    {{/required}}
     return this;
   }
   {{/mada.isUseBigDecimalForDouble}}
@@ -120,18 +130,37 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
     return {{name}} == null ? null : new BigDecimal({{name}});
   }
   {{/mada.isUseBigDecimalForDouble}}
+  {{#mada.isUseEmptyCollections}}
+
+  public {{{datatypeWithEnum}}} {{mada.getter}}() {
+    if (this.{{name}} == null) {
+      this.{{name}} = {{{defaultValue}}};
+    }
+    return this.{{name}};
+  }
+  {{/mada.isUseEmptyCollections}}
 
   {{#vendorExtensions.x-setter-extra-annotation}}
   {{{vendorExtensions.x-setter-extra-annotation}}}
   {{/vendorExtensions.x-setter-extra-annotation}}
   public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
+    {{#required}}
+    this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
+    {{/required}}
+    {{^required}}
     this.{{name}} = {{name}};
+    {{/required}}
   }
   {{#mada.isUseBigDecimalForDouble}}
 
   @JsonIgnore
   public void {{mada.setter}}(BigDecimal {{name}}) {
+    {{#required}}
+    this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
+    {{/required}}
+    {{^required}}
     this.{{name}} = {{name}} == null ? null : {{name}}.doubleValue();
+    {{/required}}
   }
   {{/mada.isUseBigDecimalForDouble}}
 

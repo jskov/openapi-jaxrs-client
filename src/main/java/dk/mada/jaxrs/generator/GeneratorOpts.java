@@ -62,6 +62,10 @@ public class GeneratorOpts {
 		return bool("generator-use-bigdecimal-for-double");
 	}
 	
+	public boolean isUseEmptyCollections() {
+		return bool("generator-empty-collections");
+	}
+	
 	public String getGeneratedAtTime() {
 		if (isShowGenerationTimestamp()) {
 			return generatedAtTime;

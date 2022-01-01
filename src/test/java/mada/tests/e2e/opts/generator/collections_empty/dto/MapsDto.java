@@ -9,60 +9,130 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.maps.dto;
+package mada.tests.e2e.opts.generator.collections_empty.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 /**
  * MapsDto
  */
+@JsonPropertyOrder({
+  MapsDto.JSON_PROPERTY_BOOLEANS,
+  MapsDto.JSON_PROPERTY_BYTES,
+  MapsDto.JSON_PROPERTY_SHORTS,
+  MapsDto.JSON_PROPERTY_INTS,
+  MapsDto.JSON_PROPERTY_LONGS,
+  MapsDto.JSON_PROPERTY_STRINGS,
+  MapsDto.JSON_PROPERTY_REFS,
+  MapsDto.JSON_PROPERTY_REQUIRED_BOOLEANS,
+  MapsDto.JSON_PROPERTY_REQUIRED_BYTES,
+  MapsDto.JSON_PROPERTY_REQUIRED_SHORTS,
+  MapsDto.JSON_PROPERTY_REQUIRED_INTS,
+  MapsDto.JSON_PROPERTY_REQUIRED_LONGS,
+  MapsDto.JSON_PROPERTY_REQUIRED_STRINGS,
+  MapsDto.JSON_PROPERTY_REQUIRED_REFS,
+  MapsDto.JSON_PROPERTY_BOTH_BOOLEANS,
+  MapsDto.JSON_PROPERTY_BOTH_BYTES,
+  MapsDto.JSON_PROPERTY_BOTH_SHORTS,
+  MapsDto.JSON_PROPERTY_BOTH_INTS,
+  MapsDto.JSON_PROPERTY_BOTH_LONGS,
+  MapsDto.JSON_PROPERTY_BOTH_STRINGS,
+  MapsDto.JSON_PROPERTY_BOTH_REFS,
+  MapsDto.JSON_PROPERTY_OBJECTS
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class MapsDto   {
+  public static final String JSON_PROPERTY_BOOLEANS = "booleans";
+  @JsonProperty(JSON_PROPERTY_BOOLEANS)
   private Map<String, Boolean> booleans = null;
 
+  public static final String JSON_PROPERTY_BYTES = "bytes";
+  @JsonProperty(JSON_PROPERTY_BYTES)
   private Map<String, Byte> bytes = null;
 
+  public static final String JSON_PROPERTY_SHORTS = "shorts";
+  @JsonProperty(JSON_PROPERTY_SHORTS)
   private Map<String, Short> shorts = null;
 
+  public static final String JSON_PROPERTY_INTS = "ints";
+  @JsonProperty(JSON_PROPERTY_INTS)
   private Map<String, Integer> ints = null;
 
+  public static final String JSON_PROPERTY_LONGS = "longs";
+  @JsonProperty(JSON_PROPERTY_LONGS)
   private Map<String, Long> longs = null;
 
+  public static final String JSON_PROPERTY_STRINGS = "strings";
+  @JsonProperty(JSON_PROPERTY_STRINGS)
   private Map<String, String> strings = null;
 
+  public static final String JSON_PROPERTY_REFS = "refs";
+  @JsonProperty(JSON_PROPERTY_REFS)
   private Map<String, Simple> refs = null;
 
+  public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
   private Map<String, Boolean> requiredBooleans = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_BYTES)
   private Map<String, Byte> requiredBytes = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_SHORTS)
   private Map<String, Short> requiredShorts = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_INTS)
   private Map<String, Integer> requiredInts = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_LONGS)
   private Map<String, Long> requiredLongs = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   private Map<String, String> requiredStrings = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
+  @JsonProperty(JSON_PROPERTY_REQUIRED_REFS)
   private Map<String, Simple> requiredRefs = new HashMap<>();
 
+  public static final String JSON_PROPERTY_BOTH_BOOLEANS = "bothBooleans";
+  @JsonProperty(JSON_PROPERTY_BOTH_BOOLEANS)
   private Map<String, Boolean> bothBooleans = null;
 
+  public static final String JSON_PROPERTY_BOTH_BYTES = "bothBytes";
+  @JsonProperty(JSON_PROPERTY_BOTH_BYTES)
   private Map<String, Byte> bothBytes = null;
 
+  public static final String JSON_PROPERTY_BOTH_SHORTS = "bothShorts";
+  @JsonProperty(JSON_PROPERTY_BOTH_SHORTS)
   private Map<String, Short> bothShorts = null;
 
+  public static final String JSON_PROPERTY_BOTH_INTS = "bothInts";
+  @JsonProperty(JSON_PROPERTY_BOTH_INTS)
   private Map<String, Integer> bothInts = null;
 
+  public static final String JSON_PROPERTY_BOTH_LONGS = "bothLongs";
+  @JsonProperty(JSON_PROPERTY_BOTH_LONGS)
   private Map<String, Long> bothLongs = null;
 
+  public static final String JSON_PROPERTY_BOTH_STRINGS = "bothStrings";
+  @JsonProperty(JSON_PROPERTY_BOTH_STRINGS)
   private Map<String, String> bothStrings = null;
 
+  public static final String JSON_PROPERTY_BOTH_REFS = "bothRefs";
+  @JsonProperty(JSON_PROPERTY_BOTH_REFS)
   private Map<String, Simple> bothRefs = null;
 
+  public static final String JSON_PROPERTY_OBJECTS = "objects";
+  @JsonProperty(JSON_PROPERTY_OBJECTS)
   private Map<String, Object> objects = null;
 
   public MapsDto booleans(Map<String, Boolean> booleans) {
@@ -82,8 +152,15 @@ public class MapsDto   {
    * Get booleans
    * @return booleans
    **/
-  public Map<String, Boolean> getBooleans() {
+  public Map<String, Boolean> getBooleansNullable() {
     return booleans;
+  }
+
+  public Map<String, Boolean> getBooleans() {
+    if (this.booleans == null) {
+      this.booleans = new HashMap<>();
+    }
+    return this.booleans;
   }
 
   public void setBooleans(Map<String, Boolean> booleans) {
@@ -107,8 +184,15 @@ public class MapsDto   {
    * Get bytes
    * @return bytes
    **/
-  public Map<String, Byte> getBytes() {
+  public Map<String, Byte> getBytesNullable() {
     return bytes;
+  }
+
+  public Map<String, Byte> getBytes() {
+    if (this.bytes == null) {
+      this.bytes = new HashMap<>();
+    }
+    return this.bytes;
   }
 
   public void setBytes(Map<String, Byte> bytes) {
@@ -132,8 +216,15 @@ public class MapsDto   {
    * Get shorts
    * @return shorts
    **/
-  public Map<String, Short> getShorts() {
+  public Map<String, Short> getShortsNullable() {
     return shorts;
+  }
+
+  public Map<String, Short> getShorts() {
+    if (this.shorts == null) {
+      this.shorts = new HashMap<>();
+    }
+    return this.shorts;
   }
 
   public void setShorts(Map<String, Short> shorts) {
@@ -157,8 +248,15 @@ public class MapsDto   {
    * Get ints
    * @return ints
    **/
-  public Map<String, Integer> getInts() {
+  public Map<String, Integer> getIntsNullable() {
     return ints;
+  }
+
+  public Map<String, Integer> getInts() {
+    if (this.ints == null) {
+      this.ints = new HashMap<>();
+    }
+    return this.ints;
   }
 
   public void setInts(Map<String, Integer> ints) {
@@ -182,8 +280,15 @@ public class MapsDto   {
    * Get longs
    * @return longs
    **/
-  public Map<String, Long> getLongs() {
+  public Map<String, Long> getLongsNullable() {
     return longs;
+  }
+
+  public Map<String, Long> getLongs() {
+    if (this.longs == null) {
+      this.longs = new HashMap<>();
+    }
+    return this.longs;
   }
 
   public void setLongs(Map<String, Long> longs) {
@@ -207,8 +312,15 @@ public class MapsDto   {
    * Get strings
    * @return strings
    **/
-  public Map<String, String> getStrings() {
+  public Map<String, String> getStringsNullable() {
     return strings;
+  }
+
+  public Map<String, String> getStrings() {
+    if (this.strings == null) {
+      this.strings = new HashMap<>();
+    }
+    return this.strings;
   }
 
   public void setStrings(Map<String, String> strings) {
@@ -232,8 +344,15 @@ public class MapsDto   {
    * Get refs
    * @return refs
    **/
-  public Map<String, Simple> getRefs() {
+  public Map<String, Simple> getRefsNullable() {
     return refs;
+  }
+
+  public Map<String, Simple> getRefs() {
+    if (this.refs == null) {
+      this.refs = new HashMap<>();
+    }
+    return this.refs;
   }
 
   public void setRefs(Map<String, Simple> refs) {
@@ -418,8 +537,15 @@ public class MapsDto   {
    * Get bothBooleans
    * @return bothBooleans
    **/
-  public Map<String, Boolean> getBothBooleans() {
+  public Map<String, Boolean> getBothBooleansNullable() {
     return bothBooleans;
+  }
+
+  public Map<String, Boolean> getBothBooleans() {
+    if (this.bothBooleans == null) {
+      this.bothBooleans = new HashMap<>();
+    }
+    return this.bothBooleans;
   }
 
   public void setBothBooleans(Map<String, Boolean> bothBooleans) {
@@ -443,8 +569,15 @@ public class MapsDto   {
    * Get bothBytes
    * @return bothBytes
    **/
-  public Map<String, Byte> getBothBytes() {
+  public Map<String, Byte> getBothBytesNullable() {
     return bothBytes;
+  }
+
+  public Map<String, Byte> getBothBytes() {
+    if (this.bothBytes == null) {
+      this.bothBytes = new HashMap<>();
+    }
+    return this.bothBytes;
   }
 
   public void setBothBytes(Map<String, Byte> bothBytes) {
@@ -468,8 +601,15 @@ public class MapsDto   {
    * Get bothShorts
    * @return bothShorts
    **/
-  public Map<String, Short> getBothShorts() {
+  public Map<String, Short> getBothShortsNullable() {
     return bothShorts;
+  }
+
+  public Map<String, Short> getBothShorts() {
+    if (this.bothShorts == null) {
+      this.bothShorts = new HashMap<>();
+    }
+    return this.bothShorts;
   }
 
   public void setBothShorts(Map<String, Short> bothShorts) {
@@ -493,8 +633,15 @@ public class MapsDto   {
    * Get bothInts
    * @return bothInts
    **/
-  public Map<String, Integer> getBothInts() {
+  public Map<String, Integer> getBothIntsNullable() {
     return bothInts;
+  }
+
+  public Map<String, Integer> getBothInts() {
+    if (this.bothInts == null) {
+      this.bothInts = new HashMap<>();
+    }
+    return this.bothInts;
   }
 
   public void setBothInts(Map<String, Integer> bothInts) {
@@ -518,8 +665,15 @@ public class MapsDto   {
    * Get bothLongs
    * @return bothLongs
    **/
-  public Map<String, Long> getBothLongs() {
+  public Map<String, Long> getBothLongsNullable() {
     return bothLongs;
+  }
+
+  public Map<String, Long> getBothLongs() {
+    if (this.bothLongs == null) {
+      this.bothLongs = new HashMap<>();
+    }
+    return this.bothLongs;
   }
 
   public void setBothLongs(Map<String, Long> bothLongs) {
@@ -543,8 +697,15 @@ public class MapsDto   {
    * Get bothStrings
    * @return bothStrings
    **/
-  public Map<String, String> getBothStrings() {
+  public Map<String, String> getBothStringsNullable() {
     return bothStrings;
+  }
+
+  public Map<String, String> getBothStrings() {
+    if (this.bothStrings == null) {
+      this.bothStrings = new HashMap<>();
+    }
+    return this.bothStrings;
   }
 
   public void setBothStrings(Map<String, String> bothStrings) {
@@ -568,8 +729,15 @@ public class MapsDto   {
    * Get bothRefs
    * @return bothRefs
    **/
-  public Map<String, Simple> getBothRefs() {
+  public Map<String, Simple> getBothRefsNullable() {
     return bothRefs;
+  }
+
+  public Map<String, Simple> getBothRefs() {
+    if (this.bothRefs == null) {
+      this.bothRefs = new HashMap<>();
+    }
+    return this.bothRefs;
   }
 
   public void setBothRefs(Map<String, Simple> bothRefs) {
@@ -593,8 +761,15 @@ public class MapsDto   {
    * Get objects
    * @return objects
    **/
-  public Map<String, Object> getObjects() {
+  public Map<String, Object> getObjectsNullable() {
     return objects;
+  }
+
+  public Map<String, Object> getObjects() {
+    if (this.objects == null) {
+      this.objects = new HashMap<>();
+    }
+    return this.objects;
   }
 
   public void setObjects(Map<String, Object> objects) {

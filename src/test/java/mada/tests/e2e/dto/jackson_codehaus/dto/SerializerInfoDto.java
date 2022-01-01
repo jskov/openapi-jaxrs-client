@@ -171,7 +171,7 @@ public class SerializerInfoDto   {
   }
 
   public SerializerInfoDto mustInclude(String mustInclude) {
-    this.mustInclude = mustInclude;
+    this.mustInclude = Objects.requireNonNull(mustInclude, "Property mustInclude is required, cannot be null");
     return this;
   }
 
@@ -185,7 +185,7 @@ public class SerializerInfoDto   {
   }
 
   public void setMustInclude(String mustInclude) {
-    this.mustInclude = mustInclude;
+    this.mustInclude = Objects.requireNonNull(mustInclude, "Property mustInclude is required, cannot be null");
   }
 
   public SerializerInfoDto mpAnnotations(MicroprofileAnnotations mpAnnotations) {
