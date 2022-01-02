@@ -13,4 +13,6 @@ public interface CtxDtoExt {
 
 	@Nullable
 	String jacksonJsonSerializeOptions();
+	
+	boolean jsonb();
 }

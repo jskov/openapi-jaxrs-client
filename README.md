@@ -22,6 +22,69 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 
 ## Configuration
 
+**generator-api-package**
+
+>Name of package to generate API classes in. Required argument.
+>
+	alternative name: apiPackage
+
+**generator-dto-package**
+
+>Name of package to generate DTO classes in. Required argument.
+>
+	alternative name: modelPackage
+
+**generator-jackson-codehaus**
+
+>Use jackson (codehaus) annotations in generated classes.
+>
+	default value: false
+
+**generator-jackson-fasterxml**
+
+>Use jackson (fasterxml) annotations in generated classes.
+>
+	default value: false
+
+**generator-jsonb**
+
+>Use jsonb annotations in generated classes.
+>
+	default value: false
+
+**generator-jackson-json-serialize-options**
+
+>Allows you to add (jackson) json serialize options to the DTOs.
+
+>See [example](./src/test/java/mada/tests/e2e/opts/generator/jackson)
+>
+	default value:
+
+**generator-use-bigdecimal-for-double**
+
+>Allows you to replace double-type properties with `java.math.BigDecimal`.
+
+>The normal getter and setter (getFoo/setFoo) are replaced with BigDecimal-typed variants which are ignored by the serializer.
+>Additional double-typed getter and setter methods are added (getFooDouble/setFooDouble).
+
+>See [example](./src/test/java/mada/tests/e2e/opts/generator/bigdecimal_double)
+
+>
+	default value: false
+
+**generator-use-empty-collections**
+
+>Allows you to replace properties with (potential) null collections with empty collections.
+
+>The normal getter (getFoo) are will instantiate an empty collection if the property is null.
+>An additional getter (getFooNullable) is added which returns the property unaltered.
+
+>See [example](./src/test/java/mada/tests/e2e/opts/generator/collections_empty)
+
+>
+	default value: false
+
+
 **generator-use-zoneddatetime**
 
 >date-time types are deserialized to OffsetDateTime by default, which matches the information
@@ -39,6 +102,14 @@ instead of OffsetDateTime.
 
 >
 	default value: false
+
+**generator-use-generated-timestamp**
+
+>Allows you to include a timestamp in the @Generated-annotation in all generated classes.
+
+>
+	default value: false
+
 
 **parser-localtime-is-time**
 

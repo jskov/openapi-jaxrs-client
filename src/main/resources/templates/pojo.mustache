@@ -12,6 +12,13 @@
 @JsonSerialize({{{mada.jacksonJsonSerializeOptions}}})
 {{/mada.jacksonJsonSerializeOptions}}
 {{/jackson}}
+{{#mada.jsonb}}
+@JsonbPropertyOrder({
+{{#vars}}
+  {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
+{{/vars}}
+})
+{{/mada.jsonb}}
 {{>generatedAnnotation}}
 {{#todo}}
 {{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}{{#discriminator}}{{>typeInfoAnnotation}}{{/discriminator}}
@@ -32,10 +39,10 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";
   @JsonProperty(JSON_PROPERTY_{{nameInSnakeCase}})
   {{/jackson}}
-  {{#gson}}
-  public static final String SERIALIZED_NAME_{{nameInSnakeCase}} = "{{baseName}}";
-  @SerializedName(SERIALIZED_NAME_{{nameInSnakeCase}})
-  {{/gson}}
+  {{#mada.jsonb}}
+  public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";
+  @JsonbProperty(JSON_PROPERTY_{{nameInSnakeCase}})
+  {{/mada.jsonb}}
   {{#isContainer}}
   private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}}{{^required}} = null{{/required}};
   {{/isContainer}}

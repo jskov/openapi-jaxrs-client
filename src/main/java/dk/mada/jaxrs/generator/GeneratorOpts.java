@@ -63,7 +63,7 @@ public class GeneratorOpts {
 	}
 	
 	public boolean isUseEmptyCollections() {
-		return bool("generator-empty-collections");
+		return bool("generator-use-empty-collections");
 	}
 
 	public boolean isUseZonedDateTime() {
@@ -78,7 +78,7 @@ public class GeneratorOpts {
 	}
 	
 	private boolean isShowGenerationTimestamp() {
-		return bool("generator-show-generation-timestamp");
+		return bool("generator-use-generated-timestamp");
 	}
 
 	@SuppressWarnings("unused")

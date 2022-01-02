@@ -124,8 +124,14 @@ public class DtoGenerator {
 			dtoImports.add("org.codehaus.jackson.map.annotate.JsonSerialize");
 		}
 		
+		if (opts.isJsonb()) {
+			dtoImports.add("javax.json.bind.annotation.JsonbProperty");
+			dtoImports.add("javax.json.bind.annotation.JsonbPropertyOrder");
+		}
+		
 		CtxDtoExt mada = ImmutableCtxDtoExt.builder()
 				.jacksonJsonSerializeOptions(jacksonJsonSerializeOptions)
+				.jsonb(opts.isJsonb())
 				.build();
 		
 		return ImmutableCtxDto.builder()
@@ -236,6 +242,7 @@ public class DtoGenerator {
 				.isUseEmptyCollections(isUseEmptyCollections)
 				.getter(extGetter)
 				.setter(extSetter)
+				.jsonb(opts.isJsonb())
 				.build();
 		
 		return ImmutableCtxProperty.builder()
