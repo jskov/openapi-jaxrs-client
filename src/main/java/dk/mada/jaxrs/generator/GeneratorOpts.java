@@ -65,7 +65,11 @@ public class GeneratorOpts {
 	public boolean isUseEmptyCollections() {
 		return bool("generator-empty-collections");
 	}
-	
+
+	public boolean isUseZonedDateTime() {
+		return bool("generator-use-zoneddatetime");
+	}
+
 	public String getGeneratedAtTime() {
 		if (isShowGenerationTimestamp()) {
 			return generatedAtTime;

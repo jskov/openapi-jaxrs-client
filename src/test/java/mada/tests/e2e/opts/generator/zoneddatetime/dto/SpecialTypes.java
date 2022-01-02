@@ -9,12 +9,11 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.special_types.dto;
+package mada.tests.e2e.opts.generator.zoneddatetime.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -24,11 +23,11 @@ import java.util.Objects;
 public class SpecialTypes   {
   private BigDecimal aBigDecimal;
 
-  private OffsetDateTime zonedDateTime;
+  private ZonedDateTime zonedDateTime;
 
-  private OffsetDateTime offsetDateTime;
+  private ZonedDateTime offsetDateTime;
 
-  private OffsetDateTime localDateTime;
+  private ZonedDateTime localDateTime;
 
   private LocalDate localDate;
 
@@ -51,7 +50,7 @@ public class SpecialTypes   {
     this.aBigDecimal = aBigDecimal;
   }
 
-  public SpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
+  public SpecialTypes zonedDateTime(ZonedDateTime zonedDateTime) {
     this.zonedDateTime = zonedDateTime;
     return this;
   }
@@ -60,15 +59,15 @@ public class SpecialTypes   {
    * Get zonedDateTime
    * @return zonedDateTime
    **/
-  public OffsetDateTime getZonedDateTime() {
+  public ZonedDateTime getZonedDateTime() {
     return zonedDateTime;
   }
 
-  public void setZonedDateTime(OffsetDateTime zonedDateTime) {
+  public void setZonedDateTime(ZonedDateTime zonedDateTime) {
     this.zonedDateTime = zonedDateTime;
   }
 
-  public SpecialTypes offsetDateTime(OffsetDateTime offsetDateTime) {
+  public SpecialTypes offsetDateTime(ZonedDateTime offsetDateTime) {
     this.offsetDateTime = offsetDateTime;
     return this;
   }
@@ -77,15 +76,15 @@ public class SpecialTypes   {
    * Get offsetDateTime
    * @return offsetDateTime
    **/
-  public OffsetDateTime getOffsetDateTime() {
+  public ZonedDateTime getOffsetDateTime() {
     return offsetDateTime;
   }
 
-  public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
+  public void setOffsetDateTime(ZonedDateTime offsetDateTime) {
     this.offsetDateTime = offsetDateTime;
   }
 
-  public SpecialTypes localDateTime(OffsetDateTime localDateTime) {
+  public SpecialTypes localDateTime(ZonedDateTime localDateTime) {
     this.localDateTime = localDateTime;
     return this;
   }
@@ -94,11 +93,11 @@ public class SpecialTypes   {
    * Get localDateTime
    * @return localDateTime
    **/
-  public OffsetDateTime getLocalDateTime() {
+  public ZonedDateTime getLocalDateTime() {
     return localDateTime;
   }
 
-  public void setLocalDateTime(OffsetDateTime localDateTime) {
+  public void setLocalDateTime(ZonedDateTime localDateTime) {
     this.localDateTime = localDateTime;
   }
 

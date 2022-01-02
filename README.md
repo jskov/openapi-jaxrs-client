@@ -20,6 +20,49 @@ However, the intention is that the generated code covers the real-world needs I 
 And that the generated code can "round trip" via OpenApi to second-hand clients.
 
 
+## Configuration
+
+**generator-use-zoneddatetime**
+
+>date-time types are deserialized to OffsetDateTime by default, which matches the information
+provided by the [spec](https://xml2rfc.tools.ietf.org/public/rfc/html/rfc3339.html).
+>	
+>But your remote connection may provide additional zone info which allows deserialization to
+ZonedDateTime (depending on the deserializer implementation).
+>	
+>For example, `io.quarkus:quarkus-resteasy-jsonb` will serialize ZonedDateTime to:
+>	
+	`"2022-01-02T12:28:36.639812723+01:00[Europe/Copenhagen]"`
+>	
+>By enabling this option, the generated DTOs will have ZonedDateTime for properties
+instead of OffsetDateTime.
+
+>
+	default value: false
+
+**parser-localtime-is-time**
+
+>While there is no local-time definition in the [OpenApi spec](https://swagger.io/specification/#data-types),
+>the Quarkus open-api extension will output LocalTime types like this:
+
+>
+    LocalTime:
+      format: local-time
+      type: string
+      externalDocs:
+        description: As defined by 'partial-time' in RFC3339
+        url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+      example: 13:45.30.123456789
+
+>This option allows parsing of the type `LocalDate` to be treated by the generator as `java.time.LocalDate`.
+
+>It can be disabled if your remote connection uses the type name `LocalDate` for something bespoke.
+	
+>
+	default value: true
+
+
+
 ## Testing
 
 In Eclipse, add build/e2e as a source folder (and exclude **/*.java) to get easy access to test output.

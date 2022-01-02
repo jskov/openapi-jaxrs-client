@@ -13,6 +13,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Identifiers;
 import dk.mada.jaxrs.model.ByteArray;
 import dk.mada.jaxrs.model.Dto;
@@ -26,10 +27,14 @@ import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Type;
 import dk.mada.jaxrs.model.TypeBigDecimal;
+import dk.mada.jaxrs.model.TypeDate;
+import dk.mada.jaxrs.model.TypeDateTime;
 import dk.mada.jaxrs.model.TypeObject;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
+import io.swagger.v3.oas.models.media.DateSchema;
+import io.swagger.v3.oas.models.media.DateTimeSchema;
 import io.swagger.v3.oas.models.media.FileSchema;
 import io.swagger.v3.oas.models.media.MapSchema;
 import io.swagger.v3.oas.models.media.NumberSchema;
@@ -52,14 +57,16 @@ public class DtoTransformer {
 	@SuppressWarnings("rawtypes")
 	private final Map<String, Schema> allDefinitions;
 	private final ParserOpts opts;
+	private final GeneratorOpts generatorOpts;
 	private final Identifiers identifiers = new Identifiers();
 
-	public DtoTransformer(ParserOpts opts, OpenAPI specification) {
+	public DtoTransformer(ParserOpts opts, GeneratorOpts generatorOpts, OpenAPI specification) {
 		this.opts = opts;
+		this.generatorOpts = generatorOpts;
 		
     	allDefinitions = _OpenapiGenerator.getSchemas(specification);
     	
-    	dtos = new Dtos(allDefinitions.keySet());
+    	dtos = new Dtos(opts, allDefinitions.keySet());
 	}
 
 	public Dtos transform() {
@@ -191,6 +198,14 @@ public class DtoTransformer {
 		
 		if (schema instanceof NumberSchema ns) {
 			return TypeBigDecimal.get();
+		}
+		
+		if (schema instanceof DateTimeSchema) {
+			return TypeDateTime.get(generatorOpts);
+		}
+
+		if (schema instanceof DateSchema) {
+			return TypeDate.get();
 		}
 		
 		if (schema instanceof ObjectSchema o) {

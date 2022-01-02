@@ -15,7 +15,11 @@ public class ParserOpts {
 	public boolean isUnwrapByteArrayList() {
 		return bool("parser-unwrap-bytearray-list");
 	}
-	
+
+	public boolean isLocalTimeHandling() {
+		return bool("parser-localtime-is-time");
+	}
+
 	private boolean bool(String name) {
 		return Boolean.parseBoolean(options.getProperty(name));
 	}

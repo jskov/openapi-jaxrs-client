@@ -15,16 +15,15 @@ public class Generator {
 	
 	public void generate(Path input, Properties options, Path outputDir) {
 		var parserOpts = new ParserOpts(options);
-	    Model model = new Parser(parserOpts).parse(input);
+		var generatorOpts = new GeneratorOpts(options);
+	    Model model = new Parser(parserOpts, generatorOpts).parse(input);
 	    
 	    try {
 	    	Path apiDir = outputDir.resolve("api");
 		    Path dtoDir = outputDir.resolve("dto");
 		    
-		    GeneratorOpts genOpts = new GeneratorOpts(options);
-		    
-		    var templates = new Templates(genOpts);
-		    new DtoGenerator(genOpts, templates, model).generateDtoClasses(dtoDir);
+		    var templates = new Templates(generatorOpts);
+		    new DtoGenerator(generatorOpts, templates, model).generateDtoClasses(dtoDir);
 		    new ApiGenerator(templates, model).generateApiClasses(apiDir);
 		    
 	    } catch (Exception e) {

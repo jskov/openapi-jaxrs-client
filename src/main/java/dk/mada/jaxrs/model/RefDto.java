@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.model;
 
+import java.util.Set;
+
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -13,12 +15,17 @@ public interface RefDto extends Type {
 	String openapiName();
 	Dtos dtos();
 
-	default Dto dereference() {
+	default Type dereference() {
 		return dtos().dereference(this);
 	}
 	
 	@Override
 	default String typeName() {
-		return dereference().name();
+		return dereference().typeName();
+	}
+	
+	@Override
+	default Set<String> neededImports() {
+		return dereference().neededImports();
 	}
 }

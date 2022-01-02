@@ -3,6 +3,7 @@ package dk.mada.jaxrs.openapi;
 import java.nio.file.Path;
 import java.util.List;
 
+import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
@@ -19,9 +20,11 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
  */
 public class Parser {
 	private final ParserOpts opts;
+	private final GeneratorOpts generatorOpts;
 
-	public Parser(ParserOpts opts) {
+	public Parser(ParserOpts opts, GeneratorOpts generatorOpts) {
 		this.opts = opts;
+		this.generatorOpts = generatorOpts;
 	}
 	
 	public Model parse(Path input) {
@@ -36,7 +39,7 @@ public class Parser {
 
 	    Info info = new InfoTransformer().transform(specification);
 	    Operations ops = new OpsTransformer().transform(specification);
-	    Dtos types = new DtoTransformer(opts, specification).transform();
+	    Dtos types = new DtoTransformer(opts, generatorOpts, specification).transform();
 	    
 	    return new Model(info, ops, types);
 	}

@@ -7,8 +7,14 @@ import javax.annotation.Nullable;
 import org.immutables.value.Value.Immutable;
 
 @Immutable
-public interface Dto {
+public interface Dto extends Type {
 	String name();
+
+	@Override
+	default String typeName() {
+		return name();
+	}
+	
 	/** The name the DTO was identified by in the schema */
 	String openapiName();
 	List<Property> properties();
