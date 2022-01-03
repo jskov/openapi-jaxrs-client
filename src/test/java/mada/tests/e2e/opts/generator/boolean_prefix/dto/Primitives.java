@@ -9,7 +9,7 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.primitives.dto;
+package mada.tests.e2e.opts.generator.boolean_prefix.dto;
 
 import java.util.Objects;
 
@@ -43,7 +43,7 @@ public class Primitives   {
    * Get aBoolean
    * @return aBoolean
    **/
-  public Boolean isABoolean() {
+  public Boolean getABoolean() {
     return aBoolean;
   }
 

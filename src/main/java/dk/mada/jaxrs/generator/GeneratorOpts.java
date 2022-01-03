@@ -70,6 +70,10 @@ public class GeneratorOpts {
 		return bool("generator-use-zoneddatetime");
 	}
 
+	public boolean isUseBooleanGetPrefix() {
+		return bool("generator-use-boolean-get-prefix");
+	}
+	
 	public String getGeneratedAtTime() {
 		if (isShowGenerationTimestamp()) {
 			return generatedAtTime;

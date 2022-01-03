@@ -45,7 +45,7 @@ public class Primitives   {
    * Get aBoolean
    * @return aBoolean
    **/
-  public Boolean getABoolean() {
+  public Boolean isABoolean() {
     return aBoolean;
   }
 

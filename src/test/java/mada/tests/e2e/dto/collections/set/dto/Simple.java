@@ -29,7 +29,7 @@ public class Simple   {
    * Get aBoolean
    * @return aBoolean
    **/
-  public Boolean getABoolean() {
+  public Boolean isABoolean() {
     return aBoolean;
   }
 

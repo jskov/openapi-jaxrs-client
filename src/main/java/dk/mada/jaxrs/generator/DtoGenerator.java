@@ -210,7 +210,8 @@ public class DtoGenerator {
 			typeName = prim.wrapperType();
 		}
 
-		String getter = "get" + nameCamelized;
+		String getterPrefix = getterPrefix(p);
+		String getter = getterPrefix + nameCamelized;
 		String setter = "set" + nameCamelized;
 		String extGetter = getter;
 		String extSetter = setter;
@@ -263,6 +264,15 @@ public class DtoGenerator {
 				.example(p.example())
 				.mada(mada)
 				.build();
+	}
+
+	private String getterPrefix(Property p) {
+		boolean isBoolean = p.type() == Primitive.BOOLEAN;
+		String getterPrefix = "get";
+		if (isBoolean && !opts.isUseBooleanGetPrefix()) {
+			getterPrefix = "is";
+		}
+		return getterPrefix;
 	}
 	
 	private boolean isNotBlank(String s) {

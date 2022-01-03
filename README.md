@@ -72,6 +72,14 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 >
 	default value: false
 
+**generator-use-boolean-get-prefix**
+
+>Boolean getters are prefixed by 'is' by default. Enable this option to use 'get' instead.
+
+>
+	default value: false
+
+
 **generator-use-empty-collections**
 
 >Allows you to replace properties with (potential) null collections with empty collections.
