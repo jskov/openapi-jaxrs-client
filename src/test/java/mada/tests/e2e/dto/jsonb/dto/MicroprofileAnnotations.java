@@ -101,4 +101,3 @@ public class MicroprofileAnnotations   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

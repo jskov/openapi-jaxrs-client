@@ -76,4 +76,3 @@ public class MicroProfileAnnotationsPropsOnly   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

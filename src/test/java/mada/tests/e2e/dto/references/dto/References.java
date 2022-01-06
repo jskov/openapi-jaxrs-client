@@ -67,4 +67,3 @@ public class References   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

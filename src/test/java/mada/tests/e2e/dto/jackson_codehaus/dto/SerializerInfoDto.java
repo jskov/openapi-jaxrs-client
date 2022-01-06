@@ -268,4 +268,3 @@ public class SerializerInfoDto   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

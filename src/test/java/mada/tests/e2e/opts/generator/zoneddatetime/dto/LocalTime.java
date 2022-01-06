@@ -46,4 +46,3 @@ public class LocalTime   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

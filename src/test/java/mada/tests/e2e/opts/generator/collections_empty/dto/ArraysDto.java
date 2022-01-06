@@ -516,4 +516,3 @@ public class ArraysDto   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

@@ -19,6 +19,9 @@ public interface CtxDto {
 	String infoEmail();
 	
 	SortedSet<String> getImports();
+	default boolean hasImports() {
+		return !getImports().isEmpty();
+	}
 	
 	String packageName();
 	String classname();

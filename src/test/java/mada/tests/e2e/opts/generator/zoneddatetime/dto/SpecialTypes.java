@@ -175,4 +175,3 @@ public class SpecialTypes   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

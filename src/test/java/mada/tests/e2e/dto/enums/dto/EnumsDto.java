@@ -88,4 +88,3 @@ public class EnumsDto   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

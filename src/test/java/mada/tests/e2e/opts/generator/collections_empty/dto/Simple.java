@@ -74,4 +74,3 @@ public class Simple   {
     return Objects.toString(o).replace("\n", "\n    ");
   }
 }
-

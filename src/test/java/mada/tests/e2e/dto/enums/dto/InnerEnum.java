@@ -12,7 +12,6 @@
 package mada.tests.e2e.dto.enums.dto;
 
 
-
 /**
  * Gets or Sets 
  */
@@ -37,4 +36,3 @@ public enum InnerEnum {
     return String.valueOf(value);
   }
 }
-
