@@ -40,6 +40,7 @@ import io.swagger.v3.oas.models.media.MapSchema;
 import io.swagger.v3.oas.models.media.NumberSchema;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.media.StringSchema;
 
 /**
  * Transforms OpenApi dtos (models) to local model objects.
@@ -77,12 +78,15 @@ public class DtoTransformer {
     	allDefinitions.forEach((schemaName, schema) -> {
     		String modelName = getModelName(schemaName, schema);
 
+    		Type dtoType = getType(schema);
+    		
     		List<Property> props = readProperties(schema);
     		
     		List<String> enumValues = getEnumValues(schema);
     		
     		Dto dto = ImmutableDto.builder()
     			.name(modelName)
+    			.dtoType(dtoType)
     			.properties(props)
     			.openapiName(schemaName)
     			.enumValues(enumValues)
@@ -210,6 +214,10 @@ public class DtoTransformer {
 		
 		if (schema instanceof ObjectSchema o) {
 			return TypeObject.get();
+		}
+		
+		if (schema instanceof StringSchema s) {
+			return Primitive.STRING;
 		}
 
 		throw new IllegalStateException("No type found for " + schema);

@@ -9,18 +9,33 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.dto.enums.dto;
+package mada.tests.e2e.dto.enums.jsonb.dto;
 
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * EnumsDto
  */
+@JsonbPropertyOrder({
+  EnumsDto.JSON_PROPERTY_INNER,
+  EnumsDto.JSON_PROPERTY_EXTERNAL,
+  EnumsDto.JSON_PROPERTY_NUMBER
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class EnumsDto   {
+  public static final String JSON_PROPERTY_INNER = "inner";
+  @JsonbProperty(JSON_PROPERTY_INNER)
   private InnerEnum inner;
 
+  public static final String JSON_PROPERTY_EXTERNAL = "external";
+  @JsonbProperty(JSON_PROPERTY_EXTERNAL)
   private ExternalEnum external;
+
+  public static final String JSON_PROPERTY_NUMBER = "number";
+  @JsonbProperty(JSON_PROPERTY_NUMBER)
+  private NumberEnum number;
 
   public EnumsDto inner(InnerEnum inner) {
     this.inner = inner;
@@ -56,6 +71,23 @@ public class EnumsDto   {
     this.external = external;
   }
 
+  public EnumsDto number(NumberEnum number) {
+    this.number = number;
+    return this;
+  }
+
+  /**
+   * Get number
+   * @return number
+   **/
+  public NumberEnum getNumber() {
+    return number;
+  }
+
+  public void setNumber(NumberEnum number) {
+    this.number = number;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -66,12 +98,13 @@ public class EnumsDto   {
     }
     EnumsDto other = (EnumsDto) o;
     return Objects.equals(this.inner, other.inner) &&
-        Objects.equals(this.external, other.external);
+        Objects.equals(this.external, other.external) &&
+        Objects.equals(this.number, other.number);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inner, external);
+    return Objects.hash(inner, external, number);
   }
 
   @Override
@@ -80,6 +113,7 @@ public class EnumsDto   {
     sb.append("class EnumsDto {");
     sb.append("\n    inner: ").append(toIndentedString(inner));
     sb.append("\n    external: ").append(toIndentedString(external));
+    sb.append("\n    number: ").append(toIndentedString(number));
     sb.append("\n}");
     return sb.toString();
   }

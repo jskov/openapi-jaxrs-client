@@ -10,6 +10,9 @@ import org.immutables.value.Value.Immutable;
 public interface Dto extends Type {
 	String name();
 
+	/** The type of the DTO object */
+	Type dtoType();
+	
 	@Override
 	default String typeName() {
 		return name();

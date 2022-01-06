@@ -1,0 +1,44 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/enums:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnumsDto'
+components:
+  schemas:
+    EnumsDto:
+      type: object
+      properties:
+        inner:
+          $ref: '#/components/schemas/InnerEnum'
+        external:
+          $ref: '#/components/schemas/ExternalEnum'
+        number:
+          $ref: '#/components/schemas/NumberEnum'
+    ExternalEnum:
+      enum:
+      - E
+      - F
+      type: string
+    InnerEnum:
+      enum:
+      - I
+      - J
+      type: string
+    NumberEnum:
+      enum:
+      - 1
+      - 2
+      type: integer
+      format: int32

@@ -13,6 +13,7 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.generator.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDtoExt;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum;
@@ -33,6 +34,7 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.Type;
 import dk.mada.jaxrs.openapi._OpenapiGenerator;
 
 public class DtoGenerator {
@@ -82,17 +84,20 @@ public class DtoGenerator {
 			.collect(toList());
 		
 		CtxEnum ctxEnum = null;
-		if (dto.isEnum()) {
-			List<CtxEnumEntry> values = dto.enumValues().stream()
-					.map(this::toEnumEntry)
+		boolean isEnum = dto.isEnum();
+		if (isEnum) {
+			List<CtxEnumEntry> entries = new EnumNamer(dto.dtoType(), dto.enumValues())
+					.getEntries().stream()
+					.map(e -> toEnumEntry(dto.dtoType(), e))
 					.collect(toList());
+			
 			ctxEnum = ImmutableCtxEnum.builder()
-					.enumVars(values)
+					.enumVars(entries)
 					.build();
 		}
 		
 		SortedSet<String> dtoImports = new TreeSet<>();
-		if (dto.isEnum()) {
+		if (isEnum) {
 			dtoImports.addAll(ENUM_TEMPLATE_IMPORTS);
 		} else {
 			dtoImports.addAll(POJO_TEMPLATE_IMPORTS);
@@ -110,24 +115,44 @@ public class DtoGenerator {
 		}
 
 		if (opts.isJacksonFasterxml()) {
-			dtoImports.add("com.fasterxml.jackson.annotation.JsonProperty");
-			dtoImports.add("com.fasterxml.jackson.annotation.JsonPropertyOrder");
+			if (isEnum) {
+				dtoImports.add("java.util.Objects");
+				dtoImports.add("com.fasterxml.jackson.annotation.JsonValue");
+				dtoImports.add("com.fasterxml.jackson.annotation.JsonCreator");
+			} else {
+				dtoImports.add("com.fasterxml.jackson.annotation.JsonProperty");
+				dtoImports.add("com.fasterxml.jackson.annotation.JsonPropertyOrder");
+			}
 		}
 		
 		if (opts.isJacksonCodehaus()) {
-			dtoImports.add("org.codehaus.jackson.annotate.JsonProperty");
-			dtoImports.add("org.codehaus.jackson.annotate.JsonPropertyOrder");
+			if (isEnum) {
+				dtoImports.add("java.util.Objects");
+				dtoImports.add("org.codehaus.jackson.annotate.JsonValue");
+				dtoImports.add("org.codehaus.jackson.annotate.JsonCreator");
+			} else {
+				dtoImports.add("org.codehaus.jackson.annotate.JsonProperty");
+				dtoImports.add("org.codehaus.jackson.annotate.JsonPropertyOrder");
+			}
 		}		 
-		
+
+		if (opts.isJsonb()) {
+			if (isEnum) {
+				dtoImports.add("javax.json.Json");
+				dtoImports.add("javax.json.JsonString");
+				dtoImports.add("javax.json.bind.adapter.JsonbAdapter");
+				dtoImports.add("javax.json.bind.annotation.JsonbTypeAdapter");
+			} else {
+				dtoImports.add("javax.json.bind.annotation.JsonbProperty");
+				dtoImports.add("javax.json.bind.annotation.JsonbPropertyOrder");
+			}
+		}
+
 		String jacksonJsonSerializeOptions = opts.getJsonSerializeOptions();
 		if (jacksonJsonSerializeOptions != null) {
 			dtoImports.add("org.codehaus.jackson.map.annotate.JsonSerialize");
 		}
 		
-		if (opts.isJsonb()) {
-			dtoImports.add("javax.json.bind.annotation.JsonbProperty");
-			dtoImports.add("javax.json.bind.annotation.JsonbPropertyOrder");
-		}
 		
 		CtxDtoExt mada = ImmutableCtxDtoExt.builder()
 				.jacksonJsonSerializeOptions(jacksonJsonSerializeOptions)
@@ -149,7 +174,7 @@ public class DtoGenerator {
 				.vars(vars)
 				
 				.allowableValues(ctxEnum)
-				.dataType("String")
+				.dataType(dto.dtoType().typeName())
 				
 				.jackson(opts.isJackson())
 				
@@ -161,10 +186,14 @@ public class DtoGenerator {
 				.build();
 	}
 
-	private CtxEnumEntry toEnumEntry(String v) {
+	private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
+		String strValue = e.value();
+		if (enumType != Primitive.INT) {
+			strValue = "\"" + strValue + "\"";
+		}
 		return ImmutableCtxEnumEntry.builder()
-				.name(v)
-				.value("\"" + v + "\"")
+				.name(e.name())
+				.value(strValue)
 				.build();
 	}
 
