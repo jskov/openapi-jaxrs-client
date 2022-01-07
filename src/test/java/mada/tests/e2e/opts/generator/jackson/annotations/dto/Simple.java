@@ -9,7 +9,7 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.opts.generator.jackson.dto;
+package mada.tests.e2e.opts.generator.jackson.annotations.dto;
 
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonProperty;

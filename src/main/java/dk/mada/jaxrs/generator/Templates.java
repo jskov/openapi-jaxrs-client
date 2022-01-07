@@ -19,6 +19,7 @@ import com.samskivert.mustache.Template;
 
 import dk.mada.jaxrs.GeneratorException;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
+import dk.mada.jaxrs.generator.tmpl.dto.CtxExtra;
 
 public class Templates {
 	@SuppressWarnings("unused")
@@ -43,6 +44,14 @@ public class Templates {
 		}
 	}
 
+	public void writeExtra(String tmplName, CtxExtra context, Path outputFile) {
+		try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
+			compileTemplate(tmplName).execute(context, w);
+		} catch (IOException e) {
+			throw new GeneratorException("Failed to generate Extra " + outputFile, e);
+		}
+	}
+	
 	public void writeDto(CtxDto context, Path outputFile) {
 		try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
 			dtoTemplate.execute(context, w);

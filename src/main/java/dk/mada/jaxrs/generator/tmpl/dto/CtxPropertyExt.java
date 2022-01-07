@@ -19,6 +19,4 @@ public interface CtxPropertyExt {
 	
 	String getter();
 	String setter();
-	
-	boolean jsonb();
 }

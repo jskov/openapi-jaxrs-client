@@ -1,6 +1,5 @@
 package dk.mada.jaxrs.generator.tmpl.dto;
 
-import java.util.List;
 import java.util.SortedSet;
 
 import javax.annotation.Nullable;
@@ -8,41 +7,27 @@ import javax.annotation.Nullable;
 import org.immutables.value.Value.Immutable;
 
 /**
- * Context passed to Mustache when compiling a model.
+ * Context passed to Mustache when compiling an extra template.
  */
 @Immutable
-public interface CtxDto {
+public interface CtxExtra {
 	String appName();
 	String appDescription();
 	String version();
 	@Nullable
 	String infoEmail();
-	
+
 	SortedSet<String> getImports();
 	default boolean hasImports() {
 		return !getImports().isEmpty();
 	}
 	
 	String packageName();
-	String classname();
-	/** used in equals method */
-	String classVarName();
-	
-	List<CtxProperty> vars();
-	default boolean hasVars() {
-		return !vars().isEmpty();
-	}
-	
-	@Nullable
-	CtxEnum allowableValues();
-	@Nullable
-	String dataType();
-	default boolean isEnum() {
-		return allowableValues() != null;
-	};
-	
-	boolean jackson();
-	
+
+	boolean jacksonCodehaus();
+	boolean jacksonFasterxml();
+	boolean jsonb();
+
 	String generatorClass();
 	@Nullable
 	String generatedDate();
@@ -50,6 +35,7 @@ public interface CtxDto {
 	default boolean hideGenerationTimestamp() {
 		return generatedDate() == null;
 	}
-
-	CtxDtoExt madaDto();
+	
+	@Nullable
+	String cannedLocalDateSerializerDTF();
 }

@@ -27,11 +27,12 @@ public interface CtxProperty {
 	boolean isMap();
 	boolean isSet();
 	boolean isContainer();
+	boolean isDate();
 	
 	boolean required();
 	
 	@Nullable
 	String example();
 	
-	CtxPropertyExt mada();
+	CtxPropertyExt madaProp();
 }

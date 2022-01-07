@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -18,12 +19,14 @@ import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDtoExt;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum.CtxEnumEntry;
+import dk.mada.jaxrs.generator.tmpl.dto.CtxExtra;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxProperty;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxPropertyExt;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxDto;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxDtoExt;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnum;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnumEntry;
+import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxExtra;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxProperty;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxPropertyExt;
 import dk.mada.jaxrs.model.ContainerArray;
@@ -35,11 +38,14 @@ import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Type;
+import dk.mada.jaxrs.model.TypeDate;
 import dk.mada.jaxrs.openapi._OpenapiGenerator;
 
 public class DtoGenerator {
 	private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
 
+	private static final String GENERATOR_CLASS = DtoGenerator.class.getName();
+	
 	private static final SortedSet<String> POJO_TEMPLATE_IMPORTS = new TreeSet<>(Set.of(
 			"java.util.Objects"
 			));
@@ -50,6 +56,7 @@ public class DtoGenerator {
 	private final Templates templates;
 	private final Model model;
 	private final Identifiers identifiers = new Identifiers();
+	private final Set<String> extraTemplates = new HashSet<>();
 
 	public DtoGenerator(GeneratorOpts opts, Templates templates, Model model) {
 		this.opts = opts;
@@ -68,10 +75,72 @@ public class DtoGenerator {
 				
 				CtxDto ctx = toCtx(type);
 				
+				logger.info("{} ctx: {}", name, ctx);
+				
 				templates.writeDto(ctx, dtoFile);
 			});
+		
+		extraTemplates.forEach(name -> {
+			logger.info(" generate extra {}", name);
+
+			CtxExtra ctx = makeCtxExtra(name);
+			
+			Path extraFile = dtoDir.resolve(name + ".java");
+			templates.writeExtra(name, ctx, extraFile);
+		});
 	}
 	
+	private CtxExtra makeCtxExtra(String name) {
+		SortedSet<String> imports = new TreeSet<>();
+		
+		String jacksonLocalDateWireFormat = opts.getJacksonLocalDateWireFormat();
+		if (jacksonLocalDateWireFormat != null) {
+			imports.add("java.io.IOException");
+			imports.add("java.time.LocalDate");
+			imports.add("java.time.format.DateTimeFormatter");
+			
+			if (opts.isJacksonCodehaus()) {
+				if (name.contains("Deseria")) {
+					imports.add("org.codehaus.jackson.JsonParser");
+					imports.add("org.codehaus.jackson.map.DeserializationContext");
+					imports.add("org.codehaus.jackson.map.JsonDeserializer");
+				} else {
+					imports.add("org.codehaus.jackson.JsonGenerator");
+					imports.add("org.codehaus.jackson.map.SerializerProvider");
+					imports.add("org.codehaus.jackson.map.JsonSerializer");
+					imports.add("org.codehaus.jackson.JsonProcessingException");
+				}
+			} else {
+				if (name.contains("Deseria")) {
+					imports.add("com.fasterxml.jackson.core.JsonParser");
+					imports.add("com.fasterxml.jackson.databind.DeserializationContext");
+					imports.add("com.fasterxml.jackson.databind.JsonDeserializer");
+				} else {
+					imports.add("com.fasterxml.jackson.core.JsonGenerator");
+					imports.add("com.fasterxml.jackson.core.JsonProcessingException");
+					imports.add("com.fasterxml.jackson.databind.JsonSerializer");
+					imports.add("com.fasterxml.jackson.databind.SerializerProvider");
+				}
+			}
+		}
+
+		Info info = model.info();
+		return ImmutableCtxExtra.builder()
+				.appName(info.title())
+				.appDescription(info.description())
+				.version(info.version())
+				.infoEmail(info.contact().email())
+				.generatedDate(opts.getGeneratedAtTime())
+				.generatorClass(GENERATOR_CLASS)
+				.imports(imports)
+				.jacksonCodehaus(opts.isJacksonCodehaus())
+				.jacksonFasterxml(opts.isJacksonFasterxml())
+				.jsonb(opts.isJsonb())
+				.packageName(opts.dtoPackage())
+				.cannedLocalDateSerializerDTF(jacksonLocalDateWireFormat)
+				.build();
+	}
+
 	private String dtoOutputName(Dto dto) {
 		return dto.name() + ".java";
 	}
@@ -105,15 +174,35 @@ public class DtoGenerator {
 		dto.properties().stream()
 			.forEach(p -> dtoImports.addAll(p.type().neededImports()));
 
-		if (vars.stream().anyMatch(p -> p.mada().isRenderApiModelProperty())) {
+		if (vars.stream().anyMatch(p -> p.madaProp().isRenderApiModelProperty())) {
 			dtoImports.add("io.swagger.annotations.ApiModelProperty");
 		}
 		
-		if (vars.stream().anyMatch(p -> p.mada().isUseBigDecimalForDouble())) {
+		if (vars.stream().anyMatch(p -> p.madaProp().isUseBigDecimalForDouble())) {
 			dtoImports.add("org.codehaus.jackson.annotate.JsonIgnore");
 			dtoImports.add("java.math.BigDecimal");
 		}
 
+		String customLocalDateDeserializer = null;
+		String customLocalDateSerializer = null;
+		
+		if (opts.isUseJacksonLocalDateSerializer()
+				&& dto.properties().stream().anyMatch(p -> p.type() == TypeDate.get())) {
+			extraTemplates.add("_LocalDateJacksonDeserializer");
+			extraTemplates.add("_LocalDateJacksonSerializer");
+
+			customLocalDateDeserializer = "_LocalDateJacksonDeserializer";
+			customLocalDateSerializer = "_LocalDateJacksonSerializer";
+			
+			if (opts.isJacksonFasterxml()) {
+				dtoImports.add("com.fasterxml.jackson.databind.annotation.JsonDeserialize");
+				dtoImports.add("com.fasterxml.jackson.databind.annotation.JsonSerialize");
+			} else {
+				dtoImports.add("org.codehaus.jackson.map.annotate.JsonDeserialize");
+				dtoImports.add("org.codehaus.jackson.map.annotate.JsonSerialize");
+			}
+		}
+		
 		if (opts.isJacksonFasterxml()) {
 			if (isEnum) {
 				dtoImports.add("java.util.Objects");
@@ -153,10 +242,11 @@ public class DtoGenerator {
 			dtoImports.add("org.codehaus.jackson.map.annotate.JsonSerialize");
 		}
 		
-		
 		CtxDtoExt mada = ImmutableCtxDtoExt.builder()
 				.jacksonJsonSerializeOptions(jacksonJsonSerializeOptions)
 				.jsonb(opts.isJsonb())
+				.customLocalDateDeserializer(customLocalDateDeserializer)
+				.customLocalDateSerializer(customLocalDateSerializer)
 				.build();
 		
 		return ImmutableCtxDto.builder()
@@ -178,10 +268,10 @@ public class DtoGenerator {
 				
 				.jackson(opts.isJackson())
 				
-				.generatorClass(this.getClass().getName())
+				.generatorClass(GENERATOR_CLASS)
 				.generatedDate(opts.getGeneratedAtTime())
 				
-				.mada(mada)
+				.madaDto(mada)
 				
 				.build();
 	}
@@ -211,8 +301,9 @@ public class DtoGenerator {
 		boolean isArray = false;
 		boolean isMap = false;
 		boolean isSet = false;
+		boolean isDate = p.type() instanceof TypeDate;
 		String innerType = null;
-
+		
 		if (p.type() instanceof ContainerArray ca) {
 			isArray = true;
 			innerType = ca.innerType().typeName();
@@ -272,7 +363,6 @@ public class DtoGenerator {
 				.isUseEmptyCollections(isUseEmptyCollections)
 				.getter(extGetter)
 				.setter(extSetter)
-				.jsonb(opts.isJsonb())
 				.build();
 		
 		return ImmutableCtxProperty.builder()
@@ -288,10 +378,11 @@ public class DtoGenerator {
 				.isMap(isMap)
 				.isSet(isSet)
 				.isContainer(isContainer)
+				.isDate(isDate)
 				.defaultValue(defaultValue)
 				.required(isRequired)
 				.example(p.example())
-				.mada(mada)
+				.madaProp(mada)
 				.build();
 	}
 

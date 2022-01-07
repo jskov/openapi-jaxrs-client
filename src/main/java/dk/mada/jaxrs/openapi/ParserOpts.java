@@ -17,10 +17,14 @@ public class ParserOpts {
 	}
 
 	public boolean isLocalTimeHandling() {
-		return bool("parser-localtime-is-time");
+		return bool("parser-localtime-is-time", true);
 	}
 
 	private boolean bool(String name) {
-		return Boolean.parseBoolean(options.getProperty(name));
+		return bool(name, false);
+	}
+	
+	private boolean bool(String name, boolean defaultValue) {
+		return Boolean.parseBoolean(options.getProperty(name, Boolean.toString(defaultValue)));
 	}
 }

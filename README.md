@@ -60,6 +60,16 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 >
 	default value:
 
+**generator-jackson-localdate-wire-format**
+
+>Allows you specify a LocalDate wire format that is used with a standard de/serializer.
+
+>The specified value is used as a constant/factory method on DateTimeFormatter in the de/serializer classes.
+
+>See [example](./src/test/java/mada/tests/e2e/opts/generator/localdate)
+>
+	default value:
+
 **generator-use-bigdecimal-for-double**
 
 >Allows you to replace double-type properties with `java.math.BigDecimal`.

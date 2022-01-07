@@ -13,6 +13,11 @@ public interface CtxDtoExt {
 
 	@Nullable
 	String jacksonJsonSerializeOptions();
+
+	@Nullable
+	String customLocalDateDeserializer();
+	@Nullable
+	String customLocalDateSerializer();
 	
 	boolean jsonb();
 }

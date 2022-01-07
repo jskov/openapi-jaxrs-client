@@ -58,6 +58,17 @@ public class GeneratorOpts {
 		return get("generator-jackson-json-serialize-options");
 	}
 
+	public boolean isUseJacksonLocalDateSerializer() {
+		return getJacksonLocalDateWireFormat() != null;
+	}
+
+	public String getJacksonLocalDateWireFormat() {
+		if (!isJackson()) {
+			return null;
+		}
+		return get("generator-jackson-localdate-wire-format");
+	}
+
 	public boolean isUseBigDecimalForDouble() {
 		return bool("generator-use-bigdecimal-for-double");
 	}
