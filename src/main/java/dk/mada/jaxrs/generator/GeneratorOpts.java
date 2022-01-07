@@ -51,6 +51,10 @@ public class GeneratorOpts {
 		return activatedSerializerApis == 0 || bool("generator-jsonb");
 	}
 
+	public boolean isUseJsonSerializeOptions() {
+		return getJsonSerializeOptions() != null;
+	}
+	
 	public String getJsonSerializeOptions() {
 		if (!isJackson()) {
 			return null;

@@ -5,11 +5,8 @@ import static java.util.stream.Collectors.toList;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,17 +43,16 @@ public class DtoGenerator {
 
 	private static final String GENERATOR_CLASS = DtoGenerator.class.getName();
 	
-	private static final SortedSet<String> POJO_TEMPLATE_IMPORTS = new TreeSet<>(Set.of(
-			"java.util.Objects"
-			));
-	private static final SortedSet<String> ENUM_TEMPLATE_IMPORTS = new TreeSet<>(Set.of(
-			));
-
+	enum ExtraTemplate {
+		_LocalDateJacksonDeserializer,
+		_LocalDateJacksonSerializer
+	}
+	
 	private final GeneratorOpts opts;
 	private final Templates templates;
 	private final Model model;
 	private final Identifiers identifiers = new Identifiers();
-	private final Set<String> extraTemplates = new HashSet<>();
+	private final EnumSet<ExtraTemplate> extraTemplates = EnumSet.noneOf(ExtraTemplate.class);
 
 	public DtoGenerator(GeneratorOpts opts, Templates templates, Model model) {
 		this.opts = opts;
@@ -80,50 +76,20 @@ public class DtoGenerator {
 				templates.writeDto(ctx, dtoFile);
 			});
 		
-		extraTemplates.forEach(name -> {
-			logger.info(" generate extra {}", name);
+		extraTemplates.forEach(tmpl -> {
+			logger.info(" generate extra {}", tmpl);
 
-			CtxExtra ctx = makeCtxExtra(name);
+			CtxExtra ctx = makeCtxExtra(tmpl);
 			
-			Path extraFile = dtoDir.resolve(name + ".java");
-			templates.writeExtra(name, ctx, extraFile);
+			String tmplName = tmpl.name();
+			Path extraFile = dtoDir.resolve(tmplName + ".java");
+			templates.writeExtra(tmplName, ctx, extraFile);
 		});
 	}
 	
-	private CtxExtra makeCtxExtra(String name) {
-		SortedSet<String> imports = new TreeSet<>();
+	private CtxExtra makeCtxExtra(ExtraTemplate tmpl) {
+		var imports = Imports.newExtras(opts, tmpl);
 		
-		String jacksonLocalDateWireFormat = opts.getJacksonLocalDateWireFormat();
-		if (jacksonLocalDateWireFormat != null) {
-			imports.add("java.io.IOException");
-			imports.add("java.time.LocalDate");
-			imports.add("java.time.format.DateTimeFormatter");
-			
-			if (opts.isJacksonCodehaus()) {
-				if (name.contains("Deseria")) {
-					imports.add("org.codehaus.jackson.JsonParser");
-					imports.add("org.codehaus.jackson.map.DeserializationContext");
-					imports.add("org.codehaus.jackson.map.JsonDeserializer");
-				} else {
-					imports.add("org.codehaus.jackson.JsonGenerator");
-					imports.add("org.codehaus.jackson.map.SerializerProvider");
-					imports.add("org.codehaus.jackson.map.JsonSerializer");
-					imports.add("org.codehaus.jackson.JsonProcessingException");
-				}
-			} else {
-				if (name.contains("Deseria")) {
-					imports.add("com.fasterxml.jackson.core.JsonParser");
-					imports.add("com.fasterxml.jackson.databind.DeserializationContext");
-					imports.add("com.fasterxml.jackson.databind.JsonDeserializer");
-				} else {
-					imports.add("com.fasterxml.jackson.core.JsonGenerator");
-					imports.add("com.fasterxml.jackson.core.JsonProcessingException");
-					imports.add("com.fasterxml.jackson.databind.JsonSerializer");
-					imports.add("com.fasterxml.jackson.databind.SerializerProvider");
-				}
-			}
-		}
-
 		Info info = model.info();
 		return ImmutableCtxExtra.builder()
 				.appName(info.title())
@@ -132,12 +98,12 @@ public class DtoGenerator {
 				.infoEmail(info.contact().email())
 				.generatedDate(opts.getGeneratedAtTime())
 				.generatorClass(GENERATOR_CLASS)
-				.imports(imports)
+				.imports(imports.get())
 				.jacksonCodehaus(opts.isJacksonCodehaus())
 				.jacksonFasterxml(opts.isJacksonFasterxml())
 				.jsonb(opts.isJsonb())
 				.packageName(opts.dtoPackage())
-				.cannedLocalDateSerializerDTF(jacksonLocalDateWireFormat)
+				.cannedLocalDateSerializerDTF(opts.getJacksonLocalDateWireFormat())
 				.build();
 	}
 
@@ -165,85 +131,27 @@ public class DtoGenerator {
 					.build();
 		}
 		
-		SortedSet<String> dtoImports = new TreeSet<>();
-		if (isEnum) {
-			dtoImports.addAll(ENUM_TEMPLATE_IMPORTS);
-		} else {
-			dtoImports.addAll(POJO_TEMPLATE_IMPORTS);
-		}
-		dto.properties().stream()
-			.forEach(p -> dtoImports.addAll(p.type().neededImports()));
+		var dtoImports = isEnum ? Imports.newEnum(opts) : Imports.newPojo(opts);
 
-		if (vars.stream().anyMatch(p -> p.madaProp().isRenderApiModelProperty())) {
-			dtoImports.add("io.swagger.annotations.ApiModelProperty");
-		}
-		
-		if (vars.stream().anyMatch(p -> p.madaProp().isUseBigDecimalForDouble())) {
-			dtoImports.add("org.codehaus.jackson.annotate.JsonIgnore");
-			dtoImports.add("java.math.BigDecimal");
-		}
+		dtoImports.addPropertyImports(dto.properties());
+		dtoImports.addCtxPropImports(vars);
 
 		String customLocalDateDeserializer = null;
 		String customLocalDateSerializer = null;
 		
 		if (opts.isUseJacksonLocalDateSerializer()
 				&& dto.properties().stream().anyMatch(p -> p.type() == TypeDate.get())) {
-			extraTemplates.add("_LocalDateJacksonDeserializer");
-			extraTemplates.add("_LocalDateJacksonSerializer");
+			extraTemplates.add(ExtraTemplate._LocalDateJacksonDeserializer);
+			extraTemplates.add(ExtraTemplate._LocalDateJacksonSerializer);
 
-			customLocalDateDeserializer = "_LocalDateJacksonDeserializer";
-			customLocalDateSerializer = "_LocalDateJacksonSerializer";
+			customLocalDateDeserializer = ExtraTemplate._LocalDateJacksonDeserializer.name();
+			customLocalDateSerializer = ExtraTemplate._LocalDateJacksonSerializer.name();
 			
-			if (opts.isJacksonFasterxml()) {
-				dtoImports.add("com.fasterxml.jackson.databind.annotation.JsonDeserialize");
-				dtoImports.add("com.fasterxml.jackson.databind.annotation.JsonSerialize");
-			} else {
-				dtoImports.add("org.codehaus.jackson.map.annotate.JsonDeserialize");
-				dtoImports.add("org.codehaus.jackson.map.annotate.JsonSerialize");
-			}
-		}
-		
-		if (opts.isJacksonFasterxml()) {
-			if (isEnum) {
-				dtoImports.add("java.util.Objects");
-				dtoImports.add("com.fasterxml.jackson.annotation.JsonValue");
-				dtoImports.add("com.fasterxml.jackson.annotation.JsonCreator");
-			} else {
-				dtoImports.add("com.fasterxml.jackson.annotation.JsonProperty");
-				dtoImports.add("com.fasterxml.jackson.annotation.JsonPropertyOrder");
-			}
-		}
-		
-		if (opts.isJacksonCodehaus()) {
-			if (isEnum) {
-				dtoImports.add("java.util.Objects");
-				dtoImports.add("org.codehaus.jackson.annotate.JsonValue");
-				dtoImports.add("org.codehaus.jackson.annotate.JsonCreator");
-			} else {
-				dtoImports.add("org.codehaus.jackson.annotate.JsonProperty");
-				dtoImports.add("org.codehaus.jackson.annotate.JsonPropertyOrder");
-			}
-		}		 
-
-		if (opts.isJsonb()) {
-			if (isEnum) {
-				dtoImports.add("javax.json.Json");
-				dtoImports.add("javax.json.JsonString");
-				dtoImports.add("javax.json.bind.adapter.JsonbAdapter");
-				dtoImports.add("javax.json.bind.annotation.JsonbTypeAdapter");
-			} else {
-				dtoImports.add("javax.json.bind.annotation.JsonbProperty");
-				dtoImports.add("javax.json.bind.annotation.JsonbPropertyOrder");
-			}
-		}
-
-		String jacksonJsonSerializeOptions = opts.getJsonSerializeOptions();
-		if (jacksonJsonSerializeOptions != null) {
-			dtoImports.add("org.codehaus.jackson.map.annotate.JsonSerialize");
+			dtoImports.jackson("JsonDeserialize", "JsonSerialize");
 		}
 		
 		CtxDtoExt mada = ImmutableCtxDtoExt.builder()
-				.jacksonJsonSerializeOptions(jacksonJsonSerializeOptions)
+				.jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
 				.jsonb(opts.isJsonb())
 				.customLocalDateDeserializer(customLocalDateDeserializer)
 				.customLocalDateSerializer(customLocalDateSerializer)
@@ -255,7 +163,7 @@ public class DtoGenerator {
 				.version(info.version())
 				.infoEmail(info.contact().email())
 				
-				.imports(dtoImports)
+				.imports(dtoImports.get())
 
 				.packageName(opts.dtoPackage())
 				.classname(dto.name())
@@ -294,7 +202,7 @@ public class DtoGenerator {
 		String nameCamelized = _OpenapiGenerator.camelize(varName);
 		String nameSnaked = _OpenapiGenerator.underscore(nameCamelized).toUpperCase();
 		
-		logger.info("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
+		logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 		
 		String defaultValue = null;
 		boolean isRequired = p.isRequired();

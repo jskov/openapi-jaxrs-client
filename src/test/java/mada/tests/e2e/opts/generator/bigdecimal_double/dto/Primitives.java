@@ -14,26 +14,54 @@ package mada.tests.e2e.opts.generator.bigdecimal_double.dto;
 import java.math.BigDecimal;
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 /**
  * Primitives
  */
+@JsonPropertyOrder({
+  Primitives.JSON_PROPERTY_A_BOOLEAN,
+  Primitives.JSON_PROPERTY_A_BYTE,
+  Primitives.JSON_PROPERTY_A_SHORT,
+  Primitives.JSON_PROPERTY_AN_INT,
+  Primitives.JSON_PROPERTY_A_LONG,
+  Primitives.JSON_PROPERTY_A_FLOAT,
+  Primitives.JSON_PROPERTY_A_DOUBLE,
+  Primitives.JSON_PROPERTY_A_STRING
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class Primitives   {
+  public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
+  @JsonProperty(JSON_PROPERTY_A_BOOLEAN)
   private Boolean aBoolean;
 
+  public static final String JSON_PROPERTY_A_BYTE = "aByte";
+  @JsonProperty(JSON_PROPERTY_A_BYTE)
   private Byte aByte;
 
+  public static final String JSON_PROPERTY_A_SHORT = "aShort";
+  @JsonProperty(JSON_PROPERTY_A_SHORT)
   private Short aShort;
 
+  public static final String JSON_PROPERTY_AN_INT = "anInt";
+  @JsonProperty(JSON_PROPERTY_AN_INT)
   private Integer anInt;
 
+  public static final String JSON_PROPERTY_A_LONG = "aLong";
+  @JsonProperty(JSON_PROPERTY_A_LONG)
   private Long aLong;
 
+  public static final String JSON_PROPERTY_A_FLOAT = "aFloat";
+  @JsonProperty(JSON_PROPERTY_A_FLOAT)
   private Float aFloat;
 
+  public static final String JSON_PROPERTY_A_DOUBLE = "aDouble";
+  @JsonProperty(JSON_PROPERTY_A_DOUBLE)
   private Double aDouble;
 
+  public static final String JSON_PROPERTY_A_STRING = "aString";
+  @JsonProperty(JSON_PROPERTY_A_STRING)
   private String aString;
 
   public Primitives aBoolean(Boolean aBoolean) {

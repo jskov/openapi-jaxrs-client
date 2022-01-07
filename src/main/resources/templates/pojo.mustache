@@ -140,7 +140,9 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   }
   {{#madaProp.isUseBigDecimalForDouble}}
 
+  {{#jackson}}
   @JsonIgnore
+  {{/jackson}}
   public BigDecimal {{madaProp.getter}}() {
     return {{name}} == null ? null : new BigDecimal({{name}});
   }
