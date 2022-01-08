@@ -129,7 +129,44 @@ instead of OffsetDateTime.
 	default value: false
 
 
-**parser-localtime-is-time**
+**parser-localdate-is-jse**
+
+>This option allows parsing of the component schema `LocalDate` to be treated by the generator as Java SE `java.time.LocalDate`.
+
+>It can be disabled if your remote connection uses the type name `LocalDate` for something bespoke.
+
+>
+	default value: true
+
+**parser-localdatetime-is-jse**
+
+>This option allows parsing of the component schema `LocalDateTime` to be treated by the generator as Java SE `java.time.OffsetDateTime`.
+
+>It can be disabled if your remote connection uses the type name `LocalDateTime` for something bespoke.
+
+>
+	default value: true
+
+**parser-offsetdatetime-is-jse**
+
+>This option allows parsing of the component schema `OffsetDateTime` to be treated by the generator as Java SE `java.time.OffsetDateTime`.
+
+>It can be disabled if your remote connection uses the type name `OffsetDateTime` for something bespoke.
+
+>
+	default value: true
+
+**parser-zoneddatetime-is-jse**
+
+>This option allows parsing of the component schema `ZonedDateTime` to be treated by the generator as Java SE `java.time.OffsetDateTime`.
+
+>It can be disabled if your remote connection uses the type name `ZonedDateTime` for something bespoke.
+
+>
+	default value: true
+
+
+**parser-localtime-is-jse**
 
 >While there is no local-time definition in the [OpenApi spec](https://swagger.io/specification/#data-types),
 >the Quarkus open-api extension will output LocalTime types like this:
@@ -143,13 +180,12 @@ instead of OffsetDateTime.
         url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
       example: 13:45.30.123456789
 
->This option allows parsing of the type `LocalDate` to be treated by the generator as `java.time.LocalDate`.
+>This option allows parsing of the component schema `LocalTime` to be treated by the generator as Java SE `java.time.LocalTime`.
 
->It can be disabled if your remote connection uses the type name `LocalDate` for something bespoke.
+>It can be disabled if your remote connection uses the type name `LocalTime` for something bespoke.
 	
 >
 	default value: true
-
 
 
 ## Testing

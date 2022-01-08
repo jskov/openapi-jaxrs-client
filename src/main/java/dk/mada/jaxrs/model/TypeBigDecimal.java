@@ -6,6 +6,7 @@ import java.util.Set;
  * Special type for handing number schema.
  */
 public class TypeBigDecimal implements Type {
+	public static final String BIG_DECIMAL = "BigDecimal";
 	private static final TypeBigDecimal object = new TypeBigDecimal();
 	
 	private TypeBigDecimal() {
@@ -17,7 +18,7 @@ public class TypeBigDecimal implements Type {
 	
 	@Override
 	public String typeName() {
-		return "BigDecimal";
+		return BIG_DECIMAL;
 	}
 	
 	@Override

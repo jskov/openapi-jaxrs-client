@@ -1,0 +1,27 @@
+    ExternedDateTypes:
+      type: object
+      properties:
+        bigDecimal:
+          $ref: '#/components/schemas/BigDecimal'
+        zonedDateTime:
+          $ref: '#/components/schemas/ZonedDateTime'
+        offsetDateTime:
+          $ref: '#/components/schemas/OffsetDateTime'
+        dateTime:
+          $ref: '#/components/schemas/LocalDateTime'
+        date:
+          $ref: '#/components/schemas/LocalDate'
+    LocalDateTime:
+      format: date-time
+      type: string
+    ZonedDateTime:
+      format: date-time
+      type: string
+    OffsetDateTime:
+      format: date-time
+      type: string
+    LocalDate:
+      format: date
+      type: string
+    BigDecimal:
+      type: number

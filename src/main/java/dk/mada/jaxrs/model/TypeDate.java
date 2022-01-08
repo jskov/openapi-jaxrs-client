@@ -6,6 +6,7 @@ import java.util.Set;
  * Special type for handing date schema.
  */
 public class TypeDate implements Type {
+	public static final String TYPE_LOCAL_DATE = "LocalDate";
 	private static final TypeDate object = new TypeDate();
 	
 	private TypeDate() {
@@ -17,7 +18,7 @@ public class TypeDate implements Type {
 	
 	@Override
 	public String typeName() {
-		return "LocalDate";
+		return TYPE_LOCAL_DATE;
 	}
 	
 	@Override

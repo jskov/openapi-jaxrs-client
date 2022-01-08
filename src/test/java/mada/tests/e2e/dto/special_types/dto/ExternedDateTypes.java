@@ -13,28 +13,25 @@ package mada.tests.e2e.dto.special_types.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 /**
- * SpecialTypes
+ * ExternedDateTypes
  */
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
-public class SpecialTypes   {
+public class ExternedDateTypes   {
   private BigDecimal bigDecimal;
 
   private OffsetDateTime zonedDateTime;
 
   private OffsetDateTime offsetDateTime;
 
-  private OffsetDateTime localDateTime;
+  private OffsetDateTime dateTime;
 
-  private LocalDate localDate;
+  private LocalDate date;
 
-  private LocalTime localTime;
-
-  public SpecialTypes bigDecimal(BigDecimal bigDecimal) {
+  public ExternedDateTypes bigDecimal(BigDecimal bigDecimal) {
     this.bigDecimal = bigDecimal;
     return this;
   }
@@ -51,7 +48,7 @@ public class SpecialTypes   {
     this.bigDecimal = bigDecimal;
   }
 
-  public SpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
+  public ExternedDateTypes zonedDateTime(OffsetDateTime zonedDateTime) {
     this.zonedDateTime = zonedDateTime;
     return this;
   }
@@ -68,7 +65,7 @@ public class SpecialTypes   {
     this.zonedDateTime = zonedDateTime;
   }
 
-  public SpecialTypes offsetDateTime(OffsetDateTime offsetDateTime) {
+  public ExternedDateTypes offsetDateTime(OffsetDateTime offsetDateTime) {
     this.offsetDateTime = offsetDateTime;
     return this;
   }
@@ -85,55 +82,38 @@ public class SpecialTypes   {
     this.offsetDateTime = offsetDateTime;
   }
 
-  public SpecialTypes localDateTime(OffsetDateTime localDateTime) {
-    this.localDateTime = localDateTime;
+  public ExternedDateTypes dateTime(OffsetDateTime dateTime) {
+    this.dateTime = dateTime;
     return this;
   }
 
   /**
-   * Get localDateTime
-   * @return localDateTime
+   * Get dateTime
+   * @return dateTime
    **/
-  public OffsetDateTime getLocalDateTime() {
-    return localDateTime;
+  public OffsetDateTime getDateTime() {
+    return dateTime;
   }
 
-  public void setLocalDateTime(OffsetDateTime localDateTime) {
-    this.localDateTime = localDateTime;
+  public void setDateTime(OffsetDateTime dateTime) {
+    this.dateTime = dateTime;
   }
 
-  public SpecialTypes localDate(LocalDate localDate) {
-    this.localDate = localDate;
+  public ExternedDateTypes date(LocalDate date) {
+    this.date = date;
     return this;
   }
 
   /**
-   * Get localDate
-   * @return localDate
+   * Get date
+   * @return date
    **/
-  public LocalDate getLocalDate() {
-    return localDate;
+  public LocalDate getDate() {
+    return date;
   }
 
-  public void setLocalDate(LocalDate localDate) {
-    this.localDate = localDate;
-  }
-
-  public SpecialTypes localTime(LocalTime localTime) {
-    this.localTime = localTime;
-    return this;
-  }
-
-  /**
-   * Get localTime
-   * @return localTime
-   **/
-  public LocalTime getLocalTime() {
-    return localTime;
-  }
-
-  public void setLocalTime(LocalTime localTime) {
-    this.localTime = localTime;
+  public void setDate(LocalDate date) {
+    this.date = date;
   }
 
   @Override
@@ -144,30 +124,28 @@ public class SpecialTypes   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SpecialTypes other = (SpecialTypes) o;
+    ExternedDateTypes other = (ExternedDateTypes) o;
     return Objects.equals(this.bigDecimal, other.bigDecimal) &&
         Objects.equals(this.zonedDateTime, other.zonedDateTime) &&
         Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
-        Objects.equals(this.localDateTime, other.localDateTime) &&
-        Objects.equals(this.localDate, other.localDate) &&
-        Objects.equals(this.localTime, other.localTime);
+        Objects.equals(this.dateTime, other.dateTime) &&
+        Objects.equals(this.date, other.date);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, localDateTime, localDate, localTime);
+    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, dateTime, date);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SpecialTypes {");
+    sb.append("class ExternedDateTypes {");
     sb.append("\n    bigDecimal: ").append(toIndentedString(bigDecimal));
     sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
     sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
-    sb.append("\n    localDateTime: ").append(toIndentedString(localDateTime));
-    sb.append("\n    localDate: ").append(toIndentedString(localDate));
-    sb.append("\n    localTime: ").append(toIndentedString(localTime));
+    sb.append("\n    dateTime: ").append(toIndentedString(dateTime));
+    sb.append("\n    date: ").append(toIndentedString(date));
     sb.append("\n}");
     return sb.toString();
   }

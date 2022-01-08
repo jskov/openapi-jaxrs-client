@@ -67,7 +67,7 @@ public class DtoTransformer {
 		
     	allDefinitions = _OpenapiGenerator.getSchemas(specification);
     	
-    	dtos = new Dtos(opts, allDefinitions.keySet());
+    	dtos = new Dtos(opts, generatorOpts, allDefinitions.keySet());
 	}
 
 	public Dtos transform() {
@@ -209,6 +209,7 @@ public class DtoTransformer {
 		}
 
 		if (schema instanceof DateSchema) {
+			logger.info(" {} : TypeDate", schema.getName());
 			return TypeDate.get();
 		}
 		
