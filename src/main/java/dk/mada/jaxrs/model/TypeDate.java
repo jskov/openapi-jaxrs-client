@@ -25,4 +25,9 @@ public class TypeDate implements Type {
 	public Set<String> neededImports() {
 		return Set.of("java.time.LocalDate");
 	}
+	
+	@Override
+	public boolean isDate() {
+		return true;
+	}
 }

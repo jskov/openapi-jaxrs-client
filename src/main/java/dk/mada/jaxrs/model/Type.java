@@ -8,4 +8,9 @@ public interface Type {
 	default Set<String> neededImports() {
 		return Set.of();
 	}
+	
+	default boolean isBigDecimal() { return false; }
+	default boolean isDate() { return false; }
+	default boolean isDateTime() { return false; }
+	default boolean isTime() { return false; }
 }

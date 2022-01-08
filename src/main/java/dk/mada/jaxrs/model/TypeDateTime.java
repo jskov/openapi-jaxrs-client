@@ -32,4 +32,9 @@ public class TypeDateTime implements Type {
 	public Set<String> neededImports() {
 		return neededImports;
 	}
+	
+	@Override
+	public boolean isDateTime() {
+		return true;
+	}
 }

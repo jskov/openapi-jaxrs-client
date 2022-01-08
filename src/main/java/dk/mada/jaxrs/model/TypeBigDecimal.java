@@ -25,4 +25,9 @@ public class TypeBigDecimal implements Type {
 	public Set<String> neededImports() {
 		return Set.of("java.math.BigDecimal");
 	}
+	
+	@Override
+	public boolean isBigDecimal() {
+		return true;
+	}
 }

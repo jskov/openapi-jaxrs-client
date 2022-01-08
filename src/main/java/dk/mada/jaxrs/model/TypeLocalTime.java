@@ -38,4 +38,9 @@ public class TypeLocalTime implements Type {
 	public Set<String> neededImports() {
 		return Set.of("java.time.LocalTime");
 	}
+	
+	@Override
+	public boolean isTime() {
+		return true;
+	}
 }

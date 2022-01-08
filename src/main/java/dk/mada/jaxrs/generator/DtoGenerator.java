@@ -140,8 +140,8 @@ public class DtoGenerator {
 		String customLocalDateSerializer = null;
 		
 		if (opts.isUseJacksonLocalDateSerializer()
-				&& (dto.dtoType() == TypeDate.get()
-					|| dto.properties().stream().anyMatch(p -> p.type() == TypeDate.get()))) {
+				&& (dto.dtoType().isDate()
+					|| dto.properties().stream().anyMatch(p -> p.type().isDate()))) {
 			extraTemplates.add(ExtraTemplate._LocalDateJacksonDeserializer);
 			extraTemplates.add(ExtraTemplate._LocalDateJacksonSerializer);
 
