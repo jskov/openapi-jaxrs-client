@@ -15,9 +15,30 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.openapi.ParserOpts;
 
+/**
+ * Types used in the model for the specification.
+ * 
+ * Some types will (depending on user options) be converted to
+ * standard JSE types. This is mainly used for some specifications
+ * where the OpenApi types are not used directly in properties,
+ * but instead use a reference to a standalone DTO with the same
+ * representation.
+ * 
+ * As the specification has been parsed, the DTOs are consolidated;
+ * ListFoo-types are changed to List<Foo>. Again, this is due to some
+ * specifications not using array on the property, but instead references
+ * a standalone list-type.
+ */
 public class Types {
 	private static final Logger logger = LoggerFactory.getLogger(Types.class);
+	/**
+	 * Types mapped to JSE standard types.
+	 */
 	private final Map<TypeName, Type> mappedToJseTypes = new HashMap<>();
+	/**
+	 * JSE standard types that were not mapped (because the user opted
+	 * to keep them as DTOs).
+	 */
 	private final Set<TypeName> unmappedToJseTypes = new HashSet<>();
 	private final Map<TypeName, Dto> parsedDtos = new HashMap<>();
 	private final Map<TypeName, Type> remappedDtoTypes = new HashMap<>();

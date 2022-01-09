@@ -68,15 +68,11 @@ public class DtoTransformer {
 	public void transform(OpenAPI specification) {
 		readSpec(specification);
 		
-		System.out.println("--- BEFORE CONSOLIDATION");
-		types.getActiveDtos().stream()
-			.sorted((a, b) -> a.name().compareTo(b.name()))
-			.forEach(d -> logger.info(" {} {}", d.name(), d.openapiId()));
-
-
 		types.consolidateDtos();
-		System.out.println("--- AFTER CONSOLIDATION");
+	}
 
+	@SuppressWarnings("unused")
+	private void printTypes() {
 		types.getActiveDtos().stream()
 			.sorted((a, b) -> a.name().compareTo(b.name()))
 			.forEach(d -> logger.info(" {} {}", d.name(), d.openapiId()));

@@ -26,7 +26,6 @@ import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
-import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeRef;
 import dk.mada.jaxrs.model.types.TypeSet;
@@ -61,7 +60,8 @@ public class DtoGenerator {
 	
 	public void generateDtoClasses(Path dtoDir) throws IOException {
 		Files.createDirectories(dtoDir);
-		types.getActiveDtos()
+		types.getActiveDtos().stream()
+			.sorted((a, b) -> a.name().compareTo(b.name()))
 			.forEach(type -> {
 				String name = type.name();
 				logger.info(" generate type {}", name);
@@ -119,10 +119,11 @@ public class DtoGenerator {
 		
 		CtxEnum ctxEnum = null;
 		boolean isEnum = dto.isEnum();
+		Type dtoType = derefType(dto.dtoType());
 		if (isEnum) {
-			List<CtxEnumEntry> entries = new EnumNamer(dto.dtoType(), dto.enumValues())
+			List<CtxEnumEntry> entries = new EnumNamer(dtoType, dto.enumValues())
 					.getEntries().stream()
-					.map(e -> toEnumEntry(dto.dtoType(), e))
+					.map(e -> toEnumEntry(dtoType, e))
 					.collect(toList());
 			
 			ctxEnum = new CtxEnum(entries);
@@ -137,7 +138,7 @@ public class DtoGenerator {
 		String customLocalDateSerializer = null;
 		
 		if (opts.isUseJacksonLocalDateSerializer()
-				&& (dto.dtoType().isDate()
+				&& (dtoType.isDate()
 					|| dto.properties().stream().anyMatch(p -> p.type().isDate()))) {
 			extraTemplates.add(ExtraTemplate._LocalDateJacksonDeserializer);
 			extraTemplates.add(ExtraTemplate._LocalDateJacksonSerializer);
@@ -170,7 +171,7 @@ public class DtoGenerator {
 				.vars(vars)
 				
 				.allowableValues(ctxEnum)
-				.dataType(dto.dtoType().typeName().name())
+				.dataType(dtoType.typeName().name())
 				
 				.jackson(opts.isJackson())
 				
@@ -199,10 +200,7 @@ public class DtoGenerator {
 		
 		logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
-		Type propType = types.map(p.type());
-		if (propType instanceof TypeRef tr) {
-			propType = tr.dereference();
-		}
+		Type propType = derefType(p.type());
 		logger.trace(" {}", propType);
 
 		String defaultValue = null;
@@ -210,7 +208,7 @@ public class DtoGenerator {
 		boolean isArray = false;
 		boolean isMap = false;
 		boolean isSet = false;
-		boolean isDate = propType instanceof TypeDate;
+		boolean isDate = propType.isDate();
 		String innerType = null;
 		
 		if (propType instanceof TypeArray ca) {
@@ -292,6 +290,14 @@ public class DtoGenerator {
 				.build();
 	}
 
+	private Type derefType(Type t) {
+		Type mapped = types.map(t);
+		if (mapped instanceof TypeRef tr) {
+			return tr.dereference();
+		}
+		return mapped;
+	}
+	
 	private String getterPrefix(Property p) {
 		boolean isBoolean = p.type() == Primitive.BOOLEAN;
 		String getterPrefix = "get";

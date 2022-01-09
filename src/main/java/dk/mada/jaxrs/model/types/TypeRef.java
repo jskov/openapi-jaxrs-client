@@ -34,9 +34,28 @@ public interface TypeRef extends Type {
 		return dereference().typeName();
 	}
 
-	// FIXME: this should go!
 	@Override
 	default Set<String> neededImports() {
 		return dereference().neededImports();
+	}
+	
+	@Override
+	default boolean isBigDecimal() {
+		return dereference().isBigDecimal();
+	}
+	
+	@Override
+	default boolean isDate() {
+		return dereference().isDate();
+	}
+	
+	@Override
+	default boolean isDateTime() {
+		return dereference().isDateTime();
+	}
+	
+	@Override
+	default boolean isTime() {
+		return dereference().isTime();
 	}
 }
