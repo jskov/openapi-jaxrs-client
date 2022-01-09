@@ -100,6 +100,10 @@ public class GeneratorOpts {
 		return bool("generator-use-generated-timestamp");
 	}
 
+	public String getEnumNumberPrefix() {
+		return getDefault("generator-enum-prefix-number", "NUMBER_");
+	}
+
 	@SuppressWarnings("unused")
 	private boolean bool(String name, String compatOptionName) {
 		return Boolean.parseBoolean(get(name, compatOptionName));
@@ -114,6 +118,14 @@ public class GeneratorOpts {
 		String value = options.getProperty(name, compat);
 		if (value == null) {
 			return null;
+		}
+		return value.trim();
+	}
+
+	private String getDefault(String name, String defaultValue) {
+		String value = options.getProperty(name);
+		if (value == null) {
+			return defaultValue;
 		}
 		return value.trim();
 	}

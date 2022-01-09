@@ -121,7 +121,7 @@ public class DtoGenerator {
 		boolean isEnum = dto.isEnum();
 		Type dtoType = derefType(dto.dtoType());
 		if (isEnum) {
-			List<CtxEnumEntry> entries = new EnumNamer(dtoType, dto.enumValues())
+			List<CtxEnumEntry> entries = new EnumNamer(opts, dtoType, dto.enumValues())
 					.getEntries().stream()
 					.map(e -> toEnumEntry(dtoType, e))
 					.collect(toList());

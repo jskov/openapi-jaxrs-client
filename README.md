@@ -34,6 +34,14 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 >
 	alternative name: modelPackage
 
+**generator-enum-prefix-number**
+
+>Allows you to replace the prefix used in enum naming of numbers.
+
+>
+	default value: NUMBER_
+
+
 **generator-jackson-codehaus**
 
 >Use jackson (codehaus) annotations in generated classes.

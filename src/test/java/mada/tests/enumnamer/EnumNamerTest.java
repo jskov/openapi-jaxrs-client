@@ -5,19 +5,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
 import dk.mada.jaxrs.GeneratorException;
 import dk.mada.jaxrs.generator.EnumNamer;
 import dk.mada.jaxrs.generator.EnumNamer.EnumNameValue;
+import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeObject;
 
 public class EnumNamerTest {
+	private static final GeneratorOpts opts = new GeneratorOpts(new Properties());
+	
 	@Test
 	void usesNumerPrefixForNumberTypes() {
-		var sut = new EnumNamer(Primitive.INT, List.of("1", "3", "2"));
+		var sut = mkSut(Primitive.INT, List.of("1", "3", "2"));
 		
 		assertThat(str(sut.getEntries()))
 				.isEqualTo("NUMBER_1:1, NUMBER_3:3, NUMBER_2:2");
@@ -25,7 +30,7 @@ public class EnumNamerTest {
 
 	@Test
 	void useSuffixCaseOnConflicts1() {
-		var sut = new EnumNamer(TypeObject.get(), List.of("aaa", "Aaa", "aaA"));
+		var sut = mkSut(TypeObject.get(), List.of("aaa", "Aaa", "aaA"));
 		
 		assertThat(str(sut.getEntries()))
 				.isEqualTo("AAA_aaa:aaa, AAA_Aaa:Aaa, AAA_aaA:aaA");
@@ -33,7 +38,7 @@ public class EnumNamerTest {
 
 	@Test
 	void useSuffixCaseOnConflicts2() {
-		var sut = new EnumNamer(TypeObject.get(), List.of("aaa?", "Aaa!"));
+		var sut = mkSut(TypeObject.get(), List.of("aaa?", "Aaa!"));
 		
 		assertThat(str(sut.getEntries()))
 				.isEqualTo("AAA__aaa_:aaa?, AAA__Aaa_:Aaa!");
@@ -45,7 +50,7 @@ public class EnumNamerTest {
 	 */
 	@Test
 	void useSuffixNumbersOnOtherConflicts1() {
-		var sut = new EnumNamer(TypeObject.get(), List.of("bad?", "bad!", "badAA"));
+		var sut = mkSut(TypeObject.get(), List.of("bad?", "bad!", "badAA"));
 		
 		assertThat(str(sut.getEntries()))
 				.isEqualTo("BAD__1:bad?, BAD__2:bad!, BADAA:badAA");
@@ -57,12 +62,16 @@ public class EnumNamerTest {
 	 */
 	@Test
 	void cannotBeHandledAtPresent() {
-		assertThrows(GeneratorException.class, () -> new EnumNamer(TypeObject.get(), List.of("bad?", "bad!", "ok", "bad__1")));
+		assertThrows(GeneratorException.class, () -> mkSut(TypeObject.get(), List.of("bad?", "bad!", "ok", "bad__1")));
 	}
 
 	private String str(List<EnumNameValue> entries) {
 		return entries.stream()
 			.map(e -> e.name() + ":" + e.value())
 			.collect(joining(", "));
+	}
+
+	private EnumNamer mkSut(Type enumValueType, List<String> values) {
+		return new EnumNamer(opts, enumValueType, values);
 	}
 }

@@ -35,13 +35,17 @@ public class EnumNamer {
 	private final List<EnumNameValue> nameToValues = new ArrayList<>();
 	private final List<String> values;
 	private final Set<String> assignedNames = new HashSet<>();
-	
+
+	private final String numberPrefix;
+
 	public record EnumNameValue(String name, String value) {};
 	
-	public EnumNamer(Type enumValueType, List<String> values) {
+	public EnumNamer(GeneratorOpts opts, Type enumValueType, List<String> values) {
 		this.enumValueType = enumValueType;
 		this.values = values;
 
+		this.numberPrefix = opts.getEnumNumberPrefix();
+		
 		assignNames();
 	}
 	
@@ -94,7 +98,7 @@ public class EnumNamer {
 	
 	private String simpleNamer(String n) {
 		if (enumValueType == Primitive.INT) {
-			return "NUMBER_" + n;
+			return numberPrefix + n;
 		}
 
 		return identifiers.makeValidTypeName(n).toUpperCase();
