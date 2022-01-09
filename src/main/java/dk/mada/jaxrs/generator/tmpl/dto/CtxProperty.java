@@ -9,6 +9,9 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxProperty {
+	public static ImmutableCtxProperty.Builder builder() {
+		return ImmutableCtxProperty.builder();
+	}
 	String name();
 	String baseName();
 	String nameInCamelCase();

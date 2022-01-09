@@ -12,6 +12,10 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxDto {
+	public static ImmutableCtxDto.Builder builder() {
+		return ImmutableCtxDto.builder();
+	}
+	
 	String appName();
 	String appDescription();
 	String version();

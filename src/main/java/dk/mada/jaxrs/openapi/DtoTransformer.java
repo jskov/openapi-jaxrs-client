@@ -63,13 +63,23 @@ public class DtoTransformer {
 		this.opts = opts;
 		this.generatorOpts = generatorOpts;
 		this.types = types;
-
 	}
 
 	public void transform(OpenAPI specification) {
 		readSpec(specification);
 		
+		System.out.println("--- BEFORE CONSOLIDATION");
+		types.getActiveDtos().stream()
+			.sorted((a, b) -> a.name().compareTo(b.name()))
+			.forEach(d -> logger.info(" {} {}", d.name(), d.openapiId()));
+
+
 		types.consolidateDtos();
+		System.out.println("--- AFTER CONSOLIDATION");
+
+		types.getActiveDtos().stream()
+			.sorted((a, b) -> a.name().compareTo(b.name()))
+			.forEach(d -> logger.info(" {} {}", d.name(), d.openapiId()));
 	}
 	
 	private void readSpec(OpenAPI specification) {
@@ -90,13 +100,14 @@ public class DtoTransformer {
     			.name(modelName)
     			.dtoType(dtoType)
     			.properties(props)
-    			.openapiName(schemaName)
     			.openapiId(TypeNames.of(schemaName))
     			.enumValues(enumValues)
     			.build();
     		
     		types.addDto(dto);
 		});
+    	
+    	types.parsingCompleted();
     }
 
 	private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
@@ -180,7 +191,7 @@ public class DtoTransformer {
 				return TypeByteArray.getArray();
 			}
 			
-			return TypeArray.of(innerType);
+			return TypeArray.of(types, innerType);
 		}
 
 		if (schema instanceof BinarySchema || schema instanceof FileSchema) {

@@ -17,10 +17,10 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 
 /**
- * ExternedDateTypes
+ * ExternedSpecialTypes
  */
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
-public class ExternedDateTypes   {
+public class ExternedSpecialTypes   {
   private BigDecimal bigDecimal;
 
   private OffsetDateTime zonedDateTime;
@@ -31,7 +31,7 @@ public class ExternedDateTypes   {
 
   private LocalDate date;
 
-  public ExternedDateTypes bigDecimal(BigDecimal bigDecimal) {
+  public ExternedSpecialTypes bigDecimal(BigDecimal bigDecimal) {
     this.bigDecimal = bigDecimal;
     return this;
   }
@@ -48,7 +48,7 @@ public class ExternedDateTypes   {
     this.bigDecimal = bigDecimal;
   }
 
-  public ExternedDateTypes zonedDateTime(OffsetDateTime zonedDateTime) {
+  public ExternedSpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
     this.zonedDateTime = zonedDateTime;
     return this;
   }
@@ -65,7 +65,7 @@ public class ExternedDateTypes   {
     this.zonedDateTime = zonedDateTime;
   }
 
-  public ExternedDateTypes offsetDateTime(OffsetDateTime offsetDateTime) {
+  public ExternedSpecialTypes offsetDateTime(OffsetDateTime offsetDateTime) {
     this.offsetDateTime = offsetDateTime;
     return this;
   }
@@ -82,7 +82,7 @@ public class ExternedDateTypes   {
     this.offsetDateTime = offsetDateTime;
   }
 
-  public ExternedDateTypes dateTime(OffsetDateTime dateTime) {
+  public ExternedSpecialTypes dateTime(OffsetDateTime dateTime) {
     this.dateTime = dateTime;
     return this;
   }
@@ -99,7 +99,7 @@ public class ExternedDateTypes   {
     this.dateTime = dateTime;
   }
 
-  public ExternedDateTypes date(LocalDate date) {
+  public ExternedSpecialTypes date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -124,7 +124,7 @@ public class ExternedDateTypes   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ExternedDateTypes other = (ExternedDateTypes) o;
+    ExternedSpecialTypes other = (ExternedSpecialTypes) o;
     return Objects.equals(this.bigDecimal, other.bigDecimal) &&
         Objects.equals(this.zonedDateTime, other.zonedDateTime) &&
         Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
@@ -140,7 +140,7 @@ public class ExternedDateTypes   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ExternedDateTypes {");
+    sb.append("class ExternedSpecialTypes {");
     sb.append("\n    bigDecimal: ").append(toIndentedString(bigDecimal));
     sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
     sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));

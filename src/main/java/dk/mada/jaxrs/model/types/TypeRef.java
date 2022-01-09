@@ -25,6 +25,7 @@ public interface TypeRef extends Type {
 	Types types();
 
 	default Type dereference() {
+		types().assertDereferencingSafe();
 		return types().get(refTypeName());
 	}
 	

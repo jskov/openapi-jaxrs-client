@@ -22,10 +22,9 @@ public interface Dto extends Type {
 		return TypeNames.of(name());
 	}
 	
+	/** The name the DTO was identified by in the schema */
 	TypeName openapiId();
 	
-	/** The name the DTO was identified by in the schema */
-	String openapiName();
 	List<Property> properties();
 	
 	@Nullable

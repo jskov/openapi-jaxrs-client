@@ -1,0 +1,45 @@
+    ExternedLists:
+      type: object
+      properties:
+        listString:
+          $ref: '#/components/schemas/ListString'
+        listSimple:
+          $ref: '#/components/schemas/ListSimple'
+        listInt:
+          $ref: '#/components/schemas/ListInt'
+        listDate:
+          $ref: '#/components/schemas/ListDate'
+        listDateTime:
+          $ref: '#/components/schemas/ListDateTime'
+    ListString:
+      type: array
+      items:
+        $ref: '#/components/schemas/StringObj'
+    StringObj:
+      items:
+        type: string
+    ListSimple:
+      type: array
+      items:
+        $ref: '#/components/schemas/Simple'
+    ListInt:
+      type: array
+      items:
+        $ref: '#/components/schemas/IntObj'
+    IntObj:
+      format: int32
+      type: integer
+    ListDate:
+      type: array
+      items:
+        $ref: '#/components/schemas/DateObj'
+    DateObj:
+      format: date
+      type: string
+    ListDateTime:
+      type: array
+      items:
+        $ref: '#/components/schemas/DateTimeObj'
+    DateTimeObj:
+      format: date-time
+      type: string

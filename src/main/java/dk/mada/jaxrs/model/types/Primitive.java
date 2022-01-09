@@ -35,6 +35,15 @@ public enum Primitive implements Type {
 	public TypeName wrapperTypeName() {
 		return wrapperType;
 	}
+	
+	public static Primitive find(TypeName tn) {
+		for (var p : Primitive.values()) {
+			if (tn.equals(p.javaPrimitive) || tn.equals(p.wrapperType)) {
+				return p;
+			}
+		}
+		return null;
+	}
 
 	public static Primitive find(String type, String format) {
 		String typeFormat = type + ":" + Objects.toString(format, "");

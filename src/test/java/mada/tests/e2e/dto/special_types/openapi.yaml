@@ -43,7 +43,7 @@ components:
           type: string
         localTime:
           $ref: '#/components/schemas/LocalTime'
-    ExternedDateTypes:
+    ExternedSpecialTypes:
       type: object
       properties:
         bigDecimal:

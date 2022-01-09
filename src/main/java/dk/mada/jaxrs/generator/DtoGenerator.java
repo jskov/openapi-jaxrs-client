@@ -19,13 +19,6 @@ import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxExtra;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxProperty;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxPropertyExt;
-import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxDto;
-import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxDtoExt;
-import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnum;
-import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnumEntry;
-import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxExtra;
-import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxProperty;
-import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxPropertyExt;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
@@ -35,7 +28,9 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeRef;
 import dk.mada.jaxrs.model.types.TypeSet;
+import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.openapi._OpenapiGenerator;
 
 public class DtoGenerator {
@@ -54,15 +49,19 @@ public class DtoGenerator {
 	private final Identifiers identifiers = new Identifiers();
 	private final EnumSet<ExtraTemplate> extraTemplates = EnumSet.noneOf(ExtraTemplate.class);
 
+	private final Types types;
+
 	public DtoGenerator(GeneratorOpts opts, Templates templates, Model model) {
 		this.opts = opts;
 		this.templates = templates;
 		this.model = model;
+		
+		types = model.types();
 	}
 	
 	public void generateDtoClasses(Path dtoDir) throws IOException {
 		Files.createDirectories(dtoDir);
-		model.types().getActiveDtos()
+		types.getActiveDtos()
 			.forEach(type -> {
 				String name = type.name();
 				logger.info(" generate type {}", name);
@@ -91,7 +90,7 @@ public class DtoGenerator {
 		var imports = Imports.newExtras(opts, tmpl);
 		
 		Info info = model.info();
-		return ImmutableCtxExtra.builder()
+		return CtxExtra.builder()
 				.appName(info.title())
 				.appDescription(info.description())
 				.version(info.version())
@@ -126,9 +125,7 @@ public class DtoGenerator {
 					.map(e -> toEnumEntry(dto.dtoType(), e))
 					.collect(toList());
 			
-			ctxEnum = ImmutableCtxEnum.builder()
-					.enumVars(entries)
-					.build();
+			ctxEnum = new CtxEnum(entries);
 		}
 		
 		var dtoImports = isEnum ? Imports.newEnum(opts) : Imports.newPojo(opts);
@@ -151,14 +148,14 @@ public class DtoGenerator {
 			dtoImports.jackson("JsonDeserialize", "JsonSerialize");
 		}
 		
-		CtxDtoExt mada = ImmutableCtxDtoExt.builder()
+		CtxDtoExt mada = CtxDtoExt.builder()
 				.jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
 				.jsonb(opts.isJsonb())
 				.customLocalDateDeserializer(customLocalDateDeserializer)
 				.customLocalDateSerializer(customLocalDateSerializer)
 				.build();
 		
-		return ImmutableCtxDto.builder()
+		return CtxDto.builder()
 				.appName(info.title())
 				.appDescription(info.description())
 				.version(info.version())
@@ -190,10 +187,7 @@ public class DtoGenerator {
 		if (enumType != Primitive.INT) {
 			strValue = "\"" + strValue + "\"";
 		}
-		return ImmutableCtxEnumEntry.builder()
-				.name(e.name())
-				.value(strValue)
-				.build();
+		return new CtxEnumEntry(e.name(), strValue);
 	}
 
 	private CtxProperty toCtxProperty(Property p) {
@@ -204,26 +198,32 @@ public class DtoGenerator {
 		String nameSnaked = _OpenapiGenerator.underscore(nameCamelized).toUpperCase();
 		
 		logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
-		
+
+		Type propType = types.map(p.type());
+		if (propType instanceof TypeRef tr) {
+			propType = tr.dereference();
+		}
+		logger.trace(" {}", propType);
+
 		String defaultValue = null;
 		boolean isRequired = p.isRequired();
 		boolean isArray = false;
 		boolean isMap = false;
 		boolean isSet = false;
-		boolean isDate = p.type() instanceof TypeDate;
+		boolean isDate = propType instanceof TypeDate;
 		String innerType = null;
 		
-		if (p.type() instanceof TypeArray ca) {
+		if (propType instanceof TypeArray ca) {
 			isArray = true;
-			innerType = ca.innerType().typeName().name();
+			innerType = ca.mappedInnerType().typeName().name();
 			defaultValue = "new ArrayList<>()";
 		}
-		if (p.type() instanceof TypeMap cm) {
+		if (propType instanceof TypeMap cm) {
 			isMap = true;
 			innerType = cm.innerType().typeName().name();
 			defaultValue = "new HashMap<>()";
 		}
-		if (p.type() instanceof TypeSet cs) {
+		if (propType instanceof TypeSet cs) {
 			isSet = true;
 			innerType = cs.innerType().typeName().name();
 			defaultValue = "new HashSet<>()";
@@ -234,7 +234,7 @@ public class DtoGenerator {
 
 		boolean isContainer = isArray || isMap || isSet;
 		
-		String typeName = p.type().wrapperTypeName().name();
+		String typeName = propType.wrapperTypeName().name();
 
 		String getterPrefix = getterPrefix(p);
 		String getter = getterPrefix + nameCamelized;
@@ -243,7 +243,7 @@ public class DtoGenerator {
 		String extSetter = setter;
 		boolean isUseBigDecimalForDouble =
 				opts.isUseBigDecimalForDouble()
-				&& p.type() == Primitive.DOUBLE;
+				&& propType == Primitive.DOUBLE;
 		if (isUseBigDecimalForDouble) {
 			getter = getter+"Double";
 			setter = setter+"Double";
@@ -262,7 +262,7 @@ public class DtoGenerator {
 				|| isNotBlank(p.example())
 				|| isNotBlank(p.description());
 		
-		CtxPropertyExt mada = ImmutableCtxPropertyExt.builder()
+		CtxPropertyExt mada = CtxPropertyExt.builder()
 				.innerDatatypeWithEnum(innerType)
 				.isRenderApiModelProperty(isRenderApiModelProperty)
 				.isUseBigDecimalForDouble(isUseBigDecimalForDouble)
@@ -271,7 +271,7 @@ public class DtoGenerator {
 				.setter(extSetter)
 				.build();
 		
-		return ImmutableCtxProperty.builder()
+		return CtxProperty.builder()
 				.baseName(name)
 				.datatypeWithEnum(typeName)
 				.name(varName)

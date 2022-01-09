@@ -1,4 +1,4 @@
-    ExternedDateTypes:
+    ExternedSpecialTypes:
       type: object
       properties:
         bigDecimal:

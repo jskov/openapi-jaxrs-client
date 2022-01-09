@@ -3,6 +3,7 @@ package dk.mada.jaxrs.model.types;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,52 +18,95 @@ import dk.mada.jaxrs.openapi.ParserOpts;
 public class Types {
 	private static final Logger logger = LoggerFactory.getLogger(Types.class);
 	private final Map<TypeName, Type> mappedToJseTypes = new HashMap<>();
+	private final Set<TypeName> unmappedToJseTypes = new HashSet<>();
 	private final Map<TypeName, Dto> parsedDtos = new HashMap<>();
+	private final Map<TypeName, Type> remappedDtoTypes = new HashMap<>();
+	private boolean dereferencingSafe;
 
 	public Types(ParserOpts parserOpts, GeneratorOpts generatorOpts) {
 		TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
 	
-		if (parserOpts.isJseBigDecimal()) {
-			mappedToJseTypes.put(TypeBigDecimal.BIG_DECIMAL, TypeBigDecimal.get());
-		}
-		if (parserOpts.isJseLocalDate()) {
-			mappedToJseTypes.put(TypeDate.TYPE_LOCAL_DATE, TypeDate.get());
-		}
-		if (parserOpts.isJseLocalTime()) {
-			mappedToJseTypes.put(TypeLocalTime.TYPE_LOCAL_TIME, TypeLocalTime.get());
-		}
-		if (parserOpts.isJseLocalDateTime()) {
-			mappedToJseTypes.put(TypeNames.of("LocalDateTime"), typeDateTime);
-		}
-		if (parserOpts.isJseOffsetDateTime()) {
-			mappedToJseTypes.put(TypeNames.of("OffsetDateTime"), typeDateTime);
-		}
-		if (parserOpts.isJseZonedDateTime()) {
-			mappedToJseTypes.put(TypeNames.of("ZonedDateTime"), typeDateTime);
-		}
+		mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.BIG_DECIMAL, TypeBigDecimal.get());
+		mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPE_LOCAL_DATE,    TypeDate.get());
+		mapJse(parserOpts.isJseLocalTime(),      TypeLocalTime.TYPE_LOCAL_TIME, TypeLocalTime.get());
+		mapJse(parserOpts.isJseLocalDateTime(),  TypeNames.of("LocalDateTime"), typeDateTime);
+		mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.of("OffsetDateTime"), typeDateTime);
+		mapJse(parserOpts.isJseZonedDateTime(),  TypeNames.of("ZonedDateTime"), typeDateTime);
 		
-		logger.info("JSE type overrides: {}", mappedToJseTypes);
+		logger.info("JSE type overrides: {}", mappedToJseTypes.keySet());
+		logger.info("JSE types kept: {}", unmappedToJseTypes);
+	}
+	
+	public void parsingCompleted() {
+		dereferencingSafe = true;
+	}
+	
+	public void assertDereferencingSafe() {
+		if (!dereferencingSafe) {
+			throw new IllegalStateException("Parsing is not completed, so dereferencing is not safe!");
+		}
+	}
+	private void mapJse(boolean doMap, TypeName tn, Type t) {
+		if (doMap) {
+			mappedToJseTypes.put(tn, t);
+		} else {
+			unmappedToJseTypes.add(tn);
+		}
+	}
+	
+	/**
+	 * Maps type - if no mapping found, return input type
+	 * @param t
+	 * @return
+	 */
+	public Type map(Type t) {
+		Type mappedType = find(t.typeName());
+		if (mappedType != null) {
+			return mappedType;
+		} else {
+			return t;
+		}
 	}
 	
 	public Type get(TypeName tn) {
+		Type t = find(tn);
+		if (t == null) {
+			throw new IllegalArgumentException("No type referenced found by name " + tn);
+		}
+		return t;
+	}
+	
+	private Type find(TypeName tn) {
 		Type jseType = mappedToJseTypes.get(tn);
 		if (jseType != null) {
+			logger.trace(" {} -> jse {}", tn, jseType);
 			return jseType;
 		}
-		
-		// FIXME: remapping here
+
+		Type remappedType = remappedDtoTypes.get(tn);
+		if (remappedType != null) {
+			logger.trace(" {} -> remapped {}", tn, remappedType);
+			return remappedType;
+		}
 		
 		Dto dto = parsedDtos.get(tn);
 		if (dto != null) {
+			logger.trace(" {} -> dto {}", tn, dto);
 			return dto;
 		}
 
-		throw new IllegalArgumentException("No type referenced found by name " + tn);
+		Primitive p = Primitive.find(tn);
+		if (p != null) {
+			return p;
+		}
+		
+		return null;
 	}
 	
 	public Set<Dto> getActiveDtos() {
 		return parsedDtos.entrySet().stream()
 				.filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
+				.filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
 				.map(e -> e.getValue())
 				.collect(toSet());
 	}
@@ -75,7 +119,36 @@ public class Types {
 		return TypeRef.of(TypeNames.of(name), this);
 	}
 
+	private void remapDto(TypeName openapiName, Type newType) {
+		logger.info("  remap {} to {}", openapiName, newType);
+		Type oldType = remappedDtoTypes.put(openapiName, newType);
+		if (oldType != null) {
+			throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + newType);
+		}
+	}
+	
 	public void consolidateDtos() {
-		// TODO: override references with better types when possible
+		logger.info("Consolidate DTOs");
+		for (Dto dto : getActiveDtos()) {
+			String name = dto.name();
+			Type t = dto.dtoType();
+			TypeName openapiName = dto.openapiId();
+			
+			logger.info(" consider {} : {} {}", name, dto.getClass(), t);
+			
+			if (t instanceof TypeArray ta) {
+				remapDto(openapiName, TypeArray.of(this, ta.innerType()));
+			} else if (t instanceof TypeMap tm) {
+				remapDto(openapiName, TypeMap.of(tm.innerType()));
+			} else if (t instanceof TypeSet tm) {
+				remapDto(openapiName, TypeSet.of(tm.innerType()));
+			} else if (unmappedToJseTypes.contains(openapiName)) {
+				// no remapping of kept types
+			} else if (dto.isEnum()) {
+				// no remapping of enums
+			} else if (!(t instanceof TypeObject)) {
+				remapDto(openapiName, t);
+			}
+		}
 	}
 }
