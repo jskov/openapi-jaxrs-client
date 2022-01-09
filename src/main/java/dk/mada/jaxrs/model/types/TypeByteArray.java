@@ -1,4 +1,6 @@
-package dk.mada.jaxrs.model;
+package dk.mada.jaxrs.model.types;
+
+import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Special type for handing byte[] type.
@@ -6,20 +8,20 @@ package dk.mada.jaxrs.model;
  * In resources this would be treated as a stream, while it
  * it treated as an array in DTOs.
  */
-public class ByteArray implements Type {
+public class TypeByteArray implements Type {
 	/** As used in resource operations */
-	private static final ByteArray streamType = new ByteArray();
+	private static final TypeByteArray streamType = new TypeByteArray();
 	/** As used in DTOs */
-	private static final ByteArray arrayType = new ByteArray();
+	private static final TypeByteArray arrayType = new TypeByteArray();
 	
-	private ByteArray() {
+	private TypeByteArray() {
 	}
 
-	public static ByteArray getArray() {
+	public static TypeByteArray getArray() {
 		return arrayType;
 	}
 
-	public static ByteArray getStream() {
+	public static TypeByteArray getStream() {
 		return streamType;
 	}
 
@@ -33,8 +35,8 @@ public class ByteArray implements Type {
 	
 	
 	@Override
-	public String typeName() {
-		return "byte[]";
+	public TypeName typeName() {
+		return TypeNames.of("byte[]");
 	}
 
 	@Override

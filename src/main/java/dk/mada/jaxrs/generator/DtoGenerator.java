@@ -26,16 +26,16 @@ import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxEnumEntry;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxExtra;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxProperty;
 import dk.mada.jaxrs.generator.tmpl.dto.ImmutableCtxPropertyExt;
-import dk.mada.jaxrs.model.ContainerArray;
-import dk.mada.jaxrs.model.ContainerMap;
-import dk.mada.jaxrs.model.ContainerSet;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
-import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
-import dk.mada.jaxrs.model.Type;
-import dk.mada.jaxrs.model.TypeDate;
+import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.TypeDate;
+import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.openapi._OpenapiGenerator;
 
 public class DtoGenerator {
@@ -62,7 +62,7 @@ public class DtoGenerator {
 	
 	public void generateDtoClasses(Path dtoDir) throws IOException {
 		Files.createDirectories(dtoDir);
-		model.types().get()
+		model.types().getActiveDtos()
 			.forEach(type -> {
 				String name = type.name();
 				logger.info(" generate type {}", name);
@@ -173,7 +173,7 @@ public class DtoGenerator {
 				.vars(vars)
 				
 				.allowableValues(ctxEnum)
-				.dataType(dto.dtoType().typeName())
+				.dataType(dto.dtoType().typeName().name())
 				
 				.jackson(opts.isJackson())
 				
@@ -213,19 +213,19 @@ public class DtoGenerator {
 		boolean isDate = p.type() instanceof TypeDate;
 		String innerType = null;
 		
-		if (p.type() instanceof ContainerArray ca) {
+		if (p.type() instanceof TypeArray ca) {
 			isArray = true;
-			innerType = ca.innerType().typeName();
+			innerType = ca.innerType().typeName().name();
 			defaultValue = "new ArrayList<>()";
 		}
-		if (p.type() instanceof ContainerMap cm) {
+		if (p.type() instanceof TypeMap cm) {
 			isMap = true;
-			innerType = cm.innerType().typeName();
+			innerType = cm.innerType().typeName().name();
 			defaultValue = "new HashMap<>()";
 		}
-		if (p.type() instanceof ContainerSet cs) {
+		if (p.type() instanceof TypeSet cs) {
 			isSet = true;
-			innerType = cs.innerType().typeName();
+			innerType = cs.innerType().typeName().name();
 			defaultValue = "new HashSet<>()";
 			
 			// In templates, array is used for both set and list
@@ -234,10 +234,7 @@ public class DtoGenerator {
 
 		boolean isContainer = isArray || isMap || isSet;
 		
-		String typeName = p.type().typeName();
-		if (p.type() instanceof Primitive prim) {
-			typeName = prim.wrapperType();
-		}
+		String typeName = p.type().wrapperTypeName().name();
 
 		String getterPrefix = getterPrefix(p);
 		String getter = getterPrefix + nameCamelized;

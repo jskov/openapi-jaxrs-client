@@ -15,8 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.GeneratorException;
-import dk.mada.jaxrs.model.Primitive;
-import dk.mada.jaxrs.model.Type;
+import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Type;
 
 /**
  * Uses default naming, but provides alternatives in case of naming conflicts.

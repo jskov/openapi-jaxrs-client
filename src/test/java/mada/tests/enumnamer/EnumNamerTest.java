@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import dk.mada.jaxrs.GeneratorException;
 import dk.mada.jaxrs.generator.EnumNamer;
 import dk.mada.jaxrs.generator.EnumNamer.EnumNameValue;
-import dk.mada.jaxrs.model.Primitive;
-import dk.mada.jaxrs.model.TypeObject;
+import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.TypeObject;
 
 public class EnumNamerTest {
 	@Test

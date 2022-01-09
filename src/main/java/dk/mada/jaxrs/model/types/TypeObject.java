@@ -1,4 +1,6 @@
-package dk.mada.jaxrs.model;
+package dk.mada.jaxrs.model.types;
+
+import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Special type for handing object type.
@@ -14,7 +16,7 @@ public class TypeObject implements Type {
 	}
 	
 	@Override
-	public String typeName() {
-		return "Object";
+	public TypeName typeName() {
+		return TypeNames.of("Object");
 	}
 }

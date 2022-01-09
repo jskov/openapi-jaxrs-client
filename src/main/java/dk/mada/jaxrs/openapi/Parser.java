@@ -4,10 +4,10 @@ import java.nio.file.Path;
 import java.util.List;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Operations;
+import dk.mada.jaxrs.model.types.Types;
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.AuthorizationValue;
@@ -37,9 +37,11 @@ public class Parser {
 	    SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, parseOpts);
 	    OpenAPI specification = result.getOpenAPI();
 
+	    Types types = new Types(opts, generatorOpts);
+
 	    Info info = new InfoTransformer().transform(specification);
 	    Operations ops = new OpsTransformer().transform(specification);
-	    Dtos types = new DtoTransformer(opts, generatorOpts, specification).transform();
+	    new DtoTransformer(opts, generatorOpts, types).transform(specification);
 	    
 	    return new Model(info, ops, types);
 	}

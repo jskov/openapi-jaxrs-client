@@ -6,6 +6,10 @@ import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeNames;
+import dk.mada.jaxrs.model.types.TypeNames.TypeName;
+
 @Immutable
 public interface Dto extends Type {
 	String name();
@@ -14,9 +18,11 @@ public interface Dto extends Type {
 	Type dtoType();
 	
 	@Override
-	default String typeName() {
-		return name();
+	default TypeName typeName() {
+		return TypeNames.of(name());
 	}
+	
+	TypeName openapiId();
 	
 	/** The name the DTO was identified by in the schema */
 	String openapiName();

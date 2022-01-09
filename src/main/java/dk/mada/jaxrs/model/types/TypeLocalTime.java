@@ -1,6 +1,8 @@
-package dk.mada.jaxrs.model;
+package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
+
+import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Special type for optional special handing of types named LocalTime
@@ -19,7 +21,7 @@ import java.util.Set;
  *
  */
 public class TypeLocalTime implements Type {
-	public static final String TYPE_LOCAL_TIME = "LocalTime";
+	public static final TypeName TYPE_LOCAL_TIME = TypeNames.of("LocalTime");
 	private static final TypeLocalTime object = new TypeLocalTime();
 	
 	private TypeLocalTime() {
@@ -30,7 +32,7 @@ public class TypeLocalTime implements Type {
 	}
 	
 	@Override
-	public String typeName() {
+	public TypeName typeName() {
 		return TYPE_LOCAL_TIME;
 	}
 	

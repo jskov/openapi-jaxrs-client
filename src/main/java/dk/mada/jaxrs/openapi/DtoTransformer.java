@@ -3,7 +3,6 @@ package dk.mada.jaxrs.openapi;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -15,21 +14,22 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Identifiers;
-import dk.mada.jaxrs.model.ByteArray;
 import dk.mada.jaxrs.model.Dto;
-import dk.mada.jaxrs.model.Dtos;
-import dk.mada.jaxrs.model.ImmutableContainerArray;
-import dk.mada.jaxrs.model.ImmutableContainerMap;
-import dk.mada.jaxrs.model.ImmutableContainerSet;
 import dk.mada.jaxrs.model.ImmutableDto;
 import dk.mada.jaxrs.model.ImmutableProperty;
-import dk.mada.jaxrs.model.Primitive;
 import dk.mada.jaxrs.model.Property;
-import dk.mada.jaxrs.model.Type;
-import dk.mada.jaxrs.model.TypeBigDecimal;
-import dk.mada.jaxrs.model.TypeDate;
-import dk.mada.jaxrs.model.TypeDateTime;
-import dk.mada.jaxrs.model.TypeObject;
+import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.TypeBigDecimal;
+import dk.mada.jaxrs.model.types.TypeByteArray;
+import dk.mada.jaxrs.model.types.TypeDate;
+import dk.mada.jaxrs.model.types.TypeDateTime;
+import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeNames;
+import dk.mada.jaxrs.model.types.TypeObject;
+import dk.mada.jaxrs.model.types.TypeSet;
+import dk.mada.jaxrs.model.types.Types;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
@@ -54,25 +54,27 @@ public class DtoTransformer {
 	private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
 	private static final Logger logger = LoggerFactory.getLogger(DtoTransformer.class);
 
-	private final Dtos dtos;
-	@SuppressWarnings("rawtypes")
-	private final Map<String, Schema> allDefinitions;
 	private final ParserOpts opts;
 	private final GeneratorOpts generatorOpts;
 	private final Identifiers identifiers = new Identifiers();
+	private final Types types;
 
-	public DtoTransformer(ParserOpts opts, GeneratorOpts generatorOpts, OpenAPI specification) {
+	public DtoTransformer(ParserOpts opts, GeneratorOpts generatorOpts, Types types) {
 		this.opts = opts;
 		this.generatorOpts = generatorOpts;
-		
-    	allDefinitions = _OpenapiGenerator.getSchemas(specification);
-    	
-    	dtos = new Dtos(opts, generatorOpts, allDefinitions.keySet());
+		this.types = types;
+
 	}
 
-	public Dtos transform() {
-    	Map<String, Dto> types = new HashMap<>();
-    	
+	public void transform(OpenAPI specification) {
+		readSpec(specification);
+		
+		types.consolidateDtos();
+	}
+	
+	private void readSpec(OpenAPI specification) {
+		@SuppressWarnings("rawtypes")
+		Map<String, Schema> allDefinitions = _OpenapiGenerator.getSchemas(specification);
     	logger.info("See schemas: {}", allDefinitions.keySet());
     	
     	allDefinitions.forEach((schemaName, schema) -> {
@@ -89,14 +91,12 @@ public class DtoTransformer {
     			.dtoType(dtoType)
     			.properties(props)
     			.openapiName(schemaName)
+    			.openapiId(TypeNames.of(schemaName))
     			.enumValues(enumValues)
     			.build();
     		
-    		dtos.addDto(dto);
+    		types.addDto(dto);
 		});
-    	logger.info("Types {}: {}", allDefinitions.size(), types);
-    	
-    	return dtos;
     }
 
 	private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
@@ -162,7 +162,8 @@ public class DtoTransformer {
 			return type;
 		}
 
-		type = findSiblingType(schema.get$ref());
+		type = findDto(schema.get$ref());
+
 		if (type != null) {
 			return type;
 		}
@@ -172,31 +173,25 @@ public class DtoTransformer {
 
 			Boolean isUnique = a.getUniqueItems();
 			if (isUnique != null && isUnique.booleanValue()) {
-				return ImmutableContainerSet.builder()
-						.innerType(innerType)
-						.build();
+				return TypeSet.of(innerType);
 			}
 			
-			if (innerType instanceof ByteArray && opts.isUnwrapByteArrayList()) {
-				return ByteArray.getArray();
+			if (innerType instanceof TypeByteArray && opts.isUnwrapByteArrayList()) {
+				return TypeByteArray.getArray();
 			}
 			
-			return ImmutableContainerArray.builder()
-				.innerType(innerType)
-				.build();
+			return TypeArray.of(innerType);
 		}
 
 		if (schema instanceof BinarySchema || schema instanceof FileSchema) {
-			return ByteArray.getArray();
+			return TypeByteArray.getArray();
 		}
 		
 		if (schema instanceof MapSchema m) {
 			Object additionalProperties = m.getAdditionalProperties();
 			if (additionalProperties instanceof Schema<?> innerSchema) {
 				Type innerType = getType(innerSchema);
-				return ImmutableContainerMap.builder()
-						.innerType(innerType)
-						.build();
+				return TypeMap.of(innerType);
 			}
 		}
 		
@@ -223,11 +218,11 @@ public class DtoTransformer {
 
 		throw new IllegalStateException("No type found for " + schema);
     }
-    
-    private Type findSiblingType(String ref) {
+
+    private Type findDto(String ref) {
 		if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
-			String refName = ref.substring(REF_COMPONENTS_SCHEMAS.length());
-			return dtos.findSibling(refName);
+			String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
+			return types.findDto(openapiId);
 		}
 		return null;
     }
