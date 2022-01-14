@@ -22,6 +22,8 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 
 ## Configuration
 
+### Generator options
+
 **generator-api-package**
 
 >Name of package to generate API classes in. Required argument.
@@ -33,14 +35,6 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 >Name of package to generate DTO classes in. Required argument.
 >
 	alternative name: modelPackage
-
-**generator-enum-prefix-number**
-
->Allows you to replace the prefix used in enum naming of numbers.
-
->
-	default value: NUMBER_
-
 
 **generator-jackson-codehaus**
 
@@ -136,6 +130,51 @@ instead of OffsetDateTime.
 >
 	default value: false
 
+### Naming options
+
+The naming of types, properties and enumeration entries can be (partly) controlled via some operators.
+
+`TYPENAME` and `PROPERTYNAME` are based on the [Java spec for identifiers](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.8). They will convert any non-identifier character to '_'. A hyphen ('-') will be removed and the next character upper-cased.
+
+	UPCASE: Converts the input to upper case.
+	DOWNCASE: Converts the input to lower case.
+	TYPENAME: Converts the input to a valid java identifier (first letter upper case)
+	PROPERTYNAME: Converts the input to a valid java identifier (first letter lower case)
+	REGEXP/pattern/replacement/: Will match input against pattern and substitute all matches with replacement.
+
+You can specify a number of operators, separated by ';'. They will be applied left-to-right.
+
+**naming-enum-prefix-number**
+
+>Allows you to replace the prefix used in enum naming of numbers.
+>This one overrules naming-rules-enum
+
+>
+	default value: NUMBER_
+
+
+**naming-rules-enum**
+
+>Allows you to control the naming of enumeration entries using the operators described above.
+
+>
+	default value: TYPENAME; UPCASE
+
+**naming-rules-property**
+
+>Allows you to control the naming of properties using the operators described above.
+
+>
+	default value: PROPERTYNAME
+
+**naming-rules-type**
+
+>Allows you to control the naming of types using the operators described above.
+
+>
+	default value: TYPENAME
+
+### Parser options
 
 **parser-localdate-is-jse**
 

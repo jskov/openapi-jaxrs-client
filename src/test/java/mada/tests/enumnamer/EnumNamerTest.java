@@ -16,6 +16,7 @@ import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeObject;
+import dk.mada.jaxrs.naming.Naming;
 
 public class EnumNamerTest {
 	private static final GeneratorOpts opts = new GeneratorOpts(new Properties());
@@ -72,6 +73,7 @@ public class EnumNamerTest {
 	}
 
 	private EnumNamer mkSut(Type enumValueType, List<String> values) {
-		return new EnumNamer(opts, enumValueType, values);
+		var naming = new Naming(new Properties());
+		return new EnumNamer(naming, opts, enumValueType, values);
 	}
 }

@@ -30,6 +30,7 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeRef;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.Types;
+import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi._OpenapiGenerator;
 
 public class DtoGenerator {
@@ -42,6 +43,7 @@ public class DtoGenerator {
 		_LocalDateJacksonSerializer
 	}
 	
+	private final Naming naming;
 	private final GeneratorOpts opts;
 	private final Templates templates;
 	private final Model model;
@@ -50,7 +52,8 @@ public class DtoGenerator {
 
 	private final Types types;
 
-	public DtoGenerator(GeneratorOpts opts, Templates templates, Model model) {
+	public DtoGenerator(Naming naming, GeneratorOpts opts, Templates templates, Model model) {
+		this.naming = naming;
 		this.opts = opts;
 		this.templates = templates;
 		this.model = model;
@@ -121,7 +124,7 @@ public class DtoGenerator {
 		boolean isEnum = dto.isEnum();
 		Type dtoType = derefType(dto.dtoType());
 		if (isEnum) {
-			List<CtxEnumEntry> entries = new EnumNamer(opts, dtoType, dto.enumValues())
+			List<CtxEnumEntry> entries = new EnumNamer(naming, opts, dtoType, dto.enumValues())
 					.getEntries().stream()
 					.map(e -> toEnumEntry(dtoType, e))
 					.collect(toList());

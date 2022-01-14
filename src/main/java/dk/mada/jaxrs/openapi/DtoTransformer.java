@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.generator.Identifiers;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.ImmutableDto;
 import dk.mada.jaxrs.model.ImmutableProperty;
@@ -30,6 +29,7 @@ import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.Types;
+import dk.mada.jaxrs.naming.Naming;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
@@ -54,12 +54,13 @@ public class DtoTransformer {
 	private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
 	private static final Logger logger = LoggerFactory.getLogger(DtoTransformer.class);
 
+	private final Naming naming;
 	private final ParserOpts opts;
 	private final GeneratorOpts generatorOpts;
-	private final Identifiers identifiers = new Identifiers();
 	private final Types types;
 
-	public DtoTransformer(ParserOpts opts, GeneratorOpts generatorOpts, Types types) {
+	public DtoTransformer(Naming naming, ParserOpts opts, GeneratorOpts generatorOpts, Types types) {
+		this.naming = naming;
 		this.opts = opts;
 		this.generatorOpts = generatorOpts;
 		this.types = types;
@@ -240,6 +241,6 @@ public class DtoTransformer {
     		name = schemaName;
     	}
    	
-    	return identifiers.makeValidTypeName(name);
+    	return naming.convertTypeName(name);
     }
 }

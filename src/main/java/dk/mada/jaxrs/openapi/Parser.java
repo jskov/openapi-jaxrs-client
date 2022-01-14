@@ -8,6 +8,7 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Operations;
 import dk.mada.jaxrs.model.types.Types;
+import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.AuthorizationValue;
@@ -19,10 +20,12 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
  * model classes.
  */
 public class Parser {
+	private final Naming naming;
 	private final ParserOpts opts;
 	private final GeneratorOpts generatorOpts;
 
-	public Parser(ParserOpts opts, GeneratorOpts generatorOpts) {
+	public Parser(Naming naming, ParserOpts opts, GeneratorOpts generatorOpts) {
+		this.naming = naming;
 		this.opts = opts;
 		this.generatorOpts = generatorOpts;
 	}
@@ -41,7 +44,7 @@ public class Parser {
 
 	    Info info = new InfoTransformer().transform(specification);
 	    Operations ops = new OpsTransformer().transform(specification);
-	    new DtoTransformer(opts, generatorOpts, types).transform(specification);
+	    new DtoTransformer(naming, opts, generatorOpts, types).transform(specification);
 	    
 	    return new Model(info, ops, types);
 	}

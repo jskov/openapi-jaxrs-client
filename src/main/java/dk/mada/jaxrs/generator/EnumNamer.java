@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.GeneratorException;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.naming.Naming;
 
 /**
  * Uses default naming, but provides alternatives in case of naming conflicts.
@@ -29,7 +30,7 @@ import dk.mada.jaxrs.model.types.Type;
 public class EnumNamer {
 	private static final Logger logger = LoggerFactory.getLogger(EnumNamer.class);
 	
-	private final Identifiers identifiers = new Identifiers();
+	private final Naming naming;
 	private final Type enumValueType;
 	private final Map<String, AtomicInteger> nameNumbering = new HashMap<>();
 	private final List<EnumNameValue> nameToValues = new ArrayList<>();
@@ -38,13 +39,17 @@ public class EnumNamer {
 
 	private final String numberPrefix;
 
+
 	public record EnumNameValue(String name, String value) {};
 	
-	public EnumNamer(GeneratorOpts opts, Type enumValueType, List<String> values) {
+	public EnumNamer(Naming naming, GeneratorOpts opts, Type enumValueType, List<String> values) {
+		this.naming = naming;
 		this.enumValueType = enumValueType;
 		this.values = values;
 
 		this.numberPrefix = opts.getEnumNumberPrefix();
+		
+		
 		
 		assignNames();
 	}
@@ -101,7 +106,7 @@ public class EnumNamer {
 			return numberPrefix + n;
 		}
 
-		return identifiers.makeValidTypeName(n).toUpperCase();
+		return naming.convertEnumName(n);
 	}
 	
 	/**
