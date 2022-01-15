@@ -16,22 +16,44 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * SpecialTypes
  */
+@JsonbPropertyOrder({
+  SpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
+  SpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
+  SpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
+  SpecialTypes.JSON_PROPERTY_LOCAL_DATE_TIME,
+  SpecialTypes.JSON_PROPERTY_LOCAL_DATE,
+  SpecialTypes.JSON_PROPERTY_LOCAL_TIME
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class SpecialTypes   {
+  public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
+  @JsonbProperty(JSON_PROPERTY_BIG_DECIMAL)
   private BigDecimal bigDecimal;
 
+  public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
+  @JsonbProperty(JSON_PROPERTY_ZONED_DATE_TIME)
   private OffsetDateTime zonedDateTime;
 
+  public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
+  @JsonbProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
   private OffsetDateTime offsetDateTime;
 
+  public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
+  @JsonbProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
   private OffsetDateTime localDateTime;
 
+  public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
+  @JsonbProperty(JSON_PROPERTY_LOCAL_DATE)
   private LocalDate localDate;
 
+  public static final String JSON_PROPERTY_LOCAL_TIME = "localTime";
+  @JsonbProperty(JSON_PROPERTY_LOCAL_TIME)
   private LocalTime localTime;
 
   public SpecialTypes bigDecimal(BigDecimal bigDecimal) {

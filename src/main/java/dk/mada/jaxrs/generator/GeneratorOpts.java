@@ -7,24 +7,37 @@ import java.util.Properties;
 public class GeneratorOpts {
 	private final String generatedAtTime = LocalDateTime.now().withNano(0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	private final Properties options;
-	private int activatedSerializerApis;
+	
+	private final boolean useJacksonCodehaus;
+	private final boolean useJacksonFasterxml;
+	private final boolean useJsonb;
 	
 	public GeneratorOpts(Properties options) {
 		this.options = options;
 
-		activatedSerializerApis = 0;
-		if (isJacksonCodehaus()) {
+		useJacksonCodehaus = bool("generator-jackson-codehaus");
+		useJacksonFasterxml = bool("generator-jackson-fasterxml");
+		boolean willUseJsonb = bool("generator-jsonb");
+		
+		int activatedSerializerApis = 0;
+		if (useJacksonCodehaus) {
 			activatedSerializerApis++;
 		}
-		if (isJacksonFasterxml()) {
+		if (useJacksonFasterxml) {
 			activatedSerializerApis++;
 		}
-		if (isJsonb()) {
+		if (willUseJsonb) {
 			activatedSerializerApis++;
 		}
 		if (activatedSerializerApis > 1) {
 			throw new IllegalStateException("Only one serializer API can be enabled!");
 		}
+		
+		// jsonb is the default if nothing else specified
+		if (activatedSerializerApis == 0) {
+			willUseJsonb = true;
+		}
+		useJsonb = willUseJsonb;
 	}
 	
 	public String apiPackage() {
@@ -40,15 +53,15 @@ public class GeneratorOpts {
 	}
 	
 	public boolean isJacksonCodehaus() {
-		return bool("generator-jackson-codehaus");
+		return useJacksonCodehaus;
 	}
 
 	public boolean isJacksonFasterxml() {
-		return bool("generator-jackson-fasterxml");
+		return useJacksonFasterxml;
 	}
 
 	public boolean isJsonb() {
-		return activatedSerializerApis == 0 || bool("generator-jsonb");
+		return useJsonb;
 	}
 
 	public boolean isUseJsonSerializeOptions() {

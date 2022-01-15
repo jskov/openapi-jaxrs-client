@@ -12,12 +12,19 @@
 package mada.tests.e2e.dto.collections.list.dto;
 
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * Simple
  */
+@JsonbPropertyOrder({
+  Simple.JSON_PROPERTY_A_BOOLEAN
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class Simple   {
+  public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
+  @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)
   private Boolean aBoolean;
 
   public Simple aBoolean(Boolean aBoolean) {

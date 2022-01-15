@@ -16,20 +16,39 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * ExternedLists
  */
+@JsonbPropertyOrder({
+  ExternedLists.JSON_PROPERTY_LIST_STRING,
+  ExternedLists.JSON_PROPERTY_LIST_SIMPLE,
+  ExternedLists.JSON_PROPERTY_LIST_INT,
+  ExternedLists.JSON_PROPERTY_LIST_DATE,
+  ExternedLists.JSON_PROPERTY_LIST_DATE_TIME
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class ExternedLists   {
+  public static final String JSON_PROPERTY_LIST_STRING = "listString";
+  @JsonbProperty(JSON_PROPERTY_LIST_STRING)
   private List<String> listString = null;
 
+  public static final String JSON_PROPERTY_LIST_SIMPLE = "listSimple";
+  @JsonbProperty(JSON_PROPERTY_LIST_SIMPLE)
   private List<Simple> listSimple = null;
 
+  public static final String JSON_PROPERTY_LIST_INT = "listInt";
+  @JsonbProperty(JSON_PROPERTY_LIST_INT)
   private List<Integer> listInt = null;
 
+  public static final String JSON_PROPERTY_LIST_DATE = "listDate";
+  @JsonbProperty(JSON_PROPERTY_LIST_DATE)
   private List<LocalDate> listDate = null;
 
+  public static final String JSON_PROPERTY_LIST_DATE_TIME = "listDateTime";
+  @JsonbProperty(JSON_PROPERTY_LIST_DATE_TIME)
   private List<OffsetDateTime> listDateTime = null;
 
   public ExternedLists listString(List<String> listString) {

@@ -15,38 +15,84 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * SetsDto
  */
+@JsonbPropertyOrder({
+  SetsDto.JSON_PROPERTY_BOOLEANS,
+  SetsDto.JSON_PROPERTY_BYTES,
+  SetsDto.JSON_PROPERTY_SHORTS,
+  SetsDto.JSON_PROPERTY_INTS,
+  SetsDto.JSON_PROPERTY_LONGS,
+  SetsDto.JSON_PROPERTY_STRINGS,
+  SetsDto.JSON_PROPERTY_REFS,
+  SetsDto.JSON_PROPERTY_REQUIRED_BOOLEANS,
+  SetsDto.JSON_PROPERTY_REQUIRED_BYTES,
+  SetsDto.JSON_PROPERTY_REQUIRED_SHORTS,
+  SetsDto.JSON_PROPERTY_REQUIRED_INTS,
+  SetsDto.JSON_PROPERTY_REQUIRED_LONGS,
+  SetsDto.JSON_PROPERTY_REQUIRED_STRINGS,
+  SetsDto.JSON_PROPERTY_REQUIRED_REFS
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class SetsDto   {
+  public static final String JSON_PROPERTY_BOOLEANS = "booleans";
+  @JsonbProperty(JSON_PROPERTY_BOOLEANS)
   private Set<Boolean> booleans = null;
 
+  public static final String JSON_PROPERTY_BYTES = "bytes";
+  @JsonbProperty(JSON_PROPERTY_BYTES)
   private Set<Byte> bytes = null;
 
+  public static final String JSON_PROPERTY_SHORTS = "shorts";
+  @JsonbProperty(JSON_PROPERTY_SHORTS)
   private Set<Short> shorts = null;
 
+  public static final String JSON_PROPERTY_INTS = "ints";
+  @JsonbProperty(JSON_PROPERTY_INTS)
   private Set<Integer> ints = null;
 
+  public static final String JSON_PROPERTY_LONGS = "longs";
+  @JsonbProperty(JSON_PROPERTY_LONGS)
   private Set<Long> longs = null;
 
+  public static final String JSON_PROPERTY_STRINGS = "strings";
+  @JsonbProperty(JSON_PROPERTY_STRINGS)
   private Set<String> strings = null;
 
+  public static final String JSON_PROPERTY_REFS = "refs";
+  @JsonbProperty(JSON_PROPERTY_REFS)
   private Set<Simple> refs = null;
 
+  public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
   private Set<Boolean> requiredBooleans = new HashSet<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_BYTES)
   private Set<Byte> requiredBytes = new HashSet<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
   private Set<Short> requiredShorts = new HashSet<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
   private Set<Integer> requiredInts = new HashSet<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_LONGS)
   private Set<Long> requiredLongs = new HashSet<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   private Set<String> requiredStrings = new HashSet<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
   private Set<Simple> requiredRefs = new HashSet<>();
 
   public SetsDto booleans(Set<Boolean> booleans) {

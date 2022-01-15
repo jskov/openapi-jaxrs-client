@@ -14,14 +14,24 @@ package mada.tests.e2e.opts.parser.unwrap.dto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * ArchivePDF
  */
+@JsonbPropertyOrder({
+  ArchivePDF.JSON_PROPERTY_STRING_LIST,
+  ArchivePDF.JSON_PROPERTY_BYTE_LIST
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class ArchivePDF   {
+  public static final String JSON_PROPERTY_STRING_LIST = "stringList";
+  @JsonbProperty(JSON_PROPERTY_STRING_LIST)
   private List<String> stringList = null;
 
+  public static final String JSON_PROPERTY_BYTE_LIST = "byteList";
+  @JsonbProperty(JSON_PROPERTY_BYTE_LIST)
   private byte[] byteList;
 
   public ArchivePDF stringList(List<String> stringList) {

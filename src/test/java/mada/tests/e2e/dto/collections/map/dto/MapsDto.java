@@ -15,54 +15,124 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * MapsDto
  */
+@JsonbPropertyOrder({
+  MapsDto.JSON_PROPERTY_BOOLEANS,
+  MapsDto.JSON_PROPERTY_BYTES,
+  MapsDto.JSON_PROPERTY_SHORTS,
+  MapsDto.JSON_PROPERTY_INTS,
+  MapsDto.JSON_PROPERTY_LONGS,
+  MapsDto.JSON_PROPERTY_STRINGS,
+  MapsDto.JSON_PROPERTY_REFS,
+  MapsDto.JSON_PROPERTY_REQUIRED_BOOLEANS,
+  MapsDto.JSON_PROPERTY_REQUIRED_BYTES,
+  MapsDto.JSON_PROPERTY_REQUIRED_SHORTS,
+  MapsDto.JSON_PROPERTY_REQUIRED_INTS,
+  MapsDto.JSON_PROPERTY_REQUIRED_LONGS,
+  MapsDto.JSON_PROPERTY_REQUIRED_STRINGS,
+  MapsDto.JSON_PROPERTY_REQUIRED_REFS,
+  MapsDto.JSON_PROPERTY_BOTH_BOOLEANS,
+  MapsDto.JSON_PROPERTY_BOTH_BYTES,
+  MapsDto.JSON_PROPERTY_BOTH_SHORTS,
+  MapsDto.JSON_PROPERTY_BOTH_INTS,
+  MapsDto.JSON_PROPERTY_BOTH_LONGS,
+  MapsDto.JSON_PROPERTY_BOTH_STRINGS,
+  MapsDto.JSON_PROPERTY_BOTH_REFS,
+  MapsDto.JSON_PROPERTY_OBJECTS
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class MapsDto   {
+  public static final String JSON_PROPERTY_BOOLEANS = "booleans";
+  @JsonbProperty(JSON_PROPERTY_BOOLEANS)
   private Map<String, Boolean> booleans = null;
 
+  public static final String JSON_PROPERTY_BYTES = "bytes";
+  @JsonbProperty(JSON_PROPERTY_BYTES)
   private Map<String, Byte> bytes = null;
 
+  public static final String JSON_PROPERTY_SHORTS = "shorts";
+  @JsonbProperty(JSON_PROPERTY_SHORTS)
   private Map<String, Short> shorts = null;
 
+  public static final String JSON_PROPERTY_INTS = "ints";
+  @JsonbProperty(JSON_PROPERTY_INTS)
   private Map<String, Integer> ints = null;
 
+  public static final String JSON_PROPERTY_LONGS = "longs";
+  @JsonbProperty(JSON_PROPERTY_LONGS)
   private Map<String, Long> longs = null;
 
+  public static final String JSON_PROPERTY_STRINGS = "strings";
+  @JsonbProperty(JSON_PROPERTY_STRINGS)
   private Map<String, String> strings = null;
 
+  public static final String JSON_PROPERTY_REFS = "refs";
+  @JsonbProperty(JSON_PROPERTY_REFS)
   private Map<String, Simple> refs = null;
 
+  public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
   private Map<String, Boolean> requiredBooleans = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_BYTES)
   private Map<String, Byte> requiredBytes = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
   private Map<String, Short> requiredShorts = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
   private Map<String, Integer> requiredInts = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_LONGS)
   private Map<String, Long> requiredLongs = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   private Map<String, String> requiredStrings = new HashMap<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
   private Map<String, Simple> requiredRefs = new HashMap<>();
 
+  public static final String JSON_PROPERTY_BOTH_BOOLEANS = "bothBooleans";
+  @JsonbProperty(JSON_PROPERTY_BOTH_BOOLEANS)
   private Map<String, Boolean> bothBooleans = null;
 
+  public static final String JSON_PROPERTY_BOTH_BYTES = "bothBytes";
+  @JsonbProperty(JSON_PROPERTY_BOTH_BYTES)
   private Map<String, Byte> bothBytes = null;
 
+  public static final String JSON_PROPERTY_BOTH_SHORTS = "bothShorts";
+  @JsonbProperty(JSON_PROPERTY_BOTH_SHORTS)
   private Map<String, Short> bothShorts = null;
 
+  public static final String JSON_PROPERTY_BOTH_INTS = "bothInts";
+  @JsonbProperty(JSON_PROPERTY_BOTH_INTS)
   private Map<String, Integer> bothInts = null;
 
+  public static final String JSON_PROPERTY_BOTH_LONGS = "bothLongs";
+  @JsonbProperty(JSON_PROPERTY_BOTH_LONGS)
   private Map<String, Long> bothLongs = null;
 
+  public static final String JSON_PROPERTY_BOTH_STRINGS = "bothStrings";
+  @JsonbProperty(JSON_PROPERTY_BOTH_STRINGS)
   private Map<String, String> bothStrings = null;
 
+  public static final String JSON_PROPERTY_BOTH_REFS = "bothRefs";
+  @JsonbProperty(JSON_PROPERTY_BOTH_REFS)
   private Map<String, Simple> bothRefs = null;
 
+  public static final String JSON_PROPERTY_OBJECTS = "objects";
+  @JsonbProperty(JSON_PROPERTY_OBJECTS)
   private Map<String, Object> objects = null;
 
   public MapsDto booleans(Map<String, Boolean> booleans) {

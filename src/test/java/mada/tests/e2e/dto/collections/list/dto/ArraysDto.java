@@ -15,38 +15,84 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * ArraysDto
  */
+@JsonbPropertyOrder({
+  ArraysDto.JSON_PROPERTY_BOOLEANS,
+  ArraysDto.JSON_PROPERTY_BYTES,
+  ArraysDto.JSON_PROPERTY_SHORTS,
+  ArraysDto.JSON_PROPERTY_INTS,
+  ArraysDto.JSON_PROPERTY_LONGS,
+  ArraysDto.JSON_PROPERTY_STRINGS,
+  ArraysDto.JSON_PROPERTY_REFS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_BOOLEANS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_BYTES,
+  ArraysDto.JSON_PROPERTY_REQUIRED_SHORTS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_INTS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_LONGS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_STRINGS,
+  ArraysDto.JSON_PROPERTY_REQUIRED_REFS
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class ArraysDto   {
+  public static final String JSON_PROPERTY_BOOLEANS = "booleans";
+  @JsonbProperty(JSON_PROPERTY_BOOLEANS)
   private List<Boolean> booleans = null;
 
+  public static final String JSON_PROPERTY_BYTES = "bytes";
+  @JsonbProperty(JSON_PROPERTY_BYTES)
   private byte[] bytes;
 
+  public static final String JSON_PROPERTY_SHORTS = "shorts";
+  @JsonbProperty(JSON_PROPERTY_SHORTS)
   private List<Short> shorts = null;
 
+  public static final String JSON_PROPERTY_INTS = "ints";
+  @JsonbProperty(JSON_PROPERTY_INTS)
   private List<Integer> ints = null;
 
+  public static final String JSON_PROPERTY_LONGS = "longs";
+  @JsonbProperty(JSON_PROPERTY_LONGS)
   private List<Long> longs = null;
 
+  public static final String JSON_PROPERTY_STRINGS = "strings";
+  @JsonbProperty(JSON_PROPERTY_STRINGS)
   private List<String> strings = null;
 
+  public static final String JSON_PROPERTY_REFS = "refs";
+  @JsonbProperty(JSON_PROPERTY_REFS)
   private List<Simple> refs = null;
 
+  public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
   private List<Boolean> requiredBooleans = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_BYTES)
   private byte[] requiredBytes;
 
+  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
   private List<Short> requiredShorts = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
   private List<Integer> requiredInts = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_LONGS)
   private List<Long> requiredLongs = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   private List<String> requiredStrings = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
   private List<Simple> requiredRefs = new ArrayList<>();
 
   public ArraysDto booleans(List<Boolean> booleans) {

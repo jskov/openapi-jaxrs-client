@@ -15,20 +15,39 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * ExternedSpecialTypes
  */
+@JsonbPropertyOrder({
+  ExternedSpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
+  ExternedSpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
+  ExternedSpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
+  ExternedSpecialTypes.JSON_PROPERTY_DATE_TIME,
+  ExternedSpecialTypes.JSON_PROPERTY_DATE
+})
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class ExternedSpecialTypes   {
+  public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
+  @JsonbProperty(JSON_PROPERTY_BIG_DECIMAL)
   private BigDecimal bigDecimal;
 
+  public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
+  @JsonbProperty(JSON_PROPERTY_ZONED_DATE_TIME)
   private OffsetDateTime zonedDateTime;
 
+  public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
+  @JsonbProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
   private OffsetDateTime offsetDateTime;
 
+  public static final String JSON_PROPERTY_DATE_TIME = "dateTime";
+  @JsonbProperty(JSON_PROPERTY_DATE_TIME)
   private OffsetDateTime dateTime;
 
+  public static final String JSON_PROPERTY_DATE = "date";
+  @JsonbProperty(JSON_PROPERTY_DATE)
   private LocalDate date;
 
   public ExternedSpecialTypes bigDecimal(BigDecimal bigDecimal) {
