@@ -147,7 +147,10 @@ public class Types {
 			throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + newType);
 		}
 	}
-	
+
+	/**
+	 * Collection types such as ListDto are changed to List<Dto>.
+	 */
 	public void consolidateDtos() {
 		logger.info("Consolidate DTOs");
 		for (Dto dto : getActiveDtos()) {
@@ -155,14 +158,15 @@ public class Types {
 			Type t = dto.dtoType();
 			TypeName openapiName = dto.openapiId();
 			
-			logger.info(" consider {} : {} {}", name, dto.getClass(), t);
+			logger.info(" consider {} : {} {}/{}", name, dto.getClass(), t.getClass(), t);
 			
 			if (t instanceof TypeArray ta) {
 				remapDto(openapiName, TypeArray.of(this, ta.innerType()));
-			} else if (t instanceof TypeMap tm) {
-				remapDto(openapiName, TypeMap.of(tm.innerType()));
 			} else if (t instanceof TypeSet tm) {
 				remapDto(openapiName, TypeSet.of(tm.innerType()));
+			} else if (t instanceof TypeMap tm) {
+				// no remapping of maps
+				// a DTO with properties of the same type may be represented like this
 			} else if (unmappedToJseTypes.contains(openapiName)) {
 				// no remapping of kept types
 			} else if (dto.isEnum()) {
