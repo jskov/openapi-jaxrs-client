@@ -17,9 +17,11 @@ import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.openapi.ParserOpts;
 
 public class EnumNamerTest {
-	private static final GeneratorOpts opts = new GeneratorOpts(new Properties());
+	private static final ParserOpts parserOpts = new ParserOpts(new Properties());
+	private static final GeneratorOpts opts = new GeneratorOpts(new Properties(), parserOpts);
 	
 	@Test
 	void usesNumerPrefixForNumberTypes() {

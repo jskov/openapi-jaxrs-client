@@ -40,14 +40,20 @@ public class SpecialTypes   {
 
   public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
   @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
+  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
   private OffsetDateTime zonedDateTime;
 
   public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
   @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
+  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
   private OffsetDateTime offsetDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
   @JsonProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
+  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
   private OffsetDateTime localDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";

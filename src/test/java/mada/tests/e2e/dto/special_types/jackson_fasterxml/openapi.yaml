@@ -1,0 +1,72 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/special-types:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecialTypes'
+components:
+  schemas:
+    LocalTime:
+      format: local-time
+      type: string
+      externalDocs:
+        description: As defined by 'partial-time' in RFC3339
+        url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+      example: 13:45.30.123456789
+    SpecialTypes:
+      type: object
+      properties:
+        bigDecimal:
+          type: number
+        zonedDateTime:
+          format: date-time
+          type: string
+        offsetDateTime:
+          format: date-time
+          type: string
+        localDateTime:
+          format: date-time
+          type: string
+        localDate:
+          format: date
+          type: string
+        localTime:
+          $ref: '#/components/schemas/LocalTime'
+    ExternedSpecialTypes:
+      type: object
+      properties:
+        bigDecimal:
+          $ref: '#/components/schemas/BigDecimal'
+        zonedDateTime:
+          $ref: '#/components/schemas/ZonedDateTime'
+        offsetDateTime:
+          $ref: '#/components/schemas/OffsetDateTime'
+        dateTime:
+          $ref: '#/components/schemas/LocalDateTime'
+        date:
+          $ref: '#/components/schemas/LocalDate'
+    LocalDateTime:
+      format: date-time
+      type: string
+    ZonedDateTime:
+      format: date-time
+      type: string
+    OffsetDateTime:
+      format: date-time
+      type: string
+    LocalDate:
+      format: date
+      type: string
+    BigDecimal:
+      type: number

@@ -89,10 +89,29 @@ public class Imports {
 	}
 	
 	public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
-		return new Imports(opts)
-				.add(opts.isUseJacksonLocalDateSerializer(), "java.io.IOException", "java.time.LocalDate", "java.time.format.DateTimeFormatter")
-				.jackson(tmpl == ExtraTemplate._LocalDateJacksonDeserializer, "JsonParser", "DeserializationContext", "JsonDeserializer")
-				.jackson(tmpl == ExtraTemplate._LocalDateJacksonSerializer,   "JsonGenerator", "SerializerProvider", "JsonSerializer", "JsonProcessingException");
+		var imports = new Imports(opts);
+		
+		if (tmpl == ExtraTemplate._LocalDateJacksonDeserializer) {
+			imports
+				.add("java.io.IOException", "java.time.LocalDate", "java.time.format.DateTimeFormatter")
+				.jackson("JsonParser", "DeserializationContext", "JsonDeserializer");
+		}
+		if (tmpl == ExtraTemplate._LocalDateJacksonSerializer) {
+			imports
+				.add("java.io.IOException", "java.time.LocalDate", "java.time.format.DateTimeFormatter")
+				.jackson("JsonGenerator", "SerializerProvider", "JsonSerializer", "JsonProcessingException");
+		}
+		if (tmpl == ExtraTemplate._OffsetDateTimeJacksonDeserializer) {
+			imports
+				.add("java.io.IOException", "java.time.LocalDateTime", "java.time.OffsetDateTime", "java.time.format.DateTimeFormatter", "java.time.format.DateTimeParseException", "java.time.ZoneId")
+				.jackson("JsonParser", "DeserializationContext", "JsonDeserializer", "JsonProcessingException");
+		}
+		if (tmpl == ExtraTemplate._OffsetDateTimeJacksonSerializer) {
+			imports
+				.add("java.io.IOException", "java.time.OffsetDateTime", "java.time.format.DateTimeFormatter")
+				.jackson("JsonGenerator", "SerializerProvider", "JsonSerializer", "JsonProcessingException");
+		}
+		return imports;
 	}
 
 	public void addPropertyImports(Collection<Property> properties) {
@@ -114,11 +133,16 @@ public class Imports {
 
 		boolean isCodehaus = opts.isJacksonCodehaus();
 		for (String c : classes) {
+			String mapped;
 			if (isCodehaus) {
-				add(JACKSON_CODEHAUS.get(c));
+				mapped = JACKSON_CODEHAUS.get(c);
 			} else {
-				add(JACKSON_FASTERXML.get(c));
+				mapped = JACKSON_FASTERXML.get(c);
 			}
+			if (mapped == null) {
+				throw new IllegalStateException("No jackson import mapping for " + c);
+			}
+			add(mapped);
 		}
 		return this;
 	}

@@ -40,7 +40,9 @@ public class DtoGenerator {
 	
 	enum ExtraTemplate {
 		_LocalDateJacksonDeserializer,
-		_LocalDateJacksonSerializer
+		_LocalDateJacksonSerializer,
+		_OffsetDateTimeJacksonDeserializer,
+		_OffsetDateTimeJacksonSerializer
 	}
 	
 	private final Naming naming;
@@ -151,12 +153,29 @@ public class DtoGenerator {
 			
 			dtoImports.jackson("JsonDeserialize", "JsonSerialize");
 		}
+
+		String customOffsetDateTimeDeserializer = null;
+		String customOffsetDateTimeSerializer = null;
+
+		if (opts.isUseJacksonOffsetDateTimeSerializer()
+				&& (dtoType.isDateTime()
+					|| dto.properties().stream().anyMatch(p -> p.type().isDateTime()))) {
+			extraTemplates.add(ExtraTemplate._OffsetDateTimeJacksonDeserializer);
+			extraTemplates.add(ExtraTemplate._OffsetDateTimeJacksonSerializer);
+
+			customOffsetDateTimeDeserializer = ExtraTemplate._OffsetDateTimeJacksonDeserializer.name();
+			customOffsetDateTimeSerializer = ExtraTemplate._OffsetDateTimeJacksonSerializer.name();
+			
+			dtoImports.jackson("JsonDeserialize", "JsonSerialize");
+		}
 		
 		CtxDtoExt mada = CtxDtoExt.builder()
 				.jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
 				.jsonb(opts.isJsonb())
 				.customLocalDateDeserializer(customLocalDateDeserializer)
 				.customLocalDateSerializer(customLocalDateSerializer)
+				.customOffsetDateTimeDeserializer(customOffsetDateTimeDeserializer)
+				.customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
 				.build();
 		
 		return CtxDto.builder()
@@ -212,6 +231,7 @@ public class DtoGenerator {
 		boolean isMap = false;
 		boolean isSet = false;
 		boolean isDate = propType.isDate();
+		boolean isDateTime = propType.isDateTime();
 		String innerType = null;
 		
 		if (propType instanceof TypeArray ca) {
@@ -286,6 +306,7 @@ public class DtoGenerator {
 				.isSet(isSet)
 				.isContainer(isContainer)
 				.isDate(isDate)
+				.isDateTime(isDateTime)
 				.defaultValue(defaultValue)
 				.required(isRequired)
 				.example(p.example())

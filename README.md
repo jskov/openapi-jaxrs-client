@@ -70,7 +70,7 @@ And that the generated code can "round trip" via OpenApi to second-hand clients.
 
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/localdate)
 >
-	default value:
+	default value: ISO_LOCAL_DATE
 
 **generator-use-bigdecimal-for-double**
 

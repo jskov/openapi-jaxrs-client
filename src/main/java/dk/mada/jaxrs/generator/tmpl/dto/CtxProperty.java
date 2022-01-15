@@ -31,6 +31,7 @@ public interface CtxProperty {
 	boolean isSet();
 	boolean isContainer();
 	boolean isDate();
+	boolean isDateTime();
 	
 	boolean required();
 	

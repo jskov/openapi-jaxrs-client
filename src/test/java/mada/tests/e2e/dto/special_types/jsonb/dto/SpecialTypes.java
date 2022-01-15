@@ -9,23 +9,21 @@
  * Do not edit the class manually.
  */
 
-package mada.tests.e2e.opts.generator.localdate.jackson_fasterxml.dto;
+package mada.tests.e2e.dto.special_types.jsonb.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * SpecialTypes
  */
-@JsonPropertyOrder({
-  SpecialTypes.JSON_PROPERTY_A_BIG_DECIMAL,
+@JsonbPropertyOrder({
+  SpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
   SpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
   SpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
   SpecialTypes.JSON_PROPERTY_LOCAL_DATE_TIME,
@@ -34,53 +32,45 @@ import java.util.Objects;
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
 public class SpecialTypes   {
-  public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";
-  @JsonProperty(JSON_PROPERTY_A_BIG_DECIMAL)
-  private BigDecimal aBigDecimal;
+  public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
+  @JsonbProperty(JSON_PROPERTY_BIG_DECIMAL)
+  private BigDecimal bigDecimal;
 
   public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
-  @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
-  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonbProperty(JSON_PROPERTY_ZONED_DATE_TIME)
   private OffsetDateTime zonedDateTime;
 
   public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
-  @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
-  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonbProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
   private OffsetDateTime offsetDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
-  @JsonProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
-  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonbProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
   private OffsetDateTime localDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
-  @JsonProperty(JSON_PROPERTY_LOCAL_DATE)
-  @JsonDeserialize(using = _LocalDateJacksonDeserializer.class)
-  @JsonSerialize(using = _LocalDateJacksonSerializer.class)
+  @JsonbProperty(JSON_PROPERTY_LOCAL_DATE)
   private LocalDate localDate;
 
   public static final String JSON_PROPERTY_LOCAL_TIME = "localTime";
-  @JsonProperty(JSON_PROPERTY_LOCAL_TIME)
+  @JsonbProperty(JSON_PROPERTY_LOCAL_TIME)
   private LocalTime localTime;
 
-  public SpecialTypes aBigDecimal(BigDecimal aBigDecimal) {
-    this.aBigDecimal = aBigDecimal;
+  public SpecialTypes bigDecimal(BigDecimal bigDecimal) {
+    this.bigDecimal = bigDecimal;
     return this;
   }
 
   /**
-   * Get aBigDecimal
-   * @return aBigDecimal
+   * Get bigDecimal
+   * @return bigDecimal
    **/
-  public BigDecimal getABigDecimal() {
-    return aBigDecimal;
+  public BigDecimal getBigDecimal() {
+    return bigDecimal;
   }
 
-  public void setABigDecimal(BigDecimal aBigDecimal) {
-    this.aBigDecimal = aBigDecimal;
+  public void setBigDecimal(BigDecimal bigDecimal) {
+    this.bigDecimal = bigDecimal;
   }
 
   public SpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
@@ -177,7 +167,7 @@ public class SpecialTypes   {
       return false;
     }
     SpecialTypes other = (SpecialTypes) o;
-    return Objects.equals(this.aBigDecimal, other.aBigDecimal) &&
+    return Objects.equals(this.bigDecimal, other.bigDecimal) &&
         Objects.equals(this.zonedDateTime, other.zonedDateTime) &&
         Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
         Objects.equals(this.localDateTime, other.localDateTime) &&
@@ -187,14 +177,14 @@ public class SpecialTypes   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBigDecimal, zonedDateTime, offsetDateTime, localDateTime, localDate, localTime);
+    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, localDateTime, localDate, localTime);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SpecialTypes {");
-    sb.append("\n    aBigDecimal: ").append(toIndentedString(aBigDecimal));
+    sb.append("\n    bigDecimal: ").append(toIndentedString(bigDecimal));
     sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
     sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
     sb.append("\n    localDateTime: ").append(toIndentedString(localDateTime));

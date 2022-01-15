@@ -4,16 +4,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+import dk.mada.jaxrs.openapi.ParserOpts;
+
 public class GeneratorOpts {
 	private final String generatedAtTime = LocalDateTime.now().withNano(0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+	private final ParserOpts parserOpts;
 	private final Properties options;
 	
 	private final boolean useJacksonCodehaus;
 	private final boolean useJacksonFasterxml;
 	private final boolean useJsonb;
 	
-	public GeneratorOpts(Properties options) {
+	public GeneratorOpts(Properties options, ParserOpts parserOpts) {
 		this.options = options;
+		this.parserOpts = parserOpts;
 
 		useJacksonCodehaus = bool("generator-jackson-codehaus");
 		useJacksonFasterxml = bool("generator-jackson-fasterxml");
@@ -75,15 +79,19 @@ public class GeneratorOpts {
 		return get("generator-jackson-json-serialize-options");
 	}
 
+	public boolean isUseJacksonOffsetDateTimeSerializer() {
+		return parserOpts.isJseOffsetDateTime() && isJackson();
+	}
+
 	public boolean isUseJacksonLocalDateSerializer() {
-		return getJacksonLocalDateWireFormat() != null;
+		return parserOpts.isJseLocalDate() && isJackson();
 	}
 
 	public String getJacksonLocalDateWireFormat() {
-		if (!isJackson()) {
+		if (!isUseJacksonLocalDateSerializer()) {
 			return null;
 		}
-		return get("generator-jackson-localdate-wire-format");
+		return getDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
 	}
 
 	public boolean isUseBigDecimalForDouble() {

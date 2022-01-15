@@ -21,6 +21,11 @@ public interface CtxDtoExt {
 	String customLocalDateDeserializer();
 	@Nullable
 	String customLocalDateSerializer();
-	
+
+	@Nullable
+	String customOffsetDateTimeDeserializer();
+	@Nullable
+	String customOffsetDateTimeSerializer();
+
 	boolean jsonb();
 }

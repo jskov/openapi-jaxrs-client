@@ -1,0 +1,16 @@
+{{>licenseInfo}}
+
+package {{packageName}};
+
+{{#imports}}
+import {{.}};
+{{/imports}}
+
+{{>generatedAnnotation}}
+public class _OffsetDateTimeJacksonSerializer extends JsonSerializer<OffsetDateTime> {
+	@Override
+	public void serialize(OffsetDateTime value, JsonGenerator jgen, SerializerProvider provider)
+			throws IOException, JsonProcessingException {
+		jgen.writeString(value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+	}
+}

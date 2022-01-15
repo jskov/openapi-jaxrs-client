@@ -46,6 +46,14 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class)
     {{/madaDto.customLocalDateSerializer}}
   {{/isDate}}
+  {{#isDateTime}}
+    {{#madaDto.customOffsetDateTimeDeserializer}}
+  @JsonDeserialize(using = {{madaDto.customOffsetDateTimeDeserializer}}.class)
+    {{/madaDto.customOffsetDateTimeDeserializer}}
+    {{#madaDto.customOffsetDateTimeSerializer}}
+  @JsonSerialize(using = {{madaDto.customOffsetDateTimeSerializer}}.class)
+    {{/madaDto.customOffsetDateTimeSerializer}}
+  {{/isDateTime}}
   {{/jackson}}
   {{#madaDto.jsonb}}
   public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";

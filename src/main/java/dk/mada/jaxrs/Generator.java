@@ -16,7 +16,7 @@ public class Generator {
 	
 	public void generate(Path input, Properties options, Path outputDir) {
 		var parserOpts = new ParserOpts(options);
-		var generatorOpts = new GeneratorOpts(options);
+		var generatorOpts = new GeneratorOpts(options, parserOpts);
 		var naming = new Naming(options);
 	    Model model = new Parser(naming, parserOpts, generatorOpts).parse(input);
 	    
