@@ -1,8 +1,21 @@
 ---
 openapi: 3.0.3
 info:
-  title: openapi-examples API
-  version: 1.0.0-SNAPSHOT
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
 paths:
   /dtos/serializer:
     get:
@@ -47,12 +60,12 @@ components:
         mpAnnotationsPropsOnly:
           $ref: '#/components/schemas/MicroProfileAnnotationsPropsOnly'
     microprofile-annotations:
-      description: class description
+      description: openapi class description
       type: object
       properties:
         withDescription:
-          description: property description
+          description: openapi property description
           type: string
         withExample:
           type: string
-          example: property example
+          example: openapi property example

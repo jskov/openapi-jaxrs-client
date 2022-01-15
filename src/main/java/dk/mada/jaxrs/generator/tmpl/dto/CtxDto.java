@@ -17,8 +17,9 @@ public interface CtxDto {
 	}
 	
 	String appName();
-	String appDescription();
 	String version();
+	@Nullable
+	String appDescription();
 	@Nullable
 	String infoEmail();
 	

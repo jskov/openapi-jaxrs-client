@@ -16,8 +16,9 @@ public interface CtxExtra {
 	}
 	
 	String appName();
-	String appDescription();
 	String version();
+	@Nullable
+	String appDescription();
 	@Nullable
 	String infoEmail();
 

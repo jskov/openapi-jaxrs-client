@@ -1,8 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
-import dk.mada.jaxrs.model.ImmutableContact;
-import dk.mada.jaxrs.model.ImmutableInfo;
 import dk.mada.jaxrs.model.Info;
+import dk.mada.jaxrs.model.Info.Contact;
 import io.swagger.v3.oas.models.OpenAPI;
 
 /**
@@ -14,8 +13,8 @@ public class InfoTransformer {
 
 		String title = orEmpty(info.getTitle());
 		String version = orEmpty(info.getVersion());
-		String description = orEmpty(info.getDescription());
-		String tos = orEmpty(info.getTermsOfService());
+		String description = info.getDescription();
+		String tos = info.getTermsOfService();
 
 		String email = null;
 		String name = null;
@@ -27,12 +26,12 @@ public class InfoTransformer {
 			url = contact.getUrl();
 		}
 		
-		return ImmutableInfo.builder()
+		return Info.builder()
 				.title(title)
 				.version(version)
 				.description(description)
 				.termsOfService(tos)
-				.contact(ImmutableContact.builder()
+				.contact(Contact.builder()
 						.email(email)
 						.name(name)
 						.url(url)
@@ -43,5 +42,4 @@ public class InfoTransformer {
 	private String orEmpty(String str) {
 		return str == null ? "" : str;
 	}
-
 }

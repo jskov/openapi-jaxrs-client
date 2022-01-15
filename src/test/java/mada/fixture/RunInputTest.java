@@ -49,13 +49,19 @@ public class RunInputTest {
 		deleteUnwantedOutput(testOptions, outputDir);
 
 		OutputDiff differ = new OutputDiff(testName);
+		Path outputApiDir = outputDir.resolve("api");
 		if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"))) {
 			logger.info("Comparing APIs");
-			differ.compareDirs(outputDir.resolve("api"), testDir.resolve("api"));
+			differ.compareDirs(outputApiDir, testDir.resolve("api"));
+		} else {
+			DirectoryDeleter.delete(outputApiDir);
 		}
+		Path outputDtoDir = outputDir.resolve("dto");
 		if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"))) {
 			logger.info("Comparing DTOs");
-			differ.compareDirs(outputDir.resolve("dto"), testDir.resolve("dto"));
+			differ.compareDirs(outputDtoDir, testDir.resolve("dto"));
+		} else {
+			DirectoryDeleter.delete(outputDtoDir);
 		}
 	}
 
