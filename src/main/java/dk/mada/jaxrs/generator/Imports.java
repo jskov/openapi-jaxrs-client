@@ -7,8 +7,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import dk.mada.jaxrs.generator.DtoGenerator.ExtraTemplate;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxProperty;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxPropertyExt;
 import dk.mada.jaxrs.model.Property;
 
 /**
@@ -17,8 +15,6 @@ import dk.mada.jaxrs.model.Property;
  */
 public class Imports {
 	private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
-	public static final String JAVA_MATH_BIG_DECIMAL = "java.math.BigDecimal";
-	public static final String SWAGGER_MODEL_PROPERTY = "io.swagger.annotations.ApiModelProperty";
 
 	private static final Map<String, String> JACKSON_CODEHAUS = new HashMap<>();
 	static {
@@ -177,18 +173,5 @@ public class Imports {
 	
 	public void addAll(Collection<String> classes) {
 		imports.addAll(classes);
-	}
-
-	public void addCtxPropImports(Collection<CtxProperty> vars) {
-		for (CtxProperty cp : vars) {
-			CtxPropertyExt madaProp = cp.madaProp();
-			if (madaProp.isRenderApiModelProperty()) {
-				add(SWAGGER_MODEL_PROPERTY);
-			}
-			if (madaProp.isUseBigDecimalForDouble()) {
-				jackson("JsonIgnore");
-				add(JAVA_MATH_BIG_DECIMAL);
-			}
-		}
 	}
 }

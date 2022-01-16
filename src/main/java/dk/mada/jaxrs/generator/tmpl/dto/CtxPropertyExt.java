@@ -16,7 +16,8 @@ public interface CtxPropertyExt {
 	@Nullable
 	String innerDatatypeWithEnum();
 	
-	boolean isRenderApiModelProperty();
+	@Nullable
+	String schemaOptions();
 	boolean isUseBigDecimalForDouble();
 	boolean isUseEmptyCollections();
 	

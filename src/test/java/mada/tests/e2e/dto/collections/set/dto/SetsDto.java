@@ -6,7 +6,7 @@
 
 package mada.tests.e2e.dto.collections.set.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -64,30 +64,37 @@ public class SetsDto   {
 
   public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
+  @Schema(required = true)
   private Set<Boolean> requiredBooleans = new HashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_BYTES)
+  @Schema(required = true)
   private Set<Byte> requiredBytes = new HashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
+  @Schema(required = true)
   private Set<Short> requiredShorts = new HashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
+  @Schema(required = true)
   private Set<Integer> requiredInts = new HashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_LONGS)
+  @Schema(required = true)
   private Set<Long> requiredLongs = new HashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
+  @Schema(required = true)
   private Set<String> requiredStrings = new HashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
+  @Schema(required = true)
   private Set<Simple> requiredRefs = new HashSet<>();
 
   public SetsDto booleans(Set<Boolean> booleans) {
@@ -279,7 +286,6 @@ public class SetsDto   {
    * Get requiredBooleans
    * @return requiredBooleans
    **/
-  @ApiModelProperty(required = true, value = "")
   public Set<Boolean> getRequiredBooleans() {
     return requiredBooleans;
   }
@@ -302,7 +308,6 @@ public class SetsDto   {
    * Get requiredBytes
    * @return requiredBytes
    **/
-  @ApiModelProperty(required = true, value = "")
   public Set<Byte> getRequiredBytes() {
     return requiredBytes;
   }
@@ -325,7 +330,6 @@ public class SetsDto   {
    * Get requiredShorts
    * @return requiredShorts
    **/
-  @ApiModelProperty(required = true, value = "")
   public Set<Short> getRequiredShorts() {
     return requiredShorts;
   }
@@ -348,7 +352,6 @@ public class SetsDto   {
    * Get requiredInts
    * @return requiredInts
    **/
-  @ApiModelProperty(required = true, value = "")
   public Set<Integer> getRequiredInts() {
     return requiredInts;
   }
@@ -371,7 +374,6 @@ public class SetsDto   {
    * Get requiredLongs
    * @return requiredLongs
    **/
-  @ApiModelProperty(required = true, value = "")
   public Set<Long> getRequiredLongs() {
     return requiredLongs;
   }
@@ -394,7 +396,6 @@ public class SetsDto   {
    * Get requiredStrings
    * @return requiredStrings
    **/
-  @ApiModelProperty(required = true, value = "")
   public Set<String> getRequiredStrings() {
     return requiredStrings;
   }
@@ -417,7 +418,6 @@ public class SetsDto   {
    * Get requiredRefs
    * @return requiredRefs
    **/
-  @ApiModelProperty(required = true, value = "")
   public Set<Simple> getRequiredRefs() {
     return requiredRefs;
   }

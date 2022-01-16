@@ -8,7 +8,7 @@
 
 package mada.tests.e2e.dto.serializer.jsonb.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
@@ -24,6 +24,11 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   SerializerInfoDto.JSON_PROPERTY_WITH_DASHES,
   SerializerInfoDto.JSON_PROPERTY_WITH_DIGIT,
   SerializerInfoDto.JSON_PROPERTY_MUST_INCLUDE,
+  SerializerInfoDto.JSON_PROPERTY_MUST_INCLUDE_VIA_SCHEMA,
+  SerializerInfoDto.JSON_PROPERTY_NOT_NULL,
+  SerializerInfoDto.JSON_PROPERTY_NOT_NULL_VIA_SCHEMA,
+  SerializerInfoDto.JSON_PROPERTY_IS_NULLABLE,
+  SerializerInfoDto.JSON_PROPERTY_IS_NULLABLE_VIA_SCHEMA,
   SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS,
   SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY
 })
@@ -55,7 +60,31 @@ public class SerializerInfoDto   {
 
   public static final String JSON_PROPERTY_MUST_INCLUDE = "mustInclude";
   @JsonbProperty(JSON_PROPERTY_MUST_INCLUDE)
+  @Schema(required = true)
   private String mustInclude;
+
+  public static final String JSON_PROPERTY_MUST_INCLUDE_VIA_SCHEMA = "mustIncludeViaSchema";
+  @JsonbProperty(JSON_PROPERTY_MUST_INCLUDE_VIA_SCHEMA)
+  @Schema(required = true)
+  private String mustIncludeViaSchema;
+
+  public static final String JSON_PROPERTY_NOT_NULL = "notNull";
+  @JsonbProperty(JSON_PROPERTY_NOT_NULL)
+  @Schema(required = true)
+  private String notNull;
+
+  public static final String JSON_PROPERTY_NOT_NULL_VIA_SCHEMA = "notNullViaSchema";
+  @JsonbProperty(JSON_PROPERTY_NOT_NULL_VIA_SCHEMA)
+  private String notNullViaSchema;
+
+  public static final String JSON_PROPERTY_IS_NULLABLE = "isNullable";
+  @JsonbProperty(JSON_PROPERTY_IS_NULLABLE)
+  private String isNullable;
+
+  public static final String JSON_PROPERTY_IS_NULLABLE_VIA_SCHEMA = "isNullableViaSchema";
+  @JsonbProperty(JSON_PROPERTY_IS_NULLABLE_VIA_SCHEMA)
+  @Schema(nullable = true)
+  private String isNullableViaSchema;
 
   public static final String JSON_PROPERTY_MP_ANNOTATIONS = "mpAnnotations";
   @JsonbProperty(JSON_PROPERTY_MP_ANNOTATIONS)
@@ -176,13 +205,97 @@ public class SerializerInfoDto   {
    * Get mustInclude
    * @return mustInclude
    **/
-  @ApiModelProperty(required = true, value = "")
   public String getMustInclude() {
     return mustInclude;
   }
 
   public void setMustInclude(String mustInclude) {
     this.mustInclude = Objects.requireNonNull(mustInclude, "Property mustInclude is required, cannot be null");
+  }
+
+  public SerializerInfoDto mustIncludeViaSchema(String mustIncludeViaSchema) {
+    this.mustIncludeViaSchema = Objects.requireNonNull(mustIncludeViaSchema, "Property mustIncludeViaSchema is required, cannot be null");
+    return this;
+  }
+
+  /**
+   * Get mustIncludeViaSchema
+   * @return mustIncludeViaSchema
+   **/
+  public String getMustIncludeViaSchema() {
+    return mustIncludeViaSchema;
+  }
+
+  public void setMustIncludeViaSchema(String mustIncludeViaSchema) {
+    this.mustIncludeViaSchema = Objects.requireNonNull(mustIncludeViaSchema, "Property mustIncludeViaSchema is required, cannot be null");
+  }
+
+  public SerializerInfoDto notNull(String notNull) {
+    this.notNull = Objects.requireNonNull(notNull, "Property notNull is required, cannot be null");
+    return this;
+  }
+
+  /**
+   * Get notNull
+   * @return notNull
+   **/
+  public String getNotNull() {
+    return notNull;
+  }
+
+  public void setNotNull(String notNull) {
+    this.notNull = Objects.requireNonNull(notNull, "Property notNull is required, cannot be null");
+  }
+
+  public SerializerInfoDto notNullViaSchema(String notNullViaSchema) {
+    this.notNullViaSchema = notNullViaSchema;
+    return this;
+  }
+
+  /**
+   * Get notNullViaSchema
+   * @return notNullViaSchema
+   **/
+  public String getNotNullViaSchema() {
+    return notNullViaSchema;
+  }
+
+  public void setNotNullViaSchema(String notNullViaSchema) {
+    this.notNullViaSchema = notNullViaSchema;
+  }
+
+  public SerializerInfoDto isNullable(String isNullable) {
+    this.isNullable = isNullable;
+    return this;
+  }
+
+  /**
+   * Get isNullable
+   * @return isNullable
+   **/
+  public String getIsNullable() {
+    return isNullable;
+  }
+
+  public void setIsNullable(String isNullable) {
+    this.isNullable = isNullable;
+  }
+
+  public SerializerInfoDto isNullableViaSchema(String isNullableViaSchema) {
+    this.isNullableViaSchema = isNullableViaSchema;
+    return this;
+  }
+
+  /**
+   * Get isNullableViaSchema
+   * @return isNullableViaSchema
+   **/
+  public String getIsNullableViaSchema() {
+    return isNullableViaSchema;
+  }
+
+  public void setIsNullableViaSchema(String isNullableViaSchema) {
+    this.isNullableViaSchema = isNullableViaSchema;
   }
 
   public SerializerInfoDto mpAnnotations(MicroprofileAnnotations mpAnnotations) {
@@ -235,13 +348,18 @@ public class SerializerInfoDto   {
         Objects.equals(this.withDashes, other.withDashes) &&
         Objects.equals(this._withDigit, other._withDigit) &&
         Objects.equals(this.mustInclude, other.mustInclude) &&
+        Objects.equals(this.mustIncludeViaSchema, other.mustIncludeViaSchema) &&
+        Objects.equals(this.notNull, other.notNull) &&
+        Objects.equals(this.notNullViaSchema, other.notNullViaSchema) &&
+        Objects.equals(this.isNullable, other.isNullable) &&
+        Objects.equals(this.isNullableViaSchema, other.isNullableViaSchema) &&
         Objects.equals(this.mpAnnotations, other.mpAnnotations) &&
         Objects.equals(this.mpAnnotationsPropsOnly, other.mpAnnotationsPropsOnly);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(beta, alpha, zapRenamed, upperCase, withDashes, _withDigit, mustInclude, mpAnnotations, mpAnnotationsPropsOnly);
+    return Objects.hash(beta, alpha, zapRenamed, upperCase, withDashes, _withDigit, mustInclude, mustIncludeViaSchema, notNull, notNullViaSchema, isNullable, isNullableViaSchema, mpAnnotations, mpAnnotationsPropsOnly);
   }
 
   @Override
@@ -255,6 +373,11 @@ public class SerializerInfoDto   {
     sb.append("\n    withDashes: ").append(toIndentedString(withDashes));
     sb.append("\n    _withDigit: ").append(toIndentedString(_withDigit));
     sb.append("\n    mustInclude: ").append(toIndentedString(mustInclude));
+    sb.append("\n    mustIncludeViaSchema: ").append(toIndentedString(mustIncludeViaSchema));
+    sb.append("\n    notNull: ").append(toIndentedString(notNull));
+    sb.append("\n    notNullViaSchema: ").append(toIndentedString(notNullViaSchema));
+    sb.append("\n    isNullable: ").append(toIndentedString(isNullable));
+    sb.append("\n    isNullableViaSchema: ").append(toIndentedString(isNullableViaSchema));
     sb.append("\n    mpAnnotations: ").append(toIndentedString(mpAnnotations));
     sb.append("\n    mpAnnotationsPropsOnly: ").append(toIndentedString(mpAnnotationsPropsOnly));
     sb.append("\n}");

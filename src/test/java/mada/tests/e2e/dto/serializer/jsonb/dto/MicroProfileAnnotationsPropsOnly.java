@@ -8,7 +8,7 @@
 
 package mada.tests.e2e.dto.serializer.jsonb.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
@@ -23,6 +23,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 public class MicroProfileAnnotationsPropsOnly   {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";
   @JsonbProperty(JSON_PROPERTY_WITH_DESCRIPTION)
+  @Schema(description = "property description")
   private String withDescription;
 
   public MicroProfileAnnotationsPropsOnly withDescription(String withDescription) {
@@ -34,7 +35,6 @@ public class MicroProfileAnnotationsPropsOnly   {
    * property description
    * @return withDescription
    **/
-  @ApiModelProperty(value = "property description")
   public String getWithDescription() {
     return withDescription;
   }

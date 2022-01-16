@@ -143,12 +143,16 @@ public class DtoTransformer {
     		
     		String exampleStr = Objects.toString(propSchema.getExample(), null);
     		
-    		
+    		boolean isReadOnly = (propSchema.getReadOnly() != null) && propSchema.getReadOnly();
+    		boolean isNullable = (propSchema.getNullable() != null) && propSchema.getNullable();
+
 			props.add(ImmutableProperty.builder()
     			.name(name)
     			.type(type)
     			.description(propSchema.getDescription())
     			.example(exampleStr)
+    			.isNullable(isNullable)
+    			.isReadonly(isReadOnly)
     			.isRequired(requiredProperyNames.contains(name))
     			.build());
     	}

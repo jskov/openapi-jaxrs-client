@@ -15,5 +15,7 @@ public interface Property {
 	@Nullable
 	String example();
 	
+	boolean isNullable();
 	boolean isRequired();
+	boolean isReadonly();
 }

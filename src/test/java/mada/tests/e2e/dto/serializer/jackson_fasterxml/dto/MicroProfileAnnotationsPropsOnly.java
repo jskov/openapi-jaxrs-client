@@ -10,7 +10,7 @@ package mada.tests.e2e.dto.serializer.jackson_fasterxml.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
@@ -23,6 +23,7 @@ import java.util.Objects;
 public class MicroProfileAnnotationsPropsOnly   {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";
   @JsonProperty(JSON_PROPERTY_WITH_DESCRIPTION)
+  @Schema(description = "property description")
   private String withDescription;
 
   public MicroProfileAnnotationsPropsOnly withDescription(String withDescription) {
@@ -34,7 +35,6 @@ public class MicroProfileAnnotationsPropsOnly   {
    * property description
    * @return withDescription
    **/
-  @ApiModelProperty(value = "property description")
   public String getWithDescription() {
     return withDescription;
   }

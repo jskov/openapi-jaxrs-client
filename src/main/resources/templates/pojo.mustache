@@ -59,6 +59,9 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";
   @JsonbProperty(JSON_PROPERTY_{{nameInSnakeCase}})
   {{/madaDto.jsonb}}
+  {{#madaProp.schemaOptions}}
+  @Schema({{{madaProp.schemaOptions}}})
+  {{/madaProp.schemaOptions}}
   {{#isContainer}}
   private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}}{{^required}} = null{{/required}};
   {{/isContainer}}
@@ -137,9 +140,6 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   @JsonProperty(value = "{{baseName}}"{{#isReadOnly}}, access = JsonProperty.Access.READ_ONLY{{/isReadOnly}}{{#isWriteOnly}}, access = JsonProperty.Access.WRITE_ONLY{{/isWriteOnly}})
   {{/jackson}}
   {{/madaProp.off}}
-  {{#madaProp.isRenderApiModelProperty}}
-  @ApiModelProperty({{#example}}example = "{{{.}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}value = "{{{description}}}")
-  {{/madaProp.isRenderApiModelProperty}}
   {{#useBeanValidation}}
   {{>beanValidation}}
   {{/useBeanValidation}}

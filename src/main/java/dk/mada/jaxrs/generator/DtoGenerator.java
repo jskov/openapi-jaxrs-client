@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -118,12 +119,14 @@ public class DtoGenerator {
 	private CtxDto toCtx(Dto dto) {
 		Info info = model.info();
 		
+		boolean isEnum = dto.isEnum();
+		var dtoImports = isEnum ? Imports.newEnum(opts) : Imports.newPojo(opts);
+
 		List<CtxProperty> vars = dto.properties().stream()
-			.map(this::toCtxProperty)
+			.map(p -> toCtxProperty(dtoImports, p))
 			.collect(toList());
 		
 		CtxEnum ctxEnum = null;
-		boolean isEnum = dto.isEnum();
 		Type dtoType = derefType(dto.dtoType());
 		if (isEnum) {
 			List<CtxEnumEntry> entries = new EnumNamer(naming, opts, dtoType, dto.enumValues())
@@ -133,11 +136,8 @@ public class DtoGenerator {
 			
 			ctxEnum = new CtxEnum(entries);
 		}
-		
-		var dtoImports = isEnum ? Imports.newEnum(opts) : Imports.newPojo(opts);
 
 		dtoImports.addPropertyImports(dto.properties());
-		dtoImports.addCtxPropImports(vars);
 
 		String customLocalDateDeserializer = null;
 		String customLocalDateSerializer = null;
@@ -213,7 +213,7 @@ public class DtoGenerator {
 		return new CtxEnumEntry(e.name(), strValue);
 	}
 
-	private CtxProperty toCtxProperty(Property p) {
+	private CtxProperty toCtxProperty(Imports dtoImports, Property p) {
 		String name = p.name();
 		String varName = identifiers.makeValidVariableName(name);
 
@@ -268,6 +268,9 @@ public class DtoGenerator {
 		if (isUseBigDecimalForDouble) {
 			getter = getter+"Double";
 			setter = setter+"Double";
+			
+			dtoImports.jackson("JsonIgnore");
+			dtoImports.add("java.math.BigDecimal");
 		}
 
 		boolean isUseEmptyCollections =
@@ -278,14 +281,32 @@ public class DtoGenerator {
 			getter = getter+"Nullable";
 		}
 
-		boolean isRenderApiModelProperty =
-				isRequired
-				|| isNotBlank(p.example())
-				|| isNotBlank(p.description());
+		List<String> schemaEntries = new ArrayList<>();
+		if (isRequired) {
+			schemaEntries.add("required = true");
+		}
+		if (p.isNullable()) {
+			schemaEntries.add("nullable = true");
+		}
+		if (p.isReadonly()) {
+			schemaEntries.add("accessMode = AccessMode.READ_ONLY");
+			dtoImports.add("io.swagger.v3.oas.annotations.media.Schema.AccessMode");
+		}
+		if (isNotBlank(p.description())) {
+			schemaEntries.add("description = \"" + p.description() + "\"");
+		}
+		if (isNotBlank(p.example())) {
+			schemaEntries.add("example = \"" + p.example() + "\"");
+		}
+		String schemaOptions = null;
+		if (!schemaEntries.isEmpty()) {
+			schemaOptions = String.join(", ", schemaEntries);
+			dtoImports.add("io.swagger.v3.oas.annotations.media.Schema");
+		}
 		
 		CtxPropertyExt mada = CtxPropertyExt.builder()
 				.innerDatatypeWithEnum(innerType)
-				.isRenderApiModelProperty(isRenderApiModelProperty)
+				.schemaOptions(schemaOptions)
 				.isUseBigDecimalForDouble(isUseBigDecimalForDouble)
 				.isUseEmptyCollections(isUseEmptyCollections)
 				.getter(extGetter)

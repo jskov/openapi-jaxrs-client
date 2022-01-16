@@ -6,7 +6,7 @@
 
 package mada.tests.e2e.opts.generator.collections_empty.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -64,30 +64,37 @@ public class ArraysDto   {
 
   public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
   @JsonProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
+  @Schema(required = true)
   private List<Boolean> requiredBooleans = new ArrayList<>();
 
   public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
   @JsonProperty(JSON_PROPERTY_REQUIRED_BYTES)
+  @Schema(required = true)
   private byte[] requiredBytes;
 
   public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
   @JsonProperty(JSON_PROPERTY_REQUIRED_SHORTS)
+  @Schema(required = true)
   private List<Short> requiredShorts = new ArrayList<>();
 
   public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
   @JsonProperty(JSON_PROPERTY_REQUIRED_INTS)
+  @Schema(required = true)
   private List<Integer> requiredInts = new ArrayList<>();
 
   public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
   @JsonProperty(JSON_PROPERTY_REQUIRED_LONGS)
+  @Schema(required = true)
   private List<Long> requiredLongs = new ArrayList<>();
 
   public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
   @JsonProperty(JSON_PROPERTY_REQUIRED_STRINGS)
+  @Schema(required = true)
   private List<String> requiredStrings = new ArrayList<>();
 
   public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
   @JsonProperty(JSON_PROPERTY_REQUIRED_REFS)
+  @Schema(required = true)
   private List<Simple> requiredRefs = new ArrayList<>();
 
   public ArraysDto booleans(List<Boolean> booleans) {
@@ -313,7 +320,6 @@ public class ArraysDto   {
    * Get requiredBooleans
    * @return requiredBooleans
    **/
-  @ApiModelProperty(required = true, value = "")
   public List<Boolean> getRequiredBooleans() {
     return requiredBooleans;
   }
@@ -331,7 +337,6 @@ public class ArraysDto   {
    * Get requiredBytes
    * @return requiredBytes
    **/
-  @ApiModelProperty(required = true, value = "")
   public byte[] getRequiredBytes() {
     return requiredBytes;
   }
@@ -354,7 +359,6 @@ public class ArraysDto   {
    * Get requiredShorts
    * @return requiredShorts
    **/
-  @ApiModelProperty(required = true, value = "")
   public List<Short> getRequiredShorts() {
     return requiredShorts;
   }
@@ -377,7 +381,6 @@ public class ArraysDto   {
    * Get requiredInts
    * @return requiredInts
    **/
-  @ApiModelProperty(required = true, value = "")
   public List<Integer> getRequiredInts() {
     return requiredInts;
   }
@@ -400,7 +403,6 @@ public class ArraysDto   {
    * Get requiredLongs
    * @return requiredLongs
    **/
-  @ApiModelProperty(required = true, value = "")
   public List<Long> getRequiredLongs() {
     return requiredLongs;
   }
@@ -423,7 +425,6 @@ public class ArraysDto   {
    * Get requiredStrings
    * @return requiredStrings
    **/
-  @ApiModelProperty(required = true, value = "")
   public List<String> getRequiredStrings() {
     return requiredStrings;
   }
@@ -446,7 +447,6 @@ public class ArraysDto   {
    * Get requiredRefs
    * @return requiredRefs
    **/
-  @ApiModelProperty(required = true, value = "")
   public List<Simple> getRequiredRefs() {
     return requiredRefs;
   }

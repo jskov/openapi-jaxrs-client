@@ -6,7 +6,7 @@
 
 package mada.tests.e2e.opts.generator.collections_empty.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -72,30 +72,37 @@ public class MapsDto   {
 
   public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
   @JsonProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
+  @Schema(required = true)
   private Map<String, Boolean> requiredBooleans = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
   @JsonProperty(JSON_PROPERTY_REQUIRED_BYTES)
+  @Schema(required = true)
   private Map<String, Byte> requiredBytes = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
   @JsonProperty(JSON_PROPERTY_REQUIRED_SHORTS)
+  @Schema(required = true)
   private Map<String, Short> requiredShorts = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
   @JsonProperty(JSON_PROPERTY_REQUIRED_INTS)
+  @Schema(required = true)
   private Map<String, Integer> requiredInts = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
   @JsonProperty(JSON_PROPERTY_REQUIRED_LONGS)
+  @Schema(required = true)
   private Map<String, Long> requiredLongs = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
   @JsonProperty(JSON_PROPERTY_REQUIRED_STRINGS)
+  @Schema(required = true)
   private Map<String, String> requiredStrings = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
   @JsonProperty(JSON_PROPERTY_REQUIRED_REFS)
+  @Schema(required = true)
   private Map<String, Simple> requiredRefs = new HashMap<>();
 
   public static final String JSON_PROPERTY_BOTH_BOOLEANS = "bothBooleans";
@@ -368,7 +375,6 @@ public class MapsDto   {
    * Get requiredBooleans
    * @return requiredBooleans
    **/
-  @ApiModelProperty(required = true, value = "")
   public Map<String, Boolean> getRequiredBooleans() {
     return requiredBooleans;
   }
@@ -391,7 +397,6 @@ public class MapsDto   {
    * Get requiredBytes
    * @return requiredBytes
    **/
-  @ApiModelProperty(required = true, value = "")
   public Map<String, Byte> getRequiredBytes() {
     return requiredBytes;
   }
@@ -414,7 +419,6 @@ public class MapsDto   {
    * Get requiredShorts
    * @return requiredShorts
    **/
-  @ApiModelProperty(required = true, value = "")
   public Map<String, Short> getRequiredShorts() {
     return requiredShorts;
   }
@@ -437,7 +441,6 @@ public class MapsDto   {
    * Get requiredInts
    * @return requiredInts
    **/
-  @ApiModelProperty(required = true, value = "")
   public Map<String, Integer> getRequiredInts() {
     return requiredInts;
   }
@@ -460,7 +463,6 @@ public class MapsDto   {
    * Get requiredLongs
    * @return requiredLongs
    **/
-  @ApiModelProperty(required = true, value = "")
   public Map<String, Long> getRequiredLongs() {
     return requiredLongs;
   }
@@ -483,7 +485,6 @@ public class MapsDto   {
    * Get requiredStrings
    * @return requiredStrings
    **/
-  @ApiModelProperty(required = true, value = "")
   public Map<String, String> getRequiredStrings() {
     return requiredStrings;
   }
@@ -506,7 +507,6 @@ public class MapsDto   {
    * Get requiredRefs
    * @return requiredRefs
    **/
-  @ApiModelProperty(required = true, value = "")
   public Map<String, Simple> getRequiredRefs() {
     return requiredRefs;
   }
