@@ -22,6 +22,10 @@ public class NamingOpts {
 		return getDefault("naming-rules-property", "PROPERTYNAME");
 	}
 
+	public String getParameterNaming() {
+		return getDefault("naming-rules-parameter", "PROPERTYNAME");
+	}
+
 	public String getTypeNaming() {
 		return getDefault(NAMING_RULES_TYPE, "TYPENAME");
 	}

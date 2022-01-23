@@ -24,7 +24,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   ExternedLists.JSON_PROPERTY_LIST_DATE,
   ExternedLists.JSON_PROPERTY_LIST_DATE_TIME
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExternedLists   {
   public static final String JSON_PROPERTY_LIST_STRING = "listString";
   @JsonbProperty(JSON_PROPERTY_LIST_STRING)

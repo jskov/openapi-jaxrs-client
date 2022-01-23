@@ -1,0 +1,111 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /api/params/header/boolean-primitive:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/boolean-wrapper:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/invalid-name-dashes:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: invalid-value
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/list:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/mixed:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      - name: name
+        in: header
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string

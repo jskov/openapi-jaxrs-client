@@ -13,11 +13,13 @@ import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.ParserOpts;
 
 public class Generator {
-	
+	public static final String GENERATOR_CLASS = Generator.class.getName();
+
 	public void generate(Path input, Properties options, Path outputDir) {
 		var parserOpts = new ParserOpts(options);
 		var generatorOpts = new GeneratorOpts(options, parserOpts);
 		var naming = new Naming(options);
+		
 	    Model model = new Parser(naming, parserOpts, generatorOpts).parse(input);
 	    
 	    try {
@@ -27,7 +29,7 @@ public class Generator {
 		    
 		    var templates = new Templates(generatorOpts);
 		    new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses(dtoDir);
-		    new ApiGenerator(templates, model).generateApiClasses(apiDir);
+		    new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
 		    
 	    } catch (Exception e) {
 	    	throw new GeneratorException("Failed", e);

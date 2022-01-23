@@ -13,7 +13,7 @@ import org.codehaus.jackson.annotate.JsonValue;
 /**
  * NumberEnum
  */
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public enum NumberEnum {
   NUMBER_1(1),
   NUMBER_2(2);

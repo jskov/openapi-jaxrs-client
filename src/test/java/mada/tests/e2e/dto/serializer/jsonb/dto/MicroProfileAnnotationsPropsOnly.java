@@ -19,7 +19,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 @JsonbPropertyOrder({
   MicroProfileAnnotationsPropsOnly.JSON_PROPERTY_WITH_DESCRIPTION
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class MicroProfileAnnotationsPropsOnly   {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";
   @JsonbProperty(JSON_PROPERTY_WITH_DESCRIPTION)

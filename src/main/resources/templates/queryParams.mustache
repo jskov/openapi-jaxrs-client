@@ -1,0 +1,25 @@
+{{#isQueryParam}}{{!
+
+	}}{{#madaParam.todo}}
+    @ApiParam(value = "{{{description}}}"{{!
+        }}{{#required}}, required = true{{/required}}{{!
+        }}{{^isContainer}}{{!
+            }}{{#allowableValues}}, {{> allowableValues}}{{/allowableValues}}{{!
+            }}{{#defaultValue}}, defaultValue = "{{{.}}}"{{/defaultValue}}{{!
+        }}{{/isContainer}}{{!
+    }}) 
+    {{/madaParam.todo}}{{!
+
+    }}{{^isContainer}}{{!
+        }}{{#defaultValue}}{{!
+            }} @DefaultValue("{{{defaultValue}}}") {{!
+        }}{{/defaultValue}}{{!
+    }}{{/isContainer}}{{!
+
+    }}@QueryParam("{{baseName}}"){{!
+
+    }}{{#useBeanValidation}} {{>beanValidation}}{{/useBeanValidation}}{{!
+
+    }} {{{dataType}}} {{paramName}}{{!
+
+}}{{/isQueryParam}}

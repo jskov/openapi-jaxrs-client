@@ -12,6 +12,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDtoExt;
@@ -37,8 +38,6 @@ import dk.mada.jaxrs.openapi._OpenapiGenerator;
 public class DtoGenerator {
 	private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
 
-	private static final String GENERATOR_CLASS = DtoGenerator.class.getName();
-	
 	enum ExtraTemplate {
 		_LocalDateJacksonDeserializer,
 		_LocalDateJacksonSerializer,
@@ -47,13 +46,13 @@ public class DtoGenerator {
 	}
 	
 	private final Naming naming;
+	private final Types types;
 	private final GeneratorOpts opts;
 	private final Templates templates;
 	private final Model model;
 	private final Identifiers identifiers = new Identifiers();
 	private final EnumSet<ExtraTemplate> extraTemplates = EnumSet.noneOf(ExtraTemplate.class);
 
-	private final Types types;
 
 	public DtoGenerator(Naming naming, GeneratorOpts opts, Templates templates, Model model) {
 		this.naming = naming;
@@ -93,7 +92,7 @@ public class DtoGenerator {
 	}
 	
 	private CtxExtra makeCtxExtra(ExtraTemplate tmpl) {
-		var imports = Imports.newExtras(opts, tmpl);
+		var imports = Imports.newExtras(types, opts, tmpl);
 		
 		Info info = model.info();
 		return CtxExtra.builder()
@@ -102,7 +101,7 @@ public class DtoGenerator {
 				.version(info.version())
 				.infoEmail(info.contact().email())
 				.generatedDate(opts.getGeneratedAtTime())
-				.generatorClass(GENERATOR_CLASS)
+				.generatorClass(Generator.GENERATOR_CLASS)
 				.imports(imports.get())
 				.jacksonCodehaus(opts.isJacksonCodehaus())
 				.jacksonFasterxml(opts.isJacksonFasterxml())
@@ -120,7 +119,7 @@ public class DtoGenerator {
 		Info info = model.info();
 		
 		boolean isEnum = dto.isEnum();
-		var dtoImports = isEnum ? Imports.newEnum(opts) : Imports.newPojo(opts);
+		var dtoImports = isEnum ? Imports.newEnum(types, opts) : Imports.newPojo(types, opts);
 
 		List<CtxProperty> vars = dto.properties().stream()
 			.map(p -> toCtxProperty(dtoImports, p))
@@ -197,7 +196,7 @@ public class DtoGenerator {
 				
 				.jackson(opts.isJackson())
 				
-				.generatorClass(GENERATOR_CLASS)
+				.generatorClass(Generator.GENERATOR_CLASS)
 				.generatedDate(opts.getGeneratedAtTime())
 				
 				.madaDto(mada)

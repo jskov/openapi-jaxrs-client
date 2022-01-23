@@ -14,6 +14,7 @@ public interface Type {
 		return Set.of();
 	}
 	
+	default boolean isDto() { return false; }
 	default boolean isBigDecimal() { return false; }
 	default boolean isDate() { return false; }
 	default boolean isDateTime() { return false; }

@@ -1,0 +1,53 @@
+{{>licenseInfo}}
+
+package {{packageName}};
+
+{{#imports}}
+import {{.}};
+{{/imports}}
+
+{{>generatedAnnotation}}
+@Path("{{commonPath}}")
+public interface {{classname}} {
+{{#operations}}{{#operation}}
+  /**
+    {{#summary}}
+   * {{summary}}
+    {{/summary}}
+    {{#notes}}
+   * {{notes}}
+    {{/notes}}
+    {{^summary}}
+        {{^notes}}
+   * {{nickname}}
+        {{/notes}}
+    {{/summary}}
+   *
+{{#allParams}}
+   * @param {{paramName}} {{description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
+{{/allParams}}
+{{#returnType}}
+   * @return {{returnType}}
+{{/returnType}}
+{{#externalDocs}}
+   * {{description}}
+   * @see <a href="{{url}}">{{summary}} Documentation</a>
+{{/externalDocs}}
+   */
+  @{{httpMethod}}
+  {{#madaOp.produces}}
+  @Produces({{{madaOp.produces}}})
+  {{/madaOp.produces}}
+  {{#madaOp.accepts}}
+  @Consumes({{{madaOp.accepts}}})
+  {{/madaOp.accepts}}
+  {{#path}}
+  @Path("{{{path}}}")
+  {{/path}}
+  {{#todo}}
+    {{>formParams}}
+  {{/todo}}
+  {{>returnTypes}} {{nickname}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
+  {{/operation}}
+{{/operations}}
+}

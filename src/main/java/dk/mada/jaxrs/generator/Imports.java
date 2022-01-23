@@ -3,18 +3,31 @@ package dk.mada.jaxrs.generator;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import dk.mada.jaxrs.generator.DtoGenerator.ExtraTemplate;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.Types;
 
 /**
  * Keeps track of imports for a single template, taking
  * generator options into consideration.
  */
 public class Imports {
+	@SuppressWarnings("unused")
+	private static final Logger logger = LoggerFactory.getLogger(Imports.class);
 	private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
+	public static final Set<String> LIST_TYPES = Set.of("java.util.List", "java.util.ArrayList"); 
+	public static final Set<String> MAP_TYPES = Set.of("java.util.Map", "java.util.HashMap"); 
+	public static final Set<String> SET_TYPES = Set.of("java.util.Set", "java.util.HashSet"); 
+	private static final Set<String> CONTAINER_IMPLEMENETATION_TYPES = Set.of("java.util.ArrayList", "java.util.HashMap", "java.util.HashSet"); 
 
 	private static final Map<String, String> JACKSON_CODEHAUS = new HashMap<>();
 	static {
@@ -58,34 +71,44 @@ public class Imports {
 	}
 	
 	private final GeneratorOpts opts;
+	@SuppressWarnings("unused")
+	private final Types types;
 	private final SortedSet<String> imports = new TreeSet<>();
+	private final boolean includeDtoImports;
 
-	private Imports(GeneratorOpts opts) {
+	private Imports(Types types, GeneratorOpts opts, boolean includeDtoImports) {
+		this.types = types;
 		this.opts = opts;
+		this.includeDtoImports = includeDtoImports;
 	}
 	
 	public SortedSet<String> get() {
 		return imports;
 	}
 	
-	public static Imports newPojo(GeneratorOpts opts) {
-		return new Imports(opts)
+	public static Imports newApi(Types types, GeneratorOpts opts) {
+		return new Imports(types, opts, true)
+				.javax("javax.ws.rs.*");
+	}
+
+	public static Imports newPojo(Types types, GeneratorOpts opts) {
+		return new Imports(types, opts, false)
 				.add(JAVA_UTIL_OBJECTS)
 				.jackson(opts.isUseJsonSerializeOptions(), "JsonSerialize")
 				.jackson("JsonProperty", "JsonPropertyOrder")
 				.jsonb("javax.json.bind.annotation.JsonbProperty", "javax.json.bind.annotation.JsonbPropertyOrder");
 	}
-	
-	public static Imports newEnum(GeneratorOpts opts) {
-		return new Imports(opts)
+
+	public static Imports newEnum(Types types, GeneratorOpts opts) {
+		return new Imports(types, opts, false)
 				.add(opts.isJackson(), JAVA_UTIL_OBJECTS)
 				.jackson(opts.isUseJsonSerializeOptions(), "JsonSerialize")
 				.jackson("JsonCreator", "JsonValue")
 				.jsonb("javax.json.Json", "javax.json.JsonString", "javax.json.bind.adapter.JsonbAdapter", "javax.json.bind.annotation.JsonbTypeAdapter");
 	}
 	
-	public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
-		var imports = new Imports(opts);
+	public static Imports newExtras(Types types, GeneratorOpts opts, ExtraTemplate tmpl) {
+		var imports = new Imports(types, opts, false);
 		
 		if (tmpl == ExtraTemplate._LocalDateJacksonDeserializer) {
 			imports
@@ -112,16 +135,24 @@ public class Imports {
 
 	public void addPropertyImports(Collection<Property> properties) {
 		properties
-			.forEach(p -> addAll(p.type().neededImports()));
+			.forEach(p -> add(p.type()));
 	}
-	
+
+	public Imports javax(String name) {
+		if (opts.isJakarta()) {
+			name = name.replace("javax", "jakarta");
+		}
+		imports.add(name);
+		return this;
+	}
+
 	public Imports jackson(boolean enable, String... classes) {
 		if (enable) {
 			jackson(classes);
 		}
 		return this;
 	}
-
+	
 	public Imports jackson(String... classes) {
 		if (!opts.isJackson()) {
 			return this;
@@ -157,6 +188,29 @@ public class Imports {
 		return this;
 	}
 
+	public Imports addAll(Collection<Type> types) {
+		types.forEach(this::add);
+		return this;
+	}
+	
+	public Imports add(Type type) {
+		imports.addAll(type.neededImports());
+		
+		addDtoImport(type);
+		if (type instanceof TypeArray ta) {
+			addDtoImport(ta.mappedInnerType());
+		}
+		
+		return this;
+	}
+	
+	private void addDtoImport(Type type) {
+		if (includeDtoImports && type.isDto()) {
+			String name = type.typeName().name();
+			imports.add(opts.dtoPackage() + "." + name);
+		}
+	}
+	
 	public Imports add(String... classes) {
 		for (String c : classes) {
 			imports.add(c);
@@ -171,7 +225,12 @@ public class Imports {
 		return this;
 	}
 	
-	public void addAll(Collection<String> classes) {
-		imports.addAll(classes);
+	/**
+	 * Remove container implemenetations (e.g. ArrayList) from
+	 * imports for use in Api files.
+	 * Maybe need a better way to handle this.
+	 */
+	public void trimContainerImplementations() {
+		imports.removeAll(CONTAINER_IMPLEMENETATION_TYPES);
 	}
 }

@@ -14,6 +14,7 @@ public class GeneratorOpts {
 	private final boolean useJacksonCodehaus;
 	private final boolean useJacksonFasterxml;
 	private final boolean useJsonb;
+	private final boolean useJakarta;
 	
 	public GeneratorOpts(Properties options, ParserOpts parserOpts) {
 		this.options = options;
@@ -42,6 +43,8 @@ public class GeneratorOpts {
 			willUseJsonb = true;
 		}
 		useJsonb = willUseJsonb;
+
+		useJakarta = bool("generator-jakarta");
 	}
 	
 	public String apiPackage() {
@@ -68,6 +71,10 @@ public class GeneratorOpts {
 		return useJsonb;
 	}
 
+	public boolean isJakarta() {
+		return useJakarta;
+	}
+	
 	public boolean isUseJsonSerializeOptions() {
 		return getJsonSerializeOptions() != null;
 	}

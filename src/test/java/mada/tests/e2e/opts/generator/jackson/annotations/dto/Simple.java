@@ -18,7 +18,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
   Simple.JSON_PROPERTY_A_BOOLEAN
 })
 @JsonSerialize(include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple   {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
   @JsonProperty(JSON_PROPERTY_A_BOOLEAN)

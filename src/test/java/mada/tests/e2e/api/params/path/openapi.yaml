@@ -1,13 +1,26 @@
 ---
 openapi: 3.0.3
 info:
-  title: code-with-quarkus API
-  version: 1.0.0-SNAPSHOT
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
 paths:
-  /queryparams:
+  /api/params/path:
     get:
       tags:
-      - Query Params
+      - Params Path
       responses:
         "200":
           description: OK
@@ -15,10 +28,10 @@ paths:
             text/plain:
               schema:
                 type: string
-  /queryparams/byte/{byteId}:
+  /api/params/path/byte/{byteId}:
     get:
       tags:
-      - Query Params
+      - Params Path
       parameters:
       - name: byteId
         in: path
@@ -33,10 +46,10 @@ paths:
             text/plain:
               schema:
                 type: string
-  /queryparams/int/{intId}:
+  /api/params/path/int/{intId}:
     get:
       tags:
-      - Query Params
+      - Params Path
       parameters:
       - name: intId
         in: path
@@ -51,10 +64,10 @@ paths:
             text/plain:
               schema:
                 type: string
-  /queryparams/long/{longId}:
+  /api/params/path/long/{longId}:
     get:
       tags:
-      - Query Params
+      - Params Path
       parameters:
       - name: longId
         in: path
@@ -69,10 +82,10 @@ paths:
             text/plain:
               schema:
                 type: string
-  /queryparams/short/{shortId}:
+  /api/params/path/short/{shortId}:
     get:
       tags:
-      - Query Params
+      - Params Path
       parameters:
       - name: shortId
         in: path
@@ -86,10 +99,10 @@ paths:
             text/plain:
               schema:
                 type: string
-  /queryparams/string/{stringId}:
+  /api/params/path/string/{stringId}:
     get:
       tags:
-      - Query Params
+      - Params Path
       parameters:
       - name: stringId
         in: path

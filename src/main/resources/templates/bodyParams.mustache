@@ -1,0 +1,15 @@
+{{#isBodyParam}}{{!
+
+    }}{{#madaParam.todo}}
+    @ApiParam(value = "{{{description}}}"{{!
+        }}{{#required}}, required = true{{/required}}{{!
+        }}{{#allowableValues}}, {{> allowableValues}}{{/allowableValues}}{{!
+        }}{{#defaultValue}}, defaultValue = "{{{.}}}"{{/defaultValue}}{{!
+    }}) 
+    {{/madaParam.todo}}{{!
+
+    }}{{#useBeanValidation}} {{>beanValidation}}{{/useBeanValidation}}{{!
+
+    }}{{{dataType}}} {{paramName}}{{!
+
+}}{{/isBodyParam}}

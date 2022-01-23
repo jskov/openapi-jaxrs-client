@@ -22,6 +22,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  */
 public class TypeLocalTime implements Type {
 	public static final TypeName TYPE_LOCAL_TIME = TypeNames.of("LocalTime");
+	public static final String OPENAPI_CUSTOM_FORMAT = "local-time";
 	private static final TypeLocalTime object = new TypeLocalTime();
 	
 	private TypeLocalTime() {

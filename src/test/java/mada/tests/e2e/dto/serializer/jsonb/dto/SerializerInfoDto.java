@@ -32,7 +32,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS,
   SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class SerializerInfoDto   {
   public static final String JSON_PROPERTY_BETA = "beta";
   @JsonbProperty(JSON_PROPERTY_BETA)

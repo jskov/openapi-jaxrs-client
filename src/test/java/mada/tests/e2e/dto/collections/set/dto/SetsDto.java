@@ -32,7 +32,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   SetsDto.JSON_PROPERTY_REQUIRED_STRINGS,
   SetsDto.JSON_PROPERTY_REQUIRED_REFS
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class SetsDto   {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
   @JsonbProperty(JSON_PROPERTY_BOOLEANS)

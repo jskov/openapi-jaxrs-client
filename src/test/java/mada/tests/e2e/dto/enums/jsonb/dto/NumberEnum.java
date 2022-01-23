@@ -15,7 +15,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * NumberEnum
  */
 @JsonbTypeAdapter(mada.tests.e2e.dto.enums.jsonb.dto.NumberEnum.NumberEnumAdapter.class)
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public enum NumberEnum {
   NUMBER_1(1),
   NUMBER_2(2);

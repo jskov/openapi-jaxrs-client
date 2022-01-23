@@ -32,7 +32,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
   ArraysDto.JSON_PROPERTY_REQUIRED_STRINGS,
   ArraysDto.JSON_PROPERTY_REQUIRED_REFS
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class ArraysDto   {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
   @JsonProperty(JSON_PROPERTY_BOOLEANS)

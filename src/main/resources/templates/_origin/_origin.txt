@@ -1,7 +1,18 @@
 This document should keep track of the upstream templates cloned into this project
 
+api.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/java-micronaut-client/api.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/api.mustache
+ inspiration from both
+
+bodyParams.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/bodyParams.mustache
+
 generatedAnnotation.mustache
  5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/Java/generatedAnnotation.mustache
+
+headerParams.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/headerParams.mustache
 
 licenseInfo.mustache
  5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/Java/licenseInfo.mustache
@@ -15,8 +26,16 @@ modelEnum.mustache
  # Removed additionalEnumTypeAnnotations
  # Removed gson
 
+pathParams.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/pathParams.mustache
+
+queryParams.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/queryParams.mustache
+
 pojo.mustache
  5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/pojo.mustache
  # Removed all java6 support
  
+returnTypes.mustache
+ 5.8.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/returnTypes.mustache
  

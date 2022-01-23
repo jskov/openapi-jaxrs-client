@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 @Immutable
@@ -28,7 +29,7 @@ public interface TypeArray extends Type {
 	default Set<String> neededImports() {
 		return Stream.concat(
 				mappedInnerType().neededImports().stream(),
-				Stream.of("java.util.List", "java.util.ArrayList"))
+				Imports.LIST_TYPES.stream())
 			.collect(toSet());
 	}
 

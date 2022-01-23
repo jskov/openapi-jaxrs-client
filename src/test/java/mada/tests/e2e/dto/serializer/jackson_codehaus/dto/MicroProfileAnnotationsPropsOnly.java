@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
 @JsonPropertyOrder({
   MicroProfileAnnotationsPropsOnly.JSON_PROPERTY_WITH_DESCRIPTION
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class MicroProfileAnnotationsPropsOnly   {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";
   @JsonProperty(JSON_PROPERTY_WITH_DESCRIPTION)

@@ -28,7 +28,7 @@ import java.util.Objects;
   MicroprofileAnnotations.JSON_PROPERTY_IS_READONLY,
   MicroprofileAnnotations.JSON_PROPERTY_READONLY_REQUIRED_AND_DESCRIPTION_AND_EXAMPLE
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class MicroprofileAnnotations   {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";
   @JsonProperty(JSON_PROPERTY_WITH_DESCRIPTION)

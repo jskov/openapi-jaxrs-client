@@ -18,6 +18,7 @@ import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 
 import dk.mada.jaxrs.GeneratorException;
+import dk.mada.jaxrs.generator.tmpl.api.CtxApi;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
 import dk.mada.jaxrs.generator.tmpl.dto.CtxExtra;
 
@@ -29,11 +30,13 @@ public class Templates {
 	private final GeneratorOpts opts;
 
 	private final Template dtoTemplate;
+	private final Template apiTemplate;
 
 	public Templates(GeneratorOpts opts) {
 		this.opts = opts;
 
 		dtoTemplate = compileTemplate("model");
+		apiTemplate = compileTemplate("api");
 	}
 	
 	public void touch(Path file) {
@@ -59,7 +62,15 @@ public class Templates {
 			throw new GeneratorException("Failed to generate DTO " + outputFile, e);
 		}
 	}
-	
+
+	public void writeApi(CtxApi context, Path outputFile) {
+		try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
+			apiTemplate.execute(context, w);
+		} catch (IOException e) {
+			throw new GeneratorException("Failed to generate API " + outputFile, e);
+		}
+	}
+
 	private Template compileTemplate(String resourceName) {
 		try (Reader r = openReader(resourceName)) {
 			return Mustache.compiler()

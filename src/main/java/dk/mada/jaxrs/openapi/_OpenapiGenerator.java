@@ -6,14 +6,20 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.media.Schema;
 
 /**
  * Methods lifted directly from OpenApi-generator.
  */
 public class _OpenapiGenerator {
-	
+	private static final Logger logger = LoggerFactory.getLogger(_OpenapiGenerator.class);
+
 	// ModelUtils.getSchemas
     @SuppressWarnings("rawtypes")
 	public static Map<String, Schema> getSchemas(OpenAPI openAPI) {
@@ -147,5 +153,42 @@ public class _OpenapiGenerator {
         result = result.replace(' ', '_');
         result = result.toLowerCase(Locale.ROOT);
         return result;
+    }
+    
+    /**
+     * Get operationId from the operation object, and if it's blank, generate a new one from the given parameters.
+     *
+     * @param operation  the operation object
+     * @param path       the path of the operation
+     * @param httpMethod the HTTP method of the operation
+     * @return the (generated) operationId
+     */
+    // DefaultCodegen.getOrGenerateOperationId
+    public static String getOrGenerateOperationId(Operation operation, String path, String httpMethod) {
+        String operationId = operation.getOperationId();
+        if (StringUtils.isBlank(operationId)) {
+            String tmpPath = path;
+            tmpPath = tmpPath.replaceAll("\\{", "");
+            tmpPath = tmpPath.replaceAll("\\}", "");
+            String[] parts = (tmpPath + "/" + httpMethod).split("/");
+            StringBuilder builder = new StringBuilder();
+            if ("/".equals(tmpPath)) {
+                // must be root tmpPath
+                builder.append("root");
+            }
+            for (String part : parts) {
+                if (part.length() > 0) {
+                    if (builder.toString().length() == 0) {
+                        part = Character.toLowerCase(part.charAt(0)) + part.substring(1);
+                    } else {
+                        part = camelize(part);
+                    }
+                    builder.append(part);
+                }
+            }
+            operationId = builder.toString(); // sanitizeName(builder.toString());
+            logger.warn("Empty operationId found for path: {} {}. Renamed to auto-generated operationId: {}", httpMethod, path, operationId);
+        }
+        return operationId;
     }
 }

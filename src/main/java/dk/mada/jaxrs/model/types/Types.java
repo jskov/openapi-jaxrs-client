@@ -19,7 +19,8 @@ import dk.mada.jaxrs.openapi.ParserOpts;
  * Types used in the model for the specification.
  * 
  * Some types will (depending on user options) be converted to
- * standard JSE types. This is mainly used for some specifications
+ * standard JSE types based on their name.
+ * This is mainly used for some specifications
  * where the OpenApi types are not used directly in properties,
  * but instead use a reference to a standalone DTO with the same
  * representation.

@@ -18,7 +18,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
   EnumsDto.JSON_PROPERTY_EXTERNAL,
   EnumsDto.JSON_PROPERTY_NUMBER
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto   {
   public static final String JSON_PROPERTY_INNER = "inner";
   @JsonProperty(JSON_PROPERTY_INNER)

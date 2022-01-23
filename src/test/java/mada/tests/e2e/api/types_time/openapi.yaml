@@ -1,0 +1,57 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /api/types/list-time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: local-time
+                  type: string
+                  externalDocs:
+                    description: As defined by 'partial-time' in RFC3339
+                    url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+                  example: 13:45.30.123456789
+  /api/types/time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalTime'
+components:
+  schemas:
+    LocalTime:
+      format: local-time
+      type: string
+      externalDocs:
+        description: As defined by 'partial-time' in RFC3339
+        url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+      example: 13:45.30.123456789

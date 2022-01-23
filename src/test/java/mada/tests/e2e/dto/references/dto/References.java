@@ -16,7 +16,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 @JsonbPropertyOrder({
   References.JSON_PROPERTY_SIMPLE
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class References   {
   public static final String JSON_PROPERTY_SIMPLE = "simple";
   @JsonbProperty(JSON_PROPERTY_SIMPLE)

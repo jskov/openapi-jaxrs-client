@@ -55,6 +55,11 @@ public interface TypeRef extends Type {
 	}
 	
 	@Override
+	default boolean isDto() { 
+		return dereference().isDto();
+	}
+	
+	@Override
 	default boolean isTime() {
 		return dereference().isTime();
 	}

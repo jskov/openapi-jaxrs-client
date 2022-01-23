@@ -17,6 +17,7 @@ public class Naming {
 	private final List<NamingRule> enumNamingRules;
 	private final List<NamingRule> typeNamingRules;
 	private final List<NamingRule> propertyNamingRules;
+	private final List<NamingRule> parameterNamingRules;
 	
 	public Naming(Properties props) {
 		namingOpts = new NamingOpts(props);
@@ -24,6 +25,7 @@ public class Naming {
 		enumNamingRules = NamingRules.toRules(namingOpts.getEnumNaming());
 		typeNamingRules = NamingRules.toRules(namingOpts.getTypeNaming());
 		propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
+		parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
 	}
 	
 	public String convertEnumName(String input) {
@@ -36,6 +38,10 @@ public class Naming {
 
 	public String convertPropertyName(String input) {
 		return convert(propertyNamingRules, input);
+	}
+
+	public String convertParameterName(String input) {
+		return convert(parameterNamingRules, input);
 	}
 	
 	private String convert(List<NamingRule> rules, String input) {

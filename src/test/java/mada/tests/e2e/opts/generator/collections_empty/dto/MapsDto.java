@@ -40,7 +40,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
   MapsDto.JSON_PROPERTY_BOTH_REFS,
   MapsDto.JSON_PROPERTY_OBJECTS
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class MapsDto   {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
   @JsonProperty(JSON_PROPERTY_BOOLEANS)

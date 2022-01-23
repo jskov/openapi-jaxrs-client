@@ -160,6 +160,13 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >
 	default value: TYPENAME; UPCASE
 
+**naming-rules-parameter**
+
+>Allows you to control the naming of parameters using the operators described above.
+
+>
+	default value: PROPERTYNAME
+
 **naming-rules-property**
 
 >Allows you to control the naming of properties using the operators described above.

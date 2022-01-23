@@ -1,0 +1,318 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /api/types/big-decimal:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: number
+  /api/types/boolean:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /api/types/byte:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: byte
+                type: string
+  /api/types/date:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: date
+                type: string
+  /api/types/date-time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: date-time
+                type: string
+  /api/types/double:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: double
+                type: number
+  /api/types/float:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: float
+                type: number
+  /api/types/int:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+  /api/types/list:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: int32
+                  type: integer
+  /api/types/list-date:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: date
+                  type: string
+  /api/types/list-datetime:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: date-time
+                  type: string
+  /api/types/list-simple:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Simple'
+  /api/types/list-time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: local-time
+                  type: string
+                  externalDocs:
+                    description: As defined by 'partial-time' in RFC3339
+                    url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+                  example: 13:45.30.123456789
+  /api/types/long:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: int64
+                type: integer
+  /api/types/map:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/types/map-simple:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Simple'
+  /api/types/set:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  format: int32
+                  type: integer
+  /api/types/set-simple:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  $ref: '#/components/schemas/Simple'
+  /api/types/short:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+  /api/types/simple:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Simple'
+  /api/types/string:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/types/time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalTime'
+  /api/types/void:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "204":
+          description: No Content
+components:
+  schemas:
+    LocalTime:
+      format: local-time
+      type: string
+      externalDocs:
+        description: As defined by 'partial-time' in RFC3339
+        url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+      example: 13:45.30.123456789
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean

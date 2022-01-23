@@ -27,7 +27,7 @@ import java.util.Objects;
   SpecialTypes.JSON_PROPERTY_LOCAL_DATE,
   SpecialTypes.JSON_PROPERTY_LOCAL_TIME
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes   {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
   @JsonProperty(JSON_PROPERTY_BIG_DECIMAL)

@@ -23,7 +23,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   Primitives.JSON_PROPERTY_A_DOUBLE,
   Primitives.JSON_PROPERTY_A_STRING
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class Primitives   {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
   @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)

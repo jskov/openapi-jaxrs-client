@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
@@ -27,6 +28,6 @@ public interface TypeMap extends Type {
 	
 	@Override
 	default Set<String> neededImports() {
-		return Set.of("java.util.Map", "java.util.HashMap");
+		return Imports.MAP_TYPES;
 	}
 }

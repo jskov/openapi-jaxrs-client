@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 @Immutable
@@ -22,6 +23,6 @@ public interface TypeSet extends Type {
 	
 	@Override
 	default Set<String> neededImports() {
-		return Set.of("java.util.Set", "java.util.HashSet");
+		return Imports.SET_TYPES;
 	}
 }

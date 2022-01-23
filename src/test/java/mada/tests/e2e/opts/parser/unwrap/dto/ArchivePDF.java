@@ -19,7 +19,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   ArchivePDF.JSON_PROPERTY_STRING_LIST,
   ArchivePDF.JSON_PROPERTY_BYTE_LIST
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.generator.DtoGenerator")
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class ArchivePDF   {
   public static final String JSON_PROPERTY_STRING_LIST = "stringList";
   @JsonbProperty(JSON_PROPERTY_STRING_LIST)

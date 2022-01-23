@@ -6,7 +6,7 @@ import java.util.List;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
-import dk.mada.jaxrs.model.Operations;
+import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
@@ -21,18 +21,18 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
  */
 public class Parser {
 	private final Naming naming;
-	private final ParserOpts opts;
+	private final ParserOpts parserOpts;
 	private final GeneratorOpts generatorOpts;
 
-	public Parser(Naming naming, ParserOpts opts, GeneratorOpts generatorOpts) {
+	public Parser(Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
 		this.naming = naming;
-		this.opts = opts;
+		this.parserOpts = parserOpts;
 		this.generatorOpts = generatorOpts;
 	}
 	
 	public Model parse(Path input) {
 	    final List<AuthorizationValue> authorizationValues = List.of();
-	    ParseOptions parseOpts = new ParseOptions();
+	    var parseOpts = new ParseOptions();
 	    parseOpts.setResolve(true);
 	    
 	    String inputSpec = input.toAbsolutePath().toString();
@@ -40,12 +40,13 @@ public class Parser {
 	    SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, parseOpts);
 	    OpenAPI specification = result.getOpenAPI();
 
-	    Types types = new Types(opts, generatorOpts);
-
+	    var types = new Types(parserOpts, generatorOpts);
+		var typeConverter = new TypeConverter(types, parserOpts, generatorOpts);
+		
 	    Info info = new InfoTransformer().transform(specification);
-	    Operations ops = new OpsTransformer().transform(specification);
-	    new DtoTransformer(naming, opts, generatorOpts, types).transform(specification);
+	    Operations operations = new OpsTransformer(typeConverter).transform(specification);
+	    new DtoTransformer(naming, types, typeConverter).transform(specification);
 	    
-	    return new Model(info, ops, types);
+	    return new Model(info, operations, types);
 	}
 }
