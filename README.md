@@ -19,8 +19,15 @@ It will never have as many features as openapi-generator.
 However, the intention is that the generated code covers the real-world needs I see at work.
 And that the generated code can "round trip" via OpenApi to second-hand clients.
 
+## Still in development
+
+This project is still in development, not suitable for use by anyone.
+
 
 ## Configuration
+
+The code generation is configured via property settings.
+
 
 ### Generator options
 

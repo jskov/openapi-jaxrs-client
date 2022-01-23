@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.generator.tmpl.dto;
+package dk.mada.jaxrs.generator.dto.tmpl;
 
 import javax.annotation.Nullable;
 

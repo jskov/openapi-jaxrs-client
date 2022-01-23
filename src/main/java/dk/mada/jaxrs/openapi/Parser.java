@@ -44,7 +44,7 @@ public class Parser {
 		var typeConverter = new TypeConverter(types, parserOpts, generatorOpts);
 		
 	    Info info = new InfoTransformer().transform(specification);
-	    Operations operations = new OpsTransformer(typeConverter).transform(specification);
+	    Operations operations = new ApiTransformer(typeConverter).transform(specification);
 	    new DtoTransformer(naming, types, typeConverter).transform(specification);
 	    
 	    return new Model(info, operations, types);

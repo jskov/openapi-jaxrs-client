@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.generator;
+package dk.mada.jaxrs.naming;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
@@ -15,9 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.GeneratorException;
+import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.naming.Naming;
 
 /**
  * Uses default naming, but provides alternatives in case of naming conflicts.
@@ -48,8 +48,6 @@ public class EnumNamer {
 		this.values = values;
 
 		this.numberPrefix = opts.getEnumNumberPrefix();
-		
-		
 		
 		assignNames();
 	}

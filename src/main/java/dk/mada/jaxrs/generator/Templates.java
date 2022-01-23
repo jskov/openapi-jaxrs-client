@@ -17,10 +17,9 @@ import org.slf4j.LoggerFactory;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 
-import dk.mada.jaxrs.GeneratorException;
-import dk.mada.jaxrs.generator.tmpl.api.CtxApi;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxExtra;
+import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 
 public class Templates {
 	@SuppressWarnings("unused")
@@ -51,7 +50,7 @@ public class Templates {
 		try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
 			compileTemplate(tmplName).execute(context, w);
 		} catch (IOException e) {
-			throw new GeneratorException("Failed to generate Extra " + outputFile, e);
+			throw new UncheckedIOException("Failed to generate Extra " + outputFile, e);
 		}
 	}
 	
@@ -59,7 +58,7 @@ public class Templates {
 		try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
 			dtoTemplate.execute(context, w);
 		} catch (IOException e) {
-			throw new GeneratorException("Failed to generate DTO " + outputFile, e);
+			throw new UncheckedIOException("Failed to generate DTO " + outputFile, e);
 		}
 	}
 
@@ -67,7 +66,7 @@ public class Templates {
 		try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
 			apiTemplate.execute(context, w);
 		} catch (IOException e) {
-			throw new GeneratorException("Failed to generate API " + outputFile, e);
+			throw new UncheckedIOException("Failed to generate API " + outputFile, e);
 		}
 	}
 
@@ -78,7 +77,7 @@ public class Templates {
 					.withLoader(n -> openReader(n))
 					.compile(r);
 		} catch (IOException e) {
-			throw new GeneratorException("Failed to read template " + resourceName, e);
+			throw new UncheckedIOException("Failed to read template " + resourceName, e);
 		}
 		
 	}

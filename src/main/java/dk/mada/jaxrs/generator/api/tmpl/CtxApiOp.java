@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.generator.tmpl.api;
+package dk.mada.jaxrs.generator.api.tmpl;
 
 import java.util.List;
 

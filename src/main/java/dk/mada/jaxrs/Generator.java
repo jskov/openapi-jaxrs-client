@@ -3,10 +3,10 @@ package dk.mada.jaxrs;
 import java.nio.file.Path;
 import java.util.Properties;
 
-import dk.mada.jaxrs.generator.ApiGenerator;
-import dk.mada.jaxrs.generator.DtoGenerator;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Templates;
+import dk.mada.jaxrs.generator.api.ApiGenerator;
+import dk.mada.jaxrs.generator.dto.DtoGenerator;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.Parser;
@@ -25,7 +25,6 @@ public class Generator {
 	    try {
 	    	Path apiDir = outputDir.resolve("api");
 		    Path dtoDir = outputDir.resolve("dto");
-		    
 		    
 		    var templates = new Templates(generatorOpts);
 		    new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses(dtoDir);

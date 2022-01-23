@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.generator;
+package dk.mada.jaxrs.generator.api;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -15,13 +15,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.Generator;
-import dk.mada.jaxrs.generator.tmpl.api.CtxApi;
-import dk.mada.jaxrs.generator.tmpl.api.CtxApi.CtxOperationRef;
-import dk.mada.jaxrs.generator.tmpl.api.CtxApiOp;
-import dk.mada.jaxrs.generator.tmpl.api.CtxApiOpExt;
-import dk.mada.jaxrs.generator.tmpl.api.CtxApiParam;
-import dk.mada.jaxrs.generator.tmpl.api.CtxApiParamExt;
-import dk.mada.jaxrs.generator.tmpl.api.ImmutableCtxApiParamExt;
+import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.generator.Imports;
+import dk.mada.jaxrs.generator.Templates;
+import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
+import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
+import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
+import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
+import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
+import dk.mada.jaxrs.generator.api.tmpl.CtxApi.CtxOperationRef;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.api.Operation;
@@ -82,16 +84,10 @@ public class ApiGenerator {
 	private CtxApi toCtx(String classname, List<Operation> operations) {
 		var imports = Imports.newApi(types, opts);
 		
-		operations.stream()
-			.forEach(op -> addImports(imports, op));
-		
-		String commonPath = findCommonPath(operations);
+		String commonPath = model.operations().findCommonPath(operations);
 		int trimPathLength = commonPath.length();
 		
-		List<CtxOperationRef> ops = operations.stream()
-				.sorted((a, b) -> a.path().compareTo(b.path()))
-				.map(op -> toCtxApiOperation(imports, trimPathLength, op))
-				.collect(toList());
+		List<CtxOperationRef> ops = makeOperations(operations, imports, trimPathLength);
 		
 		imports.trimContainerImplementations();
 		
@@ -111,69 +107,16 @@ public class ApiGenerator {
 				.build();
 	}
 
-	private void addImports(Imports imports, Operation op) {
-		op.responses().stream()
-			.map(r -> r.content().type())
-			.forEach(imports::add);
+	private List<CtxOperationRef> makeOperations(List<Operation> operations, Imports imports, int trimPathLength) {
+		return operations.stream()
+				.sorted((a, b) -> a.path().compareTo(b.path()))
+				.map(op -> toCtxApiOperation(imports, trimPathLength, op))
+				.collect(toList());
 	}
-	
-	/**
-	 * Find longest common path.
-	 * 
-	 * First find shortest path, use that as base.
-	 * Look if it prefixes all paths. If so, longest common path found.
-	 * If not, trim the last section of and loop around.
-	 */
-	private String findCommonPath(List<Operation> operations) {
-		if (operations.isEmpty()) {
-			return "/";
-		}
-		if (operations.size() == 1) {
-			return operations.get(0).path();
-		}
-		
-		Set<String> paths = operations.stream()
-			.map(op -> op.path())
-			.collect(toSet());
-		
-		logger.info("Paths: {}", paths);
-		
-		String shortestPath = null;
-		for (String p : paths) {
-			if (shortestPath == null || p.length() < shortestPath.length()) {
-				shortestPath = p;
-			}
-		}
-		
-		if (shortestPath.length() > 1 && shortestPath.endsWith("/")) {
-			shortestPath = shortestPath.substring(0, shortestPath.length()-1);
-		}
 
-		String commonPath = "/";
-		while (shortestPath.length() > 1) {
-			logger.info("Shortest potential path: {}", shortestPath);
-			String matchPath = shortestPath;
-			if (paths.stream().allMatch(p -> p.startsWith(matchPath))) {
-				commonPath = shortestPath;
-				break;
-			}
-
-			int lastSlash = shortestPath.lastIndexOf('/');
-			if (lastSlash <= 0) {
-				break;
-			}
-			shortestPath = shortestPath.substring(0, lastSlash);
-		}
-		
-		if (commonPath.endsWith("/") && commonPath.length() > 1) {
-			commonPath = commonPath.substring(0, commonPath.length()-1);
-		}
-		
-		logger.info("Common path: {}", commonPath);
-		return commonPath;
-	}
-	
 	private CtxOperationRef toCtxApiOperation(Imports imports, int trimPathLength, Operation op) {
+		addOperationImports(imports, op);
+
 		String nickname = op.operationId();
 		if (nickname == null) {
 			nickname = op.codegenOpId();
@@ -193,7 +136,7 @@ public class ApiGenerator {
 		List<CtxApiParam> allParams = getParams(imports, op);
 		
 		CtxApiOpExt ext = CtxApiOpExt.builder()
-				.produces(getProduces(imports, op))
+				.produces(makeProduces(imports, op))
 				.build();
 		
 		return new CtxOperationRef(CtxApiOp.builder()
@@ -206,6 +149,12 @@ public class ApiGenerator {
 				.build());
 	}
 
+	private void addOperationImports(Imports imports, Operation op) {
+		op.responses().stream()
+			.map(r -> r.content().type())
+			.forEach(imports::add);
+	}
+
 	/**
 	 * Note from https://docs.oracle.com/cd/E19776-01/820-4867/ghrst/index.html
 	 *  If @DefaultValue is not used in conjunction with @QueryParam, and the query parameter
@@ -215,7 +164,7 @@ public class ApiGenerator {
 	 * So the primitive types can be used instead of wrapper types.
 	 */
 	private List<CtxApiParam> getParams(Imports imports, Operation op) {
-		ImmutableCtxApiParamExt madaParamEmpty = CtxApiParamExt.builder().build();
+		CtxApiParamExt madaParamEmpty = CtxApiParamExt.builder().build();
 		
 		List<CtxApiParam> params = new ArrayList<>();
 		if (op.addAuthorizationHeader()) {
@@ -271,11 +220,12 @@ public class ApiGenerator {
 		return params;
 	}
 
-	private String getProduces(Imports imports, Operation op) {
+	private String makeProduces(Imports imports, Operation op) {
 		Set<String> producesMediaTypes = op.responses().stream()
 			.flatMap(r -> r.content().mediaTypes().stream())
-			.map(mt -> mediaType(imports, mt))
+			.map(mt -> toMediaType(imports, mt))
 			.collect(toSet());
+
 		String produces = String.join(", ", producesMediaTypes);
 		if (producesMediaTypes.size() > 1) {
 			produces = "{" + produces + "}";
@@ -286,7 +236,7 @@ public class ApiGenerator {
 		return produces;
 	}
 	
-	private String mediaType(Imports imports, String mediaType) {
+	private String toMediaType(Imports imports, String mediaType) {
 		String mtConstant = MEDIA_TYPES.get(mediaType);
 		if (mtConstant == null) {
 			return "\"" + mediaType + "\"";

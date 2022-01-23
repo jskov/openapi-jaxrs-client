@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.generator;
+package dk.mada.jaxrs.generator.dto;
 
 import static java.util.stream.Collectors.toList;
 
@@ -13,14 +13,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.Generator;
-import dk.mada.jaxrs.generator.EnumNamer.EnumNameValue;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxDto;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxDtoExt;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxEnum.CtxEnumEntry;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxExtra;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxProperty;
-import dk.mada.jaxrs.generator.tmpl.dto.CtxPropertyExt;
+import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.generator.Imports;
+import dk.mada.jaxrs.generator.Templates;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
@@ -32,13 +34,16 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeRef;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.Types;
+import dk.mada.jaxrs.naming.EnumNamer;
+import dk.mada.jaxrs.naming.Identifiers;
 import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.openapi._OpenapiGenerator;
 
 public class DtoGenerator {
 	private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
 
-	enum ExtraTemplate {
+	public enum ExtraTemplate {
 		_LocalDateJacksonDeserializer,
 		_LocalDateJacksonSerializer,
 		_OffsetDateTimeJacksonDeserializer,

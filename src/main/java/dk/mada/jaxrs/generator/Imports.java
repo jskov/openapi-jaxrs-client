@@ -10,7 +10,7 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.DtoGenerator.ExtraTemplate;
+import dk.mada.jaxrs.generator.dto.DtoGenerator.ExtraTemplate;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;

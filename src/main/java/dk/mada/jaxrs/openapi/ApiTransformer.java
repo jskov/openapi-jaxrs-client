@@ -36,14 +36,14 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
  * 
  * DefaultGenerator:processOperation
  */
-public class OpsTransformer {
-	private static final Logger logger = LoggerFactory.getLogger(OpsTransformer.class);
+public class ApiTransformer {
+	private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
 	private final TypeConverter typeConverter;
 	
 	private List<Operation> ops;
 	
-	public OpsTransformer(TypeConverter typeConverter) {
+	public ApiTransformer(TypeConverter typeConverter) {
 		this.typeConverter = typeConverter;
 	}
 

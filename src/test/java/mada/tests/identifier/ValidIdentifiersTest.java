@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import dk.mada.jaxrs.generator.Identifiers;
+import dk.mada.jaxrs.naming.Identifiers;
 
 public class ValidIdentifiersTest {
 	private Identifiers sut = new Identifiers();

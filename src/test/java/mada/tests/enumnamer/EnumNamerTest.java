@@ -10,13 +10,13 @@ import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
 import dk.mada.jaxrs.GeneratorException;
-import dk.mada.jaxrs.generator.EnumNamer;
-import dk.mada.jaxrs.generator.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeObject;
+import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.openapi.ParserOpts;
 
 public class EnumNamerTest {
