@@ -6,13 +6,13 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface Response {
-	public static ImmutableResponse.Builder builder() {
-		return ImmutableResponse.builder();
-	}
-	
-	int code();
-	Content content();
-	
-	@Nullable
-	String description();
+    public static ImmutableResponse.Builder builder() {
+        return ImmutableResponse.builder();
+    }
+
+    int code();
+    Content content();
+
+    @Nullable
+    String description();
 }

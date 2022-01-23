@@ -11,56 +11,53 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * 
  * The sibling may not have been processed yet,
  * hence this type which acts as a lazy delegation.
- * 
- * 
- * 
  */
 @Immutable
 public interface TypeRef extends Type {
-	public static TypeRef of(TypeName refTypeName, Types types) {
-		return ImmutableTypeRef.builder().refTypeName(refTypeName).types(types).build();
-	}
-	
-	TypeName refTypeName();
-	Types types();
+    public static TypeRef of(TypeName refTypeName, Types types) {
+        return ImmutableTypeRef.builder().refTypeName(refTypeName).types(types).build();
+    }
 
-	default Type dereference() {
-		types().assertDereferencingSafe();
-		return types().get(refTypeName());
-	}
-	
-	@Override
-	default TypeName typeName() {
-		return dereference().typeName();
-	}
+    TypeName refTypeName();
+    Types types();
 
-	@Override
-	default Set<String> neededImports() {
-		return dereference().neededImports();
-	}
-	
-	@Override
-	default boolean isBigDecimal() {
-		return dereference().isBigDecimal();
-	}
-	
-	@Override
-	default boolean isDate() {
-		return dereference().isDate();
-	}
-	
-	@Override
-	default boolean isDateTime() {
-		return dereference().isDateTime();
-	}
-	
-	@Override
-	default boolean isDto() { 
-		return dereference().isDto();
-	}
-	
-	@Override
-	default boolean isTime() {
-		return dereference().isTime();
-	}
+    default Type dereference() {
+        types().assertDereferencingSafe();
+        return types().get(refTypeName());
+    }
+
+    @Override
+    default TypeName typeName() {
+        return dereference().typeName();
+    }
+
+    @Override
+    default Set<String> neededImports() {
+        return dereference().neededImports();
+    }
+
+    @Override
+    default boolean isBigDecimal() {
+        return dereference().isBigDecimal();
+    }
+
+    @Override
+    default boolean isDate() {
+        return dereference().isDate();
+    }
+
+    @Override
+    default boolean isDateTime() {
+        return dereference().isDateTime();
+    }
+
+    @Override
+    default boolean isDto() { 
+        return dereference().isDto();
+    }
+
+    @Override
+    default boolean isTime() {
+        return dereference().isTime();
+    }
 }

@@ -10,22 +10,22 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxDtoExt {
-	public static ImmutableCtxDtoExt.Builder builder() {
-		return ImmutableCtxDtoExt.builder();
-	}
+    public static ImmutableCtxDtoExt.Builder builder() {
+        return ImmutableCtxDtoExt.builder();
+    }
 
-	@Nullable
-	String jacksonJsonSerializeOptions();
+    @Nullable
+    String jacksonJsonSerializeOptions();
 
-	@Nullable
-	String customLocalDateDeserializer();
-	@Nullable
-	String customLocalDateSerializer();
+    @Nullable
+    String customLocalDateDeserializer();
+    @Nullable
+    String customLocalDateSerializer();
 
-	@Nullable
-	String customOffsetDateTimeDeserializer();
-	@Nullable
-	String customOffsetDateTimeSerializer();
+    @Nullable
+    String customOffsetDateTimeDeserializer();
+    @Nullable
+    String customOffsetDateTimeSerializer();
 
-	boolean jsonb();
+    boolean jsonb();
 }

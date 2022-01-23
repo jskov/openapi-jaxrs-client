@@ -2,8 +2,12 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'jacoco'
+    id 'checkstyle'
     id "org.sonarqube" version "3.3"
 }
+
+group 'dk.mada'
+version '1.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -11,40 +15,36 @@ repositories {
 }
 
 configurations {
-	apt
+    apt
 }
 
 dependencies {
-//    implementation 'org.openapitools:openapi-generator-core:5.3.0'
-//    implementation 'org.openapitools:openapi-generator:5.3.0'
-	implementation 'io.swagger.parser.v3:swagger-parser:2.0.26'
-	implementation 'com.samskivert:jmustache:1.15'
+    implementation 'io.swagger.parser.v3:swagger-parser:2.0.26'
+    implementation 'com.samskivert:jmustache:1.15'
 
-	apt        'org.immutables:value:2.8.2'
-	compileOnly         'org.immutables:value:2.8.2:annotations'
-	annotationProcessor 'org.immutables:value:2.8.2'
+    apt        'org.immutables:value:2.8.2'
+    compileOnly         'org.immutables:value:2.8.2:annotations'
+    annotationProcessor 'org.immutables:value:2.8.2'
 
     implementation 'org.slf4j:slf4j-jdk14:2.0.0-alpha5'
 
-	testImplementation(platform('org.junit:junit-bom:5.8.2'))
-	testImplementation('org.junit.jupiter:junit-jupiter')
-   	testImplementation('org.junit.jupiter:junit-jupiter-params')
-	testImplementation('org.junit.jupiter:junit-jupiter-engine')
-	testImplementation('org.junit.jupiter:junit-jupiter-api')
-	testImplementation('org.junit.platform:junit-platform-runner')
-	testImplementation("org.assertj:assertj-core:3.21.0")
+    testImplementation(platform('org.junit:junit-bom:5.8.2'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.junit.jupiter:junit-jupiter-params')
+    testImplementation('org.junit.jupiter:junit-jupiter-engine')
+    testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testImplementation('org.junit.platform:junit-platform-runner')
+    testImplementation("org.assertj:assertj-core:3.21.0")
 	
-	// for the generated code
-	testImplementation 'jakarta.annotation:jakarta.annotation-api:1.3.5'
-	testImplementation "jakarta.json.bind:jakarta.json.bind-api:1.0.1"
-	testImplementation 'jakarta.json:jakarta.json-api:1.1.6'
-	testImplementation "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
-	testImplementation "jakarta.ws.rs:jakarta.ws.rs-api:3.0.0"
-	testImplementation "javax.ws.rs:javax.ws.rs-api:2.1.1"
+    // for the generated code
+    testImplementation 'jakarta.annotation:jakarta.annotation-api:1.3.5'
+    testImplementation "jakarta.json.bind:jakarta.json.bind-api:1.0.1"
+    testImplementation 'jakarta.json:jakarta.json-api:1.1.6'
+    testImplementation "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
+    testImplementation "jakarta.ws.rs:jakarta.ws.rs-api:3.0.0"
+    testImplementation "javax.ws.rs:javax.ws.rs-api:2.1.1"
 }
 
-group 'dk.mada'
-version '1.0.0-SNAPSHOT'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -61,9 +61,9 @@ compileTestJava {
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 	
-	systemProperty("run_all_tests", "true")
+    systemProperty("run_all_tests", "true")
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
@@ -75,22 +75,26 @@ jacocoTestReport {
 }
 
 tasks.eclipse.doLast {
-	String valueJarPath = configurations.apt.getSingleFile().getAbsolutePath()
+    String valueJarPath = configurations.apt.getSingleFile().getAbsolutePath()
 	
-	File factoryPath = file(".factorypath")
-	factoryPath.delete()
-	factoryPath << """<factorypath>
-    <factorypathentry kind="EXTJAR" id="${valueJarPath}" enabled="true" runInBatchMode="false"/>
+    File factoryPath = file(".factorypath")
+    factoryPath.delete()
+    factoryPath << """<factorypath>
+  <factorypathentry kind="EXTJAR" id="${valueJarPath}" enabled="true" runInBatchMode="false"/>
 </factorypath>
 """
 }
 
-sonarqube {
-  properties {
-    property "sonar.exclusions", "**/Immutable*.java"
+checkstyle {
+    ignoreFailures = true
+}
 
-    property "sonar.projectKey", "jskov_openapi-jaxrs-client"
-    property "sonar.organization", "jskov-github"
-    property "sonar.host.url", "https://sonarcloud.io"
-  }
+sonarqube {
+    properties {
+        property "sonar.exclusions", "**/Immutable*.java"
+
+        property "sonar.projectKey", "jskov_openapi-jaxrs-client"
+        property "sonar.organization", "jskov-github"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }

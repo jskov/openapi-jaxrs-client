@@ -9,34 +9,34 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxProperty {
-	public static ImmutableCtxProperty.Builder builder() {
-		return ImmutableCtxProperty.builder();
-	}
-	String name();
-	String baseName();
-	String nameInCamelCase();
-	String nameInSnakeCase();
-	String datatypeWithEnum();
-	String getter();
-	String setter();
-	
-	@Nullable
-	String defaultValue();
+    public static ImmutableCtxProperty.Builder builder() {
+        return ImmutableCtxProperty.builder();
+    }
+    String name();
+    String baseName();
+    String nameInCamelCase();
+    String nameInSnakeCase();
+    String datatypeWithEnum();
+    String getter();
+    String setter();
 
-	@Nullable
-	String description();
-	
-	boolean isArray();
-	boolean isMap();
-	boolean isSet();
-	boolean isContainer();
-	boolean isDate();
-	boolean isDateTime();
-	
-	boolean required();
-	
-	@Nullable
-	String example();
-	
-	CtxPropertyExt madaProp();
+    @Nullable
+    String defaultValue();
+
+    @Nullable
+    String description();
+
+    boolean isArray();
+    boolean isMap();
+    boolean isSet();
+    boolean isContainer();
+    boolean isDate();
+    boolean isDateTime();
+
+    boolean required();
+
+    @Nullable
+    String example();
+
+    CtxPropertyExt madaProp();
 }

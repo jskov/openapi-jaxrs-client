@@ -10,17 +10,17 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxPropertyExt {
-	public static ImmutableCtxPropertyExt.Builder builder() {
-		return ImmutableCtxPropertyExt.builder();
-	}
-	@Nullable
-	String innerDatatypeWithEnum();
-	
-	@Nullable
-	String schemaOptions();
-	boolean isUseBigDecimalForDouble();
-	boolean isUseEmptyCollections();
-	
-	String getter();
-	String setter();
+    public static ImmutableCtxPropertyExt.Builder builder() {
+        return ImmutableCtxPropertyExt.builder();
+    }
+    @Nullable
+    String innerDatatypeWithEnum();
+
+    @Nullable
+    String schemaOptions();
+    boolean isUseBigDecimalForDouble();
+    boolean isUseEmptyCollections();
+
+    String getter();
+    String setter();
 }

@@ -12,32 +12,32 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxApi {
-	public static ImmutableCtxApi.Builder builder() {
-		return ImmutableCtxApi.builder();
-	}
-	
-	String appName();
-	String version();
-	@Nullable
-	String appDescription();
-	@Nullable
-	String infoEmail();
-	
-	SortedSet<String> getImports();
-	
-	List<CtxOperationRef> operations();
-	public record CtxOperationRef(CtxApiOp operation) {}
-	
-	String packageName();
-	String classname();
+    public static ImmutableCtxApi.Builder builder() {
+        return ImmutableCtxApi.builder();
+    }
 
-	String generatorClass();
-	@Nullable
-	String generatedDate();
-	
-	String commonPath();
-	
-	default boolean hideGenerationTimestamp() {
-		return generatedDate() == null;
-	}
+    String appName();
+    String version();
+    @Nullable
+    String appDescription();
+    @Nullable
+    String infoEmail();
+
+    SortedSet<String> getImports();
+
+    List<CtxOperationRef> operations();
+    public record CtxOperationRef(CtxApiOp operation) {}
+
+    String packageName();
+    String classname();
+
+    String generatorClass();
+    @Nullable
+    String generatedDate();
+
+    String commonPath();
+
+    default boolean hideGenerationTimestamp() {
+        return generatedDate() == null;
+    }
 }

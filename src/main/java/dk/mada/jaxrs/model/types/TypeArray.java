@@ -12,28 +12,28 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 @Immutable
 public interface TypeArray extends Type {
-	public static TypeArray of(Types types, Type innerType) {
-		return ImmutableTypeArray.builder().types(types).innerType(innerType).build();
-	}
-	
-	Type innerType();
-	Types types();
-	
-	@Override
-	default TypeName typeName() {
-		String innerName = mappedInnerType().wrapperTypeName().name();
-		return TypeNames.of("List<" + innerName + ">");
-	}
+    public static TypeArray of(Types types, Type innerType) {
+        return ImmutableTypeArray.builder().types(types).innerType(innerType).build();
+    }
 
-	@Override
-	default Set<String> neededImports() {
-		return Stream.concat(
-				mappedInnerType().neededImports().stream(),
-				Imports.LIST_TYPES.stream())
-			.collect(toSet());
-	}
+    Type innerType();
+    Types types();
 
-	default Type mappedInnerType() {
-		return types().map(innerType());
-	}
+    @Override
+    default TypeName typeName() {
+        String innerName = mappedInnerType().wrapperTypeName().name();
+        return TypeNames.of("List<" + innerName + ">");
+    }
+
+    @Override
+    default Set<String> neededImports() {
+        return Stream.concat(
+                mappedInnerType().neededImports().stream(),
+                Imports.LIST_TYPES.stream())
+                .collect(toSet());
+    }
+
+    default Type mappedInnerType() {
+        return types().map(innerType());
+    }
 }

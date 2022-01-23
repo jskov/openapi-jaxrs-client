@@ -9,38 +9,38 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * it treated as an array in DTOs.
  */
 public class TypeByteArray implements Type {
-	/** As used in resource operations */
-	private static final TypeByteArray streamType = new TypeByteArray();
-	/** As used in DTOs */
-	private static final TypeByteArray arrayType = new TypeByteArray();
-	
-	private TypeByteArray() {
-	}
+    /** As used in resource operations */
+    private static final TypeByteArray INSTANCE_STREAM = new TypeByteArray();
+    /** As used in DTOs */
+    private static final TypeByteArray INSTANCE_ARRAY = new TypeByteArray();
 
-	public static TypeByteArray getArray() {
-		return arrayType;
-	}
+    private TypeByteArray() {
+    }
 
-	public static TypeByteArray getStream() {
-		return streamType;
-	}
+    public static TypeByteArray getArray() {
+        return INSTANCE_ARRAY;
+    }
 
-	public boolean isStream() {
-		return this == streamType;
-	}
-	
-	public boolean isArray() {
-		return this == arrayType;
-	}
-	
-	
-	@Override
-	public TypeName typeName() {
-		return TypeNames.of("byte[]");
-	}
+    public static TypeByteArray getStream() {
+        return INSTANCE_STREAM;
+    }
 
-	@Override
-	public String toString() {
-		return isArray() ? "ByteArray[]" : "Stream";
-	}
+    public boolean isStream() {
+        return this == INSTANCE_STREAM;
+    }
+
+    public boolean isArray() {
+        return this == INSTANCE_ARRAY;
+    }
+
+
+    @Override
+    public TypeName typeName() {
+        return TypeNames.of("byte[]");
+    }
+
+    @Override
+    public String toString() {
+        return isArray() ? "ByteArray[]" : "Stream";
+    }
 }

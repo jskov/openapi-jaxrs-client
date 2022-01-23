@@ -9,33 +9,33 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * Special type for handing date-time schema.
  */
 public class TypeDateTime implements Type {
-	private static final TypeDateTime instanceOffset = new TypeDateTime("OffsetDateTime", "java.time.OffsetDateTime");
-	private static final TypeDateTime instanceZoned = new TypeDateTime("ZonedDateTime", "java.time.ZonedDateTime");
-	
-	private final TypeName typeName;
-	private final Set<String> neededImports;
+    private static final TypeDateTime INSTANCE_OFFSET = new TypeDateTime("OffsetDateTime", "java.time.OffsetDateTime");
+    private static final TypeDateTime INSTANCE_ZONED = new TypeDateTime("ZonedDateTime", "java.time.ZonedDateTime");
 
-	public TypeDateTime(String typeName, String importName) {
-		this.typeName = TypeNames.of(typeName);
-		this.neededImports = Set.of(importName);
-	}
+    private final TypeName typeName;
+    private final Set<String> neededImports;
 
-	public static TypeDateTime get(GeneratorOpts opts) {
-		return opts.isUseZonedDateTime() ? instanceZoned : instanceOffset;
-	}
-	
-	@Override
-	public TypeName typeName() {
-		return typeName;
-	}
-	
-	@Override
-	public Set<String> neededImports() {
-		return neededImports;
-	}
-	
-	@Override
-	public boolean isDateTime() {
-		return true;
-	}
+    public TypeDateTime(String typeName, String importName) {
+        this.typeName = TypeNames.of(typeName);
+        this.neededImports = Set.of(importName);
+    }
+
+    public static TypeDateTime get(GeneratorOpts opts) {
+        return opts.isUseZonedDateTime() ? INSTANCE_ZONED : INSTANCE_OFFSET;
+    }
+
+    @Override
+    public TypeName typeName() {
+        return typeName;
+    }
+
+    @Override
+    public Set<String> neededImports() {
+        return neededImports;
+    }
+
+    @Override
+    public boolean isDateTime() {
+        return true;
+    }
 }

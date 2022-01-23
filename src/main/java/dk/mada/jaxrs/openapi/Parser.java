@@ -20,33 +20,33 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
  * model classes.
  */
 public class Parser {
-	private final Naming naming;
-	private final ParserOpts parserOpts;
-	private final GeneratorOpts generatorOpts;
+    private final Naming naming;
+    private final ParserOpts parserOpts;
+    private final GeneratorOpts generatorOpts;
 
-	public Parser(Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
-		this.naming = naming;
-		this.parserOpts = parserOpts;
-		this.generatorOpts = generatorOpts;
-	}
-	
-	public Model parse(Path input) {
-	    final List<AuthorizationValue> authorizationValues = List.of();
-	    var parseOpts = new ParseOptions();
-	    parseOpts.setResolve(true);
-	    
-	    String inputSpec = input.toAbsolutePath().toString();
-	    
-	    SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, parseOpts);
-	    OpenAPI specification = result.getOpenAPI();
+    public Parser(Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+        this.naming = naming;
+        this.parserOpts = parserOpts;
+        this.generatorOpts = generatorOpts;
+    }
 
-	    var types = new Types(parserOpts, generatorOpts);
-		var typeConverter = new TypeConverter(types, parserOpts, generatorOpts);
-		
-	    Info info = new InfoTransformer().transform(specification);
-	    Operations operations = new ApiTransformer(typeConverter).transform(specification);
-	    new DtoTransformer(naming, types, typeConverter).transform(specification);
-	    
-	    return new Model(info, operations, types);
-	}
+    public Model parse(Path input) {
+        final List<AuthorizationValue> authorizationValues = List.of();
+        var parseOpts = new ParseOptions();
+        parseOpts.setResolve(true);
+
+        String inputSpec = input.toAbsolutePath().toString();
+
+        SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, parseOpts);
+        OpenAPI specification = result.getOpenAPI();
+
+        var types = new Types(parserOpts, generatorOpts);
+        var typeConverter = new TypeConverter(types, parserOpts, generatorOpts);
+
+        Info info = new InfoTransformer().transform(specification);
+        Operations operations = new ApiTransformer(typeConverter).transform(specification);
+        new DtoTransformer(naming, types, typeConverter).transform(specification);
+
+        return new Model(info, operations, types);
+    }
 }

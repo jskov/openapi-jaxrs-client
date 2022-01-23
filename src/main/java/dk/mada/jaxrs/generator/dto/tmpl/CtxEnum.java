@@ -6,6 +6,6 @@ import java.util.List;
  * Context passed to Mustache when compiling an enum.
  */
 public record CtxEnum(List<CtxEnumEntry> enumVars) {
-	
-	public record CtxEnumEntry(String name, String value) {}
+
+    public record CtxEnumEntry(String name, String value) {}
 }

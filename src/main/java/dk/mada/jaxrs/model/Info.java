@@ -11,46 +11,46 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public abstract class Info {
-	public static ImmutableInfo.Builder builder() {
-		return ImmutableInfo.builder();
-	}
-	
-	public abstract String title();
-	public abstract String version();
-	
-	@Nullable
-	public abstract String description();
-	
-	@Nullable
-	public abstract String termsOfService();
-	
-	@Default
-	public Contact contact() {
-		return Contact.builder().build();
-	}
-	
-	@Immutable
-	public static abstract class Contact {
-		public static ImmutableContact.Builder builder() {
-			return ImmutableContact.builder();
-		}
-		
-		@Nullable
-		@Default
-		public String name() {
-			return null;
-		}
+    public static ImmutableInfo.Builder builder() {
+        return ImmutableInfo.builder();
+    }
 
-		@Nullable
-		@Default
-		public String url() {
-			return null;
-		}
+    public abstract String title();
+    public abstract String version();
 
-		@Nullable
-		@Default
-		public String email() {
-			return null;
-		}
-	}
+    @Nullable
+    public abstract String description();
+
+    @Nullable
+    public abstract String termsOfService();
+
+    @Default
+    public Contact contact() {
+        return Contact.builder().build();
+    }
+
+    @Immutable
+    public static abstract class Contact {
+        public static ImmutableContact.Builder builder() {
+            return ImmutableContact.builder();
+        }
+
+        @Nullable
+        @Default
+        public String name() {
+            return null;
+        }
+
+        @Nullable
+        @Default
+        public String url() {
+            return null;
+        }
+
+        @Nullable
+        @Default
+        public String email() {
+            return null;
+        }
+    }
 }

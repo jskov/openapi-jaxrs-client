@@ -6,17 +6,17 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * Special type for handing void type.
  */
 public class TypeVoid implements Type {
-	private static final TypeVoid object = new TypeVoid();
-	
-	private TypeVoid() {
-	}
+    private static final TypeVoid INSTANCE = new TypeVoid();
 
-	public static TypeVoid get() {
-		return object;
-	}
-	
-	@Override
-	public TypeName typeName() {
-		return TypeNames.of("void");
-	}
+    private TypeVoid() {
+    }
+
+    public static TypeVoid get() {
+        return INSTANCE;
+    }
+
+    @Override
+    public TypeName typeName() {
+        return TypeNames.of("void");
+    }
 }

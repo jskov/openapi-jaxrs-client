@@ -18,11 +18,11 @@ import io.swagger.v3.oas.models.media.Schema;
  * Methods lifted directly from OpenApi-generator.
  */
 public class _OpenapiGenerator {
-	private static final Logger logger = LoggerFactory.getLogger(_OpenapiGenerator.class);
+    private static final Logger logger = LoggerFactory.getLogger(_OpenapiGenerator.class);
 
-	// ModelUtils.getSchemas
+    // ModelUtils.getSchemas
     @SuppressWarnings("rawtypes")
-	public static Map<String, Schema> getSchemas(OpenAPI openAPI) {
+    public static Map<String, Schema> getSchemas(OpenAPI openAPI) {
         if (openAPI != null && openAPI.getComponents() != null && openAPI.getComponents().getSchemas() != null) {
             return openAPI.getComponents().getSchemas();
         }
@@ -123,7 +123,7 @@ public class _OpenapiGenerator {
         word = camelizeSimpleUnderscorePattern.matcher(word).replaceAll("");
         return word;
     }
-    
+
     private static Pattern capitalLetterPattern = Pattern.compile("([A-Z]+)([A-Z][a-z][a-z]+)");
     private static Pattern lowercasePattern = Pattern.compile("([a-z\\d])([A-Z])");
     private static Pattern pkgSeparatorPattern = Pattern.compile("\\.");
@@ -154,7 +154,7 @@ public class _OpenapiGenerator {
         result = result.toLowerCase(Locale.ROOT);
         return result;
     }
-    
+
     /**
      * Get operationId from the operation object, and if it's blank, generate a new one from the given parameters.
      *

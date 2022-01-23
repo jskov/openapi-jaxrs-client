@@ -8,17 +8,17 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface CtxApiOp {
-	public static ImmutableCtxApiOp.Builder builder() {
-		return ImmutableCtxApiOp.builder();
-	}
-	
-	String returnType();
-	String nickname();
-	String httpMethod();
-	@Nullable
-	String path();
-	
-	List<CtxApiParam> allParams();
+    public static ImmutableCtxApiOp.Builder builder() {
+        return ImmutableCtxApiOp.builder();
+    }
 
-	CtxApiOpExt madaOp();
+    String returnType();
+    String nickname();
+    String httpMethod();
+    @Nullable
+    String path();
+
+    List<CtxApiParam> allParams();
+
+    CtxApiOpExt madaOp();
 }

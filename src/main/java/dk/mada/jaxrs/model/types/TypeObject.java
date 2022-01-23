@@ -6,17 +6,17 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * Special type for handing object type.
  */
 public class TypeObject implements Type {
-	private static final TypeObject object = new TypeObject();
-	
-	private TypeObject() {
-	}
+    private static final TypeObject INSTANCE = new TypeObject();
 
-	public static TypeObject get() {
-		return object;
-	}
-	
-	@Override
-	public TypeName typeName() {
-		return TypeNames.of("Object");
-	}
+    private TypeObject() {
+    }
+
+    public static TypeObject get() {
+        return INSTANCE;
+    }
+
+    @Override
+    public TypeName typeName() {
+        return TypeNames.of("Object");
+    }
 }

@@ -6,13 +6,13 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface RequestBody {
-	public static ImmutableRequestBody.Builder builder() {
-		return ImmutableRequestBody.builder();
-	}
-	
-	Content content();
+    public static ImmutableRequestBody.Builder builder() {
+        return ImmutableRequestBody.builder();
+    }
 
-	@Nullable
-	String description();
-	boolean isRequired();
+    Content content();
+
+    @Nullable
+    String description();
+    boolean isRequired();
 }

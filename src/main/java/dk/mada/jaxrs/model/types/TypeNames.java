@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TypeNames {
-	public record TypeName(String name) {};
+    public record TypeName(String name) {};
 
-	private static final Map<String, TypeName> nameToInstances = new HashMap<>();
-	
-	public static TypeName of(String name) {
-		return nameToInstances.computeIfAbsent(name, TypeName::new);
-	}
+    private static final Map<String, TypeName> NAME_TO_INSTANCES = new HashMap<>();
+
+    public static TypeName of(String name) {
+        return NAME_TO_INSTANCES.computeIfAbsent(name, TypeName::new);
+    }
 }

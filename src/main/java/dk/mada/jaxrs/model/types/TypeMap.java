@@ -14,20 +14,20 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  */
 @Immutable
 public interface TypeMap extends Type {
-	public static TypeMap of(Type innerType) {
-		return ImmutableTypeMap.builder().innerType(innerType).build();
-	}
+    public static TypeMap of(Type innerType) {
+        return ImmutableTypeMap.builder().innerType(innerType).build();
+    }
 
-	Type innerType();
-	
-	@Override
-	default TypeName typeName() {
-		String innerName = innerType().wrapperTypeName().name();
-		return TypeNames.of("Map<String, " + innerName + ">");
-	}
-	
-	@Override
-	default Set<String> neededImports() {
-		return Imports.MAP_TYPES;
-	}
+    Type innerType();
+
+    @Override
+    default TypeName typeName() {
+        String innerName = innerType().wrapperTypeName().name();
+        return TypeNames.of("Map<String, " + innerName + ">");
+    }
+
+    @Override
+    default Set<String> neededImports() {
+        return Imports.MAP_TYPES;
+    }
 }

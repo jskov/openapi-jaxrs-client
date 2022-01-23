@@ -12,58 +12,58 @@ import javax.lang.model.SourceVersion;
 
 public class Identifiers {
 
-	public String makeValidVariableName(String input) {
-		return makeValid(input, true);
-	}
+    public String makeValidVariableName(String input) {
+        return makeValid(input, true);
+    }
 
-	public String makeValidTypeName(String input) {
-		return makeValid(input, false);
-	}
+    public String makeValidTypeName(String input) {
+        return makeValid(input, false);
+    }
 
-	private String makeValid(String input, boolean initialLowerCase) {
-		if (input.isEmpty()) {
-			throw new IllegalArgumentException("Invalid blank identifier input");
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		
-		// Fix case of first letter
-		char start = input.charAt(0);
-		if (Character.isJavaIdentifierStart(start)) {
-			if (initialLowerCase && Character.isUpperCase(start)) {
-				sb.append(Character.toLowerCase(start));
-			} else if (!initialLowerCase && Character.isLowerCase(start)) {
-				sb.append(Character.toUpperCase(start));
-			} else {
-				sb.append(start);
-			}
-		} else {
-			sb.append('_');
-		}
-		
-		boolean upperCaseNext = false;
-		for (int i = 1; i < input.length(); i++) {
-			char c = input.charAt(i);
-			if (c == '-') {
-				upperCaseNext = true;
-				continue;
-			}
-			if (upperCaseNext) {
-				upperCaseNext = false;
-				c = Character.toUpperCase(c);
-			}
-			
-			if (Character.isJavaIdentifierPart(c)) {
-				sb.append(c);
-			} else {
-				sb.append('_');
-			}
-		}
-		
-		if (SourceVersion.isKeyword(sb)) {
-			sb.append("_");
-		}
-		
-		return sb.toString();
-	}
+    private String makeValid(String input, boolean initialLowerCase) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("Invalid blank identifier input");
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        // Fix case of first letter
+        char start = input.charAt(0);
+        if (Character.isJavaIdentifierStart(start)) {
+            if (initialLowerCase && Character.isUpperCase(start)) {
+                sb.append(Character.toLowerCase(start));
+            } else if (!initialLowerCase && Character.isLowerCase(start)) {
+                sb.append(Character.toUpperCase(start));
+            } else {
+                sb.append(start);
+            }
+        } else {
+            sb.append('_');
+        }
+
+        boolean upperCaseNext = false;
+        for (int i = 1; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c == '-') {
+                upperCaseNext = true;
+                continue;
+            }
+            if (upperCaseNext) {
+                upperCaseNext = false;
+                c = Character.toUpperCase(c);
+            }
+
+            if (Character.isJavaIdentifierPart(c)) {
+                sb.append(c);
+            } else {
+                sb.append('_');
+            }
+        }
+
+        if (SourceVersion.isKeyword(sb)) {
+            sb.append("_");
+        }
+
+        return sb.toString();
+    }
 }

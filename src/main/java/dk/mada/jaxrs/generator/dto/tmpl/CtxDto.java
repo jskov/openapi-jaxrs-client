@@ -12,49 +12,49 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxDto {
-	public static ImmutableCtxDto.Builder builder() {
-		return ImmutableCtxDto.builder();
-	}
-	
-	String appName();
-	String version();
-	@Nullable
-	String appDescription();
-	@Nullable
-	String infoEmail();
-	
-	SortedSet<String> getImports();
-	default boolean hasImports() {
-		return !getImports().isEmpty();
-	}
-	
-	String packageName();
-	String classname();
-	/** used in equals method */
-	String classVarName();
-	
-	List<CtxProperty> vars();
-	default boolean hasVars() {
-		return !vars().isEmpty();
-	}
-	
-	@Nullable
-	CtxEnum allowableValues();
-	@Nullable
-	String dataType();
-	default boolean isEnum() {
-		return allowableValues() != null;
-	};
-	
-	boolean jackson();
-	
-	String generatorClass();
-	@Nullable
-	String generatedDate();
-	
-	default boolean hideGenerationTimestamp() {
-		return generatedDate() == null;
-	}
+    public static ImmutableCtxDto.Builder builder() {
+        return ImmutableCtxDto.builder();
+    }
 
-	CtxDtoExt madaDto();
+    String appName();
+    String version();
+    @Nullable
+    String appDescription();
+    @Nullable
+    String infoEmail();
+
+    SortedSet<String> getImports();
+    default boolean hasImports() {
+        return !getImports().isEmpty();
+    }
+
+    String packageName();
+    String classname();
+    /** used in equals method */
+    String classVarName();
+
+    List<CtxProperty> vars();
+    default boolean hasVars() {
+        return !vars().isEmpty();
+    }
+
+    @Nullable
+    CtxEnum allowableValues();
+    @Nullable
+    String dataType();
+    default boolean isEnum() {
+        return allowableValues() != null;
+    };
+
+    boolean jackson();
+
+    String generatorClass();
+    @Nullable
+    String generatedDate();
+
+    default boolean hideGenerationTimestamp() {
+        return generatedDate() == null;
+    }
+
+    CtxDtoExt madaDto();
 }

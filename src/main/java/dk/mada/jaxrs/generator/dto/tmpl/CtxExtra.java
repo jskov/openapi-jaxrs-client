@@ -11,36 +11,36 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxExtra {
-	public static ImmutableCtxExtra.Builder builder() {
-		return ImmutableCtxExtra.builder();
-	}
-	
-	String appName();
-	String version();
-	@Nullable
-	String appDescription();
-	@Nullable
-	String infoEmail();
+    public static ImmutableCtxExtra.Builder builder() {
+        return ImmutableCtxExtra.builder();
+    }
 
-	SortedSet<String> getImports();
-	default boolean hasImports() {
-		return !getImports().isEmpty();
-	}
-	
-	String packageName();
+    String appName();
+    String version();
+    @Nullable
+    String appDescription();
+    @Nullable
+    String infoEmail();
 
-	boolean jacksonCodehaus();
-	boolean jacksonFasterxml();
-	boolean jsonb();
+    SortedSet<String> getImports();
+    default boolean hasImports() {
+        return !getImports().isEmpty();
+    }
 
-	String generatorClass();
-	@Nullable
-	String generatedDate();
-	
-	default boolean hideGenerationTimestamp() {
-		return generatedDate() == null;
-	}
-	
-	@Nullable
-	String cannedLocalDateSerializerDTF();
+    String packageName();
+
+    boolean jacksonCodehaus();
+    boolean jacksonFasterxml();
+    boolean jsonb();
+
+    String generatorClass();
+    @Nullable
+    String generatedDate();
+
+    default boolean hideGenerationTimestamp() {
+        return generatedDate() == null;
+    }
+
+    @Nullable
+    String cannedLocalDateSerializerDTF();
 }

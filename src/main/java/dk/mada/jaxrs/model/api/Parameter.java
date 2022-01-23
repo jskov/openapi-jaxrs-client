@@ -8,18 +8,18 @@ import dk.mada.jaxrs.model.types.Type;
 
 @Immutable
 public interface Parameter {
-	public static ImmutableParameter.Builder builder() {
-		return ImmutableParameter.builder();
-	}
-	
-	String name();
-	Type type();
+    public static ImmutableParameter.Builder builder() {
+        return ImmutableParameter.builder();
+    }
 
-	@Nullable
-	String description();
-	boolean isRequired();
-	
-	boolean isHeaderParam();
-	boolean isPathParam();
-	boolean isQueryParam();
+    String name();
+    Type type();
+
+    @Nullable
+    String description();
+    boolean isRequired();
+
+    boolean isHeaderParam();
+    boolean isPathParam();
+    boolean isQueryParam();
 }
