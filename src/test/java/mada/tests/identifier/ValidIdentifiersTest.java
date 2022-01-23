@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import dk.mada.jaxrs.naming.Identifiers;
 
-public class ValidIdentifiersTest {
+class ValidIdentifiersTest {
 	private Identifiers sut = new Identifiers();
 	
 	@ParameterizedTest

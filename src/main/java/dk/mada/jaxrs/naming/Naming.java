@@ -49,7 +49,8 @@ public class Naming {
         logger.trace(" convert '{}'", input);
         for (NamingRule nr : rules) {
             String newResult = nr.converter().apply(result);
-            logger.trace("  {}: '{}' -> '{}'", nr.name(), result, newResult);
+            String name = nr.name();
+            logger.trace("  {}: '{}' -> '{}'", name, result, newResult);
             result = newResult;
         }
         return result;

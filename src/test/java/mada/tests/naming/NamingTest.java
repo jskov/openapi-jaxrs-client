@@ -11,7 +11,7 @@ import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.naming.NamingOpts;
 import dk.mada.logging.LoggerConfig;
 
-public class NamingTest {
+class NamingTest {
 	static {
 		LoggerConfig.loadConfig("/logging-test.properties");
 	}

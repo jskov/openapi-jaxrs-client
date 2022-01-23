@@ -74,7 +74,7 @@ public class Templates {
         try (Reader r = openReader(resourceName)) {
             return Mustache.compiler()
                     .defaultValue("")
-                    .withLoader(n -> openReader(n))
+                    .withLoader(this::openReader)
                     .compile(r);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to read template " + resourceName, e);

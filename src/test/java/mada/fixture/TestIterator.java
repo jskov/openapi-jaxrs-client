@@ -60,7 +60,7 @@ class TestIterator {
 				
 				String pkgPrefix = testSrcDir.relativize(testRootDir).toString().replace("/", ".");
 				
-				return DynamicTest.dynamicTest(name, () -> new RunInputTest().runTest(pkgPrefix, testRootDir, testOutputDir));
+				return DynamicTest.dynamicTest(name, () -> new EndToEndTester().runTest(pkgPrefix, testRootDir, testOutputDir));
 			})
 			.sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
 			.collect(Collectors.toList());

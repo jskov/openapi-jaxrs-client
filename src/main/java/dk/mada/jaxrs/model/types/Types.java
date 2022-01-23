@@ -163,9 +163,9 @@ public class Types {
 
             if (t instanceof TypeArray ta) {
                 remapDto(openapiName, TypeArray.of(this, ta.innerType()));
-            } else if (t instanceof TypeSet tm) {
-                remapDto(openapiName, TypeSet.of(tm.innerType()));
-            } else if (t instanceof TypeMap tm) {
+            } else if (t instanceof TypeSet ts) {
+                remapDto(openapiName, TypeSet.of(ts.innerType()));
+            } else if (t instanceof TypeMap) {
                 // no remapping of maps
                 // a DTO with properties of the same type may be represented like this
             } else if (unmappedToJseTypes.contains(openapiName)) {

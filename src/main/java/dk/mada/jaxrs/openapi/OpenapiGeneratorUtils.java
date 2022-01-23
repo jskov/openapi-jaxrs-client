@@ -17,9 +17,11 @@ import io.swagger.v3.oas.models.media.Schema;
 /**
  * Methods lifted directly from OpenApi-generator.
  */
-public class _OpenapiGenerator {
-    private static final Logger logger = LoggerFactory.getLogger(_OpenapiGenerator.class);
+public class OpenapiGeneratorUtils {
+    private static final Logger logger = LoggerFactory.getLogger(OpenapiGeneratorUtils.class);
 
+    private OpenapiGeneratorUtils() {}
+    
     // ModelUtils.getSchemas
     @SuppressWarnings("rawtypes")
     public static Map<String, Schema> getSchemas(OpenAPI openAPI) {
@@ -186,7 +188,7 @@ public class _OpenapiGenerator {
                     builder.append(part);
                 }
             }
-            operationId = builder.toString(); // sanitizeName(builder.toString());
+            operationId = builder.toString();
             logger.warn("Empty operationId found for path: {} {}. Renamed to auto-generated operationId: {}", httpMethod, path, operationId);
         }
         return operationId;

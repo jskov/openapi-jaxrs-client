@@ -12,6 +12,10 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 @Immutable
 public interface Dto extends Type {
+    public static ImmutableDto.Builder builder() {
+        return ImmutableDto.builder();
+    }
+    
     String name();
 
     /** The type of the DTO object */

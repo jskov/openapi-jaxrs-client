@@ -39,7 +39,7 @@ public class EnumNamer {
     private final String numberPrefix;
 
 
-    public record EnumNameValue(String name, String value) {};
+    public record EnumNameValue(String name, String value) {}
 
     public EnumNamer(Naming naming, GeneratorOpts opts, Type enumValueType, List<String> values) {
         this.naming = naming;

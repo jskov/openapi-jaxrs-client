@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.generator.dto;
 
-import static java.util.stream.Collectors.toList;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,7 +35,7 @@ import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.naming.Identifiers;
 import dk.mada.jaxrs.naming.Naming;
-import dk.mada.jaxrs.openapi._OpenapiGenerator;
+import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
 
 public class DtoGenerator {
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
@@ -126,7 +124,7 @@ public class DtoGenerator {
 
         List<CtxProperty> vars = dto.properties().stream()
                 .map(p -> toCtxProperty(dtoImports, p))
-                .collect(toList());
+                .toList();
 
         CtxEnum ctxEnum = null;
         Type dtoType = derefType(dto.dtoType());
@@ -134,7 +132,7 @@ public class DtoGenerator {
             List<CtxEnumEntry> entries = new EnumNamer(naming, opts, dtoType, dto.enumValues())
                     .getEntries().stream()
                     .map(e -> toEnumEntry(dtoType, e))
-                    .collect(toList());
+                    .toList();
 
             ctxEnum = new CtxEnum(entries);
         }
@@ -219,8 +217,8 @@ public class DtoGenerator {
         String name = p.name();
         String varName = identifiers.makeValidVariableName(name);
 
-        String nameCamelized = _OpenapiGenerator.camelize(varName);
-        String nameSnaked = _OpenapiGenerator.underscore(nameCamelized).toUpperCase();
+        String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
+        String nameSnaked = OpenapiGeneratorUtils.underscore(nameCamelized).toUpperCase();
 
         logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 

@@ -18,7 +18,7 @@ import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.ParserOpts;
 
-public class EnumNamerTest {
+class EnumNamerTest {
 	private static final ParserOpts parserOpts = new ParserOpts(new Properties());
 	private static final GeneratorOpts opts = new GeneratorOpts(new Properties(), parserOpts);
 	

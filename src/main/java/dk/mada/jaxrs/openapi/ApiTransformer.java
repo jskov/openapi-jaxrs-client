@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.api.Content;
+import dk.mada.jaxrs.model.api.ImmutableResponse;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
@@ -25,6 +26,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
 import io.swagger.v3.oas.models.Paths;
+import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.parameters.PathParameter;
@@ -68,10 +70,10 @@ public class ApiTransformer {
     private void processPath(String resourcePath, PathItem path) {
         logger.info("Process path {}", resourcePath);
         path.readOperationsMap()
-        .forEach((httpMethod, op) -> processOp(resourcePath, path, httpMethod, op));
+            .forEach((httpMethod, op) -> processOp(resourcePath, httpMethod, op));
     }
 
-    private void processOp(String resourcePath, PathItem path, HttpMethod httpMethod, io.swagger.v3.oas.models.Operation op) {
+    private void processOp(String resourcePath, HttpMethod httpMethod, io.swagger.v3.oas.models.Operation op) {
         List<String> tags = op.getTags();
         if (tags == null) {
             tags = List.of();
@@ -84,19 +86,11 @@ public class ApiTransformer {
                     String code = e.getKey();
                     ApiResponse resp = e.getValue();
 
-                    Content content = getContent(resourcePath, resp.getContent());
-
-                    // TODO: map to actual HTTP constants, map default to maybe 0?
-                    return Response.builder()
-                            .code(Integer.parseInt(code))
-                            .description(resp.getDescription())
-                            .content(content)
-                            .build();
+                    return toResponse(resourcePath, code, resp);
                 })
                 .collect(toList());
 
-        String codegenOpId = _OpenapiGenerator.getOrGenerateOperationId(op, resourcePath, _OpenapiGenerator.camelize(httpMethod.name().toLowerCase()));
-
+        String codegenOpId = OpenapiGeneratorUtils.getOrGenerateOperationId(op, resourcePath, OpenapiGeneratorUtils.camelize(httpMethod.name().toLowerCase()));
 
         ops.add(Operation.builder()
                 .tags(tags)
@@ -113,6 +107,15 @@ public class ApiTransformer {
                 .build());
     }
 
+    // TODO: map to actual HTTP constants, map default to maybe 0?
+    private ImmutableResponse toResponse(String resourcePath, String code, ApiResponse resp) {
+        return Response.builder()
+                .code(Integer.parseInt(code))
+                .description(resp.getDescription())
+                .content(getContent(resourcePath, resp.getContent()))
+                .build();
+    }
+
     private Content getContent(String resourcePath, io.swagger.v3.oas.models.media.Content c) {
         Type t;
         Set<String> mediaTypes;
@@ -125,10 +128,10 @@ public class ApiTransformer {
 
             @SuppressWarnings("rawtypes")
             Set<Schema> schemas = c.values().stream()
-            .map(mt -> mt.getSchema())
-            .collect(toSet());
+                .map(MediaType::getSchema)
+                .collect(toSet());
 
-            if (schemas.size() == 0) {
+            if (schemas.isEmpty()) {
                 t = TypeVoid.get();
             } else if (schemas.size() == 1) {
                 t = typeConverter.toType(schemas.iterator().next());
@@ -138,13 +141,12 @@ public class ApiTransformer {
                 throw new IllegalStateException("Cannot handle multiple schemas yet: " + resourcePath);
             }
         }
-        logger.info("GOT TYPE {}", t);
+        logger.debug("GOT TYPE {}", t);
 
-        Content content = Content.builder()
+        return Content.builder()
                 .mediaTypes(mediaTypes)
                 .type(t)
                 .build();
-        return content;
     }
 
     private Optional<RequestBody> getRequestBody(String resourcePath, io.swagger.v3.oas.models.Operation op) {
@@ -175,7 +177,7 @@ public class ApiTransformer {
 
         return params.stream()
                 .map(this::toParam)
-                .collect(toList());
+                .toList();
     }
 
     private Parameter toParam(io.swagger.v3.oas.models.parameters.Parameter param) {

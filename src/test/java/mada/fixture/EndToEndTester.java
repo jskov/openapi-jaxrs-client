@@ -26,8 +26,8 @@ import dk.mada.jaxrs.Generator;
  * If the generated code does not match the expected output,
  * a diff is run on the folders to help diagnostics.
  */
-public class RunInputTest {
-	private static final Logger logger = LoggerFactory.getLogger(RunInputTest.class);
+public class EndToEndTester {
+	private static final Logger logger = LoggerFactory.getLogger(EndToEndTester.class);
 	
 	public void runTest(String pkgPrefix, Path testDir, Path outputDir) throws IOException {
 		String testName = testDir.getFileName().toString();

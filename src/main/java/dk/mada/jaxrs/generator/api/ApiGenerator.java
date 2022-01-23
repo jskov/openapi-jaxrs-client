@@ -1,6 +1,5 @@
 package dk.mada.jaxrs.generator.api;
 
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 import java.io.IOException;
@@ -110,7 +109,7 @@ public class ApiGenerator {
         return operations.stream()
                 .sorted((a, b) -> a.path().compareTo(b.path()))
                 .map(op -> toCtxApiOperation(imports, trimPathLength, op))
-                .collect(toList());
+                .toList();
     }
 
     private CtxOperationRef toCtxApiOperation(Imports imports, int trimPathLength, Operation op) {

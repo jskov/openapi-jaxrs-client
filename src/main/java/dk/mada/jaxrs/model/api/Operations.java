@@ -15,14 +15,14 @@ import org.slf4j.LoggerFactory;
 public class Operations {
     private static final Logger logger = LoggerFactory.getLogger(Operations.class);
 
-    private final Set<Operation> operations;
+    private final Set<Operation> ops;
 
     public Operations(Collection<Operation> operations) {
-        this.operations = new HashSet<>(operations);
+        this.ops = new HashSet<>(operations);
     }
 
     public Map<String, List<Operation>> getByGroup() {
-        return operations.stream()
+        return ops.stream()
                 .collect(Collectors.groupingBy(this::getGroup));
     }
 
@@ -41,16 +41,16 @@ public class Operations {
      * Look if it prefixes all paths. If so, longest common path found.
      * If not, trim the last section of and loop around.
      */
-    public String findCommonPath(List<Operation> ops) {
-        if (ops.isEmpty()) {
+    public String findCommonPath(List<Operation> operations) {
+        if (operations.isEmpty()) {
             return "/";
         }
-        if (ops.size() == 1) {
-            return ops.get(0).path();
+        if (operations.size() == 1) {
+            return operations.get(0).path();
         }
 
-        Set<String> paths = ops.stream()
-                .map(op -> op.path())
+        Set<String> paths = operations.stream()
+                .map(Operation::path)
                 .collect(toSet());
 
         logger.debug("Paths: {}", paths);
@@ -92,6 +92,6 @@ public class Operations {
 
     @Override
     public String toString() {
-        return "Operations [operations=" + operations + "]";
+        return "Operations [operations=" + ops + "]";
     }
 }

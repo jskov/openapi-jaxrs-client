@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.naming;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
@@ -24,22 +22,22 @@ public class NamingRules {
     public static List<NamingRule> toRules(String rules) {
         return Stream.of(rules.split(";"))
                 .map(NamingRules::toRule)
-                .collect(toList());
+                .toList();
     }
 
     public static NamingRule toRule(String rIn) {
         String r = rIn.trim();
         if ("PROPERTYNAME".equals(r)) {
-            return new NamingRule(r, s -> identifiers.makeValidVariableName(s));
+            return new NamingRule(r, identifiers::makeValidVariableName);
         }
         if ("TYPENAME".equals(r)) {
-            return new NamingRule(r, s -> identifiers.makeValidTypeName(s));
+            return new NamingRule(r, identifiers::makeValidTypeName);
         }
         if ("UPCASE".equals(r)) {
-            return new NamingRule(r, s -> s.toUpperCase());
+            return new NamingRule(r, String::toUpperCase);
         }
         if ("DOWNCASE".equals(r)) {
-            return new NamingRule(r, s -> s.toLowerCase());
+            return new NamingRule(r, String::toLowerCase);
         }
         if (r.startsWith(REGEXP)) {
             if (!r.endsWith("/")) {
@@ -47,7 +45,7 @@ public class NamingRules {
             }
             String pr = r.substring(REGEXP.length());
 
-            Pattern prPattern = Pattern.compile("(.*)/(.*)/");
+            Pattern prPattern = Pattern.compile("([^/]*)/([^/]*)/");
             Matcher m = prPattern.matcher(pr);
             if (!m.matches()) {
                 throw new IllegalArgumentException("REGEXP Bad pattern/replacement section, saw: " + pr);
@@ -56,7 +54,7 @@ public class NamingRules {
             String pattern = m.group(1);
             String replacement = m.group(2);
 
-            logger.info(" REGEXP: {} / {}", pattern, replacement);
+            logger.debug(" REGEXP: {} / {}", pattern, replacement);
 
             Pattern p = Pattern.compile(pattern);
             return new NamingRule(r, s -> p.matcher(s).replaceAll(replacement));

@@ -89,7 +89,7 @@ public class TypeConverter {
             }
         }
 
-        if (schema instanceof NumberSchema ns) {
+        if (schema instanceof NumberSchema) {
             return TypeBigDecimal.get();
         }
 
@@ -102,11 +102,11 @@ public class TypeConverter {
             return TypeDate.get();
         }
 
-        if (schema instanceof ObjectSchema o) {
+        if (schema instanceof ObjectSchema) {
             return TypeObject.get();
         }
 
-        if (schema instanceof StringSchema s) {
+        if (schema instanceof StringSchema) {
             if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(schemaFormat)) {
                 return TypeLocalTime.get();
             }

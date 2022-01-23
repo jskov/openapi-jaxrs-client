@@ -30,7 +30,7 @@ public abstract class Info {
     }
 
     @Immutable
-    public static abstract class Contact {
+    public abstract static class Contact {
         public static ImmutableContact.Builder builder() {
             return ImmutableContact.builder();
         }

@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.generator;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,27 @@ import dk.mada.jaxrs.model.types.Types;
  * generator options into consideration.
  */
 public final class Imports {
+    private static final String JSON_DESERIALIZE = "JsonDeserialize";
+    private static final String JSON_CREATOR = "JsonCreator";
+    private static final String JSON_IGNORE = "JsonIgnore";
+    private static final String JSON_PROPERTY = "JsonProperty";
+    private static final String JSON_PROPERTY_ORDER = "JsonPropertyOrder";
+    private static final String JSON_SERIALIZE = "JsonSerialize";
+    private static final String JSON_VALUE = "JsonValue";
+    private static final String LOCAL_DATE_TIME = "java.time.LocalDateTime";
+    private static final String ZONE_ID = "java.time.ZoneId";
+    private static final String DATE_TIME_PARSE_EXCEPTION = "java.time.format.DateTimeParseException";
+    private static final String JSON_DESERIALIZER = "JsonDeserializer";
+    private static final String DESERIALIZATION_CONTEXT = "DeserializationContext";
+    private static final String JSON_PARSER = "JsonParser";
+    private static final String JSON_PROCESSING_EXCEPTION = "JsonProcessingException";
+    private static final String JSON_SERIALIZER = "JsonSerializer";
+    private static final String SERIALIZER_PROVIDER = "SerializerProvider";
+    private static final String JSON_GENERATOR = "JsonGenerator";
+    private static final String OFFSET_DATE_TIME = "java.time.OffsetDateTime";
+    private static final String DATE_TIME_FORMATTER = "java.time.format.DateTimeFormatter";
+    private static final String LOCAL_DATE = "java.time.LocalDate";
+    private static final String IOEXCEPTION = "java.io.IOException";
     @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(Imports.class);
     private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
@@ -35,48 +57,48 @@ public final class Imports {
     private static final Map<String, String> JACKSON_CODEHAUS = new HashMap<>();
     static {
         JACKSON_CODEHAUS.putAll(Map.of(
-                "DeserializationContext", "org.codehaus.jackson.map.DeserializationContext",
-                "JsonCreator",            "org.codehaus.jackson.annotate.JsonCreator",
-                "JsonDeserialize",        "org.codehaus.jackson.map.annotate.JsonDeserialize",
-                "JsonDeserializer",       "org.codehaus.jackson.map.JsonDeserializer",
-                "JsonGenerator",          "org.codehaus.jackson.JsonGenerator",
-                "JsonIgnore",             "org.codehaus.jackson.annotate.JsonIgnore"));
+                DESERIALIZATION_CONTEXT, "org.codehaus.jackson.map.DeserializationContext",
+                JSON_CREATOR,            "org.codehaus.jackson.annotate.JsonCreator",
+                JSON_DESERIALIZE,        "org.codehaus.jackson.map.annotate.JsonDeserialize",
+                JSON_DESERIALIZER,       "org.codehaus.jackson.map.JsonDeserializer",
+                JSON_GENERATOR,          "org.codehaus.jackson.JsonGenerator",
+                JSON_IGNORE,             "org.codehaus.jackson.annotate.JsonIgnore"));
         JACKSON_CODEHAUS.putAll(Map.of(
-                "JsonParser",             "org.codehaus.jackson.JsonParser",
-                "JsonProcessingException","org.codehaus.jackson.JsonProcessingException",
-                "JsonProperty",           "org.codehaus.jackson.annotate.JsonProperty",
-                "JsonPropertyOrder",      "org.codehaus.jackson.annotate.JsonPropertyOrder",
-                "JsonSerialize",          "org.codehaus.jackson.map.annotate.JsonSerialize",
-                "JsonSerializer",         "org.codehaus.jackson.map.JsonSerializer",
-                "JsonValue",              "org.codehaus.jackson.annotate.JsonValue",
-                "SerializerProvider",     "org.codehaus.jackson.map.SerializerProvider"));
+                JSON_PARSER,             "org.codehaus.jackson.JsonParser",
+                JSON_PROCESSING_EXCEPTION,"org.codehaus.jackson.JsonProcessingException",
+                JSON_PROPERTY,           "org.codehaus.jackson.annotate.JsonProperty",
+                JSON_PROPERTY_ORDER,      "org.codehaus.jackson.annotate.JsonPropertyOrder",
+                JSON_SERIALIZE,          "org.codehaus.jackson.map.annotate.JsonSerialize",
+                JSON_SERIALIZER,         "org.codehaus.jackson.map.JsonSerializer",
+                JSON_VALUE,              "org.codehaus.jackson.annotate.JsonValue",
+                SERIALIZER_PROVIDER,     "org.codehaus.jackson.map.SerializerProvider"));
     }
 
     private static final Map<String, String> JACKSON_FASTERXML = new HashMap<>();
     static {
         JACKSON_FASTERXML.putAll(Map.of(
-                "DeserializationContext", "com.fasterxml.jackson.databind.DeserializationContext",
-                "JsonCreator",            "com.fasterxml.jackson.annotation.JsonCreator",
-                "JsonDeserialize",        "com.fasterxml.jackson.databind.annotation.JsonDeserialize",
-                "JsonDeserializer",       "com.fasterxml.jackson.databind.JsonDeserializer",
-                "JsonGenerator",          "com.fasterxml.jackson.core.JsonGenerator",
-                "JsonIgnore",             "com.fasterxml.jackson.annotation.JsonIgnore",
-                "JsonParser",             "com.fasterxml.jackson.core.JsonParser",
-                "JsonProcessingException","com.fasterxml.jackson.core.JsonProcessingException"));
+                DESERIALIZATION_CONTEXT, "com.fasterxml.jackson.databind.DeserializationContext",
+                JSON_CREATOR,            "com.fasterxml.jackson.annotation.JsonCreator",
+                JSON_DESERIALIZE,        "com.fasterxml.jackson.databind.annotation.JsonDeserialize",
+                JSON_DESERIALIZER,       "com.fasterxml.jackson.databind.JsonDeserializer",
+                JSON_GENERATOR,          "com.fasterxml.jackson.core.JsonGenerator",
+                JSON_IGNORE,             "com.fasterxml.jackson.annotation.JsonIgnore",
+                JSON_PARSER,             "com.fasterxml.jackson.core.JsonParser",
+                JSON_PROCESSING_EXCEPTION,"com.fasterxml.jackson.core.JsonProcessingException"));
 
         JACKSON_FASTERXML.putAll(Map.of(
-                "JsonProperty",           "com.fasterxml.jackson.annotation.JsonProperty",
-                "JsonPropertyOrder",      "com.fasterxml.jackson.annotation.JsonPropertyOrder",
-                "JsonSerialize",          "com.fasterxml.jackson.databind.annotation.JsonSerialize",
-                "JsonSerializer",         "com.fasterxml.jackson.databind.JsonSerializer",
-                "JsonValue",              "com.fasterxml.jackson.annotation.JsonValue",
-                "SerializerProvider",     "com.fasterxml.jackson.databind.SerializerProvider"));
+                JSON_PROPERTY,           "com.fasterxml.jackson.annotation.JsonProperty",
+                JSON_PROPERTY_ORDER,      "com.fasterxml.jackson.annotation.JsonPropertyOrder",
+                JSON_SERIALIZE,          "com.fasterxml.jackson.databind.annotation.JsonSerialize",
+                JSON_SERIALIZER,         "com.fasterxml.jackson.databind.JsonSerializer",
+                JSON_VALUE,              "com.fasterxml.jackson.annotation.JsonValue",
+                SERIALIZER_PROVIDER,     "com.fasterxml.jackson.databind.SerializerProvider"));
     }
 
     private final GeneratorOpts opts;
     @SuppressWarnings("unused")
     private final Types types;
-    private final SortedSet<String> imports = new TreeSet<>();
+    private final SortedSet<String> importedClasses = new TreeSet<>();
     private final boolean includeDtoImports;
 
     private Imports(Types types, GeneratorOpts opts, boolean includeDtoImports) {
@@ -86,7 +108,7 @@ public final class Imports {
     }
 
     public SortedSet<String> get() {
-        return imports;
+        return importedClasses;
     }
 
     public static Imports newApi(Types types, GeneratorOpts opts) {
@@ -97,16 +119,16 @@ public final class Imports {
     public static Imports newPojo(Types types, GeneratorOpts opts) {
         return new Imports(types, opts, false)
                 .add(JAVA_UTIL_OBJECTS)
-                .jackson(opts.isUseJsonSerializeOptions(), "JsonSerialize")
-                .jackson("JsonProperty", "JsonPropertyOrder")
+                .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
+                .jackson(JSON_PROPERTY, JSON_PROPERTY_ORDER)
                 .jsonb("javax.json.bind.annotation.JsonbProperty", "javax.json.bind.annotation.JsonbPropertyOrder");
     }
 
     public static Imports newEnum(Types types, GeneratorOpts opts) {
         return new Imports(types, opts, false)
                 .add(opts.isJackson(), JAVA_UTIL_OBJECTS)
-                .jackson(opts.isUseJsonSerializeOptions(), "JsonSerialize")
-                .jackson("JsonCreator", "JsonValue")
+                .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
+                .jackson(JSON_CREATOR, JSON_VALUE)
                 .jsonb("javax.json.Json", "javax.json.JsonString", "javax.json.bind.adapter.JsonbAdapter")
                 .jsonb("javax.json.bind.annotation.JsonbTypeAdapter");
     }
@@ -116,24 +138,24 @@ public final class Imports {
 
         if (tmpl == ExtraTemplate._LocalDateJacksonDeserializer) {
             imports
-            .add("java.io.IOException", "java.time.LocalDate", "java.time.format.DateTimeFormatter")
-            .jackson("JsonParser", "DeserializationContext", "JsonDeserializer");
+            .add(IOEXCEPTION, LOCAL_DATE, DATE_TIME_FORMATTER)
+            .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
         }
         if (tmpl == ExtraTemplate._LocalDateJacksonSerializer) {
             imports
-            .add("java.io.IOException", "java.time.LocalDate", "java.time.format.DateTimeFormatter")
-            .jackson("JsonGenerator", "SerializerProvider", "JsonSerializer", "JsonProcessingException");
+            .add(IOEXCEPTION, LOCAL_DATE, DATE_TIME_FORMATTER)
+            .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate._OffsetDateTimeJacksonDeserializer) {
             imports
-            .add("java.io.IOException", "java.time.LocalDateTime", "java.time.OffsetDateTime")
-            .add("java.time.format.DateTimeFormatter", "java.time.format.DateTimeParseException", "java.time.ZoneId")
-            .jackson("JsonParser", "DeserializationContext", "JsonDeserializer", "JsonProcessingException");
+            .add(IOEXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME)
+            .add(DATE_TIME_FORMATTER, DATE_TIME_PARSE_EXCEPTION, ZONE_ID)
+            .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate._OffsetDateTimeJacksonSerializer) {
             imports
-            .add("java.io.IOException", "java.time.OffsetDateTime", "java.time.format.DateTimeFormatter")
-            .jackson("JsonGenerator", "SerializerProvider", "JsonSerializer", "JsonProcessingException");
+            .add(IOEXCEPTION, OFFSET_DATE_TIME, DATE_TIME_FORMATTER)
+            .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         return imports;
     }
@@ -147,7 +169,7 @@ public final class Imports {
         if (opts.isJakarta()) {
             name = name.replace("javax", "jakarta");
         }
-        imports.add(name);
+        importedClasses.add(name);
         return this;
     }
 
@@ -199,7 +221,7 @@ public final class Imports {
     }
 
     public Imports add(Type type) {
-        imports.addAll(type.neededImports());
+        importedClasses.addAll(type.neededImports());
 
         addDtoImport(type);
         if (type instanceof TypeArray ta) {
@@ -212,14 +234,12 @@ public final class Imports {
     private void addDtoImport(Type type) {
         if (includeDtoImports && type.isDto()) {
             String name = type.typeName().name();
-            imports.add(opts.dtoPackage() + "." + name);
+            importedClasses.add(opts.dtoPackage() + "." + name);
         }
     }
 
     public Imports add(String... classes) {
-        for (String c : classes) {
-            imports.add(c);
-        }
+        importedClasses.addAll(Arrays.asList(classes));
         return this;
     }
 
@@ -236,6 +256,6 @@ public final class Imports {
      * Maybe need a better way to handle this.
      */
     public void trimContainerImplementations() {
-        imports.removeAll(CONTAINER_IMPLEMENTATION_TYPES);
+        importedClasses.removeAll(CONTAINER_IMPLEMENTATION_TYPES);
     }
 }

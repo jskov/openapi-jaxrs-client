@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
-import dk.mada.jaxrs.model.ImmutableDto;
 import dk.mada.jaxrs.model.ImmutableProperty;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Type;
@@ -58,7 +55,7 @@ public class DtoTransformer {
 
     private void readSpec(OpenAPI specification) {
         @SuppressWarnings("rawtypes")
-        Map<String, Schema> allDefinitions = _OpenapiGenerator.getSchemas(specification);
+        Map<String, Schema> allDefinitions = OpenapiGeneratorUtils.getSchemas(specification);
         logger.info("See schemas: {}", allDefinitions.keySet());
 
         allDefinitions.forEach((schemaName, schema) -> {
@@ -70,7 +67,7 @@ public class DtoTransformer {
 
             List<String> enumValues = getEnumValues(schema);
 
-            Dto dto = ImmutableDto.builder()
+            Dto dto = Dto.builder()
                     .name(modelName)
                     .dtoType(dtoType)
                     .properties(props)
@@ -90,13 +87,9 @@ public class DtoTransformer {
             return null;
         }
 
-        List<String> enumValues = null;
-        if (schemaEnumValues != null) {
-            enumValues = schemaEnumValues.stream()
+        return schemaEnumValues.stream()
                     .map(Object::toString)
-                    .collect(toList());
-        }
-        return enumValues;
+                    .toList();
     }
 
     private List<Property> readProperties(Schema<?> schema) {

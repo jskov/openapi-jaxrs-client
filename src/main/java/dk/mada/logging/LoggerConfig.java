@@ -9,6 +9,8 @@ import java.util.logging.LogManager;
  * Loads JUL logging.properties.
  */
 public class LoggerConfig {
+    private LoggerConfig() {}
+    
     public static void loadConfig() {
         loadConfig("/logging.properties");
     }

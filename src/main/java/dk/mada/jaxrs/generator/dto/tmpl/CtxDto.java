@@ -44,7 +44,7 @@ public interface CtxDto {
     String dataType();
     default boolean isEnum() {
         return allowableValues() != null;
-    };
+    }
 
     boolean jackson();
 

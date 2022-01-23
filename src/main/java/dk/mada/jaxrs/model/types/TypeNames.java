@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TypeNames {
-    public record TypeName(String name) {};
+    public record TypeName(String name) {}
 
     private static final Map<String, TypeName> NAME_TO_INSTANCES = new HashMap<>();
 
