@@ -11,6 +11,7 @@ package mada.tests.e2e.api.params.header.api;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/params/header")
@@ -25,6 +26,7 @@ public interface Params_HeaderApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-primitive")
+  @APIResponseSchema(String.class)
   String apiParamsHeaderBooleanPrimitiveGet(@HeaderParam("flag") boolean flag);
 
   /**
@@ -36,6 +38,7 @@ public interface Params_HeaderApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-wrapper")
+  @APIResponseSchema(String.class)
   String apiParamsHeaderBooleanWrapperGet(@HeaderParam("flag") boolean flag);
 
   /**
@@ -47,6 +50,7 @@ public interface Params_HeaderApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/invalid-name-dashes")
+  @APIResponseSchema(String.class)
   String apiParamsHeaderInvalidNameDashesGet(@HeaderParam("invalid-value") boolean invalidValue);
 
   /**
@@ -58,6 +62,7 @@ public interface Params_HeaderApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/list")
+  @APIResponseSchema(String.class)
   String apiParamsHeaderListGet(@HeaderParam("item") List<String> item);
 
   /**
@@ -71,5 +76,6 @@ public interface Params_HeaderApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/mixed")
+  @APIResponseSchema(String.class)
   String apiParamsHeaderMixedGet(@HeaderParam("flag") boolean flag, @HeaderParam("item") List<String> item, @HeaderParam("name") String name);
 }

@@ -6,4 +6,4 @@ o Handle name conflicts when making identifiers valid.
 o Prevent keyword collisions in identifiers.
 o Ignore-annotations on bigdecimal/empty_collection option, according to serializer.
 o Avoid this. in getters + add
-o @ApiModelProperty for required should use jackson flag instead
+o Responses @APIResponse are not handling Maps correctly. Need an example to work from.

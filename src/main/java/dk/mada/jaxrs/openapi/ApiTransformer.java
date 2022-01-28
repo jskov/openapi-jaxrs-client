@@ -13,6 +13,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.ImmutableResponse;
 import dk.mada.jaxrs.model.api.Operation;
@@ -42,11 +43,14 @@ public class ApiTransformer {
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
     private final TypeConverter typeConverter;
+    private final List<SecurityScheme> securitySchemes;
 
     private List<Operation> ops;
 
-    public ApiTransformer(TypeConverter typeConverter) {
+
+    public ApiTransformer(TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
         this.typeConverter = typeConverter;
+        this.securitySchemes = securitySchemes;
     }
 
     public Operations transform(OpenAPI specification) {
@@ -166,7 +170,9 @@ public class ApiTransformer {
 
     // Just a shortcut to determine if auth header should be added
     private boolean shouldAddAuthHeader(io.swagger.v3.oas.models.Operation op) {
-        return op.getSecurity() != null && !op.getSecurity().isEmpty();
+        boolean hasSecurity = !securitySchemes.isEmpty();
+        boolean isOpSecurityDisabled = op.getSecurity() != null && op.getSecurity().isEmpty();
+        return hasSecurity && !isOpSecurityDisabled;
     }
 
     private List<Parameter> getParameters(io.swagger.v3.oas.models.Operation op) {

@@ -8,12 +8,17 @@ import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 @Immutable
-public interface TypeSet extends Type {
+public interface TypeSet extends TypeContainer {
     public static TypeSet of(Type innerType) {
         return ImmutableTypeSet.builder().innerType(innerType).build();
     }
 
     Type innerType();
+
+    @Override
+    default String containerImplementation() {
+        return "HashSet";
+    }
 
     @Override
     default TypeName typeName() {

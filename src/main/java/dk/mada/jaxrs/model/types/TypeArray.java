@@ -11,14 +11,18 @@ import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 @Immutable
-public interface TypeArray extends Type {
+public interface TypeArray extends TypeContainer {
     public static TypeArray of(Types types, Type innerType) {
         return ImmutableTypeArray.builder().types(types).innerType(innerType).build();
     }
 
-    Type innerType();
     Types types();
 
+    @Override
+    default String containerImplementation() {
+        return "ArrayList";
+    }
+    
     @Override
     default TypeName typeName() {
         String innerName = mappedInnerType().wrapperTypeName().name();
@@ -33,6 +37,7 @@ public interface TypeArray extends Type {
                 .collect(toSet());
     }
 
+    @Override
     default Type mappedInnerType() {
         return types().map(innerType());
     }

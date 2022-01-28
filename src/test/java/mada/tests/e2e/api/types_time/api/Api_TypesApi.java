@@ -12,6 +12,12 @@ import java.time.LocalTime;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/types")
@@ -25,6 +31,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/list-time")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
+  })
   List<LocalTime> apiTypesListTimeGet();
 
   /**
@@ -35,5 +45,6 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/time")
+  @APIResponseSchema(LocalTime.class)
   LocalTime apiTypesTimeGet();
 }

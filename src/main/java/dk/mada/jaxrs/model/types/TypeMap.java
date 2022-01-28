@@ -13,12 +13,15 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * https://swagger.io/specification/#format
  */
 @Immutable
-public interface TypeMap extends Type {
+public interface TypeMap extends TypeContainer {
     public static TypeMap of(Type innerType) {
         return ImmutableTypeMap.builder().innerType(innerType).build();
     }
 
-    Type innerType();
+    @Override
+    default String containerImplementation() {
+        return "HashMap";
+    }
 
     @Override
     default TypeName typeName() {

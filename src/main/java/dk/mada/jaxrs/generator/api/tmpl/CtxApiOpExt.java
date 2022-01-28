@@ -14,4 +14,11 @@ public interface CtxApiOpExt {
     String produces();
     @Nullable
     String consumes();
+    
+    /**
+     * Use simpler @APIResponseSchema instead of @APIResponses+@APIResponse.
+     * 
+     * Only possible for simple classes (not containers).
+     */
+    boolean responseSchema();
 }

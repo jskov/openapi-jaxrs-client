@@ -10,6 +10,7 @@ package mada.tests.e2e.api.params.path.api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/params/path")
@@ -22,6 +23,7 @@ public interface Params_PathApi {
    */
   @GET
   @Produces(MediaType.TEXT_PLAIN)
+  @APIResponseSchema(String.class)
   String apiParamsPathGet();
 
   /**
@@ -33,6 +35,7 @@ public interface Params_PathApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/byte/{byteId}")
+  @APIResponseSchema(String.class)
   String apiParamsPathByteByteIdGet(@PathParam("byteId") byte byteId);
 
   /**
@@ -44,6 +47,7 @@ public interface Params_PathApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/int/{intId}")
+  @APIResponseSchema(String.class)
   String apiParamsPathIntIntIdGet(@PathParam("intId") int intId);
 
   /**
@@ -55,6 +59,7 @@ public interface Params_PathApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/long/{longId}")
+  @APIResponseSchema(String.class)
   String apiParamsPathLongLongIdGet(@PathParam("longId") long longId);
 
   /**
@@ -66,6 +71,7 @@ public interface Params_PathApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/short/{shortId}")
+  @APIResponseSchema(String.class)
   String apiParamsPathShortShortIdGet(@PathParam("shortId") short shortId);
 
   /**
@@ -77,5 +83,6 @@ public interface Params_PathApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/string/{stringId}")
+  @APIResponseSchema(String.class)
   String apiParamsPathStringStringIdGet(@PathParam("stringId") String stringId);
 }

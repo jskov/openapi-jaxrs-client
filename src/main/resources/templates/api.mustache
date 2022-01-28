@@ -47,6 +47,19 @@ public interface {{classname}} {
   {{#todo}}
     {{>formParams}}
   {{/todo}}
+  {{#madaOp.responseSchema}}
+  {{#responses}}
+  @APIResponseSchema({{baseType}}.class)
+  {{/responses}}
+  {{/madaOp.responseSchema}}
+  {{^madaOp.responseSchema}}
+  @APIResponses({
+    {{#responses}}
+    @APIResponse(responseCode = "{{code}}", description = "{{{description}}}"{{#baseType}},
+                 content = @Content(schema = @Schema(implementation = {{{baseType}}}.class{{#containerType}}, type = {{{.}}}{{/containerType}}{{#isUnique}}, uniqueItems = true{{/isUnique}})){{/baseType}}){{^-last}},{{/-last}}
+    {{/responses}}
+  })
+  {{/madaOp.responseSchema}}
   {{>returnTypes}} {{nickname}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
   {{/operation}}
 {{/operations}}

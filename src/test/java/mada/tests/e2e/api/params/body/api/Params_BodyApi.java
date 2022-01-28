@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.api.params.body.dto.Simple;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/params/body")
@@ -29,6 +30,7 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-primitive")
+  @APIResponseSchema(String.class)
   String apiParamsBodyBooleanPrimitiveGet(boolean dto);
 
   /**
@@ -40,6 +42,7 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-wrapper")
+  @APIResponseSchema(String.class)
   String apiParamsBodyBooleanWrapperGet(boolean dto);
 
   /**
@@ -51,6 +54,7 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/date")
+  @APIResponseSchema(String.class)
   String apiParamsBodyDateGet(LocalDate dto);
 
   /**
@@ -62,6 +66,7 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/date-time")
+  @APIResponseSchema(String.class)
   String apiParamsBodyDateTimeGet(OffsetDateTime dto);
 
   /**
@@ -73,6 +78,7 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/list")
+  @APIResponseSchema(String.class)
   String apiParamsBodyListGet(List<String> dto);
 
   /**
@@ -84,6 +90,7 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/list-simple")
+  @APIResponseSchema(String.class)
   String apiParamsBodyListSimpleGet(List<Simple> dto);
 
   /**
@@ -98,6 +105,7 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/mixed/{in-path}")
+  @APIResponseSchema(String.class)
   String apiParamsBodyMixedInPathGet(@PathParam("in-path") String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, Simple dto);
 
   /**
@@ -109,6 +117,7 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/simple")
+  @APIResponseSchema(String.class)
   String apiParamsBodySimpleGet(Simple dto);
 
   /**
@@ -120,5 +129,6 @@ public interface Params_BodyApi {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/time")
+  @APIResponseSchema(String.class)
   String apiParamsBodyTimeGet(LocalTime dto);
 }

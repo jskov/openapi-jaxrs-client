@@ -6,6 +6,7 @@ import java.util.List;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
+import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
@@ -44,9 +45,10 @@ public class Parser {
         var typeConverter = new TypeConverter(types, parserOpts, generatorOpts);
 
         Info info = new InfoTransformer().transform(specification);
-        Operations operations = new ApiTransformer(typeConverter).transform(specification);
+        List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
+        Operations operations = new ApiTransformer(typeConverter, securitySchemes).transform(specification);
         new DtoTransformer(naming, types, typeConverter).transform(specification);
-
-        return new Model(info, operations, types);
+        
+        return new Model(info, operations, types, securitySchemes);
     }
 }

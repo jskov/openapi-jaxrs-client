@@ -18,6 +18,12 @@ import java.util.Set;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.api.types.dto.Simple;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/types")
@@ -31,6 +37,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/big-decimal")
+  @APIResponseSchema(BigDecimal.class)
   BigDecimal apiTypesBigDecimalGet();
 
   /**
@@ -41,6 +48,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/boolean")
+  @APIResponseSchema(Boolean.class)
   boolean apiTypesBooleanGet();
 
   /**
@@ -51,6 +59,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/byte")
+  @APIResponseSchema(Byte.class)
   byte apiTypesByteGet();
 
   /**
@@ -61,6 +70,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/date")
+  @APIResponseSchema(LocalDate.class)
   LocalDate apiTypesDateGet();
 
   /**
@@ -71,6 +81,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/date-time")
+  @APIResponseSchema(OffsetDateTime.class)
   OffsetDateTime apiTypesDateTimeGet();
 
   /**
@@ -81,6 +92,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/double")
+  @APIResponseSchema(Double.class)
   double apiTypesDoubleGet();
 
   /**
@@ -91,6 +103,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/float")
+  @APIResponseSchema(Float.class)
   float apiTypesFloatGet();
 
   /**
@@ -101,6 +114,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/int")
+  @APIResponseSchema(Integer.class)
   int apiTypesIntGet();
 
   /**
@@ -111,6 +125,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/list")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY)))
+  })
   List<Integer> apiTypesListGet();
 
   /**
@@ -121,6 +139,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/list-date")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = LocalDate.class, type = SchemaType.ARRAY)))
+  })
   List<LocalDate> apiTypesListDateGet();
 
   /**
@@ -131,6 +153,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/list-datetime")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = OffsetDateTime.class, type = SchemaType.ARRAY)))
+  })
   List<OffsetDateTime> apiTypesListDatetimeGet();
 
   /**
@@ -141,6 +167,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/list-simple")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
+  })
   List<Simple> apiTypesListSimpleGet();
 
   /**
@@ -151,6 +181,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/list-time")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
+  })
   List<LocalTime> apiTypesListTimeGet();
 
   /**
@@ -161,6 +195,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/long")
+  @APIResponseSchema(Long.class)
   long apiTypesLongGet();
 
   /**
@@ -171,6 +206,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/map")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = String.class, type = SchemaType.ARRAY)))
+  })
   Map<String, String> apiTypesMapGet();
 
   /**
@@ -181,6 +220,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/map-simple")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
+  })
   Map<String, Simple> apiTypesMapSimpleGet();
 
   /**
@@ -191,6 +234,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/set")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY, uniqueItems = true)))
+  })
   Set<Integer> apiTypesSetGet();
 
   /**
@@ -201,6 +248,10 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/set-simple")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY, uniqueItems = true)))
+  })
   Set<Simple> apiTypesSetSimpleGet();
 
   /**
@@ -211,6 +262,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/short")
+  @APIResponseSchema(Short.class)
   short apiTypesShortGet();
 
   /**
@@ -221,6 +273,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/simple")
+  @APIResponseSchema(Simple.class)
   Simple apiTypesSimpleGet();
 
   /**
@@ -231,6 +284,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/string")
+  @APIResponseSchema(String.class)
   String apiTypesStringGet();
 
   /**
@@ -241,6 +295,7 @@ public interface Api_TypesApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/time")
+  @APIResponseSchema(LocalTime.class)
   LocalTime apiTypesTimeGet();
 
   /**
@@ -250,5 +305,8 @@ public interface Api_TypesApi {
    */
   @GET
   @Path("/void")
+  @APIResponses({
+    @APIResponse(responseCode = "204", description = "No Content")
+  })
   void apiTypesVoidGet();
 }

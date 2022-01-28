@@ -20,5 +20,7 @@ public interface CtxApiOp {
 
     List<CtxApiParam> allParams();
 
+    List<CtxApiResponse> responses();
+
     CtxApiOpExt madaOp();
 }
