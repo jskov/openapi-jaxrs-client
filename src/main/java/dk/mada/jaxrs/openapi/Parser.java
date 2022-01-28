@@ -33,12 +33,12 @@ public class Parser {
 
     public Model parse(Path input) {
         final List<AuthorizationValue> authorizationValues = List.of();
-        var parseOpts = new ParseOptions();
-        parseOpts.setResolve(true);
+        var swaggerParseOpts = new ParseOptions();
+        swaggerParseOpts.setResolve(true);
 
         String inputSpec = input.toAbsolutePath().toString();
 
-        SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, parseOpts);
+        SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, swaggerParseOpts);
         OpenAPI specification = result.getOpenAPI();
 
         var types = new Types(parserOpts, generatorOpts);
@@ -46,7 +46,7 @@ public class Parser {
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
-        Operations operations = new ApiTransformer(typeConverter, securitySchemes).transform(specification);
+        Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
         new DtoTransformer(naming, types, typeConverter).transform(specification);
         
         return new Model(info, operations, types, securitySchemes);

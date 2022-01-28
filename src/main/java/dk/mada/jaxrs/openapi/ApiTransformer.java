@@ -1,8 +1,8 @@
 package dk.mada.jaxrs.openapi;
 
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Content;
-import dk.mada.jaxrs.model.api.ImmutableResponse;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
@@ -42,13 +41,14 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 public class ApiTransformer {
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
+    private final ParserOpts parseOpts;
     private final TypeConverter typeConverter;
     private final List<SecurityScheme> securitySchemes;
 
     private List<Operation> ops;
 
-
-    public ApiTransformer(TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
+    public ApiTransformer(ParserOpts parseOpts, TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
+        this.parseOpts = parseOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
     }
@@ -92,7 +92,7 @@ public class ApiTransformer {
 
                     return toResponse(resourcePath, code, resp);
                 })
-                .collect(toList());
+                .toList();
 
         String codegenOpId = OpenapiGeneratorUtils.getOrGenerateOperationId(op, resourcePath, OpenapiGeneratorUtils.camelize(httpMethod.name().toLowerCase()));
 
@@ -112,12 +112,23 @@ public class ApiTransformer {
     }
 
     // TODO: map to actual HTTP constants, map default to maybe 0?
-    private ImmutableResponse toResponse(String resourcePath, String code, ApiResponse resp) {
-        return Response.builder()
+    private Response toResponse(String resourcePath, String code, ApiResponse resp) {
+        Response r = Response.builder()
                 .code(Integer.parseInt(code))
                 .description(resp.getDescription())
                 .content(getContent(resourcePath, resp.getContent()))
                 .build();
+        
+        if (parseOpts.isFixupVoid200to204()
+                && r.code() == HttpURLConnection.HTTP_OK
+                && r.content().type() instanceof TypeVoid) {
+            logger.info("Fixing broken 200/void response on path '{}' to 204", resourcePath);
+            r = Response.builder().from(r)
+                    .code(HttpURLConnection.HTTP_NO_CONTENT)
+                    .description("No Content")
+                    .build();
+        }
+        return r;
     }
 
     private Content getContent(String resourcePath, io.swagger.v3.oas.models.media.Content c) {

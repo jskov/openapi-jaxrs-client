@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * Constructs naming rules from user input.
  */
 public class NamingRules {
+    private static final String LITERAL = "LITERAL/";
     private static final Logger logger = LoggerFactory.getLogger(NamingRules.class);
     private static final String REGEXP = "REGEXP/";
     private static final Identifiers identifiers = new Identifiers();
@@ -27,7 +28,7 @@ public class NamingRules {
 
     public static NamingRule toRule(String rIn) {
         String r = rIn.trim();
-        if ("PROPERTYNAME".equals(r)) {
+        if ("PROPERTYNAME".equals(r) || "PARAMETERNAME".equals(r)) {
             return new NamingRule(r, identifiers::makeValidVariableName);
         }
         if ("TYPENAME".equals(r)) {
@@ -38,6 +39,12 @@ public class NamingRules {
         }
         if ("DOWNCASE".equals(r)) {
             return new NamingRule(r, String::toLowerCase);
+        }
+        if (r.startsWith(LITERAL)) {
+            if (!r.endsWith("/")) {
+                throw new IllegalArgumentException("LITERAL must end with /, saw: " + r);
+            }
+            return new NamingRule(r, s -> r.substring(LITERAL.length(), r.length()-1));
         }
         if (r.startsWith(REGEXP)) {
             if (!r.endsWith("/")) {

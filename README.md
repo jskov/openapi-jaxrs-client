@@ -145,8 +145,10 @@ The naming of types, properties and enumeration entries can be (partly) controll
 
 	UPCASE: Converts the input to upper case.
 	DOWNCASE: Converts the input to lower case.
+	LITERAL/value/: Returns the provided value.
 	TYPENAME: Converts the input to a valid java identifier (first letter upper case)
-	PROPERTYNAME: Converts the input to a valid java identifier (first letter lower case)
+      PARAMETERNAME: Converts the input to a valid java identifier (first letter lower case)
+	PROPERTYNAME: (alias for PARAMETERNAME)
 	REGEXP/pattern/replacement/: Will match input against pattern and substitute all matches with replacement.
 
 You can specify a number of operators, separated by ';'. They will be applied left-to-right.
@@ -164,19 +166,34 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >Allows you to control the naming of enumeration entries using the operators described above.
 
+>The type name is given as input.
+
 >
 	default value: TYPENAME; UPCASE
+
+**naming-rules-entity**
+
+>Allows you to control the naming of the entity parameter in APIs using the operators described above.
+
+>The type name is given as input.
+
+>
+    default value: LITERAL/dto/
 
 **naming-rules-parameter**
 
 >Allows you to control the naming of parameters using the operators described above.
 
+>The parameter name is given as input.
+
 >
-	default value: PROPERTYNAME
+	default value: PARAMETERNAME
 
 **naming-rules-property**
 
 >Allows you to control the naming of properties using the operators described above.
+
+>The property name is given as input.
 
 >
 	default value: PROPERTYNAME
@@ -185,10 +202,19 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >Allows you to control the naming of types using the operators described above.
 
+>The type name is given as input.
+
 >
 	default value: TYPENAME
 
 ### Parser options
+
+**parser-fixup-void-200-to-204**
+
+>This option allows changing a 200-response that has no declared return type to a 204-response.
+
+>
+    default value: false
 
 **parser-localdate-is-jse**
 

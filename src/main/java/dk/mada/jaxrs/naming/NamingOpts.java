@@ -14,6 +14,10 @@ public class NamingOpts {
         return getDefault("naming-enum-prefix-number", "NUMBER_");
     }
 
+    public String getDtoNaming() {
+        return getDefault("naming-rules-entity", "LITERAL/dto/");
+    }
+
     public String getEnumNaming() {
         return getDefault("naming-rules-enum", "TYPENAME; UPCASE");
     }

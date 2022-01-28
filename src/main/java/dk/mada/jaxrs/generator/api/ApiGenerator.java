@@ -247,9 +247,11 @@ public class ApiGenerator {
         op.requestBody().ifPresent(body -> {
             imports.add(body.content().type());
 
+            String dtoParamName = naming.convertDtoName(body.content().type().typeName().name());
+            
             params.add(CtxApiParam.builder()
                     .baseName("unused")
-                    .paramName("dto")
+                    .paramName(dtoParamName)
                     .dataType(body.content().type().typeName().name())
                     .required(body.isRequired())
                     .isBodyParam(true)

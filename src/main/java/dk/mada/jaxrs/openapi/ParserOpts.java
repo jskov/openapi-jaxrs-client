@@ -40,6 +40,10 @@ public class ParserOpts {
         return bool("parser-bigdecimal-is-jse", true);
     }
 
+    public boolean isFixupVoid200to204() {
+        return bool("parser-fixup-void-200-to-204", false);
+    }
+
     private boolean bool(String name) {
         return bool(name, false);
     }

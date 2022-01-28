@@ -14,6 +14,7 @@ import dk.mada.jaxrs.naming.NamingRules.NamingRule;
 public class Naming {
     private static final Logger logger = LoggerFactory.getLogger(Naming.class);
     private final NamingOpts namingOpts;
+    private final List<NamingRule> dtoNamingRules;
     private final List<NamingRule> enumNamingRules;
     private final List<NamingRule> typeNamingRules;
     private final List<NamingRule> propertyNamingRules;
@@ -22,10 +23,15 @@ public class Naming {
     public Naming(Properties props) {
         namingOpts = new NamingOpts(props);
 
+        dtoNamingRules = NamingRules.toRules(namingOpts.getDtoNaming());
         enumNamingRules = NamingRules.toRules(namingOpts.getEnumNaming());
         typeNamingRules = NamingRules.toRules(namingOpts.getTypeNaming());
         propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
         parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
+    }
+
+    public String convertDtoName(String input) {
+        return convert(dtoNamingRules, input);
     }
 
     public String convertEnumName(String input) {

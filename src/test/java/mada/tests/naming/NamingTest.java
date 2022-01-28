@@ -29,8 +29,6 @@ class NamingTest {
 			.isEqualTo(expected);
 	}
 
-
-	
 	private Naming makeSut(String rules) {
 		Properties props = new Properties();
 		props.setProperty(NamingOpts.NAMING_RULES_TYPE, rules);
