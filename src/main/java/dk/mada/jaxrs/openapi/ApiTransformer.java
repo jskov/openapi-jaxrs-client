@@ -35,7 +35,7 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 
 /**
  * Transforms OpenApi operations to local model objects.
- * 
+ *
  * DefaultGenerator:processOperation
  */
 public class ApiTransformer {
@@ -118,7 +118,7 @@ public class ApiTransformer {
                 .description(resp.getDescription())
                 .content(getContent(resourcePath, resp.getContent()))
                 .build();
-        
+
         if (parseOpts.isFixupVoid200to204()
                 && r.code() == HttpURLConnection.HTTP_OK
                 && r.content().type() instanceof TypeVoid) {

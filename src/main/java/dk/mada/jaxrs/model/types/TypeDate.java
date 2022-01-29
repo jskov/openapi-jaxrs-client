@@ -7,7 +7,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 /**
  * Special type for handing date schema.
  */
-public class TypeDate implements Type {
+public final class TypeDate implements Type {
     public static final TypeName TYPE_LOCAL_DATE = TypeNames.of("LocalDate");
     private static final TypeDate INSTANCE = new TypeDate();
 

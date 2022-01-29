@@ -8,13 +8,13 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * A reference to a sibling DTO used during parsing.
- * 
+ *
  * The sibling may not have been processed yet,
  * hence this type which acts as a lazy delegation.
  */
 @Immutable
 public interface TypeRef extends Type {
-    public static TypeRef of(TypeName refTypeName, Types types) {
+    static TypeRef of(TypeName refTypeName, Types types) {
         return ImmutableTypeRef.builder().refTypeName(refTypeName).types(types).build();
     }
 
@@ -52,7 +52,7 @@ public interface TypeRef extends Type {
     }
 
     @Override
-    default boolean isDto() { 
+    default boolean isDto() {
         return dereference().isDto();
     }
 

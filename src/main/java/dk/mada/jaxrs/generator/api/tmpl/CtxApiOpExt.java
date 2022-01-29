@@ -6,7 +6,7 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface CtxApiOpExt {
-    public static ImmutableCtxApiOpExt.Builder builder() {
+    static ImmutableCtxApiOpExt.Builder builder() {
         return ImmutableCtxApiOpExt.builder();
     }
 
@@ -14,11 +14,13 @@ public interface CtxApiOpExt {
     String produces();
     @Nullable
     String consumes();
-    
+
     /**
      * Use simpler @APIResponseSchema instead of @APIResponses+@APIResponse.
-     * 
+     *
      * Only possible for simple classes (not containers).
+     *
+     * {@return whether to use the shorter ApiResponseSchema annotation}
      */
     boolean responseSchema();
 }

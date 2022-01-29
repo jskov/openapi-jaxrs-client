@@ -20,10 +20,10 @@ import dk.mada.jaxrs.model.types.Type;
 
 /**
  * Uses default naming, but provides alternatives in case of naming conflicts.
- * 
+ *
  * First tries to append the non-upper-cased value to the default naming.
  * This allows the client to make (some) sense of the enumeration values
- * 
+ *
  * If this fails, falls back to numbering of conflicting names.
  */
 public class EnumNamer {
@@ -39,7 +39,8 @@ public class EnumNamer {
     private final String numberPrefix;
 
 
-    public record EnumNameValue(String name, String value) {}
+    public record EnumNameValue(String name, String value) {
+    }
 
     public EnumNamer(Naming naming, GeneratorOpts opts, Type enumValueType, List<String> values) {
         this.naming = naming;
@@ -108,7 +109,7 @@ public class EnumNamer {
 
     /**
      * Provides a case sensitive renaming.
-     * 
+     *
      * Still has to map non-chars to _, so may still result in conflicts.
      */
     private String caseSensitiveNamer(String v, String defaultName) {

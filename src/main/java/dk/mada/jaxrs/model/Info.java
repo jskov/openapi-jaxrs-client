@@ -6,8 +6,8 @@ import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
 
 /**
- * API 
- * @see https://swagger.io/specification/#infoObject
+ * API
+ * @see <a href="https://swagger.io/specification/#infoObject">infoObject</a>
  */
 @Immutable
 public abstract class Info {

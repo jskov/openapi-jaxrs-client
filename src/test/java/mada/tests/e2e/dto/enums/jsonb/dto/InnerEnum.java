@@ -22,7 +22,7 @@ public enum InnerEnum {
 
   private final String value;
 
-  private InnerEnum(String value) {
+  InnerEnum(String value) {
     this.value = value;
   }
 

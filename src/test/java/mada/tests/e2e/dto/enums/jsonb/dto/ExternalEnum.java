@@ -22,7 +22,7 @@ public enum ExternalEnum {
 
   private final String value;
 
-  private ExternalEnum(String value) {
+  ExternalEnum(String value) {
     this.value = value;
   }
 

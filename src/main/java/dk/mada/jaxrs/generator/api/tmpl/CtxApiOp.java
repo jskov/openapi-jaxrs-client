@@ -8,7 +8,7 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface CtxApiOp {
-    public static ImmutableCtxApiOp.Builder builder() {
+    static ImmutableCtxApiOp.Builder builder() {
         return ImmutableCtxApiOp.builder();
     }
 

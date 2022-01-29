@@ -33,5 +33,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonarqube --info
-        
+        run: ./gradlew build sonarqube javadoc -s --info
+      - name: Deploy Javadoc
+        uses: JamesIves/github-pages-deploy-action@2731bec0dbf2bbf03977acbe88f9977eb7c2fbb7
+        with:
+          branch: gh-pages
+          folder: build/docs/javadoc
+          ssh-key: ${{ secrets.DEPLOY_KEY }}

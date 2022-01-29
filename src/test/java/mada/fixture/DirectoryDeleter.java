@@ -10,9 +10,16 @@ import java.nio.file.attribute.BasicFileAttributes;
 /**
  * Deletes a directory.
  */
-public class DirectoryDeleter {
-  private DirectoryDeleter() {}
-  
+public final class DirectoryDeleter {
+  private DirectoryDeleter() {
+  }
+
+  /**
+   * Deletes directory.
+   *
+   * @param dir directory to delete
+   * @throws IOException if the operation fails
+   */
   public static void delete(Path dir) throws IOException {
     Files.walkFileTree(dir, new FileVisitor<Path>() {
       @Override

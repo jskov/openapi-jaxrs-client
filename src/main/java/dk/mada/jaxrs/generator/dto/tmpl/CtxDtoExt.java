@@ -10,7 +10,7 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxDtoExt {
-    public static ImmutableCtxDtoExt.Builder builder() {
+    static ImmutableCtxDtoExt.Builder builder() {
         return ImmutableCtxDtoExt.builder();
     }
 

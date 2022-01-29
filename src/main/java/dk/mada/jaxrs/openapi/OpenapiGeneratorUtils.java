@@ -17,11 +17,12 @@ import io.swagger.v3.oas.models.media.Schema;
 /**
  * Methods lifted directly from OpenApi-generator.
  */
-public class OpenapiGeneratorUtils {
+public final class OpenapiGeneratorUtils {
     private static final Logger logger = LoggerFactory.getLogger(OpenapiGeneratorUtils.class);
 
-    private OpenapiGeneratorUtils() {}
-    
+    private OpenapiGeneratorUtils() {
+    }
+
     // ModelUtils.getSchemas
     @SuppressWarnings("rawtypes")
     public static Map<String, Schema> getSchemas(OpenAPI openAPI) {
@@ -33,7 +34,7 @@ public class OpenapiGeneratorUtils {
 
     /**
      * Camelize name (parameter, property, method, etc) with upper case for first letter
-     * copied from Twitter elephant bird
+     * copied from Twitter elephant bird.
      * https://github.com/twitter/elephant-bird/blob/master/core/src/main/java/com/twitter/elephantbird/util/Strings.java
      *
      * @param word string to be camelize
@@ -52,9 +53,9 @@ public class OpenapiGeneratorUtils {
     private static Pattern camelizeSimpleUnderscorePattern = Pattern.compile("_");
 
     /**
-     * Camelize name (parameter, property, method, etc)
+     * Camelize name (parameter, property, method, etc).
      *
-     * @param inputWord                 string to be camelize
+     * @param word                 string to be camelize
      * @param lowercaseFirstLetter lower case for first letter if set to true
      * @return camelized string
      */
@@ -189,7 +190,8 @@ public class OpenapiGeneratorUtils {
                 }
             }
             operationId = builder.toString();
-            logger.warn("Empty operationId found for path: {} {}. Renamed to auto-generated operationId: {}", httpMethod, path, operationId);
+            logger.warn("Empty operationId found for path: {} {}. Renamed to auto-generated operationId: {}",
+                    httpMethod, path, operationId);
         }
         return operationId;
     }

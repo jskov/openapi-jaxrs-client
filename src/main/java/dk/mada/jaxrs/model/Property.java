@@ -8,6 +8,10 @@ import dk.mada.jaxrs.model.types.Type;
 
 @Immutable
 public interface Property {
+    static ImmutableProperty.Builder builder() {
+        return ImmutableProperty.builder();
+    }
+
     String name();
     Type type();
     @Nullable

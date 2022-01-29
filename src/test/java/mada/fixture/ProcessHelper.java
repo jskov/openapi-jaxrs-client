@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Process helpers akin to Groovy's Process extensions.
  */
-public class ProcessHelper {
+public final class ProcessHelper {
 	private static final Logger logger = LoggerFactory.getLogger(ProcessHelper.class);
 
 	private ProcessHelper() {
@@ -17,10 +17,14 @@ public class ProcessHelper {
 
 	/**
 	 * Waits for process output.
-	 * 
+	 *
+	 * @param process the process to wait for
+	 * @param output the stream to copy the process output to
+	 *
+	 * @return process exit value
 	 * @throws IllegalStateException if interrupted
 	 */
-	public static final int waitForProcessOutput(Process process, OutputStream output) {
+	public static int waitForProcessOutput(Process process, OutputStream output) {
 		Thread outputConsumerThread = new Thread(new ByteDumper(process.getInputStream(), output));
 		outputConsumerThread.start();
 

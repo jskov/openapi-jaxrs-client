@@ -21,7 +21,7 @@ public enum Primitive implements Type {
     /** Java lang wrapper type */
     private TypeName wrapperType;
 
-    private Primitive(String typeFormat, String javaPrimitive, String wrapperType) {
+    Primitive(String typeFormat, String javaPrimitive, String wrapperType) {
         this.typeFormat = typeFormat;
         this.javaPrimitive = TypeNames.of(javaPrimitive);
         this.wrapperType = TypeNames.of(wrapperType);

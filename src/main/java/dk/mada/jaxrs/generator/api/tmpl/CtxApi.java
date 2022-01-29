@@ -12,7 +12,7 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxApi {
-    public static ImmutableCtxApi.Builder builder() {
+    static ImmutableCtxApi.Builder builder() {
         return ImmutableCtxApi.builder();
     }
 
@@ -26,7 +26,8 @@ public interface CtxApi {
     SortedSet<String> getImports();
 
     List<CtxOperationRef> operations();
-    public record CtxOperationRef(CtxApiOp operation) {}
+    record CtxOperationRef(CtxApiOp operation) {
+    }
 
     String packageName();
     String classname();

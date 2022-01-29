@@ -8,7 +8,7 @@ import dk.mada.jaxrs.model.types.Type;
 
 @Immutable
 public interface Parameter {
-    public static ImmutableParameter.Builder builder() {
+    static ImmutableParameter.Builder builder() {
         return ImmutableParameter.builder();
     }
 

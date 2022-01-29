@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
-import dk.mada.jaxrs.model.ImmutableProperty;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeNames;
@@ -22,7 +21,7 @@ import io.swagger.v3.oas.models.media.Schema;
 
 /**
  * Transforms OpenApi dtos (models) to local model objects.
- * 
+ *
  *  DefaultGenerator:processModels
  *  DefaultCodegen:fromModel
  *  DefaultCodegen:fromProperty
@@ -116,7 +115,7 @@ public class DtoTransformer {
             boolean isReadOnly = (propSchema.getReadOnly() != null) && propSchema.getReadOnly();
             boolean isNullable = (propSchema.getNullable() != null) && propSchema.getNullable();
 
-            props.add(ImmutableProperty.builder()
+            props.add(Property.builder()
                     .name(name)
                     .type(type)
                     .description(propSchema.getDescription())

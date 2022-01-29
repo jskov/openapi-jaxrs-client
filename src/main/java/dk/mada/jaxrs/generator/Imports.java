@@ -46,13 +46,13 @@ public final class Imports {
     @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(Imports.class);
     private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
-    public static final Set<String> LIST_TYPES = Set.of("java.util.List", "java.util.ArrayList"); 
-    public static final Set<String> MAP_TYPES = Set.of("java.util.Map", "java.util.HashMap"); 
-    public static final Set<String> SET_TYPES = Set.of("java.util.Set", "java.util.HashSet"); 
+    public static final Set<String> LIST_TYPES = Set.of("java.util.List", "java.util.ArrayList");
+    public static final Set<String> MAP_TYPES = Set.of("java.util.Map", "java.util.HashMap");
+    public static final Set<String> SET_TYPES = Set.of("java.util.Set", "java.util.HashSet");
     private static final Set<String> CONTAINER_IMPLEMENTATION_TYPES = Set.of(
             "java.util.ArrayList",
             "java.util.HashMap",
-            "java.util.HashSet"); 
+            "java.util.HashSet");
 
     private static final Map<String, String> JACKSON_CODEHAUS = new HashMap<>();
     static {
@@ -64,31 +64,31 @@ public final class Imports {
                 JSON_GENERATOR,          "org.codehaus.jackson.JsonGenerator",
                 JSON_IGNORE,             "org.codehaus.jackson.annotate.JsonIgnore"));
         JACKSON_CODEHAUS.putAll(Map.of(
-                JSON_PARSER,             "org.codehaus.jackson.JsonParser",
-                JSON_PROCESSING_EXCEPTION,"org.codehaus.jackson.JsonProcessingException",
-                JSON_PROPERTY,           "org.codehaus.jackson.annotate.JsonProperty",
-                JSON_PROPERTY_ORDER,      "org.codehaus.jackson.annotate.JsonPropertyOrder",
-                JSON_SERIALIZE,          "org.codehaus.jackson.map.annotate.JsonSerialize",
-                JSON_SERIALIZER,         "org.codehaus.jackson.map.JsonSerializer",
-                JSON_VALUE,              "org.codehaus.jackson.annotate.JsonValue",
-                SERIALIZER_PROVIDER,     "org.codehaus.jackson.map.SerializerProvider"));
+                JSON_PARSER,               "org.codehaus.jackson.JsonParser",
+                JSON_PROCESSING_EXCEPTION, "org.codehaus.jackson.JsonProcessingException",
+                JSON_PROPERTY,             "org.codehaus.jackson.annotate.JsonProperty",
+                JSON_PROPERTY_ORDER,       "org.codehaus.jackson.annotate.JsonPropertyOrder",
+                JSON_SERIALIZE,            "org.codehaus.jackson.map.annotate.JsonSerialize",
+                JSON_SERIALIZER,           "org.codehaus.jackson.map.JsonSerializer",
+                JSON_VALUE,                "org.codehaus.jackson.annotate.JsonValue",
+                SERIALIZER_PROVIDER,       "org.codehaus.jackson.map.SerializerProvider"));
     }
 
     private static final Map<String, String> JACKSON_FASTERXML = new HashMap<>();
     static {
         JACKSON_FASTERXML.putAll(Map.of(
-                DESERIALIZATION_CONTEXT, "com.fasterxml.jackson.databind.DeserializationContext",
-                JSON_CREATOR,            "com.fasterxml.jackson.annotation.JsonCreator",
-                JSON_DESERIALIZE,        "com.fasterxml.jackson.databind.annotation.JsonDeserialize",
-                JSON_DESERIALIZER,       "com.fasterxml.jackson.databind.JsonDeserializer",
-                JSON_GENERATOR,          "com.fasterxml.jackson.core.JsonGenerator",
-                JSON_IGNORE,             "com.fasterxml.jackson.annotation.JsonIgnore",
-                JSON_PARSER,             "com.fasterxml.jackson.core.JsonParser",
-                JSON_PROCESSING_EXCEPTION,"com.fasterxml.jackson.core.JsonProcessingException"));
+                DESERIALIZATION_CONTEXT,   "com.fasterxml.jackson.databind.DeserializationContext",
+                JSON_CREATOR,              "com.fasterxml.jackson.annotation.JsonCreator",
+                JSON_DESERIALIZE,          "com.fasterxml.jackson.databind.annotation.JsonDeserialize",
+                JSON_DESERIALIZER,         "com.fasterxml.jackson.databind.JsonDeserializer",
+                JSON_GENERATOR,            "com.fasterxml.jackson.core.JsonGenerator",
+                JSON_IGNORE,               "com.fasterxml.jackson.annotation.JsonIgnore",
+                JSON_PARSER,               "com.fasterxml.jackson.core.JsonParser",
+                JSON_PROCESSING_EXCEPTION, "com.fasterxml.jackson.core.JsonProcessingException"));
 
         JACKSON_FASTERXML.putAll(Map.of(
                 JSON_PROPERTY,           "com.fasterxml.jackson.annotation.JsonProperty",
-                JSON_PROPERTY_ORDER,      "com.fasterxml.jackson.annotation.JsonPropertyOrder",
+                JSON_PROPERTY_ORDER,     "com.fasterxml.jackson.annotation.JsonPropertyOrder",
                 JSON_SERIALIZE,          "com.fasterxml.jackson.databind.annotation.JsonSerialize",
                 JSON_SERIALIZER,         "com.fasterxml.jackson.databind.JsonSerializer",
                 JSON_VALUE,              "com.fasterxml.jackson.annotation.JsonValue",

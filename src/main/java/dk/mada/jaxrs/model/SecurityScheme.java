@@ -2,9 +2,12 @@ package dk.mada.jaxrs.model;
 
 /**
  * Security schemes.
- * 
+ *
  * Just collects presence for now.
- * 
- * @see https://swagger.io/specification/#securityRequirementObject
+ *
+ * @param name the name of the security scheme
+ *
+ * @see <a href="https://swagger.io/specification/#securityRequirementObject">securityRequirementObject</a>
  */
-public record SecurityScheme(String name) {}
+public record SecurityScheme(String name) {
+}

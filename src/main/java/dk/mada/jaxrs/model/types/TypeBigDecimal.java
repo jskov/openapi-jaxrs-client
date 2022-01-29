@@ -7,7 +7,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 /**
  * Special type for handing number schema.
  */
-public class TypeBigDecimal implements Type {
+public final class TypeBigDecimal implements Type {
     public static final TypeName BIG_DECIMAL = TypeNames.of("BigDecimal");
     private static final TypeBigDecimal INSTANCE = new TypeBigDecimal();
 

@@ -12,7 +12,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 @Immutable
 public interface TypeArray extends TypeContainer {
-    public static TypeArray of(Types types, Type innerType) {
+    static TypeArray of(Types types, Type innerType) {
         return ImmutableTypeArray.builder().types(types).innerType(innerType).build();
     }
 
@@ -22,7 +22,7 @@ public interface TypeArray extends TypeContainer {
     default String containerImplementation() {
         return "ArrayList";
     }
-    
+
     @Override
     default TypeName typeName() {
         String innerName = mappedInnerType().wrapperTypeName().name();

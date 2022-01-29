@@ -20,7 +20,7 @@ public enum NumberEnum {
 
   private final int value;
 
-  private NumberEnum(int value) {
+  NumberEnum(int value) {
     this.value = value;
   }
 

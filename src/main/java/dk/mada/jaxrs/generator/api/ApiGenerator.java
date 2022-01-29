@@ -69,7 +69,7 @@ public class ApiGenerator {
             .forEach(ops -> {
                 String group = ops.getKey();
                 String classname = makeClassName(group);
-    
+
                 processApi(apiDir, ops, classname);
         });
     }
@@ -144,7 +144,7 @@ public class ApiGenerator {
         List<CtxApiResponse> responses = getResponses(imports, op);
 
         boolean onlySimpleResponse = addImports(imports, op);
-        
+
         CtxApiOpExt ext = CtxApiOpExt.builder()
                 .produces(makeProduces(imports, op))
                 .responseSchema(onlySimpleResponse)
@@ -180,7 +180,7 @@ public class ApiGenerator {
     /**
      * Determine if all the response types can be rendered via
      * the simple @APIResponseSchema annotation.
-     * 
+     *
      * TODO: probably needs to be more clever - must consider
      * that description matches code(). But this will do for now.
      */
@@ -188,7 +188,7 @@ public class ApiGenerator {
         if (responses.size() != 1) {
             return false;
         }
-        
+
         Response r = responses.get(0);
         boolean isContainer = r.content().type() instanceof TypeContainer;
         return !isContainer && r.code() == HttpURLConnection.HTTP_OK;
@@ -205,7 +205,7 @@ public class ApiGenerator {
      *  If @DefaultValue is not used in conjunction with @QueryParam, and the query parameter
      *  is not present in the request, then value will be an empty collection for List, Set,
      *  or SortedSet; null for other object types; and the Java-defined default for primitive types.
-     *  
+     *
      * So the primitive types can be used instead of wrapper types.
      */
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
@@ -248,7 +248,7 @@ public class ApiGenerator {
             imports.add(body.content().type());
 
             String dtoParamName = naming.convertDtoName(body.content().type().typeName().name());
-            
+
             params.add(CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
@@ -278,12 +278,12 @@ public class ApiGenerator {
         String containerType;
         Type type = r.content().type();
         boolean isUnique = false;
-        
+
         if (type instanceof TypeContainer tc) {
             baseType = tc.innerType().wrapperTypeName().name();
             containerType = "SchemaType.ARRAY";
             imports.add("org.eclipse.microprofile.openapi.annotations.enums.SchemaType");
-            
+
             isUnique = type instanceof TypeSet;
         } else if (type instanceof TypeVoid) {
             baseType = null;
@@ -292,7 +292,7 @@ public class ApiGenerator {
             baseType = type.wrapperTypeName().name();
             containerType = null;
         }
-        
+
         return CtxApiResponse.builder()
                 .baseType(baseType)
                 .code(Integer.toString(r.code()))
@@ -301,7 +301,7 @@ public class ApiGenerator {
                 .isUnique(isUnique)
                 .build();
     }
-    
+
     private String makeProduces(Imports imports, Operation op) {
         Set<String> producesMediaTypes = op.responses().stream()
                 .flatMap(r -> r.content().mediaTypes().stream())

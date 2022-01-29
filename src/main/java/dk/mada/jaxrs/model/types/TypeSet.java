@@ -9,7 +9,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 @Immutable
 public interface TypeSet extends TypeContainer {
-    public static TypeSet of(Type innerType) {
+    static TypeSet of(Type innerType) {
         return ImmutableTypeSet.builder().innerType(innerType).build();
     }
 

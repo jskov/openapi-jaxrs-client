@@ -8,7 +8,7 @@ import dk.mada.jaxrs.model.types.Type;
 
 @Immutable
 public interface Content {
-    public static ImmutableContent.Builder builder() {
+    static ImmutableContent.Builder builder() {
         return ImmutableContent.builder();
     }
 

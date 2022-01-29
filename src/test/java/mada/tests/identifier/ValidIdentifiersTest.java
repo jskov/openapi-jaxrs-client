@@ -9,7 +9,7 @@ import dk.mada.jaxrs.naming.Identifiers;
 
 class ValidIdentifiersTest {
 	private Identifiers sut = new Identifiers();
-	
+
 	@ParameterizedTest
 	@CsvSource({
 		"foo,        foo",
@@ -33,5 +33,4 @@ class ValidIdentifiersTest {
 		assertThat(sut.makeValidTypeName(input))
 			.isEqualTo(expected);
 	}
-}	
-
+}

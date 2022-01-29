@@ -9,7 +9,7 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface Operation {
-    public static ImmutableOperation.Builder builder() {
+    static ImmutableOperation.Builder builder() {
         return ImmutableOperation.builder();
     }
 

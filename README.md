@@ -1,8 +1,10 @@
 # openapi-jaxrs-client
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jskov_openapi-jaxrs-client&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jskov_openapi-jaxrs-client) [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://jskov.github.io/openapi-jaxrs-client/)
+
 An OpenAPI JAX-RS client generator.
 
-Generates API classes (only) for use with the MicroProfile client.
+Generates API classes for use with the MicroProfile client.
 
 DTOs can be generated for use with jsonb, jackson2 (fasterxml), or jackson (codehaus).
 So these can be used in other (older) contexts than the MP client.

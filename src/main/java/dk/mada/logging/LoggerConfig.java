@@ -8,13 +8,20 @@ import java.util.logging.LogManager;
 /**
  * Loads JUL logging.properties.
  */
-public class LoggerConfig {
-    private LoggerConfig() {}
-    
+public final class LoggerConfig {
+    private LoggerConfig() {
+    }
+
+    /** Loads default logger configuration. */
     public static void loadConfig() {
         loadConfig("/logging.properties");
     }
 
+    /**
+     * Loads specific logger configuration.
+     *
+     * @param path resource path of logger configuration
+     */
     public static void loadConfig(String path) {
         try (InputStream configFile = LoggerConfig.class.getResourceAsStream(path)) {
             LogManager.getLogManager().updateConfiguration(configFile, null);

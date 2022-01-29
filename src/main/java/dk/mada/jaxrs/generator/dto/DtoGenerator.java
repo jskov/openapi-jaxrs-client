@@ -266,8 +266,8 @@ public class DtoGenerator {
                 opts.isUseBigDecimalForDouble()
                 && propType == Primitive.DOUBLE;
         if (isUseBigDecimalForDouble) {
-            getter = getter+"Double";
-            setter = setter+"Double";
+            getter = getter + "Double";
+            setter = setter + "Double";
 
             dtoImports.jackson("JsonIgnore");
             dtoImports.add("java.math.BigDecimal");
@@ -278,7 +278,7 @@ public class DtoGenerator {
                 && isContainer
                 && !isRequired;
         if (isUseEmptyCollections) {
-            getter = getter+"Nullable";
+            getter = getter + "Nullable";
         }
 
         List<String> schemaEntries = new ArrayList<>();

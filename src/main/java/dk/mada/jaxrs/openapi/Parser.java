@@ -48,7 +48,7 @@ public class Parser {
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
         Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
         new DtoTransformer(naming, types, typeConverter).transform(specification);
-        
+
         return new Model(info, operations, types, securitySchemes);
     }
 }

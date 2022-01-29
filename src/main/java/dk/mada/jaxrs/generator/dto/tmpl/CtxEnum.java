@@ -4,8 +4,17 @@ import java.util.List;
 
 /**
  * Context passed to Mustache when compiling an enum.
+ *
+ * @param enumVars list of enumeration entries
  */
 public record CtxEnum(List<CtxEnumEntry> enumVars) {
 
-    public record CtxEnumEntry(String name, String value) {}
+    /**
+     * Context describing an enumeration entry.
+     *
+     * @param name the name of the entry
+     * @param value the wire-value of the entry
+     */
+    public record CtxEnumEntry(String name, String value) {
+    }
 }

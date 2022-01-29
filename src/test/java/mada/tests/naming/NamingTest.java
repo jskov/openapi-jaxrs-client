@@ -34,5 +34,4 @@ class NamingTest {
 		props.setProperty(NamingOpts.NAMING_RULES_TYPE, rules);
 		return new Naming(props);
 	}
-	
 }

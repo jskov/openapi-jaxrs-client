@@ -20,17 +20,17 @@ import org.codehaus.jackson.map.JsonDeserializer;
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class _OffsetDateTimeJacksonDeserializer extends JsonDeserializer<OffsetDateTime> {
 
-	@Override
-	public OffsetDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
-		String wireText = jp.getText();
-		
-		try {
-			// This decodes with RFC3339/ISO-8601 (requires timezone offset)
-			return OffsetDateTime.parse(wireText, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-		} catch (DateTimeParseException e) {
-			// If the above failed, assume it is because there is no timezone and try localtime.
-			return LocalDateTime.parse(wireText, DateTimeFormatter.ISO_LOCAL_DATE_TIME).atZone(ZoneId.systemDefault()).toOffsetDateTime();
-		}
-	}
+    @Override
+    public OffsetDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
+        String wireText = jp.getText();
+
+        try {
+            // This decodes with RFC3339/ISO-8601 (requires timezone offset)
+            return OffsetDateTime.parse(wireText, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        } catch (DateTimeParseException e) {
+            // If the above failed, assume it is because there is no timezone and try localtime.
+            return LocalDateTime.parse(wireText, DateTimeFormatter.ISO_LOCAL_DATE_TIME).atZone(ZoneId.systemDefault()).toOffsetDateTime();
+        }
+    }
 }

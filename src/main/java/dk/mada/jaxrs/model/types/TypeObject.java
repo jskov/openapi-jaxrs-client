@@ -5,7 +5,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 /**
  * Special type for handing object type.
  */
-public class TypeObject implements Type {
+public final class TypeObject implements Type {
     private static final TypeObject INSTANCE = new TypeObject();
 
     private TypeObject() {

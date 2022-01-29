@@ -9,15 +9,21 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 /**
  * Transforms OpenApi security to local model objects.
  */
-public class SecurityTransformer {
+public final class SecurityTransformer {
 
+    /**
+     * Transforms OpenApi security to local model objects.
+     *
+     * @param specification the OpenApi specification to transform
+     * @return a local model defining the security
+     */
     public List<SecurityScheme> transform(OpenAPI specification) {
         List<SecurityRequirement> security = specification.getSecurity();
-        
+
         if (security == null) {
             return List.of();
         }
-     
+
         return security.stream()
                    .flatMap(sr -> sr.keySet().stream())
                    .map(SecurityScheme::new)

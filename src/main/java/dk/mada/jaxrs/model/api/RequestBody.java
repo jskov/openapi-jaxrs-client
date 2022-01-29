@@ -6,7 +6,7 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface RequestBody {
-    public static ImmutableRequestBody.Builder builder() {
+    static ImmutableRequestBody.Builder builder() {
         return ImmutableRequestBody.builder();
     }
 

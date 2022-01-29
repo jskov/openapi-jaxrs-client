@@ -6,7 +6,7 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface Response {
-    public static ImmutableResponse.Builder builder() {
+    static ImmutableResponse.Builder builder() {
         return ImmutableResponse.builder();
     }
 
