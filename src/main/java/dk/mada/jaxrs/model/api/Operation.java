@@ -29,5 +29,6 @@ public interface Operation {
     List<Parameter> parameters();
     Optional<RequestBody> requestBody();
 
+    /** {@return true if this operation requires an authentication parameter} */
     boolean addAuthorizationHeader();
 }

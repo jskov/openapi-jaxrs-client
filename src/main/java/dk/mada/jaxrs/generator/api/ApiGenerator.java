@@ -315,7 +315,6 @@ public class ApiGenerator {
 
     private String makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
         List<String> wrappedMediaTypes = mediaTypes
-                .peek(mt -> logger.info("See {}", mt))
                 .map(mt -> toMediaType(imports, mt))
                 .sorted()
                 .toList();

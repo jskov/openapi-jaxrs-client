@@ -32,6 +32,7 @@ import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.parameters.PathParameter;
 import io.swagger.v3.oas.models.parameters.QueryParameter;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 
 /**
  * Transforms OpenApi operations to local model objects.
@@ -47,18 +48,30 @@ public class ApiTransformer {
 
     private List<Operation> ops;
 
+    /**
+     * Constructs a new API transformer instance.
+     *
+     * @param parseOpts Parser options
+     * @param typeConverter Type converter
+     * @param securitySchemes Security schemes
+     */
     public ApiTransformer(ParserOpts parseOpts, TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
         this.parseOpts = parseOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
     }
 
+    /**
+     * Transforms OpenApi specification to operations.
+     *
+     * @param specification the OpenApi specification
+     * @return Operations in the API
+     */
     public Operations transform(OpenAPI specification) {
         ops = new ArrayList<>();
 
         Paths paths = specification.getPaths();
         if (paths != null) {
-
             Set<Entry<String, PathItem>> pathEntries = paths.entrySet();
             if (pathEntries != null) {
                 for (Map.Entry<String, PathItem> pathsEntry : pathEntries) {
@@ -89,12 +102,12 @@ public class ApiTransformer {
                 .map(e -> {
                     String code = e.getKey();
                     ApiResponse resp = e.getValue();
-
                     return toResponse(resourcePath, code, resp);
                 })
                 .toList();
 
-        String codegenOpId = OpenapiGeneratorUtils.getOrGenerateOperationId(op, resourcePath, OpenapiGeneratorUtils.camelize(httpMethod.name().toLowerCase()));
+        String methodSuffix = OpenapiGeneratorUtils.camelize(httpMethod.name().toLowerCase());
+        String codegenOpId = OpenapiGeneratorUtils.getOrGenerateOperationId(op, resourcePath, methodSuffix);
 
         ops.add(Operation.builder()
                 .tags(tags)
@@ -180,10 +193,24 @@ public class ApiTransformer {
     }
 
     // Just a shortcut to determine if auth header should be added
+    /**
+     * Determines if the operation should be given an authorization
+     * header parameter.
+     *
+     * If there is global security on the entire API, the operation
+     * can still override by using an empty security set.
+     *
+     * @see <a href="https://swagger.io/specification/#securityRequirementObject">OpenApi securityRequirementObject</a>
+     *
+     * @param op the operation to consider
+     * @return true if the operation needs an auth header parameter
+     */
     private boolean shouldAddAuthHeader(io.swagger.v3.oas.models.Operation op) {
-        boolean hasSecurity = !securitySchemes.isEmpty();
-        boolean isOpSecurityDisabled = op.getSecurity() != null && op.getSecurity().isEmpty();
-        return hasSecurity && !isOpSecurityDisabled;
+        boolean apiHasSecurity = !securitySchemes.isEmpty();
+        List<SecurityRequirement> opSecurity = op.getSecurity();
+        boolean isOpSecurityDisabled = opSecurity != null && opSecurity.isEmpty();
+        boolean isOpSecurityEnabled = opSecurity != null && !opSecurity.isEmpty();
+        return isOpSecurityEnabled || (apiHasSecurity && !isOpSecurityDisabled);
     }
 
     private List<Parameter> getParameters(io.swagger.v3.oas.models.Operation op) {
