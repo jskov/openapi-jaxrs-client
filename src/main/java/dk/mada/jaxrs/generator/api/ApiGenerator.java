@@ -226,14 +226,17 @@ public class ApiGenerator {
         }
 
         for (Parameter p : op.parameters()) {
-            imports.add(p.type());
+            Type type = p.type();
+            imports.add(type);
 
             String paramName = naming.convertParameterName(p.name());
+
+            String dataType = paramDataType(type);
 
             params.add(CtxApiParam.builder()
                     .baseName(p.name())
                     .paramName(paramName)
-                    .dataType(p.type().typeName().name())
+                    .dataType(dataType)
                     .required(p.isRequired())
                     .isBodyParam(false)
                     .isHeaderParam(p.isHeaderParam())
@@ -244,14 +247,16 @@ public class ApiGenerator {
         }
 
         op.requestBody().ifPresent(body -> {
-            imports.add(body.content().type());
+            Type type = body.content().type();
+            imports.add(type);
 
-            String dtoParamName = naming.convertDtoName(body.content().type().typeName().name());
+            String dtoParamName = naming.convertDtoName(type.typeName().name());
+            String dataType = paramDataType(type);
 
             params.add(CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
-                    .dataType(body.content().type().typeName().name())
+                    .dataType(dataType)
                     .required(body.isRequired())
                     .isBodyParam(true)
                     .isHeaderParam(false)
@@ -264,6 +269,12 @@ public class ApiGenerator {
         logger.info("Params: {}", params);
 
         return params;
+    }
+
+    private String paramDataType(Type type) {
+        return opts.isUseApiWrappedPrimitives()
+                ? type.wrapperTypeName().name()
+                : type.typeName().name();
     }
 
     private List<CtxApiResponse> getResponses(Imports imports, Operation op) {

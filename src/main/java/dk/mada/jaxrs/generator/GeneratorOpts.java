@@ -7,19 +7,42 @@ import java.util.Properties;
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.openapi.ParserOpts;
 
+/**
+ * Generator configuration options.
+ * 
+ * Extracts generator-specific keys from the
+ * input properties provided by the user.
+ */
 public class GeneratorOpts {
-    private final String generatedAtTime = LocalDateTime.now().withNano(0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+    /** Time that the code was generated. */
+    private final String generatedAtTime;
+    /** Parser options. */
     private final ParserOpts parserOpts;
+    /** All user's input options. */
     private final Properties options;
 
+    /** Selects Jackson Codehaus as output format. */
     private final boolean useJacksonCodehaus;
+    /** Selects Jackson FasterXml as output format. */
     private final boolean useJacksonFasterxml;
+    /** Selects Jsonb as output format (this is the default). */
     private final boolean useJsonb;
+    /** Selects use of jakarta over javax for JAX-RS types. */
     private final boolean useJakarta;
 
+    /**
+     * Constructs a new instance.
+     *
+     * @param options user's options
+     * @param parserOpts parser options
+     */
     public GeneratorOpts(Properties options, ParserOpts parserOpts) {
         this.options = options;
         this.parserOpts = parserOpts;
+
+        generatedAtTime = LocalDateTime.now()
+                .withNano(0)
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         useJacksonCodehaus = bool("generator-jackson-codehaus");
         useJacksonFasterxml = bool("generator-jackson-fasterxml");
@@ -48,6 +71,11 @@ public class GeneratorOpts {
         useJakarta = bool("generator-jakarta");
     }
 
+    /**
+     * {@return the id of this generator} 
+     *
+     * Used in the @Generator annotation in all generated files.
+     */
     public String generatorId() {
         return Generator.class.getName();
     }
@@ -133,6 +161,21 @@ public class GeneratorOpts {
         return bool("generator-use-generated-timestamp");
     }
 
+    /**
+     * {@return true if wrapped primitives should be used in API parameters}
+     *
+     * API parameters representing primitives can use the
+     * primitives in the API (default) or their wrapper counterparts.
+     *
+     * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/jakarta-restful-ws-spec-3.0.html#resources">resources spec</a>
+     * @see jakarta.ws.rs.DefaultValue
+     *
+     * @return true if wrappers should be used
+     */
+    public boolean isUseApiWrappedPrimitives() {
+        return bool("generator-use-api-wrapped-primitives", false);
+    }
+
     public String getEnumNumberPrefix() {
         return getDefault("generator-enum-prefix-number", "NUMBER_");
     }
@@ -144,6 +187,10 @@ public class GeneratorOpts {
 
     private boolean bool(String name) {
         return Boolean.parseBoolean(get(name));
+    }
+
+    private boolean bool(String name, boolean defaultValue) {
+        return Boolean.parseBoolean(options.getProperty(name, Boolean.toString(defaultValue)));
     }
 
     private String get(String name, String compatibleOptionName) {

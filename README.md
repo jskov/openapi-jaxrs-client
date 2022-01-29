@@ -81,6 +81,15 @@ The code generation is configured via property settings.
 >
 	default value: ISO_LOCAL_DATE
 
+**generator-use-api-wrapped-primitives**
+
+>Allows you to use primitive wrapped as API parameters instead of primitives.
+
+>This can be required to determine if a parameter is present.
+
+>
+    default value: false
+
 **generator-use-bigdecimal-for-double**
 
 >Allows you to replace double-type properties with `java.math.BigDecimal`.
