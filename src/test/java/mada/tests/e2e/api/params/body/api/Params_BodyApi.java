@@ -28,8 +28,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-primitive")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyBooleanPrimitiveGet(boolean dto);
 
@@ -40,8 +41,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-wrapper")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyBooleanWrapperGet(boolean dto);
 
@@ -52,8 +54,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/date")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyDateGet(LocalDate dto);
 
@@ -64,8 +67,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/date-time")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyDateTimeGet(OffsetDateTime dto);
 
@@ -76,8 +80,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/list")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyListGet(List<String> dto);
 
@@ -88,8 +93,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/list-simple")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyListSimpleGet(List<Simple> dto);
 
@@ -103,8 +109,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/mixed/{in-path}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyMixedInPathGet(@PathParam("in-path") String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, Simple dto);
 
@@ -115,8 +122,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/simple")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodySimpleGet(Simple dto);
 
@@ -127,8 +135,9 @@ public interface Params_BodyApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/time")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyTimeGet(LocalTime dto);
 }

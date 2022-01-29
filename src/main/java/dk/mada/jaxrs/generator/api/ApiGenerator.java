@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.generator.api;
 
-import static java.util.stream.Collectors.toSet;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,7 +128,7 @@ public class ApiGenerator {
         }
 
         Type type = op.responses().stream()
-                .filter(r -> r.code() == 200)
+                .filter(r -> r.code() == HttpURLConnection.HTTP_OK)
                 .map(r -> r.content().type())
                 .findFirst()
                 .orElse(TypeVoid.get());
@@ -146,6 +144,7 @@ public class ApiGenerator {
         boolean onlySimpleResponse = addImports(imports, op);
 
         CtxApiOpExt ext = CtxApiOpExt.builder()
+                .consumes(makeConsumes(imports, op))
                 .produces(makeProduces(imports, op))
                 .responseSchema(onlySimpleResponse)
                 .build();
@@ -302,20 +301,33 @@ public class ApiGenerator {
                 .build();
     }
 
-    private String makeProduces(Imports imports, Operation op) {
-        Set<String> producesMediaTypes = op.responses().stream()
-                .flatMap(r -> r.content().mediaTypes().stream())
-                .map(mt -> toMediaType(imports, mt))
-                .collect(toSet());
+    private String makeConsumes(Imports imports, Operation op) {
+        return op.requestBody()
+                .map(rb -> makeMediaTypeArgs(imports, rb.content().mediaTypes().stream()))
+                .orElse(null);
+    }
 
-        String produces = String.join(", ", producesMediaTypes);
-        if (producesMediaTypes.size() > 1) {
-            produces = "{" + produces + "}";
+    private String makeProduces(Imports imports, Operation op) {
+        Stream<String> combinedMediaTypes = op.responses().stream()
+                .flatMap(r -> r.content().mediaTypes().stream());
+        return makeMediaTypeArgs(imports, combinedMediaTypes);
+    }
+
+    private String makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
+        List<String> wrappedMediaTypes = mediaTypes
+                .peek(mt -> logger.info("See {}", mt))
+                .map(mt -> toMediaType(imports, mt))
+                .sorted()
+                .toList();
+
+        String arg = String.join(", ", wrappedMediaTypes);
+        if (wrappedMediaTypes.size() > 1) {
+            arg = "{" + arg + "}";
         }
-        if (producesMediaTypes.isEmpty()) {
-            produces = null;
+        if (wrappedMediaTypes.isEmpty()) {
+            arg = null;
         }
-        return produces;
+        return arg;
     }
 
     private String toMediaType(Imports imports, String mediaType) {

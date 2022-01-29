@@ -7,3 +7,4 @@ o Prevent keyword collisions in identifiers.
 o Ignore-annotations on bigdecimal/empty_collection option, according to serializer.
 o Avoid this. in getters + add
 o Responses @APIResponse are not handling Maps correctly. Need an example to work from.
+o Generator flag to select primitives/wrappers in API parameters

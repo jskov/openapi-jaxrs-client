@@ -29,8 +29,8 @@ public interface Api_TypesApi {
    * @return List&lt;LocalTime&gt;
    */
   @GET
-  @Produces(MediaType.APPLICATION_JSON)
   @Path("/list-time")
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "OK",
                  content = @Content(schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
@@ -43,8 +43,8 @@ public interface Api_TypesApi {
    * @return LocalTime
    */
   @GET
-  @Produces(MediaType.APPLICATION_JSON)
   @Path("/time")
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(LocalTime.class)
   LocalTime apiTypesTimeGet();
 }

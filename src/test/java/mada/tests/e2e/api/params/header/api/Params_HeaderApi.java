@@ -24,8 +24,8 @@ public interface Params_HeaderApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-primitive")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsHeaderBooleanPrimitiveGet(@HeaderParam("flag") boolean flag);
 
@@ -36,8 +36,8 @@ public interface Params_HeaderApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-wrapper")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsHeaderBooleanWrapperGet(@HeaderParam("flag") boolean flag);
 
@@ -48,8 +48,8 @@ public interface Params_HeaderApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/invalid-name-dashes")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsHeaderInvalidNameDashesGet(@HeaderParam("invalid-value") boolean invalidValue);
 
@@ -60,8 +60,8 @@ public interface Params_HeaderApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/list")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsHeaderListGet(@HeaderParam("item") List<String> item);
 
@@ -74,8 +74,8 @@ public interface Params_HeaderApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/mixed")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsHeaderMixedGet(@HeaderParam("flag") boolean flag, @HeaderParam("item") List<String> item, @HeaderParam("name") String name);
 }

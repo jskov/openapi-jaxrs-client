@@ -26,6 +26,7 @@ public interface Api_MethodsApi {
    */
   @DELETE
   @Path("/DELETE")
+  @Consumes(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No Content")
   })
@@ -37,8 +38,8 @@ public interface Api_MethodsApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.APPLICATION_JSON)
   @Path("/GET")
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
   String apiMethodsGETGet();
 
@@ -48,8 +49,8 @@ public interface Api_MethodsApi {
    * @return String
    */
   @HEAD
-  @Produces(MediaType.APPLICATION_JSON)
   @Path("/HEAD")
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
   String apiMethodsHEADHead();
 
@@ -60,8 +61,9 @@ public interface Api_MethodsApi {
    * @return String
    */
   @POST
-  @Produces(MediaType.APPLICATION_JSON)
   @Path("/POST")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
   String apiMethodsPOSTPost(String dto);
 
@@ -72,8 +74,9 @@ public interface Api_MethodsApi {
    * @return String
    */
   @PUT
-  @Produces(MediaType.APPLICATION_JSON)
   @Path("/PUT")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
   String apiMethodsPUTPut(String dto);
 }

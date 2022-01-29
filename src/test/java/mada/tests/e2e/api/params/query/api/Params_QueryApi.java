@@ -24,8 +24,8 @@ public interface Params_QueryApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-primitive")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsQueryBooleanPrimitiveGet(@QueryParam("flag") boolean flag);
 
@@ -36,8 +36,8 @@ public interface Params_QueryApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/boolean-wrapper")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsQueryBooleanWrapperGet(@QueryParam("flag") boolean flag);
 
@@ -48,8 +48,8 @@ public interface Params_QueryApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/list")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsQueryListGet(@QueryParam("item") List<String> item);
 
@@ -62,8 +62,8 @@ public interface Params_QueryApi {
    * @return String
    */
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
   @Path("/mixed")
+  @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsQueryMixedGet(@QueryParam("flag") boolean flag, @QueryParam("item") List<String> item, @QueryParam("name") String name);
 }

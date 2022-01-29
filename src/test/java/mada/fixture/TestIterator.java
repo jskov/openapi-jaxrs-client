@@ -22,46 +22,48 @@ import dk.mada.logging.LoggerConfig;
 @SuppressWarnings("deprecation")
 @RunWith(JUnitPlatform.class)
 class TestIterator {
-	private static final Logger logger = LoggerFactory.getLogger(TestIterator.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestIterator.class);
 
-	@TestFactory
-	List<DynamicTest> makeTests() throws IOException {
-		LoggerConfig.loadConfig("/logging-test.properties");
+    @TestFactory
+    List<DynamicTest> makeTests() throws IOException {
+        LoggerConfig.loadConfig("/logging-test.properties");
 
-		Path testSrcDir = Paths.get("src/test/java").toAbsolutePath();
-		Path rootDir = testSrcDir.resolve("mada/tests/e2e");
-		Path outputDir = Paths.get("build/e2e");
-		logger.info("Scanning for tests in {}", rootDir);
+        Path testSrcDir = Paths.get("src/test/java").toAbsolutePath();
+        Path rootDir = testSrcDir.resolve("mada/tests/e2e");
+        Path outputDir = Paths.get("build/e2e");
+        logger.info("Scanning for tests in {}", rootDir);
 
-		String testDir = System.getProperty("testDir", "");
+        String testDir = System.getProperty("testDir", "");
 
-		// Replace with partial test name (or empty to run all tests)
-		// Handy when working on a single test
-		String testNameContains = "entity";
+        // Replace with partial test name (or empty to run all tests)
+        // Handy when working on a single test
+        String testNameContains = "body";
 
-		Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
-		Predicate<? super Path> filterByName = p -> p.toString().contains(testNameContains) || Boolean.parseBoolean(System.getProperty("run_all_tests"));
+        Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
+        Predicate<? super Path> filterByName = p -> p.toString().contains(testNameContains)
+                || Boolean.parseBoolean(System.getProperty("run_all_tests"));
 
-		Predicate<? super Path> testFilter = testDir.isEmpty() ? filterByName : filterByProperty;
+        Predicate<? super Path> testFilter = testDir.isEmpty() ? filterByName : filterByProperty;
 
-		return Files.walk(rootDir)
-			.filter(p -> {
-				String filename = p.getFileName().toString();
-				return "openapi.yaml".equals(filename);
-			})
-			.filter(testFilter)
-			.map(testInput -> {
-				Path testRootDir = testInput.getParent();
-				Path testPath = testSrcDir.relativize(testRootDir);
-				Path testOutputDir = outputDir.resolve(testPath);
+        return Files.walk(rootDir)
+                .filter(p -> {
+                    String filename = p.getFileName().toString();
+                    return "openapi.yaml".equals(filename);
+                })
+                .filter(testFilter)
+                .map(testInput -> {
+                    Path testRootDir = testInput.getParent();
+                    Path testPath = testSrcDir.relativize(testRootDir);
+                    Path testOutputDir = outputDir.resolve(testPath);
 
-				String name = testPath.toString().replace("/", ".");
+                    String name = testPath.toString().replace("/", ".");
 
-				String pkgPrefix = testSrcDir.relativize(testRootDir).toString().replace("/", ".");
+                    String pkgPrefix = testSrcDir.relativize(testRootDir).toString().replace("/", ".");
 
-				return DynamicTest.dynamicTest(name, () -> new EndToEndTester().runTest(pkgPrefix, testRootDir, testOutputDir));
-			})
-			.sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
-			.collect(Collectors.toList());
-	}
+                    return DynamicTest.dynamicTest(name, () ->
+                        new EndToEndTester().runTest(pkgPrefix, testRootDir, testOutputDir));
+                })
+                .sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
+                .collect(Collectors.toList());
+    }
 }
