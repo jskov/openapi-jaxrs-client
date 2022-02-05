@@ -9,11 +9,14 @@ import dk.mada.jaxrs.openapi.ParserOpts;
 
 /**
  * Generator configuration options.
- * 
+ *
  * Extracts generator-specific keys from the
  * input properties provided by the user.
  */
 public class GeneratorOpts {
+    public static final String GENERATOR_DTO_PACKAGE = "generator-dto-package";
+    public static final String GENERATOR_API_PACKAGE = "generator-api-package";
+
     /** Time that the code was generated. */
     private final String generatedAtTime;
     /** Parser options. */
@@ -81,11 +84,19 @@ public class GeneratorOpts {
     }
 
     public String apiPackage() {
-        return get("generator-api-package", "apiPackage");
+        return get(GENERATOR_API_PACKAGE, "apiPackage");
+    }
+
+    public String apiPackageDir() {
+        return apiPackage().replace('.', '/');
     }
 
     public String dtoPackage() {
-        return get("generator-dto-package", "modelPackage");
+        return get(GENERATOR_DTO_PACKAGE, "modelPackage");
+    }
+
+    public String dtoPackageDir() {
+        return dtoPackage().replace('.', '/');
     }
 
     public boolean isJackson() {
@@ -168,7 +179,7 @@ public class GeneratorOpts {
      * primitives in the API (default) or their wrapper counterparts.
      *
      * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/jakarta-restful-ws-spec-3.0.html#resources">resources spec</a>
-     * @see jakarta.ws.rs.DefaultValue
+     * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/apidocs/jakarta/ws/rs/defaultvalue">jakarta.ws.rs.DefaultValue</a>
      *
      * @return true if wrappers should be used
      */

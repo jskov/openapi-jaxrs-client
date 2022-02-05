@@ -31,8 +31,8 @@ public class Generator {
         Model model = new Parser(naming, parserOpts, generatorOpts).parse(input);
 
         try {
-            Path apiDir = outputDir.resolve("api");
-            Path dtoDir = outputDir.resolve("dto");
+            Path apiDir = outputDir.resolve(generatorOpts.apiPackageDir());
+            Path dtoDir = outputDir.resolve(generatorOpts.dtoPackageDir());
 
             var templates = new Templates(generatorOpts);
             new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses(dtoDir);

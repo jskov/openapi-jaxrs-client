@@ -45,6 +45,8 @@ class TestIterator {
 
         Predicate<? super Path> testFilter = testDir.isEmpty() ? filterByName : filterByProperty;
 
+        DirectoryDeleter.delete(outputDir);
+
         return Files.walk(rootDir)
                 .filter(p -> {
                     String filename = p.getFileName().toString();
@@ -61,7 +63,7 @@ class TestIterator {
                     String pkgPrefix = testSrcDir.relativize(testRootDir).toString().replace("/", ".");
 
                     return DynamicTest.dynamicTest(name, () ->
-                        new EndToEndTester().runTest(pkgPrefix, testRootDir, testOutputDir));
+                        new EndToEndTester().runTest(outputDir, pkgPrefix, testRootDir, testOutputDir));
                 })
                 .sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
                 .collect(Collectors.toList());

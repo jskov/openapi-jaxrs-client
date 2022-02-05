@@ -27,65 +27,80 @@ import dk.mada.jaxrs.Generator;
  * a diff is run on the folders to help diagnostics.
  */
 public class EndToEndTester {
-	private static final Logger logger = LoggerFactory.getLogger(EndToEndTester.class);
+    private static final Logger logger = LoggerFactory.getLogger(EndToEndTester.class);
 
-	public void runTest(String pkgPrefix, Path testDir, Path outputDir) throws IOException {
-		String testName = testDir.getFileName().toString();
-		Path input = testDir.resolve("openapi.yaml");
+    /**
+     * Runs a single end-to-end test.
+     *
+     * @param outputDir the directory where files are generated to
+     * @param pkgPrefix the package prefix for the test
+     * @param expectedFilesDir the directory containing expected files for the test
+     * @param generatedFilesRootDir the directory where the generated api/dto folders are generated
+     *
+     * @throws IOException if there is an IO problem
+     */
+    public void runTest(Path outputDir, String pkgPrefix, Path expectedFilesDir, Path generatedFilesRootDir)
+            throws IOException {
+        String testName = expectedFilesDir.getFileName().toString();
+        Path input = expectedFilesDir.resolve("openapi.yaml");
 
-		Properties testOptions = readTestOptions(testDir);
+        Properties testOptions = readTestOptions(expectedFilesDir);
 
-		testOptions.setProperty("generator-api-package", pkgPrefix + ".api");
-		testOptions.setProperty("generator-dto-package", pkgPrefix + ".dto");
+        testOptions.setProperty("generator-api-package", pkgPrefix + ".api");
+        testOptions.setProperty("generator-dto-package", pkgPrefix + ".dto");
 
-		DirectoryDeleter.delete(outputDir);
+        System.out.println("testDir: " + expectedFilesDir);
+        System.out.println("outputDir: " + generatedFilesRootDir);
 
-		new Generator().generate(input, testOptions, outputDir);
+        System.out.println("PROPS:" + testOptions.toString());
+        System.out.println("Output : " + generatedFilesRootDir);
 
-		logger.info("Generator returned");
-		logger.info("Expected dir {}", input);
-		logger.info("Actual dir   {}", outputDir);
+        new Generator().generate(input, testOptions, outputDir);
 
-		deleteUnwantedOutput(testOptions, outputDir);
+        logger.info("Generator returned");
+        logger.info("Expected dir {}", input);
+        logger.info("Actual dir   {}", generatedFilesRootDir);
 
-		OutputDiff differ = new OutputDiff(testName);
-		Path outputApiDir = outputDir.resolve("api");
-		if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"))) {
-			logger.info("Comparing APIs");
-			differ.compareDirs(outputApiDir, testDir.resolve("api"));
-		} else {
-			DirectoryDeleter.delete(outputApiDir);
-		}
-		Path outputDtoDir = outputDir.resolve("dto");
-		if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"))) {
-			logger.info("Comparing DTOs");
-			differ.compareDirs(outputDtoDir, testDir.resolve("dto"));
-		} else {
-			DirectoryDeleter.delete(outputDtoDir);
-		}
-	}
+        deleteUnwantedOutput(testOptions, generatedFilesRootDir);
 
-	private void deleteUnwantedOutput(Properties testOptions, Path output) throws IOException {
-		String deleteFiles = testOptions.getProperty("test-delete-files");
-		if (deleteFiles != null) {
-			for (String p : deleteFiles.split(",")) {
-				Path f = output.resolve(p.trim());
-				logger.info("DELETE test file {}", f);
-				Files.delete(f);
-			}
-		}
-	}
+        OutputDiff differ = new OutputDiff(testName);
+        Path outputApiDir = generatedFilesRootDir.resolve("api");
+        if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"))) {
+            logger.info("Comparing APIs");
+            differ.compareDirs(outputApiDir, expectedFilesDir.resolve("api"));
+        } else {
+            DirectoryDeleter.delete(outputApiDir);
+        }
+        Path outputDtoDir = generatedFilesRootDir.resolve("dto");
+        if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"))) {
+            logger.info("Comparing DTOs");
+            differ.compareDirs(outputDtoDir, expectedFilesDir.resolve("dto"));
+        } else {
+            DirectoryDeleter.delete(outputDtoDir);
+        }
+    }
 
-	private Properties readTestOptions(Path testDir) throws IOException {
-		var props = new Properties();
-		Path optionsInput = testDir.resolve("test.properties");
+    private void deleteUnwantedOutput(Properties testOptions, Path output) throws IOException {
+        String deleteFiles = testOptions.getProperty("test-delete-files");
+        if (deleteFiles != null) {
+            for (String p : deleteFiles.split(",")) {
+                Path f = output.resolve(p.trim());
+                logger.info("DELETE test file {}", f);
+                Files.delete(f);
+            }
+        }
+    }
 
-		if (Files.exists(optionsInput)) {
-			try (Reader r = Files.newBufferedReader(optionsInput)) {
-				props.load(r);
-			}
-		}
+    private Properties readTestOptions(Path testDir) throws IOException {
+        var props = new Properties();
+        Path optionsInput = testDir.resolve("test.properties");
 
-		return props;
-	}
+        if (Files.exists(optionsInput)) {
+            try (Reader r = Files.newBufferedReader(optionsInput)) {
+                props.load(r);
+            }
+        }
+
+        return props;
+    }
 }
