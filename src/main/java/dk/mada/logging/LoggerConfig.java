@@ -48,6 +48,6 @@ public final class LoggerConfig {
 
     private static void setLogLevel(Level level) {
         Logger logger = LogManager.getLogManager().getLogger("dk.mada");
-        logger.setLevel(level);
+        logger.setLevel(level); // NOSONAR - intentionally under user's control
     }
 }
