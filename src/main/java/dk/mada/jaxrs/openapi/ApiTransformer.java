@@ -116,6 +116,7 @@ public class ApiTransformer {
         ops.add(Operation.builder()
                 .tags(tags)
                 .description(op.getDescription())
+                .summary(op.getSummary())
                 .deprecated(toBool(op.getDeprecated()))
                 .operationId(op.getOperationId())
                 .codegenOpId(codegenOpId)

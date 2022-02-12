@@ -25,6 +25,12 @@ public interface CtxApiOp {
     /** {@return the operation path} */
     @Nullable
     String path();
+    /** {@return the operation summary} */
+    @Nullable
+    String summary();
+    /** {@return the operation notes} */
+    @Nullable
+    String notes();
 
     /** {@return all parameters of the operation} */
     List<CtxApiParam> allParams();

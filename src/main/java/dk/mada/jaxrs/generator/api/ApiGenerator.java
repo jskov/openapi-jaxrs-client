@@ -173,6 +173,9 @@ public class ApiGenerator {
                 .responseSchema(onlySimpleResponse)
                 .build();
 
+        String summary = getValidSummary(op);
+        String description = op.description();
+
         return new CtxOperationRef(CtxApiOp.builder()
                 .nickname(nickname)
                 .returnType(type.typeName().name())
@@ -180,8 +183,27 @@ public class ApiGenerator {
                 .httpMethod(op.httpMethod().name())
                 .allParams(allParams)
                 .responses(responses)
+                .summary(summary)
+                .notes(description)
                 .madaOp(ext)
                 .build());
+    }
+
+    /**
+     * Get summary if present, and make sure it is valid.
+     *
+     * @param op the operation to get the summary from
+     * @return a valid summary or null
+     */
+    private String getValidSummary(Operation op) {
+        String summary = op.summary();
+        if (summary != null
+                && (!summary.endsWith(".")
+                        || !summary.endsWith("!")
+                        || !summary.endsWith("?"))) {
+            summary = summary + ".";
+        }
+        return summary;
     }
 
     private Optional<Type> getTypeForStatus(Operation op, StatusCode statusCode) {
