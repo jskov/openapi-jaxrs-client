@@ -13,7 +13,7 @@ public interface CtxApiOpExt {
 
     /** {@return true if a spacer is needed before javadoc macros} */
     boolean renderJavadocMacroSpacer();
-    
+
     /** {@return true if the javadoc @return statement should be rendered} */
     boolean renderJavadocReturn();
 
