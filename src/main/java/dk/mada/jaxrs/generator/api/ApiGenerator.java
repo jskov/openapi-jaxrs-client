@@ -125,9 +125,18 @@ public class ApiGenerator {
 
     private List<CtxOperationRef> makeOperations(List<Operation> operations, Imports imports, int trimPathLength) {
         return operations.stream()
-                .sorted((a, b) -> a.path().compareTo(b.path()))
+                .sorted(this::operatorOrdering)
                 .map(op -> toCtxApiOperation(imports, trimPathLength, op))
                 .toList();
+    }
+
+    private int operatorOrdering(Operation a, Operation b) {
+        int pathComparison = a.path().compareTo(b.path());
+        if (pathComparison != 0) {
+            return pathComparison;
+        }
+
+        return a.httpMethod().compareTo(b.httpMethod());
     }
 
     private CtxOperationRef toCtxApiOperation(Imports imports, int trimPathLength, Operation op) {
