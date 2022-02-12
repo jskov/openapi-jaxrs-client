@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -137,11 +138,10 @@ public class ApiGenerator {
             nickname = op.codegenOpId();
         }
 
-        Type type = op.responses().stream()
-                .filter(r -> r.code() == StatusCode.HTTP_OK)
-                .map(r -> r.content().type())
-                .findFirst()
-                .orElse(TypeVoid.get());
+        // Gets type for OK if present, or else default, or else void
+        Type type = getTypeForStatus(op, StatusCode.HTTP_OK)
+            .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
+            .orElse(TypeVoid.get());
 
         String path = op.path().substring(trimPathLength);
         if (path.isEmpty()) {
@@ -173,6 +173,13 @@ public class ApiGenerator {
                 .responses(responses)
                 .madaOp(ext)
                 .build());
+    }
+
+    private Optional<Type> getTypeForStatus(Operation op, StatusCode statusCode) {
+        return op.responses().stream()
+                .filter(r -> r.code() == statusCode)
+                .map(r -> r.content().type())
+                .findFirst();
     }
 
     private boolean addImports(Imports imports, Operation op) {

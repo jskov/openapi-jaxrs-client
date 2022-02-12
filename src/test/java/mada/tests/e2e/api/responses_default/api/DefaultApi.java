@@ -16,17 +16,36 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-@Path("/operations")
+@Path("/")
 public interface DefaultApi {
 
   /**
-   * getString.
+   * getDefault.
+   *
+   * @return String
    */
   @GET
+  @Path("getDefault")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "default", description = "default response",
                  content = @Content(schema = @Schema(implementation = String.class)))
   })
-  void getString();
+  String getDefault();
+
+  /**
+   * getOk.
+   *
+   * @return String
+   */
+  @GET
+  @Path("getOk")
+  @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+  @APIResponses({
+    @APIResponse(responseCode = "default", description = "default response",
+                 content = @Content(schema = @Schema(implementation = Boolean.class))),
+    @APIResponse(responseCode = "200", description = "OK",
+                 content = @Content(schema = @Schema(implementation = String.class)))
+  })
+  String getOk();
 }

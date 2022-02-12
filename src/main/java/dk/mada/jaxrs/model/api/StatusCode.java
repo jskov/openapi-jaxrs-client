@@ -9,6 +9,7 @@ public enum StatusCode {
     /**
      * Special code to hold the state for the OpenApi default entry.
      *
+     * TODO: handling of 1XX, 2XX, 3XX, 4XX, and 5XX.
      * @see <a href="https://swagger.io/specification/#responsesObject">OpenApi response definition</a>
      */
     HTTP_DEFAULT(0),
