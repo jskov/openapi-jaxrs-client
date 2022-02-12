@@ -1,8 +1,5 @@
 package dk.mada.jaxrs.generator.dto;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -10,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.generator.ExtraTemplate;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.generator.Templates;
@@ -40,21 +38,33 @@ import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
 public class DtoGenerator {
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
 
-    public enum ExtraTemplate {
-        _LocalDateJacksonDeserializer,
-        _LocalDateJacksonSerializer,
-        _OffsetDateTimeJacksonDeserializer,
-        _OffsetDateTimeJacksonSerializer
-    }
-
+    /** Naming. */
     private final Naming naming;
+    /** Types. */
     private final Types types;
+    /** Generator options. */
     private final GeneratorOpts opts;
+    /** Templates. */
     private final Templates templates;
+    /** The data model. */
     private final Model model;
+    /** Identifiers. */
     private final Identifiers identifiers = new Identifiers();
+    /**
+     * The extra templates to render.
+     *
+     * New templates are added as DTOs are generated.
+     **/
     private final EnumSet<ExtraTemplate> extraTemplates = EnumSet.noneOf(ExtraTemplate.class);
 
+    /**
+     * Constructs a new generator.
+     *
+     * @param naming the naming instance
+     * @param opts the generator options
+     * @param templates the templates instance
+     * @param model the data model
+     */
     public DtoGenerator(Naming naming, GeneratorOpts opts, Templates templates, Model model) {
         this.naming = naming;
         this.opts = opts;
@@ -64,31 +74,28 @@ public class DtoGenerator {
         types = model.types();
     }
 
-    public void generateDtoClasses(Path dtoDir) throws IOException {
-        Files.createDirectories(dtoDir);
+    /**
+     * Generate all DTO classes.
+     */
+    public void generateDtoClasses() {
         types.getActiveDtos().stream()
         .sorted((a, b) -> a.name().compareTo(b.name()))
         .forEach(type -> {
             String name = type.name();
             logger.info(" generate type {}", name);
 
-            Path dtoFile = dtoDir.resolve(dtoOutputName(type));
-
             CtxDto ctx = toCtx(type);
 
             logger.info("{} ctx: {}", name, ctx);
 
-            templates.writeDto(ctx, dtoFile);
+            templates.renderDtoTemplate(ctx);
         });
 
         extraTemplates.forEach(tmpl -> {
             logger.info(" generate extra {}", tmpl);
 
             CtxExtra ctx = makeCtxExtra(tmpl);
-
-            String tmplName = tmpl.name();
-            Path extraFile = dtoDir.resolve(tmplName + ".java");
-            templates.writeExtra(tmplName, ctx, extraFile);
+            templates.renderExtraTemplate(tmpl, ctx);
         });
     }
 
@@ -110,10 +117,6 @@ public class DtoGenerator {
                 .packageName(opts.dtoPackage())
                 .cannedLocalDateSerializerDTF(opts.getJacksonLocalDateWireFormat())
                 .build();
-    }
-
-    private String dtoOutputName(Dto dto) {
-        return dto.name() + ".java";
     }
 
     private CtxDto toCtx(Dto dto) {
@@ -145,11 +148,11 @@ public class DtoGenerator {
         if (opts.isUseJacksonLocalDateSerializer()
                 && (dtoType.isDate()
                         || dto.properties().stream().anyMatch(p -> p.type().isDate()))) {
-            extraTemplates.add(ExtraTemplate._LocalDateJacksonDeserializer);
-            extraTemplates.add(ExtraTemplate._LocalDateJacksonSerializer);
+            extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER);
+            extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER);
 
-            customLocalDateDeserializer = ExtraTemplate._LocalDateJacksonDeserializer.name();
-            customLocalDateSerializer = ExtraTemplate._LocalDateJacksonSerializer.name();
+            customLocalDateDeserializer = ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname();
+            customLocalDateSerializer = ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname();
 
             dtoImports.jackson("JsonDeserialize", "JsonSerialize");
         }
@@ -160,11 +163,11 @@ public class DtoGenerator {
         if (opts.isUseJacksonOffsetDateTimeSerializer()
                 && (dtoType.isDateTime()
                         || dto.properties().stream().anyMatch(p -> p.type().isDateTime()))) {
-            extraTemplates.add(ExtraTemplate._OffsetDateTimeJacksonDeserializer);
-            extraTemplates.add(ExtraTemplate._OffsetDateTimeJacksonSerializer);
+            extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
+            extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
 
-            customOffsetDateTimeDeserializer = ExtraTemplate._OffsetDateTimeJacksonDeserializer.name();
-            customOffsetDateTimeSerializer = ExtraTemplate._OffsetDateTimeJacksonSerializer.name();
+            customOffsetDateTimeDeserializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname();
+            customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
 
             dtoImports.jackson("JsonDeserialize", "JsonSerialize");
         }

@@ -11,7 +11,6 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.dto.DtoGenerator.ExtraTemplate;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -133,26 +132,34 @@ public final class Imports {
                 .jsonb("javax.json.bind.annotation.JsonbTypeAdapter");
     }
 
+    /**
+     * Adds imports needed for extra templates.
+     *
+     * @param types the types model
+     * @param opts the generator options
+     * @param tmpl the template to add imports for
+     * @return a new imports instance
+     */
     public static Imports newExtras(Types types, GeneratorOpts opts, ExtraTemplate tmpl) {
         var imports = new Imports(types, opts, false);
 
-        if (tmpl == ExtraTemplate._LocalDateJacksonDeserializer) {
+        if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
             imports
             .add(IOEXCEPTION, LOCAL_DATE, DATE_TIME_FORMATTER)
             .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
         }
-        if (tmpl == ExtraTemplate._LocalDateJacksonSerializer) {
+        if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER) {
             imports
             .add(IOEXCEPTION, LOCAL_DATE, DATE_TIME_FORMATTER)
             .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
-        if (tmpl == ExtraTemplate._OffsetDateTimeJacksonDeserializer) {
+        if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
             .add(IOEXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME)
             .add(DATE_TIME_FORMATTER, DATE_TIME_PARSE_EXCEPTION, ZONE_ID)
             .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
-        if (tmpl == ExtraTemplate._OffsetDateTimeJacksonSerializer) {
+        if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER) {
             imports
             .add(IOEXCEPTION, OFFSET_DATE_TIME, DATE_TIME_FORMATTER)
             .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);

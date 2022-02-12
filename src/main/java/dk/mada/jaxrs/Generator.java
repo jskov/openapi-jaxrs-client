@@ -35,11 +35,14 @@ public class Generator {
 
         try {
             Path apiDir = outputDir.resolve(generatorOpts.apiPackageDir());
-            Path dtoDir = outputDir.resolve(generatorOpts.dtoPackageDir());
+            Files.createDirectories(apiDir);
 
-            var templates = new Templates(generatorOpts);
-            new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses(dtoDir);
-            new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
+            Path dtoDir = outputDir.resolve(generatorOpts.dtoPackageDir());
+            Files.createDirectories(dtoDir);
+
+            var templates = new Templates(apiDir, dtoDir);
+            new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses();
+            new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses();
 
         } catch (Exception e) {
             throw new GeneratorException("Failed", e);

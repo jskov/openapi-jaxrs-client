@@ -21,32 +21,48 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 
+/**
+ * Templates processor.
+ */
 public class Templates {
-    @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(Templates.class);
 
-    @SuppressWarnings("unused")
-    private final GeneratorOpts opts;
+    /** Directory to write API classes to. */
+    private final Path apiDir;
+    /** Directory to write DTO classes to. */
+    private final Path dtoDir;
 
-    private final Template dtoTemplate;
+    /** The API template. */
     private final Template apiTemplate;
+    /** The DTO template. */
+    private final Template dtoTemplate;
 
-    public Templates(GeneratorOpts opts) {
-        this.opts = opts;
+    /**
+     * Creates templates.
+     *
+     * @param apiDir the directory to generate API classes in
+     * @param dtoDir the directory to generate DTO classes in
+     */
+    public Templates(Path apiDir, Path dtoDir) {
+        this.apiDir = apiDir;
+        this.dtoDir = dtoDir;
 
         dtoTemplate = compileTemplate("model");
         apiTemplate = compileTemplate("api");
     }
 
-    public void touch(Path file) {
-        try {
-            Files.createFile(file);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
+    /**
+     * Renders and writes an extra template.
+     *
+     * The context contains the information to render the template.
+     *
+     * @param tmpl the template to generate output from
+     * @param context the rendering context
+     */
+    public void renderExtraTemplate(ExtraTemplate tmpl, CtxExtra context) {
+        String tmplName = tmpl.classname();
+        Path outputFile = toDtoFile(tmplName);
 
-    public void writeExtra(String tmplName, CtxExtra context, Path outputFile) {
         try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
             compileTemplate(tmplName).execute(context, w);
         } catch (IOException e) {
@@ -54,7 +70,16 @@ public class Templates {
         }
     }
 
-    public void writeDto(CtxDto context, Path outputFile) {
+    /**
+     * Renders and writes the DTO template.
+     *
+     * The context contains the information to render the template
+     * for a given DTO class.
+     *
+     * @param context the rendering context
+     */
+    public void renderDtoTemplate(CtxDto context) {
+        Path outputFile = toDtoFile(context.classname());
         try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
             dtoTemplate.execute(context, w);
         } catch (IOException e) {
@@ -62,7 +87,19 @@ public class Templates {
         }
     }
 
-    public void writeApi(CtxApi context, Path outputFile) {
+    /**
+     * Renders and writes the API template.
+     *
+     * The context contains the information to render the template
+     * for a given API class.
+     *
+     * @param context the rendering context
+     */
+    public void renderApiTemplate(CtxApi context) {
+        String classname = context.classname();
+        Path outputFile = toApiFile(classname);
+        logger.info(" generate API {}", classname);
+
         try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
             apiTemplate.execute(context, w);
         } catch (IOException e) {
@@ -89,5 +126,13 @@ public class Templates {
             throw new IllegalArgumentException("Failed to find template " + resource);
         }
         return new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+    }
+
+    private Path toApiFile(String name) {
+        return apiDir.resolve(name + ".java");
+    }
+
+    private Path toDtoFile(String name) {
+        return dtoDir.resolve(name + ".java");
     }
 }

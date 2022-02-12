@@ -1,8 +1,5 @@
 package dk.mada.jaxrs.generator.api;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,17 +36,33 @@ import dk.mada.jaxrs.naming.Naming;
 public class ApiGenerator {
     private static final Logger logger = LoggerFactory.getLogger(ApiGenerator.class);
 
+    /**
+     * Media types supported for now.
+     */
     private static final Map<String, String> MEDIA_TYPES = Map.of(
             "application/json", "APPLICATION_JSON",
             "text/plain", "TEXT_PLAIN"
             );
 
+    /** Naming. */
     private final Naming naming;
+    /** Types. */
     private final Types types;
+    /** Generator options. */
     private final GeneratorOpts opts;
+    /** Templates. */
     private final Templates templates;
+    /** The data model. */
     private final Model model;
 
+    /**
+     * Constructs a new API generator.
+     *
+     * @param naming the naming instance
+     * @param generatorOpts the generator options
+     * @param templates the templates instance
+     * @param model the data model
+     */
     public ApiGenerator(Naming naming, GeneratorOpts generatorOpts, Templates templates, Model model) {
         this.naming = naming;
         this.opts = generatorOpts;
@@ -59,26 +72,23 @@ public class ApiGenerator {
         this.types = model.types();
     }
 
-    public void generateApiClasses(Path apiDir) throws IOException {
-        Files.createDirectories(apiDir);
-
+    /**
+     * Generates all API classes.
+     */
+    public void generateApiClasses() {
         model.operations().getByGroup().entrySet().stream()
             .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
             .forEach(ops -> {
                 String group = ops.getKey();
                 String classname = makeClassName(group);
 
-                processApi(apiDir, ops, classname);
+                processApi(ops, classname);
         });
     }
 
-    private void processApi(Path apiDir, Entry<String, List<Operation>> ops, String classname) {
-        Path apiFile = apiDir.resolve(classname + ".java");
-        logger.info(" generate API {}", classname);
-
+    private void processApi(Entry<String, List<Operation>> ops, String classname) {
         CtxApi ctx = toCtx(classname, ops.getValue());
-
-        templates.writeApi(ctx, apiFile);
+        templates.renderApiTemplate(ctx);
     }
 
     private String makeClassName(String group) {
@@ -185,9 +195,9 @@ public class ApiGenerator {
      * Determine if all the response types can be rendered via
      * the simple @APIResponseSchema annotation.
      *
-     * TODO: probably needs to be more clever - must consider
-     * that description matches code(). But this will do for now.
+     * @param responses the responses
      */
+    // TODO: probably needs to be more clever - must consider that description matches code(). But this will do for now.
     private boolean isOnlySimpleResponse(List<Response> responses) {
         if (responses.size() != 1) {
             return false;
@@ -211,6 +221,9 @@ public class ApiGenerator {
      *  or SortedSet; null for other object types; and the Java-defined default for primitive types.
      *
      * So the primitive types can be used instead of wrapper types.
+     *
+     * @param imports the imports for the API
+     * @param op the operation to extract parameters from
      */
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
         CtxApiParamExt madaParamEmpty = CtxApiParamExt.builder().build();
