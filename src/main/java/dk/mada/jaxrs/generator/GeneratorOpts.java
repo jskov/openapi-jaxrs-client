@@ -83,16 +83,18 @@ public class GeneratorOpts {
         return Generator.class.getName();
     }
 
+    /** {@return the package to generate API classes to } */
     public String apiPackage() {
-        return get(GENERATOR_API_PACKAGE, "apiPackage");
+        return getRequired(GENERATOR_API_PACKAGE, "apiPackage");
     }
 
     public String apiPackageDir() {
         return apiPackage().replace('.', '/');
     }
 
+    /** {@return the package to generate DTO classes to } */
     public String dtoPackage() {
-        return get(GENERATOR_DTO_PACKAGE, "modelPackage");
+        return getRequired(GENERATOR_DTO_PACKAGE, "modelPackage");
     }
 
     public String dtoPackageDir() {
@@ -191,11 +193,6 @@ public class GeneratorOpts {
         return getDefault("generator-enum-prefix-number", "NUMBER_");
     }
 
-    @SuppressWarnings("unused")
-    private boolean bool(String name, String compatOptionName) {
-        return Boolean.parseBoolean(get(name, compatOptionName));
-    }
-
     private boolean bool(String name) {
         return Boolean.parseBoolean(get(name));
     }
@@ -204,11 +201,11 @@ public class GeneratorOpts {
         return Boolean.parseBoolean(options.getProperty(name, Boolean.toString(defaultValue)));
     }
 
-    private String get(String name, String compatibleOptionName) {
+    private String getRequired(String name, String compatibleOptionName) {
         String compat = options.getProperty(compatibleOptionName);
         String value = options.getProperty(name, compat);
         if (value == null) {
-            return null;
+            throw new IllegalArgumentException("The property " + name + " must be specified!");
         }
         return value.trim();
     }

@@ -249,10 +249,20 @@ public final class Main implements Callable<Integer> {
      * @param args command line arguments
      */
     public static void main(String[] args) {
+        int exitCode = mainNoExit(args);
+        System.exit(exitCode);
+    }
+
+    /**
+     * Run the generator from command line arguments without System.exit.
+     *
+     * @param args command line arguments
+     * @return exit code
+     */
+    public static int mainNoExit(String[] args) {
         LoggerConfig.loadConfig();
         new CommandLine(new Main()).parseArgs(args);
 
-        int exitCode = new CommandLine(new Main()).execute(args);
-        System.exit(exitCode);
+        return new CommandLine(new Main()).execute(args);
     }
 }

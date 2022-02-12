@@ -1,0 +1,4 @@
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  version: openapi API Version
