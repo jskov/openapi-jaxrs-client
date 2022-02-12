@@ -29,7 +29,7 @@ public final class Operations {
     private String getGroup(Operation op) {
         List<String> tags = op.tags();
         if (tags.isEmpty()) {
-            return "Unknown";
+            return "Default";
         }
         return tags.get(0);
     }

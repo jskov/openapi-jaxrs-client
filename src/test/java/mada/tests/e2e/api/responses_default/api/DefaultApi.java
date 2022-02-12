@@ -17,7 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/operations")
-public interface UnknownApi {
+public interface DefaultApi {
 
   /**
    * getString.
