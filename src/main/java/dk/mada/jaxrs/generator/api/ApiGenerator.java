@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.generator.api;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.Response;
+import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
@@ -128,7 +128,7 @@ public class ApiGenerator {
         }
 
         Type type = op.responses().stream()
-                .filter(r -> r.code() == HttpURLConnection.HTTP_OK)
+                .filter(r -> r.code() == StatusCode.HTTP_OK)
                 .map(r -> r.content().type())
                 .findFirst()
                 .orElse(TypeVoid.get());
@@ -190,7 +190,7 @@ public class ApiGenerator {
 
         Response r = responses.get(0);
         boolean isContainer = r.content().type() instanceof TypeContainer;
-        return !isContainer && r.code() == HttpURLConnection.HTTP_OK;
+        return !isContainer && r.code() == StatusCode.HTTP_OK;
     }
 
     private void addOperationImports(Imports imports, Operation op) {
@@ -305,7 +305,7 @@ public class ApiGenerator {
 
         return CtxApiResponse.builder()
                 .baseType(baseType)
-                .code(Integer.toString(r.code()))
+                .code(r.code().asOpenApiStatus())
                 .containerType(containerType)
                 .description(r.description())
                 .isUnique(isUnique)

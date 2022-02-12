@@ -2,7 +2,6 @@ package dk.mada.jaxrs.openapi;
 
 import static java.util.stream.Collectors.toSet;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +19,7 @@ import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
+import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -42,10 +42,14 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 public class ApiTransformer {
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
+    /** Parser options. */
     private final ParserOpts parseOpts;
+    /** Type converter. */
     private final TypeConverter typeConverter;
+    /** Security schemes. */
     private final List<SecurityScheme> securitySchemes;
 
+    /** List of operations added as the api is traversed. */
     private List<Operation> ops;
 
     /**
@@ -124,20 +128,19 @@ public class ApiTransformer {
                 .build());
     }
 
-    // TODO: map to actual HTTP constants, map default to maybe 0?
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         Response r = Response.builder()
-                .code(Integer.parseInt(code))
+                .code(StatusCode.of(code))
                 .description(resp.getDescription())
                 .content(getContent(resourcePath, resp.getContent()))
                 .build();
 
         if (parseOpts.isFixupVoid200to204()
-                && r.code() == HttpURLConnection.HTTP_OK
+                && r.code() == StatusCode.HTTP_OK
                 && r.content().type() instanceof TypeVoid) {
             logger.info("Fixing broken 200/void response on path '{}' to 204", resourcePath);
             r = Response.builder().from(r)
-                    .code(HttpURLConnection.HTTP_NO_CONTENT)
+                    .code(StatusCode.HTTP_NO_CONTENT)
                     .description("No Content")
                     .build();
         }
