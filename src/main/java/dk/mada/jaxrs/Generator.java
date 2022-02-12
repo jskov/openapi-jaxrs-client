@@ -1,5 +1,6 @@
 package dk.mada.jaxrs;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
 
@@ -24,6 +25,8 @@ public class Generator {
      * @param outputDir Directory to write the generated code to.
      */
     public void generate(final Path input, final Properties options, final Path outputDir) {
+        assertInputFile(input);
+
         var parserOpts = new ParserOpts(options);
         var generatorOpts = new GeneratorOpts(options, parserOpts);
         var naming = new Naming(options);
@@ -40,6 +43,12 @@ public class Generator {
 
         } catch (Exception e) {
             throw new GeneratorException("Failed", e);
+        }
+    }
+
+    private void assertInputFile(final Path input) {
+        if (!Files.isRegularFile(input)) {
+            throw new IllegalArgumentException("The OpenApi document '" + input + "' is not a regular file!");
         }
     }
 }
