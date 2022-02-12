@@ -101,12 +101,16 @@
     <!-- Checks for Javadoc comments.                     -->
     <!-- See https://checkstyle.org/config_javadoc.html -->
     <module name="InvalidJavadocPosition"/>
-    <module name="JavadocMethod"/>
+    <module name="JavadocMethod">
+      <property name="allowMissingReturnTag" value="true"/>  <!-- wait for issue #10776 -->
+    </module>
     <module name="JavadocType"/>
     <module name="JavadocVariable">
       <property name="ignoreNamePattern" value="log|logger"/>
     </module>
-    <module name="JavadocStyle"/>
+    <module name="JavadocStyle">
+      <property name="checkFirstSentence" value="false" /> <!-- wait for issue #10776 -->
+    </module>
     <module name="MissingJavadocMethod"/>
 
     <!-- Checks for Naming Conventions.                  -->
