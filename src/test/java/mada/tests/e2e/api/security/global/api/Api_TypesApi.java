@@ -17,10 +17,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface Api_TypesApi {
 
   /**
-   * apiTypesVoidGet
+   * apiTypesVoidGet.
    *
    * @param auth  (required)
-   * @return void
    */
   @GET
   @APIResponses({

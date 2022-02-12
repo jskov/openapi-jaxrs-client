@@ -15,11 +15,10 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface UnknownApi {
 
   /**
-   * sletDelete
+   * sletDelete.
    *
    * @param kri  (optional)
    * @param kro  (optional)
-   * @return void
    */
   @DELETE
   @APIResponses({

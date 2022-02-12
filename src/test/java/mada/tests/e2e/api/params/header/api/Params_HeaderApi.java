@@ -18,7 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 public interface Params_HeaderApi {
 
   /**
-   * apiParamsHeaderBooleanPrimitiveGet
+   * apiParamsHeaderBooleanPrimitiveGet.
    *
    * @param flag  (optional)
    * @return String
@@ -30,7 +30,7 @@ public interface Params_HeaderApi {
   String apiParamsHeaderBooleanPrimitiveGet(@HeaderParam("flag") boolean flag);
 
   /**
-   * apiParamsHeaderBooleanWrapperGet
+   * apiParamsHeaderBooleanWrapperGet.
    *
    * @param flag  (optional)
    * @return String
@@ -42,7 +42,7 @@ public interface Params_HeaderApi {
   String apiParamsHeaderBooleanWrapperGet(@HeaderParam("flag") boolean flag);
 
   /**
-   * apiParamsHeaderInvalidNameDashesGet
+   * apiParamsHeaderInvalidNameDashesGet.
    *
    * @param invalidValue  (optional)
    * @return String
@@ -54,7 +54,7 @@ public interface Params_HeaderApi {
   String apiParamsHeaderInvalidNameDashesGet(@HeaderParam("invalid-value") boolean invalidValue);
 
   /**
-   * apiParamsHeaderListGet
+   * apiParamsHeaderListGet.
    *
    * @param item  (optional)
    * @return String
@@ -66,7 +66,7 @@ public interface Params_HeaderApi {
   String apiParamsHeaderListGet(@HeaderParam("item") List<String> item);
 
   /**
-   * apiParamsHeaderMixedGet
+   * apiParamsHeaderMixedGet.
    *
    * @param flag  (optional)
    * @param item  (optional)

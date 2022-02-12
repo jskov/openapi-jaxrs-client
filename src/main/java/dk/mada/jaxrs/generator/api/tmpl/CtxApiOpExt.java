@@ -6,10 +6,16 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface CtxApiOpExt {
-    /** {@return a new builder of this class} */
+    /** {@return a builder for this type} */
     static ImmutableCtxApiOpExt.Builder builder() {
         return ImmutableCtxApiOpExt.builder();
     }
+
+    /** {@return true if a spacer is needed before javadoc macros} */
+    boolean renderJavadocMacroSpacer();
+    
+    /** {@return true if the javadoc @return statement should be rendered} */
+    boolean renderJavadocReturn();
 
     /**
      * {@return the @Produces value for the operation} If null it is not rendered.

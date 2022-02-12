@@ -30,7 +30,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface Api_TypesApi {
 
   /**
-   * apiTypesBigDecimalGet
+   * apiTypesBigDecimalGet.
    *
    * @return BigDecimal
    */
@@ -41,7 +41,7 @@ public interface Api_TypesApi {
   BigDecimal apiTypesBigDecimalGet();
 
   /**
-   * apiTypesBooleanGet
+   * apiTypesBooleanGet.
    *
    * @return boolean
    */
@@ -52,7 +52,7 @@ public interface Api_TypesApi {
   boolean apiTypesBooleanGet();
 
   /**
-   * apiTypesByteGet
+   * apiTypesByteGet.
    *
    * @return byte
    */
@@ -63,7 +63,7 @@ public interface Api_TypesApi {
   byte apiTypesByteGet();
 
   /**
-   * apiTypesDateGet
+   * apiTypesDateGet.
    *
    * @return LocalDate
    */
@@ -74,7 +74,7 @@ public interface Api_TypesApi {
   LocalDate apiTypesDateGet();
 
   /**
-   * apiTypesDateTimeGet
+   * apiTypesDateTimeGet.
    *
    * @return OffsetDateTime
    */
@@ -85,7 +85,7 @@ public interface Api_TypesApi {
   OffsetDateTime apiTypesDateTimeGet();
 
   /**
-   * apiTypesDoubleGet
+   * apiTypesDoubleGet.
    *
    * @return double
    */
@@ -96,7 +96,7 @@ public interface Api_TypesApi {
   double apiTypesDoubleGet();
 
   /**
-   * apiTypesFloatGet
+   * apiTypesFloatGet.
    *
    * @return float
    */
@@ -107,7 +107,7 @@ public interface Api_TypesApi {
   float apiTypesFloatGet();
 
   /**
-   * apiTypesIntGet
+   * apiTypesIntGet.
    *
    * @return int
    */
@@ -118,7 +118,7 @@ public interface Api_TypesApi {
   int apiTypesIntGet();
 
   /**
-   * apiTypesListGet
+   * apiTypesListGet.
    *
    * @return List&lt;Integer&gt;
    */
@@ -132,7 +132,7 @@ public interface Api_TypesApi {
   List<Integer> apiTypesListGet();
 
   /**
-   * apiTypesListDateGet
+   * apiTypesListDateGet.
    *
    * @return List&lt;LocalDate&gt;
    */
@@ -146,7 +146,7 @@ public interface Api_TypesApi {
   List<LocalDate> apiTypesListDateGet();
 
   /**
-   * apiTypesListDatetimeGet
+   * apiTypesListDatetimeGet.
    *
    * @return List&lt;OffsetDateTime&gt;
    */
@@ -160,7 +160,7 @@ public interface Api_TypesApi {
   List<OffsetDateTime> apiTypesListDatetimeGet();
 
   /**
-   * apiTypesListSimpleGet
+   * apiTypesListSimpleGet.
    *
    * @return List&lt;Simple&gt;
    */
@@ -174,7 +174,7 @@ public interface Api_TypesApi {
   List<Simple> apiTypesListSimpleGet();
 
   /**
-   * apiTypesListTimeGet
+   * apiTypesListTimeGet.
    *
    * @return List&lt;LocalTime&gt;
    */
@@ -188,7 +188,7 @@ public interface Api_TypesApi {
   List<LocalTime> apiTypesListTimeGet();
 
   /**
-   * apiTypesLongGet
+   * apiTypesLongGet.
    *
    * @return long
    */
@@ -199,7 +199,7 @@ public interface Api_TypesApi {
   long apiTypesLongGet();
 
   /**
-   * apiTypesMapGet
+   * apiTypesMapGet.
    *
    * @return Map&lt;String, String&gt;
    */
@@ -213,7 +213,7 @@ public interface Api_TypesApi {
   Map<String, String> apiTypesMapGet();
 
   /**
-   * apiTypesMapSimpleGet
+   * apiTypesMapSimpleGet.
    *
    * @return Map&lt;String, Simple&gt;
    */
@@ -227,7 +227,7 @@ public interface Api_TypesApi {
   Map<String, Simple> apiTypesMapSimpleGet();
 
   /**
-   * apiTypesSetGet
+   * apiTypesSetGet.
    *
    * @return Set&lt;Integer&gt;
    */
@@ -241,7 +241,7 @@ public interface Api_TypesApi {
   Set<Integer> apiTypesSetGet();
 
   /**
-   * apiTypesSetSimpleGet
+   * apiTypesSetSimpleGet.
    *
    * @return Set&lt;Simple&gt;
    */
@@ -255,7 +255,7 @@ public interface Api_TypesApi {
   Set<Simple> apiTypesSetSimpleGet();
 
   /**
-   * apiTypesShortGet
+   * apiTypesShortGet.
    *
    * @return short
    */
@@ -266,7 +266,7 @@ public interface Api_TypesApi {
   short apiTypesShortGet();
 
   /**
-   * apiTypesSimpleGet
+   * apiTypesSimpleGet.
    *
    * @return Simple
    */
@@ -277,7 +277,7 @@ public interface Api_TypesApi {
   Simple apiTypesSimpleGet();
 
   /**
-   * apiTypesStringGet
+   * apiTypesStringGet.
    *
    * @return String
    */
@@ -288,7 +288,7 @@ public interface Api_TypesApi {
   String apiTypesStringGet();
 
   /**
-   * apiTypesTimeGet
+   * apiTypesTimeGet.
    *
    * @return LocalTime
    */
@@ -299,9 +299,7 @@ public interface Api_TypesApi {
   LocalTime apiTypesTimeGet();
 
   /**
-   * apiTypesVoidGet
-   *
-   * @return void
+   * apiTypesVoidGet.
    */
   @GET
   @Path("/void")

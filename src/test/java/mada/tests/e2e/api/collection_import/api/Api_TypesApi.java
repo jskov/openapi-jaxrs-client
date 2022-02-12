@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface Api_TypesApi {
 
   /**
-   * apiTypesListSimpleGet
+   * apiTypesListSimpleGet.
    *
    * @return List&lt;Simple&gt;
    */

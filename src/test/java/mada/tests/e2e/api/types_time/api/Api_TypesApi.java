@@ -24,7 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface Api_TypesApi {
 
   /**
-   * apiTypesListTimeGet
+   * apiTypesListTimeGet.
    *
    * @return List&lt;LocalTime&gt;
    */
@@ -38,7 +38,7 @@ public interface Api_TypesApi {
   List<LocalTime> apiTypesListTimeGet();
 
   /**
-   * apiTypesTimeGet
+   * apiTypesTimeGet.
    *
    * @return LocalTime
    */

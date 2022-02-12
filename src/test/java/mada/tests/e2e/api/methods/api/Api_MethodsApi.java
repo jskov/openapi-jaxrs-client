@@ -19,10 +19,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface Api_MethodsApi {
 
   /**
-   * apiMethodsDELETEDelete
+   * apiMethodsDELETEDelete.
    *
    * @param dto  (optional)
-   * @return void
    */
   @DELETE
   @Path("/DELETE")
@@ -33,7 +32,7 @@ public interface Api_MethodsApi {
   void apiMethodsDELETEDelete(String dto);
 
   /**
-   * apiMethodsGETGet
+   * apiMethodsGETGet.
    *
    * @return String
    */
@@ -44,7 +43,7 @@ public interface Api_MethodsApi {
   String apiMethodsGETGet();
 
   /**
-   * apiMethodsHEADHead
+   * apiMethodsHEADHead.
    *
    * @return String
    */
@@ -55,7 +54,7 @@ public interface Api_MethodsApi {
   String apiMethodsHEADHead();
 
   /**
-   * apiMethodsPOSTPost
+   * apiMethodsPOSTPost.
    *
    * @param dto  (optional)
    * @return String
@@ -68,7 +67,7 @@ public interface Api_MethodsApi {
   String apiMethodsPOSTPost(String dto);
 
   /**
-   * apiMethodsPUTPut
+   * apiMethodsPUTPut.
    *
    * @param dto  (optional)
    * @return String

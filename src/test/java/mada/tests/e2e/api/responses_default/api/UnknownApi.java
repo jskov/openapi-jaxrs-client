@@ -20,9 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface UnknownApi {
 
   /**
-   * getString
-   *
-   * @return void
+   * getString.
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)

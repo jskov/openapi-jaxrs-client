@@ -17,9 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface Api_TypesApi {
 
   /**
-   * apiSecurityOffGet
-   *
-   * @return void
+   * apiSecurityOffGet.
    */
   @GET
   @Path("/off")
@@ -29,10 +27,9 @@ public interface Api_TypesApi {
   void apiSecurityOffGet();
 
   /**
-   * apiSecurityOnGet
+   * apiSecurityOnGet.
    *
    * @param auth  (required)
-   * @return void
    */
   @GET
   @Path("/on")

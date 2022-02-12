@@ -18,7 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 public interface Params_QueryApi {
 
   /**
-   * apiParamsQueryBooleanPrimitiveGet
+   * apiParamsQueryBooleanPrimitiveGet.
    *
    * @param flag  (optional)
    * @return String
@@ -30,7 +30,7 @@ public interface Params_QueryApi {
   String apiParamsQueryBooleanPrimitiveGet(@QueryParam("flag") boolean flag);
 
   /**
-   * apiParamsQueryBooleanWrapperGet
+   * apiParamsQueryBooleanWrapperGet.
    *
    * @param flag  (optional)
    * @return String
@@ -42,7 +42,7 @@ public interface Params_QueryApi {
   String apiParamsQueryBooleanWrapperGet(@QueryParam("flag") boolean flag);
 
   /**
-   * apiParamsQueryListGet
+   * apiParamsQueryListGet.
    *
    * @param item  (optional)
    * @return String
@@ -54,7 +54,7 @@ public interface Params_QueryApi {
   String apiParamsQueryListGet(@QueryParam("item") List<String> item);
 
   /**
-   * apiParamsQueryMixedGet
+   * apiParamsQueryMixedGet.
    *
    * @param flag  (optional)
    * @param item  (optional)

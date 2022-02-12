@@ -143,9 +143,14 @@ public class ApiGenerator {
 
         boolean onlySimpleResponse = addImports(imports, op);
 
+        boolean renderJavadocReturn = type != TypeVoid.get();
+        boolean renderJavadocMacroSpacer = renderJavadocReturn || !allParams.isEmpty();
+
         CtxApiOpExt ext = CtxApiOpExt.builder()
                 .consumes(makeConsumes(imports, op))
                 .produces(makeProduces(imports, op))
+                .renderJavadocMacroSpacer(renderJavadocMacroSpacer)
+                .renderJavadocReturn(renderJavadocReturn)
                 .responseSchema(onlySimpleResponse)
                 .build();
 

@@ -19,16 +19,18 @@ public interface {{classname}} {
     {{/notes}}
     {{^summary}}
         {{^notes}}
-   * {{nickname}}
+   * {{nickname}}.
         {{/notes}}
     {{/summary}}
+{{#madaOp.renderJavadocMacroSpacer}}
    *
+{{/madaOp.renderJavadocMacroSpacer}}
 {{#allParams}}
    * @param {{paramName}} {{description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
 {{/allParams}}
-{{#returnType}}
+{{#madaOp.renderJavadocReturn}}
    * @return {{returnType}}
-{{/returnType}}
+{{/madaOp.renderJavadocReturn}}
 {{#externalDocs}}
    * {{description}}
    * @see <a href="{{url}}">{{summary}} Documentation</a>

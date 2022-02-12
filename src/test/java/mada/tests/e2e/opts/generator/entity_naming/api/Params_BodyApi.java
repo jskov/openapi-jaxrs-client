@@ -22,7 +22,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 public interface Params_BodyApi {
 
   /**
-   * apiParamsBodyBooleanPrimitiveGet
+   * apiParamsBodyBooleanPrimitiveGet.
    *
    * @param boolean_  (optional)
    * @return String
@@ -35,7 +35,7 @@ public interface Params_BodyApi {
   String apiParamsBodyBooleanPrimitiveGet(boolean boolean_);
 
   /**
-   * apiParamsBodyBooleanWrapperGet
+   * apiParamsBodyBooleanWrapperGet.
    *
    * @param boolean_  (optional)
    * @return String
@@ -48,7 +48,7 @@ public interface Params_BodyApi {
   String apiParamsBodyBooleanWrapperGet(boolean boolean_);
 
   /**
-   * apiParamsBodyDateGet
+   * apiParamsBodyDateGet.
    *
    * @param localDate  (optional)
    * @return String
@@ -61,7 +61,7 @@ public interface Params_BodyApi {
   String apiParamsBodyDateGet(LocalDate localDate);
 
   /**
-   * apiParamsBodyDateTimeGet
+   * apiParamsBodyDateTimeGet.
    *
    * @param offsetDateTime  (optional)
    * @return String
@@ -74,7 +74,7 @@ public interface Params_BodyApi {
   String apiParamsBodyDateTimeGet(OffsetDateTime offsetDateTime);
 
   /**
-   * apiParamsBodyListGet
+   * apiParamsBodyListGet.
    *
    * @param list_String_  (optional)
    * @return String
@@ -87,7 +87,7 @@ public interface Params_BodyApi {
   String apiParamsBodyListGet(List<String> list_String_);
 
   /**
-   * apiParamsBodyListSimpleGet
+   * apiParamsBodyListSimpleGet.
    *
    * @param list_Simple_  (optional)
    * @return String
@@ -100,7 +100,7 @@ public interface Params_BodyApi {
   String apiParamsBodyListSimpleGet(List<Simple> list_Simple_);
 
   /**
-   * apiParamsBodyMixedInPathGet
+   * apiParamsBodyMixedInPathGet.
    *
    * @param inPath  (required)
    * @param query  (optional)
@@ -116,7 +116,7 @@ public interface Params_BodyApi {
   String apiParamsBodyMixedInPathGet(@PathParam("in-path") String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, Simple simple);
 
   /**
-   * apiParamsBodySimpleGet
+   * apiParamsBodySimpleGet.
    *
    * @param simple  (optional)
    * @return String
@@ -129,7 +129,7 @@ public interface Params_BodyApi {
   String apiParamsBodySimpleGet(Simple simple);
 
   /**
-   * apiParamsBodyTimeGet
+   * apiParamsBodyTimeGet.
    *
    * @param localTime  (optional)
    * @return String

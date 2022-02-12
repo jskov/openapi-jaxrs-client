@@ -17,7 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 public interface Params_PathApi {
 
   /**
-   * apiParamsPathGet
+   * apiParamsPathGet.
    *
    * @return String
    */
@@ -27,7 +27,7 @@ public interface Params_PathApi {
   String apiParamsPathGet();
 
   /**
-   * apiParamsPathByteByteIdGet
+   * apiParamsPathByteByteIdGet.
    *
    * @param byteId  (required)
    * @return String
@@ -39,7 +39,7 @@ public interface Params_PathApi {
   String apiParamsPathByteByteIdGet(@PathParam("byteId") byte byteId);
 
   /**
-   * apiParamsPathIntIntIdGet
+   * apiParamsPathIntIntIdGet.
    *
    * @param intId  (required)
    * @return String
@@ -51,7 +51,7 @@ public interface Params_PathApi {
   String apiParamsPathIntIntIdGet(@PathParam("intId") int intId);
 
   /**
-   * apiParamsPathLongLongIdGet
+   * apiParamsPathLongLongIdGet.
    *
    * @param longId  (required)
    * @return String
@@ -63,7 +63,7 @@ public interface Params_PathApi {
   String apiParamsPathLongLongIdGet(@PathParam("longId") long longId);
 
   /**
-   * apiParamsPathShortShortIdGet
+   * apiParamsPathShortShortIdGet.
    *
    * @param shortId  (required)
    * @return String
@@ -75,7 +75,7 @@ public interface Params_PathApi {
   String apiParamsPathShortShortIdGet(@PathParam("shortId") short shortId);
 
   /**
-   * apiParamsPathStringStringIdGet
+   * apiParamsPathStringStringIdGet.
    *
    * @param stringId  (required)
    * @return String

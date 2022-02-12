@@ -22,7 +22,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 public interface Params_BodyApi {
 
   /**
-   * apiParamsBodyBooleanPrimitiveGet
+   * apiParamsBodyBooleanPrimitiveGet.
    *
    * @param dto  (optional)
    * @return String
@@ -35,7 +35,7 @@ public interface Params_BodyApi {
   String apiParamsBodyBooleanPrimitiveGet(boolean dto);
 
   /**
-   * apiParamsBodyBooleanWrapperGet
+   * apiParamsBodyBooleanWrapperGet.
    *
    * @param dto  (optional)
    * @return String
@@ -48,7 +48,7 @@ public interface Params_BodyApi {
   String apiParamsBodyBooleanWrapperGet(boolean dto);
 
   /**
-   * apiParamsBodyDateGet
+   * apiParamsBodyDateGet.
    *
    * @param dto  (optional)
    * @return String
@@ -61,7 +61,7 @@ public interface Params_BodyApi {
   String apiParamsBodyDateGet(LocalDate dto);
 
   /**
-   * apiParamsBodyDateTimeGet
+   * apiParamsBodyDateTimeGet.
    *
    * @param dto  (optional)
    * @return String
@@ -74,7 +74,7 @@ public interface Params_BodyApi {
   String apiParamsBodyDateTimeGet(OffsetDateTime dto);
 
   /**
-   * apiParamsBodyListGet
+   * apiParamsBodyListGet.
    *
    * @param dto  (optional)
    * @return String
@@ -87,7 +87,7 @@ public interface Params_BodyApi {
   String apiParamsBodyListGet(List<String> dto);
 
   /**
-   * apiParamsBodyListSimpleGet
+   * apiParamsBodyListSimpleGet.
    *
    * @param dto  (optional)
    * @return String
@@ -100,7 +100,7 @@ public interface Params_BodyApi {
   String apiParamsBodyListSimpleGet(List<Simple> dto);
 
   /**
-   * apiParamsBodyMixedInPathGet
+   * apiParamsBodyMixedInPathGet.
    *
    * @param inPath  (required)
    * @param query  (optional)
@@ -116,7 +116,7 @@ public interface Params_BodyApi {
   String apiParamsBodyMixedInPathGet(@PathParam("in-path") String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, Simple dto);
 
   /**
-   * apiParamsBodySimpleGet
+   * apiParamsBodySimpleGet.
    *
    * @param dto  (optional)
    * @return String
@@ -129,7 +129,7 @@ public interface Params_BodyApi {
   String apiParamsBodySimpleGet(Simple dto);
 
   /**
-   * apiParamsBodyTimeGet
+   * apiParamsBodyTimeGet.
    *
    * @param dto  (optional)
    * @return String
