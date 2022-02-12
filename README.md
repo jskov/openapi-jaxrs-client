@@ -37,31 +37,31 @@ The code generation is configured via property settings.
 
 >Name of package to generate API classes in. Required argument.
 >
-	alternative name: apiPackage
+    alternative name: apiPackage
 
 **generator-dto-package**
 
 >Name of package to generate DTO classes in. Required argument.
 >
-	alternative name: modelPackage
+    alternative name: modelPackage
 
 **generator-jackson-codehaus**
 
 >Use jackson (codehaus) annotations in generated classes.
 >
-	default value: false
+    default value: false
 
 **generator-jackson-fasterxml**
 
 >Use jackson (fasterxml) annotations in generated classes.
 >
-	default value: false
+    default value: false
 
 **generator-jsonb**
 
 >Use jsonb annotations in generated classes.
 >
-	default value: false
+    default value: false
 
 **generator-jackson-json-serialize-options**
 
@@ -69,7 +69,7 @@ The code generation is configured via property settings.
 
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/jackson)
 >
-	default value:
+    default value:
 
 **generator-jackson-localdate-wire-format**
 
@@ -79,7 +79,7 @@ The code generation is configured via property settings.
 
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/localdate)
 >
-	default value: ISO_LOCAL_DATE
+    default value: ISO_LOCAL_DATE
 
 **generator-use-api-wrapped-primitives**
 
@@ -100,14 +100,14 @@ The code generation is configured via property settings.
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/bigdecimal_double)
 
 >
-	default value: false
+    default value: false
 
 **generator-use-boolean-get-prefix**
 
 >Boolean getters are prefixed by 'is' by default. Enable this option to use 'get' instead.
 
 >
-	default value: false
+    default value: false
 
 
 **generator-use-empty-collections**
@@ -120,7 +120,7 @@ The code generation is configured via property settings.
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/collections_empty)
 
 >
-	default value: false
+    default value: false
 
 
 **generator-use-zoneddatetime**
@@ -133,20 +133,20 @@ ZonedDateTime (depending on the deserializer implementation).
 >	
 >For example, `io.quarkus:quarkus-resteasy-jsonb` will serialize ZonedDateTime to:
 >	
-	`"2022-01-02T12:28:36.639812723+01:00[Europe/Copenhagen]"`
+    `"2022-01-02T12:28:36.639812723+01:00[Europe/Copenhagen]"`
 >	
 >By enabling this option, the generated DTOs will have ZonedDateTime for properties
 instead of OffsetDateTime.
 
 >
-	default value: false
+    default value: false
 
 **generator-use-generated-timestamp**
 
 >Allows you to include a timestamp in the @Generated-annotation in all generated classes.
 
 >
-	default value: false
+    default value: false
 
 ### Naming options
 
@@ -154,13 +154,13 @@ The naming of types, properties and enumeration entries can be (partly) controll
 
 `TYPENAME` and `PROPERTYNAME` are based on the [Java spec for identifiers](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.8). They will convert any non-identifier character to '_'. A hyphen ('-') will be removed and the next character upper-cased.
 
-	UPCASE: Converts the input to upper case.
-	DOWNCASE: Converts the input to lower case.
-	LITERAL/value/: Returns the provided value.
-	TYPENAME: Converts the input to a valid java identifier (first letter upper case)
-      PARAMETERNAME: Converts the input to a valid java identifier (first letter lower case)
-	PROPERTYNAME: (alias for PARAMETERNAME)
-	REGEXP/pattern/replacement/: Will match input against pattern and substitute all matches with replacement.
+    UPCASE: Converts the input to upper case.
+    DOWNCASE: Converts the input to lower case.
+    LITERAL/value/: Returns the provided value.
+    TYPENAME: Converts the input to a valid java identifier (first letter upper case)
+    PARAMETERNAME: Converts the input to a valid java identifier (first letter lower case)
+    PROPERTYNAME: (alias for PARAMETERNAME)
+    REGEXP/pattern/replacement/: Will match input against pattern and substitute all matches with replacement.
 
 You can specify a number of operators, separated by ';'. They will be applied left-to-right.
 
@@ -170,7 +170,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >This one overrules naming-rules-enum
 
 >
-	default value: NUMBER_
+    default value: NUMBER_
 
 
 **naming-rules-enum**
@@ -180,7 +180,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The type name is given as input.
 
 >
-	default value: TYPENAME; UPCASE
+    default value: TYPENAME; UPCASE
 
 **naming-rules-entity**
 
@@ -198,7 +198,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The parameter name is given as input.
 
 >
-	default value: PARAMETERNAME
+    default value: PARAMETERNAME
 
 **naming-rules-property**
 
@@ -207,7 +207,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The property name is given as input.
 
 >
-	default value: PROPERTYNAME
+    default value: PROPERTYNAME
 
 **naming-rules-type**
 
@@ -216,7 +216,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The type name is given as input.
 
 >
-	default value: TYPENAME
+    default value: TYPENAME
 
 ### Parser options
 
@@ -234,7 +234,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >It can be disabled if your remote connection uses the type name `LocalDate` for something bespoke.
 
 >
-	default value: true
+    default value: true
 
 **parser-localdatetime-is-jse**
 
@@ -243,7 +243,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >It can be disabled if your remote connection uses the type name `LocalDateTime` for something bespoke.
 
 >
-	default value: true
+    default value: true
 
 **parser-offsetdatetime-is-jse**
 
@@ -252,7 +252,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >It can be disabled if your remote connection uses the type name `OffsetDateTime` for something bespoke.
 
 >
-	default value: true
+    default value: true
 
 **parser-zoneddatetime-is-jse**
 
@@ -261,7 +261,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >It can be disabled if your remote connection uses the type name `ZonedDateTime` for something bespoke.
 
 >
-	default value: true
+    default value: true
 
 
 **parser-localtime-is-jse**
@@ -283,7 +283,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >It can be disabled if your remote connection uses the type name `LocalTime` for something bespoke.
 	
 >
-	default value: true
+    default value: true
 
 
 ## Testing
@@ -292,6 +292,6 @@ In Eclipse, add build/e2e as a source folder (and exclude **/*.java) to get easy
 
 Bulk update:
 
-	./gradlew test
-	cp -r build/e2e/mada/tests src/test/java/mada/
-	# Then look at diff
+    ./gradlew test
+    cp -r build/e2e/mada/tests src/test/java/mada/
+    # Then look at diff
