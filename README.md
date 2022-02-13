@@ -173,9 +173,9 @@ You can specify a number of operators, separated by ';'. They will be applied le
     default value: NUMBER_
 
 
-**naming-rules-enum**
+**naming-rules-enum-constant**
 
->Allows you to control the naming of enumeration entries using the operators described above.
+>Allows you to control the naming of enumeration constants using the operators described above.
 
 >The type name is given as input.
 

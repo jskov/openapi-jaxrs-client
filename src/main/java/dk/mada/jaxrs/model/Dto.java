@@ -10,15 +10,20 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
+/**
+ * Model of a DTO object.
+ */
 @Immutable
 public interface Dto extends Type {
+    /** {@return a builder for this type} */
     static ImmutableDto.Builder builder() {
         return ImmutableDto.builder();
     }
 
+    /** {@return the DTO name} */
     String name();
 
-    /** The type of the DTO object */
+    /** {@return the type of the DTO object} */
     Type dtoType();
 
     @Override
@@ -29,13 +34,17 @@ public interface Dto extends Type {
         return TypeNames.of(name());
     }
 
-    /** The name the DTO was identified by in the schema */
+    /** @{return the name the DTO was identified by in the schema} */
     TypeName openapiId();
 
+    /** {@return the properties on the DTO} */
     List<Property> properties();
 
+    /** {@return the enumeration values on the DTO} */
     @Nullable
     List<String> enumValues();
+
+    /** {@return true if this is an enumeration, otherwise false} */
     default boolean isEnum() {
         return enumValues() != null;
     }

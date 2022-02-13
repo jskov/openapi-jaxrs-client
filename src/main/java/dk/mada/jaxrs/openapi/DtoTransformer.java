@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,16 +31,34 @@ import io.swagger.v3.oas.models.media.Schema;
 public class DtoTransformer {
     private static final Logger logger = LoggerFactory.getLogger(DtoTransformer.class);
 
+    /** Naming. */
     private final Naming naming;
+    /** Types. */
     private final Types types;
+    /** Type converter. */
     private final TypeConverter typeConverter;
 
+    /**
+     * Constructs new DTO transformer.
+     *
+     * @param naming the naming instance
+     * @param types the types instance
+     * @param typeConverter the type converter instance
+     */
     public DtoTransformer(Naming naming, Types types, TypeConverter typeConverter) {
         this.naming = naming;
         this.types = types;
         this.typeConverter = typeConverter;
     }
 
+    /**
+     * Transforms OpenApi specification to types model.
+     *
+     * The types are added to the Types instance as the specification
+     * is processed.
+     *
+     * @param specification the OpenApi specification
+     */
     public void transform(OpenAPI specification) {
         readSpec(specification);
 
@@ -64,6 +84,7 @@ public class DtoTransformer {
 
             List<Property> props = readProperties(schema);
 
+            @Nullable
             List<String> enumValues = getEnumValues(schema);
 
             Dto dto = Dto.builder()
@@ -80,6 +101,7 @@ public class DtoTransformer {
         types.parsingCompleted();
     }
 
+    @Nullable
     private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
         List<?> schemaEnumValues = schema.getEnum();
         if (schemaEnumValues == null) {
@@ -108,7 +130,7 @@ public class DtoTransformer {
             String name = e.getKey();
             Schema<?> propSchema = e.getValue();
 
-            Type type = typeConverter.toType(propSchema);
+            Type type = typeConverter.toType(propSchema, name);
 
             String exampleStr = Objects.toString(propSchema.getExample(), null);
 

@@ -306,7 +306,7 @@ public class ApiGenerator {
             Type type = body.content().type();
             imports.add(type);
 
-            String dtoParamName = naming.convertDtoName(type.typeName().name());
+            String dtoParamName = naming.convertEntityName(type.typeName().name());
             String dataType = paramDataType(type);
 
             params.add(CtxApiParam.builder()

@@ -20,6 +20,13 @@ public interface CtxProperty {
     String getter();
     String setter();
 
+    /** {@return dataType in an enumeration or null} */
+    @Nullable
+    String dataType();
+    /** {@return allowable enumeration values or null} */
+    @Nullable
+    CtxEnum allowableValues();
+
     @Nullable
     String defaultValue();
 
@@ -32,6 +39,8 @@ public interface CtxProperty {
     boolean isContainer();
     boolean isDate();
     boolean isDateTime();
+    /** {@return true if this property should render an enumeration} */
+    boolean isEnum();
 
     boolean required();
 

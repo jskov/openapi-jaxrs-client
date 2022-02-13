@@ -21,28 +21,44 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
  * model classes.
  */
 public class Parser {
+    /** Naming. */
     private final Naming naming;
+    /** Parser options. */
     private final ParserOpts parserOpts;
+    /** Generator options. */
     private final GeneratorOpts generatorOpts;
 
+    /**
+     * Constructs a new parser.
+     *
+     * @param naming the naming instance
+     * @param parserOpts the parser options
+     * @param generatorOpts the generator options
+     */
     public Parser(Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         this.naming = naming;
         this.parserOpts = parserOpts;
         this.generatorOpts = generatorOpts;
     }
 
-    public Model parse(Path input) {
+    /**
+     * Parse the specified OpenApi specification.
+     *
+     * @param spec the specification file to parse
+     * @return the local model representation of the specification
+     */
+    public Model parse(Path spec) {
         final List<AuthorizationValue> authorizationValues = List.of();
         var swaggerParseOpts = new ParseOptions();
         swaggerParseOpts.setResolve(true);
 
-        String inputSpec = input.toAbsolutePath().toString();
+        String inputSpec = spec.toAbsolutePath().toString();
 
         SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, swaggerParseOpts);
         OpenAPI specification = result.getOpenAPI();
 
         var types = new Types(parserOpts, generatorOpts);
-        var typeConverter = new TypeConverter(types, parserOpts, generatorOpts);
+        var typeConverter = new TypeConverter(types, naming, parserOpts, generatorOpts);
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);

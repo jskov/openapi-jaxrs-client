@@ -58,6 +58,9 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   {{#madaDto.jsonb}}
   public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";
   @JsonbProperty(JSON_PROPERTY_{{nameInSnakeCase}})
+    {{#isEnum}}
+  @JsonbTypeAdapter({{packageName}}.{{classname}}.{{datatypeWithEnum}}.{{datatypeWithEnum}}Adapter.class)
+    {{/isEnum}}
   {{/madaDto.jsonb}}
   {{#madaProp.schemaOptions}}
   @Schema({{{madaProp.schemaOptions}}})

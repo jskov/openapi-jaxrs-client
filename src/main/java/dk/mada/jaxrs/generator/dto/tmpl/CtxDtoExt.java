@@ -27,5 +27,6 @@ public interface CtxDtoExt {
     @Nullable
     String customOffsetDateTimeSerializer();
 
+    /** {@return true if rendering for jsonb, false otherwise} */
     boolean jsonb();
 }

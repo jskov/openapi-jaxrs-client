@@ -1,0 +1,37 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/enums-inner:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualInnerEnumDto'
+components:
+  schemas:
+    ManualInnerEnumDto:
+      type: object
+      properties:
+        receiver:
+          type: string
+        stringType:
+          type: string
+          enum:
+          - EMAIL
+          - SMS
+        numberType:
+          enum:
+          - 1
+          - 2
+          type: integer
+          format: int32
+
+          

@@ -43,4 +43,9 @@ public interface Type {
     default boolean isVoid() {
         return false;
     }
+
+    /** {@return true if this type represents an enumeration} */
+    default boolean isEnum() {
+        return false;
+    }
 }

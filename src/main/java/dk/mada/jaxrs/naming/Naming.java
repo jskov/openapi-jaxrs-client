@@ -13,41 +13,97 @@ import dk.mada.jaxrs.naming.NamingRules.NamingRule;
  */
 public class Naming {
     private static final Logger logger = LoggerFactory.getLogger(Naming.class);
-    private final NamingOpts namingOpts;
-    private final List<NamingRule> dtoNamingRules;
-    private final List<NamingRule> enumNamingRules;
+
+    /** Naming rules for enumeration constants. */
+    private final List<NamingRule> enumConstantNamingRules;
+    /** Naming rules for type names. */
     private final List<NamingRule> typeNamingRules;
+    /** Naming rules for property names. */
     private final List<NamingRule> propertyNamingRules;
+    /** Naming rules for parameter names. */
     private final List<NamingRule> parameterNamingRules;
+    /** Naming rules for entity names. */
+    private final List<NamingRule> entityNamingRules;
+    /** Naming rules for property enum types. */
+    private List<NamingRule> propertyEnumTypeNamingRules;
 
+    /**
+     * Creates a new instance.
+     *
+     * The properties allow the user to customize naming rules.
+     *
+     * @param props the properties with optional user configurations
+     * @see NamingOpts
+     */
     public Naming(Properties props) {
-        namingOpts = new NamingOpts(props);
+        var namingOpts = new NamingOpts(props);
 
-        dtoNamingRules = NamingRules.toRules(namingOpts.getDtoNaming());
-        enumNamingRules = NamingRules.toRules(namingOpts.getEnumNaming());
+        enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
         typeNamingRules = NamingRules.toRules(namingOpts.getTypeNaming());
         propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
         parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
+        entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());
+        propertyEnumTypeNamingRules = NamingRules.toRules(namingOpts.getPropertyEnumTypeNaming());
     }
 
-    public String convertDtoName(String input) {
-        return convert(dtoNamingRules, input);
+    /**
+     * Converts entity type name to entity variable name.
+     *
+     * @param entityTypeName the type name of the entity
+     * @return the entity variable name
+     */
+    public String convertEntityName(String entityTypeName) {
+        return convert(entityNamingRules, entityTypeName);
     }
 
-    public String convertEnumName(String input) {
-        return convert(enumNamingRules, input);
+    /**
+     * Converts enumeration entry name into enumeration constant name.
+     *
+     * @param enumerationEntryName the enumeration entry name
+     * @return the enumeration constant name
+     */
+    public String convertEnumName(String enumerationEntryName) {
+        return convert(enumConstantNamingRules, enumerationEntryName);
     }
 
-    public String convertTypeName(String input) {
-        return convert(typeNamingRules, input);
+    /**
+     * Converts a type OpenApi schema name into a java type name.
+     *
+     * @param schemaName OpenApi schema name
+     * @return the java type name
+     */
+    public String convertTypeName(String schemaName) {
+        return convert(typeNamingRules, schemaName);
     }
 
-    public String convertPropertyName(String input) {
-        return convert(propertyNamingRules, input);
+    /**
+     * Converts a schema field name to a java property name.
+     *
+     * @param schemaFieldName the OpenApi schema field name
+     * @return the java property name
+     */
+    public String convertPropertyName(String schemaFieldName) {
+        return convert(propertyNamingRules, schemaFieldName);
     }
 
-    public String convertParameterName(String input) {
-        return convert(parameterNamingRules, input);
+    /**
+     * Converts an operation parameter name to a java method argument name.
+     *
+     * @param schemaParamName the OpenApi schema parameter name
+     * @return the java method argument name
+     */
+    public String convertParameterName(String schemaParamName) {
+        return convert(parameterNamingRules, schemaParamName);
+    }
+
+    /**
+     * Converts a DTO enumeration parameter name to an enumeration type name.
+     *
+     * @param schemaPropertyName the OpenApi schema property name
+     * @return the java enumeration type name
+     */
+    public String convertPropertyEnumTypeName(String schemaPropertyName) {
+        return convert(propertyEnumTypeNamingRules, schemaPropertyName);
     }
 
     private String convert(List<NamingRule> rules, String input) {

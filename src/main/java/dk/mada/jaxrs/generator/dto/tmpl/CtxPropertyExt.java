@@ -23,4 +23,7 @@ public interface CtxPropertyExt {
 
     String getter();
     String setter();
+
+    /** {@return true if rendering for jsonb, false otherwise} */
+    boolean jsonb();
 }

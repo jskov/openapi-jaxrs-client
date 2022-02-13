@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +27,7 @@ import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeRef;
 import dk.mada.jaxrs.model.types.TypeSet;
@@ -129,15 +132,10 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        CtxEnum ctxEnum = null;
         Type dtoType = derefType(dto.dtoType());
+        CtxEnum ctxEnum = null;
         if (isEnum) {
-            List<CtxEnumEntry> entries = new EnumNamer(naming, opts, dtoType, dto.enumValues())
-                    .getEntries().stream()
-                    .map(e -> toEnumEntry(dtoType, e))
-                    .toList();
-
-            ctxEnum = new CtxEnum(entries);
+            ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
         }
 
         dtoImports.addPropertyImports(dto.properties());
@@ -208,6 +206,16 @@ public class DtoGenerator {
                 .build();
     }
 
+    @Nullable
+    private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
+        List<CtxEnumEntry> entries = new EnumNamer(naming, opts, enumType, values)
+                .getEntries().stream()
+                .map(e -> toEnumEntry(enumType, e))
+                .toList();
+
+        return new CtxEnum(entries);
+    }
+
     private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
         String strValue = e.value();
         if (enumType != Primitive.INT) {
@@ -235,7 +243,9 @@ public class DtoGenerator {
         boolean isSet = false;
         boolean isDate = propType.isDate();
         boolean isDateTime = propType.isDateTime();
+        boolean isEnum = false;
         String innerType = null;
+        CtxEnum ctxEnum = null;
 
         if (propType instanceof TypeArray ca) {
             isArray = true;
@@ -254,6 +264,14 @@ public class DtoGenerator {
 
             // In templates, array is used for both set and list
             isArray = true;
+        }
+        if (propType instanceof TypeEnum te) {
+            innerType = te.innerType().typeName().name();
+            isEnum = true;
+
+            ctxEnum = buildEnumEntries(te.innerType(), te.values());
+
+            dtoImports.addEnumImports();
         }
 
         boolean isContainer = isArray || isMap || isSet;
@@ -314,11 +332,13 @@ public class DtoGenerator {
                 .isUseEmptyCollections(isUseEmptyCollections)
                 .getter(extGetter)
                 .setter(extSetter)
+                .jsonb(opts.isJsonb())
                 .build();
 
         return CtxProperty.builder()
                 .baseName(name)
                 .datatypeWithEnum(typeName)
+                .dataType(innerType)
                 .name(varName)
                 .nameInCamelCase(nameCamelized)
                 .nameInSnakeCase(nameSnaked)
@@ -326,6 +346,7 @@ public class DtoGenerator {
                 .setter(setter)
                 .description(p.description())
                 .isArray(isArray)
+                .isEnum(isEnum)
                 .isMap(isMap)
                 .isSet(isSet)
                 .isContainer(isContainer)
@@ -334,6 +355,7 @@ public class DtoGenerator {
                 .defaultValue(defaultValue)
                 .required(isRequired)
                 .example(p.example())
+                .allowableValues(ctxEnum)
                 .madaProp(mada)
                 .build();
     }

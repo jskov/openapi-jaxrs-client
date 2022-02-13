@@ -123,13 +123,16 @@ public final class Imports {
                 .jsonb("javax.json.bind.annotation.JsonbProperty", "javax.json.bind.annotation.JsonbPropertyOrder");
     }
 
+    /**
+     * Creates a new instance for enumeration types.
+     *
+     * @param types the types instance
+     * @param opts the generator options
+     * @return a new imports instance loaded with enumeration imports
+     */
     public static Imports newEnum(Types types, GeneratorOpts opts) {
         return new Imports(types, opts, false)
-                .add(opts.isJackson(), JAVA_UTIL_OBJECTS)
-                .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
-                .jackson(JSON_CREATOR, JSON_VALUE)
-                .jsonb("javax.json.Json", "javax.json.JsonString", "javax.json.bind.adapter.JsonbAdapter")
-                .jsonb("javax.json.bind.annotation.JsonbTypeAdapter");
+                   .addEnumImports();
     }
 
     /**
@@ -165,6 +168,19 @@ public final class Imports {
             .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         return imports;
+    }
+
+    /**
+     * Adds imports needed for rendering an enumeration.
+     *
+     * @return this
+     */
+    public Imports addEnumImports() {
+        return this.add(opts.isJackson(), JAVA_UTIL_OBJECTS)
+            .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
+            .jackson(JSON_CREATOR, JSON_VALUE)
+            .jsonb("javax.json.Json", "javax.json.JsonString", "javax.json.bind.adapter.JsonbAdapter")
+            .jsonb("javax.json.bind.annotation.JsonbTypeAdapter");
     }
 
     public void addPropertyImports(Collection<Property> properties) {

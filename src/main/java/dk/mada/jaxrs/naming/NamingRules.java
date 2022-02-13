@@ -14,9 +14,14 @@ import org.slf4j.LoggerFactory;
  */
 public final class NamingRules {
     private static final Logger logger = LoggerFactory.getLogger(NamingRules.class);
+    /** Prefix for literal string append. */
+    private static final String APPEND = "APPEND/";
+    /** Prefix for literal string input. */
     private static final String LITERAL = "LITERAL/";
+    /** Prefix for regular expression input. */
     private static final String REGEXP = "REGEXP/";
-    private static final Identifiers identifiers = new Identifiers();
+    /** Identifiers. */
+    private static final Identifiers IDENTIFIERS = new Identifiers();
 
     private NamingRules() {
     }
@@ -24,25 +29,49 @@ public final class NamingRules {
     record NamingRule(String name, UnaryOperator<String> converter) {
     }
 
-    public static List<NamingRule> toRules(String rules) {
-        return Stream.of(rules.split(";"))
+    /**
+     * Builds a list of rules based on input configuration.
+     *
+     * The caller of this method will then be able to compute
+     * a named based on an input string, and applying the
+     * list of returned naming rules sequentially to this
+     * string.
+     *
+     * @param ruleConfigurations the rule configurations, separated by ;
+     * @return a list of naming rules to be applied sequentially
+     */
+    public static List<NamingRule> toRules(String ruleConfigurations) {
+        return Stream.of(ruleConfigurations.split(";"))
                 .map(NamingRules::toRule)
                 .toList();
     }
 
-    public static NamingRule toRule(String rIn) {
-        String r = rIn.trim();
+    /**
+     * Created a single naming rules based on a single
+     * rule configuration.
+     *
+     * @param ruleConfiguration the rule configuration
+     * @return the resulting naming rule
+     */
+    public static NamingRule toRule(String ruleConfiguration) {
+        String r = ruleConfiguration.trim();
         if ("PROPERTYNAME".equals(r) || "PARAMETERNAME".equals(r)) {
-            return new NamingRule(r, identifiers::makeValidVariableName);
+            return new NamingRule(r, IDENTIFIERS::makeValidVariableName);
         }
         if ("TYPENAME".equals(r)) {
-            return new NamingRule(r, identifiers::makeValidTypeName);
+            return new NamingRule(r, IDENTIFIERS::makeValidTypeName);
         }
         if ("UPCASE".equals(r)) {
             return new NamingRule(r, String::toUpperCase);
         }
         if ("DOWNCASE".equals(r)) {
             return new NamingRule(r, String::toLowerCase);
+        }
+        if (r.startsWith(APPEND)) {
+            if (!r.endsWith("/")) {
+                throw new IllegalArgumentException("APPEND must end with /, saw: " + r);
+            }
+            return new NamingRule(r, s -> s + r.substring(APPEND.length(), r.length() - 1));
         }
         if (r.startsWith(LITERAL)) {
             if (!r.endsWith("/")) {
