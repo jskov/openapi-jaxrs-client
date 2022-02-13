@@ -21,7 +21,7 @@ paths:
     get:
       tags:
       - Api Docs
-      summary: op summary
+      summary: op summary? with punctuation
       description: op description
       operationId: opId
       responses:
@@ -35,7 +35,7 @@ paths:
     get:
       tags:
       - Api Docs
-      summary: op is deprecated
+      summary: op is deprecated!
       responses:
         "200":
           description: OK
@@ -48,6 +48,7 @@ paths:
     get:
       tags:
       - Api Docs
+      summary: op is missing punctuation
       parameters:
       - name: in-path
         in: path

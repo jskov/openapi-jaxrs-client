@@ -19,7 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 public interface Api_DocsApi {
 
   /**
-   * op summary.
+   * op summary? with punctuation
    * op description
    *
    * @return String
@@ -31,7 +31,7 @@ public interface Api_DocsApi {
   String opId();
 
   /**
-   * op is deprecated.
+   * op is deprecated!
    *
    * @return String
    */
@@ -42,7 +42,7 @@ public interface Api_DocsApi {
   String apiDocsDeprecatedGet();
 
   /**
-   * apiDocsParamsInPathGet.
+   * op is missing punctuation.
    *
    * @param inPath  (required)
    * @param query  (optional)

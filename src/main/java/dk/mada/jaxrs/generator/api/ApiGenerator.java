@@ -198,9 +198,9 @@ public class ApiGenerator {
     private String getValidSummary(Operation op) {
         String summary = op.summary();
         if (summary != null
-                && (!summary.endsWith(".")
-                        || !summary.endsWith("!")
-                        || !summary.endsWith("?"))) {
+                && !(summary.contains(".")
+                        || summary.contains("!")
+                        || summary.contains("?"))) {
             summary = summary + ".";
         }
         return summary;
