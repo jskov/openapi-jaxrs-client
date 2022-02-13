@@ -12,6 +12,7 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxApi {
+    /** {@return a builder for this type} */
     static ImmutableCtxApi.Builder builder() {
         return ImmutableCtxApi.builder();
     }

@@ -10,6 +10,7 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxPropertyExt {
+    /** {@return a builder for this type} */
     static ImmutableCtxPropertyExt.Builder builder() {
         return ImmutableCtxPropertyExt.builder();
     }

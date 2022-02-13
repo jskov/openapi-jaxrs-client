@@ -11,6 +11,7 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public abstract class Info {
+    /** {@return a builder for this type} */
     public static ImmutableInfo.Builder builder() {
         return ImmutableInfo.builder();
     }

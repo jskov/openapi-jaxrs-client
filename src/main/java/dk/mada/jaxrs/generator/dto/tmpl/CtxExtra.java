@@ -11,6 +11,7 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxExtra {
+    /** {@return a builder for this type} */
     static ImmutableCtxExtra.Builder builder() {
         return ImmutableCtxExtra.builder();
     }

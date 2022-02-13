@@ -6,6 +6,7 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface CtxApiResponse {
+    /** {@return a builder for this type} */
     static ImmutableCtxApiResponse.Builder builder() {
         return ImmutableCtxApiResponse.builder();
     }

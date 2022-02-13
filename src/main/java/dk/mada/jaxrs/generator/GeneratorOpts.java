@@ -13,9 +13,11 @@ import dk.mada.jaxrs.openapi.ParserOpts;
  * Extracts generator-specific keys from the
  * input properties provided by the user.
  */
-public class GeneratorOpts {
-    public static final String GENERATOR_DTO_PACKAGE = "generator-dto-package";
+public final class GeneratorOpts {
+    /** Generator option for API package. */
     public static final String GENERATOR_API_PACKAGE = "generator-api-package";
+    /** Generator option for DTO package. */
+    public static final String GENERATOR_DTO_PACKAGE = "generator-dto-package";
 
     /** Time that the code was generated. */
     private final String generatedAtTime;
@@ -75,7 +77,7 @@ public class GeneratorOpts {
     }
 
     /**
-     * {@return the id of this generator} 
+     * {@return the id of this generator}
      *
      * Used in the @Generator annotation in all generated files.
      */
@@ -88,6 +90,7 @@ public class GeneratorOpts {
         return getRequired(GENERATOR_API_PACKAGE, "apiPackage");
     }
 
+    /** {@return the API package in path-form} */
     public String apiPackageDir() {
         return apiPackage().replace('.', '/');
     }
@@ -97,34 +100,42 @@ public class GeneratorOpts {
         return getRequired(GENERATOR_DTO_PACKAGE, "modelPackage");
     }
 
+    /** {@return the DTO package in path-form} */
     public String dtoPackageDir() {
         return dtoPackage().replace('.', '/');
     }
 
+    /** {@return true if rendering for jackson, otherwise false} */
     public boolean isJackson() {
         return isJacksonCodehaus() || isJacksonFasterxml();
     }
 
+    /** {@return true if rendering for jackson codehaus, otherwise false} */
     public boolean isJacksonCodehaus() {
         return useJacksonCodehaus;
     }
 
+    /** {@return true if rendering for jackson fasterxml, otherwise false} */
     public boolean isJacksonFasterxml() {
         return useJacksonFasterxml;
     }
 
+    /** {@return true if rendering for jsonb, otherwise false} */
     public boolean isJsonb() {
         return useJsonb;
     }
 
+    /** {@return true if rendering for jakarta, false if rendering for javax} */
     public boolean isJakarta() {
         return useJakarta;
     }
 
+    /** {@return true if json serializer options should be used} */
     public boolean isUseJsonSerializeOptions() {
         return getJsonSerializeOptions() != null;
     }
 
+    /** {@return json serialize options} */
     public String getJsonSerializeOptions() {
         if (!isJackson()) {
             return null;
@@ -132,14 +143,17 @@ public class GeneratorOpts {
         return get("generator-jackson-json-serialize-options");
     }
 
+    /** {@return true if a jackson OffsetDateTime serializer should be rendered} */
     public boolean isUseJacksonOffsetDateTimeSerializer() {
         return parserOpts.isJseOffsetDateTime() && isJackson();
     }
 
+    /** {@return true if a jackson LocalDate serializer should be rendered} */
     public boolean isUseJacksonLocalDateSerializer() {
         return parserOpts.isJseLocalDate() && isJackson();
     }
 
+    /** {@return the LocalDate wire format for jackson, or null} */
     public String getJacksonLocalDateWireFormat() {
         if (!isUseJacksonLocalDateSerializer()) {
             return null;
@@ -147,22 +161,27 @@ public class GeneratorOpts {
         return getDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
     }
 
+    /** {@return true if BigDecimal should be used for double, otherwise use Double} */
     public boolean isUseBigDecimalForDouble() {
         return bool("generator-use-bigdecimal-for-double");
     }
 
+    /** {@return true if collections should be initialized as empty, otherwise will be null} */
     public boolean isUseEmptyCollections() {
         return bool("generator-use-empty-collections");
     }
 
+    /** {@return true if date-time should be rendered with ZonedDateTime, otherwise use OffsetDateTime} */
     public boolean isUseZonedDateTime() {
         return bool("generator-use-zoneddatetime");
     }
 
+    /** {@return true if boolean getters should use 'get' as prefix, otherwise use 'is'} */
     public boolean isUseBooleanGetPrefix() {
         return bool("generator-use-boolean-get-prefix");
     }
 
+    /** {@return the time the generation happened if enabled, or null} */
     public String getGeneratedAtTime() {
         if (isShowGenerationTimestamp()) {
             return generatedAtTime;
@@ -189,6 +208,7 @@ public class GeneratorOpts {
         return bool("generator-use-api-wrapped-primitives", false);
     }
 
+    /** {@return the prefix to use for number enumeration constants} */
     public String getEnumNumberPrefix() {
         return getDefault("generator-enum-prefix-number", "NUMBER_");
     }

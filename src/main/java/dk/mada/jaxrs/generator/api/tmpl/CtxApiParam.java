@@ -4,6 +4,7 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface CtxApiParam {
+    /** {@return a builder for this type} */
     static ImmutableCtxApiParam.Builder builder() {
         return ImmutableCtxApiParam.builder();
     }

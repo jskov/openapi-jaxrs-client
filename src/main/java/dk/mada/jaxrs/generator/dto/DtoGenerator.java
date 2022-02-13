@@ -38,6 +38,12 @@ import dk.mada.jaxrs.naming.Identifiers;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
 
+/**
+ * DTO generator.
+ *
+ * Processes the model's DTOs and prepares DTO contexts
+ * for template rendering.
+ */
 public class DtoGenerator {
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
 

@@ -12,6 +12,7 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface CtxDto {
+    /** {@return a builder for this type} */
     static ImmutableCtxDto.Builder builder() {
         return ImmutableCtxDto.builder();
     }

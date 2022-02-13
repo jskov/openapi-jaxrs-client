@@ -34,6 +34,12 @@ import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 
+/**
+ * API generator.
+ *
+ * Processes the model's APIs and prepares API contexts
+ * for template rendering.
+ */
 public class ApiGenerator {
     private static final Logger logger = LoggerFactory.getLogger(ApiGenerator.class);
 
