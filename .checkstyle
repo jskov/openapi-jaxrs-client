@@ -8,4 +8,8 @@
     <file-match-pattern match-pattern="." include-pattern="true"/>
   </fileset>
   <filter name="DerivedFiles" enabled="true"/>
+  <filter name="FilesFromPackage" enabled="true">
+    <filter-data value="src/test/java/mada/tests/e2e"/>
+    <filter-data value="build/e2e"/>
+  </filter>
 </fileset-config>
