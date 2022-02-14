@@ -10,52 +10,52 @@ import org.slf4j.LoggerFactory;
  * Process helpers akin to Groovy's Process extensions.
  */
 public final class ProcessHelper {
-	private static final Logger logger = LoggerFactory.getLogger(ProcessHelper.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProcessHelper.class);
 
-	private ProcessHelper() {
-	}
+    private ProcessHelper() {
+    }
 
-	/**
-	 * Waits for process output.
-	 *
-	 * @param process the process to wait for
-	 * @param output the stream to copy the process output to
-	 *
-	 * @return process exit value
-	 * @throws IllegalStateException if interrupted
-	 */
-	public static int waitForProcessOutput(Process process, OutputStream output) {
-		Thread outputConsumerThread = new Thread(new ByteDumper(process.getInputStream(), output));
-		outputConsumerThread.start();
+    /**
+     * Waits for process output.
+     *
+     * @param process the process to wait for
+     * @param output the stream to copy the process output to
+     *
+     * @return process exit value
+     * @throws IllegalStateException if interrupted
+     */
+    public static int waitForProcessOutput(Process process, OutputStream output) {
+        Thread outputConsumerThread = new Thread(new ByteDumper(process.getInputStream(), output));
+        outputConsumerThread.start();
 
-		try {
-			joinAndWait(process, outputConsumerThread);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-			throw new IllegalStateException("Interruped while waiting for process output", e);
-		} finally {
-			try {
-				process.getErrorStream().close();
-			} catch (IOException ignore) {
-				logger.warn("ProcessHelper ES close failed", ignore);
-			}
-			try {
-				process.getOutputStream().close();
-			} catch (IOException ignore) {
-				logger.warn("ProcessHelper OS close failed", ignore);
-			}
-			try {
-				process.getInputStream().close();
-			} catch (IOException ignore) {
-				logger.warn("ProcessHelper IS close failed", ignore);
-			}
-		}
+        try {
+            joinAndWait(process, outputConsumerThread);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interruped while waiting for process output", e);
+        } finally {
+            try {
+                process.getErrorStream().close();
+            } catch (IOException ignore) {
+                logger.warn("ProcessHelper ES close failed", ignore);
+            }
+            try {
+                process.getOutputStream().close();
+            } catch (IOException ignore) {
+                logger.warn("ProcessHelper OS close failed", ignore);
+            }
+            try {
+                process.getInputStream().close();
+            } catch (IOException ignore) {
+                logger.warn("ProcessHelper IS close failed", ignore);
+            }
+        }
 
-		return process.exitValue();
-	}
+        return process.exitValue();
+    }
 
-	private static void joinAndWait(Process process, Thread outputConsumerThread) throws InterruptedException {
-		outputConsumerThread.join();
-		process.waitFor();
-	}
+    private static void joinAndWait(Process process, Thread outputConsumerThread) throws InterruptedException {
+        outputConsumerThread.join();
+        process.waitFor();
+    }
 }
