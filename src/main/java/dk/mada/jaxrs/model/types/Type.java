@@ -4,17 +4,28 @@ import java.util.Set;
 
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
+/**
+ * Types in the model.
+ *
+ * These model the OpenApi types, so represent both java primitives,
+ * containers and some specific java library classes (e.g. for dates).
+ * Plus all the specification-specific DTO types.
+ */
 public interface Type {
+    /** {@return the type name} */
     TypeName typeName();
+
+    /** {@return the wrapper type name} */
     default TypeName wrapperTypeName() {
         return typeName();
     }
 
+    /** {@return the set of imports needed to use this type in a DTO} */
     default Set<String> neededImports() {
         return Set.of();
     }
 
-    /** {@return true if this type represents a custom type dto} */
+    /** {@return true if this type represents a custom type DTO} */
     default boolean isDto() {
         return false;
     }

@@ -18,13 +18,17 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  *    example: 13:45.30.123456789
  */
 public final class TypeLocalTime implements Type {
-    public static final TypeName TYPE_LOCAL_TIME = TypeNames.of("LocalTime");
-    public static final String OPENAPI_CUSTOM_FORMAT = "local-time";
+    /** The single instance of this object. */
     private static final TypeLocalTime INSTANCE = new TypeLocalTime();
+    /** The type name of LocalTime. */
+    public static final TypeName TYPE_LOCAL_TIME = TypeNames.of("LocalTime");
+    /** The OpenApi custom format used for this type. */
+    public static final String OPENAPI_CUSTOM_FORMAT = "local-time";
 
     private TypeLocalTime() {
     }
 
+    /** {@return the type object representing local-time} */
     public static TypeLocalTime get() {
         return INSTANCE;
     }

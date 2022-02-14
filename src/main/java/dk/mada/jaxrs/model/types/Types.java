@@ -41,10 +41,25 @@ public class Types {
      * to keep them as DTOs).
      */
     private final Set<TypeName> unmappedToJseTypes = new HashSet<>();
+    /** DTOs parsed from the specification. */
     private final Map<TypeName, Dto> parsedDtos = new HashMap<>();
+    /**
+     * Types that (via their type name) have been mapped to
+     * some other types.
+     */
     private final Map<TypeName, Type> remappedDtoTypes = new HashMap<>();
+    /**
+     * Flags that transformation of the specification has completed
+     * and thus that all type references can be safely dereferenced.
+     */
     private boolean dereferencingSafe;
 
+    /**
+     * Constructs instance.
+     *
+     * @param parserOpts the parser options
+     * @param generatorOpts the generator options
+     */
     public Types(ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
 
@@ -59,15 +74,23 @@ public class Types {
         logger.info("JSE types kept: {}", unmappedToJseTypes);
     }
 
+    /**
+     * Marks parsing transformation complete.
+     */
     public void parsingCompleted() {
         dereferencingSafe = true;
     }
 
+    /**
+     * Asserts that parsing has completed and that
+     * type dereferencing is safe.
+     */
     public void assertDereferencingSafe() {
         if (!dereferencingSafe) {
             throw new IllegalStateException("Parsing is not completed, so dereferencing is not safe!");
         }
     }
+
     private void mapJse(boolean doMap, TypeName tn, Type t) {
         if (doMap) {
             mappedToJseTypes.put(tn, t);
@@ -90,6 +113,13 @@ public class Types {
         }
     }
 
+    /**
+     * Get a type from a type name.
+     *
+     * @param tn the type name to get
+     * @return the associated type
+     * @throws IllegalArgumentException if there is no type associated with the given type name
+     */
     public Type get(TypeName tn) {
         Type t = find(tn);
         if (t == null) {
@@ -125,6 +155,15 @@ public class Types {
         return null;
     }
 
+    /**
+     * Get active DTOs.
+     *
+     * Returns list of DTO types that have not been mapped
+     * to other types.
+     * That is, DTOs that should be rendered.
+     *
+     * @return the list of DTOs to render.
+     */
     public Set<Dto> getActiveDtos() {
         return parsedDtos.entrySet().stream()
                 .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
@@ -133,10 +172,24 @@ public class Types {
                 .collect(toSet());
     }
 
+    /**
+     * Registers a new DTO.
+     *
+     * @param dto the DTO to register.
+     */
     public void addDto(Dto dto) {
         parsedDtos.put(dto.openapiId(), dto);
     }
 
+    /**
+     * Finds a DTO from a name.
+     *
+     * Returns a reference to the type, as the type may
+     * not yet have been parsed.
+     *
+     * @param name the name of the DTO to find
+     * @return a reference to the type
+     */
     public TypeRef findDto(String name) {
         return TypeRef.of(TypeNames.of(name), this);
     }

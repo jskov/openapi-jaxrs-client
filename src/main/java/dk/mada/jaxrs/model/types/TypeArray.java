@@ -10,12 +10,23 @@ import org.immutables.value.Value.Immutable;
 import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
+/**
+ * Type representing an array schema.
+ */
 @Immutable
 public interface TypeArray extends TypeContainer {
+    /**
+     * Creates a type for an array (list).
+     *
+     * @param types the types instance
+     * @param innerType the type contained in the array
+     * @return an array type
+     */
     static TypeArray of(Types types, Type innerType) {
         return ImmutableTypeArray.builder().types(types).innerType(innerType).build();
     }
 
+    /** {@return the types instance} */
     Types types();
 
     @Override

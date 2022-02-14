@@ -11,6 +11,7 @@ import dk.mada.jaxrs.naming.Identifiers;
  * Tests conversion of strings into valid identifiers.
  */
 class ValidIdentifiersTest {
+    /** System under test. */
     private Identifiers sut = new Identifiers();
 
     @ParameterizedTest

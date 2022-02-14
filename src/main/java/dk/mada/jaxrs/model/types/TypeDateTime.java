@@ -7,19 +7,29 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Special type for handing date-time schema.
+ *
+ * TODO: opts should be a constructor input
  */
-public class TypeDateTime implements Type {
+public final class TypeDateTime implements Type {
+    /** The single instance of the OffsetDateTime object. */
     private static final TypeDateTime INSTANCE_OFFSET = new TypeDateTime("OffsetDateTime", "java.time.OffsetDateTime");
+    /** The single instance of the ZonedDateTime object. */
     private static final TypeDateTime INSTANCE_ZONED = new TypeDateTime("ZonedDateTime", "java.time.ZonedDateTime");
 
+    /** The type name. */
     private final TypeName typeName;
+    /** The imports needed for this type. */
     private final Set<String> neededImports;
 
-    public TypeDateTime(String typeName, String importName) {
+    private TypeDateTime(String typeName, String importName) {
         this.typeName = TypeNames.of(typeName);
         this.neededImports = Set.of(importName);
     }
 
+    /**
+     * {@return the type object representing a date-time}
+     * @param opts the generator options
+     */
     public static TypeDateTime get(GeneratorOpts opts) {
         return opts.isUseZonedDateTime() ? INSTANCE_ZONED : INSTANCE_OFFSET;
     }
