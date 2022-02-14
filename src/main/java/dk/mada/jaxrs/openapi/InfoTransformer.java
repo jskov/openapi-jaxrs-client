@@ -7,7 +7,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 /**
  * Transforms OpenApi info to local model objects.
  */
-public class InfoTransformer {
+public final class InfoTransformer {
     public Info transform(OpenAPI specification) {
         io.swagger.v3.oas.models.info.Info info = specification.getInfo();
 

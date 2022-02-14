@@ -26,10 +26,12 @@ import dk.mada.jaxrs.model.types.Type;
  *
  * If this fails, falls back to numbering of conflicting names.
  */
-public class EnumNamer {
+public final class EnumNamer {
     private static final Logger logger = LoggerFactory.getLogger(EnumNamer.class);
 
+    /** Naming. */
     private final Naming naming;
+    /** Enumeration value type. */
     private final Type enumValueType;
     private final Map<String, AtomicInteger> nameNumbering = new HashMap<>();
     private final List<EnumNameValue> nameToValues = new ArrayList<>();
@@ -73,11 +75,11 @@ public class EnumNamer {
                 // conflict
                 // first try if case sensitive variant works
                 long uniquelyNamed = cfn.stream()
-                        .map(n -> caseSensitiveNamer(n, defaultName))
+                        .map(n -> caseSensitiveNamer(defaultName, n))
                         .distinct()
                         .collect(counting());
                 if (uniquelyNamed == cfn.size()) {
-                    name = caseSensitiveNamer(v, defaultName);
+                    name = caseSensitiveNamer(defaultName, v);
                 } else {
                     // if not, fall back to numbering
                     name = numberingNamer(defaultName);
@@ -110,16 +112,32 @@ public class EnumNamer {
     /**
      * Provides a case sensitive renaming.
      *
+     * May provide the reader of the type with better clues than
+     * just abstract numbering.
+     *
+     * Appends the (case-sensitive) original name as a suffix
+     * to the (case in-sensitive) prefix.
+     *
      * Still has to map non-chars to _, so may still result in conflicts.
+     *
+     * @param prefix the (case in-sensitive) prefix
+     * @param suffix the suffix to append
+     * @return the combined name
      */
-    private String caseSensitiveNamer(String v, String defaultName) {
-        String simplified = v.replaceAll("[^a-zA-Z0-9]", "_");
+    private String caseSensitiveNamer(String prefix, String suffix) {
+        String simplified = suffix.replaceAll("[^a-zA-Z0-9]", "_");
 
-        return defaultName + "_" + simplified;
+        return prefix + "_" + simplified;
     }
 
     /**
      * Assign numbers to conflicting names.
+     *
+     * Simply (and very abstractly) adds a counter to resolve
+     * name conflicts.
+     *
+     * @param defaultName the default name
+     * @return the name assigned
      */
     private String numberingNamer(String defaultName) {
         nameNumbering.computeIfAbsent(defaultName, n -> new AtomicInteger(0));

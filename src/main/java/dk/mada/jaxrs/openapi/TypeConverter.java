@@ -37,7 +37,7 @@ import io.swagger.v3.oas.models.media.StringSchema;
 /**
  * Converts a specification schema to an internal model type.
  */
-public class TypeConverter {
+public final class TypeConverter {
     private static final Logger logger = LoggerFactory.getLogger(TypeConverter.class);
     /** Component schema prefix. */
     private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
@@ -79,6 +79,13 @@ public class TypeConverter {
         return toType(schema, null);
     }
 
+    /**
+     * Converts a OpenApi schema to an internal model type.
+     *
+     * @param schema the OpenApi schema to convert
+     * @param propertyName name of the property the type is associated with, or null
+     * @return the found/created internal model type
+     */
     public Type toType(Schema<?> schema, String propertyName) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();

@@ -9,7 +9,12 @@ import java.io.OutputStream;
  * Copies bytes from one stream to another as a thread.
  */
 class ByteDumper implements Runnable {
+    /** The size of the copy buffer. */
+    private static final int BUFFER_SIZE = 8192;
+
+    /** The source stream. */
     private final InputStream in;
+    /** The destination stream. */
     private final OutputStream out;
 
     ByteDumper(InputStream in, OutputStream out) {
@@ -19,7 +24,7 @@ class ByteDumper implements Runnable {
 
     @Override
     public void run() {
-        byte[] buf = new byte[8192];
+        byte[] buf = new byte[BUFFER_SIZE];
         try {
             int next;
             while ((next = in.read(buf)) != -1) {

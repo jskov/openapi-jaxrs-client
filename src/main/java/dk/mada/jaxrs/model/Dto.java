@@ -27,7 +27,9 @@ public interface Dto extends Type {
     Type dtoType();
 
     @Override
-    default boolean isDto() { return true; }
+    default boolean isDto() {
+        return true;
+    }
 
     @Override
     default TypeName typeName() {

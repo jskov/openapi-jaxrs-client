@@ -9,13 +9,24 @@ import javax.lang.model.SourceVersion;
  *
  * A dash causes the following char to be upper-cased (foo-bar becomes fooBar).
  */
+public final class Identifiers {
 
-public class Identifiers {
-
+    /**
+     * Make a valid variable name for java (initial character is lower-case).
+     *
+     * @param input the name
+     * @return a valid variable name
+     */
     public String makeValidVariableName(String input) {
         return makeValid(input, true);
     }
 
+    /**
+     * Make a valid type name for java (initial character is upper-case).
+     *
+     * @param input the name
+     * @return a valid type name
+     */
     public String makeValidTypeName(String input) {
         return makeValid(input, false);
     }

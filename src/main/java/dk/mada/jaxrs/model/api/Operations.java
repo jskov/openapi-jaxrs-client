@@ -40,6 +40,8 @@ public final class Operations {
      * First find shortest path, use that as base.
      * Look if it prefixes all paths. If so, longest common path found.
      * If not, trim the last section of and loop around.
+     *
+     * @param operations the operations to look at paths for
      */
     public String findCommonPath(List<Operation> operations) {
         if (operations.isEmpty()) {

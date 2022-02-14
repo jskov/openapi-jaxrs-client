@@ -5,9 +5,15 @@ import java.util.Properties;
 /**
  * parser-* configuration options.
  */
-public class ParserOpts {
+public final class ParserOpts {
+    /** User options. */
     private final Properties options;
 
+    /**
+     * Constructs a new instance.
+     *
+     * @param options the user provided options
+     */
     public ParserOpts(Properties options) {
         this.options = options;
     }
