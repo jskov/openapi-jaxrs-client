@@ -14,51 +14,55 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.assertj.core.presentation.StandardRepresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OutputDiff {
+/**
+ * Compares output file tree from a test with an expected
+ * file tree.
+ */
+public final class OutputDiff {
     private static final Logger logger = LoggerFactory.getLogger(OutputDiff.class);
-    protected static final Set<String> IGNORED_FILENAMES = new HashSet<>();
 
+    /** Name of test. */
     private final String testName;
 
-    protected boolean skipDirs = false;
-    protected Set<String> onlyFilePaths = new HashSet<>();
-    protected String diffOpts = "-u";
+    /** Options to give to the diff command. */
+    private final String diffOpts = "-u";
 
-    protected String runFromDir = ".";
-
+    /**
+     * Constructs new instance compare output from a test.
+     *
+     * @param testName the name of the test
+     */
     public OutputDiff(String testName) {
         this.testName = testName;
     }
 
+    /**
+     * Compare the generated output directory tree with the expected
+     * directory tree.
+     *
+     * @param generated the generated directory tree
+     * @param expected the expected directory tree
+     */
     public void compareDirs(Path generated, Path expected) {
         String actualTree = makeDirTree(generated);
         String expectedTree = makeDirTree(expected);
 
-        if (!skipDirs) {
-            assertThat(actualTree)
-                .isEqualTo(expectedTree);
-        }
+        assertThat(actualTree)
+            .isEqualTo(expectedTree);
 
         getTreeFiles(expected).stream()
             .map(expected::relativize)
-            .forEach(f -> compareExpectedAndActualFile(testName, expected, generated, f));
+            .forEach(f -> compareExpectedAndActualFile(expected, generated, f));
     }
 
-    private void compareExpectedAndActualFile(String testName, Path expectedDir, Path actualDir, Path a) {
+    private void compareExpectedAndActualFile(Path expectedDir, Path actualDir, Path a) {
         logger.debug("Look at {} {} {}", expectedDir, actualDir, a);
-
-        if (!onlyFilePaths.isEmpty() && !onlyFilePaths.contains(a.toString())) {
-            logger.debug(" - skipped");
-            return;
-        }
 
         Path expected = expectedDir.resolve(a);
         Path actual = actualDir.resolve(a);
@@ -139,18 +143,12 @@ public class OutputDiff {
 
                 @Override
                 public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                    if (skipFile(dir)) {
-                        return FileVisitResult.SKIP_SUBTREE;
-                    } else {
-                        return FileVisitResult.CONTINUE;
-                    }
+                    return FileVisitResult.CONTINUE;
                 }
 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    if (!skipFile(file)) {
-                        treeFiles.add(file);
-                    }
+                    treeFiles.add(file);
                     return FileVisitResult.CONTINUE;
                 }
 
@@ -170,9 +168,5 @@ public class OutputDiff {
 
         Collections.sort(treeFiles);
         return treeFiles;
-    }
-
-    private boolean skipFile(Path p) {
-        return IGNORED_FILENAMES.contains(p.getFileName().toString());
     }
 }
