@@ -4,6 +4,9 @@ import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
+/**
+ * Extended template data for an API operation.
+ */
 @Immutable
 public interface CtxApiOpExt {
     /** {@return a builder for this type} */

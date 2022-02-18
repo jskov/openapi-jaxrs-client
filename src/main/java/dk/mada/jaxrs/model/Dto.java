@@ -36,7 +36,7 @@ public interface Dto extends Type {
         return TypeNames.of(name());
     }
 
-    /** @{return the name the DTO was identified by in the schema} */
+    /** {@return the name the DTO was identified by in the schema} */
     TypeName openapiId();
 
     /** {@return the properties on the DTO} */
@@ -47,6 +47,7 @@ public interface Dto extends Type {
     List<String> enumValues();
 
     /** {@return true if this is an enumeration, otherwise false} */
+    @Override
     default boolean isEnum() {
         return enumValues() != null;
     }
