@@ -2,9 +2,13 @@ package dk.mada.jaxrs;
 
 import static java.util.stream.Collectors.joining;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -21,6 +25,7 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Help.Visibility;
 import picocli.CommandLine.IDefaultValueProvider;
+import picocli.CommandLine.IVersionProvider;
 import picocli.CommandLine.Model.ArgSpec;
 import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Model.OptionSpec;
@@ -34,7 +39,7 @@ import picocli.CommandLine.Spec;
     name = "ojc",
     header = "",
     mixinStandardHelpOptions = true,
-    version = "0",
+    versionProvider = Main.Version.class,
     defaultValueProvider = Main.DefaultValues.class,
     description = "Generates API resource (interfaces) and DTO model (classes) from an OpenApi document."
             + " The output is suitable for use with a Micro Profile REST client."
@@ -100,6 +105,23 @@ public final class Main implements Callable<Integer> {
     private String dtoPackage;
 
     private Main() {
+    }
+
+    static class Version implements IVersionProvider {
+        @Override
+        public String[] getVersion() throws Exception {
+            try (InputStream is = Main.class.getResourceAsStream("/openapi-jaxrs-client-version.properties");
+                 InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+                 BufferedReader br = new BufferedReader(isr)) {
+
+                Properties resourceProps = new Properties();
+                resourceProps.load(br);
+
+                String version = "Version: " + resourceProps.getProperty("version");
+                String builtOn = "Built on: " + resourceProps.getProperty("builtOn");
+                return new String[] {version, builtOn };
+            }
+        }
     }
 
     /**

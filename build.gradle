@@ -4,12 +4,21 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'eclipse'
     id 'jacoco'
-    id 'java'
-    id "org.sonarqube" version "3.3"
+    id 'java-library'
+    id 'org.sonarqube' version '3.3'
+    id 'maven-publish'
 }
 
+
 group 'dk.mada'
-version '1.0.0-SNAPSHOT'
+version '0.0.0'
+
+ext {
+    distDir = file("build/dist").getAbsolutePath()
+    builtOn = LocalDateTime.now()
+                .atZone(ZoneId.of('Europe/Copenhagen'))
+                .withNano(0)
+}
 
 repositories {
     mavenCentral()
@@ -51,7 +60,7 @@ dependencies {
 
 shadowJar {
    archiveBaseName.set('ojc')
-   archiveClassifier.set('')
+   archiveClassifier.set('cli')
    archiveVersion.set('')
 }
 
@@ -62,6 +71,9 @@ application {
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+    
+    withJavadocJar()
+    withSourcesJar()
 }
 
 compileJava {
@@ -71,6 +83,18 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
+}
+
+processResources {
+    inputs.property("version", project.version)
+    inputs.property("builtOn", builtOn)
+
+    filesMatching("**/openapi-jaxrs-client-version.properties") {
+        filter(s -> s
+            .replaceAll("version.*", "version = ${project.version}")
+            .replaceAll("builtOn.*", "builtOn = ${builtOn}")
+        )
+    }
 }
 
 test {
@@ -87,17 +111,6 @@ jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
 }
 
-tasks.eclipse.doLast {
-    String valueJarPath = configurations.apt.getSingleFile().getAbsolutePath()
-	
-    File factoryPath = file(".factorypath")
-    factoryPath.delete()
-    factoryPath << """<factorypath>
-  <factorypathentry kind="EXTJAR" id="${valueJarPath}" enabled="true" runInBatchMode="false"/>
-</factorypath>
-"""
-}
-
 checkstyle {
     ignoreFailures = true
 }
@@ -112,4 +125,53 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml"
     }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "dist"
+            url "file://${distDir}"
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'OpenAPI JAXRS client'
+                description = 'A JAXRS client generator'
+                url = 'https://github.com/jskov/openapi-jaxrs-client'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'jskov'
+                        name = 'Jesper Skov'
+                        email = 'jskov@mada.dk'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/jskov/openapi-jaxrs-client.git'
+                    developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
+                    url = 'https://github.com/jskov/openapi-jaxrs-client/'
+                }
+            }
+        }
+    }
+}
+
+tasks.eclipse.doLast {
+    String valueJarPath = configurations.apt.getSingleFile().getAbsolutePath()
+    
+    File factoryPath = file(".factorypath")
+    factoryPath.delete()
+    factoryPath << """<factorypath>
+  <factorypathentry kind="EXTJAR" id="${valueJarPath}" enabled="true" runInBatchMode="false"/>
+</factorypath>
+"""
 }
