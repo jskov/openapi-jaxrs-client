@@ -57,12 +57,6 @@ The code generation is configured via property settings.
 >
     default value: false
 
-**generator-jsonb**
-
->Use jsonb annotations in generated classes.
->
-    default value: false
-
 **generator-jackson-json-serialize-options**
 
 >Allows you to add (jackson) json serialize options to the DTOs.
@@ -70,6 +64,24 @@ The code generation is configured via property settings.
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/jackson)
 >
     default value:
+
+**generator-jackson-localdate-deserializer**
+
+>Allows you specify a custom LocalDate deserializer class (use a fully qualified class name).
+
+>The default value will also cause generation of a generic LocalDate deserializer that uses `generator-jackson-localdate-wire-format`.
+
+>
+    default value: _LocalDateJacksonDeserializer
+
+**generator-jackson-localdate-serializer**
+
+>Allows you specify a custom LocalDate serializer class (use a fully qualified class name).
+
+>The default value will also cause generation of a generic LocalDate serializer that uses `generator-jackson-localdate-wire-format`.
+
+>
+    default value: _LocalDateJacksonSerializer
 
 **generator-jackson-localdate-wire-format**
 
@@ -80,6 +92,12 @@ The code generation is configured via property settings.
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/localdate)
 >
     default value: ISO_LOCAL_DATE
+
+**generator-jsonb**
+
+>Use jsonb annotations in generated classes.
+>
+    default value: false
 
 **generator-use-api-wrapped-primitives**
 

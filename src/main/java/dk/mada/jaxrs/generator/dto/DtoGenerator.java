@@ -153,11 +153,15 @@ public class DtoGenerator {
         if (opts.isUseJacksonLocalDateSerializer()
                 && (dtoType.isDate()
                         || dto.properties().stream().anyMatch(p -> p.type().isDate()))) {
-            extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER);
-            extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER);
+            if (opts.isAddJacksonLocalDateDeserializerTemplate()) {
+                extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER);
+            }
+            customLocalDateDeserializer = opts.getJacksonLocalDateDeserializer();
 
-            customLocalDateDeserializer = ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname();
-            customLocalDateSerializer = ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname();
+            if (opts.isAddJacksonLocalDateSerializerTemplate()) {
+                extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER);
+            }
+            customLocalDateSerializer = opts.getJacksonLocalDateSerializer();
 
             dtoImports.jackson("JsonDeserialize", "JsonSerialize");
         }

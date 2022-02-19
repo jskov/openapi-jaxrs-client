@@ -236,7 +236,7 @@ public class ApiTransformer {
         return Parameter.builder()
                 .name(param.getName())
                 .description(param.getDescription())
-                .isRequired(param.getRequired())
+                .isRequired(toBool(param.getRequired()))
                 .type(typeConverter.toType(param.getSchema()))
                 .isHeaderParam(isHeaderParam)
                 .isPathParam(isPathParam)

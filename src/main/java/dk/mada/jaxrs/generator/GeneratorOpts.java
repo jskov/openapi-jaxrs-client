@@ -161,6 +161,32 @@ public final class GeneratorOpts {
         return getDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
     }
 
+    /** {@return the jackson LocalDate deserializer class name, or null} */
+    public String getJacksonLocalDateDeserializer() {
+        if (!isUseJacksonLocalDateSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-localdate-deserializer", ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname());
+    }
+
+    /** {@return the jackson LocalDate serializer class name, or null} */
+    public String getJacksonLocalDateSerializer() {
+        if (!isUseJacksonLocalDateSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-localdate-serializer", ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
+    }
+
+    /** {@return true if the extra-template for a jackson LocalDate deserializer should be added, otherwise false} */
+    public boolean isAddJacksonLocalDateDeserializerTemplate() {
+        return ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname().equals(getJacksonLocalDateDeserializer());
+    }
+
+    /** {@return true if the extra-template for a jackson LocalDate serializer should be added, otherwise false} */
+    public boolean isAddJacksonLocalDateSerializerTemplate() {
+        return ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateSerializer());
+    }
+
     /** {@return true if bean validation should be used, otherwise fasle} */
     public boolean isUseBeanValidation() {
         return bool("generator-use-bean-validation", true);
