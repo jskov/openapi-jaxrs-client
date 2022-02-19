@@ -6,7 +6,6 @@
 
 package mada.tests.e2e.dto.collections.set.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,6 +13,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * SetsDto

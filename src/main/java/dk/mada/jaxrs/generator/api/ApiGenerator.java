@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Imports;
+import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi.CtxOperationRef;
@@ -171,15 +172,17 @@ public class ApiGenerator {
         boolean renderJavadocReturn = type != TypeVoid.get();
         boolean renderJavadocMacroSpacer = renderJavadocReturn || !allParams.isEmpty();
 
+        String summary = op.summary();
+
         CtxApiOpExt ext = CtxApiOpExt.builder()
                 .consumes(makeConsumes(imports, op))
                 .produces(makeProduces(imports, op))
                 .renderJavadocMacroSpacer(renderJavadocMacroSpacer)
                 .renderJavadocReturn(renderJavadocReturn)
                 .responseSchema(onlySimpleResponse)
+                .summaryString(StringRenderer.encodeForString(summary))
                 .build();
 
-        String summary = getValidSummary(op);
         String description = op.description();
 
         return new CtxOperationRef(CtxApiOp.builder()
@@ -189,27 +192,10 @@ public class ApiGenerator {
                 .httpMethod(op.httpMethod().name())
                 .allParams(allParams)
                 .responses(responses)
-                .summary(summary)
+                .summary(StringRenderer.makeValidJavadocSummary(summary))
                 .notes(description)
                 .madaOp(ext)
                 .build());
-    }
-
-    /**
-     * Get summary if present, and make sure it is valid.
-     *
-     * @param op the operation to get the summary from
-     * @return a valid summary or null
-     */
-    private String getValidSummary(Operation op) {
-        String summary = op.summary();
-        if (summary != null
-                && !(summary.contains(".")
-                        || summary.contains("!")
-                        || summary.contains("?"))) {
-            summary = summary + ".";
-        }
-        return summary;
     }
 
     private Optional<Type> getTypeForStatus(Operation op, StatusCode statusCode) {
@@ -256,6 +242,10 @@ public class ApiGenerator {
         op.responses().stream()
             .map(r -> r.content().type())
             .forEach(imports::add);
+
+        if (op.description() != null) {
+            imports.add("org.eclipse.microprofile.openapi.annotations.Operation");
+        }
     }
 
     /**

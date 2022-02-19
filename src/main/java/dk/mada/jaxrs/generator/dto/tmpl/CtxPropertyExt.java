@@ -38,4 +38,11 @@ public interface CtxPropertyExt {
 
     /** {@return true if the property must be valid, otherwise false} */
     boolean valid();
+
+    /** {@return the summary as a java string, or null} */
+    @Nullable
+    String descriptionString();
+
+    /** {@return true if a spacer is needed before javadoc macros} */
+    boolean renderJavadocMacroSpacer();
 }

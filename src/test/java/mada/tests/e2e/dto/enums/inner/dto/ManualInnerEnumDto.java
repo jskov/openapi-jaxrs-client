@@ -13,6 +13,7 @@ import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.annotation.JsonbTypeAdapter;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * ManualInnerEnumDto
@@ -68,6 +69,7 @@ public class ManualInnerEnumDto   {
   public static final String JSON_PROPERTY_STRING_TYPE = "stringType";
   @JsonbProperty(JSON_PROPERTY_STRING_TYPE)
   @JsonbTypeAdapter(mada.tests.e2e.dto.enums.inner.dto.ManualInnerEnumDto.StringTypeEnum.StringTypeEnumAdapter.class)
+  @Schema(description = "This selects transport form.\nEMAIL = this is an email\nSMS : this is an SMS")
   private StringTypeEnum stringType;
 
   public enum NumberTypeEnum {
@@ -135,7 +137,10 @@ public class ManualInnerEnumDto   {
   }
 
   /**
-   * Get stringType
+   * This selects transport form.
+   * EMAIL &#x3D; this is an email
+   * SMS : this is an SMS
+   *
    * @return stringType
    **/
   public StringTypeEnum getStringType() {

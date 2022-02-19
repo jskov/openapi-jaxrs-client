@@ -44,6 +44,23 @@ paths:
               schema:
                 type: string
       deprecated: true
+  /api/docs/multi-line:
+    get:
+      tags:
+      - Api Docs
+      summary: |-
+        Javadoc start.
+        But multiple
+        lines of text.
+
+        Last line.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
   /api/docs/params/{in-path}:
     get:
       tags:

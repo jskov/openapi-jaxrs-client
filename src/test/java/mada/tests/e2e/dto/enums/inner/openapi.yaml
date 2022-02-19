@@ -24,6 +24,10 @@ components:
           type: string
         stringType:
           type: string
+          description: |-
+            This selects transport form.
+            EMAIL = this is an email
+            SMS : this is an SMS
           enum:
           - EMAIL
           - SMS

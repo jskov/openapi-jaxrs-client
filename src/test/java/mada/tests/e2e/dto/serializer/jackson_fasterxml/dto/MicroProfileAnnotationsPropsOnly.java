@@ -10,8 +10,8 @@ package mada.tests.e2e.dto.serializer.jackson_fasterxml.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * MicroProfileAnnotationsPropsOnly
@@ -32,7 +32,8 @@ public class MicroProfileAnnotationsPropsOnly   {
   }
 
   /**
-   * property description
+   * property description.
+   *
    * @return withDescription
    **/
   public String getWithDescription() {

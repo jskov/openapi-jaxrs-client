@@ -1,7 +1,9 @@
 /**
  * {{description}}{{^description}}{{classname}}{{/description}}
- */{{#description}}
-@ApiModel(description = "{{{.}}}"){{/description}}
+ */
+{{#description}}
+@Schema(description = "{{{.}}}")
+{{/description}}
 {{#jackson}}
 @JsonPropertyOrder({
 {{#vars}}
@@ -133,6 +135,9 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   {{#maximum}}
    * maximum: {{.}}
   {{/maximum}}
+{{#madaProp.renderJavadocMacroSpacer}}
+   *
+{{/madaProp.renderJavadocMacroSpacer}}
    * @return {{name}}
    **/
  {{#vendorExtensions.x-extra-annotation}}

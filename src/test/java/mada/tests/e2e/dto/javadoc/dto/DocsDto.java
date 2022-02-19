@@ -1,0 +1,106 @@
+/*
+ * openapi API Title
+ * openapi API description
+ *
+ * The version of the OpenAPI document: openapi API Version
+ * Contact: openapi API contact email
+ */
+
+package mada.tests.e2e.dto.javadoc.dto;
+
+import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
+/**
+ * Class description
+ */
+@Schema(description = "Class description")
+@JsonbPropertyOrder({
+  DocsDto.JSON_PROPERTY_PROPERTY,
+  DocsDto.JSON_PROPERTY_DANISH_PROPERTY
+})
+@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+public class DocsDto   {
+  public static final String JSON_PROPERTY_PROPERTY = "property";
+  @JsonbProperty(JSON_PROPERTY_PROPERTY)
+  @Schema(description = "Property description.\nProperty description line 2\n\nLast line.")
+  private String property;
+
+  public static final String JSON_PROPERTY_DANISH_PROPERTY = "danishProperty";
+  @JsonbProperty(JSON_PROPERTY_DANISH_PROPERTY)
+  @Schema(description = "Danish characters æøåÆØÅ dóh!")
+  private String danishProperty;
+
+  public DocsDto property(String property) {
+    this.property = property;
+    return this;
+  }
+
+  /**
+   * Property description.
+   * Property description line 2
+   *
+   * Last line.
+   *
+   * @return property
+   **/
+  public String getProperty() {
+    return property;
+  }
+
+  public void setProperty(String property) {
+    this.property = property;
+  }
+
+  public DocsDto danishProperty(String danishProperty) {
+    this.danishProperty = danishProperty;
+    return this;
+  }
+
+  /**
+   * Danish characters æøåÆØÅ dóh!
+   *
+   * @return danishProperty
+   **/
+  public String getDanishProperty() {
+    return danishProperty;
+  }
+
+  public void setDanishProperty(String danishProperty) {
+    this.danishProperty = danishProperty;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DocsDto other = (DocsDto) o;
+    return Objects.equals(this.property, other.property) &&
+        Objects.equals(this.danishProperty, other.danishProperty);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(property, danishProperty);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DocsDto {");
+    sb.append("\n    property: ").append(toIndentedString(property));
+    sb.append("\n    danishProperty: ").append(toIndentedString(danishProperty));
+    sb.append("\n}");
+    return sb.toString();
+  }
+
+  private String toIndentedString(Object o) {
+    return Objects.toString(o).replace("\n", "\n    ");
+  }
+}

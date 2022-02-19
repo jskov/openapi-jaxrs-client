@@ -89,6 +89,7 @@ public class DtoTransformer {
 
             Dto dto = Dto.builder()
                     .name(modelName)
+                    .description(schema.getDescription())
                     .dtoType(dtoType)
                     .properties(props)
                     .openapiId(TypeNames.of(schemaName))

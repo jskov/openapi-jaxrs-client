@@ -254,6 +254,15 @@ public final class Imports {
         return this;
     }
 
+    /**
+     * Adds import for Schema.
+     *
+     * @return the imports instance
+     */
+    public Imports addSchema() {
+        return add("org.eclipse.microprofile.openapi.annotations.media.Schema");
+    }
+
     private void addDtoImport(Type type) {
         if (includeDtoImports && type.isDto()) {
             String name = type.typeName().name();

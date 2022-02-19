@@ -8,10 +8,10 @@
 
 package mada.tests.e2e.dto.serializer.jackson_codehaus.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * MicroProfileAnnotationsPropsOnly
@@ -32,7 +32,8 @@ public class MicroProfileAnnotationsPropsOnly   {
   }
 
   /**
-   * property description
+   * property description.
+   *
    * @return withDescription
    **/
   public String getWithDescription() {

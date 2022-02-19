@@ -40,4 +40,8 @@ public interface CtxApiOpExt {
      * @return true if the shorter ApiResponseSchema annotation should be used
      */
     boolean responseSchema();
+
+    /** {@return the summary as a java string, or null} */
+    @Nullable
+    String summaryString();
 }

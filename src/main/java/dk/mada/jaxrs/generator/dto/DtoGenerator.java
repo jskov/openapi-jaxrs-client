@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.generator.ExtraTemplate;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Imports;
+import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
@@ -181,6 +182,11 @@ public class DtoGenerator {
             dtoImports.jackson("JsonDeserialize", "JsonSerialize");
         }
 
+        String description = dto.description();
+        if (description != null) {
+            dtoImports.addSchema();
+        }
+
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
                 .jsonb(opts.isJsonb())
@@ -198,6 +204,7 @@ public class DtoGenerator {
 
                 .imports(dtoImports.get())
 
+                .description(description)
                 .packageName(opts.dtoPackage())
                 .classname(dto.name())
                 .classVarName("other")
@@ -305,6 +312,8 @@ public class DtoGenerator {
             dtoImports.add("java.math.BigDecimal");
         }
 
+        String description = p.description();
+
         boolean isUseEmptyCollections =
                 opts.isUseEmptyCollections()
                 && isContainer
@@ -321,19 +330,18 @@ public class DtoGenerator {
             schemaEntries.add("nullable = true");
         }
         if (p.isReadonly()) {
-            schemaEntries.add("accessMode = AccessMode.READ_ONLY");
-            dtoImports.add("io.swagger.v3.oas.annotations.media.Schema.AccessMode");
+            schemaEntries.add("readOnly = true");
         }
-        if (isNotBlank(p.description())) {
-            schemaEntries.add("description = \"" + p.description() + "\"");
+        if (isNotBlank(description)) {
+            schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
         }
         if (isNotBlank(p.example())) {
-            schemaEntries.add("example = \"" + p.example() + "\"");
+            schemaEntries.add("example = \"" + StringRenderer.encodeForString(p.example()) + "\"");
         }
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
             schemaOptions = String.join(", ", schemaEntries);
-            dtoImports.add("io.swagger.v3.oas.annotations.media.Schema");
+            dtoImports.addSchema();
         }
 
         boolean useBeanValidation = opts.isUseBeanValidation();
@@ -387,6 +395,7 @@ public class DtoGenerator {
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
                 .valid(valid)
+                .renderJavadocMacroSpacer(description != null)
                 .build();
 
         return CtxProperty.builder()
@@ -398,7 +407,7 @@ public class DtoGenerator {
                 .nameInSnakeCase(nameSnaked)
                 .getter(getter)
                 .setter(setter)
-                .description(p.description())
+                .description(StringRenderer.makeValidJavadocSummary(description))
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isMap(isMap)

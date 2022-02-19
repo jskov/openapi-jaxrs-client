@@ -8,16 +8,16 @@
 
 package mada.tests.e2e.dto.serializer.jackson_codehaus.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * MicroprofileAnnotations
+ * openapi class description
  */
+@Schema(description = "openapi class description")
 @JsonPropertyOrder({
   MicroprofileAnnotations.JSON_PROPERTY_WITH_DESCRIPTION,
   MicroprofileAnnotations.JSON_PROPERTY_WITH_EXAMPLE,
@@ -68,12 +68,12 @@ public class MicroprofileAnnotations   {
 
   public static final String JSON_PROPERTY_IS_READONLY = "isReadonly";
   @JsonProperty(JSON_PROPERTY_IS_READONLY)
-  @Schema(accessMode = AccessMode.READ_ONLY)
+  @Schema(readOnly = true)
   private String isReadonly;
 
   public static final String JSON_PROPERTY_READONLY_REQUIRED_AND_DESCRIPTION_AND_EXAMPLE = "readonlyRequiredAndDescriptionAndExample";
   @JsonProperty(JSON_PROPERTY_READONLY_REQUIRED_AND_DESCRIPTION_AND_EXAMPLE)
-  @Schema(required = true, accessMode = AccessMode.READ_ONLY, description = "text_description", example = "text_example")
+  @Schema(required = true, readOnly = true, description = "text_description", example = "text_example")
   private String readonlyRequiredAndDescriptionAndExample;
 
   public MicroprofileAnnotations withDescription(String withDescription) {
@@ -82,7 +82,8 @@ public class MicroprofileAnnotations   {
   }
 
   /**
-   * openapi property description
+   * openapi property description.
+   *
    * @return withDescription
    **/
   public String getWithDescription() {
@@ -134,7 +135,8 @@ public class MicroprofileAnnotations   {
   }
 
   /**
-   * text_description
+   * text_description.
+   *
    * @return requiredAndDescriptionAndExample
    **/
   @NotNull
@@ -170,7 +172,8 @@ public class MicroprofileAnnotations   {
   }
 
   /**
-   * text_description
+   * text_description.
+   *
    * @return requiredAndDescription
    **/
   @NotNull
@@ -188,7 +191,8 @@ public class MicroprofileAnnotations   {
   }
 
   /**
-   * text_description
+   * text_description.
+   *
    * @return descriptionAndExample
    **/
   public String getDescriptionAndExample() {
@@ -222,7 +226,8 @@ public class MicroprofileAnnotations   {
   }
 
   /**
-   * text_description
+   * text_description.
+   *
    * @return readonlyRequiredAndDescriptionAndExample
    **/
   @NotNull

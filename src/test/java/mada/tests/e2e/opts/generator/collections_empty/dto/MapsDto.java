@@ -6,7 +6,6 @@
 
 package mada.tests.e2e.opts.generator.collections_empty.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -14,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * MapsDto

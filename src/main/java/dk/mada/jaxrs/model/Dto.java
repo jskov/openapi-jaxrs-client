@@ -26,6 +26,10 @@ public interface Dto extends Type {
     /** {@return the type of the DTO object} */
     Type dtoType();
 
+    /** {@return the DTO description, or null} */
+    @Nullable
+    String description();
+
     @Override
     default boolean isDto() {
         return true;
