@@ -177,6 +177,14 @@ public final class GeneratorOpts {
         return getDefault("generator-jackson-localdate-serializer", ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
     }
 
+    /** {@return the jackson LocalDate serializer options, or null} */
+    public String getJacksonLocalDateSerializerOpts() {
+        if (!isUseJacksonLocalDateSerializer()) {
+            return null;
+        }
+        return get("generator-jackson-localdate-serializer-opts");
+    }
+
     /** {@return true if the extra-template for a jackson LocalDate deserializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateDeserializerTemplate() {
         return ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname().equals(getJacksonLocalDateDeserializer());

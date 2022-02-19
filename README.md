@@ -83,6 +83,13 @@ The code generation is configured via property settings.
 >
     default value: _LocalDateJacksonSerializer
 
+**generator-jackson-localdate-serializer-opts**
+
+> Allows you to add options to the LocalDate serializer annotation (similar to `generator-jackson-json-serialize-options`).
+
+>
+    default value: (unset)
+
 **generator-jackson-localdate-wire-format**
 
 >Allows you specify a LocalDate wire format that is used with a standard de/serializer.

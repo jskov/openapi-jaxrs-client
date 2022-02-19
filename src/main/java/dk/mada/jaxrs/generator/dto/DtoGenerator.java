@@ -150,6 +150,7 @@ public class DtoGenerator {
 
         String customLocalDateDeserializer = null;
         String customLocalDateSerializer = null;
+        String localDateSerializerOpts = null;
 
         if (opts.isUseJacksonLocalDateSerializer()
                 && (dtoType.isDate()
@@ -163,6 +164,8 @@ public class DtoGenerator {
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER);
             }
             customLocalDateSerializer = opts.getJacksonLocalDateSerializer();
+
+            localDateSerializerOpts = opts.getJacksonLocalDateSerializerOpts();
 
             dtoImports.jackson("JsonDeserialize", "JsonSerialize");
         }
@@ -194,6 +197,7 @@ public class DtoGenerator {
                 .customLocalDateSerializer(customLocalDateSerializer)
                 .customOffsetDateTimeDeserializer(customOffsetDateTimeDeserializer)
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
+                .localDateSerializerOpts(localDateSerializerOpts)
                 .build();
 
         return CtxDto.builder()

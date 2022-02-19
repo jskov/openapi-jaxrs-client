@@ -26,6 +26,10 @@ public interface CtxDtoExt {
     @Nullable
     String customLocalDateSerializer();
 
+    /** {@return additional options to use with the LocalDate serializer, or null} */
+    @Nullable
+    String localDateSerializerOpts();
+
     /** {@return the name of a custom OffsetDateDeserializer, or null} */
     @Nullable
     String customOffsetDateTimeDeserializer();

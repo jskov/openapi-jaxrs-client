@@ -45,7 +45,7 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   @JsonDeserialize(using = {{madaDto.customLocalDateDeserializer}}.class)
     {{/madaDto.customLocalDateDeserializer}}
     {{#madaDto.customLocalDateSerializer}}
-  @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class)
+  @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class{{#madaDto.localDateSerializerOpts}}, {{{madaDto.localDateSerializerOpts}}}{{/madaDto.localDateSerializerOpts}})
     {{/madaDto.customLocalDateSerializer}}
   {{/isDate}}
   {{#isDateTime}}

@@ -8,3 +8,4 @@ o Ignore-annotations on bigdecimal/empty_collection option, according to seriali
 o Avoid this. in getters + add
 o Responses @APIResponse are not handling Maps correctly. Need an example to work from.
 o Generator flag to select primitives/wrappers in API parameters
+o The enum deserializer may be getting strings always - currently assumes int for numbers
