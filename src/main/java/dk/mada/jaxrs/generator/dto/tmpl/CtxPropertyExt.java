@@ -14,15 +14,23 @@ public interface CtxPropertyExt {
     static ImmutableCtxPropertyExt.Builder builder() {
         return ImmutableCtxPropertyExt.builder();
     }
+
+    /** {@return the java inner type, or null} */
     @Nullable
     String innerDatatypeWithEnum();
 
+    /** {@return the schema options (for use in @Schema), or null} */
     @Nullable
     String schemaOptions();
+
+    /** {@return true to use BigDecimal, false to use Double} */
     boolean isUseBigDecimalForDouble();
+    /** {@return true to initialize collections, false to leave as null} */
     boolean isUseEmptyCollections();
 
+    /** {@return the getter name} **/
     String getter();
+    /** {@return the setter name} **/
     String setter();
 
     /** {@return true if rendering for jsonb, false otherwise} */
