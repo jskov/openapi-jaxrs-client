@@ -47,11 +47,11 @@ public final class Imports {
     private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
     public static final Set<String> LIST_TYPES = Set.of("java.util.List", "java.util.ArrayList");
     public static final Set<String> MAP_TYPES = Set.of("java.util.Map", "java.util.HashMap");
-    public static final Set<String> SET_TYPES = Set.of("java.util.Set", "java.util.HashSet");
+    public static final Set<String> SET_TYPES = Set.of("java.util.Set", "java.util.LinkedHashSet");
     private static final Set<String> CONTAINER_IMPLEMENTATION_TYPES = Set.of(
             "java.util.ArrayList",
             "java.util.HashMap",
-            "java.util.HashSet");
+            "java.util.LinkedHashSet");
 
     private static final Map<String, String> JACKSON_CODEHAUS = new HashMap<>();
     static {

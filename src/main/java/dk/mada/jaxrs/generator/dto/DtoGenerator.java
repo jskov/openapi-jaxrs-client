@@ -268,17 +268,17 @@ public class DtoGenerator {
         if (propType instanceof TypeArray ca) {
             isArray = true;
             innerType = ca.mappedInnerType().typeName().name();
-            defaultValue = "new ArrayList<>()";
+            defaultValue = "new " + ca.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeMap cm) {
             isMap = true;
             innerType = cm.innerType().typeName().name();
-            defaultValue = "new HashMap<>()";
+            defaultValue = "new " + cm.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeSet cs) {
             isSet = true;
             innerType = cs.innerType().typeName().name();
-            defaultValue = "new HashSet<>()";
+            defaultValue = "new " + cs.containerImplementation() + "<>()";
 
             // In templates, array is used for both set and list
             isArray = true;

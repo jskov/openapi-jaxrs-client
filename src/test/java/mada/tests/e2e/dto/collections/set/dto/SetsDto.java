@@ -6,7 +6,7 @@
 
 package mada.tests.e2e.dto.collections.set.dto;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.json.bind.annotation.JsonbProperty;
@@ -67,37 +67,37 @@ public class SetsDto   {
   public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
   @Schema(required = true)
-  private Set<Boolean> requiredBooleans = new HashSet<>();
+  private Set<Boolean> requiredBooleans = new LinkedHashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_BYTES)
   @Schema(required = true)
-  private Set<Byte> requiredBytes = new HashSet<>();
+  private Set<Byte> requiredBytes = new LinkedHashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
   @Schema(required = true)
-  private Set<Short> requiredShorts = new HashSet<>();
+  private Set<Short> requiredShorts = new LinkedHashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
   @Schema(required = true)
-  private Set<Integer> requiredInts = new HashSet<>();
+  private Set<Integer> requiredInts = new LinkedHashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_LONGS)
   @Schema(required = true)
-  private Set<Long> requiredLongs = new HashSet<>();
+  private Set<Long> requiredLongs = new LinkedHashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   @Schema(required = true)
-  private Set<String> requiredStrings = new HashSet<>();
+  private Set<String> requiredStrings = new LinkedHashSet<>();
 
   public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
   @Schema(required = true)
-  private Set<Simple> requiredRefs = new HashSet<>();
+  private Set<Simple> requiredRefs = new LinkedHashSet<>();
 
   public SetsDto booleans(Set<Boolean> booleans) {
     this.booleans = booleans;
@@ -106,7 +106,7 @@ public class SetsDto   {
 
   public SetsDto addBooleansItem(boolean booleansItem) {
     if (this.booleans == null) {
-      this.booleans = new HashSet<>();
+      this.booleans = new LinkedHashSet<>();
     }
     this.booleans.add(booleansItem);
     return this;
@@ -131,7 +131,7 @@ public class SetsDto   {
 
   public SetsDto addBytesItem(byte bytesItem) {
     if (this.bytes == null) {
-      this.bytes = new HashSet<>();
+      this.bytes = new LinkedHashSet<>();
     }
     this.bytes.add(bytesItem);
     return this;
@@ -156,7 +156,7 @@ public class SetsDto   {
 
   public SetsDto addShortsItem(short shortsItem) {
     if (this.shorts == null) {
-      this.shorts = new HashSet<>();
+      this.shorts = new LinkedHashSet<>();
     }
     this.shorts.add(shortsItem);
     return this;
@@ -181,7 +181,7 @@ public class SetsDto   {
 
   public SetsDto addIntsItem(int intsItem) {
     if (this.ints == null) {
-      this.ints = new HashSet<>();
+      this.ints = new LinkedHashSet<>();
     }
     this.ints.add(intsItem);
     return this;
@@ -206,7 +206,7 @@ public class SetsDto   {
 
   public SetsDto addLongsItem(long longsItem) {
     if (this.longs == null) {
-      this.longs = new HashSet<>();
+      this.longs = new LinkedHashSet<>();
     }
     this.longs.add(longsItem);
     return this;
@@ -231,7 +231,7 @@ public class SetsDto   {
 
   public SetsDto addStringsItem(String stringsItem) {
     if (this.strings == null) {
-      this.strings = new HashSet<>();
+      this.strings = new LinkedHashSet<>();
     }
     this.strings.add(stringsItem);
     return this;
@@ -256,7 +256,7 @@ public class SetsDto   {
 
   public SetsDto addRefsItem(Simple refsItem) {
     if (this.refs == null) {
-      this.refs = new HashSet<>();
+      this.refs = new LinkedHashSet<>();
     }
     this.refs.add(refsItem);
     return this;

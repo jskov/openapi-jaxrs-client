@@ -24,7 +24,7 @@ public interface TypeSet extends TypeContainer {
 
     @Override
     default String containerImplementation() {
-        return "HashSet";
+        return "LinkedHashSet";
     }
 
     @Override
