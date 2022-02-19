@@ -29,6 +29,11 @@ public class ManualInnerEnumDto   {
   @JsonbProperty(JSON_PROPERTY_RECEIVER)
   private String receiver;
 
+  /**
+   * This selects transport form.
+   * EMAIL &#x3D; this is an email
+   * SMS : this is an SMS
+   */
   public enum StringTypeEnum {
     EMAIL("EMAIL"),
     SMS("SMS");
