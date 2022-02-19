@@ -27,6 +27,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
  * Templates processor.
  */
 public class Templates {
+    /** Marker in templates to trigger space/newline trimming. */
     private static final String TRIM_MARKER = "@TRIM_EMPTY_LINE@";
 
     private static final Logger logger = LoggerFactory.getLogger(Templates.class);
@@ -101,12 +102,7 @@ public class Templates {
     private void renderTemplate(Template template, Object context, Path output) {
         try {
             String text = render(template, context);
-            // TODO: It must be possible to handle the spurious newlines/spaces simpler than this.
-            if (text.contains(TRIM_MARKER)) {
-                text = text.replaceAll(" *" + TRIM_MARKER, TRIM_MARKER);
-                text = text.replace(System.lineSeparator() + TRIM_MARKER, "");
-                text = text.replace(TRIM_MARKER, "");
-            }
+            text = text.replaceAll("(" + System.lineSeparator() + ")?" + " *" + TRIM_MARKER, "");
             Files.writeString(output, text);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to render template to " + output, e);
