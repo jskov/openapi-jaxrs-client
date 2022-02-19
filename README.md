@@ -90,6 +90,13 @@ The code generation is configured via property settings.
 >
     default value: false
 
+**generator-use-bean-validation**
+
+>Allows you to disable the rendering of bean validation annotations.
+
+>
+    default value: true
+
 **generator-use-bigdecimal-for-double**
 
 >Allows you to replace double-type properties with `java.math.BigDecimal`.
