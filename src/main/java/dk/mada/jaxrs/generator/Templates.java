@@ -1,9 +1,11 @@
 package dk.mada.jaxrs.generator;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.io.Writer;
@@ -25,6 +27,8 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
  * Templates processor.
  */
 public class Templates {
+    private static final String TRIM_MARKER = "@TRIM_EMPTY_LINE@";
+
     private static final Logger logger = LoggerFactory.getLogger(Templates.class);
 
     /** Directory to write API classes to. */
@@ -62,12 +66,8 @@ public class Templates {
     public void renderExtraTemplate(ExtraTemplate tmpl, CtxExtra context) {
         String tmplName = tmpl.classname();
         Path outputFile = toDtoFile(tmplName);
-
-        try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
-            compileTemplate(tmplName).execute(context, w);
-        } catch (IOException e) {
-            throw new UncheckedIOException("Failed to generate Extra " + outputFile, e);
-        }
+        Template template = compileTemplate(tmplName);
+        renderTemplate(template, context, outputFile);
     }
 
     /**
@@ -80,11 +80,7 @@ public class Templates {
      */
     public void renderDtoTemplate(CtxDto context) {
         Path outputFile = toDtoFile(context.classname());
-        try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
-            dtoTemplate.execute(context, w);
-        } catch (IOException e) {
-            throw new UncheckedIOException("Failed to generate DTO " + outputFile, e);
-        }
+        renderTemplate(dtoTemplate, context, outputFile);
     }
 
     /**
@@ -99,11 +95,30 @@ public class Templates {
         String classname = context.classname();
         Path outputFile = toApiFile(classname);
         logger.info(" generate API {}", classname);
+        renderTemplate(apiTemplate, context, outputFile);
+    }
 
-        try (Writer w = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8)) {
-            apiTemplate.execute(context, w);
+    private void renderTemplate(Template template, Object context, Path output) {
+        try {
+            String text = render(template, context);
+            // TODO: It must be possible to handle the spurious newlines/spaces simpler than this.
+            if (text.contains(TRIM_MARKER)) {
+                text = text.replaceAll(" *" + TRIM_MARKER, TRIM_MARKER);
+                text = text.replace(System.lineSeparator() + TRIM_MARKER, "");
+                text = text.replace(TRIM_MARKER, "");
+            }
+            Files.writeString(output, text);
         } catch (IOException e) {
-            throw new UncheckedIOException("Failed to generate API " + outputFile, e);
+            throw new UncheckedIOException("Failed to render template to " + output, e);
+        }
+    }
+
+    private String render(Template template, Object context) throws IOException {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                Writer w = new OutputStreamWriter(bos, StandardCharsets.UTF_8)) {
+            template.execute(context, w);
+            w.flush();
+            return bos.toString(StandardCharsets.UTF_8);
         }
     }
 
@@ -116,7 +131,6 @@ public class Templates {
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to read template " + resourceName, e);
         }
-
     }
 
     private Reader openReader(String templateName) {

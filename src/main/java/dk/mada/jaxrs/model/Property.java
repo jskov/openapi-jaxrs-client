@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.model;
 
+import java.math.BigDecimal;
+
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
@@ -33,4 +35,20 @@ public interface Property {
     boolean isRequired();
     /** {@return true if the property is read-only, otherwise false} */
     boolean isReadonly();
+
+    /** {@return validation minimum length, or null} */
+    @Nullable
+    Integer minLength();
+    /** {@return validation maximum length, or null} */
+    @Nullable
+    Integer maxLength();
+    /** {@return validation minimum, or null} */
+    @Nullable
+    BigDecimal minimum();
+    /** {@return validation maximum, or null} */
+    @Nullable
+    BigDecimal maximum();
+    /** {@return validation pattern, or null} */
+    @Nullable
+    String pattern();
 }

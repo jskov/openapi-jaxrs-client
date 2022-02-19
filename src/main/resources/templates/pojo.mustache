@@ -144,7 +144,7 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   {{/jackson}}
   {{/madaProp.off}}
   {{#useBeanValidation}}
-  {{>beanValidation}}
+  {{> beanValidation}}@TRIM_EMPTY_LINE@
   {{/useBeanValidation}}
   public {{{datatypeWithEnum}}} {{getter}}() {
     return {{name}};

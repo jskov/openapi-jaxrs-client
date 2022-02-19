@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
@@ -291,6 +293,7 @@ public class ArraysDto   {
    * Get refs
    * @return refs
    **/
+  @Valid
   public List<Simple> getRefsNullable() {
     return refs;
   }
@@ -320,6 +323,7 @@ public class ArraysDto   {
    * Get requiredBooleans
    * @return requiredBooleans
    **/
+  @NotNull
   public List<Boolean> getRequiredBooleans() {
     return requiredBooleans;
   }
@@ -337,6 +341,7 @@ public class ArraysDto   {
    * Get requiredBytes
    * @return requiredBytes
    **/
+  @NotNull
   public byte[] getRequiredBytes() {
     return requiredBytes;
   }
@@ -359,6 +364,7 @@ public class ArraysDto   {
    * Get requiredShorts
    * @return requiredShorts
    **/
+  @NotNull
   public List<Short> getRequiredShorts() {
     return requiredShorts;
   }
@@ -381,6 +387,7 @@ public class ArraysDto   {
    * Get requiredInts
    * @return requiredInts
    **/
+  @NotNull
   public List<Integer> getRequiredInts() {
     return requiredInts;
   }
@@ -403,6 +410,7 @@ public class ArraysDto   {
    * Get requiredLongs
    * @return requiredLongs
    **/
+  @NotNull
   public List<Long> getRequiredLongs() {
     return requiredLongs;
   }
@@ -425,6 +433,7 @@ public class ArraysDto   {
    * Get requiredStrings
    * @return requiredStrings
    **/
+  @NotNull
   public List<String> getRequiredStrings() {
     return requiredStrings;
   }
@@ -447,6 +456,7 @@ public class ArraysDto   {
    * Get requiredRefs
    * @return requiredRefs
    **/
+  @NotNull @Valid
   public List<Simple> getRequiredRefs() {
     return requiredRefs;
   }

@@ -27,6 +27,7 @@ import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeRef;
@@ -331,6 +332,48 @@ public class DtoGenerator {
             dtoImports.add("io.swagger.v3.oas.annotations.media.Schema");
         }
 
+        boolean useBeanValidation = opts.isUseBeanValidation();
+        boolean valid = false;
+        String minLength = null;
+        String maxLength = null;
+        String minimum = null;
+        String maximum = null;
+        String pattern = null;
+        if (useBeanValidation) {
+            if (p.isRequired()) {
+                dtoImports.add("javax.validation.constraints.NotNull");
+            }
+            // Decide where to put @Valid. I expect this to be too simple...
+            if (propType.isDto()
+                    || (propType instanceof TypeContainer tc && tc.innerType().isDto())) {
+                valid = true;
+                dtoImports.add("javax.validation.Valid");
+            }
+
+            if (p.minLength() != null) {
+                minLength = Integer.toString(p.minLength());
+                dtoImports.add("javax.validation.constraints.Size");
+            }
+            if (p.maxLength() != null) {
+                maxLength = Integer.toString(p.maxLength());
+                dtoImports.add("javax.validation.constraints.Size");
+            }
+
+            if (p.minimum() != null) {
+                minimum = p.minimum().toString();
+                dtoImports.add("javax.validation.constraints.Min");
+            }
+            if (p.maximum() != null) {
+                maximum = p.maximum().toString();
+                dtoImports.add("javax.validation.constraints.Max");
+            }
+
+            if (p.pattern() != null) {
+                pattern = p.pattern();
+                dtoImports.add("javax.validation.constraints.Pattern");
+            }
+        }
+
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(innerType)
                 .schemaOptions(schemaOptions)
@@ -339,6 +382,7 @@ public class DtoGenerator {
                 .getter(extGetter)
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
+                .valid(valid)
                 .build();
 
         return CtxProperty.builder()
@@ -362,6 +406,12 @@ public class DtoGenerator {
                 .required(isRequired)
                 .example(p.example())
                 .allowableValues(ctxEnum)
+                .useBeanValidation(useBeanValidation)
+                .minLength(minLength)
+                .maxLength(maxLength)
+                .minimum(minimum)
+                .maximum(maximum)
+                .pattern(pattern)
                 .madaProp(mada)
                 .build();
     }

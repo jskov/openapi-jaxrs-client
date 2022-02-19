@@ -11,6 +11,7 @@ package mada.tests.e2e.dto.serializer.jackson_codehaus.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
@@ -118,6 +119,7 @@ public class MicroprofileAnnotations   {
    * Get isRequired
    * @return isRequired
    **/
+  @NotNull
   public String getIsRequired() {
     return isRequired;
   }
@@ -135,6 +137,7 @@ public class MicroprofileAnnotations   {
    * text_description
    * @return requiredAndDescriptionAndExample
    **/
+  @NotNull
   public String getRequiredAndDescriptionAndExample() {
     return requiredAndDescriptionAndExample;
   }
@@ -152,6 +155,7 @@ public class MicroprofileAnnotations   {
    * Get requiredAndExample
    * @return requiredAndExample
    **/
+  @NotNull
   public String getRequiredAndExample() {
     return requiredAndExample;
   }
@@ -169,6 +173,7 @@ public class MicroprofileAnnotations   {
    * text_description
    * @return requiredAndDescription
    **/
+  @NotNull
   public String getRequiredAndDescription() {
     return requiredAndDescription;
   }
@@ -220,6 +225,7 @@ public class MicroprofileAnnotations   {
    * text_description
    * @return readonlyRequiredAndDescriptionAndExample
    **/
+  @NotNull
   public String getReadonlyRequiredAndDescriptionAndExample() {
     return readonlyRequiredAndDescriptionAndExample;
   }

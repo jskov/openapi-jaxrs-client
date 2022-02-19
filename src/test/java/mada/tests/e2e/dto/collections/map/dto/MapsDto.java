@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * MapsDto
@@ -304,6 +306,7 @@ public class MapsDto   {
    * Get refs
    * @return refs
    **/
+  @Valid
   public Map<String, Simple> getRefs() {
     return refs;
   }
@@ -326,6 +329,7 @@ public class MapsDto   {
    * Get requiredBooleans
    * @return requiredBooleans
    **/
+  @NotNull
   public Map<String, Boolean> getRequiredBooleans() {
     return requiredBooleans;
   }
@@ -348,6 +352,7 @@ public class MapsDto   {
    * Get requiredBytes
    * @return requiredBytes
    **/
+  @NotNull
   public Map<String, Byte> getRequiredBytes() {
     return requiredBytes;
   }
@@ -370,6 +375,7 @@ public class MapsDto   {
    * Get requiredShorts
    * @return requiredShorts
    **/
+  @NotNull
   public Map<String, Short> getRequiredShorts() {
     return requiredShorts;
   }
@@ -392,6 +398,7 @@ public class MapsDto   {
    * Get requiredInts
    * @return requiredInts
    **/
+  @NotNull
   public Map<String, Integer> getRequiredInts() {
     return requiredInts;
   }
@@ -414,6 +421,7 @@ public class MapsDto   {
    * Get requiredLongs
    * @return requiredLongs
    **/
+  @NotNull
   public Map<String, Long> getRequiredLongs() {
     return requiredLongs;
   }
@@ -436,6 +444,7 @@ public class MapsDto   {
    * Get requiredStrings
    * @return requiredStrings
    **/
+  @NotNull
   public Map<String, String> getRequiredStrings() {
     return requiredStrings;
   }
@@ -458,6 +467,7 @@ public class MapsDto   {
    * Get requiredRefs
    * @return requiredRefs
    **/
+  @NotNull @Valid
   public Map<String, Simple> getRequiredRefs() {
     return requiredRefs;
   }
@@ -633,6 +643,7 @@ public class MapsDto   {
    * Get bothRefs
    * @return bothRefs
    **/
+  @Valid
   public Map<String, Simple> getBothRefs() {
     return bothRefs;
   }

@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * SerializerInfoDto
@@ -205,6 +207,7 @@ public class SerializerInfoDto   {
    * Get mustInclude
    * @return mustInclude
    **/
+  @NotNull
   public String getMustInclude() {
     return mustInclude;
   }
@@ -222,6 +225,7 @@ public class SerializerInfoDto   {
    * Get mustIncludeViaSchema
    * @return mustIncludeViaSchema
    **/
+  @NotNull
   public String getMustIncludeViaSchema() {
     return mustIncludeViaSchema;
   }
@@ -239,6 +243,7 @@ public class SerializerInfoDto   {
    * Get notNull
    * @return notNull
    **/
+  @NotNull
   public String getNotNull() {
     return notNull;
   }
@@ -307,6 +312,7 @@ public class SerializerInfoDto   {
    * Get mpAnnotations
    * @return mpAnnotations
    **/
+  @Valid
   public MicroprofileAnnotations getMpAnnotations() {
     return mpAnnotations;
   }
@@ -324,6 +330,7 @@ public class SerializerInfoDto   {
    * Get mpAnnotationsPropsOnly
    * @return mpAnnotationsPropsOnly
    **/
+  @Valid
   public MicroProfileAnnotationsPropsOnly getMpAnnotationsPropsOnly() {
     return mpAnnotationsPropsOnly;
   }

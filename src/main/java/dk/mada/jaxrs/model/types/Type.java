@@ -59,4 +59,9 @@ public interface Type {
     default boolean isEnum() {
         return false;
     }
+
+    /** {@return true if this type represents a container, otherwise false} */
+    default boolean isContainer() {
+        return false;
+    }
 }

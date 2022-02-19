@@ -34,6 +34,25 @@ public interface CtxProperty {
     @Nullable
     String description();
 
+    /** {@return true if bean validation should be used for this property, otherwise false} */
+    boolean useBeanValidation();
+
+    /** {@return validation mimimum length, or null} */
+    @Nullable
+    String minLength();
+    /** {@return validation maximum length, or null} */
+    @Nullable
+    String maxLength();
+    /** {@return validation minimum, or null} */
+    @Nullable
+    String minimum();
+    /** {@return validation maximum, or null} */
+    @Nullable
+    String maximum();
+    /** {@return validation pattern, or null} */
+    @Nullable
+    String pattern();
+
     boolean isArray();
     boolean isMap();
     boolean isSet();
@@ -43,6 +62,7 @@ public interface CtxProperty {
     /** {@return true if this property should render an enumeration} */
     boolean isEnum();
 
+    /** {@return true if this property is required} */
     boolean required();
 
     @Nullable

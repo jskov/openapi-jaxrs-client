@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
 
 /**
  * ExternedLists
@@ -88,6 +89,7 @@ public class ExternedLists   {
    * Get listSimple
    * @return listSimple
    **/
+  @Valid
   public List<Simple> getListSimple() {
     return listSimple;
   }

@@ -27,4 +27,7 @@ public interface CtxPropertyExt {
 
     /** {@return true if rendering for jsonb, false otherwise} */
     boolean jsonb();
+
+    /** {@return true if the property must be valid, otherwise false} */
+    boolean valid();
 }

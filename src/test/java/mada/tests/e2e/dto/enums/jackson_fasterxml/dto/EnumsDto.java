@@ -9,6 +9,7 @@ package mada.tests.e2e.dto.enums.jackson_fasterxml.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
+import javax.validation.Valid;
 
 /**
  * EnumsDto
@@ -41,6 +42,7 @@ public class EnumsDto   {
    * Get inner
    * @return inner
    **/
+  @Valid
   public InnerEnum getInner() {
     return inner;
   }
@@ -58,6 +60,7 @@ public class EnumsDto   {
    * Get external
    * @return external
    **/
+  @Valid
   public ExternalEnum getExternal() {
     return external;
   }
@@ -75,6 +78,7 @@ public class EnumsDto   {
    * Get number
    * @return number
    **/
+  @Valid
   public NumberEnum getNumber() {
     return number;
   }

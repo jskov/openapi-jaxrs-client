@@ -9,6 +9,7 @@ package mada.tests.e2e.dto.references.dto;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
 
 /**
  * References
@@ -31,6 +32,7 @@ public class References   {
    * Get simple
    * @return simple
    **/
+  @Valid
   public Simple getSimple() {
     return simple;
   }

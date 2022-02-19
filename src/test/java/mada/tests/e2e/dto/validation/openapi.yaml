@@ -1,0 +1,63 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /dtos/validation:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationDto'
+components:
+  schemas:
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+    ValidationDto:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 1
+          type: string
+          nullable: false
+        intValue:
+          format: int32
+          maximum: 20
+          minimum: 10
+          type: integer
+        pattern:
+          type: string
+          pattern: "^[a-zA-Z]{0,3}$"
+        validObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
+        primitivesShouldNotHaveValidate:
+          type: array
+          items:
+            type: boolean

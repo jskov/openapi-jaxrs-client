@@ -161,6 +161,11 @@ public final class GeneratorOpts {
         return getDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
     }
 
+    /** {@return true if bean validation should be used, otherwise fasle} */
+    public boolean isUseBeanValidation() {
+        return bool("generator-use-bean-validation", true);
+    }
+
     /** {@return true if BigDecimal should be used for double, otherwise use Double} */
     public boolean isUseBigDecimalForDouble() {
         return bool("generator-use-bigdecimal-for-double");

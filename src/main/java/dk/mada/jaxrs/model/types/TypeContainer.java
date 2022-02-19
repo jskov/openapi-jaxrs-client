@@ -24,4 +24,9 @@ public interface TypeContainer extends Type {
     default Type mappedInnerType() {
         return innerType();
     }
+
+    @Override
+    default boolean isContainer() {
+        return true;
+    }
 }

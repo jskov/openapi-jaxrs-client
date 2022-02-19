@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
 
 /**
  * SpecialTypes
@@ -144,6 +145,7 @@ public class SpecialTypes   {
    * Get localTime
    * @return localTime
    **/
+  @Valid
   public LocalTime getLocalTime() {
     return localTime;
   }

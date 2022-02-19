@@ -12,6 +12,8 @@ import java.util.Objects;
 import java.util.Set;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * SetsDto
@@ -264,6 +266,7 @@ public class SetsDto   {
    * Get refs
    * @return refs
    **/
+  @Valid
   public Set<Simple> getRefs() {
     return refs;
   }
@@ -286,6 +289,7 @@ public class SetsDto   {
    * Get requiredBooleans
    * @return requiredBooleans
    **/
+  @NotNull
   public Set<Boolean> getRequiredBooleans() {
     return requiredBooleans;
   }
@@ -308,6 +312,7 @@ public class SetsDto   {
    * Get requiredBytes
    * @return requiredBytes
    **/
+  @NotNull
   public Set<Byte> getRequiredBytes() {
     return requiredBytes;
   }
@@ -330,6 +335,7 @@ public class SetsDto   {
    * Get requiredShorts
    * @return requiredShorts
    **/
+  @NotNull
   public Set<Short> getRequiredShorts() {
     return requiredShorts;
   }
@@ -352,6 +358,7 @@ public class SetsDto   {
    * Get requiredInts
    * @return requiredInts
    **/
+  @NotNull
   public Set<Integer> getRequiredInts() {
     return requiredInts;
   }
@@ -374,6 +381,7 @@ public class SetsDto   {
    * Get requiredLongs
    * @return requiredLongs
    **/
+  @NotNull
   public Set<Long> getRequiredLongs() {
     return requiredLongs;
   }
@@ -396,6 +404,7 @@ public class SetsDto   {
    * Get requiredStrings
    * @return requiredStrings
    **/
+  @NotNull
   public Set<String> getRequiredStrings() {
     return requiredStrings;
   }
@@ -418,6 +427,7 @@ public class SetsDto   {
    * Get requiredRefs
    * @return requiredRefs
    **/
+  @NotNull @Valid
   public Set<Simple> getRequiredRefs() {
     return requiredRefs;
   }

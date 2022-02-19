@@ -145,6 +145,11 @@ public class DtoTransformer {
                     .isNullable(isNullable)
                     .isReadonly(isReadOnly)
                     .isRequired(requiredProperyNames.contains(name))
+                    .minLength(propSchema.getMinLength())
+                    .maxLength(propSchema.getMaxLength())
+                    .minimum(propSchema.getMinimum())
+                    .maximum(propSchema.getMaximum())
+                    .pattern(propSchema.getPattern())
                     .build());
         }
 

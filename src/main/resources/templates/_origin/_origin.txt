@@ -5,6 +5,11 @@ api.mustache
  5.3.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/api.mustache
  inspiration from both
 
+beanValidation.mustache
+ 5.4.0 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/beanValidation.mustache
+beanValidationCore.mustache
+ 5.4.0 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/beanValidationCore.mustache
+
 bodyParams.mustache
  5.3.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/bodyParams.mustache
 
