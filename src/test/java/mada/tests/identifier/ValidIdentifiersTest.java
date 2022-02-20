@@ -19,10 +19,34 @@ class ValidIdentifiersTest {
         "foo,        foo",
         "Foo,        foo",
         "3bad,       _bad",
-        "true,       true_"
+        "true,       true_",
+        "FooBAR,     fooBAR",
+        "ID,         iD",
+        "FOOBar,     fOOBar",
+        "delisH,     delisH",
+        "fooBar,     fooBar",
+        "foo-bar,    fooBar"
     })
     void variableNamesValid(String input, String expected) {
         assertThat(sut.makeValidVariableName(input))
+            .isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "foo,        foo",
+        "Foo,        foo",
+        "3bad,       _bad",
+        "true,       true_",
+        "FooBAR,     fooBar",
+        "ID,         id",
+        "FOOBar,     fooBar",
+        "delisH,     delisH",
+        "fooBar,     fooBar",
+        "foo-bar,    fooBar"
+    })
+    void edgeVvariableNamesValid(String input, String expected) {
+        assertThat(sut.makeValidEdgeVariableName(input))
             .isEqualTo(expected);
     }
 

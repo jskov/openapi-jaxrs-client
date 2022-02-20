@@ -55,8 +55,14 @@ public final class NamingRules {
      */
     public static NamingRule toRule(String ruleConfiguration) {
         String r = ruleConfiguration.trim();
+        if ("PROPERTYNAME-EDGE".equals(r) || "PARAMETERNAME-EDGE".equals(r)) {
+            return new NamingRule(r, IDENTIFIERS::makeValidEdgeVariableName);
+        }
         if ("PROPERTYNAME".equals(r) || "PARAMETERNAME".equals(r)) {
             return new NamingRule(r, IDENTIFIERS::makeValidVariableName);
+        }
+        if ("TYPENAME-EDGE".equals(r)) {
+            return new NamingRule(r, IDENTIFIERS::makeValidEdgeTypeName);
         }
         if ("TYPENAME".equals(r)) {
             return new NamingRule(r, IDENTIFIERS::makeValidTypeName);

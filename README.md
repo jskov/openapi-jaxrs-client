@@ -182,12 +182,18 @@ The naming of types, properties and enumeration entries can be (partly) controll
 
 `TYPENAME` and `PROPERTYNAME` are based on the [Java spec for identifiers](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.8). They will convert any non-identifier character to '_'. A hyphen ('-') will be removed and the next character upper-cased.
 
+The `-EDGE` variants will downcase all letters, except on edges between upper/down-case.
+For example (for properties): `fooBAR -> fooBar`, `FOOBar -> fooBar`, and `FOOBAR -> foobar`.
+
     UPCASE: Converts the input to upper case.
     DOWNCASE: Converts the input to lower case.
     LITERAL/value/: Returns the provided value.
     TYPENAME: Converts the input to a valid java identifier (first letter upper case)
+    TYPENAME-EDGE: Converts the input to a valid java identifier (first letter upper case, downcase on edges)
     PARAMETERNAME: Converts the input to a valid java identifier (first letter lower case)
+    PARAMETERNAME-EDGE: Converts the input to a valid java identifier (first letter lower case, downcase on edges)
     PROPERTYNAME: (alias for PARAMETERNAME)
+    PROPERTYNAME-EDGE: (alias for PARAMETERNAME-EDGE)
     REGEXP/pattern/replacement/: Will match input against pattern and substitute all matches with replacement.
 
 You can specify a number of operators, separated by ';'. They will be applied left-to-right.

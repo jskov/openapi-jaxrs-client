@@ -36,7 +36,6 @@ import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
-import dk.mada.jaxrs.naming.Identifiers;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
 
@@ -59,8 +58,7 @@ public class DtoGenerator {
     private final Templates templates;
     /** The data model. */
     private final Model model;
-    /** Identifiers. */
-    private final Identifiers identifiers = new Identifiers();
+
     /**
      * The extra templates to render.
      *
@@ -244,7 +242,7 @@ public class DtoGenerator {
 
     private CtxProperty toCtxProperty(Imports dtoImports, Property p) {
         String name = p.name();
-        String varName = identifiers.makeValidVariableName(name);
+        String varName = naming.convertPropertyName(name);
 
         String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
         String nameSnaked = OpenapiGeneratorUtils.underscore(nameCamelized).toUpperCase();

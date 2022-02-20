@@ -2,6 +2,7 @@ package dk.mada.jaxrs.naming;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,12 +39,27 @@ public class Naming {
     public Naming(Properties props) {
         var namingOpts = new NamingOpts(props);
 
-        enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
-        typeNamingRules = NamingRules.toRules(namingOpts.getTypeNaming());
-        propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
-        parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
         entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());
+        enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
+        parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
         propertyEnumTypeNamingRules = NamingRules.toRules(namingOpts.getPropertyEnumTypeNaming());
+        propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
+        typeNamingRules = NamingRules.toRules(namingOpts.getTypeNaming());
+
+        if (logger.isInfoEnabled()) {
+            logger.info("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
+            logger.info("enumConstantNamingRules: {}", makeRuleInfo(enumConstantNamingRules));
+            logger.info("parameterNamingRules: {}", makeRuleInfo(parameterNamingRules));
+            logger.info("propertyEnumTypeNamingRules: {}", makeRuleInfo(propertyEnumTypeNamingRules));
+            logger.info("propertyNamingRules: {}", makeRuleInfo(propertyNamingRules));
+            logger.info("typeNamingRules: {}", makeRuleInfo(typeNamingRules));
+        }
+    }
+
+    private String makeRuleInfo(List<NamingRule> rules) {
+        return rules.stream()
+                .map(NamingRule::name)
+                .collect(Collectors.joining(", "));
     }
 
     /**
