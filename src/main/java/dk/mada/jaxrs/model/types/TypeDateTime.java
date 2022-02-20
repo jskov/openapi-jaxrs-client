@@ -11,6 +11,8 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * TODO: opts should be a constructor input
  */
 public final class TypeDateTime implements Type {
+    /** The single instance of the LocalDateTime object. */
+    private static final TypeDateTime INSTANCE_LOCAL = new TypeDateTime("LocalDateTime", "java.time.LocalDateTime");
     /** The single instance of the OffsetDateTime object. */
     private static final TypeDateTime INSTANCE_OFFSET = new TypeDateTime("OffsetDateTime", "java.time.OffsetDateTime");
     /** The single instance of the ZonedDateTime object. */
@@ -31,7 +33,17 @@ public final class TypeDateTime implements Type {
      * @param opts the generator options
      */
     public static TypeDateTime get(GeneratorOpts opts) {
-        return opts.isUseZonedDateTime() ? INSTANCE_ZONED : INSTANCE_OFFSET;
+        if (opts.isUseZonedDateTime() && opts.isUseLocalDateTime()) {
+            throw new IllegalArgumentException("You can only select one date-time implementation!");
+        }
+        if (opts.isUseZonedDateTime()) {
+            return INSTANCE_ZONED;
+        }
+        if (opts.isUseLocalDateTime()) {
+            return INSTANCE_LOCAL;
+        }
+
+        return INSTANCE_OFFSET;
     }
 
     @Override

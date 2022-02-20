@@ -156,6 +156,17 @@ public final class Imports {
             .add(IOEXCEPTION, LOCAL_DATE, DATE_TIME_FORMATTER)
             .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
+        if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER) {
+            imports
+            .add(IOEXCEPTION, LOCAL_DATE_TIME)
+            .add(DATE_TIME_FORMATTER)
+            .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
+        }
+        if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER) {
+            imports
+            .add(IOEXCEPTION, LOCAL_DATE_TIME, DATE_TIME_FORMATTER)
+            .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+        }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
             .add(IOEXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME)

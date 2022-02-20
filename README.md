@@ -151,6 +151,20 @@ The code generation is configured via property settings.
     default value: false
 
 
+**generator-use-localdatetime**
+
+>date-time types are deserialized to OffsetDateTime by default, which matches the information
+provided by the [spec](https://xml2rfc.tools.ietf.org/public/rfc/html/rfc3339.html).
+   
+>But your remote connection may not provide the offset information, and/or your software runs
+in the same time zone.
+
+>By enabling this option, the generated DTOs will have LocalDateTime for properties
+instead of OffsetDateTime.
+
+>
+    default value: false
+
 **generator-use-zoneddatetime**
 
 >date-time types are deserialized to OffsetDateTime by default, which matches the information

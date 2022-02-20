@@ -143,9 +143,10 @@ public final class GeneratorOpts {
         return get("generator-jackson-json-serialize-options");
     }
 
-    /** {@return true if a jackson OffsetDateTime serializer should be rendered} */
-    public boolean isUseJacksonOffsetDateTimeSerializer() {
-        return parserOpts.isJseOffsetDateTime() && isJackson();
+    /** {@return true if a jackson date-time serializer should be rendered} */
+    public boolean isUseJacksonDateTimeSerializer() {
+        return isJackson()
+                && (parserOpts.isJseOffsetDateTime() && parserOpts.isJseLocalDateTime());
     }
 
     /** {@return true if a jackson LocalDate serializer should be rendered} */
@@ -202,9 +203,14 @@ public final class GeneratorOpts {
         return bool("generator-use-empty-collections");
     }
 
-    /** {@return true if date-time should be rendered with ZonedDateTime, otherwise use OffsetDateTime} */
+    /** {@return true if date-time should be rendered with ZonedDateTime} */
     public boolean isUseZonedDateTime() {
         return bool("generator-use-zoneddatetime");
+    }
+
+    /** {@return true if date-time should be rendered with LocalDateTime} */
+    public boolean isUseLocalDateTime() {
+        return bool("generator-use-localdatetime");
     }
 
     /** {@return true if boolean getters should use 'get' as prefix, otherwise use 'is'} */

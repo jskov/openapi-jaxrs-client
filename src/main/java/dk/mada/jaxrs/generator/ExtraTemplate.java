@@ -11,9 +11,13 @@ public enum ExtraTemplate {
     LOCAL_DATE_JACKSON_DESERIALIZER("_LocalDateJacksonDeserializer"),
     /** LocalDate Jackson serializer template. */
     LOCAL_DATE_JACKSON_SERIALIZER("_LocalDateJacksonSerializer"),
-    /** OffetDateTime Jackson deserializer template. */
+    /** LocalDateTime Jackson deserializer template. */
+    LOCAL_DATE_TIME_JACKSON_DESERIALIZER("_LocalDateTimeJacksonDeserializer"),
+    /** LocalDateTime Jackson serializer template. */
+    LOCAL_DATE_TIME_JACKSON_SERIALIZER("_LocalDateTimeJacksonSerializer"),
+    /** OffsetDateTime Jackson deserializer template. */
     OFFSET_DATE_TIME_JACKSON_DESERIALIZER("_OffsetDateTimeJacksonDeserializer"),
-    /** OffetDateTime Jackson serializer template. */
+    /** OffsetDateTime Jackson serializer template. */
     OFFSET_DATE_TIME_JACKSON_SERIALIZER("_OffsetDateTimeJacksonSerializer");
 
     /** Filename of template. */

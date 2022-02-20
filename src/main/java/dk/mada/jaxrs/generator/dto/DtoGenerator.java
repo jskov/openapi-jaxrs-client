@@ -168,14 +168,20 @@ public class DtoGenerator {
         String customOffsetDateTimeDeserializer = null;
         String customOffsetDateTimeSerializer = null;
 
-        if (opts.isUseJacksonOffsetDateTimeSerializer()
+        if (opts.isUseJacksonDateTimeSerializer()
                 && (dtoType.isDateTime()
                         || dto.properties().stream().anyMatch(p -> p.type().isDateTime()))) {
-            extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
-            extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
-
-            customOffsetDateTimeDeserializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname();
-            customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
+            if (opts.isUseLocalDateTime()) {
+                extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER);
+                extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER);
+                customOffsetDateTimeDeserializer = ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname();
+                customOffsetDateTimeSerializer = ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname();
+            } else {
+                extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
+                extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
+                customOffsetDateTimeDeserializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname();
+                customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
+            }
 
             dtoImports.jackson("JsonDeserialize", "JsonSerialize");
         }
