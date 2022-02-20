@@ -34,6 +34,9 @@ public final class StringRenderer {
             text = text + ".";
         }
 
+        // Crude - handle carriage return (on Unix, turns to \n, on Windows stays \r\n)
+        text = text.replace("\r\n", NL);
+
         // Crude - but simple - newline handling
         text = text.replace(NL, NL + "   * ");
         text = text.replace(NL + "   * " + NL, NL + "   *" + NL);
