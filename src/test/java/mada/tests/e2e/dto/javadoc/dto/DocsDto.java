@@ -19,6 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(description = "Class description")
 @JsonbPropertyOrder({
   DocsDto.JSON_PROPERTY_PROPERTY,
+  DocsDto.JSON_PROPERTY_DOS_PROPERTY,
   DocsDto.JSON_PROPERTY_DANISH_PROPERTY
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
@@ -27,6 +28,11 @@ public class DocsDto   {
   @JsonbProperty(JSON_PROPERTY_PROPERTY)
   @Schema(description = "Property description.\nProperty description line 2\n\nLast line.")
   private String property;
+
+  public static final String JSON_PROPERTY_DOS_PROPERTY = "dosProperty";
+  @JsonbProperty(JSON_PROPERTY_DOS_PROPERTY)
+  @Schema(description = "Property description.\r\nProperty description line 2\r\n\r\nLast line.")
+  private String dosProperty;
 
   public static final String JSON_PROPERTY_DANISH_PROPERTY = "danishProperty";
   @JsonbProperty(JSON_PROPERTY_DANISH_PROPERTY)
@@ -52,6 +58,27 @@ public class DocsDto   {
 
   public void setProperty(String property) {
     this.property = property;
+  }
+
+  public DocsDto dosProperty(String dosProperty) {
+    this.dosProperty = dosProperty;
+    return this;
+  }
+
+  /**
+   * Property description.
+   * Property description line 2
+   * 
+   * Last line.
+   *
+   * @return dosProperty
+   **/
+  public String getDosProperty() {
+    return dosProperty;
+  }
+
+  public void setDosProperty(String dosProperty) {
+    this.dosProperty = dosProperty;
   }
 
   public DocsDto danishProperty(String danishProperty) {
@@ -82,12 +109,13 @@ public class DocsDto   {
     }
     DocsDto other = (DocsDto) o;
     return Objects.equals(this.property, other.property) &&
+        Objects.equals(this.dosProperty, other.dosProperty) &&
         Objects.equals(this.danishProperty, other.danishProperty);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(property, danishProperty);
+    return Objects.hash(property, dosProperty, danishProperty);
   }
 
   @Override
@@ -95,6 +123,7 @@ public class DocsDto   {
     StringBuilder sb = new StringBuilder();
     sb.append("class DocsDto {");
     sb.append("\n    property: ").append(toIndentedString(property));
+    sb.append("\n    dosProperty: ").append(toIndentedString(dosProperty));
     sb.append("\n    danishProperty: ").append(toIndentedString(danishProperty));
     sb.append("\n}");
     return sb.toString();

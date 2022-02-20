@@ -58,6 +58,6 @@ public final class StringRenderer {
             return null;
         }
 
-        return text.replace("\n", "\\n");
+        return text.replace("\r", "\\r").replace("\n", "\\n");
     }
 }

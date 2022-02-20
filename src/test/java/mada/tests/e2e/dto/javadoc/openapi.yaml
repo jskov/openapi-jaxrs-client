@@ -30,6 +30,10 @@ components:
 
             Last line.
           type: string
+        dosProperty:
+          description: "Property description.\r\nProperty description line 2\r\n\r\
+            \nLast line."
+          type: string
         danishProperty:
           description: Danish characters æøåÆØÅ dóh!
           type: string
