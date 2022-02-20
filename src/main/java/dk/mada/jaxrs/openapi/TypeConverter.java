@@ -21,6 +21,7 @@ import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypeSet;
+import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.v3.oas.models.media.ArraySchema;
@@ -33,6 +34,7 @@ import io.swagger.v3.oas.models.media.NumberSchema;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.media.UUIDSchema;
 
 /**
  * Converts a specification schema to an internal model type.
@@ -158,6 +160,10 @@ public final class TypeConverter {
         if (schema instanceof DateSchema) {
             logger.debug(" {} : TypeDate", schema.getName());
             return TypeDate.get();
+        }
+
+        if (schema instanceof UUIDSchema) {
+            return TypeUUID.get();
         }
 
         if (schema instanceof ObjectSchema) {

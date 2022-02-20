@@ -12,7 +12,7 @@ public final class TypeDate implements Type {
     private static final TypeDate INSTANCE = new TypeDate();
 
     /** The type name of LocalDate. */
-    public static final TypeName TYPE_LOCAL_DATE = TypeNames.of("LocalDate");
+    public static final TypeName TYPENAME_LOCAL_DATE = TypeNames.of("LocalDate");
 
     private TypeDate() {
     }
@@ -24,7 +24,7 @@ public final class TypeDate implements Type {
 
     @Override
     public TypeName typeName() {
-        return TYPE_LOCAL_DATE;
+        return TYPENAME_LOCAL_DATE;
     }
 
     @Override

@@ -43,6 +43,12 @@ components:
           type: string
         localTime:
           $ref: '#/components/schemas/LocalTime'
+        uuid:
+          $ref: '#/components/schemas/UUID'
+    UUID:
+      format: uuid
+      pattern: "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+      type: string
     ExternedSpecialTypes:
       type: object
       properties:

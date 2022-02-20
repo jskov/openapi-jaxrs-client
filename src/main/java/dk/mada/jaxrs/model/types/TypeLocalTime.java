@@ -21,7 +21,7 @@ public final class TypeLocalTime implements Type {
     /** The single instance of this object. */
     private static final TypeLocalTime INSTANCE = new TypeLocalTime();
     /** The type name of LocalTime. */
-    public static final TypeName TYPE_LOCAL_TIME = TypeNames.of("LocalTime");
+    public static final TypeName TYPENAME_LOCAL_TIME = TypeNames.of("LocalTime");
     /** The OpenApi custom format used for this type. */
     public static final String OPENAPI_CUSTOM_FORMAT = "local-time";
 
@@ -35,7 +35,7 @@ public final class TypeLocalTime implements Type {
 
     @Override
     public TypeName typeName() {
-        return TYPE_LOCAL_TIME;
+        return TYPENAME_LOCAL_TIME;
     }
 
     @Override

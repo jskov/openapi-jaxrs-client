@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * SpecialTypes
@@ -25,7 +26,8 @@ import java.util.Objects;
   SpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
   SpecialTypes.JSON_PROPERTY_LOCAL_DATE_TIME,
   SpecialTypes.JSON_PROPERTY_LOCAL_DATE,
-  SpecialTypes.JSON_PROPERTY_LOCAL_TIME
+  SpecialTypes.JSON_PROPERTY_LOCAL_TIME,
+  SpecialTypes.JSON_PROPERTY_UUID
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes   {
@@ -60,6 +62,10 @@ public class SpecialTypes   {
   public static final String JSON_PROPERTY_LOCAL_TIME = "localTime";
   @JsonProperty(JSON_PROPERTY_LOCAL_TIME)
   private LocalTime localTime;
+
+  public static final String JSON_PROPERTY_UUID = "uuid";
+  @JsonProperty(JSON_PROPERTY_UUID)
+  private UUID uuid;
 
   public SpecialTypes bigDecimal(BigDecimal bigDecimal) {
     this.bigDecimal = bigDecimal;
@@ -163,6 +169,23 @@ public class SpecialTypes   {
     this.localTime = localTime;
   }
 
+  public SpecialTypes uuid(UUID uuid) {
+    this.uuid = uuid;
+    return this;
+  }
+
+  /**
+   * Get uuid
+   * @return uuid
+   **/
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  public void setUuid(UUID uuid) {
+    this.uuid = uuid;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -177,12 +200,13 @@ public class SpecialTypes   {
         Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
         Objects.equals(this.localDateTime, other.localDateTime) &&
         Objects.equals(this.localDate, other.localDate) &&
-        Objects.equals(this.localTime, other.localTime);
+        Objects.equals(this.localTime, other.localTime) &&
+        Objects.equals(this.uuid, other.uuid);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, localDateTime, localDate, localTime);
+    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, localDateTime, localDate, localTime, uuid);
   }
 
   @Override
@@ -195,6 +219,7 @@ public class SpecialTypes   {
     sb.append("\n    localDateTime: ").append(toIndentedString(localDateTime));
     sb.append("\n    localDate: ").append(toIndentedString(localDate));
     sb.append("\n    localTime: ").append(toIndentedString(localTime));
+    sb.append("\n    uuid: ").append(toIndentedString(uuid));
     sb.append("\n}");
     return sb.toString();
   }

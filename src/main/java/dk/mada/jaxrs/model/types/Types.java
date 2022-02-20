@@ -63,12 +63,13 @@ public class Types {
     public Types(ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
 
-        mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.BIG_DECIMAL, TypeBigDecimal.get());
-        mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPE_LOCAL_DATE,    TypeDate.get());
-        mapJse(parserOpts.isJseLocalTime(),      TypeLocalTime.TYPE_LOCAL_TIME, TypeLocalTime.get());
-        mapJse(parserOpts.isJseLocalDateTime(),  TypeNames.of("LocalDateTime"), typeDateTime);
-        mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.of("OffsetDateTime"), typeDateTime);
-        mapJse(parserOpts.isJseZonedDateTime(),  TypeNames.of("ZonedDateTime"), typeDateTime);
+        mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.TYPENAME_BIG_DECIMAL, TypeBigDecimal.get());
+        mapJse(parserOpts.isJseUUID(),           TypeUUID.TYPENAME_UUID,              TypeUUID.get());
+        mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPENAME_LOCAL_DATE,        TypeDate.get());
+        mapJse(parserOpts.isJseLocalTime(),      TypeLocalTime.TYPENAME_LOCAL_TIME,   TypeLocalTime.get());
+        mapJse(parserOpts.isJseLocalDateTime(),  TypeNames.of("LocalDateTime"),       typeDateTime);
+        mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.of("OffsetDateTime"),      typeDateTime);
+        mapJse(parserOpts.isJseZonedDateTime(),  TypeNames.of("ZonedDateTime"),       typeDateTime);
 
         logger.info("JSE type overrides: {}", mappedToJseTypes.keySet());
         logger.info("JSE types kept: {}", unmappedToJseTypes);

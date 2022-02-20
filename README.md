@@ -286,6 +286,15 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >
     default value: true
 
+**parser-uuid-is-jse**
+
+>This option allows parsing of the component schema `UUID` to be treated by the generator as Java SE `java.util.UUID`.
+
+>It can be disabled if your remote connection uses the type name `UUID` for something bespoke.
+
+>
+    default value: true
+
 **parser-zoneddatetime-is-jse**
 
 >This option allows parsing of the component schema `ZonedDateTime` to be treated by the generator as Java SE `java.time.OffsetDateTime`.

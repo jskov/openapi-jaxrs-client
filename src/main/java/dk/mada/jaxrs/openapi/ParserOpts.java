@@ -46,6 +46,11 @@ public final class ParserOpts {
         return bool("parser-bigdecimal-is-jse", true);
     }
 
+    /** {@return true if the SchemaUUID type is to be treated as java.util.UUID, otherwise false} */
+    public boolean isJseUUID() {
+        return bool("parser-uuid-is-jse", true);
+    }
+
     public boolean isFixupVoid200to204() {
         return bool("parser-fixup-void-200-to-204", false);
     }
