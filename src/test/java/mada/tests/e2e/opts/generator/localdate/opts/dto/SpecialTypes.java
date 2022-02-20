@@ -27,6 +27,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
   SpecialTypes.JSON_PROPERTY_LOCAL_DATE,
   SpecialTypes.JSON_PROPERTY_LOCAL_TIME
 })
+@JsonSerialize(include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes   {
   public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";
@@ -36,19 +37,19 @@ public class SpecialTypes   {
   public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
   @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime zonedDateTime;
 
   public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
   @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime offsetDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
   @JsonProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime localDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";

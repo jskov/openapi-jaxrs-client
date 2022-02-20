@@ -45,7 +45,7 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   @JsonDeserialize(using = {{madaDto.customLocalDateDeserializer}}.class)
     {{/madaDto.customLocalDateDeserializer}}
     {{#madaDto.customLocalDateSerializer}}
-  @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class{{#madaDto.localDateSerializerOpts}}, {{{madaDto.localDateSerializerOpts}}}{{/madaDto.localDateSerializerOpts}})
+  @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
     {{/madaDto.customLocalDateSerializer}}
   {{/isDate}}
   {{#isDateTime}}
@@ -53,7 +53,7 @@ public class {{classname}} {{#parent}}extends {{{.}}}{{/parent}} {{#serializable
   @JsonDeserialize(using = {{madaDto.customOffsetDateTimeDeserializer}}.class)
     {{/madaDto.customOffsetDateTimeDeserializer}}
     {{#madaDto.customOffsetDateTimeSerializer}}
-  @JsonSerialize(using = {{madaDto.customOffsetDateTimeSerializer}}.class)
+  @JsonSerialize(using = {{madaDto.customOffsetDateTimeSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
     {{/madaDto.customOffsetDateTimeSerializer}}
   {{/isDateTime}}
   {{/jackson}}

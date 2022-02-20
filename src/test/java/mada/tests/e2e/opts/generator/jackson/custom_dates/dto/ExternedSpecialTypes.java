@@ -35,25 +35,25 @@ public class ExternedSpecialTypes   {
   public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
   @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime zonedDateTime;
 
   public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
   @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime offsetDateTime;
 
   public static final String JSON_PROPERTY_DATE_TIME = "dateTime";
   @JsonProperty(JSON_PROPERTY_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime dateTime;
 
   public static final String JSON_PROPERTY_DATE = "date";
   @JsonProperty(JSON_PROPERTY_DATE)
   @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateDeserializer.class)
-  @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateSerializer.class)
+  @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
   private LocalDate date;
 
   public ExternedSpecialTypes bigDecimal(BigDecimal bigDecimal) {

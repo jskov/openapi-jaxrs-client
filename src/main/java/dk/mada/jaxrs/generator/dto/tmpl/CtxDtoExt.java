@@ -15,7 +15,7 @@ public interface CtxDtoExt {
         return ImmutableCtxDtoExt.builder();
     }
 
-    /** {@return the jackson @JsonSerialize options, or null} */
+    /** {@return any custom jackson @JsonSerialize options, or null} */
     @Nullable
     String jacksonJsonSerializeOptions();
 
@@ -25,10 +25,6 @@ public interface CtxDtoExt {
     /** {@return the name of a custom LocalDateSerializer, or null} */
     @Nullable
     String customLocalDateSerializer();
-
-    /** {@return additional options to use with the LocalDate serializer, or null} */
-    @Nullable
-    String localDateSerializerOpts();
 
     /** {@return the name of a custom OffsetDateDeserializer, or null} */
     @Nullable

@@ -61,6 +61,9 @@ The code generation is configured via property settings.
 
 >Allows you to add (jackson) json serialize options to the DTOs.
 
+>These are also appended to custom date serializer annotations (to prevent
+>them from being disabled).
+
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/jackson)
 >
     default value:
@@ -82,13 +85,6 @@ The code generation is configured via property settings.
 
 >
     default value: _LocalDateJacksonSerializer
-
-**generator-jackson-localdate-serializer-opts**
-
-> Allows you to add options to the LocalDate serializer annotation (similar to `generator-jackson-json-serialize-options`).
-
->
-    default value: (unset)
 
 **generator-jackson-localdate-wire-format**
 
