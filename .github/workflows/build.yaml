@@ -51,8 +51,10 @@ jobs:
         uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2
         with:
           name: files-${{ github.ref_name }}
-          path: build/dist/*.jar
-          retention-days: 7
+          path: |
+            build/dist/*.jar
+            build/dist/*.asc
+          retention-days: 3
 
       - name: Deploy Javadoc
         uses: JamesIves/github-pages-deploy-action@2731bec0dbf2bbf03977acbe88f9977eb7c2fbb7
