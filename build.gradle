@@ -171,6 +171,7 @@ publishing {
 // Not sure how to properly exclude cli from published artifacts
 publish.doLast {
     project.delete(fileTree(dir: "build/dist/dk", include: "**/*-cli.*").files)
+    project.delete(fileTree(dir: "build/dist/dk", include: "**/*.module*").files)
 }
 
 tasks.eclipse.doLast {
