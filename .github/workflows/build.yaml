@@ -47,11 +47,11 @@ jobs:
       - name: Bundle release
         run: cd build/dist/dk/mada/openapi-jaxrs-client/${GITHUB_REF_NAME}/ ; jar cvf ../../../../release-bundle-${GITHUB_REF_NAME}.jar *
 
-      - name: Upload bundled release
+      - name: Upload built files
         uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2
         with:
-          name: bundled-release-${{ github.ref_name }}
-          path: build/dist/release-bundle-${{ github.ref_name }}.jar
+          name: files-${{ github.ref_name }}
+          path: build/dist/*.jar
           retention-days: 7
 
       - name: Deploy Javadoc
