@@ -174,13 +174,18 @@ public class ApiGenerator {
 
         String summary = op.summary();
 
+        String opSummaryString = StringRenderer.encodeForString(summary);
+        if (opSummaryString != null) {
+            imports.add("org.eclipse.microprofile.openapi.annotations.Operation");
+        }
+
         CtxApiOpExt ext = CtxApiOpExt.builder()
                 .consumes(makeConsumes(imports, op))
                 .produces(makeProduces(imports, op))
                 .renderJavadocMacroSpacer(renderJavadocMacroSpacer)
                 .renderJavadocReturn(renderJavadocReturn)
                 .responseSchema(onlySimpleResponse)
-                .summaryString(StringRenderer.encodeForString(summary))
+                .summaryString(opSummaryString)
                 .build();
 
         String description = op.description();
@@ -242,10 +247,6 @@ public class ApiGenerator {
         op.responses().stream()
             .map(r -> r.content().type())
             .forEach(imports::add);
-
-        if (op.description() != null) {
-            imports.add("org.eclipse.microprofile.openapi.annotations.Operation");
-        }
     }
 
     /**
@@ -338,7 +339,7 @@ public class ApiGenerator {
     private CtxApiResponse makeResponse(Imports imports, Response r) {
         String baseType;
         String containerType;
-        Type type = r.content().type();
+        Type type = types.dereference(r.content().type());
         boolean isUnique = false;
 
         if (type instanceof TypeContainer tc) {

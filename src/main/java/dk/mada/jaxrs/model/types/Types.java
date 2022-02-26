@@ -92,6 +92,21 @@ public class Types {
         }
     }
 
+    /**
+     * Makes sure a type is dereferenced.
+     *
+     * @param type the type to dereference
+     * @return the dereferenced type
+     */
+    public Type dereference(Type type) {
+        assertDereferencingSafe();
+        if (type instanceof TypeRef tr) {
+            return get(tr.refTypeName());
+        } else {
+            return type;
+        }
+    }
+
     private void mapJse(boolean doMap, TypeName tn, Type t) {
         if (doMap) {
             mappedToJseTypes.put(tn, t);
