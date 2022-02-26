@@ -1,6 +1,8 @@
-name: Build
+name: Build and Sign
 on:
   push:
+    tags:
+      - 0.*
     branches:
       - main
   pull_request:
@@ -29,11 +31,29 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonarqube javadoc publish -s --info
+        run: ./gradlew build sonarqube javadoc publish -s -Pversion=${GITHUB_REF_NAME}
+
+      - name: Sign dist files
+        env:
+          MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
+          MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
+        run: .github/sign-published-files.sh build/dist ${GITHUB_REF_NAME} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
+
+      - name: Bundle release
+        run: cd build/dist/dk/mada/openapi-jaxrs-client/${GITHUB_REF_NAME}/ ; jar cvf ../../../../release-bundle-${GITHUB_REF_NAME}.jar *
+
+      - name: Upload bundled release
+        uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2
+        with:
+          name: bundled-release-${{ github.ref_name }}
+          path: build/dist/release-bundle-${{ github.ref_name }}.jar
+          retention-days: 7
+
       - name: Deploy Javadoc
         uses: JamesIves/github-pages-deploy-action@2731bec0dbf2bbf03977acbe88f9977eb7c2fbb7
         with:

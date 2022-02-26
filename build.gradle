@@ -9,9 +9,10 @@ plugins {
     id 'maven-publish'
 }
 
-
 group 'dk.mada'
-version '0.0.0-SNAPSHOT'
+if (project.version == 'unspecified') {
+    version '0.0.0-SNAPSHOT'
+} 
 
 ext {
     distDir = file("build/dist").getAbsolutePath()
@@ -61,7 +62,9 @@ dependencies {
 shadowJar {
    archiveBaseName.set('ojc')
    archiveClassifier.set('cli')
-   archiveVersion.set('')
+   archiveVersion.set(project.version)
+   
+   destinationDirectory = file("build/dist")
 }
 
 application {
@@ -163,6 +166,11 @@ publishing {
             }
         }
     }
+}
+
+// Not sure how to properly exclude cli from published artifacts
+publish.doLast {
+    project.delete(fileTree(dir: "build/dist/dk", include: "**/*-cli.*").files)
 }
 
 tasks.eclipse.doLast {
