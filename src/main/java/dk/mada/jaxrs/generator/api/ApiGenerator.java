@@ -275,6 +275,7 @@ public class ApiGenerator {
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
+                    .useBeanValidation(opts.isUseBeanValidation())
                     .madaParam(madaParamEmpty)
                     .build());
         }
@@ -326,6 +327,7 @@ public class ApiGenerator {
                     .isHeaderParam(false)
                     .isPathParam(false)
                     .isQueryParam(false)
+                    .useBeanValidation(opts.isUseBeanValidation())
                     .madaParam(madaParamEmpty)
                     .build());
         });
