@@ -232,7 +232,7 @@ public final class TypeConverter {
                 .map(TypeRef.class::cast)
                 .toList();
 
-        if (validations.size() != 1 && refs.size() != 1) {
+        if (validations.size() != 1 || refs.size() != 1) {
             logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
             // bail for now
             return TypeObject.get();
