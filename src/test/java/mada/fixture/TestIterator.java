@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.platform.runner.JUnitPlatform;
@@ -24,13 +25,24 @@ import dk.mada.logging.LoggerConfig;
 class TestIterator {
     private static final Logger logger = LoggerFactory.getLogger(TestIterator.class);
 
+    /** Directory where all test output is placed. */
+    private static final Path OUTPUT_DIR = Paths.get("build/e2e");
+
+    /**
+     * Make output dir at exit, so it is present, even if no test executes.
+     * Otherwise Eclipse gets sad...
+     */
+    @AfterAll
+    static void createOutputDir() throws IOException {
+        Files.createDirectories(OUTPUT_DIR);
+    }
+
     @TestFactory
     List<DynamicTest> makeTests() throws IOException {
         LoggerConfig.loadConfig("/logging-test.properties");
 
         Path testSrcDir = Paths.get("src/test/java").toAbsolutePath();
         Path rootDir = testSrcDir.resolve("mada/tests/e2e");
-        Path outputDir = Paths.get("build/e2e");
         logger.info("Scanning for tests in {}", rootDir);
 
         String testDir = System.getProperty("testDir", "");
@@ -45,7 +57,7 @@ class TestIterator {
 
         Predicate<? super Path> testFilter = testDir.isEmpty() ? filterByName : filterByProperty;
 
-        DirectoryDeleter.delete(outputDir);
+        DirectoryDeleter.delete(OUTPUT_DIR);
 
         return Files.walk(rootDir)
                 .filter(p -> {
@@ -56,14 +68,14 @@ class TestIterator {
                 .map(testInput -> {
                     Path testRootDir = testInput.getParent();
                     Path testPath = testSrcDir.relativize(testRootDir);
-                    Path testOutputDir = outputDir.resolve(testPath);
+                    Path testOutputDir = OUTPUT_DIR.resolve(testPath);
 
                     String name = testPath.toString().replace("/", ".");
 
                     String pkgPrefix = testSrcDir.relativize(testRootDir).toString().replace("/", ".");
 
                     return DynamicTest.dynamicTest(name, () ->
-                        new EndToEndTester().runTest(outputDir, pkgPrefix, testRootDir, testOutputDir));
+                        new EndToEndTester().runTest(OUTPUT_DIR, pkgPrefix, testRootDir, testOutputDir));
                 })
                 .sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
                 .collect(Collectors.toList());
