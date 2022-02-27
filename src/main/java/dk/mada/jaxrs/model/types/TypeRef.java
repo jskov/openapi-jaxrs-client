@@ -2,8 +2,11 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
@@ -11,6 +14,13 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  *
  * The sibling may not have been processed yet,
  * hence this type which acts as a lazy delegation.
+ *
+ * The reference may be extended with validation requirements
+ * which apply for this particular reference (think of it as
+ * requirements that apply to the parameter/property that
+ * references the type).
+ * I am not at all sure this is a good way to model this,
+ * but it is a start...
  */
 @Immutable
 public interface TypeRef extends Type {
@@ -24,6 +34,28 @@ public interface TypeRef extends Type {
     static TypeRef of(TypeName refTypeName, Types types) {
         return ImmutableTypeRef.builder().refTypeName(refTypeName).types(types).build();
     }
+
+    /**
+     * Extends a reference with validation information.
+     *
+     * @param ref the type reference
+     * @param validation the validation information
+     * @return a new reference with validation information
+     */
+    static TypeRef withValidation(TypeRef ref, Validation validation) {
+        return ImmutableTypeRef.builder().from(ref)
+                .validation(validation)
+                .build();
+    }
+
+    /**
+     * Validation information that applies to this
+     * particular reference of the type.
+     *
+     * @return the validation information, or null.
+     */
+    @Nullable
+    Validation validation();
 
     /** {@return the referenced type name} */
     TypeName refTypeName();
@@ -40,8 +72,7 @@ public interface TypeRef extends Type {
      * @return the referenced type
      */
     default Type dereference() {
-        types().assertDereferencingSafe();
-        return types().get(refTypeName());
+        return types().dereference(this).type();
     }
 
     @Override

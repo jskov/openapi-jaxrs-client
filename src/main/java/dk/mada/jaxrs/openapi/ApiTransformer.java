@@ -233,11 +233,13 @@ public class ApiTransformer {
         boolean isPathParam = param instanceof PathParameter;
         boolean isQueryParam = param instanceof QueryParameter;
 
+        Type type = typeConverter.toType(param.getSchema());
+
         return Parameter.builder()
                 .name(param.getName())
                 .description(param.getDescription())
                 .isRequired(toBool(param.getRequired()))
-                .type(typeConverter.toType(param.getSchema()))
+                .type(type)
                 .isHeaderParam(isHeaderParam)
                 .isPathParam(isPathParam)
                 .isQueryParam(isQueryParam)

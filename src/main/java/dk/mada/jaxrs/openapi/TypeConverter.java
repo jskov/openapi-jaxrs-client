@@ -241,8 +241,7 @@ public final class TypeConverter {
         TypeRef ref = refs.get(0);
         Validation validation = validations.get(0).validation();
 
-        logger.info("TODO: missing {} validations {}", ref, validation);
-        return ref;
+        return TypeRef.withValidation(ref, validation);
     }
 
     private Type findDto(String ref) {

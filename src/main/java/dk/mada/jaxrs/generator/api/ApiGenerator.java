@@ -27,6 +27,7 @@ import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
+import dk.mada.jaxrs.model.types.DereferencedType;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
@@ -279,12 +280,12 @@ public class ApiGenerator {
         }
 
         for (Parameter p : op.parameters()) {
-            Type type = p.type();
-            imports.add(type);
+            DereferencedType derefType = types.dereference(p.type());
+            imports.add(derefType.type());
 
             String paramName = naming.convertParameterName(p.name());
 
-            String dataType = paramDataType(type);
+            String dataType = paramDataType(derefType.type());
 
             params.add(CtxApiParam.builder()
                     .baseName(p.name())
@@ -339,7 +340,8 @@ public class ApiGenerator {
     private CtxApiResponse makeResponse(Imports imports, Response r) {
         String baseType;
         String containerType;
-        Type type = types.dereference(r.content().type());
+        DereferencedType derefType = types.dereference(r.content().type());
+        Type type = derefType.type();
         boolean isUnique = false;
 
         if (type instanceof TypeContainer tc) {

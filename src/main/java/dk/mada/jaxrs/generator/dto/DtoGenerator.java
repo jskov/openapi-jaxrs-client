@@ -25,13 +25,13 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.types.DereferencedType;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
-import dk.mada.jaxrs.model.types.TypeRef;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.EnumNamer;
@@ -138,7 +138,8 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        Type dtoType = derefType(dto.dtoType());
+        DereferencedType derefType = derefType(dto.dtoType());
+        Type dtoType = derefType.type();
         CtxEnum ctxEnum = null;
         if (isEnum) {
             ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
@@ -255,7 +256,8 @@ public class DtoGenerator {
 
         logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
-        Type propType = derefType(p.type());
+        DereferencedType derefType = derefType(p.type());
+        Type propType = derefType.type();
         logger.trace(" {}", propType);
 
         String defaultValue = null;
@@ -433,12 +435,9 @@ public class DtoGenerator {
                 .build();
     }
 
-    private Type derefType(Type t) {
+    private DereferencedType derefType(Type t) {
         Type mapped = types.map(t);
-        if (mapped instanceof TypeRef tr) {
-            return tr.dereference();
-        }
-        return mapped;
+        return types.dereference(mapped);
     }
 
     private String getterPrefix(Property p) {
