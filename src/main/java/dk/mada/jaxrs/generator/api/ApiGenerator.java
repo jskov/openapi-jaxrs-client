@@ -281,22 +281,32 @@ public class ApiGenerator {
 
         for (Parameter p : op.parameters()) {
             DereferencedType derefType = types.dereference(p.type());
-            imports.add(derefType.type());
+
+            Type type = derefType.type();
+            imports.add(type);
 
             String paramName = naming.convertParameterName(p.name());
 
-            String dataType = paramDataType(derefType.type());
+            String dataType = paramDataType(type);
+
+            logger.info("See param {} : {} : {}", paramName, type, derefType.validation());
+
+            boolean required = derefType.required() || p.isRequired();
+            if (required) {
+                imports.add("javax.validation.constraints.NotNull");
+            }
 
             params.add(CtxApiParam.builder()
                     .baseName(p.name())
                     .paramName(paramName)
                     .dataType(dataType)
-                    .required(p.isRequired())
+                    .required(required)
                     .isBodyParam(false)
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
                     .madaParam(madaParamEmpty)
+                    .useBeanValidation(opts.isUseBeanValidation())
                     .build());
         }
 

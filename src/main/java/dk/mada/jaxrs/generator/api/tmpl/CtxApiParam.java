@@ -30,6 +30,9 @@ public interface CtxApiParam {
     /** {@return true if this is a query parameter, otherwise false} */
     boolean isQueryParam();
 
+    /** {@return true if bean validation should be used for this paramater, otherwise false} */
+    boolean useBeanValidation();
+
     /** {@return additional custom template data for the parameter} */
     CtxApiParamExt madaParam();
 }

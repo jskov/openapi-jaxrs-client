@@ -14,4 +14,8 @@ import dk.mada.jaxrs.model.Validation;
  * @param validation the validation requirements, or null
  */
 public record DereferencedType(Type type, @Nullable Validation validation) {
+
+    public boolean required() {
+        return validation != null && !validation.isNullable();
+    }
 }
