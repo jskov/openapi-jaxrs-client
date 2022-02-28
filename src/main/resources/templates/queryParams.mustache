@@ -18,7 +18,7 @@
 
     }}@QueryParam("{{baseName}}"){{!
 
-    }}{{#useBeanValidation}} {{>beanValidation}}{{/useBeanValidation}}{{!
+    }}{{#useBeanValidation}} {{>beanValidation}}@TRIM_EMPTY_LINE@{{/useBeanValidation}}{{!
 
     }} {{{dataType}}} {{paramName}}{{!
 
