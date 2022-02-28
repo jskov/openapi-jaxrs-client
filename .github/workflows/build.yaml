@@ -60,7 +60,7 @@ jobs:
         run: cd build/dist/dk/mada/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../release-bundle-${BUILD_LABEL}.jar *
 
       - name: Upload built files
-        if: ! ${{ github.head_ref }}
+        if: ${{ ! github.head_ref }}
         uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2
         with:
           name: files-${{ github.ref_name }}
