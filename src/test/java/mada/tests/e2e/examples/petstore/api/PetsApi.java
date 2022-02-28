@@ -7,6 +7,7 @@
 package mada.tests.e2e.examples.petstore.api;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.petstore.dto.Error;
@@ -70,5 +71,5 @@ public interface PetsApi {
                  content = @Content(schema = @Schema(implementation = Error.class)))
   })
   @Operation(summary = "Info for a specific pet")
-  Pet showPetById(@PathParam("petId") String petId);
+  Pet showPetById(@PathParam("petId") @NotNull String petId);
 }

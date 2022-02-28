@@ -9,6 +9,7 @@
 package mada.tests.e2e.api.javadoc.api;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.api.javadoc.dto.Simple;
@@ -76,5 +77,5 @@ public interface Api_DocsApi {
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   @Operation(summary = "op is missing punctuation")
-  String apiDocsParamsInPathGet(@PathParam("in-path") String inPath, @QueryParam("query") String query, @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item, Simple dto);
+  String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item,Simple dto);
 }
