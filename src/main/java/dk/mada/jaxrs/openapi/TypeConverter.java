@@ -97,8 +97,8 @@ public final class TypeConverter {
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
 
-        logger.info("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
-        logger.info("ref {}", schemaRef);
+        logger.debug("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
+        logger.debug("ref {}", schemaRef);
 
         Type type = Primitive.find(schemaType, schemaFormat);
 
@@ -217,11 +217,10 @@ public final class TypeConverter {
             return null;
         }
 
-        logger.info("ALL OF {}", allOf.size());
         List<Type> allOfTypes = allOf.stream()
             .map(this::toType)
             .toList();
-        allOfTypes.forEach(t -> logger.info(" {}", t));
+        allOfTypes.forEach(t -> logger.debug(" {}", t));
 
         List<TypeValidation> validations = allOfTypes.stream()
             .filter(TypeValidation.class::isInstance)
