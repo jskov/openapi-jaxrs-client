@@ -33,24 +33,26 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
 
       - name: Echo env
+        env:
+          TEST_: ${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}
         run: env | sort
 
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonarqube javadoc publish -s -Pversion=${GITHUB_REF_NAME}
+        run: ./gradlew build sonarqube javadoc publish -s -Pversion=${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}
 
       - name: Sign dist files
         if: startsWith(github.ref, 'refs/tags/')
         env:
           MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
           MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
-        run: .github/sign-published-files.sh build/dist ${GITHUB_REF_NAME} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
+        run: .github/sign-published-files.sh build/dist ${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
 
       - name: Bundle release
         if: startsWith(github.ref, 'refs/tags/')
-        run: cd build/dist/dk/mada/openapi-jaxrs-client/${GITHUB_REF_NAME}/ ; jar cvf ../../../../release-bundle-${GITHUB_REF_NAME}.jar *
+        run: cd build/dist/dk/mada/openapi-jaxrs-client/${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}/ ; jar cvf ../../../../release-bundle-${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}.jar *
 
       - name: Upload built files
         uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2
