@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.api.params.path.api;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
@@ -36,7 +37,7 @@ public interface Params_PathApi {
   @Path("/byte/{byteId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathByteByteIdGet(@PathParam("byteId") byte byteId);
+  String apiParamsPathByteByteIdGet(@PathParam("byteId") @NotNull byte byteId);
 
   /**
    * apiParamsPathIntIntIdGet.
@@ -48,7 +49,7 @@ public interface Params_PathApi {
   @Path("/int/{intId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathIntIntIdGet(@PathParam("intId") int intId);
+  String apiParamsPathIntIntIdGet(@PathParam("intId") @NotNull int intId);
 
   /**
    * apiParamsPathLongLongIdGet.
@@ -60,7 +61,7 @@ public interface Params_PathApi {
   @Path("/long/{longId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathLongLongIdGet(@PathParam("longId") long longId);
+  String apiParamsPathLongLongIdGet(@PathParam("longId") @NotNull long longId);
 
   /**
    * apiParamsPathShortShortIdGet.
@@ -72,7 +73,7 @@ public interface Params_PathApi {
   @Path("/short/{shortId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathShortShortIdGet(@PathParam("shortId") short shortId);
+  String apiParamsPathShortShortIdGet(@PathParam("shortId") @NotNull short shortId);
 
   /**
    * apiParamsPathStringStringIdGet.
@@ -84,5 +85,5 @@ public interface Params_PathApi {
   @Path("/string/{stringId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathStringStringIdGet(@PathParam("stringId") String stringId);
+  String apiParamsPathStringStringIdGet(@PathParam("stringId") @NotNull String stringId);
 }

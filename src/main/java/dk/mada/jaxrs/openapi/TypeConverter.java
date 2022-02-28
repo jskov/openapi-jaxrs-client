@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -20,12 +21,15 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
+import dk.mada.jaxrs.model.types.TypeRef;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
+import dk.mada.jaxrs.model.types.TypeValidation;
 import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
+import io.swagger.v3.oas.models.media.ComposedSchema;
 import io.swagger.v3.oas.models.media.DateSchema;
 import io.swagger.v3.oas.models.media.DateTimeSchema;
 import io.swagger.v3.oas.models.media.FileSchema;
@@ -91,9 +95,10 @@ public final class TypeConverter {
     public Type toType(Schema<?> schema, String propertyName) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
+        String schemaRef = schema.get$ref();
 
         logger.debug("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
-        logger.debug("ref {}", schema.get$ref());
+        logger.debug("ref {}", schemaRef);
 
         Type type = Primitive.find(schemaType, schemaFormat);
 
@@ -149,6 +154,16 @@ public final class TypeConverter {
             }
         }
 
+        if (schema instanceof ComposedSchema cs) {
+            // TODO: oneOff -> interface implementation selection
+
+            // allOf is the combination of schemas (subclassing and/or validation)
+            Type typeWithValidation = findTypeValidation(cs);
+            if (typeWithValidation != null) {
+                return typeWithValidation;
+            }
+        }
+
         if (schema instanceof NumberSchema) {
             return TypeBigDecimal.get();
         }
@@ -178,7 +193,54 @@ public final class TypeConverter {
             return Primitive.STRING;
         }
 
+        // In no type and reference, assume it is supplemental validation
+        // information for the other type in a ComposedSchema.
+        if (schemaType == null && schemaRef == null) {
+            Validation v = extractValidation(schema);
+            logger.debug("VALIDATION {}", v);
+            return TypeValidation.of(v);
+        }
+
         throw new IllegalStateException("No type found for " + schema);
+    }
+
+    /**
+     * Handle (only) allOf-use for assigning validation to a type.
+     *
+     * @param cs the composed schema
+     * @return a referenced type with validation added, or null
+     */
+    private Type findTypeValidation(ComposedSchema cs) {
+        @SuppressWarnings("rawtypes")
+        List<Schema> allOf = cs.getAllOf();
+        if (allOf == null) {
+            return null;
+        }
+
+        List<Type> allOfTypes = allOf.stream()
+            .map(this::toType)
+            .toList();
+        allOfTypes.forEach(t -> logger.debug(" {}", t));
+
+        List<TypeValidation> validations = allOfTypes.stream()
+            .filter(TypeValidation.class::isInstance)
+            .map(TypeValidation.class::cast)
+            .toList();
+        List<TypeRef> refs = allOfTypes.stream()
+                .filter(TypeRef.class::isInstance)
+                .map(TypeRef.class::cast)
+                .toList();
+
+        if (validations.size() != 1 || refs.size() != 1) {
+            logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
+            // bail for now
+            return TypeObject.get();
+        }
+
+        TypeRef ref = refs.get(0);
+        Validation validation = validations.get(0).validation();
+
+        return TypeRef.withValidation(ref, validation);
     }
 
     private Type findDto(String ref) {
@@ -187,5 +249,18 @@ public final class TypeConverter {
             return types.findDto(openapiId);
         }
         return null;
+    }
+
+    private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s) {
+        return Validation.builder()
+                .isNullable(s.getNullable())
+                .isReadonly(s.getReadOnly())
+                .isRequired(false)
+                .maximum(s.getMaximum())
+                .maxLength(s.getMaxLength())
+                .minimum(s.getMinimum())
+                .minLength(s.getMinLength())
+                .pattern(s.getPattern())
+                .build();
     }
 }

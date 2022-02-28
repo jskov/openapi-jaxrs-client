@@ -27,6 +27,7 @@ import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
+import dk.mada.jaxrs.model.types.DereferencedType;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
@@ -274,28 +275,39 @@ public class ApiGenerator {
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
+                    .useBeanValidation(opts.isUseBeanValidation())
                     .madaParam(madaParamEmpty)
                     .build());
         }
 
         for (Parameter p : op.parameters()) {
-            Type type = p.type();
+            DereferencedType derefType = types.dereference(p.type());
+
+            Type type = derefType.type();
             imports.add(type);
 
             String paramName = naming.convertParameterName(p.name());
 
             String dataType = paramDataType(type);
 
+            logger.info("See param {} : {} : {}", paramName, type, derefType.validation());
+
+            boolean required = derefType.required() || p.isRequired();
+            if (required) {
+                imports.add("javax.validation.constraints.NotNull");
+            }
+
             params.add(CtxApiParam.builder()
                     .baseName(p.name())
                     .paramName(paramName)
                     .dataType(dataType)
-                    .required(p.isRequired())
+                    .required(required)
                     .isBodyParam(false)
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
                     .madaParam(madaParamEmpty)
+                    .useBeanValidation(opts.isUseBeanValidation())
                     .build());
         }
 
@@ -315,6 +327,7 @@ public class ApiGenerator {
                     .isHeaderParam(false)
                     .isPathParam(false)
                     .isQueryParam(false)
+                    .useBeanValidation(opts.isUseBeanValidation())
                     .madaParam(madaParamEmpty)
                     .build());
         });
@@ -339,7 +352,8 @@ public class ApiGenerator {
     private CtxApiResponse makeResponse(Imports imports, Response r) {
         String baseType;
         String containerType;
-        Type type = types.dereference(r.content().type());
+        DereferencedType derefType = types.dereference(r.content().type());
+        Type type = derefType.type();
         boolean isUnique = false;
 
         if (type instanceof TypeContainer tc) {
