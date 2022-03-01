@@ -160,11 +160,6 @@ public class DtoTransformer {
     }
 
     private String getModelName(String schemaName, Schema<?> schema) {
-        String name = schema.getTitle();
-        if (name == null) {
-            name = schemaName;
-        }
-
-        return naming.convertTypeName(name);
+        return naming.convertTypeName(schemaName);
     }
 }
