@@ -4,7 +4,7 @@
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.opts.generator.external_refs.p2;
+package mada.tests.e2e.opts.generator.external_types.p2;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,8 @@ import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import mada.tests.e2e.opts.generator.external_refs.p1.Simple;
+
+import mada.tests.e2e.opts.generator.external_types.p1.Simple;
 
 /**
  * MapsDto
