@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.generator.CommonPathFinder;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.generator.StringRenderer;
@@ -64,6 +65,9 @@ public class ApiGenerator {
     /** The data model. */
     private final Model model;
 
+    /** Common path finder. */
+    private final CommonPathFinder commonPathFinder = new CommonPathFinder();
+
     /**
      * Constructs a new API generator.
      *
@@ -108,7 +112,11 @@ public class ApiGenerator {
     private CtxApi toCtx(String classname, List<Operation> operations) {
         var imports = Imports.newApi(types, opts);
 
-        String commonPath = model.operations().findCommonPath(operations);
+        List<String> paths = operations.stream()
+                    .map(Operation::path)
+                    .toList();
+        String commonPath = commonPathFinder.findCommonPath(paths);
+
         int trimPathLength = commonPath.length();
 
         List<CtxOperationRef> ops = makeOperations(operations, imports, trimPathLength);
