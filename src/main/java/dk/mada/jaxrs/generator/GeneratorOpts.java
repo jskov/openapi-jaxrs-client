@@ -198,7 +198,7 @@ public final class GeneratorOpts {
 
     	for (String mapping : s.split(";")) {
     		String pkg = mapping.replaceAll(":.*", "").trim();
-    		String types = mapping.replaceAll(".*:", "").trim();
+    		String types = mapping.replaceAll("[^:]*:", "").trim();
     		
         	for (String type : types.split(",")) {
         		String tt = type.trim();
