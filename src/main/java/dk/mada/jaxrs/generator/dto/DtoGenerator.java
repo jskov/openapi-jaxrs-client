@@ -99,14 +99,14 @@ public class DtoGenerator {
 
             String mappedToExternalType = externalTypeMapping.get(name);
             if (mappedToExternalType != null) {
-            	logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
+                logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
             } else {
-	            logger.info(" generate DTO {}", name);
-	
-	            CtxDto ctx = toCtx(type);
-	            logger.debug("{} ctx: {}", name, ctx);
-	
-	            templates.renderDtoTemplate(ctx);
+                logger.info(" generate DTO {}", name);
+
+                CtxDto ctx = toCtx(type);
+                logger.debug("{} ctx: {}", name, ctx);
+
+                templates.renderDtoTemplate(ctx);
             }
         });
 
@@ -269,7 +269,7 @@ public class DtoGenerator {
         DereferencedType derefType = derefType(p.type());
         Type propType = derefType.type();
         logger.trace(" {}", propType);
-        
+
         String defaultValue = null;
         boolean isRequired = p.isRequired();
         boolean isArray = false;
@@ -311,7 +311,6 @@ public class DtoGenerator {
         boolean isContainer = isArray || isMap || isSet;
 
         String typeName = propType.wrapperTypeName().name();
-        
 
         // Add import if required
         String externalType = externalTypeMapping.get(typeName);

@@ -180,37 +180,37 @@ public final class GeneratorOpts {
         return getDefault("generator-jackson-localdate-serializer", ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
     }
 
-    /** 
+    /**
      * Returns mapping of external types.
-     * 
+     *
      * Maps a (OpenApi document) type name (key) into its fully-qualified class name (value).
      * The keySet serves as a set of DTOs *not* to generate.
-     * 
+     *
      * @return mapping of types names to external type imports
      **/
     public Map<String, String> getExternalTypeMapping() {
-    	String s = get("generator-map-external-types");
-    	if (s == null) {
-    		return Map.of();
-    	}
-    	
-    	Map<String, String> typeMapping = new HashMap<>();
+        String s = get("generator-map-external-types");
+        if (s == null) {
+            return Map.of();
+        }
 
-    	for (String mapping : s.split(";")) {
-    		int index = mapping.indexOf(":");
-    		if (index == -1 || index+1 > mapping.length()) {
-    			throw new IllegalArgumentException("No package-to-types mapping found in '" + s + "'");
-    		}
-    		String pkg = mapping.substring(0, index).trim();
-    		String types = mapping.substring(index+1).trim();
+        Map<String, String> typeMapping = new HashMap<>();
 
-        	for (String type : types.split(",")) {
-        		String tt = type.trim();
-        		typeMapping.put(tt, pkg + "." + tt);
-        	}
-    	}
-    	
-    	return typeMapping;
+        for (String mapping : s.split(";")) {
+            int index = mapping.indexOf(":");
+            if (index == -1 || (index + 1) > mapping.length()) {
+                throw new IllegalArgumentException("No package-to-types mapping found in '" + s + "'");
+            }
+            String pkg = mapping.substring(0, index).trim();
+            String types = mapping.substring(index + 1).trim();
+
+            for (String type : types.split(",")) {
+                String tt = type.trim();
+                typeMapping.put(tt, pkg + "." + tt);
+            }
+        }
+
+        return typeMapping;
     }
 
     /** {@return true if the extra-template for a jackson LocalDate deserializer should be added, otherwise false} */

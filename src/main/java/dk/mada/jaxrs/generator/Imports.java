@@ -99,7 +99,7 @@ public final class Imports {
     private final Types types;
     private final SortedSet<String> importedClasses = new TreeSet<>();
     private final boolean includeDtoImports;
-    
+
     /** External type mapping. */
     private final Map<String, String> externalTypeMapping;
 
@@ -107,7 +107,7 @@ public final class Imports {
         this.types = types;
         this.opts = opts;
         this.includeDtoImports = includeDtoImports;
-        
+
         externalTypeMapping = opts.getExternalTypeMapping();
     }
 
@@ -270,14 +270,14 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports add(Type type) {
-    	String typeName = type.typeName().name();
-		String mappedToExternalType = externalTypeMapping.get(typeName);
-    	if (mappedToExternalType != null) {
-    		logger.info("mapping type {} to {}", typeName, mappedToExternalType);
-    		add(mappedToExternalType);
-    		return this;
-    	}
-    	
+        String typeName = type.typeName().name();
+        String mappedToExternalType = externalTypeMapping.get(typeName);
+        if (mappedToExternalType != null) {
+            logger.info("mapping type {} to {}", typeName, mappedToExternalType);
+            add(mappedToExternalType);
+            return this;
+        }
+
         importedClasses.addAll(type.neededImports());
         addDtoImport(type);
         if (type instanceof TypeArray ta) {
