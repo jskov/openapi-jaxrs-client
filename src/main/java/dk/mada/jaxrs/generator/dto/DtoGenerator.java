@@ -269,7 +269,7 @@ public class DtoGenerator {
         DereferencedType derefType = derefType(p.type());
         Type propType = derefType.type();
         logger.trace(" {}", propType);
-
+        
         String defaultValue = null;
         boolean isRequired = p.isRequired();
         boolean isArray = false;
@@ -278,29 +278,29 @@ public class DtoGenerator {
         boolean isDate = propType.isDate();
         boolean isDateTime = propType.isDateTime();
         boolean isEnum = false;
-        String innerType = null;
+        String innerTypeName = null;
         CtxEnum ctxEnum = null;
 
         if (propType instanceof TypeArray ca) {
             isArray = true;
-            innerType = ca.mappedInnerType().typeName().name();
+            innerTypeName = ca.mappedInnerType().typeName().name();
             defaultValue = "new " + ca.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeMap cm) {
             isMap = true;
-            innerType = cm.innerType().typeName().name();
+            innerTypeName = cm.innerType().typeName().name();
             defaultValue = "new " + cm.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeSet cs) {
             isSet = true;
-            innerType = cs.innerType().typeName().name();
+            innerTypeName = cs.innerType().typeName().name();
             defaultValue = "new " + cs.containerImplementation() + "<>()";
 
             // In templates, array is used for both set and list
             isArray = true;
         }
         if (propType instanceof TypeEnum te) {
-            innerType = te.innerType().typeName().name();
+            innerTypeName = te.innerType().typeName().name();
             isEnum = true;
 
             ctxEnum = buildEnumEntries(te.innerType(), te.values());
@@ -311,6 +311,17 @@ public class DtoGenerator {
         boolean isContainer = isArray || isMap || isSet;
 
         String typeName = propType.wrapperTypeName().name();
+        
+
+        // Add import if required
+        String externalType = externalTypeMapping.get(typeName);
+        if (externalType != null) {
+        	dtoImports.add(externalType);
+        }
+        externalType = externalTypeMapping.get(innerTypeName);
+        if (externalType != null) {
+        	dtoImports.add(externalType);
+        }
 
         String getterPrefix = getterPrefix(p);
         String getter = getterPrefix + nameCamelized;
@@ -403,7 +414,7 @@ public class DtoGenerator {
         }
 
         CtxPropertyExt mada = CtxPropertyExt.builder()
-                .innerDatatypeWithEnum(innerType)
+                .innerDatatypeWithEnum(innerTypeName)
                 .schemaOptions(schemaOptions)
                 .isUseBigDecimalForDouble(isUseBigDecimalForDouble)
                 .isUseEmptyCollections(isUseEmptyCollections)
@@ -417,7 +428,7 @@ public class DtoGenerator {
         return CtxProperty.builder()
                 .baseName(name)
                 .datatypeWithEnum(typeName)
-                .dataType(innerType)
+                .dataType(innerTypeName)
                 .name(varName)
                 .nameInCamelCase(nameCamelized)
                 .nameInSnakeCase(nameSnaked)
