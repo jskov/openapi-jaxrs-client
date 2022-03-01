@@ -22,6 +22,7 @@ class CommonPathTest {
 
             'path, path/simple',                 path
 
+            'path/foo, path/bar',                path
             'path/foo, path/foo-bar',            path
             'x/path/foo, x/path/foo-bar',        x/path
             

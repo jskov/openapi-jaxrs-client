@@ -19,12 +19,6 @@ public final class Operations {
                 .collect(Collectors.groupingBy(this::getGroup));
     }
 
-    public List<String> getPaths() {
-        return ops.stream()
-                .map(Operation::path)
-                .toList();
-    }
-    
     private String getGroup(Operation op) {
         List<String> tags = op.tags();
         if (tags.isEmpty()) {

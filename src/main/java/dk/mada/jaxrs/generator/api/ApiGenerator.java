@@ -112,8 +112,10 @@ public class ApiGenerator {
     private CtxApi toCtx(String classname, List<Operation> operations) {
         var imports = Imports.newApi(types, opts);
 
-        List<String> allPaths = model.operations().getPaths();
-        String commonPath = commonPathFinder.findCommonPath(allPaths);
+        List<String> paths = operations.stream()
+                    .map(Operation::path)
+                    .toList();
+        String commonPath = commonPathFinder.findCommonPath(paths);
 
         int trimPathLength = commonPath.length();
 
