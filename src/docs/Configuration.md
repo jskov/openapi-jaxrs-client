@@ -162,6 +162,22 @@ The options are grouped into three sections:
 >
     default value: false
 
+
+**generator-map-external-types**
+
+>Allows you to map types in the OpenApi document to other packages, suppressing generation of DTOs for these types.
+
+>This can be useful for referencing common types that are distributes by other means.
+
+>Format:
+>  packageA:[typeA, typeB,...]; packageB:[typeC, typeD, ...]
+
+
+>
+    default value:
+
+
+
 **generator-use-api-wrapped-primitives**
 
 >Allows you to use primitive wrapped as API parameters instead of primitives.

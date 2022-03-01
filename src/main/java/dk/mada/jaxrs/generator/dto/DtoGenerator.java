@@ -3,6 +3,7 @@ package dk.mada.jaxrs.generator.dto;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -66,6 +67,9 @@ public class DtoGenerator {
      **/
     private final EnumSet<ExtraTemplate> extraTemplates = EnumSet.noneOf(ExtraTemplate.class);
 
+    /** External type mapping. */
+    private final Map<String, String> externalTypeMapping;
+
     /**
      * Constructs a new generator.
      *
@@ -81,6 +85,7 @@ public class DtoGenerator {
         this.model = model;
 
         types = model.types();
+        externalTypeMapping = opts.getExternalTypeMapping();
     }
 
     /**
@@ -91,13 +96,18 @@ public class DtoGenerator {
         .sorted((a, b) -> a.name().compareTo(b.name()))
         .forEach(type -> {
             String name = type.name();
-            logger.info(" generate type {}", name);
 
-            CtxDto ctx = toCtx(type);
+            String mappedToExternalType = externalTypeMapping.get(name);
+            if (mappedToExternalType != null) {
+                logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
+            } else {
+                logger.info(" generate DTO {}", name);
 
-            logger.info("{} ctx: {}", name, ctx);
+                CtxDto ctx = toCtx(type);
+                logger.debug("{} ctx: {}", name, ctx);
 
-            templates.renderDtoTemplate(ctx);
+                templates.renderDtoTemplate(ctx);
+            }
         });
 
         extraTemplates.forEach(tmpl -> {
@@ -268,29 +278,29 @@ public class DtoGenerator {
         boolean isDate = propType.isDate();
         boolean isDateTime = propType.isDateTime();
         boolean isEnum = false;
-        String innerType = null;
+        String innerTypeName = null;
         CtxEnum ctxEnum = null;
 
         if (propType instanceof TypeArray ca) {
             isArray = true;
-            innerType = ca.mappedInnerType().typeName().name();
+            innerTypeName = ca.mappedInnerType().typeName().name();
             defaultValue = "new " + ca.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeMap cm) {
             isMap = true;
-            innerType = cm.innerType().typeName().name();
+            innerTypeName = cm.innerType().typeName().name();
             defaultValue = "new " + cm.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeSet cs) {
             isSet = true;
-            innerType = cs.innerType().typeName().name();
+            innerTypeName = cs.innerType().typeName().name();
             defaultValue = "new " + cs.containerImplementation() + "<>()";
 
             // In templates, array is used for both set and list
             isArray = true;
         }
         if (propType instanceof TypeEnum te) {
-            innerType = te.innerType().typeName().name();
+            innerTypeName = te.innerType().typeName().name();
             isEnum = true;
 
             ctxEnum = buildEnumEntries(te.innerType(), te.values());
@@ -301,6 +311,18 @@ public class DtoGenerator {
         boolean isContainer = isArray || isMap || isSet;
 
         String typeName = propType.wrapperTypeName().name();
+
+        // Add import if required
+        String externalType = externalTypeMapping.get(typeName);
+        if (externalType != null) {
+        	dtoImports.add(externalType);
+        }
+        if (innerTypeName != null) {
+	        String innerExternalType = externalTypeMapping.get(innerTypeName);
+	        if (innerExternalType != null) {
+	        	dtoImports.add(innerExternalType);
+	        }
+        }
 
         String getterPrefix = getterPrefix(p);
         String getter = getterPrefix + nameCamelized;
@@ -393,7 +415,7 @@ public class DtoGenerator {
         }
 
         CtxPropertyExt mada = CtxPropertyExt.builder()
-                .innerDatatypeWithEnum(innerType)
+                .innerDatatypeWithEnum(innerTypeName)
                 .schemaOptions(schemaOptions)
                 .isUseBigDecimalForDouble(isUseBigDecimalForDouble)
                 .isUseEmptyCollections(isUseEmptyCollections)
@@ -407,7 +429,7 @@ public class DtoGenerator {
         return CtxProperty.builder()
                 .baseName(name)
                 .datatypeWithEnum(typeName)
-                .dataType(innerType)
+                .dataType(innerTypeName)
                 .name(varName)
                 .nameInCamelCase(nameCamelized)
                 .nameInSnakeCase(nameSnaked)
