@@ -10,14 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Test of common path finder.
+ */
 class CommonPathTest {
     private CommonPathFinder sut = new CommonPathFinder();
-    
+
     @ParameterizedTest
     @CsvSource(textBlock = """
-            'path, path/simple',        path
+            'foo, bar',                /
     """)
-    void testSimplePrefix(String paths, String expected) {
+    void noCommonPath(String paths, String expected) {
         List<String> input = toList(paths);
         assertThat(sut.findCommonPath(input))
             .isEqualTo(expected);
@@ -25,7 +28,18 @@ class CommonPathTest {
 
     @ParameterizedTest
     @CsvSource(textBlock = """
-            'path/foo, path/foo-bar',        path
+            'path, path/simple',                path
+    """)
+    void simplePrefixIsFound(String paths, String expected) {
+        List<String> input = toList(paths);
+        assertThat(sut.findCommonPath(input))
+            .isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource(textBlock = """
+            'path/foo, path/foo-bar',            path
+            'x/path/foo, x/path/foo-bar',        x/path
     """)
     void sharedPartialPathShouldNotBeTaken(String paths, String expected) {
         List<String> input = toList(paths);

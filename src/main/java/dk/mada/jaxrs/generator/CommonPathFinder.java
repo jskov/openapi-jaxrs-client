@@ -42,7 +42,7 @@ public class CommonPathFinder {
         while (shortestPath.length() > 1) {
             logger.debug("Shortest potential path: {}", shortestPath);
             String matchPath = shortestPath;
-            if (paths.stream().allMatch(p -> p.startsWith(matchPath))) {
+            if (paths.stream().allMatch(p -> p.equals(matchPath) || p.startsWith(matchPath + "/"))) {
                 commonPath = shortestPath;
                 break;
             }
