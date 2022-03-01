@@ -197,9 +197,13 @@ public final class GeneratorOpts {
     	Map<String, String> typeMapping = new HashMap<>();
 
     	for (String mapping : s.split(";")) {
-    		String pkg = mapping.replaceAll(":.*", "").trim();
-    		String types = mapping.replaceAll("[^:]*:", "").trim();
-    		
+    		int index = mapping.indexOf(":");
+    		if (index == -1 || index+1 > mapping.length()) {
+    			throw new IllegalArgumentException("No package-to-types mapping found in '" + s + "'");
+    		}
+    		String pkg = mapping.substring(0, index).trim();
+    		String types = mapping.substring(index+1).trim();
+
         	for (String type : types.split(",")) {
         		String tt = type.trim();
         		typeMapping.put(tt, pkg + "." + tt);
