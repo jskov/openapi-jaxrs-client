@@ -23,7 +23,7 @@ I plan to keep this generator much simpler:
 
 ## Invocation
 
-Download the cli-jar release of the generator (and verify its [signature](http://keyserver.ubuntu.com/pks/lookup?search=0xF9B879EDFC0AB297588936F49CCE5D89C917DBD4&fingerprint=on&op=index)!).
+Download the cli-jar release of the generator (and verify its [signature](./src/docs/VerifySigning.md)!).
 
 Then you can run the generator with a Java 17 like this (or see [full CLI usage](./src/docs/Cli.md)):
 
