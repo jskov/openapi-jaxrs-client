@@ -3,6 +3,7 @@ package dk.mada.jaxrs.generator.dto;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -66,6 +67,9 @@ public class DtoGenerator {
      **/
     private final EnumSet<ExtraTemplate> extraTemplates = EnumSet.noneOf(ExtraTemplate.class);
 
+    /** External type mapping. */
+    private final Map<String, String> externalTypeMapping;
+
     /**
      * Constructs a new generator.
      *
@@ -81,6 +85,7 @@ public class DtoGenerator {
         this.model = model;
 
         types = model.types();
+        externalTypeMapping = opts.getExternalTypeMapping();
     }
 
     /**
@@ -91,13 +96,18 @@ public class DtoGenerator {
         .sorted((a, b) -> a.name().compareTo(b.name()))
         .forEach(type -> {
             String name = type.name();
-            logger.info(" generate type {}", name);
 
-            CtxDto ctx = toCtx(type);
-
-            logger.info("{} ctx: {}", name, ctx);
-
-            templates.renderDtoTemplate(ctx);
+            String mappedToExternalType = externalTypeMapping.get(name);
+            if (mappedToExternalType != null) {
+            	logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
+            } else {
+	            logger.info(" generate DTO {}", name);
+	
+	            CtxDto ctx = toCtx(type);
+	            logger.debug("{} ctx: {}", name, ctx);
+	
+	            templates.renderDtoTemplate(ctx);
+            }
         });
 
         extraTemplates.forEach(tmpl -> {

@@ -99,11 +99,16 @@ public final class Imports {
     private final Types types;
     private final SortedSet<String> importedClasses = new TreeSet<>();
     private final boolean includeDtoImports;
+    
+    /** External type mapping. */
+    private final Map<String, String> externalTypeMapping;
 
     private Imports(Types types, GeneratorOpts opts, boolean includeDtoImports) {
         this.types = types;
         this.opts = opts;
         this.includeDtoImports = includeDtoImports;
+        
+        externalTypeMapping = opts.getExternalTypeMapping();
     }
 
     public SortedSet<String> get() {
@@ -254,9 +259,26 @@ public final class Imports {
         return this;
     }
 
+    /**
+     * Adds imports for a type.
+     *
+     * If the type is externally mapped, just adds an import of this class.
+     *
+     * Otherwise adds imports for dependency and container-wrapper classes as well.
+     *
+     * @param type the type to add imports for
+     * @return the imports instance
+     */
     public Imports add(Type type) {
+    	String typeName = type.typeName().name();
+		String mappedToExternalType = externalTypeMapping.get(typeName);
+    	if (mappedToExternalType != null) {
+    		logger.info("mapping type {} to {}", typeName, mappedToExternalType);
+    		add(mappedToExternalType);
+    		return this;
+    	}
+    	
         importedClasses.addAll(type.neededImports());
-
         addDtoImport(type);
         if (type instanceof TypeArray ta) {
             addDtoImport(ta.mappedInnerType());
