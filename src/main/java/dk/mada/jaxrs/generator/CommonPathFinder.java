@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class CommonPathFinder {
     private static final Logger logger = LoggerFactory.getLogger(CommonPathFinder.class);
-    
+
     /**
      * Find longest common sub-path of the paths provided.
      *
@@ -15,7 +15,7 @@ public class CommonPathFinder {
      * Look if it prefixes all paths. If so, longest common path found.
      * If not, trim the last section of and loop around.
      *
-     * @param operations the operations to look at paths for
+     * @param paths the paths to look through
      */
     public String findCommonPath(List<String> paths) {
         if (paths.isEmpty()) {
