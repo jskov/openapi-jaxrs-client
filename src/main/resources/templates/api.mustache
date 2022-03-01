@@ -7,6 +7,9 @@ import {{.}};
 {{/imports}}
 
 {{>generatedAnnotation}}
+{{#madaApi.mpRestClientConfigKey}}
+@RegisterRestClient(configKey = "{{madaApi.mpRestClientConfigKey}}")
+{{/madaApi.mpRestClientConfigKey}}
 @Path("{{commonPath}}")
 public interface {{classname}} {
 {{#operations}}{{#operation}}

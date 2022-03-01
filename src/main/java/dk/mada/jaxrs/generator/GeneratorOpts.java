@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.annotation.Nullable;
+
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.openapi.ParserOpts;
 
@@ -180,6 +182,12 @@ public final class GeneratorOpts {
         return getDefault("generator-jackson-localdate-serializer", ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
     }
 
+    /** {@return the MP client config config key, or null} */
+    @Nullable
+    public String getMpClientConfigKey() {
+        return get("generator-mp-api-register-rest-client");
+    }
+    
     /**
      * Returns mapping of external types.
      *
@@ -310,6 +318,7 @@ public final class GeneratorOpts {
         return value.trim();
     }
 
+    @Nullable
     private String get(String name) {
         String value = options.getProperty(name);
         if (value == null) {
