@@ -184,7 +184,7 @@ public final class GeneratorOpts {
 
     /** {@return the MP client config config key, or null} */
     @Nullable
-    public String getMpClientConfig() {
+    public String getMpClientConfigKey() {
         return get("generator-mp-api-register-rest-client");
     }
     
