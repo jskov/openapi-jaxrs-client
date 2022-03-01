@@ -18,30 +18,16 @@ class CommonPathTest {
 
     @ParameterizedTest
     @CsvSource(textBlock = """
-            'foo, bar',                /
-    """)
-    void noCommonPath(String paths, String expected) {
-        List<String> input = toList(paths);
-        assertThat(sut.findCommonPath(input))
-            .isEqualTo(expected);
-    }
+            'foo, bar',                          /
 
-    @ParameterizedTest
-    @CsvSource(textBlock = """
-            'path, path/simple',                path
-    """)
-    void simplePrefixIsFound(String paths, String expected) {
-        List<String> input = toList(paths);
-        assertThat(sut.findCommonPath(input))
-            .isEqualTo(expected);
-    }
+            'path, path/simple',                 path
 
-    @ParameterizedTest
-    @CsvSource(textBlock = """
             'path/foo, path/foo-bar',            path
             'x/path/foo, x/path/foo-bar',        x/path
+            
+            'common, common',                    common
     """)
-    void sharedPartialPathShouldNotBeTaken(String paths, String expected) {
+    void runTests(String paths, String expected) {
         List<String> input = toList(paths);
         assertThat(sut.findCommonPath(input))
             .isEqualTo(expected);
