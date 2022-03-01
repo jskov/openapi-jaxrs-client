@@ -176,6 +176,12 @@ The options are grouped into three sections:
 >
     default value:
 
+**generator-mp-api-register-rest-client**
+
+>Allows you to add @RegisterRestClient to each API resource class. The provided value is used for the `configKey`.
+
+>
+    default value:
 
 
 **generator-use-api-wrapped-primitives**
