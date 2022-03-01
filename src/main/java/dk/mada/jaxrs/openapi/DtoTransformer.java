@@ -78,7 +78,7 @@ public class DtoTransformer {
         logger.info("See schemas: {}", allDefinitions.keySet());
 
         allDefinitions.forEach((schemaName, schema) -> {
-            String modelName = getModelName(schemaName, schema);
+            String modelName = naming.convertTypeName(schemaName);
 
             Type dtoType = typeConverter.toType(schema);
 
@@ -157,9 +157,5 @@ public class DtoTransformer {
         logger.info(" props: {}", props);
 
         return props;
-    }
-
-    private String getModelName(String schemaName, Schema<?> schema) {
-        return naming.convertTypeName(schemaName);
     }
 }
