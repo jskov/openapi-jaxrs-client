@@ -36,6 +36,11 @@ jobs:
         env:
           BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
         run: env | sort
+        
+      - name: Fin
+        env:
+          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
+        run: env | sort
 
       - name: Build and analyze
         env:
