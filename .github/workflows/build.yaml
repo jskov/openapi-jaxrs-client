@@ -37,6 +37,12 @@ jobs:
           BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
         run: env | sort
 
+      - name: Echo env sec
+        env:
+          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
+        run: env | sort
+
+
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
