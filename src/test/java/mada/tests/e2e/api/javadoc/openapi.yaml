@@ -71,6 +71,12 @@ paths:
             schema:
               $ref: '#/components/schemas/Simple'
       responses:
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Simple'
         "200":
           description: The registered cluster
           content:
@@ -79,12 +85,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Simple'
-        "400":
-          description: Validation errors
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Simple'
         "401":
           description: Unauthorized Error
           content:

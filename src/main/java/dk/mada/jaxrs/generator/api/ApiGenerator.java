@@ -364,8 +364,9 @@ public class ApiGenerator {
 
     private List<CtxApiResponse> getResponses(Imports imports, Operation op) {
         return op.responses().stream()
-            .map(r -> makeResponse(imports, r))
-            .toList();
+                .sorted((a, b) -> a.code().compareTo(b.code()))
+                .map(r -> makeResponse(imports, r))
+                .toList();
     }
 
     private CtxApiResponse makeResponse(Imports imports, Response r) {
