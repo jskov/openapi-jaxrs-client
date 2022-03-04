@@ -30,12 +30,12 @@ public interface PetsApi {
    * @return List&lt;Pet&gt;
    */
   @GET
-  @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
-    @APIResponse(responseCode = "200", description = "A paged array of pets",
-                 content = @Content(schema = @Schema(implementation = Pet.class, type = SchemaType.ARRAY))),
     @APIResponse(responseCode = "default", description = "unexpected error",
-                 content = @Content(schema = @Schema(implementation = Error.class)))
+                 content = @Content(schema = @Schema(implementation = Error.class))),
+    @APIResponse(responseCode = "200", description = "A paged array of pets",
+                 content = @Content(schema = @Schema(implementation = Pet.class, type = SchemaType.ARRAY)))
   })
   @Operation(summary = "List all pets")
   List<Pet> listPets(@QueryParam("limit") int limit);
@@ -48,9 +48,9 @@ public interface PetsApi {
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
-    @APIResponse(responseCode = "201", description = "Null response"),
     @APIResponse(responseCode = "default", description = "unexpected error",
-                 content = @Content(schema = @Schema(implementation = Error.class)))
+                 content = @Content(schema = @Schema(implementation = Error.class))),
+    @APIResponse(responseCode = "201", description = "Null response")
   })
   @Operation(summary = "Create a pet")
   Error createPets();
@@ -63,12 +63,12 @@ public interface PetsApi {
    */
   @GET
   @Path("/{petId}")
-  @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
-    @APIResponse(responseCode = "200", description = "Expected response to a valid request",
-                 content = @Content(schema = @Schema(implementation = Pet.class))),
     @APIResponse(responseCode = "default", description = "unexpected error",
-                 content = @Content(schema = @Schema(implementation = Error.class)))
+                 content = @Content(schema = @Schema(implementation = Error.class))),
+    @APIResponse(responseCode = "200", description = "Expected response to a valid request",
+                 content = @Content(schema = @Schema(implementation = Pet.class)))
   })
   @Operation(summary = "Info for a specific pet")
   Pet showPetById(@PathParam("petId") @NotNull String petId);
