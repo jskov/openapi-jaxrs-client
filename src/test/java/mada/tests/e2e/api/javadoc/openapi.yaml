@@ -61,6 +61,48 @@ paths:
             application/json:
               schema:
                 type: string
+  /api/docs/multiple-return-types:
+    post:
+      tags:
+      - Api Docs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Simple'
+      responses:
+        "200":
+          description: The registered cluster
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Simple'
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Simple'
+        "401":
+          description: Unauthorized Error
+          content:
+            text/plain:
+              schema:
+                type: string
+        "409":
+          description: Cluster already present
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Simple'
+        "500":
+          description: The internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Simple'
   /api/docs/params/{in-path}:
     get:
       tags:
