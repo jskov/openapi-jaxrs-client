@@ -414,6 +414,7 @@ public class ApiGenerator {
         List<String> wrappedMediaTypes = mediaTypes
                 .map(mt -> toMediaType(imports, mt))
                 .sorted()
+                .distinct()
                 .toList();
 
         String arg = String.join(", ", wrappedMediaTypes);
