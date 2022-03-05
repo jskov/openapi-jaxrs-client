@@ -12,6 +12,8 @@ import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
+import dk.mada.jaxrs.model.api.Parameter;
+import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -78,8 +80,26 @@ public class Resolver {
     private Operation derefOp(Operation op) {
         return Operation.builder().from(op)
                 .responses(derefResponses(op.responses()))
-                FIXME: parameters
-                FIXME: body
+                .parameters(derefParams(op.parameters()))
+                .requestBody(op.requestBody().map(this::derefRequestBody))
+                .build();
+    }
+
+    private RequestBody derefRequestBody(RequestBody requestBody) {
+        return RequestBody.builder()
+                .content(derefContent(requestBody.content()))
+                .build();
+    }
+
+    private List<Parameter> derefParams(List<Parameter> parameters) {
+        return parameters.stream()
+                .map(this::derefParam)
+                .toList();
+    }
+
+    private Parameter derefParam(Parameter param) {
+        return Parameter.builder().from(param)
+                .type(resolve(param.type()))
                 .build();
     }
 
@@ -90,13 +110,14 @@ public class Resolver {
     }
 
     private Response derefResponse(Response response) {
-        Content content = response.content();
-        Content newContent = Content.builder().from(content)
-                        .type(resolve(content.type()))
-                        .build();
-
         return Response.builder().from(response)
-                .content(newContent)
+                .content(derefContent(response.content()))
+                .build();
+    }
+
+    private Content derefContent(Content content) {
+        return Content.builder().from(content)
+                .type(resolve(content.type()))
                 .build();
     }
 
