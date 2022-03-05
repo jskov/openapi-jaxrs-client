@@ -96,8 +96,8 @@ public final class TypeConverter {
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
 
-        logger.debug("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
-        logger.debug("ref {}", schemaRef);
+        logger.info("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
+        logger.info("ref {}", schemaRef);
 
         Type type = Primitive.find(schemaType, schemaFormat);
 
@@ -219,15 +219,15 @@ public final class TypeConverter {
         List<Type> allOfTypes = allOf.stream()
             .map(this::toType)
             .toList();
-        allOfTypes.forEach(t -> logger.debug(" {}", t));
+        allOfTypes.forEach(t -> logger.info(" {}", t));
 
         List<TypeValidation> validations = allOfTypes.stream()
             .filter(TypeValidation.class::isInstance)
             .map(TypeValidation.class::cast)
             .toList();
-        List<TypeReference> refs = allOfTypes.stream()
-                .filter(TypeReference.class::isInstance)
-                .map(TypeReference.class::cast)
+        List<ParserTypeRef> refs = allOfTypes.stream()
+                .filter(ParserTypeRef.class::isInstance)
+                .map(ParserTypeRef.class::cast)
                 .toList();
 
         if (validations.size() != 1 || refs.size() != 1) {
@@ -236,12 +236,10 @@ public final class TypeConverter {
             return TypeObject.get();
         }
 
-        TypeReference ref = refs.get(0);
-        return ref;
-        //FIXME:
-//        Validation validation = validations.get(0).validation();
-//
-//        return TypeRef.withValidation(ref, validation);
+        ParserTypeRef ref = refs.get(0);
+        Validation validation = validations.get(0).validation();
+
+        return ParserTypeRef.of(ref.refTypeName(), validation);
     }
 
     private Type findDto(String ref) {

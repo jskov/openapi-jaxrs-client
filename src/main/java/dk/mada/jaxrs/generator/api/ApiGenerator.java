@@ -301,6 +301,8 @@ public class ApiGenerator {
 
         for (Parameter p : op.parameters()) {
             DereferencedType derefType = types.dereference(p.type());
+            
+            logger.info("PARAM {} : {}", p.name(), derefType);
 
             Type type = derefType.type();
             imports.add(type);

@@ -229,14 +229,18 @@ public class ApiTransformer {
     }
 
     private Parameter toParam(io.swagger.v3.oas.models.parameters.Parameter param) {
+        String name = param.getName();
+
         boolean isHeaderParam = param instanceof HeaderParameter;
         boolean isPathParam = param instanceof PathParameter;
         boolean isQueryParam = param instanceof QueryParameter;
 
         Type type = typeConverter.toType(param.getSchema());
 
+        logger.info("Parse param {} : {}", name, type);
+
         return Parameter.builder()
-                .name(param.getName())
+                .name(name)
                 .description(param.getDescription())
                 .isRequired(toBool(param.getRequired()))
                 .type(type)
