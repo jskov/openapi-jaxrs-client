@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.openapi;
 
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.HashMap;
@@ -122,13 +123,11 @@ public class ParserTypes {
     }
 
     private Type find(TypeName tn) {
-        /* FIXME
         Type jseType = mappedToJseTypes.get(tn);
         if (jseType != null) {
             logger.trace(" {} -> jse {}", tn, jseType);
             return jseType;
         }
-         */
 
         Type remappedType = remappedDtoTypes.get(tn);
         if (remappedType != null) {
@@ -192,6 +191,21 @@ public class ParserTypes {
     /** {@return information about the model} */
     public String info() {
         StringBuilder sb = new StringBuilder("Parser Types:").append(NL);
+        sb.append(" Unmapped JSE: ");
+        sb.append(unmappedToJseTypes.stream()
+                    .sorted()
+                    .map(TypeName::name)
+                    .collect(joining(", "))).append(NL);
+
+        sb.append(" Mapped JSE: ").append(NL);
+        mappedToJseTypes.keySet().stream()
+            .sorted()
+            .forEach(tn -> {
+                Type t = mappedToJseTypes.get(tn);
+                sb.append("  ").append(tn.name())
+                    .append(": ").append(t).append(NL);
+            });
+
         sb.append(" DTOs: ").append(NL);
         parsedDtos.keySet().stream()
             .sorted()
@@ -199,6 +213,15 @@ public class ParserTypes {
                 Dto dto = parsedDtos.get(tn);
                 sb.append("  ").append(tn.name())
                     .append(": ").append(dto.name()).append(" - ").append(dto.dtoType()).append(NL);
+            });
+
+        sb.append(" Remapped DTOs: ").append(NL);
+        remappedDtoTypes.keySet().stream()
+            .sorted()
+            .forEach(tn -> {
+                Type t = remappedDtoTypes.get(tn);
+                sb.append("  ").append(tn.name())
+                    .append(": ").append(t).append(NL);
             });
 
         return sb.toString();

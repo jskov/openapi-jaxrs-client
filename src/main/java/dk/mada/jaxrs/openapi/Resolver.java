@@ -72,7 +72,9 @@ public class Resolver {
      */
     public Operations operations(Operations ops) {
         List<Operation> dereferenced = ops.getAll().stream()
+                .peek(op -> logger.info(" deref op {}", op))
             .map(this::derefOp)
+            .peek(op -> logger.info("  new op {}", op))
             .toList();
         return new Operations(dereferenced);
     }

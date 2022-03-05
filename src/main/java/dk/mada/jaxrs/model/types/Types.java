@@ -1,6 +1,5 @@
 package dk.mada.jaxrs.model.types;
 
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.HashMap;
@@ -220,63 +219,9 @@ public class Types {
         }
     }
 
-    /**
-     * Collection types such as ListDto are changed to {@code List<Dto>}.
-     */
-    public void consolidateDtos() {
-        assertParsing();
-        logger.info("Consolidate DTOs");
-        for (Dto dto : getActiveDtos()) {
-            String name = dto.name();
-            Type t = dto.dtoType();
-            TypeName openapiName = dto.openapiId();
-
-            logger.info(" consider {} : {} {}/{}", name, dto.getClass(), t.getClass(), t);
-
-            if (t instanceof TypeArray ta) {
-                remapDto(openapiName, TypeArray.of(ta.innerType()));
-            } else if (t instanceof TypeSet ts) {
-                remapDto(openapiName, TypeSet.of(ts.innerType()));
-            } else if (t instanceof TypeMap) {
-                // no remapping of maps
-                // a DTO with properties of the same type may be represented like this
-            } else if (unmappedToJseTypes.contains(openapiName)) {
-                // no remapping of kept types
-            } else if (dto.isEnum()) {
-                // no remapping of enums
-            } else if (!(t instanceof TypeObject)) {
-                remapDto(openapiName, t);
-            }
-        }
-    }
-
-    private void remapDto(TypeName openapiName, Type newType) {
-        logger.info("  remap {} to {}", openapiName, newType);
-        Type oldType = remappedDtoTypes.put(openapiName, newType);
-        if (oldType != null) {
-            throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + newType);
-        }
-    }
-
-
     /** {@return information about the model} */
     public String info() {
         StringBuilder sb = new StringBuilder("Types:").append(NL);
-
-        sb.append(" Unmapped JSE: ");
-        sb.append(unmappedToJseTypes.stream()
-                    .sorted()
-                    .map(TypeName::name)
-                    .collect(joining(", "))).append(NL);
-
-        sb.append(" Mapped JSE: ").append(NL);
-        mappedToJseTypes.keySet().stream()
-            .sorted()
-            .forEach(tn -> {
-                Type t = mappedToJseTypes.get(tn);
-                sb.append("  ").append(tn.name())
-                    .append(": ").append(t).append(NL);
-            });
 
         sb.append(" DTOs: ").append(NL);
         dtos.keySet().stream()
@@ -287,14 +232,6 @@ public class Types {
                     .append(": ").append(dto.name()).append(" - ").append(dto.dtoType()).append(NL);
             });
 
-        sb.append(" Remapped DTOs: ").append(NL);
-        remappedDtoTypes.keySet().stream()
-            .sorted()
-            .forEach(tn -> {
-                Type t = remappedDtoTypes.get(tn);
-                sb.append("  ").append(tn.name())
-                    .append(": ").append(t).append(NL);
-            });
         return sb.toString();
     }
 }
