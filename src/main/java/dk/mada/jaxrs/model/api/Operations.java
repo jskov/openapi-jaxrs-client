@@ -26,6 +26,11 @@ public final class Operations {
         this.ops = new HashSet<>(operations);
     }
 
+    /** {@return all operations} */
+    public Set<Operation> getAll() {
+        return new HashSet<>(ops);
+    }
+
     /** {@return the operations grouped by their group-id} */
     public Map<String, List<Operation>> getByGroup() {
         return ops.stream()

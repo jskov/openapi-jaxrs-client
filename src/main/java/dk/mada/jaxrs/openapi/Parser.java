@@ -81,7 +81,7 @@ public class Parser {
 
         System.out.println("----- DEREFERENCE ------");
 
-        Dereferencer dereferencer = new Dereferencer();
+        Resolver dereferencer = new Resolver(types);
         Operations derefOps = dereferencer.operations(operations);
 
         System.out.println(derefOps.info());
