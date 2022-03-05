@@ -78,6 +78,8 @@ public class Resolver {
     private Operation derefOp(Operation op) {
         return Operation.builder().from(op)
                 .responses(derefResponses(op.responses()))
+                FIXME: parameters
+                FIXME: body
                 .build();
     }
 
