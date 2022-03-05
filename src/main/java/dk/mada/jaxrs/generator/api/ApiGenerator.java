@@ -23,6 +23,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.api.Operation;
@@ -35,7 +36,6 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
-import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 
 /**
@@ -58,7 +58,7 @@ public class ApiGenerator {
     /** Naming. */
     private final Naming naming;
     /** Types. */
-    private final Types types;
+    private final Dtos types;
     /** Generator options. */
     private final GeneratorOpts opts;
     /** Templates. */
@@ -83,7 +83,7 @@ public class ApiGenerator {
         this.templates = templates;
         this.model = model;
 
-        this.types = model.types();
+        this.types = model.dtos();
     }
 
     /**

@@ -23,6 +23,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Property;
@@ -34,7 +35,6 @@ import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeSet;
-import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.naming.Naming;
@@ -52,7 +52,7 @@ public class DtoGenerator {
     /** Naming. */
     private final Naming naming;
     /** Types. */
-    private final Types types;
+    private final Dtos types;
     /** Generator options. */
     private final GeneratorOpts opts;
     /** Templates. */
@@ -84,7 +84,7 @@ public class DtoGenerator {
         this.templates = templates;
         this.model = model;
 
-        types = model.types();
+        types = model.dtos();
         externalTypeMapping = opts.getExternalTypeMapping();
     }
 

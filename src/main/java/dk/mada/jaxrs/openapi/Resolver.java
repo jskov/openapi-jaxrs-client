@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
@@ -51,11 +52,11 @@ public class Resolver {
      *
      * @return DTOs for the model
      */
-    public List<TypeReference> getDtos() {
-        return parserTypes.getActiveDtos().stream()
+    public Dtos getDtos() {
+        List<Dto> dtos = parserTypes.getActiveDtos().stream()
                 .map(this::derefDto)
-                .map(dto -> TypeReference.of(dto, Validation.NO_VALIDATION))
                 .toList();
+        return new Dtos(dtos);
     }
 
     private Dto derefDto(Dto dto) {

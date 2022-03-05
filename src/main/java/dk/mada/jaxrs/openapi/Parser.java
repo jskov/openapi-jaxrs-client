@@ -8,8 +8,6 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Operations;
-import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -70,32 +68,24 @@ public class Parser {
         ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
         new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
 
-        // FIXME:types.consolidateDtos();
-
-        System.out.println("============== PARSING DONE =====");
-
-        System.out.println(TypeNames.info());
-        System.out.println(parserTypes.info());
-        System.out.println(parserRefs.info());
-        System.out.println(operations.info());
+//        System.out.println("============== PARSING DONE =====");
+//
+//        System.out.println(TypeNames.info());
+//        System.out.println(parserTypes.info());
+//        System.out.println(parserRefs.info());
+//        System.out.println(operations.info());
 
         // FIXME: primitive param args INT etc must also be ParserTypeRefs to capture validation
-        // FIXME: operations: rewrite ParserTypeRefs to TypeRefs
-        // FIXME: types: rewrite ParserTypeRefs to TypeRefs
-
-        System.out.println("----- DEREFERENCE ------");
 
 
         parserTypes.consolidateDtos();
         Resolver resolver = new Resolver(parserTypes);
         Operations derefOps = resolver.operations(operations);
+        var dtos = resolver.getDtos();
 
-        var types = new Types();
-        resolver.getDtos().forEach(types::addDto);
+//        System.out.println(dtos.info());
+//        System.out.println(derefOps.info());
 
-        System.out.println(types.info());
-        System.out.println(derefOps.info());
-
-        return new Model(info, derefOps, types, securitySchemes);
+        return new Model(info, derefOps, dtos, securitySchemes);
     }
 }

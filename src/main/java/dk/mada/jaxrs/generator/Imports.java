@@ -11,10 +11,10 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
-import dk.mada.jaxrs.model.types.Types;
 
 /**
  * Keeps track of imports for a single template, taking
@@ -96,14 +96,14 @@ public final class Imports {
 
     private final GeneratorOpts opts;
     @SuppressWarnings("unused")
-    private final Types types;
+    private final Dtos types;
     private final SortedSet<String> importedClasses = new TreeSet<>();
     private final boolean includeDtoImports;
 
     /** External type mapping. */
     private final Map<String, String> externalTypeMapping;
 
-    private Imports(Types types, GeneratorOpts opts, boolean includeDtoImports) {
+    private Imports(Dtos types, GeneratorOpts opts, boolean includeDtoImports) {
         this.types = types;
         this.opts = opts;
         this.includeDtoImports = includeDtoImports;
@@ -115,12 +115,12 @@ public final class Imports {
         return importedClasses;
     }
 
-    public static Imports newApi(Types types, GeneratorOpts opts) {
+    public static Imports newApi(Dtos types, GeneratorOpts opts) {
         return new Imports(types, opts, true)
                 .javax("javax.ws.rs.*");
     }
 
-    public static Imports newPojo(Types types, GeneratorOpts opts) {
+    public static Imports newPojo(Dtos types, GeneratorOpts opts) {
         return new Imports(types, opts, false)
                 .add(JAVA_UTIL_OBJECTS)
                 .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
@@ -135,7 +135,7 @@ public final class Imports {
      * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newEnum(Types types, GeneratorOpts opts) {
+    public static Imports newEnum(Dtos types, GeneratorOpts opts) {
         return new Imports(types, opts, false)
                    .addEnumImports();
     }
@@ -148,7 +148,7 @@ public final class Imports {
      * @param tmpl the template to add imports for
      * @return a new imports instance
      */
-    public static Imports newExtras(Types types, GeneratorOpts opts, ExtraTemplate tmpl) {
+    public static Imports newExtras(Dtos types, GeneratorOpts opts, ExtraTemplate tmpl) {
         var imports = new Imports(types, opts, false);
 
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
