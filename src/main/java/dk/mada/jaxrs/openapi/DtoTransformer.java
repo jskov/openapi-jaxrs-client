@@ -16,7 +16,6 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
@@ -33,8 +32,8 @@ public class DtoTransformer {
 
     /** Naming. */
     private final Naming naming;
-    /** Types. */
-    private final Types types;
+    /** Parser types. */
+    private final ParserTypes parserTypes;
     /** Type converter. */
     private final TypeConverter typeConverter;
 
@@ -42,12 +41,12 @@ public class DtoTransformer {
      * Constructs new DTO transformer.
      *
      * @param naming the naming instance
-     * @param types the types instance
+     * @param parserTypes the parser types instance
      * @param typeConverter the type converter instance
      */
-    public DtoTransformer(Naming naming, Types types, TypeConverter typeConverter) {
+    public DtoTransformer(Naming naming, ParserTypes parserTypes, TypeConverter typeConverter) {
         this.naming = naming;
-        this.types = types;
+        this.parserTypes = parserTypes;
         this.typeConverter = typeConverter;
     }
 
@@ -61,15 +60,6 @@ public class DtoTransformer {
      */
     public void transform(OpenAPI specification) {
         readSpec(specification);
-
-        types.consolidateDtos();
-    }
-
-    @SuppressWarnings("unused")
-    private void printTypes() {
-        types.getActiveDtos().stream()
-        .sorted((a, b) -> a.name().compareTo(b.name()))
-        .forEach(d -> logger.info(" {} {}", d.name(), d.openapiId()));
     }
 
     private void readSpec(OpenAPI specification) {
@@ -96,10 +86,8 @@ public class DtoTransformer {
                     .enumValues(enumValues)
                     .build();
 
-            types.addDto(dto);
+            parserTypes.addDto(dto);
         });
-
-        types.parsingCompleted();
     }
 
     @Nullable

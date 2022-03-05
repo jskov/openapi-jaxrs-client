@@ -48,8 +48,6 @@ public final class TypeConverter {
     /** Component schema prefix. */
     private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
 
-    /** Types. */
-    private final Types types;
     /** Naming. */
     private final Naming naming;
     /** Parser references. */
@@ -65,14 +63,12 @@ public final class TypeConverter {
      * This operated by looking up types, creating if missing, in the
      * types instance.
      *
-     * @param types the types instance
      * @param parserRefs the parser references
      * @param naming the naming instance
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public TypeConverter(Types types, ParserTypeRefs parserRefs, Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
-        this.types = types;
+    public TypeConverter(ParserTypeRefs parserRefs, Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         this.parserRefs = parserRefs;
         this.naming = naming;
         this.parserOpts = parserOpts;
@@ -143,7 +139,7 @@ public final class TypeConverter {
                 return TypeByteArray.getArray();
             }
 
-            return TypeArray.of(types, innerType);
+            return TypeArray.of(innerType);
         }
 
         if (schema instanceof BinarySchema || schema instanceof FileSchema) {

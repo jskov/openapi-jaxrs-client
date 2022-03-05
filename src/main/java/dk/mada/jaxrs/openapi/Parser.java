@@ -62,16 +62,19 @@ public class Parser {
         SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, swaggerParseOpts);
         OpenAPI specification = result.getOpenAPI();
 
-        var types = new Types(parserOpts, generatorOpts);
-        var typeConverter = new TypeConverter(types, parserRefs, naming, parserOpts, generatorOpts);
+        var typeConverter = new TypeConverter(parserRefs, naming, parserOpts, generatorOpts);
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
         Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
-        new DtoTransformer(naming, types, typeConverter).transform(specification);
+        ParserTypes parserTypes = new ParserTypes();
+        new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
+
+        // FIXME:types.consolidateDtos();
+
 
         System.out.println(TypeNames.info());
-        System.out.println(types.info());
+        System.out.println(parserTypes.info());
         System.out.println(parserRefs.info());
         System.out.println(operations.info());
 
@@ -81,9 +84,14 @@ public class Parser {
 
         System.out.println("----- DEREFERENCE ------");
 
-        Resolver dereferencer = new Resolver(types);
-        Operations derefOps = dereferencer.operations(operations);
 
+        Resolver resolver = new Resolver(parserOpts, generatorOpts, parserTypes);
+        Operations derefOps = resolver.operations(operations);
+
+        var types = new Types(parserOpts, generatorOpts);
+        resolver.getDtos().forEach(types::addDto);
+
+        System.out.println(types.info());
         System.out.println(derefOps.info());
 
         return new Model(info, operations, types, securitySchemes);

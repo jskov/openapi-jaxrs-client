@@ -46,8 +46,8 @@ public class Types {
      * to keep them as DTOs).
      */
     private final Set<TypeName> unmappedToJseTypes = new HashSet<>();
-    /** DTOs parsed from the specification. */
-    private final Map<TypeName, Dto> parsedDtos = new HashMap<>();
+    /** DTOs from the specification. */
+    private final Map<TypeName, Dto> dtos = new HashMap<>();
     /**
      * Types that (via their type name) have been mapped to
      * some other types.
@@ -155,6 +155,7 @@ public class Types {
      * @throws IllegalArgumentException if there is no type associated with the given type name
      */
     public Type get(TypeName tn) {
+        assertParsing();
         Type t = find(tn);
         if (t == null) {
             throw new IllegalArgumentException("No type referenced found by name " + tn);
@@ -175,7 +176,7 @@ public class Types {
             return remappedType;
         }
 
-        Dto dto = parsedDtos.get(tn);
+        Dto dto = dtos.get(tn);
         if (dto != null) {
             logger.trace(" {} -> dto {}", tn, dto);
             return dto;
@@ -199,7 +200,7 @@ public class Types {
      * @return the list of DTOs to render.
      */
     public Set<Dto> getActiveDtos() {
-        return parsedDtos.entrySet().stream()
+        return dtos.entrySet().stream()
                 .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
                 .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
                 .map(e -> e.getValue())
@@ -209,17 +210,14 @@ public class Types {
     /**
      * Registers a new DTO.
      *
-     * @param dto the DTO to register.
+     * @param dtoRef the DTO reference to register.
      */
-    public void addDto(Dto dto) {
-        parsedDtos.put(dto.openapiId(), dto);
-    }
-
-    private void remapDto(TypeName openapiName, Type newType) {
-        logger.info("  remap {} to {}", openapiName, newType);
-        Type oldType = remappedDtoTypes.put(openapiName, newType);
-        if (oldType != null) {
-            throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + newType);
+    public void addDto(TypeReference dtoRef) {
+        Type refType = dtoRef.refType();
+        if (refType instanceof Dto dto) {
+            dtos.put(dto.openapiId(), dto);
+        } else {
+            throw new IllegalStateException("Trying to handle as DTO: " + refType);
         }
     }
 
@@ -227,6 +225,7 @@ public class Types {
      * Collection types such as ListDto are changed to {@code List<Dto>}.
      */
     public void consolidateDtos() {
+        assertParsing();
         logger.info("Consolidate DTOs");
         for (Dto dto : getActiveDtos()) {
             String name = dto.name();
@@ -236,7 +235,7 @@ public class Types {
             logger.info(" consider {} : {} {}/{}", name, dto.getClass(), t.getClass(), t);
 
             if (t instanceof TypeArray ta) {
-                remapDto(openapiName, TypeArray.of(this, ta.innerType()));
+                remapDto(openapiName, TypeArray.of(ta.innerType()));
             } else if (t instanceof TypeSet ts) {
                 remapDto(openapiName, TypeSet.of(ts.innerType()));
             } else if (t instanceof TypeMap) {
@@ -251,6 +250,15 @@ public class Types {
             }
         }
     }
+
+    private void remapDto(TypeName openapiName, Type newType) {
+        logger.info("  remap {} to {}", openapiName, newType);
+        Type oldType = remappedDtoTypes.put(openapiName, newType);
+        if (oldType != null) {
+            throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + newType);
+        }
+    }
+
 
     /** {@return information about the model} */
     public String info() {
@@ -272,10 +280,10 @@ public class Types {
             });
 
         sb.append(" DTOs: ").append(NL);
-        parsedDtos.keySet().stream()
+        dtos.keySet().stream()
             .sorted()
             .forEach(tn -> {
-                Dto dto = parsedDtos.get(tn);
+                Dto dto = dtos.get(tn);
                 sb.append("  ").append(tn.name())
                     .append(": ").append(dto.name()).append(" - ").append(dto.dtoType()).append(NL);
             });
