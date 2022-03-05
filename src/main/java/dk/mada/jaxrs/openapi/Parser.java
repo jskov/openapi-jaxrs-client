@@ -73,6 +73,7 @@ public class Parser {
         System.out.println(TypeNames.info());
         System.out.println(types.info());
         System.out.println(parserRefs.info());
+        System.out.println(operations.info());
 
         return new Model(info, operations, types, securitySchemes);
     }

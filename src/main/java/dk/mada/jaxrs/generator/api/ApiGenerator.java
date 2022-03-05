@@ -128,11 +128,11 @@ public class ApiGenerator {
         if (clientKey != null) {
             imports.add("org.eclipse.microprofile.rest.client.inject.RegisterRestClient");
         }
-        
+
         CtxApiExt apiExt = CtxApiExt.builder()
                 .mpRestClientConfigKey(clientKey)
                 .build();
-        
+
         Info info = model.info();
         return CtxApi.builder()
                 .appDescription(info.description())

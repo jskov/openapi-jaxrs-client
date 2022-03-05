@@ -80,7 +80,7 @@ public class ParserTypeRefs {
             refsByValidation.keySet().stream()
                 .forEach(v -> {
                     String refs = refsByValidation.get(v).stream()
-                            .map(r -> "ref@" + r.hashCode())
+                            .map(r -> "ref@" + Integer.toHexString(r.hashCode()))
                             .sorted()
                             .collect(joining(", "));
                     sb.append("  ").append(v).append(NL)
