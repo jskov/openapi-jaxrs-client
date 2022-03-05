@@ -55,4 +55,44 @@ public interface TypeReference extends Type {
     default boolean isDto() {
         return refType().isDto();
     }
+
+    @Override
+    default TypeName wrapperTypeName() {
+        return refType().wrapperTypeName();
+    }
+
+    @Override
+    default boolean isVoid() {
+        return refType().isVoid();
+    }
+
+    @Override
+    default boolean isEnum() {
+        return refType().isEnum();
+    }
+
+    @Override
+    default boolean isBigDecimal() {
+        return refType().isBigDecimal();
+    }
+
+    @Override
+    default boolean isContainer() {
+        return refType().isContainer();
+    }
+
+    @Override
+    default boolean isDate() {
+        return refType().isDate();
+    }
+
+    @Override
+    default boolean isDateTime() {
+        return refType().isDateTime();
+    }
+
+    @Override
+    default boolean isTime() {
+        return refType().isTime();
+    }
 }

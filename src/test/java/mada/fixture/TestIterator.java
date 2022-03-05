@@ -49,7 +49,7 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-        String testNameContains = "referen";
+        String testNameContains = "collections/list";
 
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
         Predicate<? super Path> filterByName = p -> p.toString().contains(testNameContains)
