@@ -90,7 +90,7 @@ public class Parser {
         Resolver resolver = new Resolver(parserTypes);
         Operations derefOps = resolver.operations(operations);
 
-        var types = new Types(parserOpts, generatorOpts);
+        var types = new Types();
         resolver.getDtos().forEach(types::addDto);
 
         System.out.println(types.info());

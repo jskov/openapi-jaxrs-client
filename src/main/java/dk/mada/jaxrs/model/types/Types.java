@@ -10,10 +10,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
-import dk.mada.jaxrs.openapi.ParserOpts;
 
 /**
  * Types used in the model for the specification.
@@ -40,11 +38,6 @@ public class Types {
      * Types mapped to JSE standard types.
      */
     private final Map<TypeName, Type> mappedToJseTypes = new HashMap<>();
-    /**
-     * JSE standard types that were not mapped (because the user opted
-     * to keep them as DTOs).
-     */
-    private final Set<TypeName> unmappedToJseTypes = new HashSet<>();
     /** DTOs from the specification. */
     private final Map<TypeName, Dto> dtos = new HashMap<>();
     /**
@@ -52,62 +45,6 @@ public class Types {
      * some other types.
      */
     private final Map<TypeName, Type> remappedDtoTypes = new HashMap<>();
-
-    /**
-     * Flags that transformation of the specification has completed
-     * and thus that all type references can be safely dereferenced.
-     */
-    private boolean dereferencingSafe;
-
-    /**
-     * Constructs instance.
-     *
-     * @param parserOpts the parser options
-     * @param generatorOpts the generator options
-     */
-    public Types(ParserOpts parserOpts, GeneratorOpts generatorOpts) {
-        TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
-
-        mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.TYPENAME_BIG_DECIMAL, TypeBigDecimal.get());
-        mapJse(parserOpts.isJseUUID(),           TypeUUID.TYPENAME_UUID,              TypeUUID.get());
-        mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPENAME_LOCAL_DATE,        TypeDate.get());
-        mapJse(parserOpts.isJseLocalTime(),      TypeLocalTime.TYPENAME_LOCAL_TIME,   TypeLocalTime.get());
-        mapJse(parserOpts.isJseLocalDateTime(),  TypeNames.of("LocalDateTime"),       typeDateTime);
-        mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.of("OffsetDateTime"),      typeDateTime);
-        mapJse(parserOpts.isJseZonedDateTime(),  TypeNames.of("ZonedDateTime"),       typeDateTime);
-
-        logger.info("JSE type overrides: {}", mappedToJseTypes.keySet());
-        logger.info("JSE types kept: {}", unmappedToJseTypes);
-    }
-
-    /**
-     * Marks parsing transformation complete.
-     */
-    public void parsingCompleted() {
-        dereferencingSafe = true;
-    }
-
-    /**
-     * Asserts that parsing has completed and that
-     * type dereferencing is safe.
-     */
-    public void assertDereferencingSafe() {
-        if (!dereferencingSafe) {
-            throw new IllegalStateException("Parsing is not completed, so dereferencing is not safe!");
-        }
-    }
-
-    /**
-     * Asserts that parsing is in process.
-     *
-     * Used to marked methods that should be moved to a
-     * parser-specific model instead.
-     */
-    public void assertParsing() {
-        if (dereferencingSafe) {
-            throw new IllegalStateException("Should only be called during parsing!");
-        }
-    }
 
     /**
      * Makes sure a type is dereferenced.
@@ -120,14 +57,6 @@ public class Types {
             return new DereferencedType(tr.refType(), tr.validation());
         } else {
             return new DereferencedType(type, null);
-        }
-    }
-
-    private void mapJse(boolean doMap, TypeName tn, Type t) {
-        if (doMap) {
-            mappedToJseTypes.put(tn, t);
-        } else {
-            unmappedToJseTypes.add(tn);
         }
     }
 

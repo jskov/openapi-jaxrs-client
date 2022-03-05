@@ -458,9 +458,7 @@ public class DtoGenerator {
     }
 
     private DereferencedType derefType(Type t) {
-        Type mapped = types.map(t);
-        // FIXME: assert same
-        return types.dereference(mapped);
+        return types.dereference(t);
     }
 
     private String getterPrefix(Property p) {
