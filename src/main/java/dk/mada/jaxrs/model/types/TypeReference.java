@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.model.types;
 
+import java.util.Set;
+
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
@@ -42,5 +44,15 @@ public interface TypeReference extends Type {
     @Override
     default TypeName typeName() {
         return refType().typeName();
+    }
+
+    @Override
+    default Set<String> neededImports() {
+        return refType().neededImports();
+    }
+
+    @Override
+    default boolean isDto() {
+        return refType().isDto();
     }
 }
