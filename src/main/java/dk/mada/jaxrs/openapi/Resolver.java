@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
-import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
@@ -78,7 +77,7 @@ public class Resolver {
                 .type(resolve(property.type()))
                 .build();
     }
-    
+
     /**
      * Resolves parser type references in operations.
      *
@@ -87,9 +86,7 @@ public class Resolver {
      */
     public Operations operations(Operations ops) {
         List<Operation> dereferenced = ops.getAll().stream()
-                .peek(op -> logger.info(" deref op {}", op))
             .map(this::derefOp)
-            .peek(op -> logger.info("  new op {}", op))
             .toList();
         return new Operations(dereferenced);
     }

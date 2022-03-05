@@ -5,10 +5,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import dk.mada.jaxrs.model.types.DereferencedType;
-import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.model.types.TypeReference;
-
 /**
  * DTOs in the model.
  */
@@ -26,20 +22,6 @@ public class Dtos {
      */
     public Dtos(Collection<Dto> dtos) {
         this.dtos = Collections.unmodifiableSet(new HashSet<>(dtos));
-    }
-
-    /**
-     * Makes sure a type is dereferenced.
-     *
-     * @param type the type to dereference
-     * @return the dereferenced type
-     */
-    public DereferencedType dereference(Type type) {
-        if (type instanceof TypeReference tr) {
-            return new DereferencedType(tr.refType(), tr.validation());
-        } else {
-            return new DereferencedType(type, null);
-        }
     }
 
     /** {@return the DTOs to render} */

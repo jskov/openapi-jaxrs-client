@@ -300,9 +300,7 @@ public class ApiGenerator {
         }
 
         for (Parameter p : op.parameters()) {
-            DereferencedType derefType = types.dereference(p.type());
-            
-            logger.info("PARAM {} : {}", p.name(), derefType);
+            DereferencedType derefType = DereferencedType.of(p.type());
 
             Type type = derefType.type();
             imports.add(type);
@@ -374,7 +372,7 @@ public class ApiGenerator {
     private CtxApiResponse makeResponse(Imports imports, Response r) {
         String baseType;
         String containerType;
-        DereferencedType derefType = types.dereference(r.content().type());
+        DereferencedType derefType = DereferencedType.of(r.content().type());
         Type type = derefType.type();
         boolean isUnique = false;
 

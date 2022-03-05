@@ -148,7 +148,7 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        DereferencedType derefType = derefType(dto.dtoType());
+        DereferencedType derefType = DereferencedType.of(dto.dtoType());
         Type dtoType = derefType.type();
         CtxEnum ctxEnum = null;
         if (isEnum) {
@@ -266,7 +266,7 @@ public class DtoGenerator {
 
         logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
-        DereferencedType derefType = derefType(p.type());
+        DereferencedType derefType = DereferencedType.of(p.type());
         Type propType = derefType.type();
         logger.trace(" {}", propType);
 
@@ -455,10 +455,6 @@ public class DtoGenerator {
                 .pattern(pattern)
                 .madaProp(mada)
                 .build();
-    }
-
-    private DereferencedType derefType(Type t) {
-        return types.dereference(t);
     }
 
     private String getterPrefix(Property p) {
