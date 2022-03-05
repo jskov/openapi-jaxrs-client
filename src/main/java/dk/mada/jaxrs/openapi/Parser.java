@@ -67,7 +67,7 @@ public class Parser {
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
         Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
-        ParserTypes parserTypes = new ParserTypes();
+        ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
         new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
 
         // FIXME:types.consolidateDtos();
@@ -85,7 +85,8 @@ public class Parser {
         System.out.println("----- DEREFERENCE ------");
 
 
-        Resolver resolver = new Resolver(parserOpts, generatorOpts, parserTypes);
+        parserTypes.consolidateDtos();
+        Resolver resolver = new Resolver(parserTypes);
         Operations derefOps = resolver.operations(operations);
 
         var types = new Types(parserOpts, generatorOpts);
@@ -94,6 +95,6 @@ public class Parser {
         System.out.println(types.info());
         System.out.println(derefOps.info());
 
-        return new Model(info, operations, types, securitySchemes);
+        return new Model(info, derefOps, types, securitySchemes);
     }
 }

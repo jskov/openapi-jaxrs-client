@@ -1,15 +1,12 @@
 package dk.mada.jaxrs.openapi;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
@@ -18,16 +15,9 @@ import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
-import dk.mada.jaxrs.model.types.TypeBigDecimal;
-import dk.mada.jaxrs.model.types.TypeDate;
-import dk.mada.jaxrs.model.types.TypeDateTime;
-import dk.mada.jaxrs.model.types.TypeLocalTime;
 import dk.mada.jaxrs.model.types.TypeMap;
-import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
-import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.TypeVoid;
 
 /**
@@ -36,23 +26,6 @@ import dk.mada.jaxrs.model.types.TypeVoid;
  */
 public class Resolver {
     private static final Logger logger = LoggerFactory.getLogger(Resolver.class);
-
-    /**
-     * Types mapped to JSE standard types.
-     */
-    private final Map<TypeName, Type> mappedToJseTypes = new HashMap<>();
-
-    /**
-     * JSE standard types that were not mapped (because the user opted
-     * to keep them as DTOs).
-     */
-    private final Set<TypeName> unmappedToJseTypes = new HashSet<>();
-
-    /**
-     * Types that (via their type name) have been mapped to
-     * some other types.
-     */
-    private final Map<TypeName, Type> remappedDtoTypes = new HashMap<>();
 
     /** Parser types to their dereferenced model type. */
     private final Map<ParserTypeRef, TypeReference> dereferencedTypes = new HashMap<>();
@@ -63,32 +36,10 @@ public class Resolver {
     /**
      * Create new instance.
      *
-     * @param parserOpts the parser options
-     * @param generatorOpts the generator options
      * @param parserTypes the types collected during parsing
      */
-    public Resolver(ParserOpts parserOpts, GeneratorOpts generatorOpts, ParserTypes parserTypes) {
+    public Resolver(ParserTypes parserTypes) {
         this.parserTypes = parserTypes;
-        TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
-
-        mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.TYPENAME_BIG_DECIMAL, TypeBigDecimal.get());
-        mapJse(parserOpts.isJseUUID(),           TypeUUID.TYPENAME_UUID,              TypeUUID.get());
-        mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPENAME_LOCAL_DATE,        TypeDate.get());
-        mapJse(parserOpts.isJseLocalTime(),      TypeLocalTime.TYPENAME_LOCAL_TIME,   TypeLocalTime.get());
-        mapJse(parserOpts.isJseLocalDateTime(),  TypeNames.of("LocalDateTime"),       typeDateTime);
-        mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.of("OffsetDateTime"),      typeDateTime);
-        mapJse(parserOpts.isJseZonedDateTime(),  TypeNames.of("ZonedDateTime"),       typeDateTime);
-
-        logger.info("JSE type overrides: {}", mappedToJseTypes.keySet());
-        logger.info("JSE types kept: {}", unmappedToJseTypes);
-    }
-
-    private void mapJse(boolean doMap, TypeName tn, Type t) {
-        if (doMap) {
-            mappedToJseTypes.put(tn, t);
-        } else {
-            unmappedToJseTypes.add(tn);
-        }
     }
 
     /**
