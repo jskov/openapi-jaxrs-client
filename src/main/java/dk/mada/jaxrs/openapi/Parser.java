@@ -75,6 +75,10 @@ public class Parser {
         System.out.println(parserRefs.info());
         System.out.println(operations.info());
 
+        // FIXME: primitive param args INT etc must also be ParserTypeRefs to capture validation
+        // FIXME: operations: rewrite ParserTypeRefs to TypeRefs
+        // FIXME: types: rewrite ParserTypeRefs to TypeRefs
+
         return new Model(info, operations, types, securitySchemes);
     }
 }
