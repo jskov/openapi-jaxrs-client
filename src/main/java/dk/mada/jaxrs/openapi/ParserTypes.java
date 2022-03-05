@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.Collection;
+import static java.util.stream.Collectors.toSet;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -20,10 +21,10 @@ import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
+import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Types found while parsing.
@@ -97,8 +98,12 @@ public class ParserTypes {
     }
 
     /** {@return the defined DTOs} */
-    public Collection<Dto> getDtos() {
-        return parsedDtos.values();
+    public Set<Dto> getActiveDtos() {
+        return parsedDtos.entrySet().stream()
+                .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
+                .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
+                .map(e -> e.getValue())
+                .collect(toSet());
     }
 
     /**
@@ -150,7 +155,7 @@ public class ParserTypes {
      */
     public void consolidateDtos() {
         logger.info("Consolidate DTOs");
-        for (Dto dto : getDtos()) {
+        for (Dto dto : parsedDtos.values()) {
             String name = dto.name();
             Type t = dto.dtoType();
             TypeName openapiName = dto.openapiId();

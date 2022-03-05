@@ -49,7 +49,7 @@ public class Resolver {
      * @return DTOs for the model
      */
     public List<TypeReference> getDtos() {
-        return parserTypes.getDtos().stream()
+        return parserTypes.getActiveDtos().stream()
                 .map(this::derefDto)
                 .map(dto -> TypeReference.of(dto, Validation.NO_VALIDATION))
                 .toList();
