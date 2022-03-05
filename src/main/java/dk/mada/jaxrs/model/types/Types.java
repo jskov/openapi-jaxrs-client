@@ -53,6 +53,7 @@ public class Types {
      * some other types.
      */
     private final Map<TypeName, Type> remappedDtoTypes = new HashMap<>();
+
     /**
      * Flags that transformation of the specification has completed
      * and thus that all type references can be safely dereferenced.
@@ -94,6 +95,18 @@ public class Types {
     public void assertDereferencingSafe() {
         if (!dereferencingSafe) {
             throw new IllegalStateException("Parsing is not completed, so dereferencing is not safe!");
+        }
+    }
+
+    /**
+     * Asserts that parsing is in process.
+     *
+     * Used to marked methods that should be moved to a
+     * parser-specific model instead.
+     */
+    public void assertParsing() {
+        if (dereferencingSafe) {
+            throw new IllegalStateException("Should only be called during parsing!");
         }
     }
 
@@ -202,19 +215,6 @@ public class Types {
         parsedDtos.put(dto.openapiId(), dto);
     }
 
-    /**
-     * Finds a DTO from a name.
-     *
-     * Returns a reference to the type, as the type may
-     * not yet have been parsed.
-     *
-     * @param name the name of the DTO to find
-     * @return a reference to the type
-     */
-    public TypeRef findDto(String name) {
-        return TypeRef.of(TypeNames.of(name), this);
-    }
-
     private void remapDto(TypeName openapiName, Type newType) {
         logger.info("  remap {} to {}", openapiName, newType);
         Type oldType = remappedDtoTypes.put(openapiName, newType);
@@ -288,7 +288,6 @@ public class Types {
                 sb.append("  ").append(tn.name())
                     .append(": ").append(t).append(NL);
             });
-
         return sb.toString();
     }
 }

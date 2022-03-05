@@ -8,6 +8,7 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Operations;
+import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
@@ -27,16 +28,20 @@ public class Parser {
     private final ParserOpts parserOpts;
     /** Generator options. */
     private final GeneratorOpts generatorOpts;
+    /** Parser references. */
+    private final ParserTypeRefs parserRefs;
 
     /**
      * Constructs a new parser.
      *
      * @param naming the naming instance
+     * @param parserRefs the parser references
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public Parser(Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public Parser(Naming naming, ParserTypeRefs parserRefs, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         this.naming = naming;
+        this.parserRefs = parserRefs;
         this.parserOpts = parserOpts;
         this.generatorOpts = generatorOpts;
     }
@@ -58,12 +63,16 @@ public class Parser {
         OpenAPI specification = result.getOpenAPI();
 
         var types = new Types(parserOpts, generatorOpts);
-        var typeConverter = new TypeConverter(types, naming, parserOpts, generatorOpts);
+        var typeConverter = new TypeConverter(types, parserRefs, naming, parserOpts, generatorOpts);
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
         Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
         new DtoTransformer(naming, types, typeConverter).transform(specification);
+
+        System.out.println(TypeNames.info());
+        System.out.println(types.info());
+        System.out.println(parserRefs.info());
 
         return new Model(info, operations, types, securitySchemes);
     }

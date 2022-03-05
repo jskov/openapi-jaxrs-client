@@ -52,6 +52,8 @@ public final class TypeConverter {
     private final Types types;
     /** Naming. */
     private final Naming naming;
+    /** Parser references. */
+    private final ParserTypeRefs parserRefs;
     /** Parser options. */
     private final ParserOpts parserOpts;
     /** Generator options. */
@@ -64,12 +66,14 @@ public final class TypeConverter {
      * types instance.
      *
      * @param types the types instance
+     * @param parserRefs the parser references
      * @param naming the naming instance
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public TypeConverter(Types types, Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public TypeConverter(Types types, ParserTypeRefs parserRefs, Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         this.types = types;
+        this.parserRefs = parserRefs;
         this.naming = naming;
         this.parserOpts = parserOpts;
         this.generatorOpts = generatorOpts;
@@ -246,7 +250,8 @@ public final class TypeConverter {
     private Type findDto(String ref) {
         if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
             String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
-            return types.findDto(openapiId);
+//            return types.findDto(openapiId);
+            return parserRefs.makeDtoRef(openapiId);
         }
         return null;
     }

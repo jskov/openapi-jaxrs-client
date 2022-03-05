@@ -12,6 +12,7 @@ import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.ParserOpts;
+import dk.mada.jaxrs.openapi.ParserTypeRefs;
 
 /**
  * Generates JAX-RS code.
@@ -30,8 +31,9 @@ public class Generator {
         var parserOpts = new ParserOpts(options);
         var generatorOpts = new GeneratorOpts(options, parserOpts);
         var naming = new Naming(options);
+        var parserRefs = new ParserTypeRefs();
 
-        Model model = new Parser(naming, parserOpts, generatorOpts).parse(input);
+        Model model = new Parser(naming, parserRefs, parserOpts, generatorOpts).parse(input);
 
         try {
             Path apiDir = outputDir.resolve(generatorOpts.apiPackageDir());
