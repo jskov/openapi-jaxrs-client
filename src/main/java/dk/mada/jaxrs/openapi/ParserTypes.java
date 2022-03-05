@@ -127,7 +127,7 @@ public class ParserTypes {
 
         Type remappedType = remappedDtoTypes.get(tn);
         if (remappedType != null) {
-            logger.trace(" {} -> remapped {}", tn, remappedType);
+            logger.info(" {} -> remapped {}", tn, remappedType);
             return remappedType;
         }
 
@@ -144,7 +144,6 @@ public class ParserTypes {
 
         return null;
     }
-    
 
     /**
      * Collection types such as ListDto are changed to {@code List<Dto>}.

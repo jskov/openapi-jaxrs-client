@@ -100,24 +100,30 @@ public class Resolver {
 
     // FIXME: maybe this should return only TypeRef with validation? But nice that void maps directly
     private Type resolve(Type type) {
+        Type resolvedType = resolveInner(type);
+        logger.info("  resolve {} -> {}", type, resolvedType);
+        return resolvedType;
+    }
+    private Type resolveInner(Type type) {
         if (type instanceof ParserTypeRef ptr) {
             Type t = parserTypes.get(ptr.refTypeName());
-            return dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(t, ptr.validation()));
+            Type resolvedT = resolve(t);
+            return dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
         } else if (type instanceof TypeVoid) {
             return type;
         } else if (type instanceof TypeArray ta) {
             Type it = ta.innerType();
-            Type newIt = resolve(it);
+            Type newIt = resolveInner(it);
             logger.info(" array {} -> {}", it, newIt);
             return TypeArray.of(newIt);
         } else if (type instanceof TypeSet ts) {
             Type it = ts.innerType();
-            Type newIt = resolve(it);
+            Type newIt = resolveInner(it);
             logger.info(" set {} -> {}", it, newIt);
             return TypeSet.of(newIt);
         } else if (type instanceof TypeMap tm) {
             Type it = tm.innerType();
-            Type newIt = resolve(it);
+            Type newIt = resolveInner(it);
             logger.info(" map {} -> {}", it, newIt);
             return TypeMap.of(newIt);
         } else {

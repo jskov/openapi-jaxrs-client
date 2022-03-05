@@ -264,7 +264,9 @@ public class ApiGenerator {
     }
 
     private void addOperationImports(Imports imports, Operation op) {
+        logger.info("IMPORTS for {}", op.codegenOpId());
         op.responses().stream()
+            .peek(r -> logger.info(" response {} {}", r.code(), r.content().type()))
             .map(r -> r.content().type())
             .forEach(imports::add);
     }
