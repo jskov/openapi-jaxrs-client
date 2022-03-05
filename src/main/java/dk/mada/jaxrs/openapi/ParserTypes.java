@@ -123,30 +123,37 @@ public class ParserTypes {
     }
 
     private Type find(TypeName tn) {
-        Type jseType = mappedToJseTypes.get(tn);
-        if (jseType != null) {
-            logger.trace(" {} -> jse {}", tn, jseType);
-            return jseType;
+        String conversion = "na";
+        String name = tn.name();
+
+        Type type = mappedToJseTypes.get(tn);
+        if (type != null) {
+            conversion = "jse";
         }
 
-        Type remappedType = remappedDtoTypes.get(tn);
-        if (remappedType != null) {
-            logger.info(" {} -> remapped {}", tn, remappedType);
-            return remappedType;
+        if (type == null) {
+            type = remappedDtoTypes.get(tn);
+            if (type != null) {
+                conversion = "remapped";
+            }
         }
 
-        Dto dto = parsedDtos.get(tn);
-        if (dto != null) {
-            logger.trace(" {} -> dto {}", tn, dto);
-            return dto;
+        if (type == null) {
+            type = parsedDtos.get(tn);
+            if (type != null) {
+                conversion = "dto";
+            }
         }
 
-        Primitive p = Primitive.find(tn);
-        if (p != null) {
-            return p;
+        if (type == null) {
+            type = Primitive.find(tn);
+            if (type != null) {
+                conversion = "primitive";
+            }
         }
 
-        return null;
+        logger.info("find {} -> {} : {}", name, conversion, type);
+        return type;
     }
 
     /**

@@ -137,28 +137,13 @@ public class Types {
      * @return
      */
     public Type map(Type t) {
+        logger.info("Bad call", new IllegalStateException("call ParserTypes"));
         Type mappedType = find(t.typeName());
         if (mappedType != null) {
             return mappedType;
         } else {
             return t;
         }
-    }
-
-    /**
-     * Get a type from a type name.
-     *
-     * @param tn the type name to get
-     * @return the associated type
-     * @throws IllegalArgumentException if there is no type associated with the given type name
-     */
-    public Type get(TypeName tn) {
-        assertParsing();
-        Type t = find(tn);
-        if (t == null) {
-            throw new IllegalArgumentException("No type referenced found by name " + tn);
-        }
-        return t;
     }
 
     private Type find(TypeName tn) {

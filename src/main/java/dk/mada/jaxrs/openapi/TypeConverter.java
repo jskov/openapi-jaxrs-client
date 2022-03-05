@@ -103,7 +103,7 @@ public final class TypeConverter {
 
         if (schema.getEnum() != null) {
             if (propertyName == null || type == null) {
-                logger.warn("Found enumaration type but no property name provided");
+                logger.warn("Found enumeration type but no property name provided");
             } else {
                 String enumTypeName = naming.convertPropertyEnumTypeName(propertyName);
                 TypeName typeName = TypeNames.of(enumTypeName);

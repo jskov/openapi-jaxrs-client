@@ -88,7 +88,7 @@ public class Resolver {
     }
 
     private RequestBody derefRequestBody(RequestBody requestBody) {
-        return RequestBody.builder()
+        return RequestBody.builder().from(requestBody)
                 .content(derefContent(requestBody.content()))
                 .build();
     }

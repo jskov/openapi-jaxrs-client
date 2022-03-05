@@ -459,6 +459,7 @@ public class DtoGenerator {
 
     private DereferencedType derefType(Type t) {
         Type mapped = types.map(t);
+        // FIXME: assert same
         return types.dereference(mapped);
     }
 

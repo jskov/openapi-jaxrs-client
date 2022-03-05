@@ -72,6 +72,7 @@ public class Parser {
 
         // FIXME:types.consolidateDtos();
 
+        System.out.println("============== PARSING DONE =====");
 
         System.out.println(TypeNames.info());
         System.out.println(parserTypes.info());
