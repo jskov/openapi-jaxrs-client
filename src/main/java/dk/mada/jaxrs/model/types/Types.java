@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.HashMap;
@@ -32,6 +33,10 @@ import dk.mada.jaxrs.openapi.ParserOpts;
  */
 public class Types {
     private static final Logger logger = LoggerFactory.getLogger(Types.class);
+
+    /** Newline. */
+    private static final String NL = System.lineSeparator();
+
     /**
      * Types mapped to JSE standard types.
      */
@@ -245,5 +250,45 @@ public class Types {
                 remapDto(openapiName, t);
             }
         }
+    }
+
+    /** {@return information about the model} */
+    public String info() {
+        StringBuilder sb = new StringBuilder("Types:").append(NL);
+
+        sb.append(" Unmapped JSE: ");
+        sb.append(unmappedToJseTypes.stream()
+                    .sorted()
+                    .map(TypeName::name)
+                    .collect(joining(", "))).append(NL);
+
+        sb.append(" Mapped JSE: ").append(NL);
+        mappedToJseTypes.keySet().stream()
+            .sorted()
+            .forEach(tn -> {
+                Type t = mappedToJseTypes.get(tn);
+                sb.append("  ").append(tn.name())
+                    .append(": ").append(t).append(NL);
+            });
+
+        sb.append(" DTOs: ").append(NL);
+        parsedDtos.keySet().stream()
+            .sorted()
+            .forEach(tn -> {
+                Dto dto = parsedDtos.get(tn);
+                sb.append("  ").append(tn.name())
+                    .append(": ").append(dto.name()).append(" - ").append(dto.dtoType()).append(NL);
+            });
+
+        sb.append(" Remapped DTOs: ").append(NL);
+        remappedDtoTypes.keySet().stream()
+            .sorted()
+            .forEach(tn -> {
+                Type t = remappedDtoTypes.get(tn);
+                sb.append("  ").append(tn.name())
+                    .append(": ").append(t).append(NL);
+            });
+
+        return sb.toString();
     }
 }

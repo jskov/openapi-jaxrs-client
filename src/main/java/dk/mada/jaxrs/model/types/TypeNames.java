@@ -13,7 +13,11 @@ public final class TypeNames {
     private TypeNames() {
     }
 
-    public record TypeName(String name) {
+    public record TypeName(String name) implements Comparable<TypeName> {
+        @Override
+        public int compareTo(TypeName other) {
+            return name.compareTo(other.name);
+        }
     }
 
     /**
