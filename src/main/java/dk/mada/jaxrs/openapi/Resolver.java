@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
@@ -61,9 +62,22 @@ public class Resolver {
         logger.info(" - deref DTO {} : {}", dto.name(), dto.dtoType());
         return Dto.builder().from(dto)
                 .dtoType(resolve(dto.dtoType()))
+                .properties(derefProperties(dto.properties()))
                 .build();
     }
 
+    private List<Property> derefProperties(List<Property> properties) {
+        return properties.stream()
+                    .map(this::derefProperty)
+                    .toList();
+    }
+
+    private Property derefProperty(Property property) {
+        return Property.builder().from(property)
+                .type(resolve(property.type()))
+                .build();
+    }
+    
     /**
      * Resolves parser type references in operations.
      *
