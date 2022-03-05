@@ -6,7 +6,7 @@ import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.model.types.TypeRef;
+import dk.mada.jaxrs.model.types.TypeReference;
 
 /**
  * Information about a single parameter.
@@ -27,7 +27,7 @@ public interface Parameter {
     @Nullable
     default Validation validation() {
         Type t = type();
-        if (t instanceof TypeRef tr) {
+        if (t instanceof TypeReference tr) {
             return tr.validation();
         }
         return null;

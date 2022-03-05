@@ -119,10 +119,6 @@ public class Types {
     public DereferencedType dereference(Type type) {
         if (type instanceof TypeReference tr) {
             return new DereferencedType(tr.refType(), tr.validation());
-        }
-        if (type instanceof TypeRef tr) {
-            assertDereferencingSafe();
-            return new DereferencedType(get(tr.refTypeName()), tr.validation());
         } else {
             return new DereferencedType(type, null);
         }

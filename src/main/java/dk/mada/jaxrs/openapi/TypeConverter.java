@@ -21,11 +21,10 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
-import dk.mada.jaxrs.model.types.TypeRef;
+import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.TypeValidation;
-import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
@@ -226,9 +225,9 @@ public final class TypeConverter {
             .filter(TypeValidation.class::isInstance)
             .map(TypeValidation.class::cast)
             .toList();
-        List<TypeRef> refs = allOfTypes.stream()
-                .filter(TypeRef.class::isInstance)
-                .map(TypeRef.class::cast)
+        List<TypeReference> refs = allOfTypes.stream()
+                .filter(TypeReference.class::isInstance)
+                .map(TypeReference.class::cast)
                 .toList();
 
         if (validations.size() != 1 || refs.size() != 1) {
@@ -237,10 +236,12 @@ public final class TypeConverter {
             return TypeObject.get();
         }
 
-        TypeRef ref = refs.get(0);
-        Validation validation = validations.get(0).validation();
-
-        return TypeRef.withValidation(ref, validation);
+        TypeReference ref = refs.get(0);
+        return ref;
+        //FIXME:
+//        Validation validation = validations.get(0).validation();
+//
+//        return TypeRef.withValidation(ref, validation);
     }
 
     private Type findDto(String ref) {
