@@ -244,7 +244,6 @@ public final class TypeConverter {
     private Type findDto(String ref) {
         if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
             String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
-//            return types.findDto(openapiId);
             return parserRefs.makeDtoRef(openapiId);
         }
         return null;

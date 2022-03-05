@@ -40,6 +40,8 @@ public interface ParserTypeRef extends Type {
     /** {@return the referenced type name} */
     TypeName refTypeName();
 
+    FIXME: add refType, for use by all non-DTO types, make TypeConverter return this 
+    
     @Override
     default TypeName typeName() {
         throw new IllegalStateException("Should not be called while parsing");
