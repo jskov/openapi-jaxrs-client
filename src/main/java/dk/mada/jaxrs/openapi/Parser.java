@@ -79,6 +79,13 @@ public class Parser {
         // FIXME: operations: rewrite ParserTypeRefs to TypeRefs
         // FIXME: types: rewrite ParserTypeRefs to TypeRefs
 
+        System.out.println("----- DEREFERENCE ------");
+
+        Dereferencer dereferencer = new Dereferencer();
+        Operations derefOps = dereferencer.operations(operations);
+
+        System.out.println(derefOps.info());
+
         return new Model(info, operations, types, securitySchemes);
     }
 }
