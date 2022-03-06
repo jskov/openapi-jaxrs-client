@@ -202,7 +202,7 @@ public final class Imports {
 
     public void addPropertyImports(Collection<Property> properties) {
         properties
-        .forEach(p -> add(p.typeRef()));
+        .forEach(p -> add(p.reference()));
     }
 
     public Imports javax(String name) {

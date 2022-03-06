@@ -76,7 +76,7 @@ public class Resolver {
 
     private Property derefProperty(Property property) {
         return Property.builder().from(property)
-                .typeRef(resolve(property.typeRef()))
+                .reference(resolve(property.reference()))
                 .build();
     }
 

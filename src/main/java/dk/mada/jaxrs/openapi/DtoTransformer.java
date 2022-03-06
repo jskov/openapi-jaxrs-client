@@ -128,7 +128,7 @@ public class DtoTransformer {
 
             props.add(Property.builder()
                     .name(name)
-                    .typeRef(ref)
+                    .reference(ref)
                     .description(propSchema.getDescription())
                     .example(exampleStr)
                     .isNullable(isNullable)
