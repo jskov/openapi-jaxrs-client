@@ -312,13 +312,13 @@ public class DtoGenerator {
         // Add import if required
         String externalType = externalTypeMapping.get(typeName);
         if (externalType != null) {
-        	dtoImports.add(externalType);
+            dtoImports.add(externalType);
         }
         if (innerTypeName != null) {
-	        String innerExternalType = externalTypeMapping.get(innerTypeName);
-	        if (innerExternalType != null) {
-	        	dtoImports.add(innerExternalType);
-	        }
+            String innerExternalType = externalTypeMapping.get(innerTypeName);
+            if (innerExternalType != null) {
+                dtoImports.add(innerExternalType);
+            }
         }
 
         String getterPrefix = getterPrefix(p);

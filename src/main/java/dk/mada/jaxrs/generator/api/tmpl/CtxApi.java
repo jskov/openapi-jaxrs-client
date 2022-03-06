@@ -62,6 +62,7 @@ public interface CtxApi {
     default boolean hideGenerationTimestamp() {
         return generatedDate() == null;
     }
-    
+
+    /** {@return additional custom template data for the api} */
     CtxApiExt madaApi();
 }
