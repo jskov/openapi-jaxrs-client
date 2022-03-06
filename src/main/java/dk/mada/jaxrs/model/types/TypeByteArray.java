@@ -17,22 +17,25 @@ public final class TypeByteArray implements Type {
     private TypeByteArray() {
     }
 
+    /** {@return the byte-array instance} */
     public static TypeByteArray getArray() {
         return INSTANCE_ARRAY;
     }
 
+    /** {@return the stream instance} */
     public static TypeByteArray getStream() {
         return INSTANCE_STREAM;
     }
 
+    /** {@return true if this is the stream instance, otherwise false} */
     public boolean isStream() {
         return this == INSTANCE_STREAM;
     }
 
+    /** {@return true if this is the byte-array instance, otherwise false} */
     public boolean isArray() {
         return this == INSTANCE_ARRAY;
     }
-
 
     @Override
     public TypeName typeName() {

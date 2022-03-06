@@ -8,8 +8,14 @@ import io.swagger.v3.oas.models.OpenAPI;
  * Transforms OpenApi info to local model objects.
  */
 public final class InfoTransformer {
-    public Info transform(OpenAPI specification) {
-        io.swagger.v3.oas.models.info.Info info = specification.getInfo();
+    /**
+     * Transforms OpenApi document info section to model.
+     *
+     * @param document the OpenApi document
+     * @return the extracted info model object
+     */
+    public Info transform(OpenAPI document) {
+        io.swagger.v3.oas.models.info.Info info = document.getInfo();
 
         String title = orEmpty(info.getTitle());
         String version = orEmpty(info.getVersion());
