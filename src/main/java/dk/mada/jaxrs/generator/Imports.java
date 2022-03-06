@@ -15,6 +15,7 @@ import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.TypeReference;
 
 /**
  * Keeps track of imports for a single template, taking
@@ -278,10 +279,16 @@ public final class Imports {
             return this;
         }
 
-        importedClasses.addAll(type.neededImports());
-        addDtoImport(type);
-        if (type instanceof TypeArray ta) {
-            addDtoImport(ta.mappedInnerType());
+        // FIXME
+        Type t = type;
+        if (t instanceof TypeReference tr) {
+            t = tr.refType();
+        }
+
+        importedClasses.addAll(t.neededImports());
+        addDtoImport(t);
+        if (t instanceof TypeArray ta) {
+            addDtoImport(ta.innerType());
         }
 
         return this;

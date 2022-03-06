@@ -65,8 +65,13 @@ public interface Type {
         return false;
     }
 
-    /** {@return true if this type matches other, otherwise false} */
-    default boolean isType(Type other) {
-        return this == other;
+    /**
+     * Return true if this type is the given primitive.
+     *
+     * @param primitive the primitive to compare against
+     * @return true if the same primitive, otherwise false
+     */
+    default boolean isPrimitive(Primitive primitive) {
+        return false;
     }
 }

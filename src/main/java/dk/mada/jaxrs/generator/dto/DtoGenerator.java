@@ -283,7 +283,7 @@ public class DtoGenerator {
 
         if (propType instanceof TypeArray ca) {
             isArray = true;
-            innerTypeName = ca.mappedInnerType().typeName().name();
+            innerTypeName = ca.innerType().typeName().name();
             defaultValue = "new " + ca.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeMap cm) {
@@ -331,7 +331,7 @@ public class DtoGenerator {
         String extSetter = setter;
         boolean isUseBigDecimalForDouble =
                 opts.isUseBigDecimalForDouble()
-                && propType.isType(Primitive.DOUBLE);
+                && propType.isPrimitive(Primitive.DOUBLE);
         if (isUseBigDecimalForDouble) {
             getter = getter + "Double";
             setter = setter + "Double";
@@ -458,7 +458,7 @@ public class DtoGenerator {
     }
 
     private String getterPrefix(Property p) {
-        boolean isBoolean = p.type().isType(Primitive.BOOLEAN);
+        boolean isBoolean = p.type().isPrimitive(Primitive.BOOLEAN);
         String getterPrefix = "get";
         if (isBoolean && !opts.isUseBooleanGetPrefix()) {
             getterPrefix = "is";

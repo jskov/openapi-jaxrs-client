@@ -238,7 +238,7 @@ public class ApiGenerator {
             imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponse");
             imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponses");
 
-            if (!op.responses().stream().allMatch(r -> r.content().type() instanceof TypeVoid)) {
+            if (!op.responses().stream().allMatch(r -> r.content().type().isVoid())) {
                 imports.add("org.eclipse.microprofile.openapi.annotations.media.Content");
                 imports.add("org.eclipse.microprofile.openapi.annotations.media.Schema");
             }
@@ -259,7 +259,7 @@ public class ApiGenerator {
         }
 
         Response r = responses.get(0);
-        boolean isContainer = r.content().type() instanceof TypeContainer;
+        boolean isContainer = r.content().type().isContainer();
         return !isContainer && r.code() == StatusCode.HTTP_OK;
     }
 
@@ -382,7 +382,7 @@ public class ApiGenerator {
             imports.add("org.eclipse.microprofile.openapi.annotations.enums.SchemaType");
 
             isUnique = type instanceof TypeSet;
-        } else if (type instanceof TypeVoid) {
+        } else if (type.isVoid()) {
             baseType = null;
             containerType = null;
         } else {

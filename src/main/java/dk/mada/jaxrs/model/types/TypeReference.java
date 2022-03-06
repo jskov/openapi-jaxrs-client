@@ -97,7 +97,7 @@ public interface TypeReference extends Type {
     }
 
     @Override
-    default boolean isType(Type other) {
-        return refType().isType(other);
+    default boolean isPrimitive(Primitive primitive) {
+        return refType().isPrimitive(primitive);
     }
 }
