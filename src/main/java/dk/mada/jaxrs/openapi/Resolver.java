@@ -138,11 +138,15 @@ public class Resolver {
     // FIXME: maybe this should return only TypeRef with validation? But nice that void maps directly
     private Type resolve(Type type) {
         Type resolvedType = resolveInner(type);
-        logger.info("  resolve {} -> {}", type, resolvedType);
+        logger.debug("  resolve {} -> {}", type, resolvedType);
         return resolvedType;
     }
     private Type resolveInner(Type type) {
-        if (type instanceof ParserTypeRef ptr) {
+        if (type instanceof Dto dto) {
+            return Dto.builder().from(dto)
+                    .dtoType(resolveInner(dto.dtoType()))
+                    .build();
+        } else if (type instanceof ParserTypeRef ptr) {
             Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
             Type resolvedT = resolveInner(t);
             return dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
