@@ -143,8 +143,8 @@ public class Resolver {
     }
     private Type resolveInner(Type type) {
         if (type instanceof ParserTypeRef ptr) {
-            Type t = parserTypes.get(ptr.refTypeName());
-            Type resolvedT = resolve(t);
+            Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
+            Type resolvedT = resolveInner(t);
             return dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
         } else if (type instanceof TypeVoid) {
             return type;

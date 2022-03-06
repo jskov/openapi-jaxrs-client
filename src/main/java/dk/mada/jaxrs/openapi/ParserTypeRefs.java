@@ -5,12 +5,16 @@ import static java.util.stream.Collectors.joining;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Validation;
+import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
@@ -26,7 +30,7 @@ public class ParserTypeRefs {
     private final Map<TypeName, ValidationRefs> parserReferences = new HashMap<>();
 
     /**
-     * Make a new DTO parser reference.
+     * Makes a new parser reference to a DTO.
      *
      * Created from the schema definition, so has no validation.
      *
@@ -35,9 +39,44 @@ public class ParserTypeRefs {
      */
     public ParserTypeRef makeDtoRef(String name) {
         TypeName tn = TypeNames.of(name);
+        return of(null, tn, Validation.NO_VALIDATION);
+    }
+
+    /**
+     * Makes a new parser reference to a DTO.
+     *
+     * Created from a property/parameter reference, so it does have validation.
+     *
+     * @param name the name of the DTO type
+     * @param validation the validation requirements of the reference
+     * @return the parser reference
+     */
+    public ParserTypeRef makeDtoRef(String name, Validation validation) {
+        TypeName tn = TypeNames.of(name);
+        return of(null, tn, validation);
+    }
+
+    /**
+     * Makes a new parser reference to a primitive/special type.
+     *
+     * @param type the type to make a reference to
+     * @param validation the validation requirements of the reference
+     * @return the parser reference
+     */
+    public ParserTypeRef of(Type type, Validation validation) {
+        TypeName tn;
+        if (type instanceof ParserTypeRef ptr) {
+            tn = ptr.refTypeName();
+        } else {
+            tn = type.typeName();
+        }
+        return of(type, tn, validation);
+    }
+
+    private ParserTypeRef of(@Nullable Type type, TypeName tn, Validation validation) {
         parserReferences.computeIfAbsent(tn, t -> new ValidationRefs());
         ValidationRefs validationRefs = parserReferences.get(tn);
-        return validationRefs.getOrAdd(Validation.NO_VALIDATION, tn);
+        return validationRefs.getOrAdd(validation, type, tn);
     }
 
     /** {@return information about parser references} */
@@ -58,18 +97,19 @@ public class ParserTypeRefs {
         /** Parser references, mapped by their validation. */
         private final Map<Validation, Set<ParserTypeRef>> refsByValidation = new HashMap<>();
 
-        public ParserTypeRef getOrAdd(Validation validation, TypeName tn) {
+        private ParserTypeRef getOrAdd(Validation validation, @Nullable Type type, TypeName tn) {
             Set<ParserTypeRef> refs = refsByValidation.computeIfAbsent(validation, v -> new HashSet<ParserTypeRef>());
 
             for (ParserTypeRef ref : refs) {
                 if (ref.validation().equals(validation)
-                    && ref.refTypeName().equals(tn)) {
+                    && Objects.equals(ref.refTypeName(), tn)
+                    && Objects.equals(ref.refType(), type)) {
                     logger.info(" found type reference {}", ref);
                     return ref;
                 }
             }
 
-            ParserTypeRef newRef = ParserTypeRef.of(tn, validation);
+            ParserTypeRef newRef = ParserTypeRef.of(type, tn, validation);
             refs.add(newRef);
             logger.info(" created type reference {}", newRef);
             return newRef;

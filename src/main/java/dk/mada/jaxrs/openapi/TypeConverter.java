@@ -84,19 +84,24 @@ public final class TypeConverter {
     }
 
     /**
-     * Converts a OpenApi schema to an internal model type.
+     * Converts a OpenApi schema to parser type reference.
+     *
+     * This serves as a lazy reference to something that will
+     * eventually be resolved to a type in the model.
      *
      * @param schema the OpenApi schema to convert
      * @param propertyName name of the property the type is associated with, or null
-     * @return the found/created internal model type
+     * @return the found/created parser type reference
      */
-    public Type toType(Schema<?> schema, String propertyName) {
+    public ParserTypeRef toType(Schema<?> schema, String propertyName) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
 
         logger.info("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
         logger.info("ref {}", schemaRef);
+
+        Validation validation = extractValidation(schema);
 
         Type type = Primitive.find(schemaType, schemaFormat);
 
@@ -111,18 +116,17 @@ public final class TypeConverter {
                         .map(Objects::toString)
                         .toList();
                 logger.info(" ENUM: {} {} {}", typeName, type, enumValues);
-                return TypeEnum.of(typeName, type, enumValues);
+                return parserRefs.of(TypeEnum.of(typeName, type, enumValues), validation);
             }
         }
 
         if (type != null) {
-            return type;
+            return parserRefs.of(type, validation);
         }
 
-        type = findDto(schema.get$ref());
-
-        if (type != null) {
-            return type;
+        ParserTypeRef ref = findDto(schema.get$ref(), validation);
+        if (ref != null) {
+            return ref;
         }
 
         if (schema instanceof ArraySchema a) {
@@ -130,25 +134,25 @@ public final class TypeConverter {
 
             Boolean isUnique = a.getUniqueItems();
             if (isUnique != null && isUnique.booleanValue()) {
-                return TypeSet.of(innerType);
+                return parserRefs.of(TypeSet.of(innerType), validation);
             }
 
             if (innerType instanceof TypeByteArray && parserOpts.isUnwrapByteArrayList()) {
-                return TypeByteArray.getArray();
+                return parserRefs.of(TypeByteArray.getArray(), validation);
             }
 
-            return TypeArray.of(innerType);
+            return parserRefs.of(TypeArray.of(innerType), validation);
         }
 
         if (schema instanceof BinarySchema || schema instanceof FileSchema) {
-            return TypeByteArray.getArray();
+            return parserRefs.of(TypeByteArray.getArray(), validation);
         }
 
         if (schema instanceof MapSchema m) {
             Object additionalProperties = m.getAdditionalProperties();
             if (additionalProperties instanceof Schema<?> innerSchema) {
                 Type innerType = toType(innerSchema);
-                return TypeMap.of(innerType);
+                return parserRefs.of(TypeMap.of(innerType), validation);
             }
         }
 
@@ -158,45 +162,48 @@ public final class TypeConverter {
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
             if (typeWithValidation != null) {
-                return typeWithValidation;
+                if (typeWithValidation instanceof ParserTypeRef ptr) {
+                    return ptr;
+                } else {
+                    return parserRefs.of(typeWithValidation, validation);
+                }
             }
         }
 
         if (schema instanceof NumberSchema) {
-            return TypeBigDecimal.get();
+            return parserRefs.of(TypeBigDecimal.get(), validation);
         }
 
         if (schema instanceof DateTimeSchema) {
-            return TypeDateTime.get(generatorOpts);
+            return parserRefs.of(TypeDateTime.get(generatorOpts), validation);
         }
 
         if (schema instanceof DateSchema) {
             logger.debug(" {} : TypeDate", schema.getName());
-            return TypeDate.get();
+            return parserRefs.of(TypeDate.get(), validation);
         }
 
         if (schema instanceof UUIDSchema) {
-            return TypeUUID.get();
+            return parserRefs.of(TypeUUID.get(), validation);
         }
 
         if (schema instanceof ObjectSchema) {
-            return TypeObject.get();
+            return parserRefs.of(TypeObject.get(), validation);
         }
 
         if (schema instanceof StringSchema) {
             if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(schemaFormat)) {
-                return TypeLocalTime.get();
+                return parserRefs.of(TypeLocalTime.get(), validation);
             }
 
-            return Primitive.STRING;
+            return parserRefs.of(Primitive.STRING, validation);
         }
 
         // In no type and reference, assume it is supplemental validation
         // information for the other type in a ComposedSchema.
         if (schemaType == null && schemaRef == null) {
-            Validation v = extractValidation(schema);
-            logger.debug("VALIDATION {}", v);
-            return TypeValidation.of(v);
+            // FIXME: Gets double wrapped
+            return parserRefs.of(TypeValidation.of(validation), validation);
         }
 
         throw new IllegalStateException("No type found for " + schema);
@@ -241,10 +248,10 @@ public final class TypeConverter {
         return ParserTypeRef.of(ref.refTypeName(), validation);
     }
 
-    private Type findDto(String ref) {
+    private ParserTypeRef findDto(String ref, Validation validation) {
         if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
             String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
-            return parserRefs.makeDtoRef(openapiId);
+            return parserRefs.makeDtoRef(openapiId, validation);
         }
         return null;
     }

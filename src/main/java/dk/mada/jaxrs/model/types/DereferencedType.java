@@ -32,8 +32,7 @@ public record DereferencedType(Type type, @Nullable Validation validation) {
         }
     }
 
-
     public boolean required() {
-        return validation != null && !validation.isNullable();
+        return validation != null && validation.isNullable() != null && !validation.isNullable();
     }
 }
