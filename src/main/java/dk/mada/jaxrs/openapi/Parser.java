@@ -73,7 +73,7 @@ public class Parser {
 //        System.out.println(TypeNames.info());
         System.out.println(parserTypes.info());
 //        System.out.println(parserRefs.info());
-//        System.out.println(operations.info());
+        System.out.println(operations.info());
 
         // FIXME: primitive param args INT etc must also be ParserTypeRefs to capture validation
 
@@ -85,7 +85,7 @@ public class Parser {
         System.out.println("============== RESOLVED =====");
 
         System.out.println(dtos.info());
-//        System.out.println(derefOps.info());
+        System.out.println(derefOps.info());
 
         return new Model(info, derefOps, dtos, securitySchemes);
     }

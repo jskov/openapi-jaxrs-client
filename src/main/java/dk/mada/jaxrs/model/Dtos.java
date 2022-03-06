@@ -39,6 +39,11 @@ public class Dtos {
             .forEach(dto -> {
                 sb.append("  ").append(dto.name())
                     .append(": ").append(dto.dtoType()).append(NL);
+                dto.properties().stream()
+                    .sorted((a, b) -> a.name().compareTo(b.name()))
+                    .forEach(prop -> {
+                        sb.append("    ").append(prop.name()).append(": ").append(prop.type()).append(NL);
+                    });
             });
 
         return sb.toString();
