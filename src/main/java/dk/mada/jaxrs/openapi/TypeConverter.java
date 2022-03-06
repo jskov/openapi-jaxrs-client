@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.openapi;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -225,16 +226,17 @@ public final class TypeConverter {
         List<ParserTypeRef> allOfTypes = allOf.stream()
             .map(this::toType)
             .toList();
-        allOfTypes.forEach(t -> logger.info(" {}", t));
 
-        List<TypeValidation> validations = allOfTypes.stream()
-            .filter(TypeValidation.class::isInstance)
-            .map(TypeValidation.class::cast)
-            .toList();
-        List<ParserTypeRef> refs = allOfTypes.stream()
-                .filter(ParserTypeRef.class::isInstance)
-                .map(ParserTypeRef.class::cast)
-                .toList();
+        List<ParserTypeRef> refs = new ArrayList<>();
+        List<TypeValidation> validations = new ArrayList<>();
+        for (ParserTypeRef ptr : allOfTypes) {
+            logger.debug(" {}", ptr);
+            if (ptr.refType() instanceof TypeValidation tv) {
+                validations.add(tv);
+            } else {
+                refs.add(ptr);
+            }
+        }
 
         if (validations.size() != 1 || refs.size() != 1) {
             logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
