@@ -79,7 +79,7 @@ public final class TypeConverter {
      * @param schema the OpenApi schema to convert
      * @return the found/created internal model type
      */
-    public Type toType(Schema<?> schema) {
+    public ParserTypeRef toType(Schema<?> schema) {
         return toType(schema, null);
     }
 
@@ -130,14 +130,14 @@ public final class TypeConverter {
         }
 
         if (schema instanceof ArraySchema a) {
-            Type innerType = toType(a.getItems());
+            ParserTypeRef innerType = toType(a.getItems());
 
             Boolean isUnique = a.getUniqueItems();
             if (isUnique != null && isUnique.booleanValue()) {
                 return parserRefs.of(TypeSet.of(innerType), validation);
             }
 
-            if (innerType instanceof TypeByteArray && parserOpts.isUnwrapByteArrayList()) {
+            if (innerType.refType() instanceof TypeByteArray && parserOpts.isUnwrapByteArrayList()) {
                 return parserRefs.of(TypeByteArray.getArray(), validation);
             }
 
@@ -222,7 +222,7 @@ public final class TypeConverter {
             return null;
         }
 
-        List<Type> allOfTypes = allOf.stream()
+        List<ParserTypeRef> allOfTypes = allOf.stream()
             .map(this::toType)
             .toList();
         allOfTypes.forEach(t -> logger.info(" {}", t));
