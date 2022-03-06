@@ -3,12 +3,15 @@ package dk.mada.jaxrs.openapi;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Operations;
-import dk.mada.jaxrs.model.types.Types;
+import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -21,22 +24,36 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
  * model classes.
  */
 public class Parser {
+    private static final Logger logger = LoggerFactory.getLogger(Parser.class);
+
+    /** Newline. */
+    private static final String NL = System.lineSeparator();
+
+    /** Flag for showing parser info. */
+    private boolean showInfo;
     /** Naming. */
     private final Naming naming;
     /** Parser options. */
     private final ParserOpts parserOpts;
     /** Generator options. */
     private final GeneratorOpts generatorOpts;
+    /** Parser references. */
+    private final ParserTypeRefs parserRefs;
+
 
     /**
      * Constructs a new parser.
      *
+     * @param showInfo flag to enable parser info output
      * @param naming the naming instance
+     * @param parserRefs the parser references
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public Parser(Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public Parser(boolean showInfo, Naming naming, ParserTypeRefs parserRefs, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+        this.showInfo = showInfo;
         this.naming = naming;
+        this.parserRefs = parserRefs;
         this.parserOpts = parserOpts;
         this.generatorOpts = generatorOpts;
     }
@@ -57,14 +74,37 @@ public class Parser {
         SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, swaggerParseOpts);
         OpenAPI specification = result.getOpenAPI();
 
-        var types = new Types(parserOpts, generatorOpts);
-        var typeConverter = new TypeConverter(types, naming, parserOpts, generatorOpts);
+        var typeConverter = new TypeConverter(parserRefs, naming, parserOpts, generatorOpts);
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
         Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
-        new DtoTransformer(naming, types, typeConverter).transform(specification);
+        ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
+        new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
 
-        return new Model(info, operations, types, securitySchemes);
+        if (showInfo) {
+            String infoParsing = new StringBuilder("============== PARSING DONE =====").append(NL)
+                    .append(TypeNames.info()).append(NL)
+                    .append(parserTypes.info()).append(NL)
+                    .append(parserRefs.info()).append(NL)
+                    .append(operations.info())
+                    .toString();
+             logger.info("{}", infoParsing);
+        }
+
+        parserTypes.consolidateDtos();
+        Resolver resolver = new Resolver(parserTypes);
+        Operations derefOps = resolver.operations(operations);
+        var dtos = resolver.getDtos();
+
+        if (showInfo) {
+            String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)
+                       .append(dtos.info()).append(NL)
+                       .append(derefOps.info())
+                       .toString();
+            logger.info("{}", infoResolved);
+        }
+
+        return new Model(info, derefOps, dtos, securitySchemes);
     }
 }

@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.model.types;
 
+import static java.util.stream.Collectors.joining;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +15,11 @@ public final class TypeNames {
     private TypeNames() {
     }
 
-    public record TypeName(String name) {
+    public record TypeName(String name) implements Comparable<TypeName> {
+        @Override
+        public int compareTo(TypeName other) {
+            return name.compareTo(other.name);
+        }
     }
 
     /**
@@ -24,5 +30,15 @@ public final class TypeNames {
      */
     public static TypeName of(String name) {
         return NAME_TO_INSTANCES.computeIfAbsent(name, TypeName::new);
+    }
+
+    /** {@return information about the type names} */
+    public static String info() {
+        String sep = System.lineSeparator() + "  ";
+        return new StringBuilder("Type names:").append(sep)
+                .append(NAME_TO_INSTANCES.keySet().stream()
+                    .sorted((a, b) -> a.compareToIgnoreCase(b))
+                    .collect(joining(sep)))
+                .toString();
     }
 }

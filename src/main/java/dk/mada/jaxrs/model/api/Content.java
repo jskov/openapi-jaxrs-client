@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.Reference;
 
 /**
  * Models the content of a request body.
@@ -19,7 +19,7 @@ public interface Content {
     /** {@return the content media types supported} */
     Set<String> mediaTypes();
     /** {@return the content type} */
-    Type type();
+    Reference reference();
 
     // TODO: per-media type example
 }

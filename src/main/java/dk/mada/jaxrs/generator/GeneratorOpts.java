@@ -187,7 +187,7 @@ public final class GeneratorOpts {
     public String getMpClientConfigKey() {
         return get("generator-mp-api-register-rest-client");
     }
-    
+
     /**
      * Returns mapping of external types.
      *

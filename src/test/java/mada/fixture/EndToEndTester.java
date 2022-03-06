@@ -55,7 +55,7 @@ public class EndToEndTester {
         System.out.println("PROPS:" + testOptions.toString());
         System.out.println("Output : " + generatedFilesRootDir);
 
-        new Generator().generate(input, testOptions, outputDir);
+        new Generator(false).generate(input, testOptions, outputDir);
 
         logger.info("Generator returned");
         logger.info("Expected dir {}", input);

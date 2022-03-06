@@ -2,6 +2,7 @@ package mada.tests.main;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import dk.mada.jaxrs.Main;
 
 class CliHandlingTest {
+    /** Output buffer used for all tests. */
+    static final ByteArrayOutputStream TEST_OUTPUT_BUFFER = new ByteArrayOutputStream();
 
     /** Test output dir. */
     @TempDir
@@ -65,16 +68,34 @@ class CliHandlingTest {
             .isZero();
     }
 
+    /**
+     * Exercise info code using --debug flag.
+     */
+    @Test
+    void canPrintParserInfo() {
+        String dir = outputDir.resolve("new").toAbsolutePath().toString();
+        Result res = run(
+                "--show-parser-info",
+                "--input", "src/test/java/mada/tests/main/openapi.yaml",
+                "--output-directory", dir);
+
+        assertThat(res.exitCode)
+            .isZero();
+        // have to assume the output is written. cannot make it work reliably with all tests
+    }
 
     /**
      * Runs the generator via the command-line interface.
+     *
+     * Uses a static byte buffer to collect output. This is necessary
+     * since JUL will keep writing to the same stream.
      *
      * @param args the arguments to pass
      * @return the result, exit code and output
      */
     private Result run(String... args) {
-        ByteArrayOutputStream testOutput = new ByteArrayOutputStream();
-        PrintStream testOutputStream = new PrintStream(testOutput);
+        TEST_OUTPUT_BUFFER.reset();
+        PrintStream testOutputStream = new PrintStream(TEST_OUTPUT_BUFFER, true, StandardCharsets.UTF_8);
 
         PrintStream oldOut = System.out;
         PrintStream oldErr = System.err;
@@ -84,7 +105,7 @@ class CliHandlingTest {
             System.setErr(testOutputStream);
 
             int exitCode = Main.mainNoExit(args);
-            return new Result(exitCode, testOutput.toString());
+            return new Result(exitCode, TEST_OUTPUT_BUFFER.toString());
         } finally {
             System.setOut(oldOut);
             System.setErr(oldErr);

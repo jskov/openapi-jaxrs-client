@@ -45,7 +45,6 @@ import picocli.CommandLine.Spec;
             + " The output is suitable for use with a Micro Profile REST client."
 )
 public final class Main implements Callable<Integer> {
-    @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     /** The picoCli spec. */
@@ -59,6 +58,10 @@ public final class Main implements Callable<Integer> {
     /** Flag to enable trace logging output. */
     @Option(names = "--trace", description = "Show trace-level log output.")
     private boolean trace;
+
+    /** Flag to enable printing of parser info. */
+    @Option(names = "--show-parser-info", description = "Show parser summary information.")
+    private boolean showParserInfo;
 
     /** Output directory for generated classes. */
     @Option(names = { "-o", "--output-directory" },
@@ -200,7 +203,7 @@ public final class Main implements Callable<Integer> {
         logger.info("Generates files in {}", outputDir);
         Properties config = readConfiguration(configuration);
 
-        new Generator().generate(inputDocument, config, outputDir);
+        new Generator(showParserInfo).generate(inputDocument, config, outputDir);
 
         return 0;
     }

@@ -18,16 +18,12 @@ public interface TypeArray extends TypeContainer {
     /**
      * Creates a type for an array (list).
      *
-     * @param types the types instance
      * @param innerType the type contained in the array
      * @return an array type
      */
-    static TypeArray of(Types types, Type innerType) {
-        return ImmutableTypeArray.builder().types(types).innerType(innerType).build();
+    static TypeArray of(Type innerType) {
+        return ImmutableTypeArray.builder().innerType(innerType).build();
     }
-
-    /** {@return the types instance} */
-    Types types();
 
     @Override
     default String containerImplementation() {
@@ -36,20 +32,15 @@ public interface TypeArray extends TypeContainer {
 
     @Override
     default TypeName typeName() {
-        String innerName = mappedInnerType().wrapperTypeName().name();
+        String innerName = innerType().wrapperTypeName().name();
         return TypeNames.of("List<" + innerName + ">");
     }
 
     @Override
     default Set<String> neededImports() {
         return Stream.concat(
-                mappedInnerType().neededImports().stream(),
+                innerType().neededImports().stream(),
                 Imports.LIST_TYPES.stream())
                 .collect(toSet());
-    }
-
-    @Override
-    default Type mappedInnerType() {
-        return types().map(innerType());
     }
 }

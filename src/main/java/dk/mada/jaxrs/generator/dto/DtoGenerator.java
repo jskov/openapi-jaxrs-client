@@ -23,10 +23,10 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Property;
-import dk.mada.jaxrs.model.types.DereferencedType;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -34,7 +34,6 @@ import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeSet;
-import dk.mada.jaxrs.model.types.Types;
 import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.naming.Naming;
@@ -52,7 +51,7 @@ public class DtoGenerator {
     /** Naming. */
     private final Naming naming;
     /** Types. */
-    private final Types types;
+    private final Dtos types;
     /** Generator options. */
     private final GeneratorOpts opts;
     /** Templates. */
@@ -84,7 +83,7 @@ public class DtoGenerator {
         this.templates = templates;
         this.model = model;
 
-        types = model.types();
+        types = model.dtos();
         externalTypeMapping = opts.getExternalTypeMapping();
     }
 
@@ -148,8 +147,7 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        DereferencedType derefType = derefType(dto.dtoType());
-        Type dtoType = derefType.type();
+        Type dtoType = dto.reference().refType();
         CtxEnum ctxEnum = null;
         if (isEnum) {
             ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
@@ -162,7 +160,7 @@ public class DtoGenerator {
 
         if (opts.isUseJacksonLocalDateSerializer()
                 && (dtoType.isDate()
-                        || dto.properties().stream().anyMatch(p -> p.type().isDate()))) {
+                        || dto.properties().stream().anyMatch(p -> p.reference().isDate()))) {
             if (opts.isAddJacksonLocalDateDeserializerTemplate()) {
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER);
             }
@@ -181,7 +179,7 @@ public class DtoGenerator {
 
         if (opts.isUseJacksonDateTimeSerializer()
                 && (dtoType.isDateTime()
-                        || dto.properties().stream().anyMatch(p -> p.type().isDateTime()))) {
+                        || dto.properties().stream().anyMatch(p -> p.reference().isDateTime()))) {
             if (opts.isUseLocalDateTime()) {
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER);
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER);
@@ -266,8 +264,7 @@ public class DtoGenerator {
 
         logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
-        DereferencedType derefType = derefType(p.type());
-        Type propType = derefType.type();
+        Type propType = p.reference().refType();
         logger.trace(" {}", propType);
 
         String defaultValue = null;
@@ -283,7 +280,7 @@ public class DtoGenerator {
 
         if (propType instanceof TypeArray ca) {
             isArray = true;
-            innerTypeName = ca.mappedInnerType().typeName().name();
+            innerTypeName = ca.innerType().typeName().name();
             defaultValue = "new " + ca.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeMap cm) {
@@ -315,13 +312,13 @@ public class DtoGenerator {
         // Add import if required
         String externalType = externalTypeMapping.get(typeName);
         if (externalType != null) {
-        	dtoImports.add(externalType);
+            dtoImports.add(externalType);
         }
         if (innerTypeName != null) {
-	        String innerExternalType = externalTypeMapping.get(innerTypeName);
-	        if (innerExternalType != null) {
-	        	dtoImports.add(innerExternalType);
-	        }
+            String innerExternalType = externalTypeMapping.get(innerTypeName);
+            if (innerExternalType != null) {
+                dtoImports.add(innerExternalType);
+            }
         }
 
         String getterPrefix = getterPrefix(p);
@@ -331,7 +328,7 @@ public class DtoGenerator {
         String extSetter = setter;
         boolean isUseBigDecimalForDouble =
                 opts.isUseBigDecimalForDouble()
-                && propType == Primitive.DOUBLE;
+                && propType.isPrimitive(Primitive.DOUBLE);
         if (isUseBigDecimalForDouble) {
             getter = getter + "Double";
             setter = setter + "Double";
@@ -457,13 +454,8 @@ public class DtoGenerator {
                 .build();
     }
 
-    private DereferencedType derefType(Type t) {
-        Type mapped = types.map(t);
-        return types.dereference(mapped);
-    }
-
     private String getterPrefix(Property p) {
-        boolean isBoolean = p.type() == Primitive.BOOLEAN;
+        boolean isBoolean = p.reference().isPrimitive(Primitive.BOOLEAN);
         String getterPrefix = "get";
         if (isBoolean && !opts.isUseBooleanGetPrefix()) {
             getterPrefix = "is";

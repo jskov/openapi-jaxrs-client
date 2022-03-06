@@ -14,6 +14,7 @@ import java.util.stream.Stream;
  * Test of common path finder.
  */
 class CommonPathTest {
+    /** Subject under test. */
     private CommonPathFinder sut = new CommonPathFinder();
 
     @ParameterizedTest
@@ -25,7 +26,7 @@ class CommonPathTest {
             'path/foo, path/bar',                path
             'path/foo, path/foo-bar',            path
             'x/path/foo, x/path/foo-bar',        x/path
-            
+
             'common, common',                    common
     """)
     void runTests(String paths, String expected) {

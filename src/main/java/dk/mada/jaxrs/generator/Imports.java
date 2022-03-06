@@ -11,10 +11,11 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.model.types.TypeArray;
-import dk.mada.jaxrs.model.types.Types;
+import dk.mada.jaxrs.model.types.TypeContainer;
 
 /**
  * Keeps track of imports for a single template, taking
@@ -96,14 +97,14 @@ public final class Imports {
 
     private final GeneratorOpts opts;
     @SuppressWarnings("unused")
-    private final Types types;
+    private final Dtos types;
     private final SortedSet<String> importedClasses = new TreeSet<>();
     private final boolean includeDtoImports;
 
     /** External type mapping. */
     private final Map<String, String> externalTypeMapping;
 
-    private Imports(Types types, GeneratorOpts opts, boolean includeDtoImports) {
+    private Imports(Dtos types, GeneratorOpts opts, boolean includeDtoImports) {
         this.types = types;
         this.opts = opts;
         this.includeDtoImports = includeDtoImports;
@@ -115,12 +116,12 @@ public final class Imports {
         return importedClasses;
     }
 
-    public static Imports newApi(Types types, GeneratorOpts opts) {
+    public static Imports newApi(Dtos types, GeneratorOpts opts) {
         return new Imports(types, opts, true)
                 .javax("javax.ws.rs.*");
     }
 
-    public static Imports newPojo(Types types, GeneratorOpts opts) {
+    public static Imports newPojo(Dtos types, GeneratorOpts opts) {
         return new Imports(types, opts, false)
                 .add(JAVA_UTIL_OBJECTS)
                 .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
@@ -135,7 +136,7 @@ public final class Imports {
      * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newEnum(Types types, GeneratorOpts opts) {
+    public static Imports newEnum(Dtos types, GeneratorOpts opts) {
         return new Imports(types, opts, false)
                    .addEnumImports();
     }
@@ -148,7 +149,7 @@ public final class Imports {
      * @param tmpl the template to add imports for
      * @return a new imports instance
      */
-    public static Imports newExtras(Types types, GeneratorOpts opts, ExtraTemplate tmpl) {
+    public static Imports newExtras(Dtos types, GeneratorOpts opts, ExtraTemplate tmpl) {
         var imports = new Imports(types, opts, false);
 
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
@@ -201,7 +202,7 @@ public final class Imports {
 
     public void addPropertyImports(Collection<Property> properties) {
         properties
-        .forEach(p -> add(p.type()));
+        .forEach(p -> add(p.reference()));
     }
 
     public Imports javax(String name) {
@@ -254,23 +255,18 @@ public final class Imports {
         return this;
     }
 
-    public Imports addAll(Collection<Type> addTypes) {
-        addTypes.forEach(this::add);
-        return this;
-    }
-
     /**
-     * Adds imports for a type.
+     * Adds imports for a reference.
      *
-     * If the type is externally mapped, just adds an import of this class.
+     * If the reference is externally mapped, just adds an import of the class.
      *
      * Otherwise adds imports for dependency and container-wrapper classes as well.
      *
-     * @param type the type to add imports for
+     * @param ref the reference to add imports for
      * @return the imports instance
      */
-    public Imports add(Type type) {
-        String typeName = type.typeName().name();
+    public Imports add(Reference ref) {
+        String typeName = ref.typeName().name();
         String mappedToExternalType = externalTypeMapping.get(typeName);
         if (mappedToExternalType != null) {
             logger.info("mapping type {} to {}", typeName, mappedToExternalType);
@@ -278,10 +274,11 @@ public final class Imports {
             return this;
         }
 
+        Type type = ref.refType();
         importedClasses.addAll(type.neededImports());
         addDtoImport(type);
-        if (type instanceof TypeArray ta) {
-            addDtoImport(ta.mappedInnerType());
+        if (type instanceof TypeContainer tc) {
+            addDtoImport(tc.innerType());
         }
 
         return this;

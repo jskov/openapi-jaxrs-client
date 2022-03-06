@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * A group of upper-cased chars will be lower cased (FOOBar becomes fooBar).
  */
 public final class Identifiers {
-    private static final Logger logger = LoggerFactory.getLogger(EnumNamer.class);
+    private static final Logger logger = LoggerFactory.getLogger(Identifiers.class);
 
     /**
      * Make a valid variable name for java.

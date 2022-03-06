@@ -16,6 +16,7 @@ public final class TypeBigDecimal implements Type {
     private TypeBigDecimal() {
     }
 
+    /** {@return the single instance} */
     public static TypeBigDecimal get() {
         return INSTANCE;
     }

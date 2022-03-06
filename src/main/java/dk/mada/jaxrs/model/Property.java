@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.Reference;
 
 /**
  * Models a property in a DTO.
@@ -21,7 +21,7 @@ public interface Property {
     /** {@return the property name} */
     String name();
     /** {@return the property type} */
-    Type type();
+    Reference reference();
     /** {@return the property description, or null} */
     @Nullable
     String description();

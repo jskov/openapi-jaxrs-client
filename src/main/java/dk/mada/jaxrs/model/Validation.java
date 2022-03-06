@@ -11,6 +11,9 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public interface Validation {
+    /** No validation input. */
+    Validation NO_VALIDATION = Validation.builder().isRequired(false).build();
+
     /** {@return a builder for this type} */
     static ImmutableValidation.Builder builder() {
         return ImmutableValidation.builder();
