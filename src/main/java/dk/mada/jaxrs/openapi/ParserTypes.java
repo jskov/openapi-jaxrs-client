@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
@@ -164,30 +165,26 @@ public class ParserTypes {
         logger.info("Consolidate DTOs");
         for (Dto dto : parsedDtos.values()) {
             String name = dto.name();
-            Type t = dto.reference();
-
-            // FIXME
-            if (t instanceof ParserTypeRef ptr) {
-                t = ptr.refType();
-            }
+            Reference ref = dto.reference();
+            Type type = ref.refType();
 
             TypeName openapiName = dto.openapiId();
 
-            logger.info(" consider {} : {} {}/{}", name, dto.getClass(), t.getClass(), t);
+            logger.debug(" consider {} : {} {}/{}", name, dto.getClass(), type.getClass(), type);
 
-            if (t instanceof TypeArray ta) {
+            if (type instanceof TypeArray ta) {
                 remapDto(openapiName, TypeArray.of(ta.innerType()));
-            } else if (t instanceof TypeSet ts) {
+            } else if (type instanceof TypeSet ts) {
                 remapDto(openapiName, TypeSet.of(ts.innerType()));
-            } else if (t instanceof TypeMap) {
+            } else if (type instanceof TypeMap) {
                 // no remapping of maps
                 // a DTO with properties of the same type may be represented like this
             } else if (unmappedToJseTypes.contains(openapiName)) {
                 // no remapping of kept types
             } else if (dto.isEnum()) {
                 // no remapping of enums
-            } else if (!(t instanceof TypeObject)) {
-                remapDto(openapiName, t);
+            } else if (!(type instanceof TypeObject)) {
+                remapDto(openapiName, type);
             }
         }
     }
@@ -199,8 +196,6 @@ public class ParserTypes {
             throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + newType);
         }
     }
-
-
 
     /** {@return information about the model} */
     public String info() {
