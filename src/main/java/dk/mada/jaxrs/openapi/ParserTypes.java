@@ -164,6 +164,12 @@ public class ParserTypes {
         for (Dto dto : parsedDtos.values()) {
             String name = dto.name();
             Type t = dto.dtoType();
+
+            // FIXME
+            if (t instanceof ParserTypeRef ptr) {
+                t = ptr.refType();
+            }
+
             TypeName openapiName = dto.openapiId();
 
             logger.info(" consider {} : {} {}/{}", name, dto.getClass(), t.getClass(), t);
@@ -180,7 +186,7 @@ public class ParserTypes {
             } else if (dto.isEnum()) {
                 // no remapping of enums
             } else if (!(t instanceof TypeObject)) {
-//FIXME                remapDto(openapiName, t);
+                remapDto(openapiName, t);
             }
         }
     }
