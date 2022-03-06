@@ -31,7 +31,6 @@ import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
-import dk.mada.jaxrs.model.types.DereferencedType;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
@@ -303,18 +302,17 @@ public class ApiGenerator {
         }
 
         for (Parameter p : op.parameters()) {
-            DereferencedType derefType = DereferencedType.of(p.typeRef());
-
-            Type type = derefType.type();
+            Type type = p.typeRef().refType();
             imports.add(type);
 
             String paramName = naming.convertParameterName(p.name());
 
             String dataType = paramDataType(type);
 
-            logger.info("See param {} : {} : {}", paramName, type, derefType.validation());
+            Validation validation = p.typeRef().validation();
+            logger.info("See param {} : {} : {}", paramName, type, validation);
 
-            boolean required = derefType.required() || p.isRequired();
+            boolean required = validation.isRequired() || p.isRequired();
             if (required) {
                 imports.add("javax.validation.constraints.NotNull");
             }
@@ -375,8 +373,8 @@ public class ApiGenerator {
     private CtxApiResponse makeResponse(Imports imports, Response r) {
         String baseType;
         String containerType;
-        DereferencedType derefType = DereferencedType.of(r.content().typeRef());
-        Type type = derefType.type();
+        Reference typeRef = r.content().typeRef();
+        Type type = typeRef.refType();
         boolean isUnique = false;
 
         if (type instanceof TypeContainer tc) {
