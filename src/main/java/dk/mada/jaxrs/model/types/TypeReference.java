@@ -95,4 +95,9 @@ public interface TypeReference extends Type {
     default boolean isTime() {
         return refType().isTime();
     }
+
+    @Override
+    default boolean isType(Type other) {
+        return refType().isType(other);
+    }
 }

@@ -64,4 +64,9 @@ public interface Type {
     default boolean isContainer() {
         return false;
     }
+
+    /** {@return true if this type matches other, otherwise false} */
+    default boolean isType(Type other) {
+        return this == other;
+    }
 }

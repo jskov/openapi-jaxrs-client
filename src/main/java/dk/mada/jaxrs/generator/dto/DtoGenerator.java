@@ -331,7 +331,7 @@ public class DtoGenerator {
         String extSetter = setter;
         boolean isUseBigDecimalForDouble =
                 opts.isUseBigDecimalForDouble()
-                && propType == Primitive.DOUBLE;
+                && propType.isType(Primitive.DOUBLE);
         if (isUseBigDecimalForDouble) {
             getter = getter + "Double";
             setter = setter + "Double";
@@ -458,7 +458,7 @@ public class DtoGenerator {
     }
 
     private String getterPrefix(Property p) {
-        boolean isBoolean = p.type() == Primitive.BOOLEAN;
+        boolean isBoolean = p.type().isType(Primitive.BOOLEAN);
         String getterPrefix = "get";
         if (isBoolean && !opts.isUseBooleanGetPrefix()) {
             getterPrefix = "is";
