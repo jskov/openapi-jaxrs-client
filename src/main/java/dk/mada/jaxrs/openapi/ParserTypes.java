@@ -180,7 +180,7 @@ public class ParserTypes {
             } else if (dto.isEnum()) {
                 // no remapping of enums
             } else if (!(t instanceof TypeObject)) {
-                remapDto(openapiName, t);
+//FIXME                remapDto(openapiName, t);
             }
         }
     }

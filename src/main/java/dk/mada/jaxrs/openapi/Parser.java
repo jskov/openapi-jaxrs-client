@@ -71,19 +71,20 @@ public class Parser {
 //        System.out.println("============== PARSING DONE =====");
 //
 //        System.out.println(TypeNames.info());
-//        System.out.println(parserTypes.info());
-        System.out.println(parserRefs.info());
-        System.out.println(operations.info());
+        System.out.println(parserTypes.info());
+//        System.out.println(parserRefs.info());
+//        System.out.println(operations.info());
 
         // FIXME: primitive param args INT etc must also be ParserTypeRefs to capture validation
-
 
         parserTypes.consolidateDtos();
         Resolver resolver = new Resolver(parserTypes);
         Operations derefOps = resolver.operations(operations);
         var dtos = resolver.getDtos();
 
-//        System.out.println(dtos.info());
+        System.out.println("============== RESOLVED =====");
+
+        System.out.println(dtos.info());
 //        System.out.println(derefOps.info());
 
         return new Model(info, derefOps, dtos, securitySchemes);
