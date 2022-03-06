@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.model.types.TypeArray;
-import dk.mada.jaxrs.model.types.TypeReference;
+import dk.mada.jaxrs.model.types.TypeContainer;
 
 /**
  * Keeps track of imports for a single template, taking
@@ -255,23 +255,18 @@ public final class Imports {
         return this;
     }
 
-    public Imports addAll(Collection<Type> addTypes) {
-        addTypes.forEach(this::add);
-        return this;
-    }
-
     /**
-     * Adds imports for a type.
+     * Adds imports for a reference.
      *
-     * If the type is externally mapped, just adds an import of this class.
+     * If the reference is externally mapped, just adds an import of the class.
      *
      * Otherwise adds imports for dependency and container-wrapper classes as well.
      *
-     * @param type the type to add imports for
+     * @param ref the reference to add imports for
      * @return the imports instance
      */
-    public Imports add(Type type) {
-        String typeName = type.typeName().name();
+    public Imports add(Reference ref) {
+        String typeName = ref.typeName().name();
         String mappedToExternalType = externalTypeMapping.get(typeName);
         if (mappedToExternalType != null) {
             logger.info("mapping type {} to {}", typeName, mappedToExternalType);
@@ -279,16 +274,11 @@ public final class Imports {
             return this;
         }
 
-        // FIXME
-        Type t = type;
-        if (t instanceof TypeReference tr) {
-            t = tr.refType();
-        }
-
-        importedClasses.addAll(t.neededImports());
-        addDtoImport(t);
-        if (t instanceof TypeArray ta) {
-            addDtoImport(ta.innerType());
+        Type type = ref.refType();
+        importedClasses.addAll(type.neededImports());
+        addDtoImport(type);
+        if (type instanceof TypeContainer tc) {
+            addDtoImport(tc.innerType());
         }
 
         return this;

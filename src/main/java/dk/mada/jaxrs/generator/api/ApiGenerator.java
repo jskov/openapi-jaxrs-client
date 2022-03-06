@@ -302,14 +302,15 @@ public class ApiGenerator {
         }
 
         for (Parameter p : op.parameters()) {
-            Type type = p.reference().refType();
-            imports.add(type);
+            Reference ref = p.reference();
+            imports.add(ref);
 
             String paramName = naming.convertParameterName(p.name());
 
+            Type type = ref.refType();
             String dataType = paramDataType(type);
 
-            Validation validation = p.reference().validation();
+            Validation validation = ref.validation();
             logger.info("See param {} : {} : {}", paramName, type, validation);
 
             boolean required = validation.isRequired() || p.isRequired();
@@ -332,11 +333,11 @@ public class ApiGenerator {
         }
 
         op.requestBody().ifPresent(body -> {
-            Type type = body.content().reference();
-            imports.add(type);
+            Reference ref = body.content().reference();
+            imports.add(ref);
 
-            String dtoParamName = naming.convertEntityName(type.typeName().name());
-            String dataType = paramDataType(type);
+            String dtoParamName = naming.convertEntityName(ref.typeName().name());
+            String dataType = paramDataType(ref);
 
             params.add(CtxApiParam.builder()
                     .baseName("unused")
