@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
@@ -119,7 +120,7 @@ public class DtoTransformer {
             String name = e.getKey();
             Schema<?> propSchema = e.getValue();
 
-            Type type = typeConverter.toType(propSchema, name);
+            Reference typeRef = typeConverter.toType(propSchema, name);
 
             String exampleStr = Objects.toString(propSchema.getExample(), null);
 
@@ -128,7 +129,7 @@ public class DtoTransformer {
 
             props.add(Property.builder()
                     .name(name)
-                    .type(type)
+                    .typeRef(typeRef)
                     .description(propSchema.getDescription())
                     .example(exampleStr)
                     .isNullable(isNullable)

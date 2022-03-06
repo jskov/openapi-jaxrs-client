@@ -162,7 +162,7 @@ public class DtoGenerator {
 
         if (opts.isUseJacksonLocalDateSerializer()
                 && (dtoType.isDate()
-                        || dto.properties().stream().anyMatch(p -> p.type().isDate()))) {
+                        || dto.properties().stream().anyMatch(p -> p.typeRef().isDate()))) {
             if (opts.isAddJacksonLocalDateDeserializerTemplate()) {
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER);
             }
@@ -181,7 +181,7 @@ public class DtoGenerator {
 
         if (opts.isUseJacksonDateTimeSerializer()
                 && (dtoType.isDateTime()
-                        || dto.properties().stream().anyMatch(p -> p.type().isDateTime()))) {
+                        || dto.properties().stream().anyMatch(p -> p.typeRef().isDateTime()))) {
             if (opts.isUseLocalDateTime()) {
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER);
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER);
@@ -266,7 +266,7 @@ public class DtoGenerator {
 
         logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
-        DereferencedType derefType = DereferencedType.of(p.type());
+        DereferencedType derefType = DereferencedType.of(p.typeRef());
         Type propType = derefType.type();
         logger.trace(" {}", propType);
 
@@ -458,7 +458,7 @@ public class DtoGenerator {
     }
 
     private String getterPrefix(Property p) {
-        boolean isBoolean = p.type().isPrimitive(Primitive.BOOLEAN);
+        boolean isBoolean = p.typeRef().isPrimitive(Primitive.BOOLEAN);
         String getterPrefix = "get";
         if (isBoolean && !opts.isUseBooleanGetPrefix()) {
             getterPrefix = "is";

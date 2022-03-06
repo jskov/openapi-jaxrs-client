@@ -76,7 +76,7 @@ public class Resolver {
 
     private Property derefProperty(Property property) {
         return Property.builder().from(property)
-                .type(resolve(property.type()))
+                .typeRef(resolve(property.typeRef()))
                 .build();
     }
 
@@ -167,9 +167,6 @@ public class Resolver {
             return derefDto(dto);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
-//            Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
-//            Type resolvedT = resolveInner(t);
-//            return dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
         } else if (type instanceof TypeVoid) {
             return type;
         } else if (type instanceof TypeArray ta) {
