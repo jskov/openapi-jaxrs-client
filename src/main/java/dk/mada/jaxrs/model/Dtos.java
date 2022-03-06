@@ -38,7 +38,7 @@ public class Dtos {
             .sorted((a, b) -> a.name().compareTo(b.name()))
             .forEach(dto -> {
                 sb.append("  ").append(dto.name())
-                    .append(": ").append(dto.dtoTypeRef()).append(NL);
+                    .append(": ").append(dto.reference()).append(NL);
                 dto.properties().stream()
                     .sorted((a, b) -> a.name().compareTo(b.name()))
                     .forEach(prop ->

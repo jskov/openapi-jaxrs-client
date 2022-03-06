@@ -60,11 +60,11 @@ public class Resolver {
     }
 
     private Dto derefDto(Dto dto) {
-        Reference dtoTypeRef = dto.dtoTypeRef();
+        Reference dtoTypeRef = dto.reference();
         String name = dto.name();
         logger.info(" - deref DTO {} : {}", name, dtoTypeRef);
         return Dto.builder().from(dto)
-                .dtoTypeRef(resolve(dtoTypeRef))
+                .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto.properties()))
                 .build();
     }

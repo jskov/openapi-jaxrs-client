@@ -14,6 +14,7 @@ import java.util.stream.Stream;
  * Test of common path finder.
  */
 class CommonPathTest {
+    /** Subject under test. */
     private CommonPathFinder sut = new CommonPathFinder();
 
     @ParameterizedTest

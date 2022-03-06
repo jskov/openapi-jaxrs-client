@@ -147,7 +147,7 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        Type dtoType = dto.dtoTypeRef().refType();
+        Type dtoType = dto.reference().refType();
         CtxEnum ctxEnum = null;
         if (isEnum) {
             ctxEnum = buildEnumEntries(dtoType, dto.enumValues());

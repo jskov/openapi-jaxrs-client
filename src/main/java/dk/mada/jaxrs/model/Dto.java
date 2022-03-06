@@ -25,7 +25,7 @@ public interface Dto extends Type {
     String name();
 
     /** {@return the type of the DTO object} */
-    Reference dtoTypeRef();
+    Reference reference();
 
     /** {@return the DTO description, or null} */
     @Nullable
