@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.toSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -103,7 +104,7 @@ public class ParserTypes {
         return parsedDtos.entrySet().stream()
                 .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
                 .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
-                .map(e -> e.getValue())
+                .map(Entry::getValue)
                 .collect(toSet());
     }
 

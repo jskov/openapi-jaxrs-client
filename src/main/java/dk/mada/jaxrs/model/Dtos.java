@@ -13,7 +13,7 @@ public class Dtos {
     private static final String NL = System.lineSeparator();
 
     /** DTOs from the specification. */
-    private final Set<Dto> dtos;
+    private final Set<Dto> dtoItems;
 
     /**
      * Create a new instance.
@@ -21,12 +21,12 @@ public class Dtos {
      * @param dtos the DTOs of the model
      */
     public Dtos(Collection<Dto> dtos) {
-        this.dtos = Collections.unmodifiableSet(new HashSet<>(dtos));
+        this.dtoItems = Collections.unmodifiableSet(new HashSet<>(dtos));
     }
 
     /** {@return the DTOs to render} */
     public Set<Dto> getActiveDtos() {
-        return dtos;
+        return dtoItems;
     }
 
     /** {@return information about the model} */
@@ -34,16 +34,16 @@ public class Dtos {
         StringBuilder sb = new StringBuilder("Types:").append(NL);
 
         sb.append(" DTOs: ").append(NL);
-        dtos.stream()
+        dtoItems.stream()
             .sorted((a, b) -> a.name().compareTo(b.name()))
             .forEach(dto -> {
                 sb.append("  ").append(dto.name())
                     .append(": ").append(dto.dtoTypeRef()).append(NL);
                 dto.properties().stream()
                     .sorted((a, b) -> a.name().compareTo(b.name()))
-                    .forEach(prop -> {
-                        sb.append("    ").append(prop.name()).append(": ").append(prop.reference()).append(NL);
-                    });
+                    .forEach(prop ->
+                        sb.append("    ").append(prop.name()).append(": ").append(prop.reference()).append(NL)
+                    );
             });
 
         return sb.toString();
