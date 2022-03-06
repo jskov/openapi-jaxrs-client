@@ -26,6 +26,9 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
 public class Parser {
     private static final Logger logger = LoggerFactory.getLogger(Parser.class);
 
+    /** Newline. */
+    private static final String NL = System.lineSeparator();
+
     /** Flag for showing parser info. */
     private boolean showInfo;
     /** Naming. */
@@ -41,6 +44,7 @@ public class Parser {
     /**
      * Constructs a new parser.
      *
+     * @param showInfo flag to enable parser info output
      * @param naming the naming instance
      * @param parserRefs the parser references
      * @param parserOpts the parser options
@@ -79,11 +83,13 @@ public class Parser {
         new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
 
         if (showInfo) {
-            logger.info("============== PARSING DONE =====");
-            logger.info("{}", TypeNames.info());
-            logger.info("{}", parserTypes.info());
-            logger.info("{}", parserRefs.info());
-            logger.info("{}", operations.info());
+            String infoParsing = new StringBuilder("============== PARSING DONE =====").append(NL)
+                    .append(TypeNames.info()).append(NL)
+                    .append(parserTypes.info()).append(NL)
+                    .append(parserRefs.info()).append(NL)
+                    .append(operations.info())
+                    .toString();
+             logger.info("{}", infoParsing);
         }
 
         parserTypes.consolidateDtos();
@@ -92,9 +98,11 @@ public class Parser {
         var dtos = resolver.getDtos();
 
         if (showInfo) {
-            logger.info("============== RESOLVED =====");
-            logger.info("{}", dtos.info());
-            logger.info("{}", derefOps.info());
+            String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)
+                       .append(dtos.info()).append(NL)
+                       .append(derefOps.info())
+                       .toString();
+            logger.info("{}", infoResolved);
         }
 
         return new Model(info, derefOps, dtos, securitySchemes);
