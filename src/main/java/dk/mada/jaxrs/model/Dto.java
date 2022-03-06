@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
@@ -24,7 +25,7 @@ public interface Dto extends Type {
     String name();
 
     /** {@return the type of the DTO object} */
-    Type dtoType();
+    Reference dtoTypeRef();
 
     /** {@return the DTO description, or null} */
     @Nullable

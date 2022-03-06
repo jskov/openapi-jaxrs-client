@@ -163,7 +163,7 @@ public class ParserTypes {
         logger.info("Consolidate DTOs");
         for (Dto dto : parsedDtos.values()) {
             String name = dto.name();
-            Type t = dto.dtoType();
+            Type t = dto.dtoTypeRef();
 
             // FIXME
             if (t instanceof ParserTypeRef ptr) {
@@ -225,7 +225,7 @@ public class ParserTypes {
             .forEach(tn -> {
                 Dto dto = parsedDtos.get(tn);
                 sb.append("  ").append(tn.name())
-                    .append(": ").append(dto.name()).append(" - ").append(dto.dtoType()).append(NL);
+                    .append(": ").append(dto.name()).append(" - ").append(dto.dtoTypeRef()).append(NL);
             });
 
         sb.append(" Remapped DTOs: ").append(NL);

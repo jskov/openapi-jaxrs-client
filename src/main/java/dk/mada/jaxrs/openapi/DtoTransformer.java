@@ -70,7 +70,7 @@ public class DtoTransformer {
         allDefinitions.forEach((schemaName, schema) -> {
             String modelName = naming.convertTypeName(schemaName);
 
-            Type dtoType = typeConverter.toType(schema);
+            ParserTypeRef dtoType = typeConverter.toType(schema);
 
             List<Property> props = readProperties(schema);
 
@@ -80,7 +80,7 @@ public class DtoTransformer {
             Dto dto = Dto.builder()
                     .name(modelName)
                     .description(schema.getDescription())
-                    .dtoType(dtoType)
+                    .dtoTypeRef(dtoType)
                     .properties(props)
                     .openapiId(TypeNames.of(schemaName))
                     .enumValues(enumValues)

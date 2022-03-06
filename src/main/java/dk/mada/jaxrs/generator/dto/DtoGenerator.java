@@ -148,7 +148,7 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        DereferencedType derefType = DereferencedType.of(dto.dtoType());
+        DereferencedType derefType = DereferencedType.of(dto.dtoTypeRef());
         Type dtoType = derefType.type();
         CtxEnum ctxEnum = null;
         if (isEnum) {

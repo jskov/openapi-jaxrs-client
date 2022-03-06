@@ -16,6 +16,7 @@ import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeMap;
@@ -59,9 +60,10 @@ public class Resolver {
     }
 
     private Dto derefDto(Dto dto) {
-        logger.info(" - deref DTO {} : {}", dto.name(), dto.dtoType());
+        Reference dtoTypeRef = dto.dtoTypeRef();
+        logger.info(" - deref DTO {} : {}", dto.name(), dtoTypeRef);
         return Dto.builder().from(dto)
-                .dtoType(resolve(dto.dtoType()))
+                .dtoTypeRef(resolve(dtoTypeRef))
                 .properties(derefProperties(dto.properties()))
                 .build();
     }
@@ -141,15 +143,33 @@ public class Resolver {
         logger.debug("  resolve {} -> {}", type, resolvedType);
         return resolvedType;
     }
+
+    private TypeReference resolve(Reference ref) {
+        if (ref instanceof ParserTypeRef ptr) {
+            return resolve(ptr);
+        } else if (ref instanceof TypeReference tr) {
+            return tr;
+        }
+        throw new IllegalStateException("Unhandled reference type " + ref.getClass());
+    }
+
+    private TypeReference resolve(ParserTypeRef ptr) {
+        Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
+        Type resolvedT = resolveInner(t);
+        TypeReference res = dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
+
+        logger.debug("  resolve {} -> {}", ptr, res);
+        return res;
+    }
+
     private Type resolveInner(Type type) {
         if (type instanceof Dto dto) {
-            return Dto.builder().from(dto)
-                    .dtoType(resolveInner(dto.dtoType()))
-                    .build();
+            return derefDto(dto);
         } else if (type instanceof ParserTypeRef ptr) {
-            Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
-            Type resolvedT = resolveInner(t);
-            return dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
+            return resolve(ptr);
+//            Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
+//            Type resolvedT = resolveInner(t);
+//            return dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
         } else if (type instanceof TypeVoid) {
             return type;
         } else if (type instanceof TypeArray ta) {
