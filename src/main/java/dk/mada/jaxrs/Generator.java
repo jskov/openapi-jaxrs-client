@@ -18,6 +18,18 @@ import dk.mada.jaxrs.openapi.ParserTypeRefs;
  * Generates JAX-RS code.
  */
 public class Generator {
+    /** Flag to show parser info. */
+    private final boolean showParserInfo;
+
+    /**
+     * Create new instance.
+     *
+     * @param showParserInfo true to show parser info
+     */
+    public Generator(boolean showParserInfo) {
+        this.showParserInfo = showParserInfo;
+    }
+
     /**
      * Generates JAX-RS code based on input OpenApi specification and user options.
      *
@@ -33,7 +45,7 @@ public class Generator {
         var naming = new Naming(options);
         var parserRefs = new ParserTypeRefs();
 
-        Model model = new Parser(naming, parserRefs, parserOpts, generatorOpts).parse(input);
+        Model model = new Parser(showParserInfo, naming, parserRefs, parserOpts, generatorOpts).parse(input);
 
         try {
             Path apiDir = outputDir.resolve(generatorOpts.apiPackageDir());

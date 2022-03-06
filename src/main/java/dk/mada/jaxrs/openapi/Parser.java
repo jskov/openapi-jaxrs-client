@@ -3,11 +3,15 @@ package dk.mada.jaxrs.openapi;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Operations;
+import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -20,6 +24,10 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
  * model classes.
  */
 public class Parser {
+    private static final Logger logger = LoggerFactory.getLogger(Parser.class);
+
+    /** Flag for showing parser info. */
+    private boolean showInfo;
     /** Naming. */
     private final Naming naming;
     /** Parser options. */
@@ -29,6 +37,7 @@ public class Parser {
     /** Parser references. */
     private final ParserTypeRefs parserRefs;
 
+
     /**
      * Constructs a new parser.
      *
@@ -37,7 +46,8 @@ public class Parser {
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public Parser(Naming naming, ParserTypeRefs parserRefs, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public Parser(boolean showInfo, Naming naming, ParserTypeRefs parserRefs, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+        this.showInfo = showInfo;
         this.naming = naming;
         this.parserRefs = parserRefs;
         this.parserOpts = parserOpts;
@@ -68,21 +78,24 @@ public class Parser {
         ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
         new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
 
-//        System.out.println("============== PARSING DONE =====");
-//
-//        System.out.println(TypeNames.info());
-//        System.out.println(parserTypes.info());
-//        System.out.println(parserRefs.info());
-//        System.out.println(operations.info());
+        if (showInfo) {
+            logger.info("============== PARSING DONE =====");
+            logger.info("{}", TypeNames.info());
+            logger.info("{}", parserTypes.info());
+            logger.info("{}", parserRefs.info());
+            logger.info("{}", operations.info());
+        }
 
         parserTypes.consolidateDtos();
         Resolver resolver = new Resolver(parserTypes);
         Operations derefOps = resolver.operations(operations);
         var dtos = resolver.getDtos();
 
-//        System.out.println("============== RESOLVED =====");
-//        System.out.println(dtos.info());
-//        System.out.println(derefOps.info());
+        if (showInfo) {
+            logger.info("============== RESOLVED =====");
+            logger.info("{}", dtos.info());
+            logger.info("{}", derefOps.info());
+        }
 
         return new Model(info, derefOps, dtos, securitySchemes);
     }
