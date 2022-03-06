@@ -2,8 +2,6 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.model.Validation;
@@ -17,7 +15,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * the parameter/property that references the type).
  */
 @Immutable
-public interface TypeReference extends Type {
+public interface TypeReference extends Reference {
     /**
      * Creates a new type reference.
      *
@@ -28,18 +26,6 @@ public interface TypeReference extends Type {
     static TypeReference of(Type refType, Validation validation) {
         return ImmutableTypeReference.builder().refType(refType).validation(validation).build();
     }
-
-    /**
-     * Validation information that applies to this
-     * particular reference of the type.
-     *
-     * @return the validation information, or null.
-     */
-    @Nullable
-    Validation validation();
-
-    /** {@return the referenced type} */
-    Type refType();
 
     @Override
     default TypeName typeName() {

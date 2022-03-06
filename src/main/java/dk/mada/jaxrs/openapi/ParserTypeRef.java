@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.model.Validation;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
@@ -19,7 +20,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * dereferenced to proper model TypeRefs.
  */
 @Immutable
-public interface ParserTypeRef extends Type {
+public interface ParserTypeRef extends Reference {
     /**
      * Creates a new reference to a type name (a DTO).
      *
@@ -42,14 +43,6 @@ public interface ParserTypeRef extends Type {
     static ParserTypeRef of(@Nullable Type refType, TypeName refTypeName, Validation validation) {
         return ImmutableParserTypeRef.builder().refType(refType).refTypeName(refTypeName).validation(validation).build();
     }
-
-    /**
-     * Validation information that applies to this
-     * particular reference of the type.
-     *
-     * @return the validation information.
-     */
-    Validation validation();
 
     /** {@return the referenced type name} */
     TypeName refTypeName();
