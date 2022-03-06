@@ -72,17 +72,17 @@ public final class Operations {
             if (!op.parameters().isEmpty()) {
                 sb.append("   Params:").append(NL);
                 op.parameters().forEach(p -> {
-                    sb.append("    ").append(p.name()).append(" : ").append(p.typeRef()).append(NL);
+                    sb.append("    ").append(p.name()).append(" : ").append(p.reference()).append(NL);
                 });
             }
             op.requestBody().ifPresent(body -> {
                 sb.append("   Body:").append(NL);
-                sb.append("     ").append(body.content().typeRef()).append(NL);
+                sb.append("     ").append(body.content().reference()).append(NL);
             });
             if (!op.responses().isEmpty()) {
                 sb.append("    Responses:").append(NL);
                 op.responses().stream().forEach(resp -> {
-                   sb.append("     ").append(resp.code()).append(" : ").append(resp.content().typeRef()).append(NL);
+                   sb.append("     ").append(resp.code()).append(" : ").append(resp.content().reference()).append(NL);
                 });
             }
         });

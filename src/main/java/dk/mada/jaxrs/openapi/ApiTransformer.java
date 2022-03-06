@@ -21,7 +21,6 @@ import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.Reference;
-import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
@@ -139,7 +138,7 @@ public class ApiTransformer {
 
         if (parseOpts.isFixupVoid200to204()
                 && r.code() == StatusCode.HTTP_OK
-                && r.content().typeRef().isVoid()) {
+                && r.content().reference().isVoid()) {
             logger.info("Fixing broken 200/void response on path '{}' to 204", resourcePath);
             r = Response.builder().from(r)
                     .code(StatusCode.HTTP_NO_CONTENT)
@@ -150,11 +149,11 @@ public class ApiTransformer {
     }
 
     private Content getContent(String resourcePath, io.swagger.v3.oas.models.media.Content c) {
-        Reference t;
+        Reference ref;
         Set<String> mediaTypes;
 
         if (c == null) {
-            t = TypeVoid.getRef();
+            ref = TypeVoid.getRef();
             mediaTypes = Set.of();
         } else {
             mediaTypes = c.keySet();
@@ -165,20 +164,20 @@ public class ApiTransformer {
                 .collect(toSet());
 
             if (schemas.isEmpty()) {
-                t = TypeVoid.getRef();
+                ref = TypeVoid.getRef();
             } else if (schemas.size() == 1) {
-                t = typeConverter.toType(schemas.iterator().next());
+                ref = typeConverter.toReference(schemas.iterator().next());
             } else {
                 // The assumption is that the underlying type must be the same.
                 // But there may be different examples/descriptions whatnot to collect.
                 throw new IllegalStateException("Cannot handle multiple schemas yet: " + resourcePath);
             }
         }
-        logger.debug("GOT TYPE {}", t);
+        logger.debug("Content reference {}", ref);
 
         return Content.builder()
                 .mediaTypes(mediaTypes)
-                .typeRef(t)
+                .reference(ref)
                 .build();
     }
 
@@ -236,15 +235,15 @@ public class ApiTransformer {
         boolean isPathParam = param instanceof PathParameter;
         boolean isQueryParam = param instanceof QueryParameter;
 
-        Reference typeRef = typeConverter.toType(param.getSchema());
+        Reference ref = typeConverter.toReference(param.getSchema());
 
-        logger.info("Parse param {} : {}", name, typeRef);
+        logger.info("Parse param {} : {}", name, ref);
 
         return Parameter.builder()
                 .name(name)
                 .description(param.getDescription())
                 .isRequired(toBool(param.getRequired()))
-                .typeRef(typeRef)
+                .reference(ref)
                 .isHeaderParam(isHeaderParam)
                 .isPathParam(isPathParam)
                 .isQueryParam(isQueryParam)

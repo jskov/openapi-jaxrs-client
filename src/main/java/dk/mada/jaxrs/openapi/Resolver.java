@@ -115,7 +115,7 @@ public class Resolver {
 
     private Parameter derefParam(Parameter param) {
         return Parameter.builder().from(param)
-                .typeRef(resolve(param.typeRef()))
+                .reference(resolve(param.reference()))
                 .build();
     }
 
@@ -133,7 +133,7 @@ public class Resolver {
 
     private Content derefContent(Content content) {
         return Content.builder().from(content)
-                .typeRef(resolve(content.typeRef()))
+                .reference(resolve(content.reference()))
                 .build();
     }
 

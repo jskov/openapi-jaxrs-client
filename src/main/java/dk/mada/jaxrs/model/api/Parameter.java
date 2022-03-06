@@ -4,10 +4,7 @@ import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Reference;
-import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.model.types.TypeReference;
 
 /**
  * Information about a single parameter.
@@ -22,13 +19,7 @@ public interface Parameter {
     /** {@return parameter name} */
     String name();
     /** {@return parameter type} */
-    Reference typeRef();
-
-    /** {@return validation requirements for the parameter, or null} */
-    @Nullable
-    default Validation validation() {
-        return typeRef().validation();
-    }
+    Reference reference();
 
     /** {@return parameter description, or null} */
     @Nullable

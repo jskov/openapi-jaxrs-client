@@ -80,8 +80,8 @@ public final class TypeConverter {
      * @param schema the OpenApi schema to convert
      * @return the found/created internal model type
      */
-    public ParserTypeRef toType(Schema<?> schema) {
-        return toType(schema, null);
+    public ParserTypeRef toReference(Schema<?> schema) {
+        return reference(schema, null);
     }
 
     /**
@@ -94,7 +94,7 @@ public final class TypeConverter {
      * @param propertyName name of the property the type is associated with, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef toType(Schema<?> schema, String propertyName) {
+    public ParserTypeRef reference(Schema<?> schema, String propertyName) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
@@ -131,7 +131,7 @@ public final class TypeConverter {
         }
 
         if (schema instanceof ArraySchema a) {
-            ParserTypeRef innerType = toType(a.getItems());
+            ParserTypeRef innerType = toReference(a.getItems());
 
             Boolean isUnique = a.getUniqueItems();
             if (isUnique != null && isUnique.booleanValue()) {
@@ -152,7 +152,7 @@ public final class TypeConverter {
         if (schema instanceof MapSchema m) {
             Object additionalProperties = m.getAdditionalProperties();
             if (additionalProperties instanceof Schema<?> innerSchema) {
-                Type innerType = toType(innerSchema);
+                Type innerType = toReference(innerSchema);
                 return parserRefs.of(TypeMap.of(innerType), validation);
             }
         }
@@ -224,7 +224,7 @@ public final class TypeConverter {
         }
 
         List<ParserTypeRef> allOfTypes = allOf.stream()
-            .map(this::toType)
+            .map(this::toReference)
             .toList();
 
         List<ParserTypeRef> refs = new ArrayList<>();

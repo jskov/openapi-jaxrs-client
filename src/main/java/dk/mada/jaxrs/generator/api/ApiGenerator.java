@@ -228,7 +228,7 @@ public class ApiGenerator {
     private Optional<Reference> getTypeForStatus(Operation op, StatusCode statusCode) {
         return op.responses().stream()
                 .filter(r -> r.code() == statusCode)
-                .map(r -> r.content().typeRef())
+                .map(r -> r.content().reference())
                 .findFirst();
     }
 
@@ -240,7 +240,7 @@ public class ApiGenerator {
             imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponse");
             imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponses");
 
-            if (!op.responses().stream().allMatch(r -> r.content().typeRef().isVoid())) {
+            if (!op.responses().stream().allMatch(r -> r.content().reference().isVoid())) {
                 imports.add("org.eclipse.microprofile.openapi.annotations.media.Content");
                 imports.add("org.eclipse.microprofile.openapi.annotations.media.Schema");
             }
@@ -261,13 +261,13 @@ public class ApiGenerator {
         }
 
         Response r = responses.get(0);
-        boolean isContainer = r.content().typeRef().isContainer();
+        boolean isContainer = r.content().reference().isContainer();
         return !isContainer && r.code() == StatusCode.HTTP_OK;
     }
 
     private void addOperationImports(Imports imports, Operation op) {
         op.responses().stream()
-            .map(r -> r.content().typeRef())
+            .map(r -> r.content().reference())
             .forEach(imports::add);
     }
 
@@ -302,14 +302,14 @@ public class ApiGenerator {
         }
 
         for (Parameter p : op.parameters()) {
-            Type type = p.typeRef().refType();
+            Type type = p.reference().refType();
             imports.add(type);
 
             String paramName = naming.convertParameterName(p.name());
 
             String dataType = paramDataType(type);
 
-            Validation validation = p.typeRef().validation();
+            Validation validation = p.reference().validation();
             logger.info("See param {} : {} : {}", paramName, type, validation);
 
             boolean required = validation.isRequired() || p.isRequired();
@@ -332,7 +332,7 @@ public class ApiGenerator {
         }
 
         op.requestBody().ifPresent(body -> {
-            Type type = body.content().typeRef();
+            Type type = body.content().reference();
             imports.add(type);
 
             String dtoParamName = naming.convertEntityName(type.typeName().name());
@@ -373,7 +373,7 @@ public class ApiGenerator {
     private CtxApiResponse makeResponse(Imports imports, Response r) {
         String baseType;
         String containerType;
-        Reference typeRef = r.content().typeRef();
+        Reference typeRef = r.content().reference();
         Type type = typeRef.refType();
         boolean isUnique = false;
 
