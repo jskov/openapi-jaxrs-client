@@ -27,7 +27,6 @@ import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Property;
-import dk.mada.jaxrs.model.types.DereferencedType;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -148,8 +147,7 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        DereferencedType derefType = DereferencedType.of(dto.dtoTypeRef());
-        Type dtoType = derefType.type();
+        Type dtoType = dto.dtoTypeRef().refType();
         CtxEnum ctxEnum = null;
         if (isEnum) {
             ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
@@ -266,8 +264,7 @@ public class DtoGenerator {
 
         logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
-        DereferencedType derefType = DereferencedType.of(p.typeRef());
-        Type propType = derefType.type();
+        Type propType = p.typeRef().refType();
         logger.trace(" {}", propType);
 
         String defaultValue = null;
