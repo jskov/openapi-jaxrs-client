@@ -26,14 +26,17 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
+import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.DereferencedType;
 import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
+import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.naming.Naming;
@@ -175,9 +178,9 @@ public class ApiGenerator {
         }
 
         // Gets type for OK if present, or else default, or else void
-        Type type = getTypeForStatus(op, StatusCode.HTTP_OK)
+        Reference typeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
             .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
-            .orElse(TypeVoid.get());
+            .orElse(TypeReference.of(TypeVoid.get(), Validation.NO_VALIDATION));
 
         String path = op.path().substring(trimPathLength);
         if (path.isEmpty()) {
@@ -189,7 +192,7 @@ public class ApiGenerator {
 
         boolean onlySimpleResponse = addImports(imports, op);
 
-        boolean renderJavadocReturn = type != TypeVoid.get();
+        boolean renderJavadocReturn = !typeRef.isVoid();
         boolean renderJavadocMacroSpacer = renderJavadocReturn || !allParams.isEmpty();
 
         String summary = op.summary();
@@ -212,7 +215,7 @@ public class ApiGenerator {
 
         return new CtxOperationRef(CtxApiOp.builder()
                 .nickname(nickname)
-                .returnType(type.typeName().name())
+                .returnType(typeRef.typeName().name())
                 .path(path)
                 .httpMethod(op.httpMethod().name())
                 .allParams(allParams)
@@ -223,10 +226,10 @@ public class ApiGenerator {
                 .build());
     }
 
-    private Optional<Type> getTypeForStatus(Operation op, StatusCode statusCode) {
+    private Optional<Reference> getTypeForStatus(Operation op, StatusCode statusCode) {
         return op.responses().stream()
                 .filter(r -> r.code() == statusCode)
-                .map(r -> r.content().type())
+                .map(r -> r.content().typeRef())
                 .findFirst();
     }
 
@@ -238,7 +241,7 @@ public class ApiGenerator {
             imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponse");
             imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponses");
 
-            if (!op.responses().stream().allMatch(r -> r.content().type().isVoid())) {
+            if (!op.responses().stream().allMatch(r -> r.content().typeRef().isVoid())) {
                 imports.add("org.eclipse.microprofile.openapi.annotations.media.Content");
                 imports.add("org.eclipse.microprofile.openapi.annotations.media.Schema");
             }
@@ -259,13 +262,13 @@ public class ApiGenerator {
         }
 
         Response r = responses.get(0);
-        boolean isContainer = r.content().type().isContainer();
+        boolean isContainer = r.content().typeRef().isContainer();
         return !isContainer && r.code() == StatusCode.HTTP_OK;
     }
 
     private void addOperationImports(Imports imports, Operation op) {
         op.responses().stream()
-            .map(r -> r.content().type())
+            .map(r -> r.content().typeRef())
             .forEach(imports::add);
     }
 
@@ -300,7 +303,7 @@ public class ApiGenerator {
         }
 
         for (Parameter p : op.parameters()) {
-            DereferencedType derefType = DereferencedType.of(p.type());
+            DereferencedType derefType = DereferencedType.of(p.typeRef());
 
             Type type = derefType.type();
             imports.add(type);
@@ -331,7 +334,7 @@ public class ApiGenerator {
         }
 
         op.requestBody().ifPresent(body -> {
-            Type type = body.content().type();
+            Type type = body.content().typeRef();
             imports.add(type);
 
             String dtoParamName = naming.convertEntityName(type.typeName().name());
@@ -372,7 +375,7 @@ public class ApiGenerator {
     private CtxApiResponse makeResponse(Imports imports, Response r) {
         String baseType;
         String containerType;
-        DereferencedType derefType = DereferencedType.of(r.content().type());
+        DereferencedType derefType = DereferencedType.of(r.content().typeRef());
         Type type = derefType.type();
         boolean isUnique = false;
 

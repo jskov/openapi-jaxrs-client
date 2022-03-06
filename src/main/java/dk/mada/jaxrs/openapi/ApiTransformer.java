@@ -20,6 +20,7 @@ import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -138,7 +139,7 @@ public class ApiTransformer {
 
         if (parseOpts.isFixupVoid200to204()
                 && r.code() == StatusCode.HTTP_OK
-                && r.content().type() instanceof TypeVoid) {
+                && r.content().typeRef().isVoid()) {
             logger.info("Fixing broken 200/void response on path '{}' to 204", resourcePath);
             r = Response.builder().from(r)
                     .code(StatusCode.HTTP_NO_CONTENT)
@@ -149,11 +150,11 @@ public class ApiTransformer {
     }
 
     private Content getContent(String resourcePath, io.swagger.v3.oas.models.media.Content c) {
-        Type t;
+        Reference t;
         Set<String> mediaTypes;
 
         if (c == null) {
-            t = TypeVoid.get();
+            t = TypeVoid.getRef();
             mediaTypes = Set.of();
         } else {
             mediaTypes = c.keySet();
@@ -164,7 +165,7 @@ public class ApiTransformer {
                 .collect(toSet());
 
             if (schemas.isEmpty()) {
-                t = TypeVoid.get();
+                t = TypeVoid.getRef();
             } else if (schemas.size() == 1) {
                 t = typeConverter.toType(schemas.iterator().next());
             } else {
@@ -177,7 +178,7 @@ public class ApiTransformer {
 
         return Content.builder()
                 .mediaTypes(mediaTypes)
-                .type(t)
+                .typeRef(t)
                 .build();
     }
 
@@ -235,15 +236,15 @@ public class ApiTransformer {
         boolean isPathParam = param instanceof PathParameter;
         boolean isQueryParam = param instanceof QueryParameter;
 
-        Type type = typeConverter.toType(param.getSchema());
+        Reference typeRef = typeConverter.toType(param.getSchema());
 
-        logger.info("Parse param {} : {}", name, type);
+        logger.info("Parse param {} : {}", name, typeRef);
 
         return Parameter.builder()
                 .name(name)
                 .description(param.getDescription())
                 .isRequired(toBool(param.getRequired()))
-                .type(type)
+                .typeRef(typeRef)
                 .isHeaderParam(isHeaderParam)
                 .isPathParam(isPathParam)
                 .isQueryParam(isQueryParam)

@@ -115,7 +115,7 @@ public class Resolver {
 
     private Parameter derefParam(Parameter param) {
         return Parameter.builder().from(param)
-                .type(resolve(param.type()))
+                .typeRef(resolve(param.typeRef()))
                 .build();
     }
 
@@ -133,15 +133,8 @@ public class Resolver {
 
     private Content derefContent(Content content) {
         return Content.builder().from(content)
-                .type(resolve(content.type()))
+                .typeRef(resolve(content.typeRef()))
                 .build();
-    }
-
-    // FIXME: maybe this should return only TypeRef with validation? But nice that void maps directly
-    private Type resolve(Type type) {
-        Type resolvedType = resolveInner(type);
-        logger.debug("  resolve {} -> {}", type, resolvedType);
-        return resolvedType;
     }
 
     private TypeReference resolve(Reference ref) {
