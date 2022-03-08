@@ -19,6 +19,11 @@ public interface Validation {
         return ImmutableValidation.builder();
     }
 
+    /** {@return true if this is an empty validation, otherwise false} */
+    default boolean isEmptyValidation() {
+        return this == NO_VALIDATION;
+    }
+
     /** {@return true if the property can be null, otherwise false. Null if not specified} */
     @Nullable
     Boolean isNullable();

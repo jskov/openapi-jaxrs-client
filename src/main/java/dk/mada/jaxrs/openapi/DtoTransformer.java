@@ -65,7 +65,7 @@ public class DtoTransformer {
     private void readSpec(OpenAPI specification) {
         @SuppressWarnings("rawtypes")
         Map<String, Schema> allDefinitions = OpenapiGeneratorUtils.getSchemas(specification);
-        logger.info("See schemas: {}", allDefinitions.keySet());
+        logger.debug("See schemas: {}", allDefinitions.keySet());
 
         allDefinitions.forEach((schemaName, schema) -> {
             String modelName = naming.convertTypeName(schemaName);
@@ -142,7 +142,7 @@ public class DtoTransformer {
                     .build());
         }
 
-        logger.info(" props: {}", props);
+        logger.debug(" props: {}", props);
 
         return props;
     }

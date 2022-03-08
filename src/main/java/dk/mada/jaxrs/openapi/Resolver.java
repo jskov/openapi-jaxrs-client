@@ -62,7 +62,7 @@ public class Resolver {
     private Dto derefDto(Dto dto) {
         Reference dtoTypeRef = dto.reference();
         String name = dto.name();
-        logger.info(" - deref DTO {} : {}", name, dtoTypeRef);
+        logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
         return Dto.builder().from(dto)
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto.properties()))
@@ -166,20 +166,20 @@ public class Resolver {
         } else if (type instanceof TypeArray ta) {
             Type it = ta.innerType();
             Type newIt = resolveInner(it);
-            logger.info(" array {} -> {}", it, newIt);
+            logger.debug(" array {} -> {}", it, newIt);
             return TypeArray.of(newIt);
         } else if (type instanceof TypeSet ts) {
             Type it = ts.innerType();
             Type newIt = resolveInner(it);
-            logger.info(" set {} -> {}", it, newIt);
+            logger.debug(" set {} -> {}", it, newIt);
             return TypeSet.of(newIt);
         } else if (type instanceof TypeMap tm) {
             Type it = tm.innerType();
             Type newIt = resolveInner(it);
-            logger.info(" map {} -> {}", it, newIt);
+            logger.debug(" map {} -> {}", it, newIt);
             return TypeMap.of(newIt);
         } else {
-            logger.warn("NOT dereferencing {}", type);
+            logger.debug("NOT dereferencing {}", type);
             return type;
         }
     }

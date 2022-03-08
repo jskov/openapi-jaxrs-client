@@ -1,8 +1,10 @@
 package dk.mada.jaxrs.openapi;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +58,9 @@ public final class TypeConverter {
     /** Generator options. */
     private final GeneratorOpts generatorOpts;
 
+    /** Validation instances to make sure we only get one of each. */
+    private final Set<Validation> validationInstances = new HashSet<>(Set.of(Validation.NO_VALIDATION));
+
     /**
      * Constructs a new type converter.
      *
@@ -99,8 +104,8 @@ public final class TypeConverter {
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
 
-        logger.info("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
-        logger.info("ref {}", schemaRef);
+        logger.debug("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
+        logger.debug("ref {}", schemaRef);
 
         Validation validation = extractValidation(schema);
 
@@ -116,7 +121,7 @@ public final class TypeConverter {
                 List<String> enumValues = schema.getEnum().stream()
                         .map(Objects::toString)
                         .toList();
-                logger.info(" ENUM: {} {} {}", typeName, type, enumValues);
+                logger.debug(" ENUM: {} {} {}", typeName, type, enumValues);
                 return parserRefs.of(TypeEnum.of(typeName, type, enumValues), validation);
             }
         }
@@ -228,11 +233,13 @@ public final class TypeConverter {
             .toList();
 
         List<ParserTypeRef> refs = new ArrayList<>();
-        List<TypeValidation> validations = new ArrayList<>();
+        List<Validation> validations = new ArrayList<>();
         for (ParserTypeRef ptr : allOfTypes) {
             logger.debug(" {}", ptr);
             if (ptr.refType() instanceof TypeValidation tv) {
-                validations.add(tv);
+                validations.add(tv.validation());
+            } else if (!ptr.validation().isEmptyValidation()) {
+                validations.add(ptr.validation());
             } else {
                 refs.add(ptr);
             }
@@ -245,7 +252,7 @@ public final class TypeConverter {
         }
 
         ParserTypeRef ref = refs.get(0);
-        Validation validation = validations.get(0).validation();
+        Validation validation = validations.get(0);
 
         return ParserTypeRef.of(ref.refTypeName(), validation);
     }
@@ -259,7 +266,7 @@ public final class TypeConverter {
     }
 
     private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s) {
-        return Validation.builder()
+        Validation candidate = Validation.builder()
                 .isNullable(s.getNullable())
                 .isReadonly(s.getReadOnly())
                 .isRequired(false)
@@ -269,5 +276,15 @@ public final class TypeConverter {
                 .minLength(s.getMinLength())
                 .pattern(s.getPattern())
                 .build();
+
+        for (Validation v : validationInstances) {
+            if (v.equals(candidate)) {
+                return v;
+            }
+        }
+
+        // New instance
+        validationInstances.add(candidate);
+        return candidate;
     }
 }

@@ -154,7 +154,7 @@ public class ParserTypes {
             }
         }
 
-        logger.info("find {} -> {} : {}", name, conversion, type);
+        logger.debug("find {} -> {} : {}", name, conversion, type);
         return type;
     }
 
