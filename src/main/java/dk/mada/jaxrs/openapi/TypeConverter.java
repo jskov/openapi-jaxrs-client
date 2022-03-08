@@ -1,8 +1,10 @@
 package dk.mada.jaxrs.openapi;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +57,9 @@ public final class TypeConverter {
     private final ParserOpts parserOpts;
     /** Generator options. */
     private final GeneratorOpts generatorOpts;
+
+    /** Validation instances to make sure we only get one of each. */
+    private final Set<Validation> validationInstances = new HashSet<>(Set.of(Validation.NO_VALIDATION));
 
     /**
      * Constructs a new type converter.
@@ -259,7 +264,7 @@ public final class TypeConverter {
     }
 
     private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s) {
-        return Validation.builder()
+        Validation candidate = Validation.builder()
                 .isNullable(s.getNullable())
                 .isReadonly(s.getReadOnly())
                 .isRequired(false)
@@ -269,5 +274,15 @@ public final class TypeConverter {
                 .minLength(s.getMinLength())
                 .pattern(s.getPattern())
                 .build();
+
+        for (Validation v : validationInstances) {
+            if (v.equals(candidate)) {
+                return v;
+            }
+        }
+
+        // New instance
+        validationInstances.add(candidate);
+        return candidate;
     }
 }
