@@ -33,7 +33,7 @@ public class NamingOpts {
         entityNamingConfig = getDefault(options, "naming-rules-entity", "LITERAL/dto/");
         propertyNamingConfig = getDefault(options, "naming-rules-property", "PROPERTYNAME");
         parameterNamingConfig = getDefault(options, "naming-rules-parameter", "PROPERTYNAME");
-        enumConstantNamingConfig = getDefault(options, "naming-rules-enum-constant", "TYPENAME; UPCASE");
+        enumConstantNamingConfig = getDefault(options, "naming-rules-enum-constant", "REGEXP/-/_/; TYPENAME; UPCASE");
         propertyEnumTypeNamingConfig = getDefault(options, "naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
 
         enumNumberPrefixConfig = getDefault(options, "naming-enum-prefix-number", "NUMBER_");

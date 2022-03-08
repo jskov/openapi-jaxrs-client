@@ -40,6 +40,19 @@ class NamingTest {
             .isEqualTo(expected);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "FOO,        FOO",
+        "Fo.o,       FO_O",
+        "foo-bar,    FOO_BAR",
+        "FOO_BAR,    FOO_BAR"
+    })
+    void enumNaming(String input, String expected) {
+        Naming sut = makeSut("REGEXP/-/_/; TYPENAME; UPCASE");
+        assertThat(sut.convertTypeName(input))
+            .isEqualTo(expected);
+    }
+
     private Naming makeSut(String rules) {
         Properties props = new Properties();
         props.setProperty("naming-rules-type", rules);
