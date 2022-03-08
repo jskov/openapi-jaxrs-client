@@ -30,6 +30,12 @@ paths:
                 $ref: '#/components/schemas/ValidationDto'
 components:
   schemas:
+    Environment:
+      enum:
+      - test
+      - qa
+      - production
+      type: string
     Simple:
       type: object
       properties:
@@ -38,7 +44,6 @@ components:
     ValidationDto:
       required:
       - name
-      - validObjects
       type: object
       properties:
         name:
@@ -53,6 +58,7 @@ components:
           type: integer
         pattern:
           type: string
+          # Added manually
           pattern: "^[a-zA-Z]{0,3}$"
         validObjects:
           maxItems: 4
@@ -60,7 +66,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Environment'
-          nullable: false
         primitivesShouldNotHaveValidate:
           type: array
           items:

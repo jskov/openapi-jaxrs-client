@@ -48,7 +48,7 @@ public class ValidationDto   {
 
   public static final String JSON_PROPERTY_VALID_OBJECTS = "validObjects";
   @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
-  private List<Simple> validObjects = null;
+  private List<Environment> validObjects = null;
 
   public static final String JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE = "primitivesShouldNotHaveValidate";
   @JsonbProperty(JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE)
@@ -110,12 +110,12 @@ public class ValidationDto   {
     this.pattern = pattern;
   }
 
-  public ValidationDto validObjects(List<Simple> validObjects) {
+  public ValidationDto validObjects(List<Environment> validObjects) {
     this.validObjects = validObjects;
     return this;
   }
 
-  public ValidationDto addValidObjectsItem(Simple validObjectsItem) {
+  public ValidationDto addValidObjectsItem(Environment validObjectsItem) {
     if (this.validObjects == null) {
       this.validObjects = new ArrayList<>();
     }
@@ -128,11 +128,11 @@ public class ValidationDto   {
    * @return validObjects
    **/
   @Valid
-  public List<Simple> getValidObjects() {
+  public List<Environment> getValidObjects() {
     return validObjects;
   }
 
-  public void setValidObjects(List<Simple> validObjects) {
+  public void setValidObjects(List<Environment> validObjects) {
     this.validObjects = validObjects;
   }
 
