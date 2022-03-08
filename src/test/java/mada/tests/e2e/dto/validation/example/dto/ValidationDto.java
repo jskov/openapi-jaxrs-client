@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.dto.validation.dto;
+package mada.tests.e2e.dto.validation.example.dto;
 
 import java.util.ArrayList;
 import java.util.List;

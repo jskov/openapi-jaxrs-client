@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.dto.validation.dto;
+package mada.tests.e2e.dto.validation.example.dto;
 
 import javax.json.Json;
 import javax.json.JsonString;
@@ -16,7 +16,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 /**
  * Environment
  */
-@JsonbTypeAdapter(mada.tests.e2e.dto.validation.dto.Environment.EnvironmentAdapter.class)
+@JsonbTypeAdapter(mada.tests.e2e.dto.validation.example.dto.Environment.EnvironmentAdapter.class)
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public enum Environment {
   TEST("test"),
