@@ -104,14 +104,14 @@ public class ParserTypeRefs {
                 if (ref.validation().equals(validation)
                     && Objects.equals(ref.refTypeName(), tn)
                     && Objects.equals(ref.refType(), type)) {
-                    logger.info(" found type reference {}", ref);
+                    logger.debug(" found type reference {}", ref);
                     return ref;
                 }
             }
 
             ParserTypeRef newRef = ParserTypeRef.of(type, tn, validation);
             refs.add(newRef);
-            logger.info(" created type reference {}", newRef);
+            logger.debug(" created type reference {}", newRef);
             return newRef;
         }
 

@@ -313,7 +313,7 @@ public class ApiGenerator {
             String dataType = paramDataType(type);
 
             Validation validation = ref.validation();
-            logger.info("See param {} : {} : {}", paramName, type, validation);
+            logger.debug("See param {} : {} : {}", paramName, type, validation);
 
             boolean required = validation.isRequired() || p.isRequired();
             if (required) {
@@ -355,7 +355,7 @@ public class ApiGenerator {
                     .build());
         });
 
-        logger.info("Params: {}", params);
+        logger.debug("Params: {}", params);
 
         return params;
     }

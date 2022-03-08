@@ -99,8 +99,8 @@ public final class TypeConverter {
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
 
-        logger.info("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
-        logger.info("ref {}", schemaRef);
+        logger.debug("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
+        logger.debug("ref {}", schemaRef);
 
         Validation validation = extractValidation(schema);
 
@@ -116,7 +116,7 @@ public final class TypeConverter {
                 List<String> enumValues = schema.getEnum().stream()
                         .map(Objects::toString)
                         .toList();
-                logger.info(" ENUM: {} {} {}", typeName, type, enumValues);
+                logger.debug(" ENUM: {} {} {}", typeName, type, enumValues);
                 return parserRefs.of(TypeEnum.of(typeName, type, enumValues), validation);
             }
         }
