@@ -262,7 +262,9 @@ public class ApiGenerator {
 
         Response r = responses.get(0);
         boolean isContainer = r.content().reference().isContainer();
-        return !isContainer && r.code() == StatusCode.HTTP_OK;
+        boolean isSimpleResponse = !isContainer && r.code() == StatusCode.HTTP_OK;
+        logger.debug(" simple: {}", isSimpleResponse);
+        return isSimpleResponse;
     }
 
     private void addOperationImports(Imports imports, Operation op) {
