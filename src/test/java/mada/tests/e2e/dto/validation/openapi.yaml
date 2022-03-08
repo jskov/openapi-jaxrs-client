@@ -38,6 +38,7 @@ components:
     ValidationDto:
       required:
       - name
+      - validObjects
       type: object
       properties:
         name:
@@ -54,9 +55,12 @@ components:
           type: string
           pattern: "^[a-zA-Z]{0,3}$"
         validObjects:
+          maxItems: 4
+          minItems: 1
           type: array
           items:
-            $ref: '#/components/schemas/Simple'
+            $ref: '#/components/schemas/Environment'
+          nullable: false
         primitivesShouldNotHaveValidate:
           type: array
           items:
