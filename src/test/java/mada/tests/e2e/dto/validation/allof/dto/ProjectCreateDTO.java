@@ -182,8 +182,8 @@ public class ProjectCreateDTO   {
    * Get type
    * @return type
    **/
-  @NotNull
-  public Object getType() {
+  @NotNull @Valid
+  public ProjectType getType() {
     return type;
   }
 

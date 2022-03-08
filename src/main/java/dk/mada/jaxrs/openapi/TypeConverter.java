@@ -233,11 +233,13 @@ public final class TypeConverter {
             .toList();
 
         List<ParserTypeRef> refs = new ArrayList<>();
-        List<TypeValidation> validations = new ArrayList<>();
+        List<Validation> validations = new ArrayList<>();
         for (ParserTypeRef ptr : allOfTypes) {
             logger.debug(" {}", ptr);
             if (ptr.refType() instanceof TypeValidation tv) {
-                validations.add(tv);
+                validations.add(tv.validation());
+            } else if (!ptr.validation().isEmptyValidation()) {
+                validations.add(ptr.validation());
             } else {
                 refs.add(ptr);
             }
@@ -250,7 +252,7 @@ public final class TypeConverter {
         }
 
         ParserTypeRef ref = refs.get(0);
-        Validation validation = validations.get(0).validation();
+        Validation validation = validations.get(0);
 
         return ParserTypeRef.of(ref.refTypeName(), validation);
     }
