@@ -88,7 +88,7 @@ public interface Api_DocsApi {
     @APIResponse(responseCode = "500", description = "The internal error",
                  content = @Content(schema = @Schema(implementation = Simple.class)))
   })
-  List<Simple> apiDocsMultipleReturnTypesPost(Simple dto);
+  List<Simple> apiDocsMultipleReturnTypesPost( Simple dto);
 
   /**
    * op is missing punctuation.
@@ -106,5 +106,5 @@ public interface Api_DocsApi {
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   @Operation(summary = "op is missing punctuation")
-  String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item,Simple dto);
+  String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item, Simple dto);
 }

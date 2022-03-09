@@ -6,13 +6,12 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.api.validation.api;
+package mada.tests.e2e.opts.generator.validation_api.api;
 
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import mada.tests.e2e.api.validation.dto.Environment;
-import mada.tests.e2e.api.validation.dto.Simple;
+import mada.tests.e2e.opts.generator.validation_api.dto.Environment;
+import mada.tests.e2e.opts.generator.validation_api.dto.Simple;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
@@ -22,7 +21,7 @@ public interface Api_Bean_ValidationApi {
   /**
    * apiValidationBodyPut.
    *
-   * @param dto  (required)
+   * @param simple  (required)
    * @return String
    */
   @PUT
@@ -30,7 +29,7 @@ public interface Api_Bean_ValidationApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
-  String apiValidationBodyPut(@NotNull Simple dto);
+  String apiValidationBodyPut(Simple simple);
 
   /**
    * apiValidationPathparamEnvGet.
@@ -42,5 +41,5 @@ public interface Api_Bean_ValidationApi {
   @Path("/pathparam/{env}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
-  String apiValidationPathparamEnvGet(@PathParam("env") @NotNull Environment env);
+  String apiValidationPathparamEnvGet(@PathParam("env") Environment env);
 }
