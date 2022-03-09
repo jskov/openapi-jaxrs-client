@@ -3,8 +3,10 @@ package dk.mada.jaxrs.generator;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -186,6 +188,20 @@ public final class GeneratorOpts {
     @Nullable
     public String getMpClientConfigKey() {
         return get("generator-mp-api-register-rest-client");
+    }
+
+    /** {@return the MP providers} */
+    @Nullable
+    public List<String> getMpProviders() {
+        String providers = getDefault("generator-mp-api-register-providers", "");
+        return splitByComma(providers);
+    }
+
+    private List<String> splitByComma(String input) {
+        return Stream.of(input.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
     }
 
     /**

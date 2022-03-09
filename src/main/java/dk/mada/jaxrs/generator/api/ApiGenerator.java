@@ -131,8 +131,16 @@ public class ApiGenerator {
             imports.add("org.eclipse.microprofile.rest.client.inject.RegisterRestClient");
         }
 
+        List<String> mpProviders = opts.getMpProviders().stream()
+                .sorted()
+                .toList();
+        if (!mpProviders.isEmpty()) {
+            imports.add("org.eclipse.microprofile.rest.client.annotation.RegisterProvider");
+        }
+
         CtxApiExt apiExt = CtxApiExt.builder()
                 .mpRestClientConfigKey(clientKey)
+                .mpProviders(mpProviders)
                 .build();
 
         Info info = model.info();

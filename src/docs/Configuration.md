@@ -183,6 +183,14 @@ The options are grouped into three sections:
 >
     default value:
 
+**generator-mp-api-register-providers**
+
+>Allows you to add @RegisterProvider to each API resource class.
+
+>The provided value should be a comma-separated list of fully-qualified class names.
+
+>
+    default value:
 
 **generator-use-api-wrapped-primitives**
 
