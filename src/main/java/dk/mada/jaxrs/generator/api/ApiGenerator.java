@@ -316,7 +316,7 @@ public class ApiGenerator {
             logger.debug("See param {} : {} : {}", paramName, type, validation);
 
             boolean required = validation.isRequired() || p.isRequired();
-            if (required) {
+            if (opts.isUseBeanValidation() && required) {
                 imports.add("javax.validation.constraints.NotNull");
             }
 
