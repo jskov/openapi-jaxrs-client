@@ -134,9 +134,7 @@ public class ApiGenerator {
         List<String> mpProviders = opts.getMpProviders().stream()
                 .sorted()
                 .toList();
-        if (mpProviders.isEmpty()) {
-            mpProviders = null;
-        } else {
+        if (!mpProviders.isEmpty()) {
             imports.add("org.eclipse.microprofile.rest.client.annotation.RegisterProvider");
         }
 

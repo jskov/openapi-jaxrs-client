@@ -200,6 +200,7 @@ public final class GeneratorOpts {
     private List<String> splitByComma(String input) {
         return Stream.of(input.split(","))
                 .map(String::trim)
+                .filter(s -> !s.isEmpty())
                 .toList();
     }
 

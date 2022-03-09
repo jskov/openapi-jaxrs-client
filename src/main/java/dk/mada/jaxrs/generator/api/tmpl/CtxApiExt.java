@@ -21,6 +21,5 @@ public interface CtxApiExt {
     String mpRestClientConfigKey();
 
     /** {@return fully qualified class names of MP providers, or null} */
-    @Nullable
     List<String> mpProviders();
 }
