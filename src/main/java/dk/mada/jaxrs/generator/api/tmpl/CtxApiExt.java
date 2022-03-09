@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.api.tmpl;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
@@ -17,4 +19,8 @@ public interface CtxApiExt {
     /** {@return the micro profile rest client config key, or null} */
     @Nullable
     String mpRestClientConfigKey();
+
+    /** {@return fully qualified class names of MP providers, or null} */
+    @Nullable
+    List<String> mpProviders();
 }

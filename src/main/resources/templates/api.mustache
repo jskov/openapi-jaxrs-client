@@ -7,6 +7,9 @@ import {{.}};
 {{/imports}}
 
 {{>generatedAnnotation}}
+{{#madaApi.mpProviders}}
+@RegisterProvider({{.}}.class)
+{{/madaApi.mpProviders}}
 {{#madaApi.mpRestClientConfigKey}}
 @RegisterRestClient(configKey = "{{madaApi.mpRestClientConfigKey}}")
 {{/madaApi.mpRestClientConfigKey}}
