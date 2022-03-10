@@ -12,11 +12,14 @@ import javax.json.Json;
 import javax.json.JsonString;
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbTypeAdapter;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * Environment
  */
 @JsonbTypeAdapter(mada.tests.e2e.dto.validation.example.dto.Environment.EnvironmentAdapter.class)
+@Schema(enumeration = {"test", "qa", "production"}, type = SchemaType.STRING)
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public enum Environment {
   TEST("test"),

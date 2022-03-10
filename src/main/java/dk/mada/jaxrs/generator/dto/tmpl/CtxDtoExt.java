@@ -35,4 +35,8 @@ public interface CtxDtoExt {
 
     /** {@return true if rendering for jsonb, false otherwise} */
     boolean jsonb();
+
+    /** {@return schema content for an enumeration if appropriate, or null} */
+    @Nullable
+    String enumSchema();
 }

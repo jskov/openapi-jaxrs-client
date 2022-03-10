@@ -20,12 +20,17 @@ components:
     EnumsDto:
       type: object
       properties:
+        propertyEnumString:
+          enum:
+          - O
+          - M
+          type: string
         inner:
           $ref: '#/components/schemas/InnerEnum'
         external:
           $ref: '#/components/schemas/ExternalEnum'
-        number:
-          $ref: '#/components/schemas/NumberEnum'
+        integerEnum:
+          $ref: '#/components/schemas/IntEnum'
     ExternalEnum:
       enum:
       - E
@@ -36,9 +41,9 @@ components:
       - I
       - J
       type: string
-    NumberEnum:
-      enum:
-      - 1
-      - 2
-      type: integer
+    IntEnum:
       format: int32
+      enum:
+      - "1"
+      - "2"
+      type: integer

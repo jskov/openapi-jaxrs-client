@@ -9,18 +9,21 @@ package mada.tests.e2e.dto.enums.jackson_codehaus.dto;
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonValue;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * NumberEnum
+ * IntEnum
  */
+@Schema(enumeration = {"1", "2"}, type = SchemaType.INTEGER, format = "int32")
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public enum NumberEnum {
+public enum IntEnum {
   NUMBER_1(1),
   NUMBER_2(2);
 
   private final int value;
 
-  NumberEnum(int value) {
+  IntEnum(int value) {
     this.value = value;
   }
 
@@ -35,8 +38,8 @@ public enum NumberEnum {
   }
 
   @JsonCreator
-  public static NumberEnum fromValue(int value) {
-    for (NumberEnum b : NumberEnum.values()) {
+  public static IntEnum fromValue(int value) {
+    for (IntEnum b : IntEnum.values()) {
       if (Objects.equals(b.value, value)) {
         return b;
       }
