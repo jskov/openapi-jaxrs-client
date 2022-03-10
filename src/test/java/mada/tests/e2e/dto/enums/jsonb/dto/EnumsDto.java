@@ -7,20 +7,67 @@
 package mada.tests.e2e.dto.enums.jsonb.dto;
 
 import java.util.Objects;
+import javax.json.Json;
+import javax.json.JsonString;
+import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.validation.Valid;
 
 /**
  * EnumsDto
  */
 @JsonbPropertyOrder({
+  EnumsDto.JSON_PROPERTY_PROPERTY_ENUM_STRING,
   EnumsDto.JSON_PROPERTY_INNER,
   EnumsDto.JSON_PROPERTY_EXTERNAL,
-  EnumsDto.JSON_PROPERTY_NUMBER
+  EnumsDto.JSON_PROPERTY_INTEGER_ENUM
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto   {
+  public enum PropertyEnumStringEnum {
+    O("O"),
+    M("M");
+
+    private final String value;
+
+    PropertyEnumStringEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static class PropertyEnumStringEnumAdapter implements JsonbAdapter<PropertyEnumStringEnum, JsonString> {
+      @Override
+      public JsonString adaptToJson(PropertyEnumStringEnum e) throws Exception {
+        return Json.createValue(String.valueOf(e.value));
+      }
+
+      @Override
+      public PropertyEnumStringEnum adaptFromJson(JsonString value) throws Exception {
+        for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
+          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+            return b;
+          }
+        }
+        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PropertyEnumStringEnum");
+      }
+    }
+  }
+
+  public static final String JSON_PROPERTY_PROPERTY_ENUM_STRING = "propertyEnumString";
+  @JsonbProperty(JSON_PROPERTY_PROPERTY_ENUM_STRING)
+  @JsonbTypeAdapter(mada.tests.e2e.dto.enums.jsonb.dto.EnumsDto.PropertyEnumStringEnum.PropertyEnumStringEnumAdapter.class)
+  private PropertyEnumStringEnum propertyEnumString;
+
   public static final String JSON_PROPERTY_INNER = "inner";
   @JsonbProperty(JSON_PROPERTY_INNER)
   private InnerEnum inner;
@@ -29,9 +76,26 @@ public class EnumsDto   {
   @JsonbProperty(JSON_PROPERTY_EXTERNAL)
   private ExternalEnum external;
 
-  public static final String JSON_PROPERTY_NUMBER = "number";
-  @JsonbProperty(JSON_PROPERTY_NUMBER)
-  private NumberEnum number;
+  public static final String JSON_PROPERTY_INTEGER_ENUM = "integerEnum";
+  @JsonbProperty(JSON_PROPERTY_INTEGER_ENUM)
+  private IntEnum integerEnum;
+
+  public EnumsDto propertyEnumString(PropertyEnumStringEnum propertyEnumString) {
+    this.propertyEnumString = propertyEnumString;
+    return this;
+  }
+
+  /**
+   * Get propertyEnumString
+   * @return propertyEnumString
+   **/
+  public PropertyEnumStringEnum getPropertyEnumString() {
+    return propertyEnumString;
+  }
+
+  public void setPropertyEnumString(PropertyEnumStringEnum propertyEnumString) {
+    this.propertyEnumString = propertyEnumString;
+  }
 
   public EnumsDto inner(InnerEnum inner) {
     this.inner = inner;
@@ -69,22 +133,22 @@ public class EnumsDto   {
     this.external = external;
   }
 
-  public EnumsDto number(NumberEnum number) {
-    this.number = number;
+  public EnumsDto integerEnum(IntEnum integerEnum) {
+    this.integerEnum = integerEnum;
     return this;
   }
 
   /**
-   * Get number
-   * @return number
+   * Get integerEnum
+   * @return integerEnum
    **/
   @Valid
-  public NumberEnum getNumber() {
-    return number;
+  public IntEnum getIntegerEnum() {
+    return integerEnum;
   }
 
-  public void setNumber(NumberEnum number) {
-    this.number = number;
+  public void setIntegerEnum(IntEnum integerEnum) {
+    this.integerEnum = integerEnum;
   }
 
   @Override
@@ -96,23 +160,25 @@ public class EnumsDto   {
       return false;
     }
     EnumsDto other = (EnumsDto) o;
-    return Objects.equals(this.inner, other.inner) &&
+    return Objects.equals(this.propertyEnumString, other.propertyEnumString) &&
+        Objects.equals(this.inner, other.inner) &&
         Objects.equals(this.external, other.external) &&
-        Objects.equals(this.number, other.number);
+        Objects.equals(this.integerEnum, other.integerEnum);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inner, external, number);
+    return Objects.hash(propertyEnumString, inner, external, integerEnum);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EnumsDto {");
+    sb.append("\n    propertyEnumString: ").append(toIndentedString(propertyEnumString));
     sb.append("\n    inner: ").append(toIndentedString(inner));
     sb.append("\n    external: ").append(toIndentedString(external));
-    sb.append("\n    number: ").append(toIndentedString(number));
+    sb.append("\n    integerEnum: ").append(toIndentedString(integerEnum));
     sb.append("\n}");
     return sb.toString();
   }
