@@ -11,16 +11,16 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonValue;
 
 /**
- * NumberEnum
+ * IntEnum
  */
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public enum NumberEnum {
+public enum IntEnum {
   NUMBER_1(1),
   NUMBER_2(2);
 
   private final int value;
 
-  NumberEnum(int value) {
+  IntEnum(int value) {
     this.value = value;
   }
 
@@ -35,8 +35,8 @@ public enum NumberEnum {
   }
 
   @JsonCreator
-  public static NumberEnum fromValue(int value) {
-    for (NumberEnum b : NumberEnum.values()) {
+  public static IntEnum fromValue(int value) {
+    for (IntEnum b : IntEnum.values()) {
       if (Objects.equals(b.value, value)) {
         return b;
       }
