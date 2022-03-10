@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.dto;
 
+import static java.util.stream.Collectors.joining;
+
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -147,10 +149,13 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
+
+        String enumSchema = null;
         Type dtoType = dto.reference().refType();
         CtxEnum ctxEnum = null;
         if (isEnum) {
             ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
+            enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
         }
 
         dtoImports.addPropertyImports(dto.properties());
@@ -207,6 +212,7 @@ public class DtoGenerator {
                 .customLocalDateSerializer(customLocalDateSerializer)
                 .customOffsetDateTimeDeserializer(customOffsetDateTimeDeserializer)
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
+                .enumSchema(enumSchema)
                 .build();
 
         return CtxDto.builder()
@@ -237,6 +243,43 @@ public class DtoGenerator {
                 .build();
     }
 
+    /**
+     * If the enumeration values are not represented correctly
+     * by the constants, define a schema with the proper values.
+     *
+     * @param dtoImports the DTO imports
+     * @param dtoType type of the enumeration
+     * @param ctxEnum enumeration constants and values
+     * @return schema enumeration arguments, or null if not needed
+     */
+    private String buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
+        boolean namesMatchValues = ctxEnum.enumVars().stream()
+            .allMatch(e -> e.name().equals(e.wireValue()));
+        if (namesMatchValues) {
+            return null;
+        }
+
+        String values = ctxEnum.enumVars().stream()
+            .map(e -> StringRenderer.quote(e.wireValue()))
+            .collect(joining(", "));
+
+        String type = "";
+        if (dtoType.isPrimitive(Primitive.STRING)) {
+            type = ", type = SchemaType.STRING";
+        } else if (dtoType.isPrimitive(Primitive.INT)) {
+            type = ", type = SchemaType.INTEGER, format = \"int32\"";
+        }
+        if (!type.isEmpty()) {
+            dtoImports.add("org.eclipse.microprofile.openapi.annotations.enums.SchemaType");
+        }
+        dtoImports.add("org.eclipse.microprofile.openapi.annotations.media.Schema");
+
+        return new StringBuilder()
+                .append("enumeration = {").append(values).append("}")
+                .append(type)
+                .toString();
+    }
+
     @Nullable
     private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
         List<CtxEnumEntry> entries = new EnumNamer(naming, opts, enumType, values)
@@ -248,11 +291,11 @@ public class DtoGenerator {
     }
 
     private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
-        String strValue = e.value();
+        String value = e.value();
         if (enumType != Primitive.INT) {
-            strValue = "\"" + strValue + "\"";
+            value = StringRenderer.quote(value);
         }
-        return new CtxEnumEntry(e.name(), strValue);
+        return new CtxEnumEntry(e.name(), value, e.value());
     }
 
     private CtxProperty toCtxProperty(Imports dtoImports, Property p) {

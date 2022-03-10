@@ -63,4 +63,17 @@ public final class StringRenderer {
 
         return text.replace("\r", "\\r").replace("\n", "\\n");
     }
+
+    /**
+     * Quote text.
+     *
+     * Wraps a string in quotes. If it contains quotes, escape them.
+     *
+     * @param text the text to quote
+     * @return the quoted text
+     */
+    public static String quote(String text) {
+        String body = text.replace("\"", "\\\"");
+        return '"' + body + '"';
+    }
 }

@@ -5,7 +5,7 @@
 @JsonbTypeAdapter({{packageName}}.{{classname}}.{{classname}}Adapter.class)
 {{/madaDto.jsonb}}
 {{#madaDto.enumSchema}}
-@Schema({{madaDto.enumSchema}})
+@Schema({{{madaDto.enumSchema}}})
 {{/madaDto.enumSchema}}
 {{>generatedAnnotation}}
 public enum {{{datatypeWithEnum}}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} {
