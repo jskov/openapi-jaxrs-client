@@ -19,6 +19,7 @@ import dk.mada.jaxrs.model.types.TypeByteArray;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeEnum;
+import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
@@ -163,7 +164,30 @@ public final class TypeConverter {
         }
 
         if (schema instanceof ComposedSchema cs) {
-            // TODO: oneOff -> interface implementation selection
+            // anyOf is classes implementing an interface
+            @SuppressWarnings("rawtypes")
+            List<Schema> anyOf = cs.getAnyOf();
+            if (anyOf != null && !anyOf.isEmpty()) {
+                List<ParserTypeRef> anyOfRefs = anyOf.stream()
+                        .map(this::toReference)
+                        .toList();
+                List<String> anyOfNames = anyOfRefs.stream()
+                        .peek(s -> logger.info("SEE {}", s))
+                        .map(ParserTypeRef::typeName)
+                        .map(ptr -> ptr.name())
+                        .sorted()
+                        .toList();
+
+                String interfaceName = schema.getName();
+                if (interfaceName == null) {
+                    interfaceName = String.join("", anyOfNames);
+                }
+                TypeName tn = TypeNames.of(interfaceName);
+
+                logger.info("XXXX interface {} : {}", tn, anyOfRefs);
+
+                return parserRefs.of(TypeInterface.of(tn, anyOfRefs), validation);
+            }
 
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
