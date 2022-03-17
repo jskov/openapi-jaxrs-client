@@ -241,6 +241,8 @@ public class DtoGenerator {
             dtoImports.addSchema();
         }
 
+        String implementsInterfaces = null;
+
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
                 .jsonb(opts.isJsonb())
@@ -249,6 +251,7 @@ public class DtoGenerator {
                 .customOffsetDateTimeDeserializer(customOffsetDateTimeDeserializer)
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
                 .enumSchema(enumSchema)
+                .implementsInterfaces(implementsInterfaces)
                 .build();
 
         return CtxDto.builder()
