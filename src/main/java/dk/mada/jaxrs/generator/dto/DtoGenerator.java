@@ -1,11 +1,14 @@
 package dk.mada.jaxrs.generator.dto;
 
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toCollection;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.annotation.Nullable;
 
@@ -22,6 +25,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
 import dk.mada.jaxrs.model.Dto;
@@ -34,7 +38,9 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
+import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
@@ -117,6 +123,36 @@ public class DtoGenerator {
             CtxExtra ctx = makeCtxExtra(tmpl);
             templates.renderExtraTemplate(tmpl, ctx);
         });
+
+        model.interfaces().forEach(ti -> {
+            logger.info(" generate interface {}", ti);
+
+            CtxInterface ctx = makeCtxInterface(ti);
+            templates.renderInterfaceTemplate(ctx);
+        });
+    }
+
+    private CtxInterface makeCtxInterface(TypeInterface ti) {
+        var imports = Imports.newInterface(dtos, opts);
+
+        SortedSet<String> implementations = ti.implementations().stream()
+            .map(TypeName::name)
+            .sorted()
+            .collect(toCollection(TreeSet::new));
+
+        Info info = model.info();
+        return CtxInterface.builder()
+                .classname(ti.typeName().name())
+                .appDescription(info.description())
+                .appName(info.title())
+                .version(info.version())
+                .infoEmail(info.contact().email())
+                .generatedDate(opts.getGeneratedAtTime())
+                .generatorClass(opts.generatorId())
+                .imports(imports.get())
+                .packageName(opts.dtoPackage())
+                .implementations(implementations)
+                .build();
     }
 
     private CtxExtra makeCtxExtra(ExtraTemplate tmpl) {

@@ -142,6 +142,18 @@ public final class Imports {
     }
 
     /**
+     * Adds imports needed for interface templates.
+     *
+     * @param dtos the DTOs
+     * @param opts the generator options
+     * @return a new imports instance
+     */
+    public static Imports newInterface(Dtos dtos, GeneratorOpts opts) {
+        var imports = new Imports(dtos, opts, false);
+        return imports;
+    }
+
+    /**
      * Adds imports needed for extra templates.
      *
      * @param types the types model

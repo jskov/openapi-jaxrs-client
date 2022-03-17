@@ -42,8 +42,6 @@ public interface CtxInterface {
     String packageName();
     /** {@return the classname for the class} */
     String classname();
-    /** used in equals method */
-    String classVarName();
 
     /** {@return the name of the generator class} */
     String generatorClass();
