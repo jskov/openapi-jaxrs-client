@@ -182,11 +182,12 @@ public final class TypeConverter {
                 if (interfaceName == null) {
                     interfaceName = String.join("", anyOfNames);
                 }
+
                 TypeName tn = TypeNames.of(interfaceName);
 
                 logger.info("XXXX interface {} : {}", tn, anyOfRefs);
 
-                return parserRefs.of(TypeInterface.of(tn, anyOfRefs), validation);
+                return parserRefs.of(TypeInterface.of(generatorOpts.dtoPackage(), tn, anyOfRefs), validation);
             }
 
             // allOf is the combination of schemas (subclassing and/or validation)
