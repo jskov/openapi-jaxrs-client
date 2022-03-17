@@ -104,15 +104,15 @@ public class ParserTypes {
     /**
      * Get or make a new interface type.
      *
-     * Makes a unique type instance per set of referenced type names.
-     * That is, the included validation is ignored.
-     *
      * @param tn the type name of the interface
      * @param anyOfRefs the types referenced by the interface
      * @return an existing or new interface type
      */
     public TypeInterface getOrMakeInterface(TypeName tn, List<ParserTypeRef> anyOfRefs) {
-        return interfaces.computeIfAbsent(tn, k -> TypeInterface.of(dtoPackageName, tn, anyOfRefs));
+        Set<TypeName> typeNames = anyOfRefs.stream()
+            .map(ParserTypeRef::typeName)
+            .collect(toSet());
+        return interfaces.computeIfAbsent(tn, k -> TypeInterface.of(dtoPackageName, tn, typeNames));
     }
 
     /** {@return all the interfaces} */

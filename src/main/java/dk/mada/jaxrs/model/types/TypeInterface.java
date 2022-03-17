@@ -15,11 +15,15 @@ public interface TypeInterface extends Type {
     /**
      * Creates a type for an interface.
      *
+     * I expect all the type names implementing the interface
+     * to be resolved as DTOs.
+     *
+     * @param packageName the package name of DTOs
      * @param typeName the interface type name
-     * @param implementations the types implementing the interface
+     * @param implementations the type names implementing the interface
      * @return an interface type
      */
-    static TypeInterface of(String packageName, TypeName typeName, List<? extends Reference> implementations) {
+    static TypeInterface of(String packageName, TypeName typeName, Set<TypeName> implementations) {
         return ImmutableTypeInterface.builder()
                 .typeName(typeName)
                 .packageName(packageName)
@@ -29,8 +33,8 @@ public interface TypeInterface extends Type {
     /** {@return the name of the package the interface is generated in} */
     String packageName();
 
-    /** {@return the types implementing this interface} */
-    List<Reference> implementations();
+    /** {@return the type names implementing this interface} */
+    List<TypeName> implementations();
 
     @Override
     default Set<String> neededImports() {
