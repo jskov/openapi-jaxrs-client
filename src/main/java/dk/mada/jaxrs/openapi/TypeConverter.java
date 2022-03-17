@@ -58,6 +58,8 @@ public final class TypeConverter {
     private final ParserOpts parserOpts;
     /** Generator options. */
     private final GeneratorOpts generatorOpts;
+    /** Parser types. */
+    private final ParserTypes parserTypes;
 
     /** Validation instances to make sure we only get one of each. */
     private final Set<Validation> validationInstances = new HashSet<>(Set.of(Validation.NO_VALIDATION));
@@ -68,12 +70,15 @@ public final class TypeConverter {
      * This operated by looking up types, creating if missing, in the
      * types instance.
      *
+     * @param parserTypes the parser types
      * @param parserRefs the parser references
      * @param naming the naming instance
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public TypeConverter(ParserTypeRefs parserRefs, Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public TypeConverter(ParserTypes parserTypes, ParserTypeRefs parserRefs,
+            Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+        this.parserTypes = parserTypes;
         this.parserRefs = parserRefs;
         this.naming = naming;
         this.parserOpts = parserOpts;
@@ -187,7 +192,8 @@ public final class TypeConverter {
 
                 logger.info("XXXX interface {} : {}", tn, anyOfRefs);
 
-                return parserRefs.of(TypeInterface.of(generatorOpts.dtoPackage(), tn, anyOfRefs), validation);
+                TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
+                return parserRefs.of(ti, validation);
             }
 
             // allOf is the combination of schemas (subclassing and/or validation)

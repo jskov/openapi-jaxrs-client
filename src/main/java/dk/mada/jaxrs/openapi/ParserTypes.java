@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toSet;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -21,6 +22,7 @@ import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeDateTime;
+import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
@@ -45,6 +47,9 @@ public class ParserTypes {
     /** DTOs parsed from the specification. */
     private final Map<TypeName, Dto> parsedDtos = new HashMap<>();
 
+    /** Interfaces needed by the DTOs. */
+    private final Map<TypeName, TypeInterface> interfaces = new HashMap<>();
+
     /**
      * Types mapped to JSE standard types.
      */
@@ -62,6 +67,9 @@ public class ParserTypes {
      */
     private final Map<TypeName, Type> remappedDtoTypes = new HashMap<>();
 
+    /** The DTO package name. */
+    private final String dtoPackageName;
+
     /**
      * Create new instance.
      *
@@ -71,6 +79,8 @@ public class ParserTypes {
     public ParserTypes(ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
 
+        dtoPackageName = generatorOpts.dtoPackage();
+        
         mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.TYPENAME_BIG_DECIMAL, TypeBigDecimal.get());
         mapJse(parserOpts.isJseUUID(),           TypeUUID.TYPENAME_UUID,              TypeUUID.get());
         mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPENAME_LOCAL_DATE,        TypeDate.get());
@@ -89,6 +99,26 @@ public class ParserTypes {
         } else {
             unmappedToJseTypes.add(tn);
         }
+    }
+
+    /**
+     * Get or make a new interface type.
+     *
+     * Makes a unique type instance per set of referenced type names.
+     * That is, the included validation is ignored.
+     *
+     * @param tn the type name of the interface
+     * @param anyOfRefs the types referenced by the interface
+     * @return an existing or new interface type
+     */
+    public TypeInterface getOrMakeInterface(TypeName tn, List<ParserTypeRef> anyOfRefs) {
+        return interfaces.computeIfAbsent(tn, k -> TypeInterface.of(dtoPackageName, tn, anyOfRefs));
+    }
+
+    /** {@return all the interfaces} */
+    public Set<TypeInterface> getInterfaces() {
+        return interfaces.values().stream()
+                .collect(toSet());
     }
 
     /**
@@ -215,7 +245,16 @@ public class ParserTypes {
                     .append(": ").append(t).append(NL);
             });
 
-        sb.append(" DTOs: ").append(NL);
+        sb.append(" Interfaces:").append(NL);
+        interfaces.keySet().stream()
+            .sorted()
+            .forEach(tn -> {
+                TypeInterface ints = interfaces.get(tn);
+                sb.append("  ").append(tn.name())
+                    .append(": ").append(ints.implementations()).append(NL);
+            });
+
+        sb.append(" DTOs:").append(NL);
         parsedDtos.keySet().stream()
             .sorted()
             .forEach(tn -> {

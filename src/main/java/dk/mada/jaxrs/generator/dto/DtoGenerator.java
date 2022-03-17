@@ -53,7 +53,7 @@ public class DtoGenerator {
     /** Naming. */
     private final Naming naming;
     /** Types. */
-    private final Dtos types;
+    private final Dtos dtos;
     /** Generator options. */
     private final GeneratorOpts opts;
     /** Templates. */
@@ -85,7 +85,7 @@ public class DtoGenerator {
         this.templates = templates;
         this.model = model;
 
-        types = model.dtos();
+        dtos = model.dtos();
         externalTypeMapping = opts.getExternalTypeMapping();
     }
 
@@ -93,7 +93,7 @@ public class DtoGenerator {
      * Generate all DTO classes.
      */
     public void generateDtoClasses() {
-        types.getActiveDtos().stream()
+        dtos.getActiveDtos().stream()
         .sorted((a, b) -> a.name().compareTo(b.name()))
         .forEach(type -> {
             String name = type.name();
@@ -120,7 +120,7 @@ public class DtoGenerator {
     }
 
     private CtxExtra makeCtxExtra(ExtraTemplate tmpl) {
-        var imports = Imports.newExtras(types, opts, tmpl);
+        var imports = Imports.newExtras(dtos, opts, tmpl);
 
         Info info = model.info();
         return CtxExtra.builder()
@@ -143,7 +143,7 @@ public class DtoGenerator {
         Info info = model.info();
 
         boolean isEnum = dto.isEnum();
-        var dtoImports = isEnum ? Imports.newEnum(types, opts) : Imports.newPojo(types, opts);
+        var dtoImports = isEnum ? Imports.newEnum(dtos, opts) : Imports.newPojo(dtos, opts);
 
         List<CtxProperty> vars = dto.properties().stream()
                 .map(p -> toCtxProperty(dtoImports, p))
