@@ -177,7 +177,6 @@ public final class Imports {
     /**
      * Adds imports needed for extra templates.
      *
-     * @param types the types model
      * @param opts the generator options
      * @param tmpl the template to add imports for
      * @return a new imports instance

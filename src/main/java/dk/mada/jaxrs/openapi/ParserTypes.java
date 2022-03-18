@@ -122,8 +122,8 @@ public class ParserTypes {
     }
 
     /**
-     * @param tn the type name to look for.
      * {@return the interfaces implemented by a given type name}
+     * @param tn the type name to look for.
      **/
     public List<TypeInterface> getInterfacesImplementedBy(TypeName tn) {
         return interfaces.values().stream()
