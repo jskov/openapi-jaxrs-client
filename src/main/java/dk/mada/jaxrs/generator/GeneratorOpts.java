@@ -247,7 +247,7 @@ public final class GeneratorOpts {
         return ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateSerializer());
     }
 
-    /** {@return true if bean validation should be used, otherwise fasle} */
+    /** {@return true if bean validation should be used, otherwise false} */
     public boolean isUseBeanValidation() {
         return bool("generator-use-bean-validation", true);
     }
@@ -297,8 +297,6 @@ public final class GeneratorOpts {
      *
      * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/jakarta-restful-ws-spec-3.0.html#resources">resources spec</a>
      * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/apidocs/jakarta/ws/rs/defaultvalue">jakarta.ws.rs.DefaultValue</a>
-     *
-     * @return true if wrappers should be used
      */
     public boolean isUseApiWrappedPrimitives() {
         return bool("generator-use-api-wrapped-primitives", false);
