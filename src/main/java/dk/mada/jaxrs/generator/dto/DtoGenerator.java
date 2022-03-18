@@ -121,7 +121,7 @@ public class DtoGenerator {
         });
 
         model.interfaces().forEach(ti -> {
-            logger.info(" generate interface {}", ti);
+            logger.info(" generate interface {}", ti.typeName().name());
 
             CtxInterface ctx = makeCtxInterface(ti);
             templates.renderInterfaceTemplate(ctx);

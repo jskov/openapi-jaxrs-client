@@ -177,9 +177,8 @@ public final class TypeConverter {
                         .map(this::toReference)
                         .toList();
                 List<String> anyOfNames = anyOfRefs.stream()
-                        .peek(s -> logger.info("SEE {}", s))
                         .map(ParserTypeRef::typeName)
-                        .map(ptr -> ptr.name())
+                        .map(TypeName::name)
                         .sorted()
                         .toList();
 
@@ -190,7 +189,7 @@ public final class TypeConverter {
 
                 TypeName tn = TypeNames.of(interfaceName);
 
-                logger.info("XXXX interface {} : {}", tn, anyOfRefs);
+                logger.debug(" interface {} : {}", tn, anyOfRefs);
 
                 TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
                 return parserRefs.of(ti, validation);

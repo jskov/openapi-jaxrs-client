@@ -42,7 +42,6 @@ public class Parser {
     /** Parser references. */
     private final ParserTypeRefs parserRefs;
 
-
     /**
      * Constructs a new parser.
      *
@@ -84,7 +83,7 @@ public class Parser {
         Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
         new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
 
-        if (true || showInfo) {
+        if (showInfo) {
             String infoParsing = new StringBuilder("============== PARSING DONE =====").append(NL)
                     .append(TypeNames.info()).append(NL)
                     .append(parserTypes.info()).append(NL)
