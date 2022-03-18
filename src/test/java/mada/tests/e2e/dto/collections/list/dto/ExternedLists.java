@@ -26,7 +26,7 @@ import javax.validation.Valid;
   ExternedLists.JSON_PROPERTY_LIST_DATE_TIME
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class ExternedLists   {
+public class ExternedLists {
   public static final String JSON_PROPERTY_LIST_STRING = "listString";
   @JsonbProperty(JSON_PROPERTY_LIST_STRING)
   private List<String> listString = null;

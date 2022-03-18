@@ -24,7 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   ProductOwnerDTO.JSON_PROPERTY_USER_ID
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class ProductOwnerDTO   {
+public class ProductOwnerDTO {
   public static final String JSON_PROPERTY_EMAIL = "email";
   @JsonbProperty(JSON_PROPERTY_EMAIL)
   @Schema(required = true)

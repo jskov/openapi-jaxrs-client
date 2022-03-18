@@ -29,7 +29,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 })
 @JsonSerialize(include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class SpecialTypes   {
+public class SpecialTypes {
   public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";
   @JsonProperty(JSON_PROPERTY_A_BIG_DECIMAL)
   private BigDecimal aBigDecimal;

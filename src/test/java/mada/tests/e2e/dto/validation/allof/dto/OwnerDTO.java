@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   OwnerDTO.JSON_PROPERTY_EMAIL
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class OwnerDTO   {
+public class OwnerDTO {
   public static final String JSON_PROPERTY_AD_GROUP = "ad-group";
   @JsonbProperty(JSON_PROPERTY_AD_GROUP)
   @Schema(required = true)

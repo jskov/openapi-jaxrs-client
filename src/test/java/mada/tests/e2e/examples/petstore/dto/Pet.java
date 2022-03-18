@@ -21,7 +21,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   Pet.JSON_PROPERTY_TAG
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class Pet   {
+public class Pet {
   public static final String JSON_PROPERTY_ID = "id";
   @JsonbProperty(JSON_PROPERTY_ID)
   @Schema(required = true)
