@@ -22,6 +22,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
 import dk.mada.jaxrs.model.Dto;
@@ -34,6 +35,7 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
+import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.naming.EnumNamer;
@@ -53,7 +55,7 @@ public class DtoGenerator {
     /** Naming. */
     private final Naming naming;
     /** Types. */
-    private final Dtos types;
+    private final Dtos dtos;
     /** Generator options. */
     private final GeneratorOpts opts;
     /** Templates. */
@@ -85,7 +87,7 @@ public class DtoGenerator {
         this.templates = templates;
         this.model = model;
 
-        types = model.dtos();
+        dtos = model.dtos();
         externalTypeMapping = opts.getExternalTypeMapping();
     }
 
@@ -93,7 +95,7 @@ public class DtoGenerator {
      * Generate all DTO classes.
      */
     public void generateDtoClasses() {
-        types.getActiveDtos().stream()
+        dtos.getActiveDtos().stream()
         .sorted((a, b) -> a.name().compareTo(b.name()))
         .forEach(type -> {
             String name = type.name();
@@ -117,10 +119,40 @@ public class DtoGenerator {
             CtxExtra ctx = makeCtxExtra(tmpl);
             templates.renderExtraTemplate(tmpl, ctx);
         });
+
+        model.interfaces().forEach(ti -> {
+            logger.info(" generate interface {}", ti.typeName().name());
+
+            CtxInterface ctx = makeCtxInterface(ti);
+            templates.renderInterfaceTemplate(ctx);
+        });
+    }
+
+    private CtxInterface makeCtxInterface(TypeInterface ti) {
+        var imports = Imports.newInterface(opts);
+
+        String implementations = ti.implementations().stream()
+            .map(tn -> tn.name() + ".class")
+            .sorted()
+            .collect(joining(", "));
+
+        Info info = model.info();
+        return CtxInterface.builder()
+                .classname(ti.typeName().name())
+                .appDescription(info.description())
+                .appName(info.title())
+                .version(info.version())
+                .infoEmail(info.contact().email())
+                .generatedDate(opts.getGeneratedAtTime())
+                .generatorClass(opts.generatorId())
+                .imports(imports.get())
+                .packageName(opts.dtoPackage())
+                .implementations(implementations)
+                .build();
     }
 
     private CtxExtra makeCtxExtra(ExtraTemplate tmpl) {
-        var imports = Imports.newExtras(types, opts, tmpl);
+        var imports = Imports.newExtras(opts, tmpl);
 
         Info info = model.info();
         return CtxExtra.builder()
@@ -143,7 +175,7 @@ public class DtoGenerator {
         Info info = model.info();
 
         boolean isEnum = dto.isEnum();
-        var dtoImports = isEnum ? Imports.newEnum(types, opts) : Imports.newPojo(types, opts);
+        var dtoImports = isEnum ? Imports.newEnum(opts) : Imports.newDto(opts);
 
         List<CtxProperty> vars = dto.properties().stream()
                 .map(p -> toCtxProperty(dtoImports, p))
@@ -205,6 +237,13 @@ public class DtoGenerator {
             dtoImports.addSchema();
         }
 
+        String implementsInterfaces = dto.implementsInterfaces().stream()
+            .map(ti -> ti.typeName().name())
+            .collect(joining(", "));
+        if (implementsInterfaces.isEmpty()) {
+            implementsInterfaces = null;
+        }
+
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
                 .jsonb(opts.isJsonb())
@@ -213,6 +252,7 @@ public class DtoGenerator {
                 .customOffsetDateTimeDeserializer(customOffsetDateTimeDeserializer)
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
                 .enumSchema(enumSchema)
+                .implementsInterfaces(implementsInterfaces)
                 .build();
 
         return CtxDto.builder()

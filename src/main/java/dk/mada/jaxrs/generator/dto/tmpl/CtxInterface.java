@@ -1,6 +1,5 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
-import java.util.List;
 import java.util.SortedSet;
 
 import javax.annotation.Nullable;
@@ -8,13 +7,13 @@ import javax.annotation.Nullable;
 import org.immutables.value.Value.Immutable;
 
 /**
- * Context passed to Mustache when compiling a model.
+ * Context passed to Mustache when compiling an interface.
  */
 @Immutable
-public interface CtxDto {
+public interface CtxInterface {
     /** {@return a builder for this type} */
-    static ImmutableCtxDto.Builder builder() {
-        return ImmutableCtxDto.builder();
+    static ImmutableCtxInterface.Builder builder() {
+        return ImmutableCtxInterface.builder();
     }
 
     /** {@return the application name} */
@@ -43,30 +42,6 @@ public interface CtxDto {
     String packageName();
     /** {@return the classname for the class} */
     String classname();
-    /** {@return the class name used in equals method} */
-    String classVarName();
-
-    /** {@return the properties of the class} */
-    List<CtxProperty> vars();
-
-    /** {@return true if there are properties to render, otherwise false} */
-    default boolean hasVars() {
-        return !vars().isEmpty();
-    }
-
-    /** {@return true if this is an enumeration, otherwise false} */
-    default boolean isEnum() {
-        return allowableValues() != null;
-    }
-    /** {@return the enumeration constants/values, or null} */
-    @Nullable
-    CtxEnum allowableValues();
-    /** {@return the data type of an enumeration, or null} */
-    @Nullable
-    String dataType();
-
-    /** {@return true if a jackson serializer is used, otherwise false} */
-    boolean jackson();
 
     /** {@return the name of the generator class} */
     String generatorClass();
@@ -79,6 +54,6 @@ public interface CtxDto {
         return generatedDate() == null;
     }
 
-    /** {@return additional custom template data for the dto} */
-    CtxDtoExt madaDto();
+    /** {@return a string list of implementation DTOs} */
+    String implementations();
 }

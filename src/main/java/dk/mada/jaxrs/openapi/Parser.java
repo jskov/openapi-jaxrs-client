@@ -2,6 +2,7 @@ package dk.mada.jaxrs.openapi;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Operations;
+import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
@@ -39,7 +41,6 @@ public class Parser {
     private final GeneratorOpts generatorOpts;
     /** Parser references. */
     private final ParserTypeRefs parserRefs;
-
 
     /**
      * Constructs a new parser.
@@ -74,12 +75,12 @@ public class Parser {
         SwaggerParseResult result = new OpenAPIParser().readLocation(inputSpec, authorizationValues, swaggerParseOpts);
         OpenAPI specification = result.getOpenAPI();
 
-        var typeConverter = new TypeConverter(parserRefs, naming, parserOpts, generatorOpts);
+        ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
+        var typeConverter = new TypeConverter(parserTypes, parserRefs, naming, parserOpts, generatorOpts);
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
         Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
-        ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
         new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
 
         if (showInfo) {
@@ -105,6 +106,7 @@ public class Parser {
             logger.info("{}", infoResolved);
         }
 
-        return new Model(info, derefOps, dtos, securitySchemes);
+        Set<TypeInterface> interfaces = parserTypes.getInterfaces();
+        return new Model(info, derefOps, dtos, interfaces, securitySchemes);
     }
 }

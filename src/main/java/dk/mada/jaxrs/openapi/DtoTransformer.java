@@ -84,6 +84,7 @@ public class DtoTransformer {
                     .properties(props)
                     .openapiId(TypeNames.of(schemaName))
                     .enumValues(enumValues)
+                    .implementsInterfaces(List.of())
                     .build();
 
             parserTypes.addDto(dto);

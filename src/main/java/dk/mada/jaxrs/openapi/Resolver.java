@@ -19,6 +19,7 @@ import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
@@ -62,10 +63,13 @@ public class Resolver {
     private Dto derefDto(Dto dto) {
         Reference dtoTypeRef = dto.reference();
         String name = dto.name();
+        List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(dto.typeName());
         logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
+        logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builder().from(dto)
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto.properties()))
+                .implementsInterfaces(implementsInterfaces)
                 .build();
     }
 

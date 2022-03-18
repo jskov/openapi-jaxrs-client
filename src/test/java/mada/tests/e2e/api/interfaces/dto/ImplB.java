@@ -6,39 +6,39 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.api.validation.dto;
+package mada.tests.e2e.api.interfaces.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
- * Simple
+ * ImplB
  */
 @JsonbPropertyOrder({
-  Simple.JSON_PROPERTY_A_BOOLEAN
+  ImplB.JSON_PROPERTY_BAR
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class Simple {
-  public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
-  @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)
-  private Boolean aBoolean;
+public class ImplB implements ImplAImplB {
+  public static final String JSON_PROPERTY_BAR = "bar";
+  @JsonbProperty(JSON_PROPERTY_BAR)
+  private Integer bar;
 
-  public Simple aBoolean(Boolean aBoolean) {
-    this.aBoolean = aBoolean;
+  public ImplB bar(Integer bar) {
+    this.bar = bar;
     return this;
   }
 
   /**
-   * Get aBoolean
-   * @return aBoolean
+   * Get bar
+   * @return bar
    **/
-  public Boolean isABoolean() {
-    return aBoolean;
+  public Integer getBar() {
+    return bar;
   }
 
-  public void setABoolean(Boolean aBoolean) {
-    this.aBoolean = aBoolean;
+  public void setBar(Integer bar) {
+    this.bar = bar;
   }
 
   @Override
@@ -49,20 +49,20 @@ public class Simple {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Simple other = (Simple) o;
-    return Objects.equals(this.aBoolean, other.aBoolean);
+    ImplB other = (ImplB) o;
+    return Objects.equals(this.bar, other.bar);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBoolean);
+    return Objects.hash(bar);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Simple {");
-    sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
+    sb.append("class ImplB {");
+    sb.append("\n    bar: ").append(toIndentedString(bar));
     sb.append("\n}");
     return sb.toString();
   }

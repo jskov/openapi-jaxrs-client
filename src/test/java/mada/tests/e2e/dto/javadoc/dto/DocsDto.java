@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   DocsDto.JSON_PROPERTY_DANISH_PROPERTY
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class DocsDto   {
+public class DocsDto {
   public static final String JSON_PROPERTY_PROPERTY = "property";
   @JsonbProperty(JSON_PROPERTY_PROPERTY)
   @Schema(description = "Property description.\nProperty description line 2\n\nLast line.")

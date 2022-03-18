@@ -8,6 +8,7 @@ import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
@@ -56,4 +57,7 @@ public interface Dto extends Type {
     default boolean isEnum() {
         return enumValues() != null;
     }
+
+    /** {@return the list of interfaces implemented by this DTO} */
+    List<TypeInterface> implementsInterfaces();
 }

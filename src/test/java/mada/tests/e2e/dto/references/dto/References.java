@@ -18,7 +18,7 @@ import javax.validation.Valid;
   References.JSON_PROPERTY_SIMPLE
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class References   {
+public class References {
   public static final String JSON_PROPERTY_SIMPLE = "simple";
   @JsonbProperty(JSON_PROPERTY_SIMPLE)
   private Simple simple;

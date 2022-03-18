@@ -16,7 +16,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 @JsonbPropertyOrder({
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class LocalTime   {
+public class LocalTime {
   @Override
   public boolean equals(Object o) {
     if (this == o) {

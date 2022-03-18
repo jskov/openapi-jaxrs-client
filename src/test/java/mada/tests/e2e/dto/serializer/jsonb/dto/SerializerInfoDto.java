@@ -35,7 +35,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class SerializerInfoDto   {
+public class SerializerInfoDto {
   public static final String JSON_PROPERTY_BETA = "beta";
   @JsonbProperty(JSON_PROPERTY_BETA)
   private String beta;

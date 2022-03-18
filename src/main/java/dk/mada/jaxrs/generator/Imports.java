@@ -11,7 +11,6 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
@@ -22,6 +21,8 @@ import dk.mada.jaxrs.model.types.TypeContainer;
  * generator options into consideration.
  */
 public final class Imports {
+    private static final Logger logger = LoggerFactory.getLogger(Imports.class);
+
     private static final String JSON_DESERIALIZE = "JsonDeserialize";
     private static final String JSON_CREATOR = "JsonCreator";
     private static final String JSON_IGNORE = "JsonIgnore";
@@ -43,17 +44,19 @@ public final class Imports {
     private static final String DATE_TIME_FORMATTER = "java.time.format.DateTimeFormatter";
     private static final String LOCAL_DATE = "java.time.LocalDate";
     private static final String IOEXCEPTION = "java.io.IOException";
-    @SuppressWarnings("unused")
-    private static final Logger logger = LoggerFactory.getLogger(Imports.class);
     private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
+    /** Imports needed for list types. */
     public static final Set<String> LIST_TYPES = Set.of("java.util.List", "java.util.ArrayList");
+    /** Imports needed for map types. */
     public static final Set<String> MAP_TYPES = Set.of("java.util.Map", "java.util.HashMap");
+    /** Imports needed for set types. */
     public static final Set<String> SET_TYPES = Set.of("java.util.Set", "java.util.LinkedHashSet");
     private static final Set<String> CONTAINER_IMPLEMENTATION_TYPES = Set.of(
             "java.util.ArrayList",
             "java.util.HashMap",
             "java.util.LinkedHashSet");
 
+    /** Jackson codehaus imports. */
     private static final Map<String, String> JACKSON_CODEHAUS = new HashMap<>();
     static {
         JACKSON_CODEHAUS.putAll(Map.of(
@@ -74,6 +77,7 @@ public final class Imports {
                 SERIALIZER_PROVIDER,       "org.codehaus.jackson.map.SerializerProvider"));
     }
 
+    /** Jackson fasterxml imports. */
     private static final Map<String, String> JACKSON_FASTERXML = new HashMap<>();
     static {
         JACKSON_FASTERXML.putAll(Map.of(
@@ -95,34 +99,53 @@ public final class Imports {
                 SERIALIZER_PROVIDER,     "com.fasterxml.jackson.databind.SerializerProvider"));
     }
 
+    /** Generator options. */
     private final GeneratorOpts opts;
-    @SuppressWarnings("unused")
-    private final Dtos types;
+
+    /** Set of classes to be imported.*/
     private final SortedSet<String> importedClasses = new TreeSet<>();
+
+    /** Flag selecting if imports should be added for DTOs. */
     private final boolean includeDtoImports;
 
     /** External type mapping. */
     private final Map<String, String> externalTypeMapping;
 
-    private Imports(Dtos types, GeneratorOpts opts, boolean includeDtoImports) {
-        this.types = types;
+    private Imports(GeneratorOpts opts, boolean includeDtoImports) {
         this.opts = opts;
         this.includeDtoImports = includeDtoImports;
 
         externalTypeMapping = opts.getExternalTypeMapping();
     }
 
+    /** {@return a sorted set of classes to import} */
     public SortedSet<String> get() {
         return importedClasses;
     }
 
-    public static Imports newApi(Dtos types, GeneratorOpts opts) {
-        return new Imports(types, opts, true)
+    /**
+     * Creates a new instance for API files.
+     *
+     * Adds common imports need by all APIs.
+     *
+     * @param opts the generator options
+     * @return a new imports instance loaded with enumeration imports
+     */
+    public static Imports newApi(GeneratorOpts opts) {
+        return new Imports(opts, true)
                 .javax("javax.ws.rs.*");
     }
 
-    public static Imports newPojo(Dtos types, GeneratorOpts opts) {
-        return new Imports(types, opts, false)
+    /**
+     * Creates a new instance for DTO files.
+     *
+     * Adds common imports need by all DTOs.
+     *
+     * @param opts the generator options
+     * @return a new imports instance loaded with enumeration imports
+     */
+    public static Imports newDto(GeneratorOpts opts) {
+        return new Imports(opts, false)
                 .add(JAVA_UTIL_OBJECTS)
                 .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
                 .jackson(JSON_PROPERTY, JSON_PROPERTY_ORDER)
@@ -132,25 +155,34 @@ public final class Imports {
     /**
      * Creates a new instance for enumeration types.
      *
-     * @param types the types instance
      * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newEnum(Dtos types, GeneratorOpts opts) {
-        return new Imports(types, opts, false)
+    public static Imports newEnum(GeneratorOpts opts) {
+        return new Imports(opts, false)
                    .addEnumImports();
+    }
+
+    /**
+     * Adds imports needed for interface templates.
+     *
+     * @param opts the generator options
+     * @return a new imports instance
+     */
+    public static Imports newInterface(GeneratorOpts opts) {
+        return new Imports(opts, false)
+                .add("org.eclipse.microprofile.openapi.annotations.media.Schema");
     }
 
     /**
      * Adds imports needed for extra templates.
      *
-     * @param types the types model
      * @param opts the generator options
      * @param tmpl the template to add imports for
      * @return a new imports instance
      */
-    public static Imports newExtras(Dtos types, GeneratorOpts opts, ExtraTemplate tmpl) {
-        var imports = new Imports(types, opts, false);
+    public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
+        var imports = new Imports(opts, false);
 
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
             imports
@@ -200,11 +232,24 @@ public final class Imports {
             .jsonb("javax.json.bind.annotation.JsonbTypeAdapter");
     }
 
+    /**
+     * Add imports for the types referenced by properties.
+     *
+     * @param properties the properties to add imports for
+     */
     public void addPropertyImports(Collection<Property> properties) {
         properties
-        .forEach(p -> add(p.reference()));
+            .forEach(p -> add(p.reference()));
     }
 
+    /**
+     * Adds imports for javax-class.
+     *
+     * If jakarta-option is selected, will replace "javax" with "jakarta".
+     *
+     * @param name the class to add import for
+     * @return the imports instance
+     */
     public Imports javax(String name) {
         if (opts.isJakarta()) {
             name = name.replace("javax", "jakarta");
@@ -213,6 +258,13 @@ public final class Imports {
         return this;
     }
 
+    /**
+     * Adds optional imports if Jackson is the selected serializer.
+     *
+     * @param enable option to control if the classes should be added
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
     public Imports jackson(boolean enable, String... classes) {
         if (enable) {
             jackson(classes);
@@ -220,6 +272,12 @@ public final class Imports {
         return this;
     }
 
+    /**
+     * Adds imports if the Jackson is the selected serializer.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
     public Imports jackson(String... classes) {
         if (!opts.isJackson()) {
             return this;
@@ -241,6 +299,13 @@ public final class Imports {
         return this;
     }
 
+    /**
+     * Adds optional imports if Jsonb is the selected serializer.
+     *
+     * @param enable option to control if the classes should be added
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
     public Imports jsonb(boolean enable, String... classes) {
         if (enable && opts.isJsonb()) {
             add(classes);
@@ -248,6 +313,12 @@ public final class Imports {
         return this;
     }
 
+    /**
+     * Adds imports if Jsonb is the selected serializer.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
     public Imports jsonb(String... classes) {
         if (opts.isJsonb()) {
             add(classes);
@@ -300,11 +371,24 @@ public final class Imports {
         }
     }
 
+    /**
+     * Adds imports for the specified (fully qualified) class names.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
     public Imports add(String... classes) {
         importedClasses.addAll(Arrays.asList(classes));
         return this;
     }
 
+    /**
+     * Adds optional imports for the specified (fully qualified) class names.
+     *
+     * @param include option to control if the classes should be added
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
     public Imports add(boolean include, String... classes) {
         if (include) {
             add(classes);

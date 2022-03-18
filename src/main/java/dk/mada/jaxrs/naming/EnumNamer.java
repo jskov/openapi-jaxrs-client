@@ -33,17 +33,36 @@ public final class EnumNamer {
     private final Naming naming;
     /** Enumeration value type. */
     private final Type enumValueType;
+    /** Suffix number counter per name prefix. */
     private final Map<String, AtomicInteger> nameNumbering = new HashMap<>();
+    /** Name to values. These are ordered by the enumeration values. */
     private final List<EnumNameValue> nameToValues = new ArrayList<>();
+    /** Values of the enumeration. */
     private final List<String> values;
+    /** The assigned names of the values. */
     private final Set<String> assignedNames = new HashSet<>();
 
+    /** Numbering prefix. */
     private final String numberPrefix;
 
 
+    /**
+     * An enumeration name-to-value assignment.
+     *
+     * @param name the assigned name to the enumeration entry
+     * @param value the value of the enumeration entry
+     */
     public record EnumNameValue(String name, String value) {
     }
 
+    /**
+     * Constructs a new enumeration namer instance.
+     *
+     * @param naming the naming policies
+     * @param opts the generator options
+     * @param enumValueType the enumeration type
+     * @param values the values of the enumeration
+     */
     public EnumNamer(Naming naming, GeneratorOpts opts, Type enumValueType, List<String> values) {
         this.naming = naming;
         this.enumValueType = enumValueType;
@@ -54,6 +73,7 @@ public final class EnumNamer {
         assignNames();
     }
 
+    /** {@return the assigned names-to-values} */
     public List<EnumNameValue> getEntries() {
         return nameToValues;
     }

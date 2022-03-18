@@ -32,7 +32,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   ValidationDto.JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class ValidationDto   {
+public class ValidationDto {
   public static final String JSON_PROPERTY_NAME = "name";
   @JsonbProperty(JSON_PROPERTY_NAME)
   @Schema(required = true)

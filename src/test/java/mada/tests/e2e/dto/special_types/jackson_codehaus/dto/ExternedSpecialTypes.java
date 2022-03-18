@@ -26,7 +26,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
   ExternedSpecialTypes.JSON_PROPERTY_DATE
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class ExternedSpecialTypes   {
+public class ExternedSpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
   @JsonProperty(JSON_PROPERTY_BIG_DECIMAL)
   private BigDecimal bigDecimal;

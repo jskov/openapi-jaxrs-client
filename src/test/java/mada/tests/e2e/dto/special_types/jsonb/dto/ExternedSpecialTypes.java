@@ -24,7 +24,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   ExternedSpecialTypes.JSON_PROPERTY_DATE
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class ExternedSpecialTypes   {
+public class ExternedSpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
   @JsonbProperty(JSON_PROPERTY_BIG_DECIMAL)
   private BigDecimal bigDecimal;

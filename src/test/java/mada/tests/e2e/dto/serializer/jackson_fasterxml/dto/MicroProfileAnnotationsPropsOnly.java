@@ -20,7 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   MicroProfileAnnotationsPropsOnly.JSON_PROPERTY_WITH_DESCRIPTION
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class MicroProfileAnnotationsPropsOnly   {
+public class MicroProfileAnnotationsPropsOnly {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";
   @JsonProperty(JSON_PROPERTY_WITH_DESCRIPTION)
   @Schema(description = "property description")

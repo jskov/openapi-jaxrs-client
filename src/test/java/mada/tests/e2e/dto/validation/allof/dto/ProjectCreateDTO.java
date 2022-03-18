@@ -29,7 +29,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   ProjectCreateDTO.JSON_PROPERTY_TYPE
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class ProjectCreateDTO   {
+public class ProjectCreateDTO {
   public static final String JSON_PROPERTY_CLUSTER = "cluster";
   @JsonbProperty(JSON_PROPERTY_CLUSTER)
   @Schema(required = true)

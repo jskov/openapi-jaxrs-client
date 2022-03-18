@@ -101,6 +101,12 @@ processResources {
     }
 }
 
+javadoc {
+    options {
+//        verbose()
+    }
+}
+
 test {
     useJUnitPlatform()
 

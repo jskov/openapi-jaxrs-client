@@ -5,6 +5,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * REST common path finder.
+ */
 public class CommonPathFinder {
     private static final Logger logger = LoggerFactory.getLogger(CommonPathFinder.class);
 
@@ -16,6 +19,7 @@ public class CommonPathFinder {
      * If not, trim the last section of and loop around.
      *
      * @param paths the paths to look through
+     * @return the longest common path
      */
     public String findCommonPath(List<String> paths) {
         if (paths.isEmpty()) {

@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
   Simple.JSON_PROPERTY_A_BOOLEAN
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class Simple   {
+public class Simple {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
   @JsonProperty(JSON_PROPERTY_A_BOOLEAN)
   private Boolean aBoolean;

@@ -36,7 +36,7 @@ public interface ParserTypeRef extends Reference {
      * Creates a new reference to a type (a primitive or special type)
      *
      * @param refType the type, or null
-     * @param refTypeName
+     * @param refTypeName the type name
      * @param validation the validation information if available
      * @return a reference to the type
      */

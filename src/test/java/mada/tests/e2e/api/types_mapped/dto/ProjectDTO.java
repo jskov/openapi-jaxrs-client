@@ -19,7 +19,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   ProjectDTO.JSON_PROPERTY_DESCRIPTION
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class ProjectDTO   {
+public class ProjectDTO {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
   private String description;

@@ -20,7 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   Error.JSON_PROPERTY_MESSAGE
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class Error   {
+public class Error {
   public static final String JSON_PROPERTY_CODE = "code";
   @JsonbProperty(JSON_PROPERTY_CODE)
   @Schema(required = true)

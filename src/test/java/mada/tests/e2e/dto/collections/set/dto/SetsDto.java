@@ -35,7 +35,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   SetsDto.JSON_PROPERTY_REQUIRED_REFS
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class SetsDto   {
+public class SetsDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
   @JsonbProperty(JSON_PROPERTY_BOOLEANS)
   private Set<Boolean> booleans = null;

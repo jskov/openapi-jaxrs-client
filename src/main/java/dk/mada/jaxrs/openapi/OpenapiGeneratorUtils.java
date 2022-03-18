@@ -23,7 +23,14 @@ public final class OpenapiGeneratorUtils {
     private OpenapiGeneratorUtils() {
     }
 
-    // ModelUtils.getSchemas
+    /**
+     * Get schemas.
+     *
+     * From ModelUtils.getSchemas
+     *
+     * @param openAPI the OpenAPI document
+     * @return the schemas mapped by name
+     */
     @SuppressWarnings("rawtypes")
     public static Map<String, Schema> getSchemas(OpenAPI openAPI) {
         if (openAPI != null && openAPI.getComponents() != null && openAPI.getComponents().getSchemas() != null) {

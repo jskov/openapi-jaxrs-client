@@ -22,6 +22,7 @@ import com.samskivert.mustache.Template;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 
 /**
  * Templates processor.
@@ -41,6 +42,8 @@ public class Templates {
     private final Template apiTemplate;
     /** The DTO template. */
     private final Template dtoTemplate;
+    /** The interface template. */
+    private final Template interfaceTemplate;
 
     /**
      * Creates templates.
@@ -54,6 +57,7 @@ public class Templates {
 
         dtoTemplate = compileTemplate("model");
         apiTemplate = compileTemplate("api");
+        interfaceTemplate = compileTemplate("interface");
     }
 
     /**
@@ -82,6 +86,19 @@ public class Templates {
     public void renderDtoTemplate(CtxDto context) {
         Path outputFile = toDtoFile(context.classname());
         renderTemplate(dtoTemplate, context, outputFile);
+    }
+
+    /**
+     * Renders and writes the interface template.
+     *
+     * The context contains the information to render the template
+     * for a given interface class.
+     *
+     * @param context the rendering context
+     */
+    public void renderInterfaceTemplate(CtxInterface context) {
+        Path outputFile = toDtoFile(context.classname());
+        renderTemplate(interfaceTemplate, context, outputFile);
     }
 
     /**
