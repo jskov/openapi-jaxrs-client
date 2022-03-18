@@ -23,7 +23,6 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
-import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -59,8 +58,6 @@ public class ApiGenerator {
 
     /** Naming. */
     private final Naming naming;
-    /** Types. */
-    private final Dtos types;
     /** Generator options. */
     private final GeneratorOpts opts;
     /** Templates. */
@@ -84,8 +81,6 @@ public class ApiGenerator {
         this.opts = generatorOpts;
         this.templates = templates;
         this.model = model;
-
-        this.types = model.dtos();
     }
 
     /**
@@ -113,7 +108,7 @@ public class ApiGenerator {
     }
 
     private CtxApi toCtx(String classname, List<Operation> operations) {
-        var imports = Imports.newApi(types, opts);
+        var imports = Imports.newApi(opts);
 
         List<String> paths = operations.stream()
                     .map(Operation::path)

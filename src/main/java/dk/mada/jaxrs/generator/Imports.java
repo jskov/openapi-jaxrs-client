@@ -11,7 +11,6 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
@@ -22,6 +21,8 @@ import dk.mada.jaxrs.model.types.TypeContainer;
  * generator options into consideration.
  */
 public final class Imports {
+    private static final Logger logger = LoggerFactory.getLogger(Imports.class);
+
     private static final String JSON_DESERIALIZE = "JsonDeserialize";
     private static final String JSON_CREATOR = "JsonCreator";
     private static final String JSON_IGNORE = "JsonIgnore";
@@ -43,8 +44,6 @@ public final class Imports {
     private static final String DATE_TIME_FORMATTER = "java.time.format.DateTimeFormatter";
     private static final String LOCAL_DATE = "java.time.LocalDate";
     private static final String IOEXCEPTION = "java.io.IOException";
-    @SuppressWarnings("unused")
-    private static final Logger logger = LoggerFactory.getLogger(Imports.class);
     private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
     /** Imports needed for list types. */
     public static final Set<String> LIST_TYPES = Set.of("java.util.List", "java.util.ArrayList");
@@ -112,7 +111,7 @@ public final class Imports {
     /** External type mapping. */
     private final Map<String, String> externalTypeMapping;
 
-    private Imports(Dtos types, GeneratorOpts opts, boolean includeDtoImports) {
+    private Imports(GeneratorOpts opts, boolean includeDtoImports) {
         this.opts = opts;
         this.includeDtoImports = includeDtoImports;
 
@@ -129,12 +128,11 @@ public final class Imports {
      *
      * Adds common imports need by all APIs.
      *
-     * @param dtos the available DTOs
      * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newApi(Dtos dtos, GeneratorOpts opts) {
-        return new Imports(dtos, opts, true)
+    public static Imports newApi(GeneratorOpts opts) {
+        return new Imports(opts, true)
                 .javax("javax.ws.rs.*");
     }
 
@@ -143,12 +141,11 @@ public final class Imports {
      *
      * Adds common imports need by all DTOs.
      *
-     * @param dtos the available DTOs
      * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newPojo(Dtos dtos, GeneratorOpts opts) {
-        return new Imports(dtos, opts, false)
+    public static Imports newDto(GeneratorOpts opts) {
+        return new Imports(opts, false)
                 .add(JAVA_UTIL_OBJECTS)
                 .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
                 .jackson(JSON_PROPERTY, JSON_PROPERTY_ORDER)
@@ -158,24 +155,22 @@ public final class Imports {
     /**
      * Creates a new instance for enumeration types.
      *
-     * @param types the types instance
      * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newEnum(Dtos types, GeneratorOpts opts) {
-        return new Imports(types, opts, false)
+    public static Imports newEnum(GeneratorOpts opts) {
+        return new Imports(opts, false)
                    .addEnumImports();
     }
 
     /**
      * Adds imports needed for interface templates.
      *
-     * @param dtos the DTOs
      * @param opts the generator options
      * @return a new imports instance
      */
-    public static Imports newInterface(Dtos dtos, GeneratorOpts opts) {
-        return new Imports(dtos, opts, false)
+    public static Imports newInterface(GeneratorOpts opts) {
+        return new Imports(opts, false)
                 .add("org.eclipse.microprofile.openapi.annotations.media.Schema");
     }
 
@@ -187,8 +182,8 @@ public final class Imports {
      * @param tmpl the template to add imports for
      * @return a new imports instance
      */
-    public static Imports newExtras(Dtos types, GeneratorOpts opts, ExtraTemplate tmpl) {
-        var imports = new Imports(types, opts, false);
+    public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
+        var imports = new Imports(opts, false);
 
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
             imports

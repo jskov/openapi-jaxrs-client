@@ -129,7 +129,7 @@ public class DtoGenerator {
     }
 
     private CtxInterface makeCtxInterface(TypeInterface ti) {
-        var imports = Imports.newInterface(dtos, opts);
+        var imports = Imports.newInterface(opts);
 
         String implementations = ti.implementations().stream()
             .map(tn -> tn.name() + ".class")
@@ -152,7 +152,7 @@ public class DtoGenerator {
     }
 
     private CtxExtra makeCtxExtra(ExtraTemplate tmpl) {
-        var imports = Imports.newExtras(dtos, opts, tmpl);
+        var imports = Imports.newExtras(opts, tmpl);
 
         Info info = model.info();
         return CtxExtra.builder()
@@ -175,7 +175,7 @@ public class DtoGenerator {
         Info info = model.info();
 
         boolean isEnum = dto.isEnum();
-        var dtoImports = isEnum ? Imports.newEnum(dtos, opts) : Imports.newPojo(dtos, opts);
+        var dtoImports = isEnum ? Imports.newEnum(opts) : Imports.newDto(opts);
 
         List<CtxProperty> vars = dto.properties().stream()
                 .map(p -> toCtxProperty(dtoImports, p))
