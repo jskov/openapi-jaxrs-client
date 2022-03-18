@@ -54,6 +54,6 @@ public interface CtxInterface {
         return generatedDate() == null;
     }
 
-    /** {@return the implementation DTO classes of this interface} */
-    SortedSet<String> implementations();
+    /** {@return a string list of implementation DTOs} */
+    String implementations();
 }

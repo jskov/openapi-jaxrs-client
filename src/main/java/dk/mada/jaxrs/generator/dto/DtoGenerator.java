@@ -1,14 +1,11 @@
 package dk.mada.jaxrs.generator.dto;
 
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toCollection;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.annotation.Nullable;
 
@@ -40,7 +37,6 @@ import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
@@ -135,10 +131,10 @@ public class DtoGenerator {
     private CtxInterface makeCtxInterface(TypeInterface ti) {
         var imports = Imports.newInterface(dtos, opts);
 
-        SortedSet<String> implementations = ti.implementations().stream()
-            .map(TypeName::name)
+        String implementations = ti.implementations().stream()
+            .map(tn -> tn.name() + ".class")
             .sorted()
-            .collect(toCollection(TreeSet::new));
+            .collect(joining(", "));
 
         Info info = model.info();
         return CtxInterface.builder()

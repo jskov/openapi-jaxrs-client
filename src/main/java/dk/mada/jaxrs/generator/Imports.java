@@ -149,8 +149,8 @@ public final class Imports {
      * @return a new imports instance
      */
     public static Imports newInterface(Dtos dtos, GeneratorOpts opts) {
-        var imports = new Imports(dtos, opts, false);
-        return imports;
+        return new Imports(dtos, opts, false)
+                .add("org.eclipse.microprofile.openapi.annotations.media.Schema");
     }
 
     /**
