@@ -241,7 +241,12 @@ public class DtoGenerator {
             dtoImports.addSchema();
         }
 
-        String implementsInterfaces = null;
+        String implementsInterfaces = dto.implementsInterfaces().stream()
+            .map(ti -> ti.typeName().name())
+            .collect(joining(", "));
+        if (implementsInterfaces.isEmpty()) {
+            implementsInterfaces = null;
+        }
 
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())

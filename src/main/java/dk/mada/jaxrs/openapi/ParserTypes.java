@@ -80,7 +80,7 @@ public class ParserTypes {
         TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
 
         dtoPackageName = generatorOpts.dtoPackage();
-        
+
         mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.TYPENAME_BIG_DECIMAL, TypeBigDecimal.get());
         mapJse(parserOpts.isJseUUID(),           TypeUUID.TYPENAME_UUID,              TypeUUID.get());
         mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPENAME_LOCAL_DATE,        TypeDate.get());
@@ -119,6 +119,17 @@ public class ParserTypes {
     public Set<TypeInterface> getInterfaces() {
         return interfaces.values().stream()
                 .collect(toSet());
+    }
+
+    /**
+     * @param tn the type name to look for.
+     * {@return the interfaces implemented by a given type name}
+     **/
+    public List<TypeInterface> getInterfacesImplementedBy(TypeName tn) {
+        return interfaces.values().stream()
+            .filter(ti -> ti.implementations().contains(tn))
+            .sorted((a, b) -> a.typeName().compareTo(b.typeName()))
+            .toList();
     }
 
     /**

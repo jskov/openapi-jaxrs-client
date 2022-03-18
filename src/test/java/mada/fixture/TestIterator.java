@@ -11,17 +11,13 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
+import org.junit.platform.suite.api.Suite;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.logging.LoggerConfig;
 
-// Using JunitPlatform is deprecated, but @Suite and @TestFactory does
-// not appear to work in Eclipse.
-@SuppressWarnings("deprecation")
-@RunWith(JUnitPlatform.class)
+@Suite
 class TestIterator {
     private static final Logger logger = LoggerFactory.getLogger(TestIterator.class);
 
