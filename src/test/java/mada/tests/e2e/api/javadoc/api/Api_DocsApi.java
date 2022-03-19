@@ -88,7 +88,7 @@ public interface Api_DocsApi {
     @APIResponse(responseCode = "500", description = "The internal error",
                  content = @Content(schema = @Schema(implementation = Simple.class)))
   })
-  List<Simple> apiDocsMultipleReturnTypesPost( Simple dto);
+  List<Simple> apiDocsMultipleReturnTypesPost(Simple dto);
 
   /**
    * op is missing punctuation.

@@ -29,7 +29,7 @@ public interface Api_MethodsApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No Content")
   })
-  void apiMethodsDELETEDelete( String dto);
+  void apiMethodsDELETEDelete(String dto);
 
   /**
    * apiMethodsGETGet.
@@ -64,7 +64,7 @@ public interface Api_MethodsApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
-  String apiMethodsPOSTPost( String dto);
+  String apiMethodsPOSTPost(String dto);
 
   /**
    * apiMethodsPUTPut.
@@ -77,5 +77,5 @@ public interface Api_MethodsApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
-  String apiMethodsPUTPut( String dto);
+  String apiMethodsPUTPut(String dto);
 }

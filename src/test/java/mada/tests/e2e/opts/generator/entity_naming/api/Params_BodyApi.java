@@ -33,7 +33,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyBooleanPrimitiveGet( boolean boolean_);
+  String apiParamsBodyBooleanPrimitiveGet(boolean boolean_);
 
   /**
    * apiParamsBodyBooleanWrapperGet.
@@ -46,7 +46,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyBooleanWrapperGet( boolean boolean_);
+  String apiParamsBodyBooleanWrapperGet(boolean boolean_);
 
   /**
    * apiParamsBodyDateGet.
@@ -59,7 +59,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyDateGet( LocalDate localDate);
+  String apiParamsBodyDateGet(LocalDate localDate);
 
   /**
    * apiParamsBodyDateTimeGet.
@@ -72,7 +72,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyDateTimeGet( OffsetDateTime offsetDateTime);
+  String apiParamsBodyDateTimeGet(OffsetDateTime offsetDateTime);
 
   /**
    * apiParamsBodyListGet.
@@ -85,7 +85,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyListGet( List<String> list_String_);
+  String apiParamsBodyListGet(List<String> list_String_);
 
   /**
    * apiParamsBodyListSimpleGet.
@@ -98,7 +98,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyListSimpleGet( List<Simple> list_Simple_);
+  String apiParamsBodyListSimpleGet(List<Simple> list_Simple_);
 
   /**
    * apiParamsBodyMixedInPathGet.
@@ -127,7 +127,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodySimpleGet( Simple simple);
+  String apiParamsBodySimpleGet(Simple simple);
 
   /**
    * apiParamsBodyTimeGet.
@@ -140,5 +140,5 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyTimeGet( LocalTime localTime);
+  String apiParamsBodyTimeGet(LocalTime localTime);
 }
