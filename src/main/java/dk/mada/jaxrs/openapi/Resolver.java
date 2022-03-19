@@ -139,6 +139,7 @@ public class Resolver {
     private Content derefContent(Content content) {
         return Content.builder().from(content)
                 .reference(resolve(content.reference()))
+                .formParameters(derefParams(content.formParameters()))
                 .build();
     }
 

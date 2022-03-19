@@ -23,6 +23,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
+import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -53,7 +54,8 @@ public class ApiGenerator {
      */
     private static final Map<String, String> MEDIA_TYPES = Map.of(
             "application/json", "APPLICATION_JSON",
-            "text/plain", "TEXT_PLAIN"
+            "text/plain", "TEXT_PLAIN",
+            "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED"
             );
 
     /** Naming. */
@@ -298,6 +300,7 @@ public class ApiGenerator {
                     .dataType(Primitive.STRING.typeName().name())
                     .required(true)
                     .isBodyParam(false)
+                    .isFormParam(false)
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
@@ -329,6 +332,7 @@ public class ApiGenerator {
                     .dataType(dataType)
                     .required(required)
                     .isBodyParam(false)
+                    .isFormParam(p.isFormParam())
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
@@ -344,18 +348,25 @@ public class ApiGenerator {
             String dtoParamName = naming.convertEntityName(ref.typeName().name());
             String dataType = paramDataType(ref);
 
-            params.add(CtxApiParam.builder()
+            ImmutableCtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
                     .dataType(dataType)
                     .required(body.isRequired())
                     .isBodyParam(true)
+                    .isFormParam(false)
                     .isHeaderParam(false)
                     .isPathParam(false)
                     .isQueryParam(false)
                     .useBeanValidation(opts.isUseBeanValidation())
                     .madaParam(madaParamEmpty)
-                    .build());
+                    .build();
+
+            // Only include body param if it is not void. It may be void
+            // when there are form parameters.
+            if (!ref.isVoid()) {
+                params.add(bodyParam);
+            }
         });
 
         logger.debug("Params: {}", params);
