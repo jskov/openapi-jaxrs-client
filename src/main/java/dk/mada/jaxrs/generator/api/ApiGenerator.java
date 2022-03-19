@@ -351,15 +351,19 @@ public class ApiGenerator {
             String dtoParamName = naming.convertEntityName(ref.typeName().name());
             String dataType = paramDataType(ref);
 
+            boolean isBodyRequired = body.isRequired();
+
+            boolean renderBodySpaceHack = (isBodyRequired && opts.isUseBeanValidation())
+                    || !params.isEmpty();
             CtxApiParamExt madaBodyExt = CtxApiParamExt.builder()
-                    .renderBodySpacing(!params.isEmpty())
+                    .renderBodySpacing(renderBodySpaceHack)
                     .build();
 
             ImmutableCtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
                     .dataType(dataType)
-                    .required(body.isRequired())
+                    .required(isBodyRequired)
                     .isBodyParam(true)
                     .isFormParam(false)
                     .isHeaderParam(false)
