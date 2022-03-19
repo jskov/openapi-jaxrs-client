@@ -105,7 +105,13 @@ public class ApiGenerator {
         templates.renderApiTemplate(ctx);
     }
 
-    private String makeClassName(String group) {
+    private String makeClassName(String groupInput) {
+        String defaultApiName = opts.getDefaultApiName();
+
+        String group = groupInput;
+        if (defaultApiName != null && "Default".equals(groupInput)) {
+            group = defaultApiName;
+        }
         String input = group.endsWith("Api") ? group : group + "Api";
         return naming.convertTypeName(input);
     }
