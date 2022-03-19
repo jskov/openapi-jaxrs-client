@@ -41,6 +41,9 @@ public interface CtxApiOpExt {
      */
     boolean responseSchema();
 
+    /** {@return true if the operation has any responses, otherwise false} */
+    boolean hasResponses();
+
     /** {@return the summary as a java string, or null} */
     @Nullable
     String summaryString();
