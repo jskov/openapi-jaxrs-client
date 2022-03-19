@@ -15,6 +15,11 @@ public final class TypeNames {
     private TypeNames() {
     }
 
+    /**
+     * A type name.
+     *
+     * @param name the name of the type
+     */
     public record TypeName(String name) implements Comparable<TypeName> {
         @Override
         public int compareTo(TypeName other) {
