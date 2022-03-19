@@ -16,6 +16,9 @@ public final class InfoTransformer {
      */
     public Info transform(OpenAPI document) {
         io.swagger.v3.oas.models.info.Info info = document.getInfo();
+        if (info == null) {
+            info = new io.swagger.v3.oas.models.info.Info();
+        }
 
         String title = orEmpty(info.getTitle());
         String version = orEmpty(info.getVersion());
