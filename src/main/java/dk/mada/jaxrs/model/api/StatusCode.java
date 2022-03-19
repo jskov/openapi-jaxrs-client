@@ -41,6 +41,10 @@ public enum StatusCode {
     HTTP_NOT_MODIFIED(304),
     /** Use Proxy. */
     HTTP_USE_PROXY(305),
+    /** Unused, reserved. */
+    HTTP_UNUSED(306),
+    /** Temporary Redirect. */
+    HTTP_TEMPORARY_REDIRECT(307),
 
     /** Bad Request. */
     HTTP_BAD_REQUEST(400),

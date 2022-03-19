@@ -55,9 +55,9 @@ public class ApiTransformer {
     /**
      * Constructs a new API transformer instance.
      *
-     * @param parseOpts Parser options
-     * @param typeConverter Type converter
-     * @param securitySchemes Security schemes
+     * @param parseOpts the parser options
+     * @param typeConverter the type converter
+     * @param securitySchemes the security schemes
      */
     public ApiTransformer(ParserOpts parseOpts, TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
         this.parseOpts = parseOpts;
@@ -95,12 +95,16 @@ public class ApiTransformer {
     }
 
     private void processOp(String resourcePath, HttpMethod httpMethod, io.swagger.v3.oas.models.Operation op) {
+        logger.debug(" process op {} : {}", resourcePath, httpMethod);
         List<String> tags = op.getTags();
         if (tags == null) {
             tags = List.of();
         }
 
-        List<Parameter> parameters = getParameters(op);
+        List<Parameter> parameters = new ArrayList<>(getParameters(op));
+
+        Optional<RequestBody> requestBody = getRequestBody(resourcePath, op);
+        requestBody.ifPresent(rb -> parameters.addAll(rb.content().formParameters()));
 
         List<Response> responses = op.getResponses().entrySet().stream()
                 .map(e -> {
@@ -124,7 +128,7 @@ public class ApiTransformer {
                 .path(resourcePath)
                 .responses(responses)
                 .parameters(parameters)
-                .requestBody(getRequestBody(resourcePath, op))
+                .requestBody(requestBody)
                 .addAuthorizationHeader(shouldAddAuthHeader(op))
                 .build());
     }
@@ -151,6 +155,7 @@ public class ApiTransformer {
     private Content getContent(String resourcePath, io.swagger.v3.oas.models.media.Content c) {
         Reference ref;
         Set<String> mediaTypes;
+        List<Parameter> formParameters = List.of();
 
         if (c == null) {
             ref = TypeVoid.getRef();
@@ -165,12 +170,22 @@ public class ApiTransformer {
 
             if (schemas.isEmpty()) {
                 ref = TypeVoid.getRef();
-            } else if (schemas.size() == 1) {
-                ref = typeConverter.toReference(schemas.iterator().next());
-            } else {
+            } else if (schemas.size() > 1) {
                 // The assumption is that the underlying type must be the same.
                 // But there may be different examples/descriptions whatnot to collect.
                 throw new IllegalStateException("Cannot handle multiple schemas yet: " + resourcePath);
+            } else {
+                Schema<?> ss = schemas.iterator().next();
+                ref = typeConverter.toReference(ss);
+
+                // form parameters via properties on body
+                @SuppressWarnings({ "rawtypes" })
+                Map<String, Schema> props = ss.getProperties();
+                if (props != null) {
+                    formParameters = props.entrySet().stream()
+                        .map(e -> toFormParameter(e.getKey(), e.getValue()))
+                        .toList();
+                }
             }
         }
         logger.debug("Content reference {}", ref);
@@ -178,6 +193,25 @@ public class ApiTransformer {
         return Content.builder()
                 .mediaTypes(mediaTypes)
                 .reference(ref)
+                .formParameters(formParameters)
+                .build();
+    }
+
+    // TODO: this does not end well.
+    // At least an enum parameter may have to be rendered as a standalone
+    // type (DTO). This does not happen with this code alone.
+    private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
+        ParserTypeRef dtoPtr = typeConverter.reference(schema, name);
+        logger.debug("Parse form param {} : {}", name, dtoPtr);
+
+        return Parameter.builder()
+                .name(name)
+                .isHeaderParam(false)
+                .isPathParam(false)
+                .isQueryParam(false)
+                .isRequired(true)
+                .isFormParam(true)
+                .reference(dtoPtr)
                 .build();
     }
 
@@ -230,14 +264,15 @@ public class ApiTransformer {
 
     private Parameter toParam(io.swagger.v3.oas.models.parameters.Parameter param) {
         String name = param.getName();
+        String paramIn = param.getIn();
 
-        boolean isHeaderParam = param instanceof HeaderParameter;
-        boolean isPathParam = param instanceof PathParameter;
-        boolean isQueryParam = param instanceof QueryParameter;
+        boolean isPathParam = param instanceof PathParameter || "path".equals(paramIn);
+        boolean isHeaderParam = param instanceof HeaderParameter || "header".equals(paramIn);
+        boolean isQueryParam = param instanceof QueryParameter || "query".equals(paramIn);
 
         Reference ref = typeConverter.toReference(param.getSchema());
 
-        logger.info("Parse param {} : {}", name, ref);
+        logger.debug("Parse param {} : {}", name, ref);
 
         return Parameter.builder()
                 .name(name)
@@ -247,6 +282,7 @@ public class ApiTransformer {
                 .isHeaderParam(isHeaderParam)
                 .isPathParam(isPathParam)
                 .isQueryParam(isQueryParam)
+                .isFormParam(false)
                 .build();
     }
 

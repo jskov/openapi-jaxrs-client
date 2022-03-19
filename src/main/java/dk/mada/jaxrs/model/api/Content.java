@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.model.api;
 
+import java.util.List;
 import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
@@ -20,6 +21,9 @@ public interface Content {
     Set<String> mediaTypes();
     /** {@return the content type} */
     Reference reference();
+
+    /** {@return the list of form parameters} */
+    List<Parameter> formParameters();
 
     // TODO: per-media type example
 }

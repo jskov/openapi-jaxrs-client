@@ -237,10 +237,16 @@ public final class TypeConverter {
 
         // In no type and reference, assume it is supplemental validation
         // information for the other type in a ComposedSchema.
-        if (schemaType == null && schemaRef == null) {
+        if (schemaType == null && schemaRef == null
+                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
             // FIXME: Gets double wrapped
             return parserRefs.of(TypeValidation.of(validation), validation);
         }
+
+        // TODO: the schema for a form has properties, but is otherwise void
+        // not sure if this is a good general handling of the case - in particular
+        // because those properties are ignored by this.
+        // return parserRefs.of(TypeVoid.getRef(), validation);
 
         throw new IllegalStateException("No type found for " + schema);
     }

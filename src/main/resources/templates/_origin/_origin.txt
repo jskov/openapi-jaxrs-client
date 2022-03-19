@@ -16,6 +16,9 @@ bodyParams.mustache
 enumClass.mustache
  5.4.0 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/enumClass.mustache
 
+formParams.mustache
+ 5.4.0 https://raw.githubusercontent.com/OpenAPITools/openapi-generator/master/modules/openapi-generator/src/main/resources/JavaJaxRS/formParams.mustache
+
 generatedAnnotation.mustache
  5.3.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/Java/generatedAnnotation.mustache
 

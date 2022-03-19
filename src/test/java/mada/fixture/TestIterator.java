@@ -45,7 +45,7 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-        String testNameContains = "interfac";
+        String testNameContains = "form/inline";
 
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
         Predicate<? super Path> filterByName = p -> p.toString().contains(testNameContains)
@@ -58,7 +58,8 @@ class TestIterator {
         return Files.walk(rootDir)
                 .filter(p -> {
                     String filename = p.getFileName().toString();
-                    return "openapi.yaml".equals(filename);
+                    return "openapi.yaml".equals(filename)
+                            || "openapi.json".equals(filename);
                 })
                 .filter(testFilter)
                 .map(testInput -> {

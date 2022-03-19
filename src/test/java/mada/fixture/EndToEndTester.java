@@ -43,6 +43,9 @@ public class EndToEndTester {
             throws IOException {
         String testName = expectedFilesDir.getFileName().toString();
         Path input = expectedFilesDir.resolve("openapi.yaml");
+        if (!Files.exists(input)) {
+            input = expectedFilesDir.resolve("openapi.json");
+        }
 
         Properties testOptions = readTestOptions(expectedFilesDir);
 

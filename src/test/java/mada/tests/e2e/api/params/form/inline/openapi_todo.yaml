@@ -1,0 +1,81 @@
+swagger: '2.0'
+info:
+  title: Azure Container Registry
+  description: Metadata API definition for the Azure Container Registry runtime
+  version: 2019-08-15-preview
+securityDefinitions:
+  registry_auth:
+    type: basic
+  registry_oauth2:
+    type: apiKey
+    in: header
+    name: Authorization
+security:
+  - registry_auth: []
+    registry_oauth2: []
+tags:
+  - name: v2
+    description: Root API
+  - name: Manifest
+    description: Everything about manifests
+  - name: Tag
+    description: Everything about tags
+  - name: Layer
+    description: Everything about layers
+  - name: Repository
+    description: Everything about repository
+  - name: AcrRepository
+    description: ACR APIs related to repositories
+  - name: AcrManifest
+    description: ACR APIs related to manifests
+  - name: AcrTag
+    description: ACR APIs related to tags
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /oauth2/token:
+    post:
+      tags:
+        - AcrToken
+        - AccessToken
+      description: Exchange ACR Refresh token for an ACR Access Token
+      operationId: AccessTokens_Get
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: grant_type
+          in: formData
+          description: Grant type is expected to be refresh_token
+          required: true
+          type: string
+          enum:
+            - refresh_token
+        - $ref: '#/parameters/Service'
+        - name: scope
+          in: formData
+          required: true
+          description: Which is expected to be a valid scope, and can be specified more than once for multiple scope requests. You obtained this from the Www-Authenticate response header from the challenge.
+          type: string
+        - name: refresh_token
+          in: formData
+          required: true
+          description: Must be a valid ACR refresh token
+          type: string
+      responses:
+        '200':
+          description: Access token acquired
+          schema:
+            text/plain:
+              schema:
+                type: string
+      security: []
+parameters:
+  Service:
+    name: service
+    in: formData
+    required: true
+    description: Indicates the name of your Azure container registry.
+    type: string
+    x-ms-parameter-location: method
