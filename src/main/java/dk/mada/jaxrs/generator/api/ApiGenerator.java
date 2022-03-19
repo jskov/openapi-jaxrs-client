@@ -53,9 +53,10 @@ public class ApiGenerator {
      * Media types supported for now.
      */
     private static final Map<String, String> MEDIA_TYPES = Map.of(
-            "application/json", "APPLICATION_JSON",
-            "text/plain", "TEXT_PLAIN",
-            "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED"
+            "application/json",                  "APPLICATION_JSON",
+            "application/octet-stream",          "APPLICATION_OCTET_STREAM",
+            "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED",
+            "text/plain",                        "TEXT_PLAIN"
             );
 
     /** Naming. */
@@ -290,7 +291,9 @@ public class ApiGenerator {
      * @param op the operation to extract parameters from
      */
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
-        CtxApiParamExt madaParamEmpty = CtxApiParamExt.builder().build();
+        CtxApiParamExt madaParamEmpty = CtxApiParamExt.builder()
+                .renderBodySpacing(false)
+                .build();
 
         List<CtxApiParam> params = new ArrayList<>();
         if (op.addAuthorizationHeader()) {
@@ -348,18 +351,26 @@ public class ApiGenerator {
             String dtoParamName = naming.convertEntityName(ref.typeName().name());
             String dataType = paramDataType(ref);
 
+            boolean isBodyRequired = body.isRequired();
+
+            boolean renderBodySpaceHack = (isBodyRequired && opts.isUseBeanValidation())
+                    || !params.isEmpty();
+            CtxApiParamExt madaBodyExt = CtxApiParamExt.builder()
+                    .renderBodySpacing(renderBodySpaceHack)
+                    .build();
+
             ImmutableCtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
                     .dataType(dataType)
-                    .required(body.isRequired())
+                    .required(isBodyRequired)
                     .isBodyParam(true)
                     .isFormParam(false)
                     .isHeaderParam(false)
                     .isPathParam(false)
                     .isQueryParam(false)
                     .useBeanValidation(opts.isUseBeanValidation())
-                    .madaParam(madaParamEmpty)
+                    .madaParam(madaBodyExt)
                     .build();
 
             // Only include body param if it is not void. It may be void

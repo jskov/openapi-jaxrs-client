@@ -58,6 +58,11 @@ public final class ParserOpts {
         return bool("parser-uuid-is-jse", true);
     }
 
+    /** {@return true if the InputStream type is to be treated as java.io.InputStream, otherwise false} */
+    public boolean isJseInputStream() {
+        return bool("parser-inputstream-is-jse", true);
+    }
+
     /** {@return true if a void operation returning 200 should be changed to return 204} */
     public boolean isFixupVoid200to204() {
         return bool("parser-fixup-void-200-to-204", false);

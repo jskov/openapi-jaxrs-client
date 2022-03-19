@@ -20,6 +20,7 @@ import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
+import dk.mada.jaxrs.model.types.TypeByteArray;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeInterface;
@@ -82,6 +83,7 @@ public class ParserTypes {
         dtoPackageName = generatorOpts.dtoPackage();
 
         mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.TYPENAME_BIG_DECIMAL, TypeBigDecimal.get());
+        mapJse(parserOpts.isJseInputStream(),    TypeByteArray.TYPENAME_INPUTSTREAM,  TypeByteArray.getStream());
         mapJse(parserOpts.isJseUUID(),           TypeUUID.TYPENAME_UUID,              TypeUUID.get());
         mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPENAME_LOCAL_DATE,        TypeDate.get());
         mapJse(parserOpts.isJseLocalTime(),      TypeLocalTime.TYPENAME_LOCAL_TIME,   TypeLocalTime.get());

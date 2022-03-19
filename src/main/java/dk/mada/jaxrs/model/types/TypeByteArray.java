@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.model.types;
 
+import java.util.Set;
+
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
@@ -9,12 +11,21 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * it treated as an array in DTOs.
  */
 public final class TypeByteArray implements Type {
+    /** The type name for InputStream. */
+    public static final TypeName TYPENAME_INPUTSTREAM = TypeNames.of("InputStream");
     /** As used in resource operations. */
-    private static final TypeByteArray INSTANCE_STREAM = new TypeByteArray();
+    private static final TypeByteArray INSTANCE_STREAM = new TypeByteArray(TYPENAME_INPUTSTREAM, Set.of("java.io.InputStream"));
     /** As used in DTOs. */
-    private static final TypeByteArray INSTANCE_ARRAY = new TypeByteArray();
+    private static final TypeByteArray INSTANCE_ARRAY = new TypeByteArray(TypeNames.of("byte[]"), Set.of());
 
-    private TypeByteArray() {
+    /** The type name. */
+    private final TypeName tn;
+    /** The needed imports. */
+    private final Set<String> neededImports;
+
+    private TypeByteArray(TypeName tn, Set<String> neededImports) {
+        this.tn = tn;
+        this.neededImports = neededImports;
     }
 
     /** {@return the byte-array instance} */
@@ -39,11 +50,16 @@ public final class TypeByteArray implements Type {
 
     @Override
     public TypeName typeName() {
-        return TypeNames.of("byte[]");
+        return tn;
     }
 
     @Override
     public String toString() {
-        return isArray() ? "ByteArray[]" : "Stream";
+        return tn.name();
+    }
+
+    @Override
+    public Set<String> neededImports() {
+        return neededImports;
     }
 }

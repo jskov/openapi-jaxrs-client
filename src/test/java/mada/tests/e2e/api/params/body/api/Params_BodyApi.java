@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.api.params.body.api;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
@@ -33,7 +34,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyBooleanPrimitiveGet( boolean dto);
+  String apiParamsBodyBooleanPrimitiveGet(boolean dto);
 
   /**
    * apiParamsBodyBooleanWrapperGet.
@@ -46,7 +47,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyBooleanWrapperGet( boolean dto);
+  String apiParamsBodyBooleanWrapperGet(boolean dto);
 
   /**
    * apiParamsBodyDateGet.
@@ -59,7 +60,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyDateGet( LocalDate dto);
+  String apiParamsBodyDateGet(LocalDate dto);
 
   /**
    * apiParamsBodyDateTimeGet.
@@ -72,7 +73,20 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyDateTimeGet( OffsetDateTime dto);
+  String apiParamsBodyDateTimeGet(OffsetDateTime dto);
+
+  /**
+   * apiParamsBodyInputstreamGet.
+   *
+   * @param dto  (optional)
+   * @return String
+   */
+  @GET
+  @Path("/inputstream")
+  @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+  @Produces(MediaType.APPLICATION_JSON)
+  @APIResponseSchema(String.class)
+  String apiParamsBodyInputstreamGet(InputStream dto);
 
   /**
    * apiParamsBodyListGet.
@@ -85,7 +99,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyListGet( List<String> dto);
+  String apiParamsBodyListGet(List<String> dto);
 
   /**
    * apiParamsBodyListSimpleGet.
@@ -98,7 +112,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyListSimpleGet( List<Simple> dto);
+  String apiParamsBodyListSimpleGet(List<Simple> dto);
 
   /**
    * apiParamsBodyMixedInPathGet.
@@ -127,7 +141,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodySimpleGet( Simple dto);
+  String apiParamsBodySimpleGet(Simple dto);
 
   /**
    * apiParamsBodyTimeGet.
@@ -140,5 +154,5 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyTimeGet( LocalTime dto);
+  String apiParamsBodyTimeGet(LocalTime dto);
 }
