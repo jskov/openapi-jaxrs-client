@@ -1,0 +1,129 @@
+swagger: '2.0'
+info:
+  title: Azure Container Registry
+  description: Metadata API definition for the Azure Container Registry runtime
+  version: 2019-08-15-preview
+securityDefinitions:
+  registry_auth:
+    type: basic
+  registry_oauth2:
+    type: apiKey
+    in: header
+    name: Authorization
+security:
+  - registry_auth: []
+    registry_oauth2: []
+tags:
+  - name: v2
+    description: Root API
+  - name: Manifest
+    description: Everything about manifests
+  - name: Tag
+    description: Everything about tags
+  - name: Layer
+    description: Everything about layers
+  - name: Repository
+    description: Everything about repository
+  - name: AcrRepository
+    description: ACR APIs related to repositories
+  - name: AcrManifest
+    description: ACR APIs related to manifests
+  - name: AcrTag
+    description: ACR APIs related to tags
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /oauth2/exchange:
+    post:
+      tags:
+        - AcrToken
+        - RefreshToken
+      description: Exchange AAD tokens for an ACR refresh Token
+      operationId: RefreshTokens_GetFromExchange
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - $ref: '#/parameters/Grant_type'
+        - $ref: '#/parameters/Service'
+        - $ref: '#/parameters/Tenant'
+        - $ref: '#/parameters/RefreshToken'
+        - $ref: '#/parameters/AccessToken'
+      responses:
+        '200':
+          description: Refresh token acquired
+          schema:
+            $ref: '#/definitions/RefreshToken'
+        default:
+          description: ACR error response describing why the operation failed.
+          schema:
+            $ref: '#/definitions/AcrErrors'
+      security: []
+definitions:
+  RefreshToken:
+    type: object
+    properties:
+      refresh_token:
+        description: The refresh token to be used for generating access tokens
+        type: string
+  AcrErrors:
+    description: Acr error response describing why the operation failed
+    properties:
+      errors:
+        type: array
+        description: Array of detailed error
+        items:
+          $ref: '#/definitions/AcrErrorInfo'
+  AcrErrorInfo:
+    description: Error information
+    properties:
+      code:
+        description: Error code
+        type: string
+      message:
+        type: string
+        description: Error message
+      detail:
+        type: object
+        description: Error details
+parameters:
+  Grant_type:
+    name: grant_type
+    description: Can take a value of access_token_refresh_token, or access_token, or refresh_token
+    type: string
+    in: formData
+    required: true
+    enum:
+      - access_token_refresh_token
+      - access_token
+      - refresh_token
+    x-ms-parameter-location: method
+  Service:
+    name: service
+    in: formData
+    required: true
+    description: Indicates the name of your Azure container registry.
+    type: string
+    x-ms-parameter-location: method
+  Tenant:
+    name: tenant
+    in: formData
+    required: false
+    description: AAD tenant associated to the AAD credentials.
+    type: string
+    x-ms-parameter-location: method
+  RefreshToken:
+    name: refresh_token
+    in: formData
+    required: false
+    description: AAD refresh token, mandatory when grant_type is access_token_refresh_token or refresh_token
+    type: string
+    x-ms-parameter-location: method
+  AccessToken:
+    name: access_token
+    in: formData
+    required: false
+    description: AAD access token, mandatory when grant_type is access_token_refresh_token or access_token.
+    type: string
+    x-ms-parameter-location: method

@@ -52,9 +52,6 @@ public interface {{classname}} {
   {{#madaOp.produces}}
   @Produces({{{madaOp.produces}}})
   {{/madaOp.produces}}
-  {{#todo}}
-    {{>formParams}}
-  {{/todo}}
   {{#madaOp.responseSchema}}
   {{#responses}}
   @APIResponseSchema({{baseType}}.class)
@@ -71,7 +68,7 @@ public interface {{classname}} {
   {{#madaOp.summaryString}}
   @Operation(summary = "{{madaOp.summaryString}}")
   {{/madaOp.summaryString}}
-  {{>returnTypes}} {{nickname}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
+  {{>returnTypes}} {{nickname}}({{#allParams}}{{>formParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
   {{/operation}}
 {{/operations}}
 }
