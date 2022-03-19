@@ -106,13 +106,18 @@ public class ApiTransformer {
         Optional<RequestBody> requestBody = getRequestBody(resourcePath, op);
         requestBody.ifPresent(rb -> parameters.addAll(rb.content().formParameters()));
 
-        List<Response> responses = op.getResponses().entrySet().stream()
+        List<Response> responses;
+        if (op.getResponses() != null) {
+            responses = op.getResponses().entrySet().stream()
                 .map(e -> {
                     String code = e.getKey();
                     ApiResponse resp = e.getValue();
                     return toResponse(resourcePath, code, resp);
                 })
                 .toList();
+        } else {
+            responses = List.of();
+        }
 
         String methodSuffix = OpenapiGeneratorUtils.camelize(httpMethod.name().toLowerCase());
         String codegenOpId = OpenapiGeneratorUtils.getOrGenerateOperationId(op, resourcePath, methodSuffix);
