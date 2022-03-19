@@ -29,6 +29,8 @@ public interface CtxApiParam {
     boolean isPathParam();
     /** {@return true if this is a query parameter, otherwise false} */
     boolean isQueryParam();
+    /** {@return true if this is a form parameter, otherwise false} */
+    boolean isFormParam();
 
     /** {@return true if bean validation should be used for this paramater, otherwise false} */
     boolean useBeanValidation();

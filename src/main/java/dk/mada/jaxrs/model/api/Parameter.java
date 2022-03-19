@@ -33,4 +33,6 @@ public interface Parameter {
     boolean isPathParam();
     /** {@return true if the parameter is a query parameter, otherwise false} */
     boolean isQueryParam();
+    /** {@return true if the parameter is a form parameter, otherwise false} */
+    boolean isFormParam();
 }

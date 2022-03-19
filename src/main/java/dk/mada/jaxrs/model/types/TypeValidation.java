@@ -29,4 +29,9 @@ public interface TypeValidation extends Type {
     default TypeName typeName() {
         return TypeNames.of("<VALIDATION>");
     }
+
+    @Override
+    default boolean isValidation() {
+        return true;
+    }
 }

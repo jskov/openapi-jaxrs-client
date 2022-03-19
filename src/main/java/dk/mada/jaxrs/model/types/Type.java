@@ -65,6 +65,11 @@ public interface Type {
         return false;
     }
 
+    /** {@return true if this type represents validation information, otherwise false} */
+    default boolean isValidation() {
+        return false;
+    }
+
     /**
      * Return true if this type is the given primitive.
      *
