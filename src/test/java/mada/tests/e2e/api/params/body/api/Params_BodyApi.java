@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.api.params.body.api;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
@@ -73,6 +74,19 @@ public interface Params_BodyApi {
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsBodyDateTimeGet( OffsetDateTime dto);
+
+  /**
+   * apiParamsBodyInputstreamGet.
+   *
+   * @param dto  (optional)
+   * @return String
+   */
+  @GET
+  @Path("/inputstream")
+  @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+  @Produces(MediaType.APPLICATION_JSON)
+  @APIResponseSchema(String.class)
+  String apiParamsBodyInputstreamGet(InputStream dto);
 
   /**
    * apiParamsBodyListGet.

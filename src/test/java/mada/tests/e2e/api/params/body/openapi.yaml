@@ -83,6 +83,23 @@ paths:
             text/plain:
               schema:
                 type: string
+  /api/params/body/inputstream:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              format: binary
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
   /api/params/body/list:
     get:
       tags:
