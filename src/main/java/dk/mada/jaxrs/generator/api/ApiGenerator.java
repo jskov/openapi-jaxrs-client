@@ -213,6 +213,7 @@ public class ApiGenerator {
                 .renderJavadocMacroSpacer(renderJavadocMacroSpacer)
                 .renderJavadocReturn(renderJavadocReturn)
                 .responseSchema(onlySimpleResponse)
+                .hasResponses(!responses.isEmpty())
                 .summaryString(opSummaryString)
                 .build();
 
@@ -239,6 +240,10 @@ public class ApiGenerator {
     }
 
     private boolean addImports(Imports imports, Operation op) {
+        if (op.responses().isEmpty()) {
+            return false;
+        }
+
         boolean onlySimpleResponse = isOnlySimpleResponse(op.responses());
         if (onlySimpleResponse) {
             imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema");

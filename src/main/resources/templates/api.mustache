@@ -52,6 +52,7 @@ public interface {{classname}} {
   {{#madaOp.produces}}
   @Produces({{{madaOp.produces}}})
   {{/madaOp.produces}}
+  {{#madaOp.hasResponses}}
   {{#madaOp.responseSchema}}
   {{#responses}}
   @APIResponseSchema({{baseType}}.class)
@@ -65,6 +66,7 @@ public interface {{classname}} {
     {{/responses}}
   })
   {{/madaOp.responseSchema}}
+  {{/madaOp.hasResponses}}
   {{#madaOp.summaryString}}
   @Operation(summary = "{{madaOp.summaryString}}")
   {{/madaOp.summaryString}}
