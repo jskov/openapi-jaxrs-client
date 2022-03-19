@@ -157,7 +157,7 @@ public final class TypeConverter {
         }
 
         if (schema instanceof BinarySchema || schema instanceof FileSchema) {
-            return parserRefs.of(TypeByteArray.getArray(), validation);
+            return parserRefs.of(TypeByteArray.getStream(), validation);
         }
 
         if (schema instanceof MapSchema m) {

@@ -22,6 +22,15 @@ The options are grouped into three sections:
 >
     default value: false
 
+**parser-inputstream-is-jse**
+
+>This option allows parsing of the type byte[] (`FileSchema` and `BinarySchema`) to be treated by the generator as Java SE `java.io.InputSteam`.
+
+>It can be disabled if your remote connection uses the type name `InputStream` for something bespoke.
+
+>
+    default value: true
+
 **parser-localdate-is-jse**
 
 >This option allows parsing of the component schema `LocalDate` to be treated by the generator as Java SE `java.time.LocalDate`.
