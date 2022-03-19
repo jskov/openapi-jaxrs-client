@@ -101,6 +101,13 @@ The options are grouped into three sections:
 
 ## Generator options
 
+**generator-api-default-name**
+
+> Default name of the API file if not specified via groups in the OpenApi document.
+
+>
+    default value:
+
 
 **generator-api-package**
 
