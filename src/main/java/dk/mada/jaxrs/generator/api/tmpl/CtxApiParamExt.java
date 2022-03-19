@@ -11,4 +11,7 @@ public interface CtxApiParamExt {
     static ImmutableCtxApiParamExt.Builder builder() {
         return ImmutableCtxApiParamExt.builder();
     }
+
+    /** {@return true if there are non-body parameters. Helps rendering quality} */
+    boolean renderBodySpacing();
 }

@@ -291,7 +291,9 @@ public class ApiGenerator {
      * @param op the operation to extract parameters from
      */
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
-        CtxApiParamExt madaParamEmpty = CtxApiParamExt.builder().build();
+        CtxApiParamExt madaParamEmpty = CtxApiParamExt.builder()
+                .renderBodySpacing(false)
+                .build();
 
         List<CtxApiParam> params = new ArrayList<>();
         if (op.addAuthorizationHeader()) {
@@ -349,6 +351,10 @@ public class ApiGenerator {
             String dtoParamName = naming.convertEntityName(ref.typeName().name());
             String dataType = paramDataType(ref);
 
+            CtxApiParamExt madaBodyExt = CtxApiParamExt.builder()
+                    .renderBodySpacing(!params.isEmpty())
+                    .build();
+
             ImmutableCtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
@@ -360,7 +366,7 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .useBeanValidation(opts.isUseBeanValidation())
-                    .madaParam(madaParamEmpty)
+                    .madaParam(madaBodyExt)
                     .build();
 
             // Only include body param if it is not void. It may be void
