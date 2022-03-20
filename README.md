@@ -2,10 +2,12 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jskov_openapi-jaxrs-client&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jskov_openapi-jaxrs-client) [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://jskov.github.io/openapi-jaxrs-client/)
 
-Generates API classes for use with the MicroProfile client.
+Generates code to call REST services.
 
-DTOs can be generated for use with jsonb, jackson2 (fasterxml), or jackson (codehaus).
-So these can be used in other (older) contexts than the MP client.
+The API classes are intended for use with the MicroProfile client.
+
+The DTO classes can be generated for use with [JSON Binding](https://javaee.github.io/jsonb-spec/), [Jackson FasterXML](https://github.com/FasterXML/jackson-docs), or [Jackson Codehaus](https://github.com/codehaus/jackson).  
+So these can be used in other (older) contexts than with a MicroProfile client.
 
 **This project is still in development - it may be a little rough around the edges!!**
 
@@ -57,6 +59,29 @@ A Gradle plugin will follow at some time.
 
 The code generation is configured via [options](./src/docs/Configuration.md).
 
+## Roadmap
+
+The current plans for future releases are (note, no time commitments):
+
+**0.8.x**
+
+* Make the generator able to match the custom code generator we use at work.
+
+**0.9.x**
+
+* Take project of development mode.
+* Split code into modules (converter+model, generator).
+* Add gradle plugin.
+* Refactor the methods that have gotten large during 0.8.x.
+* More code/package documentation.
+* Documentation index with references to the various tests/examples.
+
+**1.0.x ideas**
+
+* For operations with many query parameters, make builder-like flow-pattern call.
+* Handling of extensions (e.g. annotation of in-house @LoggedSecrets operations)
+* Options for adding @ClientHeaderParam and/or @RegisterClientHeaders
+* Custom OffsetDateTime de/serializer options
 
 ## Contributing and Consultancy
 
@@ -66,6 +91,6 @@ But I will happily accept bug reports.
 
 Pull requests with accompanying end-to-end tests will probably be accepted - but please reach out to me in advance, so you do not waste your time.
 
-I will offer a simple paid service to implement feature requests (pending approval from my employer).
+I will offer to implement feature requests as a paid service (pending approval from my employer).
 
 If the above are not agreeable, you are more than welcome to fork the project, and do your own thing.
