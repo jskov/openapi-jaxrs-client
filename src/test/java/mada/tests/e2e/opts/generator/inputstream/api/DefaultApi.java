@@ -39,7 +39,7 @@ public interface DefaultApi {
    * getPhoto.
    *
    * @param userId  (required)
-   * @return List&lt;Byte&gt;
+   * @return InputStream
    */
   @GET
   @Path("/photo")
