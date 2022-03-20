@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
+import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.Response;
@@ -34,6 +36,7 @@ import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeByteArray;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
@@ -193,6 +196,17 @@ public class ApiGenerator {
             .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
             .orElse(TypeReference.of(TypeVoid.get(), Validation.NO_VALIDATION));
 
+        // Gets matching media types, check for input-stream replacement
+        Set<String> mediaTypes = getMediaTypeForStatus(op, StatusCode.HTTP_OK)
+            .or(() -> getMediaTypeForStatus(op, StatusCode.HTTP_DEFAULT))
+            .orElse(Set.of());
+        boolean replaceResponseWithInputStream = opts.getResponseInputStreamMediaTypes().stream()
+                .anyMatch(mediaTypes::contains);
+        if (replaceResponseWithInputStream) {
+            typeRef = TypeReference.of(TypeByteArray.getStream(), typeRef.validation());
+            imports.add(typeRef);
+        }
+
         String path = op.path().substring(trimPathLength);
         if (path.isEmpty()) {
             path = null;
@@ -239,9 +253,19 @@ public class ApiGenerator {
     }
 
     private Optional<Reference> getTypeForStatus(Operation op, StatusCode statusCode) {
+        return getContentForStatus(op, statusCode)
+                .map(Content::reference);
+    }
+
+    private Optional<Set<String>> getMediaTypeForStatus(Operation op, StatusCode statusCode) {
+        return getContentForStatus(op, statusCode)
+                .map(Content::mediaTypes);
+    }
+
+    private Optional<Content> getContentForStatus(Operation op, StatusCode statusCode) {
         return op.responses().stream()
                 .filter(r -> r.code() == statusCode)
-                .map(r -> r.content().reference())
+                .map(Response::content)
                 .findFirst();
     }
 

@@ -312,6 +312,12 @@ public final class GeneratorOpts {
         return get("generator-api-default-name");
     }
 
+    /** {@return list of media types that should be handled as input stream} */
+    public List<String> getResponseInputStreamMediaTypes() {
+        String mediaTypes = getDefault("generator-api-response-inputstream-mediatypes", "");
+        return splitByComma(mediaTypes);
+    }
+
     private boolean bool(String name) {
         return Boolean.parseBoolean(get(name));
     }
