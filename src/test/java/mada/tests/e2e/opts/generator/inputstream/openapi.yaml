@@ -1,5 +1,24 @@
 openapi: 3.0.1
 paths:
+  /employees/{userId}/info:
+    get:
+      operationId: getInfo
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/pdf:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
   /employees/{userId}/photo:
     get:
       operationId: getPhoto
@@ -7,10 +26,6 @@ paths:
       - name: userId
         in: path
         required: true
-        schema:
-          type: string
-      - name: size
-        in: query
         schema:
           type: string
       responses:
