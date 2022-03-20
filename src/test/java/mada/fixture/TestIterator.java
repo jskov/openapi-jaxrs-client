@@ -45,11 +45,7 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-<<<<<<< HEAD
         String testNameContains = "generator/inpu";
-=======
-        String testNameContains = "api/types/";
->>>>>>> refs/remotes/origin/main
 
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
         Predicate<? super Path> filterByName = p -> p.toString().contains(testNameContains)
