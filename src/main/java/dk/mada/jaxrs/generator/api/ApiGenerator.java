@@ -265,7 +265,7 @@ public class ApiGenerator {
     private Optional<Content> getContentForStatus(Operation op, StatusCode statusCode) {
         return op.responses().stream()
                 .filter(r -> r.code() == statusCode)
-                .map(r -> r.content())
+                .map(Response::content)
                 .findFirst();
     }
 
