@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.api.types.api;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -105,6 +106,17 @@ public interface Api_TypesApi {
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(Float.class)
   float apiTypesFloatGet();
+
+  /**
+   * apiTypesInputStreamGet.
+   *
+   * @return InputStream
+   */
+  @GET
+  @Path("/input-stream")
+  @Produces(MediaType.APPLICATION_OCTET_STREAM)
+  @APIResponseSchema(InputStream.class)
+  InputStream apiTypesInputStreamGet();
 
   /**
    * apiTypesIntGet.
