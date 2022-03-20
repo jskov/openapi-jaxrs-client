@@ -119,6 +119,17 @@ public interface Api_TypesApi {
   InputStream apiTypesInputStreamGet();
 
   /**
+   * apiTypesInputStreamJpegGet.
+   *
+   * @return InputStream
+   */
+  @GET
+  @Path("/input-stream-jpeg")
+  @Produces("image/jpeg")
+  @APIResponseSchema(InputStream.class)
+  InputStream apiTypesInputStreamJpegGet();
+
+  /**
    * apiTypesIntGet.
    *
    * @return int

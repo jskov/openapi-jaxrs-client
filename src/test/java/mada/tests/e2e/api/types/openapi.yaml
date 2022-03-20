@@ -111,6 +111,18 @@ paths:
               schema:
                 format: binary
                 type: string
+  /api/types/input-stream-jpeg:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            image/jpeg:
+              schema:
+                format: binary
+                type: string
   /api/types/int:
     get:
       tags:
