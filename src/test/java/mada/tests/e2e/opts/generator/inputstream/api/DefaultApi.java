@@ -9,12 +9,7 @@ package mada.tests.e2e.opts.generator.inputstream.api;
 import java.io.InputStream;
 
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
+import javax.ws.rs.*;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -22,7 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-@Path("/")
+@Path("/employees/{userId}/photo")
 public interface DefaultApi {
 
   /**
@@ -33,7 +28,6 @@ public interface DefaultApi {
    * @return List&lt;Byte&gt;
    */
   @GET
-  @Path("employees/{userId}/photo")
   @Produces("image/jpeg")
   @APIResponses({
     @APIResponse(responseCode = "default", description = "default response",
