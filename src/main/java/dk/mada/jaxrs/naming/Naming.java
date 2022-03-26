@@ -19,6 +19,8 @@ public class Naming {
     private final List<NamingRule> enumConstantNamingRules;
     /** Naming rules for type names. */
     private final List<NamingRule> typeNamingRules;
+    /** Renaming rules for type name conflicts. */
+    private final List<NamingRule> getTypeConflictRenaming;
     /** Naming rules for property names. */
     private final List<NamingRule> propertyNamingRules;
     /** Naming rules for parameter names. */
@@ -48,6 +50,7 @@ public class Naming {
         propertyEnumTypeNamingRules = NamingRules.toRules(namingOpts.getPropertyEnumTypeNaming());
         propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
         typeNamingRules = NamingRules.toRules(namingOpts.getTypeNaming());
+        getTypeConflictRenaming = NamingRules.toRules(namingOpts.getTypeConflictRenaming());
 
         if (logger.isInfoEnabled()) {
             logger.info("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
@@ -98,6 +101,16 @@ public class Naming {
      */
     public String convertTypeName(String schemaName) {
         return convert(typeNamingRules, schemaName);
+    }
+
+    /**
+     * Converts a conflicting name to a new name.
+     *
+     * @param name the name of the type
+     * @return the new name for the type
+     */
+    public String renameConflictingName(String name) {
+        return convert(getTypeConflictRenaming, name);
     }
 
     /**

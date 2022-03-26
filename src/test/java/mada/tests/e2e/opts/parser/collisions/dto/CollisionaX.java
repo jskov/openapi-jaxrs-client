@@ -13,7 +13,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
- * Collisiona
+ * CollisionaX
  */
 @JsonbPropertyOrder({
   CollisionaX.JSON_PROPERTY_A_BOOLEAN
@@ -61,7 +61,7 @@ public class CollisionaX {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Collisiona {");
+    sb.append("class CollisionaX {");
     sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
     sb.append("\n}");
     return sb.toString();
