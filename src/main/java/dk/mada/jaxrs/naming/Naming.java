@@ -28,6 +28,9 @@ public class Naming {
     /** Naming rules for property enum types. */
     private List<NamingRule> propertyEnumTypeNamingRules;
 
+    /** The naming options. */
+    private final NamingOpts namingOpts;
+
     /**
      * Creates a new instance.
      *
@@ -37,7 +40,7 @@ public class Naming {
      * @see NamingOpts
      */
     public Naming(Properties props) {
-        var namingOpts = new NamingOpts(props);
+        namingOpts = new NamingOpts(props);
 
         entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());
         enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
@@ -60,6 +63,11 @@ public class Naming {
         return rules.stream()
                 .map(NamingRule::name)
                 .collect(Collectors.joining(", "));
+    }
+
+    /** {@return true if types should be renamed to avoid conflicts on Windows} */
+    public boolean isRenameCaseConflicts() {
+        return namingOpts.isRenameCaseConflicts();
     }
 
     /**
