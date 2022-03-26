@@ -332,7 +332,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >So if there are types `FooBar` and `Foobar`, enabling this option will cause them to be rendered as `FooBar` and `FoobarX`.
 
->The types are assigned names in their (case-sensitive) sorting order. Any type that conflicts with an already assigned name will be renamed.
+>The types are assigned names in order by their OpenApi ID (case-sensitive). Any type that conflicts with an already assigned name will be renamed.
 
 >The option `naming-rules-type-conflict-renaming` controls how the type is renamed.
 
