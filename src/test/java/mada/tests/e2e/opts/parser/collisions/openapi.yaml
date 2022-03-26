@@ -1,0 +1,49 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /dtos/collision:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collisions'
+components:
+  schemas:
+    CollisionA:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+    Collisiona:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+    Collisions:
+      type: object
+      properties:
+        lowerCaseA:
+          $ref: '#/components/schemas/Collisiona'
+        upperCaseA:
+          $ref: '#/components/schemas/CollisionA'
