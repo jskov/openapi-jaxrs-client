@@ -45,7 +45,7 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-        String testNameContains = "generator/inpu";
+        String testNameContains = "cyclic";
 
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
         Predicate<? super Path> filterByName = p -> p.toString().contains(testNameContains)
@@ -54,6 +54,7 @@ class TestIterator {
         Predicate<? super Path> testFilter = testDir.isEmpty() ? filterByName : filterByProperty;
 
         DirectoryDeleter.delete(OUTPUT_DIR);
+        Files.createDirectories(OUTPUT_DIR);
 
         return Files.walk(rootDir)
                 .filter(p -> {
@@ -61,6 +62,7 @@ class TestIterator {
                     return "openapi.yaml".equals(filename)
                             || "openapi.json".equals(filename);
                 })
+                .filter(p -> !p.toString().contains("/manual/"))
                 .filter(testFilter)
                 .map(testInput -> {
                     Path testRootDir = testInput.getParent();
