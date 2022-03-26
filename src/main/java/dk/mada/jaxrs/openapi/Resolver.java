@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
@@ -162,8 +163,9 @@ public class Resolver {
     }
 
     private Type resolveInner(Type type) {
-        if (type instanceof Dto dto) {
-            return derefDto(dto);
+        if (type instanceof Dto) {
+            // Keep DTOs as references - or cyclic DTOs will not be possible
+            return TypeReference.of(type, Validation.NO_VALIDATION);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {
