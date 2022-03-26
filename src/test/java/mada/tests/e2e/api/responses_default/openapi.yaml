@@ -43,4 +43,18 @@ paths:
             application/json:
               schema:
                 type: string
-                
+  '/getNoOutputType':
+    get:
+      operationId: getNoOutputType
+      parameters:
+        - name: foo
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/xml: {}
+            application/json: {}

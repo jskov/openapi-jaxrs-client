@@ -181,15 +181,20 @@ public class ApiTransformer {
                 throw new IllegalStateException("Cannot handle multiple schemas yet: " + resourcePath);
             } else {
                 Schema<?> ss = schemas.iterator().next();
-                ref = typeConverter.toReference(ss);
+                if (ss == null) {
+                    // This happens in some documents
+                    ref = TypeVoid.getRef();
+                } else {
+                    ref = typeConverter.toReference(ss);
 
-                // form parameters via properties on body
-                @SuppressWarnings({ "rawtypes" })
-                Map<String, Schema> props = ss.getProperties();
-                if (props != null) {
-                    formParameters = props.entrySet().stream()
-                        .map(e -> toFormParameter(e.getKey(), e.getValue()))
-                        .toList();
+                    // form parameters via properties on body
+                    @SuppressWarnings({ "rawtypes" })
+                    Map<String, Schema> props = ss.getProperties();
+                    if (props != null) {
+                        formParameters = props.entrySet().stream()
+                                .map(e -> toFormParameter(e.getKey(), e.getValue()))
+                                .toList();
+                    }
                 }
             }
         }

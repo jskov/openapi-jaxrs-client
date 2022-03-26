@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.api.responses_default.api;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -32,6 +33,19 @@ public interface DefaultApi {
                  content = @Content(schema = @Schema(implementation = String.class)))
   })
   String getDefault();
+
+  /**
+   * getNoOutputType.
+   *
+   * @param foo  (required)
+   */
+  @GET
+  @Path("getNoOutputType")
+  @Produces({"application/xml", MediaType.APPLICATION_JSON})
+  @APIResponses({
+    @APIResponse(responseCode = "default", description = "default response")
+  })
+  void getNoOutputType(@PathParam("foo") @NotNull String foo);
 
   /**
    * getOk.
