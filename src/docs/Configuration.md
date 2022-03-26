@@ -326,6 +326,18 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >
     default value: NUMBER_
 
+**naming-rename-case-conflicts**
+
+>Allows you to enable renaming of types that would conflict (overlap) on a non-case-sensitive filesystem (as used on Windows).
+
+>So if there are types `FooBar` and `Foobar`, enabling this option will cause them to be rendered as `FooBar` and `FoobarX`.
+
+>The types are assigned names in their (case-sensitive) sorting order. Any type that conflicts with an already assigned name will be renamed.
+
+>The option `naming-rules-type-conflict-renaming` controls how the type is renamed.
+
+>
+    default value: false
 
 **naming-rules-enum-constant**
 
@@ -372,3 +384,9 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >
     default value: TYPENAME
 
+**naming-rules-type-conflict-renaming**
+
+>Allows you to control how conflicting types are renamed if `naming-rename-case-conflicts` is enabled.
+
+>
+    default value: APPEND/X/
