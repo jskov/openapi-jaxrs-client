@@ -12,6 +12,8 @@ public class NamingOpts {
     private final String enumNumberPrefixConfig;
     /** Naming configuration for types. */
     private final String typeNamingConfig;
+    /** Naming configuration for renaming of conflicting types. */
+    private final String typeConflictRenamingConfig;
     /** Naming configuration for properties. */
     private final String propertyNamingConfig;
     /** Naming configuration for single-property enumeration types. */
@@ -23,6 +25,9 @@ public class NamingOpts {
     /** Naming configuration for entity parameter. */
     private final String entityNamingConfig;
 
+    /** Flag to enable renaming types that would conflict on Windows. */
+    private final boolean renameCaseConflicts;
+
     /**
      * Constructs new instance.
      *
@@ -30,6 +35,7 @@ public class NamingOpts {
      */
     public NamingOpts(Properties options) {
         typeNamingConfig = getDefault(options, "naming-rules-type", "TYPENAME");
+        typeConflictRenamingConfig = getDefault(options, "naming-rules-type-conflict-renaming", "APPEND/X/");
         entityNamingConfig = getDefault(options, "naming-rules-entity", "LITERAL/dto/");
         propertyNamingConfig = getDefault(options, "naming-rules-property", "PROPERTYNAME");
         parameterNamingConfig = getDefault(options, "naming-rules-parameter", "PROPERTYNAME");
@@ -37,6 +43,17 @@ public class NamingOpts {
         propertyEnumTypeNamingConfig = getDefault(options, "naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
 
         enumNumberPrefixConfig = getDefault(options, "naming-enum-prefix-number", "NUMBER_");
+        renameCaseConflicts = Boolean.parseBoolean(options.getProperty("naming-rename-case-conflicts"));
+    }
+
+    /** {@return true if types should be renamed to avoid conflicts on Windows} */
+    public boolean isRenameCaseConflicts() {
+        return renameCaseConflicts;
+    }
+
+    /** {@return the renaming configuration for a conflicting type name} */
+    public String getTypeConflictRenaming() {
+        return typeConflictRenamingConfig;
     }
 
     /** {@return the prefix for enumeration number constants} */

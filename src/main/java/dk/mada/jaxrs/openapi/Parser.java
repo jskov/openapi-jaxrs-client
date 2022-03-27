@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SecurityScheme;
@@ -99,7 +101,9 @@ public class Parser {
         parserTypes.consolidateDtos();
         Resolver resolver = new Resolver(parserTypes);
         Operations derefOps = resolver.operations(operations);
-        var dtos = resolver.getDtos();
+
+        List<Dto> activeDtos = resolver.getDtos();
+        Dtos dtos = new ConflictRenamer(naming).renameDtos(activeDtos);
 
         if (showInfo) {
             String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)

@@ -19,6 +19,8 @@ public class Naming {
     private final List<NamingRule> enumConstantNamingRules;
     /** Naming rules for type names. */
     private final List<NamingRule> typeNamingRules;
+    /** Renaming rules for type name conflicts. */
+    private final List<NamingRule> getTypeConflictRenaming;
     /** Naming rules for property names. */
     private final List<NamingRule> propertyNamingRules;
     /** Naming rules for parameter names. */
@@ -27,6 +29,9 @@ public class Naming {
     private final List<NamingRule> entityNamingRules;
     /** Naming rules for property enum types. */
     private List<NamingRule> propertyEnumTypeNamingRules;
+
+    /** The naming options. */
+    private final NamingOpts namingOpts;
 
     /**
      * Creates a new instance.
@@ -37,7 +42,7 @@ public class Naming {
      * @see NamingOpts
      */
     public Naming(Properties props) {
-        var namingOpts = new NamingOpts(props);
+        namingOpts = new NamingOpts(props);
 
         entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());
         enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
@@ -45,6 +50,7 @@ public class Naming {
         propertyEnumTypeNamingRules = NamingRules.toRules(namingOpts.getPropertyEnumTypeNaming());
         propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
         typeNamingRules = NamingRules.toRules(namingOpts.getTypeNaming());
+        getTypeConflictRenaming = NamingRules.toRules(namingOpts.getTypeConflictRenaming());
 
         if (logger.isInfoEnabled()) {
             logger.info("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
@@ -60,6 +66,11 @@ public class Naming {
         return rules.stream()
                 .map(NamingRule::name)
                 .collect(Collectors.joining(", "));
+    }
+
+    /** {@return true if types should be renamed to avoid conflicts on Windows} */
+    public boolean isRenameCaseConflicts() {
+        return namingOpts.isRenameCaseConflicts();
     }
 
     /**
@@ -90,6 +101,16 @@ public class Naming {
      */
     public String convertTypeName(String schemaName) {
         return convert(typeNamingRules, schemaName);
+    }
+
+    /**
+     * Converts a conflicting name to a new name.
+     *
+     * @param name the name of the type
+     * @return the new name for the type
+     */
+    public String renameConflictingName(String name) {
+        return convert(getTypeConflictRenaming, name);
     }
 
     /**
