@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.joining;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Contains all declared type names.
@@ -12,19 +13,25 @@ public final class TypeNames {
     /** TypeName instances indexed by their name. */
     private static final Map<String, TypeName> NAME_TO_INSTANCES = new HashMap<>();
 
+    /** Rewritten type names. */
+    private static final Map<String, String> RENAMING = new HashMap<>();
+
     private TypeNames() {
     }
 
     /**
-     * A type name.
+     * Adds a rename mapping for a type name.
      *
-     * @param name the name of the type
+     * This will make the TypeName instance for 'typeName' return
+     * the name 'newTypeName'.
+     *
+     * This method should only be used after DTOs have been consolidated.
+     *
+     * @param typeName the name of the type to rename
+     * @param newTypeName the types new name
      */
-    public record TypeName(String name) implements Comparable<TypeName> {
-        @Override
-        public int compareTo(TypeName other) {
-            return name.compareTo(other.name);
-        }
+    public static void rename(String typeName, String newTypeName) {
+        RENAMING.put(typeName, newTypeName);
     }
 
     /**
@@ -45,5 +52,59 @@ public final class TypeNames {
                     .sorted((a, b) -> a.compareToIgnoreCase(b))
                     .collect(joining(sep)))
                 .toString();
+    }
+
+    /**
+     * A type name.
+     */
+    public static final class TypeName implements Comparable<TypeName> {
+        /** The type name at time of declaration. */
+        private String name;
+
+        /**
+         * Creates a new type name instance.
+         *
+         * @param name the name of the type
+         */
+        private TypeName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Returns the name of the type.
+         *
+         * The name may be changed between the time of declaration,
+         * and the use for rendering.
+         *
+         * @return the name of the type
+         */
+        public String name() {
+            return RENAMING.getOrDefault(name, name);
+        }
+
+        @Override
+        public int compareTo(TypeName other) {
+            return name.compareTo(other.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            TypeName other = (TypeName) obj;
+            return Objects.equals(name, other.name);
+        }
     }
 }

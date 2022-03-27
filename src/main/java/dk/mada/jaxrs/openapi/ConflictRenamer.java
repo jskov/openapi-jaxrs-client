@@ -9,10 +9,15 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
+import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 
 /**
  * Renames types to avoid on-disk conflicts.
+ *
+ * It changes the name of DTOs and adds renaming mapping
+ * to the TypeNames so the generators will get the new
+ * names.
  */
 public class ConflictRenamer {
     private static final Logger logger = LoggerFactory.getLogger(ConflictRenamer.class);
@@ -20,8 +25,9 @@ public class ConflictRenamer {
     /** Naming. */
     private final Naming naming;
 
+    /** Assigned DTO names. */
     private Set<String> assignedDtoNames = new HashSet<>();
-    
+
     /**
      * Constructs a new instance.
      *
@@ -50,6 +56,7 @@ public class ConflictRenamer {
     }
 
     private Dto assignUniqueName(Dto dto) {
+        logger.info(" FROM {}", dto.typeName());
         return Dto.builder().from(dto)
                 .name(assignUniqueName(dto.name()))
                 .build();
@@ -63,6 +70,7 @@ public class ConflictRenamer {
         assignedDtoNames.add(newName);
 
         if (!name.equals(newName)) {
+            TypeNames.rename(name, newName);
             logger.debug(" {} -> {}", name, newName);
         }
 
