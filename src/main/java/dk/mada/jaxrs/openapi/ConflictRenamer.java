@@ -40,8 +40,8 @@ public class ConflictRenamer {
     /**
      * Rename DTOs if necessary.
      *
-     * @param dtos
-     * @return
+     * @param dtos the DTOs to rename
+     * @return the renamed DTOs
      */
     public Dtos renameDtos(List<Dto> dtos) {
         List<Dto> renamedDtos = dtos;
@@ -56,7 +56,6 @@ public class ConflictRenamer {
     }
 
     private Dto assignUniqueName(Dto dto) {
-        logger.info(" FROM {}", dto.typeName());
         return Dto.builder().from(dto)
                 .name(assignUniqueName(dto.name()))
                 .build();
