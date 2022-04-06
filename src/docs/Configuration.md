@@ -320,7 +320,10 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 **naming-enum-prefix-number**
 
->Allows you to replace the prefix used in enum naming of numbers.
+>Allows you to replace the prefix used in enumeration naming of numbers.
+
+>Used for both enumerations of type integer, and for other types where the enumeration values are all numbers.
+
 >This one overrules naming-rules-enum
 
 >

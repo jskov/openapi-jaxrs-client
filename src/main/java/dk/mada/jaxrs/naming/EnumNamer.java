@@ -45,6 +45,9 @@ public final class EnumNamer {
     /** Numbering prefix. */
     private final String numberPrefix;
 
+    /** Flag for all values are numbers. */
+    private boolean allNumbers;
+
 
     /**
      * An enumeration name-to-value assignment.
@@ -67,10 +70,22 @@ public final class EnumNamer {
         this.naming = naming;
         this.enumValueType = enumValueType;
         this.values = values;
+        this.allNumbers = isAllValuesNumbers(values);
 
         this.numberPrefix = opts.getEnumNumberPrefix();
 
         assignNames();
+    }
+
+    private static boolean isAllValuesNumbers(List<String> values) {
+        for (String v : values) {
+            try {
+                Integer.parseInt(v);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** {@return the assigned names-to-values} */
@@ -122,7 +137,7 @@ public final class EnumNamer {
     }
 
     private String simpleNamer(String n) {
-        if (enumValueType == Primitive.INT) {
+        if (enumValueType == Primitive.INT || allNumbers) {
             return numberPrefix + n;
         }
 
