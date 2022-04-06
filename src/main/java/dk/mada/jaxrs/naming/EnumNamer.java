@@ -14,7 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 
@@ -42,8 +41,8 @@ public final class EnumNamer {
     /** The assigned names of the values. */
     private final Set<String> assignedNames = new HashSet<>();
 
-    /** Numbering prefix. */
-    private final String numberPrefix;
+    /** Flag for all values are numbers. */
+    private boolean allNumbers;
 
 
     /**
@@ -59,18 +58,27 @@ public final class EnumNamer {
      * Constructs a new enumeration namer instance.
      *
      * @param naming the naming policies
-     * @param opts the generator options
      * @param enumValueType the enumeration type
      * @param values the values of the enumeration
      */
-    public EnumNamer(Naming naming, GeneratorOpts opts, Type enumValueType, List<String> values) {
+    public EnumNamer(Naming naming, Type enumValueType, List<String> values) {
         this.naming = naming;
         this.enumValueType = enumValueType;
         this.values = values;
-
-        this.numberPrefix = opts.getEnumNumberPrefix();
+        this.allNumbers = isAllValuesNumbers(values);
 
         assignNames();
+    }
+
+    private static boolean isAllValuesNumbers(List<String> values) {
+        for (String v : values) {
+            try {
+                Integer.parseInt(v);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** {@return the assigned names-to-values} */
@@ -122,8 +130,8 @@ public final class EnumNamer {
     }
 
     private String simpleNamer(String n) {
-        if (enumValueType == Primitive.INT) {
-            return numberPrefix + n;
+        if (enumValueType == Primitive.INT || allNumbers) {
+            return naming.convertEnumNumberName(n);
         }
 
         return naming.convertEnumName(n);

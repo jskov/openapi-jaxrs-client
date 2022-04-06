@@ -4,32 +4,32 @@
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.dto.enums.jackson_fasterxml.dto;
+package mada.tests.e2e.dto.enums.jackson_codehaus.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonValue;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * IntEnum
+ * The values are digits, but the type is string. So will not be handled as integers, but are invalid Java identifiers.
  */
-@Schema(enumeration = {"1", "2", "-3"}, type = SchemaType.INTEGER, format = "int32")
+@Schema(enumeration = {"1", "2", "-3"}, type = SchemaType.STRING)
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public enum IntEnum {
-  NUMBER_1(1),
-  NUMBER_2(2),
-  NUMBER_NEG_3(-3);
+public enum StringIntEnum {
+  NUMBER_1("1"),
+  NUMBER_2("2"),
+  NUMBER_NEG_3("-3");
 
-  private final int value;
+  private final String value;
 
-  IntEnum(int value) {
+  StringIntEnum(String value) {
     this.value = value;
   }
 
   @JsonValue
-  public int getValue() {
+  public String getValue() {
     return value;
   }
 
@@ -39,8 +39,8 @@ public enum IntEnum {
   }
 
   @JsonCreator
-  public static IntEnum fromValue(int value) {
-    for (IntEnum b : IntEnum.values()) {
+  public static StringIntEnum fromValue(String value) {
+    for (StringIntEnum b : StringIntEnum.values()) {
       if (Objects.equals(b.value, value)) {
         return b;
       }

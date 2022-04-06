@@ -22,7 +22,8 @@ import javax.validation.Valid;
   EnumsDto.JSON_PROPERTY_PROPERTY_ENUM_STRING,
   EnumsDto.JSON_PROPERTY_INNER,
   EnumsDto.JSON_PROPERTY_EXTERNAL,
-  EnumsDto.JSON_PROPERTY_INTEGER_ENUM
+  EnumsDto.JSON_PROPERTY_INTEGER_ENUM,
+  EnumsDto.JSON_PROPERTY_STRING_INTEGER_ENUM
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
@@ -79,6 +80,10 @@ public class EnumsDto {
   public static final String JSON_PROPERTY_INTEGER_ENUM = "integerEnum";
   @JsonbProperty(JSON_PROPERTY_INTEGER_ENUM)
   private IntEnum integerEnum;
+
+  public static final String JSON_PROPERTY_STRING_INTEGER_ENUM = "stringIntegerEnum";
+  @JsonbProperty(JSON_PROPERTY_STRING_INTEGER_ENUM)
+  private StringIntEnum stringIntegerEnum;
 
   public EnumsDto propertyEnumString(PropertyEnumStringEnum propertyEnumString) {
     this.propertyEnumString = propertyEnumString;
@@ -151,6 +156,24 @@ public class EnumsDto {
     this.integerEnum = integerEnum;
   }
 
+  public EnumsDto stringIntegerEnum(StringIntEnum stringIntegerEnum) {
+    this.stringIntegerEnum = stringIntegerEnum;
+    return this;
+  }
+
+  /**
+   * Get stringIntegerEnum
+   * @return stringIntegerEnum
+   **/
+  @Valid
+  public StringIntEnum getStringIntegerEnum() {
+    return stringIntegerEnum;
+  }
+
+  public void setStringIntegerEnum(StringIntEnum stringIntegerEnum) {
+    this.stringIntegerEnum = stringIntegerEnum;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -163,12 +186,13 @@ public class EnumsDto {
     return Objects.equals(this.propertyEnumString, other.propertyEnumString) &&
         Objects.equals(this.inner, other.inner) &&
         Objects.equals(this.external, other.external) &&
-        Objects.equals(this.integerEnum, other.integerEnum);
+        Objects.equals(this.integerEnum, other.integerEnum) &&
+        Objects.equals(this.stringIntegerEnum, other.stringIntegerEnum);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(propertyEnumString, inner, external, integerEnum);
+    return Objects.hash(propertyEnumString, inner, external, integerEnum, stringIntegerEnum);
   }
 
   @Override
@@ -179,6 +203,7 @@ public class EnumsDto {
     sb.append("\n    inner: ").append(toIndentedString(inner));
     sb.append("\n    external: ").append(toIndentedString(external));
     sb.append("\n    integerEnum: ").append(toIndentedString(integerEnum));
+    sb.append("\n    stringIntegerEnum: ").append(toIndentedString(stringIntegerEnum));
     sb.append("\n}");
     return sb.toString();
   }

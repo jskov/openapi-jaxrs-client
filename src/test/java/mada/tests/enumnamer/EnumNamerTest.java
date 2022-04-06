@@ -9,24 +9,17 @@ import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.naming.Naming;
-import dk.mada.jaxrs.openapi.ParserOpts;
 
 /**
  * Tests enumeration naming.
  */
 class EnumNamerTest {
-    /** Test options for parsing. */
-    private static final ParserOpts PARSER_OPTS = new ParserOpts(new Properties());
-    /** Test options for generator. */
-    private static final GeneratorOpts OPTS = new GeneratorOpts(new Properties(), PARSER_OPTS);
-
     @Test
     void usesNumerPrefixForNumberTypes() {
         var sut = mkSut(Primitive.INT, List.of("1", "3", "2"));
@@ -81,6 +74,6 @@ class EnumNamerTest {
 
     private EnumNamer mkSut(Type enumValueType, List<String> values) {
         var naming = new Naming(new Properties());
-        return new EnumNamer(naming, OPTS, enumValueType, values);
+        return new EnumNamer(naming, enumValueType, values);
     }
 }

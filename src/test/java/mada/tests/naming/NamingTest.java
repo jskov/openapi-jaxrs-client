@@ -42,6 +42,18 @@ class NamingTest {
 
     @ParameterizedTest
     @CsvSource({
+        "foo,        NUMBER_Foo",
+        "Fo.o,       NUMBER_Fo_o",
+        "tr.ue,      NUMBER_Tr_ue"
+    })
+    void canPrepend(String input, String expected) {
+        Naming sut = makeSut("TYPENAME; PREPEND/NUMBER_/");
+        assertThat(sut.convertTypeName(input))
+            .isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "FOO,        FOO",
         "Fo.o,       FO_O",
         "foo-bar,    FOO_BAR",
