@@ -31,6 +31,8 @@ components:
           $ref: '#/components/schemas/ExternalEnum'
         integerEnum:
           $ref: '#/components/schemas/IntEnum'
+        stringIntegerEnum:
+          $ref: '#/components/schemas/StringIntEnum'
     ExternalEnum:
       enum:
       - E
@@ -47,3 +49,10 @@ components:
       - "1"
       - "2"
       type: integer
+    StringIntEnum:
+      description: "The values are digits, but the type is string. So will not be\
+        \ handled as integers, but are invalid Java identifiers."
+      enum:
+      - "1"
+      - "2"
+      type: string
