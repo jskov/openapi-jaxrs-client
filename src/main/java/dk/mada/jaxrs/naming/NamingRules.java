@@ -16,6 +16,8 @@ public final class NamingRules {
     private static final Logger logger = LoggerFactory.getLogger(NamingRules.class);
     /** Prefix for literal string append. */
     private static final String APPEND = "APPEND/";
+    /** Prefix for literal string prepend. */
+    private static final String PREPEND = "PREPEND/";
     /** Prefix for literal string input. */
     private static final String LITERAL = "LITERAL/";
     /** Prefix for regular expression input. */
@@ -78,6 +80,12 @@ public final class NamingRules {
                 throw new IllegalArgumentException("APPEND must end with /, saw: " + r);
             }
             return new NamingRule(r, s -> s + r.substring(APPEND.length(), r.length() - 1));
+        }
+        if (r.startsWith(PREPEND)) {
+            if (!r.endsWith("/")) {
+                throw new IllegalArgumentException("PREPEND must end with /, saw: " + r);
+            }
+            return new NamingRule(r, s -> r.substring(PREPEND.length(), r.length() - 1) + s);
         }
         if (r.startsWith(LITERAL)) {
             if (!r.endsWith("/")) {
