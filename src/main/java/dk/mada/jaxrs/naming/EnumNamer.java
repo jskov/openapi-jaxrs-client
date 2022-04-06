@@ -14,7 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 
@@ -59,11 +58,10 @@ public final class EnumNamer {
      * Constructs a new enumeration namer instance.
      *
      * @param naming the naming policies
-     * @param opts the generator options
      * @param enumValueType the enumeration type
      * @param values the values of the enumeration
      */
-    public EnumNamer(Naming naming, GeneratorOpts opts, Type enumValueType, List<String> values) {
+    public EnumNamer(Naming naming, Type enumValueType, List<String> values) {
         this.naming = naming;
         this.enumValueType = enumValueType;
         this.values = values;

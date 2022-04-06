@@ -322,7 +322,7 @@ public class DtoGenerator {
 
     @Nullable
     private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
-        List<CtxEnumEntry> entries = new EnumNamer(naming, opts, enumType, values)
+        List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, values)
                 .getEntries().stream()
                 .map(e -> toEnumEntry(enumType, e))
                 .toList();
