@@ -48,6 +48,7 @@ components:
       enum:
       - "1"
       - "2"
+      - "-3"
       type: integer
     StringIntEnum:
       description: "The values are digits, but the type is string. So will not be\
@@ -55,4 +56,5 @@ components:
       enum:
       - "1"
       - "2"
+      - "-3"
       type: string

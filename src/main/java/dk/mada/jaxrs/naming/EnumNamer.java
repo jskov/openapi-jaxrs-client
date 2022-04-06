@@ -42,9 +42,6 @@ public final class EnumNamer {
     /** The assigned names of the values. */
     private final Set<String> assignedNames = new HashSet<>();
 
-    /** Numbering prefix. */
-    private final String numberPrefix;
-
     /** Flag for all values are numbers. */
     private boolean allNumbers;
 
@@ -71,8 +68,6 @@ public final class EnumNamer {
         this.enumValueType = enumValueType;
         this.values = values;
         this.allNumbers = isAllValuesNumbers(values);
-
-        this.numberPrefix = opts.getEnumNumberPrefix();
 
         assignNames();
     }
@@ -138,7 +133,7 @@ public final class EnumNamer {
 
     private String simpleNamer(String n) {
         if (enumValueType == Primitive.INT || allNumbers) {
-            return numberPrefix + n;
+            return naming.convertEnumNumberName(n);
         }
 
         return naming.convertEnumName(n);

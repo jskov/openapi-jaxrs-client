@@ -15,11 +15,12 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * The values are digits, but the type is string. So will not be handled as integers, but are invalid Java identifiers.
  */
-@Schema(enumeration = {"1", "2"}, type = SchemaType.STRING)
+@Schema(enumeration = {"1", "2", "-3"}, type = SchemaType.STRING)
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public enum StringIntEnum {
   NUMBER_1("1"),
-  NUMBER_2("2");
+  NUMBER_2("2"),
+  NUMBER_NEG_3("-3");
 
   private final String value;
 

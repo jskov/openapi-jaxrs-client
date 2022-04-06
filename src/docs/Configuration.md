@@ -308,6 +308,8 @@ For example (for properties): `fooBAR -> fooBar`, `FOOBar -> fooBar`, and `FOOBA
     UPCASE: Converts the input to upper case.
     DOWNCASE: Converts the input to lower case.
     LITERAL/value/: Returns the provided value.
+    APPEND/value/: Appends the value to the input.
+    PREPEND/value/: Prepends the value to the input.
     TYPENAME: Converts the input to a valid java identifier (first letter upper case)
     TYPENAME-EDGE: Converts the input to a valid java identifier (first letter upper case, downcase on edges)
     PARAMETERNAME: Converts the input to a valid java identifier (first letter lower case)
@@ -317,17 +319,6 @@ For example (for properties): `fooBAR -> fooBar`, `FOOBar -> fooBar`, and `FOOBA
     REGEXP/pattern/replacement/: Will match input against pattern and substitute all matches with replacement.
 
 You can specify a number of operators, separated by ';'. They will be applied left-to-right.
-
-**naming-enum-prefix-number**
-
->Allows you to replace the prefix used in enumeration naming of numbers.
-
->Used for both enumerations of type integer, and for other types where the enumeration values are all numbers.
-
->This one overrules naming-rules-enum
-
->
-    default value: NUMBER_
 
 **naming-rename-case-conflicts**
 
@@ -346,10 +337,19 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >Allows you to control the naming of enumeration constants using the operators described above.
 
->The type name is given as input.
+>The enumeration value is given as input.
 
 >
-    default value: TYPENAME; UPCASE
+    default value: REGEXP/-/_/; TYPENAME; UPCASE
+
+**naming-rules-enum-number-constant**
+
+>Allows you to control the naming of enumeration number constants using the operators described above.
+
+>The enumeration value is given as input.
+
+>
+    default value: REGEXP/-/NEG_/; PREPEND/NUMBER_/
 
 **naming-rules-entity**
 

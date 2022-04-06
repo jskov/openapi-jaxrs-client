@@ -17,6 +17,8 @@ public class Naming {
 
     /** Naming rules for enumeration constants. */
     private final List<NamingRule> enumConstantNamingRules;
+    /** Naming rules for enumeration number constants. */
+    private final List<NamingRule> enumNumberConstantNamingRules;
     /** Naming rules for type names. */
     private final List<NamingRule> typeNamingRules;
     /** Renaming rules for type name conflicts. */
@@ -46,6 +48,7 @@ public class Naming {
 
         entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());
         enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
+        enumNumberConstantNamingRules = NamingRules.toRules(namingOpts.getEnumNumberConstantNaming());
         parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
         propertyEnumTypeNamingRules = NamingRules.toRules(namingOpts.getPropertyEnumTypeNaming());
         propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
@@ -55,6 +58,7 @@ public class Naming {
         if (logger.isInfoEnabled()) {
             logger.info("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
             logger.info("enumConstantNamingRules: {}", makeRuleInfo(enumConstantNamingRules));
+            logger.info("enumNumberConstantNamingRules: {}", makeRuleInfo(enumNumberConstantNamingRules));
             logger.info("parameterNamingRules: {}", makeRuleInfo(parameterNamingRules));
             logger.info("propertyEnumTypeNamingRules: {}", makeRuleInfo(propertyEnumTypeNamingRules));
             logger.info("propertyNamingRules: {}", makeRuleInfo(propertyNamingRules));
@@ -84,13 +88,23 @@ public class Naming {
     }
 
     /**
-     * Converts enumeration entry name into enumeration constant name.
+     * Converts enumeration entry value into enumeration constant name.
      *
-     * @param enumerationEntryName the enumeration entry name
+     * @param enumerationEntryName the enumeration entry value
      * @return the enumeration constant name
      */
     public String convertEnumName(String enumerationEntryName) {
         return convert(enumConstantNamingRules, enumerationEntryName);
+    }
+
+    /**
+     * Converts enumeration number entry value into enumeration constant name.
+     *
+     * @param enumerationEntryName the enumeration entry value
+     * @return the enumeration constant name
+     */
+    public String convertEnumNumberName(String enumerationEntryName) {
+        return convert(enumNumberConstantNamingRules, enumerationEntryName);
     }
 
     /**

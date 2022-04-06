@@ -8,8 +8,6 @@ import java.util.Properties;
  * These can be overridden via options provided by the user.
  */
 public class NamingOpts {
-    /** Prefix for enumeration number constants. */
-    private final String enumNumberPrefixConfig;
     /** Naming configuration for types. */
     private final String typeNamingConfig;
     /** Naming configuration for renaming of conflicting types. */
@@ -20,6 +18,8 @@ public class NamingOpts {
     private final String propertyEnumTypeNamingConfig;
     /** Naming configuration for enumeration constants. */
     private final String enumConstantNamingConfig;
+    /** Naming configuration for enumeration number constants. */
+    private final String enumNumberConstantNamingConfig;
     /** Naming configuration for parameter names. */
     private final String parameterNamingConfig;
     /** Naming configuration for entity parameter. */
@@ -40,9 +40,9 @@ public class NamingOpts {
         propertyNamingConfig = getDefault(options, "naming-rules-property", "PROPERTYNAME");
         parameterNamingConfig = getDefault(options, "naming-rules-parameter", "PROPERTYNAME");
         enumConstantNamingConfig = getDefault(options, "naming-rules-enum-constant", "REGEXP/-/_/; TYPENAME; UPCASE");
+        enumNumberConstantNamingConfig = getDefault(options, "naming-rules-enum-number-constant", "REGEXP/-/NEG_/; PREPEND/NUMBER_/");
         propertyEnumTypeNamingConfig = getDefault(options, "naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
 
-        enumNumberPrefixConfig = getDefault(options, "naming-enum-prefix-number", "NUMBER_");
         renameCaseConflicts = Boolean.parseBoolean(options.getProperty("naming-rename-case-conflicts"));
     }
 
@@ -56,11 +56,6 @@ public class NamingOpts {
         return typeConflictRenamingConfig;
     }
 
-    /** {@return the prefix for enumeration number constants} */
-    public String getEnumNumberPrefix() {
-        return enumNumberPrefixConfig;
-    }
-
     /** {@return the naming configuration for entity parameter} */
     public String getEntityNaming() {
         return entityNamingConfig;
@@ -69,6 +64,11 @@ public class NamingOpts {
     /** {@return the naming configuration for enumeration constants} */
     public String getEnumConstantNaming() {
         return enumConstantNamingConfig;
+    }
+
+    /** {@return the naming configuration for enumeration number constants} */
+    public String getEnumNumberConstantNaming() {
+        return enumNumberConstantNamingConfig;
     }
 
     /** {@return the naming configuration for single-property enumeration types} */

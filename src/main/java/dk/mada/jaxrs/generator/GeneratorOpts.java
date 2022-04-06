@@ -302,11 +302,6 @@ public final class GeneratorOpts {
         return bool("generator-use-api-wrapped-primitives", false);
     }
 
-    /** {@return the prefix to use for number enumeration constants} */
-    public String getEnumNumberPrefix() {
-        return getDefault("generator-enum-prefix-number", "NUMBER_");
-    }
-
     /** {@return the default Api resource name none specified via groups} */
     public String getDefaultApiName() {
         return get("generator-api-default-name");
