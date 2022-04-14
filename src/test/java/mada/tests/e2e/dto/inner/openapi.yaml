@@ -17,6 +17,16 @@ paths:
                 $ref: '#/components/schemas/Country'
 components:
   schemas:
+    EnumArrayInner:
+      type: object
+      properties:
+        muligeUdbetalingsMetoder:
+          type: array
+          items:
+            type: string
+            enum:
+              - HURTIGST_MULIGT
+              - UKENDT
     Country:
       type: object
       properties:
