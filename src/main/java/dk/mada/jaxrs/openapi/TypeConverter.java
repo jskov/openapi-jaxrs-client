@@ -3,15 +3,21 @@ package dk.mada.jaxrs.openapi;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
@@ -92,7 +98,7 @@ public final class TypeConverter {
      * @return the found/created internal model type
      */
     public ParserTypeRef toReference(Schema<?> schema) {
-        return reference(schema, null);
+        return reference(schema, null, null);
     }
 
     /**
@@ -102,15 +108,16 @@ public final class TypeConverter {
      * eventually be resolved to a type in the model.
      *
      * @param schema the OpenApi schema to convert
-     * @param propertyName name of the property the type is associated with, or null
+     * @param propertyName the name of the property the type is associated with, or null
+     * @param parentDtoName the name of the DTO this schema is part of, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef reference(Schema<?> schema, String propertyName) {
+    public ParserTypeRef reference(Schema<?> schema, String propertyName, String parentDtoName) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
 
-        logger.debug("type/format: {}/{} {}", schemaType, schemaFormat, schema.getClass());
+        logger.debug("type/format: {} {}/{} {}", propertyName, schemaType, schemaFormat, schema.getClass());
         logger.debug("ref {}", schemaRef);
 
         Validation validation = extractValidation(schema);
@@ -226,7 +233,14 @@ public final class TypeConverter {
         }
 
         if (schema instanceof ObjectSchema) {
-            return parserRefs.of(TypeObject.get(), validation);
+            if (propertyName == null) {
+                logger.debug(" plain Object?");
+                return parserRefs.of(TypeObject.get(), validation);
+            }
+            logger.debug(" inner-object for property {}", propertyName);
+            String syntheticDtoName = parentDtoName + naming.convertTypeName(propertyName);
+            Dto dto = createDto(syntheticDtoName, schema);
+            return parserRefs.of(dto, validation);
         }
 
         if (schema instanceof StringSchema) {
@@ -324,5 +338,94 @@ public final class TypeConverter {
         // New instance
         validationInstances.add(candidate);
         return candidate;
+    }
+
+    /**
+     * Creates a DTO from an Object schema.
+     *
+     * @param dtoName the DTO name
+     * @param schema the schema of the DTO
+     * @return the create DTO
+     */
+    public Dto createDto(String dtoName, Schema<?> schema) {
+        String modelName = naming.convertTypeName(dtoName);
+
+        ParserTypeRef dtoType = toReference(schema);
+
+        List<Property> props = readProperties(schema, modelName);
+
+        @Nullable
+        List<String> enumValues = getEnumValues(schema);
+
+        Dto dto = Dto.builder()
+                .name(modelName)
+                .description(schema.getDescription())
+                .reference(dtoType)
+                .properties(props)
+                .openapiId(TypeNames.of(dtoName))
+                .enumValues(enumValues)
+                .implementsInterfaces(List.of())
+                .build();
+
+        parserTypes.addDto(dto);
+
+        return dto;
+    }
+
+    @Nullable
+    private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
+        List<?> schemaEnumValues = schema.getEnum();
+        if (schemaEnumValues == null) {
+            return null;
+        }
+
+        return schemaEnumValues.stream()
+                    .map(Object::toString)
+                    .toList();
+    }
+
+    private List<Property> readProperties(Schema<?> schema, String parentDtoName) {
+        @SuppressWarnings("rawtypes")
+        Map<String, Schema> schemaProps = schema.getProperties();
+        if (schemaProps == null || schemaProps.isEmpty()) {
+            return List.of();
+        }
+
+        Set<String> requiredProperyNames = new HashSet<>();
+        if (schema.getRequired() != null) {
+            requiredProperyNames.addAll(schema.getRequired());
+        }
+
+        List<Property> props = new ArrayList<>();
+        for (var e : schemaProps.entrySet()) {
+            String propertyName = e.getKey();
+            Schema<?> propSchema = e.getValue();
+
+            Reference ref = reference(propSchema, propertyName, parentDtoName);
+
+            String exampleStr = Objects.toString(propSchema.getExample(), null);
+
+            boolean isReadOnly = (propSchema.getReadOnly() != null) && propSchema.getReadOnly();
+            boolean isNullable = (propSchema.getNullable() != null) && propSchema.getNullable();
+
+            props.add(Property.builder()
+                    .name(propertyName)
+                    .reference(ref)
+                    .description(propSchema.getDescription())
+                    .example(exampleStr)
+                    .isNullable(isNullable)
+                    .isReadonly(isReadOnly)
+                    .isRequired(requiredProperyNames.contains(propertyName))
+                    .minLength(propSchema.getMinLength())
+                    .maxLength(propSchema.getMaxLength())
+                    .minimum(propSchema.getMinimum())
+                    .maximum(propSchema.getMaximum())
+                    .pattern(propSchema.getPattern())
+                    .build());
+        }
+
+        logger.debug(" props: {}", props);
+
+        return props;
     }
 }
