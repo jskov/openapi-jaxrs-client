@@ -37,6 +37,7 @@ import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
@@ -345,7 +346,7 @@ public class DtoGenerator {
         String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
         String nameSnaked = OpenapiGeneratorUtils.underscore(nameCamelized).toUpperCase();
 
-        logger.trace("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
+        logger.info("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
         Type propType = p.reference().refType();
         logger.trace(" {}", propType);
@@ -360,26 +361,37 @@ public class DtoGenerator {
         boolean isEnum = false;
         String innerTypeName = null;
         CtxEnum ctxEnum = null;
+        Type innerType = null;
 
         if (propType instanceof TypeArray ca) {
             isArray = true;
-            innerTypeName = ca.innerType().typeName().name();
+            innerType = ca.innerType();
             defaultValue = "new " + ca.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeMap cm) {
             isMap = true;
-            innerTypeName = cm.innerType().typeName().name();
+            innerType = cm.innerType();
             defaultValue = "new " + cm.containerImplementation() + "<>()";
         }
         if (propType instanceof TypeSet cs) {
             isSet = true;
-            innerTypeName = cs.innerType().typeName().name();
+            innerType = cs.innerType();
             defaultValue = "new " + cs.containerImplementation() + "<>()";
 
             // In templates, array is used for both set and list
             isArray = true;
         }
-        if (propType instanceof TypeEnum te) {
+        if (propType.isEnum()) {
+            innerType = propType;
+        }
+
+        if (innerType != null) {
+            innerTypeName = innerType.typeName().name();
+        }
+
+        logger.info(" innerType: {} : {}", innerType, innerType instanceof TypeEnum);
+        if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
+            logger.info(" enum {}", te.values());
             innerTypeName = te.innerType().typeName().name();
             isEnum = true;
 
@@ -535,6 +547,13 @@ public class DtoGenerator {
                 .pattern(pattern)
                 .madaProp(mada)
                 .build();
+    }
+
+    private Type getDereferencedInnerEnumType(Type t) {
+        if (t instanceof TypeReference tr) {
+            return tr.refType();
+        }
+        return t;
     }
 
     private String getterPrefix(Property p) {
