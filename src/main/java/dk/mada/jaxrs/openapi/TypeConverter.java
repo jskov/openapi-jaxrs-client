@@ -117,7 +117,7 @@ public final class TypeConverter {
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
 
-        logger.debug("type/format: {} {}/{} {}", propertyName, schemaType, schemaFormat, schema.getClass());
+        logger.debug("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
         logger.debug("ref {}", schemaRef);
 
         Validation validation = extractValidation(schema);
