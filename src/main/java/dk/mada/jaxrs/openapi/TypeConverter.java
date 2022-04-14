@@ -149,7 +149,8 @@ public final class TypeConverter {
         }
 
         if (schema instanceof ArraySchema a) {
-            ParserTypeRef innerType = toReference(a.getItems());
+            ParserTypeRef innerType = reference(a.getItems(), propertyName, parentDtoName);
+            logger.debug(" array of {}", innerType);
 
             Boolean isUnique = a.getUniqueItems();
             if (isUnique != null && isUnique.booleanValue()) {
