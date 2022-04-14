@@ -9,6 +9,7 @@ package mada.tests.e2e.dto.inner.dto;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
 
 /**
  * Country
@@ -52,7 +53,7 @@ public class Country {
 
   public static final String JSON_PROPERTY_LOCALE = "locale";
   @JsonbProperty(JSON_PROPERTY_LOCALE)
-  private Object locale;
+  private CountryLocale locale;
 
   public static final String JSON_PROPERTY_REGISTERED_AS_BOND_COUNTRY = "registeredAsBondCountry";
   @JsonbProperty(JSON_PROPERTY_REGISTERED_AS_BOND_COUNTRY)
@@ -164,7 +165,7 @@ public class Country {
     this.countryName = countryName;
   }
 
-  public Country locale(Object locale) {
+  public Country locale(CountryLocale locale) {
     this.locale = locale;
     return this;
   }
@@ -173,11 +174,12 @@ public class Country {
    * Get locale
    * @return locale
    **/
-  public Object getLocale() {
+  @Valid
+  public CountryLocale getLocale() {
     return locale;
   }
 
-  public void setLocale(Object locale) {
+  public void setLocale(CountryLocale locale) {
     this.locale = locale;
   }
 

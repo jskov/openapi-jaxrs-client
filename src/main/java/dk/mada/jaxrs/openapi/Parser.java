@@ -86,7 +86,7 @@ public class Parser {
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
         Operations operations = new ApiTransformer(parserOpts, typeConverter, securitySchemes).transform(specification);
-        new DtoTransformer(naming, parserTypes, typeConverter).transform(specification);
+        new DtoTransformer(typeConverter).transform(specification);
 
         if (showInfo) {
             String infoParsing = new StringBuilder("============== PARSING DONE =====").append(NL)
