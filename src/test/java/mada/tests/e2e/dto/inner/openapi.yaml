@@ -1,0 +1,79 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/inner:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Country'
+components:
+  schemas:
+    Country:
+      type: object
+      properties:
+        twoLetterCode:
+          type: string
+        threeLetterCode:
+          type: string
+        numericCode:
+          type: integer
+          format: int32
+        countryNameDK:
+          type: string
+        countryNameGB:
+          type: string
+        countryName:
+          type: string
+        locale:
+          type: object
+          properties:
+            language:
+              type: string
+            script:
+              type: string
+            country:
+              type: string
+            variant:
+              type: string
+            extensionKeys:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+            unicodeLocaleAttributes:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+            unicodeLocaleKeys:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+            iso3Language:
+              type: string
+            iso3Country:
+              type: string
+            displayLanguage:
+              type: string
+            displayScript:
+              type: string
+            displayCountry:
+              type: string
+            displayVariant:
+              type: string
+            displayName:
+              type: string
+        registeredAsBondCountry:
+          type: boolean
+        registeredAsShareCountry:
+          type: boolean
