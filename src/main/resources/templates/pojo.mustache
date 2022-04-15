@@ -54,7 +54,9 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
   public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";
   @JsonbProperty(JSON_PROPERTY_{{nameInSnakeCase}})
     {{#isEnum}}
+    {{^isContainer}}
   @JsonbTypeAdapter({{packageName}}.{{classname}}.{{datatypeWithEnum}}.{{datatypeWithEnum}}Adapter.class)
+    {{/isContainer}}
     {{/isEnum}}
   {{/madaDto.jsonb}}
   {{#madaProp.schemaOptions}}
