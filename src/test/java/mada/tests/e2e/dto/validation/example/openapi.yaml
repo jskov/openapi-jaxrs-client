@@ -60,6 +60,10 @@ components:
           type: string
           # Added manually
           pattern: "^[a-zA-Z]{0,3}$"
+        patternDigits:
+          type: string
+          # Added manually
+          pattern: "^\\d{1,2}$"
         validObjects:
           maxItems: 4
           minItems: 1
