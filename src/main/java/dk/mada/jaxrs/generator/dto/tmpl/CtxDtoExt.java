@@ -43,4 +43,7 @@ public interface CtxDtoExt {
     /** {@return a string containing the interfaces implemented by this DTO} */
     @Nullable
     String implementsInterfaces();
+
+    /** {@return true if DTO should render @RegisterForReflection} */
+    boolean quarkusRegisterForReflection();
 }

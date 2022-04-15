@@ -21,6 +21,9 @@
 {{/vars}}
 })
 {{/madaDto.jsonb}}
+{{#madaDto.quarkusRegisterForReflection}}
+@RegisterForReflection
+{{/madaDto.quarkusRegisterForReflection}}
 {{>generatedAnnotation}}
 {{#todo}}
 {{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}{{#discriminator}}{{>typeInfoAnnotation}}{{/discriminator}}
