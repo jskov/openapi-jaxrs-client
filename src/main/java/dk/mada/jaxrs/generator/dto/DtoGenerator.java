@@ -389,11 +389,16 @@ public class DtoGenerator {
             innerTypeName = innerType.typeName().name();
         }
 
+        String typeName = propType.wrapperTypeName().name();
+        String enumClassName = typeName;
+
         logger.info(" innerType: {} : {}", innerType, innerType instanceof TypeEnum);
         if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
-            logger.info(" enum {}", te.values());
             innerTypeName = te.innerType().typeName().name();
+            logger.info(" enum {} : {}", innerTypeName, te.values());
             isEnum = true;
+
+            enumClassName = te.typeName().name();
 
             ctxEnum = buildEnumEntries(te.innerType(), te.values());
 
@@ -402,7 +407,6 @@ public class DtoGenerator {
 
         boolean isContainer = isArray || isMap || isSet;
 
-        String typeName = propType.wrapperTypeName().name();
 
         // Add import if required
         String externalType = externalTypeMapping.get(typeName);
@@ -508,6 +512,7 @@ public class DtoGenerator {
 
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(innerTypeName)
+                .inDtoEnumClassName(enumClassName)
                 .schemaOptions(schemaOptions)
                 .isUseBigDecimalForDouble(isUseBigDecimalForDouble)
                 .isUseEmptyCollections(isUseEmptyCollections)

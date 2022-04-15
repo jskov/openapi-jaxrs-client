@@ -9,6 +9,9 @@ package mada.tests.e2e.dto.inner.dto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.json.Json;
+import javax.json.JsonString;
+import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 
@@ -20,13 +23,46 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumArrayInner {
+  public enum MuligeUdbetalingsMetoderEnum {
+    HURTIGST_MULIGT("HURTIGST_MULIGT"),
+    UKENDT("UKENDT");
+
+    private final String value;
+
+    MuligeUdbetalingsMetoderEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static class MuligeUdbetalingsMetoderEnumAdapter implements JsonbAdapter<MuligeUdbetalingsMetoderEnum, JsonString> {
+      @Override
+      public JsonString adaptToJson(MuligeUdbetalingsMetoderEnum e) throws Exception {
+        return Json.createValue(String.valueOf(e.value));
+      }
+
+      @Override
+      public MuligeUdbetalingsMetoderEnum adaptFromJson(JsonString value) throws Exception {
+        for (MuligeUdbetalingsMetoderEnum b : MuligeUdbetalingsMetoderEnum.values()) {
+          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+            return b;
+          }
+        }
+        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type MuligeUdbetalingsMetoderEnum");
+      }
+    }
+  }
+
   public static final String JSON_PROPERTY_MULIGE_UDBETALINGS_METODER = "muligeUdbetalingsMetoder";
   @JsonbProperty(JSON_PROPERTY_MULIGE_UDBETALINGS_METODER)
   private List<MuligeUdbetalingsMetoderEnum> muligeUdbetalingsMetoder = null;
-
-  public enum MuligeUdbetalingsMetoderEnum {
-    HURTIGST_MULIGT
-  }
 
   public EnumArrayInner muligeUdbetalingsMetoder(List<MuligeUdbetalingsMetoderEnum> muligeUdbetalingsMetoder) {
     this.muligeUdbetalingsMetoder = muligeUdbetalingsMetoder;

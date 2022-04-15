@@ -19,6 +19,10 @@ public interface CtxPropertyExt {
     @Nullable
     String innerDatatypeWithEnum();
 
+    /** {@return the override name of an enumeration to be rendered in the DTO, or null */
+    @Nullable
+    String inDtoEnumClassName();
+
     /** {@return the schema options (for use in @Schema), or null} */
     @Nullable
     String schemaOptions();
