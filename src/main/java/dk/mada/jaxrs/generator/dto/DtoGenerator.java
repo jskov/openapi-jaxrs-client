@@ -259,6 +259,7 @@ public class DtoGenerator {
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
                 .enumSchema(enumSchema)
                 .implementsInterfaces(implementsInterfaces)
+                .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
                 .build();
 
         return CtxDto.builder()

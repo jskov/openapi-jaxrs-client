@@ -7,6 +7,9 @@
 {{#madaDto.enumSchema}}
 @Schema({{{madaDto.enumSchema}}})
 {{/madaDto.enumSchema}}
+{{#madaDto.quarkusRegisterForReflection}}
+@RegisterForReflection
+{{/madaDto.quarkusRegisterForReflection}}
 {{>generatedAnnotation}}
 public enum {{{datatypeWithEnum}}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} {
   {{#allowableValues}}

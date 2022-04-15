@@ -147,6 +147,7 @@ public final class Imports {
     public static Imports newDto(GeneratorOpts opts) {
         return new Imports(opts, false)
                 .add(JAVA_UTIL_OBJECTS)
+                .add(opts.isUseRegisterForReflection(), "io.quarkus.runtime.annotations.RegisterForReflection")
                 .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
                 .jackson(JSON_PROPERTY, JSON_PROPERTY_ORDER)
                 .jsonb("javax.json.bind.annotation.JsonbProperty", "javax.json.bind.annotation.JsonbPropertyOrder");
