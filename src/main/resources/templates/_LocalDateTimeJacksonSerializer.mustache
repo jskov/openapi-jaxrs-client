@@ -11,6 +11,6 @@ public class _LocalDateTimeJacksonSerializer extends JsonSerializer<LocalDateTim
 	@Override
 	public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider)
 			throws IOException, JsonProcessingException {
-		jgen.writeString(value.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+		jgen.writeString(value.format(DateTimeFormatter.{{cannedLocalDateTimeSerializerDTF}}));
 	}
 }

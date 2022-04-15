@@ -172,6 +172,34 @@ The options are grouped into three sections:
 >
     default value: ISO_LOCAL_DATE
 
+**generator-jackson-localdatetime-deserializer**
+
+>Allows you specify a custom LocalDateTime deserializer class (use a fully qualified class name).
+
+>The default value will also cause generation of a generic LocalDateTime deserializer that uses `generator-jackson-localdatetime-wire-format`.
+
+>
+    default value: _LocalDateTimeJacksonDeserializer
+
+**generator-jackson-localdatetime-serializer**
+
+>Allows you specify a custom LocalDateTime serializer class (use a fully qualified class name).
+
+>The default value will also cause generation of a generic LocalDateTime serializer that uses `generator-jackson-localdatetime-wire-format`.
+
+>
+    default value: _LocalDateTimeJacksonSerializer
+
+**generator-jackson-localdatetime-wire-format**
+
+>Allows you specify a LocalDateTime wire format that is used with a standard de/serializer.
+
+>The specified value is used as a constant/factory method on DateTimeFormatter in the de/serializer classes.
+
+>See [example](./src/test/java/mada/tests/e2e/opts/generator/localdate)
+>
+    default value: ISO_LOCAL_DATE_TIME
+
 **generator-jsonb**
 
 >Use jsonb annotations in generated classes.

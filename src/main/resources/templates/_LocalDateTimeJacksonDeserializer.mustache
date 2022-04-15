@@ -14,6 +14,6 @@ public class _LocalDateTimeJacksonDeserializer extends JsonDeserializer<LocalDat
             throws IOException, JsonProcessingException {
         String wireText = jp.getText();
 
-        return LocalDateTime.parse(wireText, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return LocalDateTime.parse(wireText, DateTimeFormatter.{{cannedLocalDateTimeSerializerDTF}});
     }
 }
