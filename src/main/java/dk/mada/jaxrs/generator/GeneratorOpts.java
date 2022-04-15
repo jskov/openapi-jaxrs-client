@@ -352,6 +352,11 @@ public final class GeneratorOpts {
         return splitByComma(mediaTypes);
     }
 
+    /** {@return true if @RegisterForReflection should be added to DTOs} */
+    public boolean isUseRegisterForReflection() {
+        return bool("generator-quarkus-use-register-for-reflection");
+    }
+
     private boolean bool(String name) {
         return Boolean.parseBoolean(get(name));
     }

@@ -236,6 +236,14 @@ The options are grouped into three sections:
 >
     default value:
 
+**generator-quarkus-use-register-for-reflection**
+
+>Allows you to add @RegisterForReflection to all DTos.
+
+>
+    default value: false
+
+
 **generator-use-api-wrapped-primitives**
 
 >Allows you to use primitive wrapped as API parameters instead of primitives.
