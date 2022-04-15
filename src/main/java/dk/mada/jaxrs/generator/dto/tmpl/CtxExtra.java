@@ -56,7 +56,11 @@ public interface CtxExtra {
         return generatedDate() == null;
     }
 
-    /** {@return the date time format used by the LocalDate serializer, or null} */
+    /** {@return the date format used by the LocalDate serializer, or null} */
     @Nullable
     String cannedLocalDateSerializerDTF();
+
+    /** {@return the date time format used by the LocalDateTime serializer, or null} */
+    @Nullable
+    String cannedLocalDateTimeSerializerDTF();
 }

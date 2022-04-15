@@ -162,7 +162,7 @@ public class ParserTypes {
     public Type get(TypeName tn) {
         Type t = find(tn);
         if (t == null) {
-            throw new IllegalArgumentException("No type referenced found by name " + tn);
+            throw new IllegalArgumentException("No type referenced found by name " + tn.name());
         }
         return t;
     }

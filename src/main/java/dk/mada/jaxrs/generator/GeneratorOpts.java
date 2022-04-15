@@ -160,12 +160,25 @@ public final class GeneratorOpts {
         return parserOpts.isJseLocalDate() && isJackson();
     }
 
+    /** {@return true if a jackson LocalDateTime serializer should be rendered} */
+    public boolean isUseJacksonLocalDateTimeSerializer() {
+        return parserOpts.isJseLocalDateTime() && isJackson();
+    }
+
     /** {@return the LocalDate wire format for jackson, or null} */
     public String getJacksonLocalDateWireFormat() {
         if (!isUseJacksonLocalDateSerializer()) {
             return null;
         }
         return getDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
+    }
+
+    /** {@return the LocalDateTime wire format for jackson, or null} */
+    public String getJacksonLocalDateTimeWireFormat() {
+        if (!isUseJacksonLocalDateTimeSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-localdatetime-wire-format", "ISO_LOCAL_DATE_TIME");
     }
 
     /** {@return the jackson LocalDate deserializer class name, or null} */
@@ -182,6 +195,22 @@ public final class GeneratorOpts {
             return null;
         }
         return getDefault("generator-jackson-localdate-serializer", ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
+    }
+
+    /** {@return the jackson LocalDateTime deserializer class name, or null} */
+    public String getJacksonLocalDateTimeDeserializer() {
+        if (!isUseJacksonLocalDateSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-localdatetime-deserializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname());
+    }
+
+    /** {@return the jackson LocalDateTime serializer class name, or null} */
+    public String getJacksonLocalDateTimeSerializer() {
+        if (!isUseJacksonLocalDateTimeSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-localdatetime-serializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
     /** {@return the MP client config config key, or null} */
@@ -245,6 +274,16 @@ public final class GeneratorOpts {
     /** {@return true if the extra-template for a jackson LocalDate serializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateSerializerTemplate() {
         return ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateSerializer());
+    }
+
+    /** {@return true if the extra-template for a jackson LocalDateTime deserializer should be added, otherwise false} */
+    public boolean isAddJacksonLocalDateTimeDeserializerTemplate() {
+        return ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname().equals(getJacksonLocalDateTimeDeserializer());
+    }
+
+    /** {@return true if the extra-template for a jackson LocalDateTime serializer should be added, otherwise false} */
+    public boolean isAddJacksonLocalDateTimeSerializerTemplate() {
+        return ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateTimeSerializer());
     }
 
     /** {@return true if bean validation should be used, otherwise false} */

@@ -169,6 +169,7 @@ public class DtoGenerator {
                 .jsonb(opts.isJsonb())
                 .packageName(opts.dtoPackage())
                 .cannedLocalDateSerializerDTF(opts.getJacksonLocalDateWireFormat())
+                .cannedLocalDateTimeSerializerDTF(opts.getJacksonLocalDateTimeWireFormat())
                 .build();
     }
 
@@ -219,10 +220,14 @@ public class DtoGenerator {
                 && (dtoType.isDateTime()
                         || dto.properties().stream().anyMatch(p -> p.reference().isDateTime()))) {
             if (opts.isUseLocalDateTime()) {
-                extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER);
-                extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER);
-                customOffsetDateTimeDeserializer = ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname();
-                customOffsetDateTimeSerializer = ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname();
+                if (opts.isAddJacksonLocalDateTimeDeserializerTemplate()) {
+                    extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER);
+                }
+                if (opts.isAddJacksonLocalDateTimeSerializerTemplate()) {
+                    extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER);
+                }
+                customOffsetDateTimeDeserializer = opts.getJacksonLocalDateTimeDeserializer();
+                customOffsetDateTimeSerializer = opts.getJacksonLocalDateTimeSerializer();
             } else {
                 extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
                 extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);

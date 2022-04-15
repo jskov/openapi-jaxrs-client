@@ -8,8 +8,8 @@ package mada.tests.e2e.opts.generator.jackson.custom_dates.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
@@ -36,21 +36,21 @@ public class SpecialTypes {
 
   public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
   @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
-  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
-  private OffsetDateTime zonedDateTime;
+  @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeDeserializer.class)
+  @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
+  private LocalDateTime zonedDateTime;
 
   public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
   @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
-  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
-  private OffsetDateTime offsetDateTime;
+  @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeDeserializer.class)
+  @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
+  private LocalDateTime offsetDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
   @JsonProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
-  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
-  private OffsetDateTime localDateTime;
+  @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeDeserializer.class)
+  @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
+  private LocalDateTime localDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
   @JsonProperty(JSON_PROPERTY_LOCAL_DATE)
@@ -79,7 +79,7 @@ public class SpecialTypes {
     this.bigDecimal = bigDecimal;
   }
 
-  public SpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
+  public SpecialTypes zonedDateTime(LocalDateTime zonedDateTime) {
     this.zonedDateTime = zonedDateTime;
     return this;
   }
@@ -88,15 +88,15 @@ public class SpecialTypes {
    * Get zonedDateTime
    * @return zonedDateTime
    **/
-  public OffsetDateTime getZonedDateTime() {
+  public LocalDateTime getZonedDateTime() {
     return zonedDateTime;
   }
 
-  public void setZonedDateTime(OffsetDateTime zonedDateTime) {
+  public void setZonedDateTime(LocalDateTime zonedDateTime) {
     this.zonedDateTime = zonedDateTime;
   }
 
-  public SpecialTypes offsetDateTime(OffsetDateTime offsetDateTime) {
+  public SpecialTypes offsetDateTime(LocalDateTime offsetDateTime) {
     this.offsetDateTime = offsetDateTime;
     return this;
   }
@@ -105,15 +105,15 @@ public class SpecialTypes {
    * Get offsetDateTime
    * @return offsetDateTime
    **/
-  public OffsetDateTime getOffsetDateTime() {
+  public LocalDateTime getOffsetDateTime() {
     return offsetDateTime;
   }
 
-  public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
+  public void setOffsetDateTime(LocalDateTime offsetDateTime) {
     this.offsetDateTime = offsetDateTime;
   }
 
-  public SpecialTypes localDateTime(OffsetDateTime localDateTime) {
+  public SpecialTypes localDateTime(LocalDateTime localDateTime) {
     this.localDateTime = localDateTime;
     return this;
   }
@@ -122,11 +122,11 @@ public class SpecialTypes {
    * Get localDateTime
    * @return localDateTime
    **/
-  public OffsetDateTime getLocalDateTime() {
+  public LocalDateTime getLocalDateTime() {
     return localDateTime;
   }
 
-  public void setLocalDateTime(OffsetDateTime localDateTime) {
+  public void setLocalDateTime(LocalDateTime localDateTime) {
     this.localDateTime = localDateTime;
   }
 
