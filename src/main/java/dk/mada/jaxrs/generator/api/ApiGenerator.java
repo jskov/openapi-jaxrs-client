@@ -383,7 +383,13 @@ public class ApiGenerator {
             Reference ref = body.content().reference();
             imports.add(ref);
 
-            String dtoParamName = naming.convertEntityName(ref.typeName().name());
+            String preferredDtoParamName = naming.convertEntityName(ref.typeName().name());
+
+            // Guard against (simple) conflict with other parameters
+            boolean dtoParamNameNotUnique = params.stream()
+                .anyMatch(p -> p.paramName().equals(preferredDtoParamName));
+            String dtoParamName = dtoParamNameNotUnique ? preferredDtoParamName + "Entity" : preferredDtoParamName;
+
             String dataType = paramDataType(ref);
 
             boolean isBodyRequired = body.isRequired();
