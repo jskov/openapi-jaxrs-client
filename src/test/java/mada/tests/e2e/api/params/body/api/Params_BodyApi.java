@@ -130,6 +130,20 @@ public interface Params_BodyApi {
   @APIResponseSchema(String.class)
   String apiParamsBodyMixedInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, Simple dto);
 
+  /*
+   * apiParamsBodyRenameEntityParamDtoGet.
+   *
+   * @param dto  (optional)
+   * @param dto  (optional)
+   * @return String
+   */
+  @GET
+  @Path("/rename-entity-param/{dto}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
+  @APIResponseSchema(String.class)
+  String apiParamsBodyRenameEntityParamDtoGet(@QueryParam("dto") String dto, Simple dtoEntity);
+
   /**
    * apiParamsBodySimpleGet.
    *

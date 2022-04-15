@@ -168,6 +168,27 @@ paths:
             text/plain:
               schema:
                 type: string
+  /api/params/body/rename-entity-param/{dto}:
+    get:
+      tags:
+      - Params Body
+      parameters:
+      - name: dto
+        in: query
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Simple'
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
   /api/params/body/simple:
     get:
       tags:
