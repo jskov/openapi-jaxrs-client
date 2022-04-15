@@ -346,7 +346,7 @@ public class DtoGenerator {
         String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
         String nameSnaked = OpenapiGeneratorUtils.underscore(nameCamelized).toUpperCase();
 
-        logger.info("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
+        logger.debug("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
         Type propType = p.reference().refType();
         logger.trace(" {}", propType);
@@ -394,17 +394,14 @@ public class DtoGenerator {
         String enumTypeName = typeName;
         boolean isContainer = isArray || isMap || isSet;
 
-        logger.info(" innerType: {} : {}", innerType, innerType instanceof TypeEnum);
         if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
-            enumTypeName = te.innerType().typeName().name();
-            logger.info(" enum {} : {}", innerTypeName, te.values());
             isEnum = true;
-
+            enumTypeName = te.innerType().typeName().name();
             enumClassName = te.typeName().name();
-
             ctxEnum = buildEnumEntries(te.innerType(), te.values());
-
             dtoImports.addEnumImports(!isContainer);
+
+            logger.debug(" enum {} : {}", innerTypeName, te.values());
         }
 
         // Add import if required
