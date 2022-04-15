@@ -28,6 +28,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   ValidationDto.JSON_PROPERTY_NAME,
   ValidationDto.JSON_PROPERTY_INT_VALUE,
   ValidationDto.JSON_PROPERTY_PATTERN,
+  ValidationDto.JSON_PROPERTY_PATTERN_DIGITS,
   ValidationDto.JSON_PROPERTY_VALID_OBJECTS,
   ValidationDto.JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE
 })
@@ -45,6 +46,10 @@ public class ValidationDto {
   public static final String JSON_PROPERTY_PATTERN = "pattern";
   @JsonbProperty(JSON_PROPERTY_PATTERN)
   private String pattern;
+
+  public static final String JSON_PROPERTY_PATTERN_DIGITS = "patternDigits";
+  @JsonbProperty(JSON_PROPERTY_PATTERN_DIGITS)
+  private String patternDigits;
 
   public static final String JSON_PROPERTY_VALID_OBJECTS = "validObjects";
   @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
@@ -110,6 +115,24 @@ public class ValidationDto {
     this.pattern = pattern;
   }
 
+  public ValidationDto patternDigits(String patternDigits) {
+    this.patternDigits = patternDigits;
+    return this;
+  }
+
+  /**
+   * Get patternDigits
+   * @return patternDigits
+   **/
+  @Pattern(regexp = "^\\d{1,2}$")
+  public String getPatternDigits() {
+    return patternDigits;
+  }
+
+  public void setPatternDigits(String patternDigits) {
+    this.patternDigits = patternDigits;
+  }
+
   public ValidationDto validObjects(List<Environment> validObjects) {
     this.validObjects = validObjects;
     return this;
@@ -173,13 +196,14 @@ public class ValidationDto {
     return Objects.equals(this.name, other.name) &&
         Objects.equals(this.intValue, other.intValue) &&
         Objects.equals(this.pattern, other.pattern) &&
+        Objects.equals(this.patternDigits, other.patternDigits) &&
         Objects.equals(this.validObjects, other.validObjects) &&
         Objects.equals(this.primitivesShouldNotHaveValidate, other.primitivesShouldNotHaveValidate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, intValue, pattern, validObjects, primitivesShouldNotHaveValidate);
+    return Objects.hash(name, intValue, pattern, patternDigits, validObjects, primitivesShouldNotHaveValidate);
   }
 
   @Override
@@ -189,6 +213,7 @@ public class ValidationDto {
     sb.append("\n    name: ").append(toIndentedString(name));
     sb.append("\n    intValue: ").append(toIndentedString(intValue));
     sb.append("\n    pattern: ").append(toIndentedString(pattern));
+    sb.append("\n    patternDigits: ").append(toIndentedString(patternDigits));
     sb.append("\n    validObjects: ").append(toIndentedString(validObjects));
     sb.append("\n    primitivesShouldNotHaveValidate: ").append(toIndentedString(primitivesShouldNotHaveValidate));
     sb.append("\n}");

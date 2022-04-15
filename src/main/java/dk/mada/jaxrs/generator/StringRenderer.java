@@ -76,4 +76,18 @@ public final class StringRenderer {
         String body = text.replace("\"", "\\\"");
         return '"' + body + '"';
     }
+
+    /**
+     * Encode regular expression to be used in an annotation argument.
+     *
+     * Backslashes need to be doubled.
+     *
+     * @param regexp the regular expression to encode
+     * @return the encoded regular expression
+     */
+    public static String encodeRegexp(String regexp) {
+        String doubleHack = "@BACK_SLASHES@";
+        String out = regexp.replace("\\\\", doubleHack).replace("\\", "\\\\").replace(doubleHack, "\\\\");
+        return out;
+    }
 }
