@@ -36,7 +36,7 @@ public interface CtxPropertyExt {
     @Nullable
     String enumClassName();
 
-    /** {@return the enumeration type name */
+    /** {@return the enumeration type name} */
     @Nullable
     String enumTypeName();
 
