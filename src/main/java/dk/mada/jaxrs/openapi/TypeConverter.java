@@ -117,7 +117,7 @@ public final class TypeConverter {
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
 
-        logger.debug("type/format: {} {}/{} {}", propertyName, schemaType, schemaFormat, schema.getClass());
+        logger.debug("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
         logger.debug("ref {}", schemaRef);
 
         Validation validation = extractValidation(schema);
@@ -149,7 +149,8 @@ public final class TypeConverter {
         }
 
         if (schema instanceof ArraySchema a) {
-            ParserTypeRef innerType = toReference(a.getItems());
+            ParserTypeRef innerType = reference(a.getItems(), propertyName, parentDtoName);
+            logger.debug(" array of {}", innerType);
 
             Boolean isUnique = a.getUniqueItems();
             if (isUnique != null && isUnique.booleanValue()) {

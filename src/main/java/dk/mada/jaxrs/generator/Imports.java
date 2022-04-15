@@ -160,7 +160,7 @@ public final class Imports {
      */
     public static Imports newEnum(GeneratorOpts opts) {
         return new Imports(opts, false)
-                   .addEnumImports();
+                   .addEnumImports(true);
     }
 
     /**
@@ -222,14 +222,15 @@ public final class Imports {
     /**
      * Adds imports needed for rendering an enumeration.
      *
+     * @param includeTypeAdapter flag to include typeAdaptor
      * @return this
      */
-    public Imports addEnumImports() {
-        return this.add(opts.isJackson(), JAVA_UTIL_OBJECTS)
+    public Imports addEnumImports(boolean includeTypeAdapter) {
+        return add(opts.isJackson(), JAVA_UTIL_OBJECTS)
             .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
             .jackson(JSON_CREATOR, JSON_VALUE)
             .jsonb("javax.json.Json", "javax.json.JsonString", "javax.json.bind.adapter.JsonbAdapter")
-            .jsonb("javax.json.bind.annotation.JsonbTypeAdapter");
+            .jsonb(includeTypeAdapter, "javax.json.bind.annotation.JsonbTypeAdapter");
     }
 
     /**

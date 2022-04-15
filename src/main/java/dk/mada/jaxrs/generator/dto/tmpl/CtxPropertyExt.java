@@ -19,6 +19,27 @@ public interface CtxPropertyExt {
     @Nullable
     String innerDatatypeWithEnum();
 
+    /**
+     * Returns the (embedded) enumeration class name.
+     *
+     * Used in enumerations that are rendered next to the (only)
+     * property where they are referenced. See enumClass.mustache.
+     *
+     * This is handled separately from the standard dataType/datatypeWithEnum
+     * values because they are both used separately by both containers and
+     * enumerations. Which prevents handling of enumerations in containers
+     * (or rather, I broke the templates somehow to match behavior from
+     * openapi-generator - and this is easier to read for me).
+     *
+     * @return the enumeration class name
+     */
+    @Nullable
+    String enumClassName();
+
+    /** {@return the enumeration type name} */
+    @Nullable
+    String enumTypeName();
+
     /** {@return the schema options (for use in @Schema), or null} */
     @Nullable
     String schemaOptions();

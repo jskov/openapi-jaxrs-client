@@ -3,7 +3,7 @@
    * {{description}}
    */
 {{/description}}
-  public enum {{{datatypeWithEnum}}}{{^datatypeWithEnum}}{{classname}}{{/datatypeWithEnum}} {
+  public enum {{{madaProp.enumClassName}}} {
         {{#allowableValues}}
             {{#enumVars}}
             {{#mada.off}}
@@ -18,16 +18,16 @@
             {{/enumVars}}
         {{/allowableValues}}
 
-    private final {{{dataType}}} value;
+    private final {{{madaProp.enumTypeName}}} value;
 
-    {{{datatypeWithEnum}}}{{^datatypeWithEnum}}{{classname}}{{/datatypeWithEnum}}({{{dataType}}} value) {
+    {{{madaProp.enumClassName}}}({{{madaProp.enumTypeName}}} value) {
       this.value = value;
     }
 
 {{#jackson}}
     @JsonValue
 {{/jackson}}
-    public {{{dataType}}} getValue() {
+    public {{{madaProp.enumTypeName}}} getValue() {
       return value;
     }
 
@@ -38,8 +38,8 @@
 {{#jackson}}
 
     @JsonCreator
-    public static {{{datatypeWithEnum}}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} fromValue({{{dataType}}} value) {
-      for ({{{datatypeWithEnum}}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} b : {{{datatypeWithEnum}}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}}.values()) {
+    public static {{{madaProp.enumClassName}}} fromValue({{{madaProp.enumTypeName}}} value) {
+      for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
         if (Objects.equals(b.value, value)) {
           return b;
         }
@@ -49,20 +49,20 @@
 {{/jackson}}
     {{#madaProp.jsonb}}
 
-    public static class {{{datatypeWithEnum}}}Adapter implements JsonbAdapter<{{{datatypeWithEnum}}}, JsonString> {
+    public static class {{{madaProp.enumClassName}}}Adapter implements JsonbAdapter<{{{madaProp.enumClassName}}}, JsonString> {
       @Override
-      public JsonString adaptToJson({{{datatypeWithEnum}}} e) throws Exception {
+      public JsonString adaptToJson({{{madaProp.enumClassName}}} e) throws Exception {
         return Json.createValue(String.valueOf(e.value));
       }
 
       @Override
-      public {{{datatypeWithEnum}}} adaptFromJson(JsonString value) throws Exception {
-        for ({{{datatypeWithEnum}}} b : {{{datatypeWithEnum}}}.values()) {
+      public {{{madaProp.enumClassName}}} adaptFromJson(JsonString value) throws Exception {
+        for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
           if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
             return b;
           }
         }
-        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type {{{datatypeWithEnum}}}");
+        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type {{{madaProp.enumClassName}}}");
       }
     }
     {{/madaProp.jsonb}}

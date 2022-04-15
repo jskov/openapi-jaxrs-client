@@ -28,14 +28,7 @@
 public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}} {
   {{#vars}}
     {{#isEnum}}
-    {{^isContainer}}
 {{>enumClass}}
-    {{/isContainer}}
-    {{#isContainer}}
-    {{#mostInnerItems}}
-{{>enumClass}}
-    {{/mostInnerItems}}
-    {{/isContainer}}
     {{/isEnum}}
   {{#jackson}}
   public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";
@@ -61,7 +54,9 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
   public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";
   @JsonbProperty(JSON_PROPERTY_{{nameInSnakeCase}})
     {{#isEnum}}
+    {{^isContainer}}
   @JsonbTypeAdapter({{packageName}}.{{classname}}.{{datatypeWithEnum}}.{{datatypeWithEnum}}Adapter.class)
+    {{/isContainer}}
     {{/isEnum}}
   {{/madaDto.jsonb}}
   {{#madaProp.schemaOptions}}
