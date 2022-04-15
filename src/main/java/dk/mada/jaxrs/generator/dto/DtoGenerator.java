@@ -507,7 +507,7 @@ public class DtoGenerator {
             }
 
             if (p.pattern() != null) {
-                pattern = p.pattern();
+                pattern = StringRenderer.encodeRegexp(p.pattern());
                 dtoImports.add("javax.validation.constraints.Pattern");
             }
         }
