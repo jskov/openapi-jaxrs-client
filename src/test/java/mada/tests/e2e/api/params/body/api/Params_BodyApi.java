@@ -130,11 +130,11 @@ public interface Params_BodyApi {
   @APIResponseSchema(String.class)
   String apiParamsBodyMixedInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, Simple dto);
 
-  /*
+  /**
    * apiParamsBodyRenameEntityParamDtoGet.
    *
    * @param dto  (optional)
-   * @param dto  (optional)
+   * @param dtoEntity  (optional)
    * @return String
    */
   @GET
