@@ -1,4 +1,13 @@
-# Testing notes
+# Development
+
+## IDE setup
+
+To prepare eclipse settings to get eclipse/vscode to work with APT run this task:
+
+    ./gradlew prepCodeGen
+
+
+## Testing notes
 
 In Eclipse, add build/e2e as a source folder (and exclude **/*.java) to get easy access to test output.
 
