@@ -9,8 +9,6 @@ The API classes are intended for use with the MicroProfile client.
 The DTO classes can be generated for use with [JSON Binding](https://javaee.github.io/jsonb-spec/), [Jackson FasterXML](https://github.com/FasterXML/jackson-docs), or [Jackson Codehaus](https://github.com/codehaus/jackson).  
 So these can be used in other (older) contexts than with a MicroProfile client.
 
-**This project is still in development - it may be a little rough around the edges!!**
-
 ## Inspiration
 
 Much of the behavior and templates are lifted more or less directly from [openapi-generator](https://github.com/OpenAPITools/openapi-generator).
@@ -63,15 +61,10 @@ The code generation is configured via [options](./src/docs/Configuration.md).
 
 The current plans for future releases are (note, no time commitments):
 
-**0.8.x**
-
-* Make the generator able to match the custom code generator we use at work.
-
 **0.9.x**
 
-* Take project of development mode.
-* Split code into modules (converter+model, generator).
 * Add gradle plugin.
+* Split code into modules (converter+model, generator).
 * Refactor the methods that have gotten large during 0.8.x.
 * More code/package documentation.
 * Documentation index with references to the various tests/examples.
