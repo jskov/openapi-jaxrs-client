@@ -2,7 +2,7 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-//    id 'eclipse'
+    id 'eclipse'
     id 'jacoco'
     id 'java-library'
     id 'org.sonarqube' version '3.3'
@@ -186,6 +186,8 @@ publish.doLast {
     project.delete(fileTree(dir: "build/dist/dk", includes: ["**/*.md5", "**/*.sha1", "**/*.sha256", "**/*.sha512"]).files)
 }
 
+// This task configures enough of the eclipse settings to make
+// vscode-java plugin work with APT
 task prepCodeGen() {
     doLast {
         String valueJarPath = configurations.apt.getSingleFile().getAbsolutePath()
@@ -241,5 +243,3 @@ encoding/<project>=UTF-8
 """
     }
 }
-
-tasks.eclipse.dependsOn(prepCodeGen)
