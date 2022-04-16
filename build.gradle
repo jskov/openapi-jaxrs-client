@@ -2,7 +2,7 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'eclipse'
+//    id 'eclipse'
     id 'jacoco'
     id 'java-library'
     id 'org.sonarqube' version '3.3'
@@ -226,6 +226,18 @@ org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=warning
 org.eclipse.jdt.core.compiler.processAnnotations=enabled
 org.eclipse.jdt.core.compiler.release=disabled
 org.eclipse.jdt.core.compiler.source=17
+"""
+
+        File buildship = file(".settings/org.eclipse.buildship.core.prefs")
+        buildship.delete()
+        buildship << """connection.project.dir=
+eclipse.preferences.version=1
+"""
+
+        File encoding = file(".settings/org.eclipse.core.resources.prefs")
+        encoding.delete()
+        encoding << """eclipse.preferences.version=1
+encoding/<project>=UTF-8
 """
     }
 }
