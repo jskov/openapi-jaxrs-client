@@ -61,7 +61,7 @@ dependencies {
     testImplementation  'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     testImplementation  'org.eclipse.microprofile.openapi:microprofile-openapi-api:3.0'
     testImplementation  'org.eclipse.microprofile.rest.client:microprofile-rest-client-api:3.0'
-    testImplementation "io.quarkus:quarkus-rest-client:2.8.0.Final"
+    testImplementation "io.quarkus:quarkus-rest-client:2.8.2.Final"
 }
 
 shadowJar {
