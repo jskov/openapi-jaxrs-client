@@ -1,9 +1,9 @@
 package dk.mada.jaxrs.generator;
 
 /**
- * Jackson classes and their import paths for codehaus and fasterxml.
+ * Jackson imports and their paths for codehaus and fasterxml.
  */
-public enum ImportsJackson {
+public enum JacksonImport {
     /** DeserializationContext. */
     DESERIALIZATION_CONTEXT(
         "org.codehaus.jackson.map.DeserializationContext",
@@ -66,7 +66,7 @@ public enum ImportsJackson {
     /** The FasterXml import path. */
     public final String fasterxmlImport;
     
-    ImportsJackson(String codehausImport, String fasterxmlImport) {
+    JacksonImport(String codehausImport, String fasterxmlImport) {
         this.codehausImport = codehausImport;
         this.fasterxmlImport = fasterxmlImport;
     }

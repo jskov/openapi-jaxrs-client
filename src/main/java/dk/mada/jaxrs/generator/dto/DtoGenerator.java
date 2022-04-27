@@ -43,6 +43,7 @@ import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
+import static dk.mada.jaxrs.generator.JacksonImport.*;
 
 /**
  * DTO generator.
@@ -210,7 +211,7 @@ public class DtoGenerator {
             }
             customLocalDateSerializer = opts.getJacksonLocalDateSerializer();
 
-            dtoImports.jackson("JsonDeserialize", "JsonSerialize");
+            dtoImports.jackson(JSON_DESERIALIZE, JSON_SERIALIZE);
         }
 
         String customOffsetDateTimeDeserializer = null;
@@ -235,7 +236,7 @@ public class DtoGenerator {
                 customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
             }
 
-            dtoImports.jackson("JsonDeserialize", "JsonSerialize");
+            dtoImports.jackson(JSON_DESERIALIZE, JSON_SERIALIZE);
         }
 
         String description = dto.description();
@@ -434,7 +435,7 @@ public class DtoGenerator {
             getter = getter + "Double";
             setter = setter + "Double";
 
-            dtoImports.jackson("JsonIgnore");
+            dtoImports.jackson(JSON_IGNORE);
             dtoImports.add("java.math.BigDecimal");
         }
 
