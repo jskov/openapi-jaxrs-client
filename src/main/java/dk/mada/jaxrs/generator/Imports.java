@@ -230,7 +230,7 @@ public final class Imports {
 
         boolean isCodehaus = opts.isJacksonCodehaus();
         for (JacksonImport ji : classes) {
-            add(isCodehaus ? ji.codehausImport : ji.fasterxmlImport);
+            add(isCodehaus ? ji.codeHausImport() : ji.fasterXmlImport());
         }
         return this;
     }

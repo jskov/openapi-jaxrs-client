@@ -1,7 +1,7 @@
 package dk.mada.jaxrs.generator;
 
 /**
- * Jackson imports and their paths for codehaus and fasterxml.
+ * Jackson imports and their paths for CodeHaus and FasterXml.
  */
 public enum JacksonImport {
     /** DeserializationContext. */
@@ -62,12 +62,22 @@ public enum JacksonImport {
         "com.fasterxml.jackson.databind.SerializerProvider");
 
     /** The CodeHaus import path. */
-    public final String codehausImport;
+    private final String codeHausImport;
     /** The FasterXml import path. */
-    public final String fasterxmlImport;
-    
+    private final String fasterXmlImport;
+
     JacksonImport(String codehausImport, String fasterxmlImport) {
-        this.codehausImport = codehausImport;
-        this.fasterxmlImport = fasterxmlImport;
+        this.codeHausImport = codehausImport;
+        this.fasterXmlImport = fasterxmlImport;
+    }
+
+    /** {@return the CodeHaus import path} */
+    public String codeHausImport() {
+        return codeHausImport;
+    }
+
+    /** {@return the FasterXml import path} */
+    public String fasterXmlImport() {
+        return fasterXmlImport;
     }
 }
