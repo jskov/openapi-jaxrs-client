@@ -15,6 +15,7 @@ import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import static dk.mada.jaxrs.generator.JacksonImport.*;
+import static dk.mada.jaxrs.generator.JsonbImport.*;
 
 /**
  * Keeps track of imports for a single template, taking
@@ -37,10 +38,11 @@ public final class Imports {
     public static final Set<String> MAP_TYPES = Set.of("java.util.Map", "java.util.HashMap");
     /** Imports needed for set types. */
     public static final Set<String> SET_TYPES = Set.of("java.util.Set", "java.util.LinkedHashSet");
+    /** Imports used for container implementations. */
     private static final Set<String> CONTAINER_IMPLEMENTATION_TYPES = Set.of(
-            "java.util.ArrayList",
-            "java.util.HashMap",
-            "java.util.LinkedHashSet");
+        "java.util.ArrayList",
+        "java.util.HashMap",
+        "java.util.LinkedHashSet");
 
     /** Generator options. */
     private final GeneratorOpts opts;
@@ -93,7 +95,7 @@ public final class Imports {
                 .add(opts.isUseRegisterForReflection(), "io.quarkus.runtime.annotations.RegisterForReflection")
                 .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
                 .jackson(JSON_PROPERTY, JSON_PROPERTY_ORDER)
-                .jsonb("javax.json.bind.annotation.JsonbProperty", "javax.json.bind.annotation.JsonbPropertyOrder");
+                .jsonb(JSONB_PROPERTY, JSONB_PROPERTY_ORDER);
     }
 
     /**
@@ -173,8 +175,9 @@ public final class Imports {
         return add(opts.isJackson(), JAVA_UTIL_OBJECTS)
             .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
             .jackson(JSON_CREATOR, JSON_VALUE)
-            .jsonb("javax.json.Json", "javax.json.JsonString", "javax.json.bind.adapter.JsonbAdapter")
-            .jsonb(includeTypeAdapter, "javax.json.bind.annotation.JsonbTypeAdapter");
+            .add(opts.isJsonb(), "javax.json.Json", "javax.json.JsonString")
+            .jsonb(JSONB_ADAPTER)
+            .jsonb(includeTypeAdapter, JSONB_TYPE_ADAPTER);
     }
 
     /**
@@ -242,9 +245,9 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports jsonb(boolean enable, String... classes) {
-        if (enable && opts.isJsonb()) {
-            add(classes);
+    public Imports jsonb(boolean enable, JsonbImport... classes) {
+        if (enable) {
+            jsonb(classes);
         }
         return this;
     }
@@ -255,9 +258,11 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports jsonb(String... classes) {
+    public Imports jsonb(JsonbImport... classes) {
         if (opts.isJsonb()) {
-            add(classes);
+            for (JsonbImport ji : classes) {
+                add(ji.importPath());
+            }
         }
         return this;
     }
