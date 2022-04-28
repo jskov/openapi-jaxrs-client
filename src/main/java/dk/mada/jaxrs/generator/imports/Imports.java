@@ -1,31 +1,11 @@
 package dk.mada.jaxrs.generator.imports;
 
-import static dk.mada.jaxrs.generator.imports.JacksonImport.DESERIALIZATION_CONTEXT;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_CREATOR;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_DESERIALIZER;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_GENERATOR;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_PARSER;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_PROCESSING_EXCEPTION;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_PROPERTY;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_PROPERTY_ORDER;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_SERIALIZE;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_SERIALIZER;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_VALUE;
-import static dk.mada.jaxrs.generator.imports.JacksonImport.SERIALIZER_PROVIDER;
-import static dk.mada.jaxrs.generator.imports.JsonbImport.JSON;
-import static dk.mada.jaxrs.generator.imports.JsonbImport.JSONB_ADAPTER;
-import static dk.mada.jaxrs.generator.imports.JsonbImport.JSONB_PROPERTY;
-import static dk.mada.jaxrs.generator.imports.JsonbImport.JSONB_PROPERTY_ORDER;
-import static dk.mada.jaxrs.generator.imports.JsonbImport.JSONB_TYPE_ADAPTER;
-import static dk.mada.jaxrs.generator.imports.JsonbImport.JSON_STRING;
-import static dk.mada.jaxrs.generator.imports.MicroProfileImport.SCHEMA;
-import static dk.mada.jaxrs.generator.imports.TimeImport.DATE_TIME_FORMATTER;
-import static dk.mada.jaxrs.generator.imports.TimeImport.DATE_TIME_PARSE_EXCEPTION;
-import static dk.mada.jaxrs.generator.imports.TimeImport.LOCAL_DATE;
-import static dk.mada.jaxrs.generator.imports.TimeImport.LOCAL_DATE_TIME;
-import static dk.mada.jaxrs.generator.imports.TimeImport.OFFSET_DATE_TIME;
-import static dk.mada.jaxrs.generator.imports.TimeImport.ZONE_ID;
-import static dk.mada.jaxrs.generator.imports.UtilImport.OBJECTS;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.*;
+import static dk.mada.jaxrs.generator.imports.JsonbImport.*;
+import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
+import static dk.mada.jaxrs.generator.imports.QuarkusImport.*;
+import static dk.mada.jaxrs.generator.imports.TimeImport.*;
+import static dk.mada.jaxrs.generator.imports.UtilImport.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -100,7 +80,7 @@ public final class Imports {
     public static Imports newDto(GeneratorOpts opts) {
         return new Imports(opts, false)
                 .util(OBJECTS)
-                .add(opts.isUseRegisterForReflection(), "io.quarkus.runtime.annotations.RegisterForReflection")
+                .quarkus(opts.isUseRegisterForReflection(), REGISTER_FOR_REFLECTION)
                 .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
                 .jackson(JSON_PROPERTY, JSON_PROPERTY_ORDER)
                 .jsonb(JSONB_PROPERTY, JSONB_PROPERTY_ORDER);
@@ -310,6 +290,35 @@ public final class Imports {
         if (enable) {
             for (UtilImport ui : classes) {
                 add(ui.importPath());
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Adds imports for quarkus types.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports quarkus(QuarkusImport... classes) {
+        for (QuarkusImport qi : classes) {
+            add(qi.importPath());
+        }
+        return this;
+    }
+
+    /**
+     * Adds optional imports for quarkus types.
+     *
+     * @param enable option to control if the classes should be added
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports quarkus(boolean enable, QuarkusImport... classes) {
+        if (enable) {
+            for (QuarkusImport qi : classes) {
+                add(qi.importPath());
             }
         }
         return this;
