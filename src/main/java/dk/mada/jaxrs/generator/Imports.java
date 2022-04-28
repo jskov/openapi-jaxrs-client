@@ -16,6 +16,7 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import static dk.mada.jaxrs.generator.JacksonImport.*;
 import static dk.mada.jaxrs.generator.JsonbImport.*;
+import static dk.mada.jaxrs.generator.TimeImport.*;
 
 /**
  * Keeps track of imports for a single template, taking
@@ -24,12 +25,6 @@ import static dk.mada.jaxrs.generator.JsonbImport.*;
 public final class Imports {
     private static final Logger logger = LoggerFactory.getLogger(Imports.class);
 
-    private static final String LOCAL_DATE_TIME = "java.time.LocalDateTime";
-    private static final String ZONE_ID = "java.time.ZoneId";
-    private static final String DATE_TIME_PARSE_EXCEPTION = "java.time.format.DateTimeParseException";
-    private static final String OFFSET_DATE_TIME = "java.time.OffsetDateTime";
-    private static final String DATE_TIME_FORMATTER = "java.time.format.DateTimeFormatter";
-    private static final String LOCAL_DATE = "java.time.LocalDate";
     private static final String IOEXCEPTION = "java.io.IOException";
     private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
     /** Imports needed for list types. */
@@ -129,38 +124,38 @@ public final class Imports {
      */
     public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
         var imports = new Imports(opts, false);
+        imports
+            .add(IOEXCEPTION);
 
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
             imports
-            .add(IOEXCEPTION, LOCAL_DATE, DATE_TIME_FORMATTER)
-            .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
+                .time(DATE_TIME_FORMATTER, LOCAL_DATE)
+                .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER) {
             imports
-            .add(IOEXCEPTION, LOCAL_DATE, DATE_TIME_FORMATTER)
-            .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .time(DATE_TIME_FORMATTER, LOCAL_DATE)
+                .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
-            .add(IOEXCEPTION, LOCAL_DATE_TIME)
-            .add(DATE_TIME_FORMATTER)
-            .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .time(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
+                .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER) {
             imports
-            .add(IOEXCEPTION, LOCAL_DATE_TIME, DATE_TIME_FORMATTER)
-            .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .time(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
+                .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
-            .add(IOEXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME)
-            .add(DATE_TIME_FORMATTER, DATE_TIME_PARSE_EXCEPTION, ZONE_ID)
-            .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .time(DATE_TIME_FORMATTER, DATE_TIME_PARSE_EXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME, ZONE_ID)
+                .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER) {
             imports
-            .add(IOEXCEPTION, OFFSET_DATE_TIME, DATE_TIME_FORMATTER)
-            .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .time(DATE_TIME_FORMATTER, OFFSET_DATE_TIME)
+                .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         return imports;
     }
@@ -261,6 +256,19 @@ public final class Imports {
             for (JsonbImport ji : classes) {
                 add(ji.importPath());
             }
+        }
+        return this;
+    }
+
+    /**
+     * Adds imports for time types.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports time(TimeImport... classes) {
+        for (TimeImport ti : classes) {
+            add(ti.importPath());
         }
         return this;
     }
