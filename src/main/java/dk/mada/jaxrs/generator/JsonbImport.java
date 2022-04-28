@@ -4,6 +4,10 @@ package dk.mada.jaxrs.generator;
  * Json binding import paths.
  */
 public enum JsonbImport {
+    /** Json. */
+    JSON("javax.json.Json"),
+    /** JsonString. */
+    JSON_STRING("javax.json.JsonString"),
     /** JsonbAdapter. */
     JSONB_ADAPTER("javax.json.bind.adapter.JsonbAdapter"),
     /** JsonbProperty. */

@@ -133,7 +133,7 @@ public final class Imports {
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
             imports
             .add(IOEXCEPTION, LOCAL_DATE, DATE_TIME_FORMATTER)
-            .jackson(JacksonImport.JSON_PARSER, JacksonImport.DESERIALIZATION_CONTEXT, JacksonImport.JSON_DESERIALIZER);
+            .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER) {
             imports
@@ -175,8 +175,7 @@ public final class Imports {
         return add(opts.isJackson(), JAVA_UTIL_OBJECTS)
             .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
             .jackson(JSON_CREATOR, JSON_VALUE)
-            .add(opts.isJsonb(), "javax.json.Json", "javax.json.JsonString")
-            .jsonb(JSONB_ADAPTER)
+            .jsonb(JSONB_ADAPTER, JSON, JSON_STRING)
             .jsonb(includeTypeAdapter, JSONB_TYPE_ADAPTER);
     }
 
@@ -231,9 +230,8 @@ public final class Imports {
             return this;
         }
 
-        boolean isCodehaus = opts.isJacksonCodehaus();
         for (JacksonImport ji : classes) {
-            add(isCodehaus ? ji.codeHausImport() : ji.fasterXmlImport());
+            add(ji.importPath(opts));
         }
         return this;
     }

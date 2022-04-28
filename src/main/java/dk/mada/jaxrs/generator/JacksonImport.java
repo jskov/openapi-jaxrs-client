@@ -71,13 +71,11 @@ public enum JacksonImport {
         this.fasterXmlImport = fasterxmlImport;
     }
 
-    /** {@return the CodeHaus import path} */
-    public String codeHausImport() {
-        return codeHausImport;
-    }
-
-    /** {@return the FasterXml import path} */
-    public String fasterXmlImport() {
-        return fasterXmlImport;
+    /**
+     * {@return the import path suitable for the active jackson implementation}
+     * @param opts the generator options.
+     */
+    public String importPath(GeneratorOpts opts) {
+        return opts.isJacksonCodehaus() ? codeHausImport : fasterXmlImport;
     }
 }
