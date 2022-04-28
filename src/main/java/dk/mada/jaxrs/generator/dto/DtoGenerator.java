@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.generator.dto;
 
 import static dk.mada.jaxrs.generator.imports.JacksonImport.*;
+import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
 import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
@@ -318,9 +319,9 @@ public class DtoGenerator {
             type = ", type = SchemaType.INTEGER, format = \"int32\"";
         }
         if (!type.isEmpty()) {
-            dtoImports.add("org.eclipse.microprofile.openapi.annotations.enums.SchemaType");
+            dtoImports.mp(SCHEMA_TYPE);
         }
-        dtoImports.add("org.eclipse.microprofile.openapi.annotations.media.Schema");
+        dtoImports.mp(SCHEMA);
 
         return new StringBuilder()
                 .append("enumeration = {").append(values).append("}")

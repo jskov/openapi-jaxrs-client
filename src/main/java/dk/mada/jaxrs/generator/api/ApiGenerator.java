@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.api;
 
+import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,6 @@ import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi.CtxOperationRef;
-import dk.mada.jaxrs.generator.imports.Imports;
-import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
@@ -26,6 +26,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
 import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
+import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -136,14 +137,14 @@ public class ApiGenerator {
 
         String clientKey = opts.getMpClientConfigKey();
         if (clientKey != null) {
-            imports.add("org.eclipse.microprofile.rest.client.inject.RegisterRestClient");
+            imports.mp(REGISTER_REST_CLIENT);
         }
 
         List<String> mpProviders = opts.getMpProviders().stream()
                 .sorted()
                 .toList();
         if (!mpProviders.isEmpty()) {
-            imports.add("org.eclipse.microprofile.rest.client.annotation.RegisterProvider");
+            imports.mp(REGISTER_PROVIDER);
         }
 
         CtxApiExt apiExt = CtxApiExt.builder()
@@ -225,7 +226,7 @@ public class ApiGenerator {
 
         String opSummaryString = StringRenderer.encodeForString(summary);
         if (opSummaryString != null) {
-            imports.add("org.eclipse.microprofile.openapi.annotations.Operation");
+            imports.mp(OPERATION);
         }
 
         CtxApiOpExt ext = CtxApiOpExt.builder()
@@ -448,7 +449,7 @@ public class ApiGenerator {
         if (type instanceof TypeContainer tc) {
             baseType = tc.innerType().wrapperTypeName().name();
             containerType = "SchemaType.ARRAY";
-            imports.add("org.eclipse.microprofile.openapi.annotations.enums.SchemaType");
+            imports.mp(SCHEMA_TYPE);
 
             isUnique = type instanceof TypeSet;
         } else if (type.isVoid()) {
