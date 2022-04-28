@@ -13,11 +13,11 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.CommonPathFinder;
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi.CtxOperationRef;
+import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;

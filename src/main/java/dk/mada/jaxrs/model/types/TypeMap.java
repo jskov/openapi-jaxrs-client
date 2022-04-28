@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.generator.Imports;
+import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**

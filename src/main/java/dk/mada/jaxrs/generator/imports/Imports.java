@@ -1,4 +1,8 @@
-package dk.mada.jaxrs.generator;
+package dk.mada.jaxrs.generator.imports;
+
+import static dk.mada.jaxrs.generator.imports.JacksonImport.*;
+import static dk.mada.jaxrs.generator.imports.JsonbImport.*;
+import static dk.mada.jaxrs.generator.imports.TimeImport.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,13 +14,12 @@ import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.generator.ExtraTemplate;
+import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
-import static dk.mada.jaxrs.generator.JacksonImport.*;
-import static dk.mada.jaxrs.generator.JsonbImport.*;
-import static dk.mada.jaxrs.generator.TimeImport.*;
 
 /**
  * Keeps track of imports for a single template, taking

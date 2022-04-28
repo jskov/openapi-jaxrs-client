@@ -1,4 +1,6 @@
-package dk.mada.jaxrs.generator;
+package dk.mada.jaxrs.generator.imports;
+
+import dk.mada.jaxrs.generator.GeneratorOpts;
 
 /**
  * Jackson imports and their paths for CodeHaus and FasterXml.

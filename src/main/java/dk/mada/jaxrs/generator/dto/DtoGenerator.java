@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.generator.dto;
 
+import static dk.mada.jaxrs.generator.imports.JacksonImport.*;
 import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
@@ -14,13 +15,13 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.ExtraTemplate;
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
+import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
@@ -43,7 +44,6 @@ import dk.mada.jaxrs.naming.EnumNamer;
 import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
-import static dk.mada.jaxrs.generator.JacksonImport.*;
 
 /**
  * DTO generator.

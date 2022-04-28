@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.generator;
+package dk.mada.jaxrs.generator.imports;
 
 /**
  * Json binding import paths.
