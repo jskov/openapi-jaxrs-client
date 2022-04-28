@@ -1,13 +1,11 @@
 package dk.mada.jaxrs.model.types;
 
-import static java.util.stream.Collectors.toSet;
-
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.generator.imports.Imports;
+import dk.mada.jaxrs.generator.imports.UtilImport;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
@@ -38,9 +36,9 @@ public interface TypeArray extends TypeContainer {
 
     @Override
     default Set<String> neededImports() {
-        return Stream.concat(
-                innerType().neededImports().stream(),
-                Imports.LIST_TYPES.stream())
-                .collect(toSet());
+        Set<String> combined = new HashSet<>(innerType().neededImports());
+        UtilImport.containerListTypes()
+            .forEach(ui -> combined.add(ui.importPath()));
+        return combined;
     }
 }

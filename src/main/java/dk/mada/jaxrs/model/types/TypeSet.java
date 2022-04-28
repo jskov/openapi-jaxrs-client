@@ -1,10 +1,11 @@
 package dk.mada.jaxrs.model.types;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.generator.imports.Imports;
+import dk.mada.jaxrs.generator.imports.UtilImport;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
@@ -35,6 +36,9 @@ public interface TypeSet extends TypeContainer {
 
     @Override
     default Set<String> neededImports() {
-        return Imports.SET_TYPES;
+        Set<String> combined = new HashSet<>(innerType().neededImports());
+        UtilImport.containerSetTypes()
+            .forEach(ui -> combined.add(ui.importPath()));
+        return combined;
     }
 }

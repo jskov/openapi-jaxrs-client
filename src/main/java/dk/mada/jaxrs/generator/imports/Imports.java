@@ -1,14 +1,35 @@
 package dk.mada.jaxrs.generator.imports;
 
-import static dk.mada.jaxrs.generator.imports.JacksonImport.*;
-import static dk.mada.jaxrs.generator.imports.JsonbImport.*;
-import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
-import static dk.mada.jaxrs.generator.imports.TimeImport.*;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.DESERIALIZATION_CONTEXT;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_CREATOR;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_DESERIALIZER;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_GENERATOR;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_PARSER;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_PROCESSING_EXCEPTION;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_PROPERTY;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_PROPERTY_ORDER;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_SERIALIZE;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_SERIALIZER;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.JSON_VALUE;
+import static dk.mada.jaxrs.generator.imports.JacksonImport.SERIALIZER_PROVIDER;
+import static dk.mada.jaxrs.generator.imports.JsonbImport.JSON;
+import static dk.mada.jaxrs.generator.imports.JsonbImport.JSONB_ADAPTER;
+import static dk.mada.jaxrs.generator.imports.JsonbImport.JSONB_PROPERTY;
+import static dk.mada.jaxrs.generator.imports.JsonbImport.JSONB_PROPERTY_ORDER;
+import static dk.mada.jaxrs.generator.imports.JsonbImport.JSONB_TYPE_ADAPTER;
+import static dk.mada.jaxrs.generator.imports.JsonbImport.JSON_STRING;
+import static dk.mada.jaxrs.generator.imports.MicroProfileImport.SCHEMA;
+import static dk.mada.jaxrs.generator.imports.TimeImport.DATE_TIME_FORMATTER;
+import static dk.mada.jaxrs.generator.imports.TimeImport.DATE_TIME_PARSE_EXCEPTION;
+import static dk.mada.jaxrs.generator.imports.TimeImport.LOCAL_DATE;
+import static dk.mada.jaxrs.generator.imports.TimeImport.LOCAL_DATE_TIME;
+import static dk.mada.jaxrs.generator.imports.TimeImport.OFFSET_DATE_TIME;
+import static dk.mada.jaxrs.generator.imports.TimeImport.ZONE_ID;
+import static dk.mada.jaxrs.generator.imports.UtilImport.OBJECTS;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -30,18 +51,6 @@ public final class Imports {
     private static final Logger logger = LoggerFactory.getLogger(Imports.class);
 
     private static final String IOEXCEPTION = "java.io.IOException";
-    private static final String JAVA_UTIL_OBJECTS = "java.util.Objects";
-    /** Imports needed for list types. */
-    public static final Set<String> LIST_TYPES = Set.of("java.util.List", "java.util.ArrayList");
-    /** Imports needed for map types. */
-    public static final Set<String> MAP_TYPES = Set.of("java.util.Map", "java.util.HashMap");
-    /** Imports needed for set types. */
-    public static final Set<String> SET_TYPES = Set.of("java.util.Set", "java.util.LinkedHashSet");
-    /** Imports used for container implementations. */
-    private static final Set<String> CONTAINER_IMPLEMENTATION_TYPES = Set.of(
-        "java.util.ArrayList",
-        "java.util.HashMap",
-        "java.util.LinkedHashSet");
 
     /** Generator options. */
     private final GeneratorOpts opts;
@@ -90,7 +99,7 @@ public final class Imports {
      */
     public static Imports newDto(GeneratorOpts opts) {
         return new Imports(opts, false)
-                .add(JAVA_UTIL_OBJECTS)
+                .util(OBJECTS)
                 .add(opts.isUseRegisterForReflection(), "io.quarkus.runtime.annotations.RegisterForReflection")
                 .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
                 .jackson(JSON_PROPERTY, JSON_PROPERTY_ORDER)
@@ -171,7 +180,7 @@ public final class Imports {
      * @return this
      */
     public Imports addEnumImports(boolean includeTypeAdapter) {
-        return add(opts.isJackson(), JAVA_UTIL_OBJECTS)
+        return util(opts.isJackson(), OBJECTS)
             .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
             .jackson(JSON_CREATOR, JSON_VALUE)
             .jsonb(JSONB_ADAPTER, JSON, JSON_STRING)
@@ -265,7 +274,7 @@ public final class Imports {
     }
 
     /**
-     * Adds imports for time types.
+     * Adds imports for java time types.
      *
      * @param classes the classes to add imports for
      * @return the imports instance
@@ -273,6 +282,35 @@ public final class Imports {
     public Imports time(TimeImport... classes) {
         for (TimeImport ti : classes) {
             add(ti.importPath());
+        }
+        return this;
+    }
+
+    /**
+     * Adds imports for java util types.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports util(UtilImport... classes) {
+        for (UtilImport ui : classes) {
+            add(ui.importPath());
+        }
+        return this;
+    }
+
+    /**
+     * Adds optional imports for java util types.
+     *
+     * @param enable option to control if the classes should be added
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports util(boolean enable, UtilImport... classes) {
+        if (enable) {
+            for (UtilImport ui : classes) {
+                add(ui.importPath());
+            }
         }
         return this;
     }
@@ -366,6 +404,7 @@ public final class Imports {
      * Maybe need a better way to handle this.
      */
     public void trimContainerImplementations() {
-        importedClasses.removeAll(CONTAINER_IMPLEMENTATION_TYPES);
+        UtilImport.containerImplementationTypes()
+            .forEach(ui -> importedClasses.remove(ui.importPath()));
     }
 }
