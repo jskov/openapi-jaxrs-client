@@ -1,6 +1,5 @@
 package dk.mada.jaxrs.model.types;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
@@ -35,10 +34,7 @@ public interface TypeArray extends TypeContainer {
     }
 
     @Override
-    default Set<String> neededImports() {
-        Set<String> combined = new HashSet<>(innerType().neededImports());
-        UtilImport.containerListTypes()
-            .forEach(ui -> combined.add(ui.importPath()));
-        return combined;
+    default Set<UtilImport> containerImports() {
+        return UtilImport.containerListTypes();
     }
 }
