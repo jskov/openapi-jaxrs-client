@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.imports;
 
 import static dk.mada.jaxrs.generator.imports.JacksonImport.*;
 import static dk.mada.jaxrs.generator.imports.JsonbImport.*;
+import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
 import static dk.mada.jaxrs.generator.imports.TimeImport.*;
 
 import java.util.Arrays;
@@ -115,7 +116,7 @@ public final class Imports {
      */
     public static Imports newInterface(GeneratorOpts opts) {
         return new Imports(opts, false)
-                .add("org.eclipse.microprofile.openapi.annotations.media.Schema");
+                .addSchema();
     }
 
     /**
@@ -277,6 +278,19 @@ public final class Imports {
     }
 
     /**
+     * Adds imports for MicroProfile types.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports mp(MicroProfileImport... classes) {
+        for (MicroProfileImport mpi : classes) {
+            add(mpi.importPath());
+        }
+        return this;
+    }
+
+    /**
      * Adds imports for a reference.
      *
      * If the reference is externally mapped, just adds an import of the class.
@@ -311,7 +325,7 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports addSchema() {
-        return add("org.eclipse.microprofile.openapi.annotations.media.Schema");
+        return mp(SCHEMA);
     }
 
     private void addDtoImport(Type type) {

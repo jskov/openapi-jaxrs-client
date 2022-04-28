@@ -18,6 +18,7 @@ import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi.CtxOperationRef;
 import dk.mada.jaxrs.generator.imports.Imports;
+import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
@@ -276,14 +277,12 @@ public class ApiGenerator {
 
         boolean onlySimpleResponse = isOnlySimpleResponse(op.responses());
         if (onlySimpleResponse) {
-            imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema");
+            imports.mp(API_RESPONSE_SCHEMA);
         } else {
-            imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponse");
-            imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponses");
+            imports.mp(API_RESPONSE, API_RESPONSES);
 
             if (!op.responses().stream().allMatch(r -> r.content().reference().isVoid())) {
-                imports.add("org.eclipse.microprofile.openapi.annotations.media.Content");
-                imports.add("org.eclipse.microprofile.openapi.annotations.media.Schema");
+                imports.mp(CONTENT, SCHEMA);
             }
         }
         return onlySimpleResponse;
