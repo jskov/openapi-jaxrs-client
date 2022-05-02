@@ -1,9 +1,6 @@
 package dk.mada.jaxrs.generator.imports;
 
-import static dk.mada.jaxrs.generator.imports.Jackson.*;
-import static dk.mada.jaxrs.generator.imports.JavaTime.*;
 import static dk.mada.jaxrs.generator.imports.Jsonb.*;
-import static dk.mada.jaxrs.generator.imports.MicroProfile.SCHEMA;
 
 import java.util.Collection;
 import java.util.Map;
@@ -103,8 +100,8 @@ public final class Imports {
         return new Imports(opts, false)
                 .add(JavaUtil.OBJECTS)
                 .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
-                .add(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
-                .add(JSON_PROPERTY, JSON_PROPERTY_ORDER)
+                .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
+                .add(Jackson.JSON_PROPERTY, Jackson.JSON_PROPERTY_ORDER)
                 .add(JSONB_PROPERTY, JSONB_PROPERTY_ORDER);
     }
 
@@ -127,7 +124,7 @@ public final class Imports {
      */
     public static Imports newInterface(GeneratorOpts opts) {
         return new Imports(opts, false)
-                .addSchema();
+                .addMicroProfileSchema();
     }
 
     /**
@@ -144,33 +141,34 @@ public final class Imports {
 
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
             imports
-                .add(DATE_TIME_FORMATTER, LOCAL_DATE)
-                .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
+                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.LOCAL_DATE)
+                .add(Jackson.JSON_PARSER, Jackson.DESERIALIZATION_CONTEXT, Jackson.JSON_DESERIALIZER);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER) {
             imports
-                .add(DATE_TIME_FORMATTER, LOCAL_DATE)
-                .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.LOCAL_DATE)
+                .add(Jackson.JSON_GENERATOR, Jackson.SERIALIZER_PROVIDER, Jackson.JSON_SERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
-                .add(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
-                .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.LOCAL_DATE_TIME)
+                .add(Jackson.JSON_PARSER, Jackson.DESERIALIZATION_CONTEXT, Jackson.JSON_DESERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER) {
             imports
-                .add(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
-                .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.LOCAL_DATE_TIME)
+                .add(Jackson.JSON_GENERATOR, Jackson.SERIALIZER_PROVIDER, Jackson.JSON_SERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
-                .add(DATE_TIME_FORMATTER, DATE_TIME_PARSE_EXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME, ZONE_ID)
-                .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.DATE_TIME_PARSE_EXCEPTION,
+                        JavaTime.LOCAL_DATE_TIME, JavaTime.OFFSET_DATE_TIME, JavaTime.ZONE_ID)
+                .add(Jackson.JSON_PARSER, Jackson.DESERIALIZATION_CONTEXT, Jackson.JSON_DESERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER) {
             imports
-                .add(DATE_TIME_FORMATTER, OFFSET_DATE_TIME)
-                .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.OFFSET_DATE_TIME)
+                .add(Jackson.JSON_GENERATOR, Jackson.SERIALIZER_PROVIDER, Jackson.JSON_SERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
         }
         return imports;
     }
@@ -183,8 +181,8 @@ public final class Imports {
      */
     public Imports addEnumImports(boolean includeTypeAdapter) {
         return add(irp.isJackson(), JavaUtil.OBJECTS)
-            .add(irp.isUseJsonSerializeOptions(), JSON_SERIALIZE)
-            .add(JSON_CREATOR, JSON_VALUE)
+            .add(irp.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
+            .add(Jackson.JSON_CREATOR, Jackson.JSON_VALUE)
             .add(JSONB_ADAPTER, JSON, JSON_STRING)
             .add(includeTypeAdapter, JSONB_TYPE_ADAPTER);
     }
@@ -263,8 +261,8 @@ public final class Imports {
      *
      * @return the imports instance
      */
-    public Imports addSchema() {
-        return add(SCHEMA);
+    public Imports addMicroProfileSchema() {
+        return add(MicroProfile.SCHEMA);
     }
 
     private void addDtoImport(Type type) {

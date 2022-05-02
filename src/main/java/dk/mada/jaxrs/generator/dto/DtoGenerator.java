@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.generator.dto;
 
-import static dk.mada.jaxrs.generator.imports.Jackson.*;
-import static dk.mada.jaxrs.generator.imports.MicroProfile.*;
 import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
@@ -22,15 +20,16 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
-import dk.mada.jaxrs.generator.imports.Imports;
-import dk.mada.jaxrs.generator.imports.Jackson;
-import dk.mada.jaxrs.generator.imports.JavaMath;
-import dk.mada.jaxrs.generator.imports.UserMappedImport;
-import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
+import dk.mada.jaxrs.generator.imports.Imports;
+import dk.mada.jaxrs.generator.imports.Jackson;
+import dk.mada.jaxrs.generator.imports.JavaMath;
+import dk.mada.jaxrs.generator.imports.MicroProfile;
+import dk.mada.jaxrs.generator.imports.UserMappedImport;
+import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
@@ -216,7 +215,7 @@ public class DtoGenerator {
             }
             customLocalDateSerializer = opts.getJacksonLocalDateSerializer();
 
-            dtoImports.add(JSON_DESERIALIZE, JSON_SERIALIZE);
+            dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
         }
 
         String customOffsetDateTimeDeserializer = null;
@@ -241,12 +240,12 @@ public class DtoGenerator {
                 customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
             }
 
-            dtoImports.add(JSON_DESERIALIZE, JSON_SERIALIZE);
+            dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
         }
 
         String description = dto.description();
         if (description != null) {
-            dtoImports.addSchema();
+            dtoImports.addMicroProfileSchema();
         }
 
         String implementsInterfaces = dto.implementsInterfaces().stream()
@@ -323,9 +322,9 @@ public class DtoGenerator {
             type = ", type = SchemaType.INTEGER, format = \"int32\"";
         }
         if (!type.isEmpty()) {
-            dtoImports.add(SCHEMA_TYPE);
+            dtoImports.add(MicroProfile.SCHEMA_TYPE);
         }
-        dtoImports.addSchema();
+        dtoImports.addMicroProfileSchema();
 
         return new StringBuilder()
                 .append("enumeration = {").append(values).append("}")
@@ -473,7 +472,7 @@ public class DtoGenerator {
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
             schemaOptions = String.join(", ", schemaEntries);
-            dtoImports.addSchema();
+            dtoImports.addMicroProfileSchema();
         }
 
         boolean useBeanValidation = opts.isUseBeanValidation();
