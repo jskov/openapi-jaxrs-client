@@ -135,42 +135,8 @@ public final class Imports {
      * @return a new imports instance
      */
     public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
-        var imports = new Imports(opts, false);
-        imports
-            .add(JavaIo.IO_EXCEPTION);
-
-        if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
-            imports
-                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.LOCAL_DATE)
-                .add(Jackson.JSON_PARSER, Jackson.DESERIALIZATION_CONTEXT, Jackson.JSON_DESERIALIZER);
-        }
-        if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER) {
-            imports
-                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.LOCAL_DATE)
-                .add(Jackson.JSON_GENERATOR, Jackson.SERIALIZER_PROVIDER, Jackson.JSON_SERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
-        }
-        if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER) {
-            imports
-                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.LOCAL_DATE_TIME)
-                .add(Jackson.JSON_PARSER, Jackson.DESERIALIZATION_CONTEXT, Jackson.JSON_DESERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
-        }
-        if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER) {
-            imports
-                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.LOCAL_DATE_TIME)
-                .add(Jackson.JSON_GENERATOR, Jackson.SERIALIZER_PROVIDER, Jackson.JSON_SERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
-        }
-        if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER) {
-            imports
-                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.DATE_TIME_PARSE_EXCEPTION,
-                        JavaTime.LOCAL_DATE_TIME, JavaTime.OFFSET_DATE_TIME, JavaTime.ZONE_ID)
-                .add(Jackson.JSON_PARSER, Jackson.DESERIALIZATION_CONTEXT, Jackson.JSON_DESERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
-        }
-        if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER) {
-            imports
-                .add(JavaTime.DATE_TIME_FORMATTER, JavaTime.OFFSET_DATE_TIME)
-                .add(Jackson.JSON_GENERATOR, Jackson.SERIALIZER_PROVIDER, Jackson.JSON_SERIALIZER, Jackson.JSON_PROCESSING_EXCEPTION);
-        }
-        return imports;
+        return new Imports(opts, false)
+                    .add(tmpl.requiredImports());
     }
 
     /**
@@ -204,6 +170,22 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports add(TypedImport... classes) {
+        for (TypedImport ti: classes) {
+            String path = ti.path(irp);
+            if (path != null) {
+                importedClasses.add(path);
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Adds typed imports.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports add(Collection<TypedImport> classes) {
         for (TypedImport ti: classes) {
             String path = ti.path(irp);
             if (path != null) {
