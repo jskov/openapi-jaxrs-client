@@ -283,8 +283,7 @@ public class ApiGenerator {
         } else {
             imports.add(MicroProfile.API_RESPONSE, MicroProfile.API_RESPONSES);
 
-            // FIXME
-            if (!op.responses().stream().allMatch(r -> r.content().reference().isVoid())) {
+            if (!op.isVoid()) {
                 imports.add(MicroProfile.CONTENT, MicroProfile.SCHEMA);
             }
         }
