@@ -23,6 +23,9 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.imports.Imports;
+import dk.mada.jaxrs.generator.imports.Jackson;
+import dk.mada.jaxrs.generator.imports.JavaMath;
+import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
@@ -436,8 +439,8 @@ public class DtoGenerator {
             getter = getter + "Double";
             setter = setter + "Double";
 
-            dtoImports.add(JSON_IGNORE);
-            dtoImports.add("java.math.BigDecimal");
+            dtoImports.add(Jackson.JSON_IGNORE);
+            dtoImports.add(JavaMath.BIG_DECIMAL);
         }
 
         String description = p.description();
@@ -481,36 +484,36 @@ public class DtoGenerator {
         String pattern = null;
         if (useBeanValidation) {
             if (p.isRequired()) {
-                dtoImports.add("javax.validation.constraints.NotNull");
+                dtoImports.add(ValidationApi.NOT_NULL);
             }
             // Decide where to put @Valid. I expect this to be too simple...
             if (propType.isDto()
                     || (propType instanceof TypeContainer tc && tc.innerType().isDto())) {
                 valid = true;
-                dtoImports.add("javax.validation.Valid");
+                dtoImports.add(ValidationApi.VALID);
             }
 
             if (p.minLength() != null) {
                 minLength = Integer.toString(p.minLength());
-                dtoImports.add("javax.validation.constraints.Size");
+                dtoImports.add(ValidationApi.SIZE);
             }
             if (p.maxLength() != null) {
                 maxLength = Integer.toString(p.maxLength());
-                dtoImports.add("javax.validation.constraints.Size");
+                dtoImports.add(ValidationApi.SIZE);
             }
 
             if (p.minimum() != null) {
                 minimum = p.minimum().toString();
-                dtoImports.add("javax.validation.constraints.Min");
+                dtoImports.add(ValidationApi.MIN);
             }
             if (p.maximum() != null) {
                 maximum = p.maximum().toString();
-                dtoImports.add("javax.validation.constraints.Max");
+                dtoImports.add(ValidationApi.MAX);
             }
 
             if (p.pattern() != null) {
                 pattern = StringRenderer.encodeRegexp(p.pattern());
-                dtoImports.add("javax.validation.constraints.Pattern");
+                dtoImports.add(ValidationApi.PATTERN);
             }
         }
 
