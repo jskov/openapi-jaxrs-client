@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.generator.api;
 
-import static dk.mada.jaxrs.generator.imports.MicroProfile.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +25,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
 import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.imports.Imports;
+import dk.mada.jaxrs.generator.imports.MicroProfile;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -137,14 +136,14 @@ public class ApiGenerator {
 
         String clientKey = opts.getMpClientConfigKey();
         if (clientKey != null) {
-            imports.add(REGISTER_REST_CLIENT);
+            imports.add(MicroProfile.REGISTER_REST_CLIENT);
         }
 
         List<String> mpProviders = opts.getMpProviders().stream()
                 .sorted()
                 .toList();
         if (!mpProviders.isEmpty()) {
-            imports.add(REGISTER_PROVIDER);
+            imports.add(MicroProfile.REGISTER_PROVIDER);
         }
 
         CtxApiExt apiExt = CtxApiExt.builder()
@@ -226,7 +225,7 @@ public class ApiGenerator {
 
         String opSummaryString = StringRenderer.encodeForString(summary);
         if (opSummaryString != null) {
-            imports.add(OPERATION);
+            imports.add(MicroProfile.OPERATION);
         }
 
         CtxApiOpExt ext = CtxApiOpExt.builder()
@@ -278,13 +277,13 @@ public class ApiGenerator {
 
         boolean onlySimpleResponse = isOnlySimpleResponse(op.responses());
         if (onlySimpleResponse) {
-            imports.add(API_RESPONSE_SCHEMA);
+            imports.add(MicroProfile.API_RESPONSE_SCHEMA);
         } else {
-            imports.add(API_RESPONSE, API_RESPONSES);
+            imports.add(MicroProfile.API_RESPONSE, MicroProfile.API_RESPONSES);
 
             // FIXME
             if (!op.responses().stream().allMatch(r -> r.content().reference().isVoid())) {
-                imports.add(CONTENT, SCHEMA);
+                imports.add(MicroProfile.CONTENT, MicroProfile.SCHEMA);
             }
         }
         return onlySimpleResponse;
@@ -450,7 +449,7 @@ public class ApiGenerator {
         if (type instanceof TypeContainer tc) {
             baseType = tc.innerType().wrapperTypeName().name();
             containerType = "SchemaType.ARRAY";
-            imports.add(SCHEMA_TYPE);
+            imports.add(MicroProfile.SCHEMA_TYPE);
 
             isUnique = type instanceof TypeSet;
         } else if (type.isVoid()) {
