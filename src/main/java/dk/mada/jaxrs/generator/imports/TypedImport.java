@@ -9,7 +9,7 @@ import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
  */
 public interface TypedImport {
     /**
-     * {@return the import path suitable for the import type}
+     * {@return the import path suitable for the import type, or null if not applicable}
      *
      * @param irp the import rendering preferences
      */

@@ -137,14 +137,14 @@ public class ApiGenerator {
 
         String clientKey = opts.getMpClientConfigKey();
         if (clientKey != null) {
-            imports.mp(REGISTER_REST_CLIENT);
+            imports.add(REGISTER_REST_CLIENT);
         }
 
         List<String> mpProviders = opts.getMpProviders().stream()
                 .sorted()
                 .toList();
         if (!mpProviders.isEmpty()) {
-            imports.mp(REGISTER_PROVIDER);
+            imports.add(REGISTER_PROVIDER);
         }
 
         CtxApiExt apiExt = CtxApiExt.builder()
@@ -226,7 +226,7 @@ public class ApiGenerator {
 
         String opSummaryString = StringRenderer.encodeForString(summary);
         if (opSummaryString != null) {
-            imports.mp(OPERATION);
+            imports.add(OPERATION);
         }
 
         CtxApiOpExt ext = CtxApiOpExt.builder()
@@ -278,12 +278,13 @@ public class ApiGenerator {
 
         boolean onlySimpleResponse = isOnlySimpleResponse(op.responses());
         if (onlySimpleResponse) {
-            imports.mp(API_RESPONSE_SCHEMA);
+            imports.add(API_RESPONSE_SCHEMA);
         } else {
-            imports.mp(API_RESPONSE, API_RESPONSES);
+            imports.add(API_RESPONSE, API_RESPONSES);
 
+            // FIXME
             if (!op.responses().stream().allMatch(r -> r.content().reference().isVoid())) {
-                imports.mp(CONTENT, SCHEMA);
+                imports.add(CONTENT, SCHEMA);
             }
         }
         return onlySimpleResponse;
@@ -449,7 +450,7 @@ public class ApiGenerator {
         if (type instanceof TypeContainer tc) {
             baseType = tc.innerType().wrapperTypeName().name();
             containerType = "SchemaType.ARRAY";
-            imports.mp(SCHEMA_TYPE);
+            imports.add(SCHEMA_TYPE);
 
             isUnique = type instanceof TypeSet;
         } else if (type.isVoid()) {

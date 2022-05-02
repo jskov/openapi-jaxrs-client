@@ -105,9 +105,9 @@ public final class Imports {
         return new Imports(opts, false)
                 .util(OBJECTS)
                 .quarkus(opts.isUseRegisterForReflection(), REGISTER_FOR_REFLECTION)
-                .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
-                .jackson(JSON_PROPERTY, JSON_PROPERTY_ORDER)
-                .jsonb(JSONB_PROPERTY, JSONB_PROPERTY_ORDER);
+                .add(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
+                .add(JSON_PROPERTY, JSON_PROPERTY_ORDER)
+                .add(JSONB_PROPERTY, JSONB_PROPERTY_ORDER);
     }
 
     /**
@@ -147,32 +147,32 @@ public final class Imports {
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
             imports
                 .time(DATE_TIME_FORMATTER, LOCAL_DATE)
-                .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
+                .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER) {
             imports
                 .time(DATE_TIME_FORMATTER, LOCAL_DATE)
-                .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
                 .time(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
-                .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER) {
             imports
                 .time(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
-                .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
                 .time(DATE_TIME_FORMATTER, DATE_TIME_PARSE_EXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME, ZONE_ID)
-                .jackson(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER) {
             imports
                 .time(DATE_TIME_FORMATTER, OFFSET_DATE_TIME)
-                .jackson(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
+                .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         return imports;
     }
@@ -185,10 +185,10 @@ public final class Imports {
      */
     public Imports addEnumImports(boolean includeTypeAdapter) {
         return util(irp.isJackson(), OBJECTS)
-            .jackson(irp.isUseJsonSerializeOptions(), JSON_SERIALIZE)
-            .jackson(JSON_CREATOR, JSON_VALUE)
-            .jsonb(JSONB_ADAPTER, JSON, JSON_STRING)
-            .jsonb(includeTypeAdapter, JSONB_TYPE_ADAPTER);
+            .add(irp.isUseJsonSerializeOptions(), JSON_SERIALIZE)
+            .add(JSON_CREATOR, JSON_VALUE)
+            .add(JSONB_ADAPTER, JSON, JSON_STRING)
+            .add(includeTypeAdapter, JSONB_TYPE_ADAPTER);
     }
 
     /**
@@ -218,56 +218,6 @@ public final class Imports {
     }
 
     /**
-     * Adds optional imports if Jackson is the selected serializer.
-     *
-     * @param enable option to control if the classes should be added
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports jackson(boolean enable, Jackson... classes) {
-        return add(enable && irp.isJackson, classes);
-    }
-
-    /**
-     * Adds imports if the Jackson is the selected serializer.
-     *
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports jackson(Jackson... classes) {
-        return add(irp.isJackson(), classes);
-    }
-
-    /**
-     * Adds optional imports if Jsonb is the selected serializer.
-     *
-     * @param enable option to control if the classes should be added
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports jsonb(boolean enable, Jsonb... classes) {
-        if (enable) {
-            jsonb(classes);
-        }
-        return this;
-    }
-
-    /**
-     * Adds imports if Jsonb is the selected serializer.
-     *
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports jsonb(Jsonb... classes) {
-        if (irp.isJsonb()) {
-            for (Jsonb ji : classes) {
-                add(ji.importPath());
-            }
-        }
-        return this;
-    }
-
-    /**
      * Adds typed imports.
      *
      * @param classes the classes to add imports for
@@ -275,7 +225,10 @@ public final class Imports {
      */
     public Imports add(TypedImport... classes) {
         for (TypedImport ti: classes) {
-            add(ti.path(irp));
+            String path = ti.path(irp);
+            if (path != null) {
+                importedClasses.add(path);
+            }
         }
         return this;
     }
@@ -366,19 +319,6 @@ public final class Imports {
     }
 
     /**
-     * Adds imports for MicroProfile types.
-     *
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports mp(MicroProfile... classes) {
-        for (MicroProfile mpi : classes) {
-            add(mpi.importPath());
-        }
-        return this;
-    }
-
-    /**
      * Adds imports for a reference.
      *
      * If the reference is externally mapped, just adds an import of the class.
@@ -413,7 +353,7 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports addSchema() {
-        return mp(SCHEMA);
+        return add(SCHEMA);
     }
 
     private void addDtoImport(Type type) {

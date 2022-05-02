@@ -79,6 +79,9 @@ public enum Jackson implements TypedImport {
      */
     @Override
     public String path(ImportRenderPrefs irp) {
+        if (!irp.isJackson()) {
+            return null;
+        }
         return irp.isJacksonCodehaus() ? codeHausImport : fasterXmlImport;
     }
 }

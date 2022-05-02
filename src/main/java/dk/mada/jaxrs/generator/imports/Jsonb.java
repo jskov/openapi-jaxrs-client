@@ -1,9 +1,11 @@
 package dk.mada.jaxrs.generator.imports;
 
+import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
+
 /**
  * Json binding import paths.
  */
-public enum Jsonb {
+public enum Jsonb implements TypedImport {
     /** Json. */
     JSON("javax.json.Json"),
     /** JsonString. */
@@ -24,8 +26,11 @@ public enum Jsonb {
         this.importPath = importPath;
     }
 
-    /** {@return the import path for the type} */
-    public String importPath() {
+    @Override
+    public String path(ImportRenderPrefs irp) {
+        if (!irp.isJsonb()) {
+            return null;
+        }
         return importPath;
     }
 }

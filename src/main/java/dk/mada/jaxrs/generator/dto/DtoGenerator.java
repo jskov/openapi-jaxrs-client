@@ -212,7 +212,7 @@ public class DtoGenerator {
             }
             customLocalDateSerializer = opts.getJacksonLocalDateSerializer();
 
-            dtoImports.jackson(JSON_DESERIALIZE, JSON_SERIALIZE);
+            dtoImports.add(JSON_DESERIALIZE, JSON_SERIALIZE);
         }
 
         String customOffsetDateTimeDeserializer = null;
@@ -237,7 +237,7 @@ public class DtoGenerator {
                 customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
             }
 
-            dtoImports.jackson(JSON_DESERIALIZE, JSON_SERIALIZE);
+            dtoImports.add(JSON_DESERIALIZE, JSON_SERIALIZE);
         }
 
         String description = dto.description();
@@ -319,9 +319,9 @@ public class DtoGenerator {
             type = ", type = SchemaType.INTEGER, format = \"int32\"";
         }
         if (!type.isEmpty()) {
-            dtoImports.mp(SCHEMA_TYPE);
+            dtoImports.add(SCHEMA_TYPE);
         }
-        dtoImports.mp(SCHEMA);
+        dtoImports.addSchema();
 
         return new StringBuilder()
                 .append("enumeration = {").append(values).append("}")
@@ -436,7 +436,7 @@ public class DtoGenerator {
             getter = getter + "Double";
             setter = setter + "Double";
 
-            dtoImports.jackson(JSON_IGNORE);
+            dtoImports.add(JSON_IGNORE);
             dtoImports.add("java.math.BigDecimal");
         }
 

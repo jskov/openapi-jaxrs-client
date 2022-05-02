@@ -1,9 +1,11 @@
 package dk.mada.jaxrs.generator.imports;
 
+import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
+
 /**
  * MicroProfile import paths.
  */
-public enum MicroProfile {
+public enum MicroProfile implements TypedImport {
     /** APIResponseSchema. */
     API_RESPONSE_SCHEMA("org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema"),
     /** APIResponse. */
@@ -30,8 +32,8 @@ public enum MicroProfile {
         this.importPath = importPath;
     }
 
-    /** {@return the import path for the type} */
-    public String importPath() {
+    @Override
+    public String path(ImportRenderPrefs irp) {
         return importPath;
     }
 }
