@@ -225,10 +225,7 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports jackson(boolean enable, Jackson... classes) {
-        if (enable) {
-            jackson(classes);
-        }
-        return this;
+        return add(enable && irp.isJackson, classes);
     }
 
     /**
@@ -238,14 +235,7 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports jackson(Jackson... classes) {
-        if (!irp.isJackson()) {
-            return this;
-        }
-
-        for (Jackson ji : classes) {
-            add(ji.path(irp));
-        }
-        return this;
+        return add(irp.isJackson(), classes);
     }
 
     /**
@@ -273,6 +263,33 @@ public final class Imports {
             for (Jsonb ji : classes) {
                 add(ji.importPath());
             }
+        }
+        return this;
+    }
+
+    /**
+     * Adds typed imports.
+     *
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports add(TypedImport... classes) {
+        for (TypedImport ti: classes) {
+            add(ti.path(irp));
+        }
+        return this;
+    }
+
+    /**
+     * Optionally adds typed imports.
+     *
+     * @param active option to control if the classes should be added
+     * @param classes the classes to add imports for
+     * @return the imports instance
+     */
+    public Imports add(boolean active, TypedImport... classes) {
+        if (active) {
+            add(classes);
         }
         return this;
     }
