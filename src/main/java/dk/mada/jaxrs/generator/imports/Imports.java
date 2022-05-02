@@ -287,20 +287,6 @@ public final class Imports {
     }
 
     /**
-     * Adds optional imports for the specified (fully qualified) class names.
-     *
-     * @param include option to control if the classes should be added
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports add(boolean include, String... classes) {
-        if (include) {
-            add(classes);
-        }
-        return this;
-    }
-
-    /**
      * Remove container implementations (e.g. ArrayList) from
      * imports for use in Api files.
      * Maybe need a better way to handle this.

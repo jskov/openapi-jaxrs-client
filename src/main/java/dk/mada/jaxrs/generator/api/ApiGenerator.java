@@ -27,6 +27,7 @@ import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.JaxRs;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
+import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -362,7 +363,7 @@ public class ApiGenerator {
 
             boolean required = validation.isRequired() || p.isRequired();
             if (opts.isUseBeanValidation() && required) {
-                imports.add("javax.validation.constraints.NotNull");
+                imports.add(ValidationApi.NOT_NULL);
             }
 
             params.add(CtxApiParam.builder()
