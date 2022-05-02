@@ -1,9 +1,11 @@
 package dk.mada.jaxrs.generator.imports;
 
+import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
+
 /**
  * Java time import paths.
  */
-public enum JavaTime {
+public enum JavaTime implements TypedImport {
     /** DateTimeFormatter. */
     DATE_TIME_FORMATTER("java.time.format.DateTimeFormatter"),
     /** DateTimeParseException. */
@@ -24,8 +26,8 @@ public enum JavaTime {
         this.importPath = importPath;
     }
 
-    /** {@return the import path for the type} */
-    public String importPath() {
+    @Override
+    public String path(ImportRenderPrefs irp) {
         return importPath;
     }
 }

@@ -1,11 +1,9 @@
 package dk.mada.jaxrs.generator.imports;
 
 import static dk.mada.jaxrs.generator.imports.Jackson.*;
-import static dk.mada.jaxrs.generator.imports.Jsonb.*;
-import static dk.mada.jaxrs.generator.imports.MicroProfile.*;
-import static dk.mada.jaxrs.generator.imports.Quarkus.*;
 import static dk.mada.jaxrs.generator.imports.JavaTime.*;
-import static dk.mada.jaxrs.generator.imports.JavaUtil.*;
+import static dk.mada.jaxrs.generator.imports.Jsonb.*;
+import static dk.mada.jaxrs.generator.imports.MicroProfile.SCHEMA;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,11 +28,6 @@ import dk.mada.jaxrs.model.types.TypeContainer;
 public final class Imports {
     private static final Logger logger = LoggerFactory.getLogger(Imports.class);
 
-    private static final String IOEXCEPTION = "java.io.IOException";
-
-//    /** Generator options. */
-//    private final GeneratorOpts opts;
-
     /** Set of classes to be imported.*/
     private final SortedSet<String> importedClasses = new TreeSet<>();
 
@@ -46,6 +39,13 @@ public final class Imports {
 
     /**
      * Import rendering preferences.
+     *
+     * @param isJackson toggle for jackson serializer
+     * @param isJacksonCodehaus toggle for jackson codehaus
+     * @param isUseJsonSerializeOptions toggle for json serialize options
+     * @param isJakarta toggle for jakarta naming
+     * @param isJsonb toggle for jsonb serializer
+     * @param dtoPackage the dto package name
      */
     record ImportRenderPrefs(
             boolean isJackson,
@@ -60,7 +60,6 @@ public final class Imports {
     private final ImportRenderPrefs irp;
 
     private Imports(GeneratorOpts opts, boolean includeDtoImports) {
-//        this.opts = opts;
         this.includeDtoImports = includeDtoImports;
 
         irp = new ImportRenderPrefs(
@@ -90,7 +89,7 @@ public final class Imports {
      */
     public static Imports newApi(GeneratorOpts opts) {
         return new Imports(opts, true)
-                .javax("javax.ws.rs.*");
+                .add(JaxRs.RS_STAR);
     }
 
     /**
@@ -103,8 +102,8 @@ public final class Imports {
      */
     public static Imports newDto(GeneratorOpts opts) {
         return new Imports(opts, false)
-                .util(OBJECTS)
-                .quarkus(opts.isUseRegisterForReflection(), REGISTER_FOR_REFLECTION)
+                .add(JavaUtil.OBJECTS)
+                .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
                 .add(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
                 .add(JSON_PROPERTY, JSON_PROPERTY_ORDER)
                 .add(JSONB_PROPERTY, JSONB_PROPERTY_ORDER);
@@ -142,36 +141,36 @@ public final class Imports {
     public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
         var imports = new Imports(opts, false);
         imports
-            .add(IOEXCEPTION);
+            .add(JavaIo.IO_EXCEPTION);
 
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER) {
             imports
-                .time(DATE_TIME_FORMATTER, LOCAL_DATE)
+                .add(DATE_TIME_FORMATTER, LOCAL_DATE)
                 .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER) {
             imports
-                .time(DATE_TIME_FORMATTER, LOCAL_DATE)
+                .add(DATE_TIME_FORMATTER, LOCAL_DATE)
                 .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
-                .time(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
+                .add(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
                 .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER) {
             imports
-                .time(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
+                .add(DATE_TIME_FORMATTER, LOCAL_DATE_TIME)
                 .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER) {
             imports
-                .time(DATE_TIME_FORMATTER, DATE_TIME_PARSE_EXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME, ZONE_ID)
+                .add(DATE_TIME_FORMATTER, DATE_TIME_PARSE_EXCEPTION, LOCAL_DATE_TIME, OFFSET_DATE_TIME, ZONE_ID)
                 .add(JSON_PARSER, DESERIALIZATION_CONTEXT, JSON_DESERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         if (tmpl == ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER) {
             imports
-                .time(DATE_TIME_FORMATTER, OFFSET_DATE_TIME)
+                .add(DATE_TIME_FORMATTER, OFFSET_DATE_TIME)
                 .add(JSON_GENERATOR, SERIALIZER_PROVIDER, JSON_SERIALIZER, JSON_PROCESSING_EXCEPTION);
         }
         return imports;
@@ -184,7 +183,7 @@ public final class Imports {
      * @return this
      */
     public Imports addEnumImports(boolean includeTypeAdapter) {
-        return util(irp.isJackson(), OBJECTS)
+        return add(irp.isJackson(), JavaUtil.OBJECTS)
             .add(irp.isUseJsonSerializeOptions(), JSON_SERIALIZE)
             .add(JSON_CREATOR, JSON_VALUE)
             .add(JSONB_ADAPTER, JSON, JSON_STRING)
@@ -199,22 +198,6 @@ public final class Imports {
     public void addPropertyImports(Collection<Property> properties) {
         properties
             .forEach(p -> add(p.reference()));
-    }
-
-    /**
-     * Adds imports for javax-class.
-     *
-     * If jakarta-option is selected, will replace "javax" with "jakarta".
-     *
-     * @param name the class to add import for
-     * @return the imports instance
-     */
-    public Imports javax(String name) {
-        if (irp.isJakarta()) {
-            name = name.replace("javax", "jakarta");
-        }
-        importedClasses.add(name);
-        return this;
     }
 
     /**
@@ -243,77 +226,6 @@ public final class Imports {
     public Imports add(boolean active, TypedImport... classes) {
         if (active) {
             add(classes);
-        }
-        return this;
-    }
-
-    /**
-     * Adds imports for java time types.
-     *
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports time(JavaTime... classes) {
-        for (JavaTime ti : classes) {
-            add(ti.importPath());
-        }
-        return this;
-    }
-
-    /**
-     * Adds imports for java util types.
-     *
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports util(JavaUtil... classes) {
-        for (JavaUtil ui : classes) {
-            add(ui.importPath());
-        }
-        return this;
-    }
-
-    /**
-     * Adds optional imports for java util types.
-     *
-     * @param enable option to control if the classes should be added
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports util(boolean enable, JavaUtil... classes) {
-        if (enable) {
-            for (JavaUtil ui : classes) {
-                add(ui.importPath());
-            }
-        }
-        return this;
-    }
-
-    /**
-     * Adds imports for quarkus types.
-     *
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports quarkus(Quarkus... classes) {
-        for (Quarkus qi : classes) {
-            add(qi.importPath());
-        }
-        return this;
-    }
-
-    /**
-     * Adds optional imports for quarkus types.
-     *
-     * @param enable option to control if the classes should be added
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports quarkus(boolean enable, Quarkus... classes) {
-        if (enable) {
-            for (Quarkus qi : classes) {
-                add(qi.importPath());
-            }
         }
         return this;
     }
@@ -394,7 +306,8 @@ public final class Imports {
      * Maybe need a better way to handle this.
      */
     public void trimContainerImplementations() {
-        JavaUtil.containerImplementationTypes()
-            .forEach(ui -> importedClasses.remove(ui.importPath()));
+        JavaUtil.containerImplementationTypes().stream()
+            .map(it -> it.path(irp))
+            .forEach(importedClasses::remove);
     }
 }

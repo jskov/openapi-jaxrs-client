@@ -26,7 +26,8 @@ public interface TypeContainer extends Type {
     @Override
     default Set<String> neededImports() {
         Set<String> combined = new HashSet<>(innerType().neededImports());
-        containerImports().forEach(ui -> combined.add(ui.importPath()));
+        containerImports().
+            forEach(ui -> combined.add(ui.path()));
         return combined;
     }
 }

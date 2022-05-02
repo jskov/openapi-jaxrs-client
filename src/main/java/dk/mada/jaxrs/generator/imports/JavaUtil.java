@@ -3,10 +3,12 @@ package dk.mada.jaxrs.generator.imports;
 import java.util.EnumSet;
 import java.util.Set;
 
+import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
+
 /**
  * Java util import paths.
  */
-public enum JavaUtil {
+public enum JavaUtil implements TypedImport {
     /** ArrayList. */
     ARRAY_LIST("java.util.ArrayList"),
     /** HashMap. */
@@ -27,11 +29,6 @@ public enum JavaUtil {
 
     JavaUtil(String importPath) {
         this.importPath = importPath;
-    }
-
-    /** {@return the import path for the type} */
-    public String importPath() {
-        return importPath;
     }
 
     /** {@return the container implementation types} */
@@ -61,5 +58,15 @@ public enum JavaUtil {
         return EnumSet.of(
                 JavaUtil.LINKED_HASH_SET,
                 JavaUtil.SET);
+    }
+
+    @Override
+    public String path(ImportRenderPrefs irp) {
+        return importPath;
+    }
+
+    /** {@return the import path regardless of rendering preferences} */
+    public String path() {
+        return importPath;
     }
 }

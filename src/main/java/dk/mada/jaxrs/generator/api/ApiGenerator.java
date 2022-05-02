@@ -25,6 +25,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
 import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.imports.Imports;
+import dk.mada.jaxrs.generator.imports.JaxRs;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
@@ -504,7 +505,7 @@ public class ApiGenerator {
             return "\"" + mediaType + "\"";
         }
 
-        imports.javax("javax.ws.rs.core.MediaType");
+        imports.add(JaxRs.MEDIA_TYPE);
 
         return "MediaType." + mtConstant;
     }

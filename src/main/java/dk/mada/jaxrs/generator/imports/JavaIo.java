@@ -3,16 +3,16 @@ package dk.mada.jaxrs.generator.imports;
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
- * Quarkus import paths.
+ * Java IO import paths.
  */
-public enum Quarkus implements TypedImport {
-    /** RegisterForReflection. */
-    REGISTER_FOR_REFLECTION("io.quarkus.runtime.annotations.RegisterForReflection");
+public enum JavaIo implements TypedImport {
+    /** IOException. */
+    IO_EXCEPTION("java.io.IOException");
 
     /** The import path for the type. */
     private final String importPath;
 
-    Quarkus(String importPath) {
+    JavaIo(String importPath) {
         this.importPath = importPath;
     }
 
