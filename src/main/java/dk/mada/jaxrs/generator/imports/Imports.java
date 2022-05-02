@@ -32,8 +32,8 @@ public final class Imports {
 
     private static final String IOEXCEPTION = "java.io.IOException";
 
-    /** Generator options. */
-    private final GeneratorOpts opts;
+//    /** Generator options. */
+//    private final GeneratorOpts opts;
 
     /** Set of classes to be imported.*/
     private final SortedSet<String> importedClasses = new TreeSet<>();
@@ -44,9 +44,33 @@ public final class Imports {
     /** External type mapping. */
     private final Map<String, String> externalTypeMapping;
 
+    /**
+     * Import rendering preferences.
+     */
+    record ImportRenderPrefs(
+            boolean isJackson,
+            boolean isJacksonCodehaus,
+            boolean isUseJsonSerializeOptions,
+            boolean isJakarta,
+            boolean isJsonb,
+            String dtoPackage) {
+    }
+
+    /** The active import rendering preferences. */
+    private final ImportRenderPrefs irp;
+
     private Imports(GeneratorOpts opts, boolean includeDtoImports) {
-        this.opts = opts;
+//        this.opts = opts;
         this.includeDtoImports = includeDtoImports;
+
+        irp = new ImportRenderPrefs(
+                opts.isJackson(),
+                opts.isJacksonCodehaus(),
+                opts.isUseJsonSerializeOptions(),
+                opts.isJakarta(),
+                opts.isJsonb(),
+                opts.dtoPackage()
+                );
 
         externalTypeMapping = opts.getExternalTypeMapping();
     }
@@ -160,8 +184,8 @@ public final class Imports {
      * @return this
      */
     public Imports addEnumImports(boolean includeTypeAdapter) {
-        return util(opts.isJackson(), OBJECTS)
-            .jackson(opts.isUseJsonSerializeOptions(), JSON_SERIALIZE)
+        return util(irp.isJackson(), OBJECTS)
+            .jackson(irp.isUseJsonSerializeOptions(), JSON_SERIALIZE)
             .jackson(JSON_CREATOR, JSON_VALUE)
             .jsonb(JSONB_ADAPTER, JSON, JSON_STRING)
             .jsonb(includeTypeAdapter, JSONB_TYPE_ADAPTER);
@@ -186,7 +210,7 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports javax(String name) {
-        if (opts.isJakarta()) {
+        if (irp.isJakarta()) {
             name = name.replace("javax", "jakarta");
         }
         importedClasses.add(name);
@@ -214,12 +238,12 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports jackson(Jackson... classes) {
-        if (!opts.isJackson()) {
+        if (!irp.isJackson()) {
             return this;
         }
 
         for (Jackson ji : classes) {
-            add(ji.importPath(opts));
+            add(ji.path(irp));
         }
         return this;
     }
@@ -245,7 +269,7 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports jsonb(Jsonb... classes) {
-        if (opts.isJsonb()) {
+        if (irp.isJsonb()) {
             for (Jsonb ji : classes) {
                 add(ji.importPath());
             }
@@ -378,7 +402,7 @@ public final class Imports {
     private void addDtoImport(Type type) {
         if (includeDtoImports && type.isDto()) {
             String name = type.typeName().name();
-            importedClasses.add(opts.dtoPackage() + "." + name);
+            importedClasses.add(irp.dtoPackage() + "." + name);
         }
     }
 

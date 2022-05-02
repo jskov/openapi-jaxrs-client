@@ -1,11 +1,11 @@
 package dk.mada.jaxrs.generator.imports;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
  * Jackson imports and their paths for CodeHaus and FasterXml.
  */
-public enum Jackson {
+public enum Jackson implements TypedImport {
     /** DeserializationContext. */
     DESERIALIZATION_CONTEXT(
         "org.codehaus.jackson.map.DeserializationContext",
@@ -75,9 +75,10 @@ public enum Jackson {
 
     /**
      * {@return the import path suitable for the active jackson implementation}
-     * @param opts the generator options.
+     * @param irp the import rendering preferences
      */
-    public String importPath(GeneratorOpts opts) {
-        return opts.isJacksonCodehaus() ? codeHausImport : fasterXmlImport;
+    @Override
+    public String path(ImportRenderPrefs irp) {
+        return irp.isJacksonCodehaus() ? codeHausImport : fasterXmlImport;
     }
 }
