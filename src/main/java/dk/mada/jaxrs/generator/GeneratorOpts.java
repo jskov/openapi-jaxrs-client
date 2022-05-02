@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import dk.mada.jaxrs.Generator;
+import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.openapi.ParserOpts;
 
 /**
@@ -241,13 +242,13 @@ public final class GeneratorOpts {
      *
      * @return mapping of types names to external type imports
      **/
-    public Map<String, String> getExternalTypeMapping() {
+    public Map<String, UserMappedImport> getExternalTypeMapping() {
         String s = get("generator-map-external-types");
         if (s == null) {
             return Map.of();
         }
 
-        Map<String, String> typeMapping = new HashMap<>();
+        Map<String, UserMappedImport> typeMapping = new HashMap<>();
 
         for (String mapping : s.split(";")) {
             int index = mapping.indexOf(":");
@@ -259,7 +260,7 @@ public final class GeneratorOpts {
 
             for (String type : types.split(",")) {
                 String tt = type.trim();
-                typeMapping.put(tt, pkg + "." + tt);
+                typeMapping.put(tt, new UserMappedImport(pkg + "." + tt));
             }
         }
 

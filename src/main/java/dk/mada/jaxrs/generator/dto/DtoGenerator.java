@@ -25,6 +25,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.Jackson;
 import dk.mada.jaxrs.generator.imports.JavaMath;
+import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
@@ -77,7 +78,7 @@ public class DtoGenerator {
     private final EnumSet<ExtraTemplate> extraTemplates = EnumSet.noneOf(ExtraTemplate.class);
 
     /** External type mapping. */
-    private final Map<String, String> externalTypeMapping;
+    private final Map<String, UserMappedImport> externalTypeMapping;
 
     /**
      * Constructs a new generator.
@@ -106,7 +107,7 @@ public class DtoGenerator {
         .forEach(type -> {
             String name = type.name();
 
-            String mappedToExternalType = externalTypeMapping.get(name);
+            UserMappedImport mappedToExternalType = externalTypeMapping.get(name);
             if (mappedToExternalType != null) {
                 logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
             } else {
@@ -416,12 +417,12 @@ public class DtoGenerator {
         }
 
         // Add import if required
-        String externalType = externalTypeMapping.get(typeName);
+        UserMappedImport externalType = externalTypeMapping.get(typeName);
         if (externalType != null) {
             dtoImports.add(externalType);
         }
         if (innerTypeName != null) {
-            String innerExternalType = externalTypeMapping.get(innerTypeName);
+            UserMappedImport innerExternalType = externalTypeMapping.get(innerTypeName);
             if (innerExternalType != null) {
                 dtoImports.add(innerExternalType);
             }

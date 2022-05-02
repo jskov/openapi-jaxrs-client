@@ -5,7 +5,6 @@ import static dk.mada.jaxrs.generator.imports.JavaTime.*;
 import static dk.mada.jaxrs.generator.imports.Jsonb.*;
 import static dk.mada.jaxrs.generator.imports.MicroProfile.SCHEMA;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.SortedSet;
@@ -35,7 +34,7 @@ public final class Imports {
     private final boolean includeDtoImports;
 
     /** External type mapping. */
-    private final Map<String, String> externalTypeMapping;
+    private final Map<String, UserMappedImport> externalTypeMapping;
 
     /**
      * Import rendering preferences.
@@ -242,7 +241,7 @@ public final class Imports {
      */
     public Imports add(Reference ref) {
         String typeName = ref.typeName().name();
-        String mappedToExternalType = externalTypeMapping.get(typeName);
+        UserMappedImport mappedToExternalType = externalTypeMapping.get(typeName);
         if (mappedToExternalType != null) {
             logger.info("mapping type {} to {}", typeName, mappedToExternalType);
             add(mappedToExternalType);
@@ -273,17 +272,6 @@ public final class Imports {
             String name = type.typeName().name();
             importedClasses.add(irp.dtoPackage() + "." + name);
         }
-    }
-
-    /**
-     * Adds imports for the specified (fully qualified) class names.
-     *
-     * @param classes the classes to add imports for
-     * @return the imports instance
-     */
-    public Imports add(String... classes) {
-        importedClasses.addAll(Arrays.asList(classes));
-        return this;
     }
 
     /**
