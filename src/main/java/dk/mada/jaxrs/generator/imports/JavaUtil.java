@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Java util import paths.
  */
-public enum UtilImport {
+public enum JavaUtil {
     /** ArrayList. */
     ARRAY_LIST("java.util.ArrayList"),
     /** HashMap. */
@@ -25,7 +25,7 @@ public enum UtilImport {
     /** The import path for the type. */
     private final String importPath;
 
-    UtilImport(String importPath) {
+    JavaUtil(String importPath) {
         this.importPath = importPath;
     }
 
@@ -35,31 +35,31 @@ public enum UtilImport {
     }
 
     /** {@return the container implementation types} */
-    public static Set<UtilImport> containerImplementationTypes() {
+    public static Set<JavaUtil> containerImplementationTypes() {
         return EnumSet.of(
-                UtilImport.ARRAY_LIST,
-                UtilImport.LINKED_HASH_SET,
-                UtilImport.HASH_MAP);
+                JavaUtil.ARRAY_LIST,
+                JavaUtil.LINKED_HASH_SET,
+                JavaUtil.HASH_MAP);
     }
 
     /** {@return the container list-types} */
-    public static Set<UtilImport> containerListTypes() {
+    public static Set<JavaUtil> containerListTypes() {
         return EnumSet.of(
-                UtilImport.ARRAY_LIST,
-                UtilImport.LIST);
+                JavaUtil.ARRAY_LIST,
+                JavaUtil.LIST);
     }
 
     /** {@return the container map-types} */
-    public static Set<UtilImport> containerMapTypes() {
+    public static Set<JavaUtil> containerMapTypes() {
         return EnumSet.of(
-                UtilImport.HASH_MAP,
-                UtilImport.MAP);
+                JavaUtil.HASH_MAP,
+                JavaUtil.MAP);
     }
 
     /** {@return the container set-types} */
-    public static Set<UtilImport> containerSetTypes() {
+    public static Set<JavaUtil> containerSetTypes() {
         return EnumSet.of(
-                UtilImport.LINKED_HASH_SET,
-                UtilImport.SET);
+                JavaUtil.LINKED_HASH_SET,
+                JavaUtil.SET);
     }
 }

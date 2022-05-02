@@ -3,7 +3,7 @@ package dk.mada.jaxrs.generator.imports;
 /**
  * Json binding import paths.
  */
-public enum JsonbImport {
+public enum Jsonb {
     /** Json. */
     JSON("javax.json.Json"),
     /** JsonString. */
@@ -20,7 +20,7 @@ public enum JsonbImport {
     /** The import path for the type. */
     private final String importPath;
 
-    JsonbImport(String importPath) {
+    Jsonb(String importPath) {
         this.importPath = importPath;
     }
 

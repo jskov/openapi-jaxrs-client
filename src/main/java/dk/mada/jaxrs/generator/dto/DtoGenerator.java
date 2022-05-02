@@ -1,7 +1,7 @@
 package dk.mada.jaxrs.generator.dto;
 
-import static dk.mada.jaxrs.generator.imports.JacksonImport.*;
-import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
+import static dk.mada.jaxrs.generator.imports.Jackson.*;
+import static dk.mada.jaxrs.generator.imports.MicroProfile.*;
 import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;

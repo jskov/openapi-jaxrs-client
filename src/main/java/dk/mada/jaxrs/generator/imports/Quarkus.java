@@ -3,14 +3,14 @@ package dk.mada.jaxrs.generator.imports;
 /**
  * Quarkus import paths.
  */
-public enum QuarkusImport {
+public enum Quarkus {
     /** RegisterForReflection. */
     REGISTER_FOR_REFLECTION("io.quarkus.runtime.annotations.RegisterForReflection");
 
     /** The import path for the type. */
     private final String importPath;
 
-    QuarkusImport(String importPath) {
+    Quarkus(String importPath) {
         this.importPath = importPath;
     }
 

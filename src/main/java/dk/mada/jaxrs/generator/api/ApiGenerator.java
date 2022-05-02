@@ -1,6 +1,6 @@
 package dk.mada.jaxrs.generator.api;
 
-import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
+import static dk.mada.jaxrs.generator.imports.MicroProfile.*;
 
 import java.util.ArrayList;
 import java.util.List;

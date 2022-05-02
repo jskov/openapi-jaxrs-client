@@ -3,7 +3,7 @@ package dk.mada.jaxrs.generator.imports;
 /**
  * Java time import paths.
  */
-public enum TimeImport {
+public enum JavaTime {
     /** DateTimeFormatter. */
     DATE_TIME_FORMATTER("java.time.format.DateTimeFormatter"),
     /** DateTimeParseException. */
@@ -20,7 +20,7 @@ public enum TimeImport {
     /** The import path for the type. */
     private final String importPath;
 
-    TimeImport(String importPath) {
+    JavaTime(String importPath) {
         this.importPath = importPath;
     }
 

@@ -1,11 +1,11 @@
 package dk.mada.jaxrs.generator.imports;
 
-import static dk.mada.jaxrs.generator.imports.JacksonImport.*;
-import static dk.mada.jaxrs.generator.imports.JsonbImport.*;
-import static dk.mada.jaxrs.generator.imports.MicroProfileImport.*;
-import static dk.mada.jaxrs.generator.imports.QuarkusImport.*;
-import static dk.mada.jaxrs.generator.imports.TimeImport.*;
-import static dk.mada.jaxrs.generator.imports.UtilImport.*;
+import static dk.mada.jaxrs.generator.imports.Jackson.*;
+import static dk.mada.jaxrs.generator.imports.Jsonb.*;
+import static dk.mada.jaxrs.generator.imports.MicroProfile.*;
+import static dk.mada.jaxrs.generator.imports.Quarkus.*;
+import static dk.mada.jaxrs.generator.imports.JavaTime.*;
+import static dk.mada.jaxrs.generator.imports.JavaUtil.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -200,7 +200,7 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports jackson(boolean enable, JacksonImport... classes) {
+    public Imports jackson(boolean enable, Jackson... classes) {
         if (enable) {
             jackson(classes);
         }
@@ -213,12 +213,12 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports jackson(JacksonImport... classes) {
+    public Imports jackson(Jackson... classes) {
         if (!opts.isJackson()) {
             return this;
         }
 
-        for (JacksonImport ji : classes) {
+        for (Jackson ji : classes) {
             add(ji.importPath(opts));
         }
         return this;
@@ -231,7 +231,7 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports jsonb(boolean enable, JsonbImport... classes) {
+    public Imports jsonb(boolean enable, Jsonb... classes) {
         if (enable) {
             jsonb(classes);
         }
@@ -244,9 +244,9 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports jsonb(JsonbImport... classes) {
+    public Imports jsonb(Jsonb... classes) {
         if (opts.isJsonb()) {
-            for (JsonbImport ji : classes) {
+            for (Jsonb ji : classes) {
                 add(ji.importPath());
             }
         }
@@ -259,8 +259,8 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports time(TimeImport... classes) {
-        for (TimeImport ti : classes) {
+    public Imports time(JavaTime... classes) {
+        for (JavaTime ti : classes) {
             add(ti.importPath());
         }
         return this;
@@ -272,8 +272,8 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports util(UtilImport... classes) {
-        for (UtilImport ui : classes) {
+    public Imports util(JavaUtil... classes) {
+        for (JavaUtil ui : classes) {
             add(ui.importPath());
         }
         return this;
@@ -286,9 +286,9 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports util(boolean enable, UtilImport... classes) {
+    public Imports util(boolean enable, JavaUtil... classes) {
         if (enable) {
-            for (UtilImport ui : classes) {
+            for (JavaUtil ui : classes) {
                 add(ui.importPath());
             }
         }
@@ -301,8 +301,8 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports quarkus(QuarkusImport... classes) {
-        for (QuarkusImport qi : classes) {
+    public Imports quarkus(Quarkus... classes) {
+        for (Quarkus qi : classes) {
             add(qi.importPath());
         }
         return this;
@@ -315,9 +315,9 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports quarkus(boolean enable, QuarkusImport... classes) {
+    public Imports quarkus(boolean enable, Quarkus... classes) {
         if (enable) {
-            for (QuarkusImport qi : classes) {
+            for (Quarkus qi : classes) {
                 add(qi.importPath());
             }
         }
@@ -330,8 +330,8 @@ public final class Imports {
      * @param classes the classes to add imports for
      * @return the imports instance
      */
-    public Imports mp(MicroProfileImport... classes) {
-        for (MicroProfileImport mpi : classes) {
+    public Imports mp(MicroProfile... classes) {
+        for (MicroProfile mpi : classes) {
             add(mpi.importPath());
         }
         return this;
@@ -413,7 +413,7 @@ public final class Imports {
      * Maybe need a better way to handle this.
      */
     public void trimContainerImplementations() {
-        UtilImport.containerImplementationTypes()
+        JavaUtil.containerImplementationTypes()
             .forEach(ui -> importedClasses.remove(ui.importPath()));
     }
 }

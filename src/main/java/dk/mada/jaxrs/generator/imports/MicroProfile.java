@@ -3,7 +3,7 @@ package dk.mada.jaxrs.generator.imports;
 /**
  * MicroProfile import paths.
  */
-public enum MicroProfileImport {
+public enum MicroProfile {
     /** APIResponseSchema. */
     API_RESPONSE_SCHEMA("org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema"),
     /** APIResponse. */
@@ -26,7 +26,7 @@ public enum MicroProfileImport {
     /** The import path for the type. */
     private final String importPath;
 
-    MicroProfileImport(String importPath) {
+    MicroProfile(String importPath) {
         this.importPath = importPath;
     }
 
