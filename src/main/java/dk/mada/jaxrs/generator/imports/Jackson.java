@@ -68,9 +68,9 @@ public enum Jackson implements TypedImport {
     /** The FasterXml import path. */
     private final String fasterXmlImport;
 
-    Jackson(String codehausImport, String fasterxmlImport) {
+    Jackson(String codehausImport, String fasterXmlImport) {
         this.codeHausImport = codehausImport;
-        this.fasterXmlImport = fasterxmlImport;
+        this.fasterXmlImport = fasterXmlImport;
     }
 
     /**
