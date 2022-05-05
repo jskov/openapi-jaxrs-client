@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.generator.imports;
 
-import static dk.mada.jaxrs.generator.imports.Jsonb.*;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.SortedSet;
@@ -102,7 +100,7 @@ public final class Imports {
                 .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
                 .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
                 .add(Jackson.JSON_PROPERTY, Jackson.JSON_PROPERTY_ORDER)
-                .add(JSONB_PROPERTY, JSONB_PROPERTY_ORDER);
+                .add(Jsonb.JSONB_PROPERTY, Jsonb.JSONB_PROPERTY_ORDER);
     }
 
     /**
@@ -149,8 +147,8 @@ public final class Imports {
         return add(irp.isJackson(), JavaUtil.OBJECTS)
             .add(irp.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
             .add(Jackson.JSON_CREATOR, Jackson.JSON_VALUE)
-            .add(JSONB_ADAPTER, JSON, JSON_STRING)
-            .add(includeTypeAdapter, JSONB_TYPE_ADAPTER);
+            .add(Jsonb.JSONB_ADAPTER, Jsonb.JSON, Jsonb.JSON_STRING)
+            .add(includeTypeAdapter, Jsonb.JSONB_TYPE_ADAPTER);
     }
 
     /**
