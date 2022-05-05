@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.ExtraTemplate;
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
@@ -25,6 +24,12 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
+import dk.mada.jaxrs.generator.imports.Imports;
+import dk.mada.jaxrs.generator.imports.Jackson;
+import dk.mada.jaxrs.generator.imports.JavaMath;
+import dk.mada.jaxrs.generator.imports.MicroProfile;
+import dk.mada.jaxrs.generator.imports.UserMappedImport;
+import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
@@ -72,7 +77,7 @@ public class DtoGenerator {
     private final EnumSet<ExtraTemplate> extraTemplates = EnumSet.noneOf(ExtraTemplate.class);
 
     /** External type mapping. */
-    private final Map<String, String> externalTypeMapping;
+    private final Map<String, UserMappedImport> externalTypeMapping;
 
     /**
      * Constructs a new generator.
@@ -101,7 +106,7 @@ public class DtoGenerator {
         .forEach(type -> {
             String name = type.name();
 
-            String mappedToExternalType = externalTypeMapping.get(name);
+            UserMappedImport mappedToExternalType = externalTypeMapping.get(name);
             if (mappedToExternalType != null) {
                 logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
             } else {
@@ -210,7 +215,7 @@ public class DtoGenerator {
             }
             customLocalDateSerializer = opts.getJacksonLocalDateSerializer();
 
-            dtoImports.jackson("JsonDeserialize", "JsonSerialize");
+            dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
         }
 
         String customOffsetDateTimeDeserializer = null;
@@ -235,12 +240,12 @@ public class DtoGenerator {
                 customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
             }
 
-            dtoImports.jackson("JsonDeserialize", "JsonSerialize");
+            dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
         }
 
         String description = dto.description();
         if (description != null) {
-            dtoImports.addSchema();
+            dtoImports.addMicroProfileSchema();
         }
 
         String implementsInterfaces = dto.implementsInterfaces().stream()
@@ -317,9 +322,9 @@ public class DtoGenerator {
             type = ", type = SchemaType.INTEGER, format = \"int32\"";
         }
         if (!type.isEmpty()) {
-            dtoImports.add("org.eclipse.microprofile.openapi.annotations.enums.SchemaType");
+            dtoImports.add(MicroProfile.SCHEMA_TYPE);
         }
-        dtoImports.add("org.eclipse.microprofile.openapi.annotations.media.Schema");
+        dtoImports.addMicroProfileSchema();
 
         return new StringBuilder()
                 .append("enumeration = {").append(values).append("}")
@@ -411,12 +416,12 @@ public class DtoGenerator {
         }
 
         // Add import if required
-        String externalType = externalTypeMapping.get(typeName);
+        UserMappedImport externalType = externalTypeMapping.get(typeName);
         if (externalType != null) {
             dtoImports.add(externalType);
         }
         if (innerTypeName != null) {
-            String innerExternalType = externalTypeMapping.get(innerTypeName);
+            UserMappedImport innerExternalType = externalTypeMapping.get(innerTypeName);
             if (innerExternalType != null) {
                 dtoImports.add(innerExternalType);
             }
@@ -434,8 +439,8 @@ public class DtoGenerator {
             getter = getter + "Double";
             setter = setter + "Double";
 
-            dtoImports.jackson("JsonIgnore");
-            dtoImports.add("java.math.BigDecimal");
+            dtoImports.add(Jackson.JSON_IGNORE);
+            dtoImports.add(JavaMath.BIG_DECIMAL);
         }
 
         String description = p.description();
@@ -467,7 +472,7 @@ public class DtoGenerator {
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
             schemaOptions = String.join(", ", schemaEntries);
-            dtoImports.addSchema();
+            dtoImports.addMicroProfileSchema();
         }
 
         boolean useBeanValidation = opts.isUseBeanValidation();
@@ -479,36 +484,36 @@ public class DtoGenerator {
         String pattern = null;
         if (useBeanValidation) {
             if (p.isRequired()) {
-                dtoImports.add("javax.validation.constraints.NotNull");
+                dtoImports.add(ValidationApi.NOT_NULL);
             }
             // Decide where to put @Valid. I expect this to be too simple...
             if (propType.isDto()
                     || (propType instanceof TypeContainer tc && tc.innerType().isDto())) {
                 valid = true;
-                dtoImports.add("javax.validation.Valid");
+                dtoImports.add(ValidationApi.VALID);
             }
 
             if (p.minLength() != null) {
                 minLength = Integer.toString(p.minLength());
-                dtoImports.add("javax.validation.constraints.Size");
+                dtoImports.add(ValidationApi.SIZE);
             }
             if (p.maxLength() != null) {
                 maxLength = Integer.toString(p.maxLength());
-                dtoImports.add("javax.validation.constraints.Size");
+                dtoImports.add(ValidationApi.SIZE);
             }
 
             if (p.minimum() != null) {
                 minimum = p.minimum().toString();
-                dtoImports.add("javax.validation.constraints.Min");
+                dtoImports.add(ValidationApi.MIN);
             }
             if (p.maximum() != null) {
                 maximum = p.maximum().toString();
-                dtoImports.add("javax.validation.constraints.Max");
+                dtoImports.add(ValidationApi.MAX);
             }
 
             if (p.pattern() != null) {
                 pattern = StringRenderer.encodeRegexp(p.pattern());
-                dtoImports.add("javax.validation.constraints.Pattern");
+                dtoImports.add(ValidationApi.PATTERN);
             }
         }
 

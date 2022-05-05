@@ -46,6 +46,11 @@ public interface Operation {
     /** {@return the optional request body} */
     Optional<RequestBody> requestBody();
 
+    /** {@return true if all responses on the operation are void} */
+    default boolean isVoid() {
+        return responses().stream().allMatch(Response::isVoid);
+    }
+
     /** {@return true if this operation requires an authentication parameter} */
     boolean addAuthorizationHeader();
 }

@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.CommonPathFinder;
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.generator.Imports;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
@@ -25,6 +24,10 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
 import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
+import dk.mada.jaxrs.generator.imports.Imports;
+import dk.mada.jaxrs.generator.imports.JaxRs;
+import dk.mada.jaxrs.generator.imports.MicroProfile;
+import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -135,14 +138,14 @@ public class ApiGenerator {
 
         String clientKey = opts.getMpClientConfigKey();
         if (clientKey != null) {
-            imports.add("org.eclipse.microprofile.rest.client.inject.RegisterRestClient");
+            imports.add(MicroProfile.REGISTER_REST_CLIENT);
         }
 
         List<String> mpProviders = opts.getMpProviders().stream()
                 .sorted()
                 .toList();
         if (!mpProviders.isEmpty()) {
-            imports.add("org.eclipse.microprofile.rest.client.annotation.RegisterProvider");
+            imports.add(MicroProfile.REGISTER_PROVIDER);
         }
 
         CtxApiExt apiExt = CtxApiExt.builder()
@@ -224,7 +227,7 @@ public class ApiGenerator {
 
         String opSummaryString = StringRenderer.encodeForString(summary);
         if (opSummaryString != null) {
-            imports.add("org.eclipse.microprofile.openapi.annotations.Operation");
+            imports.add(MicroProfile.OPERATION);
         }
 
         CtxApiOpExt ext = CtxApiOpExt.builder()
@@ -276,14 +279,12 @@ public class ApiGenerator {
 
         boolean onlySimpleResponse = isOnlySimpleResponse(op.responses());
         if (onlySimpleResponse) {
-            imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema");
+            imports.add(MicroProfile.API_RESPONSE_SCHEMA);
         } else {
-            imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponse");
-            imports.add("org.eclipse.microprofile.openapi.annotations.responses.APIResponses");
+            imports.add(MicroProfile.API_RESPONSE, MicroProfile.API_RESPONSES);
 
-            if (!op.responses().stream().allMatch(r -> r.content().reference().isVoid())) {
-                imports.add("org.eclipse.microprofile.openapi.annotations.media.Content");
-                imports.add("org.eclipse.microprofile.openapi.annotations.media.Schema");
+            if (!op.isVoid()) {
+                imports.add(MicroProfile.CONTENT, MicroProfile.SCHEMA);
             }
         }
         return onlySimpleResponse;
@@ -361,7 +362,7 @@ public class ApiGenerator {
 
             boolean required = validation.isRequired() || p.isRequired();
             if (opts.isUseBeanValidation() && required) {
-                imports.add("javax.validation.constraints.NotNull");
+                imports.add(ValidationApi.NOT_NULL);
             }
 
             params.add(CtxApiParam.builder()
@@ -449,7 +450,7 @@ public class ApiGenerator {
         if (type instanceof TypeContainer tc) {
             baseType = tc.innerType().wrapperTypeName().name();
             containerType = "SchemaType.ARRAY";
-            imports.add("org.eclipse.microprofile.openapi.annotations.enums.SchemaType");
+            imports.add(MicroProfile.SCHEMA_TYPE);
 
             isUnique = type instanceof TypeSet;
         } else if (type.isVoid()) {
@@ -504,7 +505,7 @@ public class ApiGenerator {
             return "\"" + mediaType + "\"";
         }
 
-        imports.javax("javax.ws.rs.core.MediaType");
+        imports.add(JaxRs.MEDIA_TYPE);
 
         return "MediaType." + mtConstant;
     }

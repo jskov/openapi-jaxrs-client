@@ -22,4 +22,9 @@ public interface Response {
     /** {@return the description of this response} */
     @Nullable
     String description();
+
+    /** {@return true if this is a void-response} */
+    default boolean isVoid() {
+        return content().reference().isVoid();
+    }
 }

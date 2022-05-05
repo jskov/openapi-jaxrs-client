@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.generator.Imports;
+import dk.mada.jaxrs.generator.imports.JavaUtil;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
@@ -34,7 +34,7 @@ public interface TypeSet extends TypeContainer {
     }
 
     @Override
-    default Set<String> neededImports() {
-        return Imports.SET_TYPES;
+    default Set<JavaUtil> containerImports() {
+        return JavaUtil.containerSetTypes();
     }
 }
