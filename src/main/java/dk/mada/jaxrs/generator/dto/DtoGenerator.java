@@ -190,7 +190,6 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-
         String enumSchema = null;
         Type dtoType = dto.reference().refType();
         CtxEnum ctxEnum = null;
@@ -268,6 +267,8 @@ public class DtoGenerator {
                     .propertyBaseName(subtypeSelector.propertyName())
                     .mappedModels(mapping)
                     .build();
+
+            dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 
         CtxDtoExt mada = CtxDtoExt.builder()

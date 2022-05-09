@@ -30,6 +30,10 @@ public enum Jackson implements TypedImport {
     JSON_IGNORE(
         "org.codehaus.jackson.annotate.JsonIgnore",
         "com.fasterxml.jackson.annotation.JsonIgnore"),
+    /** JsonIgnoreProperties. */
+    JSON_IGNORE_PROPERTIES(
+        "org.codehaus.jackson.annotate.JsonIgnoreProperties",
+        "com.fasterxml.jackson.annotation.JsonIgnoreProperties"),
     /** JsonParser. */
     JSON_PARSER(
         "org.codehaus.jackson.JsonParser",
@@ -54,6 +58,14 @@ public enum Jackson implements TypedImport {
     JSON_SERIALIZER(
         "org.codehaus.jackson.map.JsonSerializer",
         "com.fasterxml.jackson.databind.JsonSerializer"),
+    /** JsonSubTypes. */
+    JSON_SUB_TYPES(
+        "org.codehaus.jackson.annotate.JsonSubTypes",
+        "com.fasterxml.jackson.annotation.JsonSubTypes"),
+    /** JsonTypeInfo. */
+    JSON_TYPE_INFO(
+        "org.codehaus.jackson.annotate.JsonTypeInfo",
+        "com.fasterxml.jackson.annotation.JsonTypeInfo"),
     /** JsonValue. */
     JSON_VALUE(
         "org.codehaus.jackson.annotate.JsonValue",
