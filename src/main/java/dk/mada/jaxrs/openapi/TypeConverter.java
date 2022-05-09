@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
@@ -32,7 +33,6 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
-import dk.mada.jaxrs.model.types.TypeSelector;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.TypeValidation;
@@ -361,7 +361,7 @@ public final class TypeConverter {
         @Nullable
         List<String> enumValues = getEnumValues(schema);
 
-        TypeSelector selector = null;
+        SubtypeSelector selector = null;
         Discriminator disc = schema.getDiscriminator();
         if (disc != null) {
             logger.info("XXX {} : {}", dtoName, disc.getMapping());
@@ -371,7 +371,7 @@ public final class TypeConverter {
                 Reference ref = findDto(e.getValue(), Validation.NO_VALIDATION);
                 mapping.put(discName, ref);
             }
-            selector = TypeSelector.of(disc.getPropertyName(), mapping);
+            selector = SubtypeSelector.of(disc.getPropertyName(), mapping);
         }
 
         Dto dto = Dto.builder()
