@@ -8,30 +8,30 @@
 
 package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * SubA
  */
-@JsonbPropertyOrder({
+@JsonPropertyOrder({
   SubA.JSON_PROPERTY_IMPL_DISCRIMINATOR,
   SubA.JSON_PROPERTY_SUPER_VALUE,
   SubA.JSON_PROPERTY_BAR
 })
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
-public class SubA {
+public class SubA implements SubASubB {
   public static final String JSON_PROPERTY_IMPL_DISCRIMINATOR = "implDiscriminator";
-  @JsonbProperty(JSON_PROPERTY_IMPL_DISCRIMINATOR)
+  @JsonProperty(JSON_PROPERTY_IMPL_DISCRIMINATOR)
   private String implDiscriminator;
 
   public static final String JSON_PROPERTY_SUPER_VALUE = "superValue";
-  @JsonbProperty(JSON_PROPERTY_SUPER_VALUE)
+  @JsonProperty(JSON_PROPERTY_SUPER_VALUE)
   private Integer superValue;
 
   public static final String JSON_PROPERTY_BAR = "bar";
-  @JsonbProperty(JSON_PROPERTY_BAR)
+  @JsonProperty(JSON_PROPERTY_BAR)
   private Integer bar;
 
   public SubA implDiscriminator(String implDiscriminator) {
