@@ -60,4 +60,8 @@ public interface Dto extends Type {
 
     /** {@return the list of interfaces implemented by this DTO} */
     List<TypeInterface> implementsInterfaces();
+
+    /** {@return a sub-type mapping, or null} */
+    @Nullable
+    SubtypeSelector subtypeSelector();
 }

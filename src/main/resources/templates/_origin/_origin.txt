@@ -1,5 +1,6 @@
 This document should keep track of the upstream templates cloned into this project
 
+
 api.mustache
  5.3.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/java-micronaut-client/api.mustache
  5.3.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/api.mustache
@@ -49,4 +50,6 @@ pojo.mustache
  
 returnTypes.mustache
  5.3.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/JavaJaxRS/returnTypes.mustache
- 
+
+typeInfoAnnotation.mustache
+ 5.3.1 https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources/Java/typeInfoAnnotation.mustache

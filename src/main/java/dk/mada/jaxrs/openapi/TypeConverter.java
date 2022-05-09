@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
@@ -40,6 +42,7 @@ import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.ComposedSchema;
 import io.swagger.v3.oas.models.media.DateSchema;
 import io.swagger.v3.oas.models.media.DateTimeSchema;
+import io.swagger.v3.oas.models.media.Discriminator;
 import io.swagger.v3.oas.models.media.FileSchema;
 import io.swagger.v3.oas.models.media.MapSchema;
 import io.swagger.v3.oas.models.media.NumberSchema;
@@ -358,6 +361,18 @@ public final class TypeConverter {
         @Nullable
         List<String> enumValues = getEnumValues(schema);
 
+        SubtypeSelector selector = null;
+        Discriminator disc = schema.getDiscriminator();
+        if (disc != null) {
+            Map<String, Reference> mapping = new HashMap<>();
+            for (var e : disc.getMapping().entrySet()) {
+                String discName = e.getKey();
+                Reference ref = findDto(e.getValue(), Validation.NO_VALIDATION);
+                mapping.put(discName, ref);
+            }
+            selector = SubtypeSelector.of(disc.getPropertyName(), mapping);
+        }
+
         Dto dto = Dto.builder()
                 .name(modelName)
                 .description(schema.getDescription())
@@ -366,6 +381,7 @@ public final class TypeConverter {
                 .openapiId(TypeNames.of(dtoName))
                 .enumValues(enumValues)
                 .implementsInterfaces(List.of())
+                .subtypeSelector(selector)
                 .build();
 
         parserTypes.addDto(dto);

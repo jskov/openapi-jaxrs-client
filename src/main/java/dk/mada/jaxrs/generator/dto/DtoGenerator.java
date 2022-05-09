@@ -17,6 +17,7 @@ import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoDiscriminator;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
@@ -35,6 +36,7 @@ import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -188,7 +190,6 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-
         String enumSchema = null;
         Type dtoType = dto.reference().refType();
         CtxEnum ctxEnum = null;
@@ -255,6 +256,22 @@ public class DtoGenerator {
             implementsInterfaces = null;
         }
 
+        SubtypeSelector subtypeSelector = dto.subtypeSelector();
+        CtxDtoDiscriminator discriminator = null;
+        // Needs adaptor for jsonb and tweaks for codehaus
+        if (subtypeSelector != null && opts.isJacksonFasterxml()) {
+            List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
+                    .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey()))
+                    .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
+                    .toList();
+            discriminator = CtxDtoDiscriminator.builder()
+                    .propertyBaseName(subtypeSelector.propertyName())
+                    .mappedModels(mapping)
+                    .build();
+
+            dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
+        }
+
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
                 .jsonb(opts.isJsonb())
@@ -291,6 +308,7 @@ public class DtoGenerator {
                 .generatedDate(opts.getGeneratedAtTime())
 
                 .madaDto(mada)
+                .discriminator(discriminator)
 
                 .build();
     }

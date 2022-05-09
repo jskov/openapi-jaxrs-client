@@ -78,6 +78,12 @@ public enum StatusCode {
     HTTP_REQ_TOO_LONG(414),
     /** Unsupported Media Type. */
     HTTP_UNSUPPORTED_TYPE(415),
+    /** Unprocessable Entity. */
+    HTTP_UNPROCESSABLE_ENTITY(422),
+    /** Locked. */
+    HTTP_LOCKED(423),
+    /** Failed dependency. */
+    HTTP_FAILED_DEPENDENCY(424),
 
     /** Internal Server Error. */
     HTTP_INTERNAL_ERROR(500),
