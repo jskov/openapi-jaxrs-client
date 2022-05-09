@@ -364,7 +364,6 @@ public final class TypeConverter {
         SubtypeSelector selector = null;
         Discriminator disc = schema.getDiscriminator();
         if (disc != null) {
-            logger.info("XXX {} : {}", dtoName, disc.getMapping());
             Map<String, Reference> mapping = new HashMap<>();
             for (var e : disc.getMapping().entrySet()) {
                 String discName = e.getKey();
