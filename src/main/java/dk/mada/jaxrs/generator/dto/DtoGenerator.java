@@ -258,7 +258,8 @@ public class DtoGenerator {
 
         SubtypeSelector subtypeSelector = dto.subtypeSelector();
         CtxDtoDiscriminator discriminator = null;
-        if (subtypeSelector != null) {
+        // Needs adaptor for jsonb and tweaks for codehaus
+        if (subtypeSelector != null && opts.isJacksonFasterxml()) {
             List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
                     .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey()))
                     .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
