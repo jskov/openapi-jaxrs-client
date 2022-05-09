@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
+import dk.mada.jaxrs.model.types.TypeSelector;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.TypeValidation;
@@ -40,6 +42,7 @@ import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.ComposedSchema;
 import io.swagger.v3.oas.models.media.DateSchema;
 import io.swagger.v3.oas.models.media.DateTimeSchema;
+import io.swagger.v3.oas.models.media.Discriminator;
 import io.swagger.v3.oas.models.media.FileSchema;
 import io.swagger.v3.oas.models.media.MapSchema;
 import io.swagger.v3.oas.models.media.NumberSchema;
@@ -358,6 +361,19 @@ public final class TypeConverter {
         @Nullable
         List<String> enumValues = getEnumValues(schema);
 
+        TypeSelector selector = null;
+        Discriminator disc = schema.getDiscriminator();
+        if (disc != null) {
+            logger.info("XXX {} : {}", dtoName, disc.getMapping());
+            Map<String, Reference> mapping = new HashMap<>();
+            for (var e : disc.getMapping().entrySet()) {
+                String discName = e.getKey();
+                Reference ref = findDto(e.getValue(), Validation.NO_VALIDATION);
+                mapping.put(discName, ref);
+            }
+            selector = TypeSelector.of(disc.getPropertyName(), mapping);
+        }
+
         Dto dto = Dto.builder()
                 .name(modelName)
                 .description(schema.getDescription())
@@ -366,6 +382,7 @@ public final class TypeConverter {
                 .openapiId(TypeNames.of(dtoName))
                 .enumValues(enumValues)
                 .implementsInterfaces(List.of())
+                .subtypeSelector(selector)
                 .build();
 
         parserTypes.addDto(dto);

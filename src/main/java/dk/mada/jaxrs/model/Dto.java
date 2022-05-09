@@ -11,6 +11,7 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
+import dk.mada.jaxrs.model.types.TypeSelector;
 
 /**
  * Model of a DTO object.
@@ -60,4 +61,8 @@ public interface Dto extends Type {
 
     /** {@return the list of interfaces implemented by this DTO} */
     List<TypeInterface> implementsInterfaces();
+
+    /** {@return a sub-type mapping, or null} */
+    @Nullable
+    TypeSelector subtypeSelector();
 }

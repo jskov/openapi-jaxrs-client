@@ -255,6 +255,8 @@ public class DtoGenerator {
             implementsInterfaces = null;
         }
 
+        logger.info("GEN {} : {}", dto.name(), dto.subtypeSelector());
+        
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
                 .jsonb(opts.isJsonb())
