@@ -79,6 +79,7 @@ public interface CtxDto {
         return generatedDate() == null;
     }
 
+    /** {@return discriminator for sub-class selection, or null} */
     @Nullable
     CtxDtoDiscriminator discriminator();
 
