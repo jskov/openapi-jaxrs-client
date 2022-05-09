@@ -24,9 +24,12 @@
 {{#madaDto.quarkusRegisterForReflection}}
 @RegisterForReflection
 {{/madaDto.quarkusRegisterForReflection}}
+{{#discriminator}}
+{{>typeInfoAnnotation}}@TRIM_EMPTY_LINE@
+{{/discriminator}}
 {{>generatedAnnotation}}
 {{#todo}}
-{{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}{{#discriminator}}{{>typeInfoAnnotation}}{{/discriminator}}
+{{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}
 {{/todo}}
 public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}} {
   {{#vars}}

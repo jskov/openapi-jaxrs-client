@@ -79,6 +79,9 @@ public interface CtxDto {
         return generatedDate() == null;
     }
 
+    @Nullable
+    CtxDtoDiscriminator discriminator();
+
     /** {@return additional custom template data for the dto} */
     CtxDtoExt madaDto();
 }
