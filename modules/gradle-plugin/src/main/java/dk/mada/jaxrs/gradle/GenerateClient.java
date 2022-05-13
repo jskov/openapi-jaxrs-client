@@ -22,14 +22,15 @@ public abstract class GenerateClient extends JavaExec {
         logger.lifecycle("Set main name: {}", mainName);
         getMainClass().set(mainName);
 
-        Configuration pluginClasspath = project.getBuildscript().getConfigurations().findByName("classpath");
+        FileCollection pluginClasspath = project.getBuildscript().getConfigurations().findByName("classpath")
+                .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
         Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
         FileCollection combined = generatorClasspath.plus(pluginClasspath);
         setClasspath(combined);
 
         doFirst(t -> {
             logger.lifecycle("Run task: {}", getText().get());
-            logger.lifecycle("Combined classpath is {}", combined.getAsPath());
+            logger.debug("Combined classpath is {}", combined.getAsPath());
         });
     }
 }
