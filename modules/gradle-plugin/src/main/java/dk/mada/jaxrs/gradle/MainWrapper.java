@@ -2,7 +2,7 @@ package dk.mada.jaxrs.gradle;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 import java.util.ServiceLoader;
 
 public class MainWrapper {
@@ -27,9 +27,6 @@ public class MainWrapper {
         
         GeneratorService activeService = services.get(0);
         
-        Properties options = new Properties();
-        options.setProperty("unknown", "whatever");
-        
-        activeService.generate(null, null, null, options);
+        activeService.generate(null, null, null, Map.of("ada", "da"));
     }
 }
