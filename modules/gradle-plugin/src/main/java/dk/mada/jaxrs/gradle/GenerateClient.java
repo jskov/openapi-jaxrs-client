@@ -1,11 +1,12 @@
 package dk.mada.jaxrs.gradle;
 
 import org.gradle.api.Project;
+import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.JavaExec;
-import org.gradle.api.tasks.TaskAction;
 
 public abstract class GenerateClient extends JavaExec {
     
@@ -21,9 +22,14 @@ public abstract class GenerateClient extends JavaExec {
         logger.lifecycle("Set main name: {}", mainName);
         getMainClass().set(mainName);
 
+        Configuration pluginClasspath = project.getBuildscript().getConfigurations().findByName("classpath");
+        Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
+        FileCollection combined = generatorClasspath.plus(pluginClasspath);
+        setClasspath(combined);
+
         doFirst(t -> {
             logger.lifecycle("Run task: {}", getText().get());
-            setClasspath(project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME));
+            logger.lifecycle("Combined classpath is {}", combined.getAsPath());
         });
     }
 }
