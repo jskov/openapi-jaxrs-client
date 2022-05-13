@@ -9,10 +9,7 @@ plugins {
     id 'maven-publish'
 }
 
-group 'dk.mada'
-if (project.version == 'unspecified') {
-    version '0.0.0-SNAPSHOT'
-} 
+group "${groupId}"
 
 ext {
     distDir = file("build/dist").getAbsolutePath()

@@ -1,0 +1,24 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.18.0'
+    id 'eclipse'
+}
+
+pluginBundle {
+    website = 'https://github.com/jskov/openapi-jaxrs-client'
+    vcsUrl = 'https://github.com/jskov/openapi-jaxrs-client'
+    tags = ['openapi', 'swagger', 'codegen', 'generator', 'microprofile']
+}
+
+gradlePlugin {
+    plugins {
+        openApiJaxrs {
+            id = 'dk.mada.jaxrs'
+            displayName = 'Plugin for generating JAX-RS (client) code from OpenAPI documents'
+            description = 'A plugin that generates JAX-RS client code from OpenApi documents. It has many configuration options and a broad test suite to cover many corner cases.'
+            implementationClass = 'dk.mada.jaxrs.gradle.JaxrsPlugin'
+        }
+    }
+}
+
