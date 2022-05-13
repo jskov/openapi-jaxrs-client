@@ -30,6 +30,7 @@ public abstract class GenerateClient extends JavaExec {
 
         doFirst(t -> {
             logger.lifecycle("Run task: {}", getText().get());
+            logger.lifecycle("Generator classpath is {}", generatorClasspath.getAsPath());
             logger.debug("Combined classpath is {}", combined.getAsPath());
         });
     }

@@ -102,6 +102,11 @@ processResources {
     }
 }
 
+jar {
+    exclude "**/GeneratorService.class"
+    includeEmptyDirs false
+}
+
 javadoc {
     options {
 //        verbose()
