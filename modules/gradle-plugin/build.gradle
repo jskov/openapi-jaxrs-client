@@ -5,6 +5,17 @@ plugins {
     id 'eclipse'
 }
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation  platform("org.junit:junit-bom:$junitVersion")
+    testImplementation  'org.junit.jupiter:junit-jupiter'
+    testImplementation  "org.assertj:assertj-core:$assertJVersion"
+}
+
+
 pluginBundle {
     website = 'https://github.com/jskov/openapi-jaxrs-client'
     vcsUrl = 'https://github.com/jskov/openapi-jaxrs-client'
@@ -20,5 +31,9 @@ gradlePlugin {
             implementationClass = 'dk.mada.jaxrs.gradle.JaxrsPlugin'
         }
     }
+}
+
+test {
+    useJUnitPlatform()
 }
 

@@ -10,11 +10,8 @@ public class JaxrsPlugin implements Plugin<Project> {
     public void apply(Project project) {
         JaxrsExtension extension = project.getExtensions().create("jaxrs", JaxrsExtension.class);
         
-        project.getLogger().lifecycle("See classpath: {}", extension.getClasspath().get());
-
-        
         project.getTasks().register("gen", GenerateClient.class)
-            .configure(gc -> gc.getText().convention("hello" + extension.getClasspath().get()));
+            .configure(gc -> gc.getText().convention("hello" + extension.getGeneratorGAV().get()));
     }
 
 }
