@@ -27,11 +27,5 @@ public abstract class GenerateClient extends JavaExec {
         Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
         FileCollection combined = generatorClasspath.plus(pluginClasspath);
         setClasspath(combined);
-
-        doFirst(t -> {
-            logger.lifecycle("Run task: {}", getText().get());
-            logger.lifecycle("Generator classpath is {}", generatorClasspath.getAsPath());
-            logger.debug("Combined classpath is {}", combined.getAsPath());
-        });
     }
 }
