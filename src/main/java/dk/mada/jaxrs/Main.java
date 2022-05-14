@@ -194,11 +194,9 @@ public final class Main implements Callable<Integer> {
     public Integer call() throws Exception {
         GeneratorLogLevel logLevel = GeneratorLogLevel.DEFAULT;
         if (debug) {
-            LoggerConfig.enableDebugLogOutput();
             logLevel = GeneratorLogLevel.DEBUG;
         }
         if (trace) {
-            LoggerConfig.enableTraceLogOutput();
             logLevel = GeneratorLogLevel.TRACE;
         }
 
