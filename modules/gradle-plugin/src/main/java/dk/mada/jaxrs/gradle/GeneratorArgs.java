@@ -1,11 +1,8 @@
 package dk.mada.jaxrs.gradle;
 
-import java.util.Properties;
-
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.MapProperty;
-import org.gradle.api.provider.Property;
 import org.gradle.workers.WorkParameters;
 
 public interface GeneratorArgs extends WorkParameters {

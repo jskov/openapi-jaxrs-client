@@ -4,9 +4,4 @@ import org.gradle.api.provider.Property;
 
 public abstract class JaxrsExtension {
     public abstract Property<String> getGeneratorGAV();
-    public abstract Property<String> getGeneratorClassname();
-    
-    public JaxrsExtension() {
-        getGeneratorClassname().set(MainWrapper.class.getName());
-    }
 }
