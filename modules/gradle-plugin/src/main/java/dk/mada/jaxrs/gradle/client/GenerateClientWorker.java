@@ -1,26 +1,23 @@
 package dk.mada.jaxrs.gradle.client;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.ServiceLoader;
 
-import javax.inject.Inject;
-
-import org.gradle.api.model.ObjectFactory;
 import org.gradle.workers.WorkAction;
 
 import dk.mada.jaxrs.gradle.GeneratorService;
-import dk.mada.jaxrs.gradle.GeneratorService.ClientOptions;
+import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
 import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
 
 public abstract class GenerateClientWorker implements WorkAction<GenerateClientWorkerArgs> {
 
-    @Inject
-    public GenerateClientWorker(ObjectFactory of) {
-        System.out.println("GOT P " + of);
-    }
-    
     @Override
     public void execute() {
         System.out.println("Worker generator");
@@ -30,14 +27,17 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         Path config = params.getGeneratorConfig().getAsFile().get().toPath();
         Path destDir = params.getOutputDirectory().getAsFile().get().toPath();
 
+        Properties options = loadConfig(config);
+        
         System.out.println(" OpenApi doc: " + openapiDoc);
-        System.out.println(" Config: " + config);
         System.out.println(" Dest dir: " + destDir);
+        System.out.println(" Config file: " + config);
+        System.out.println(" Options: " + options);
 
         List<GeneratorService> services = new ArrayList<>();
         ServiceLoader<GeneratorService> loader = ServiceLoader.load(GeneratorService.class);
         for (GeneratorService service : loader) {
-            System.out.println(" found " + service.getClass().getName());
+            System.out.println("Found service " + service.getClass().getName());
             services.add(service);
         }
         System.out.println("Total " + services.size() + " services");
@@ -52,11 +52,25 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         GeneratorService activeService = services.get(0);
         
         boolean overwrite = false;
-        GeneratorLogLevel logLevel = GeneratorLogLevel.INFO;
+        GeneratorLogLevel logLevel = GeneratorLogLevel.DEFAULT;
         boolean skipApi = false;
         boolean skipDto = false;
-        ClientOptions clientOpts = new ClientOptions(overwrite, logLevel, skipApi, skipDto);
-        
-        activeService.generateClient(clientOpts, openapiDoc, config, destDir);
+        ClientContext cc = new ClientContext(overwrite, logLevel, skipApi, skipDto);
+        activeService.generateClient(cc, openapiDoc, options, destDir);
+    }
+    
+    private Properties loadConfig(Path configFile) {
+        var props = new Properties();
+        if (Files.exists(configFile)) {
+            System.out.println("Reading config from " + configFile);
+            try (Reader r = Files.newBufferedReader(configFile)) {
+                props.load(r);
+            } catch (IOException e) {
+                throw new UncheckedIOException("Failed to load config from " + configFile, e);
+            }
+        } else {
+            System.out.println("No configuration file found");
+        }
+        return props;
     }
 }
