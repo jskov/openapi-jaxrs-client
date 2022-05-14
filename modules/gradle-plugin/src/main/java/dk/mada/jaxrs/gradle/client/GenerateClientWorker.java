@@ -1,35 +1,39 @@
-package dk.mada.jaxrs.gradle;
+package dk.mada.jaxrs.gradle.client;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ServiceLoader;
 
+import javax.inject.Inject;
+
+import org.gradle.api.model.ObjectFactory;
 import org.gradle.workers.WorkAction;
 
-public abstract class GeneratorWorker implements WorkAction<GeneratorArgs> {
+import dk.mada.jaxrs.gradle.GeneratorService;
+import dk.mada.jaxrs.gradle.GeneratorService.ClientOptions;
+import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
 
+public abstract class GenerateClientWorker implements WorkAction<GenerateClientWorkerArgs> {
+
+    @Inject
+    public GenerateClientWorker(ObjectFactory of) {
+        System.out.println("GOT P " + of);
+    }
+    
     @Override
     public void execute() {
         System.out.println("Worker generator");
         
-        GeneratorArgs params = getParameters();
+        GenerateClientWorkerArgs params = getParameters();
         Path openapiDoc = params.getOpenapiDocument().getAsFile().get().toPath();
         Path config = params.getGeneratorConfig().getAsFile().get().toPath();
         Path destDir = params.getOutputDirectory().getAsFile().get().toPath();
-        Map<String, String> opts = params.getOptions().get();
 
         System.out.println(" OpenApi doc: " + openapiDoc);
         System.out.println(" Config: " + config);
         System.out.println(" Dest dir: " + destDir);
 
-        System.out.println("Options:");
-        opts.keySet().stream()
-            .sorted()
-            .forEach(opt -> System.out.println(" " + opt + " = '" + opts.get(opt) + "'"));
-        
-        
         List<GeneratorService> services = new ArrayList<>();
         ServiceLoader<GeneratorService> loader = ServiceLoader.load(GeneratorService.class);
         for (GeneratorService service : loader) {
@@ -47,6 +51,12 @@ public abstract class GeneratorWorker implements WorkAction<GeneratorArgs> {
         
         GeneratorService activeService = services.get(0);
         
-        activeService.generate(openapiDoc, config, destDir, opts);
+        boolean overwrite = false;
+        GeneratorLogLevel logLevel = GeneratorLogLevel.INFO;
+        boolean skipApi = false;
+        boolean skipDto = false;
+        ClientOptions clientOpts = new ClientOptions(overwrite, logLevel, skipApi, skipDto);
+        
+        activeService.generateClient(clientOpts, openapiDoc, config, destDir);
     }
 }

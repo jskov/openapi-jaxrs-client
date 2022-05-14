@@ -3,6 +3,8 @@ package dk.mada.jaxrs.gradle;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
+import dk.mada.jaxrs.gradle.client.GenerateClient;
+
 public class JaxrsPlugin implements Plugin<Project> {
     
 

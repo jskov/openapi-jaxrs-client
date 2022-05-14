@@ -1,6 +1,4 @@
-package dk.mada.jaxrs.gradle;
-
-import java.util.Map;
+package dk.mada.jaxrs.gradle.client;
 
 import javax.inject.Inject;
 
@@ -12,6 +10,8 @@ import org.gradle.api.file.ProjectLayout;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.workers.WorkQueue;
 import org.gradle.workers.WorkerExecutor;
+
+import dk.mada.jaxrs.gradle.JaxrsPlugin;
 
 public abstract class GenerateClient extends DefaultTask {
     @Inject
@@ -31,8 +31,7 @@ public abstract class GenerateClient extends DefaultTask {
         });
         ProjectLayout layout = getProject().getLayout();
         
-        workQueue.submit(GeneratorWorker.class, p -> {
-           p.getOptions().set(Map.of("unknown", "dummy"));
+        workQueue.submit(GenerateClientWorker.class, p -> {
            p.getOutputDirectory().set(layout.getBuildDirectory().dir("xx"));
            p.getOpenapiDocument().set(layout.getBuildDirectory().file("openapi.yaml"));
            p.getGeneratorConfig().set(layout.getBuildDirectory().file("openapi.properties"));

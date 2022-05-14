@@ -1,10 +1,22 @@
 package dk.mada.jaxrs.gradle;
 
-import java.nio.file.Path;
-import java.util.Map;
-
 // FIXME: copy of file in gradle-plugin, cannot get compile dep working
 
+import java.nio.file.Path;
+
 public interface GeneratorService {
-    void generate(Path openapiDocument, Path generatorConfig, Path toDir, Map<String, String> options);
+    public enum GeneratorLogLevel {
+        TRACE,
+        DEBUG,
+        INFO
+    }
+
+    public record ClientOptions(
+            boolean overwrite,
+            GeneratorLogLevel logLevel,
+            boolean skipApi,
+            boolean skipDto) {
+    }
+
+    void generateClient(ClientOptions opts, Path openapiDocument, Path generatorConfig, Path toDir);
 }
