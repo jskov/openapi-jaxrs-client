@@ -1,5 +1,8 @@
 package mada.fixture;
 
+import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
+import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -7,6 +10,7 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.Generator;
@@ -58,7 +62,11 @@ public class EndToEndTester {
         System.out.println("PROPS:" + testOptions.toString());
         System.out.println("Output : " + generatedFilesRootDir);
 
-        new Generator(false).generate(input, testOptions, outputDir);
+        boolean skipApi = Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"));
+        boolean skipDto = Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"));
+
+        ClientContext cc = new ClientContext(true, GeneratorLogLevel.DEFAULT, skipApi, skipDto);
+        new Generator(false).generateClient(cc, input, testOptions, outputDir);
 
         logger.info("Generator returned");
         logger.info("Expected dir {}", input);
@@ -68,18 +76,18 @@ public class EndToEndTester {
 
         OutputDiff differ = new OutputDiff(testName);
         Path outputApiDir = generatedFilesRootDir.resolve("api");
-        if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"))) {
+        if (skipApi) {
+            DirectoryDeleter.delete(outputApiDir);
+        } else {
             logger.info("Comparing APIs");
             differ.compareDirs(outputApiDir, expectedFilesDir.resolve("api"));
-        } else {
-            DirectoryDeleter.delete(outputApiDir);
         }
         Path outputDtoDir = generatedFilesRootDir.resolve("dto");
-        if (!Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"))) {
+        if (skipDto) {
+            DirectoryDeleter.delete(outputDtoDir);
+        } else {
             logger.info("Comparing DTOs");
             differ.compareDirs(outputDtoDir, expectedFilesDir.resolve("dto"));
-        } else {
-            DirectoryDeleter.delete(outputDtoDir);
         }
     }
 
