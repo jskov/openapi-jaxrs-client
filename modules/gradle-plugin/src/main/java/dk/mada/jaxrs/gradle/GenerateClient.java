@@ -9,19 +9,14 @@ import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.ProjectLayout;
-import org.gradle.api.provider.Property;
-import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.workers.WorkQueue;
 import org.gradle.workers.WorkerExecutor;
 
 public abstract class GenerateClient extends DefaultTask {
     @Inject
-    abstract public WorkerExecutor getWorkerExecutor();
+    public abstract WorkerExecutor getWorkerExecutor();
 
-    @Input
-    abstract Property<String> getText();
-    
     @TaskAction
     void generate() {
         Project project = getProject();
