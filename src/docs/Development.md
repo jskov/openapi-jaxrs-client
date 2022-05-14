@@ -33,20 +33,13 @@ Add to the test runner vm arguments:
 
 Clone the [examples](https://github.com/jskov/openapi-jaxrs-client-examples) project next to this project.
 
-Via its `settings.gradle` it will build the gradle plugin in this project and use it when you run:
-
-    ./gradlew gen
-
-
-
-If you configure the GAV to:
-
-    generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.0.0-SNAPSHOT"
-
 It will load the generator built from this project via:
 
     # Run in this project
     ./gradlew publishToMavenLocal
     
     # Run in openapi-jaxrs-client-examples
-    ./gradlew gen
+    ./plugin-dev.sh gen
+
+Changes to the plugin code will be updated automatically.
+But changes to the generator need to be published.
