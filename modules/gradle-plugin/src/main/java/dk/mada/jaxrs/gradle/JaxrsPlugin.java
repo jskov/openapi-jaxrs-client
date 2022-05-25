@@ -17,6 +17,11 @@ public class JaxrsPlugin implements Plugin<Project> {
         project.getConfigurations().create(CONFIGURATION_NAME);
         project.getDependencies().addProvider(CONFIGURATION_NAME, extension.getGeneratorGAV());
         
-        project.getTasks().register("gen", GenerateClient.class);
+        project.getTasks().register("gen", GenerateClient.class, t -> {
+            String docName = "petstore"; // FIXME
+            t.getOutputDirectory().set(extension.getRootOutputDirectory().dir(docName));
+            t.getOpenApiDocument().set(extension.getOpenApiDocDirectory().file(docName + ".yaml"));
+            t.getGeneratorProperties().set(extension.getOpenApiDocDirectory().file(docName + ".properties"));
+        });
     }
 }

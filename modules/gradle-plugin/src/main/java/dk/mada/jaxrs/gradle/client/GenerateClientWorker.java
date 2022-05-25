@@ -16,6 +16,13 @@ import dk.mada.jaxrs.gradle.GeneratorService;
 import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
 import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
 
+/**
+ * Worker which runs with a custom classpath where the
+ * generator service can be looked up.
+ *
+ * The Gradle worker arguments are rearranged to be suitable
+ * for the service, which is then invoked.
+ */
 public abstract class GenerateClientWorker implements WorkAction<GenerateClientWorkerArgs> {
 
     @Override
@@ -42,7 +49,7 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         }
         System.out.println("Total " + services.size() + " services");
 
-        if (services.size() == 0) {
+        if (services.isEmpty()) {
             throw new IllegalStateException("Did not find a required GeneratorService. Please review generatorGAV option!");
         }
         if (services.size() > 1) {
@@ -51,7 +58,7 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         
         GeneratorService activeService = services.get(0);
         
-        boolean overwrite = false;
+        boolean overwrite = true;
         GeneratorLogLevel logLevel = GeneratorLogLevel.DEFAULT;
         boolean skipApi = false;
         boolean skipDto = false;
