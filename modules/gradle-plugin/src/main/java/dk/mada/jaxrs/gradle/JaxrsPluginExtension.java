@@ -13,7 +13,7 @@ public abstract class JaxrsPluginExtension {
     public abstract DirectoryProperty getOpenApiDocDirectory();
 
     @Inject
-    public JaxrsPluginExtension(ProjectLayout pl) {
+    public JaxrsPluginExtension(ProjectLayout pl) { // NOSONAR - must be public to be found by Gradle
         Directory projectDirectory = pl.getProjectDirectory();
         getRootOutputDirectory()
             .convention(projectDirectory.dir("src/main/java-jaxrs"));

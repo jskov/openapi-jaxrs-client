@@ -9,7 +9,7 @@ public abstract class DslClient {
     private final String name;
 
     @Inject
-    public DslClient(String name) {
+    public DslClient(String name) { // NOSONAR - must be public to be found by Gradle 
         this.name = name;
     }
     
