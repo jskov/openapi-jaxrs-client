@@ -33,7 +33,7 @@ configurations {
 dependencies {
     implementation      'com.samskivert:jmustache:1.15'
     implementation      'info.picocli:picocli:4.6.3'
-    implementation      'io.swagger.parser.v3:swagger-parser:2.0.32'
+    implementation      'io.swagger.parser.v3:swagger-parser:2.0.33'
 
     annotationProcessor 'org.immutables:value:2.9.0'
     apt                 'org.immutables:value:2.9.0'
