@@ -8,14 +8,19 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     
-env:
-  BUILD_LABEL: ${${{ github.head_ref || github.ref_name }}//\/_}
-
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Define BUILD_LABEL
+        env:
+          INPUT: ${{ github.head_ref || github.ref_name }
+        run: |
+          echo "BUILD_LABEL=${INPUT//\/_}" >> $GITHUB_ENV
+      - name: Echo env
+        run: env | sort
+    
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
