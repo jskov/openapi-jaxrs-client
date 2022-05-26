@@ -45,6 +45,7 @@ public class JaxrsPlugin implements Plugin<Project> {
         });
     }
 
+    // Should probably use some variant of Identifiers:makeValid
     private String toPartialTaskName(String input) {
         String s = input
                 .replaceAll("[^a-zA-Z0-9]", "");
