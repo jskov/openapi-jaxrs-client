@@ -7,6 +7,10 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+    
+env:
+  BUILD_LABEL: ${${{ github.head_ref || github.ref_name }}//\/_}
+
 jobs:
   build:
     name: Build
@@ -33,15 +37,12 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
 
       - name: Echo env
-        env:
-          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
         run: env | sort
 
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
         run: ./gradlew build sonarqube javadoc publish -s -Pversion=${BUILD_LABEL}
 
       - name: Sign dist files
@@ -49,13 +50,10 @@ jobs:
         env:
           MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
           MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
-          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
         run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
 
       - name: Bundle release
         if: startsWith(github.ref, 'refs/tags/')
-        env:
-          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
         run: cd build/dist/dk/mada/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../release-bundle-${BUILD_LABEL}.jar *
 
       - name: Upload built files
