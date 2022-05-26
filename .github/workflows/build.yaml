@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Define BUILD_LABEL
         env:
-          INPUT: ${{ github.head_ref || github.ref_name }
+          INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
           echo "BUILD_LABEL=${INPUT//\/_}" >> $GITHUB_ENV
       - name: Echo env
