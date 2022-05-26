@@ -41,7 +41,7 @@ public class JaxrsPlugin implements Plugin<Project> {
         project.getDependencies().addProvider(CONFIGURATION_NAME, jaxrsExtension.getGeneratorGAV());
         
         NamedDomainObjectContainer<DslClient> clientContainer =
-            objects.domainObjectContainer(DslClient.class, name -> objects.newInstance(DslClient.class, name));
+            objects.domainObjectContainer(DslClient.class, name -> objects.newInstance(DslClient.class, name).withDefaults());
         extensions.add("clients", clientContainer);
 
         clientContainer.all(client -> {
@@ -50,11 +50,13 @@ public class JaxrsPlugin implements Plugin<Project> {
             Provider<Directory> taskOutputDir = jaxrsExtension.getRootOutputDirectory().dir(docName);
             mainSrcSet.getJava().srcDir(taskOutputDir);
 
+            Provider<String> openapiDocumentName = client.getDocumentExtension().map(ext -> docName + ext);
+            
             project.getTasks().register("generateClient" + toPartialTaskName(docName), GenerateClient.class, t -> {
                 t.setDescription("Generates JAX-RS client " + docName);
                 t.setGroup(CLIENT_TASK_GROUP);
                 t.getOutputDirectory().set(taskOutputDir);
-                t.getOpenApiDocument().set(jaxrsExtension.getOpenApiDocDirectory().file(docName + ".yaml"));
+                t.getOpenApiDocument().set(jaxrsExtension.getOpenApiDocDirectory().file(openapiDocumentName));
                 t.getGeneratorProperties().set(jaxrsExtension.getOpenApiDocDirectory().file(docName + ".properties"));
             });
         });
