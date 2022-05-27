@@ -32,6 +32,11 @@ public abstract class ClientDslContainer {
     /** {@return the flag to controls if code is generated to the source folder} */ 
     public abstract Property<Boolean> getPersistentSource();
 
+    /** Mark client for use of transient source code. */
+    public void transientSource() {
+        getPersistentSource().set(false);
+    }
+    
     /**
      * Fills out the container with default values.
      *
