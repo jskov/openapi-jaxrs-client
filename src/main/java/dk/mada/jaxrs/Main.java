@@ -20,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
+import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
 import dk.mada.logging.LoggerConfig;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -190,11 +192,12 @@ public final class Main implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        GeneratorLogLevel logLevel = GeneratorLogLevel.DEFAULT;
         if (debug) {
-            LoggerConfig.enableDebugLogOutput();
+            logLevel = GeneratorLogLevel.DEBUG;
         }
         if (trace) {
-            LoggerConfig.enableTraceLogOutput();
+            logLevel = GeneratorLogLevel.TRACE;
         }
 
         validateArguments();
@@ -203,7 +206,8 @@ public final class Main implements Callable<Integer> {
         logger.info("Generates files in {}", outputDir);
         Properties config = readConfiguration(configuration);
 
-        new Generator(showParserInfo).generate(inputDocument, config, outputDir);
+        ClientContext cc = new ClientContext(overwrite, logLevel, skipApiGeneration, skipDtoGeneration);
+        new Generator(showParserInfo).generateClient(cc, inputDocument, config, outputDir);
 
         return 0;
     }

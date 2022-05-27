@@ -18,9 +18,16 @@ public interface CtxDtoDiscriminator {
     /** {@return the name of the property with the selector string} */
     String propertyBaseName();
 
+    /**
+     * Defines a mapping between a model (DTO) name and a name
+     * used in the serialization stream.
+     *
+     * @param modelName the name of the model
+     * @param mappingName the way it is referred to in the stream
+     */
     record ModelMapping(String modelName, String mappingName) {
     }
 
-    /** {@return the name of a custom LocalDateDeserializer, or null} */
+    /** {@return the list of mapped models} */
     List<ModelMapping> mappedModels();
 }

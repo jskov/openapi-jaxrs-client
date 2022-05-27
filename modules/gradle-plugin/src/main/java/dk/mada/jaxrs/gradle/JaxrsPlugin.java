@@ -1,0 +1,125 @@
+package dk.mada.jaxrs.gradle;
+
+import java.util.Set;
+
+import org.gradle.api.NamedDomainObjectContainer;
+import org.gradle.api.Plugin;
+import org.gradle.api.Project;
+import org.gradle.api.Task;
+import org.gradle.api.file.Directory;
+import org.gradle.api.model.ObjectFactory;
+import org.gradle.api.plugins.ExtensionContainer;
+import org.gradle.api.plugins.JavaPlugin;
+import org.gradle.api.provider.Property;
+import org.gradle.api.provider.Provider;
+import org.gradle.api.tasks.SourceSet;
+import org.gradle.api.tasks.SourceSetContainer;
+import org.gradle.api.tasks.TaskProvider;
+
+import dk.mada.jaxrs.gradle.client.ClientDslContainer;
+import dk.mada.jaxrs.gradle.client.GenerateClient;
+
+/**
+ * Plugin for JAX-RS generator.
+ *
+ * Allows configuration of plugin-wide settings via the
+ * extension.
+ * Allows registration of client generator tasks via
+ * simple DSL.
+ */
+public class JaxrsPlugin implements Plugin<Project> {
+    /** The task group name used for client generator tasks. */
+    private static final String CLIENT_TASK_GROUP = "JAX-RS Client";
+    /** The Configuration name used for the generator classpath. */
+    public static final String CONFIGURATION_NAME = "dk.mada.jaxrs";
+
+    @Override
+    public void apply(Project project) {
+        ObjectFactory objects = project.getObjects();
+        ExtensionContainer extensions = project.getExtensions();
+        JaxrsPluginExtension jaxrsExtension = extensions.create("jaxrs", JaxrsPluginExtension.class);
+        
+        project.getPlugins().apply(JavaPlugin.class);
+        SourceSetContainer sourceSets = extensions.getByType(SourceSetContainer.class);
+        SourceSet mainSrcSet = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME);
+        
+        project.getConfigurations().create(CONFIGURATION_NAME);
+        project.getDependencies().addProvider(CONFIGURATION_NAME, jaxrsExtension.getGeneratorGAV());
+        
+        NamedDomainObjectContainer<ClientDslContainer> clientContainer =
+            objects.domainObjectContainer(ClientDslContainer.class, name -> objects.newInstance(ClientDslContainer.class, name).withDefaults());
+        extensions.add("clients", clientContainer);
+
+        clientContainer.all(client -> {
+            String docName = client.getName();
+            Provider<Directory> taskOutputDir = client.getPersistentSource()
+                    .map(isPersistent -> Boolean.TRUE.equals(isPersistent)
+                            ? jaxrsExtension.getSrcOutputDirectory().dir(docName).get()
+                            : jaxrsExtension.getBuildOutputDirectory().dir(docName).get());
+            mainSrcSet.getJava().srcDir(taskOutputDir);
+
+            Provider<String> openapiDocumentName = client.getDocumentExtension().map(ext -> docName + ext);
+            
+            String partialTaskName = toPartialTaskName(docName);
+            
+            TaskProvider<DownloadOpenApiDocument> downloadTask = project.getTasks().register("downloadDoc" + partialTaskName, DownloadOpenApiDocument.class, t -> {
+                Property<String> url = client.getDocumentDownloadUrl();
+
+                t.setDescription("Downloads OpenApi document for client " + docName);
+                t.setGroup(CLIENT_TASK_GROUP);
+                t.setEnabled(url.isPresent());
+                t.getDocumentUrl().set(url);
+                t.getOutputFile().set(jaxrsExtension.getOpenApiDocDirectory().file(openapiDocumentName));
+            });
+
+            TaskProvider<GenerateClient> generateTask = project.getTasks().register("generateClient" + partialTaskName, GenerateClient.class, t -> {
+                t.setDescription("Generates JAX-RS client " + docName);
+                t.setGroup(CLIENT_TASK_GROUP);
+                t.getOutputDirectory().set(taskOutputDir);
+                t.getOpenApiDocument().set(jaxrsExtension.getOpenApiDocDirectory().file(openapiDocumentName));
+                t.getGeneratorProperties().set(jaxrsExtension.getOpenApiDocDirectory().file(docName + ".properties"));
+                t.dependsOn(downloadTask);
+            });
+
+            addAsJavaCompileDependency(project, client.getPersistentSource(), docName, generateTask);
+        });
+    }
+
+    /**
+     * Adds generator task as a dependency to 'compileJava' task.
+     *
+     * This is done lazy (so a little ugly), and only if the generator
+     * output is not persistent.
+     *
+     * @param project the gradle project
+     * @param isPersistentSource the flag for persistence
+     * @param docName the document name
+     * @param tp the provider for the generator task
+     */
+    private void addAsJavaCompileDependency(Project project, Property<Boolean> isPersistentSource, String docName,
+            TaskProvider<GenerateClient> tp) {
+        TaskProvider<Task> compileTp = project.getTasks().named(JavaPlugin.COMPILE_JAVA_TASK_NAME);
+        compileTp.configure(compileTask -> {
+            Provider<Set<GenerateClient>> optionalTasks = project.provider(() -> {
+                Set<GenerateClient> res = Set.of();
+                if (Boolean.FALSE.equals(isPersistentSource.get())) {
+                    res = Set.of(tp.get());
+                }
+                project.getLogger().info("Generator {} dependency {}", docName, res);
+                return res;
+            });
+            
+            compileTask.dependsOn(optionalTasks);
+        });
+    }
+
+    // Should probably use some variant of Identifiers:makeValid
+    private String toPartialTaskName(String input) {
+        String s = input
+                .replaceAll("[^a-zA-Z0-9]", "");
+        if (s.length() == 1) {
+            return s.toUpperCase();
+        }
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+}
