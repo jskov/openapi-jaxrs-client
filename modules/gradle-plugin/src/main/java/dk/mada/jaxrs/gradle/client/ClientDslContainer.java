@@ -28,7 +28,10 @@ public abstract class ClientDslContainer {
 
     /** {@return the OpenApi document file extension. Defaults to .yaml} */
     public abstract Property<String> getDocumentExtension();
-    
+
+    /** {@return the flag to controls if code is generated to the source folder} */ 
+    public abstract Property<Boolean> getPersistentSource();
+
     /**
      * Fills out the container with default values.
      *
@@ -36,6 +39,7 @@ public abstract class ClientDslContainer {
      */
     public ClientDslContainer withDefaults() {
         getDocumentExtension().convention(".yaml");
+        getPersistentSource().convention(true);
         return this;
     }
 }
