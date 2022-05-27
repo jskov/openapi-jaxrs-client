@@ -45,13 +45,13 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
 
 		String url = getDocumentUrl().get();
 		Path toPath = getOutputFile().get().getAsFile().toPath();
-		
-		project.getLogger().lifecycle("Downloading OpenApi document {} to {}", url, toPath);
-	
+
+		project.getLogger().info("Downloading OpenApi document {} to {}", url, toPath);
+
 		try {
 			Files.createDirectories(toPath.getParent());
 			deleteExistingDocuments(toPath);
-			
+
 			try ( InputStream is = new URL(url).openStream() ) {
 				Files.copy(is, toPath, StandardCopyOption.REPLACE_EXISTING);
 			}
