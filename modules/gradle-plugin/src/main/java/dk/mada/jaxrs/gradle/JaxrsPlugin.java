@@ -60,16 +60,28 @@ public class JaxrsPlugin implements Plugin<Project> {
 
             Provider<String> openapiDocumentName = client.getDocumentExtension().map(ext -> docName + ext);
             
-            TaskProvider<GenerateClient> tp = project.getTasks().register("generateClient" + toPartialTaskName(docName), GenerateClient.class, t -> {
+            String partialTaskName = toPartialTaskName(docName);
+            
+            TaskProvider<DownloadOpenApiDocument> downloadTask = project.getTasks().register("downloadDoc" + partialTaskName, DownloadOpenApiDocument.class, t -> {
+                Property<String> url = client.getDocumentDownloadUrl();
+
+                t.setDescription("Downloads OpenApi document for client " + docName);
+                t.setGroup(CLIENT_TASK_GROUP);
+                t.setEnabled(url.isPresent());
+                t.getDocumentUrl().set(url);
+                t.getOutputFile().set(jaxrsExtension.getOpenApiDocDirectory().file(openapiDocumentName));
+            });
+
+            TaskProvider<GenerateClient> generateTask = project.getTasks().register("generateClient" + partialTaskName, GenerateClient.class, t -> {
                 t.setDescription("Generates JAX-RS client " + docName);
                 t.setGroup(CLIENT_TASK_GROUP);
                 t.getOutputDirectory().set(taskOutputDir);
                 t.getOpenApiDocument().set(jaxrsExtension.getOpenApiDocDirectory().file(openapiDocumentName));
                 t.getGeneratorProperties().set(jaxrsExtension.getOpenApiDocDirectory().file(docName + ".properties"));
-                
+                t.dependsOn(downloadTask);
             });
 
-            addAsJavaCompileDependency(project, client.getPersistentSource(), docName, tp);
+            addAsJavaCompileDependency(project, client.getPersistentSource(), docName, generateTask);
         });
     }
 

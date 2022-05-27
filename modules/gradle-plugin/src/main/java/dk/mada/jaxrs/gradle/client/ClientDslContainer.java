@@ -36,7 +36,14 @@ public abstract class ClientDslContainer {
     public void transientSource() {
         getPersistentSource().set(false);
     }
+
+    /** {@return the origin URL of the OpenApi document} */ 
+    public abstract Property<String> getDocumentDownloadUrl();
     
+    public void download(String url) {
+        getDocumentDownloadUrl().set(url);
+    }
+
     /**
      * Fills out the container with default values.
      *
