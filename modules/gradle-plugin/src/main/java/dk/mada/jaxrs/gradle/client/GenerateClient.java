@@ -8,6 +8,7 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.RegularFileProperty;
+import org.gradle.api.logging.LogLevel;
 import org.gradle.api.tasks.InputFile;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
@@ -58,9 +59,10 @@ public abstract class GenerateClient extends DefaultTask {
         });
 
         workQueue.submit(GenerateClientWorker.class, p -> {
-           p.getOutputDirectory().set(getOutputDirectory());
-           p.getOpenapiDocument().set(getOpenApiDocument());
-           p.getGeneratorConfig().set(getGeneratorProperties());
+            p.getEchoFlag().set(project.getLogger().isEnabled(LogLevel.INFO));
+            p.getOutputDirectory().set(getOutputDirectory());
+            p.getOpenapiDocument().set(getOpenApiDocument());
+            p.getGeneratorConfig().set(getGeneratorProperties());
         });
     }
 }

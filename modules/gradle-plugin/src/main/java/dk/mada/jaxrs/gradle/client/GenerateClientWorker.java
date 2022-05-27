@@ -24,30 +24,35 @@ import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
  * for the service, which is then invoked.
  */
 public abstract class GenerateClientWorker implements WorkAction<GenerateClientWorkerArgs> {
-
+    /** Flag controlling crude log output for worker. */
+    private boolean echoWorkerInfo;
+    
     @Override
     public void execute() {
-        System.out.println("Worker generator");
-        
         GenerateClientWorkerArgs params = getParameters();
+
+        echoWorkerInfo = Boolean.TRUE.equals(params.getEchoFlag().get());
+
+        log("Worker generator");
+        
         Path openapiDoc = params.getOpenapiDocument().getAsFile().get().toPath();
         Path config = params.getGeneratorConfig().getAsFile().get().toPath();
         Path destDir = params.getOutputDirectory().getAsFile().get().toPath();
 
         Properties options = loadConfig(config);
         
-        System.out.println(" OpenApi doc: " + openapiDoc);
-        System.out.println(" Dest dir: " + destDir);
-        System.out.println(" Config file: " + config);
-        System.out.println(" Options: " + options);
+        log(" OpenApi doc: " + openapiDoc);
+        log(" Dest dir: " + destDir);
+        log(" Config file: " + config);
+        log(" Options: " + options);
 
         List<GeneratorService> services = new ArrayList<>();
         ServiceLoader<GeneratorService> loader = ServiceLoader.load(GeneratorService.class);
         for (GeneratorService service : loader) {
-            System.out.println("Found service " + service.getClass().getName());
+            log("Found service " + service.getClass().getName());
             services.add(service);
         }
-        System.out.println("Total " + services.size() + " services");
+        log("Total " + services.size() + " services");
 
         if (services.isEmpty()) {
             throw new IllegalStateException("Did not find a required GeneratorService. Please review generatorGAV option!");
@@ -65,19 +70,25 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         ClientContext cc = new ClientContext(overwrite, logLevel, skipApi, skipDto);
         activeService.generateClient(cc, openapiDoc, options, destDir);
     }
-    
+
     private Properties loadConfig(Path configFile) {
         var props = new Properties();
         if (Files.exists(configFile)) {
-            System.out.println("Reading config from " + configFile);
+            log("Reading config from " + configFile);
             try (Reader r = Files.newBufferedReader(configFile)) {
                 props.load(r);
             } catch (IOException e) {
                 throw new UncheckedIOException("Failed to load config from " + configFile, e);
             }
         } else {
-            System.out.println("No configuration file found");
+            log("No configuration file found");
         }
         return props;
+    }
+
+    private void log(String message) {
+        if (echoWorkerInfo) {
+            System.out.println(message); // NOSONAR
+        }
     }
 }
