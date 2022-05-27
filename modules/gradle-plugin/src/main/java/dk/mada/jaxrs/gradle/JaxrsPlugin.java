@@ -11,6 +11,7 @@ import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.SourceSetContainer;
 
+import dk.mada.jaxrs.gradle.client.ClientDslContainer;
 import dk.mada.jaxrs.gradle.client.GenerateClient;
 
 /**
@@ -40,8 +41,8 @@ public class JaxrsPlugin implements Plugin<Project> {
         project.getConfigurations().create(CONFIGURATION_NAME);
         project.getDependencies().addProvider(CONFIGURATION_NAME, jaxrsExtension.getGeneratorGAV());
         
-        NamedDomainObjectContainer<DslClient> clientContainer =
-            objects.domainObjectContainer(DslClient.class, name -> objects.newInstance(DslClient.class, name).withDefaults());
+        NamedDomainObjectContainer<ClientDslContainer> clientContainer =
+            objects.domainObjectContainer(ClientDslContainer.class, name -> objects.newInstance(ClientDslContainer.class, name).withDefaults());
         extensions.add("clients", clientContainer);
 
         clientContainer.all(client -> {

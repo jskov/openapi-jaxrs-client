@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.gradle;
+package dk.mada.jaxrs.gradle.client;
 
 import javax.inject.Inject;
 
@@ -7,7 +7,7 @@ import org.gradle.api.provider.Property;
 /**
  * DSL container for specification of client generation.
  */
-public abstract class DslClient {
+public abstract class ClientDslContainer {
     /** The client name. */
     private final String name;
 
@@ -17,7 +17,7 @@ public abstract class DslClient {
      * @param name the client name captured by this container instance
      */
     @Inject
-    public DslClient(String name) { // NOSONAR - must be public to be found by Gradle 
+    public ClientDslContainer(String name) { // NOSONAR - must be public to be found by Gradle 
         this.name = name;
     }
     
@@ -34,7 +34,7 @@ public abstract class DslClient {
      *
      * @return this instance
      */
-    DslClient withDefaults() {
+    public ClientDslContainer withDefaults() {
         getDocumentExtension().convention(".yaml");
         return this;
     }
