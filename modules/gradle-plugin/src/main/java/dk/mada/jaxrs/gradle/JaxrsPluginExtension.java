@@ -13,13 +13,13 @@ import org.gradle.api.provider.Property;
  * Contains plugin-global configuration properties.
  */
 public abstract class JaxrsPluginExtension {
-    /** The GAV used to procure the generator with. */
+    /** {@return the GAV used to procure the generator with} */
     public abstract Property<String> getGeneratorGAV();
-    /** The output directory for non-persisted sources. */
+    /** {@return the output directory for non-persisted sources} */
     public abstract DirectoryProperty getBuildOutputDirectory();
-    /** The output directory for persisted sources. */
+    /** {@return the output directory for persisted sources} */
     public abstract DirectoryProperty getSrcOutputDirectory();
-    /** The directory containing OpenApi documents. */
+    /** {@return the directory containing OpenApi documents} */
     public abstract DirectoryProperty getOpenApiDocDirectory();
 
     /**
