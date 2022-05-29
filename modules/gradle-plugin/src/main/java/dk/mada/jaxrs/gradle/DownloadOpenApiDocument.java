@@ -32,6 +32,7 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
     @OutputFile
 	public abstract RegularFileProperty getOutputFile();
 
+    /** Constructs new instance. */
 	public DownloadOpenApiDocument() { // NOSONAR - must be public to be found by Gradle
 	    // The OpenApi document at the remote location can be
 	    // changed at any time - so it always needs to be downloaded when the task runs.
@@ -39,6 +40,9 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
 		getOutputs().upToDateWhen(t -> false);
 	}
 
+	/**
+	 * Task action for downloading the specified OpenApi document.
+	 */
 	@TaskAction
 	public void download() {
 		Project project = getProject();

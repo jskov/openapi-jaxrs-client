@@ -39,7 +39,12 @@ public abstract class ClientDslContainer {
 
     /** {@return the origin URL of the OpenApi document} */ 
     public abstract Property<String> getDocumentDownloadUrl();
-    
+
+    /**
+     * Simpler DSL method for setting download URL.
+     *
+     * @param url the download URL for the OpenApi document
+     */
     public void download(String url) {
         getDocumentDownloadUrl().set(url);
     }
