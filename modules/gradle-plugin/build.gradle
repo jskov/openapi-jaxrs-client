@@ -5,6 +5,8 @@ plugins {
     id 'eclipse'
 }
 
+group "${groupId}"
+
 repositories {
     mavenCentral()
 }
