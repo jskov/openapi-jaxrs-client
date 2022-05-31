@@ -51,6 +51,8 @@ The output from many other test OpenApi documents and configuration settings [ca
 
 ### Gradle Invocation
 
+Note: not quite ready yet. Still need to do a new release to Maven Central.
+
 A [Gradle plugin](./src/docs/Gradle.md) allows easy declaration of OpenApi documents and generator options.
 
 
