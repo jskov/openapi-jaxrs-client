@@ -47,7 +47,7 @@ jobs:
         run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
 
       - name: Assemble Bundle
-        run: cd build/dist/dk/mada/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../release-bundle-${BUILD_LABEL}.jar *
+        run: cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../../release-bundle-${BUILD_LABEL}.jar *
 
       - name: Sonatype Login
         env:
