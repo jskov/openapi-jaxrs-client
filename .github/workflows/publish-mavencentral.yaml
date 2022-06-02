@@ -11,6 +11,12 @@ jobs:
       contents: read
       packages: write 
     steps:
+      - name: Define BUILD_LABEL
+        env:
+          INPUT: ${{ github.head_ref || github.ref_name }}
+        run: |
+#          echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
+          echo "BUILD_LABEL=0.0.0" >> $GITHUB_ENV
       - uses: actions/checkout@v3
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -24,9 +30,31 @@ jobs:
         uses: gradle/gradle-build-action@9b814496b50909128c6a52622b416c5ffa04db49
         # 2.1.7
         with:
-          arguments: publish --console plain -Pversion=0.0.0
-        env: 
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          arguments: publish -s -Pversion=${BUILD_LABEL}
 
+      - name: Sign dist files
+        env:
+          MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
+          MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
+        run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
+
+      - name: Assemble Bundle
+        run: cd build/dist/dk/mada/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../release-bundle-${BUILD_LABEL}.jar *
+
+      - name: Sonatype Login
+        env:
+          USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        run: |
+          curl --request GET --url https://s01.oss.sonatype.org/service/local/authentication/login \
+               --cookie-jar cookies.txt --user "${USERNAME}:${PASSWORD}"
+
+      - name: Upload Bundle
+        env:
+          USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        run: |
+          curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
+               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
+               --form file=@build/dist/release-bundle-${BUILD_LABEL}.jar
+               
