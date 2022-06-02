@@ -1,0 +1,32 @@
+name: Build and push to MavenCentral
+on:
+  push:
+    branches:
+      - publish
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: read
+      packages: write 
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+        # 1.0.4
+      - name: Publish package
+        uses: gradle/gradle-build-action@9b814496b50909128c6a52622b416c5ffa04db49
+        # 2.1.7
+        with:
+          arguments: publish --console plain -Pversion=0.0.0
+        env: 
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
