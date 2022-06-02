@@ -47,7 +47,7 @@ jobs:
         run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
 
       - name: Assemble Bundle
-        run: cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../../release-bundle-${BUILD_LABEL}.jar *
+        run: cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../../bundle.jar *
 
       - name: Sonatype Login
         env:
@@ -58,10 +58,7 @@ jobs:
                --cookie-jar cookies.txt --user "${USERNAME}:${PASSWORD}"
 
       - name: Upload Bundle
-        env:
-          USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         run: |
           curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@build/dist/release-bundle-${BUILD_LABEL}.jar
+               --form file=@build/dist/bundle.jar | jq
