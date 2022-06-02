@@ -17,6 +17,8 @@ jobs:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
           echo "BUILD_LABEL=0.0.0" >> $GITHUB_ENV
+      - name: Echo env
+        run: env | sort
       - uses: actions/checkout@v3
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -26,11 +28,17 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
         # 1.0.4
-      - name: Publish package
+        
+      - name: Set build version
+        # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
+        # into gradle.properties
+        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;" ./gradle.properties
+
+      - name: Build release
         uses: gradle/gradle-build-action@9b814496b50909128c6a52622b416c5ffa04db49
         # 2.1.7
         with:
-          arguments: publish -s -Pversion=${BUILD_LABEL}
+          arguments: publish -s
 
       - name: Sign dist files
         env:
