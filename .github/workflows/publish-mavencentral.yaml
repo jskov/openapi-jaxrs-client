@@ -32,7 +32,7 @@ jobs:
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
         # into gradle.properties
-        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;" ./gradle.properties
+        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
 
       - name: Build release
         uses: gradle/gradle-build-action@9b814496b50909128c6a52622b416c5ffa04db49
