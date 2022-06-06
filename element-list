@@ -4,6 +4,8 @@ dk.mada.jaxrs.generator.api
 dk.mada.jaxrs.generator.api.tmpl
 dk.mada.jaxrs.generator.dto
 dk.mada.jaxrs.generator.dto.tmpl
+dk.mada.jaxrs.generator.imports
+dk.mada.jaxrs.gradle
 dk.mada.jaxrs.model
 dk.mada.jaxrs.model.api
 dk.mada.jaxrs.model.types
