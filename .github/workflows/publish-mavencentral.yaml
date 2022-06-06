@@ -1,6 +1,8 @@
 name: Build and push to MavenCentral
 on:
   push:
+    branches:
+      - mc
     tags:
       - 0.*
 
@@ -11,11 +13,12 @@ jobs:
       contents: write
       packages: write
     steps:
+#          echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
       - name: Define BUILD_LABEL
         env:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
-          echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
+          echo "BUILD_LABEL=0.9.2" >> $GITHUB_ENV
       - name: Echo env
         run: env | sort
       - uses: actions/checkout@v3
@@ -61,6 +64,9 @@ jobs:
       - name: Assemble Bundle
         run: cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../../bundle.jar *
 
+      - name: List Bundle
+        run: unzip -t build/dist/bundle.jar
+
       # Crude upload inspired by https://mccue.dev/pages/6-1-22-upload-to-maven-central
       # Avoids sharing credentials with all Gradle plugins/potential annotation processors
       - name: Upload and Release Bundle
@@ -70,15 +76,16 @@ jobs:
         run: |
           curl --request GET --url https://s01.oss.sonatype.org/service/local/authentication/login \
                --cookie-jar cookies.txt --user "${USERNAME}:${PASSWORD}"
-          repoId=$(curl -v --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
+          repoId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
                --form file=@build/dist/bundle.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
           echo "Release repo '$repoId'"
-          curl --request POST \
+          echo curl --request POST \
                --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
                --cookie cookies.txt \
                --header 'Content-Type: application/json' \
-               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['${repoId}'] } }"
+               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoId'] } }"
+          echo "Publish completed"
           rm -f cookies.txt
 
       - name: Deploy Javadoc
