@@ -1,8 +1,8 @@
 name: Build and push to MavenCentral
 on:
   push:
-    branches:
-      - publish
+    tags:
+      - 0.*
 
 jobs:
   publish:
@@ -15,7 +15,7 @@ jobs:
         env:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
-          echo "BUILD_LABEL=0.0.0" >> $GITHUB_ENV
+          echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
       - name: Echo env
         run: env | sort
       - uses: actions/checkout@v3
@@ -74,6 +74,11 @@ jobs:
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
                --form file=@build/dist/bundle.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
           echo "Release repo '$repoId'"
+          curl --request POST \
+               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
+               --cookie cookies.txt \
+               --header 'Content-Type: application/json' \
+               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['${repoId}'] } }"
           rm -f cookies.txt
 
       - name: Deploy Javadoc
