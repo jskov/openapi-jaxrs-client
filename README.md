@@ -51,8 +51,6 @@ The output from many other test OpenApi documents and configuration settings [ca
 
 ### Gradle Invocation
 
-Note: not quite ready yet. Still need to do a new release to Maven Central.
-
 A [Gradle plugin](./src/docs/Gradle.md) allows easy declaration of OpenApi documents and generator options.
 
 
@@ -66,7 +64,6 @@ The current plans for future releases are (note, no time commitments):
 
 **0.9.x**
 
-* Add gradle plugin.
 * Split code into modules (converter+model, generator).
 * Refactor the methods that have gotten large during 0.8.x.
 * More code/package documentation.
@@ -78,6 +75,7 @@ The current plans for future releases are (note, no time commitments):
 * Handling of extensions (e.g. annotation of in-house @LoggedSecrets operations)
 * Options for adding @ClientHeaderParam and/or @RegisterClientHeaders
 * Custom OffsetDateTime de/serializer options
+* Maybe add generation of server-side code
 
 ## Contributing and Consultancy
 
