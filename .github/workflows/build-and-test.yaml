@@ -32,6 +32,7 @@ jobs:
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
         # 1.0.4
 
+      # From https://docs.sonarqube.org/latest/analysis/github-integration/
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:

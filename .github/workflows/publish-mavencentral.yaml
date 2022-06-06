@@ -39,6 +39,8 @@ jobs:
         with:
           arguments: javadoc publish -s
 
+      # Signing via bash
+      # Avoids sharing credentials with all Gradle plugins/potential annotation processors
       - name: Sign dist files
         env:
           MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
@@ -59,6 +61,8 @@ jobs:
       - name: Assemble Bundle
         run: cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../../bundle.jar *
 
+      # Crude upload inspired by https://mccue.dev/pages/6-1-22-upload-to-maven-central
+      # Avoids sharing credentials with all Gradle plugins/potential annotation processors
       - name: Upload and Release Bundle
         env:
           USERNAME: ${{ secrets.OSSRH_USERNAME }}
