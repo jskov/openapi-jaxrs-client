@@ -46,7 +46,7 @@ The use of a generator GAV allows the Gradle plugin to go without too many chang
 ```groovy
 jaxrs {
     // Specify the generator implementation GAV
-    generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.9.2"
+    generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.9.3"
 
     // Optionally override the folder where OpenApi documents are stored
     //openApiDocDirectory = file("src/openapi")
