@@ -8,8 +8,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest 
     permissions: 
-      contents: read
-      packages: write 
+      contents: write
+      packages: write
     steps:
 #          echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
       - name: Define BUILD_LABEL
@@ -51,7 +51,7 @@ jobs:
         # v0.1.14
         with:
           draft: true
-          name: ${{ env.BUILD_LABEL }}
+          tag_name: ${{ env.BUILD_LABEL }}
           generate_release_notes: true
           files: build/dist/*-cli.jar*
         env:
