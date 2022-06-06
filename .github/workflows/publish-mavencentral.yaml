@@ -1,0 +1,89 @@
+name: Build and push to MavenCentral
+on:
+  push:
+    tags:
+      - 0.*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: write
+      packages: write
+    steps:
+      - name: Define BUILD_LABEL
+        env:
+          INPUT: ${{ github.head_ref || github.ref_name }}
+        run: |
+          echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
+      - name: Echo env
+        run: env | sort
+      - uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+        # 1.0.4
+        
+      - name: Set build version
+        # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
+        # into gradle.properties
+        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
+
+      - name: Build release
+        uses: gradle/gradle-build-action@9b814496b50909128c6a52622b416c5ffa04db49
+        # 2.1.7
+        with:
+          arguments: javadoc publish -s
+
+      # Signing via bash
+      # Avoids sharing credentials with all Gradle plugins/potential annotation processors
+      - name: Sign dist files
+        env:
+          MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
+          MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
+        run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
+        
+      - name: Upload CLI artifacts
+        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+        # v0.1.14
+        with:
+          draft: true
+          tag_name: ${{ env.BUILD_LABEL }}
+          generate_release_notes: true
+          files: build/dist/*-cli.jar*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Assemble Bundle
+        run: cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../../bundle.jar *
+
+      # Crude upload inspired by https://mccue.dev/pages/6-1-22-upload-to-maven-central
+      # Avoids sharing credentials with all Gradle plugins/potential annotation processors
+      - name: Upload and Release Bundle
+        env:
+          USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        run: |
+          curl --request GET --url https://s01.oss.sonatype.org/service/local/authentication/login \
+               --cookie-jar cookies.txt --user "${USERNAME}:${PASSWORD}"
+          repoId=$(curl -v --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
+               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
+               --form file=@build/dist/bundle.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
+          echo "Release repo '$repoId'"
+          curl --request POST \
+               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
+               --cookie cookies.txt \
+               --header 'Content-Type: application/json' \
+               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['${repoId}'] } }"
+          rm -f cookies.txt
+
+      - name: Deploy Javadoc
+        uses: JamesIves/github-pages-deploy-action@2731bec0dbf2bbf03977acbe88f9977eb7c2fbb7
+        with:
+          branch: gh-pages
+          folder: build/docs/javadoc
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
