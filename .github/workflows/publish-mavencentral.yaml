@@ -45,6 +45,15 @@ jobs:
           MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
           MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
         run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
+        
+      - name: Upload CLI artifacts
+        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+        # v0.1.14
+        with:
+          draft: true
+          name: ${{ env.BUILD_LABEL }}
+          generate_release_notes: true
+          files: build/dist/*-cli.jar*
 
       - name: Assemble Bundle
         run: cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/ ; jar cvf ../../../../../bundle.jar *
