@@ -2,10 +2,13 @@ package dk.mada.jaxrs.gradle;
 
 import javax.inject.Inject;
 
+import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.ProjectLayout;
 import org.gradle.api.provider.Property;
+
+import dk.mada.jaxrs.gradle.client.ClientDslContainer;
 
 /**
  * The JAXRS plugin extensions.
@@ -21,6 +24,8 @@ public abstract class JaxrsPluginExtension {
     public abstract DirectoryProperty getSrcOutputDirectory();
     /** {@return the directory containing OpenApi documents} */
     public abstract DirectoryProperty getOpenApiDocDirectory();
+    /** {@return the nested client definitions} */
+    public abstract NamedDomainObjectContainer<ClientDslContainer> getClients();
 
     /**
      * Constructs a new extension instance with convention defaults.
