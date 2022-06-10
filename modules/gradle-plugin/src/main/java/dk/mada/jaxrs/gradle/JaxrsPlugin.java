@@ -2,13 +2,10 @@ package dk.mada.jaxrs.gradle;
 
 import java.util.Set;
 
-import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.file.Directory;
-import org.gradle.api.model.ObjectFactory;
-import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
@@ -16,7 +13,6 @@ import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.SourceSetContainer;
 import org.gradle.api.tasks.TaskProvider;
 
-import dk.mada.jaxrs.gradle.client.ClientDslContainer;
 import dk.mada.jaxrs.gradle.client.GenerateClient;
 
 /**
@@ -35,22 +31,27 @@ public class JaxrsPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
-        ObjectFactory objects = project.getObjects();
-        ExtensionContainer extensions = project.getExtensions();
-        JaxrsPluginExtension jaxrsExtension = extensions.create("jaxrs", JaxrsPluginExtension.class);
-        
         project.getPlugins().apply(JavaPlugin.class);
-        SourceSetContainer sourceSets = extensions.getByType(SourceSetContainer.class);
-        SourceSet mainSrcSet = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME);
+
+        JaxrsPluginExtension jaxrsExtension = project.getExtensions().create("jaxrs", JaxrsPluginExtension.class);
         
         project.getConfigurations().create(CONFIGURATION_NAME);
         project.getDependencies().addProvider(CONFIGURATION_NAME, jaxrsExtension.getGeneratorGAV());
-        
-        NamedDomainObjectContainer<ClientDslContainer> clientContainer =
-            objects.domainObjectContainer(ClientDslContainer.class, name -> objects.newInstance(ClientDslContainer.class, name).withDefaults());
-        extensions.add("clients", clientContainer);
 
-        clientContainer.all(client -> {
+        createTasksFromDsl(project, jaxrsExtension);
+    }
+
+    /**
+     * Uses DSL input to create download and generate tasks for each client.
+     *
+     * @param project the gradle project
+     * @param jaxrsExtension the jaxrs extension
+     */
+    private void createTasksFromDsl(Project project, JaxrsPluginExtension jaxrsExtension) {
+        SourceSetContainer sourceSets = project.getExtensions().getByType(SourceSetContainer.class);
+        SourceSet mainSrcSet = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME);
+
+        jaxrsExtension.getClients().all(client -> {
             String docName = client.getName();
             Provider<Directory> taskOutputDir = client.getPersistentSource()
                     .map(isPersistent -> Boolean.TRUE.equals(isPersistent)
