@@ -39,6 +39,7 @@ public final class Imports {
      * @param isUseJsonSerializeOptions toggle for json serialize options
      * @param isJakarta toggle for jakarta naming
      * @param isJsonb toggle for jsonb serializer
+     * @param isUseRegisterForReflection toggle for using the Quarkus RegisterForReflection annotation
      * @param dtoPackage the dto package name
      */
     record ImportRenderPrefs(
