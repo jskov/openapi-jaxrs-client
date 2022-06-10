@@ -13,6 +13,7 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
 
 /**
  * ExternedSpecialTypes
@@ -22,7 +23,8 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   ExternedSpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
   ExternedSpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
   ExternedSpecialTypes.JSON_PROPERTY_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE
+  ExternedSpecialTypes.JSON_PROPERTY_DATE,
+  ExternedSpecialTypes.JSON_PROPERTY_AN_ENUM
 })
 @RegisterForReflection
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
@@ -46,6 +48,10 @@ public class ExternedSpecialTypes {
   public static final String JSON_PROPERTY_DATE = "date";
   @JsonbProperty(JSON_PROPERTY_DATE)
   private LocalDate date;
+
+  public static final String JSON_PROPERTY_AN_ENUM = "anEnum";
+  @JsonbProperty(JSON_PROPERTY_AN_ENUM)
+  private SimpleEnum anEnum;
 
   public ExternedSpecialTypes bigDecimal(BigDecimal bigDecimal) {
     this.bigDecimal = bigDecimal;
@@ -132,6 +138,24 @@ public class ExternedSpecialTypes {
     this.date = date;
   }
 
+  public ExternedSpecialTypes anEnum(SimpleEnum anEnum) {
+    this.anEnum = anEnum;
+    return this;
+  }
+
+  /**
+   * Get anEnum
+   * @return anEnum
+   **/
+  @Valid
+  public SimpleEnum getAnEnum() {
+    return anEnum;
+  }
+
+  public void setAnEnum(SimpleEnum anEnum) {
+    this.anEnum = anEnum;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -145,12 +169,13 @@ public class ExternedSpecialTypes {
         Objects.equals(this.zonedDateTime, other.zonedDateTime) &&
         Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
         Objects.equals(this.dateTime, other.dateTime) &&
-        Objects.equals(this.date, other.date);
+        Objects.equals(this.date, other.date) &&
+        Objects.equals(this.anEnum, other.anEnum);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, dateTime, date);
+    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, dateTime, date, anEnum);
   }
 
   @Override
@@ -162,6 +187,7 @@ public class ExternedSpecialTypes {
     sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
     sb.append("\n    dateTime: ").append(toIndentedString(dateTime));
     sb.append("\n    date: ").append(toIndentedString(date));
+    sb.append("\n    anEnum: ").append(toIndentedString(anEnum));
     sb.append("\n}");
     return sb.toString();
   }

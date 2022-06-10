@@ -62,6 +62,8 @@ components:
           $ref: '#/components/schemas/LocalDateTime'
         date:
           $ref: '#/components/schemas/LocalDate'
+        anEnum:
+          $ref: '#/components/schemas/SimpleEnum'
     LocalDateTime:
       format: date-time
       type: string
@@ -76,3 +78,8 @@ components:
       type: string
     BigDecimal:
       type: number
+    SimpleEnum:
+      enum:
+      - "YES"
+      - "NO"
+      type: string

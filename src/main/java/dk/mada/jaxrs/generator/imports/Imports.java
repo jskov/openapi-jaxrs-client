@@ -39,6 +39,7 @@ public final class Imports {
      * @param isUseJsonSerializeOptions toggle for json serialize options
      * @param isJakarta toggle for jakarta naming
      * @param isJsonb toggle for jsonb serializer
+     * @param isUseRegisterForReflection toggle for using the Quarkus RegisterForReflection annotation
      * @param dtoPackage the dto package name
      */
     record ImportRenderPrefs(
@@ -47,6 +48,7 @@ public final class Imports {
             boolean isUseJsonSerializeOptions,
             boolean isJakarta,
             boolean isJsonb,
+            boolean isUseRegisterForReflection,
             String dtoPackage) {
     }
 
@@ -62,6 +64,7 @@ public final class Imports {
                 opts.isUseJsonSerializeOptions(),
                 opts.isJakarta(),
                 opts.isJsonb(),
+                opts.isUseRegisterForReflection(),
                 opts.dtoPackage()
                 );
 
@@ -146,6 +149,7 @@ public final class Imports {
     public Imports addEnumImports(boolean includeTypeAdapter) {
         return add(irp.isJackson(), JavaUtil.OBJECTS)
             .add(irp.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
+            .add(irp.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
             .add(Jackson.JSON_CREATOR, Jackson.JSON_VALUE)
             .add(Jsonb.JSONB_ADAPTER, Jsonb.JSON, Jsonb.JSON_STRING)
             .add(includeTypeAdapter, Jsonb.JSONB_TYPE_ADAPTER);
