@@ -48,7 +48,7 @@ dependencies {
 	
     // for the generated code
     testImplementation  'io.quarkus:quarkus-rest-client:2.10.0.Final'
-    testImplementation  'jakarta.annotation:jakarta.annotation-api:2.1.0'
+    testImplementation  'jakarta.annotation:jakarta.annotation-api:2.1.1'
     testImplementation  'jakarta.json:jakarta.json-api:2.1.0'
     testImplementation  'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
     testImplementation  'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
