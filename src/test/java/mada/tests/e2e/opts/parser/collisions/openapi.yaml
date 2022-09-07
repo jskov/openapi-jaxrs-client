@@ -30,15 +30,16 @@ paths:
                 $ref: '#/components/schemas/Collisions'
 components:
   schemas:
-    CollisionA:
-      type: object
-      properties:
-        aBoolean:
-          type: boolean
+    # Note A sorts before a
     Collisiona:
       type: object
       properties:
         aBoolean:
+          type: boolean
+    CollisionA:
+      type: object
+      properties:
+        aCapitalBoolean:
           type: boolean
     Collisions:
       type: object
