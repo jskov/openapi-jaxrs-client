@@ -23,7 +23,7 @@ import org.codehaus.jackson.annotate.JsonValue;
   EnumsDto.JSON_PROPERTY_INTEGER_ENUM,
   EnumsDto.JSON_PROPERTY_STRING_INTEGER_ENUM
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
   public enum PropertyEnumStringEnum {
     O("O"),

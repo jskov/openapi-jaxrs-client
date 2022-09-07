@@ -18,7 +18,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 @JsonbPropertyOrder({
   Simple.JSON_PROPERTY_A_BOOLEAN
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
   @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)

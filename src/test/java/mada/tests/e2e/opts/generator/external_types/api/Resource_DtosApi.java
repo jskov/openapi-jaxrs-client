@@ -12,7 +12,7 @@ import mada.tests.e2e.opts.generator.external_types.dto.ArraysDto;
 import mada.tests.e2e.opts.generator.external_types.p2.MapsDto;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/dtos/collections")
 public interface Resource_DtosApi {
 

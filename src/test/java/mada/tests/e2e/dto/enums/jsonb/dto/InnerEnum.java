@@ -15,7 +15,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * InnerEnum
  */
 @JsonbTypeAdapter(mada.tests.e2e.dto.enums.jsonb.dto.InnerEnum.InnerEnumAdapter.class)
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum InnerEnum {
   I("I"),
   J("J");

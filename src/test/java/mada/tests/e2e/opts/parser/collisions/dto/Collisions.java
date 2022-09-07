@@ -20,7 +20,7 @@ import javax.validation.Valid;
   Collisions.JSON_PROPERTY_LOWER_CASE_A,
   Collisions.JSON_PROPERTY_UPPER_CASE_A
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Collisions {
   public static final String JSON_PROPERTY_LOWER_CASE_A = "lowerCaseA";
   @JsonbProperty(JSON_PROPERTY_LOWER_CASE_A)

@@ -42,7 +42,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   MapsDto.JSON_PROPERTY_BOTH_REFS,
   MapsDto.JSON_PROPERTY_OBJECTS
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MapsDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
   @JsonProperty(JSON_PROPERTY_BOOLEANS)

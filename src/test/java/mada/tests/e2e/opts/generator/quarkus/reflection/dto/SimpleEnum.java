@@ -17,7 +17,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  */
 @JsonbTypeAdapter(mada.tests.e2e.opts.generator.quarkus.reflection.dto.SimpleEnum.SimpleEnumAdapter.class)
 @RegisterForReflection
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum SimpleEnum {
   YES("YES"),
   NO("NO");

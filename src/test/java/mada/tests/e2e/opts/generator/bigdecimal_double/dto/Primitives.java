@@ -25,7 +25,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
   Primitives.JSON_PROPERTY_A_DOUBLE,
   Primitives.JSON_PROPERTY_A_STRING
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Primitives {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
   @JsonProperty(JSON_PROPERTY_A_BOOLEAN)

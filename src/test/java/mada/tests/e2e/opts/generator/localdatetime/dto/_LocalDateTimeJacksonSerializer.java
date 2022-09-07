@@ -14,7 +14,7 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _LocalDateTimeJacksonSerializer extends JsonSerializer<LocalDateTime> {
 	@Override
 	public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider)

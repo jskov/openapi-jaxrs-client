@@ -331,7 +331,7 @@ public final class GeneratorOpts {
 
     /** {@return the fully-qualified @Generated annotation class} */ 
     public String getGeneratorAnnotationClass() {
-        if (bool("generator-use-generated-jdk", false)) {
+        if (bool("generator-use-generated-jdk", true)) {
             return "@javax.annotation.processing.Generated";
         } else {
             return "@javax.annotation.Generated";

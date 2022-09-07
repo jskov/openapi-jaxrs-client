@@ -14,7 +14,7 @@ import mada.tests.e2e.opts.generator.validation_api.dto.Environment;
 import mada.tests.e2e.opts.generator.validation_api.dto.Simple;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/validation")
 public interface Api_Bean_ValidationApi {
 

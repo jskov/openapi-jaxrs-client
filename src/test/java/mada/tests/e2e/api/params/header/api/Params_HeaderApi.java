@@ -13,7 +13,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/params/header")
 public interface Params_HeaderApi {
 

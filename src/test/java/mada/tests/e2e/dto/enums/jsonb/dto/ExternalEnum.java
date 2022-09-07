@@ -15,7 +15,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * ExternalEnum
  */
 @JsonbTypeAdapter(mada.tests.e2e.dto.enums.jsonb.dto.ExternalEnum.ExternalEnumAdapter.class)
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum ExternalEnum {
   E("E"),
   F("F");
