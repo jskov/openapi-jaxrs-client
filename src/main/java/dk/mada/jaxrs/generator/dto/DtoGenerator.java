@@ -151,6 +151,7 @@ public class DtoGenerator {
                 .appName(info.title())
                 .version(info.version())
                 .infoEmail(info.contact().email())
+                .generatedAnnotationClass(opts.getGeneratorAnnotationClass())
                 .generatedDate(opts.getGeneratedAtTime())
                 .generatorClass(opts.generatorId())
                 .imports(imports.get())
@@ -168,6 +169,7 @@ public class DtoGenerator {
                 .appDescription(info.description())
                 .version(info.version())
                 .infoEmail(info.contact().email())
+                .generatedAnnotationClass(opts.getGeneratorAnnotationClass())
                 .generatedDate(opts.getGeneratedAtTime())
                 .generatorClass(opts.generatorId())
                 .imports(imports.get())
@@ -304,6 +306,7 @@ public class DtoGenerator {
 
                 .jackson(opts.isJackson())
 
+                .generatedAnnotationClass(opts.getGeneratorAnnotationClass())
                 .generatorClass(opts.generatorId())
                 .generatedDate(opts.getGeneratedAtTime())
 

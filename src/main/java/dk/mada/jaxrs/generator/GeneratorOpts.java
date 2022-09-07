@@ -329,6 +329,15 @@ public final class GeneratorOpts {
         return bool("generator-use-generated-timestamp");
     }
 
+    /** {@return the fully-qualified @Generated annotation class} */ 
+    public String getGeneratorAnnotationClass() {
+        if (bool("generator-use-generated-jdk", false)) {
+            return "@javax.annotation.processing.Generated";
+        } else {
+            return "@javax.annotation.Generated";
+        }
+    }
+
     /**
      * {@return true if wrapped primitives should be used in API parameters}
      *
