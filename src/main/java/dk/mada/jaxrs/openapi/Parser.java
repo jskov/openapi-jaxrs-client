@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.AuthorizationValue;
 import io.swagger.v3.parser.core.models.ParseOptions;
@@ -79,7 +81,19 @@ public class Parser {
         if (specification == null) {
             throw new IllegalStateException("No output from parsing document " + spec);
         }
+        
+        List<String> schemaNames;
+        Components components = specification.getComponents();
+        if (components != null && components.getSchemas() != null) {
+            schemaNames = new ArrayList<>(components.getSchemas().keySet());
+        } else {
+            schemaNames = List.of();
+        }
+        
+        logger.info("schemas:\n {}", String.join(" \n", schemaNames));
 
+        // FIXME: expect that a/A sorting
+        
         ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
         var typeConverter = new TypeConverter(parserTypes, parserRefs, naming, parserOpts, generatorOpts);
 
