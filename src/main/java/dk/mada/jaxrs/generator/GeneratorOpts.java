@@ -329,7 +329,7 @@ public final class GeneratorOpts {
         return bool("generator-use-generated-timestamp");
     }
 
-    /** {@return the fully-qualified @Generated annotation class} */ 
+    /** {@return the fully-qualified @Generated annotation class} */
     public String getGeneratorAnnotationClass() {
         if (bool("generator-use-generated-jdk", true)) {
             return "@javax.annotation.processing.Generated";
