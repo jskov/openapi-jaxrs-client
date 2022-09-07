@@ -325,6 +325,13 @@ instead of OffsetDateTime.
 >
     default value: false
 
+**generator-use-generated-jdk**
+
+>Allows you to use @javax.annotation.Generated annotation instead of the JDK 9+ @javax.annotation.processing.Generated
+
+>
+    default value: true
+
 **generator-use-generated-timestamp**
 
 >Allows you to include a timestamp in the @Generated-annotation in all generated classes.
