@@ -16,7 +16,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
 @JsonPropertyOrder({
   Simple.JSON_PROPERTY_A_BOOLEAN
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
   @JsonProperty(JSON_PROPERTY_A_BOOLEAN)

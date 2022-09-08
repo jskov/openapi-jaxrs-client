@@ -29,7 +29,7 @@ import java.util.UUID;
   SpecialTypes.JSON_PROPERTY_LOCAL_TIME,
   SpecialTypes.JSON_PROPERTY_UUID
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
   @JsonProperty(JSON_PROPERTY_BIG_DECIMAL)

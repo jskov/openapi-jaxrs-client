@@ -20,7 +20,7 @@ import java.util.Objects;
   SubA.JSON_PROPERTY_SUPER_VALUE,
   SubA.JSON_PROPERTY_BAR
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SubA implements SubASubB {
   public static final String JSON_PROPERTY_IMPL_DISCRIMINATOR = "implDiscriminator";
   @JsonProperty(JSON_PROPERTY_IMPL_DISCRIMINATOR)

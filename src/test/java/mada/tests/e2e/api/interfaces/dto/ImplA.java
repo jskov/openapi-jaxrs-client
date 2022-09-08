@@ -18,7 +18,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 @JsonbPropertyOrder({
   ImplA.JSON_PROPERTY_FOO
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ImplA implements ImplAImplB {
   public static final String JSON_PROPERTY_FOO = "foo";
   @JsonbProperty(JSON_PROPERTY_FOO)

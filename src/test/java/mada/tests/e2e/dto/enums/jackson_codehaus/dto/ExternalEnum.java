@@ -13,7 +13,7 @@ import org.codehaus.jackson.annotate.JsonValue;
 /**
  * ExternalEnum
  */
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum ExternalEnum {
   E("E"),
   F("F");

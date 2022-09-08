@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @JsonbPropertyOrder({
   CyclicB.JSON_PROPERTY_A
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CyclicB {
   public static final String JSON_PROPERTY_A = "a";
   @JsonbProperty(JSON_PROPERTY_A)

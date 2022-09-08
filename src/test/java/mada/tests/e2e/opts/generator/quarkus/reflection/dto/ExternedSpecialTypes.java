@@ -27,7 +27,7 @@ import javax.validation.Valid;
   ExternedSpecialTypes.JSON_PROPERTY_AN_ENUM
 })
 @RegisterForReflection
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExternedSpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
   @JsonbProperty(JSON_PROPERTY_BIG_DECIMAL)

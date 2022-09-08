@@ -14,7 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @RegisterProvider(mada.tests.e2e.opts.generator.mp.DummyRegistratorBar.class)
 @RegisterProvider(mada.tests.e2e.opts.generator.mp.DummyRegistratorFoo.class)
 @RegisterRestClient(configKey = "mp-config-key")

@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.dto.validation.example.dto.ValidationDto;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/dtos/validation")
 public interface Resource_DtosApi {
 
