@@ -82,18 +82,6 @@ public class Parser {
             throw new IllegalStateException("No output from parsing document " + spec);
         }
         
-        List<String> schemaNames;
-        Components components = specification.getComponents();
-        if (components != null && components.getSchemas() != null) {
-            schemaNames = new ArrayList<>(components.getSchemas().keySet());
-        } else {
-            schemaNames = List.of();
-        }
-        
-        logger.info("schemas:\n {}", String.join(" \n", schemaNames));
-
-        // FIXME: expect that a/A sorting
-        
         ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
         var typeConverter = new TypeConverter(parserTypes, parserRefs, naming, parserOpts, generatorOpts);
 
@@ -117,7 +105,8 @@ public class Parser {
         Operations derefOps = resolver.operations(operations);
 
         List<Dto> activeDtos = resolver.getDtos();
-        Dtos dtos = new ConflictRenamer(naming).renameDtos(activeDtos);
+        List<String> schemaNamesDeclarationOrder = getSchemaOrder(specification);
+        Dtos dtos = new ConflictRenamer(naming, schemaNamesDeclarationOrder).renameDtos(activeDtos);
 
         if (showInfo) {
             String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)
@@ -129,5 +118,20 @@ public class Parser {
 
         Set<TypeInterface> interfaces = parserTypes.getInterfaces();
         return new Model(info, derefOps, dtos, interfaces, securitySchemes);
+    }
+
+    /**
+     * Gets openapiIds for schemas in their declaration order (in the
+     * OpenApi document).
+     *
+     * @param specification the OpenApi spec
+     * @return the schema names in declaration order
+     */
+    private List<String> getSchemaOrder(OpenAPI specification) {
+        Components components = specification.getComponents();
+        if (components == null || components.getSchemas() == null) {
+            return List.of();
+        }
+        return new ArrayList<>(components.getSchemas().keySet());
     }
 }

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.naming.NamingOpts.SchemaOrder;
 import dk.mada.jaxrs.naming.NamingRules.NamingRule;
 
 /**
@@ -75,6 +76,11 @@ public class Naming {
     /** {@return true if types should be renamed to avoid conflicts on Windows} */
     public boolean isRenameCaseConflicts() {
         return namingOpts.isRenameCaseConflicts();
+    }
+
+    /** {@return the schema order used when resolving naming conflicts} */
+    public SchemaOrder getRenameCaseConflictSchemaOrder() {
+        return namingOpts.getRenameCaseConflictsOrder();
     }
 
     /**
