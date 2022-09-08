@@ -16,29 +16,29 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
  * CollisionA
  */
 @JsonbPropertyOrder({
-  CollisionA.JSON_PROPERTY_A_BOOLEAN
+  CollisionA.JSON_PROPERTY_A_CAPITAL_BOOLEAN
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CollisionA {
-  public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
-  @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)
-  private Boolean aBoolean;
+  public static final String JSON_PROPERTY_A_CAPITAL_BOOLEAN = "aCapitalBoolean";
+  @JsonbProperty(JSON_PROPERTY_A_CAPITAL_BOOLEAN)
+  private Boolean aCapitalBoolean;
 
-  public CollisionA aBoolean(Boolean aBoolean) {
-    this.aBoolean = aBoolean;
+  public CollisionA aCapitalBoolean(Boolean aCapitalBoolean) {
+    this.aCapitalBoolean = aCapitalBoolean;
     return this;
   }
 
   /**
-   * Get aBoolean
-   * @return aBoolean
+   * Get aCapitalBoolean
+   * @return aCapitalBoolean
    **/
-  public Boolean isABoolean() {
-    return aBoolean;
+  public Boolean isACapitalBoolean() {
+    return aCapitalBoolean;
   }
 
-  public void setABoolean(Boolean aBoolean) {
-    this.aBoolean = aBoolean;
+  public void setACapitalBoolean(Boolean aCapitalBoolean) {
+    this.aCapitalBoolean = aCapitalBoolean;
   }
 
   @Override
@@ -50,19 +50,19 @@ public class CollisionA {
       return false;
     }
     CollisionA other = (CollisionA) o;
-    return Objects.equals(this.aBoolean, other.aBoolean);
+    return Objects.equals(this.aCapitalBoolean, other.aCapitalBoolean);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBoolean);
+    return Objects.hash(aCapitalBoolean);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CollisionA {");
-    sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
+    sb.append("\n    aCapitalBoolean: ").append(toIndentedString(aCapitalBoolean));
     sb.append("\n}");
     return sb.toString();
   }
