@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _OffsetDateTimeJacksonSerializer extends JsonSerializer<OffsetDateTime> {
 	@Override
 	public void serialize(OffsetDateTime value, JsonGenerator jgen, SerializerProvider provider)

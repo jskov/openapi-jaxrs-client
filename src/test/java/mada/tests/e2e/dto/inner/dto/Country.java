@@ -25,7 +25,7 @@ import javax.validation.Valid;
   Country.JSON_PROPERTY_REGISTERED_AS_BOND_COUNTRY,
   Country.JSON_PROPERTY_REGISTERED_AS_SHARE_COUNTRY
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Country {
   public static final String JSON_PROPERTY_TWO_LETTER_CODE = "twoLetterCode";
   @JsonbProperty(JSON_PROPERTY_TWO_LETTER_CODE)

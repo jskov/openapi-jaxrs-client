@@ -31,7 +31,7 @@ import java.util.Objects;
   @JsonSubTypes.Type(value = SubA.class, name = "subtype-A"),
   @JsonSubTypes.Type(value = SubB.class, name = "subtype-B"),
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Super {
   public static final String JSON_PROPERTY_IMPL_DISCRIMINATOR = "implDiscriminator";
   @JsonProperty(JSON_PROPERTY_IMPL_DISCRIMINATOR)

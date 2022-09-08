@@ -21,7 +21,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 @JsonbPropertyOrder({
   EnumArrayInner.JSON_PROPERTY_MULIGE_UDBETALINGS_METODER
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumArrayInner {
   public enum MuligeUdbetalingsMetoderEnum {
     HURTIGST_MULIGT("HURTIGST_MULIGT"),

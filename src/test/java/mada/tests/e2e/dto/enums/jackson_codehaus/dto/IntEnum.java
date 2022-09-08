@@ -16,7 +16,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  * IntEnum
  */
 @Schema(enumeration = {"1", "2", "-3"}, type = SchemaType.INTEGER, format = "int32")
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum IntEnum {
   NUMBER_1(1),
   NUMBER_2(2),

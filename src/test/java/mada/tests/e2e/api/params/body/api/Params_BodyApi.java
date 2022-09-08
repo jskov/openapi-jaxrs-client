@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.api.params.body.dto.Simple;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/params/body")
 public interface Params_BodyApi {
 

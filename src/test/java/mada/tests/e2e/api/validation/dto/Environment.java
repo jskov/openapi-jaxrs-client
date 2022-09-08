@@ -20,7 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @JsonbTypeAdapter(mada.tests.e2e.api.validation.dto.Environment.EnvironmentAdapter.class)
 @Schema(enumeration = {"test", "qa", "production"}, type = SchemaType.STRING)
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum Environment {
   TEST("test"),
   QA("qa"),

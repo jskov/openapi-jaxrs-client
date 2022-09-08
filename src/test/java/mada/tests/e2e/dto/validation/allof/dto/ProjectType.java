@@ -17,7 +17,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * ProjectType
  */
 @JsonbTypeAdapter(mada.tests.e2e.dto.validation.allof.dto.ProjectType.ProjectTypeAdapter.class)
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum ProjectType {
   BUSINESS("BUSINESS"),
   INFRASTRUCTURE("INFRASTRUCTURE"),

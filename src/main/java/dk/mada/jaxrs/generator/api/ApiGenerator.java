@@ -159,6 +159,7 @@ public class ApiGenerator {
                 .appName(info.title())
                 .version(info.version())
                 .infoEmail(info.contact().email())
+                .generatedAnnotationClass(opts.getGeneratorAnnotationClass())
                 .generatedDate(opts.getGeneratedAtTime())
                 .generatorClass(opts.generatorId())
                 .classname(classname)

@@ -45,6 +45,8 @@ public interface CtxExtra {
     /** {@return true if jsonb serializer is used, otherwise false} */
     boolean jsonb();
 
+    /** {@return the name of the Generated annotation class} */
+    String generatedAnnotationClass();
     /** {@return the name of the generator class} */
     String generatorClass();
     /** {@return the date of the generation, or null} */

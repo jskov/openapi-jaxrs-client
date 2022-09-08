@@ -31,7 +31,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   CountryLocale.JSON_PROPERTY_DISPLAY_VARIANT,
   CountryLocale.JSON_PROPERTY_DISPLAY_NAME
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CountryLocale {
   public static final String JSON_PROPERTY_LANGUAGE = "language";
   @JsonbProperty(JSON_PROPERTY_LANGUAGE)

@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   ManualInnerEnumDto.JSON_PROPERTY_STRING_TYPE,
   ManualInnerEnumDto.JSON_PROPERTY_NUMBER_TYPE
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ManualInnerEnumDto {
   public static final String JSON_PROPERTY_RECEIVER = "receiver";
   @JsonbProperty(JSON_PROPERTY_RECEIVER)

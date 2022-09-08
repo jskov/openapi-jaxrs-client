@@ -29,7 +29,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   MicroprofileAnnotations.JSON_PROPERTY_IS_READONLY,
   MicroprofileAnnotations.JSON_PROPERTY_READONLY_REQUIRED_AND_DESCRIPTION_AND_EXAMPLE
 })
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MicroprofileAnnotations {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";
   @JsonProperty(JSON_PROPERTY_WITH_DESCRIPTION)

@@ -49,6 +49,8 @@ public interface CtxApi {
     /** {@return the class name} */
     String classname();
 
+    /** {@return the name of the Generated annotation class} */
+    String generatedAnnotationClass();
     /** {@return the name of the generator} */
     String generatorClass();
     /** {@return the generation date, or null} */

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _LocalDateJacksonDeserializer extends JsonDeserializer<LocalDate> {
 	@Override
 	public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
