@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.parser.collisions.dto;
+package mada.tests.e2e.opts.parser.collisions_name.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
