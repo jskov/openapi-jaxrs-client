@@ -69,7 +69,7 @@ public class NamingOpts {
         propertyEnumTypeNamingConfig = getDefault(options, "naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
 
         renameCaseConflicts = Boolean.parseBoolean(options.getProperty("naming-rename-case-conflicts"));
-        renameCaseConflictsOrder = SchemaOrder.fromConfigName(getDefault(options, "naming-rename-case-conflicts-order", "name-order"));
+        renameCaseConflictsOrder = SchemaOrder.fromConfigName(getDefault(options, "naming-rename-case-conflicts-order", "document-order"));
     }
 
     /** {@return true if types should be renamed to avoid conflicts on Windows} */
