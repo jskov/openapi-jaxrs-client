@@ -20,22 +20,19 @@ public interface TypeMap extends TypeContainer {
      * The key-type is hardwired to String, but the inner-type is
      * as specified.
      *
+     * @param typeNames the type names instance
      * @param innerType the type of the map values
      * @return a new map-type.
      */
-    static TypeMap of(Type innerType) {
-        return ImmutableTypeMap.builder().innerType(innerType).build();
+    static TypeMap of(TypeNames typeNames, Type innerType) {
+        String innerName = innerType.wrapperTypeName().name();
+        TypeName typeName = typeNames.of("Map<String, " + innerName + ">");
+        return ImmutableTypeMap.builder().innerType(innerType).typeName(typeName).build();
     }
 
     @Override
     default String containerImplementation() {
         return "HashMap";
-    }
-
-    @Override
-    default TypeName typeName() {
-        String innerName = innerType().wrapperTypeName().name();
-        return TypeNames.of("Map<String, " + innerName + ">");
     }
 
     @Override

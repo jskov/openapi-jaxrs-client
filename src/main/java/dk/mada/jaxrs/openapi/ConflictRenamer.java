@@ -22,6 +22,8 @@ import dk.mada.jaxrs.naming.Naming;
 public class ConflictRenamer {
     private static final Logger logger = LoggerFactory.getLogger(ConflictRenamer.class);
 
+    /** Type names. */
+    private final TypeNames typeNames;
     /** Naming. */
     private final Naming naming;
 
@@ -30,13 +32,16 @@ public class ConflictRenamer {
     /** Schema names in their OpenApi document declaration order. */
     private List<String> schemaNamesDeclarationOrder;
 
+
     /**
      * Constructs a new instance.
      *
+     * @param typeNames the type names instance
      * @param naming the naming instance
      * @param schemaNamesDeclarationOrder the OpenApi schema declaration order
      */
-    public ConflictRenamer(Naming naming, List<String> schemaNamesDeclarationOrder) {
+    public ConflictRenamer(TypeNames typeNames, Naming naming, List<String> schemaNamesDeclarationOrder) {
+        this.typeNames = typeNames;
         this.naming = naming;
         this.schemaNamesDeclarationOrder = schemaNamesDeclarationOrder;
     }
@@ -78,11 +83,10 @@ public class ConflictRenamer {
         default:
             throw new IllegalStateException("Unhandled schema order " + naming.getRenameCaseConflictSchemaOrder());
         }
-
     }
 
     private Dto assignUniqueName(Dto dto) {
-        return Dto.builder().from(dto)
+        return Dto.builderFrom(dto)
                 .name(assignUniqueName(dto.name()))
                 .build();
     }
@@ -95,7 +99,7 @@ public class ConflictRenamer {
         assignedDtoNames.add(newName);
 
         if (!name.equals(newName)) {
-            TypeNames.rename(name, newName);
+            typeNames.rename(name, newName);
             logger.debug(" {} -> {}", name, newName);
         }
 

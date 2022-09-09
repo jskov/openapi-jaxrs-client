@@ -11,12 +11,10 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * it treated as an array in DTOs.
  */
 public final class TypeByteArray implements Type {
-    /** The type name for InputStream. */
-    public static final TypeName TYPENAME_INPUTSTREAM = TypeNames.of("InputStream");
     /** As used in resource operations. */
-    private static final TypeByteArray INSTANCE_STREAM = new TypeByteArray(TYPENAME_INPUTSTREAM, Set.of("java.io.InputStream"));
+    private static final TypeByteArray INSTANCE_STREAM = new TypeByteArray(TypeNames.INPUT_STREAM, Set.of("java.io.InputStream"));
     /** As used in DTOs. */
-    private static final TypeByteArray INSTANCE_ARRAY = new TypeByteArray(TypeNames.of("byte[]"), Set.of());
+    private static final TypeByteArray INSTANCE_ARRAY = new TypeByteArray(TypeNames.BYTE_ARRAY, Set.of());
 
     /** The type name. */
     private final TypeName tn;

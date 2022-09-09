@@ -12,19 +12,19 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  */
 public final class TypeDateTime implements Type {
     /** The single instance of the LocalDateTime object. */
-    private static final TypeDateTime INSTANCE_LOCAL = new TypeDateTime("LocalDateTime", "java.time.LocalDateTime");
+    private static final TypeDateTime INSTANCE_LOCAL = new TypeDateTime(TypeNames.LOCAL_DATE_TIME, "java.time.LocalDateTime");
     /** The single instance of the OffsetDateTime object. */
-    private static final TypeDateTime INSTANCE_OFFSET = new TypeDateTime("OffsetDateTime", "java.time.OffsetDateTime");
+    private static final TypeDateTime INSTANCE_OFFSET = new TypeDateTime(TypeNames.OFFSET_DATE_TIME, "java.time.OffsetDateTime");
     /** The single instance of the ZonedDateTime object. */
-    private static final TypeDateTime INSTANCE_ZONED = new TypeDateTime("ZonedDateTime", "java.time.ZonedDateTime");
+    private static final TypeDateTime INSTANCE_ZONED = new TypeDateTime(TypeNames.ZONED_DATE_TIME, "java.time.ZonedDateTime");
 
     /** The type name. */
     private final TypeName typeName;
     /** The imports needed for this type. */
     private final Set<String> neededImports;
 
-    private TypeDateTime(String typeName, String importName) {
-        this.typeName = TypeNames.of(typeName);
+    private TypeDateTime(TypeName typeName, String importName) {
+        this.typeName = typeName;
         this.neededImports = Set.of(importName);
     }
 

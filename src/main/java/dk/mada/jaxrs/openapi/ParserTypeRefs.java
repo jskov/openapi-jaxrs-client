@@ -28,6 +28,16 @@ public class ParserTypeRefs {
 
     /** Parser references created for a given type name. */
     private final Map<TypeName, ValidationRefs> parserReferences = new HashMap<>();
+    /** Type names. */
+    private final TypeNames typeNames;
+
+    /** Constructs new instance.
+     *
+     * @param typeNames the type names instance
+     */
+    public ParserTypeRefs(TypeNames typeNames) {
+        this.typeNames = typeNames;
+    }
 
     /**
      * Makes a new parser reference to a DTO.
@@ -38,7 +48,7 @@ public class ParserTypeRefs {
      * @return the parser reference
      */
     public ParserTypeRef makeDtoRef(String name) {
-        TypeName tn = TypeNames.of(name);
+        TypeName tn = typeNames.of(name);
         return of(null, tn, Validation.NO_VALIDATION);
     }
 
@@ -52,7 +62,7 @@ public class ParserTypeRefs {
      * @return the parser reference
      */
     public ParserTypeRef makeDtoRef(String name, Validation validation) {
-        TypeName tn = TypeNames.of(name);
+        TypeName tn = typeNames.of(name);
         return of(null, tn, validation);
     }
 

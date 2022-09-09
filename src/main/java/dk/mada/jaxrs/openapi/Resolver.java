@@ -21,6 +21,7 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
@@ -35,15 +36,19 @@ public class Resolver {
     /** Parser types to their dereferenced model type. */
     private final Map<ParserTypeRef, TypeReference> dereferencedTypes = new HashMap<>();
 
+    /** Type names. */
+    private final TypeNames typeNames;
     /** Types from parsing. */
     private final ParserTypes parserTypes;
 
     /**
      * Create new instance.
      *
+     * @param typeNames the type names instance
      * @param parserTypes the types collected during parsing
      */
-    public Resolver(ParserTypes parserTypes) {
+    public Resolver(TypeNames typeNames, ParserTypes parserTypes) {
+        this.typeNames = typeNames;
         this.parserTypes = parserTypes;
     }
 
@@ -65,7 +70,7 @@ public class Resolver {
         List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(dto.typeName());
         logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
         logger.debug(" - implements: {}", implementsInterfaces);
-        return Dto.builder().from(dto)
+        return Dto.builderFrom(dto)
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto.properties()))
                 .implementsInterfaces(implementsInterfaces)
@@ -172,17 +177,17 @@ public class Resolver {
             Type it = ta.innerType();
             Type newIt = resolveInner(it);
             logger.debug(" array {} -> {}", it, newIt);
-            return TypeArray.of(newIt);
+            return TypeArray.of(typeNames, newIt);
         } else if (type instanceof TypeSet ts) {
             Type it = ts.innerType();
             Type newIt = resolveInner(it);
             logger.debug(" set {} -> {}", it, newIt);
-            return TypeSet.of(newIt);
+            return TypeSet.of(typeNames, newIt);
         } else if (type instanceof TypeMap tm) {
             Type it = tm.innerType();
             Type newIt = resolveInner(it);
             logger.debug(" map {} -> {}", it, newIt);
-            return TypeMap.of(newIt);
+            return TypeMap.of(typeNames, newIt);
         } else {
             logger.debug("NOT dereferencing {}", type);
             return type;

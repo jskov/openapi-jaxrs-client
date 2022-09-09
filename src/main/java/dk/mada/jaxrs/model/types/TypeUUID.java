@@ -8,9 +8,6 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * Special type for handing UUID type.
  */
 public final class TypeUUID implements Type {
-    /** The type name for UUID. */
-    public static final TypeName TYPENAME_UUID = TypeNames.of("UUID");
-
     /** The single instance of this object. */
     private static final TypeUUID INSTANCE = new TypeUUID();
 
@@ -29,6 +26,6 @@ public final class TypeUUID implements Type {
 
     @Override
     public TypeName typeName() {
-        return TYPENAME_UUID;
+        return TypeNames.UUID;
     }
 }

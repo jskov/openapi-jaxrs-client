@@ -59,6 +59,8 @@ public final class TypeConverter {
     /** Component schema prefix. */
     private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
 
+    /** Type names. */
+    private final TypeNames typeNames;
     /** Naming. */
     private final Naming naming;
     /** Parser references. */
@@ -79,14 +81,16 @@ public final class TypeConverter {
      * This operated by looking up types, creating if missing, in the
      * types instance.
      *
+     * @param typeNames the type names
      * @param parserTypes the parser types
      * @param parserRefs the parser references
      * @param naming the naming instance
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public TypeConverter(ParserTypes parserTypes, ParserTypeRefs parserRefs,
+    public TypeConverter(TypeNames typeNames, ParserTypes parserTypes, ParserTypeRefs parserRefs,
             Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+        this.typeNames = typeNames;
         this.parserTypes = parserTypes;
         this.parserRefs = parserRefs;
         this.naming = naming;
@@ -132,7 +136,7 @@ public final class TypeConverter {
                 logger.warn("Found enumeration type but no property name provided");
             } else {
                 String enumTypeName = naming.convertPropertyEnumTypeName(propertyName);
-                TypeName typeName = TypeNames.of(enumTypeName);
+                TypeName typeName = typeNames.of(enumTypeName);
 
                 List<String> enumValues = schema.getEnum().stream()
                         .map(Objects::toString)
@@ -157,14 +161,14 @@ public final class TypeConverter {
 
             Boolean isUnique = a.getUniqueItems();
             if (isUnique != null && isUnique.booleanValue()) {
-                return parserRefs.of(TypeSet.of(innerType), validation);
+                return parserRefs.of(TypeSet.of(typeNames, innerType), validation);
             }
 
             if (innerType.refType() instanceof TypeByteArray && parserOpts.isUnwrapByteArrayList()) {
                 return parserRefs.of(TypeByteArray.getArray(), validation);
             }
 
-            return parserRefs.of(TypeArray.of(innerType), validation);
+            return parserRefs.of(TypeArray.of(typeNames, innerType), validation);
         }
 
         if (schema instanceof BinarySchema || schema instanceof FileSchema) {
@@ -177,7 +181,7 @@ public final class TypeConverter {
             Object additionalProperties = m.getAdditionalProperties();
             if (additionalProperties instanceof Schema<?> innerSchema) {
                 Type innerType = toReference(innerSchema);
-                return parserRefs.of(TypeMap.of(innerType), validation);
+                return parserRefs.of(TypeMap.of(typeNames, innerType), validation);
             }
         }
 
@@ -200,7 +204,7 @@ public final class TypeConverter {
                     interfaceName = String.join("", anyOfNames);
                 }
 
-                TypeName tn = TypeNames.of(interfaceName);
+                TypeName tn = typeNames.of(interfaceName);
 
                 logger.debug(" interface {} : {}", tn, anyOfRefs);
 
@@ -373,12 +377,11 @@ public final class TypeConverter {
             selector = SubtypeSelector.of(disc.getPropertyName(), mapping);
         }
 
-        Dto dto = Dto.builder()
-                .name(modelName)
+        Dto dto = Dto.builder(modelName, typeNames.of(modelName))
                 .description(schema.getDescription())
                 .reference(dtoType)
                 .properties(props)
-                .openapiId(TypeNames.of(dtoName))
+                .openapiId(typeNames.of(dtoName))
                 .enumValues(enumValues)
                 .implementsInterfaces(List.of())
                 .subtypeSelector(selector)

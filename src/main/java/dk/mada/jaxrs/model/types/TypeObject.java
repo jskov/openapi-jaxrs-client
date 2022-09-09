@@ -19,6 +19,6 @@ public final class TypeObject implements Type {
 
     @Override
     public TypeName typeName() {
-        return TypeNames.of("Object");
+        return TypeNames.OBJECT;
     }
 }
