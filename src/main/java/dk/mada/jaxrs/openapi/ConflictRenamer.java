@@ -82,7 +82,6 @@ public class ConflictRenamer {
         default:
             throw new IllegalStateException("Unhandled schema order " + naming.getRenameCaseConflictSchemaOrder());
         }
-
     }
 
     private Dto assignUniqueName(Dto dto) {

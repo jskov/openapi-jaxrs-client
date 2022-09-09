@@ -74,9 +74,6 @@ public final class TypeNames {
     /** TypeName instances indexed by their name. */
     private final Map<String, TypeName> nameToInstances = new HashMap<>();
 
-    /** Rewritten type names. */
-    private final Map<String, String> nameOverrides = new HashMap<>();
-
     /**
      * Constructs a new instance.
      */
@@ -111,7 +108,7 @@ public final class TypeNames {
     }
     
     /**
-     * Adds a rename mapping for a type name.
+     * Adds an override name to a type name.
      *
      * This will make the TypeName instance for 'typeName' return
      * the name 'newTypeName'.
@@ -122,7 +119,7 @@ public final class TypeNames {
      * @param newTypeName the types new name
      */
     public void rename(String typeName, String newTypeName) {
-        nameOverrides.put(typeName, newTypeName);
+        of(typeName).overrideName = newTypeName;
     }
 
     /**
@@ -151,6 +148,9 @@ public final class TypeNames {
     public static final class TypeName implements Comparable<TypeName> {
         /** The type name at time of declaration. */
         private String name;
+        
+        /** An override name may be assigned to the type. */ 
+        private String overrideName;
 
         /**
          * Creates a new type name instance.
@@ -170,8 +170,10 @@ public final class TypeNames {
          * @return the name of the type
          */
         public String name() {
+            if (overrideName != null) {
+                return overrideName;
+            }
             return name;
-            //FIXME: return nameOverrides.getOrDefault(name, name);
         }
 
         @Override
