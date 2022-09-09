@@ -58,7 +58,7 @@ public final class Generator implements GeneratorService {
         var parserRefs = new ParserTypeRefs();
 
         TypeNames.resetForTesting();
-        
+
         Model model = new Parser(showParserInfo, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
 
         try {

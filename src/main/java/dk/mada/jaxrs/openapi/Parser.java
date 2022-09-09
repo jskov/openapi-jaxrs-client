@@ -81,7 +81,7 @@ public class Parser {
         if (specification == null) {
             throw new IllegalStateException("No output from parsing document " + spec);
         }
-        
+
         ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
         var typeConverter = new TypeConverter(parserTypes, parserRefs, naming, parserOpts, generatorOpts);
 

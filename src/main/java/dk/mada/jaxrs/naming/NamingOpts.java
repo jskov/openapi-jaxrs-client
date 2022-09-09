@@ -29,12 +29,12 @@ public class NamingOpts {
     private final boolean renameCaseConflicts;
     /** Ordering used when resolving conflicts. */
     private final SchemaOrder renameCaseConflictsOrder;
-    
+
     /** Ordering preference when renaming due to name conflicts. */
     public enum SchemaOrder {
         /** Follow OpenApi document declaration order of schemas. */
         DOCUMENT_ORDER,
-        /** Follow naming order of schemas. */ 
+        /** Follow naming order of schemas. */
         NAME_ORDER;
 
         /**
@@ -77,7 +77,7 @@ public class NamingOpts {
         return renameCaseConflicts;
     }
 
-    /** {@return the order by which name conflicts should be resolved} */ 
+    /** {@return the order by which name conflicts should be resolved} */
     public SchemaOrder getRenameCaseConflictsOrder() {
         return renameCaseConflictsOrder;
     }

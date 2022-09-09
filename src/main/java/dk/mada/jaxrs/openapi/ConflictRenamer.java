@@ -34,7 +34,7 @@ public class ConflictRenamer {
      * Constructs a new instance.
      *
      * @param naming the naming instance
-     * @param schemaNamesDeclarationOrder 
+     * @param schemaNamesDeclarationOrder the OpenApi schema declaration order
      */
     public ConflictRenamer(Naming naming, List<String> schemaNamesDeclarationOrder) {
         this.naming = naming;
@@ -68,7 +68,7 @@ public class ConflictRenamer {
      * @return their comparison order
      */
     private int schemaOrderComparitor(Dto a, Dto b) {
-        switch(naming.getRenameCaseConflictSchemaOrder()) {
+        switch (naming.getRenameCaseConflictSchemaOrder()) {
         case DOCUMENT_ORDER:
             int aIndex = schemaNamesDeclarationOrder.indexOf(a.openapiId().name());
             int bIndex = schemaNamesDeclarationOrder.indexOf(b.openapiId().name());

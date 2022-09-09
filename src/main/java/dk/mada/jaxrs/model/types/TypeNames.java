@@ -29,7 +29,7 @@ public final class TypeNames {
         RENAMING.clear();
         NAME_TO_INSTANCES.clear();
     }
-    
+
     /**
      * Adds a rename mapping for a type name.
      *
