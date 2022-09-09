@@ -77,6 +77,7 @@ public class ParserTypes {
     /**
      * Create new instance.
      *
+     * @param typeNames the type names instance
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */

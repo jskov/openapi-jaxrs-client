@@ -36,6 +36,7 @@ public class ConflictRenamer {
     /**
      * Constructs a new instance.
      *
+     * @param typeNames the type names instance
      * @param naming the naming instance
      * @param schemaNamesDeclarationOrder the OpenApi schema declaration order
      */

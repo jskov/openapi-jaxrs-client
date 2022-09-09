@@ -44,6 +44,7 @@ public class Resolver {
     /**
      * Create new instance.
      *
+     * @param typeNames the type names instance
      * @param parserTypes the types collected during parsing
      */
     public Resolver(TypeNames typeNames, ParserTypes parserTypes) {

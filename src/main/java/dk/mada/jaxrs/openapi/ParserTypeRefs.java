@@ -31,7 +31,10 @@ public class ParserTypeRefs {
     /** Type names. */
     private final TypeNames typeNames;
 
-    /** Constructs new instance. */
+    /** Constructs new instance.
+     *
+     * @param typeNames the type names instance
+     */
     public ParserTypeRefs(TypeNames typeNames) {
         this.typeNames = typeNames;
     }

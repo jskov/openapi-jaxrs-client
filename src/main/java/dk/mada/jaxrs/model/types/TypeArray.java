@@ -19,9 +19,9 @@ public interface TypeArray extends TypeContainer {
      * @param innerType the type contained in the array
      * @return an array type
      */
-    static TypeArray of(TypeNames tn, Type innerType) {
+    static TypeArray of(TypeNames typeNames, Type innerType) {
         String innerName = innerType.wrapperTypeName().name();
-        TypeName typeName = tn.of("List<" + innerName + ">");
+        TypeName typeName = typeNames.of("List<" + innerName + ">");
         return ImmutableTypeArray.builder().innerType(innerType).typeName(typeName).build();
     }
 
