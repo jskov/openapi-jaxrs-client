@@ -70,7 +70,7 @@ public final class TypeNames {
     public static final TypeName UUID = new TypeName("UUID");
     /** The type name for a validation marker - not a real type. */
     public static final TypeName MARKER_VALIDATION = new TypeName("<VALIDATION>");
-    
+
     /** TypeName instances indexed by their name. */
     private final Map<String, TypeName> nameToInstances = new HashMap<>();
 
@@ -82,10 +82,10 @@ public final class TypeNames {
         nameToInstances.put(BOOLEAN_WRAPPER.name, BOOLEAN_WRAPPER);
         nameToInstances.put(BYTE.name, BYTE);
         nameToInstances.put(BYTE_WRAPPER.name, BYTE_WRAPPER);
-        nameToInstances.put(SHORT.name, SHORT );
+        nameToInstances.put(SHORT.name, SHORT);
         nameToInstances.put(SHORT_WRAPPER.name, SHORT_WRAPPER);
         nameToInstances.put(INTEGER.name, INTEGER);
-        nameToInstances.put(INTEGER_WRAPPER.name, INTEGER_WRAPPER );
+        nameToInstances.put(INTEGER_WRAPPER.name, INTEGER_WRAPPER);
         nameToInstances.put(LONG.name, LONG);
         nameToInstances.put(LONG_WRAPPER.name, LONG_WRAPPER);
         nameToInstances.put(FLOAT.name, FLOAT);
@@ -94,7 +94,7 @@ public final class TypeNames {
         nameToInstances.put(DOUBLE_WRAPPER.name, DOUBLE_WRAPPER);
         nameToInstances.put(STRING.name, STRING);
         nameToInstances.put(VOID.name, VOID);
-        nameToInstances.put(OBJECT.name, OBJECT );
+        nameToInstances.put(OBJECT.name, OBJECT);
         nameToInstances.put(LOCAL_DATE.name, LOCAL_DATE);
         nameToInstances.put(LOCAL_TIME.name, LOCAL_TIME);
         nameToInstances.put(LOCAL_DATE_TIME.name, LOCAL_DATE_TIME);
@@ -106,7 +106,7 @@ public final class TypeNames {
         nameToInstances.put(UUID.name, UUID);
         nameToInstances.put(MARKER_VALIDATION.name, MARKER_VALIDATION);
     }
-    
+
     /**
      * Adds an override name to a type name.
      *
@@ -148,8 +148,8 @@ public final class TypeNames {
     public static final class TypeName implements Comparable<TypeName> {
         /** The type name at time of declaration. */
         private String name;
-        
-        /** An override name may be assigned to the type. */ 
+
+        /** An override name may be assigned to the type. */
         private String overrideName;
 
         /**

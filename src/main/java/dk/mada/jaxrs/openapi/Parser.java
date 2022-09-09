@@ -58,7 +58,9 @@ public class Parser {
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public Parser(boolean showInfo, TypeNames typeNames, Naming naming, ParserTypeRefs parserRefs, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public Parser(boolean showInfo,
+            TypeNames typeNames, Naming naming, ParserTypeRefs parserRefs,
+            ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         this.showInfo = showInfo;
         this.typeNames = typeNames;
         this.naming = naming;
