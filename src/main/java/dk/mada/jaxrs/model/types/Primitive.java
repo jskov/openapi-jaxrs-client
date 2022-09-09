@@ -9,21 +9,21 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  */
 public enum Primitive implements Type {
     /** The boolean. */
-    BOOLEAN("boolean:",     "boolean", "Boolean"),
+    BOOLEAN("boolean:",     TypeNames.BOOLEAN, TypeNames.BOOLEAN_WRAPPER),
     /** The byte. */
-    BYTE("string:byte",     "byte",    "Byte"),
+    BYTE("string:byte",     TypeNames.BYTE,    TypeNames.BYTE_WRAPPER),
     /** The short. */
-    SHORT("integer:",       "short",   "Short"),
+    SHORT("integer:",       TypeNames.SHORT,   TypeNames.SHORT_WRAPPER),
     /** The integer. */
-    INT("integer:int32",    "int",     "Integer"),
+    INT("integer:int32",    TypeNames.INTEGER, TypeNames.INTEGER_WRAPPER),
     /** The long. */
-    LONG("integer:int64",   "long",    "Long"),
+    LONG("integer:int64",   TypeNames.LONG,    TypeNames.LONG_WRAPPER),
     /** The float. */
-    FLOAT("number:float",   "float",   "Float"),
+    FLOAT("number:float",   TypeNames.FLOAT,   TypeNames.FLOAT_WRAPPER),
     /** The double. */
-    DOUBLE("number:double", "double",  "Double"),
+    DOUBLE("number:double", TypeNames.DOUBLE,  TypeNames.DOUBLE_WRAPPER),
     /** The string (not a primitive, but basically). */
-    STRING("string:",       "String",  "String");
+    STRING("string:",       TypeNames.STRING,  TypeNames.STRING);
 
     /** The OpenApi type:format **/
     private String typeFormat;
@@ -32,10 +32,10 @@ public enum Primitive implements Type {
     /** Java language wrapper type */
     private TypeName wrapperType;
 
-    Primitive(String typeFormat, String javaPrimitive, String wrapperType) {
+    Primitive(String typeFormat, TypeName javaPrimitive, TypeName wrapperType) {
         this.typeFormat = typeFormat;
-        this.javaPrimitive = TypeNames.of(javaPrimitive);
-        this.wrapperType = TypeNames.of(wrapperType);
+        this.javaPrimitive = javaPrimitive;
+        this.wrapperType = wrapperType;
     }
 
     /** {@return the type name of this type} */

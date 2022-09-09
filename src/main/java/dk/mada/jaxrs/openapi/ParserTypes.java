@@ -45,6 +45,9 @@ public class ParserTypes {
     /** Newline. */
     private static final String NL = System.lineSeparator();
 
+    /** The type names. */
+    private final TypeNames typeNames;
+
     /** DTOs parsed from the specification. */
     private final Map<TypeName, Dto> parsedDtos = new HashMap<>();
 
@@ -77,19 +80,20 @@ public class ParserTypes {
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public ParserTypes(ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public ParserTypes(TypeNames typeNames, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+        this.typeNames = typeNames;
         TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
 
         dtoPackageName = generatorOpts.dtoPackage();
 
-        mapJse(parserOpts.isJseBigDecimal(),     TypeBigDecimal.TYPENAME_BIG_DECIMAL, TypeBigDecimal.get());
-        mapJse(parserOpts.isJseInputStream(),    TypeByteArray.TYPENAME_INPUTSTREAM,  TypeByteArray.getStream());
-        mapJse(parserOpts.isJseUUID(),           TypeUUID.TYPENAME_UUID,              TypeUUID.get());
-        mapJse(parserOpts.isJseLocalDate(),      TypeDate.TYPENAME_LOCAL_DATE,        TypeDate.get());
-        mapJse(parserOpts.isJseLocalTime(),      TypeLocalTime.TYPENAME_LOCAL_TIME,   TypeLocalTime.get());
-        mapJse(parserOpts.isJseLocalDateTime(),  TypeNames.of("LocalDateTime"),       typeDateTime);
-        mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.of("OffsetDateTime"),      typeDateTime);
-        mapJse(parserOpts.isJseZonedDateTime(),  TypeNames.of("ZonedDateTime"),       typeDateTime);
+        mapJse(parserOpts.isJseBigDecimal(),     TypeNames.BIG_DECIMAL,      TypeBigDecimal.get());
+        mapJse(parserOpts.isJseInputStream(),    TypeNames.INPUT_STREAM,     TypeByteArray.getStream());
+        mapJse(parserOpts.isJseUUID(),           TypeNames.UUID,             TypeUUID.get());
+        mapJse(parserOpts.isJseLocalDate(),      TypeNames.LOCAL_DATE,       TypeDate.get());
+        mapJse(parserOpts.isJseLocalTime(),      TypeNames.LOCAL_TIME,       TypeLocalTime.get());
+        mapJse(parserOpts.isJseLocalDateTime(),  TypeNames.LOCAL_DATE_TIME,  typeDateTime);
+        mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.OFFSET_DATE_TIME, typeDateTime);
+        mapJse(parserOpts.isJseZonedDateTime(),  TypeNames.ZONED_DATE_TIME,  typeDateTime);
 
         logger.info("JSE type overrides: {}", mappedToJseTypes.keySet());
         logger.info("JSE types kept: {}", unmappedToJseTypes);
@@ -216,9 +220,9 @@ public class ParserTypes {
             logger.debug(" consider {} : {} {}/{}", name, dto.getClass(), type.getClass(), type);
 
             if (type instanceof TypeArray ta) {
-                remapDto(openapiName, TypeArray.of(ta.innerType()));
+                remapDto(openapiName, TypeArray.of(typeNames, ta.innerType()));
             } else if (type instanceof TypeSet ts) {
-                remapDto(openapiName, TypeSet.of(ts.innerType()));
+                remapDto(openapiName, TypeSet.of(typeNames, ts.innerType()));
             } else if (type instanceof TypeMap) {
                 // no remapping of maps
                 // a DTO with properties of the same type may be represented like this

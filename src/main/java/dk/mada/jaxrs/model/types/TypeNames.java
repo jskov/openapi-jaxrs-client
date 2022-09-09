@@ -10,26 +10,47 @@ import java.util.Objects;
  * Contains all declared type names.
  */
 public final class TypeNames {
+    public static final TypeName BOOLEAN = new TypeName("boolean");
+    public static final TypeName BOOLEAN_WRAPPER = new TypeName("Boolean");
+    public static final TypeName BYTE = new TypeName("byte");
+    public static final TypeName BYTE_WRAPPER = new TypeName("Byte");
+    public static final TypeName SHORT = new TypeName("short");
+    public static final TypeName SHORT_WRAPPER = new TypeName("Short");
+    public static final TypeName INTEGER = new TypeName("int");
+    public static final TypeName INTEGER_WRAPPER = new TypeName("Integer");
+    public static final TypeName LONG = new TypeName("long");
+    public static final TypeName LONG_WRAPPER = new TypeName("Long");
+    public static final TypeName FLOAT = new TypeName("float");
+    public static final TypeName FLOAT_WRAPPER = new TypeName("Float");
+    public static final TypeName DOUBLE = new TypeName("double");
+    public static final TypeName DOUBLE_WRAPPER = new TypeName("Double");
+    public static final TypeName STRING = new TypeName("String");
+    public static final TypeName VOID = new TypeName("void");
+    /** The type name of LocalDate. */
+    public static final TypeName LOCAL_DATE = new TypeName("LocalDate");
+    /** The type name of LocalTime. */
+    public static final TypeName LOCAL_TIME = new TypeName("LocalTime");
+    public static final TypeName LOCAL_DATE_TIME = new TypeName("LocalDateTime");
+    public static final TypeName OFFSET_DATE_TIME = new TypeName("OffsetDateTime");
+    public static final TypeName ZONED_DATE_TIME = new TypeName("ZonedDateTime");
+    public static final TypeName MARKER_VALIDATION = new TypeName("<VALIDATION>");
+    public static final TypeName UUID = new TypeName("UUID");
+    public static final TypeName OBJECT = new TypeName("Object");
+    public static final TypeName BIG_DECIMAL = new TypeName("BigDecimal");
+    /** The type name for InputStream. */
+    public static final TypeName INPUT_STREAM = new TypeName("InputStream");
+    public static final TypeName BYTE_ARRAY = new TypeName("byte[]");
+    
     /** TypeName instances indexed by their name. */
-    private static final Map<String, TypeName> NAME_TO_INSTANCES = new HashMap<>();
+    private final Map<String, TypeName> nameToInstances = new HashMap<>();
 
     /** Rewritten type names. */
-    private static final Map<String, String> RENAMING = new HashMap<>();
+    private final Map<String, String> nameOverrides = new HashMap<>();
 
-    private TypeNames() {
+    public TypeNames() {
+        
     }
-
-    /**
-     * Reset static content before running generator.
-     * This is required when multiple unit tests are run in the
-     * same VM.
-     * FIXME: The proper solution is to inject an instance of this object instead.
-     */
-    public static void resetForTesting() {
-        RENAMING.clear();
-        NAME_TO_INSTANCES.clear();
-    }
-
+    
     /**
      * Adds a rename mapping for a type name.
      *
@@ -41,8 +62,8 @@ public final class TypeNames {
      * @param typeName the name of the type to rename
      * @param newTypeName the types new name
      */
-    public static void rename(String typeName, String newTypeName) {
-        RENAMING.put(typeName, newTypeName);
+    public void rename(String typeName, String newTypeName) {
+        nameOverrides.put(typeName, newTypeName);
     }
 
     /**
@@ -51,15 +72,15 @@ public final class TypeNames {
      * @param name name of the type
      * @return a new TypeName instance
      */
-    public static TypeName of(String name) {
-        return NAME_TO_INSTANCES.computeIfAbsent(name, TypeName::new);
+    public TypeName of(String name) {
+        return nameToInstances.computeIfAbsent(name, TypeName::new);
     }
 
     /** {@return information about the type names} */
-    public static String info() {
+    public String info() {
         String sep = System.lineSeparator() + "  ";
         return new StringBuilder("Type names:").append(sep)
-                .append(NAME_TO_INSTANCES.keySet().stream()
+                .append(nameToInstances.keySet().stream()
                     .sorted((a, b) -> a.compareToIgnoreCase(b))
                     .collect(joining(sep)))
                 .toString();
@@ -90,7 +111,8 @@ public final class TypeNames {
          * @return the name of the type
          */
         public String name() {
-            return RENAMING.getOrDefault(name, name);
+            return name;
+            //FIXME: return nameOverrides.getOrDefault(name, name);
         }
 
         @Override

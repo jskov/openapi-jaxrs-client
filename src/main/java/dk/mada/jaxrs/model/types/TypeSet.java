@@ -15,22 +15,19 @@ public interface TypeSet extends TypeContainer {
     /**
      * Creates a type for a set.
      *
+     * @param typeNames the type names instance
      * @param innerType the type contained in the array
      * @return a set type
      */
-    static TypeSet of(Type innerType) {
-        return ImmutableTypeSet.builder().innerType(innerType).build();
+    static TypeSet of(TypeNames typeNames, Type innerType) {
+        String innerName = innerType.wrapperTypeName().name();
+        TypeName typeName = typeNames.of("Set<" + innerName + ">");
+        return ImmutableTypeSet.builder().innerType(innerType).typeName(typeName).build();
     }
 
     @Override
     default String containerImplementation() {
         return "LinkedHashSet";
-    }
-
-    @Override
-    default TypeName typeName() {
-        String innerName = innerType().wrapperTypeName().name();
-        return TypeNames.of("Set<" + innerName + ">");
     }
 
     @Override

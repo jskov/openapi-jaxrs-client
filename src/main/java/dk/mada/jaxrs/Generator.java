@@ -52,14 +52,13 @@ public final class Generator implements GeneratorService {
         assertInputFile(openapiDocument);
         assertDestinationDir(clientContext, destinationDir);
 
+        var typeNames = new TypeNames();
         var parserOpts = new ParserOpts(options);
         var generatorOpts = new GeneratorOpts(options, parserOpts);
         var naming = new Naming(options);
-        var parserRefs = new ParserTypeRefs();
+        var parserRefs = new ParserTypeRefs(typeNames);
 
-        TypeNames.resetForTesting();
-
-        Model model = new Parser(showParserInfo, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
+        Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
 
         try {
             Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());

@@ -34,7 +34,7 @@ dependencies {
 
     annotationProcessor 'org.immutables:value:2.9.2'
     apt                 'org.immutables:value:2.9.2'
-    compileOnly         'org.immutables:value:2.9.0:annotations'
+    compileOnly         'org.immutables:value:2.9.2:annotations'
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.0'
 

@@ -8,8 +8,6 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
  * Special type for handing number schema.
  */
 public final class TypeBigDecimal implements Type {
-    /** The type name for BigDecimal. */
-    public static final TypeName TYPENAME_BIG_DECIMAL = TypeNames.of("BigDecimal");
     /** The single instance of this object. */
     private static final TypeBigDecimal INSTANCE = new TypeBigDecimal();
 
@@ -23,7 +21,7 @@ public final class TypeBigDecimal implements Type {
 
     @Override
     public TypeName typeName() {
-        return TYPENAME_BIG_DECIMAL;
+        return TypeNames.BIG_DECIMAL;
     }
 
     @Override

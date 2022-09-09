@@ -11,9 +11,6 @@ public final class TypeDate implements Type {
     /** The single instance of this object. */
     private static final TypeDate INSTANCE = new TypeDate();
 
-    /** The type name of LocalDate. */
-    public static final TypeName TYPENAME_LOCAL_DATE = TypeNames.of("LocalDate");
-
     private TypeDate() {
     }
 
@@ -24,7 +21,7 @@ public final class TypeDate implements Type {
 
     @Override
     public TypeName typeName() {
-        return TYPENAME_LOCAL_DATE;
+        return TypeNames.LOCAL_DATE;
     }
 
     @Override

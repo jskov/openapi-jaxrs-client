@@ -15,22 +15,19 @@ public interface TypeArray extends TypeContainer {
     /**
      * Creates a type for an array (list).
      *
+     * @param typeNames the type names instance
      * @param innerType the type contained in the array
      * @return an array type
      */
-    static TypeArray of(Type innerType) {
-        return ImmutableTypeArray.builder().innerType(innerType).build();
+    static TypeArray of(TypeNames tn, Type innerType) {
+        String innerName = innerType.wrapperTypeName().name();
+        TypeName typeName = tn.of("List<" + innerName + ">");
+        return ImmutableTypeArray.builder().innerType(innerType).typeName(typeName).build();
     }
 
     @Override
     default String containerImplementation() {
         return "ArrayList";
-    }
-
-    @Override
-    default TypeName typeName() {
-        String innerName = innerType().wrapperTypeName().name();
-        return TypeNames.of("List<" + innerName + ">");
     }
 
     @Override

@@ -28,7 +28,7 @@ public final class TypeVoid implements Type {
 
     @Override
     public TypeName typeName() {
-        return TypeNames.of("void");
+        return TypeNames.VOID;
     }
 
     @Override

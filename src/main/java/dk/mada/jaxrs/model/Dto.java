@@ -9,7 +9,6 @@ import org.immutables.value.Value.Immutable;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeInterface;
-import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
@@ -18,8 +17,13 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 @Immutable
 public interface Dto extends Type {
     /** {@return a builder for this type} */
-    static ImmutableDto.Builder builder() {
-        return ImmutableDto.builder();
+    static ImmutableDto.Builder builder(String name, TypeName typeName) {
+        return ImmutableDto.builder().name(name).typeName(typeName);
+    }
+
+    /** {@return a builder for this type} */
+    static ImmutableDto.Builder builderFrom(Dto other) {
+        return ImmutableDto.builder().from(other);
     }
 
     /** {@return the DTO name} */
@@ -35,11 +39,6 @@ public interface Dto extends Type {
     @Override
     default boolean isDto() {
         return true;
-    }
-
-    @Override
-    default TypeName typeName() {
-        return TypeNames.of(name());
     }
 
     /** {@return the name the DTO was identified by in the schema} */

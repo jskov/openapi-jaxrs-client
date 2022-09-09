@@ -45,18 +45,22 @@ public class Parser {
     private final GeneratorOpts generatorOpts;
     /** Parser references. */
     private final ParserTypeRefs parserRefs;
+    /** Type names. */
+    private final TypeNames typeNames;
 
     /**
      * Constructs a new parser.
      *
      * @param showInfo flag to enable parser info output
+     * @param typeNames the type names instance
      * @param naming the naming instance
      * @param parserRefs the parser references
      * @param parserOpts the parser options
      * @param generatorOpts the generator options
      */
-    public Parser(boolean showInfo, Naming naming, ParserTypeRefs parserRefs, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public Parser(boolean showInfo, TypeNames typeNames, Naming naming, ParserTypeRefs parserRefs, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         this.showInfo = showInfo;
+        this.typeNames = typeNames;
         this.naming = naming;
         this.parserRefs = parserRefs;
         this.parserOpts = parserOpts;
@@ -82,8 +86,8 @@ public class Parser {
             throw new IllegalStateException("No output from parsing document " + spec);
         }
 
-        ParserTypes parserTypes = new ParserTypes(parserOpts, generatorOpts);
-        var typeConverter = new TypeConverter(parserTypes, parserRefs, naming, parserOpts, generatorOpts);
+        ParserTypes parserTypes = new ParserTypes(typeNames, parserOpts, generatorOpts);
+        var typeConverter = new TypeConverter(typeNames, parserTypes, parserRefs, naming, parserOpts, generatorOpts);
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
@@ -92,7 +96,7 @@ public class Parser {
 
         if (showInfo) {
             String infoParsing = new StringBuilder("============== PARSING DONE =====").append(NL)
-                    .append(TypeNames.info()).append(NL)
+                    .append(typeNames.info()).append(NL)
                     .append(parserTypes.info()).append(NL)
                     .append(parserRefs.info()).append(NL)
                     .append(operations.info())
@@ -101,12 +105,13 @@ public class Parser {
         }
 
         parserTypes.consolidateDtos();
-        Resolver resolver = new Resolver(parserTypes);
+        Resolver resolver = new Resolver(typeNames, parserTypes);
         Operations derefOps = resolver.operations(operations);
 
         List<Dto> activeDtos = resolver.getDtos();
         List<String> schemaNamesDeclarationOrder = getSchemaOrder(specification);
-        Dtos dtos = new ConflictRenamer(naming, schemaNamesDeclarationOrder).renameDtos(activeDtos);
+        Dtos dtos = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder)
+                .renameDtos(activeDtos);
 
         if (showInfo) {
             String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)
