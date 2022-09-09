@@ -27,6 +27,31 @@ public class NamingOpts {
 
     /** Flag to enable renaming types that would conflict on Windows. */
     private final boolean renameCaseConflicts;
+    /** Ordering used when resolving conflicts. */
+    private final SchemaOrder renameCaseConflictsOrder;
+
+    /** Ordering preference when renaming due to name conflicts. */
+    public enum SchemaOrder {
+        /** Follow OpenApi document declaration order of schemas. */
+        DOCUMENT_ORDER,
+        /** Follow naming order of schemas. */
+        NAME_ORDER;
+
+        /**
+         * {@return the matching schema ordering}
+         * @param name the name of the ordering desired
+         * @return the ordering type
+         */
+        public static SchemaOrder fromConfigName(String name) {
+            String id = name.toUpperCase().replace('-', '_');
+            for (var o : SchemaOrder.values()) {
+                if (o.name().equals(id)) {
+                    return o;
+                }
+            }
+            throw new IllegalArgumentException("Unknown case conflict ordering value: " + name);
+        }
+    }
 
     /**
      * Constructs new instance.
@@ -44,11 +69,17 @@ public class NamingOpts {
         propertyEnumTypeNamingConfig = getDefault(options, "naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
 
         renameCaseConflicts = Boolean.parseBoolean(options.getProperty("naming-rename-case-conflicts"));
+        renameCaseConflictsOrder = SchemaOrder.fromConfigName(getDefault(options, "naming-rename-case-conflicts-order", "document-order"));
     }
 
     /** {@return true if types should be renamed to avoid conflicts on Windows} */
     public boolean isRenameCaseConflicts() {
         return renameCaseConflicts;
+    }
+
+    /** {@return the order by which name conflicts should be resolved} */
+    public SchemaOrder getRenameCaseConflictsOrder() {
+        return renameCaseConflictsOrder;
     }
 
     /** {@return the renaming configuration for a conflicting type name} */

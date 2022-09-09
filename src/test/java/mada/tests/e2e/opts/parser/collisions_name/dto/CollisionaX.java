@@ -6,25 +6,25 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.parser.collisions.dto;
+package mada.tests.e2e.opts.parser.collisions_name.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
- * CollisionA
+ * CollisionaX
  */
 @JsonbPropertyOrder({
-  CollisionA.JSON_PROPERTY_A_BOOLEAN
+  CollisionaX.JSON_PROPERTY_A_BOOLEAN
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class CollisionA {
+public class CollisionaX {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
   @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)
   private Boolean aBoolean;
 
-  public CollisionA aBoolean(Boolean aBoolean) {
+  public CollisionaX aBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
     return this;
   }
@@ -49,7 +49,7 @@ public class CollisionA {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CollisionA other = (CollisionA) o;
+    CollisionaX other = (CollisionaX) o;
     return Objects.equals(this.aBoolean, other.aBoolean);
   }
 
@@ -61,7 +61,7 @@ public class CollisionA {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CollisionA {");
+    sb.append("class CollisionaX {");
     sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
     sb.append("\n}");
     return sb.toString();

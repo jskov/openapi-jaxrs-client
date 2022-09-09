@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.parser.OpenAPIParser;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.AuthorizationValue;
 import io.swagger.v3.parser.core.models.ParseOptions;
@@ -103,7 +105,8 @@ public class Parser {
         Operations derefOps = resolver.operations(operations);
 
         List<Dto> activeDtos = resolver.getDtos();
-        Dtos dtos = new ConflictRenamer(naming).renameDtos(activeDtos);
+        List<String> schemaNamesDeclarationOrder = getSchemaOrder(specification);
+        Dtos dtos = new ConflictRenamer(naming, schemaNamesDeclarationOrder).renameDtos(activeDtos);
 
         if (showInfo) {
             String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)
@@ -115,5 +118,20 @@ public class Parser {
 
         Set<TypeInterface> interfaces = parserTypes.getInterfaces();
         return new Model(info, derefOps, dtos, interfaces, securitySchemes);
+    }
+
+    /**
+     * Gets openapiIds for schemas in their declaration order (in the
+     * OpenApi document).
+     *
+     * @param specification the OpenApi spec
+     * @return the schema names in declaration order
+     */
+    private List<String> getSchemaOrder(OpenAPI specification) {
+        Components components = specification.getComponents();
+        if (components == null || components.getSchemas() == null) {
+            return List.of();
+        }
+        return new ArrayList<>(components.getSchemas().keySet());
     }
 }

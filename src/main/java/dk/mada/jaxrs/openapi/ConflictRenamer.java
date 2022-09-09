@@ -27,14 +27,18 @@ public class ConflictRenamer {
 
     /** Assigned DTO names. */
     private Set<String> assignedDtoNames = new HashSet<>();
+    /** Schema names in their OpenApi document declaration order. */
+    private List<String> schemaNamesDeclarationOrder;
 
     /**
      * Constructs a new instance.
      *
      * @param naming the naming instance
+     * @param schemaNamesDeclarationOrder the OpenApi schema declaration order
      */
-    public ConflictRenamer(Naming naming) {
+    public ConflictRenamer(Naming naming, List<String> schemaNamesDeclarationOrder) {
         this.naming = naming;
+        this.schemaNamesDeclarationOrder = schemaNamesDeclarationOrder;
     }
 
     /**
@@ -48,11 +52,33 @@ public class ConflictRenamer {
         if (naming.isRenameCaseConflicts()) {
             logger.debug("Renaming DTOs to avoid on-disk conflicts");
             renamedDtos = dtos.stream()
-                .sorted((a, b) -> a.openapiId().compareTo(b.openapiId()))
+                .sorted(this::schemaOrderComparitor)
                 .map(this::assignUniqueName)
                 .toList();
         }
         return new Dtos(renamedDtos);
+    }
+
+    /**
+     * Order two DTOs by either their name or their declaration
+     * order in the OpenApi document.
+     *
+     * @param a the first DTO
+     * @param b the second DTO
+     * @return their comparison order
+     */
+    private int schemaOrderComparitor(Dto a, Dto b) {
+        switch (naming.getRenameCaseConflictSchemaOrder()) {
+        case DOCUMENT_ORDER:
+            int aIndex = schemaNamesDeclarationOrder.indexOf(a.openapiId().name());
+            int bIndex = schemaNamesDeclarationOrder.indexOf(b.openapiId().name());
+            return Integer.compare(aIndex, bIndex);
+        case NAME_ORDER:
+            return a.openapiId().compareTo(b.openapiId());
+        default:
+            throw new IllegalStateException("Unhandled schema order " + naming.getRenameCaseConflictSchemaOrder());
+        }
+
     }
 
     private Dto assignUniqueName(Dto dto) {

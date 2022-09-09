@@ -6,11 +6,11 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.parser.collisions.api;
+package mada.tests.e2e.opts.parser.collisions_name.api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import mada.tests.e2e.opts.parser.collisions.dto.Collisions;
+import mada.tests.e2e.opts.parser.collisions_name.dto.Collisions;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
