@@ -10,6 +10,7 @@ import dk.mada.jaxrs.generator.api.ApiGenerator;
 import dk.mada.jaxrs.generator.dto.DtoGenerator;
 import dk.mada.jaxrs.gradle.GeneratorService;
 import dk.mada.jaxrs.model.Model;
+import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.ParserOpts;
@@ -56,6 +57,8 @@ public final class Generator implements GeneratorService {
         var naming = new Naming(options);
         var parserRefs = new ParserTypeRefs();
 
+        TypeNames.resetForTesting();
+        
         Model model = new Parser(showParserInfo, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
 
         try {

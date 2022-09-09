@@ -20,6 +20,17 @@ public final class TypeNames {
     }
 
     /**
+     * Reset static content before running generator.
+     * This is required when multiple unit tests are run in the
+     * same VM.
+     * FIXME: The proper solution is to inject an instance of this object instead.
+     */
+    public static void resetForTesting() {
+        RENAMING.clear();
+        NAME_TO_INSTANCES.clear();
+    }
+    
+    /**
      * Adds a rename mapping for a type name.
      *
      * This will make the TypeName instance for 'typeName' return
