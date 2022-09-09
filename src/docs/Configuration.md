@@ -436,3 +436,14 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >
     default value: APPEND/X/
+    
+**naming-rename-case-conflicts-order**
+
+>Allows you to control how the conflict-renaming orders the schemas before resolving collisions.
+
+>Use `document-order` to process the schemas in their OpenApi document declaration order.
+>Use `name-order` to process the schemas in their naming order.
+
+>
+	default value: document-order
+
