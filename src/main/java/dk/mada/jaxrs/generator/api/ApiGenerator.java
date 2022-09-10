@@ -395,6 +395,9 @@ public class ApiGenerator {
             String dataType = paramDataType(ref);
 
             boolean isBodyRequired = body.isRequired();
+            if (opts.isUseBeanValidation() && isBodyRequired) {
+                imports.add(ValidationApi.NOT_NULL);
+            }
 
             boolean renderBodySpaceHack = (isBodyRequired && opts.isUseBeanValidation())
                     || !params.isEmpty();
