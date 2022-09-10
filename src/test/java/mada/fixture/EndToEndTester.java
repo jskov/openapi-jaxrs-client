@@ -62,7 +62,8 @@ public class EndToEndTester {
         System.out.println("PROPS:" + testOptions.toString());
         System.out.println("Output : " + generatedFilesRootDir);
 
-        boolean skipApi = Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"));
+        boolean skipApi = Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"))
+                || Boolean.parseBoolean(testOptions.getProperty("generator-api-skip"));
         boolean skipDto = Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"));
 
         ClientContext cc = new ClientContext(true, GeneratorLogLevel.DEFAULT, skipApi, skipDto);

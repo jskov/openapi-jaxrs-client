@@ -68,7 +68,7 @@ public final class Generator implements GeneratorService {
             Files.createDirectories(dtoDir);
 
             var templates = new Templates(apiDir, dtoDir);
-            if (!clientContext.skipApi()) {
+            if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
                 new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses();
             }
             if (!clientContext.skipDto()) {

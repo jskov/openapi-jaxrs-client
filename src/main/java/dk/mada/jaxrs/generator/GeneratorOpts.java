@@ -356,6 +356,11 @@ public final class GeneratorOpts {
         return get("generator-api-default-name");
     }
 
+    /** {@return true if generation of API classes should be skipped.} */
+    public boolean isSkipApiClasses() {
+        return bool("generator-api-skip", false);
+    }
+
     /** {@return list of media types that should be handled as input stream} */
     public List<String> getResponseInputStreamMediaTypes() {
         String mediaTypes = getDefault("generator-api-response-inputstream-mediatypes", "");
