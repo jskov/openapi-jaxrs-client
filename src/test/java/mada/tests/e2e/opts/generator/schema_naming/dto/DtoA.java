@@ -10,7 +10,6 @@ import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * DtoA
@@ -24,17 +23,14 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class DtoA {
   public static final String JSON_PROPERTY_MEMBER_A = "memberA";
   @JsonbProperty(JSON_PROPERTY_MEMBER_A)
-  @Schema(name = "xxx")
   private Boolean memberA;
 
   public static final String JSON_PROPERTY_REF_B = "refB";
   @JsonbProperty(JSON_PROPERTY_REF_B)
-  @Schema(name = "xxx")
   private DtoB refB;
 
   public static final String JSON_PROPERTY_REF_E = "refE";
   @JsonbProperty(JSON_PROPERTY_REF_E)
-  @Schema(name = "xxx")
   private DtoE refE;
 
   public DtoA memberA(Boolean memberA) {

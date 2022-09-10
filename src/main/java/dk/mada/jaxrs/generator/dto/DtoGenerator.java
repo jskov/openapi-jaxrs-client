@@ -475,7 +475,7 @@ public class DtoGenerator {
         }
 
         List<String> schemaEntries = new ArrayList<>();
-        if (true) {
+        if (false) {
             schemaEntries.add("name = \"xxx\"");
         }
         if (isRequired) {

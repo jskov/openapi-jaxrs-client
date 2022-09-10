@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class DtoE {
   public static final String JSON_PROPERTY_MEMBER_IN_E = "member-in-E";
   @JsonbProperty(JSON_PROPERTY_MEMBER_IN_E)
-  @Schema(name = "xxx", required = true)
+  @Schema(required = true)
   private EnumDescription memberInE;
 
   public DtoE memberInE(EnumDescription memberInE) {

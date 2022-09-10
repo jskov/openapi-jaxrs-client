@@ -9,7 +9,6 @@ package mada.tests.e2e.opts.generator.schema_naming.dto;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * DtoB
@@ -21,7 +20,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class DtoB {
   public static final String JSON_PROPERTY_MEMBER_B = "memberB";
   @JsonbProperty(JSON_PROPERTY_MEMBER_B)
-  @Schema(name = "xxx")
   private Integer memberB;
 
   public DtoB memberB(Integer memberB) {
