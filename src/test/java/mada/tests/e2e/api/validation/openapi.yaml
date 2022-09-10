@@ -20,12 +20,13 @@ paths:
   /api/validation/body:
     put:
       tags:
-      - Api Bean Validation
+      - Api Bean Validation Body
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Simple'
+        # required added manually
         required: true
       responses:
         "200":
@@ -34,10 +35,10 @@ paths:
             application/json:
               schema:
                 type: string
-  /api/validation/pathparam/{env}:
+  /api/validation/param/path/{env}:
     get:
       tags:
-      - Api Bean Validation
+      - Api Bean Validation Param
       parameters:
       - name: env
         in: path
