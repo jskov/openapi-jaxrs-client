@@ -25,14 +25,21 @@ public interface TypeMap extends TypeContainer {
      * @return a new map-type.
      */
     static TypeMap of(TypeNames typeNames, Type innerType) {
-        String innerName = innerType.wrapperTypeName().name();
-        TypeName typeName = typeNames.of("Map<String, " + innerName + ">");
-        return ImmutableTypeMap.builder().innerType(innerType).typeName(typeName).build();
+        return ImmutableTypeMap.builder().typeNames(typeNames).innerType(innerType).build();
     }
+
+    /** {@return the type names instance} */
+    TypeNames typeNames();
 
     @Override
     default String containerImplementation() {
         return "HashMap";
+    }
+
+    @Override
+    default TypeName typeName() {
+        String innerName = innerType().wrapperTypeName().name();
+        return typeNames().of("Map<String, " + innerName + ">");
     }
 
     @Override

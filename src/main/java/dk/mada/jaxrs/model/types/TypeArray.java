@@ -20,14 +20,21 @@ public interface TypeArray extends TypeContainer {
      * @return an array type
      */
     static TypeArray of(TypeNames typeNames, Type innerType) {
-        String innerName = innerType.wrapperTypeName().name();
-        TypeName typeName = typeNames.of("List<" + innerName + ">");
-        return ImmutableTypeArray.builder().innerType(innerType).typeName(typeName).build();
+        return ImmutableTypeArray.builder().typeNames(typeNames).innerType(innerType).build();
     }
 
+    /** {@return the type names instance} */
+    TypeNames typeNames();
+    
     @Override
     default String containerImplementation() {
         return "ArrayList";
+    }
+
+    @Override
+    default TypeName typeName() {
+        String innerName = innerType().wrapperTypeName().name();
+        return typeNames().of("List<" + innerName + ">");
     }
 
     @Override
