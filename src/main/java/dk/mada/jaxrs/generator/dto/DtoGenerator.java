@@ -243,8 +243,6 @@ public class DtoGenerator {
 
         String description = dto.description();
 
-        logger.info("@SCHEMA {} -> {}", dto.name(), dto.mpSchemaName());
-        
         String enumSchema = null;
         CtxEnum ctxEnum = null;
         if (isEnum) {
@@ -262,7 +260,7 @@ public class DtoGenerator {
         if (description != null && !description.isBlank()) {
             schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
         }
-        
+
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
             schemaOptions = String.join(", ", schemaEntries);
