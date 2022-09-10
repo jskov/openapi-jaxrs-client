@@ -21,12 +21,12 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * Note that A sorts alphabetically before a
  */
-@Schema(description = "Note that A sorts alphabetically before a")
 @JsonbPropertyOrder({
   CollisionAX.JSON_PROPERTY_A_CAPITAL_BOOLEAN,
   CollisionAX.JSON_PROPERTY_A_CAPITAL_SET,
   CollisionAX.JSON_PROPERTY_A_CAPITAL_MAP
 })
+@Schema(description = "Note that A sorts alphabetically before a")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CollisionAX {
   public static final String JSON_PROPERTY_A_CAPITAL_BOOLEAN = "aCapitalBoolean";
