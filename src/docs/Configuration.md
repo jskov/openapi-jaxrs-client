@@ -108,12 +108,19 @@ The options are grouped into three sections:
 >
     default value:
 
-
 **generator-api-package**
 
 >Name of package to generate API classes in.
 
 >Required option, but can be set via the CLI argument `--api-package`.
+
+**generator-api-skip**
+
+>Allows you to skip generation of API classes.
+
+>
+    default value: false
+
 
 **generator-dto-package**
 

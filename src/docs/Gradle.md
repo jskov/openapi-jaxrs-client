@@ -101,6 +101,7 @@ jaxrs {
     }
     # etc
 }
+```
 
 ## What is source? What is checked into version control?
 
