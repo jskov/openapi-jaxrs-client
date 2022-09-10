@@ -30,28 +30,17 @@ paths:
                 $ref: '#/components/schemas/Collisions'
 components:
   schemas:
-    # Note: Collisiona moved manually before CollisionA
+    # Note A sorts before a
     Collisiona:
-      description: Make sure this appears before CollisionA in the document
       type: object
       properties:
         aBoolean:
           type: boolean
-        aList:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollisionA'
     CollisionA:
-      description: Note that A sorts alphabetially before a
       type: object
       properties:
         aCapitalBoolean:
           type: boolean
-        aCapitalSet:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Collisiona'
     Collisions:
       type: object
       properties:
