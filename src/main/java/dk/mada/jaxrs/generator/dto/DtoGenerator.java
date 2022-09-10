@@ -193,13 +193,7 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        String enumSchema = null;
         Type dtoType = dto.reference().refType();
-        CtxEnum ctxEnum = null;
-        if (isEnum) {
-            ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
-            enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
-        }
 
         dtoImports.addPropertyImports(dto.properties());
 
@@ -251,9 +245,19 @@ public class DtoGenerator {
 
         logger.info("@SCHEMA {} -> {}", dto.name(), dto.mpSchemaName());
         
+        String enumSchema = null;
+        CtxEnum ctxEnum = null;
+        if (isEnum) {
+            ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
+            enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
+        }
+
         List<String> schemaEntries = new ArrayList<>();
         if (!Objects.equals(dto.mpSchemaName(), dto.name())) {
             schemaEntries.add("name = \"" + dto.mpSchemaName() + "\"");
+        }
+        if (enumSchema != null) {
+            schemaEntries.add(enumSchema);
         }
         if (description != null && !description.isBlank()) {
             schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
@@ -295,7 +299,6 @@ public class DtoGenerator {
                 .customLocalDateSerializer(customLocalDateSerializer)
                 .customOffsetDateTimeDeserializer(customOffsetDateTimeDeserializer)
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
-                .enumSchema(enumSchema)
                 .schemaOptions(schemaOptions)
                 .implementsInterfaces(implementsInterfaces)
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
