@@ -19,11 +19,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * Make sure this appears before CollisionA in the document
  */
-@Schema(description = "Make sure this appears before CollisionA in the document")
 @JsonbPropertyOrder({
   CollisionaX.JSON_PROPERTY_A_BOOLEAN,
   CollisionaX.JSON_PROPERTY_A_LIST
 })
+@Schema(description = "Make sure this appears before CollisionA in the document")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CollisionaX {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";

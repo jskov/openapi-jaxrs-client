@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
@@ -192,13 +193,7 @@ public class DtoGenerator {
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
-        String enumSchema = null;
         Type dtoType = dto.reference().refType();
-        CtxEnum ctxEnum = null;
-        if (isEnum) {
-            ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
-            enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
-        }
 
         dtoImports.addPropertyImports(dto.properties());
 
@@ -247,7 +242,28 @@ public class DtoGenerator {
         }
 
         String description = dto.description();
-        if (description != null) {
+
+        String enumSchema = null;
+        CtxEnum ctxEnum = null;
+        if (isEnum) {
+            ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
+            enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
+        }
+
+        List<String> schemaEntries = new ArrayList<>();
+        if (!Objects.equals(dto.mpSchemaName(), dto.name())) {
+            schemaEntries.add("name = \"" + dto.mpSchemaName() + "\"");
+        }
+        if (enumSchema != null) {
+            schemaEntries.add(enumSchema);
+        }
+        if (description != null && !description.isBlank()) {
+            schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
+        }
+
+        String schemaOptions = null;
+        if (!schemaEntries.isEmpty()) {
+            schemaOptions = String.join(", ", schemaEntries);
             dtoImports.addMicroProfileSchema();
         }
 
@@ -281,7 +297,7 @@ public class DtoGenerator {
                 .customLocalDateSerializer(customLocalDateSerializer)
                 .customOffsetDateTimeDeserializer(customOffsetDateTimeDeserializer)
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
-                .enumSchema(enumSchema)
+                .schemaOptions(schemaOptions)
                 .implementsInterfaces(implementsInterfaces)
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
                 .build();

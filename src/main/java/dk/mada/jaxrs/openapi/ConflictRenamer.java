@@ -18,6 +18,11 @@ import dk.mada.jaxrs.naming.Naming;
  * It changes the name of DTOs and adds renaming mapping
  * to the TypeNames so the generators will get the new
  * names.
+ *
+ * The MP @Schema name is also changed, using its own namespace.
+ * This is needed to avoid @Schema declaring a different name
+ * than that assigned to the DTO.
+ * May need a separate switch.
  */
 public class ConflictRenamer {
     private static final Logger logger = LoggerFactory.getLogger(ConflictRenamer.class);
@@ -26,12 +31,12 @@ public class ConflictRenamer {
     private final TypeNames typeNames;
     /** Naming. */
     private final Naming naming;
-
-    /** Assigned DTO names. */
-    private Set<String> assignedDtoNames = new HashSet<>();
     /** Schema names in their OpenApi document declaration order. */
     private List<String> schemaNamesDeclarationOrder;
-
+    /** Assigned type names. */
+    private Set<String> namespaceTypes = new HashSet<>();
+    /** Assigned MP schema names. */
+    private Set<String> namespaceMpSchemas = new HashSet<>();
 
     /**
      * Constructs a new instance.
@@ -86,28 +91,32 @@ public class ConflictRenamer {
     }
 
     private Dto assignUniqueName(Dto dto) {
+        String oldTypeName = dto.name();
+        String newTypeName = assignUniqueName(namespaceTypes, oldTypeName);
+        String newSchemaName = assignUniqueName(namespaceMpSchemas, dto.mpSchemaName());
+
+        if (!oldTypeName.equals(newTypeName)) {
+            typeNames.rename(oldTypeName, newTypeName);
+            logger.debug(" {} -> {}", oldTypeName, newTypeName);
+        }
+
         return Dto.builderFrom(dto)
-                .name(assignUniqueName(dto.name()))
+                .name(newTypeName)
+                .mpSchemaName(newSchemaName)
                 .build();
     }
 
-    private String assignUniqueName(String name) {
+    private String assignUniqueName(Set<String> namespace, String name) {
         String newName = name;
-        while (isInConflict(newName)) {
+        while (isInConflict(namespace, newName)) {
             newName = naming.renameConflictingName(newName);
         }
-        assignedDtoNames.add(newName);
-
-        if (!name.equals(newName)) {
-            typeNames.rename(name, newName);
-            logger.debug(" {} -> {}", name, newName);
-        }
-
+        namespace.add(newName);
         return newName;
     }
 
-    private boolean isInConflict(String name) {
-        return assignedDtoNames.stream()
+    private boolean isInConflict(Set<String> namespace, String name) {
+        return namespace.stream()
                 .anyMatch(s -> s.equalsIgnoreCase(name));
     }
 }

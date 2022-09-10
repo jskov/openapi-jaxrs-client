@@ -22,6 +22,8 @@ public class Naming {
     private final List<NamingRule> enumNumberConstantNamingRules;
     /** Naming rules for type names. */
     private final List<NamingRule> typeNamingRules;
+    /** Naming rules for MP @Schema names. */
+    private final List<NamingRule> mpSchemaNamingRules;
     /** Renaming rules for type name conflicts. */
     private final List<NamingRule> getTypeConflictRenaming;
     /** Naming rules for property names. */
@@ -54,6 +56,7 @@ public class Naming {
         propertyEnumTypeNamingRules = NamingRules.toRules(namingOpts.getPropertyEnumTypeNaming());
         propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
         typeNamingRules = NamingRules.toRules(namingOpts.getTypeNaming());
+        mpSchemaNamingRules = NamingRules.toRules(namingOpts.getMpSchemaNaming());
         getTypeConflictRenaming = NamingRules.toRules(namingOpts.getTypeConflictRenaming());
 
         if (logger.isInfoEnabled()) {
@@ -64,6 +67,7 @@ public class Naming {
             logger.info("propertyEnumTypeNamingRules: {}", makeRuleInfo(propertyEnumTypeNamingRules));
             logger.info("propertyNamingRules: {}", makeRuleInfo(propertyNamingRules));
             logger.info("typeNamingRules: {}", makeRuleInfo(typeNamingRules));
+            logger.info("mpSchemaNamingRules: {}", makeRuleInfo(mpSchemaNamingRules));
         }
     }
 
@@ -121,6 +125,16 @@ public class Naming {
      */
     public String convertTypeName(String schemaName) {
         return convert(typeNamingRules, schemaName);
+    }
+
+    /**
+     * Converts a type OpenApi schema name into its MP @Schema name.
+     *
+     * @param schemaName OpenApi schema name
+     * @return the MP @Schema name
+     */
+    public String convertMpSchemaName(String schemaName) {
+        return convert(mpSchemaNamingRules, schemaName);
     }
 
     /**

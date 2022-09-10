@@ -36,6 +36,9 @@ public interface Dto extends Type {
     /** {@return the DTO name} */
     String name();
 
+    /** {@return the MP Schema name} */
+    String mpSchemaName();
+
     /** {@return the type of the DTO object} */
     Reference reference();
 

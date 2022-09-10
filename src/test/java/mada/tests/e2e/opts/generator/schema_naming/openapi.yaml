@@ -1,0 +1,51 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/schema:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DtoA'
+components:
+  schemas:
+    DtoA:
+      type: object
+      properties:
+        memberA:
+          type: boolean
+        refB:
+          $ref: '#/components/schemas/DtoB'
+        refE:
+          $ref: '#/components/schemas/DtoE'
+    DtoB:
+      type: object
+      properties:
+        memberB:
+          format: int32
+          type: integer
+    DtoE:
+      required:
+      - member-in-E
+      type: object
+      properties:
+        member-in-E:
+          allOf:
+          - $ref: '#/components/schemas/EnumDescription'
+          - description: enum in E
+    EnumDescription:
+      description: an enum
+      enum:
+      - VALUE_A
+      - VALUE_B
+      - VALUE_C
+      type: string
+  

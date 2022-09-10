@@ -1,9 +1,6 @@
 /**
  * {{description}}{{^description}}{{classname}}{{/description}}
  */
-{{#description}}
-@Schema(description = "{{{.}}}")
-{{/description}}
 {{#jackson}}
 @JsonPropertyOrder({
 {{#vars}}
@@ -27,6 +24,9 @@
 {{#discriminator}}
 {{>typeInfoAnnotation}}@TRIM_EMPTY_LINE@
 {{/discriminator}}
+{{#madaDto.schemaOptions}}
+@Schema({{{madaDto.schemaOptions}}})
+{{/madaDto.schemaOptions}}
 {{>generatedAnnotation}}
 {{#todo}}
 {{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}

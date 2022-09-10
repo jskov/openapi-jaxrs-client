@@ -373,6 +373,8 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >The option `naming-rules-type-conflict-renaming` controls how the type is renamed.
 
+>Note that the naming changes are also applied to the type's MP @Schema name.
+
 >
     default value: false
 
@@ -424,6 +426,21 @@ You can specify a number of operators, separated by ';'. They will be applied le
 **naming-rules-type**
 
 >Allows you to control the naming of types using the operators described above.
+
+>The type name is given as input.
+
+>
+    default value: TYPENAME
+
+**naming-rules-mp-schema**
+
+>Allows you to control the MP @Schema naming of types using the operators described above.
+
+>If your application is not only a REST client, but also passes the upstream types through
+>to downstream REST clients, this option can be used to alter (downstream) naming.
+
+>The @Schema options only affect the generation of OpenApi document for your application,
+>not its deserialization of upstream types *in* your application.
 
 >The type name is given as input.
 

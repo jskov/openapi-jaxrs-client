@@ -36,9 +36,9 @@ public interface CtxDtoExt {
     /** {@return true if rendering for jsonb, false otherwise} */
     boolean jsonb();
 
-    /** {@return schema content for an enumeration if appropriate, or null} */
+    /** {@return schema options, or null} */
     @Nullable
-    String enumSchema();
+    String schemaOptions();
 
     /** {@return a string containing the interfaces implemented by this DTO} */
     @Nullable
