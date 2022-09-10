@@ -8,21 +8,38 @@
 
 package mada.tests.e2e.opts.parser.collisions_name.dto;
 
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * CollisionA
+ * Note that A sorts alphabetically before a
  */
+@Schema(description = "Note that A sorts alphabetically before a")
 @JsonbPropertyOrder({
-  CollisionA.JSON_PROPERTY_A_CAPITAL_BOOLEAN
+  CollisionA.JSON_PROPERTY_A_CAPITAL_BOOLEAN,
+  CollisionA.JSON_PROPERTY_A_CAPITAL_SET,
+  CollisionA.JSON_PROPERTY_A_CAPITAL_MAP
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CollisionA {
   public static final String JSON_PROPERTY_A_CAPITAL_BOOLEAN = "aCapitalBoolean";
   @JsonbProperty(JSON_PROPERTY_A_CAPITAL_BOOLEAN)
   private Boolean aCapitalBoolean;
+
+  public static final String JSON_PROPERTY_A_CAPITAL_SET = "aCapitalSet";
+  @JsonbProperty(JSON_PROPERTY_A_CAPITAL_SET)
+  private Set<CollisionaX> aCapitalSet = null;
+
+  public static final String JSON_PROPERTY_A_CAPITAL_MAP = "aCapitalMap";
+  @JsonbProperty(JSON_PROPERTY_A_CAPITAL_MAP)
+  private Map<String, CollisionaX> aCapitalMap = null;
 
   public CollisionA aCapitalBoolean(Boolean aCapitalBoolean) {
     this.aCapitalBoolean = aCapitalBoolean;
@@ -41,6 +58,58 @@ public class CollisionA {
     this.aCapitalBoolean = aCapitalBoolean;
   }
 
+  public CollisionA aCapitalSet(Set<CollisionaX> aCapitalSet) {
+    this.aCapitalSet = aCapitalSet;
+    return this;
+  }
+
+  public CollisionA addACapitalSetItem(CollisionaX aCapitalSetItem) {
+    if (this.aCapitalSet == null) {
+      this.aCapitalSet = new LinkedHashSet<>();
+    }
+    this.aCapitalSet.add(aCapitalSetItem);
+    return this;
+  }
+
+  /**
+   * Get aCapitalSet
+   * @return aCapitalSet
+   **/
+  @Valid
+  public Set<CollisionaX> getACapitalSet() {
+    return aCapitalSet;
+  }
+
+  public void setACapitalSet(Set<CollisionaX> aCapitalSet) {
+    this.aCapitalSet = aCapitalSet;
+  }
+
+  public CollisionA aCapitalMap(Map<String, CollisionaX> aCapitalMap) {
+    this.aCapitalMap = aCapitalMap;
+    return this;
+  }
+
+  public CollisionA putACapitalMapItem(String key, CollisionaX aCapitalMapItem) {
+    if (this.aCapitalMap == null) {
+      this.aCapitalMap = new HashMap<>();
+    }
+    this.aCapitalMap.put(key, aCapitalMapItem);
+    return this;
+  }
+
+  /**
+   * Get aCapitalMap
+   * @return aCapitalMap
+   **/
+  @Valid
+  public Map<String, CollisionaX> getACapitalMap() {
+    return aCapitalMap;
+  }
+
+  public void setACapitalMap(Map<String, CollisionaX> aCapitalMap) {
+    this.aCapitalMap = aCapitalMap;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -50,12 +119,14 @@ public class CollisionA {
       return false;
     }
     CollisionA other = (CollisionA) o;
-    return Objects.equals(this.aCapitalBoolean, other.aCapitalBoolean);
+    return Objects.equals(this.aCapitalBoolean, other.aCapitalBoolean) &&
+        Objects.equals(this.aCapitalSet, other.aCapitalSet) &&
+        Objects.equals(this.aCapitalMap, other.aCapitalMap);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aCapitalBoolean);
+    return Objects.hash(aCapitalBoolean, aCapitalSet, aCapitalMap);
   }
 
   @Override
@@ -63,6 +134,8 @@ public class CollisionA {
     StringBuilder sb = new StringBuilder();
     sb.append("class CollisionA {");
     sb.append("\n    aCapitalBoolean: ").append(toIndentedString(aCapitalBoolean));
+    sb.append("\n    aCapitalSet: ").append(toIndentedString(aCapitalSet));
+    sb.append("\n    aCapitalMap: ").append(toIndentedString(aCapitalMap));
     sb.append("\n}");
     return sb.toString();
   }

@@ -20,14 +20,24 @@ public interface TypeArray extends TypeContainer {
      * @return an array type
      */
     static TypeArray of(TypeNames typeNames, Type innerType) {
-        String innerName = innerType.wrapperTypeName().name();
-        TypeName typeName = typeNames.of("List<" + innerName + ">");
-        return ImmutableTypeArray.builder().innerType(innerType).typeName(typeName).build();
+        return ImmutableTypeArray.builder().typeNames(typeNames).innerType(innerType).build();
     }
 
     @Override
     default String containerImplementation() {
         return "ArrayList";
+    }
+
+    /** {@return the type name}
+    *
+    * Note that this needs to be resolved late (when accessed)
+    * and not when created. This ensures that conflict-renaming
+    * of the inner-type is reflected in the final type name.
+    */
+    @Override
+    default TypeName typeName() {
+        String innerName = innerType().wrapperTypeName().name();
+        return typeNames().of("List<" + innerName + ">");
     }
 
     @Override
