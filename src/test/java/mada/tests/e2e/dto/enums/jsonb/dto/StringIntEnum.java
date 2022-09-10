@@ -17,7 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  * The values are digits, but the type is string. So will not be handled as integers, but are invalid Java identifiers.
  */
 @JsonbTypeAdapter(mada.tests.e2e.dto.enums.jsonb.dto.StringIntEnum.StringIntEnumAdapter.class)
-@Schema(enumeration = {"1", "2", "-3"}, type = SchemaType.STRING)
+@Schema(enumeration = {"1", "2", "-3"}, type = SchemaType.STRING, description = "The values are digits, but the type is string. So will not be handled as integers, but are invalid Java identifiers.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum StringIntEnum {
   NUMBER_1("1"),

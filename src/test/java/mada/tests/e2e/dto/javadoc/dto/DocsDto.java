@@ -16,12 +16,12 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * Class description
  */
-@Schema(description = "Class description")
 @JsonbPropertyOrder({
   DocsDto.JSON_PROPERTY_PROPERTY,
   DocsDto.JSON_PROPERTY_DOS_PROPERTY,
   DocsDto.JSON_PROPERTY_DANISH_PROPERTY
 })
+@Schema(description = "Class description")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class DocsDto {
   public static final String JSON_PROPERTY_PROPERTY = "property";
