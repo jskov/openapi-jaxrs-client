@@ -15,6 +15,9 @@ public interface TypeContainer extends Type {
     /** {@return the java implementation used to instantiate this container} */
     String containerImplementation();
 
+    /** {@return the type names instance} */
+    TypeNames typeNames();
+
     @Override
     default boolean isContainer() {
         return true;

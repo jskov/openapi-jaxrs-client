@@ -25,14 +25,24 @@ public interface TypeMap extends TypeContainer {
      * @return a new map-type.
      */
     static TypeMap of(TypeNames typeNames, Type innerType) {
-        String innerName = innerType.wrapperTypeName().name();
-        TypeName typeName = typeNames.of("Map<String, " + innerName + ">");
-        return ImmutableTypeMap.builder().innerType(innerType).typeName(typeName).build();
+        return ImmutableTypeMap.builder().typeNames(typeNames).innerType(innerType).build();
     }
 
     @Override
     default String containerImplementation() {
         return "HashMap";
+    }
+
+    /** {@return the type name}
+     *
+     * Note that this needs to be resolved late (when accessed)
+     * and not when created. This ensures that conflict-renaming
+     * of the inner-type is reflected in the final type name.
+     */
+    @Override
+    default TypeName typeName() {
+        String innerName = innerType().wrapperTypeName().name();
+        return typeNames().of("Map<String, " + innerName + ">");
     }
 
     @Override
