@@ -42,7 +42,7 @@ components:
           items:
             $ref: '#/components/schemas/CollisionA'
     CollisionA:
-      description: Note that A sorts alphabetially before a
+      description: Note that A sorts alphabetically before a
       type: object
       properties:
         aCapitalBoolean:
@@ -51,6 +51,10 @@ components:
           uniqueItems: true
           type: array
           items:
+            $ref: '#/components/schemas/Collisiona'
+        aCapitalMap:
+          type: object
+          additionalProperties:
             $ref: '#/components/schemas/Collisiona'
     Collisions:
       type: object
