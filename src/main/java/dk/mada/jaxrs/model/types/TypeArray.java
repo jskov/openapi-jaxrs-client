@@ -23,9 +23,6 @@ public interface TypeArray extends TypeContainer {
         return ImmutableTypeArray.builder().typeNames(typeNames).innerType(innerType).build();
     }
 
-    /** {@return the type names instance} */
-    TypeNames typeNames();
-    
     @Override
     default String containerImplementation() {
         return "ArrayList";
@@ -35,7 +32,7 @@ public interface TypeArray extends TypeContainer {
     *
     * Note that this needs to be resolved late (when accessed)
     * and not when created. This ensures that conflict-renaming
-    * of the inner-type is reflected in the final type name. 
+    * of the inner-type is reflected in the final type name.
     */
     @Override
     default TypeName typeName() {
