@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
@@ -247,7 +248,20 @@ public class DtoGenerator {
         }
 
         String description = dto.description();
-        if (description != null) {
+
+        logger.info("@SCHEMA {} -> {}", dto.name(), dto.mpSchemaName());
+        
+        List<String> schemaEntries = new ArrayList<>();
+        if (!Objects.equals(dto.mpSchemaName(), dto.name())) {
+            schemaEntries.add("name = \"" + dto.mpSchemaName() + "\"");
+        }
+        if (description != null && !description.isBlank()) {
+            schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
+        }
+        
+        String schemaOptions = null;
+        if (!schemaEntries.isEmpty()) {
+            schemaOptions = String.join(", ", schemaEntries);
             dtoImports.addMicroProfileSchema();
         }
 
@@ -282,6 +296,7 @@ public class DtoGenerator {
                 .customOffsetDateTimeDeserializer(customOffsetDateTimeDeserializer)
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
                 .enumSchema(enumSchema)
+                .schemaOptions(schemaOptions)
                 .implementsInterfaces(implementsInterfaces)
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
                 .build();
@@ -475,9 +490,6 @@ public class DtoGenerator {
         }
 
         List<String> schemaEntries = new ArrayList<>();
-        if (false) {
-            schemaEntries.add("name = \"xxx\"");
-        }
         if (isRequired) {
             schemaEntries.add("required = true");
         }

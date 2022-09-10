@@ -39,6 +39,10 @@ public interface CtxDtoExt {
     /** {@return schema content for an enumeration if appropriate, or null} */
     @Nullable
     String enumSchema();
+    
+    /** {@return schema options for DTO, or null} */
+    @Nullable
+    String schemaOptions();
 
     /** {@return a string containing the interfaces implemented by this DTO} */
     @Nullable

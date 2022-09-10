@@ -10,6 +10,8 @@ import java.util.Properties;
 public class NamingOpts {
     /** Naming configuration for types. */
     private final String typeNamingConfig;
+    /** Naming configuration for MP Schema name. */
+    private final String mpSchemaNamingConfig;
     /** Naming configuration for renaming of conflicting types. */
     private final String typeConflictRenamingConfig;
     /** Naming configuration for properties. */
@@ -59,6 +61,7 @@ public class NamingOpts {
      */
     public NamingOpts(Properties options) {
         typeNamingConfig = getDefault(options, "naming-rules-type", "TYPENAME");
+        mpSchemaNamingConfig = getDefault(options, "naming-rules-mp-schema", "TYPENAME");
         typeConflictRenamingConfig = getDefault(options, "naming-rules-type-conflict-renaming", "APPEND/X/");
         entityNamingConfig = getDefault(options, "naming-rules-entity", "LITERAL/dto/");
         propertyNamingConfig = getDefault(options, "naming-rules-property", "PROPERTYNAME");
@@ -119,6 +122,11 @@ public class NamingOpts {
     /** {@return the naming configuration for types} */
     public String getTypeNaming() {
         return typeNamingConfig;
+    }
+
+    /** {@return the naming configuration for MP schema name} */
+    public String getMpSchemaNaming() {
+        return mpSchemaNamingConfig;
     }
 
     private String getDefault(Properties opts, String name, String defaultValue) {

@@ -16,8 +16,8 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  * an enum
  */
 @JsonbTypeAdapter(mada.tests.e2e.opts.generator.schema_naming.dto.EnumDescription.EnumDescriptionAdapter.class)
-@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Schema(name = "MostValuedEnum", description = "an enum")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum EnumDescription {
   VALUE_A("VALUE_A"),
   VALUE_B("VALUE_B"),

@@ -357,6 +357,7 @@ public final class TypeConverter {
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
         String modelName = naming.convertTypeName(dtoName);
+        String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
         ParserTypeRef dtoType = toReference(schema);
 
@@ -378,6 +379,7 @@ public final class TypeConverter {
         }
 
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))
+                .mpSchemaName(mpSchemaName)
                 .description(schema.getDescription())
                 .reference(dtoType)
                 .properties(props)

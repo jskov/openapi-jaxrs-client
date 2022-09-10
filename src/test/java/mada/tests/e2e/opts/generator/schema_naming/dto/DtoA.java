@@ -10,7 +10,6 @@ import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
-
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
@@ -21,8 +20,8 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
   DtoA.JSON_PROPERTY_REF_B,
   DtoA.JSON_PROPERTY_REF_E
 })
-@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Schema(name = "FullNameA")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class DtoA {
   public static final String JSON_PROPERTY_MEMBER_A = "memberA";
   @JsonbProperty(JSON_PROPERTY_MEMBER_A)
