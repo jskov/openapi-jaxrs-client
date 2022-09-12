@@ -269,21 +269,7 @@ public class DtoGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        Stream<String> serializableInterface;
-        if (opts.isUseSerializable()) {
-            serializableInterface = Stream.of("Serializable");
-            dtoImports.add(JavaIo.IO_SERIALIZABLE);
-        } else {
-            serializableInterface = Stream.of();
-        }
-        Stream<String> dtoInterfaces = dto.implementsInterfaces().stream()
-                .map(ti -> ti.typeName().name());
-        String implementsInterfaces = Stream.concat(serializableInterface, dtoInterfaces)
-                .sorted()
-                .collect(joining(", "));
-        if (implementsInterfaces.isEmpty()) {
-            implementsInterfaces = null;
-        }
+        String implementsInterfaces = defineInterfaces(dto, dtoImports);
 
         SubtypeSelector subtypeSelector = dto.subtypeSelector();
         CtxDtoDiscriminator discriminator = null;
@@ -341,6 +327,25 @@ public class DtoGenerator {
                 .discriminator(discriminator)
 
                 .build();
+    }
+
+    private String defineInterfaces(Dto dto, Imports dtoImports) {
+        Stream<String> serializableInterface;
+        if (opts.isUseSerializable()) {
+            serializableInterface = Stream.of("Serializable");
+            dtoImports.add(JavaIo.IO_SERIALIZABLE);
+        } else {
+            serializableInterface = Stream.of();
+        }
+        Stream<String> dtoInterfaces = dto.implementsInterfaces().stream()
+                .map(ti -> ti.typeName().name());
+        String implementsInterfaces = Stream.concat(serializableInterface, dtoInterfaces)
+                .sorted()
+                .collect(joining(", "));
+        if (implementsInterfaces.isEmpty()) {
+            implementsInterfaces = null;
+        }
+        return implementsInterfaces;
     }
 
     /**
