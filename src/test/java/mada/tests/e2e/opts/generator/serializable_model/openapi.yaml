@@ -1,0 +1,199 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /api/params/body/boolean-primitive:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/boolean-wrapper:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/date:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              format: date
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/date-time:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              format: date-time
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/list:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/list-simple:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Simple'
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/mixed/{in-path}:
+    get:
+      tags:
+      - Params Body
+      parameters:
+      - name: in-path
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: query
+        in: query
+        schema:
+          type: string
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Simple'
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/simple:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Simple'
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/time:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocalTime'
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    LocalTime:
+      format: local-time
+      type: string
+      externalDocs:
+        description: As defined by 'partial-time' in RFC3339
+        url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+      example: 13:45.30.123456789
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
