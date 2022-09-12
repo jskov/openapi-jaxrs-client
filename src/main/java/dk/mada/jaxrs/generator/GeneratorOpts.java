@@ -292,6 +292,11 @@ public final class GeneratorOpts {
         return bool("generator-use-bean-validation", true);
     }
 
+    /** {@return true if DTOs should be marked with Serializable, otherwise false} */
+    public boolean isUseSerializable() {
+        return bool("generator-use-serializable", false);
+    }
+
     /** {@return true if BigDecimal should be used for double, otherwise use Double} */
     public boolean isUseBigDecimalForDouble() {
         return bool("generator-use-bigdecimal-for-double");

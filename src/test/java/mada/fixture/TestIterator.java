@@ -47,7 +47,7 @@ class TestIterator {
         // Handy when working on a single test
         String testNameContains = "serializable_model";
 
-        boolean runAllTests = false;//Boolean.parseBoolean(System.getProperty("run_all_tests"));
+        boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
         Predicate<? super Path> filterByName = p ->
             runAllTests || p.toString().contains(testNameContains);

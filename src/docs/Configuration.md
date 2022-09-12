@@ -314,6 +314,27 @@ instead of OffsetDateTime.
 >
     default value: false
 
+**generator-use-generated-jdk**
+
+>Allows you to use @javax.annotation.Generated annotation instead of the JDK 9+ @javax.annotation.processing.Generated
+
+>
+    default value: true
+
+**generator-use-generated-timestamp**
+
+>Allows you to include a timestamp in the @Generated-annotation in all generated classes.
+
+>
+    default value: false
+
+**generator-use-serializable**
+
+>Allows you to mark all DTOs with Serializable.
+
+>
+    default value: false
+
 **generator-use-zoneddatetime**
 
 >date-time types are deserialized to OffsetDateTime by default, which matches the information
@@ -332,19 +353,6 @@ instead of OffsetDateTime.
 >
     default value: false
 
-**generator-use-generated-jdk**
-
->Allows you to use @javax.annotation.Generated annotation instead of the JDK 9+ @javax.annotation.processing.Generated
-
->
-    default value: true
-
-**generator-use-generated-timestamp**
-
->Allows you to include a timestamp in the @Generated-annotation in all generated classes.
-
->
-    default value: false
 
 ## Naming options
 
