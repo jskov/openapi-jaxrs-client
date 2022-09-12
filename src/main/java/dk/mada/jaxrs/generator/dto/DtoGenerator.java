@@ -7,6 +7,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -28,6 +29,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.Jackson;
+import dk.mada.jaxrs.generator.imports.JavaIo;
 import dk.mada.jaxrs.generator.imports.JavaMath;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
@@ -267,12 +269,7 @@ public class DtoGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        String implementsInterfaces = dto.implementsInterfaces().stream()
-            .map(ti -> ti.typeName().name())
-            .collect(joining(", "));
-        if (implementsInterfaces.isEmpty()) {
-            implementsInterfaces = null;
-        }
+        String implementsInterfaces = defineInterfaces(dto, dtoImports);
 
         SubtypeSelector subtypeSelector = dto.subtypeSelector();
         CtxDtoDiscriminator discriminator = null;
@@ -330,6 +327,25 @@ public class DtoGenerator {
                 .discriminator(discriminator)
 
                 .build();
+    }
+
+    private String defineInterfaces(Dto dto, Imports dtoImports) {
+        Stream<String> serializableInterface;
+        if (opts.isUseSerializable()) {
+            serializableInterface = Stream.of("Serializable");
+            dtoImports.add(JavaIo.IO_SERIALIZABLE);
+        } else {
+            serializableInterface = Stream.of();
+        }
+        Stream<String> dtoInterfaces = dto.implementsInterfaces().stream()
+                .map(ti -> ti.typeName().name());
+        String implementsInterfaces = Stream.concat(serializableInterface, dtoInterfaces)
+                .sorted()
+                .collect(joining(", "));
+        if (implementsInterfaces.isEmpty()) {
+            implementsInterfaces = null;
+        }
+        return implementsInterfaces;
     }
 
     /**
