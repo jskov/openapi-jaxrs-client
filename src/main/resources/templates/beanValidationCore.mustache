@@ -5,4 +5,4 @@ minLength set, maxLength not
 }}{{#minLength}}{{^maxLength}}@Size(min = {{minLength}}) {{/maxLength}}{{/minLength}}{{!
 minLength not set, maxLength set
 }}{{^minLength}}{{#maxLength}}@Size(max = {{.}}) {{/maxLength}}{{/minLength}}{{!
-}}{{#minimum}}@Min({{.}}) {{/minimum}}{{#maximum}}@Max({{.}}) {{/maximum}}
+}}{{#minimum}}@Min({{.}}) {{/minimum}}{{#decimalMinimum}}@DecimalMin({{{.}}}) {{/decimalMinimum}}{{#maximum}}@Max({{.}}) {{/maximum}}{{#decimalMaximum}}@DecimalMax({{{.}}}) {{/decimalMaximum}}

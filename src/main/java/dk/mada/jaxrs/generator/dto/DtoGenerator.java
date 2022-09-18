@@ -534,6 +534,8 @@ public class DtoGenerator {
         String maxLength = null;
         String minimum = null;
         String maximum = null;
+        String decimalMinimum = null;
+        String decimalMaximum = null;
         String pattern = null;
         if (useBeanValidation) {
             if (p.isRequired()) {
@@ -556,12 +558,22 @@ public class DtoGenerator {
             }
 
             if (p.minimum() != null) {
-                minimum = p.minimum().toString();
-                dtoImports.add(ValidationApi.MIN);
+                if (propType.isBigDecimal()) {
+                    dtoImports.add(ValidationApi.DECIMAL_MIN);
+                    decimalMinimum = "\"" + p.minimum().toString() + "\"";
+                } else {
+                    dtoImports.add(ValidationApi.MIN);
+                    minimum = Long.toString(p.minimum().longValue());
+                }
             }
             if (p.maximum() != null) {
-                maximum = p.maximum().toString();
-                dtoImports.add(ValidationApi.MAX);
+                if (propType.isBigDecimal()) {
+                    dtoImports.add(ValidationApi.DECIMAL_MAX);
+                    decimalMaximum = "\"" + p.maximum().toString() + "\"";
+                } else {
+                    dtoImports.add(ValidationApi.MAX);
+                    maximum = Long.toString(p.maximum().longValue());
+                }
             }
 
             if (p.pattern() != null) {
@@ -610,6 +622,8 @@ public class DtoGenerator {
                 .maxLength(maxLength)
                 .minimum(minimum)
                 .maximum(maximum)
+                .decimalMinimum(decimalMinimum)
+                .decimalMaximum(decimalMaximum)
                 .pattern(pattern)
                 .madaProp(mada)
                 .build();

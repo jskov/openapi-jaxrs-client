@@ -1,0 +1,61 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "Some title Api"
+    },
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/Test/Calc": {
+            "post": {
+                "summary": "TBD.",
+                "description": "NA",
+                "operationId": "Calcit",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml",
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Request": {
+            "description": "x",
+            "type": "object",
+            "properties": {
+                "Taxation": {
+                    "format": "int32",
+                    "maximum": 999,
+                    "minimum": 100,
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

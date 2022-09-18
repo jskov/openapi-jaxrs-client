@@ -4,13 +4,13 @@
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.opts.generator.bigdecimal_double.dto;
+package mada.tests.e2e.opts.generator.bigdecimal_double.jackson.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.math.BigDecimal;
 import java.util.Objects;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 /**
  * Primitives

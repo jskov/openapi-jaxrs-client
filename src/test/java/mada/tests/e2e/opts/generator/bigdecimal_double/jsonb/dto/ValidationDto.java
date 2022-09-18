@@ -1,12 +1,10 @@
 /*
- * openapi API Title
- * openapi API description
+ * openapi-examples API
  *
- * The version of the OpenAPI document: openapi API Version
- * Contact: openapi API contact email
+ * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.dto.validation.example.dto;
+package mada.tests.e2e.opts.generator.bigdecimal_double.jsonb.dto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -148,6 +146,11 @@ public class ValidationDto {
     return this;
   }
 
+  public ValidationDto aBigDouble(BigDecimal aBigDouble) {
+    this.aBigDouble = aBigDouble == null ? null : aBigDouble.doubleValue();
+    return this;
+  }
+
   /**
    * With a &quot;quoted&quot; description.
    * minimum: 0
@@ -156,12 +159,20 @@ public class ValidationDto {
    * @return aBigDouble
    **/
   @Min(0) @Max(99999999)
-  public Double getABigDouble() {
+  public Double getABigDoubleDouble() {
     return aBigDouble;
   }
 
-  public void setABigDouble(Double aBigDouble) {
+  public BigDecimal getABigDouble() {
+    return aBigDouble == null ? null : new BigDecimal(aBigDouble);
+  }
+
+  public void setABigDoubleDouble(Double aBigDouble) {
     this.aBigDouble = aBigDouble;
+  }
+
+  public void setABigDouble(BigDecimal aBigDouble) {
+    this.aBigDouble = aBigDouble == null ? null : aBigDouble.doubleValue();
   }
 
   public ValidationDto aBigFloat(Float aBigFloat) {

@@ -1,22 +1,20 @@
 ---
 openapi: 3.0.3
 info:
-  title: openapi API Title
-  description: openapi API description
-  termsOfService: openapi API TOS
-  contact:
-    name: openapi API contact name
-    url: openapi API contact url
-    email: openapi API contact email
-  license:
-    name: openapi API license name
-    url: openapi API license url
-  version: openapi API Version
-externalDocs:
-  description: openapi API ext docs description
-  url: openapi API ext url
-tags: []
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
 paths:
+  /dtos/primitives:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Primitives'
   /dtos/validation:
     get:
       tags:
@@ -36,11 +34,30 @@ components:
       - qa
       - production
       type: string
-    Simple:
+    Primitives:
       type: object
       properties:
         aBoolean:
           type: boolean
+        aByte:
+          format: byte
+          type: string
+        aShort:
+          type: integer
+        anInt:
+          format: int32
+          type: integer
+        aLong:
+          format: int64
+          type: integer
+        aFloat:
+          format: float
+          type: number
+        aDouble:
+          format: double
+          type: number
+        aString:
+          type: string
     ValidationDto:
       required:
       - name
@@ -96,3 +113,4 @@ components:
           type: array
           items:
             type: boolean
+          
