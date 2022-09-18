@@ -58,6 +58,12 @@ public interface CtxProperty {
     /** {@return validation maximum, or null} */
     @Nullable
     String maximum();
+    /** {@return validation decimalMinimum, or null} */
+    @Nullable
+    String decimalMinimum();
+    /** {@return validation decimalMaximum, or null} */
+    @Nullable
+    String decimalMaximum();
     /** {@return validation pattern, or null} */
     @Nullable
     String pattern();

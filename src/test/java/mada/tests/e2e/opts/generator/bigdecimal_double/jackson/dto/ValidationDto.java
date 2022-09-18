@@ -1,19 +1,18 @@
 /*
- * openapi API Title
- * openapi API description
+ * openapi-examples API
  *
- * The version of the OpenAPI document: openapi API Version
- * Contact: openapi API contact email
+ * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.dto.validation.example.dto;
+package mada.tests.e2e.opts.generator.bigdecimal_double.jackson.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -27,7 +26,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * ValidationDto
  */
-@JsonbPropertyOrder({
+@JsonPropertyOrder({
   ValidationDto.JSON_PROPERTY_NAME,
   ValidationDto.JSON_PROPERTY_INT_VALUE,
   ValidationDto.JSON_PROPERTY_BAD_PARSING_OF_RANGE,
@@ -42,47 +41,47 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ValidationDto {
   public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @Schema(required = true)
   private String name;
 
   public static final String JSON_PROPERTY_INT_VALUE = "intValue";
-  @JsonbProperty(JSON_PROPERTY_INT_VALUE)
+  @JsonProperty(JSON_PROPERTY_INT_VALUE)
   private Integer intValue;
 
   public static final String JSON_PROPERTY_BAD_PARSING_OF_RANGE = "badParsingOfRange";
-  @JsonbProperty(JSON_PROPERTY_BAD_PARSING_OF_RANGE)
+  @JsonProperty(JSON_PROPERTY_BAD_PARSING_OF_RANGE)
   private Integer badParsingOfRange;
 
   public static final String JSON_PROPERTY_A_BIG_DOUBLE = "aBigDouble";
-  @JsonbProperty(JSON_PROPERTY_A_BIG_DOUBLE)
+  @JsonProperty(JSON_PROPERTY_A_BIG_DOUBLE)
   @Schema(description = "With a \"quoted\" description")
   private Double aBigDouble;
 
   public static final String JSON_PROPERTY_A_BIG_FLOAT = "aBigFloat";
-  @JsonbProperty(JSON_PROPERTY_A_BIG_FLOAT)
+  @JsonProperty(JSON_PROPERTY_A_BIG_FLOAT)
   @Schema(description = "a float")
   private Float aBigFloat;
 
   public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";
-  @JsonbProperty(JSON_PROPERTY_A_BIG_DECIMAL)
+  @JsonProperty(JSON_PROPERTY_A_BIG_DECIMAL)
   @Schema(description = "a BigDecimal")
   private BigDecimal aBigDecimal;
 
   public static final String JSON_PROPERTY_PATTERN = "pattern";
-  @JsonbProperty(JSON_PROPERTY_PATTERN)
+  @JsonProperty(JSON_PROPERTY_PATTERN)
   private String pattern;
 
   public static final String JSON_PROPERTY_PATTERN_DIGITS = "patternDigits";
-  @JsonbProperty(JSON_PROPERTY_PATTERN_DIGITS)
+  @JsonProperty(JSON_PROPERTY_PATTERN_DIGITS)
   private String patternDigits;
 
   public static final String JSON_PROPERTY_VALID_OBJECTS = "validObjects";
-  @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
+  @JsonProperty(JSON_PROPERTY_VALID_OBJECTS)
   private List<Environment> validObjects = null;
 
   public static final String JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE = "primitivesShouldNotHaveValidate";
-  @JsonbProperty(JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE)
+  @JsonProperty(JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE)
   private List<Boolean> primitivesShouldNotHaveValidate = null;
 
   public ValidationDto name(String name) {
@@ -148,6 +147,11 @@ public class ValidationDto {
     return this;
   }
 
+  public ValidationDto aBigDouble(BigDecimal aBigDouble) {
+    this.aBigDouble = aBigDouble == null ? null : aBigDouble.doubleValue();
+    return this;
+  }
+
   /**
    * With a &quot;quoted&quot; description.
    * minimum: 0
@@ -156,12 +160,22 @@ public class ValidationDto {
    * @return aBigDouble
    **/
   @Min(0) @Max(99999999)
-  public Double getABigDouble() {
+  public Double getABigDoubleDouble() {
     return aBigDouble;
   }
 
-  public void setABigDouble(Double aBigDouble) {
+  @JsonIgnore
+  public BigDecimal getABigDouble() {
+    return aBigDouble == null ? null : new BigDecimal(aBigDouble);
+  }
+
+  public void setABigDoubleDouble(Double aBigDouble) {
     this.aBigDouble = aBigDouble;
+  }
+
+  @JsonIgnore
+  public void setABigDouble(BigDecimal aBigDouble) {
+    this.aBigDouble = aBigDouble == null ? null : aBigDouble.doubleValue();
   }
 
   public ValidationDto aBigFloat(Float aBigFloat) {

@@ -6,6 +6,10 @@ import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
  * Validation import paths.
  */
 public enum ValidationApi implements TypedImport {
+    /** DecimalMax. */
+    DECIMAL_MAX("javax.validation.constraints.DecimalMax"),
+    /** Min. */
+    DECIMAL_MIN("javax.validation.constraints.DecimalMin"),
     /** Max. */
     MAX("javax.validation.constraints.Max"),
     /** Min. */

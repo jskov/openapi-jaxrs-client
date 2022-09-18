@@ -133,9 +133,15 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
   {{#minimum}}
    * minimum: {{.}}
   {{/minimum}}
+  {{#decimalMinimum}}
+   * minimum: {{{.}}}
+  {{/decimalMinimum}}
   {{#maximum}}
    * maximum: {{.}}
   {{/maximum}}
+  {{#decimalMaximum}}
+   * maximum: {{{.}}}
+  {{/decimalMaximum}}
 {{#madaProp.renderJavadocMacroSpacer}}
    *
 {{/madaProp.renderJavadocMacroSpacer}}
@@ -187,7 +193,9 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
   }
   {{#madaProp.isUseBigDecimalForDouble}}
 
+  {{#jackson}}
   @JsonIgnore
+  {{/jackson}}
   public void {{madaProp.setter}}(BigDecimal {{name}}) {
     {{#required}}
     this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
