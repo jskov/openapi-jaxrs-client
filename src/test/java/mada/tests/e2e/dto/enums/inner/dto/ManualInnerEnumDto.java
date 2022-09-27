@@ -13,6 +13,8 @@ import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.annotation.JsonbTypeAdapter;
+
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
@@ -77,6 +79,7 @@ public class ManualInnerEnumDto {
   @Schema(description = "This selects transport form.\nEMAIL = this is an email\nSMS : this is an SMS")
   private StringTypeEnum stringType;
 
+  @Schema(enumeration = {"1", "2"}, type = SchemaType.INTEGER, format = "int32")
   public enum NumberTypeEnum {
     NUMBER_1(1),
     NUMBER_2(2);

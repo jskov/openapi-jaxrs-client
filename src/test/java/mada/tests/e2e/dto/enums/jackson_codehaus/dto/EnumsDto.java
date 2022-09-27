@@ -12,6 +12,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.annotate.JsonValue;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * EnumsDto
@@ -29,6 +30,7 @@ import org.codehaus.jackson.annotate.JsonValue;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
+  @Schema(enumeration = {"O", "M", "nexT"})
   public enum PropertyEnumStringEnum {
     O("O"),
     M("M"),
