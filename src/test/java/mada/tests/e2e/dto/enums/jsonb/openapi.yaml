@@ -24,11 +24,20 @@ components:
           enum:
           - O
           - M
+          - nexT
           type: string
         inner:
           $ref: '#/components/schemas/InnerEnum'
+        lower:
+          $ref: '#/components/schemas/InnerLowerEnum'
+        mixed:
+          $ref: '#/components/schemas/InnerMixedEnum'
         external:
           $ref: '#/components/schemas/ExternalEnum'
+        externalLower:
+          $ref: '#/components/schemas/ExternalLowerEnum'
+        externalMixed:
+          $ref: '#/components/schemas/ExternalMixedEnum'
         integerEnum:
           $ref: '#/components/schemas/IntEnum'
         stringIntegerEnum:
@@ -38,10 +47,30 @@ components:
       - E
       - F
       type: string
+    ExternalLowerEnum:
+      enum:
+      - low_ext_a
+      - low_ext_b
+      type: string
+    ExternalMixedEnum:
+      enum:
+      - low_EXT_a
+      - low_ext_B
+      type: string
     InnerEnum:
       enum:
       - I
       - J
+      type: string
+    InnerLowerEnum:
+      enum:
+      - lower_a
+      - lower_b
+      type: string
+    InnerMixedEnum:
+      enum:
+      - MIXED_a
+      - mixed_B
       type: string
     IntEnum:
       format: int32
