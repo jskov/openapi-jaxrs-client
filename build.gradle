@@ -116,7 +116,7 @@ javadoc {
 test {
     useJUnitPlatform()
 
-    systemProperty("run_all_tests", "false")
+    systemProperty("run_all_tests", "true")
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 

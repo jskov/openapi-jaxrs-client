@@ -45,7 +45,7 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-        String testNameContains = "dto/enums";
+        String testNameContains = "";
 //        String testNameContains = "generator/bigde";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
