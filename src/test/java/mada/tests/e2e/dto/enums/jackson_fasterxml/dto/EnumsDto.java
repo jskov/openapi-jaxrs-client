@@ -19,7 +19,11 @@ import javax.validation.Valid;
 @JsonPropertyOrder({
   EnumsDto.JSON_PROPERTY_PROPERTY_ENUM_STRING,
   EnumsDto.JSON_PROPERTY_INNER,
+  EnumsDto.JSON_PROPERTY_LOWER,
+  EnumsDto.JSON_PROPERTY_MIXED,
   EnumsDto.JSON_PROPERTY_EXTERNAL,
+  EnumsDto.JSON_PROPERTY_EXTERNAL_LOWER,
+  EnumsDto.JSON_PROPERTY_EXTERNAL_MIXED,
   EnumsDto.JSON_PROPERTY_INTEGER_ENUM,
   EnumsDto.JSON_PROPERTY_STRING_INTEGER_ENUM
 })
@@ -27,7 +31,8 @@ import javax.validation.Valid;
 public class EnumsDto {
   public enum PropertyEnumStringEnum {
     O("O"),
-    M("M");
+    M("M"),
+    NEXT("nexT");
 
     private final String value;
 
@@ -64,9 +69,25 @@ public class EnumsDto {
   @JsonProperty(JSON_PROPERTY_INNER)
   private InnerEnum inner;
 
+  public static final String JSON_PROPERTY_LOWER = "lower";
+  @JsonProperty(JSON_PROPERTY_LOWER)
+  private InnerLowerEnum lower;
+
+  public static final String JSON_PROPERTY_MIXED = "mixed";
+  @JsonProperty(JSON_PROPERTY_MIXED)
+  private InnerMixedEnum mixed;
+
   public static final String JSON_PROPERTY_EXTERNAL = "external";
   @JsonProperty(JSON_PROPERTY_EXTERNAL)
   private ExternalEnum external;
+
+  public static final String JSON_PROPERTY_EXTERNAL_LOWER = "externalLower";
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_LOWER)
+  private ExternalLowerEnum externalLower;
+
+  public static final String JSON_PROPERTY_EXTERNAL_MIXED = "externalMixed";
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_MIXED)
+  private ExternalMixedEnum externalMixed;
 
   public static final String JSON_PROPERTY_INTEGER_ENUM = "integerEnum";
   @JsonProperty(JSON_PROPERTY_INTEGER_ENUM)
@@ -111,6 +132,42 @@ public class EnumsDto {
     this.inner = inner;
   }
 
+  public EnumsDto lower(InnerLowerEnum lower) {
+    this.lower = lower;
+    return this;
+  }
+
+  /**
+   * Get lower
+   * @return lower
+   **/
+  @Valid
+  public InnerLowerEnum getLower() {
+    return lower;
+  }
+
+  public void setLower(InnerLowerEnum lower) {
+    this.lower = lower;
+  }
+
+  public EnumsDto mixed(InnerMixedEnum mixed) {
+    this.mixed = mixed;
+    return this;
+  }
+
+  /**
+   * Get mixed
+   * @return mixed
+   **/
+  @Valid
+  public InnerMixedEnum getMixed() {
+    return mixed;
+  }
+
+  public void setMixed(InnerMixedEnum mixed) {
+    this.mixed = mixed;
+  }
+
   public EnumsDto external(ExternalEnum external) {
     this.external = external;
     return this;
@@ -127,6 +184,42 @@ public class EnumsDto {
 
   public void setExternal(ExternalEnum external) {
     this.external = external;
+  }
+
+  public EnumsDto externalLower(ExternalLowerEnum externalLower) {
+    this.externalLower = externalLower;
+    return this;
+  }
+
+  /**
+   * Get externalLower
+   * @return externalLower
+   **/
+  @Valid
+  public ExternalLowerEnum getExternalLower() {
+    return externalLower;
+  }
+
+  public void setExternalLower(ExternalLowerEnum externalLower) {
+    this.externalLower = externalLower;
+  }
+
+  public EnumsDto externalMixed(ExternalMixedEnum externalMixed) {
+    this.externalMixed = externalMixed;
+    return this;
+  }
+
+  /**
+   * Get externalMixed
+   * @return externalMixed
+   **/
+  @Valid
+  public ExternalMixedEnum getExternalMixed() {
+    return externalMixed;
+  }
+
+  public void setExternalMixed(ExternalMixedEnum externalMixed) {
+    this.externalMixed = externalMixed;
   }
 
   public EnumsDto integerEnum(IntEnum integerEnum) {
@@ -176,14 +269,18 @@ public class EnumsDto {
     EnumsDto other = (EnumsDto) o;
     return Objects.equals(this.propertyEnumString, other.propertyEnumString) &&
         Objects.equals(this.inner, other.inner) &&
+        Objects.equals(this.lower, other.lower) &&
+        Objects.equals(this.mixed, other.mixed) &&
         Objects.equals(this.external, other.external) &&
+        Objects.equals(this.externalLower, other.externalLower) &&
+        Objects.equals(this.externalMixed, other.externalMixed) &&
         Objects.equals(this.integerEnum, other.integerEnum) &&
         Objects.equals(this.stringIntegerEnum, other.stringIntegerEnum);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(propertyEnumString, inner, external, integerEnum, stringIntegerEnum);
+    return Objects.hash(propertyEnumString, inner, lower, mixed, external, externalLower, externalMixed, integerEnum, stringIntegerEnum);
   }
 
   @Override
@@ -192,7 +289,11 @@ public class EnumsDto {
     sb.append("class EnumsDto {");
     sb.append("\n    propertyEnumString: ").append(toIndentedString(propertyEnumString));
     sb.append("\n    inner: ").append(toIndentedString(inner));
+    sb.append("\n    lower: ").append(toIndentedString(lower));
+    sb.append("\n    mixed: ").append(toIndentedString(mixed));
     sb.append("\n    external: ").append(toIndentedString(external));
+    sb.append("\n    externalLower: ").append(toIndentedString(externalLower));
+    sb.append("\n    externalMixed: ").append(toIndentedString(externalMixed));
     sb.append("\n    integerEnum: ").append(toIndentedString(integerEnum));
     sb.append("\n    stringIntegerEnum: ").append(toIndentedString(stringIntegerEnum));
     sb.append("\n}");
