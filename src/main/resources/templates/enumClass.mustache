@@ -3,6 +3,9 @@
    * {{description}}
    */
 {{/description}}
+  {{#madaProp.enumSchemaOptions}}
+  @Schema({{{madaProp.enumSchemaOptions}}})
+  {{/madaProp.enumSchemaOptions}}
   public enum {{{madaProp.enumClassName}}} {
         {{#allowableValues}}
             {{#enumVars}}

@@ -40,6 +40,10 @@ public interface CtxPropertyExt {
     @Nullable
     String enumTypeName();
 
+    /** {@return the schema options for an inline enumeration type, or null} */
+    @Nullable
+    String enumSchemaOptions();
+
     /** {@return the schema options (for use in @Schema), or null} */
     @Nullable
     String schemaOptions();
