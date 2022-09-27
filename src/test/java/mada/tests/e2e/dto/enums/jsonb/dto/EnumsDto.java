@@ -14,6 +14,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.validation.Valid;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * EnumsDto
@@ -31,6 +32,7 @@ import javax.validation.Valid;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
+  @Schema(enumeration = {"O", "M", "nexT"})
   public enum PropertyEnumStringEnum {
     O("O"),
     M("M"),
