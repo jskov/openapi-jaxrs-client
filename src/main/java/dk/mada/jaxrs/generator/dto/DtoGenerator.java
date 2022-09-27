@@ -461,12 +461,13 @@ public class DtoGenerator {
 
         if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
             isEnum = true;
-            enumTypeName = te.innerType().typeName().name();
+            Type enumType = te.innerType();
+            enumTypeName = enumType.typeName().name();
             enumClassName = te.typeName().name();
-            ctxEnum = buildEnumEntries(te.innerType(), te.values());
+            ctxEnum = buildEnumEntries(enumType, te.values());
             dtoImports.addEnumImports(!isContainer);
 
-            enumSchema = buildEnumSchema(dtoImports, innerType, ctxEnum);
+            enumSchema = buildEnumSchema(dtoImports, enumType, ctxEnum);
 
             logger.debug(" enum {} : {}", innerTypeName, te.values());
         }
