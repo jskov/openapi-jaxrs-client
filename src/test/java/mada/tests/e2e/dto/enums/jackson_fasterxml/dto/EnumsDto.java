@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 import javax.validation.Valid;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * EnumsDto
@@ -29,6 +31,7 @@ import javax.validation.Valid;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
+  @Schema(enumeration = {"O", "M", "nexT"}, type = SchemaType.STRING)
   public enum PropertyEnumStringEnum {
     O("O"),
     M("M"),
