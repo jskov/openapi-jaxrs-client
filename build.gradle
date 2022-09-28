@@ -36,7 +36,7 @@ dependencies {
     apt                 'org.immutables:value:2.9.2'
     compileOnly         'org.immutables:value:2.9.2:annotations'
 
-    implementation      'org.slf4j:slf4j-jdk14:2.0.2'
+    implementation      'org.slf4j:slf4j-jdk14:2.0.3'
 
     testImplementation  platform("org.junit:junit-bom:$junitVersion")
     testImplementation  'org.junit.jupiter:junit-jupiter'
