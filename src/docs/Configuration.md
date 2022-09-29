@@ -207,6 +207,14 @@ The options are grouped into three sections:
 >
     default value: ISO_LOCAL_DATE_TIME
 
+**generator-jakarta**
+
+>Use `jakarta.` package instead of `javax.` package.
+
+>
+    default value: false
+
+
 **generator-jsonb**
 
 >Use jsonb annotations in generated classes.
