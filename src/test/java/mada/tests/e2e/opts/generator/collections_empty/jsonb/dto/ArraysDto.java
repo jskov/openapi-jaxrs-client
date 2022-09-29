@@ -298,6 +298,7 @@ public class ArraysDto {
     return refs;
   }
 
+  @Valid
   public List<Simple> getRefs() {
     if (this.refs == null) {
       this.refs = new ArrayList<>();
