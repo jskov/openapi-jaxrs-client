@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -156,6 +157,7 @@ public class MapsDto {
    * Get booleans
    * @return booleans
    **/
+  @JsonIgnore
   public Map<String, Boolean> getBooleansNullable() {
     return booleans;
   }
@@ -188,6 +190,7 @@ public class MapsDto {
    * Get bytes
    * @return bytes
    **/
+  @JsonIgnore
   public Map<String, Byte> getBytesNullable() {
     return bytes;
   }
@@ -220,6 +223,7 @@ public class MapsDto {
    * Get shorts
    * @return shorts
    **/
+  @JsonIgnore
   public Map<String, Short> getShortsNullable() {
     return shorts;
   }
@@ -252,6 +256,7 @@ public class MapsDto {
    * Get ints
    * @return ints
    **/
+  @JsonIgnore
   public Map<String, Integer> getIntsNullable() {
     return ints;
   }
@@ -284,6 +289,7 @@ public class MapsDto {
    * Get longs
    * @return longs
    **/
+  @JsonIgnore
   public Map<String, Long> getLongsNullable() {
     return longs;
   }
@@ -316,6 +322,7 @@ public class MapsDto {
    * Get strings
    * @return strings
    **/
+  @JsonIgnore
   public Map<String, String> getStringsNullable() {
     return strings;
   }
@@ -349,10 +356,12 @@ public class MapsDto {
    * @return refs
    **/
   @Valid
+  @JsonIgnore
   public Map<String, Simple> getRefsNullable() {
     return refs;
   }
 
+  @Valid
   public Map<String, Simple> getRefs() {
     if (this.refs == null) {
       this.refs = new HashMap<>();
@@ -542,6 +551,7 @@ public class MapsDto {
    * Get bothBooleans
    * @return bothBooleans
    **/
+  @JsonIgnore
   public Map<String, Boolean> getBothBooleansNullable() {
     return bothBooleans;
   }
@@ -574,6 +584,7 @@ public class MapsDto {
    * Get bothBytes
    * @return bothBytes
    **/
+  @JsonIgnore
   public Map<String, Byte> getBothBytesNullable() {
     return bothBytes;
   }
@@ -606,6 +617,7 @@ public class MapsDto {
    * Get bothShorts
    * @return bothShorts
    **/
+  @JsonIgnore
   public Map<String, Short> getBothShortsNullable() {
     return bothShorts;
   }
@@ -638,6 +650,7 @@ public class MapsDto {
    * Get bothInts
    * @return bothInts
    **/
+  @JsonIgnore
   public Map<String, Integer> getBothIntsNullable() {
     return bothInts;
   }
@@ -670,6 +683,7 @@ public class MapsDto {
    * Get bothLongs
    * @return bothLongs
    **/
+  @JsonIgnore
   public Map<String, Long> getBothLongsNullable() {
     return bothLongs;
   }
@@ -702,6 +716,7 @@ public class MapsDto {
    * Get bothStrings
    * @return bothStrings
    **/
+  @JsonIgnore
   public Map<String, String> getBothStringsNullable() {
     return bothStrings;
   }
@@ -735,10 +750,12 @@ public class MapsDto {
    * @return bothRefs
    **/
   @Valid
+  @JsonIgnore
   public Map<String, Simple> getBothRefsNullable() {
     return bothRefs;
   }
 
+  @Valid
   public Map<String, Simple> getBothRefs() {
     if (this.bothRefs == null) {
       this.bothRefs = new HashMap<>();
@@ -767,6 +784,7 @@ public class MapsDto {
    * Get objects
    * @return objects
    **/
+  @JsonIgnore
   public Map<String, Object> getObjectsNullable() {
     return objects;
   }

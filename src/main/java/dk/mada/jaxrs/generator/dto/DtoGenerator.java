@@ -507,6 +507,7 @@ public class DtoGenerator {
                 && isContainer
                 && !isRequired;
         if (isUseEmptyCollections) {
+            dtoImports.add(Jackson.JSON_IGNORE);
             getter = getter + "Nullable";
         }
 

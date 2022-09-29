@@ -158,6 +158,11 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
   {{#useBeanValidation}}
   {{> beanValidation}}@TRIM_EMPTY_LINE@
   {{/useBeanValidation}}
+  {{#madaProp.isUseEmptyCollections}}
+   {{#jackson}}
+  @JsonIgnore
+   {{/jackson}}
+  {{/madaProp.isUseEmptyCollections}}
   public {{{datatypeWithEnum}}} {{getter}}() {
     return {{name}};
   }
@@ -172,6 +177,9 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
   {{/madaProp.isUseBigDecimalForDouble}}
   {{#madaProp.isUseEmptyCollections}}
 
+  {{#useBeanValidation}}
+  {{> beanValidation}}@TRIM_EMPTY_LINE@
+  {{/useBeanValidation}}
   public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};

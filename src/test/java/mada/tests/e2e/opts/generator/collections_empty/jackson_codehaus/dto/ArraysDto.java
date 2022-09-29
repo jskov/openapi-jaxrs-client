@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -116,6 +117,7 @@ public class ArraysDto {
    * Get booleans
    * @return booleans
    **/
+  @JsonIgnore
   public List<Boolean> getBooleansNullable() {
     return booleans;
   }
@@ -165,6 +167,7 @@ public class ArraysDto {
    * Get shorts
    * @return shorts
    **/
+  @JsonIgnore
   public List<Short> getShortsNullable() {
     return shorts;
   }
@@ -197,6 +200,7 @@ public class ArraysDto {
    * Get ints
    * @return ints
    **/
+  @JsonIgnore
   public List<Integer> getIntsNullable() {
     return ints;
   }
@@ -229,6 +233,7 @@ public class ArraysDto {
    * Get longs
    * @return longs
    **/
+  @JsonIgnore
   public List<Long> getLongsNullable() {
     return longs;
   }
@@ -261,6 +266,7 @@ public class ArraysDto {
    * Get strings
    * @return strings
    **/
+  @JsonIgnore
   public List<String> getStringsNullable() {
     return strings;
   }
@@ -294,10 +300,12 @@ public class ArraysDto {
    * @return refs
    **/
   @Valid
+  @JsonIgnore
   public List<Simple> getRefsNullable() {
     return refs;
   }
 
+  @Valid
   public List<Simple> getRefs() {
     if (this.refs == null) {
       this.refs = new ArrayList<>();
