@@ -353,6 +353,7 @@ public class MapsDto {
     return refs;
   }
 
+  @Valid
   public Map<String, Simple> getRefs() {
     if (this.refs == null) {
       this.refs = new HashMap<>();
@@ -739,6 +740,7 @@ public class MapsDto {
     return bothRefs;
   }
 
+  @Valid
   public Map<String, Simple> getBothRefs() {
     if (this.bothRefs == null) {
       this.bothRefs = new HashMap<>();
