@@ -4,7 +4,7 @@
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.opts.generator.collections_empty.dto;
+package mada.tests.e2e.opts.generator.collections_empty.jackson_codehaus.dto;
 
 import java.util.ArrayList;
 import java.util.List;

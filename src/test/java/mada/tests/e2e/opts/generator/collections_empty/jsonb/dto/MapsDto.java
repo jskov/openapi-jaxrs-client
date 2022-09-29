@@ -4,21 +4,21 @@
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.opts.generator.collections_empty.dto;
+package mada.tests.e2e.opts.generator.collections_empty.jsonb.dto;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * MapsDto
  */
-@JsonPropertyOrder({
+@JsonbPropertyOrder({
   MapsDto.JSON_PROPERTY_BOOLEANS,
   MapsDto.JSON_PROPERTY_BYTES,
   MapsDto.JSON_PROPERTY_SHORTS,
@@ -45,98 +45,98 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MapsDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
-  @JsonProperty(JSON_PROPERTY_BOOLEANS)
+  @JsonbProperty(JSON_PROPERTY_BOOLEANS)
   private Map<String, Boolean> booleans = null;
 
   public static final String JSON_PROPERTY_BYTES = "bytes";
-  @JsonProperty(JSON_PROPERTY_BYTES)
+  @JsonbProperty(JSON_PROPERTY_BYTES)
   private Map<String, Byte> bytes = null;
 
   public static final String JSON_PROPERTY_SHORTS = "shorts";
-  @JsonProperty(JSON_PROPERTY_SHORTS)
+  @JsonbProperty(JSON_PROPERTY_SHORTS)
   private Map<String, Short> shorts = null;
 
   public static final String JSON_PROPERTY_INTS = "ints";
-  @JsonProperty(JSON_PROPERTY_INTS)
+  @JsonbProperty(JSON_PROPERTY_INTS)
   private Map<String, Integer> ints = null;
 
   public static final String JSON_PROPERTY_LONGS = "longs";
-  @JsonProperty(JSON_PROPERTY_LONGS)
+  @JsonbProperty(JSON_PROPERTY_LONGS)
   private Map<String, Long> longs = null;
 
   public static final String JSON_PROPERTY_STRINGS = "strings";
-  @JsonProperty(JSON_PROPERTY_STRINGS)
+  @JsonbProperty(JSON_PROPERTY_STRINGS)
   private Map<String, String> strings = null;
 
   public static final String JSON_PROPERTY_REFS = "refs";
-  @JsonProperty(JSON_PROPERTY_REFS)
+  @JsonbProperty(JSON_PROPERTY_REFS)
   private Map<String, Simple> refs = null;
 
   public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
-  @JsonProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
   @Schema(required = true)
   private Map<String, Boolean> requiredBooleans = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
-  @JsonProperty(JSON_PROPERTY_REQUIRED_BYTES)
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_BYTES)
   @Schema(required = true)
   private Map<String, Byte> requiredBytes = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
-  @JsonProperty(JSON_PROPERTY_REQUIRED_SHORTS)
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
   @Schema(required = true)
   private Map<String, Short> requiredShorts = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
-  @JsonProperty(JSON_PROPERTY_REQUIRED_INTS)
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
   @Schema(required = true)
   private Map<String, Integer> requiredInts = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_LONGS = "requiredLongs";
-  @JsonProperty(JSON_PROPERTY_REQUIRED_LONGS)
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_LONGS)
   @Schema(required = true)
   private Map<String, Long> requiredLongs = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
-  @JsonProperty(JSON_PROPERTY_REQUIRED_STRINGS)
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   @Schema(required = true)
   private Map<String, String> requiredStrings = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
-  @JsonProperty(JSON_PROPERTY_REQUIRED_REFS)
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
   @Schema(required = true)
   private Map<String, Simple> requiredRefs = new HashMap<>();
 
   public static final String JSON_PROPERTY_BOTH_BOOLEANS = "bothBooleans";
-  @JsonProperty(JSON_PROPERTY_BOTH_BOOLEANS)
+  @JsonbProperty(JSON_PROPERTY_BOTH_BOOLEANS)
   private Map<String, Boolean> bothBooleans = null;
 
   public static final String JSON_PROPERTY_BOTH_BYTES = "bothBytes";
-  @JsonProperty(JSON_PROPERTY_BOTH_BYTES)
+  @JsonbProperty(JSON_PROPERTY_BOTH_BYTES)
   private Map<String, Byte> bothBytes = null;
 
   public static final String JSON_PROPERTY_BOTH_SHORTS = "bothShorts";
-  @JsonProperty(JSON_PROPERTY_BOTH_SHORTS)
+  @JsonbProperty(JSON_PROPERTY_BOTH_SHORTS)
   private Map<String, Short> bothShorts = null;
 
   public static final String JSON_PROPERTY_BOTH_INTS = "bothInts";
-  @JsonProperty(JSON_PROPERTY_BOTH_INTS)
+  @JsonbProperty(JSON_PROPERTY_BOTH_INTS)
   private Map<String, Integer> bothInts = null;
 
   public static final String JSON_PROPERTY_BOTH_LONGS = "bothLongs";
-  @JsonProperty(JSON_PROPERTY_BOTH_LONGS)
+  @JsonbProperty(JSON_PROPERTY_BOTH_LONGS)
   private Map<String, Long> bothLongs = null;
 
   public static final String JSON_PROPERTY_BOTH_STRINGS = "bothStrings";
-  @JsonProperty(JSON_PROPERTY_BOTH_STRINGS)
+  @JsonbProperty(JSON_PROPERTY_BOTH_STRINGS)
   private Map<String, String> bothStrings = null;
 
   public static final String JSON_PROPERTY_BOTH_REFS = "bothRefs";
-  @JsonProperty(JSON_PROPERTY_BOTH_REFS)
+  @JsonbProperty(JSON_PROPERTY_BOTH_REFS)
   private Map<String, Simple> bothRefs = null;
 
   public static final String JSON_PROPERTY_OBJECTS = "objects";
-  @JsonProperty(JSON_PROPERTY_OBJECTS)
+  @JsonbProperty(JSON_PROPERTY_OBJECTS)
   private Map<String, Object> objects = null;
 
   public MapsDto booleans(Map<String, Boolean> booleans) {
