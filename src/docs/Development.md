@@ -8,6 +8,10 @@ To prepare eclipse settings to get eclipse/vscode to work with APT run this task
 
 ## Testing notes
 
+### Running subset of tests from Gradle
+
+	./gradlew -Drun_all_tests=false test --tests TestIterator
+
 ### Updating expected output
 
 In Eclipse, add build/e2e as a source folder (and exclude **/*.java) to get easy access to test output.
