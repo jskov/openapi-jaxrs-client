@@ -26,7 +26,7 @@ public final class DirectoryDeleter {
         if (!Files.exists(dir)) {
             return;
         }
-        
+
         Files.walkFileTree(dir, new FileVisitor<Path>() {
           @Override
           public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
