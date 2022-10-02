@@ -2,6 +2,7 @@ package mada.fixture;
 
 import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
 import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
+import dk.mada.jaxrs.utils.DirectoryDeleter;
 
 import java.io.IOException;
 import java.io.Reader;
