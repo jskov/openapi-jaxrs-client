@@ -15,6 +15,7 @@ import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.ParserOpts;
 import dk.mada.jaxrs.openapi.ParserTypeRefs;
+import dk.mada.jaxrs.utils.DirectoryDeleter;
 import dk.mada.logging.LoggerConfig;
 
 /**
@@ -48,30 +49,30 @@ public final class Generator implements GeneratorService {
         System.out.println(" Dest dir: " + destinationDir);
         System.out.println(" Options: " + options);
 
-        setLogLevels(clientContext.logLevel());
-        assertInputFile(openapiDocument);
-        assertDestinationDir(clientContext, destinationDir);
-
-        var typeNames = new TypeNames();
-        var parserOpts = new ParserOpts(options);
-        var generatorOpts = new GeneratorOpts(options, parserOpts);
-        var naming = new Naming(options);
-        var parserRefs = new ParserTypeRefs(typeNames);
-
-        Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
-
         try {
+            setLogLevels(clientContext.logLevel());
+            assertInputFile(openapiDocument);
+            assertDestinationDir(clientContext, destinationDir);
+
+            var typeNames = new TypeNames();
+            var parserOpts = new ParserOpts(options);
+            var generatorOpts = new GeneratorOpts(options, parserOpts);
+            var naming = new Naming(options);
+            var parserRefs = new ParserTypeRefs(typeNames);
+
+            Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
+
             Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
-            Files.createDirectories(apiDir);
 
             Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
-            Files.createDirectories(dtoDir);
 
             var templates = new Templates(apiDir, dtoDir);
             if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
+                Files.createDirectories(apiDir);
                 new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses();
             }
             if (!clientContext.skipDto()) {
+                Files.createDirectories(dtoDir);
                 new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses();
             }
         } catch (Exception e) {
@@ -83,6 +84,7 @@ public final class Generator implements GeneratorService {
         if (Files.exists(destinationDir) && !clientContext.overwrite()) {
             throw new IllegalArgumentException("Will not write to existing output directory '" + destinationDir + "'");
         }
+        DirectoryDeleter.delete(destinationDir);
     }
 
     /**
