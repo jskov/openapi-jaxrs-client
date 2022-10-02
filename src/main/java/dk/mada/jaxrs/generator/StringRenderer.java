@@ -87,7 +87,9 @@ public final class StringRenderer {
      */
     public static String encodeRegexp(String regexp) {
         String doubleHack = "@BACK_SLASHES@";
-        String out = regexp.replace("\\\\", doubleHack).replace("\\", "\\\\").replace(doubleHack, "\\\\");
-        return out;
+        return regexp
+                .replace("\\\\", doubleHack)
+                .replace("\\", "\\\\")
+                .replace(doubleHack, "\\\\");
     }
 }

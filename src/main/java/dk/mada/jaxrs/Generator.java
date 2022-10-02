@@ -43,11 +43,11 @@ public final class Generator implements GeneratorService {
 
     @Override
     public void generateClient(ClientContext clientContext, Path openapiDocument, final Properties options, Path destinationDir) {
-        System.out.println("Generate client");
-        System.out.println(" Context: " + clientContext);
-        System.out.println(" OpenApi doc: " + openapiDocument);
-        System.out.println(" Dest dir: " + destinationDir);
-        System.out.println(" Options: " + options);
+        Console.println("Generate client");
+        Console.println(" Context: " + clientContext);
+        Console.println(" OpenApi doc: " + openapiDocument);
+        Console.println(" Dest dir: " + destinationDir);
+        Console.println(" Options: " + options);
 
         try {
             setLogLevels(clientContext.logLevel());

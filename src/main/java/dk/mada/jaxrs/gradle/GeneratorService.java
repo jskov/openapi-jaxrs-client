@@ -8,8 +8,8 @@ import java.util.Properties;
 /**
  * Generator service.
  *
- * Allows decoupling the service from the two invocation
- * methods CLI and Gradle.
+ * Allows decoupling the generator service from the two
+ * ways of invoking it (from CLI and Gradle).
  */
 public interface GeneratorService {
     /** Log level to use when generating code. */
