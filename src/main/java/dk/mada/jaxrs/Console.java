@@ -3,7 +3,7 @@ package dk.mada.jaxrs;
 /**
  * Console provides textual output to the user.
  */
-public class Console {
+public final class Console {
     private Console() {
     }
 
