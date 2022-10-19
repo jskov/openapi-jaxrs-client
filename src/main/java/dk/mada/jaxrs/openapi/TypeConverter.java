@@ -172,12 +172,14 @@ public final class TypeConverter {
         }
 
         if (schema instanceof BinarySchema || schema instanceof FileSchema) {
+            logger.debug(" binary/file schema");
             boolean isBodyArgument = propertyName == null;
             TypeByteArray impl = isBodyArgument ? TypeByteArray.getStream() : TypeByteArray.getArray();
             return parserRefs.of(impl, validation);
         }
 
         if (schema instanceof MapSchema m) {
+            logger.debug(" map schema");
             Object additionalProperties = m.getAdditionalProperties();
             if (additionalProperties instanceof Schema<?> innerSchema) {
                 Type innerType = toReference(innerSchema);
@@ -186,10 +188,12 @@ public final class TypeConverter {
         }
 
         if (schema instanceof ComposedSchema cs) {
+            logger.debug(" composed schema");
             // anyOf is classes implementing an interface
             @SuppressWarnings("rawtypes")
             List<Schema> anyOf = cs.getAnyOf();
             if (anyOf != null && !anyOf.isEmpty()) {
+                logger.debug("  anyof");
                 List<ParserTypeRef> anyOfRefs = anyOf.stream()
                         .map(this::toReference)
                         .toList();
@@ -212,6 +216,23 @@ public final class TypeConverter {
                 return parserRefs.of(ti, validation);
             }
 
+            @SuppressWarnings("rawtypes")
+            List<Schema> allOf = cs.getAllOf();
+            if (allOf != null && !allOf.isEmpty()) {
+                logger.debug("  allof");
+                
+                // Note the removal of duplicates, necessary for the allof_dups test
+                List<ParserTypeRef> allOfRefs = allOf.stream()
+                        .map(this::toReference)
+                        .distinct() // remove duplicates
+                        .toList();
+
+                if (allOfRefs.size() == 1) {
+                    logger.debug("   shortcut for duplicate");
+                    return parserRefs.of(allOfRefs.get(0), validation);
+                }
+            }
+            
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
             if (typeWithValidation != null) {
@@ -407,6 +428,7 @@ public final class TypeConverter {
     }
 
     private List<Property> readProperties(Schema<?> schema, String parentDtoName) {
+        logger.debug("Read properties of schema {}/{}", parentDtoName, schema.getName());
         @SuppressWarnings("rawtypes")
         Map<String, Schema> schemaProps = schema.getProperties();
         if (schemaProps == null || schemaProps.isEmpty()) {
@@ -422,6 +444,7 @@ public final class TypeConverter {
         for (var e : schemaProps.entrySet()) {
             String propertyName = e.getKey();
             Schema<?> propSchema = e.getValue();
+            logger.debug(" - property {}", propertyName);
 
             Reference ref = reference(propSchema, propertyName, parentDtoName);
 

@@ -1,0 +1,52 @@
+---
+openapi: 3.0.3
+info:
+  title: jboss-helloworld
+  version: "1.0"
+servers:
+- url: /jboss-helloworld
+paths:
+  /services/tests:
+    get:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnvironmentVariableDTO'
+components:
+  schemas:
+    Omkostninger:
+      type: object
+      properties:
+        fgoo:
+          format: int32
+          type: integer
+    AfregningCalculationResponse:
+      type: object
+      properties:
+        Omkostninger:
+          allOf:
+          - $ref: '#/components/schemas/Omkostninger'
+          - $ref: '#/components/schemas/Omkostninger'
+    EnvironmentVariableDTO:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        Omkostninger:
+          $ref: '#/components/schemas/Omkostninger'
+        name:
+          maxLength: 300
+          minLength: 1
+          type: string
+          nullable: false
+        value:
+          maxLength: 300
+          minLength: 1
+          type: string
+          nullable: false
