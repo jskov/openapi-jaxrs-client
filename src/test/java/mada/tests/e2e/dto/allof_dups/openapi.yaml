@@ -28,39 +28,6 @@ components:
     AfregningCalculationResponse:
       type: object
       properties:
-        LaanNr:
-          format: int64
-          type: integer
-        ProduktAftaleNr:
-          format: int64
-          type: integer
-        IndfrielsesMetode:
-          type: string
-        IndfrielsesDato:
-          type: string
-        LaanRestgaeld:
-          type: number
-        OblRestgaeld:
-          type: number
-        RestgaeldsDato:
-          type: string
-        OpsigelsesDato:
-          type: string
-        OpsigelsesFrist:
-          type: string
-        Forfald:
-          type: boolean
-        IndfrielsesKurs:
-          type: number
-        IndfrielseskursType:
-          type: string
-        Kursvaerdi:
-          type: number
-        Godtgoerelsesrente:
-          type: number
-        IndfrielsesBeloeb:
-          format: double
-          type: number
         Omkostninger:
           allOf:
           - $ref: '#/components/schemas/Omkostninger'
