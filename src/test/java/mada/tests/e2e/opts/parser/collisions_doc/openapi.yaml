@@ -63,3 +63,23 @@ components:
           $ref: '#/components/schemas/Collisiona'
         upperCaseA:
           $ref: '#/components/schemas/CollisionA'
+    AftalepakkeId:
+      type: string
+    AftalePakkeId:
+      type: object
+      properties:
+        Vaerdi:
+          format: uuid
+          pattern: "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+    TilbudAftalepakkeOversigt:
+      type: object
+      properties:
+        aftalepakkeIdPartnerSalg:
+          $ref: '#/components/schemas/AftalepakkeId'
+    Aftalepakke:
+      type: object
+      properties:
+        AftalePakkeIdPartnerSalg:
+          $ref: '#/components/schemas/AftalePakkeId'
