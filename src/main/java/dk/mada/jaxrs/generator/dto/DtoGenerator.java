@@ -27,6 +27,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
+import dk.mada.jaxrs.generator.dto.tmpl.ImmutableCtxProperty;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.Jackson;
 import dk.mada.jaxrs.generator.imports.JavaIo;
@@ -602,7 +603,7 @@ public class DtoGenerator {
                 .renderJavadocMacroSpacer(description != null)
                 .build();
 
-        return CtxProperty.builder()
+        ImmutableCtxProperty prop = CtxProperty.builder()
                 .baseName(name)
                 .datatypeWithEnum(typeName)
                 .dataType(innerTypeName)
@@ -633,6 +634,9 @@ public class DtoGenerator {
                 .pattern(pattern)
                 .madaProp(mada)
                 .build();
+
+        logger.debug("property {} : {}", name, prop);
+        return prop;
     }
 
     private Type getDereferencedInnerEnumType(Type t) {

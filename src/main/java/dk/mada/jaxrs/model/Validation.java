@@ -33,6 +33,13 @@ public interface Validation {
     /** {@return true if the property is required, otherwise false} */
     boolean isRequired();
 
+    /** {@return validation minimum items, or null} */
+    @Nullable
+    Integer minItems();
+    /** {@return validation maximum items, or null} */
+    @Nullable
+    Integer maxItems();
+    /** {@return validation minimum, or null} */
     /** {@return validation minimum length, or null} */
     @Nullable
     Integer minLength();
