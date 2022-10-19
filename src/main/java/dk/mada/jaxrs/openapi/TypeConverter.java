@@ -464,6 +464,8 @@ public final class TypeConverter {
                     .isNullable(isNullable)
                     .isReadonly(isReadOnly)
                     .isRequired(requiredProperyNames.contains(propertyName))
+                    .minItems(propSchema.getMinItems())
+                    .maxItems(propSchema.getMaxItems())
                     .minLength(propSchema.getMinLength())
                     .maxLength(propSchema.getMaxLength())
                     .minimum(propSchema.getMinimum())

@@ -36,6 +36,12 @@ public interface Property {
     /** {@return true if the property is read-only, otherwise false} */
     boolean isReadonly();
 
+    /** {@return validation minimum items, or null} */
+    @Nullable
+    Integer minItems();
+    /** {@return validation maximum items, or null} */
+    @Nullable
+    Integer maxItems();
     /** {@return validation minimum length, or null} */
     @Nullable
     Integer minLength();

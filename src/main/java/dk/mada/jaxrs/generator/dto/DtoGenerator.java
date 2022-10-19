@@ -554,6 +554,15 @@ public class DtoGenerator {
                 dtoImports.add(ValidationApi.VALID);
             }
 
+            // Note that OpenApi spec xItems/xLength both map to @Size
+            if (p.minItems() != null) {
+                minLength = Integer.toString(p.minItems());
+                dtoImports.add(ValidationApi.SIZE);
+            }
+            if (p.maxItems() != null) {
+                maxLength = Integer.toString(p.maxItems());
+                dtoImports.add(ValidationApi.SIZE);
+            }
             if (p.minLength() != null) {
                 minLength = Integer.toString(p.minLength());
                 dtoImports.add(ValidationApi.SIZE);
