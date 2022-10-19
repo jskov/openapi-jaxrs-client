@@ -17,6 +17,17 @@ class NamingTest {
 
     @ParameterizedTest
     @CsvSource({
+        "Danske tegn dør, DanskeTegnDr",
+        "Brand new api, BrandNewApi"
+    })
+    void canMakeIdentifiersFromSentence(String input, String expected) {
+        Naming sut = makeSut("REGEXP/[æøåÆØÅ()]//; REGEXP/ /-/; TYPENAME-EDGE");
+        assertThat(sut.convertTypeName(input))
+            .isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "foo,        foo",
         "Fo.o,       foo",
         "3.b.a.d,    _bad",
