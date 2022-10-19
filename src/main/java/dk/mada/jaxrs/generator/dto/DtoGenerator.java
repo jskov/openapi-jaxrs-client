@@ -27,6 +27,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
+import dk.mada.jaxrs.generator.dto.tmpl.ImmutableCtxProperty;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.Jackson;
 import dk.mada.jaxrs.generator.imports.JavaIo;
@@ -553,6 +554,15 @@ public class DtoGenerator {
                 dtoImports.add(ValidationApi.VALID);
             }
 
+            // Note that OpenApi spec xItems/xLength both map to @Size
+            if (p.minItems() != null) {
+                minLength = Integer.toString(p.minItems());
+                dtoImports.add(ValidationApi.SIZE);
+            }
+            if (p.maxItems() != null) {
+                maxLength = Integer.toString(p.maxItems());
+                dtoImports.add(ValidationApi.SIZE);
+            }
             if (p.minLength() != null) {
                 minLength = Integer.toString(p.minLength());
                 dtoImports.add(ValidationApi.SIZE);
@@ -602,7 +612,7 @@ public class DtoGenerator {
                 .renderJavadocMacroSpacer(description != null)
                 .build();
 
-        return CtxProperty.builder()
+        ImmutableCtxProperty prop = CtxProperty.builder()
                 .baseName(name)
                 .datatypeWithEnum(typeName)
                 .dataType(innerTypeName)
@@ -633,6 +643,9 @@ public class DtoGenerator {
                 .pattern(pattern)
                 .madaProp(mada)
                 .build();
+
+        logger.debug("property {} : {}", name, prop);
+        return prop;
     }
 
     private Type getDereferencedInnerEnumType(Type t) {

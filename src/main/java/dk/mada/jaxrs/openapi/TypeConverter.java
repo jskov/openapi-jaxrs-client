@@ -128,6 +128,7 @@ public final class TypeConverter {
         logger.debug("ref {}", schemaRef);
 
         Validation validation = extractValidation(schema);
+        logger.debug("validation {}", validation);
 
         Type type = Primitive.find(schemaType, schemaFormat);
 
@@ -352,8 +353,10 @@ public final class TypeConverter {
                 .isReadonly(s.getReadOnly())
                 .isRequired(false)
                 .maximum(s.getMaximum())
+                .maxItems(s.getMaxItems())
                 .maxLength(s.getMaxLength())
                 .minimum(s.getMinimum())
+                .minItems(s.getMinItems())
                 .minLength(s.getMinLength())
                 .pattern(s.getPattern())
                 .build();
@@ -461,6 +464,8 @@ public final class TypeConverter {
                     .isNullable(isNullable)
                     .isReadonly(isReadOnly)
                     .isRequired(requiredProperyNames.contains(propertyName))
+                    .minItems(propSchema.getMinItems())
+                    .maxItems(propSchema.getMaxItems())
                     .minLength(propSchema.getMinLength())
                     .maxLength(propSchema.getMaxLength())
                     .minimum(propSchema.getMinimum())
