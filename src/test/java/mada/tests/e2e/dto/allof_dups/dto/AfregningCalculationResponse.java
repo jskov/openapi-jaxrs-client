@@ -9,6 +9,7 @@ package mada.tests.e2e.dto.allof_dups.dto;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.validation.Valid;
 
 /**
  * AfregningCalculationResponse
@@ -31,6 +32,7 @@ public class AfregningCalculationResponse {
    * Get omkostninger
    * @return omkostninger
    **/
+  @Valid
   public Omkostninger getOmkostninger() {
     return omkostninger;
   }
