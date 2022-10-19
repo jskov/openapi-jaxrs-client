@@ -332,7 +332,7 @@ public class DtoGenerator {
 
     private String defineInterfaces(Dto dto, Imports dtoImports) {
         Stream<String> serializableInterface;
-        if (opts.isUseSerializable()) {
+        if (opts.isUseSerializable() && !dto.isEnum()) {
             serializableInterface = Stream.of("Serializable");
             dtoImports.add(JavaIo.IO_SERIALIZABLE);
         } else {
