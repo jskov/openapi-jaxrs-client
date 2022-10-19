@@ -200,5 +200,13 @@ public final class TypeNames {
             TypeName other = (TypeName) obj;
             return Objects.equals(name, other.name);
         }
+
+        @Override
+        public String toString() {
+            return "TypeName [name=" + name
+                    + (overrideName == null
+                      ? ("]")
+                      : (", overrideName=" + overrideName + "]"));
+        }
     }
 }
