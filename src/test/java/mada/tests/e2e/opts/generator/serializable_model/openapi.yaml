@@ -197,3 +197,8 @@ components:
       properties:
         aBoolean:
           type: boolean
+    ExternalEnum:
+      enum:
+      - E
+      - F
+      type: string

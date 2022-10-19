@@ -31,8 +31,7 @@ class NamingTest {
         "foo,        foo",
         "Fo.o,       foo",
         "3.b.a.d,    _bad",
-        "tr.ue,      true_",
-        "Brand new api, BrandNewApi"
+        "tr.ue,      true_"
     })
     void canRemoveDots(String input, String expected) {
         Naming sut = makeSut("REGEXP/\\.//; PROPERTYNAME");
