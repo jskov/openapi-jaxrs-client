@@ -259,7 +259,7 @@ public class ValidationDto {
    * Get validObjects
    * @return validObjects
    **/
-  @Valid
+  @Valid @Size(min = 1, max = 4)
   public List<Environment> getValidObjects() {
     return validObjects;
   }
