@@ -39,7 +39,6 @@ public interface Validation {
     /** {@return validation maximum items, or null} */
     @Nullable
     Integer maxItems();
-    /** {@return validation minimum, or null} */
     /** {@return validation minimum length, or null} */
     @Nullable
     Integer minLength();
