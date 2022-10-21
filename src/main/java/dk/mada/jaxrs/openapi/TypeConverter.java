@@ -33,6 +33,7 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
+import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.TypeValidation;
@@ -264,8 +265,13 @@ public final class TypeConverter {
 
         if (schema instanceof ObjectSchema) {
             if (propertyName == null) {
-                logger.debug(" plain Object?");
-                return parserRefs.of(TypeObject.get(), validation);
+                if (schema.getProperties() == null || schema.getProperties().isEmpty()) {
+                    logger.info(" plain Object, no properties");
+                    return parserRefs.of(TypePlainObject.get(), validation);
+                } else {
+                    logger.info(" plain Object?");
+                    return parserRefs.of(TypeObject.get(), validation);
+                }
             }
             logger.debug(" inner-object for property {}", propertyName);
             String syntheticDtoName = parentDtoName + naming.convertTypeName(propertyName);

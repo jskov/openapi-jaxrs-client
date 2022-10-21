@@ -12,7 +12,7 @@ public final class TypeObject implements Type {
     private TypeObject() {
     }
 
-    /** {@return the type object representing a date} */
+    /** {@return the type object representing a base object} */
     public static TypeObject get() {
         return INSTANCE;
     }
