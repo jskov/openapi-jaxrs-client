@@ -264,8 +264,9 @@ public final class TypeConverter {
         }
 
         if (schema instanceof ObjectSchema) {
+            boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (propertyName == null) {
-                if (schema.getProperties() == null || schema.getProperties().isEmpty()) {
+                if (isPlainObject) {
                     logger.info(" plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), validation);
                 } else {
@@ -274,7 +275,8 @@ public final class TypeConverter {
                 }
             }
             logger.debug(" inner-object for property {}", propertyName);
-            String syntheticDtoName = parentDtoName + naming.convertTypeName(propertyName);
+            String dtoNamePrefix = isPlainObject ? "" : parentDtoName;
+            String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(propertyName);
             Dto dto = createDto(syntheticDtoName, schema);
             return parserRefs.of(dto, validation);
         }

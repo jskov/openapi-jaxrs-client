@@ -21,4 +21,9 @@ public final class TypePlainObject implements Type {
     public TypeName typeName() {
         return TypeNames.OBJECT;
     }
+
+    @Override
+    public String toString() {
+        return "TypePlainObject";
+    }
 }
