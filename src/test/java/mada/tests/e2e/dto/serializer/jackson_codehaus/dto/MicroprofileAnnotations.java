@@ -15,7 +15,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * openapi class description
+ * openapi class description.
  */
 @JsonPropertyOrder({
   MicroprofileAnnotations.JSON_PROPERTY_WITH_DESCRIPTION,

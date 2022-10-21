@@ -14,7 +14,7 @@ import javax.validation.constraints.Min;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * x
+ * x.
  */
 @JsonPropertyOrder({
   Request.JSON_PROPERTY_TAXATION

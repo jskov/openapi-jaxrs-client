@@ -308,7 +308,7 @@ public class DtoGenerator {
 
                 .imports(dtoImports.get())
 
-                .description(description)
+                .description(StringRenderer.makeValidDtoJavadocSummary(description))
                 .packageName(opts.dtoPackage())
                 .classname(dto.name())
                 .classVarName("other")
@@ -621,7 +621,7 @@ public class DtoGenerator {
                 .nameInSnakeCase(nameSnaked)
                 .getter(getter)
                 .setter(setter)
-                .description(StringRenderer.makeValidJavadocSummary(description))
+                .description(StringRenderer.makeValidPropertyJavadocSummary(description))
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isMap(isMap)
