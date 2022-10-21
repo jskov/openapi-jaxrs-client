@@ -250,7 +250,7 @@ public class ApiGenerator {
                 .httpMethod(op.httpMethod().name())
                 .allParams(allParams)
                 .responses(responses)
-                .summary(StringRenderer.makeValidJavadocSummary(summary))
+                .summary(StringRenderer.makeValidOperationJavadocSummary(summary))
                 .notes(description)
                 .madaOp(ext)
                 .build());

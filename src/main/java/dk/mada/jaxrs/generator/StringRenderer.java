@@ -15,12 +15,43 @@ public final class StringRenderer {
     }
 
     /**
-     * Make a summary valid for use in the javadoc section.
+     * Make a summary valid for use in the API summary javadoc section.
      *
      * @param textIn the text summary
      * @return a valid summary to render as javadoc, or null
      */
-    public static String makeValidJavadocSummary(String textIn) {
+    public static String makeValidOperationJavadocSummary(String textIn) {
+        return makeValidJavadocSummary(textIn, "  ");
+    }
+
+    /**
+     * Make a summary valid for use in the DTO summary javadoc section.
+     *
+     * @param textIn the text summary
+     * @return a valid summary to render as javadoc, or null
+     */
+    public static String makeValidDtoJavadocSummary(String textIn) {
+        return makeValidJavadocSummary(textIn, "");
+    }
+
+    /**
+     * Make a summary valid for use in the property javadoc section.
+     *
+     * @param textIn the text summary
+     * @return a valid summary to render as javadoc, or null
+     */
+    public static String makeValidPropertyJavadocSummary(String textIn) {
+        return makeValidJavadocSummary(textIn, "  ");
+    }
+
+    /**
+     * Make a summary valid for use in the javadoc section.
+     *
+     * @param textIn the text summary
+     * @param commentIndent the comment indentation
+     * @return a valid summary to render as javadoc, or null
+     */
+    private static String makeValidJavadocSummary(String textIn, String commentIndent) {
         if (textIn == null) {
             return null;
         }
@@ -38,8 +69,8 @@ public final class StringRenderer {
         text = text.replace("\r\n", NL);
 
         // Crude - but simple - newline handling
-        text = text.replace(NL, NL + "   * ");
-        text = text.replace(NL + "   * " + NL, NL + "   *" + NL);
+        text = text.replace(NL, NL + commentIndent + " * ");
+        text = text.replace(NL + commentIndent + " * " + NL, NL + commentIndent + " *" + NL);
 
         return text;
     }
