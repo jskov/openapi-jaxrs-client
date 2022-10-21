@@ -454,11 +454,11 @@ public class DtoGenerator {
             innerTypeName = innerType.typeName().name();
         }
 
-        String typeName = propType.wrapperTypeName().name();
+        final String typeName = propType.wrapperTypeName().name();
+        final boolean isContainer = isArray || isMap || isSet;
         String enumClassName = typeName;
         String enumTypeName = typeName;
         String enumSchema = null;
-        boolean isContainer = isArray || isMap || isSet;
 
         if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
             isEnum = true;

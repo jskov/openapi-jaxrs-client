@@ -17,6 +17,8 @@ paths:
                 $ref: '#/components/schemas/Primitives'
 components:
   schemas:
+    PlainObject:
+      type: object
     Primitives:
       type: object
       properties:
@@ -41,3 +43,7 @@ components:
           type: number
         aString:
           type: string
+        object:
+          type: object
+        plainObject:
+          $ref: '#/components/schemas/PlainObject'
