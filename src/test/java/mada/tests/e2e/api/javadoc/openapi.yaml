@@ -152,3 +152,7 @@ components:
       properties:
         aBoolean:
           type: boolean
+      description: "What is it:\r\n- with these\
+        \ weird line breaks?\r\n- just different\
+        \ YAML syntax?\r\n- maybe �\
+        ndret"
