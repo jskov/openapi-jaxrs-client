@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Make sure this appears before CollisionA in the document
+ * Make sure this appears before CollisionA in the document.
  */
 @JsonbPropertyOrder({
   CollisionaX.JSON_PROPERTY_A_BOOLEAN,

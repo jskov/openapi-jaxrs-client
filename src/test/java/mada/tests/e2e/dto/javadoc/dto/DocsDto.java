@@ -14,7 +14,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Class description
+ * Class description.
  */
 @JsonbPropertyOrder({
   DocsDto.JSON_PROPERTY_PROPERTY,

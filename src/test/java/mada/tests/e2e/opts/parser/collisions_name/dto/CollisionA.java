@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Note that A sorts alphabetically before a
+ * Note that A sorts alphabetically before a.
  */
 @JsonbPropertyOrder({
   CollisionA.JSON_PROPERTY_A_CAPITAL_BOOLEAN,

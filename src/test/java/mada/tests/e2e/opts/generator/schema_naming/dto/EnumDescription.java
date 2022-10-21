@@ -13,7 +13,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * an enum
+ * an enum.
  */
 @JsonbTypeAdapter(mada.tests.e2e.opts.generator.schema_naming.dto.EnumDescription.EnumDescriptionAdapter.class)
 @Schema(name = "MostValuedEnum", description = "an enum")
