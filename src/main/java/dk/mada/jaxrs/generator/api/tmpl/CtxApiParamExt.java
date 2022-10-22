@@ -14,4 +14,9 @@ public interface CtxApiParamExt {
 
     /** {@return true if there are non-body parameters. Helps rendering quality} */
     boolean renderBodySpacing();
+
+    /** {@return always false - used to mark template parts as to-do} */
+    default boolean todo() {
+        return false;
+    }
 }

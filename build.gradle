@@ -24,7 +24,8 @@ repositories {
 }
 
 configurations {
-    apt
+    aptValue
+    aptStach
 }
 
 dependencies {
@@ -32,8 +33,12 @@ dependencies {
     implementation      'info.picocli:picocli:4.6.3'
     implementation      'io.swagger.parser.v3:swagger-parser:2.1.6'
 
+    implementation      'io.jstach:jstachio:0.6.0-SNAPSHOT'
+    aptStach            'io.jstach:jstachio-apt:0.6.0-SNAPSHOT'
+    annotationProcessor 'io.jstach:jstachio-apt:0.6.0-SNAPSHOT'
+
     annotationProcessor 'org.immutables:value:2.9.2'
-    apt                 'org.immutables:value:2.9.2'
+    aptValue            'org.immutables:value:2.9.2'
     compileOnly         'org.immutables:value:2.9.2:annotations'
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.3'
@@ -192,7 +197,7 @@ publish.doLast {
 // vscode-java plugin work with APT
 task prepCodeGen() {
     doLast {
-        String valueJarPath = configurations.apt.getSingleFile().getAbsolutePath()
+        String valueJarPath = configurations.aptValue.getSingleFile().getAbsolutePath()
 
         mkdir(".settings")
         
@@ -200,6 +205,16 @@ task prepCodeGen() {
         factoryPath.delete()
         factoryPath << """<factorypath>
   <factorypathentry kind="EXTJAR" id="${valueJarPath}" enabled="true" runInBatchMode="false"/>
+"""
+        
+        configurations.aptStach.getFiles().each { f ->
+          String p = f.getAbsolutePath()
+          factoryPath << """
+  <factorypathentry kind="EXTJAR" id="${p}" enabled="true" runInBatchMode="false"/>
+"""
+        }
+
+        factoryPath << """
 </factorypath>
 """
 

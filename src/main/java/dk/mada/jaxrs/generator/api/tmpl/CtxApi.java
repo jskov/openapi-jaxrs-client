@@ -1,15 +1,19 @@
 package dk.mada.jaxrs.generator.api.tmpl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
+import io.jstach.annotation.JStache;
+
 /**
  * Context passed to Mustache when compiling an api.
  */
+@JStache(path = "jstache/api.mustache")
 @Immutable
 public interface CtxApi {
     /** {@return a builder for this type} */
@@ -28,6 +32,12 @@ public interface CtxApi {
     @Nullable
     String infoEmail();
 
+    record CtxOperationExternalDoc(String description, String url, String summary) {
+    }
+    List<CtxOperationExternalDoc> externalDocs();
+
+    @Nullable Map<String, String> returnContainer();
+    
     /** {@return the imports needed for this API class} */
     SortedSet<String> getImports();
 

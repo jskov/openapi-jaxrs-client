@@ -46,7 +46,7 @@ public interface CtxProperty {
     /** {@return true if bean validation should be used for this property, otherwise false} */
     boolean useBeanValidation();
 
-    /** {@return validation mimimum length, or null} */
+    /** {@return validation minimum length, or null} */
     @Nullable
     String minLength();
     /** {@return validation maximum length, or null} */

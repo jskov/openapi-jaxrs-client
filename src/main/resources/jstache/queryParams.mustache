@@ -1,0 +1,15 @@
+{{#isQueryParam}}{{!
+
+    }}{{^isContainer}}{{!
+        }}{{#defaultValue}}{{!
+            }} @DefaultValue("{{{defaultValue}}}") {{!
+        }}{{/defaultValue}}{{!
+    }}{{/isContainer}}{{!
+
+    }}@QueryParam("{{baseName}}"){{!
+
+    }}{{#useBeanValidation}} {{>jstache/beanValidationParam.mustache}}@TRIM_EMPTY_LINE@{{/useBeanValidation}}{{!
+
+    }} {{{dataType}}} {{paramName}}{{!
+
+}}{{/isQueryParam}}

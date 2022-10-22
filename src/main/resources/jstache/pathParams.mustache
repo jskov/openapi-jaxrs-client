@@ -1,0 +1,9 @@
+{{#isPathParam}}{{!
+
+    }}@PathParam("{{baseName}}"){{!
+
+    }}{{#useBeanValidation}} {{>jstache/beanValidationParam.mustache}}@TRIM_EMPTY_LINE@{{/useBeanValidation}}{{!
+
+    }} {{{dataType}}} {{paramName}}{{!
+
+}}{{/isPathParam}}
