@@ -23,6 +23,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
+import io.jstach.JStachio;
 
 /**
  * Templates processor.
@@ -111,9 +112,20 @@ public class Templates {
      */
     public void renderApiTemplate(CtxApi context) {
         String classname = context.classname();
-        Path outputFile = toApiFile(classname);
+        Path output = toApiFile(classname);
         logger.info(" generate API {}", classname);
-        renderTemplate(apiTemplate, context, outputFile);
+
+        try {
+            String text = JStachio.render(context);
+            text = text.replaceAll("(" + System.lineSeparator() + ")?" + " *" + TRIM_MARKER, "");
+            Files.writeString(output, text);
+        } catch (IOException e) {
+            throw new UncheckedIOException("Failed to render template to " + output, e);
+        }
+
+
+        
+//        renderTemplate(apiTemplate, context, outputFile);
     }
 
     private void renderTemplate(Template template, Object context, Path output) {
