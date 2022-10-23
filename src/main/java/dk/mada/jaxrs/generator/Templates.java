@@ -115,9 +115,13 @@ public class Templates {
         Path output = toApiFile(classname);
         logger.info(" generate API {}", classname);
 
+        
         try {
             String text = JStachio.render(context);
-            text = text.replaceAll("(" + System.lineSeparator() + ")?" + " *" + TRIM_MARKER, "");
+//            System.out.println("---");
+//            System.out.println(text);
+//            System.out.println("---");
+//            text = text.replaceAll("(" + System.lineSeparator() + ")?" + " *" + TRIM_MARKER, "");
             Files.writeString(output, text);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to render template to " + output, e);
