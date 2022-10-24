@@ -78,15 +78,6 @@ application {
     mainClass = "dk.mada.jaxrs.Main"
 }
 
-// Try to get templates to annotationprocessor in gradle - does not help
-sourceSets {
-    main {
-        java {
-            srcDir "src/main/resources"
-        }
-    }
-}
-
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -98,18 +89,6 @@ java {
 compileJava {
     options.encoding = 'UTF-8'
     options.compilerArgs << '-parameters'
-
-    // Try to copy templates to folder where Jstache is compiled from - does not help
-    doFirst {
-        copy {
-            into "build/classes/java/main"
-            from "src/main/resources"
-            include "**/*.mustache"
-        }
-        exec {
-          commandLine "ls", "-l", "build/classes/java/main"
-        }
-    }
 }
 
 compileTestJava {
