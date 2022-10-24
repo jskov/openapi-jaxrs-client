@@ -1,6 +1,5 @@
 package dk.mada.jaxrs.generator.api;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +45,6 @@ import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.naming.Naming;
-import io.jstach.JStachio;
-import io.jstach.annotation.JStache;
 
 /**
  * API generator.
@@ -342,6 +339,8 @@ public class ApiGenerator {
                     .paramName("auth")
                     .dataType(Primitive.STRING.typeName().name())
                     .required(true)
+                    .isContainer(false)
+                    .valid(false)
                     .isBodyParam(false)
                     .isFormParam(false)
                     .isHeaderParam(true)
@@ -374,6 +373,9 @@ public class ApiGenerator {
                     .paramName(paramName)
                     .dataType(dataType)
                     .required(required)
+                    .description(p.description())
+                    .isContainer(false)
+                    .valid(false)
                     .isBodyParam(false)
                     .isFormParam(p.isFormParam())
                     .isHeaderParam(p.isHeaderParam())
@@ -413,6 +415,9 @@ public class ApiGenerator {
                     .paramName(dtoParamName)
                     .dataType(dataType)
                     .required(isBodyRequired)
+                    .description(body.description())
+                    .isContainer(false)
+                    .valid(false)
                     .isBodyParam(true)
                     .isFormParam(false)
                     .isHeaderParam(false)
