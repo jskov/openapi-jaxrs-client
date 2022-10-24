@@ -13,7 +13,7 @@ import io.jstach.annotation.JStache;
 /**
  * Context passed to Mustache when compiling an api.
  */
-@JStache(path = "jstache/api.mustache")
+@JStache(path = "api")
 @Immutable
 public interface CtxApi {
     /** {@return a builder for this type} */

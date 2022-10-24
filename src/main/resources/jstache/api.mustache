@@ -1,4 +1,4 @@
-{{>jstache/licenseInfo.mustache}}
+{{>licenseInfo}}
 
 package {{packageName}};
 
@@ -6,7 +6,7 @@ package {{packageName}};
 import {{.}};
 {{/imports}}
 
-{{>jstache/generatedAnnotation.mustache}}
+{{>generatedAnnotation}}
 {{#madaApi.mpProviders}}
 @RegisterProvider({{.}}.class)
 {{/madaApi.mpProviders}}
@@ -70,7 +70,7 @@ public interface {{classname}} {
   {{#madaOp.summaryString}}
   @Operation(summary = "{{madaOp.summaryString}}")
   {{/madaOp.summaryString}}
-  {{>jstache/returnTypes.mustache}} {{nickname}}({{#allParams}}{{>jstache/formParams.mustache}}{{>jstache/queryParams.mustache}}{{>jstache/pathParams.mustache}}{{>jstache/headerParams.mustache}}{{>jstache/bodyParams.mustache}}{{^-last}}, {{/-last}}{{/allParams}});
+  {{>returnTypes}} {{nickname}}({{#allParams}}{{>formParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
   {{/operation}}
 {{/operations}}
 }
