@@ -26,7 +26,7 @@ public interface PetsApi {
   /**
    * List all pets.
    *
-   * @param limit  (optional)
+   * @param limit How many items to return at one time (max 100) (optional)
    * @return List&lt;Pet&gt;
    */
   @GET
@@ -58,7 +58,7 @@ public interface PetsApi {
   /**
    * Info for a specific pet.
    *
-   * @param petId  (required)
+   * @param petId The id of the pet to retrieve (required)
    * @return Pet
    */
   @GET
