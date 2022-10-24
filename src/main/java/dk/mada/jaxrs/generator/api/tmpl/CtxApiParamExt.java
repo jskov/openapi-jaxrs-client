@@ -12,6 +12,7 @@ public interface CtxApiParamExt {
         return ImmutableCtxApiParamExt.builder();
     }
 
+    // FIXME: can remove?
     /** {@return true if there are non-body parameters. Helps rendering quality} */
     boolean renderBodySpacing();
 

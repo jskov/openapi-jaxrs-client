@@ -1,9 +1,9 @@
 {{#isPathParam}}{{!
 
-    }}@PathParam("{{baseName}}"){{!
+    }}@PathParam("{{baseName}}") {{!
 
-    }}{{#useBeanValidation}} {{>beanValidationParam}}@TRIM_EMPTY_LINE@{{/useBeanValidation}}{{!
+    }}{{#useBeanValidation}}{{>beanValidationParam}}{{/useBeanValidation}}{{!
 
-    }} {{{dataType}}} {{paramName}}{{!
+    }}{{{dataType}}} {{paramName}}{{!
 
 }}{{/isPathParam}}

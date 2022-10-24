@@ -93,11 +93,11 @@ public interface Api_DocsApi {
   /**
    * op is missing punctuation.
    *
-   * @param inPath  (required)
-   * @param query  (optional)
-   * @param queryDeprecated  (optional)
+   * @param inPath path param description (required)
+   * @param query query param description (optional)
+   * @param queryDeprecated deprecated query param description (optional)
    * @param item  (optional)
-   * @param dto  (optional)
+   * @param dto dto description (optional)
    * @return String
    */
   @GET

@@ -15,6 +15,7 @@ import io.jstach.annotation.JStache;
  */
 @JStache(path = "api")
 @Immutable
+
 public interface CtxApi {
     /** {@return a builder for this type} */
     static ImmutableCtxApi.Builder builder() {

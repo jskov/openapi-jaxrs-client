@@ -2,14 +2,14 @@
 
     }}{{^isContainer}}{{!
         }}{{#defaultValue}}{{!
-            }} @DefaultValue("{{{defaultValue}}}") {{!
+            }}@DefaultValue("{{{defaultValue}}}") {{!
         }}{{/defaultValue}}{{!
     }}{{/isContainer}}{{!
 
-    }}@QueryParam("{{baseName}}"){{!
+    }}@QueryParam("{{baseName}}") {{!
 
-    }}{{#useBeanValidation}} {{>beanValidationParam}}@TRIM_EMPTY_LINE@{{/useBeanValidation}}{{!
+    }}{{#useBeanValidation}}{{>beanValidationParam}}{{/useBeanValidation}}{{!
 
-    }} {{{dataType}}} {{paramName}}{{!
+    }}{{{dataType}}} {{paramName}}{{!
 
 }}{{/isQueryParam}}
