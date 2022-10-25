@@ -1,7 +1,7 @@
 /*
- * 
  *
- * The version of the OpenAPI document: 
+ *
+ * The version of the OpenAPI document:
  */
 
 package mada.tests.e2e.opts.generator.inputstream.api;

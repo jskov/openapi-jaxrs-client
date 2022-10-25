@@ -75,11 +75,12 @@ public interface CtxDto {
     boolean isNullable();
     @Nullable
     String parent();
+    @Nullable
     Map<String, String> vendorExtensions();
 
+    
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();
-
 
     
     /** {@return the name of the Generated annotation class} */
