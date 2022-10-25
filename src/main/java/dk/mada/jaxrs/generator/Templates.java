@@ -39,8 +39,6 @@ public class Templates {
     /** Directory to write DTO classes to. */
     private final Path dtoDir;
 
-    /** The API template. */
-    private final Template apiTemplate;
     /** The DTO template. */
     private final Template dtoTemplate;
     /** The interface template. */
@@ -57,7 +55,6 @@ public class Templates {
         this.dtoDir = dtoDir;
 
         dtoTemplate = compileTemplate("model");
-        apiTemplate = compileTemplate("api");
         interfaceTemplate = compileTemplate("interface");
     }
 
@@ -115,21 +112,16 @@ public class Templates {
         Path output = toApiFile(classname);
         logger.info(" generate API {}", classname);
 
-        
+        renderJstachioTemplate(context, output);
+    }
+
+    private void renderJstachioTemplate(Object context, Path output) {
         try {
             String text = JStachio.render(context);
-//            System.out.println("---");
-//            System.out.println(text);
-//            System.out.println("---");
-//            text = text.replaceAll("(" + System.lineSeparator() + ")?" + " *" + TRIM_MARKER, "");
             Files.writeString(output, text);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to render template to " + output, e);
         }
-
-
-        
-//        renderTemplate(apiTemplate, context, outputFile);
     }
 
     private void renderTemplate(Template template, Object context, Path output) {
