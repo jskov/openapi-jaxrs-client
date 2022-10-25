@@ -260,3 +260,14 @@ encoding/<project>=UTF-8
 """
     }
 }
+
+// When working on templates, eclipse will only run the annotation
+// processor, if the @JStache classes are changed.
+// So run './gradlew -t processResources' and this hack will deliver.
+processResources {
+    doLast {
+        def time = System.currentTimeMillis()
+        file("src/main/java/dk/mada/jaxrs/generator/api/tmpl/CtxApi.java").setLastModified(time)
+        file("src/main/java/dk/mada/jaxrs/generator/dto/tmpl/CtxDto.java").setLastModified(time)
+    }
+}
