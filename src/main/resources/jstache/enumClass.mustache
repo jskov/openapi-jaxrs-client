@@ -1,0 +1,64 @@
+{{#description}}
+  /**
+   * {{description}}
+   */
+{{/description}}
+  {{#madaProp.enumSchemaOptions}}
+  @Schema({{{madaProp.enumSchemaOptions}}})
+  {{/madaProp.enumSchemaOptions}}
+  public enum {{{madaProp.enumClassName}}} {
+        {{#allowableValues}}
+            {{#enumVars}}
+    {{{name}}}({{{value}}}){{^-last}},{{/-last}}{{#-last}};{{/-last}}
+            {{/enumVars}}
+        {{/allowableValues}}
+
+    private final {{{madaProp.enumTypeName}}} value;
+
+    {{{madaProp.enumClassName}}}({{{madaProp.enumTypeName}}} value) {
+      this.value = value;
+    }
+
+{{#jackson}}
+    @JsonValue
+{{/jackson}}
+    public {{{madaProp.enumTypeName}}} getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+{{#jackson}}
+
+    @JsonCreator
+    public static {{{madaProp.enumClassName}}} fromValue({{{madaProp.enumTypeName}}} value) {
+      for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
+        if (Objects.equals(b.value, value)) {
+          return b;
+        }
+      }
+      {{#isNullable}}return null;{{/isNullable}}{{^isNullable}}throw new IllegalArgumentException("Unexpected value '" + value + "'");{{/isNullable}}
+    }
+{{/jackson}}
+    {{#madaProp.jsonb}}
+
+    public static class {{{madaProp.enumClassName}}}Adapter implements JsonbAdapter<{{{madaProp.enumClassName}}}, JsonString> {
+      @Override
+      public JsonString adaptToJson({{{madaProp.enumClassName}}} e) throws Exception {
+        return Json.createValue(String.valueOf(e.value));
+      }
+
+      @Override
+      public {{{madaProp.enumClassName}}} adaptFromJson(JsonString value) throws Exception {
+        for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
+          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+            return b;
+          }
+        }
+        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type {{{madaProp.enumClassName}}}");
+      }
+    }
+    {{/madaProp.jsonb}}
+  }

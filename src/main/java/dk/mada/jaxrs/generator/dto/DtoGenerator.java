@@ -276,8 +276,9 @@ public class DtoGenerator {
         CtxDtoDiscriminator discriminator = null;
         // Needs adaptor for jsonb and tweaks for codehaus
         if (subtypeSelector != null && opts.isJacksonFasterxml()) {
+            Map<String, String> vendorExt = Map.of();
             List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
-                    .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey()))
+                    .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey(), vendorExt))
                     .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
                     .toList();
             discriminator = CtxDtoDiscriminator.builder()
@@ -312,6 +313,10 @@ public class DtoGenerator {
                 .packageName(opts.dtoPackage())
                 .classname(dto.name())
                 .classVarName("other")
+                .datatypeWithEnum(null)
+                .parent(null)
+                .isNullable(false)
+                .vendorExtensions(Map.of())
 
                 .vars(vars)
 

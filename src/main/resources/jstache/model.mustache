@@ -1,0 +1,11 @@
+{{>licenseInfo}}
+
+package {{packageName}};
+
+{{#hasImports}}
+{{#imports}}
+import {{.}};
+{{/imports}}
+
+{{/hasImports}}
+{{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{>pojo}}{{/isEnum}}

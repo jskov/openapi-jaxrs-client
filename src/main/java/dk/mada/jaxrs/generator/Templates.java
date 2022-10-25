@@ -82,8 +82,8 @@ public class Templates {
      * @param context the rendering context
      */
     public void renderDtoTemplate(CtxDto context) {
-        Path outputFile = toDtoFile(context.classname());
-        renderTemplate(dtoTemplate, context, outputFile);
+        Path output = toDtoFile(context.classname());
+        renderJstachioTemplate(context, output);
     }
 
     /**
@@ -118,6 +118,9 @@ public class Templates {
     private void renderJstachioTemplate(Object context, Path output) {
         try {
             String text = JStachio.render(context);
+            // remove trailing spaces on a line.
+            // if the line is all spaces, remove the full line (include the preceding newline)
+            text = text.replaceAll("(?m)(" + System.lineSeparator() + ")? +$", "");
             Files.writeString(output, text);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to render template to " + output, e);
