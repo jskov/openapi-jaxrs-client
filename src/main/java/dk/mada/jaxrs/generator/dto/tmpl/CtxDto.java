@@ -81,6 +81,7 @@ public interface CtxDto {
     boolean jackson();
 
 
+    
     /** {@return the name of the Generated annotation class} */
     String generatedAnnotationClass();
     /** {@return the name of the generator class} */
