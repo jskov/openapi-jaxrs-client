@@ -80,7 +80,7 @@ public interface CtxDto {
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();
 
-    
+
     /** {@return the name of the Generated annotation class} */
     String generatedAnnotationClass();
     /** {@return the name of the generator class} */
