@@ -16,12 +16,12 @@ import io.jstach.annotation.JStache;
 @JStache(path = "model")
 @Immutable
 public interface CtxDto {
-    
     /** {@return a builder for this type} */
     static ImmutableCtxDto.Builder builder() {
         return ImmutableCtxDto.builder();
     }
 
+    
     /** {@return the application name} */
     String appName();
     /** {@return the application version} */
@@ -64,8 +64,6 @@ public interface CtxDto {
         return allowableValues() != null;
     }
 
-    
-   
     /** {@return the enumeration constants/values, or null} */
     @Nullable
     CtxEnum allowableValues();
