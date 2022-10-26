@@ -8,14 +8,43 @@ import {{.}};
 
 {{>generatedAnnotation}}
 {{#deserializer}}
+ {{#renderOffsetDateTime}}
+public class {{className}} extends JsonDeserializer<OffsetDateTime> {
+  @Override
+  public OffsetDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
+           throws IOException, JsonProcessingException {
+    String wireText = jp.getText();
+
+    try {
+      // This decodes with RFC3339/ISO-8601 (requires timezone offset)
+      return OffsetDateTime.parse(wireText, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    } catch (DateTimeParseException e) {
+      // If the above failed, assume it is because there is no timezone and try localtime.
+      return LocalDateTime.parse(wireText, DateTimeFormatter.ISO_LOCAL_DATE_TIME).atZone(ZoneId.systemDefault()).toOffsetDateTime();
+    }
+  }
+}
+ {{/renderOffsetDateTime}}
+ {{#renderLocalDate}}
 public class {{className}} extends JsonDeserializer<LocalDate> {
   @Override
   public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
     return LocalDate.parse(jsonParser.getText(), DateTimeFormatter.{{cannedLocalDateSerializerDTF}});
   }
 }
+ {{/renderLocalDate}}
 {{/deserializer}}
 {{^deserializer}}
+ {{#renderOffsetDateTime}}
+public class _OffsetDateTimeJacksonSerializer extends JsonSerializer<OffsetDateTime> {
+  @Override
+  public void serialize(OffsetDateTime value, JsonGenerator jgen, SerializerProvider provider)
+           throws IOException, JsonProcessingException {
+    jgen.writeString(value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+  }
+}
+ {{/renderOffsetDateTime}}
+ {{#renderLocalDate}}
 public class {{className}} extends JsonSerializer<LocalDate> {
   @Override
   public void serialize(LocalDate value, JsonGenerator jgen, SerializerProvider provider)
@@ -23,4 +52,5 @@ public class {{className}} extends JsonSerializer<LocalDate> {
     jgen.writeString(value.format(DateTimeFormatter.{{cannedLocalDateSerializerDTF}}));
   }
 }
+ {{/renderLocalDate}}
 {{/deserializer}}

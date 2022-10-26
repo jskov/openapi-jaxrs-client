@@ -168,9 +168,12 @@ public class DtoGenerator {
         var imports = Imports.newExtras(opts, tmpl);
 
         Info info = model.info();
+        String classname = tmpl.classname();
         return CtxExtraDateSerializer.builder()
-                .className(tmpl.classname())
+                .className(classname)
                 .deserializer(tmpl.isDeserializer())
+                .renderLocalDate(tmpl.isLocalDate())
+                .renderOffsetDateTime(tmpl.isOffsetDateTime())
                 .appName(info.title())
                 .appDescription(info.description())
                 .version(info.version())

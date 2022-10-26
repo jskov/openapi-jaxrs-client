@@ -79,6 +79,18 @@ public enum ExtraTemplate {
     public boolean isDeserializer() {
         return deserializer;
     }
+    
+    public boolean isLocalDate() {
+        return classname.contains("LocalDateJ");
+    }
+
+    public boolean isLocalDateTime() {
+        return classname.contains("LocalDateTime");
+    }
+
+    public boolean isOffsetDateTime() {
+        return classname.contains("OffsetDateTime");
+    }
 
     /** {@return the required imports for this template} */
     public Set<TypedImport> requiredImports() {

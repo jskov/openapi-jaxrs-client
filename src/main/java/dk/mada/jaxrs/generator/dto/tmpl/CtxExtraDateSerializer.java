@@ -53,6 +53,8 @@ public interface CtxExtraDateSerializer {
     boolean jsonb();
 
     boolean deserializer();
+    boolean renderLocalDate();
+    boolean renderOffsetDateTime();
 
     /** {@return the name of the Generated annotation class} */
     String generatedAnnotationClass();
