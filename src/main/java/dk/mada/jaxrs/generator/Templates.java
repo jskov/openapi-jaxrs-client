@@ -96,7 +96,7 @@ public class Templates {
      */
     public void renderInterfaceTemplate(CtxInterface context) {
         Path outputFile = toDtoFile(context.classname());
-        renderTemplate(interfaceTemplate, context, outputFile);
+        renderJstachioTemplate(context, outputFile);
     }
 
     /**
