@@ -21,7 +21,7 @@ import com.samskivert.mustache.Template;
 
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
-import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxExtraDateSerializer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import io.jstach.JStachio;
 
@@ -66,11 +66,10 @@ public class Templates {
      * @param tmpl the template to generate output from
      * @param context the rendering context
      */
-    public void renderExtraTemplate(ExtraTemplate tmpl, CtxExtra context) {
+    public void renderExtraTemplate(ExtraTemplate tmpl, CtxExtraDateSerializer context) {
         String tmplName = tmpl.classname();
         Path outputFile = toDtoFile(tmplName);
-        Template template = compileTemplate(tmplName);
-        renderTemplate(template, context, outputFile);
+        renderJstachioTemplate(context, outputFile);
     }
 
     /**

@@ -23,7 +23,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoDiscriminator;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
-import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxExtraDateSerializer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
@@ -128,7 +128,7 @@ public class DtoGenerator {
         extraTemplates.forEach(tmpl -> {
             logger.info(" generate extra {}", tmpl);
 
-            CtxExtra ctx = makeCtxExtra(tmpl);
+            CtxExtraDateSerializer ctx = makeCtxExtra(tmpl);
             templates.renderExtraTemplate(tmpl, ctx);
         });
 
@@ -164,11 +164,13 @@ public class DtoGenerator {
                 .build();
     }
 
-    private CtxExtra makeCtxExtra(ExtraTemplate tmpl) {
+    private CtxExtraDateSerializer makeCtxExtra(ExtraTemplate tmpl) {
         var imports = Imports.newExtras(opts, tmpl);
 
         Info info = model.info();
-        return CtxExtra.builder()
+        return CtxExtraDateSerializer.builder()
+                .className(tmpl.classname())
+                .deserializer(tmpl.isDeserializer())
                 .appName(info.title())
                 .appDescription(info.description())
                 .version(info.version())

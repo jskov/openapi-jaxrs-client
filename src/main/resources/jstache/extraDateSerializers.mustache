@@ -1,0 +1,26 @@
+{{>licenseInfo}}
+
+package {{packageName}};
+
+{{#imports}}
+import {{.}};
+{{/imports}}
+
+{{>generatedAnnotation}}
+{{#deserializer}}
+public class {{className}} extends JsonDeserializer<LocalDate> {
+  @Override
+  public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    return LocalDate.parse(jsonParser.getText(), DateTimeFormatter.{{cannedLocalDateSerializerDTF}});
+  }
+}
+{{/deserializer}}
+{{^deserializer}}
+public class {{className}} extends JsonSerializer<LocalDate> {
+  @Override
+  public void serialize(LocalDate value, JsonGenerator jgen, SerializerProvider provider)
+           throws IOException, JsonProcessingException {
+    jgen.writeString(value.format(DateTimeFormatter.{{cannedLocalDateSerializerDTF}}));
+  }
+}
+{{/deserializer}}
