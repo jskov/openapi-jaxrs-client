@@ -173,6 +173,7 @@ public class DtoGenerator {
                 .className(classname)
                 .deserializer(tmpl.isDeserializer())
                 .renderLocalDate(tmpl.isLocalDate())
+                .renderLocalDateTime(tmpl.isLocalDateTime())
                 .renderOffsetDateTime(tmpl.isOffsetDateTime())
                 .appName(info.title())
                 .appDescription(info.description())

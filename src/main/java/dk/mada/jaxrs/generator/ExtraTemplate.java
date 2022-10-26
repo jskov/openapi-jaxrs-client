@@ -79,15 +79,18 @@ public enum ExtraTemplate {
     public boolean isDeserializer() {
         return deserializer;
     }
-    
+
+    /** {@return true if the class handles LocalDate} */
     public boolean isLocalDate() {
         return classname.contains("LocalDateJ");
     }
 
+    /** {@return true if the class handles LocalDateTime} */
     public boolean isLocalDateTime() {
         return classname.contains("LocalDateTime");
     }
 
+    /** {@return true if the class handles OffsetDateTime} */
     public boolean isOffsetDateTime() {
         return classname.contains("OffsetDateTime");
     }

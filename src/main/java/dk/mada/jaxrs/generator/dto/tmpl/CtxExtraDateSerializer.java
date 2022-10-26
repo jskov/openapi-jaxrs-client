@@ -52,8 +52,10 @@ public interface CtxExtraDateSerializer {
     /** {@return true if jsonb serializer is used, otherwise false} */
     boolean jsonb();
 
+    
     boolean deserializer();
     boolean renderLocalDate();
+    boolean renderLocalDateTime();
     boolean renderOffsetDateTime();
 
     /** {@return the name of the Generated annotation class} */
