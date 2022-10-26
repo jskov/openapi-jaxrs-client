@@ -21,7 +21,6 @@ public interface CtxDto {
         return ImmutableCtxDto.builder();
     }
 
-    
     /** {@return the application name} */
     String appName();
     /** {@return the application version} */
@@ -70,18 +69,20 @@ public interface CtxDto {
     /** {@return the data type of an enumeration, or null} */
     @Nullable
     String dataType();
+    /** {@return unknown, kept from upstream template} */
     @Nullable
     String datatypeWithEnum();
+    /** {@return true if the is an enumeration that can be deserialized as null} */
     boolean isNullable();
+    /** {@return the name of a parent class, or null} */
     @Nullable
     String parent();
+    /** {@return optional vendor extensions} */
     @Nullable
     Map<String, String> vendorExtensions();
-
     
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();
-
     
     /** {@return the name of the Generated annotation class} */
     String generatedAnnotationClass();
