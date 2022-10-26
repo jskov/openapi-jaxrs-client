@@ -1,5 +1,5 @@
 /**
- * {{description}}{{^description}}{{classname}}{{/description}}
+ * {{#description}}{{description}}{{/description}}{{^description}}{{classname}}{{/description}}
  */
 {{#jackson}}
 @JsonPropertyOrder({
@@ -22,15 +22,12 @@
 @RegisterForReflection
 {{/madaDto.quarkusRegisterForReflection}}
 {{#discriminator}}
-{{>typeInfoAnnotation}}@TRIM_EMPTY_LINE@
+{{>typeInfoAnnotation}}
 {{/discriminator}}
 {{#madaDto.schemaOptions}}
 @Schema({{{madaDto.schemaOptions}}})
 {{/madaDto.schemaOptions}}
 {{>generatedAnnotation}}
-{{#todo}}
-{{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}
-{{/todo}}
 public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}} {
   {{#vars}}
     {{#isEnum}}
@@ -150,14 +147,7 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
  {{#vendorExtensions.x-extra-annotation}}
   {{{vendorExtensions.x-extra-annotation}}}
   {{/vendorExtensions.x-extra-annotation}}
-  {{#madaProp.off}}
-  {{#jackson}}
-  @JsonProperty(value = "{{baseName}}"{{#isReadOnly}}, access = JsonProperty.Access.READ_ONLY{{/isReadOnly}}{{#isWriteOnly}}, access = JsonProperty.Access.WRITE_ONLY{{/isWriteOnly}})
-  {{/jackson}}
-  {{/madaProp.off}}
-  {{#useBeanValidation}}
-  {{> beanValidation}}@TRIM_EMPTY_LINE@
-  {{/useBeanValidation}}
+  {{#useBeanValidation}}{{>beanValidationProp}}{{/useBeanValidation}} 
   {{#madaProp.isUseEmptyCollections}}
    {{#jackson}}
   @JsonIgnore
@@ -177,9 +167,7 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
   {{/madaProp.isUseBigDecimalForDouble}}
   {{#madaProp.isUseEmptyCollections}}
 
-  {{#useBeanValidation}}
-  {{> beanValidation}}@TRIM_EMPTY_LINE@
-  {{/useBeanValidation}}
+  {{#useBeanValidation}}{{>beanValidationProp}}{{/useBeanValidation}} 
   public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};

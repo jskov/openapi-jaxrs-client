@@ -1,1 +1,1 @@
-{{#isHeaderParam}}{{#madaParam.todo}}@ApiParam(value = "{{{description}}}" {{#required}},required=true{{/required}}{{#allowableValues}}, {{> allowableValues }}{{/allowableValues}}{{#defaultValue}}, defaultValue="{{{.}}}"{{/defaultValue}}){{/madaParam.todo}}@HeaderParam("{{baseName}}") {{{dataType}}} {{paramName}}{{/isHeaderParam}}
+{{#isHeaderParam}}@HeaderParam("{{baseName}}") {{{dataType}}} {{paramName}}{{/isHeaderParam}}
