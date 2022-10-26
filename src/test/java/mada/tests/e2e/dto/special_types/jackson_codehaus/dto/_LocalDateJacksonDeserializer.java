@@ -15,8 +15,8 @@ import org.codehaus.jackson.map.JsonDeserializer;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _LocalDateJacksonDeserializer extends JsonDeserializer<LocalDate> {
-	@Override
-	public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-		return LocalDate.parse(jsonParser.getText(), DateTimeFormatter.ISO_LOCAL_DATE);
-	}
+  @Override
+  public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    return LocalDate.parse(jsonParser.getText(), DateTimeFormatter.ISO_LOCAL_DATE);
+  }
 }
