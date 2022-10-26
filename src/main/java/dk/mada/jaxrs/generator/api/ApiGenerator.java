@@ -21,7 +21,6 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
-import dk.mada.jaxrs.generator.api.tmpl.CtxApiParamExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
 import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.imports.Imports;
@@ -328,10 +327,6 @@ public class ApiGenerator {
      * @param op the operation to extract parameters from
      */
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
-        CtxApiParamExt madaParamEmpty = CtxApiParamExt.builder()
-                .renderBodySpacing(false)
-                .build();
-
         List<CtxApiParam> params = new ArrayList<>();
         if (op.addAuthorizationHeader()) {
             params.add(CtxApiParam.builder()
@@ -347,7 +342,6 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .useBeanValidation(opts.isUseBeanValidation())
-                    .madaParam(madaParamEmpty)
                     .build());
         }
 
@@ -381,7 +375,6 @@ public class ApiGenerator {
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
-                    .madaParam(madaParamEmpty)
                     .useBeanValidation(opts.isUseBeanValidation())
                     .build());
         }
@@ -404,12 +397,6 @@ public class ApiGenerator {
                 imports.add(ValidationApi.NOT_NULL);
             }
 
-            boolean renderBodySpaceHack = (isBodyRequired && opts.isUseBeanValidation())
-                    || !params.isEmpty();
-            CtxApiParamExt madaBodyExt = CtxApiParamExt.builder()
-                    .renderBodySpacing(renderBodySpaceHack)
-                    .build();
-
             ImmutableCtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
@@ -424,7 +411,6 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .useBeanValidation(opts.isUseBeanValidation())
-                    .madaParam(madaBodyExt)
                     .build();
 
             // Only include body param if it is not void. It may be void

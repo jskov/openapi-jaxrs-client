@@ -67,7 +67,4 @@ public interface CtxApiParam {
     /** {@return validation pattern, or null} */
     @Nullable
     String pattern();
-
-    /** {@return additional custom template data for the parameter} */
-    CtxApiParamExt madaParam();
 }
