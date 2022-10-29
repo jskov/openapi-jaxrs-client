@@ -33,8 +33,6 @@ public class Templates {
 
     private static final Logger logger = LoggerFactory.getLogger(Templates.class);
 
-    /** Directory to write API classes to. */
-    private final Path apiDir;
     /** Directory to write DTO classes to. */
     private final Path dtoDir;
 
@@ -48,11 +46,9 @@ public class Templates {
     /**
      * Creates templates.
      *
-     * @param apiDir the directory to generate API classes in
      * @param dtoDir the directory to generate DTO classes in
      */
-    public Templates(Path apiDir, Path dtoDir) {
-        this.apiDir = apiDir;
+    public Templates(Path dtoDir) {
         this.dtoDir = dtoDir;
 
         dtoTemplate = compileTemplate("model");
@@ -70,7 +66,7 @@ public class Templates {
      */
     public void renderExtraTemplate(ExtraTemplate tmpl, CtxExtra context) {
         String tmplName = tmpl.classname();
-        Path outputFile = toDtoFile(tmplName);
+        Path outputFile = toModelFile(tmplName);
         Template template = compileTemplate(tmplName);
         renderTemplate(template, context, outputFile);
     }
@@ -84,7 +80,7 @@ public class Templates {
      * @param context the rendering context
      */
     public void renderDtoTemplate(CtxDto context) {
-        Path outputFile = toDtoFile(context.classname());
+        Path outputFile = toModelFile(context.classname());
         renderTemplate(dtoTemplate, context, outputFile);
     }
 
@@ -97,7 +93,7 @@ public class Templates {
      * @param context the rendering context
      */
     public void renderInterfaceTemplate(CtxInterface context) {
-        Path outputFile = toDtoFile(context.classname());
+        Path outputFile = toModelFile(context.classname());
         renderTemplate(interfaceTemplate, context, outputFile);
     }
 
@@ -107,11 +103,12 @@ public class Templates {
      * The context contains the information to render the template
      * for a given API class.
      *
+     * @param apiDir the directory to generate API classes in
      * @param context the rendering context
      */
-    public void renderApiTemplate(CtxApi context) {
+    public void renderApiTemplate(Path apiDir, CtxApi context) {
         String classname = context.classname();
-        Path outputFile = toApiFile(classname);
+        Path outputFile = apiDir.resolve(classname + ".java");
         logger.info(" generate API {}", classname);
         renderTemplate(apiTemplate, context, outputFile);
     }
@@ -155,11 +152,7 @@ public class Templates {
         return new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
     }
 
-    private Path toApiFile(String name) {
-        return apiDir.resolve(name + ".java");
-    }
-
-    private Path toDtoFile(String name) {
+    private Path toModelFile(String name) {
         return dtoDir.resolve(name + ".java");
     }
 }

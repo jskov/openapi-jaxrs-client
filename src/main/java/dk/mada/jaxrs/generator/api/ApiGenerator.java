@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.generator.api;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -94,21 +95,23 @@ public class ApiGenerator {
 
     /**
      * Generates all API classes.
+     *
+     * @param apiDir the directory to generate API classes in
      */
-    public void generateApiClasses() {
+    public void generateApiClasses(Path apiDir) {
         model.operations().getByGroup().entrySet().stream()
             .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
             .forEach(ops -> {
                 String group = ops.getKey();
                 String classname = makeClassName(group);
 
-                processApi(ops, classname);
+                processApi(apiDir, ops, classname);
         });
     }
 
-    private void processApi(Entry<String, List<Operation>> ops, String classname) {
+    private void processApi(Path apiDir, Entry<String, List<Operation>> ops, String classname) {
         CtxApi ctx = toCtx(classname, ops.getValue());
-        templates.renderApiTemplate(ctx);
+        templates.renderApiTemplate(apiDir, ctx);
     }
 
     private String makeClassName(String groupInput) {
