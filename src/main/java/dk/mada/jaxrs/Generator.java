@@ -62,14 +62,14 @@ public final class Generator implements GeneratorService {
 
             Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
 
-            Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
 
             Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
 
-            var templates = new Templates(apiDir, dtoDir);
+            var templates = new Templates(dtoDir);
             if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
+                Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
                 Files.createDirectories(apiDir);
-                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses();
+                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
             }
             if (!clientContext.skipDto()) {
                 Files.createDirectories(dtoDir);
