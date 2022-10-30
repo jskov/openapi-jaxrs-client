@@ -494,7 +494,7 @@ public class ArraysDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(booleans, bytes, shorts, ints, longs, strings, refs, requiredBooleans, requiredBytes, requiredShorts, requiredInts, requiredLongs, requiredStrings, requiredRefs);
+    return Objects.hash(booleans, Arrays.hashCode(bytes), shorts, ints, longs, strings, refs, requiredBooleans, Arrays.hashCode(requiredBytes), requiredShorts, requiredInts, requiredLongs, requiredStrings, requiredRefs);
   }
 
   @Override

@@ -87,7 +87,7 @@ public class ArchivePDF {
 
   @Override
   public int hashCode() {
-    return Objects.hash(stringList, byteList);
+    return Objects.hash(stringList, Arrays.hashCode(byteList));
   }
 
   @Override
