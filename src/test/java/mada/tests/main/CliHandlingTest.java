@@ -105,7 +105,7 @@ class CliHandlingTest {
             System.setErr(testOutputStream);
 
             int exitCode = Main.mainNoExit(args);
-            return new Result(exitCode, TEST_OUTPUT_BUFFER.toString());
+            return new Result(exitCode, TEST_OUTPUT_BUFFER.toString(StandardCharsets.UTF_8));
         } finally {
             System.setOut(oldOut);
             System.setErr(oldErr);

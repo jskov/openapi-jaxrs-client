@@ -114,7 +114,7 @@ public final class OutputDiff {
             System.out.println("Expected " + expAbs);
             System.out.println("Expected " + actualAbs);
             System.out.println("---");
-            System.out.println(output.toString());
+            System.out.println(output.toString(StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new UncheckedIOException("Failed external diff", e);
         }

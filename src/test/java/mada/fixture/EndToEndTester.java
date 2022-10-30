@@ -97,7 +97,7 @@ public class EndToEndTester {
     private void deleteUnwantedOutput(Properties testOptions, Path output) throws IOException {
         String deleteFiles = testOptions.getProperty("test-delete-files");
         if (deleteFiles != null) {
-            for (String p : deleteFiles.split(",")) {
+            for (String p : deleteFiles.split(",", -1)) {
                 Path f = output.resolve(p.trim());
                 logger.info("DELETE test file {}", f);
                 Files.delete(f);
