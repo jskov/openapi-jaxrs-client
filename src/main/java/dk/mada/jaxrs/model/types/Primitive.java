@@ -26,11 +26,11 @@ public enum Primitive implements Type {
     STRING("string:",       TypeNames.STRING,  TypeNames.STRING);
 
     /** The OpenApi type:format **/
-    private String typeFormat;
+    private final String typeFormat;
     /** The Java language primitive name */
-    private TypeName javaPrimitive;
+    private final TypeName javaPrimitive;
     /** Java language wrapper type */
-    private TypeName wrapperType;
+    private final TypeName wrapperType;
 
     Primitive(String typeFormat, TypeName javaPrimitive, TypeName wrapperType) {
         this.typeFormat = typeFormat;
