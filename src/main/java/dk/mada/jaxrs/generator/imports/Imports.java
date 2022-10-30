@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.imports;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.NavigableSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -23,7 +24,7 @@ public final class Imports {
     private static final Logger logger = LoggerFactory.getLogger(Imports.class);
 
     /** Set of classes to be imported.*/
-    private final SortedSet<String> importedClasses = new TreeSet<>();
+    private final NavigableSet<String> importedClasses = new TreeSet<>();
 
     /** Flag selecting if imports should be added for DTOs. */
     private final boolean includeDtoImports;

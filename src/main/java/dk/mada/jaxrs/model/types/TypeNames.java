@@ -205,7 +205,7 @@ public final class TypeNames {
         public String toString() {
             return "TypeName [name=" + name
                     + (overrideName == null
-                      ? ("]")
+                      ? "]"
                       : (", overrideName=" + overrideName + "]"));
         }
     }

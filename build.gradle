@@ -86,7 +86,8 @@ java {
 
 tasks.withType(JavaCompile).configureEach {
     options.errorprone.disableWarningsInGeneratedCode = true
-    options.errorprone.disable("InvalidParam")
+    options.errorprone.disable("InvalidParam", "JavaTimeDefaultTimeZone")
+    options.errorprone.excludedPaths = ".*/OpenapiGeneratorUtils.java"
 }
 
 compileJava {

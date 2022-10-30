@@ -39,6 +39,7 @@ public enum Primitive implements Type {
     }
 
     /** {@return the type name of this type} */
+    @Override
     public TypeName typeName() {
         return javaPrimitive;
     }
