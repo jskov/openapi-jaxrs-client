@@ -48,6 +48,7 @@ public interface ParserTypeRef extends Reference {
     TypeName refTypeName();
 
     /** {@return the referenced type, or null} */
+    @Override
     @Nullable
     Type refType();
 
