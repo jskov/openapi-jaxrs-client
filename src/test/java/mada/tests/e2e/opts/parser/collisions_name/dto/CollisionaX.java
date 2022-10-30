@@ -32,7 +32,7 @@ public class CollisionaX {
 
   public static final String JSON_PROPERTY_A_LIST = "aList";
   @JsonbProperty(JSON_PROPERTY_A_LIST)
-  private List<CollisionA> aList = null;
+  private List<CollisionA> aList;
 
   public CollisionaX aBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
