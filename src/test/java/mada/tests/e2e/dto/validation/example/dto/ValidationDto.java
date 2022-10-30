@@ -79,11 +79,11 @@ public class ValidationDto {
 
   public static final String JSON_PROPERTY_VALID_OBJECTS = "validObjects";
   @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
-  private List<Environment> validObjects = null;
+  private List<Environment> validObjects;
 
   public static final String JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE = "primitivesShouldNotHaveValidate";
   @JsonbProperty(JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE)
-  private List<Boolean> primitivesShouldNotHaveValidate = null;
+  private List<Boolean> primitivesShouldNotHaveValidate;
 
   public ValidationDto name(String name) {
     this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");

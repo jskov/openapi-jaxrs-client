@@ -377,6 +377,11 @@ public final class GeneratorOpts {
         return bool("generator-quarkus-use-register-for-reflection");
     }
 
+    /** {@return true if the destination folder should be kept during testing} */
+    public boolean isTestingKeepDestination() {
+        return bool("generator-testing-keep-destination");
+    }
+
     private boolean bool(String name) {
         return Boolean.parseBoolean(get(name));
     }

@@ -51,15 +51,15 @@ public class CountryLocale {
 
   public static final String JSON_PROPERTY_EXTENSION_KEYS = "extensionKeys";
   @JsonbProperty(JSON_PROPERTY_EXTENSION_KEYS)
-  private Set<String> extensionKeys = null;
+  private Set<String> extensionKeys;
 
   public static final String JSON_PROPERTY_UNICODE_LOCALE_ATTRIBUTES = "unicodeLocaleAttributes";
   @JsonbProperty(JSON_PROPERTY_UNICODE_LOCALE_ATTRIBUTES)
-  private Set<String> unicodeLocaleAttributes = null;
+  private Set<String> unicodeLocaleAttributes;
 
   public static final String JSON_PROPERTY_UNICODE_LOCALE_KEYS = "unicodeLocaleKeys";
   @JsonbProperty(JSON_PROPERTY_UNICODE_LOCALE_KEYS)
-  private Set<String> unicodeLocaleKeys = null;
+  private Set<String> unicodeLocaleKeys;
 
   public static final String JSON_PROPERTY_ISO3_LANGUAGE = "iso3Language";
   @JsonbProperty(JSON_PROPERTY_ISO3_LANGUAGE)

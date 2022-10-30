@@ -35,11 +35,11 @@ public class CollisionA {
 
   public static final String JSON_PROPERTY_A_CAPITAL_SET = "aCapitalSet";
   @JsonbProperty(JSON_PROPERTY_A_CAPITAL_SET)
-  private Set<CollisionaX> aCapitalSet = null;
+  private Set<CollisionaX> aCapitalSet;
 
   public static final String JSON_PROPERTY_A_CAPITAL_MAP = "aCapitalMap";
   @JsonbProperty(JSON_PROPERTY_A_CAPITAL_MAP)
-  private Map<String, CollisionaX> aCapitalMap = null;
+  private Map<String, CollisionaX> aCapitalMap;
 
   public CollisionA aCapitalBoolean(Boolean aCapitalBoolean) {
     this.aCapitalBoolean = aCapitalBoolean;
