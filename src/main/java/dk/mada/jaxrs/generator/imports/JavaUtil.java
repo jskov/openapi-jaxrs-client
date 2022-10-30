@@ -11,6 +11,8 @@ import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 public enum JavaUtil implements TypedImport {
     /** ArrayList. */
     ARRAY_LIST("java.util.ArrayList"),
+    /** Arrays. */
+    ARRAYS("java.util.Arrays"),
     /** HashMap. */
     HASH_MAP("java.util.HashMap"),
     /** LinkedHashSet. */

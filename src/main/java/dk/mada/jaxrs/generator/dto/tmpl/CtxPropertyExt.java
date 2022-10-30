@@ -53,6 +53,9 @@ public interface CtxPropertyExt {
     /** {@return true to initialize collections, false to leave as null} */
     boolean isUseEmptyCollections();
 
+    /** {@return true if this property is a byte array} */
+    boolean isByteArray();
+
     /** {@return the getter name} **/
     String getter();
     /** {@return the setter name} **/

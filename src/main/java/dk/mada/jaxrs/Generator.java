@@ -52,7 +52,6 @@ public final class Generator implements GeneratorService {
         try {
             setLogLevels(clientContext.logLevel());
             assertInputFile(openapiDocument);
-            assertDestinationDir(clientContext, destinationDir);
 
             var typeNames = new TypeNames();
             var parserOpts = new ParserOpts(options);
@@ -60,8 +59,9 @@ public final class Generator implements GeneratorService {
             var naming = new Naming(options);
             var parserRefs = new ParserTypeRefs(typeNames);
 
-            Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
+            assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
+            Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
 
             Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
 
@@ -80,11 +80,13 @@ public final class Generator implements GeneratorService {
         }
     }
 
-    private void assertDestinationDir(ClientContext clientContext, Path destinationDir) {
+    private void assertDestinationDir(ClientContext clientContext, GeneratorOpts generatorOpts, Path destinationDir) {
         if (Files.exists(destinationDir) && !clientContext.overwrite()) {
             throw new IllegalArgumentException("Will not write to existing output directory '" + destinationDir + "'");
         }
-        DirectoryDeleter.delete(destinationDir);
+        if (!generatorOpts.isTestingKeepDestination()) {
+            DirectoryDeleter.delete(destinationDir);
+        }
     }
 
     /**

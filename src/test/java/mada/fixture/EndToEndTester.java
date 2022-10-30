@@ -56,6 +56,7 @@ public class EndToEndTester {
 
         testOptions.setProperty("generator-api-package", pkgPrefix + ".api");
         testOptions.setProperty("generator-dto-package", pkgPrefix + ".dto");
+        testOptions.setProperty("generator-testing-keep-destination", "true");
 
         System.out.println("testDir: " + expectedFilesDir);
         System.out.println("outputDir: " + generatedFilesRootDir);

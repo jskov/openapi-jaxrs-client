@@ -62,7 +62,7 @@ public class EnumArrayInner {
 
   public static final String JSON_PROPERTY_MULIGE_UDBETALINGS_METODER = "muligeUdbetalingsMetoder";
   @JsonbProperty(JSON_PROPERTY_MULIGE_UDBETALINGS_METODER)
-  private List<MuligeUdbetalingsMetoderEnum> muligeUdbetalingsMetoder = null;
+  private List<MuligeUdbetalingsMetoderEnum> muligeUdbetalingsMetoder;
 
   public EnumArrayInner muligeUdbetalingsMetoder(List<MuligeUdbetalingsMetoderEnum> muligeUdbetalingsMetoder) {
     this.muligeUdbetalingsMetoder = muligeUdbetalingsMetoder;
