@@ -351,11 +351,6 @@ public final class GeneratorOpts {
         return bool("generator-use-zoneddatetime");
     }
 
-    /** {@return true if date-time should be rendered with OffsetDateTime} */
-    public boolean isUseOffsetDateTime() {
-        return !isUseOffsetDateTime() && !isUseLocalDateTime();
-    }
-
     /** {@return true if date-time should be rendered with LocalDateTime} */
     public boolean isUseLocalDateTime() {
         return bool("generator-use-localdatetime");
