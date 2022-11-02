@@ -166,6 +166,11 @@ public final class GeneratorOpts {
         return parserOpts.isJseLocalDateTime() && isJackson();
     }
 
+    /** {@return true if a jackson OffsetDateTime serializer should be rendered} */
+    public boolean isUseJacksonOffsetDateTimeSerializer() {
+        return parserOpts.isJseOffsetDateTime() && isJackson();
+    }
+
     /** {@return the LocalDate wire format for jackson, or null} */
     public String getJacksonLocalDateWireFormat() {
         if (!isUseJacksonLocalDateSerializer()) {
@@ -212,6 +217,22 @@ public final class GeneratorOpts {
             return null;
         }
         return getDefault("generator-jackson-localdatetime-serializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
+    }
+
+    /** {@return the jackson OffsetDateTime deserializer class name, or null} */
+    public String getJacksonOffsetDateTimeDeserializer() {
+        if (!isUseJacksonLocalDateSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-deserializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
+    }
+
+    /** {@return the jackson OffsetDateTime serializer class name, or null} */
+    public String getJacksonOffsetDateTimeSerializer() {
+        if (!isUseJacksonLocalDateTimeSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-serializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
     /** {@return the MP client config config key, or null} */
