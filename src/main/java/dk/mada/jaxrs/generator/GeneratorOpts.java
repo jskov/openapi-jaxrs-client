@@ -235,6 +235,14 @@ public final class GeneratorOpts {
         return getDefault("generator-jackson-offsetdatetime-serializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
+    /** {@return the OffsetDateTime wire format for jackson, or null} */
+    public String getJacksonOffsetDateTimeWireFormat() {
+        if (!isUseJacksonOffsetDateTimeSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
+    }
+
     /** {@return the MP client config config key, or null} */
     @Nullable
     public String getMpClientConfigKey() {

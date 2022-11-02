@@ -185,6 +185,7 @@ public class DtoGenerator {
                 .packageName(opts.dtoPackage())
                 .cannedLocalDateSerializerDTF(opts.getJacksonLocalDateWireFormat())
                 .cannedLocalDateTimeSerializerDTF(opts.getJacksonLocalDateTimeWireFormat())
+                .cannedOffsetDateTimeSerializerDTF(opts.getJacksonOffsetDateTimeWireFormat())
                 .build();
     }
 
