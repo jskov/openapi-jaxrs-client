@@ -11,6 +11,6 @@ public class _OffsetDateTimeJacksonSerializer extends JsonSerializer<OffsetDateT
 	@Override
 	public void serialize(OffsetDateTime value, JsonGenerator jgen, SerializerProvider provider)
 			throws IOException, JsonProcessingException {
-		jgen.writeString(value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+		jgen.writeString(value.format(DateTimeFormatter.{{cannedOffsetDateTimeSerializerDTF}}));
 	}
 }
