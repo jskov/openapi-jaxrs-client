@@ -11,4 +11,5 @@ dk.mada.jaxrs.model.api
 dk.mada.jaxrs.model.types
 dk.mada.jaxrs.naming
 dk.mada.jaxrs.openapi
+dk.mada.jaxrs.utils
 dk.mada.logging
