@@ -308,6 +308,16 @@ public final class GeneratorOpts {
         return ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateTimeSerializer());
     }
 
+    /** {@return true if the extra-template for a jackson OffsetDateTime deserializer should be added, otherwise false} */
+    public boolean isAddJacksonOffsetDateTimeDeserializerTemplate() {
+        return ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname().equals(getJacksonOffsetDateTimeDeserializer());
+    }
+
+    /** {@return true if the extra-template for a jackson OffsetDateTime serializer should be added, otherwise false} */
+    public boolean isAddJacksonOffsetDateTimeSerializerTemplate() {
+        return ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonOffsetDateTimeSerializer());
+    }
+
     /** {@return true if bean validation should be used, otherwise false} */
     public boolean isUseBeanValidation() {
         return bool("generator-use-bean-validation", true);
@@ -331,6 +341,11 @@ public final class GeneratorOpts {
     /** {@return true if date-time should be rendered with ZonedDateTime} */
     public boolean isUseZonedDateTime() {
         return bool("generator-use-zoneddatetime");
+    }
+
+    /** {@return true if date-time should be rendered with OffsetDateTime} */
+    public boolean isUseOffsetDateTime() {
+        return !isUseOffsetDateTime() && !isUseLocalDateTime();
     }
 
     /** {@return true if date-time should be rendered with LocalDateTime} */

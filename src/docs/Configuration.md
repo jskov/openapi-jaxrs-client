@@ -176,6 +176,7 @@ The options are grouped into three sections:
 >The specified value is used as a constant/factory method on DateTimeFormatter in the de/serializer classes.
 
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/localdate)
+
 >
     default value: ISO_LOCAL_DATE
 
@@ -204,8 +205,36 @@ The options are grouped into three sections:
 >The specified value is used as a constant/factory method on DateTimeFormatter in the de/serializer classes.
 
 >See [example](./src/test/java/mada/tests/e2e/opts/generator/localdate)
+
 >
     default value: ISO_LOCAL_DATE_TIME
+
+**generator-jackson-offsetdatetime-deserializer**
+
+>Allows you specify a custom OffsetDateTime deserializer class (use a fully qualified class name).
+
+>The default value will also cause generation of a generic OffsetDateTime deserializer that uses `generator-jackson-offsetdatetime-wire-format`.
+
+>
+    default value: _OffsetDateTimeJacksonDeserializer
+
+**generator-jackson-offsetdatetime-serializer**
+
+>Allows you specify a custom OffsetDateTime serializer class (use a fully qualified class name).
+
+>The default value will also cause generation of a generic OffsetDateTime serializer that uses `generator-jackson-offsetdatetime-wire-format`.
+
+>
+    default value: _OffsetDateTimeJacksonSerializer
+
+**generator-jackson-offsetdatetime-wire-format**
+
+>Allows you specify a OffsetDateTime wire format that is used with a standard de/serializer.
+
+>The specified value is used as a constant/factory method on DateTimeFormatter in the de/serializer classes.
+
+>
+    default value: ISO_OFFSET_DATE_TIME
 
 **generator-jakarta**
 

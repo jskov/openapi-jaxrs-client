@@ -236,11 +236,15 @@ public class DtoGenerator {
                 }
                 customOffsetDateTimeDeserializer = opts.getJacksonLocalDateTimeDeserializer();
                 customOffsetDateTimeSerializer = opts.getJacksonLocalDateTimeSerializer();
-            } else {
-                extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
-                extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
-                customOffsetDateTimeDeserializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname();
-                customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
+            } else { // is UseOffsetDateTime {
+            	if (opts.isAddJacksonOffsetDateTimeDeserializerTemplate()) {
+            		extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
+            	}
+            	if (opts.isAddJacksonOffsetDateTimeSerializerTemplate()) {
+            		extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
+            	}
+                customOffsetDateTimeDeserializer = opts.getJacksonOffsetDateTimeDeserializer();
+                customOffsetDateTimeSerializer = opts.getJacksonOffsetDateTimeSerializer();
             }
 
             dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);

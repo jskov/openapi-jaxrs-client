@@ -6,18 +6,20 @@
 
 package mada.tests.e2e.opts.generator.jackson.custom_offset_dates.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * SpecialTypes
  */
-@JsonbPropertyOrder({
+@JsonPropertyOrder({
   SpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
   SpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
   SpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
@@ -28,27 +30,35 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
-  @JsonbProperty(JSON_PROPERTY_BIG_DECIMAL)
+  @JsonProperty(JSON_PROPERTY_BIG_DECIMAL)
   private BigDecimal bigDecimal;
 
   public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
-  @JsonbProperty(JSON_PROPERTY_ZONED_DATE_TIME)
+  @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
+  @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_offset_dates.CustomOffsetDateTimeDeserializer.class)
+  @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_offset_dates.CustomOffsetDateTimeSerializer.class)
   private OffsetDateTime zonedDateTime;
 
   public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
-  @JsonbProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
+  @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
+  @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_offset_dates.CustomOffsetDateTimeDeserializer.class)
+  @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_offset_dates.CustomOffsetDateTimeSerializer.class)
   private OffsetDateTime offsetDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
-  @JsonbProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
+  @JsonProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
+  @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_offset_dates.CustomOffsetDateTimeDeserializer.class)
+  @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_offset_dates.CustomOffsetDateTimeSerializer.class)
   private OffsetDateTime localDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
-  @JsonbProperty(JSON_PROPERTY_LOCAL_DATE)
+  @JsonProperty(JSON_PROPERTY_LOCAL_DATE)
+  @JsonDeserialize(using = _LocalDateJacksonDeserializer.class)
+  @JsonSerialize(using = _LocalDateJacksonSerializer.class)
   private LocalDate localDate;
 
   public static final String JSON_PROPERTY_LOCAL_TIME = "localTime";
-  @JsonbProperty(JSON_PROPERTY_LOCAL_TIME)
+  @JsonProperty(JSON_PROPERTY_LOCAL_TIME)
   private LocalTime localTime;
 
   public SpecialTypes bigDecimal(BigDecimal bigDecimal) {
