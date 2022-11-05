@@ -391,7 +391,8 @@ public final class TypeConverter {
         String modelName = naming.convertTypeName(dtoName);
         // FIXME: original dtoName should be stored in the Dto
         // and used to generate mpSchema name in the Generator.
-        // It has nothing to do with the parser.
+        // But maybe keep it since it is a distinct namespace
+        // that needs name-conflict-resolution.
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
         ParserTypeRef dtoType = toReference(schema);
