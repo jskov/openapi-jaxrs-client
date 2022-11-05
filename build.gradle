@@ -86,7 +86,14 @@ java {
 
 tasks.withType(JavaCompile).configureEach {
     options.errorprone.disableWarningsInGeneratedCode = true
-    options.errorprone.disable("InvalidParam", "JavaTimeDefaultTimeZone")
+    // ImmutableEnumChecker:
+    //  https://github.com/google/error-prone/issues/1542 (Set.of)
+    //  ? records
+    // InvalidParam:
+    //  https://github.com/google/error-prone/issues/2321
+    // JavaTimeDefaultTimeZone:
+    //  Timezone is not relevant
+    options.errorprone.disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
     options.errorprone.excludedPaths = ".*/OpenapiGeneratorUtils.java"
 }
 
