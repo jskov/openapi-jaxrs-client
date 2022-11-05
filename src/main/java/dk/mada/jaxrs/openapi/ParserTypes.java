@@ -34,6 +34,7 @@ import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
+import dk.mada.jaxrs.openapi.ConflictRenamer.ConflictRenamed;
 
 /**
  * Types found while parsing.
@@ -79,7 +80,7 @@ public class ParserTypes {
 
     private Map<TypeName, Dto> renamedDtos;
 
-    private Map<String, String> renameMap = Map.of();
+    private Map<String, ConflictRenamed> renameMap = Map.of();
 
     /**
      * Create new instance.
@@ -183,12 +184,12 @@ public class ParserTypes {
     public Dto getFinallyResolvedDto(Dto parsedDto) {
         String parsedDtoName = parsedDto.name();
         
-        String newName = renameMap.get(parsedDtoName);
+        ConflictRenamed newName = renameMap.get(parsedDtoName);
         if (newName == null) {
             return parsedDto;
         }
 
-        return renamedDtos.get(typeNames.of(newName));
+        return renamedDtos.get(typeNames.of(newName.dtoName()));
     }
 
     /**

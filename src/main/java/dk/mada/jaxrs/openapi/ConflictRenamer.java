@@ -72,7 +72,7 @@ public class ConflictRenamer {
         }
     }
     
-    public Map<String, String> getRemap() {
+    public Map<String, ConflictRenamed> getRemap() {
         return typeRenaming;
     }
     
@@ -98,25 +98,31 @@ public class ConflictRenamer {
         }
     }
     
-    private Map<String, String> typeRenaming = new HashMap<>();
+    private Map<String, ConflictRenamed> typeRenaming = new HashMap<>();
 
+    record ConflictRenamed(String dtoName, String mpSchemaName) {
+    }
+    
     private Dto assignUniqueName(Dto dto) {
         String oldTypeName = dto.name();
-        String newTypeName = assignUniqueName(namespaceTypes, oldTypeName);
-        String newSchemaName = assignUniqueName(namespaceMpSchemas, dto.mpSchemaName());
+        String oldMpSchemaName = dto.mpSchemaName();
 
-        if (oldTypeName.equals(newTypeName)) {
+        String newTypeName = assignUniqueName(namespaceTypes, oldTypeName);
+        String newMpSchemaName = assignUniqueName(namespaceMpSchemas, oldMpSchemaName);
+
+        if (oldTypeName.equals(newTypeName)
+                && oldMpSchemaName.equals(newMpSchemaName)) {
             return dto;
         }
          
         typeNames.rename(oldTypeName, newTypeName);
-        typeRenaming.put(oldTypeName, newTypeName);
+        typeRenaming.put(oldTypeName, new ConflictRenamed(newTypeName, newMpSchemaName));
         logger.info(" {} -> {}", oldTypeName, newTypeName);
         
         return Dto.builderFrom(dto)
                 .typeName(typeNames.of(newTypeName))
                 .name(newTypeName)
-                .mpSchemaName(newSchemaName)
+                .mpSchemaName(newMpSchemaName)
                 .build();
     }
 

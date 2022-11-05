@@ -71,13 +71,13 @@ public class Resolver {
     private Dto derefDto(Dto dto) {
         Reference dtoTypeRef = dto.reference();
         String name = dto.name();
-        String newName = renameTypes.getOrDefault(name, name);
+        String newName = name;//renameTypes.getOrDefault(name, name);
         List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(dto.typeName());
         logger.debug(" - deref DTO {}->{} : {}", name, newName, dtoTypeRef);
         logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builderFrom(dto)
                 .name(newName)
-                .mpSchemaName(name)
+                .mpSchemaName(dto.mpSchemaName())
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto.properties()))
                 .implementsInterfaces(implementsInterfaces)
