@@ -73,6 +73,8 @@ public final class TypeNames {
 
     /** TypeName instances indexed by their name. */
     private final Map<String, TypeName> nameToInstances = new HashMap<>();
+    /** Name overrides. */
+    private final Map<TypeName, String> nameOverrides = new HashMap<>();
 
     /**
      * Constructs a new instance.
@@ -119,7 +121,12 @@ public final class TypeNames {
      * @param newTypeName the types new name
      */
     public void rename(String typeName, String newTypeName) {
-        of(typeName).overrideName = newTypeName;
+        nameOverrides.put(of(typeName), newTypeName);
+//        of(typeName).overrideName = newTypeName;
+    }
+    
+    public String assignedName(TypeName type) {
+        return nameOverrides.getOrDefault(type, type.name());
     }
 
     /**

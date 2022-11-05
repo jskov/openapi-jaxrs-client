@@ -1,7 +1,10 @@
 package dk.mada.jaxrs.openapi;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -57,17 +60,22 @@ public class ConflictRenamer {
      * @param dtos the DTOs to rename
      * @return the renamed DTOs
      */
-    public Dtos renameDtos(List<Dto> dtos) {
-        List<Dto> renamedDtos = dtos;
+    public Collection<Dto> renameDtos(Collection<Dto> dtos) {
         if (naming.isRenameCaseConflicts()) {
             logger.debug("Renaming DTOs to avoid on-disk conflicts");
-            renamedDtos = dtos.stream()
+            return dtos.stream()
                 .sorted(this::schemaOrderComparitor)
                 .map(this::assignUniqueName)
                 .toList();
+        } else {
+            return dtos;
         }
-        return new Dtos(renamedDtos);
     }
+    
+    public Map<String, String> getRemap() {
+        return typeRenaming;
+    }
+    
 
     /**
      * Order two DTOs by either their name or their declaration
@@ -89,18 +97,24 @@ public class ConflictRenamer {
             throw new IllegalStateException("Unhandled schema order " + naming.getRenameCaseConflictSchemaOrder());
         }
     }
+    
+    private Map<String, String> typeRenaming = new HashMap<>();
 
     private Dto assignUniqueName(Dto dto) {
         String oldTypeName = dto.name();
         String newTypeName = assignUniqueName(namespaceTypes, oldTypeName);
         String newSchemaName = assignUniqueName(namespaceMpSchemas, dto.mpSchemaName());
 
-        if (!oldTypeName.equals(newTypeName)) {
-            typeNames.rename(oldTypeName, newTypeName);
-            logger.debug(" {} -> {}", oldTypeName, newTypeName);
+        if (oldTypeName.equals(newTypeName)) {
+            return dto;
         }
-
+         
+        typeNames.rename(oldTypeName, newTypeName);
+        typeRenaming.put(oldTypeName, newTypeName);
+        logger.info(" {} -> {}", oldTypeName, newTypeName);
+        
         return Dto.builderFrom(dto)
+                .typeName(typeNames.of(newTypeName))
                 .name(newTypeName)
                 .mpSchemaName(newSchemaName)
                 .build();

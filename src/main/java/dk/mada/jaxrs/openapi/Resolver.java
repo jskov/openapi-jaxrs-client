@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
@@ -22,6 +23,7 @@ import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeNames;
+import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
@@ -40,6 +42,8 @@ public class Resolver {
     private final TypeNames typeNames;
     /** Types from parsing. */
     private final ParserTypes parserTypes;
+
+    private Map<String, String> renameTypes = Map.of();
 
     /**
      * Create new instance.
@@ -67,10 +71,13 @@ public class Resolver {
     private Dto derefDto(Dto dto) {
         Reference dtoTypeRef = dto.reference();
         String name = dto.name();
+        String newName = renameTypes.getOrDefault(name, name);
         List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(dto.typeName());
-        logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
+        logger.debug(" - deref DTO {}->{} : {}", name, newName, dtoTypeRef);
         logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builderFrom(dto)
+                .name(newName)
+                .mpSchemaName(name)
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto.properties()))
                 .implementsInterfaces(implementsInterfaces)
@@ -157,18 +164,38 @@ public class Resolver {
     }
 
     private TypeReference resolve(ParserTypeRef ptr) {
+        // This is where (unresolved) "forward" references are finally
+        // resolved to the proper new type.
         Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
+        
+        // Now we have a type (the parserRef is resolved)
+        
+        // May have to resolve inner if a container
         Type resolvedT = resolveInner(t);
+        
+        logger.info(" RES {} -> {}", t, resolvedT);
+        
+        // Now make a new, final, model reference to this type
+        // This is where renaming can happen
+        
         TypeReference res = dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
 
+        TypeName inType = t.typeName();
+        String outTypeName = renameTypes.getOrDefault(inType.name(), inType.name());
+        
         logger.debug("  resolve {} -> {}", ptr, res);
+        logger.info("   rename {} -> {}/{}", inType, res.typeName(), outTypeName);
         return res;
     }
 
     private Type resolveInner(Type type) {
-        if (type instanceof Dto) {
+        if (type instanceof Dto dto) {
+            // only have to rename here? only DTOs will ever be renamed, yes?
+
+            Dto resolvedDto = parserTypes.getFinallyResolvedDto(dto);
+            
             // Keep DTOs as references - or cyclic DTOs will not be possible
-            return TypeReference.of(type, Validation.NO_VALIDATION);
+            return TypeReference.of(resolvedDto, Validation.NO_VALIDATION);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {

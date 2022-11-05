@@ -1,8 +1,10 @@
 package dk.mada.jaxrs.openapi;
 
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
@@ -73,6 +76,10 @@ public class ParserTypes {
 
     /** The DTO package name. */
     private final String dtoPackageName;
+
+    private Map<TypeName, Dto> renamedDtos;
+
+    private Map<String, String> renameMap = Map.of();
 
     /**
      * Create new instance.
@@ -148,13 +155,40 @@ public class ParserTypes {
         parsedDtos.put(dto.openapiId(), dto);
     }
 
+
+    public void renameConflictingDtos(ConflictRenamer cr) {
+        logger.info("Rename conflicts");
+        logger.info(" mappedToJse: {}", mappedToJseTypes.keySet());
+        logger.info(" mappedToTypes: {}", remappedDtoTypes.keySet());
+        
+        List<Dto> dtosToBeGenerated = parsedDtos.entrySet().stream()
+            .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
+            .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
+            .map(e -> e.getValue())
+            .toList();
+        
+        renamedDtos = cr.renameDtos(dtosToBeGenerated).stream()
+                .collect(toMap(dto -> typeNames.of(dto.name()), dto -> dto));
+        
+        renameMap = cr.getRemap();
+    }
+    
     /** {@return the defined DTOs} */
     public Set<Dto> getActiveDtos() {
-        return parsedDtos.entrySet().stream()
-                .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
-                .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
+        return renamedDtos.entrySet().stream()
                 .map(Entry::getValue)
                 .collect(toSet());
+    }
+    
+    public Dto getFinallyResolvedDto(Dto parsedDto) {
+        String parsedDtoName = parsedDto.name();
+        
+        String newName = renameMap.get(parsedDtoName);
+        if (newName == null) {
+            return parsedDto;
+        }
+
+        return renamedDtos.get(typeNames.of(newName));
     }
 
     /**

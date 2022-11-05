@@ -3,6 +3,7 @@ package dk.mada.jaxrs.openapi;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -110,10 +111,20 @@ public class Parser {
         Resolver resolver = new Resolver(typeNames, parserTypes);
         Operations derefOps = resolver.operations(operations);
 
-        List<Dto> activeDtos = resolver.getDtos();
         List<String> schemaNamesDeclarationOrder = getSchemaOrder(specification);
-        Dtos dtos = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder)
-                .renameDtos(activeDtos);
+
+        ConflictRenamer cr = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder);
+        parserTypes.renameConflictingDtos(cr);
+        
+        // This converts the parser references to model type references
+        List<Dto> activeDtos = resolver.getDtos();
+
+//        parserTypes.getActiveDtos();
+        // This wants to rename the types
+//        Dtos dtos = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder)
+//                .renameDtos(activeDtos);
+        Dtos dtos = new Dtos(activeDtos);
+        
 
         if (showInfo) {
             String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)
