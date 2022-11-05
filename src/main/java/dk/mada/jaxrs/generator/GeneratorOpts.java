@@ -166,6 +166,11 @@ public final class GeneratorOpts {
         return parserOpts.isJseLocalDateTime() && isJackson();
     }
 
+    /** {@return true if a jackson OffsetDateTime serializer should be rendered} */
+    public boolean isUseJacksonOffsetDateTimeSerializer() {
+        return parserOpts.isJseOffsetDateTime() && isJackson();
+    }
+
     /** {@return the LocalDate wire format for jackson, or null} */
     public String getJacksonLocalDateWireFormat() {
         if (!isUseJacksonLocalDateSerializer()) {
@@ -212,6 +217,30 @@ public final class GeneratorOpts {
             return null;
         }
         return getDefault("generator-jackson-localdatetime-serializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
+    }
+
+    /** {@return the jackson OffsetDateTime deserializer class name, or null} */
+    public String getJacksonOffsetDateTimeDeserializer() {
+        if (!isUseJacksonLocalDateSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-deserializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
+    }
+
+    /** {@return the jackson OffsetDateTime serializer class name, or null} */
+    public String getJacksonOffsetDateTimeSerializer() {
+        if (!isUseJacksonLocalDateTimeSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-serializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
+    }
+
+    /** {@return the OffsetDateTime wire format for jackson, or null} */
+    public String getJacksonOffsetDateTimeWireFormat() {
+        if (!isUseJacksonOffsetDateTimeSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
     }
 
     /** {@return the MP client config config key, or null} */
@@ -285,6 +314,16 @@ public final class GeneratorOpts {
     /** {@return true if the extra-template for a jackson LocalDateTime serializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateTimeSerializerTemplate() {
         return ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateTimeSerializer());
+    }
+
+    /** {@return true if the extra-template for a jackson OffsetDateTime deserializer should be added, otherwise false} */
+    public boolean isAddJacksonOffsetDateTimeDeserializerTemplate() {
+        return ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname().equals(getJacksonOffsetDateTimeDeserializer());
+    }
+
+    /** {@return true if the extra-template for a jackson OffsetDateTime serializer should be added, otherwise false} */
+    public boolean isAddJacksonOffsetDateTimeSerializerTemplate() {
+        return ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonOffsetDateTimeSerializer());
     }
 
     /** {@return true if bean validation should be used, otherwise false} */
