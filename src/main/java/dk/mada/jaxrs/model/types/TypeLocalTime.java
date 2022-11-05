@@ -2,8 +2,6 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
 
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
-
 /**
  * Special type for optional special handing of types named LocalTime
  * as if they are LocalTime. This is an (invalid, and thus not properly

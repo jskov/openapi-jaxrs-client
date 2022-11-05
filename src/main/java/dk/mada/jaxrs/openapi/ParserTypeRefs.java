@@ -15,8 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Constructs and keeps track of parser references.

@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
-
 /**
  * Enumeration type.
  *

@@ -2,8 +2,6 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.Objects;
 
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
-
 /**
  * Primitive types of the java language (plus String).
  */

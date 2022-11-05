@@ -5,8 +5,6 @@ import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
-
 /**
  * Type representing an interface (schema with anyOf).
  */

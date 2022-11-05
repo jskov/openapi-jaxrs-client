@@ -5,7 +5,6 @@ import java.util.Set;
 import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.model.Validation;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * A reference to type with validation requirements.
