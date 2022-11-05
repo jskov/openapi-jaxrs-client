@@ -107,13 +107,14 @@ public class Parser {
         }
 
         parserTypes.consolidateDtos();
-        Resolver resolver = new Resolver(typeNames, parserTypes);
+        List<String> schemaNamesDeclarationOrder = getSchemaOrder(specification);
+        ConflictRenamer cr = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder);
+
+        Resolver resolver = new Resolver(typeNames, parserTypes, cr);
         Operations derefOps = resolver.operations(operations);
 
-        List<String> schemaNamesDeclarationOrder = getSchemaOrder(specification);
 
-        ConflictRenamer cr = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder);
-        parserTypes.renameConflictingDtos(cr);
+        //parserTypes.renameConflictingDtos(cr);
         
         // This converts the parser references to model type references
         List<Dto> activeDtos = resolver.getDtos();

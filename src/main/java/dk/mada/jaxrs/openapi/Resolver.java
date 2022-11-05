@@ -1,8 +1,12 @@
 package dk.mada.jaxrs.openapi;
 
+import static java.util.stream.Collectors.toMap;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +30,7 @@ import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
+import dk.mada.jaxrs.openapi.ConflictRenamer.ConflictRenamed;
 
 /**
  * Works through a parsed model that contains parser type
@@ -44,15 +49,21 @@ public class Resolver {
 
     private Map<String, String> renameTypes = Map.of();
 
+    private Map<String, ConflictRenamed> dtoRenameMap;
+
+    private ConflictRenamer conflictRenamer;
+
     /**
      * Create new instance.
      *
      * @param typeNames the type names instance
      * @param parserTypes the types collected during parsing
+     * @param cr 
      */
-    public Resolver(TypeNames typeNames, ParserTypes parserTypes) {
+    public Resolver(TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
+        this.conflictRenamer = conflictRenamer;
     }
 
     /**
@@ -62,21 +73,23 @@ public class Resolver {
      * @return DTOs for the model
      */
     public List<Dto> getDtos() {
-        return parserTypes.getActiveDtos().stream()
+        Set<Dto> unresolvedDtos = parserTypes.getActiveDtos();
+        
+        return conflictRenamer.computeDtoNameOverrides(unresolvedDtos).stream()
                 .map(this::derefDto)
                 .toList();
     }
-
+    
     private Dto derefDto(Dto dto) {
         Reference dtoTypeRef = dto.reference();
+
         String name = dto.name();
-        String newName = name;//renameTypes.getOrDefault(name, name);
-        List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(dto.typeName());
-        logger.debug(" - deref DTO {}->{} : {}", name, newName, dtoTypeRef);
+        TypeName typeName = dto.typeName();
+
+        List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(typeName);
+        logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
         logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builderFrom(dto)
-                .name(newName)
-                .mpSchemaName(dto.mpSchemaName())
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto.properties()))
                 .implementsInterfaces(implementsInterfaces)
@@ -169,6 +182,8 @@ public class Resolver {
         
         // Now we have a type (the parserRef is resolved)
         
+        logger.info(" deref inner {} {}", t.typeName(), ptr);
+        
         // May have to resolve inner if a container
         Type resolvedT = resolveInner(t);
         
@@ -191,7 +206,7 @@ public class Resolver {
         if (type instanceof Dto dto) {
             // only have to rename here? only DTOs will ever be renamed, yes?
 
-            Dto resolvedDto = parserTypes.getFinallyResolvedDto(dto);
+            Dto resolvedDto = conflictRenamer.getConflictRenamedDto(dto);
             
             // Keep DTOs as references - or cyclic DTOs will not be possible
             return TypeReference.of(resolvedDto, Validation.NO_VALIDATION);

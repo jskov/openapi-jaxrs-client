@@ -30,6 +30,7 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeObject;
+import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.openapi.ConflictRenamer.ConflictRenamed;
@@ -93,6 +94,7 @@ public class ParserTypes {
 
         dtoPackageName = generatorOpts.dtoPackage();
 
+        mapJse(true,                             TypeNames.OBJECT,           TypePlainObject.get());
         mapJse(parserOpts.isJseBigDecimal(),     TypeNames.BIG_DECIMAL,      TypeBigDecimal.get());
         mapJse(parserOpts.isJseInputStream(),    TypeNames.INPUT_STREAM,     TypeByteArray.getStream());
         mapJse(parserOpts.isJseUUID(),           TypeNames.UUID,             TypeUUID.get());
@@ -154,7 +156,6 @@ public class ParserTypes {
         parsedDtos.put(dto.openapiId(), dto);
     }
 
-
     public void renameConflictingDtos(ConflictRenamer cr) {
         logger.info("Rename conflicts");
         logger.info(" mappedToJse: {}", mappedToJseTypes.keySet());
@@ -163,18 +164,20 @@ public class ParserTypes {
         List<Dto> dtosToBeGenerated = parsedDtos.entrySet().stream()
             .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
             .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
-            .map(e -> e.getValue())
+            .map(Entry::getValue)
             .toList();
         
-        renamedDtos = cr.renameDtos(dtosToBeGenerated).stream()
-                .collect(toMap(dto -> typeNames.of(dto.name()), dto -> dto));
+//        renameMap = cr.computeDtoNameOverrides(dtosToBeGenerated);
         
-        renameMap = cr.getRemap();
+//        renamedDtos = .stream()
+//                .collect(toMap(dto -> typeNames.of(dto.name()), dto -> dto));
     }
     
     /** {@return the defined DTOs} */
     public Set<Dto> getActiveDtos() {
-        return renamedDtos.entrySet().stream()
+        return parsedDtos.entrySet().stream()
+                .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
+                .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
                 .map(Entry::getValue)
                 .collect(toSet());
     }
