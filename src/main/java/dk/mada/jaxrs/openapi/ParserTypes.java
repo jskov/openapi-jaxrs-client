@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.openapi;
 
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.HashMap;
@@ -33,7 +32,6 @@ import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
-import dk.mada.jaxrs.openapi.ConflictRenamer.ConflictRenamed;
 
 /**
  * Types found while parsing.
@@ -76,10 +74,6 @@ public class ParserTypes {
 
     /** The DTO package name. */
     private final String dtoPackageName;
-
-    private Map<TypeName, Dto> renamedDtos;
-
-    private Map<String, ConflictRenamed> renameMap = Map.of();
 
     /**
      * Create new instance.
@@ -156,23 +150,6 @@ public class ParserTypes {
         parsedDtos.put(dto.openapiId(), dto);
     }
 
-    public void renameConflictingDtos(ConflictRenamer cr) {
-        logger.info("Rename conflicts");
-        logger.info(" mappedToJse: {}", mappedToJseTypes.keySet());
-        logger.info(" mappedToTypes: {}", remappedDtoTypes.keySet());
-        
-        List<Dto> dtosToBeGenerated = parsedDtos.entrySet().stream()
-            .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
-            .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
-            .map(Entry::getValue)
-            .toList();
-        
-//        renameMap = cr.computeDtoNameOverrides(dtosToBeGenerated);
-        
-//        renamedDtos = .stream()
-//                .collect(toMap(dto -> typeNames.of(dto.name()), dto -> dto));
-    }
-    
     /** {@return the defined DTOs} */
     public Set<Dto> getActiveDtos() {
         return parsedDtos.entrySet().stream()
@@ -180,17 +157,6 @@ public class ParserTypes {
                 .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
                 .map(Entry::getValue)
                 .collect(toSet());
-    }
-    
-    public Dto getFinallyResolvedDto(Dto parsedDto) {
-        String parsedDtoName = parsedDto.name();
-        
-        ConflictRenamed newName = renameMap.get(parsedDtoName);
-        if (newName == null) {
-            return parsedDto;
-        }
-
-        return renamedDtos.get(typeNames.of(newName.dtoName()));
     }
 
     /**

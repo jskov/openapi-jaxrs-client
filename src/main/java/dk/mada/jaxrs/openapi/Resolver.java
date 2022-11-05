@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import static java.util.stream.Collectors.toMap;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +28,6 @@ import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
-import dk.mada.jaxrs.openapi.ConflictRenamer.ConflictRenamed;
 
 /**
  * Works through a parsed model that contains parser type
@@ -46,19 +43,15 @@ public class Resolver {
     private final TypeNames typeNames;
     /** Types from parsing. */
     private final ParserTypes parserTypes;
-
-    private Map<String, String> renameTypes = Map.of();
-
-    private Map<String, ConflictRenamed> dtoRenameMap;
-
-    private ConflictRenamer conflictRenamer;
+    /** Conflict renamer. */
+    private final ConflictRenamer conflictRenamer;
 
     /**
      * Create new instance.
      *
      * @param typeNames the type names instance
      * @param parserTypes the types collected during parsing
-     * @param cr 
+     * @param conflictRenamer the conflict renamer 
      */
     public Resolver(TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
         this.typeNames = typeNames;
@@ -70,16 +63,25 @@ public class Resolver {
      * Converts the ParserTypes into finally resolved
      * and mapped DTOs for the model.
      *
+     * First the DTOs are renamed (if necessary) to resolve
+     * name conflicts.
+     * Then references to DTOs are resolved, changing parser-
+     * references to model-references.
+     *
      * @return DTOs for the model
      */
     public List<Dto> getDtos() {
         Set<Dto> unresolvedDtos = parserTypes.getActiveDtos();
-        
-        return conflictRenamer.computeDtoNameOverrides(unresolvedDtos).stream()
+
+        // Rename DTOs as a separate pass so there are stable
+        // targets for dereferencing during the resolve pass.
+        Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
+
+        return renamedDtos.stream()
                 .map(this::derefDto)
                 .toList();
     }
-    
+
     private Dto derefDto(Dto dto) {
         Reference dtoTypeRef = dto.reference();
 
@@ -187,18 +189,12 @@ public class Resolver {
         // May have to resolve inner if a container
         Type resolvedT = resolveInner(t);
         
-        logger.info(" RES {} -> {}", t, resolvedT);
-        
         // Now make a new, final, model reference to this type
         // This is where renaming can happen
         
         TypeReference res = dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
 
-        TypeName inType = t.typeName();
-        String outTypeName = renameTypes.getOrDefault(inType.name(), inType.name());
-        
         logger.debug("  resolve {} -> {}", ptr, res);
-        logger.info("   rename {} -> {}/{}", inType, res.typeName(), outTypeName);
         return res;
     }
 

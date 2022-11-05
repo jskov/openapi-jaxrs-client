@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.naming.Naming;
 
 /**
@@ -61,23 +60,26 @@ public class ConflictRenamer {
     }
 
     /**
-     * Rename DTOs if necessary.
+     * Resolves name conflicts in DTOs.
+     *
+     * Returns new DTO instances that have been renamed.
+     * References in their properties have *not* been resolved.
      *
      * @param dtos the DTOs to rename
      * @return the renamed DTOs
      */
-    public Collection<Dto> computeDtoNameOverrides(Collection<Dto> dtos) {
+    public Collection<Dto> resolveNameConflicts(Collection<Dto> dtos) {
         if (naming.isRenameCaseConflicts()) {
-            logger.debug("Renaming DTOs to avoid on-disk conflicts");
+            logger.info("Renaming DTOs to avoid on-disk conflicts");
             renameMap = dtos.stream()
                     .sorted(this::schemaOrderComparitor)
                     .map(this::assignUniqueName)
                     .filter(cr -> cr != null)
-                    .collect(toMap(cr -> cr.originalDtoName(), cr -> cr));
+                    .collect(toMap(ConflictRenamed::originalDtoName, cr -> cr));
         }
-        
+
         conflictRenamedDtos = dtos.stream()
-            .collect(toMap(dto -> dto, dto -> renameDto(dto)));
+            .collect(toMap(dto -> dto, this::renameDto));
 
         return conflictRenamedDtos.values();
     }
@@ -110,7 +112,7 @@ public class ConflictRenamer {
             name = renaming.dtoName();
             typeName = typeNames.of(name);
             mpSchemaName = renaming.mpSchemaName();
-            logger.info(" - renaming DTO {} -> {}/{}", originalName, name, mpSchemaName);
+            logger.info(" - renaming DTO {} -> {}/@Schema({})", originalName, name, mpSchemaName);
         }
         
         return Dto.builderFrom(dto)
@@ -140,10 +142,22 @@ public class ConflictRenamer {
             throw new IllegalStateException("Unhandled schema order " + naming.getRenameCaseConflictSchemaOrder());
         }
     }
-    
+
+    /**
+     * DTO conflict renaming information.
+     *
+     * @param originalDtoName the original name of the DTO
+     * @param dtoName the new name of the DTO
+     * @param mpSchemaName the new Schema name of the DTO
+     */
     record ConflictRenamed(String originalDtoName, String dtoName, String mpSchemaName) {
     }
-    
+
+    /**
+     * {@return a conflict renaming if required, or null}
+     *
+     * @param dto the DTO to assign a unique name to
+     */
     private ConflictRenamed assignUniqueName(Dto dto) {
         String oldTypeName = dto.name();
         String oldMpSchemaName = dto.mpSchemaName();
@@ -156,9 +170,7 @@ public class ConflictRenamer {
             return null;
         }
          
-        ConflictRenamed cr = new ConflictRenamed(oldTypeName, newTypeName, newMpSchemaName);
-        logger.info(" {} -> {}", oldTypeName, cr);
-        return cr;
+        return new ConflictRenamed(oldTypeName, newTypeName, newMpSchemaName);
     }
 
     private String assignUniqueName(Set<String> namespace, String name) {
