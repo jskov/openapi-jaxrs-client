@@ -1,14 +1,19 @@
 package dk.mada.jaxrs.openapi;
 
+import static java.util.stream.Collectors.toMap;
+
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
-import dk.mada.jaxrs.model.Dtos;
+import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 
@@ -24,19 +29,23 @@ import dk.mada.jaxrs.naming.Naming;
  * than that assigned to the DTO.
  * May need a separate switch.
  */
-public class ConflictRenamer {
+public final class ConflictRenamer {
     private static final Logger logger = LoggerFactory.getLogger(ConflictRenamer.class);
 
-    /** Type names. */
-    private final TypeNames typeNames;
     /** Naming. */
     private final Naming naming;
+    /** Type names. */
+    private final TypeNames typeNames;
     /** Schema names in their OpenApi document declaration order. */
     private List<String> schemaNamesDeclarationOrder;
     /** Assigned type names. */
     private Set<String> namespaceTypes = new HashSet<>();
     /** Assigned MP schema names. */
     private Set<String> namespaceMpSchemas = new HashSet<>();
+    /** Renamed DTO names and their new conflict free names. */
+    private Map<String, ConflictRenamed> renameMap = Map.of();
+    /** Map from pre-renaming to renamed DTOs. */
+    private Map<Dto, Dto> conflictRenamedDtos;
 
     /**
      * Constructs a new instance.
@@ -52,21 +61,73 @@ public class ConflictRenamer {
     }
 
     /**
-     * Rename DTOs if necessary.
+     * Resolves name conflicts in DTOs.
+     *
+     * Returns new DTO instances that have been renamed.
+     * References in their properties have *not* been resolved.
      *
      * @param dtos the DTOs to rename
      * @return the renamed DTOs
      */
-    public Dtos renameDtos(List<Dto> dtos) {
-        List<Dto> renamedDtos = dtos;
+    public Collection<Dto> resolveNameConflicts(Collection<Dto> dtos) {
         if (naming.isRenameCaseConflicts()) {
-            logger.debug("Renaming DTOs to avoid on-disk conflicts");
-            renamedDtos = dtos.stream()
-                .sorted(this::schemaOrderComparitor)
-                .map(this::assignUniqueName)
-                .toList();
+            logger.info("Renaming DTOs to avoid on-disk conflicts");
+            renameMap = dtos.stream()
+                    .sorted(this::schemaOrderComparitor)
+                    .map(this::assignUniqueName)
+                    .filter(Objects::nonNull)
+                    .collect(toMap(ConflictRenamed::originalDtoName, cr -> cr));
         }
-        return new Dtos(renamedDtos);
+
+        conflictRenamedDtos = dtos.stream()
+            .collect(toMap(dto -> dto, this::renameDto));
+
+        return conflictRenamedDtos.values();
+    }
+
+    /**
+     * Maps pre-renamed DTO instance to new
+     * (possibly renamed) instance.
+     *
+     * @param dto pre-renamed DTO
+     * @return same DTO instance, but renamed if required
+     */
+    public Dto getConflictRenamedDto(Dto dto) {
+        if (conflictRenamedDtos == null) {
+            return dto;
+        }
+        // This handles some breakage in the TypeConverter
+        // plain Object? Triggered by the primitives test.
+        if (dto.typeName().equals(TypeNames.OBJECT)) {
+            return dto;
+        }
+        Dto renamedDto = conflictRenamedDtos.get(dto);
+        if (renamedDto == null) {
+            throw new IllegalStateException("Did not find renamed DTO for " + dto.name());
+        }
+        return renamedDto;
+    }
+
+    private Dto renameDto(Dto dto) {
+        final String originalName = dto.name();
+
+        String name = originalName;
+        TypeName typeName = dto.typeName();
+        String mpSchemaName = dto.mpSchemaName();
+
+        ConflictRenamed renaming = renameMap.get(originalName);
+        if (renaming != null) {
+            name = renaming.dtoName();
+            typeName = typeNames.of(name);
+            mpSchemaName = renaming.mpSchemaName();
+            logger.info(" - renaming DTO {} -> {}/@Schema({})", originalName, name, mpSchemaName);
+        }
+
+        return Dto.builderFrom(dto)
+                .typeName(typeName)
+                .name(name)
+                .mpSchemaName(mpSchemaName)
+                .build();
     }
 
     /**
@@ -90,20 +151,34 @@ public class ConflictRenamer {
         }
     }
 
-    private Dto assignUniqueName(Dto dto) {
-        String oldTypeName = dto.name();
-        String newTypeName = assignUniqueName(namespaceTypes, oldTypeName);
-        String newSchemaName = assignUniqueName(namespaceMpSchemas, dto.mpSchemaName());
+    /**
+     * DTO conflict renaming information.
+     *
+     * @param originalDtoName the original name of the DTO
+     * @param dtoName the new name of the DTO
+     * @param mpSchemaName the new Schema name of the DTO
+     */
+    record ConflictRenamed(String originalDtoName, String dtoName, String mpSchemaName) {
+    }
 
-        if (!oldTypeName.equals(newTypeName)) {
-            typeNames.rename(oldTypeName, newTypeName);
-            logger.debug(" {} -> {}", oldTypeName, newTypeName);
+    /**
+     * {@return a conflict renaming if required, or null}
+     *
+     * @param dto the DTO to assign a unique name to
+     */
+    private ConflictRenamed assignUniqueName(Dto dto) {
+        String oldTypeName = dto.name();
+        String oldMpSchemaName = dto.mpSchemaName();
+
+        String newTypeName = assignUniqueName(namespaceTypes, oldTypeName);
+        String newMpSchemaName = assignUniqueName(namespaceMpSchemas, oldMpSchemaName);
+
+        if (oldTypeName.equals(newTypeName)
+                && oldMpSchemaName.equals(newMpSchemaName)) {
+            return null;
         }
 
-        return Dto.builderFrom(dto)
-                .name(newTypeName)
-                .mpSchemaName(newSchemaName)
-                .build();
+        return new ConflictRenamed(oldTypeName, newTypeName, newMpSchemaName);
     }
 
     private String assignUniqueName(Set<String> namespace, String name) {

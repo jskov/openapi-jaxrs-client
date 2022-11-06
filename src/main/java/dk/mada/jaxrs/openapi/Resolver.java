@@ -1,8 +1,10 @@
 package dk.mada.jaxrs.openapi;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
@@ -30,7 +33,7 @@ import dk.mada.jaxrs.model.types.TypeVoid;
  * Works through a parsed model that contains parser type
  * references and resolves them to pure model types.
  */
-public class Resolver {
+public final class Resolver {
     private static final Logger logger = LoggerFactory.getLogger(Resolver.class);
 
     /** Parser types to their dereferenced model type. */
@@ -40,34 +43,52 @@ public class Resolver {
     private final TypeNames typeNames;
     /** Types from parsing. */
     private final ParserTypes parserTypes;
+    /** Conflict renamer. */
+    private final ConflictRenamer conflictRenamer;
 
     /**
      * Create new instance.
      *
      * @param typeNames the type names instance
      * @param parserTypes the types collected during parsing
+     * @param conflictRenamer the conflict renamer
      */
-    public Resolver(TypeNames typeNames, ParserTypes parserTypes) {
+    public Resolver(TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
+        this.conflictRenamer = conflictRenamer;
     }
 
     /**
      * Converts the ParserTypes into finally resolved
      * and mapped DTOs for the model.
      *
+     * First the DTOs are renamed (if necessary) to resolve
+     * name conflicts.
+     * Then references to DTOs are resolved, changing parser-
+     * references to model-references.
+     *
      * @return DTOs for the model
      */
     public List<Dto> getDtos() {
-        return parserTypes.getActiveDtos().stream()
+        Set<Dto> unresolvedDtos = parserTypes.getActiveDtos();
+
+        // Rename DTOs as a separate pass so there are stable
+        // targets for dereferencing during the resolve pass.
+        Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
+
+        return renamedDtos.stream()
                 .map(this::derefDto)
                 .toList();
     }
 
     private Dto derefDto(Dto dto) {
         Reference dtoTypeRef = dto.reference();
+
         String name = dto.name();
-        List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(dto.typeName());
+        TypeName typeName = dto.typeName();
+
+        List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(typeName);
         logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
         logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builderFrom(dto)
@@ -156,6 +177,17 @@ public class Resolver {
         throw new IllegalStateException("Unhandled reference type " + ref.getClass());
     }
 
+    /**
+     * Resolve parser references into model references.
+     *
+     * All incoming references may point to the initially parsed
+     * DTO instances.
+     * All returned references point to the final model DTO instances
+     * that have been renamed as required.
+     *
+     * @param ptr the reference to resolve
+     * @return the model reference
+     */
     private TypeReference resolve(ParserTypeRef ptr) {
         Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
         Type resolvedT = resolveInner(t);
@@ -165,10 +197,20 @@ public class Resolver {
         return res;
     }
 
+    /**
+     * Inner-most resolve of types (that can be parsed
+     * DTOs) to model types.
+     * May call itself recursively.
+     *
+     * @param type the type to resolve
+     * @return the final model type
+     */
     private Type resolveInner(Type type) {
-        if (type instanceof Dto) {
-            // Keep DTOs as references - or cyclic DTOs will not be possible
-            return TypeReference.of(type, Validation.NO_VALIDATION);
+        if (type instanceof Dto dto) {
+            // Convert parser DTO instance to model DTO instance
+            Dto resolvedDto = conflictRenamer.getConflictRenamedDto(dto);
+            // But wrap in a reference - or cyclic DTOs will not be possible
+            return TypeReference.of(resolvedDto, Validation.NO_VALIDATION);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {

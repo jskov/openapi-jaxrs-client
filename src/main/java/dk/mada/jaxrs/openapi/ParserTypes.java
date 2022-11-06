@@ -26,9 +26,10 @@ import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
+import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 
@@ -87,6 +88,7 @@ public class ParserTypes {
 
         dtoPackageName = generatorOpts.dtoPackage();
 
+        mapJse(true,                             TypeNames.OBJECT,           TypePlainObject.get());
         mapJse(parserOpts.isJseBigDecimal(),     TypeNames.BIG_DECIMAL,      TypeBigDecimal.get());
         mapJse(parserOpts.isJseInputStream(),    TypeNames.INPUT_STREAM,     TypeByteArray.getStream());
         mapJse(parserOpts.isJseUUID(),           TypeNames.UUID,             TypeUUID.get());

@@ -201,7 +201,7 @@ public class ApiGenerator {
         // Gets type for OK if present, or else default, or else void
         Reference typeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
             .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
-            .orElse(TypeReference.of(TypeVoid.get(), Validation.NO_VALIDATION));
+            .orElse(TypeVoid.getRef());
 
         // Gets matching media types, check for input-stream replacement
         Set<String> mediaTypes = getMediaTypeForStatus(op, StatusCode.HTTP_OK)
