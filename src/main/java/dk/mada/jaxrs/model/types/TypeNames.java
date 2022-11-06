@@ -149,7 +149,9 @@ public final class TypeNames {
         /** The type name at time of declaration. */
         private String name;
 
-        /** An override name may be assigned to the type. */
+        /**
+         * An override name may be assigned to the type.
+         **/
         private String overrideName;
 
         /**
@@ -205,7 +207,7 @@ public final class TypeNames {
         public String toString() {
             return "TypeName [name=" + name
                     + (overrideName == null
-                      ? ("]")
+                      ? "]"
                       : (", overrideName=" + overrideName + "]"));
         }
     }

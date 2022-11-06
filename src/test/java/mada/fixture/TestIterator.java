@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DynamicTest;
@@ -58,7 +59,8 @@ class TestIterator {
         DirectoryDeleter.delete(OUTPUT_DIR);
         Files.createDirectories(OUTPUT_DIR);
 
-        return Files.walk(rootDir)
+        try (Stream<Path> files = Files.walk(rootDir)) {
+            return files
                 .filter(p -> {
                     String filename = p.getFileName().toString();
                     return "openapi.yaml".equals(filename)
@@ -80,5 +82,6 @@ class TestIterator {
                 })
                 .sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
                 .collect(Collectors.toList());
+        }
     }
 }

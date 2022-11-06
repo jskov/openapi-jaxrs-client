@@ -273,13 +273,13 @@ public final class GeneratorOpts {
      **/
     public Map<String, UserMappedImport> getExternalTypeMapping() {
         String s = get("generator-map-external-types");
-        if (s == null) {
+        if (s == null || s.isBlank()) {
             return Map.of();
         }
 
         Map<String, UserMappedImport> typeMapping = new HashMap<>();
 
-        for (String mapping : s.split(";")) {
+        for (String mapping : s.split(";", -1)) {
             int index = mapping.indexOf(":");
             if (index == -1 || (index + 1) > mapping.length()) {
                 throw new IllegalArgumentException("No package-to-types mapping found in '" + s + "'");
@@ -287,7 +287,7 @@ public final class GeneratorOpts {
             String pkg = mapping.substring(0, index).trim();
             String types = mapping.substring(index + 1).trim();
 
-            for (String type : types.split(",")) {
+            for (String type : types.split(",", -1)) {
                 String tt = type.trim();
                 typeMapping.put(tt, new UserMappedImport(pkg + "." + tt));
             }
