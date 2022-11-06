@@ -151,9 +151,6 @@ public final class TypeNames {
 
         /**
          * An override name may be assigned to the type.
-         *
-         * FIXME: This should be replaced by a lookup function in
-         * the generator so this object can become immutable. 
          **/
         private String overrideName;
 
