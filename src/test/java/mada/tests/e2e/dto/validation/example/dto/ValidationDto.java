@@ -298,7 +298,7 @@ public class ValidationDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ValidationDto)) {
       return false;
     }
     ValidationDto other = (ValidationDto) o;

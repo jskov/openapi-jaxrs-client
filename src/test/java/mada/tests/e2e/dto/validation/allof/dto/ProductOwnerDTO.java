@@ -99,7 +99,7 @@ public class ProductOwnerDTO {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ProductOwnerDTO)) {
       return false;
     }
     ProductOwnerDTO other = (ProductOwnerDTO) o;

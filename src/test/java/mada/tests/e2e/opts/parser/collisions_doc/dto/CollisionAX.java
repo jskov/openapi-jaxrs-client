@@ -115,7 +115,7 @@ public class CollisionAX {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof CollisionAX)) {
       return false;
     }
     CollisionAX other = (CollisionAX) o;

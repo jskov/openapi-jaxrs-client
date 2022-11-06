@@ -77,7 +77,7 @@ public class ArchivePDF {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ArchivePDF)) {
       return false;
     }
     ArchivePDF other = (ArchivePDF) o;

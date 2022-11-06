@@ -46,7 +46,7 @@ public class ImplA implements ImplAImplB {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ImplA)) {
       return false;
     }
     ImplA other = (ImplA) o;
