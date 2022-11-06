@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
@@ -29,7 +28,7 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
  * Parses OpenAPI specification and transforms to local
  * model classes.
  */
-public class Parser {
+public final class Parser {
     private static final Logger logger = LoggerFactory.getLogger(Parser.class);
 
     /** Newline. */
@@ -113,18 +112,8 @@ public class Parser {
         Resolver resolver = new Resolver(typeNames, parserTypes, cr);
         Operations derefOps = resolver.operations(operations);
 
-
-        //parserTypes.renameConflictingDtos(cr);
-        
         // This converts the parser references to model type references
-        List<Dto> activeDtos = resolver.getDtos();
-
-//        parserTypes.getActiveDtos();
-        // This wants to rename the types
-//        Dtos dtos = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder)
-//                .renameDtos(activeDtos);
-        Dtos dtos = new Dtos(activeDtos);
-        
+        Dtos dtos = new Dtos(resolver.getDtos());
 
         if (showInfo) {
             String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)

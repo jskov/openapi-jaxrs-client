@@ -267,10 +267,10 @@ public final class TypeConverter {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (propertyName == null) {
                 if (isPlainObject) {
-                    logger.info(" plain Object, no properties");
+                    logger.debug(" plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), validation);
                 } else {
-                    logger.info(" plain Object?");
+                    logger.debug(" plain Object?");
                     return parserRefs.of(TypeObject.get(), validation);
                 }
             }

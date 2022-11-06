@@ -7,7 +7,7 @@
  *
  * Steps in converting the OpenApi document into the
  * internal model:
- * 
+ *
  * - Use OpenAPIParser to parse the document
  * - Convert the OpenApi data to model types.
  *   All type references are made with ParserTypeRef
@@ -17,7 +17,8 @@
  *   This causes all affected TypeName references
  *   to be updated.
  * - Finally replace all ParserTypeRefs with
- *   model's TypeRefs.
+ *   model's TypeRefs and parser DTO instances
+ *   with (possibly renamed) model DTO instances.
  *
  * The model is now self-contained and immutable,
  * ready to be used by the generators.

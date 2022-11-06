@@ -33,7 +33,7 @@ import dk.mada.jaxrs.model.types.TypeVoid;
  * Works through a parsed model that contains parser type
  * references and resolves them to pure model types.
  */
-public class Resolver {
+public final class Resolver {
     private static final Logger logger = LoggerFactory.getLogger(Resolver.class);
 
     /** Parser types to their dereferenced model type. */
@@ -177,34 +177,39 @@ public class Resolver {
         throw new IllegalStateException("Unhandled reference type " + ref.getClass());
     }
 
+    /**
+     * Resolve parser references into model references.
+     *
+     * All incoming references may point to the initially parsed
+     * DTO instances.
+     * All returned references point to the final model DTO instances
+     * that have been renamed as required.
+     *
+     * @param ptr the reference to resolve
+     * @return the model reference
+     */
     private TypeReference resolve(ParserTypeRef ptr) {
-        // This is where (unresolved) "forward" references are finally
-        // resolved to the proper new type.
         Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
-        
-        // Now we have a type (the parserRef is resolved)
-        
-        logger.info(" deref inner {} {}", t.typeName(), ptr);
-        
-        // May have to resolve inner if a container
         Type resolvedT = resolveInner(t);
-        
-        // Now make a new, final, model reference to this type
-        // This is where renaming can happen
-        
         TypeReference res = dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
 
         logger.debug("  resolve {} -> {}", ptr, res);
         return res;
     }
 
+    /**
+     * Inner-most resolve of types (that can be parsed
+     * DTOs) to model types.
+     * May call itself recursively.
+     *
+     * @param type the type to resolve
+     * @return the final model type
+     */
     private Type resolveInner(Type type) {
         if (type instanceof Dto dto) {
-            // only have to rename here? only DTOs will ever be renamed, yes?
-
+            // Convert parser DTO instance to model DTO instance
             Dto resolvedDto = conflictRenamer.getConflictRenamedDto(dto);
-            
-            // Keep DTOs as references - or cyclic DTOs will not be possible
+            // But wrap in a reference - or cyclic DTOs will not be possible
             return TypeReference.of(resolvedDto, Validation.NO_VALIDATION);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);

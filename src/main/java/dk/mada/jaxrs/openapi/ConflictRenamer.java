@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -28,23 +29,23 @@ import dk.mada.jaxrs.naming.Naming;
  * than that assigned to the DTO.
  * May need a separate switch.
  */
-public class ConflictRenamer {
+public final class ConflictRenamer {
     private static final Logger logger = LoggerFactory.getLogger(ConflictRenamer.class);
 
     /** Naming. */
     private final Naming naming;
+    /** Type names. */
+    private final TypeNames typeNames;
     /** Schema names in their OpenApi document declaration order. */
     private List<String> schemaNamesDeclarationOrder;
     /** Assigned type names. */
     private Set<String> namespaceTypes = new HashSet<>();
     /** Assigned MP schema names. */
     private Set<String> namespaceMpSchemas = new HashSet<>();
-
+    /** Renamed DTO names and their new conflict free names. */
     private Map<String, ConflictRenamed> renameMap = Map.of();
-
+    /** Map from pre-renaming to renamed DTOs. */
     private Map<Dto, Dto> conflictRenamedDtos;
-
-    private final TypeNames typeNames;
 
     /**
      * Constructs a new instance.
@@ -74,7 +75,7 @@ public class ConflictRenamer {
             renameMap = dtos.stream()
                     .sorted(this::schemaOrderComparitor)
                     .map(this::assignUniqueName)
-                    .filter(cr -> cr != null)
+                    .filter(Objects::nonNull)
                     .collect(toMap(ConflictRenamed::originalDtoName, cr -> cr));
         }
 
@@ -83,7 +84,14 @@ public class ConflictRenamer {
 
         return conflictRenamedDtos.values();
     }
-    
+
+    /**
+     * Maps pre-renamed DTO instance to new
+     * (possibly renamed) instance.
+     *
+     * @param dto pre-renamed DTO
+     * @return same DTO instance, but renamed if required
+     */
     public Dto getConflictRenamedDto(Dto dto) {
         if (conflictRenamedDtos == null) {
             return dto;
@@ -114,7 +122,7 @@ public class ConflictRenamer {
             mpSchemaName = renaming.mpSchemaName();
             logger.info(" - renaming DTO {} -> {}/@Schema({})", originalName, name, mpSchemaName);
         }
-        
+
         return Dto.builderFrom(dto)
                 .typeName(typeName)
                 .name(name)
