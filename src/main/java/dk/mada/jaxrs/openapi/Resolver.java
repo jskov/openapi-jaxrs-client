@@ -51,7 +51,7 @@ public final class Resolver {
      *
      * @param typeNames the type names instance
      * @param parserTypes the types collected during parsing
-     * @param conflictRenamer the conflict renamer 
+     * @param conflictRenamer the conflict renamer
      */
     public Resolver(TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
         this.typeNames = typeNames;

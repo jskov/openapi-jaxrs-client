@@ -177,7 +177,7 @@ public final class ConflictRenamer {
                 && oldMpSchemaName.equals(newMpSchemaName)) {
             return null;
         }
-         
+
         return new ConflictRenamed(oldTypeName, newTypeName, newMpSchemaName);
     }
 
