@@ -22,7 +22,7 @@ public class LocalTime {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof LocalTime)) {
       return false;
     }
     return true;

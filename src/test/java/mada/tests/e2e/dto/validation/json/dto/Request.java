@@ -51,7 +51,7 @@ public class Request {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Request)) {
       return false;
     }
     Request other = (Request) o;

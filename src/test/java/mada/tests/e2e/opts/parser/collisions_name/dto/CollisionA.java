@@ -115,7 +115,7 @@ public class CollisionA {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof CollisionA)) {
       return false;
     }
     CollisionA other = (CollisionA) o;

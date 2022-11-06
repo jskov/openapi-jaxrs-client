@@ -82,7 +82,7 @@ public class Collisiona {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Collisiona)) {
       return false;
     }
     Collisiona other = (Collisiona) o;

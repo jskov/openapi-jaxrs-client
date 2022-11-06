@@ -178,7 +178,7 @@ public class ExternedLists {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ExternedLists)) {
       return false;
     }
     ExternedLists other = (ExternedLists) o;

@@ -46,7 +46,7 @@ public class TilbudAftalepakkeOversigt {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof TilbudAftalepakkeOversigt)) {
       return false;
     }
     TilbudAftalepakkeOversigt other = (TilbudAftalepakkeOversigt) o;

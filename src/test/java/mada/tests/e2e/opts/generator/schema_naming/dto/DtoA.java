@@ -93,7 +93,7 @@ public class DtoA {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof DtoA)) {
       return false;
     }
     DtoA other = (DtoA) o;

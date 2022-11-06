@@ -46,7 +46,7 @@ public class ImplB implements ImplAImplB {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ImplB)) {
       return false;
     }
     ImplB other = (ImplB) o;

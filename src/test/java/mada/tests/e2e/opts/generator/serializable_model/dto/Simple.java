@@ -47,7 +47,7 @@ public class Simple implements Serializable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Simple)) {
       return false;
     }
     Simple other = (Simple) o;

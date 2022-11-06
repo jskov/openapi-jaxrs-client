@@ -48,7 +48,7 @@ public class Aftalepakke {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Aftalepakke)) {
       return false;
     }
     Aftalepakke other = (Aftalepakke) o;

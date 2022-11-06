@@ -44,7 +44,7 @@ public class DtoB {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof DtoB)) {
       return false;
     }
     DtoB other = (DtoB) o;

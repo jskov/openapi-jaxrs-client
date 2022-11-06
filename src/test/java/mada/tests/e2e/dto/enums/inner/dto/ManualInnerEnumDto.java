@@ -180,7 +180,7 @@ public class ManualInnerEnumDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ManualInnerEnumDto)) {
       return false;
     }
     ManualInnerEnumDto other = (ManualInnerEnumDto) o;

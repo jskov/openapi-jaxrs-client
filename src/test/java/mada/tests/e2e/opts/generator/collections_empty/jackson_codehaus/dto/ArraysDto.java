@@ -479,7 +479,7 @@ public class ArraysDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ArraysDto)) {
       return false;
     }
     ArraysDto other = (ArraysDto) o;

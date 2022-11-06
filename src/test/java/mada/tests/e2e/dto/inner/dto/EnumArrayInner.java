@@ -94,7 +94,7 @@ public class EnumArrayInner {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof EnumArrayInner)) {
       return false;
     }
     EnumArrayInner other = (EnumArrayInner) o;

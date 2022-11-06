@@ -244,7 +244,7 @@ public class Primitives {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Primitives)) {
       return false;
     }
     Primitives other = (Primitives) o;

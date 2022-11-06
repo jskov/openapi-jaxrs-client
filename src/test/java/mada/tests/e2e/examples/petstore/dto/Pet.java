@@ -94,7 +94,7 @@ public class Pet {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Pet)) {
       return false;
     }
     Pet other = (Pet) o;

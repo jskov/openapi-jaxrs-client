@@ -220,7 +220,7 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof {{classname}})) {
       return false;
     }{{#hasVars}}
     {{classname}} {{classVarName}} = ({{classname}}) o;

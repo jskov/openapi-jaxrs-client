@@ -85,7 +85,7 @@ java {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.errorprone.disableWarningsInGeneratedCode = true
+    options.errorprone.disableWarningsInGeneratedCode = false
     // ImmutableEnumChecker:
     //  https://github.com/google/error-prone/issues/1542 (Set.of)
     //  ? records

@@ -46,7 +46,7 @@ public class AfregningCalculationResponse {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof AfregningCalculationResponse)) {
       return false;
     }
     AfregningCalculationResponse other = (AfregningCalculationResponse) o;

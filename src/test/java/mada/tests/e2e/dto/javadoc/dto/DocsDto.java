@@ -104,7 +104,7 @@ public class DocsDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof DocsDto)) {
       return false;
     }
     DocsDto other = (DocsDto) o;

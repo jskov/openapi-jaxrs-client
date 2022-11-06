@@ -181,7 +181,7 @@ public class SpecialTypes {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof SpecialTypes)) {
       return false;
     }
     SpecialTypes other = (SpecialTypes) o;
