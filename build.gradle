@@ -6,7 +6,7 @@ plugins {
     id 'net.ltgt.errorprone' version '3.0.1'
     id 'jacoco'
     id 'java-library'
-    id 'org.sonarqube' version '3.4.0.2513'
+    id 'org.sonarqube' version '3.5.0.2730'
     id 'maven-publish'
 }
 
@@ -30,8 +30,8 @@ configurations {
 
 dependencies {
     implementation      'com.samskivert:jmustache:1.15'
-    implementation      'info.picocli:picocli:4.6.3'
-    implementation      'io.swagger.parser.v3:swagger-parser:2.1.6'
+    implementation      'info.picocli:picocli:4.7.0'
+    implementation      'io.swagger.parser.v3:swagger-parser:2.1.7'
 
     annotationProcessor 'org.immutables:value:2.9.2'
     apt                 'org.immutables:value:2.9.2'
@@ -50,7 +50,7 @@ dependencies {
     testImplementation  "org.assertj:assertj-core:$assertJVersion"
 	
     // for the generated code
-    testImplementation  'io.quarkus:quarkus-rest-client:2.13.3.Final'
+    testImplementation  'io.quarkus:quarkus-rest-client:2.14.0.Final'
     testImplementation  'jakarta.annotation:jakarta.annotation-api:2.1.1'
     testImplementation  'jakarta.json:jakarta.json-api:2.1.1'
     testImplementation  'jakarta.json.bind:jakarta.json.bind-api:3.0.0'

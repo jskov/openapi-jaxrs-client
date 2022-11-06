@@ -222,7 +222,7 @@ public final class TypeConverter {
             List<Schema> allOf = cs.getAllOf();
             if (allOf != null && !allOf.isEmpty()) {
                 logger.debug("  allof");
-                
+
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
                         .map(this::toReference)
@@ -234,7 +234,7 @@ public final class TypeConverter {
                     return parserRefs.of(allOfRefs.get(0), validation);
                 }
             }
-            
+
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
             if (typeWithValidation != null) {
