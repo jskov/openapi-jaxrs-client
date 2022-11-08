@@ -97,7 +97,7 @@ public class AcrErrorInfo {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof AcrErrorInfo)) {
       return false;
     }
     AcrErrorInfo other = (AcrErrorInfo) o;

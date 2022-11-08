@@ -27,7 +27,6 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxExtraDateSerializer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
-import dk.mada.jaxrs.generator.dto.tmpl.ImmutableCtxProperty;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.Jackson;
 import dk.mada.jaxrs.generator.imports.JavaIo;
@@ -197,15 +196,14 @@ public class DtoGenerator {
 
     private CtxDto toCtx(Dto dto) {
         Info info = model.info();
+        Type dtoType = dto.reference().refType();
 
         boolean isEnum = dto.isEnum();
-        var dtoImports = isEnum ? Imports.newEnum(opts) : Imports.newDto(opts);
+        var dtoImports = isEnum ? Imports.newEnum(opts, !isTypePrimitiveEquals(dtoType)) : Imports.newDto(opts);
 
         List<CtxProperty> vars = dto.properties().stream()
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
-
-        Type dtoType = dto.reference().refType();
 
         dtoImports.addPropertyImports(dto.properties());
 
@@ -311,6 +309,7 @@ public class DtoGenerator {
                 .customOffsetDateTimeSerializer(customOffsetDateTimeSerializer)
                 .schemaOptions(schemaOptions)
                 .implementsInterfaces(implementsInterfaces)
+                .isEqualsPrimitive(isTypePrimitiveEquals(dtoType))
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
                 .build();
 
@@ -499,7 +498,7 @@ public class DtoGenerator {
             enumTypeName = enumType.typeName().name();
             enumClassName = te.typeName().name();
             ctxEnum = buildEnumEntries(enumType, te.values());
-            dtoImports.addEnumImports(!isContainer);
+            dtoImports.addEnumImports(!isContainer, !isTypePrimitiveEquals(enumType));
 
             enumSchema = buildEnumSchema(dtoImports, enumType, ctxEnum);
 
@@ -639,6 +638,7 @@ public class DtoGenerator {
                 .isUseBigDecimalForDouble(isUseBigDecimalForDouble)
                 .isUseEmptyCollections(isUseEmptyCollections)
                 .isByteArray(isByteArray)
+                .isEqualsPrimitive(isTypePrimitiveEquals(propType))
                 .getter(extGetter)
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
@@ -646,7 +646,7 @@ public class DtoGenerator {
                 .renderJavadocMacroSpacer(description != null)
                 .build();
 
-        ImmutableCtxProperty prop = CtxProperty.builder()
+        CtxProperty prop = CtxProperty.builder()
                 .baseName(name)
                 .datatypeWithEnum(typeName)
                 .dataType(innerTypeName)
@@ -680,6 +680,10 @@ public class DtoGenerator {
 
         logger.debug("property {} : {}", name, prop);
         return prop;
+    }
+
+    private boolean isTypePrimitiveEquals(Type t) {
+        return t.isPrimitive(Primitive.INT);
     }
 
     private Type getDereferencedInnerEnumType(Type t) {

@@ -40,7 +40,12 @@ public enum {{#datatypeWithEnum}}{{datatypeWithEnum}}{{/datatypeWithEnum}}{{^dat
   @JsonCreator
   public static {{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} fromValue({{{dataType}}} value) {
     for ({{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} b : {{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}}.values()) {
+    {{#madaDto.isEqualsPrimitive}}
+      if (b.value == value) {
+    {{/madaDto.isEqualsPrimitive}}
+    {{^madaDto.isEqualsPrimitive}}
       if (Objects.equals(b.value, value)) {
+    {{/madaDto.isEqualsPrimitive}}
         return b;
       }
     }

@@ -56,6 +56,9 @@ public interface CtxPropertyExt {
     /** {@return true if this property is a byte array} */
     boolean isByteArray();
 
+    /** {@return true if this property is primitive and can use == for equals} */
+    boolean isEqualsPrimitive();
+
     /** {@return the getter name} **/
     String getter();
     /** {@return the setter name} **/

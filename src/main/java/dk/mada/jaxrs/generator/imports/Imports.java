@@ -111,11 +111,12 @@ public final class Imports {
      * Creates a new instance for enumeration types.
      *
      * @param opts the generator options
+     * @param includeObjects flag to include Objects
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newEnum(GeneratorOpts opts) {
+    public static Imports newEnum(GeneratorOpts opts, boolean includeObjects) {
         return new Imports(opts, false)
-                   .addEnumImports(true);
+                   .addEnumImports(true, includeObjects);
     }
 
     /**
@@ -145,10 +146,11 @@ public final class Imports {
      * Adds imports needed for rendering an enumeration.
      *
      * @param includeTypeAdapter flag to include typeAdaptor
+     * @param includeObjects flag to include Objects
      * @return this
      */
-    public Imports addEnumImports(boolean includeTypeAdapter) {
-        return add(irp.isJackson(), JavaUtil.OBJECTS)
+    public Imports addEnumImports(boolean includeTypeAdapter, boolean includeObjects) {
+        return add(irp.isJackson() && includeObjects, JavaUtil.OBJECTS)
             .add(irp.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
             .add(irp.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
             .add(Jackson.JSON_CREATOR, Jackson.JSON_VALUE)

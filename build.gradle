@@ -30,7 +30,6 @@ configurations {
 }
 
 dependencies {
-    implementation      'com.samskivert:jmustache:1.15'
     implementation      'info.picocli:picocli:4.7.0'
     implementation      'io.swagger.parser.v3:swagger-parser:2.1.8'
 
@@ -99,7 +98,7 @@ tasks.withType(JavaCompile).configureEach {
     // JavaTimeDefaultTimeZone:
     //  Timezone is not relevant
     options.errorprone.disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
-    options.errorprone.excludedPaths = ".*/OpenapiGeneratorUtils.java"
+    options.errorprone.excludedPaths = ".*/(azure/.*|petstore/dto/Error.java|manual/.*|opts/generator/zoneddatetime/dto/LocalTime.java|OpenapiGeneratorUtils.java|generated/.*)"
 }
 
 compileJava {
