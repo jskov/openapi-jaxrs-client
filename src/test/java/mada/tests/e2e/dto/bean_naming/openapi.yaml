@@ -17,11 +17,13 @@ components:
     BeanNaming:
       type: object
       properties:
-        downBean:
+        downBool:
           type: boolean
-        aCamelBean:
+        aCamelBool:
           type: boolean
-        UpperBean:
+        UpperBool:
+          type: boolean
+        ALLCAPSBOOL:
           type: boolean
         downInt:
           format: int32
@@ -32,3 +34,5 @@ components:
         UpperInt:
           format: int32
           type: integer
+        ALLCAPSINT:
+          type: boolean

@@ -14,26 +14,32 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
  * BeanNaming
  */
 @JsonbPropertyOrder({
-  BeanNaming.JSON_PROPERTY_DOWN_BEAN,
-  BeanNaming.JSON_PROPERTY_A_CAMEL_BEAN,
-  BeanNaming.JSON_PROPERTY_UPPER_BEAN,
+  BeanNaming.JSON_PROPERTY_DOWN_BOOL,
+  BeanNaming.JSON_PROPERTY_A_CAMEL_BOOL,
+  BeanNaming.JSON_PROPERTY_UPPER_BOOL,
+  BeanNaming.JSON_PROPERTY_A_LLCAPSBOOL,
   BeanNaming.JSON_PROPERTY_DOWN_INT,
   BeanNaming.JSON_PROPERTY_A_CAMEL_INT,
-  BeanNaming.JSON_PROPERTY_UPPER_INT
+  BeanNaming.JSON_PROPERTY_UPPER_INT,
+  BeanNaming.JSON_PROPERTY_A_LLCAPSINT
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class BeanNaming {
-  public static final String JSON_PROPERTY_DOWN_BEAN = "downBean";
-  @JsonbProperty(JSON_PROPERTY_DOWN_BEAN)
-  private Boolean downBean;
+  public static final String JSON_PROPERTY_DOWN_BOOL = "downBool";
+  @JsonbProperty(JSON_PROPERTY_DOWN_BOOL)
+  private Boolean downBool;
 
-  public static final String JSON_PROPERTY_A_CAMEL_BEAN = "aCamelBean";
-  @JsonbProperty(JSON_PROPERTY_A_CAMEL_BEAN)
-  private Boolean aCamelBean;
+  public static final String JSON_PROPERTY_A_CAMEL_BOOL = "aCamelBool";
+  @JsonbProperty(JSON_PROPERTY_A_CAMEL_BOOL)
+  private Boolean aCamelBool;
 
-  public static final String JSON_PROPERTY_UPPER_BEAN = "UpperBean";
-  @JsonbProperty(JSON_PROPERTY_UPPER_BEAN)
-  private Boolean upperBean;
+  public static final String JSON_PROPERTY_UPPER_BOOL = "UpperBool";
+  @JsonbProperty(JSON_PROPERTY_UPPER_BOOL)
+  private Boolean upperBool;
+
+  public static final String JSON_PROPERTY_A_LLCAPSBOOL = "ALLCAPSBOOL";
+  @JsonbProperty(JSON_PROPERTY_A_LLCAPSBOOL)
+  private Boolean aLLCAPSBOOL;
 
   public static final String JSON_PROPERTY_DOWN_INT = "downInt";
   @JsonbProperty(JSON_PROPERTY_DOWN_INT)
@@ -47,55 +53,76 @@ public class BeanNaming {
   @JsonbProperty(JSON_PROPERTY_UPPER_INT)
   private Integer upperInt;
 
-  public BeanNaming downBean(Boolean downBean) {
-    this.downBean = downBean;
+  public static final String JSON_PROPERTY_A_LLCAPSINT = "ALLCAPSINT";
+  @JsonbProperty(JSON_PROPERTY_A_LLCAPSINT)
+  private Boolean aLLCAPSINT;
+
+  public BeanNaming downBool(Boolean downBool) {
+    this.downBool = downBool;
     return this;
   }
 
   /**
-   * Get downBean
-   * @return downBean
+   * Get downBool
+   * @return downBool
    **/
-  public Boolean isDownBean() {
-    return downBean;
+  public Boolean isDownBool() {
+    return downBool;
   }
 
-  public void setDownBean(Boolean downBean) {
-    this.downBean = downBean;
+  public void setDownBool(Boolean downBool) {
+    this.downBool = downBool;
   }
 
-  public BeanNaming aCamelBean(Boolean aCamelBean) {
-    this.aCamelBean = aCamelBean;
+  public BeanNaming aCamelBool(Boolean aCamelBool) {
+    this.aCamelBool = aCamelBool;
     return this;
   }
 
   /**
-   * Get aCamelBean
-   * @return aCamelBean
+   * Get aCamelBool
+   * @return aCamelBool
    **/
-  public Boolean isaCamelBean() {
-    return aCamelBean;
+  public Boolean isaCamelBool() {
+    return aCamelBool;
   }
 
-  public void setaCamelBean(Boolean aCamelBean) {
-    this.aCamelBean = aCamelBean;
+  public void setaCamelBool(Boolean aCamelBool) {
+    this.aCamelBool = aCamelBool;
   }
 
-  public BeanNaming upperBean(Boolean upperBean) {
-    this.upperBean = upperBean;
+  public BeanNaming upperBool(Boolean upperBool) {
+    this.upperBool = upperBool;
     return this;
   }
 
   /**
-   * Get upperBean
-   * @return upperBean
+   * Get upperBool
+   * @return upperBool
    **/
-  public Boolean isUpperBean() {
-    return upperBean;
+  public Boolean isUpperBool() {
+    return upperBool;
   }
 
-  public void setUpperBean(Boolean upperBean) {
-    this.upperBean = upperBean;
+  public void setUpperBool(Boolean upperBool) {
+    this.upperBool = upperBool;
+  }
+
+  public BeanNaming aLLCAPSBOOL(Boolean aLLCAPSBOOL) {
+    this.aLLCAPSBOOL = aLLCAPSBOOL;
+    return this;
+  }
+
+  /**
+   * Get aLLCAPSBOOL
+   * @return aLLCAPSBOOL
+   **/
+  public Boolean isaLLCAPSBOOL() {
+    return aLLCAPSBOOL;
+  }
+
+  public void setaLLCAPSBOOL(Boolean aLLCAPSBOOL) {
+    this.aLLCAPSBOOL = aLLCAPSBOOL;
   }
 
   public BeanNaming downInt(Integer downInt) {
@@ -149,6 +176,23 @@ public class BeanNaming {
     this.upperInt = upperInt;
   }
 
+  public BeanNaming aLLCAPSINT(Boolean aLLCAPSINT) {
+    this.aLLCAPSINT = aLLCAPSINT;
+    return this;
+  }
+
+  /**
+   * Get aLLCAPSINT
+   * @return aLLCAPSINT
+   **/
+  public Boolean isaLLCAPSINT() {
+    return aLLCAPSINT;
+  }
+
+  public void setaLLCAPSINT(Boolean aLLCAPSINT) {
+    this.aLLCAPSINT = aLLCAPSINT;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -158,29 +202,33 @@ public class BeanNaming {
       return false;
     }
     BeanNaming other = (BeanNaming) o;
-    return Objects.equals(this.downBean, other.downBean) &&
-        Objects.equals(this.aCamelBean, other.aCamelBean) &&
-        Objects.equals(this.upperBean, other.upperBean) &&
+    return Objects.equals(this.downBool, other.downBool) &&
+        Objects.equals(this.aCamelBool, other.aCamelBool) &&
+        Objects.equals(this.upperBool, other.upperBool) &&
+        Objects.equals(this.aLLCAPSBOOL, other.aLLCAPSBOOL) &&
         Objects.equals(this.downInt, other.downInt) &&
         Objects.equals(this.aCamelInt, other.aCamelInt) &&
-        Objects.equals(this.upperInt, other.upperInt);
+        Objects.equals(this.upperInt, other.upperInt) &&
+        Objects.equals(this.aLLCAPSINT, other.aLLCAPSINT);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(downBean, aCamelBean, upperBean, downInt, aCamelInt, upperInt);
+    return Objects.hash(downBool, aCamelBool, upperBool, aLLCAPSBOOL, downInt, aCamelInt, upperInt, aLLCAPSINT);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BeanNaming {");
-    sb.append("\n    downBean: ").append(toIndentedString(downBean));
-    sb.append("\n    aCamelBean: ").append(toIndentedString(aCamelBean));
-    sb.append("\n    upperBean: ").append(toIndentedString(upperBean));
+    sb.append("\n    downBool: ").append(toIndentedString(downBool));
+    sb.append("\n    aCamelBool: ").append(toIndentedString(aCamelBool));
+    sb.append("\n    upperBool: ").append(toIndentedString(upperBool));
+    sb.append("\n    aLLCAPSBOOL: ").append(toIndentedString(aLLCAPSBOOL));
     sb.append("\n    downInt: ").append(toIndentedString(downInt));
     sb.append("\n    aCamelInt: ").append(toIndentedString(aCamelInt));
     sb.append("\n    upperInt: ").append(toIndentedString(upperInt));
+    sb.append("\n    aLLCAPSINT: ").append(toIndentedString(aLLCAPSINT));
     sb.append("\n}");
     return sb.toString();
   }
