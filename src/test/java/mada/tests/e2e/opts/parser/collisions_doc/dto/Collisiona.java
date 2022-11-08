@@ -43,11 +43,11 @@ public class Collisiona {
    * Get aBoolean
    * @return aBoolean
    **/
-  public Boolean isABoolean() {
+  public Boolean isaBoolean() {
     return aBoolean;
   }
 
-  public void setABoolean(Boolean aBoolean) {
+  public void setaBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
   }
 
@@ -56,7 +56,7 @@ public class Collisiona {
     return this;
   }
 
-  public Collisiona addAListItem(CollisionAX aListItem) {
+  public Collisiona addaListItem(CollisionAX aListItem) {
     if (this.aList == null) {
       this.aList = new ArrayList<>();
     }
@@ -69,11 +69,11 @@ public class Collisiona {
    * @return aList
    **/
   @Valid
-  public List<CollisionAX> getAList() {
+  public List<CollisionAX> getaList() {
     return aList;
   }
 
-  public void setAList(List<CollisionAX> aList) {
+  public void setaList(List<CollisionAX> aList) {
     this.aList = aList;
   }
 

@@ -160,21 +160,21 @@ public class ValidationDto {
    * @return aBigDouble
    **/
   @Min(0) @Max(99999999)
-  public Double getABigDoubleDouble() {
+  public Double getaBigDoubleDouble() {
     return aBigDouble;
   }
 
   @JsonIgnore
-  public BigDecimal getABigDouble() {
+  public BigDecimal getaBigDouble() {
     return aBigDouble == null ? null : new BigDecimal(aBigDouble);
   }
 
-  public void setABigDoubleDouble(Double aBigDouble) {
+  public void setaBigDoubleDouble(Double aBigDouble) {
     this.aBigDouble = aBigDouble;
   }
 
   @JsonIgnore
-  public void setABigDouble(BigDecimal aBigDouble) {
+  public void setaBigDouble(BigDecimal aBigDouble) {
     this.aBigDouble = aBigDouble == null ? null : aBigDouble.doubleValue();
   }
 
@@ -191,11 +191,11 @@ public class ValidationDto {
    * @return aBigFloat
    **/
   @Min(0) @Max(1000)
-  public Float getABigFloat() {
+  public Float getaBigFloat() {
     return aBigFloat;
   }
 
-  public void setABigFloat(Float aBigFloat) {
+  public void setaBigFloat(Float aBigFloat) {
     this.aBigFloat = aBigFloat;
   }
 
@@ -212,11 +212,11 @@ public class ValidationDto {
    * @return aBigDecimal
    **/
   @DecimalMin("100") @DecimalMax("1000")
-  public BigDecimal getABigDecimal() {
+  public BigDecimal getaBigDecimal() {
     return aBigDecimal;
   }
 
-  public void setABigDecimal(BigDecimal aBigDecimal) {
+  public void setaBigDecimal(BigDecimal aBigDecimal) {
     this.aBigDecimal = aBigDecimal;
   }
 

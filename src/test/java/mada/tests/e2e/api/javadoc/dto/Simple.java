@@ -38,11 +38,11 @@ public class Simple {
    * Get aBoolean
    * @return aBoolean
    **/
-  public Boolean isABoolean() {
+  public Boolean isaBoolean() {
     return aBoolean;
   }
 
-  public void setABoolean(Boolean aBoolean) {
+  public void setaBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
   }
 

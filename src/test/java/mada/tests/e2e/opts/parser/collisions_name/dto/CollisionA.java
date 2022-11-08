@@ -50,11 +50,11 @@ public class CollisionA {
    * Get aCapitalBoolean
    * @return aCapitalBoolean
    **/
-  public Boolean isACapitalBoolean() {
+  public Boolean isaCapitalBoolean() {
     return aCapitalBoolean;
   }
 
-  public void setACapitalBoolean(Boolean aCapitalBoolean) {
+  public void setaCapitalBoolean(Boolean aCapitalBoolean) {
     this.aCapitalBoolean = aCapitalBoolean;
   }
 
@@ -63,7 +63,7 @@ public class CollisionA {
     return this;
   }
 
-  public CollisionA addACapitalSetItem(CollisionaX aCapitalSetItem) {
+  public CollisionA addaCapitalSetItem(CollisionaX aCapitalSetItem) {
     if (this.aCapitalSet == null) {
       this.aCapitalSet = new LinkedHashSet<>();
     }
@@ -76,11 +76,11 @@ public class CollisionA {
    * @return aCapitalSet
    **/
   @Valid
-  public Set<CollisionaX> getACapitalSet() {
+  public Set<CollisionaX> getaCapitalSet() {
     return aCapitalSet;
   }
 
-  public void setACapitalSet(Set<CollisionaX> aCapitalSet) {
+  public void setaCapitalSet(Set<CollisionaX> aCapitalSet) {
     this.aCapitalSet = aCapitalSet;
   }
 
@@ -89,7 +89,7 @@ public class CollisionA {
     return this;
   }
 
-  public CollisionA putACapitalMapItem(String key, CollisionaX aCapitalMapItem) {
+  public CollisionA putaCapitalMapItem(String key, CollisionaX aCapitalMapItem) {
     if (this.aCapitalMap == null) {
       this.aCapitalMap = new HashMap<>();
     }
@@ -102,11 +102,11 @@ public class CollisionA {
    * @return aCapitalMap
    **/
   @Valid
-  public Map<String, CollisionaX> getACapitalMap() {
+  public Map<String, CollisionaX> getaCapitalMap() {
     return aCapitalMap;
   }
 
-  public void setACapitalMap(Map<String, CollisionaX> aCapitalMap) {
+  public void setaCapitalMap(Map<String, CollisionaX> aCapitalMap) {
     this.aCapitalMap = aCapitalMap;
   }
 
