@@ -32,6 +32,7 @@ import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.Jackson;
 import dk.mada.jaxrs.generator.imports.JavaIo;
 import dk.mada.jaxrs.generator.imports.JavaMath;
+import dk.mada.jaxrs.generator.imports.JavaUtil;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.generator.imports.ValidationApi;
@@ -44,6 +45,7 @@ import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.TypeByteArray;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeInterface;
@@ -189,6 +191,7 @@ public class DtoGenerator {
                 .packageName(opts.dtoPackage())
                 .cannedLocalDateSerializerDTF(opts.getJacksonLocalDateWireFormat())
                 .cannedLocalDateTimeSerializerDTF(opts.getJacksonLocalDateTimeWireFormat())
+                .cannedOffsetDateTimeSerializerDTF(opts.getJacksonOffsetDateTimeWireFormat())
                 .build();
     }
 
@@ -240,11 +243,15 @@ public class DtoGenerator {
                 }
                 customOffsetDateTimeDeserializer = opts.getJacksonLocalDateTimeDeserializer();
                 customOffsetDateTimeSerializer = opts.getJacksonLocalDateTimeSerializer();
-            } else {
-                extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
-                extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
-                customOffsetDateTimeDeserializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname();
-                customOffsetDateTimeSerializer = ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname();
+            } else { // is UseOffsetDateTime
+                if (opts.isAddJacksonOffsetDateTimeDeserializerTemplate()) {
+                    extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
+                }
+                if (opts.isAddJacksonOffsetDateTimeSerializerTemplate()) {
+                    extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
+                }
+                customOffsetDateTimeDeserializer = opts.getJacksonOffsetDateTimeDeserializer();
+                customOffsetDateTimeSerializer = opts.getJacksonOffsetDateTimeSerializer();
             }
 
             dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
@@ -420,6 +427,13 @@ public class DtoGenerator {
         String varName = naming.convertPropertyName(name);
 
         String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
+        // Both Jackson (Fasterxml) and JsonBinding expect the getter
+        // of a 'xX'-prefixed field to be named 'getxX'. Although
+        // this is different from Bean Spec naming for getters/setters.
+        // See https://github.com/FasterXML/jackson-databind/blob/2.15/src/main/java/com/fasterxml/jackson/databind/introspect/DefaultAccessorNamingStrategy.java#L182 // NOSONAR
+        if (name.length() > 1 && Character.isUpperCase(name.charAt(1))) {
+            nameCamelized = Character.toLowerCase(name.charAt(0)) + nameCamelized.substring(1);
+        }
         String nameSnaked = OpenapiGeneratorUtils.underscore(nameCamelized).toUpperCase();
 
         logger.debug("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
@@ -429,6 +443,7 @@ public class DtoGenerator {
 
         String defaultValue = null;
         boolean isRequired = p.isRequired();
+        boolean isByteArray = false;
         boolean isArray = false;
         boolean isMap = false;
         boolean isSet = false;
@@ -439,6 +454,13 @@ public class DtoGenerator {
         CtxEnum ctxEnum = null;
         Type innerType = null;
 
+        if (propType instanceof TypeByteArray) {
+            isByteArray = true;
+            dtoImports.add(JavaUtil.ARRAYS);
+            if (isRequired) {
+                defaultValue = "new byte[] {}";
+            }
+        }
         if (propType instanceof TypeArray ca) {
             isArray = true;
             innerType = ca.innerType();
@@ -616,6 +638,7 @@ public class DtoGenerator {
                 .schemaOptions(schemaOptions)
                 .isUseBigDecimalForDouble(isUseBigDecimalForDouble)
                 .isUseEmptyCollections(isUseEmptyCollections)
+                .isByteArray(isByteArray)
                 .getter(extGetter)
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())

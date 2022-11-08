@@ -72,7 +72,7 @@ public class Error {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Error)) {
       return false;
     }
     Error other = (Error) o;

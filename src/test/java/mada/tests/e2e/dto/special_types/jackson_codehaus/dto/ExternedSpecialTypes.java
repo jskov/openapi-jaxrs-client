@@ -145,7 +145,7 @@ public class ExternedSpecialTypes {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ExternedSpecialTypes)) {
       return false;
     }
     ExternedSpecialTypes other = (ExternedSpecialTypes) o;

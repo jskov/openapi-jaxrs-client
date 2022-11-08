@@ -68,11 +68,11 @@ public class Primitives {
    * Get aBoolean
    * @return aBoolean
    **/
-  public Boolean isABoolean() {
+  public Boolean isaBoolean() {
     return aBoolean;
   }
 
-  public void setABoolean(Boolean aBoolean) {
+  public void setaBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
   }
 
@@ -85,11 +85,11 @@ public class Primitives {
    * Get aByte
    * @return aByte
    **/
-  public Byte getAByte() {
+  public Byte getaByte() {
     return aByte;
   }
 
-  public void setAByte(Byte aByte) {
+  public void setaByte(Byte aByte) {
     this.aByte = aByte;
   }
 
@@ -102,11 +102,11 @@ public class Primitives {
    * Get aShort
    * @return aShort
    **/
-  public Short getAShort() {
+  public Short getaShort() {
     return aShort;
   }
 
-  public void setAShort(Short aShort) {
+  public void setaShort(Short aShort) {
     this.aShort = aShort;
   }
 
@@ -136,11 +136,11 @@ public class Primitives {
    * Get aLong
    * @return aLong
    **/
-  public Long getALong() {
+  public Long getaLong() {
     return aLong;
   }
 
-  public void setALong(Long aLong) {
+  public void setaLong(Long aLong) {
     this.aLong = aLong;
   }
 
@@ -153,11 +153,11 @@ public class Primitives {
    * Get aFloat
    * @return aFloat
    **/
-  public Float getAFloat() {
+  public Float getaFloat() {
     return aFloat;
   }
 
-  public void setAFloat(Float aFloat) {
+  public void setaFloat(Float aFloat) {
     this.aFloat = aFloat;
   }
 
@@ -175,21 +175,21 @@ public class Primitives {
    * Get aDouble
    * @return aDouble
    **/
-  public Double getADoubleDouble() {
+  public Double getaDoubleDouble() {
     return aDouble;
   }
 
   @JsonIgnore
-  public BigDecimal getADouble() {
+  public BigDecimal getaDouble() {
     return aDouble == null ? null : new BigDecimal(aDouble);
   }
 
-  public void setADoubleDouble(Double aDouble) {
+  public void setaDoubleDouble(Double aDouble) {
     this.aDouble = aDouble;
   }
 
   @JsonIgnore
-  public void setADouble(BigDecimal aDouble) {
+  public void setaDouble(BigDecimal aDouble) {
     this.aDouble = aDouble == null ? null : aDouble.doubleValue();
   }
 
@@ -202,11 +202,11 @@ public class Primitives {
    * Get aString
    * @return aString
    **/
-  public String getAString() {
+  public String getaString() {
     return aString;
   }
 
-  public void setAString(String aString) {
+  public void setaString(String aString) {
     this.aString = aString;
   }
 
@@ -215,7 +215,7 @@ public class Primitives {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Primitives)) {
       return false;
     }
     Primitives other = (Primitives) o;

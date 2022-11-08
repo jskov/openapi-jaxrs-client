@@ -77,11 +77,11 @@ public class ValidationDto {
 
   public static final String JSON_PROPERTY_VALID_OBJECTS = "validObjects";
   @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
-  private List<Environment> validObjects = null;
+  private List<Environment> validObjects;
 
   public static final String JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE = "primitivesShouldNotHaveValidate";
   @JsonbProperty(JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE)
-  private List<Boolean> primitivesShouldNotHaveValidate = null;
+  private List<Boolean> primitivesShouldNotHaveValidate;
 
   public ValidationDto name(String name) {
     this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");
@@ -159,19 +159,19 @@ public class ValidationDto {
    * @return aBigDouble
    **/
   @Min(0) @Max(99999999)
-  public Double getABigDoubleDouble() {
+  public Double getaBigDoubleDouble() {
     return aBigDouble;
   }
 
-  public BigDecimal getABigDouble() {
+  public BigDecimal getaBigDouble() {
     return aBigDouble == null ? null : new BigDecimal(aBigDouble);
   }
 
-  public void setABigDoubleDouble(Double aBigDouble) {
+  public void setaBigDoubleDouble(Double aBigDouble) {
     this.aBigDouble = aBigDouble;
   }
 
-  public void setABigDouble(BigDecimal aBigDouble) {
+  public void setaBigDouble(BigDecimal aBigDouble) {
     this.aBigDouble = aBigDouble == null ? null : aBigDouble.doubleValue();
   }
 
@@ -188,11 +188,11 @@ public class ValidationDto {
    * @return aBigFloat
    **/
   @Min(0) @Max(1000)
-  public Float getABigFloat() {
+  public Float getaBigFloat() {
     return aBigFloat;
   }
 
-  public void setABigFloat(Float aBigFloat) {
+  public void setaBigFloat(Float aBigFloat) {
     this.aBigFloat = aBigFloat;
   }
 
@@ -209,11 +209,11 @@ public class ValidationDto {
    * @return aBigDecimal
    **/
   @DecimalMin("100") @DecimalMax("1000")
-  public BigDecimal getABigDecimal() {
+  public BigDecimal getaBigDecimal() {
     return aBigDecimal;
   }
 
-  public void setABigDecimal(BigDecimal aBigDecimal) {
+  public void setaBigDecimal(BigDecimal aBigDecimal) {
     this.aBigDecimal = aBigDecimal;
   }
 
@@ -309,7 +309,7 @@ public class ValidationDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ValidationDto)) {
       return false;
     }
     ValidationDto other = (ValidationDto) o;

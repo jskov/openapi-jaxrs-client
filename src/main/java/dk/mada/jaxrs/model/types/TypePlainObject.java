@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.model.types;
 
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
-
 /**
  * Special type for handing an object type - that maps to java's Object
  */

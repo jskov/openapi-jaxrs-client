@@ -20,19 +20,15 @@ import io.jstach.JStachio;
 public class Templates {
     private static final Logger logger = LoggerFactory.getLogger(Templates.class);
 
-    /** Directory to write API classes to. */
-    private final Path apiDir;
     /** Directory to write DTO classes to. */
     private final Path dtoDir;
 
     /**
      * Creates templates.
      *
-     * @param apiDir the directory to generate API classes in
      * @param dtoDir the directory to generate DTO classes in
      */
-    public Templates(Path apiDir, Path dtoDir) {
-        this.apiDir = apiDir;
+    public Templates(Path dtoDir) {
         this.dtoDir = dtoDir;
     }
 
@@ -82,11 +78,12 @@ public class Templates {
      * The context contains the information to render the template
      * for a given API class.
      *
+     * @param apiDir the directory to generate API classes in
      * @param context the rendering context
      */
-    public void renderApiTemplate(CtxApi context) {
+    public void renderApiTemplate(Path apiDir, CtxApi context) {
         String classname = context.classname();
-        Path output = toApiFile(classname);
+        Path output = apiDir.resolve(classname + ".java");
         logger.info(" generate API {}", classname);
 
         renderJstachioTemplate(context, output);
@@ -102,10 +99,6 @@ public class Templates {
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to render template to " + output, e);
         }
-    }
-
-    private Path toApiFile(String name) {
-        return apiDir.resolve(name + ".java");
     }
 
     private Path toDtoFile(String name) {

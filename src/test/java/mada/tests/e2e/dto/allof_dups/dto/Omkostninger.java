@@ -44,7 +44,7 @@ public class Omkostninger {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Omkostninger)) {
       return false;
     }
     Omkostninger other = (Omkostninger) o;

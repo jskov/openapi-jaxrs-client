@@ -81,4 +81,8 @@ public interface CtxExtraDateSerializer {
     /** {@return the date time format used by the LocalDateTime serializer, or null} */
     @Nullable
     String cannedLocalDateTimeSerializerDTF();
+
+    /** {@return the date time format used by the OffsetDateTime serializer, or null} */
+    @Nullable
+    String cannedOffsetDateTimeSerializerDTF();
 }

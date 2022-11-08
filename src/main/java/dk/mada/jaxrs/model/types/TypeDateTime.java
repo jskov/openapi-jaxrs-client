@@ -3,7 +3,6 @@ package dk.mada.jaxrs.model.types;
 import java.util.Set;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Special type for handing date-time schema.

@@ -90,7 +90,7 @@ public class SubB implements SubASubB {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof SubB)) {
       return false;
     }
     SubB other = (SubB) o;

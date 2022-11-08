@@ -62,7 +62,7 @@ public class EnumArrayInner {
 
   public static final String JSON_PROPERTY_MULIGE_UDBETALINGS_METODER = "muligeUdbetalingsMetoder";
   @JsonbProperty(JSON_PROPERTY_MULIGE_UDBETALINGS_METODER)
-  private List<MuligeUdbetalingsMetoderEnum> muligeUdbetalingsMetoder = null;
+  private List<MuligeUdbetalingsMetoderEnum> muligeUdbetalingsMetoder;
 
   public EnumArrayInner muligeUdbetalingsMetoder(List<MuligeUdbetalingsMetoderEnum> muligeUdbetalingsMetoder) {
     this.muligeUdbetalingsMetoder = muligeUdbetalingsMetoder;
@@ -94,7 +94,7 @@ public class EnumArrayInner {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof EnumArrayInner)) {
       return false;
     }
     EnumArrayInner other = (EnumArrayInner) o;

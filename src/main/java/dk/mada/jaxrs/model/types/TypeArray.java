@@ -5,7 +5,6 @@ import java.util.Set;
 import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.generator.imports.JavaUtil;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Type representing an array schema.

@@ -2,8 +2,6 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
 
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
-
 /**
  * Special type for handing byte[] type.
  *

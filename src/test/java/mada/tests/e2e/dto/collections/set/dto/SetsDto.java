@@ -38,31 +38,31 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class SetsDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
   @JsonbProperty(JSON_PROPERTY_BOOLEANS)
-  private Set<Boolean> booleans = null;
+  private Set<Boolean> booleans;
 
   public static final String JSON_PROPERTY_BYTES = "bytes";
   @JsonbProperty(JSON_PROPERTY_BYTES)
-  private Set<Byte> bytes = null;
+  private Set<Byte> bytes;
 
   public static final String JSON_PROPERTY_SHORTS = "shorts";
   @JsonbProperty(JSON_PROPERTY_SHORTS)
-  private Set<Short> shorts = null;
+  private Set<Short> shorts;
 
   public static final String JSON_PROPERTY_INTS = "ints";
   @JsonbProperty(JSON_PROPERTY_INTS)
-  private Set<Integer> ints = null;
+  private Set<Integer> ints;
 
   public static final String JSON_PROPERTY_LONGS = "longs";
   @JsonbProperty(JSON_PROPERTY_LONGS)
-  private Set<Long> longs = null;
+  private Set<Long> longs;
 
   public static final String JSON_PROPERTY_STRINGS = "strings";
   @JsonbProperty(JSON_PROPERTY_STRINGS)
-  private Set<String> strings = null;
+  private Set<String> strings;
 
   public static final String JSON_PROPERTY_REFS = "refs";
   @JsonbProperty(JSON_PROPERTY_REFS)
-  private Set<Simple> refs = null;
+  private Set<Simple> refs;
 
   public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
@@ -441,7 +441,7 @@ public class SetsDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof SetsDto)) {
       return false;
     }
     SetsDto other = (SetsDto) o;

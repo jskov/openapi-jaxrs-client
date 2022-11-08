@@ -297,7 +297,7 @@ public class ApiTransformer {
     }
 
     private boolean toBool(Boolean b) {
-        return b == Boolean.TRUE;
+        return Boolean.TRUE.equals(b);
     }
 
     private dk.mada.jaxrs.model.api.HttpMethod toModelHttpMethod(HttpMethod m) {

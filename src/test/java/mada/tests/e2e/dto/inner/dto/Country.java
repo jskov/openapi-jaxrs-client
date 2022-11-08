@@ -222,7 +222,7 @@ public class Country {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Country)) {
       return false;
     }
     Country other = (Country) o;

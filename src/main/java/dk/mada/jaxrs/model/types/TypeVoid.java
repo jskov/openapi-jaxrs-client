@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
 import dk.mada.jaxrs.model.Validation;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 
 /**
  * Special type for handing void type.

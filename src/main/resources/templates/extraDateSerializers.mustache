@@ -17,7 +17,7 @@ public class {{className}} extends JsonDeserializer<OffsetDateTime> {
 
     try {
       // This decodes with RFC3339/ISO-8601 (requires timezone offset)
-      return OffsetDateTime.parse(wireText, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+      return OffsetDateTime.parse(wireText, DateTimeFormatter.{{cannedOffsetDateTimeSerializerDTF}});
     } catch (DateTimeParseException e) {
       // If the above failed, assume it is because there is no timezone and try localtime.
       return LocalDateTime.parse(wireText, DateTimeFormatter.ISO_LOCAL_DATE_TIME).atZone(ZoneId.systemDefault()).toOffsetDateTime();
@@ -50,7 +50,7 @@ public class {{className}} extends JsonSerializer<OffsetDateTime> {
   @Override
   public void serialize(OffsetDateTime value, JsonGenerator jgen, SerializerProvider provider)
            throws IOException, JsonProcessingException {
-    jgen.writeString(value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+    jgen.writeString(value.format(DateTimeFormatter.{{cannedOffsetDateTimeSerializerDTF}}));
   }
 }
  {{/renderOffsetDateTime}}

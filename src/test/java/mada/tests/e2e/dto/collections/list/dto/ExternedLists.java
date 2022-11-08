@@ -29,23 +29,23 @@ import javax.validation.Valid;
 public class ExternedLists {
   public static final String JSON_PROPERTY_LIST_STRING = "listString";
   @JsonbProperty(JSON_PROPERTY_LIST_STRING)
-  private List<String> listString = null;
+  private List<String> listString;
 
   public static final String JSON_PROPERTY_LIST_SIMPLE = "listSimple";
   @JsonbProperty(JSON_PROPERTY_LIST_SIMPLE)
-  private List<Simple> listSimple = null;
+  private List<Simple> listSimple;
 
   public static final String JSON_PROPERTY_LIST_INT = "listInt";
   @JsonbProperty(JSON_PROPERTY_LIST_INT)
-  private List<Integer> listInt = null;
+  private List<Integer> listInt;
 
   public static final String JSON_PROPERTY_LIST_DATE = "listDate";
   @JsonbProperty(JSON_PROPERTY_LIST_DATE)
-  private List<LocalDate> listDate = null;
+  private List<LocalDate> listDate;
 
   public static final String JSON_PROPERTY_LIST_DATE_TIME = "listDateTime";
   @JsonbProperty(JSON_PROPERTY_LIST_DATE_TIME)
-  private List<OffsetDateTime> listDateTime = null;
+  private List<OffsetDateTime> listDateTime;
 
   public ExternedLists listString(List<String> listString) {
     this.listString = listString;
@@ -178,7 +178,7 @@ public class ExternedLists {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ExternedLists)) {
       return false;
     }
     ExternedLists other = (ExternedLists) o;

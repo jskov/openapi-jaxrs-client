@@ -33,11 +33,11 @@ public class Simple {
    * Get aBoolean
    * @return aBoolean
    **/
-  public Boolean isABoolean() {
+  public Boolean isaBoolean() {
     return aBoolean;
   }
 
-  public void setABoolean(Boolean aBoolean) {
+  public void setaBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
   }
 
@@ -46,7 +46,7 @@ public class Simple {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Simple)) {
       return false;
     }
     Simple other = (Simple) o;

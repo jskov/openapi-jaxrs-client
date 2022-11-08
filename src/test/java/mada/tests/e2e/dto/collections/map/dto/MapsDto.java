@@ -46,31 +46,31 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class MapsDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
   @JsonbProperty(JSON_PROPERTY_BOOLEANS)
-  private Map<String, Boolean> booleans = null;
+  private Map<String, Boolean> booleans;
 
   public static final String JSON_PROPERTY_BYTES = "bytes";
   @JsonbProperty(JSON_PROPERTY_BYTES)
-  private Map<String, Byte> bytes = null;
+  private Map<String, Byte> bytes;
 
   public static final String JSON_PROPERTY_SHORTS = "shorts";
   @JsonbProperty(JSON_PROPERTY_SHORTS)
-  private Map<String, Short> shorts = null;
+  private Map<String, Short> shorts;
 
   public static final String JSON_PROPERTY_INTS = "ints";
   @JsonbProperty(JSON_PROPERTY_INTS)
-  private Map<String, Integer> ints = null;
+  private Map<String, Integer> ints;
 
   public static final String JSON_PROPERTY_LONGS = "longs";
   @JsonbProperty(JSON_PROPERTY_LONGS)
-  private Map<String, Long> longs = null;
+  private Map<String, Long> longs;
 
   public static final String JSON_PROPERTY_STRINGS = "strings";
   @JsonbProperty(JSON_PROPERTY_STRINGS)
-  private Map<String, String> strings = null;
+  private Map<String, String> strings;
 
   public static final String JSON_PROPERTY_REFS = "refs";
   @JsonbProperty(JSON_PROPERTY_REFS)
-  private Map<String, Simple> refs = null;
+  private Map<String, Simple> refs;
 
   public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
@@ -109,35 +109,35 @@ public class MapsDto {
 
   public static final String JSON_PROPERTY_BOTH_BOOLEANS = "bothBooleans";
   @JsonbProperty(JSON_PROPERTY_BOTH_BOOLEANS)
-  private Map<String, Boolean> bothBooleans = null;
+  private Map<String, Boolean> bothBooleans;
 
   public static final String JSON_PROPERTY_BOTH_BYTES = "bothBytes";
   @JsonbProperty(JSON_PROPERTY_BOTH_BYTES)
-  private Map<String, Byte> bothBytes = null;
+  private Map<String, Byte> bothBytes;
 
   public static final String JSON_PROPERTY_BOTH_SHORTS = "bothShorts";
   @JsonbProperty(JSON_PROPERTY_BOTH_SHORTS)
-  private Map<String, Short> bothShorts = null;
+  private Map<String, Short> bothShorts;
 
   public static final String JSON_PROPERTY_BOTH_INTS = "bothInts";
   @JsonbProperty(JSON_PROPERTY_BOTH_INTS)
-  private Map<String, Integer> bothInts = null;
+  private Map<String, Integer> bothInts;
 
   public static final String JSON_PROPERTY_BOTH_LONGS = "bothLongs";
   @JsonbProperty(JSON_PROPERTY_BOTH_LONGS)
-  private Map<String, Long> bothLongs = null;
+  private Map<String, Long> bothLongs;
 
   public static final String JSON_PROPERTY_BOTH_STRINGS = "bothStrings";
   @JsonbProperty(JSON_PROPERTY_BOTH_STRINGS)
-  private Map<String, String> bothStrings = null;
+  private Map<String, String> bothStrings;
 
   public static final String JSON_PROPERTY_BOTH_REFS = "bothRefs";
   @JsonbProperty(JSON_PROPERTY_BOTH_REFS)
-  private Map<String, Simple> bothRefs = null;
+  private Map<String, Simple> bothRefs;
 
   public static final String JSON_PROPERTY_OBJECTS = "objects";
   @JsonbProperty(JSON_PROPERTY_OBJECTS)
-  private Map<String, Object> objects = null;
+  private Map<String, Object> objects;
 
   public MapsDto booleans(Map<String, Boolean> booleans) {
     this.booleans = booleans;
@@ -682,7 +682,7 @@ public class MapsDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof MapsDto)) {
       return false;
     }
     MapsDto other = (MapsDto) o;

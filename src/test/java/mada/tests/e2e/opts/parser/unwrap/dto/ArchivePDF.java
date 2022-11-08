@@ -7,6 +7,7 @@
 package mada.tests.e2e.opts.parser.unwrap.dto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
@@ -23,7 +24,7 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 public class ArchivePDF {
   public static final String JSON_PROPERTY_STRING_LIST = "stringList";
   @JsonbProperty(JSON_PROPERTY_STRING_LIST)
-  private List<String> stringList = null;
+  private List<String> stringList;
 
   public static final String JSON_PROPERTY_BYTE_LIST = "byteList";
   @JsonbProperty(JSON_PROPERTY_BYTE_LIST)
@@ -76,17 +77,17 @@ public class ArchivePDF {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ArchivePDF)) {
       return false;
     }
     ArchivePDF other = (ArchivePDF) o;
     return Objects.equals(this.stringList, other.stringList) &&
-        Objects.equals(this.byteList, other.byteList);
+        Arrays.equals(this.byteList, other.byteList);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(stringList, byteList);
+    return Objects.hash(stringList, Arrays.hashCode(byteList));
   }
 
   @Override

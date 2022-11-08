@@ -3,9 +3,10 @@ plugins {
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'eclipse'
+    id 'net.ltgt.errorprone' version '3.0.1'
     id 'jacoco'
     id 'java-library'
-    id 'org.sonarqube' version '3.4.0.2513'
+    id 'org.sonarqube' version '3.5.0.2730'
     id 'maven-publish'
 }
 
@@ -30,18 +31,20 @@ configurations {
 
 dependencies {
     implementation      'com.samskivert:jmustache:1.15'
-    implementation      'info.picocli:picocli:4.6.3'
-    implementation      'io.swagger.parser.v3:swagger-parser:2.1.6'
+    implementation      'info.picocli:picocli:4.7.0'
+    implementation      'io.swagger.parser.v3:swagger-parser:2.1.8'
 
     annotationProcessor 'org.immutables:value:2.9.2'
     aptValue            'org.immutables:value:2.9.2'
     compileOnly         'org.immutables:value:2.9.2:annotations'
 
-    implementation      'io.jstach:jstachio:0.6.0-SNAPSHOT'
-    aptStach            'io.jstach:jstachio-apt:0.6.0-SNAPSHOT'
-    annotationProcessor 'io.jstach:jstachio-apt:0.6.0-SNAPSHOT'
+    implementation      'io.jstach:jstachio:0.6.0'
+    aptStach            'io.jstach:jstachio-apt:0.6.0'
+    annotationProcessor 'io.jstach:jstachio-apt:0.6.0'
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.3'
+
+    errorprone          "com.google.errorprone:error_prone_core:$errorproneVersion"
 
     testImplementation  platform("org.junit:junit-bom:$junitVersion")
     testImplementation  'org.junit.jupiter:junit-jupiter'
@@ -52,7 +55,7 @@ dependencies {
     testImplementation  "org.assertj:assertj-core:$assertJVersion"
 	
     // for the generated code
-    testImplementation  'io.quarkus:quarkus-rest-client:2.13.3.Final'
+    testImplementation  'io.quarkus:quarkus-rest-client:2.14.0.Final'
     testImplementation  'jakarta.annotation:jakarta.annotation-api:2.1.1'
     testImplementation  'jakarta.json:jakarta.json-api:2.1.1'
     testImplementation  'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
@@ -84,6 +87,19 @@ java {
     
     withJavadocJar()
     withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.errorprone.disableWarningsInGeneratedCode = false
+    // ImmutableEnumChecker:
+    //  https://github.com/google/error-prone/issues/1542 (Set.of)
+    //  ? records
+    // InvalidParam:
+    //  https://github.com/google/error-prone/issues/2321
+    // JavaTimeDefaultTimeZone:
+    //  Timezone is not relevant
+    options.errorprone.disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
+    options.errorprone.excludedPaths = ".*/OpenapiGeneratorUtils.java"
 }
 
 compileJava {

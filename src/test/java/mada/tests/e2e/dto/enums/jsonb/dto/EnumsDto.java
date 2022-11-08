@@ -275,7 +275,7 @@ public class EnumsDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof EnumsDto)) {
       return false;
     }
     EnumsDto other = (EnumsDto) o;

@@ -66,7 +66,7 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
   @Schema({{{madaProp.schemaOptions}}})
   {{/madaProp.schemaOptions}}
   {{#isContainer}}
-  private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}}{{^required}} = null{{/required}};
+  private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
   {{/isContainer}}
   {{^isContainer}}
   private {{{datatypeWithEnum}}} {{name}}{{#defaultValue}} = {{{.}}}{{/defaultValue}};
@@ -208,11 +208,11 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof {{classname}})) {
       return false;
     }{{#hasVars}}
     {{classname}} {{classVarName}} = ({{classname}}) o;
-    return {{#vars}}Objects.equals(this.{{name}}, {{classVarName}}.{{name}}){{^-last}} &&
+    return {{#vars}}{{^madaProp.isByteArray}}Objects{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays{{/madaProp.isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{^-last}} &&
         {{/-last}}{{/vars}}{{#parent}} &&
         super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
     return true;{{/hasVars}}
@@ -220,7 +220,7 @@ public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.imple
 
   @Override
   public int hashCode() {
-    return Objects.hash({{#vars}}{{name}}{{^-last}}, {{/-last}}{{/vars}}{{#parent}}{{#hasVars}}, {{/hasVars}}super.hashCode(){{/parent}});
+    return Objects.hash({{#vars}}{{^madaProp.isByteArray}}{{name}}{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays.hashCode({{name}}){{/madaProp.isByteArray}}{{^-last}}, {{/-last}}{{/vars}}{{#parent}}{{#hasVars}}, {{/hasVars}}super.hashCode(){{/parent}});
   }
 
   @Override

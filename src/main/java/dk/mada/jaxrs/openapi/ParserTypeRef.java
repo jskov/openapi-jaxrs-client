@@ -7,7 +7,7 @@ import org.immutables.value.Value.Immutable;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
+import dk.mada.jaxrs.model.types.TypeName;
 
 /**
  * A reference to types used during parsing.
@@ -48,6 +48,7 @@ public interface ParserTypeRef extends Reference {
     TypeName refTypeName();
 
     /** {@return the referenced type, or null} */
+    @Override
     @Nullable
     Type refType();
 

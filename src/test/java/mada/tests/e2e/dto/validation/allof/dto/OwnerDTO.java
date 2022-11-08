@@ -75,7 +75,7 @@ public class OwnerDTO {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof OwnerDTO)) {
       return false;
     }
     OwnerDTO other = (OwnerDTO) o;

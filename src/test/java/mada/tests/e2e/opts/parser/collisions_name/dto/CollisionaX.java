@@ -32,7 +32,7 @@ public class CollisionaX {
 
   public static final String JSON_PROPERTY_A_LIST = "aList";
   @JsonbProperty(JSON_PROPERTY_A_LIST)
-  private List<CollisionA> aList = null;
+  private List<CollisionA> aList;
 
   public CollisionaX aBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
@@ -43,11 +43,11 @@ public class CollisionaX {
    * Get aBoolean
    * @return aBoolean
    **/
-  public Boolean isABoolean() {
+  public Boolean isaBoolean() {
     return aBoolean;
   }
 
-  public void setABoolean(Boolean aBoolean) {
+  public void setaBoolean(Boolean aBoolean) {
     this.aBoolean = aBoolean;
   }
 
@@ -56,7 +56,7 @@ public class CollisionaX {
     return this;
   }
 
-  public CollisionaX addAListItem(CollisionA aListItem) {
+  public CollisionaX addaListItem(CollisionA aListItem) {
     if (this.aList == null) {
       this.aList = new ArrayList<>();
     }
@@ -69,11 +69,11 @@ public class CollisionaX {
    * @return aList
    **/
   @Valid
-  public List<CollisionA> getAList() {
+  public List<CollisionA> getaList() {
     return aList;
   }
 
-  public void setAList(List<CollisionA> aList) {
+  public void setaList(List<CollisionA> aList) {
     this.aList = aList;
   }
 
@@ -82,7 +82,7 @@ public class CollisionaX {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof CollisionaX)) {
       return false;
     }
     CollisionaX other = (CollisionaX) o;

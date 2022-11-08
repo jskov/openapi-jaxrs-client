@@ -52,7 +52,6 @@ public final class Generator implements GeneratorService {
         try {
             setLogLevels(clientContext.logLevel());
             assertInputFile(openapiDocument);
-            assertDestinationDir(clientContext, destinationDir);
 
             var typeNames = new TypeNames();
             var parserOpts = new ParserOpts(options);
@@ -60,16 +59,17 @@ public final class Generator implements GeneratorService {
             var naming = new Naming(options);
             var parserRefs = new ParserTypeRefs(typeNames);
 
-            Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
+            assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
-            Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
+            Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
 
             Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
 
-            var templates = new Templates(apiDir, dtoDir);
+            var templates = new Templates(dtoDir);
             if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
+                Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
                 Files.createDirectories(apiDir);
-                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses();
+                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
             }
             if (!clientContext.skipDto()) {
                 Files.createDirectories(dtoDir);
@@ -80,11 +80,13 @@ public final class Generator implements GeneratorService {
         }
     }
 
-    private void assertDestinationDir(ClientContext clientContext, Path destinationDir) {
+    private void assertDestinationDir(ClientContext clientContext, GeneratorOpts generatorOpts, Path destinationDir) {
         if (Files.exists(destinationDir) && !clientContext.overwrite()) {
             throw new IllegalArgumentException("Will not write to existing output directory '" + destinationDir + "'");
         }
-        DirectoryDeleter.delete(destinationDir);
+        if (!generatorOpts.isTestingKeepDestination()) {
+            DirectoryDeleter.delete(destinationDir);
+        }
     }
 
     /**

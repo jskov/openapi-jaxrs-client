@@ -99,7 +99,7 @@ public enum StatusCode {
     HTTP_VERSION(505);
 
     /** Status code. */
-    private int code;
+    private final int code;
 
     StatusCode(int code) {
         this.code = code;

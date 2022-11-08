@@ -49,7 +49,7 @@ public class MicroProfileAnnotationsPropsOnly {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof MicroProfileAnnotationsPropsOnly)) {
       return false;
     }
     MicroProfileAnnotationsPropsOnly other = (MicroProfileAnnotationsPropsOnly) o;

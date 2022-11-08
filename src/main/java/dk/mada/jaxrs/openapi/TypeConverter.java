@@ -30,8 +30,8 @@ import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.TypeNames.TypeName;
 import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.model.types.TypeSet;
@@ -222,7 +222,7 @@ public final class TypeConverter {
             List<Schema> allOf = cs.getAllOf();
             if (allOf != null && !allOf.isEmpty()) {
                 logger.debug("  allof");
-                
+
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
                         .map(this::toReference)
@@ -234,7 +234,7 @@ public final class TypeConverter {
                     return parserRefs.of(allOfRefs.get(0), validation);
                 }
             }
-            
+
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
             if (typeWithValidation != null) {
@@ -267,10 +267,10 @@ public final class TypeConverter {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (propertyName == null) {
                 if (isPlainObject) {
-                    logger.info(" plain Object, no properties");
+                    logger.debug(" plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), validation);
                 } else {
-                    logger.info(" plain Object?");
+                    logger.debug(" plain Object?");
                     return parserRefs.of(TypeObject.get(), validation);
                 }
             }
@@ -389,6 +389,10 @@ public final class TypeConverter {
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
         String modelName = naming.convertTypeName(dtoName);
+        // FIXME: original dtoName should be stored in the Dto
+        // and used to generate mpSchema name in the Generator.
+        // But maybe keep it since it is a distinct namespace
+        // that needs name-conflict-resolution.
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
         ParserTypeRef dtoType = toReference(schema);

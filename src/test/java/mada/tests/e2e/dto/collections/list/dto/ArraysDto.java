@@ -7,6 +7,7 @@
 package mada.tests.e2e.dto.collections.list.dto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
@@ -38,7 +39,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class ArraysDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";
   @JsonbProperty(JSON_PROPERTY_BOOLEANS)
-  private List<Boolean> booleans = null;
+  private List<Boolean> booleans;
 
   public static final String JSON_PROPERTY_BYTES = "bytes";
   @JsonbProperty(JSON_PROPERTY_BYTES)
@@ -46,23 +47,23 @@ public class ArraysDto {
 
   public static final String JSON_PROPERTY_SHORTS = "shorts";
   @JsonbProperty(JSON_PROPERTY_SHORTS)
-  private List<Short> shorts = null;
+  private List<Short> shorts;
 
   public static final String JSON_PROPERTY_INTS = "ints";
   @JsonbProperty(JSON_PROPERTY_INTS)
-  private List<Integer> ints = null;
+  private List<Integer> ints;
 
   public static final String JSON_PROPERTY_LONGS = "longs";
   @JsonbProperty(JSON_PROPERTY_LONGS)
-  private List<Long> longs = null;
+  private List<Long> longs;
 
   public static final String JSON_PROPERTY_STRINGS = "strings";
   @JsonbProperty(JSON_PROPERTY_STRINGS)
-  private List<String> strings = null;
+  private List<String> strings;
 
   public static final String JSON_PROPERTY_REFS = "refs";
   @JsonbProperty(JSON_PROPERTY_REFS)
-  private List<Simple> refs = null;
+  private List<Simple> refs;
 
   public static final String JSON_PROPERTY_REQUIRED_BOOLEANS = "requiredBooleans";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_BOOLEANS)
@@ -72,7 +73,7 @@ public class ArraysDto {
   public static final String JSON_PROPERTY_REQUIRED_BYTES = "requiredBytes";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_BYTES)
   @Schema(required = true)
-  private byte[] requiredBytes;
+  private byte[] requiredBytes = new byte[] {};
 
   public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
@@ -428,19 +429,19 @@ public class ArraysDto {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ArraysDto)) {
       return false;
     }
     ArraysDto other = (ArraysDto) o;
     return Objects.equals(this.booleans, other.booleans) &&
-        Objects.equals(this.bytes, other.bytes) &&
+        Arrays.equals(this.bytes, other.bytes) &&
         Objects.equals(this.shorts, other.shorts) &&
         Objects.equals(this.ints, other.ints) &&
         Objects.equals(this.longs, other.longs) &&
         Objects.equals(this.strings, other.strings) &&
         Objects.equals(this.refs, other.refs) &&
         Objects.equals(this.requiredBooleans, other.requiredBooleans) &&
-        Objects.equals(this.requiredBytes, other.requiredBytes) &&
+        Arrays.equals(this.requiredBytes, other.requiredBytes) &&
         Objects.equals(this.requiredShorts, other.requiredShorts) &&
         Objects.equals(this.requiredInts, other.requiredInts) &&
         Objects.equals(this.requiredLongs, other.requiredLongs) &&
@@ -450,7 +451,7 @@ public class ArraysDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(booleans, bytes, shorts, ints, longs, strings, refs, requiredBooleans, requiredBytes, requiredShorts, requiredInts, requiredLongs, requiredStrings, requiredRefs);
+    return Objects.hash(booleans, Arrays.hashCode(bytes), shorts, ints, longs, strings, refs, requiredBooleans, Arrays.hashCode(requiredBytes), requiredShorts, requiredInts, requiredLongs, requiredStrings, requiredRefs);
   }
 
   @Override

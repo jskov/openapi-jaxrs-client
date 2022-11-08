@@ -4,7 +4,6 @@ import static java.util.stream.Collectors.joining;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Contains all declared type names in the model.
@@ -78,48 +77,33 @@ public final class TypeNames {
      * Constructs a new instance.
      */
     public TypeNames() {
-        nameToInstances.put(BOOLEAN.name, BOOLEAN);
-        nameToInstances.put(BOOLEAN_WRAPPER.name, BOOLEAN_WRAPPER);
-        nameToInstances.put(BYTE.name, BYTE);
-        nameToInstances.put(BYTE_WRAPPER.name, BYTE_WRAPPER);
-        nameToInstances.put(SHORT.name, SHORT);
-        nameToInstances.put(SHORT_WRAPPER.name, SHORT_WRAPPER);
-        nameToInstances.put(INTEGER.name, INTEGER);
-        nameToInstances.put(INTEGER_WRAPPER.name, INTEGER_WRAPPER);
-        nameToInstances.put(LONG.name, LONG);
-        nameToInstances.put(LONG_WRAPPER.name, LONG_WRAPPER);
-        nameToInstances.put(FLOAT.name, FLOAT);
-        nameToInstances.put(FLOAT_WRAPPER.name, FLOAT_WRAPPER);
-        nameToInstances.put(DOUBLE.name, DOUBLE);
-        nameToInstances.put(DOUBLE_WRAPPER.name, DOUBLE_WRAPPER);
-        nameToInstances.put(STRING.name, STRING);
-        nameToInstances.put(VOID.name, VOID);
-        nameToInstances.put(OBJECT.name, OBJECT);
-        nameToInstances.put(LOCAL_DATE.name, LOCAL_DATE);
-        nameToInstances.put(LOCAL_TIME.name, LOCAL_TIME);
-        nameToInstances.put(LOCAL_DATE_TIME.name, LOCAL_DATE_TIME);
-        nameToInstances.put(OFFSET_DATE_TIME.name, OFFSET_DATE_TIME);
-        nameToInstances.put(ZONED_DATE_TIME.name, ZONED_DATE_TIME);
-        nameToInstances.put(BIG_DECIMAL.name, BIG_DECIMAL);
-        nameToInstances.put(BYTE_ARRAY.name, BYTE_ARRAY);
-        nameToInstances.put(INPUT_STREAM.name, INPUT_STREAM);
-        nameToInstances.put(UUID.name, UUID);
-        nameToInstances.put(MARKER_VALIDATION.name, MARKER_VALIDATION);
-    }
-
-    /**
-     * Adds an override name to a type name.
-     *
-     * This will make the TypeName instance for 'typeName' return
-     * the name 'newTypeName'.
-     *
-     * This method should only be used after DTOs have been consolidated.
-     *
-     * @param typeName the name of the type to rename
-     * @param newTypeName the types new name
-     */
-    public void rename(String typeName, String newTypeName) {
-        of(typeName).overrideName = newTypeName;
+        nameToInstances.put(BOOLEAN.name(), BOOLEAN);
+        nameToInstances.put(BOOLEAN_WRAPPER.name(), BOOLEAN_WRAPPER);
+        nameToInstances.put(BYTE.name(), BYTE);
+        nameToInstances.put(BYTE_WRAPPER.name(), BYTE_WRAPPER);
+        nameToInstances.put(SHORT.name(), SHORT);
+        nameToInstances.put(SHORT_WRAPPER.name(), SHORT_WRAPPER);
+        nameToInstances.put(INTEGER.name(), INTEGER);
+        nameToInstances.put(INTEGER_WRAPPER.name(), INTEGER_WRAPPER);
+        nameToInstances.put(LONG.name(), LONG);
+        nameToInstances.put(LONG_WRAPPER.name(), LONG_WRAPPER);
+        nameToInstances.put(FLOAT.name(), FLOAT);
+        nameToInstances.put(FLOAT_WRAPPER.name(), FLOAT_WRAPPER);
+        nameToInstances.put(DOUBLE.name(), DOUBLE);
+        nameToInstances.put(DOUBLE_WRAPPER.name(), DOUBLE_WRAPPER);
+        nameToInstances.put(STRING.name(), STRING);
+        nameToInstances.put(VOID.name(), VOID);
+        nameToInstances.put(OBJECT.name(), OBJECT);
+        nameToInstances.put(LOCAL_DATE.name(), LOCAL_DATE);
+        nameToInstances.put(LOCAL_TIME.name(), LOCAL_TIME);
+        nameToInstances.put(LOCAL_DATE_TIME.name(), LOCAL_DATE_TIME);
+        nameToInstances.put(OFFSET_DATE_TIME.name(), OFFSET_DATE_TIME);
+        nameToInstances.put(ZONED_DATE_TIME.name(), ZONED_DATE_TIME);
+        nameToInstances.put(BIG_DECIMAL.name(), BIG_DECIMAL);
+        nameToInstances.put(BYTE_ARRAY.name(), BYTE_ARRAY);
+        nameToInstances.put(INPUT_STREAM.name(), INPUT_STREAM);
+        nameToInstances.put(UUID.name(), UUID);
+        nameToInstances.put(MARKER_VALIDATION.name(), MARKER_VALIDATION);
     }
 
     /**
@@ -140,73 +124,5 @@ public final class TypeNames {
                     .sorted((a, b) -> a.compareToIgnoreCase(b))
                     .collect(joining(sep)))
                 .toString();
-    }
-
-    /**
-     * A type name.
-     */
-    public static final class TypeName implements Comparable<TypeName> {
-        /** The type name at time of declaration. */
-        private String name;
-
-        /** An override name may be assigned to the type. */
-        private String overrideName;
-
-        /**
-         * Creates a new type name instance.
-         *
-         * @param name the name of the type
-         */
-        private TypeName(String name) {
-            this.name = name;
-        }
-
-        /**
-         * Returns the name of the type.
-         *
-         * The name may be changed between the time of declaration,
-         * and the use for rendering.
-         *
-         * @return the name of the type
-         */
-        public String name() {
-            if (overrideName != null) {
-                return overrideName;
-            }
-            return name;
-        }
-
-        @Override
-        public int compareTo(TypeName other) {
-            return name.compareTo(other.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            TypeName other = (TypeName) obj;
-            return Objects.equals(name, other.name);
-        }
-
-        @Override
-        public String toString() {
-            return "TypeName [name=" + name
-                    + (overrideName == null
-                      ? ("]")
-                      : (", overrideName=" + overrideName + "]"));
-        }
     }
 }

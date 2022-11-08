@@ -76,12 +76,12 @@ public enum Jackson implements TypedImport {
         "com.fasterxml.jackson.databind.SerializerProvider");
 
     /** The CodeHaus import path. */
-    private final String codeHausImport;
+    private final String codehausImport;
     /** The FasterXml import path. */
     private final String fasterXmlImport;
 
     Jackson(String codehausImport, String fasterXmlImport) {
-        this.codeHausImport = codehausImport;
+        this.codehausImport = codehausImport;
         this.fasterXmlImport = fasterXmlImport;
     }
 
@@ -94,6 +94,6 @@ public enum Jackson implements TypedImport {
         if (!irp.isJackson()) {
             return null;
         }
-        return irp.isJacksonCodehaus() ? codeHausImport : fasterXmlImport;
+        return irp.isJacksonCodehaus() ? codehausImport : fasterXmlImport;
     }
 }

@@ -166,6 +166,11 @@ public final class GeneratorOpts {
         return parserOpts.isJseLocalDateTime() && isJackson();
     }
 
+    /** {@return true if a jackson OffsetDateTime serializer should be rendered} */
+    public boolean isUseJacksonOffsetDateTimeSerializer() {
+        return parserOpts.isJseOffsetDateTime() && isJackson();
+    }
+
     /** {@return the LocalDate wire format for jackson, or null} */
     public String getJacksonLocalDateWireFormat() {
         if (!isUseJacksonLocalDateSerializer()) {
@@ -214,6 +219,30 @@ public final class GeneratorOpts {
         return getDefault("generator-jackson-localdatetime-serializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
+    /** {@return the jackson OffsetDateTime deserializer class name, or null} */
+    public String getJacksonOffsetDateTimeDeserializer() {
+        if (!isUseJacksonLocalDateSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-deserializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
+    }
+
+    /** {@return the jackson OffsetDateTime serializer class name, or null} */
+    public String getJacksonOffsetDateTimeSerializer() {
+        if (!isUseJacksonLocalDateTimeSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-serializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
+    }
+
+    /** {@return the OffsetDateTime wire format for jackson, or null} */
+    public String getJacksonOffsetDateTimeWireFormat() {
+        if (!isUseJacksonOffsetDateTimeSerializer()) {
+            return null;
+        }
+        return getDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
+    }
+
     /** {@return the MP client config config key, or null} */
     @Nullable
     public String getMpClientConfigKey() {
@@ -244,13 +273,13 @@ public final class GeneratorOpts {
      **/
     public Map<String, UserMappedImport> getExternalTypeMapping() {
         String s = get("generator-map-external-types");
-        if (s == null) {
+        if (s == null || s.isBlank()) {
             return Map.of();
         }
 
         Map<String, UserMappedImport> typeMapping = new HashMap<>();
 
-        for (String mapping : s.split(";")) {
+        for (String mapping : s.split(";", -1)) {
             int index = mapping.indexOf(":");
             if (index == -1 || (index + 1) > mapping.length()) {
                 throw new IllegalArgumentException("No package-to-types mapping found in '" + s + "'");
@@ -258,7 +287,7 @@ public final class GeneratorOpts {
             String pkg = mapping.substring(0, index).trim();
             String types = mapping.substring(index + 1).trim();
 
-            for (String type : types.split(",")) {
+            for (String type : types.split(",", -1)) {
                 String tt = type.trim();
                 typeMapping.put(tt, new UserMappedImport(pkg + "." + tt));
             }
@@ -285,6 +314,16 @@ public final class GeneratorOpts {
     /** {@return true if the extra-template for a jackson LocalDateTime serializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateTimeSerializerTemplate() {
         return ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateTimeSerializer());
+    }
+
+    /** {@return true if the extra-template for a jackson OffsetDateTime deserializer should be added, otherwise false} */
+    public boolean isAddJacksonOffsetDateTimeDeserializerTemplate() {
+        return ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname().equals(getJacksonOffsetDateTimeDeserializer());
+    }
+
+    /** {@return true if the extra-template for a jackson OffsetDateTime serializer should be added, otherwise false} */
+    public boolean isAddJacksonOffsetDateTimeSerializerTemplate() {
+        return ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonOffsetDateTimeSerializer());
     }
 
     /** {@return true if bean validation should be used, otherwise false} */
@@ -375,6 +414,11 @@ public final class GeneratorOpts {
     /** {@return true if @RegisterForReflection should be added to DTOs} */
     public boolean isUseRegisterForReflection() {
         return bool("generator-quarkus-use-register-for-reflection");
+    }
+
+    /** {@return true if the destination folder should be kept during testing} */
+    public boolean isTestingKeepDestination() {
+        return bool("generator-testing-keep-destination");
     }
 
     private boolean bool(String name) {

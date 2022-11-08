@@ -196,7 +196,7 @@ public class ProjectCreateDTO {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ProjectCreateDTO)) {
       return false;
     }
     ProjectCreateDTO other = (ProjectCreateDTO) o;
