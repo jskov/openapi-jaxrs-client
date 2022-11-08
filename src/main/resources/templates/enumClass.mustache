@@ -35,7 +35,12 @@
     @JsonCreator
     public static {{{madaProp.enumClassName}}} fromValue({{{madaProp.enumTypeName}}} value) {
       for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
+      {{#madaProp.isEqualsPrimitive}}
+        if (b.value == value) {
+      {{/madaProp.isEqualsPrimitive}}
+      {{^madaProp.isEqualsPrimitive}}
         if (Objects.equals(b.value, value)) {
+      {{/madaProp.isEqualsPrimitive}}
           return b;
         }
       }

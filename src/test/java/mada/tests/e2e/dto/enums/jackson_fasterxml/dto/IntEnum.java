@@ -8,7 +8,6 @@ package mada.tests.e2e.dto.enums.jackson_fasterxml.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -41,7 +40,7 @@ public enum IntEnum {
   @JsonCreator
   public static IntEnum fromValue(int value) {
     for (IntEnum b : IntEnum.values()) {
-      if (Objects.equals(b.value, value)) {
+      if (b.value == value) {
         return b;
       }
     }

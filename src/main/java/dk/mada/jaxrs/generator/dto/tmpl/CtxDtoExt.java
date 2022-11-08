@@ -44,6 +44,9 @@ public interface CtxDtoExt {
     @Nullable
     String implementsInterfaces();
 
+    /** {@return true if enumeration data type is primitive and can use == for equals} */
+    boolean isEqualsPrimitive();
+
     /** {@return true if DTO should render @RegisterForReflection} */
     boolean quarkusRegisterForReflection();
 }
