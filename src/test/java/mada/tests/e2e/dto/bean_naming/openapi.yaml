@@ -1,0 +1,34 @@
+---
+openapi: 3.0.3
+paths:
+  /dtos/bean-naming:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeanNaming'
+components:
+  schemas:
+    BeanNaming:
+      type: object
+      properties:
+        downBean:
+          type: boolean
+        aCamelBean:
+          type: boolean
+        UpperBean:
+          type: boolean
+        downInt:
+          format: int32
+          type: integer
+        aCamelInt:
+          format: int32
+          type: integer
+        UpperInt:
+          format: int32
+          type: integer
