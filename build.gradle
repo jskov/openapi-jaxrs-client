@@ -98,7 +98,7 @@ tasks.withType(JavaCompile).configureEach {
     // JavaTimeDefaultTimeZone:
     //  Timezone is not relevant
     options.errorprone.disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
-    options.errorprone.excludedPaths = ".*/OpenapiGeneratorUtils.java"
+    options.errorprone.excludedPaths = ".*/(OpenapiGeneratorUtils.java|generated/.*)"
 }
 
 compileJava {
