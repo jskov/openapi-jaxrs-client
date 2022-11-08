@@ -1,15 +1,19 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
+import io.jstach.annotation.JStache;
+
 /**
  * Context passed to Mustache when compiling a model.
  */
+@JStache(path = "model")
 @Immutable
 public interface CtxDto {
     /** {@return a builder for this type} */
@@ -58,12 +62,24 @@ public interface CtxDto {
     default boolean isEnum() {
         return allowableValues() != null;
     }
+
     /** {@return the enumeration constants/values, or null} */
     @Nullable
     CtxEnum allowableValues();
     /** {@return the data type of an enumeration, or null} */
     @Nullable
     String dataType();
+    /** {@return unknown, kept from upstream template} */
+    @Nullable
+    String datatypeWithEnum();
+    /** {@return true if the is an enumeration that can be deserialized as null} */
+    boolean isNullable();
+    /** {@return the name of a parent class, or null} */
+    @Nullable
+    String parent();
+    /** {@return optional vendor extensions} */
+    @Nullable
+    Map<String, String> vendorExtensions();
 
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();

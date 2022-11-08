@@ -16,9 +16,9 @@ import org.codehaus.jackson.map.SerializerProvider;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _LocalDateTimeJacksonSerializer extends JsonSerializer<LocalDateTime> {
-	@Override
-	public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider)
-			throws IOException, JsonProcessingException {
-		jgen.writeString(value.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-	}
+  @Override
+  public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider)
+           throws IOException, JsonProcessingException {
+    jgen.writeString(value.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+  }
 }

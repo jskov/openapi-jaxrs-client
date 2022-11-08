@@ -23,7 +23,7 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoDiscriminator;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
-import dk.mada.jaxrs.generator.dto.tmpl.CtxExtra;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxExtraDateSerializer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
@@ -130,7 +130,7 @@ public class DtoGenerator {
         extraTemplates.forEach(tmpl -> {
             logger.info(" generate extra {}", tmpl);
 
-            CtxExtra ctx = makeCtxExtra(tmpl);
+            CtxExtraDateSerializer ctx = makeCtxExtra(tmpl);
             templates.renderExtraTemplate(tmpl, ctx);
         });
 
@@ -166,11 +166,17 @@ public class DtoGenerator {
                 .build();
     }
 
-    private CtxExtra makeCtxExtra(ExtraTemplate tmpl) {
+    private CtxExtraDateSerializer makeCtxExtra(ExtraTemplate tmpl) {
         var imports = Imports.newExtras(opts, tmpl);
 
         Info info = model.info();
-        return CtxExtra.builder()
+        String classname = tmpl.classname();
+        return CtxExtraDateSerializer.builder()
+                .className(classname)
+                .deserializer(tmpl.isDeserializer())
+                .renderLocalDate(tmpl.isLocalDate())
+                .renderLocalDateTime(tmpl.isLocalDateTime())
+                .renderOffsetDateTime(tmpl.isOffsetDateTime())
                 .appName(info.title())
                 .appDescription(info.description())
                 .version(info.version())
@@ -283,8 +289,9 @@ public class DtoGenerator {
         CtxDtoDiscriminator discriminator = null;
         // Needs adaptor for jsonb and tweaks for codehaus
         if (subtypeSelector != null && opts.isJacksonFasterxml()) {
+            Map<String, String> vendorExt = null;
             List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
-                    .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey()))
+                    .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey(), vendorExt))
                     .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
                     .toList();
             discriminator = CtxDtoDiscriminator.builder()
@@ -319,6 +326,10 @@ public class DtoGenerator {
                 .packageName(opts.dtoPackage())
                 .classname(dto.name())
                 .classVarName("other")
+                .datatypeWithEnum(null)
+                .parent(null)
+                .isNullable(false)
+                .vendorExtensions(null)
 
                 .vars(vars)
 

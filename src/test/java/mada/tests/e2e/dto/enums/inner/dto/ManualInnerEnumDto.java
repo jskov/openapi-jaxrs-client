@@ -32,7 +32,7 @@ public class ManualInnerEnumDto {
 
   /**
    * This selects transport form.
-   * EMAIL &#x3D; this is an email
+   * EMAIL = this is an email
    * SMS : this is an SMS
    */
   public enum StringTypeEnum {
@@ -145,7 +145,7 @@ public class ManualInnerEnumDto {
 
   /**
    * This selects transport form.
-   * EMAIL &#x3D; this is an email
+   * EMAIL = this is an email
    * SMS : this is an SMS
    *
    * @return stringType

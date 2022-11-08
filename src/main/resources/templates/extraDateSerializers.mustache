@@ -1,0 +1,75 @@
+{{>licenseInfo}}
+
+package {{packageName}};
+
+{{#imports}}
+import {{.}};
+{{/imports}}
+
+{{>generatedAnnotation}}
+{{#deserializer}}
+ {{#renderOffsetDateTime}}
+public class {{className}} extends JsonDeserializer<OffsetDateTime> {
+  @Override
+  public OffsetDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
+           throws IOException, JsonProcessingException {
+    String wireText = jp.getText();
+
+    try {
+      // This decodes with RFC3339/ISO-8601 (requires timezone offset)
+      return OffsetDateTime.parse(wireText, DateTimeFormatter.{{cannedOffsetDateTimeSerializerDTF}});
+    } catch (DateTimeParseException e) {
+      // If the above failed, assume it is because there is no timezone and try localtime.
+      return LocalDateTime.parse(wireText, DateTimeFormatter.ISO_LOCAL_DATE_TIME).atZone(ZoneId.systemDefault()).toOffsetDateTime();
+    }
+  }
+}
+ {{/renderOffsetDateTime}}
+ {{#renderLocalDate}}
+public class {{className}} extends JsonDeserializer<LocalDate> {
+  @Override
+  public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    return LocalDate.parse(jsonParser.getText(), DateTimeFormatter.{{cannedLocalDateSerializerDTF}});
+  }
+}
+ {{/renderLocalDate}}
+ {{#renderLocalDateTime}}
+public class {{className}} extends JsonDeserializer<LocalDateTime> {
+  @Override
+  public LocalDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
+           throws IOException, JsonProcessingException {
+    String wireText = jp.getText();
+    return LocalDateTime.parse(wireText, DateTimeFormatter.{{cannedLocalDateTimeSerializerDTF}});
+  }
+}
+ {{/renderLocalDateTime}}
+{{/deserializer}}
+{{^deserializer}}
+ {{#renderOffsetDateTime}}
+public class {{className}} extends JsonSerializer<OffsetDateTime> {
+  @Override
+  public void serialize(OffsetDateTime value, JsonGenerator jgen, SerializerProvider provider)
+           throws IOException, JsonProcessingException {
+    jgen.writeString(value.format(DateTimeFormatter.{{cannedOffsetDateTimeSerializerDTF}}));
+  }
+}
+ {{/renderOffsetDateTime}}
+ {{#renderLocalDate}}
+public class {{className}} extends JsonSerializer<LocalDate> {
+  @Override
+  public void serialize(LocalDate value, JsonGenerator jgen, SerializerProvider provider)
+           throws IOException, JsonProcessingException {
+    jgen.writeString(value.format(DateTimeFormatter.{{cannedLocalDateSerializerDTF}}));
+  }
+}
+ {{/renderLocalDate}}
+ {{#renderLocalDateTime}}
+public class {{className}} extends JsonSerializer<LocalDateTime> {
+  @Override
+  public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider)
+           throws IOException, JsonProcessingException {
+    jgen.writeString(value.format(DateTimeFormatter.{{cannedLocalDateTimeSerializerDTF}}));
+  }
+}
+ {{/renderLocalDateTime}}
+{{/deserializer}}

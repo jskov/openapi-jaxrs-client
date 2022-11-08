@@ -16,9 +16,9 @@ import java.time.format.DateTimeFormatter;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _OffsetDateTimeJacksonSerializer extends JsonSerializer<OffsetDateTime> {
-	@Override
-	public void serialize(OffsetDateTime value, JsonGenerator jgen, SerializerProvider provider)
-			throws IOException, JsonProcessingException {
-		jgen.writeString(value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-	}
+  @Override
+  public void serialize(OffsetDateTime value, JsonGenerator jgen, SerializerProvider provider)
+           throws IOException, JsonProcessingException {
+    jgen.writeString(value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+  }
 }

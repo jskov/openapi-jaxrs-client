@@ -6,9 +6,12 @@ import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
+import io.jstach.annotation.JStache;
+
 /**
  * Context passed to Mustache when compiling an interface.
  */
+@JStache(path = "interface")
 @Immutable
 public interface CtxInterface {
     /** {@return a builder for this type} */

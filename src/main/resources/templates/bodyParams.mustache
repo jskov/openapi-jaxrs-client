@@ -1,15 +1,7 @@
 {{#isBodyParam}}{{!
 
-    }}{{#madaParam.todo}}
-    @ApiParam(value = "{{{description}}}"{{!
-        }}{{#required}}, required = true{{/required}}{{!
-        }}{{#allowableValues}}, {{> allowableValues}}{{/allowableValues}}{{!
-        }}{{#defaultValue}}, defaultValue = "{{{.}}}"{{/defaultValue}}{{!
-    }}) 
-    {{/madaParam.todo}}{{!
+    }}{{#useBeanValidation}}{{>beanValidationParam}}{{/useBeanValidation}}{{!
 
-    }}{{#useBeanValidation}}{{>beanValidation}}@TRIM_EMPTY_LINE@{{/useBeanValidation}}{{!
-
-    }}{{#madaParam.renderBodySpacing}} {{/madaParam.renderBodySpacing}}{{{dataType}}} {{paramName}}{{!
+    }}{{{dataType}}} {{paramName}}{{!
 
 }}{{/isBodyParam}}

@@ -1,17 +1,9 @@
 {{#isPathParam}}{{!
 
-	}}{{#madaParam.todo}}
-    @ApiParam(value = "{{{description}}}"{{!
-        }}{{#required}}, required = true{{/required}}{{!
-        }}{{#allowableValues}}, {{> allowableValues}}{{/allowableValues}}{{!
-        }}{{#defaultValue}}, defaultValue = "{{{.}}}"{{/defaultValue}}{{!
-    }}) 
-    {{/madaParam.todo}}{{!
+    }}@PathParam("{{baseName}}") {{!
 
-    }}@PathParam("{{baseName}}"){{!
+    }}{{#useBeanValidation}}{{>beanValidationParam}}{{/useBeanValidation}}{{!
 
-    }}{{#useBeanValidation}} {{>beanValidation}}@TRIM_EMPTY_LINE@{{/useBeanValidation}}{{!
-
-    }} {{{dataType}}} {{paramName}}{{!
+    }}{{{dataType}}} {{paramName}}{{!
 
 }}{{/isPathParam}}

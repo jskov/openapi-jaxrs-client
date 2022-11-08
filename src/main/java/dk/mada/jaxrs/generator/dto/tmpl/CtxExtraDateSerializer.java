@@ -6,16 +6,22 @@ import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
+import io.jstach.annotation.JStache;
+
 /**
  * Context passed to Mustache when compiling an extra template.
  */
+@JStache(path = "extraDateSerializers")
 @Immutable
-public interface CtxExtra {
+
+public interface CtxExtraDateSerializer {
     /** {@return a builder for this type} */
-    static ImmutableCtxExtra.Builder builder() {
-        return ImmutableCtxExtra.builder();
+    static ImmutableCtxExtraDateSerializer.Builder builder() {
+        return ImmutableCtxExtraDateSerializer.builder();
     }
 
+    /** {@return the class name of the serializer} */
+    String className();
     /** {@return the application name} */
     String appName();
     /** {@return the application version} */
@@ -44,6 +50,15 @@ public interface CtxExtra {
     boolean jacksonFasterxml();
     /** {@return true if jsonb serializer is used, otherwise false} */
     boolean jsonb();
+
+    /** {@return true if this should render as a deserializer} */
+    boolean deserializer();
+    /** {@return true if this should render LocalDate type handling} */
+    boolean renderLocalDate();
+    /** {@return true if this should render LocalDateTime type handling} */
+    boolean renderLocalDateTime();
+    /** {@return true if this should render OffsetDateTime type handling} */
+    boolean renderOffsetDateTime();
 
     /** {@return the name of the Generated annotation class} */
     String generatedAnnotationClass();
