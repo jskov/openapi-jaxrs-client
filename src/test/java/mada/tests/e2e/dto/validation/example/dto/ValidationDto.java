@@ -156,11 +156,11 @@ public class ValidationDto {
    * @return aBigDouble
    **/
   @Min(0) @Max(99999999)
-  public Double getABigDouble() {
+  public Double getaBigDouble() {
     return aBigDouble;
   }
 
-  public void setABigDouble(Double aBigDouble) {
+  public void setaBigDouble(Double aBigDouble) {
     this.aBigDouble = aBigDouble;
   }
 
@@ -177,11 +177,11 @@ public class ValidationDto {
    * @return aBigFloat
    **/
   @Min(0) @Max(1000)
-  public Float getABigFloat() {
+  public Float getaBigFloat() {
     return aBigFloat;
   }
 
-  public void setABigFloat(Float aBigFloat) {
+  public void setaBigFloat(Float aBigFloat) {
     this.aBigFloat = aBigFloat;
   }
 
@@ -198,11 +198,11 @@ public class ValidationDto {
    * @return aBigDecimal
    **/
   @DecimalMin("100") @DecimalMax("1000")
-  public BigDecimal getABigDecimal() {
+  public BigDecimal getaBigDecimal() {
     return aBigDecimal;
   }
 
-  public void setABigDecimal(BigDecimal aBigDecimal) {
+  public void setaBigDecimal(BigDecimal aBigDecimal) {
     this.aBigDecimal = aBigDecimal;
   }
 

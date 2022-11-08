@@ -71,11 +71,11 @@ public class SpecialTypes {
    * Get aBigDecimal
    * @return aBigDecimal
    **/
-  public BigDecimal getABigDecimal() {
+  public BigDecimal getaBigDecimal() {
     return aBigDecimal;
   }
 
-  public void setABigDecimal(BigDecimal aBigDecimal) {
+  public void setaBigDecimal(BigDecimal aBigDecimal) {
     this.aBigDecimal = aBigDecimal;
   }
 
