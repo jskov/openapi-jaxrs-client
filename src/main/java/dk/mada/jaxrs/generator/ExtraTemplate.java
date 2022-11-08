@@ -61,7 +61,7 @@ public enum ExtraTemplate {
 
     /** Flag for deserializer/serializer. */
     private final boolean deserializer;
-    
+
     /** Imports required by template. */
     private final Set<TypedImport> requiredImports;
 
@@ -75,7 +75,8 @@ public enum ExtraTemplate {
     public String classname() {
         return classname;
     }
-    
+
+    /** {@return true for deserializers} **/
     public boolean isDeserializer() {
         return deserializer;
     }

@@ -25,6 +25,7 @@ public interface CtxDtoDiscriminator {
      *
      * @param modelName the name of the model
      * @param mappingName the way it is referred to in the stream
+     * @param vendorExtensions map of vendor extensions
      */
     record ModelMapping(String modelName, String mappingName, Map<String, String> vendorExtensions) {
     }

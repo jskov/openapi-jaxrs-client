@@ -80,10 +80,10 @@ public interface CtxDto {
     /** {@return optional vendor extensions} */
     @Nullable
     Map<String, String> vendorExtensions();
-    
+
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();
-    
+
     /** {@return the name of the Generated annotation class} */
     String generatedAnnotationClass();
     /** {@return the name of the generator class} */

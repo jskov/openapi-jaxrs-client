@@ -41,7 +41,6 @@ public interface CtxExtraDateSerializer {
         return !getImports().isEmpty();
     }
 
-    
     /** {@return the package name for the class} */
     String packageName();
 
