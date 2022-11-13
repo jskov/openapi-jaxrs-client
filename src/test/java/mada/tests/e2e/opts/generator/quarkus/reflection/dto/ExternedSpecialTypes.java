@@ -29,114 +29,29 @@ import javax.validation.Valid;
 @RegisterForReflection
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExternedSpecialTypes {
+  public static final String JSON_PROPERTY_AN_ENUM = "anEnum";
+  @JsonbProperty(JSON_PROPERTY_AN_ENUM)
+  private SimpleEnum anEnum;
+
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";
   @JsonbProperty(JSON_PROPERTY_BIG_DECIMAL)
   private BigDecimal bigDecimal;
-
-  public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
-  @JsonbProperty(JSON_PROPERTY_ZONED_DATE_TIME)
-  private OffsetDateTime zonedDateTime;
-
-  public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
-  @JsonbProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
-  private OffsetDateTime offsetDateTime;
-
-  public static final String JSON_PROPERTY_DATE_TIME = "dateTime";
-  @JsonbProperty(JSON_PROPERTY_DATE_TIME)
-  private OffsetDateTime dateTime;
 
   public static final String JSON_PROPERTY_DATE = "date";
   @JsonbProperty(JSON_PROPERTY_DATE)
   private LocalDate date;
 
-  public static final String JSON_PROPERTY_AN_ENUM = "anEnum";
-  @JsonbProperty(JSON_PROPERTY_AN_ENUM)
-  private SimpleEnum anEnum;
+  public static final String JSON_PROPERTY_DATE_TIME = "dateTime";
+  @JsonbProperty(JSON_PROPERTY_DATE_TIME)
+  private OffsetDateTime dateTime;
 
-  public ExternedSpecialTypes bigDecimal(BigDecimal bigDecimal) {
-    this.bigDecimal = bigDecimal;
-    return this;
-  }
+  public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
+  @JsonbProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
+  private OffsetDateTime offsetDateTime;
 
-  /**
-   * Get bigDecimal
-   * @return bigDecimal
-   **/
-  public BigDecimal getBigDecimal() {
-    return bigDecimal;
-  }
-
-  public void setBigDecimal(BigDecimal bigDecimal) {
-    this.bigDecimal = bigDecimal;
-  }
-
-  public ExternedSpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
-    this.zonedDateTime = zonedDateTime;
-    return this;
-  }
-
-  /**
-   * Get zonedDateTime
-   * @return zonedDateTime
-   **/
-  public OffsetDateTime getZonedDateTime() {
-    return zonedDateTime;
-  }
-
-  public void setZonedDateTime(OffsetDateTime zonedDateTime) {
-    this.zonedDateTime = zonedDateTime;
-  }
-
-  public ExternedSpecialTypes offsetDateTime(OffsetDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
-    return this;
-  }
-
-  /**
-   * Get offsetDateTime
-   * @return offsetDateTime
-   **/
-  public OffsetDateTime getOffsetDateTime() {
-    return offsetDateTime;
-  }
-
-  public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
-  }
-
-  public ExternedSpecialTypes dateTime(OffsetDateTime dateTime) {
-    this.dateTime = dateTime;
-    return this;
-  }
-
-  /**
-   * Get dateTime
-   * @return dateTime
-   **/
-  public OffsetDateTime getDateTime() {
-    return dateTime;
-  }
-
-  public void setDateTime(OffsetDateTime dateTime) {
-    this.dateTime = dateTime;
-  }
-
-  public ExternedSpecialTypes date(LocalDate date) {
-    this.date = date;
-    return this;
-  }
-
-  /**
-   * Get date
-   * @return date
-   **/
-  public LocalDate getDate() {
-    return date;
-  }
-
-  public void setDate(LocalDate date) {
-    this.date = date;
-  }
+  public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
+  @JsonbProperty(JSON_PROPERTY_ZONED_DATE_TIME)
+  private OffsetDateTime zonedDateTime;
 
   public ExternedSpecialTypes anEnum(SimpleEnum anEnum) {
     this.anEnum = anEnum;
@@ -156,6 +71,91 @@ public class ExternedSpecialTypes {
     this.anEnum = anEnum;
   }
 
+  public ExternedSpecialTypes bigDecimal(BigDecimal bigDecimal) {
+    this.bigDecimal = bigDecimal;
+    return this;
+  }
+
+  /**
+   * Get bigDecimal
+   * @return bigDecimal
+   **/
+  public BigDecimal getBigDecimal() {
+    return bigDecimal;
+  }
+
+  public void setBigDecimal(BigDecimal bigDecimal) {
+    this.bigDecimal = bigDecimal;
+  }
+
+  public ExternedSpecialTypes date(LocalDate date) {
+    this.date = date;
+    return this;
+  }
+
+  /**
+   * Get date
+   * @return date
+   **/
+  public LocalDate getDate() {
+    return date;
+  }
+
+  public void setDate(LocalDate date) {
+    this.date = date;
+  }
+
+  public ExternedSpecialTypes dateTime(OffsetDateTime dateTime) {
+    this.dateTime = dateTime;
+    return this;
+  }
+
+  /**
+   * Get dateTime
+   * @return dateTime
+   **/
+  public OffsetDateTime getDateTime() {
+    return dateTime;
+  }
+
+  public void setDateTime(OffsetDateTime dateTime) {
+    this.dateTime = dateTime;
+  }
+
+  public ExternedSpecialTypes offsetDateTime(OffsetDateTime offsetDateTime) {
+    this.offsetDateTime = offsetDateTime;
+    return this;
+  }
+
+  /**
+   * Get offsetDateTime
+   * @return offsetDateTime
+   **/
+  public OffsetDateTime getOffsetDateTime() {
+    return offsetDateTime;
+  }
+
+  public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
+    this.offsetDateTime = offsetDateTime;
+  }
+
+  public ExternedSpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
+    this.zonedDateTime = zonedDateTime;
+    return this;
+  }
+
+  /**
+   * Get zonedDateTime
+   * @return zonedDateTime
+   **/
+  public OffsetDateTime getZonedDateTime() {
+    return zonedDateTime;
+  }
+
+  public void setZonedDateTime(OffsetDateTime zonedDateTime) {
+    this.zonedDateTime = zonedDateTime;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -165,29 +165,29 @@ public class ExternedSpecialTypes {
       return false;
     }
     ExternedSpecialTypes other = (ExternedSpecialTypes) o;
-    return Objects.equals(this.bigDecimal, other.bigDecimal) &&
-        Objects.equals(this.zonedDateTime, other.zonedDateTime) &&
-        Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
-        Objects.equals(this.dateTime, other.dateTime) &&
+    return Objects.equals(this.anEnum, other.anEnum) &&
+        Objects.equals(this.bigDecimal, other.bigDecimal) &&
         Objects.equals(this.date, other.date) &&
-        Objects.equals(this.anEnum, other.anEnum);
+        Objects.equals(this.dateTime, other.dateTime) &&
+        Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
+        Objects.equals(this.zonedDateTime, other.zonedDateTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, dateTime, date, anEnum);
+    return Objects.hash(anEnum, bigDecimal, date, dateTime, offsetDateTime, zonedDateTime);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ExternedSpecialTypes {");
-    sb.append("\n    bigDecimal: ").append(toIndentedString(bigDecimal));
-    sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
-    sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
-    sb.append("\n    dateTime: ").append(toIndentedString(dateTime));
-    sb.append("\n    date: ").append(toIndentedString(date));
     sb.append("\n    anEnum: ").append(toIndentedString(anEnum));
+    sb.append("\n    bigDecimal: ").append(toIndentedString(bigDecimal));
+    sb.append("\n    date: ").append(toIndentedString(date));
+    sb.append("\n    dateTime: ").append(toIndentedString(dateTime));
+    sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
+    sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
     sb.append("\n}");
     return sb.toString();
   }

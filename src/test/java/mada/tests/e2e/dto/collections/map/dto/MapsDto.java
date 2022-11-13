@@ -48,13 +48,37 @@ public class MapsDto {
   @JsonbProperty(JSON_PROPERTY_BOOLEANS)
   private Map<String, Boolean> booleans;
 
+  public static final String JSON_PROPERTY_BOTH_BOOLEANS = "bothBooleans";
+  @JsonbProperty(JSON_PROPERTY_BOTH_BOOLEANS)
+  private Map<String, Boolean> bothBooleans;
+
+  public static final String JSON_PROPERTY_BOTH_BYTES = "bothBytes";
+  @JsonbProperty(JSON_PROPERTY_BOTH_BYTES)
+  private Map<String, Byte> bothBytes;
+
+  public static final String JSON_PROPERTY_BOTH_INTS = "bothInts";
+  @JsonbProperty(JSON_PROPERTY_BOTH_INTS)
+  private Map<String, Integer> bothInts;
+
+  public static final String JSON_PROPERTY_BOTH_LONGS = "bothLongs";
+  @JsonbProperty(JSON_PROPERTY_BOTH_LONGS)
+  private Map<String, Long> bothLongs;
+
+  public static final String JSON_PROPERTY_BOTH_REFS = "bothRefs";
+  @JsonbProperty(JSON_PROPERTY_BOTH_REFS)
+  private Map<String, Simple> bothRefs;
+
+  public static final String JSON_PROPERTY_BOTH_SHORTS = "bothShorts";
+  @JsonbProperty(JSON_PROPERTY_BOTH_SHORTS)
+  private Map<String, Short> bothShorts;
+
+  public static final String JSON_PROPERTY_BOTH_STRINGS = "bothStrings";
+  @JsonbProperty(JSON_PROPERTY_BOTH_STRINGS)
+  private Map<String, String> bothStrings;
+
   public static final String JSON_PROPERTY_BYTES = "bytes";
   @JsonbProperty(JSON_PROPERTY_BYTES)
   private Map<String, Byte> bytes;
-
-  public static final String JSON_PROPERTY_SHORTS = "shorts";
-  @JsonbProperty(JSON_PROPERTY_SHORTS)
-  private Map<String, Short> shorts;
 
   public static final String JSON_PROPERTY_INTS = "ints";
   @JsonbProperty(JSON_PROPERTY_INTS)
@@ -64,9 +88,9 @@ public class MapsDto {
   @JsonbProperty(JSON_PROPERTY_LONGS)
   private Map<String, Long> longs;
 
-  public static final String JSON_PROPERTY_STRINGS = "strings";
-  @JsonbProperty(JSON_PROPERTY_STRINGS)
-  private Map<String, String> strings;
+  public static final String JSON_PROPERTY_OBJECTS = "objects";
+  @JsonbProperty(JSON_PROPERTY_OBJECTS)
+  private Map<String, Object> objects;
 
   public static final String JSON_PROPERTY_REFS = "refs";
   @JsonbProperty(JSON_PROPERTY_REFS)
@@ -82,11 +106,6 @@ public class MapsDto {
   @Schema(required = true)
   private Map<String, Byte> requiredBytes = new HashMap<>();
 
-  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
-  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
-  @Schema(required = true)
-  private Map<String, Short> requiredShorts = new HashMap<>();
-
   public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
   @Schema(required = true)
@@ -97,47 +116,28 @@ public class MapsDto {
   @Schema(required = true)
   private Map<String, Long> requiredLongs = new HashMap<>();
 
-  public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
-  @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
-  @Schema(required = true)
-  private Map<String, String> requiredStrings = new HashMap<>();
-
   public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
   @Schema(required = true)
   private Map<String, Simple> requiredRefs = new HashMap<>();
 
-  public static final String JSON_PROPERTY_BOTH_BOOLEANS = "bothBooleans";
-  @JsonbProperty(JSON_PROPERTY_BOTH_BOOLEANS)
-  private Map<String, Boolean> bothBooleans;
+  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
+  @Schema(required = true)
+  private Map<String, Short> requiredShorts = new HashMap<>();
 
-  public static final String JSON_PROPERTY_BOTH_BYTES = "bothBytes";
-  @JsonbProperty(JSON_PROPERTY_BOTH_BYTES)
-  private Map<String, Byte> bothBytes;
+  public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
+  @Schema(required = true)
+  private Map<String, String> requiredStrings = new HashMap<>();
 
-  public static final String JSON_PROPERTY_BOTH_SHORTS = "bothShorts";
-  @JsonbProperty(JSON_PROPERTY_BOTH_SHORTS)
-  private Map<String, Short> bothShorts;
+  public static final String JSON_PROPERTY_SHORTS = "shorts";
+  @JsonbProperty(JSON_PROPERTY_SHORTS)
+  private Map<String, Short> shorts;
 
-  public static final String JSON_PROPERTY_BOTH_INTS = "bothInts";
-  @JsonbProperty(JSON_PROPERTY_BOTH_INTS)
-  private Map<String, Integer> bothInts;
-
-  public static final String JSON_PROPERTY_BOTH_LONGS = "bothLongs";
-  @JsonbProperty(JSON_PROPERTY_BOTH_LONGS)
-  private Map<String, Long> bothLongs;
-
-  public static final String JSON_PROPERTY_BOTH_STRINGS = "bothStrings";
-  @JsonbProperty(JSON_PROPERTY_BOTH_STRINGS)
-  private Map<String, String> bothStrings;
-
-  public static final String JSON_PROPERTY_BOTH_REFS = "bothRefs";
-  @JsonbProperty(JSON_PROPERTY_BOTH_REFS)
-  private Map<String, Simple> bothRefs;
-
-  public static final String JSON_PROPERTY_OBJECTS = "objects";
-  @JsonbProperty(JSON_PROPERTY_OBJECTS)
-  private Map<String, Object> objects;
+  public static final String JSON_PROPERTY_STRINGS = "strings";
+  @JsonbProperty(JSON_PROPERTY_STRINGS)
+  private Map<String, String> strings;
 
   public MapsDto booleans(Map<String, Boolean> booleans) {
     this.booleans = booleans;
@@ -164,6 +164,182 @@ public class MapsDto {
     this.booleans = booleans;
   }
 
+  public MapsDto bothBooleans(Map<String, Boolean> bothBooleans) {
+    this.bothBooleans = bothBooleans;
+    return this;
+  }
+
+  public MapsDto putBothBooleansItem(String key, boolean bothBooleansItem) {
+    if (this.bothBooleans == null) {
+      this.bothBooleans = new HashMap<>();
+    }
+    this.bothBooleans.put(key, bothBooleansItem);
+    return this;
+  }
+
+  /**
+   * Get bothBooleans
+   * @return bothBooleans
+   **/
+  public Map<String, Boolean> getBothBooleans() {
+    return bothBooleans;
+  }
+
+  public void setBothBooleans(Map<String, Boolean> bothBooleans) {
+    this.bothBooleans = bothBooleans;
+  }
+
+  public MapsDto bothBytes(Map<String, Byte> bothBytes) {
+    this.bothBytes = bothBytes;
+    return this;
+  }
+
+  public MapsDto putBothBytesItem(String key, byte bothBytesItem) {
+    if (this.bothBytes == null) {
+      this.bothBytes = new HashMap<>();
+    }
+    this.bothBytes.put(key, bothBytesItem);
+    return this;
+  }
+
+  /**
+   * Get bothBytes
+   * @return bothBytes
+   **/
+  public Map<String, Byte> getBothBytes() {
+    return bothBytes;
+  }
+
+  public void setBothBytes(Map<String, Byte> bothBytes) {
+    this.bothBytes = bothBytes;
+  }
+
+  public MapsDto bothInts(Map<String, Integer> bothInts) {
+    this.bothInts = bothInts;
+    return this;
+  }
+
+  public MapsDto putBothIntsItem(String key, int bothIntsItem) {
+    if (this.bothInts == null) {
+      this.bothInts = new HashMap<>();
+    }
+    this.bothInts.put(key, bothIntsItem);
+    return this;
+  }
+
+  /**
+   * Get bothInts
+   * @return bothInts
+   **/
+  public Map<String, Integer> getBothInts() {
+    return bothInts;
+  }
+
+  public void setBothInts(Map<String, Integer> bothInts) {
+    this.bothInts = bothInts;
+  }
+
+  public MapsDto bothLongs(Map<String, Long> bothLongs) {
+    this.bothLongs = bothLongs;
+    return this;
+  }
+
+  public MapsDto putBothLongsItem(String key, long bothLongsItem) {
+    if (this.bothLongs == null) {
+      this.bothLongs = new HashMap<>();
+    }
+    this.bothLongs.put(key, bothLongsItem);
+    return this;
+  }
+
+  /**
+   * Get bothLongs
+   * @return bothLongs
+   **/
+  public Map<String, Long> getBothLongs() {
+    return bothLongs;
+  }
+
+  public void setBothLongs(Map<String, Long> bothLongs) {
+    this.bothLongs = bothLongs;
+  }
+
+  public MapsDto bothRefs(Map<String, Simple> bothRefs) {
+    this.bothRefs = bothRefs;
+    return this;
+  }
+
+  public MapsDto putBothRefsItem(String key, Simple bothRefsItem) {
+    if (this.bothRefs == null) {
+      this.bothRefs = new HashMap<>();
+    }
+    this.bothRefs.put(key, bothRefsItem);
+    return this;
+  }
+
+  /**
+   * Get bothRefs
+   * @return bothRefs
+   **/
+  @Valid
+  public Map<String, Simple> getBothRefs() {
+    return bothRefs;
+  }
+
+  public void setBothRefs(Map<String, Simple> bothRefs) {
+    this.bothRefs = bothRefs;
+  }
+
+  public MapsDto bothShorts(Map<String, Short> bothShorts) {
+    this.bothShorts = bothShorts;
+    return this;
+  }
+
+  public MapsDto putBothShortsItem(String key, short bothShortsItem) {
+    if (this.bothShorts == null) {
+      this.bothShorts = new HashMap<>();
+    }
+    this.bothShorts.put(key, bothShortsItem);
+    return this;
+  }
+
+  /**
+   * Get bothShorts
+   * @return bothShorts
+   **/
+  public Map<String, Short> getBothShorts() {
+    return bothShorts;
+  }
+
+  public void setBothShorts(Map<String, Short> bothShorts) {
+    this.bothShorts = bothShorts;
+  }
+
+  public MapsDto bothStrings(Map<String, String> bothStrings) {
+    this.bothStrings = bothStrings;
+    return this;
+  }
+
+  public MapsDto putBothStringsItem(String key, String bothStringsItem) {
+    if (this.bothStrings == null) {
+      this.bothStrings = new HashMap<>();
+    }
+    this.bothStrings.put(key, bothStringsItem);
+    return this;
+  }
+
+  /**
+   * Get bothStrings
+   * @return bothStrings
+   **/
+  public Map<String, String> getBothStrings() {
+    return bothStrings;
+  }
+
+  public void setBothStrings(Map<String, String> bothStrings) {
+    this.bothStrings = bothStrings;
+  }
+
   public MapsDto bytes(Map<String, Byte> bytes) {
     this.bytes = bytes;
     return this;
@@ -187,31 +363,6 @@ public class MapsDto {
 
   public void setBytes(Map<String, Byte> bytes) {
     this.bytes = bytes;
-  }
-
-  public MapsDto shorts(Map<String, Short> shorts) {
-    this.shorts = shorts;
-    return this;
-  }
-
-  public MapsDto putShortsItem(String key, short shortsItem) {
-    if (this.shorts == null) {
-      this.shorts = new HashMap<>();
-    }
-    this.shorts.put(key, shortsItem);
-    return this;
-  }
-
-  /**
-   * Get shorts
-   * @return shorts
-   **/
-  public Map<String, Short> getShorts() {
-    return shorts;
-  }
-
-  public void setShorts(Map<String, Short> shorts) {
-    this.shorts = shorts;
   }
 
   public MapsDto ints(Map<String, Integer> ints) {
@@ -264,29 +415,29 @@ public class MapsDto {
     this.longs = longs;
   }
 
-  public MapsDto strings(Map<String, String> strings) {
-    this.strings = strings;
+  public MapsDto objects(Map<String, Object> objects) {
+    this.objects = objects;
     return this;
   }
 
-  public MapsDto putStringsItem(String key, String stringsItem) {
-    if (this.strings == null) {
-      this.strings = new HashMap<>();
+  public MapsDto putObjectsItem(String key, Object objectsItem) {
+    if (this.objects == null) {
+      this.objects = new HashMap<>();
     }
-    this.strings.put(key, stringsItem);
+    this.objects.put(key, objectsItem);
     return this;
   }
 
   /**
-   * Get strings
-   * @return strings
+   * Get objects
+   * @return objects
    **/
-  public Map<String, String> getStrings() {
-    return strings;
+  public Map<String, Object> getObjects() {
+    return objects;
   }
 
-  public void setStrings(Map<String, String> strings) {
-    this.strings = strings;
+  public void setObjects(Map<String, Object> objects) {
+    this.objects = objects;
   }
 
   public MapsDto refs(Map<String, Simple> refs) {
@@ -361,29 +512,6 @@ public class MapsDto {
     this.requiredBytes = Objects.requireNonNull(requiredBytes, "Property requiredBytes is required, cannot be null");
   }
 
-  public MapsDto requiredShorts(Map<String, Short> requiredShorts) {
-    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
-    return this;
-  }
-
-  public MapsDto putRequiredShortsItem(String key, short requiredShortsItem) {
-    this.requiredShorts.put(key, requiredShortsItem);
-    return this;
-  }
-
-  /**
-   * Get requiredShorts
-   * @return requiredShorts
-   **/
-  @NotNull
-  public Map<String, Short> getRequiredShorts() {
-    return requiredShorts;
-  }
-
-  public void setRequiredShorts(Map<String, Short> requiredShorts) {
-    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
-  }
-
   public MapsDto requiredInts(Map<String, Integer> requiredInts) {
     this.requiredInts = Objects.requireNonNull(requiredInts, "Property requiredInts is required, cannot be null");
     return this;
@@ -430,29 +558,6 @@ public class MapsDto {
     this.requiredLongs = Objects.requireNonNull(requiredLongs, "Property requiredLongs is required, cannot be null");
   }
 
-  public MapsDto requiredStrings(Map<String, String> requiredStrings) {
-    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
-    return this;
-  }
-
-  public MapsDto putRequiredStringsItem(String key, String requiredStringsItem) {
-    this.requiredStrings.put(key, requiredStringsItem);
-    return this;
-  }
-
-  /**
-   * Get requiredStrings
-   * @return requiredStrings
-   **/
-  @NotNull
-  public Map<String, String> getRequiredStrings() {
-    return requiredStrings;
-  }
-
-  public void setRequiredStrings(Map<String, String> requiredStrings) {
-    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
-  }
-
   public MapsDto requiredRefs(Map<String, Simple> requiredRefs) {
     this.requiredRefs = Objects.requireNonNull(requiredRefs, "Property requiredRefs is required, cannot be null");
     return this;
@@ -476,205 +581,100 @@ public class MapsDto {
     this.requiredRefs = Objects.requireNonNull(requiredRefs, "Property requiredRefs is required, cannot be null");
   }
 
-  public MapsDto bothBooleans(Map<String, Boolean> bothBooleans) {
-    this.bothBooleans = bothBooleans;
+  public MapsDto requiredShorts(Map<String, Short> requiredShorts) {
+    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
     return this;
   }
 
-  public MapsDto putBothBooleansItem(String key, boolean bothBooleansItem) {
-    if (this.bothBooleans == null) {
-      this.bothBooleans = new HashMap<>();
-    }
-    this.bothBooleans.put(key, bothBooleansItem);
-    return this;
-  }
-
-  /**
-   * Get bothBooleans
-   * @return bothBooleans
-   **/
-  public Map<String, Boolean> getBothBooleans() {
-    return bothBooleans;
-  }
-
-  public void setBothBooleans(Map<String, Boolean> bothBooleans) {
-    this.bothBooleans = bothBooleans;
-  }
-
-  public MapsDto bothBytes(Map<String, Byte> bothBytes) {
-    this.bothBytes = bothBytes;
-    return this;
-  }
-
-  public MapsDto putBothBytesItem(String key, byte bothBytesItem) {
-    if (this.bothBytes == null) {
-      this.bothBytes = new HashMap<>();
-    }
-    this.bothBytes.put(key, bothBytesItem);
+  public MapsDto putRequiredShortsItem(String key, short requiredShortsItem) {
+    this.requiredShorts.put(key, requiredShortsItem);
     return this;
   }
 
   /**
-   * Get bothBytes
-   * @return bothBytes
+   * Get requiredShorts
+   * @return requiredShorts
    **/
-  public Map<String, Byte> getBothBytes() {
-    return bothBytes;
+  @NotNull
+  public Map<String, Short> getRequiredShorts() {
+    return requiredShorts;
   }
 
-  public void setBothBytes(Map<String, Byte> bothBytes) {
-    this.bothBytes = bothBytes;
+  public void setRequiredShorts(Map<String, Short> requiredShorts) {
+    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
   }
 
-  public MapsDto bothShorts(Map<String, Short> bothShorts) {
-    this.bothShorts = bothShorts;
+  public MapsDto requiredStrings(Map<String, String> requiredStrings) {
+    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
     return this;
   }
 
-  public MapsDto putBothShortsItem(String key, short bothShortsItem) {
-    if (this.bothShorts == null) {
-      this.bothShorts = new HashMap<>();
-    }
-    this.bothShorts.put(key, bothShortsItem);
+  public MapsDto putRequiredStringsItem(String key, String requiredStringsItem) {
+    this.requiredStrings.put(key, requiredStringsItem);
     return this;
   }
 
   /**
-   * Get bothShorts
-   * @return bothShorts
+   * Get requiredStrings
+   * @return requiredStrings
    **/
-  public Map<String, Short> getBothShorts() {
-    return bothShorts;
+  @NotNull
+  public Map<String, String> getRequiredStrings() {
+    return requiredStrings;
   }
 
-  public void setBothShorts(Map<String, Short> bothShorts) {
-    this.bothShorts = bothShorts;
+  public void setRequiredStrings(Map<String, String> requiredStrings) {
+    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
   }
 
-  public MapsDto bothInts(Map<String, Integer> bothInts) {
-    this.bothInts = bothInts;
+  public MapsDto shorts(Map<String, Short> shorts) {
+    this.shorts = shorts;
     return this;
   }
 
-  public MapsDto putBothIntsItem(String key, int bothIntsItem) {
-    if (this.bothInts == null) {
-      this.bothInts = new HashMap<>();
+  public MapsDto putShortsItem(String key, short shortsItem) {
+    if (this.shorts == null) {
+      this.shorts = new HashMap<>();
     }
-    this.bothInts.put(key, bothIntsItem);
+    this.shorts.put(key, shortsItem);
     return this;
   }
 
   /**
-   * Get bothInts
-   * @return bothInts
+   * Get shorts
+   * @return shorts
    **/
-  public Map<String, Integer> getBothInts() {
-    return bothInts;
+  public Map<String, Short> getShorts() {
+    return shorts;
   }
 
-  public void setBothInts(Map<String, Integer> bothInts) {
-    this.bothInts = bothInts;
+  public void setShorts(Map<String, Short> shorts) {
+    this.shorts = shorts;
   }
 
-  public MapsDto bothLongs(Map<String, Long> bothLongs) {
-    this.bothLongs = bothLongs;
+  public MapsDto strings(Map<String, String> strings) {
+    this.strings = strings;
     return this;
   }
 
-  public MapsDto putBothLongsItem(String key, long bothLongsItem) {
-    if (this.bothLongs == null) {
-      this.bothLongs = new HashMap<>();
+  public MapsDto putStringsItem(String key, String stringsItem) {
+    if (this.strings == null) {
+      this.strings = new HashMap<>();
     }
-    this.bothLongs.put(key, bothLongsItem);
+    this.strings.put(key, stringsItem);
     return this;
   }
 
   /**
-   * Get bothLongs
-   * @return bothLongs
+   * Get strings
+   * @return strings
    **/
-  public Map<String, Long> getBothLongs() {
-    return bothLongs;
+  public Map<String, String> getStrings() {
+    return strings;
   }
 
-  public void setBothLongs(Map<String, Long> bothLongs) {
-    this.bothLongs = bothLongs;
-  }
-
-  public MapsDto bothStrings(Map<String, String> bothStrings) {
-    this.bothStrings = bothStrings;
-    return this;
-  }
-
-  public MapsDto putBothStringsItem(String key, String bothStringsItem) {
-    if (this.bothStrings == null) {
-      this.bothStrings = new HashMap<>();
-    }
-    this.bothStrings.put(key, bothStringsItem);
-    return this;
-  }
-
-  /**
-   * Get bothStrings
-   * @return bothStrings
-   **/
-  public Map<String, String> getBothStrings() {
-    return bothStrings;
-  }
-
-  public void setBothStrings(Map<String, String> bothStrings) {
-    this.bothStrings = bothStrings;
-  }
-
-  public MapsDto bothRefs(Map<String, Simple> bothRefs) {
-    this.bothRefs = bothRefs;
-    return this;
-  }
-
-  public MapsDto putBothRefsItem(String key, Simple bothRefsItem) {
-    if (this.bothRefs == null) {
-      this.bothRefs = new HashMap<>();
-    }
-    this.bothRefs.put(key, bothRefsItem);
-    return this;
-  }
-
-  /**
-   * Get bothRefs
-   * @return bothRefs
-   **/
-  @Valid
-  public Map<String, Simple> getBothRefs() {
-    return bothRefs;
-  }
-
-  public void setBothRefs(Map<String, Simple> bothRefs) {
-    this.bothRefs = bothRefs;
-  }
-
-  public MapsDto objects(Map<String, Object> objects) {
-    this.objects = objects;
-    return this;
-  }
-
-  public MapsDto putObjectsItem(String key, Object objectsItem) {
-    if (this.objects == null) {
-      this.objects = new HashMap<>();
-    }
-    this.objects.put(key, objectsItem);
-    return this;
-  }
-
-  /**
-   * Get objects
-   * @return objects
-   **/
-  public Map<String, Object> getObjects() {
-    return objects;
-  }
-
-  public void setObjects(Map<String, Object> objects) {
-    this.objects = objects;
+  public void setStrings(Map<String, String> strings) {
+    this.strings = strings;
   }
 
   @Override
@@ -687,32 +687,32 @@ public class MapsDto {
     }
     MapsDto other = (MapsDto) o;
     return Objects.equals(this.booleans, other.booleans) &&
+        Objects.equals(this.bothBooleans, other.bothBooleans) &&
+        Objects.equals(this.bothBytes, other.bothBytes) &&
+        Objects.equals(this.bothInts, other.bothInts) &&
+        Objects.equals(this.bothLongs, other.bothLongs) &&
+        Objects.equals(this.bothRefs, other.bothRefs) &&
+        Objects.equals(this.bothShorts, other.bothShorts) &&
+        Objects.equals(this.bothStrings, other.bothStrings) &&
         Objects.equals(this.bytes, other.bytes) &&
-        Objects.equals(this.shorts, other.shorts) &&
         Objects.equals(this.ints, other.ints) &&
         Objects.equals(this.longs, other.longs) &&
-        Objects.equals(this.strings, other.strings) &&
+        Objects.equals(this.objects, other.objects) &&
         Objects.equals(this.refs, other.refs) &&
         Objects.equals(this.requiredBooleans, other.requiredBooleans) &&
         Objects.equals(this.requiredBytes, other.requiredBytes) &&
-        Objects.equals(this.requiredShorts, other.requiredShorts) &&
         Objects.equals(this.requiredInts, other.requiredInts) &&
         Objects.equals(this.requiredLongs, other.requiredLongs) &&
-        Objects.equals(this.requiredStrings, other.requiredStrings) &&
         Objects.equals(this.requiredRefs, other.requiredRefs) &&
-        Objects.equals(this.bothBooleans, other.bothBooleans) &&
-        Objects.equals(this.bothBytes, other.bothBytes) &&
-        Objects.equals(this.bothShorts, other.bothShorts) &&
-        Objects.equals(this.bothInts, other.bothInts) &&
-        Objects.equals(this.bothLongs, other.bothLongs) &&
-        Objects.equals(this.bothStrings, other.bothStrings) &&
-        Objects.equals(this.bothRefs, other.bothRefs) &&
-        Objects.equals(this.objects, other.objects);
+        Objects.equals(this.requiredShorts, other.requiredShorts) &&
+        Objects.equals(this.requiredStrings, other.requiredStrings) &&
+        Objects.equals(this.shorts, other.shorts) &&
+        Objects.equals(this.strings, other.strings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(booleans, bytes, shorts, ints, longs, strings, refs, requiredBooleans, requiredBytes, requiredShorts, requiredInts, requiredLongs, requiredStrings, requiredRefs, bothBooleans, bothBytes, bothShorts, bothInts, bothLongs, bothStrings, bothRefs, objects);
+    return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs, objects, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
   }
 
   @Override
@@ -720,27 +720,27 @@ public class MapsDto {
     StringBuilder sb = new StringBuilder();
     sb.append("class MapsDto {");
     sb.append("\n    booleans: ").append(toIndentedString(booleans));
+    sb.append("\n    bothBooleans: ").append(toIndentedString(bothBooleans));
+    sb.append("\n    bothBytes: ").append(toIndentedString(bothBytes));
+    sb.append("\n    bothInts: ").append(toIndentedString(bothInts));
+    sb.append("\n    bothLongs: ").append(toIndentedString(bothLongs));
+    sb.append("\n    bothRefs: ").append(toIndentedString(bothRefs));
+    sb.append("\n    bothShorts: ").append(toIndentedString(bothShorts));
+    sb.append("\n    bothStrings: ").append(toIndentedString(bothStrings));
     sb.append("\n    bytes: ").append(toIndentedString(bytes));
-    sb.append("\n    shorts: ").append(toIndentedString(shorts));
     sb.append("\n    ints: ").append(toIndentedString(ints));
     sb.append("\n    longs: ").append(toIndentedString(longs));
-    sb.append("\n    strings: ").append(toIndentedString(strings));
+    sb.append("\n    objects: ").append(toIndentedString(objects));
     sb.append("\n    refs: ").append(toIndentedString(refs));
     sb.append("\n    requiredBooleans: ").append(toIndentedString(requiredBooleans));
     sb.append("\n    requiredBytes: ").append(toIndentedString(requiredBytes));
-    sb.append("\n    requiredShorts: ").append(toIndentedString(requiredShorts));
     sb.append("\n    requiredInts: ").append(toIndentedString(requiredInts));
     sb.append("\n    requiredLongs: ").append(toIndentedString(requiredLongs));
-    sb.append("\n    requiredStrings: ").append(toIndentedString(requiredStrings));
     sb.append("\n    requiredRefs: ").append(toIndentedString(requiredRefs));
-    sb.append("\n    bothBooleans: ").append(toIndentedString(bothBooleans));
-    sb.append("\n    bothBytes: ").append(toIndentedString(bothBytes));
-    sb.append("\n    bothShorts: ").append(toIndentedString(bothShorts));
-    sb.append("\n    bothInts: ").append(toIndentedString(bothInts));
-    sb.append("\n    bothLongs: ").append(toIndentedString(bothLongs));
-    sb.append("\n    bothStrings: ").append(toIndentedString(bothStrings));
-    sb.append("\n    bothRefs: ").append(toIndentedString(bothRefs));
-    sb.append("\n    objects: ").append(toIndentedString(objects));
+    sb.append("\n    requiredShorts: ").append(toIndentedString(requiredShorts));
+    sb.append("\n    requiredStrings: ").append(toIndentedString(requiredStrings));
+    sb.append("\n    shorts: ").append(toIndentedString(shorts));
+    sb.append("\n    strings: ").append(toIndentedString(strings));
     sb.append("\n}");
     return sb.toString();
   }

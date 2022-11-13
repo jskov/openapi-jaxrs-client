@@ -31,6 +31,34 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
+  public static final String JSON_PROPERTY_EXTERNAL = "external";
+  @JsonProperty(JSON_PROPERTY_EXTERNAL)
+  private ExternalEnum external;
+
+  public static final String JSON_PROPERTY_EXTERNAL_LOWER = "externalLower";
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_LOWER)
+  private ExternalLowerEnum externalLower;
+
+  public static final String JSON_PROPERTY_EXTERNAL_MIXED = "externalMixed";
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_MIXED)
+  private ExternalMixedEnum externalMixed;
+
+  public static final String JSON_PROPERTY_INNER = "inner";
+  @JsonProperty(JSON_PROPERTY_INNER)
+  private InnerEnum inner;
+
+  public static final String JSON_PROPERTY_INTEGER_ENUM = "integerEnum";
+  @JsonProperty(JSON_PROPERTY_INTEGER_ENUM)
+  private IntEnum integerEnum;
+
+  public static final String JSON_PROPERTY_LOWER = "lower";
+  @JsonProperty(JSON_PROPERTY_LOWER)
+  private InnerLowerEnum lower;
+
+  public static final String JSON_PROPERTY_MIXED = "mixed";
+  @JsonProperty(JSON_PROPERTY_MIXED)
+  private InnerMixedEnum mixed;
+
   @Schema(enumeration = {"O", "M", "nexT"}, type = SchemaType.STRING)
   public enum PropertyEnumStringEnum {
     O("O"),
@@ -68,108 +96,9 @@ public class EnumsDto {
   @JsonProperty(JSON_PROPERTY_PROPERTY_ENUM_STRING)
   private PropertyEnumStringEnum propertyEnumString;
 
-  public static final String JSON_PROPERTY_INNER = "inner";
-  @JsonProperty(JSON_PROPERTY_INNER)
-  private InnerEnum inner;
-
-  public static final String JSON_PROPERTY_LOWER = "lower";
-  @JsonProperty(JSON_PROPERTY_LOWER)
-  private InnerLowerEnum lower;
-
-  public static final String JSON_PROPERTY_MIXED = "mixed";
-  @JsonProperty(JSON_PROPERTY_MIXED)
-  private InnerMixedEnum mixed;
-
-  public static final String JSON_PROPERTY_EXTERNAL = "external";
-  @JsonProperty(JSON_PROPERTY_EXTERNAL)
-  private ExternalEnum external;
-
-  public static final String JSON_PROPERTY_EXTERNAL_LOWER = "externalLower";
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_LOWER)
-  private ExternalLowerEnum externalLower;
-
-  public static final String JSON_PROPERTY_EXTERNAL_MIXED = "externalMixed";
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_MIXED)
-  private ExternalMixedEnum externalMixed;
-
-  public static final String JSON_PROPERTY_INTEGER_ENUM = "integerEnum";
-  @JsonProperty(JSON_PROPERTY_INTEGER_ENUM)
-  private IntEnum integerEnum;
-
   public static final String JSON_PROPERTY_STRING_INTEGER_ENUM = "stringIntegerEnum";
   @JsonProperty(JSON_PROPERTY_STRING_INTEGER_ENUM)
   private StringIntEnum stringIntegerEnum;
-
-  public EnumsDto propertyEnumString(PropertyEnumStringEnum propertyEnumString) {
-    this.propertyEnumString = propertyEnumString;
-    return this;
-  }
-
-  /**
-   * Get propertyEnumString
-   * @return propertyEnumString
-   **/
-  public PropertyEnumStringEnum getPropertyEnumString() {
-    return propertyEnumString;
-  }
-
-  public void setPropertyEnumString(PropertyEnumStringEnum propertyEnumString) {
-    this.propertyEnumString = propertyEnumString;
-  }
-
-  public EnumsDto inner(InnerEnum inner) {
-    this.inner = inner;
-    return this;
-  }
-
-  /**
-   * Get inner
-   * @return inner
-   **/
-  @Valid
-  public InnerEnum getInner() {
-    return inner;
-  }
-
-  public void setInner(InnerEnum inner) {
-    this.inner = inner;
-  }
-
-  public EnumsDto lower(InnerLowerEnum lower) {
-    this.lower = lower;
-    return this;
-  }
-
-  /**
-   * Get lower
-   * @return lower
-   **/
-  @Valid
-  public InnerLowerEnum getLower() {
-    return lower;
-  }
-
-  public void setLower(InnerLowerEnum lower) {
-    this.lower = lower;
-  }
-
-  public EnumsDto mixed(InnerMixedEnum mixed) {
-    this.mixed = mixed;
-    return this;
-  }
-
-  /**
-   * Get mixed
-   * @return mixed
-   **/
-  @Valid
-  public InnerMixedEnum getMixed() {
-    return mixed;
-  }
-
-  public void setMixed(InnerMixedEnum mixed) {
-    this.mixed = mixed;
-  }
 
   public EnumsDto external(ExternalEnum external) {
     this.external = external;
@@ -225,6 +154,24 @@ public class EnumsDto {
     this.externalMixed = externalMixed;
   }
 
+  public EnumsDto inner(InnerEnum inner) {
+    this.inner = inner;
+    return this;
+  }
+
+  /**
+   * Get inner
+   * @return inner
+   **/
+  @Valid
+  public InnerEnum getInner() {
+    return inner;
+  }
+
+  public void setInner(InnerEnum inner) {
+    this.inner = inner;
+  }
+
   public EnumsDto integerEnum(IntEnum integerEnum) {
     this.integerEnum = integerEnum;
     return this;
@@ -241,6 +188,59 @@ public class EnumsDto {
 
   public void setIntegerEnum(IntEnum integerEnum) {
     this.integerEnum = integerEnum;
+  }
+
+  public EnumsDto lower(InnerLowerEnum lower) {
+    this.lower = lower;
+    return this;
+  }
+
+  /**
+   * Get lower
+   * @return lower
+   **/
+  @Valid
+  public InnerLowerEnum getLower() {
+    return lower;
+  }
+
+  public void setLower(InnerLowerEnum lower) {
+    this.lower = lower;
+  }
+
+  public EnumsDto mixed(InnerMixedEnum mixed) {
+    this.mixed = mixed;
+    return this;
+  }
+
+  /**
+   * Get mixed
+   * @return mixed
+   **/
+  @Valid
+  public InnerMixedEnum getMixed() {
+    return mixed;
+  }
+
+  public void setMixed(InnerMixedEnum mixed) {
+    this.mixed = mixed;
+  }
+
+  public EnumsDto propertyEnumString(PropertyEnumStringEnum propertyEnumString) {
+    this.propertyEnumString = propertyEnumString;
+    return this;
+  }
+
+  /**
+   * Get propertyEnumString
+   * @return propertyEnumString
+   **/
+  public PropertyEnumStringEnum getPropertyEnumString() {
+    return propertyEnumString;
+  }
+
+  public void setPropertyEnumString(PropertyEnumStringEnum propertyEnumString) {
+    this.propertyEnumString = propertyEnumString;
   }
 
   public EnumsDto stringIntegerEnum(StringIntEnum stringIntegerEnum) {
@@ -270,34 +270,34 @@ public class EnumsDto {
       return false;
     }
     EnumsDto other = (EnumsDto) o;
-    return Objects.equals(this.propertyEnumString, other.propertyEnumString) &&
-        Objects.equals(this.inner, other.inner) &&
-        Objects.equals(this.lower, other.lower) &&
-        Objects.equals(this.mixed, other.mixed) &&
-        Objects.equals(this.external, other.external) &&
+    return Objects.equals(this.external, other.external) &&
         Objects.equals(this.externalLower, other.externalLower) &&
         Objects.equals(this.externalMixed, other.externalMixed) &&
+        Objects.equals(this.inner, other.inner) &&
         Objects.equals(this.integerEnum, other.integerEnum) &&
+        Objects.equals(this.lower, other.lower) &&
+        Objects.equals(this.mixed, other.mixed) &&
+        Objects.equals(this.propertyEnumString, other.propertyEnumString) &&
         Objects.equals(this.stringIntegerEnum, other.stringIntegerEnum);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(propertyEnumString, inner, lower, mixed, external, externalLower, externalMixed, integerEnum, stringIntegerEnum);
+    return Objects.hash(external, externalLower, externalMixed, inner, integerEnum, lower, mixed, propertyEnumString, stringIntegerEnum);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EnumsDto {");
-    sb.append("\n    propertyEnumString: ").append(toIndentedString(propertyEnumString));
-    sb.append("\n    inner: ").append(toIndentedString(inner));
-    sb.append("\n    lower: ").append(toIndentedString(lower));
-    sb.append("\n    mixed: ").append(toIndentedString(mixed));
     sb.append("\n    external: ").append(toIndentedString(external));
     sb.append("\n    externalLower: ").append(toIndentedString(externalLower));
     sb.append("\n    externalMixed: ").append(toIndentedString(externalMixed));
+    sb.append("\n    inner: ").append(toIndentedString(inner));
     sb.append("\n    integerEnum: ").append(toIndentedString(integerEnum));
+    sb.append("\n    lower: ").append(toIndentedString(lower));
+    sb.append("\n    mixed: ").append(toIndentedString(mixed));
+    sb.append("\n    propertyEnumString: ").append(toIndentedString(propertyEnumString));
     sb.append("\n    stringIntegerEnum: ").append(toIndentedString(stringIntegerEnum));
     sb.append("\n}");
     return sb.toString();

@@ -3,6 +3,7 @@ package dk.mada.jaxrs.generator.dto;
 import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.ExtraTemplate;
 import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.generator.GeneratorOpts.PropertyOrder;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
@@ -201,8 +203,23 @@ public class DtoGenerator {
         boolean isEnum = dto.isEnum();
         var dtoImports = isEnum ? Imports.newEnum(opts, !isTypePrimitiveEquals(dtoType)) : Imports.newDto(opts);
 
-        List<CtxProperty> vars = dto.properties().stream()
-                .map(p -> toCtxProperty(dtoImports, p))
+        Comparator<? super CtxProperty> propertySorter = propertySorter();
+
+        Stream<CtxProperty> props = dto.properties().stream()
+            .map(p -> toCtxProperty(dtoImports, p));
+        if (propertySorter != null) {
+            props = props.sorted(propertySorter);
+        }
+        List<CtxProperty> vars = props
+                .toList();
+
+        // in original order
+        List<CtxProperty> varsOpenapiOrder = dto.properties().stream()
+                .map(Property::name)
+                .map(baseName -> vars.stream()
+                        .filter(c -> baseName.equals(c.baseName()))
+                        .findFirst()
+                        .orElseThrow())
                 .toList();
 
         dtoImports.addPropertyImports(dto.properties());
@@ -311,6 +328,7 @@ public class DtoGenerator {
                 .implementsInterfaces(implementsInterfaces)
                 .isEqualsPrimitive(isTypePrimitiveEquals(dtoType))
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
+                .varsOpenapiOrder(varsOpenapiOrder)
                 .build();
 
         return CtxDto.builder()
@@ -345,6 +363,20 @@ public class DtoGenerator {
                 .discriminator(discriminator)
 
                 .build();
+    }
+
+    private Comparator<? super CtxProperty> propertySorter() {
+        PropertyOrder propertyOrder = opts.getPropertyOrder();
+        switch (propertyOrder) {
+        case DOCUMENT_ORDER:
+            return null;
+        case ALPHABETICAL_ORDER:
+            return (a, b) -> a.name().compareTo(b.name());
+        case ALPHABETICAL_NOCASE_ORDER:
+            return (a, b) -> a.name().compareToIgnoreCase(b.name());
+        default:
+            throw new IllegalStateException("Unhandled ordering " + propertyOrder);
+        }
     }
 
     private String defineInterfaces(Dto dto, Imports dtoImports) {
@@ -422,8 +454,8 @@ public class DtoGenerator {
     }
 
     private CtxProperty toCtxProperty(Imports dtoImports, Property p) {
-        String name = p.name();
-        String varName = naming.convertPropertyName(name);
+        final String name = p.name();
+        final String varName = naming.convertPropertyName(name);
 
         String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
         // Both Jackson (Fasterxml) and JsonBinding expect the getter

@@ -34,25 +34,25 @@ public class Primitives {
   @JsonbProperty(JSON_PROPERTY_A_BYTE)
   private Byte aByte;
 
-  public static final String JSON_PROPERTY_A_SHORT = "aShort";
-  @JsonbProperty(JSON_PROPERTY_A_SHORT)
-  private Short aShort;
-
-  public static final String JSON_PROPERTY_AN_INT = "anInt";
-  @JsonbProperty(JSON_PROPERTY_AN_INT)
-  private Integer anInt;
-
-  public static final String JSON_PROPERTY_A_LONG = "aLong";
-  @JsonbProperty(JSON_PROPERTY_A_LONG)
-  private Long aLong;
+  public static final String JSON_PROPERTY_A_DOUBLE = "aDouble";
+  @JsonbProperty(JSON_PROPERTY_A_DOUBLE)
+  private Double aDouble;
 
   public static final String JSON_PROPERTY_A_FLOAT = "aFloat";
   @JsonbProperty(JSON_PROPERTY_A_FLOAT)
   private Float aFloat;
 
-  public static final String JSON_PROPERTY_A_DOUBLE = "aDouble";
-  @JsonbProperty(JSON_PROPERTY_A_DOUBLE)
-  private Double aDouble;
+  public static final String JSON_PROPERTY_A_LONG = "aLong";
+  @JsonbProperty(JSON_PROPERTY_A_LONG)
+  private Long aLong;
+
+  public static final String JSON_PROPERTY_AN_INT = "anInt";
+  @JsonbProperty(JSON_PROPERTY_AN_INT)
+  private Integer anInt;
+
+  public static final String JSON_PROPERTY_A_SHORT = "aShort";
+  @JsonbProperty(JSON_PROPERTY_A_SHORT)
+  private Short aShort;
 
   public static final String JSON_PROPERTY_A_STRING = "aString";
   @JsonbProperty(JSON_PROPERTY_A_STRING)
@@ -92,74 +92,6 @@ public class Primitives {
     this.aByte = aByte;
   }
 
-  public Primitives aShort(Short aShort) {
-    this.aShort = aShort;
-    return this;
-  }
-
-  /**
-   * Get aShort
-   * @return aShort
-   **/
-  public Short getaShort() {
-    return aShort;
-  }
-
-  public void setaShort(Short aShort) {
-    this.aShort = aShort;
-  }
-
-  public Primitives anInt(Integer anInt) {
-    this.anInt = anInt;
-    return this;
-  }
-
-  /**
-   * Get anInt
-   * @return anInt
-   **/
-  public Integer getAnInt() {
-    return anInt;
-  }
-
-  public void setAnInt(Integer anInt) {
-    this.anInt = anInt;
-  }
-
-  public Primitives aLong(Long aLong) {
-    this.aLong = aLong;
-    return this;
-  }
-
-  /**
-   * Get aLong
-   * @return aLong
-   **/
-  public Long getaLong() {
-    return aLong;
-  }
-
-  public void setaLong(Long aLong) {
-    this.aLong = aLong;
-  }
-
-  public Primitives aFloat(Float aFloat) {
-    this.aFloat = aFloat;
-    return this;
-  }
-
-  /**
-   * Get aFloat
-   * @return aFloat
-   **/
-  public Float getaFloat() {
-    return aFloat;
-  }
-
-  public void setaFloat(Float aFloat) {
-    this.aFloat = aFloat;
-  }
-
   public Primitives aDouble(Double aDouble) {
     this.aDouble = aDouble;
     return this;
@@ -190,6 +122,74 @@ public class Primitives {
     this.aDouble = aDouble == null ? null : aDouble.doubleValue();
   }
 
+  public Primitives aFloat(Float aFloat) {
+    this.aFloat = aFloat;
+    return this;
+  }
+
+  /**
+   * Get aFloat
+   * @return aFloat
+   **/
+  public Float getaFloat() {
+    return aFloat;
+  }
+
+  public void setaFloat(Float aFloat) {
+    this.aFloat = aFloat;
+  }
+
+  public Primitives aLong(Long aLong) {
+    this.aLong = aLong;
+    return this;
+  }
+
+  /**
+   * Get aLong
+   * @return aLong
+   **/
+  public Long getaLong() {
+    return aLong;
+  }
+
+  public void setaLong(Long aLong) {
+    this.aLong = aLong;
+  }
+
+  public Primitives anInt(Integer anInt) {
+    this.anInt = anInt;
+    return this;
+  }
+
+  /**
+   * Get anInt
+   * @return anInt
+   **/
+  public Integer getAnInt() {
+    return anInt;
+  }
+
+  public void setAnInt(Integer anInt) {
+    this.anInt = anInt;
+  }
+
+  public Primitives aShort(Short aShort) {
+    this.aShort = aShort;
+    return this;
+  }
+
+  /**
+   * Get aShort
+   * @return aShort
+   **/
+  public Short getaShort() {
+    return aShort;
+  }
+
+  public void setaShort(Short aShort) {
+    this.aShort = aShort;
+  }
+
   public Primitives aString(String aString) {
     this.aString = aString;
     return this;
@@ -218,17 +218,17 @@ public class Primitives {
     Primitives other = (Primitives) o;
     return Objects.equals(this.aBoolean, other.aBoolean) &&
         Objects.equals(this.aByte, other.aByte) &&
-        Objects.equals(this.aShort, other.aShort) &&
-        Objects.equals(this.anInt, other.anInt) &&
-        Objects.equals(this.aLong, other.aLong) &&
-        Objects.equals(this.aFloat, other.aFloat) &&
         Objects.equals(this.aDouble, other.aDouble) &&
+        Objects.equals(this.aFloat, other.aFloat) &&
+        Objects.equals(this.aLong, other.aLong) &&
+        Objects.equals(this.anInt, other.anInt) &&
+        Objects.equals(this.aShort, other.aShort) &&
         Objects.equals(this.aString, other.aString);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBoolean, aByte, aShort, anInt, aLong, aFloat, aDouble, aString);
+    return Objects.hash(aBoolean, aByte, aDouble, aFloat, aLong, anInt, aShort, aString);
   }
 
   @Override
@@ -237,11 +237,11 @@ public class Primitives {
     sb.append("class Primitives {");
     sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
     sb.append("\n    aByte: ").append(toIndentedString(aByte));
-    sb.append("\n    aShort: ").append(toIndentedString(aShort));
-    sb.append("\n    anInt: ").append(toIndentedString(anInt));
-    sb.append("\n    aLong: ").append(toIndentedString(aLong));
-    sb.append("\n    aFloat: ").append(toIndentedString(aFloat));
     sb.append("\n    aDouble: ").append(toIndentedString(aDouble));
+    sb.append("\n    aFloat: ").append(toIndentedString(aFloat));
+    sb.append("\n    aLong: ").append(toIndentedString(aLong));
+    sb.append("\n    anInt: ").append(toIndentedString(anInt));
+    sb.append("\n    aShort: ").append(toIndentedString(aShort));
     sb.append("\n    aString: ").append(toIndentedString(aString));
     sb.append("\n}");
     return sb.toString();

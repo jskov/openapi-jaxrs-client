@@ -3,9 +3,9 @@
  */
 {{#jackson}}
 @JsonPropertyOrder({
-{{#vars}}
+{{#madaDto.varsOpenapiOrder}}
   {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
-{{/vars}}
+{{/madaDto.varsOpenapiOrder}}
 })
 {{#madaDto.jacksonJsonSerializeOptions}}
 @JsonSerialize({{{madaDto.jacksonJsonSerializeOptions}}})
@@ -13,9 +13,9 @@
 {{/jackson}}
 {{#madaDto.jsonb}}
 @JsonbPropertyOrder({
-{{#vars}}
+{{#madaDto.varsOpenapiOrder}}
   {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
-{{/vars}}
+{{/madaDto.varsOpenapiOrder}}
 })
 {{/madaDto.jsonb}}
 {{#madaDto.quarkusRegisterForReflection}}

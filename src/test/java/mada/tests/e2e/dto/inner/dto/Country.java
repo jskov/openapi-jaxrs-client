@@ -27,17 +27,9 @@ import javax.validation.Valid;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Country {
-  public static final String JSON_PROPERTY_TWO_LETTER_CODE = "twoLetterCode";
-  @JsonbProperty(JSON_PROPERTY_TWO_LETTER_CODE)
-  private String twoLetterCode;
-
-  public static final String JSON_PROPERTY_THREE_LETTER_CODE = "threeLetterCode";
-  @JsonbProperty(JSON_PROPERTY_THREE_LETTER_CODE)
-  private String threeLetterCode;
-
-  public static final String JSON_PROPERTY_NUMERIC_CODE = "numericCode";
-  @JsonbProperty(JSON_PROPERTY_NUMERIC_CODE)
-  private Integer numericCode;
+  public static final String JSON_PROPERTY_COUNTRY_NAME = "countryName";
+  @JsonbProperty(JSON_PROPERTY_COUNTRY_NAME)
+  private String countryName;
 
   public static final String JSON_PROPERTY_COUNTRY_NAME_DK = "countryNameDK";
   @JsonbProperty(JSON_PROPERTY_COUNTRY_NAME_DK)
@@ -47,13 +39,13 @@ public class Country {
   @JsonbProperty(JSON_PROPERTY_COUNTRY_NAME_GB)
   private String countryNameGB;
 
-  public static final String JSON_PROPERTY_COUNTRY_NAME = "countryName";
-  @JsonbProperty(JSON_PROPERTY_COUNTRY_NAME)
-  private String countryName;
-
   public static final String JSON_PROPERTY_LOCALE = "locale";
   @JsonbProperty(JSON_PROPERTY_LOCALE)
   private CountryLocale locale;
+
+  public static final String JSON_PROPERTY_NUMERIC_CODE = "numericCode";
+  @JsonbProperty(JSON_PROPERTY_NUMERIC_CODE)
+  private Integer numericCode;
 
   public static final String JSON_PROPERTY_REGISTERED_AS_BOND_COUNTRY = "registeredAsBondCountry";
   @JsonbProperty(JSON_PROPERTY_REGISTERED_AS_BOND_COUNTRY)
@@ -63,55 +55,29 @@ public class Country {
   @JsonbProperty(JSON_PROPERTY_REGISTERED_AS_SHARE_COUNTRY)
   private Boolean registeredAsShareCountry;
 
-  public Country twoLetterCode(String twoLetterCode) {
-    this.twoLetterCode = twoLetterCode;
+  public static final String JSON_PROPERTY_THREE_LETTER_CODE = "threeLetterCode";
+  @JsonbProperty(JSON_PROPERTY_THREE_LETTER_CODE)
+  private String threeLetterCode;
+
+  public static final String JSON_PROPERTY_TWO_LETTER_CODE = "twoLetterCode";
+  @JsonbProperty(JSON_PROPERTY_TWO_LETTER_CODE)
+  private String twoLetterCode;
+
+  public Country countryName(String countryName) {
+    this.countryName = countryName;
     return this;
   }
 
   /**
-   * Get twoLetterCode
-   * @return twoLetterCode
+   * Get countryName
+   * @return countryName
    **/
-  public String getTwoLetterCode() {
-    return twoLetterCode;
+  public String getCountryName() {
+    return countryName;
   }
 
-  public void setTwoLetterCode(String twoLetterCode) {
-    this.twoLetterCode = twoLetterCode;
-  }
-
-  public Country threeLetterCode(String threeLetterCode) {
-    this.threeLetterCode = threeLetterCode;
-    return this;
-  }
-
-  /**
-   * Get threeLetterCode
-   * @return threeLetterCode
-   **/
-  public String getThreeLetterCode() {
-    return threeLetterCode;
-  }
-
-  public void setThreeLetterCode(String threeLetterCode) {
-    this.threeLetterCode = threeLetterCode;
-  }
-
-  public Country numericCode(Integer numericCode) {
-    this.numericCode = numericCode;
-    return this;
-  }
-
-  /**
-   * Get numericCode
-   * @return numericCode
-   **/
-  public Integer getNumericCode() {
-    return numericCode;
-  }
-
-  public void setNumericCode(Integer numericCode) {
-    this.numericCode = numericCode;
+  public void setCountryName(String countryName) {
+    this.countryName = countryName;
   }
 
   public Country countryNameDK(String countryNameDK) {
@@ -148,23 +114,6 @@ public class Country {
     this.countryNameGB = countryNameGB;
   }
 
-  public Country countryName(String countryName) {
-    this.countryName = countryName;
-    return this;
-  }
-
-  /**
-   * Get countryName
-   * @return countryName
-   **/
-  public String getCountryName() {
-    return countryName;
-  }
-
-  public void setCountryName(String countryName) {
-    this.countryName = countryName;
-  }
-
   public Country locale(CountryLocale locale) {
     this.locale = locale;
     return this;
@@ -181,6 +130,23 @@ public class Country {
 
   public void setLocale(CountryLocale locale) {
     this.locale = locale;
+  }
+
+  public Country numericCode(Integer numericCode) {
+    this.numericCode = numericCode;
+    return this;
+  }
+
+  /**
+   * Get numericCode
+   * @return numericCode
+   **/
+  public Integer getNumericCode() {
+    return numericCode;
+  }
+
+  public void setNumericCode(Integer numericCode) {
+    this.numericCode = numericCode;
   }
 
   public Country registeredAsBondCountry(Boolean registeredAsBondCountry) {
@@ -217,6 +183,40 @@ public class Country {
     this.registeredAsShareCountry = registeredAsShareCountry;
   }
 
+  public Country threeLetterCode(String threeLetterCode) {
+    this.threeLetterCode = threeLetterCode;
+    return this;
+  }
+
+  /**
+   * Get threeLetterCode
+   * @return threeLetterCode
+   **/
+  public String getThreeLetterCode() {
+    return threeLetterCode;
+  }
+
+  public void setThreeLetterCode(String threeLetterCode) {
+    this.threeLetterCode = threeLetterCode;
+  }
+
+  public Country twoLetterCode(String twoLetterCode) {
+    this.twoLetterCode = twoLetterCode;
+    return this;
+  }
+
+  /**
+   * Get twoLetterCode
+   * @return twoLetterCode
+   **/
+  public String getTwoLetterCode() {
+    return twoLetterCode;
+  }
+
+  public void setTwoLetterCode(String twoLetterCode) {
+    this.twoLetterCode = twoLetterCode;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -226,35 +226,35 @@ public class Country {
       return false;
     }
     Country other = (Country) o;
-    return Objects.equals(this.twoLetterCode, other.twoLetterCode) &&
-        Objects.equals(this.threeLetterCode, other.threeLetterCode) &&
-        Objects.equals(this.numericCode, other.numericCode) &&
+    return Objects.equals(this.countryName, other.countryName) &&
         Objects.equals(this.countryNameDK, other.countryNameDK) &&
         Objects.equals(this.countryNameGB, other.countryNameGB) &&
-        Objects.equals(this.countryName, other.countryName) &&
         Objects.equals(this.locale, other.locale) &&
+        Objects.equals(this.numericCode, other.numericCode) &&
         Objects.equals(this.registeredAsBondCountry, other.registeredAsBondCountry) &&
-        Objects.equals(this.registeredAsShareCountry, other.registeredAsShareCountry);
+        Objects.equals(this.registeredAsShareCountry, other.registeredAsShareCountry) &&
+        Objects.equals(this.threeLetterCode, other.threeLetterCode) &&
+        Objects.equals(this.twoLetterCode, other.twoLetterCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(twoLetterCode, threeLetterCode, numericCode, countryNameDK, countryNameGB, countryName, locale, registeredAsBondCountry, registeredAsShareCountry);
+    return Objects.hash(countryName, countryNameDK, countryNameGB, locale, numericCode, registeredAsBondCountry, registeredAsShareCountry, threeLetterCode, twoLetterCode);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Country {");
-    sb.append("\n    twoLetterCode: ").append(toIndentedString(twoLetterCode));
-    sb.append("\n    threeLetterCode: ").append(toIndentedString(threeLetterCode));
-    sb.append("\n    numericCode: ").append(toIndentedString(numericCode));
+    sb.append("\n    countryName: ").append(toIndentedString(countryName));
     sb.append("\n    countryNameDK: ").append(toIndentedString(countryNameDK));
     sb.append("\n    countryNameGB: ").append(toIndentedString(countryNameGB));
-    sb.append("\n    countryName: ").append(toIndentedString(countryName));
     sb.append("\n    locale: ").append(toIndentedString(locale));
+    sb.append("\n    numericCode: ").append(toIndentedString(numericCode));
     sb.append("\n    registeredAsBondCountry: ").append(toIndentedString(registeredAsBondCountry));
     sb.append("\n    registeredAsShareCountry: ").append(toIndentedString(registeredAsShareCountry));
+    sb.append("\n    threeLetterCode: ").append(toIndentedString(threeLetterCode));
+    sb.append("\n    twoLetterCode: ").append(toIndentedString(twoLetterCode));
     sb.append("\n}");
     return sb.toString();
   }

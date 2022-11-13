@@ -36,29 +36,34 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SerializerInfoDto {
-  public static final String JSON_PROPERTY_BETA = "beta";
-  @JsonProperty(JSON_PROPERTY_BETA)
-  private String beta;
+  public static final String JSON_PROPERTY_WITH_DIGIT = "0withDigit";
+  @JsonProperty(JSON_PROPERTY_WITH_DIGIT)
+  private String _withDigit;
 
   public static final String JSON_PROPERTY_ALPHA = "alpha";
   @JsonProperty(JSON_PROPERTY_ALPHA)
   private String alpha;
 
-  public static final String JSON_PROPERTY_ZAP_RENAMED = "zapRenamed";
-  @JsonProperty(JSON_PROPERTY_ZAP_RENAMED)
-  private String zapRenamed;
+  public static final String JSON_PROPERTY_BETA = "beta";
+  @JsonProperty(JSON_PROPERTY_BETA)
+  private String beta;
 
-  public static final String JSON_PROPERTY_UPPER_CASE = "UpperCase";
-  @JsonProperty(JSON_PROPERTY_UPPER_CASE)
-  private String upperCase;
+  public static final String JSON_PROPERTY_IS_NULLABLE = "isNullable";
+  @JsonProperty(JSON_PROPERTY_IS_NULLABLE)
+  private String isNullable;
 
-  public static final String JSON_PROPERTY_WITH_DASHES = "with-Dashes-";
-  @JsonProperty(JSON_PROPERTY_WITH_DASHES)
-  private String withDashes;
+  public static final String JSON_PROPERTY_IS_NULLABLE_VIA_SCHEMA = "isNullableViaSchema";
+  @JsonProperty(JSON_PROPERTY_IS_NULLABLE_VIA_SCHEMA)
+  @Schema(nullable = true)
+  private String isNullableViaSchema;
 
-  public static final String JSON_PROPERTY_WITH_DIGIT = "0withDigit";
-  @JsonProperty(JSON_PROPERTY_WITH_DIGIT)
-  private String _withDigit;
+  public static final String JSON_PROPERTY_MP_ANNOTATIONS = "mpAnnotations";
+  @JsonProperty(JSON_PROPERTY_MP_ANNOTATIONS)
+  private MicroprofileAnnotations mpAnnotations;
+
+  public static final String JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY = "mpAnnotationsPropsOnly";
+  @JsonProperty(JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY)
+  private MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly;
 
   public static final String JSON_PROPERTY_MUST_INCLUDE = "mustInclude";
   @JsonProperty(JSON_PROPERTY_MUST_INCLUDE)
@@ -79,38 +84,33 @@ public class SerializerInfoDto {
   @JsonProperty(JSON_PROPERTY_NOT_NULL_VIA_SCHEMA)
   private String notNullViaSchema;
 
-  public static final String JSON_PROPERTY_IS_NULLABLE = "isNullable";
-  @JsonProperty(JSON_PROPERTY_IS_NULLABLE)
-  private String isNullable;
+  public static final String JSON_PROPERTY_UPPER_CASE = "UpperCase";
+  @JsonProperty(JSON_PROPERTY_UPPER_CASE)
+  private String upperCase;
 
-  public static final String JSON_PROPERTY_IS_NULLABLE_VIA_SCHEMA = "isNullableViaSchema";
-  @JsonProperty(JSON_PROPERTY_IS_NULLABLE_VIA_SCHEMA)
-  @Schema(nullable = true)
-  private String isNullableViaSchema;
+  public static final String JSON_PROPERTY_WITH_DASHES = "with-Dashes-";
+  @JsonProperty(JSON_PROPERTY_WITH_DASHES)
+  private String withDashes;
 
-  public static final String JSON_PROPERTY_MP_ANNOTATIONS = "mpAnnotations";
-  @JsonProperty(JSON_PROPERTY_MP_ANNOTATIONS)
-  private MicroprofileAnnotations mpAnnotations;
+  public static final String JSON_PROPERTY_ZAP_RENAMED = "zapRenamed";
+  @JsonProperty(JSON_PROPERTY_ZAP_RENAMED)
+  private String zapRenamed;
 
-  public static final String JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY = "mpAnnotationsPropsOnly";
-  @JsonProperty(JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY)
-  private MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly;
-
-  public SerializerInfoDto beta(String beta) {
-    this.beta = beta;
+  public SerializerInfoDto _withDigit(String _withDigit) {
+    this._withDigit = _withDigit;
     return this;
   }
 
   /**
-   * Get beta
-   * @return beta
+   * Get _withDigit
+   * @return _withDigit
    **/
-  public String getBeta() {
-    return beta;
+  public String getWithDigit() {
+    return _withDigit;
   }
 
-  public void setBeta(String beta) {
-    this.beta = beta;
+  public void setWithDigit(String _withDigit) {
+    this._withDigit = _withDigit;
   }
 
   public SerializerInfoDto alpha(String alpha) {
@@ -130,72 +130,91 @@ public class SerializerInfoDto {
     this.alpha = alpha;
   }
 
-  public SerializerInfoDto zapRenamed(String zapRenamed) {
-    this.zapRenamed = zapRenamed;
+  public SerializerInfoDto beta(String beta) {
+    this.beta = beta;
     return this;
   }
 
   /**
-   * Get zapRenamed
-   * @return zapRenamed
+   * Get beta
+   * @return beta
    **/
-  public String getZapRenamed() {
-    return zapRenamed;
+  public String getBeta() {
+    return beta;
   }
 
-  public void setZapRenamed(String zapRenamed) {
-    this.zapRenamed = zapRenamed;
+  public void setBeta(String beta) {
+    this.beta = beta;
   }
 
-  public SerializerInfoDto upperCase(String upperCase) {
-    this.upperCase = upperCase;
+  public SerializerInfoDto isNullable(String isNullable) {
+    this.isNullable = isNullable;
     return this;
   }
 
   /**
-   * Get upperCase
-   * @return upperCase
+   * Get isNullable
+   * @return isNullable
    **/
-  public String getUpperCase() {
-    return upperCase;
+  public String getIsNullable() {
+    return isNullable;
   }
 
-  public void setUpperCase(String upperCase) {
-    this.upperCase = upperCase;
+  public void setIsNullable(String isNullable) {
+    this.isNullable = isNullable;
   }
 
-  public SerializerInfoDto withDashes(String withDashes) {
-    this.withDashes = withDashes;
+  public SerializerInfoDto isNullableViaSchema(String isNullableViaSchema) {
+    this.isNullableViaSchema = isNullableViaSchema;
     return this;
   }
 
   /**
-   * Get withDashes
-   * @return withDashes
+   * Get isNullableViaSchema
+   * @return isNullableViaSchema
    **/
-  public String getWithDashes() {
-    return withDashes;
+  public String getIsNullableViaSchema() {
+    return isNullableViaSchema;
   }
 
-  public void setWithDashes(String withDashes) {
-    this.withDashes = withDashes;
+  public void setIsNullableViaSchema(String isNullableViaSchema) {
+    this.isNullableViaSchema = isNullableViaSchema;
   }
 
-  public SerializerInfoDto _withDigit(String _withDigit) {
-    this._withDigit = _withDigit;
+  public SerializerInfoDto mpAnnotations(MicroprofileAnnotations mpAnnotations) {
+    this.mpAnnotations = mpAnnotations;
     return this;
   }
 
   /**
-   * Get _withDigit
-   * @return _withDigit
+   * Get mpAnnotations
+   * @return mpAnnotations
    **/
-  public String getWithDigit() {
-    return _withDigit;
+  @Valid
+  public MicroprofileAnnotations getMpAnnotations() {
+    return mpAnnotations;
   }
 
-  public void setWithDigit(String _withDigit) {
-    this._withDigit = _withDigit;
+  public void setMpAnnotations(MicroprofileAnnotations mpAnnotations) {
+    this.mpAnnotations = mpAnnotations;
+  }
+
+  public SerializerInfoDto mpAnnotationsPropsOnly(MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly) {
+    this.mpAnnotationsPropsOnly = mpAnnotationsPropsOnly;
+    return this;
+  }
+
+  /**
+   * Get mpAnnotationsPropsOnly
+   * @return mpAnnotationsPropsOnly
+   **/
+  @Valid
+  public MicroProfileAnnotationsPropsOnly getMpAnnotationsPropsOnly() {
+    return mpAnnotationsPropsOnly;
+  }
+
+  public void setMpAnnotationsPropsOnly(MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly) {
+    this.mpAnnotationsPropsOnly = mpAnnotationsPropsOnly;
   }
 
   public SerializerInfoDto mustInclude(String mustInclude) {
@@ -269,74 +288,55 @@ public class SerializerInfoDto {
     this.notNullViaSchema = notNullViaSchema;
   }
 
-  public SerializerInfoDto isNullable(String isNullable) {
-    this.isNullable = isNullable;
+  public SerializerInfoDto upperCase(String upperCase) {
+    this.upperCase = upperCase;
     return this;
   }
 
   /**
-   * Get isNullable
-   * @return isNullable
+   * Get upperCase
+   * @return upperCase
    **/
-  public String getIsNullable() {
-    return isNullable;
+  public String getUpperCase() {
+    return upperCase;
   }
 
-  public void setIsNullable(String isNullable) {
-    this.isNullable = isNullable;
+  public void setUpperCase(String upperCase) {
+    this.upperCase = upperCase;
   }
 
-  public SerializerInfoDto isNullableViaSchema(String isNullableViaSchema) {
-    this.isNullableViaSchema = isNullableViaSchema;
+  public SerializerInfoDto withDashes(String withDashes) {
+    this.withDashes = withDashes;
     return this;
   }
 
   /**
-   * Get isNullableViaSchema
-   * @return isNullableViaSchema
+   * Get withDashes
+   * @return withDashes
    **/
-  public String getIsNullableViaSchema() {
-    return isNullableViaSchema;
+  public String getWithDashes() {
+    return withDashes;
   }
 
-  public void setIsNullableViaSchema(String isNullableViaSchema) {
-    this.isNullableViaSchema = isNullableViaSchema;
+  public void setWithDashes(String withDashes) {
+    this.withDashes = withDashes;
   }
 
-  public SerializerInfoDto mpAnnotations(MicroprofileAnnotations mpAnnotations) {
-    this.mpAnnotations = mpAnnotations;
+  public SerializerInfoDto zapRenamed(String zapRenamed) {
+    this.zapRenamed = zapRenamed;
     return this;
   }
 
   /**
-   * Get mpAnnotations
-   * @return mpAnnotations
+   * Get zapRenamed
+   * @return zapRenamed
    **/
-  @Valid
-  public MicroprofileAnnotations getMpAnnotations() {
-    return mpAnnotations;
+  public String getZapRenamed() {
+    return zapRenamed;
   }
 
-  public void setMpAnnotations(MicroprofileAnnotations mpAnnotations) {
-    this.mpAnnotations = mpAnnotations;
-  }
-
-  public SerializerInfoDto mpAnnotationsPropsOnly(MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly) {
-    this.mpAnnotationsPropsOnly = mpAnnotationsPropsOnly;
-    return this;
-  }
-
-  /**
-   * Get mpAnnotationsPropsOnly
-   * @return mpAnnotationsPropsOnly
-   **/
-  @Valid
-  public MicroProfileAnnotationsPropsOnly getMpAnnotationsPropsOnly() {
-    return mpAnnotationsPropsOnly;
-  }
-
-  public void setMpAnnotationsPropsOnly(MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly) {
-    this.mpAnnotationsPropsOnly = mpAnnotationsPropsOnly;
+  public void setZapRenamed(String zapRenamed) {
+    this.zapRenamed = zapRenamed;
   }
 
   @Override
@@ -348,45 +348,45 @@ public class SerializerInfoDto {
       return false;
     }
     SerializerInfoDto other = (SerializerInfoDto) o;
-    return Objects.equals(this.beta, other.beta) &&
+    return Objects.equals(this._withDigit, other._withDigit) &&
         Objects.equals(this.alpha, other.alpha) &&
-        Objects.equals(this.zapRenamed, other.zapRenamed) &&
-        Objects.equals(this.upperCase, other.upperCase) &&
-        Objects.equals(this.withDashes, other.withDashes) &&
-        Objects.equals(this._withDigit, other._withDigit) &&
+        Objects.equals(this.beta, other.beta) &&
+        Objects.equals(this.isNullable, other.isNullable) &&
+        Objects.equals(this.isNullableViaSchema, other.isNullableViaSchema) &&
+        Objects.equals(this.mpAnnotations, other.mpAnnotations) &&
+        Objects.equals(this.mpAnnotationsPropsOnly, other.mpAnnotationsPropsOnly) &&
         Objects.equals(this.mustInclude, other.mustInclude) &&
         Objects.equals(this.mustIncludeViaSchema, other.mustIncludeViaSchema) &&
         Objects.equals(this.notNull, other.notNull) &&
         Objects.equals(this.notNullViaSchema, other.notNullViaSchema) &&
-        Objects.equals(this.isNullable, other.isNullable) &&
-        Objects.equals(this.isNullableViaSchema, other.isNullableViaSchema) &&
-        Objects.equals(this.mpAnnotations, other.mpAnnotations) &&
-        Objects.equals(this.mpAnnotationsPropsOnly, other.mpAnnotationsPropsOnly);
+        Objects.equals(this.upperCase, other.upperCase) &&
+        Objects.equals(this.withDashes, other.withDashes) &&
+        Objects.equals(this.zapRenamed, other.zapRenamed);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(beta, alpha, zapRenamed, upperCase, withDashes, _withDigit, mustInclude, mustIncludeViaSchema, notNull, notNullViaSchema, isNullable, isNullableViaSchema, mpAnnotations, mpAnnotationsPropsOnly);
+    return Objects.hash(_withDigit, alpha, beta, isNullable, isNullableViaSchema, mpAnnotations, mpAnnotationsPropsOnly, mustInclude, mustIncludeViaSchema, notNull, notNullViaSchema, upperCase, withDashes, zapRenamed);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SerializerInfoDto {");
-    sb.append("\n    beta: ").append(toIndentedString(beta));
-    sb.append("\n    alpha: ").append(toIndentedString(alpha));
-    sb.append("\n    zapRenamed: ").append(toIndentedString(zapRenamed));
-    sb.append("\n    upperCase: ").append(toIndentedString(upperCase));
-    sb.append("\n    withDashes: ").append(toIndentedString(withDashes));
     sb.append("\n    _withDigit: ").append(toIndentedString(_withDigit));
-    sb.append("\n    mustInclude: ").append(toIndentedString(mustInclude));
-    sb.append("\n    mustIncludeViaSchema: ").append(toIndentedString(mustIncludeViaSchema));
-    sb.append("\n    notNull: ").append(toIndentedString(notNull));
-    sb.append("\n    notNullViaSchema: ").append(toIndentedString(notNullViaSchema));
+    sb.append("\n    alpha: ").append(toIndentedString(alpha));
+    sb.append("\n    beta: ").append(toIndentedString(beta));
     sb.append("\n    isNullable: ").append(toIndentedString(isNullable));
     sb.append("\n    isNullableViaSchema: ").append(toIndentedString(isNullableViaSchema));
     sb.append("\n    mpAnnotations: ").append(toIndentedString(mpAnnotations));
     sb.append("\n    mpAnnotationsPropsOnly: ").append(toIndentedString(mpAnnotationsPropsOnly));
+    sb.append("\n    mustInclude: ").append(toIndentedString(mustInclude));
+    sb.append("\n    mustIncludeViaSchema: ").append(toIndentedString(mustIncludeViaSchema));
+    sb.append("\n    notNull: ").append(toIndentedString(notNull));
+    sb.append("\n    notNullViaSchema: ").append(toIndentedString(notNullViaSchema));
+    sb.append("\n    upperCase: ").append(toIndentedString(upperCase));
+    sb.append("\n    withDashes: ").append(toIndentedString(withDashes));
+    sb.append("\n    zapRenamed: ").append(toIndentedString(zapRenamed));
     sb.append("\n}");
     return sb.toString();
   }

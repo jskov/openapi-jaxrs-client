@@ -276,6 +276,8 @@ encoding/<project>=UTF-8
     }
 }
 
+tasks.eclipse.dependsOn("prepCodeGen")
+
 // When working on templates, eclipse will only run the annotation
 // processor, if the @JStache classes are changed.
 // So run './gradlew -t processResources' and this hack will deliver.

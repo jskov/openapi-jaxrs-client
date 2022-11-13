@@ -31,25 +31,25 @@ public class SpecialTypes {
   @JsonbProperty(JSON_PROPERTY_A_BIG_DECIMAL)
   private BigDecimal aBigDecimal;
 
-  public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
-  @JsonbProperty(JSON_PROPERTY_ZONED_DATE_TIME)
-  private ZonedDateTime zonedDateTime;
-
-  public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
-  @JsonbProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
-  private ZonedDateTime offsetDateTime;
+  public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
+  @JsonbProperty(JSON_PROPERTY_LOCAL_DATE)
+  private LocalDate localDate;
 
   public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
   @JsonbProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
   private ZonedDateTime localDateTime;
 
-  public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
-  @JsonbProperty(JSON_PROPERTY_LOCAL_DATE)
-  private LocalDate localDate;
-
   public static final String JSON_PROPERTY_LOCAL_TIME = "localTime";
   @JsonbProperty(JSON_PROPERTY_LOCAL_TIME)
   private LocalTime localTime;
+
+  public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
+  @JsonbProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
+  private ZonedDateTime offsetDateTime;
+
+  public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
+  @JsonbProperty(JSON_PROPERTY_ZONED_DATE_TIME)
+  private ZonedDateTime zonedDateTime;
 
   public SpecialTypes aBigDecimal(BigDecimal aBigDecimal) {
     this.aBigDecimal = aBigDecimal;
@@ -68,38 +68,21 @@ public class SpecialTypes {
     this.aBigDecimal = aBigDecimal;
   }
 
-  public SpecialTypes zonedDateTime(ZonedDateTime zonedDateTime) {
-    this.zonedDateTime = zonedDateTime;
+  public SpecialTypes localDate(LocalDate localDate) {
+    this.localDate = localDate;
     return this;
   }
 
   /**
-   * Get zonedDateTime
-   * @return zonedDateTime
+   * Get localDate
+   * @return localDate
    **/
-  public ZonedDateTime getZonedDateTime() {
-    return zonedDateTime;
+  public LocalDate getLocalDate() {
+    return localDate;
   }
 
-  public void setZonedDateTime(ZonedDateTime zonedDateTime) {
-    this.zonedDateTime = zonedDateTime;
-  }
-
-  public SpecialTypes offsetDateTime(ZonedDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
-    return this;
-  }
-
-  /**
-   * Get offsetDateTime
-   * @return offsetDateTime
-   **/
-  public ZonedDateTime getOffsetDateTime() {
-    return offsetDateTime;
-  }
-
-  public void setOffsetDateTime(ZonedDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
+  public void setLocalDate(LocalDate localDate) {
+    this.localDate = localDate;
   }
 
   public SpecialTypes localDateTime(ZonedDateTime localDateTime) {
@@ -117,23 +100,6 @@ public class SpecialTypes {
 
   public void setLocalDateTime(ZonedDateTime localDateTime) {
     this.localDateTime = localDateTime;
-  }
-
-  public SpecialTypes localDate(LocalDate localDate) {
-    this.localDate = localDate;
-    return this;
-  }
-
-  /**
-   * Get localDate
-   * @return localDate
-   **/
-  public LocalDate getLocalDate() {
-    return localDate;
-  }
-
-  public void setLocalDate(LocalDate localDate) {
-    this.localDate = localDate;
   }
 
   public SpecialTypes localTime(LocalTime localTime) {
@@ -154,6 +120,40 @@ public class SpecialTypes {
     this.localTime = localTime;
   }
 
+  public SpecialTypes offsetDateTime(ZonedDateTime offsetDateTime) {
+    this.offsetDateTime = offsetDateTime;
+    return this;
+  }
+
+  /**
+   * Get offsetDateTime
+   * @return offsetDateTime
+   **/
+  public ZonedDateTime getOffsetDateTime() {
+    return offsetDateTime;
+  }
+
+  public void setOffsetDateTime(ZonedDateTime offsetDateTime) {
+    this.offsetDateTime = offsetDateTime;
+  }
+
+  public SpecialTypes zonedDateTime(ZonedDateTime zonedDateTime) {
+    this.zonedDateTime = zonedDateTime;
+    return this;
+  }
+
+  /**
+   * Get zonedDateTime
+   * @return zonedDateTime
+   **/
+  public ZonedDateTime getZonedDateTime() {
+    return zonedDateTime;
+  }
+
+  public void setZonedDateTime(ZonedDateTime zonedDateTime) {
+    this.zonedDateTime = zonedDateTime;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -164,16 +164,16 @@ public class SpecialTypes {
     }
     SpecialTypes other = (SpecialTypes) o;
     return Objects.equals(this.aBigDecimal, other.aBigDecimal) &&
-        Objects.equals(this.zonedDateTime, other.zonedDateTime) &&
-        Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
-        Objects.equals(this.localDateTime, other.localDateTime) &&
         Objects.equals(this.localDate, other.localDate) &&
-        Objects.equals(this.localTime, other.localTime);
+        Objects.equals(this.localDateTime, other.localDateTime) &&
+        Objects.equals(this.localTime, other.localTime) &&
+        Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
+        Objects.equals(this.zonedDateTime, other.zonedDateTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBigDecimal, zonedDateTime, offsetDateTime, localDateTime, localDate, localTime);
+    return Objects.hash(aBigDecimal, localDate, localDateTime, localTime, offsetDateTime, zonedDateTime);
   }
 
   @Override
@@ -181,11 +181,11 @@ public class SpecialTypes {
     StringBuilder sb = new StringBuilder();
     sb.append("class SpecialTypes {");
     sb.append("\n    aBigDecimal: ").append(toIndentedString(aBigDecimal));
-    sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
-    sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
-    sb.append("\n    localDateTime: ").append(toIndentedString(localDateTime));
     sb.append("\n    localDate: ").append(toIndentedString(localDate));
+    sb.append("\n    localDateTime: ").append(toIndentedString(localDateTime));
     sb.append("\n    localTime: ").append(toIndentedString(localTime));
+    sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
+    sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
     sb.append("\n}");
     return sb.toString();
   }

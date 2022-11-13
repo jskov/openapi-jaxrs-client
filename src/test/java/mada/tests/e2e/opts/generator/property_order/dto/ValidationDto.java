@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.dto.validation.example.dto;
+package mada.tests.e2e.opts.generator.property_order.dto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -41,10 +41,18 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ValidationDto {
-  public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";
-  @JsonbProperty(JSON_PROPERTY_A_BIG_DECIMAL)
-  @Schema(description = "a BigDecimal")
-  private BigDecimal aBigDecimal;
+  public static final String JSON_PROPERTY_NAME = "name";
+  @JsonbProperty(JSON_PROPERTY_NAME)
+  @Schema(required = true)
+  private String name;
+
+  public static final String JSON_PROPERTY_INT_VALUE = "intValue";
+  @JsonbProperty(JSON_PROPERTY_INT_VALUE)
+  private Integer intValue;
+
+  public static final String JSON_PROPERTY_BAD_PARSING_OF_RANGE = "badParsingOfRange";
+  @JsonbProperty(JSON_PROPERTY_BAD_PARSING_OF_RANGE)
+  private Integer badParsingOfRange;
 
   public static final String JSON_PROPERTY_A_BIG_DOUBLE = "aBigDouble";
   @JsonbProperty(JSON_PROPERTY_A_BIG_DOUBLE)
@@ -56,18 +64,10 @@ public class ValidationDto {
   @Schema(description = "a float")
   private Float aBigFloat;
 
-  public static final String JSON_PROPERTY_BAD_PARSING_OF_RANGE = "badParsingOfRange";
-  @JsonbProperty(JSON_PROPERTY_BAD_PARSING_OF_RANGE)
-  private Integer badParsingOfRange;
-
-  public static final String JSON_PROPERTY_INT_VALUE = "intValue";
-  @JsonbProperty(JSON_PROPERTY_INT_VALUE)
-  private Integer intValue;
-
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(required = true)
-  private String name;
+  public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";
+  @JsonbProperty(JSON_PROPERTY_A_BIG_DECIMAL)
+  @Schema(description = "a BigDecimal")
+  private BigDecimal aBigDecimal;
 
   public static final String JSON_PROPERTY_PATTERN = "pattern";
   @JsonbProperty(JSON_PROPERTY_PATTERN)
@@ -77,33 +77,70 @@ public class ValidationDto {
   @JsonbProperty(JSON_PROPERTY_PATTERN_DIGITS)
   private String patternDigits;
 
-  public static final String JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE = "primitivesShouldNotHaveValidate";
-  @JsonbProperty(JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE)
-  private List<Boolean> primitivesShouldNotHaveValidate;
-
   public static final String JSON_PROPERTY_VALID_OBJECTS = "validObjects";
   @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
   private List<Environment> validObjects;
 
-  public ValidationDto aBigDecimal(BigDecimal aBigDecimal) {
-    this.aBigDecimal = aBigDecimal;
+  public static final String JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE = "primitivesShouldNotHaveValidate";
+  @JsonbProperty(JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE)
+  private List<Boolean> primitivesShouldNotHaveValidate;
+
+  public ValidationDto name(String name) {
+    this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");
     return this;
   }
 
   /**
-   * a BigDecimal.
-   * minimum: "100"
-   * maximum: "1000"
-   *
-   * @return aBigDecimal
+   * Get name
+   * @return name
    **/
-  @DecimalMin("100") @DecimalMax("1000")
-  public BigDecimal getaBigDecimal() {
-    return aBigDecimal;
+  @NotNull @Size(min = 1, max = 50)
+  public String getName() {
+    return name;
   }
 
-  public void setaBigDecimal(BigDecimal aBigDecimal) {
-    this.aBigDecimal = aBigDecimal;
+  public void setName(String name) {
+    this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");
+  }
+
+  public ValidationDto intValue(Integer intValue) {
+    this.intValue = intValue;
+    return this;
+  }
+
+  /**
+   * Get intValue
+   * minimum: 10
+   * maximum: 20
+   * @return intValue
+   **/
+  @Min(10) @Max(20)
+  public Integer getIntValue() {
+    return intValue;
+  }
+
+  public void setIntValue(Integer intValue) {
+    this.intValue = intValue;
+  }
+
+  public ValidationDto badParsingOfRange(Integer badParsingOfRange) {
+    this.badParsingOfRange = badParsingOfRange;
+    return this;
+  }
+
+  /**
+   * Get badParsingOfRange
+   * minimum: 100
+   * maximum: 999
+   * @return badParsingOfRange
+   **/
+  @Min(100) @Max(999)
+  public Integer getBadParsingOfRange() {
+    return badParsingOfRange;
+  }
+
+  public void setBadParsingOfRange(Integer badParsingOfRange) {
+    this.badParsingOfRange = badParsingOfRange;
   }
 
   public ValidationDto aBigDouble(Double aBigDouble) {
@@ -148,62 +185,25 @@ public class ValidationDto {
     this.aBigFloat = aBigFloat;
   }
 
-  public ValidationDto badParsingOfRange(Integer badParsingOfRange) {
-    this.badParsingOfRange = badParsingOfRange;
+  public ValidationDto aBigDecimal(BigDecimal aBigDecimal) {
+    this.aBigDecimal = aBigDecimal;
     return this;
   }
 
   /**
-   * Get badParsingOfRange
-   * minimum: 100
-   * maximum: 999
-   * @return badParsingOfRange
+   * a BigDecimal.
+   * minimum: "100"
+   * maximum: "1000"
+   *
+   * @return aBigDecimal
    **/
-  @Min(100) @Max(999)
-  public Integer getBadParsingOfRange() {
-    return badParsingOfRange;
+  @DecimalMin("100") @DecimalMax("1000")
+  public BigDecimal getaBigDecimal() {
+    return aBigDecimal;
   }
 
-  public void setBadParsingOfRange(Integer badParsingOfRange) {
-    this.badParsingOfRange = badParsingOfRange;
-  }
-
-  public ValidationDto intValue(Integer intValue) {
-    this.intValue = intValue;
-    return this;
-  }
-
-  /**
-   * Get intValue
-   * minimum: 10
-   * maximum: 20
-   * @return intValue
-   **/
-  @Min(10) @Max(20)
-  public Integer getIntValue() {
-    return intValue;
-  }
-
-  public void setIntValue(Integer intValue) {
-    this.intValue = intValue;
-  }
-
-  public ValidationDto name(String name) {
-    this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  @NotNull @Size(min = 1, max = 50)
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");
+  public void setaBigDecimal(BigDecimal aBigDecimal) {
+    this.aBigDecimal = aBigDecimal;
   }
 
   public ValidationDto pattern(String pattern) {
@@ -242,31 +242,6 @@ public class ValidationDto {
     this.patternDigits = patternDigits;
   }
 
-  public ValidationDto primitivesShouldNotHaveValidate(List<Boolean> primitivesShouldNotHaveValidate) {
-    this.primitivesShouldNotHaveValidate = primitivesShouldNotHaveValidate;
-    return this;
-  }
-
-  public ValidationDto addPrimitivesShouldNotHaveValidateItem(boolean primitivesShouldNotHaveValidateItem) {
-    if (this.primitivesShouldNotHaveValidate == null) {
-      this.primitivesShouldNotHaveValidate = new ArrayList<>();
-    }
-    this.primitivesShouldNotHaveValidate.add(primitivesShouldNotHaveValidateItem);
-    return this;
-  }
-
-  /**
-   * Get primitivesShouldNotHaveValidate
-   * @return primitivesShouldNotHaveValidate
-   **/
-  public List<Boolean> getPrimitivesShouldNotHaveValidate() {
-    return primitivesShouldNotHaveValidate;
-  }
-
-  public void setPrimitivesShouldNotHaveValidate(List<Boolean> primitivesShouldNotHaveValidate) {
-    this.primitivesShouldNotHaveValidate = primitivesShouldNotHaveValidate;
-  }
-
   public ValidationDto validObjects(List<Environment> validObjects) {
     this.validObjects = validObjects;
     return this;
@@ -293,6 +268,31 @@ public class ValidationDto {
     this.validObjects = validObjects;
   }
 
+  public ValidationDto primitivesShouldNotHaveValidate(List<Boolean> primitivesShouldNotHaveValidate) {
+    this.primitivesShouldNotHaveValidate = primitivesShouldNotHaveValidate;
+    return this;
+  }
+
+  public ValidationDto addPrimitivesShouldNotHaveValidateItem(boolean primitivesShouldNotHaveValidateItem) {
+    if (this.primitivesShouldNotHaveValidate == null) {
+      this.primitivesShouldNotHaveValidate = new ArrayList<>();
+    }
+    this.primitivesShouldNotHaveValidate.add(primitivesShouldNotHaveValidateItem);
+    return this;
+  }
+
+  /**
+   * Get primitivesShouldNotHaveValidate
+   * @return primitivesShouldNotHaveValidate
+   **/
+  public List<Boolean> getPrimitivesShouldNotHaveValidate() {
+    return primitivesShouldNotHaveValidate;
+  }
+
+  public void setPrimitivesShouldNotHaveValidate(List<Boolean> primitivesShouldNotHaveValidate) {
+    this.primitivesShouldNotHaveValidate = primitivesShouldNotHaveValidate;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -302,37 +302,37 @@ public class ValidationDto {
       return false;
     }
     ValidationDto other = (ValidationDto) o;
-    return Objects.equals(this.aBigDecimal, other.aBigDecimal) &&
+    return Objects.equals(this.name, other.name) &&
+        Objects.equals(this.intValue, other.intValue) &&
+        Objects.equals(this.badParsingOfRange, other.badParsingOfRange) &&
         Objects.equals(this.aBigDouble, other.aBigDouble) &&
         Objects.equals(this.aBigFloat, other.aBigFloat) &&
-        Objects.equals(this.badParsingOfRange, other.badParsingOfRange) &&
-        Objects.equals(this.intValue, other.intValue) &&
-        Objects.equals(this.name, other.name) &&
+        Objects.equals(this.aBigDecimal, other.aBigDecimal) &&
         Objects.equals(this.pattern, other.pattern) &&
         Objects.equals(this.patternDigits, other.patternDigits) &&
-        Objects.equals(this.primitivesShouldNotHaveValidate, other.primitivesShouldNotHaveValidate) &&
-        Objects.equals(this.validObjects, other.validObjects);
+        Objects.equals(this.validObjects, other.validObjects) &&
+        Objects.equals(this.primitivesShouldNotHaveValidate, other.primitivesShouldNotHaveValidate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects);
+    return Objects.hash(name, intValue, badParsingOfRange, aBigDouble, aBigFloat, aBigDecimal, pattern, patternDigits, validObjects, primitivesShouldNotHaveValidate);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ValidationDto {");
-    sb.append("\n    aBigDecimal: ").append(toIndentedString(aBigDecimal));
+    sb.append("\n    name: ").append(toIndentedString(name));
+    sb.append("\n    intValue: ").append(toIndentedString(intValue));
+    sb.append("\n    badParsingOfRange: ").append(toIndentedString(badParsingOfRange));
     sb.append("\n    aBigDouble: ").append(toIndentedString(aBigDouble));
     sb.append("\n    aBigFloat: ").append(toIndentedString(aBigFloat));
-    sb.append("\n    badParsingOfRange: ").append(toIndentedString(badParsingOfRange));
-    sb.append("\n    intValue: ").append(toIndentedString(intValue));
-    sb.append("\n    name: ").append(toIndentedString(name));
+    sb.append("\n    aBigDecimal: ").append(toIndentedString(aBigDecimal));
     sb.append("\n    pattern: ").append(toIndentedString(pattern));
     sb.append("\n    patternDigits: ").append(toIndentedString(patternDigits));
-    sb.append("\n    primitivesShouldNotHaveValidate: ").append(toIndentedString(primitivesShouldNotHaveValidate));
     sb.append("\n    validObjects: ").append(toIndentedString(validObjects));
+    sb.append("\n    primitivesShouldNotHaveValidate: ").append(toIndentedString(primitivesShouldNotHaveValidate));
     sb.append("\n}");
     return sb.toString();
   }

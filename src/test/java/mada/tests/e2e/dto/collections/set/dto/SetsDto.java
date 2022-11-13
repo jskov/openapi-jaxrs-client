@@ -44,10 +44,6 @@ public class SetsDto {
   @JsonbProperty(JSON_PROPERTY_BYTES)
   private Set<Byte> bytes;
 
-  public static final String JSON_PROPERTY_SHORTS = "shorts";
-  @JsonbProperty(JSON_PROPERTY_SHORTS)
-  private Set<Short> shorts;
-
   public static final String JSON_PROPERTY_INTS = "ints";
   @JsonbProperty(JSON_PROPERTY_INTS)
   private Set<Integer> ints;
@@ -55,10 +51,6 @@ public class SetsDto {
   public static final String JSON_PROPERTY_LONGS = "longs";
   @JsonbProperty(JSON_PROPERTY_LONGS)
   private Set<Long> longs;
-
-  public static final String JSON_PROPERTY_STRINGS = "strings";
-  @JsonbProperty(JSON_PROPERTY_STRINGS)
-  private Set<String> strings;
 
   public static final String JSON_PROPERTY_REFS = "refs";
   @JsonbProperty(JSON_PROPERTY_REFS)
@@ -74,11 +66,6 @@ public class SetsDto {
   @Schema(required = true)
   private Set<Byte> requiredBytes = new LinkedHashSet<>();
 
-  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
-  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
-  @Schema(required = true)
-  private Set<Short> requiredShorts = new LinkedHashSet<>();
-
   public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
   @Schema(required = true)
@@ -89,15 +76,28 @@ public class SetsDto {
   @Schema(required = true)
   private Set<Long> requiredLongs = new LinkedHashSet<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
+  @Schema(required = true)
+  private Set<Simple> requiredRefs = new LinkedHashSet<>();
+
+  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
+  @Schema(required = true)
+  private Set<Short> requiredShorts = new LinkedHashSet<>();
+
   public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   @Schema(required = true)
   private Set<String> requiredStrings = new LinkedHashSet<>();
 
-  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
-  @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
-  @Schema(required = true)
-  private Set<Simple> requiredRefs = new LinkedHashSet<>();
+  public static final String JSON_PROPERTY_SHORTS = "shorts";
+  @JsonbProperty(JSON_PROPERTY_SHORTS)
+  private Set<Short> shorts;
+
+  public static final String JSON_PROPERTY_STRINGS = "strings";
+  @JsonbProperty(JSON_PROPERTY_STRINGS)
+  private Set<String> strings;
 
   public SetsDto booleans(Set<Boolean> booleans) {
     this.booleans = booleans;
@@ -149,31 +149,6 @@ public class SetsDto {
     this.bytes = bytes;
   }
 
-  public SetsDto shorts(Set<Short> shorts) {
-    this.shorts = shorts;
-    return this;
-  }
-
-  public SetsDto addShortsItem(short shortsItem) {
-    if (this.shorts == null) {
-      this.shorts = new LinkedHashSet<>();
-    }
-    this.shorts.add(shortsItem);
-    return this;
-  }
-
-  /**
-   * Get shorts
-   * @return shorts
-   **/
-  public Set<Short> getShorts() {
-    return shorts;
-  }
-
-  public void setShorts(Set<Short> shorts) {
-    this.shorts = shorts;
-  }
-
   public SetsDto ints(Set<Integer> ints) {
     this.ints = ints;
     return this;
@@ -222,31 +197,6 @@ public class SetsDto {
 
   public void setLongs(Set<Long> longs) {
     this.longs = longs;
-  }
-
-  public SetsDto strings(Set<String> strings) {
-    this.strings = strings;
-    return this;
-  }
-
-  public SetsDto addStringsItem(String stringsItem) {
-    if (this.strings == null) {
-      this.strings = new LinkedHashSet<>();
-    }
-    this.strings.add(stringsItem);
-    return this;
-  }
-
-  /**
-   * Get strings
-   * @return strings
-   **/
-  public Set<String> getStrings() {
-    return strings;
-  }
-
-  public void setStrings(Set<String> strings) {
-    this.strings = strings;
   }
 
   public SetsDto refs(Set<Simple> refs) {
@@ -321,29 +271,6 @@ public class SetsDto {
     this.requiredBytes = Objects.requireNonNull(requiredBytes, "Property requiredBytes is required, cannot be null");
   }
 
-  public SetsDto requiredShorts(Set<Short> requiredShorts) {
-    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
-    return this;
-  }
-
-  public SetsDto addRequiredShortsItem(short requiredShortsItem) {
-    this.requiredShorts.add(requiredShortsItem);
-    return this;
-  }
-
-  /**
-   * Get requiredShorts
-   * @return requiredShorts
-   **/
-  @NotNull
-  public Set<Short> getRequiredShorts() {
-    return requiredShorts;
-  }
-
-  public void setRequiredShorts(Set<Short> requiredShorts) {
-    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
-  }
-
   public SetsDto requiredInts(Set<Integer> requiredInts) {
     this.requiredInts = Objects.requireNonNull(requiredInts, "Property requiredInts is required, cannot be null");
     return this;
@@ -390,29 +317,6 @@ public class SetsDto {
     this.requiredLongs = Objects.requireNonNull(requiredLongs, "Property requiredLongs is required, cannot be null");
   }
 
-  public SetsDto requiredStrings(Set<String> requiredStrings) {
-    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
-    return this;
-  }
-
-  public SetsDto addRequiredStringsItem(String requiredStringsItem) {
-    this.requiredStrings.add(requiredStringsItem);
-    return this;
-  }
-
-  /**
-   * Get requiredStrings
-   * @return requiredStrings
-   **/
-  @NotNull
-  public Set<String> getRequiredStrings() {
-    return requiredStrings;
-  }
-
-  public void setRequiredStrings(Set<String> requiredStrings) {
-    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
-  }
-
   public SetsDto requiredRefs(Set<Simple> requiredRefs) {
     this.requiredRefs = Objects.requireNonNull(requiredRefs, "Property requiredRefs is required, cannot be null");
     return this;
@@ -436,6 +340,102 @@ public class SetsDto {
     this.requiredRefs = Objects.requireNonNull(requiredRefs, "Property requiredRefs is required, cannot be null");
   }
 
+  public SetsDto requiredShorts(Set<Short> requiredShorts) {
+    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
+    return this;
+  }
+
+  public SetsDto addRequiredShortsItem(short requiredShortsItem) {
+    this.requiredShorts.add(requiredShortsItem);
+    return this;
+  }
+
+  /**
+   * Get requiredShorts
+   * @return requiredShorts
+   **/
+  @NotNull
+  public Set<Short> getRequiredShorts() {
+    return requiredShorts;
+  }
+
+  public void setRequiredShorts(Set<Short> requiredShorts) {
+    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
+  }
+
+  public SetsDto requiredStrings(Set<String> requiredStrings) {
+    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
+    return this;
+  }
+
+  public SetsDto addRequiredStringsItem(String requiredStringsItem) {
+    this.requiredStrings.add(requiredStringsItem);
+    return this;
+  }
+
+  /**
+   * Get requiredStrings
+   * @return requiredStrings
+   **/
+  @NotNull
+  public Set<String> getRequiredStrings() {
+    return requiredStrings;
+  }
+
+  public void setRequiredStrings(Set<String> requiredStrings) {
+    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
+  }
+
+  public SetsDto shorts(Set<Short> shorts) {
+    this.shorts = shorts;
+    return this;
+  }
+
+  public SetsDto addShortsItem(short shortsItem) {
+    if (this.shorts == null) {
+      this.shorts = new LinkedHashSet<>();
+    }
+    this.shorts.add(shortsItem);
+    return this;
+  }
+
+  /**
+   * Get shorts
+   * @return shorts
+   **/
+  public Set<Short> getShorts() {
+    return shorts;
+  }
+
+  public void setShorts(Set<Short> shorts) {
+    this.shorts = shorts;
+  }
+
+  public SetsDto strings(Set<String> strings) {
+    this.strings = strings;
+    return this;
+  }
+
+  public SetsDto addStringsItem(String stringsItem) {
+    if (this.strings == null) {
+      this.strings = new LinkedHashSet<>();
+    }
+    this.strings.add(stringsItem);
+    return this;
+  }
+
+  /**
+   * Get strings
+   * @return strings
+   **/
+  public Set<String> getStrings() {
+    return strings;
+  }
+
+  public void setStrings(Set<String> strings) {
+    this.strings = strings;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -447,23 +447,23 @@ public class SetsDto {
     SetsDto other = (SetsDto) o;
     return Objects.equals(this.booleans, other.booleans) &&
         Objects.equals(this.bytes, other.bytes) &&
-        Objects.equals(this.shorts, other.shorts) &&
         Objects.equals(this.ints, other.ints) &&
         Objects.equals(this.longs, other.longs) &&
-        Objects.equals(this.strings, other.strings) &&
         Objects.equals(this.refs, other.refs) &&
         Objects.equals(this.requiredBooleans, other.requiredBooleans) &&
         Objects.equals(this.requiredBytes, other.requiredBytes) &&
-        Objects.equals(this.requiredShorts, other.requiredShorts) &&
         Objects.equals(this.requiredInts, other.requiredInts) &&
         Objects.equals(this.requiredLongs, other.requiredLongs) &&
+        Objects.equals(this.requiredRefs, other.requiredRefs) &&
+        Objects.equals(this.requiredShorts, other.requiredShorts) &&
         Objects.equals(this.requiredStrings, other.requiredStrings) &&
-        Objects.equals(this.requiredRefs, other.requiredRefs);
+        Objects.equals(this.shorts, other.shorts) &&
+        Objects.equals(this.strings, other.strings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(booleans, bytes, shorts, ints, longs, strings, refs, requiredBooleans, requiredBytes, requiredShorts, requiredInts, requiredLongs, requiredStrings, requiredRefs);
+    return Objects.hash(booleans, bytes, ints, longs, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
   }
 
   @Override
@@ -472,18 +472,18 @@ public class SetsDto {
     sb.append("class SetsDto {");
     sb.append("\n    booleans: ").append(toIndentedString(booleans));
     sb.append("\n    bytes: ").append(toIndentedString(bytes));
-    sb.append("\n    shorts: ").append(toIndentedString(shorts));
     sb.append("\n    ints: ").append(toIndentedString(ints));
     sb.append("\n    longs: ").append(toIndentedString(longs));
-    sb.append("\n    strings: ").append(toIndentedString(strings));
     sb.append("\n    refs: ").append(toIndentedString(refs));
     sb.append("\n    requiredBooleans: ").append(toIndentedString(requiredBooleans));
     sb.append("\n    requiredBytes: ").append(toIndentedString(requiredBytes));
-    sb.append("\n    requiredShorts: ").append(toIndentedString(requiredShorts));
     sb.append("\n    requiredInts: ").append(toIndentedString(requiredInts));
     sb.append("\n    requiredLongs: ").append(toIndentedString(requiredLongs));
-    sb.append("\n    requiredStrings: ").append(toIndentedString(requiredStrings));
     sb.append("\n    requiredRefs: ").append(toIndentedString(requiredRefs));
+    sb.append("\n    requiredShorts: ").append(toIndentedString(requiredShorts));
+    sb.append("\n    requiredStrings: ").append(toIndentedString(requiredStrings));
+    sb.append("\n    shorts: ").append(toIndentedString(shorts));
+    sb.append("\n    strings: ").append(toIndentedString(strings));
     sb.append("\n}");
     return sb.toString();
   }

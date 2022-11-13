@@ -26,6 +26,49 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ManualInnerEnumDto {
+  @Schema(enumeration = {"1", "2"}, type = SchemaType.INTEGER, format = "int32")
+  public enum NumberTypeEnum {
+    NUMBER_1(1),
+    NUMBER_2(2);
+
+    private final int value;
+
+    NumberTypeEnum(int value) {
+      this.value = value;
+    }
+
+    public int getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static class NumberTypeEnumAdapter implements JsonbAdapter<NumberTypeEnum, JsonString> {
+      @Override
+      public JsonString adaptToJson(NumberTypeEnum e) throws Exception {
+        return Json.createValue(String.valueOf(e.value));
+      }
+
+      @Override
+      public NumberTypeEnum adaptFromJson(JsonString value) throws Exception {
+        for (NumberTypeEnum b : NumberTypeEnum.values()) {
+          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+            return b;
+          }
+        }
+        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type NumberTypeEnum");
+      }
+    }
+  }
+
+  public static final String JSON_PROPERTY_NUMBER_TYPE = "numberType";
+  @JsonbProperty(JSON_PROPERTY_NUMBER_TYPE)
+  @JsonbTypeAdapter(mada.tests.e2e.dto.enums.inner.dto.ManualInnerEnumDto.NumberTypeEnum.NumberTypeEnumAdapter.class)
+  private NumberTypeEnum numberType;
+
   public static final String JSON_PROPERTY_RECEIVER = "receiver";
   @JsonbProperty(JSON_PROPERTY_RECEIVER)
   private String receiver;
@@ -78,48 +121,22 @@ public class ManualInnerEnumDto {
   @Schema(description = "This selects transport form.\nEMAIL = this is an email\nSMS : this is an SMS")
   private StringTypeEnum stringType;
 
-  @Schema(enumeration = {"1", "2"}, type = SchemaType.INTEGER, format = "int32")
-  public enum NumberTypeEnum {
-    NUMBER_1(1),
-    NUMBER_2(2);
-
-    private final int value;
-
-    NumberTypeEnum(int value) {
-      this.value = value;
-    }
-
-    public int getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static class NumberTypeEnumAdapter implements JsonbAdapter<NumberTypeEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(NumberTypeEnum e) throws Exception {
-        return Json.createValue(String.valueOf(e.value));
-      }
-
-      @Override
-      public NumberTypeEnum adaptFromJson(JsonString value) throws Exception {
-        for (NumberTypeEnum b : NumberTypeEnum.values()) {
-          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-            return b;
-          }
-        }
-        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type NumberTypeEnum");
-      }
-    }
+  public ManualInnerEnumDto numberType(NumberTypeEnum numberType) {
+    this.numberType = numberType;
+    return this;
   }
 
-  public static final String JSON_PROPERTY_NUMBER_TYPE = "numberType";
-  @JsonbProperty(JSON_PROPERTY_NUMBER_TYPE)
-  @JsonbTypeAdapter(mada.tests.e2e.dto.enums.inner.dto.ManualInnerEnumDto.NumberTypeEnum.NumberTypeEnumAdapter.class)
-  private NumberTypeEnum numberType;
+  /**
+   * Get numberType
+   * @return numberType
+   **/
+  public NumberTypeEnum getNumberType() {
+    return numberType;
+  }
+
+  public void setNumberType(NumberTypeEnum numberType) {
+    this.numberType = numberType;
+  }
 
   public ManualInnerEnumDto receiver(String receiver) {
     this.receiver = receiver;
@@ -158,23 +175,6 @@ public class ManualInnerEnumDto {
     this.stringType = stringType;
   }
 
-  public ManualInnerEnumDto numberType(NumberTypeEnum numberType) {
-    this.numberType = numberType;
-    return this;
-  }
-
-  /**
-   * Get numberType
-   * @return numberType
-   **/
-  public NumberTypeEnum getNumberType() {
-    return numberType;
-  }
-
-  public void setNumberType(NumberTypeEnum numberType) {
-    this.numberType = numberType;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -184,23 +184,23 @@ public class ManualInnerEnumDto {
       return false;
     }
     ManualInnerEnumDto other = (ManualInnerEnumDto) o;
-    return Objects.equals(this.receiver, other.receiver) &&
-        Objects.equals(this.stringType, other.stringType) &&
-        Objects.equals(this.numberType, other.numberType);
+    return Objects.equals(this.numberType, other.numberType) &&
+        Objects.equals(this.receiver, other.receiver) &&
+        Objects.equals(this.stringType, other.stringType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(receiver, stringType, numberType);
+    return Objects.hash(numberType, receiver, stringType);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManualInnerEnumDto {");
+    sb.append("\n    numberType: ").append(toIndentedString(numberType));
     sb.append("\n    receiver: ").append(toIndentedString(receiver));
     sb.append("\n    stringType: ").append(toIndentedString(stringType));
-    sb.append("\n    numberType: ").append(toIndentedString(numberType));
     sb.append("\n}");
     return sb.toString();
   }

@@ -33,6 +33,42 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CountryLocale {
+  public static final String JSON_PROPERTY_COUNTRY = "country";
+  @JsonbProperty(JSON_PROPERTY_COUNTRY)
+  private String country;
+
+  public static final String JSON_PROPERTY_DISPLAY_COUNTRY = "displayCountry";
+  @JsonbProperty(JSON_PROPERTY_DISPLAY_COUNTRY)
+  private String displayCountry;
+
+  public static final String JSON_PROPERTY_DISPLAY_LANGUAGE = "displayLanguage";
+  @JsonbProperty(JSON_PROPERTY_DISPLAY_LANGUAGE)
+  private String displayLanguage;
+
+  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
+  @JsonbProperty(JSON_PROPERTY_DISPLAY_NAME)
+  private String displayName;
+
+  public static final String JSON_PROPERTY_DISPLAY_SCRIPT = "displayScript";
+  @JsonbProperty(JSON_PROPERTY_DISPLAY_SCRIPT)
+  private String displayScript;
+
+  public static final String JSON_PROPERTY_DISPLAY_VARIANT = "displayVariant";
+  @JsonbProperty(JSON_PROPERTY_DISPLAY_VARIANT)
+  private String displayVariant;
+
+  public static final String JSON_PROPERTY_EXTENSION_KEYS = "extensionKeys";
+  @JsonbProperty(JSON_PROPERTY_EXTENSION_KEYS)
+  private Set<String> extensionKeys;
+
+  public static final String JSON_PROPERTY_ISO3_COUNTRY = "iso3Country";
+  @JsonbProperty(JSON_PROPERTY_ISO3_COUNTRY)
+  private String iso3Country;
+
+  public static final String JSON_PROPERTY_ISO3_LANGUAGE = "iso3Language";
+  @JsonbProperty(JSON_PROPERTY_ISO3_LANGUAGE)
+  private String iso3Language;
+
   public static final String JSON_PROPERTY_LANGUAGE = "language";
   @JsonbProperty(JSON_PROPERTY_LANGUAGE)
   private String language;
@@ -40,18 +76,6 @@ public class CountryLocale {
   public static final String JSON_PROPERTY_SCRIPT = "script";
   @JsonbProperty(JSON_PROPERTY_SCRIPT)
   private String script;
-
-  public static final String JSON_PROPERTY_COUNTRY = "country";
-  @JsonbProperty(JSON_PROPERTY_COUNTRY)
-  private String country;
-
-  public static final String JSON_PROPERTY_VARIANT = "variant";
-  @JsonbProperty(JSON_PROPERTY_VARIANT)
-  private String variant;
-
-  public static final String JSON_PROPERTY_EXTENSION_KEYS = "extensionKeys";
-  @JsonbProperty(JSON_PROPERTY_EXTENSION_KEYS)
-  private Set<String> extensionKeys;
 
   public static final String JSON_PROPERTY_UNICODE_LOCALE_ATTRIBUTES = "unicodeLocaleAttributes";
   @JsonbProperty(JSON_PROPERTY_UNICODE_LOCALE_ATTRIBUTES)
@@ -61,33 +85,170 @@ public class CountryLocale {
   @JsonbProperty(JSON_PROPERTY_UNICODE_LOCALE_KEYS)
   private Set<String> unicodeLocaleKeys;
 
-  public static final String JSON_PROPERTY_ISO3_LANGUAGE = "iso3Language";
-  @JsonbProperty(JSON_PROPERTY_ISO3_LANGUAGE)
-  private String iso3Language;
+  public static final String JSON_PROPERTY_VARIANT = "variant";
+  @JsonbProperty(JSON_PROPERTY_VARIANT)
+  private String variant;
 
-  public static final String JSON_PROPERTY_ISO3_COUNTRY = "iso3Country";
-  @JsonbProperty(JSON_PROPERTY_ISO3_COUNTRY)
-  private String iso3Country;
+  public CountryLocale country(String country) {
+    this.country = country;
+    return this;
+  }
 
-  public static final String JSON_PROPERTY_DISPLAY_LANGUAGE = "displayLanguage";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_LANGUAGE)
-  private String displayLanguage;
+  /**
+   * Get country
+   * @return country
+   **/
+  public String getCountry() {
+    return country;
+  }
 
-  public static final String JSON_PROPERTY_DISPLAY_SCRIPT = "displayScript";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_SCRIPT)
-  private String displayScript;
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
-  public static final String JSON_PROPERTY_DISPLAY_COUNTRY = "displayCountry";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_COUNTRY)
-  private String displayCountry;
+  public CountryLocale displayCountry(String displayCountry) {
+    this.displayCountry = displayCountry;
+    return this;
+  }
 
-  public static final String JSON_PROPERTY_DISPLAY_VARIANT = "displayVariant";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_VARIANT)
-  private String displayVariant;
+  /**
+   * Get displayCountry
+   * @return displayCountry
+   **/
+  public String getDisplayCountry() {
+    return displayCountry;
+  }
 
-  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_NAME)
-  private String displayName;
+  public void setDisplayCountry(String displayCountry) {
+    this.displayCountry = displayCountry;
+  }
+
+  public CountryLocale displayLanguage(String displayLanguage) {
+    this.displayLanguage = displayLanguage;
+    return this;
+  }
+
+  /**
+   * Get displayLanguage
+   * @return displayLanguage
+   **/
+  public String getDisplayLanguage() {
+    return displayLanguage;
+  }
+
+  public void setDisplayLanguage(String displayLanguage) {
+    this.displayLanguage = displayLanguage;
+  }
+
+  public CountryLocale displayName(String displayName) {
+    this.displayName = displayName;
+    return this;
+  }
+
+  /**
+   * Get displayName
+   * @return displayName
+   **/
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
+  }
+
+  public CountryLocale displayScript(String displayScript) {
+    this.displayScript = displayScript;
+    return this;
+  }
+
+  /**
+   * Get displayScript
+   * @return displayScript
+   **/
+  public String getDisplayScript() {
+    return displayScript;
+  }
+
+  public void setDisplayScript(String displayScript) {
+    this.displayScript = displayScript;
+  }
+
+  public CountryLocale displayVariant(String displayVariant) {
+    this.displayVariant = displayVariant;
+    return this;
+  }
+
+  /**
+   * Get displayVariant
+   * @return displayVariant
+   **/
+  public String getDisplayVariant() {
+    return displayVariant;
+  }
+
+  public void setDisplayVariant(String displayVariant) {
+    this.displayVariant = displayVariant;
+  }
+
+  public CountryLocale extensionKeys(Set<String> extensionKeys) {
+    this.extensionKeys = extensionKeys;
+    return this;
+  }
+
+  public CountryLocale addExtensionKeysItem(String extensionKeysItem) {
+    if (this.extensionKeys == null) {
+      this.extensionKeys = new LinkedHashSet<>();
+    }
+    this.extensionKeys.add(extensionKeysItem);
+    return this;
+  }
+
+  /**
+   * Get extensionKeys
+   * @return extensionKeys
+   **/
+  public Set<String> getExtensionKeys() {
+    return extensionKeys;
+  }
+
+  public void setExtensionKeys(Set<String> extensionKeys) {
+    this.extensionKeys = extensionKeys;
+  }
+
+  public CountryLocale iso3Country(String iso3Country) {
+    this.iso3Country = iso3Country;
+    return this;
+  }
+
+  /**
+   * Get iso3Country
+   * @return iso3Country
+   **/
+  public String getIso3Country() {
+    return iso3Country;
+  }
+
+  public void setIso3Country(String iso3Country) {
+    this.iso3Country = iso3Country;
+  }
+
+  public CountryLocale iso3Language(String iso3Language) {
+    this.iso3Language = iso3Language;
+    return this;
+  }
+
+  /**
+   * Get iso3Language
+   * @return iso3Language
+   **/
+  public String getIso3Language() {
+    return iso3Language;
+  }
+
+  public void setIso3Language(String iso3Language) {
+    this.iso3Language = iso3Language;
+  }
 
   public CountryLocale language(String language) {
     this.language = language;
@@ -121,65 +282,6 @@ public class CountryLocale {
 
   public void setScript(String script) {
     this.script = script;
-  }
-
-  public CountryLocale country(String country) {
-    this.country = country;
-    return this;
-  }
-
-  /**
-   * Get country
-   * @return country
-   **/
-  public String getCountry() {
-    return country;
-  }
-
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
-  public CountryLocale variant(String variant) {
-    this.variant = variant;
-    return this;
-  }
-
-  /**
-   * Get variant
-   * @return variant
-   **/
-  public String getVariant() {
-    return variant;
-  }
-
-  public void setVariant(String variant) {
-    this.variant = variant;
-  }
-
-  public CountryLocale extensionKeys(Set<String> extensionKeys) {
-    this.extensionKeys = extensionKeys;
-    return this;
-  }
-
-  public CountryLocale addExtensionKeysItem(String extensionKeysItem) {
-    if (this.extensionKeys == null) {
-      this.extensionKeys = new LinkedHashSet<>();
-    }
-    this.extensionKeys.add(extensionKeysItem);
-    return this;
-  }
-
-  /**
-   * Get extensionKeys
-   * @return extensionKeys
-   **/
-  public Set<String> getExtensionKeys() {
-    return extensionKeys;
-  }
-
-  public void setExtensionKeys(Set<String> extensionKeys) {
-    this.extensionKeys = extensionKeys;
   }
 
   public CountryLocale unicodeLocaleAttributes(Set<String> unicodeLocaleAttributes) {
@@ -232,123 +334,21 @@ public class CountryLocale {
     this.unicodeLocaleKeys = unicodeLocaleKeys;
   }
 
-  public CountryLocale iso3Language(String iso3Language) {
-    this.iso3Language = iso3Language;
+  public CountryLocale variant(String variant) {
+    this.variant = variant;
     return this;
   }
 
   /**
-   * Get iso3Language
-   * @return iso3Language
+   * Get variant
+   * @return variant
    **/
-  public String getIso3Language() {
-    return iso3Language;
+  public String getVariant() {
+    return variant;
   }
 
-  public void setIso3Language(String iso3Language) {
-    this.iso3Language = iso3Language;
-  }
-
-  public CountryLocale iso3Country(String iso3Country) {
-    this.iso3Country = iso3Country;
-    return this;
-  }
-
-  /**
-   * Get iso3Country
-   * @return iso3Country
-   **/
-  public String getIso3Country() {
-    return iso3Country;
-  }
-
-  public void setIso3Country(String iso3Country) {
-    this.iso3Country = iso3Country;
-  }
-
-  public CountryLocale displayLanguage(String displayLanguage) {
-    this.displayLanguage = displayLanguage;
-    return this;
-  }
-
-  /**
-   * Get displayLanguage
-   * @return displayLanguage
-   **/
-  public String getDisplayLanguage() {
-    return displayLanguage;
-  }
-
-  public void setDisplayLanguage(String displayLanguage) {
-    this.displayLanguage = displayLanguage;
-  }
-
-  public CountryLocale displayScript(String displayScript) {
-    this.displayScript = displayScript;
-    return this;
-  }
-
-  /**
-   * Get displayScript
-   * @return displayScript
-   **/
-  public String getDisplayScript() {
-    return displayScript;
-  }
-
-  public void setDisplayScript(String displayScript) {
-    this.displayScript = displayScript;
-  }
-
-  public CountryLocale displayCountry(String displayCountry) {
-    this.displayCountry = displayCountry;
-    return this;
-  }
-
-  /**
-   * Get displayCountry
-   * @return displayCountry
-   **/
-  public String getDisplayCountry() {
-    return displayCountry;
-  }
-
-  public void setDisplayCountry(String displayCountry) {
-    this.displayCountry = displayCountry;
-  }
-
-  public CountryLocale displayVariant(String displayVariant) {
-    this.displayVariant = displayVariant;
-    return this;
-  }
-
-  /**
-   * Get displayVariant
-   * @return displayVariant
-   **/
-  public String getDisplayVariant() {
-    return displayVariant;
-  }
-
-  public void setDisplayVariant(String displayVariant) {
-    this.displayVariant = displayVariant;
-  }
-
-  public CountryLocale displayName(String displayName) {
-    this.displayName = displayName;
-    return this;
-  }
-
-  /**
-   * Get displayName
-   * @return displayName
-   **/
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  public void setDisplayName(String displayName) {
-    this.displayName = displayName;
+  public void setVariant(String variant) {
+    this.variant = variant;
   }
 
   @Override
@@ -360,45 +360,45 @@ public class CountryLocale {
       return false;
     }
     CountryLocale other = (CountryLocale) o;
-    return Objects.equals(this.language, other.language) &&
-        Objects.equals(this.script, other.script) &&
-        Objects.equals(this.country, other.country) &&
-        Objects.equals(this.variant, other.variant) &&
+    return Objects.equals(this.country, other.country) &&
+        Objects.equals(this.displayCountry, other.displayCountry) &&
+        Objects.equals(this.displayLanguage, other.displayLanguage) &&
+        Objects.equals(this.displayName, other.displayName) &&
+        Objects.equals(this.displayScript, other.displayScript) &&
+        Objects.equals(this.displayVariant, other.displayVariant) &&
         Objects.equals(this.extensionKeys, other.extensionKeys) &&
+        Objects.equals(this.iso3Country, other.iso3Country) &&
+        Objects.equals(this.iso3Language, other.iso3Language) &&
+        Objects.equals(this.language, other.language) &&
+        Objects.equals(this.script, other.script) &&
         Objects.equals(this.unicodeLocaleAttributes, other.unicodeLocaleAttributes) &&
         Objects.equals(this.unicodeLocaleKeys, other.unicodeLocaleKeys) &&
-        Objects.equals(this.iso3Language, other.iso3Language) &&
-        Objects.equals(this.iso3Country, other.iso3Country) &&
-        Objects.equals(this.displayLanguage, other.displayLanguage) &&
-        Objects.equals(this.displayScript, other.displayScript) &&
-        Objects.equals(this.displayCountry, other.displayCountry) &&
-        Objects.equals(this.displayVariant, other.displayVariant) &&
-        Objects.equals(this.displayName, other.displayName);
+        Objects.equals(this.variant, other.variant);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(language, script, country, variant, extensionKeys, unicodeLocaleAttributes, unicodeLocaleKeys, iso3Language, iso3Country, displayLanguage, displayScript, displayCountry, displayVariant, displayName);
+    return Objects.hash(country, displayCountry, displayLanguage, displayName, displayScript, displayVariant, extensionKeys, iso3Country, iso3Language, language, script, unicodeLocaleAttributes, unicodeLocaleKeys, variant);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CountryLocale {");
+    sb.append("\n    country: ").append(toIndentedString(country));
+    sb.append("\n    displayCountry: ").append(toIndentedString(displayCountry));
+    sb.append("\n    displayLanguage: ").append(toIndentedString(displayLanguage));
+    sb.append("\n    displayName: ").append(toIndentedString(displayName));
+    sb.append("\n    displayScript: ").append(toIndentedString(displayScript));
+    sb.append("\n    displayVariant: ").append(toIndentedString(displayVariant));
+    sb.append("\n    extensionKeys: ").append(toIndentedString(extensionKeys));
+    sb.append("\n    iso3Country: ").append(toIndentedString(iso3Country));
+    sb.append("\n    iso3Language: ").append(toIndentedString(iso3Language));
     sb.append("\n    language: ").append(toIndentedString(language));
     sb.append("\n    script: ").append(toIndentedString(script));
-    sb.append("\n    country: ").append(toIndentedString(country));
-    sb.append("\n    variant: ").append(toIndentedString(variant));
-    sb.append("\n    extensionKeys: ").append(toIndentedString(extensionKeys));
     sb.append("\n    unicodeLocaleAttributes: ").append(toIndentedString(unicodeLocaleAttributes));
     sb.append("\n    unicodeLocaleKeys: ").append(toIndentedString(unicodeLocaleKeys));
-    sb.append("\n    iso3Language: ").append(toIndentedString(iso3Language));
-    sb.append("\n    iso3Country: ").append(toIndentedString(iso3Country));
-    sb.append("\n    displayLanguage: ").append(toIndentedString(displayLanguage));
-    sb.append("\n    displayScript: ").append(toIndentedString(displayScript));
-    sb.append("\n    displayCountry: ").append(toIndentedString(displayCountry));
-    sb.append("\n    displayVariant: ").append(toIndentedString(displayVariant));
-    sb.append("\n    displayName: ").append(toIndentedString(displayName));
+    sb.append("\n    variant: ").append(toIndentedString(variant));
     sb.append("\n}");
     return sb.toString();
   }
