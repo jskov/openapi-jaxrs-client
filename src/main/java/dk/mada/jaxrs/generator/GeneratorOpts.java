@@ -475,7 +475,7 @@ public final class GeneratorOpts {
         /**
          * Converts property value enum value.
          *
-         * @param nameIn the input property value
+         * @param value the input property value
          * @return the matching property order enumeration
          */
         public static PropertyOrder from(String value) {
