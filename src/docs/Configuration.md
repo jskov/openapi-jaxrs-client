@@ -370,6 +370,10 @@ instead of OffsetDateTime.
 >Allows you to control the order properties (and thus getters, setters, and enums) are
 >rendered in.
 
+>Since the order of properties in the OpenApi document (by my reading of the spec) is not
+>important, applying sorting is the only way to be sure your generated code is
+>stable over time.
+
 > * document-order: in the order the properties are declared in the OpenApi document.
 
 > * alphabetical-order: in alphabetical naming order
