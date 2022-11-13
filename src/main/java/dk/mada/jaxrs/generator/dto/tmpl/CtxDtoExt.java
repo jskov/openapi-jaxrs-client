@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
@@ -49,4 +51,7 @@ public interface CtxDtoExt {
 
     /** {@return true if DTO should render @RegisterForReflection} */
     boolean quarkusRegisterForReflection();
+
+    /** {@return the properties of the class, in openapi document order} */
+    List<CtxProperty> varsOpenapiOrder();
 }

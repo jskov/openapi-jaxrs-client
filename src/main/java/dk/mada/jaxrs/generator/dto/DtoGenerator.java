@@ -203,14 +203,23 @@ public class DtoGenerator {
         boolean isEnum = dto.isEnum();
         var dtoImports = isEnum ? Imports.newEnum(opts, !isTypePrimitiveEquals(dtoType)) : Imports.newDto(opts);
 
-        Comparator<? super Property> propertySorter = propertySorter();
+        Comparator<? super CtxProperty> propertySorter = propertySorter();
 
-        Stream<Property> props = dto.properties().stream();
+        Stream<CtxProperty> props = dto.properties().stream()
+            .map(p -> toCtxProperty(dtoImports, p));
         if (propertySorter != null) {
             props = props.sorted(propertySorter);
         }
         List<CtxProperty> vars = props
-                .map(p -> toCtxProperty(dtoImports, p))
+                .toList();
+
+        // in original order
+        List<CtxProperty> varsOpenapiOrder = dto.properties().stream()
+                .map(Property::name)
+                .map(baseName -> vars.stream()
+                        .filter(c -> baseName.equals(c.baseName()))
+                        .findFirst()
+                        .orElseThrow())
                 .toList();
 
         dtoImports.addPropertyImports(dto.properties());
@@ -319,6 +328,7 @@ public class DtoGenerator {
                 .implementsInterfaces(implementsInterfaces)
                 .isEqualsPrimitive(isTypePrimitiveEquals(dtoType))
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
+                .varsOpenapiOrder(varsOpenapiOrder)
                 .build();
 
         return CtxDto.builder()
@@ -355,7 +365,7 @@ public class DtoGenerator {
                 .build();
     }
 
-    private Comparator<? super Property> propertySorter() {
+    private Comparator<? super CtxProperty> propertySorter() {
         PropertyOrder propertyOrder = opts.getPropertyOrder();
         switch (propertyOrder) {
         case DOCUMENT_ORDER:
@@ -367,8 +377,6 @@ public class DtoGenerator {
         default:
             throw new IllegalStateException("Unhandled ordering " + propertyOrder);
         }
-        
-        
     }
 
     private String defineInterfaces(Dto dto, Imports dtoImports) {
@@ -446,8 +454,8 @@ public class DtoGenerator {
     }
 
     private CtxProperty toCtxProperty(Imports dtoImports, Property p) {
-        String name = p.name();
-        String varName = naming.convertPropertyName(name);
+        final String name = p.name();
+        final String varName = naming.convertPropertyName(name);
 
         String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
         // Both Jackson (Fasterxml) and JsonBinding expect the getter

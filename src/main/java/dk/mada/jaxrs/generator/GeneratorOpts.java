@@ -384,7 +384,7 @@ public final class GeneratorOpts {
 
     /** {@return the property sorting order to use} */
     public PropertyOrder getPropertyOrder() {
-        String order = getDefault("generator-use-property-order", PropertyOrder.ALPHABETICAL_ORDER.name());
+        String order = getDefault("generator-use-property-order", PropertyOrder.ALPHABETICAL_NOCASE_ORDER.name());
         return PropertyOrder.from(order);
     }
     
