@@ -24,40 +24,37 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(description = "Class description")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class DocsDto {
-  public static final String JSON_PROPERTY_PROPERTY = "property";
-  @JsonbProperty(JSON_PROPERTY_PROPERTY)
-  @Schema(description = "Property description.\nProperty description line 2\n\nLast line.")
-  private String property;
+  public static final String JSON_PROPERTY_DANISH_PROPERTY = "danishProperty";
+  @JsonbProperty(JSON_PROPERTY_DANISH_PROPERTY)
+  @Schema(description = "Danish characters æøåÆØÅ dóh!")
+  private String danishProperty;
 
   public static final String JSON_PROPERTY_DOS_PROPERTY = "dosProperty";
   @JsonbProperty(JSON_PROPERTY_DOS_PROPERTY)
   @Schema(description = "Property description.\r\nProperty description line 2\r\n\r\nLast line.")
   private String dosProperty;
 
-  public static final String JSON_PROPERTY_DANISH_PROPERTY = "danishProperty";
-  @JsonbProperty(JSON_PROPERTY_DANISH_PROPERTY)
-  @Schema(description = "Danish characters æøåÆØÅ dóh!")
-  private String danishProperty;
+  public static final String JSON_PROPERTY_PROPERTY = "property";
+  @JsonbProperty(JSON_PROPERTY_PROPERTY)
+  @Schema(description = "Property description.\nProperty description line 2\n\nLast line.")
+  private String property;
 
-  public DocsDto property(String property) {
-    this.property = property;
+  public DocsDto danishProperty(String danishProperty) {
+    this.danishProperty = danishProperty;
     return this;
   }
 
   /**
-   * Property description.
-   * Property description line 2
+   * Danish characters æøåÆØÅ dóh!
    *
-   * Last line.
-   *
-   * @return property
+   * @return danishProperty
    **/
-  public String getProperty() {
-    return property;
+  public String getDanishProperty() {
+    return danishProperty;
   }
 
-  public void setProperty(String property) {
-    this.property = property;
+  public void setDanishProperty(String danishProperty) {
+    this.danishProperty = danishProperty;
   }
 
   public DocsDto dosProperty(String dosProperty) {
@@ -81,22 +78,25 @@ public class DocsDto {
     this.dosProperty = dosProperty;
   }
 
-  public DocsDto danishProperty(String danishProperty) {
-    this.danishProperty = danishProperty;
+  public DocsDto property(String property) {
+    this.property = property;
     return this;
   }
 
   /**
-   * Danish characters æøåÆØÅ dóh!
+   * Property description.
+   * Property description line 2
    *
-   * @return danishProperty
+   * Last line.
+   *
+   * @return property
    **/
-  public String getDanishProperty() {
-    return danishProperty;
+  public String getProperty() {
+    return property;
   }
 
-  public void setDanishProperty(String danishProperty) {
-    this.danishProperty = danishProperty;
+  public void setProperty(String property) {
+    this.property = property;
   }
 
   @Override
@@ -108,23 +108,23 @@ public class DocsDto {
       return false;
     }
     DocsDto other = (DocsDto) o;
-    return Objects.equals(this.property, other.property) &&
+    return Objects.equals(this.danishProperty, other.danishProperty) &&
         Objects.equals(this.dosProperty, other.dosProperty) &&
-        Objects.equals(this.danishProperty, other.danishProperty);
+        Objects.equals(this.property, other.property);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(property, dosProperty, danishProperty);
+    return Objects.hash(danishProperty, dosProperty, property);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class DocsDto {");
-    sb.append("\n    property: ").append(toIndentedString(property));
-    sb.append("\n    dosProperty: ").append(toIndentedString(dosProperty));
     sb.append("\n    danishProperty: ").append(toIndentedString(danishProperty));
+    sb.append("\n    dosProperty: ").append(toIndentedString(dosProperty));
+    sb.append("\n    property: ").append(toIndentedString(property));
     sb.append("\n}");
     return sb.toString();
   }

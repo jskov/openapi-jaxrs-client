@@ -35,17 +35,11 @@ public class SpecialTypes {
   @JsonProperty(JSON_PROPERTY_BIG_DECIMAL)
   private BigDecimal bigDecimal;
 
-  public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
-  @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
-  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
-  private OffsetDateTime zonedDateTime;
-
-  public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
-  @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
-  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
-  private OffsetDateTime offsetDateTime;
+  public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
+  @JsonProperty(JSON_PROPERTY_LOCAL_DATE)
+  @JsonDeserialize(using = _LocalDateJacksonDeserializer.class)
+  @JsonSerialize(using = _LocalDateJacksonSerializer.class)
+  private LocalDate localDate;
 
   public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
   @JsonProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
@@ -53,19 +47,25 @@ public class SpecialTypes {
   @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
   private OffsetDateTime localDateTime;
 
-  public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
-  @JsonProperty(JSON_PROPERTY_LOCAL_DATE)
-  @JsonDeserialize(using = _LocalDateJacksonDeserializer.class)
-  @JsonSerialize(using = _LocalDateJacksonSerializer.class)
-  private LocalDate localDate;
-
   public static final String JSON_PROPERTY_LOCAL_TIME = "localTime";
   @JsonProperty(JSON_PROPERTY_LOCAL_TIME)
   private LocalTime localTime;
 
+  public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
+  @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
+  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  private OffsetDateTime offsetDateTime;
+
   public static final String JSON_PROPERTY_UUID = "uuid";
   @JsonProperty(JSON_PROPERTY_UUID)
   private UUID uuid;
+
+  public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
+  @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
+  @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class)
+  private OffsetDateTime zonedDateTime;
 
   public SpecialTypes bigDecimal(BigDecimal bigDecimal) {
     this.bigDecimal = bigDecimal;
@@ -82,57 +82,6 @@ public class SpecialTypes {
 
   public void setBigDecimal(BigDecimal bigDecimal) {
     this.bigDecimal = bigDecimal;
-  }
-
-  public SpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
-    this.zonedDateTime = zonedDateTime;
-    return this;
-  }
-
-  /**
-   * Get zonedDateTime
-   * @return zonedDateTime
-   **/
-  public OffsetDateTime getZonedDateTime() {
-    return zonedDateTime;
-  }
-
-  public void setZonedDateTime(OffsetDateTime zonedDateTime) {
-    this.zonedDateTime = zonedDateTime;
-  }
-
-  public SpecialTypes offsetDateTime(OffsetDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
-    return this;
-  }
-
-  /**
-   * Get offsetDateTime
-   * @return offsetDateTime
-   **/
-  public OffsetDateTime getOffsetDateTime() {
-    return offsetDateTime;
-  }
-
-  public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
-  }
-
-  public SpecialTypes localDateTime(OffsetDateTime localDateTime) {
-    this.localDateTime = localDateTime;
-    return this;
-  }
-
-  /**
-   * Get localDateTime
-   * @return localDateTime
-   **/
-  public OffsetDateTime getLocalDateTime() {
-    return localDateTime;
-  }
-
-  public void setLocalDateTime(OffsetDateTime localDateTime) {
-    this.localDateTime = localDateTime;
   }
 
   public SpecialTypes localDate(LocalDate localDate) {
@@ -152,6 +101,23 @@ public class SpecialTypes {
     this.localDate = localDate;
   }
 
+  public SpecialTypes localDateTime(OffsetDateTime localDateTime) {
+    this.localDateTime = localDateTime;
+    return this;
+  }
+
+  /**
+   * Get localDateTime
+   * @return localDateTime
+   **/
+  public OffsetDateTime getLocalDateTime() {
+    return localDateTime;
+  }
+
+  public void setLocalDateTime(OffsetDateTime localDateTime) {
+    this.localDateTime = localDateTime;
+  }
+
   public SpecialTypes localTime(LocalTime localTime) {
     this.localTime = localTime;
     return this;
@@ -167,6 +133,23 @@ public class SpecialTypes {
 
   public void setLocalTime(LocalTime localTime) {
     this.localTime = localTime;
+  }
+
+  public SpecialTypes offsetDateTime(OffsetDateTime offsetDateTime) {
+    this.offsetDateTime = offsetDateTime;
+    return this;
+  }
+
+  /**
+   * Get offsetDateTime
+   * @return offsetDateTime
+   **/
+  public OffsetDateTime getOffsetDateTime() {
+    return offsetDateTime;
+  }
+
+  public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
+    this.offsetDateTime = offsetDateTime;
   }
 
   public SpecialTypes uuid(UUID uuid) {
@@ -186,6 +169,23 @@ public class SpecialTypes {
     this.uuid = uuid;
   }
 
+  public SpecialTypes zonedDateTime(OffsetDateTime zonedDateTime) {
+    this.zonedDateTime = zonedDateTime;
+    return this;
+  }
+
+  /**
+   * Get zonedDateTime
+   * @return zonedDateTime
+   **/
+  public OffsetDateTime getZonedDateTime() {
+    return zonedDateTime;
+  }
+
+  public void setZonedDateTime(OffsetDateTime zonedDateTime) {
+    this.zonedDateTime = zonedDateTime;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -196,17 +196,17 @@ public class SpecialTypes {
     }
     SpecialTypes other = (SpecialTypes) o;
     return Objects.equals(this.bigDecimal, other.bigDecimal) &&
-        Objects.equals(this.zonedDateTime, other.zonedDateTime) &&
-        Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
-        Objects.equals(this.localDateTime, other.localDateTime) &&
         Objects.equals(this.localDate, other.localDate) &&
+        Objects.equals(this.localDateTime, other.localDateTime) &&
         Objects.equals(this.localTime, other.localTime) &&
-        Objects.equals(this.uuid, other.uuid);
+        Objects.equals(this.offsetDateTime, other.offsetDateTime) &&
+        Objects.equals(this.uuid, other.uuid) &&
+        Objects.equals(this.zonedDateTime, other.zonedDateTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bigDecimal, zonedDateTime, offsetDateTime, localDateTime, localDate, localTime, uuid);
+    return Objects.hash(bigDecimal, localDate, localDateTime, localTime, offsetDateTime, uuid, zonedDateTime);
   }
 
   @Override
@@ -214,12 +214,12 @@ public class SpecialTypes {
     StringBuilder sb = new StringBuilder();
     sb.append("class SpecialTypes {");
     sb.append("\n    bigDecimal: ").append(toIndentedString(bigDecimal));
-    sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
-    sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
-    sb.append("\n    localDateTime: ").append(toIndentedString(localDateTime));
     sb.append("\n    localDate: ").append(toIndentedString(localDate));
+    sb.append("\n    localDateTime: ").append(toIndentedString(localDateTime));
     sb.append("\n    localTime: ").append(toIndentedString(localTime));
+    sb.append("\n    offsetDateTime: ").append(toIndentedString(offsetDateTime));
     sb.append("\n    uuid: ").append(toIndentedString(uuid));
+    sb.append("\n    zonedDateTime: ").append(toIndentedString(zonedDateTime));
     sb.append("\n}");
     return sb.toString();
   }

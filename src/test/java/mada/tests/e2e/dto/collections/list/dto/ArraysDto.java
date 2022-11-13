@@ -45,10 +45,6 @@ public class ArraysDto {
   @JsonbProperty(JSON_PROPERTY_BYTES)
   private byte[] bytes;
 
-  public static final String JSON_PROPERTY_SHORTS = "shorts";
-  @JsonbProperty(JSON_PROPERTY_SHORTS)
-  private List<Short> shorts;
-
   public static final String JSON_PROPERTY_INTS = "ints";
   @JsonbProperty(JSON_PROPERTY_INTS)
   private List<Integer> ints;
@@ -56,10 +52,6 @@ public class ArraysDto {
   public static final String JSON_PROPERTY_LONGS = "longs";
   @JsonbProperty(JSON_PROPERTY_LONGS)
   private List<Long> longs;
-
-  public static final String JSON_PROPERTY_STRINGS = "strings";
-  @JsonbProperty(JSON_PROPERTY_STRINGS)
-  private List<String> strings;
 
   public static final String JSON_PROPERTY_REFS = "refs";
   @JsonbProperty(JSON_PROPERTY_REFS)
@@ -75,11 +67,6 @@ public class ArraysDto {
   @Schema(required = true)
   private byte[] requiredBytes = new byte[] {};
 
-  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
-  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
-  @Schema(required = true)
-  private List<Short> requiredShorts = new ArrayList<>();
-
   public static final String JSON_PROPERTY_REQUIRED_INTS = "requiredInts";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_INTS)
   @Schema(required = true)
@@ -90,15 +77,28 @@ public class ArraysDto {
   @Schema(required = true)
   private List<Long> requiredLongs = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
+  @Schema(required = true)
+  private List<Simple> requiredRefs = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_REQUIRED_SHORTS = "requiredShorts";
+  @JsonbProperty(JSON_PROPERTY_REQUIRED_SHORTS)
+  @Schema(required = true)
+  private List<Short> requiredShorts = new ArrayList<>();
+
   public static final String JSON_PROPERTY_REQUIRED_STRINGS = "requiredStrings";
   @JsonbProperty(JSON_PROPERTY_REQUIRED_STRINGS)
   @Schema(required = true)
   private List<String> requiredStrings = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_REQUIRED_REFS = "requiredRefs";
-  @JsonbProperty(JSON_PROPERTY_REQUIRED_REFS)
-  @Schema(required = true)
-  private List<Simple> requiredRefs = new ArrayList<>();
+  public static final String JSON_PROPERTY_SHORTS = "shorts";
+  @JsonbProperty(JSON_PROPERTY_SHORTS)
+  private List<Short> shorts;
+
+  public static final String JSON_PROPERTY_STRINGS = "strings";
+  @JsonbProperty(JSON_PROPERTY_STRINGS)
+  private List<String> strings;
 
   public ArraysDto booleans(List<Boolean> booleans) {
     this.booleans = booleans;
@@ -140,31 +140,6 @@ public class ArraysDto {
 
   public void setBytes(byte[] bytes) {
     this.bytes = bytes;
-  }
-
-  public ArraysDto shorts(List<Short> shorts) {
-    this.shorts = shorts;
-    return this;
-  }
-
-  public ArraysDto addShortsItem(short shortsItem) {
-    if (this.shorts == null) {
-      this.shorts = new ArrayList<>();
-    }
-    this.shorts.add(shortsItem);
-    return this;
-  }
-
-  /**
-   * Get shorts
-   * @return shorts
-   **/
-  public List<Short> getShorts() {
-    return shorts;
-  }
-
-  public void setShorts(List<Short> shorts) {
-    this.shorts = shorts;
   }
 
   public ArraysDto ints(List<Integer> ints) {
@@ -215,31 +190,6 @@ public class ArraysDto {
 
   public void setLongs(List<Long> longs) {
     this.longs = longs;
-  }
-
-  public ArraysDto strings(List<String> strings) {
-    this.strings = strings;
-    return this;
-  }
-
-  public ArraysDto addStringsItem(String stringsItem) {
-    if (this.strings == null) {
-      this.strings = new ArrayList<>();
-    }
-    this.strings.add(stringsItem);
-    return this;
-  }
-
-  /**
-   * Get strings
-   * @return strings
-   **/
-  public List<String> getStrings() {
-    return strings;
-  }
-
-  public void setStrings(List<String> strings) {
-    this.strings = strings;
   }
 
   public ArraysDto refs(List<Simple> refs) {
@@ -309,29 +259,6 @@ public class ArraysDto {
     this.requiredBytes = Objects.requireNonNull(requiredBytes, "Property requiredBytes is required, cannot be null");
   }
 
-  public ArraysDto requiredShorts(List<Short> requiredShorts) {
-    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
-    return this;
-  }
-
-  public ArraysDto addRequiredShortsItem(short requiredShortsItem) {
-    this.requiredShorts.add(requiredShortsItem);
-    return this;
-  }
-
-  /**
-   * Get requiredShorts
-   * @return requiredShorts
-   **/
-  @NotNull
-  public List<Short> getRequiredShorts() {
-    return requiredShorts;
-  }
-
-  public void setRequiredShorts(List<Short> requiredShorts) {
-    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
-  }
-
   public ArraysDto requiredInts(List<Integer> requiredInts) {
     this.requiredInts = Objects.requireNonNull(requiredInts, "Property requiredInts is required, cannot be null");
     return this;
@@ -378,29 +305,6 @@ public class ArraysDto {
     this.requiredLongs = Objects.requireNonNull(requiredLongs, "Property requiredLongs is required, cannot be null");
   }
 
-  public ArraysDto requiredStrings(List<String> requiredStrings) {
-    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
-    return this;
-  }
-
-  public ArraysDto addRequiredStringsItem(String requiredStringsItem) {
-    this.requiredStrings.add(requiredStringsItem);
-    return this;
-  }
-
-  /**
-   * Get requiredStrings
-   * @return requiredStrings
-   **/
-  @NotNull
-  public List<String> getRequiredStrings() {
-    return requiredStrings;
-  }
-
-  public void setRequiredStrings(List<String> requiredStrings) {
-    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
-  }
-
   public ArraysDto requiredRefs(List<Simple> requiredRefs) {
     this.requiredRefs = Objects.requireNonNull(requiredRefs, "Property requiredRefs is required, cannot be null");
     return this;
@@ -424,6 +328,102 @@ public class ArraysDto {
     this.requiredRefs = Objects.requireNonNull(requiredRefs, "Property requiredRefs is required, cannot be null");
   }
 
+  public ArraysDto requiredShorts(List<Short> requiredShorts) {
+    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
+    return this;
+  }
+
+  public ArraysDto addRequiredShortsItem(short requiredShortsItem) {
+    this.requiredShorts.add(requiredShortsItem);
+    return this;
+  }
+
+  /**
+   * Get requiredShorts
+   * @return requiredShorts
+   **/
+  @NotNull
+  public List<Short> getRequiredShorts() {
+    return requiredShorts;
+  }
+
+  public void setRequiredShorts(List<Short> requiredShorts) {
+    this.requiredShorts = Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
+  }
+
+  public ArraysDto requiredStrings(List<String> requiredStrings) {
+    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
+    return this;
+  }
+
+  public ArraysDto addRequiredStringsItem(String requiredStringsItem) {
+    this.requiredStrings.add(requiredStringsItem);
+    return this;
+  }
+
+  /**
+   * Get requiredStrings
+   * @return requiredStrings
+   **/
+  @NotNull
+  public List<String> getRequiredStrings() {
+    return requiredStrings;
+  }
+
+  public void setRequiredStrings(List<String> requiredStrings) {
+    this.requiredStrings = Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
+  }
+
+  public ArraysDto shorts(List<Short> shorts) {
+    this.shorts = shorts;
+    return this;
+  }
+
+  public ArraysDto addShortsItem(short shortsItem) {
+    if (this.shorts == null) {
+      this.shorts = new ArrayList<>();
+    }
+    this.shorts.add(shortsItem);
+    return this;
+  }
+
+  /**
+   * Get shorts
+   * @return shorts
+   **/
+  public List<Short> getShorts() {
+    return shorts;
+  }
+
+  public void setShorts(List<Short> shorts) {
+    this.shorts = shorts;
+  }
+
+  public ArraysDto strings(List<String> strings) {
+    this.strings = strings;
+    return this;
+  }
+
+  public ArraysDto addStringsItem(String stringsItem) {
+    if (this.strings == null) {
+      this.strings = new ArrayList<>();
+    }
+    this.strings.add(stringsItem);
+    return this;
+  }
+
+  /**
+   * Get strings
+   * @return strings
+   **/
+  public List<String> getStrings() {
+    return strings;
+  }
+
+  public void setStrings(List<String> strings) {
+    this.strings = strings;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -435,23 +435,23 @@ public class ArraysDto {
     ArraysDto other = (ArraysDto) o;
     return Objects.equals(this.booleans, other.booleans) &&
         Arrays.equals(this.bytes, other.bytes) &&
-        Objects.equals(this.shorts, other.shorts) &&
         Objects.equals(this.ints, other.ints) &&
         Objects.equals(this.longs, other.longs) &&
-        Objects.equals(this.strings, other.strings) &&
         Objects.equals(this.refs, other.refs) &&
         Objects.equals(this.requiredBooleans, other.requiredBooleans) &&
         Arrays.equals(this.requiredBytes, other.requiredBytes) &&
-        Objects.equals(this.requiredShorts, other.requiredShorts) &&
         Objects.equals(this.requiredInts, other.requiredInts) &&
         Objects.equals(this.requiredLongs, other.requiredLongs) &&
+        Objects.equals(this.requiredRefs, other.requiredRefs) &&
+        Objects.equals(this.requiredShorts, other.requiredShorts) &&
         Objects.equals(this.requiredStrings, other.requiredStrings) &&
-        Objects.equals(this.requiredRefs, other.requiredRefs);
+        Objects.equals(this.shorts, other.shorts) &&
+        Objects.equals(this.strings, other.strings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(booleans, Arrays.hashCode(bytes), shorts, ints, longs, strings, refs, requiredBooleans, Arrays.hashCode(requiredBytes), requiredShorts, requiredInts, requiredLongs, requiredStrings, requiredRefs);
+    return Objects.hash(booleans, Arrays.hashCode(bytes), ints, longs, refs, requiredBooleans, Arrays.hashCode(requiredBytes), requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
   }
 
   @Override
@@ -460,18 +460,18 @@ public class ArraysDto {
     sb.append("class ArraysDto {");
     sb.append("\n    booleans: ").append(toIndentedString(booleans));
     sb.append("\n    bytes: ").append(toIndentedString(bytes));
-    sb.append("\n    shorts: ").append(toIndentedString(shorts));
     sb.append("\n    ints: ").append(toIndentedString(ints));
     sb.append("\n    longs: ").append(toIndentedString(longs));
-    sb.append("\n    strings: ").append(toIndentedString(strings));
     sb.append("\n    refs: ").append(toIndentedString(refs));
     sb.append("\n    requiredBooleans: ").append(toIndentedString(requiredBooleans));
     sb.append("\n    requiredBytes: ").append(toIndentedString(requiredBytes));
-    sb.append("\n    requiredShorts: ").append(toIndentedString(requiredShorts));
     sb.append("\n    requiredInts: ").append(toIndentedString(requiredInts));
     sb.append("\n    requiredLongs: ").append(toIndentedString(requiredLongs));
-    sb.append("\n    requiredStrings: ").append(toIndentedString(requiredStrings));
     sb.append("\n    requiredRefs: ").append(toIndentedString(requiredRefs));
+    sb.append("\n    requiredShorts: ").append(toIndentedString(requiredShorts));
+    sb.append("\n    requiredStrings: ").append(toIndentedString(requiredStrings));
+    sb.append("\n    shorts: ").append(toIndentedString(shorts));
+    sb.append("\n    strings: ").append(toIndentedString(strings));
     sb.append("\n}");
     return sb.toString();
   }

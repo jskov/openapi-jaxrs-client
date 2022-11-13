@@ -22,13 +22,30 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ArchivePDF {
+  public static final String JSON_PROPERTY_BYTE_LIST = "byteList";
+  @JsonbProperty(JSON_PROPERTY_BYTE_LIST)
+  private byte[] byteList;
+
   public static final String JSON_PROPERTY_STRING_LIST = "stringList";
   @JsonbProperty(JSON_PROPERTY_STRING_LIST)
   private List<String> stringList;
 
-  public static final String JSON_PROPERTY_BYTE_LIST = "byteList";
-  @JsonbProperty(JSON_PROPERTY_BYTE_LIST)
-  private byte[] byteList;
+  public ArchivePDF byteList(byte[] byteList) {
+    this.byteList = byteList;
+    return this;
+  }
+
+  /**
+   * Get byteList
+   * @return byteList
+   **/
+  public byte[] getByteList() {
+    return byteList;
+  }
+
+  public void setByteList(byte[] byteList) {
+    this.byteList = byteList;
+  }
 
   public ArchivePDF stringList(List<String> stringList) {
     this.stringList = stringList;
@@ -55,23 +72,6 @@ public class ArchivePDF {
     this.stringList = stringList;
   }
 
-  public ArchivePDF byteList(byte[] byteList) {
-    this.byteList = byteList;
-    return this;
-  }
-
-  /**
-   * Get byteList
-   * @return byteList
-   **/
-  public byte[] getByteList() {
-    return byteList;
-  }
-
-  public void setByteList(byte[] byteList) {
-    this.byteList = byteList;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -81,21 +81,21 @@ public class ArchivePDF {
       return false;
     }
     ArchivePDF other = (ArchivePDF) o;
-    return Objects.equals(this.stringList, other.stringList) &&
-        Arrays.equals(this.byteList, other.byteList);
+    return Arrays.equals(this.byteList, other.byteList) &&
+        Objects.equals(this.stringList, other.stringList);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(stringList, Arrays.hashCode(byteList));
+    return Objects.hash(Arrays.hashCode(byteList), stringList);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ArchivePDF {");
-    sb.append("\n    stringList: ").append(toIndentedString(stringList));
     sb.append("\n    byteList: ").append(toIndentedString(byteList));
+    sb.append("\n    stringList: ").append(toIndentedString(stringList));
     sb.append("\n}");
     return sb.toString();
   }
