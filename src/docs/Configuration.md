@@ -365,6 +365,20 @@ instead of OffsetDateTime.
 >
     default value: false
 
+**generator-use-property-order**
+
+>Allows you to control the order properties (and thus getters, setters, and enums) are
+>rendered in.
+
+> * document-order: in the order the properties are declared in the OpenApi document.
+
+> * alphabetical-order: in alphabetical naming order
+
+> * alphabetical-nocase-order: in alphabetical naming order, ignoring case
+
+>
+    default value: alphabetical-nocase-order
+
 **generator-use-serializable**
 
 >Allows you to mark all DTOs with Serializable.
