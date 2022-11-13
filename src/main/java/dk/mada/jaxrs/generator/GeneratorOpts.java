@@ -382,6 +382,12 @@ public final class GeneratorOpts {
         }
     }
 
+    /** {@return the property sorting order to use} */
+    public PropertyOrder getPropertyOrder() {
+        String order = getDefault("generator-use-property-order", PropertyOrder.ALPHABETICAL_ORDER.name());
+        return PropertyOrder.from(order);
+    }
+    
     /**
      * {@return true if wrapped primitives should be used in API parameters}
      *
@@ -453,5 +459,33 @@ public final class GeneratorOpts {
             return null;
         }
         return value.trim();
+    }
+
+    /**
+     * Property sorting order.
+     */
+    public enum PropertyOrder {
+        /** Ordered by appearance in the OpenApi document. */
+        DOCUMENT_ORDER,
+        /** Ordered alphabetically. */
+        ALPHABETICAL_ORDER,
+        /** Ordered alphabetically, ignoring upper/lower case. */
+        ALPHABETICAL_NOCASE_ORDER;
+
+        /**
+         * Converts property value enum value.
+         *
+         * @param nameIn the input property value
+         * @return the matching property order enumeration
+         */
+        public static PropertyOrder from(String value) {
+            String name = value.toUpperCase().replace('-', '_');
+            for (var po : PropertyOrder.values()) {
+                if (po.name().equals(name.toUpperCase())) {
+                    return po;
+                }
+            }
+            throw new IllegalArgumentException("Unknown PropertyOrder " + name);
+        }
     }
 }

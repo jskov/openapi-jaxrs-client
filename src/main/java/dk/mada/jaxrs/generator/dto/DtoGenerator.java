@@ -3,6 +3,7 @@ package dk.mada.jaxrs.generator.dto;
 import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.ExtraTemplate;
 import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.generator.GeneratorOpts.PropertyOrder;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
@@ -201,7 +203,13 @@ public class DtoGenerator {
         boolean isEnum = dto.isEnum();
         var dtoImports = isEnum ? Imports.newEnum(opts, !isTypePrimitiveEquals(dtoType)) : Imports.newDto(opts);
 
-        List<CtxProperty> vars = dto.properties().stream()
+        Comparator<? super Property> propertySorter = propertySorter();
+
+        Stream<Property> props = dto.properties().stream();
+        if (propertySorter != null) {
+            props = props.sorted(propertySorter);
+        }
+        List<CtxProperty> vars = props
                 .map(p -> toCtxProperty(dtoImports, p))
                 .toList();
 
@@ -345,6 +353,22 @@ public class DtoGenerator {
                 .discriminator(discriminator)
 
                 .build();
+    }
+
+    private Comparator<? super Property> propertySorter() {
+        PropertyOrder propertyOrder = opts.getPropertyOrder();
+        switch (propertyOrder) {
+        case DOCUMENT_ORDER:
+            return null;
+        case ALPHABETICAL_ORDER:
+            return (a, b) -> a.name().compareTo(b.name());
+        case ALPHABETICAL_NOCASE_ORDER:
+            return (a, b) -> a.name().compareToIgnoreCase(b.name());
+        default:
+            throw new IllegalStateException("Unhandled ordering " + propertyOrder);
+        }
+        
+        
     }
 
     private String defineInterfaces(Dto dto, Imports dtoImports) {
