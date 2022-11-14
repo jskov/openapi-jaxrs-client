@@ -458,6 +458,7 @@ public class DtoGenerator {
         final String varName = naming.convertPropertyName(name);
 
         String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
+        String nameSnaked = OpenapiGeneratorUtils.underscore(nameCamelized).toUpperCase();
         // Both Jackson (Fasterxml) and JsonBinding expect the getter
         // of a 'xX'-prefixed field to be named 'getxX'. Although
         // this is different from Bean Spec naming for getters/setters.
@@ -465,7 +466,6 @@ public class DtoGenerator {
         if (name.length() > 1 && Character.isUpperCase(name.charAt(1))) {
             nameCamelized = Character.toLowerCase(name.charAt(0)) + nameCamelized.substring(1);
         }
-        String nameSnaked = OpenapiGeneratorUtils.underscore(nameCamelized).toUpperCase();
 
         logger.debug("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
