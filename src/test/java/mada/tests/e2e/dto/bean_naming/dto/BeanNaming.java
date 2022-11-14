@@ -17,11 +17,11 @@ import javax.json.bind.annotation.JsonbPropertyOrder;
   BeanNaming.JSON_PROPERTY_DOWN_BOOL,
   BeanNaming.JSON_PROPERTY_A_CAMEL_BOOL,
   BeanNaming.JSON_PROPERTY_UPPER_BOOL,
-  BeanNaming.JSON_PROPERTY_A_LLCAPSBOOL,
+  BeanNaming.JSON_PROPERTY_ALLCAPSBOOL,
   BeanNaming.JSON_PROPERTY_DOWN_INT,
   BeanNaming.JSON_PROPERTY_A_CAMEL_INT,
   BeanNaming.JSON_PROPERTY_UPPER_INT,
-  BeanNaming.JSON_PROPERTY_A_LLCAPSINT
+  BeanNaming.JSON_PROPERTY_ALLCAPSINT
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class BeanNaming {
@@ -33,12 +33,12 @@ public class BeanNaming {
   @JsonbProperty(JSON_PROPERTY_A_CAMEL_INT)
   private Integer aCamelInt;
 
-  public static final String JSON_PROPERTY_A_LLCAPSBOOL = "ALLCAPSBOOL";
-  @JsonbProperty(JSON_PROPERTY_A_LLCAPSBOOL)
+  public static final String JSON_PROPERTY_ALLCAPSBOOL = "ALLCAPSBOOL";
+  @JsonbProperty(JSON_PROPERTY_ALLCAPSBOOL)
   private Boolean aLLCAPSBOOL;
 
-  public static final String JSON_PROPERTY_A_LLCAPSINT = "ALLCAPSINT";
-  @JsonbProperty(JSON_PROPERTY_A_LLCAPSINT)
+  public static final String JSON_PROPERTY_ALLCAPSINT = "ALLCAPSINT";
+  @JsonbProperty(JSON_PROPERTY_ALLCAPSINT)
   private Boolean aLLCAPSINT;
 
   public static final String JSON_PROPERTY_DOWN_BOOL = "downBool";
