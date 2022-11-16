@@ -31,7 +31,7 @@ configurations {
 
 dependencies {
     implementation      'info.picocli:picocli:4.7.0'
-    implementation      'io.swagger.parser.v3:swagger-parser:2.1.8'
+    implementation      'io.swagger.parser.v3:swagger-parser:2.1.9'
 
     annotationProcessor 'org.immutables:value:2.9.2'
     aptValue            'org.immutables:value:2.9.2'
