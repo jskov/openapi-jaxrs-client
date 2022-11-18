@@ -41,7 +41,7 @@ dependencies {
     aptStach            'io.jstach:jstachio-apt:0.6.0'
     annotationProcessor 'io.jstach:jstachio-apt:0.6.0'
 
-    implementation      'org.slf4j:slf4j-jdk14:2.0.3'
+    implementation      'org.slf4j:slf4j-jdk14:2.0.4'
 
     errorprone          "com.google.errorprone:error_prone_core:$errorproneVersion"
 
