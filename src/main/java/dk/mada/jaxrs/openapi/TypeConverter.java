@@ -263,7 +263,25 @@ public final class TypeConverter {
             return parserRefs.of(TypeUUID.get(), validation);
         }
 
-        if (schema instanceof ObjectSchema) {
+        if (schema instanceof StringSchema) {
+            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(schemaFormat)) {
+                return parserRefs.of(TypeLocalTime.get(), validation);
+            }
+
+            return parserRefs.of(Primitive.STRING, validation);
+        }
+
+        boolean noSchemaType = schemaType == null; // seen in manually created files
+
+        // In no type and reference, assume it is supplemental validation
+        // information for the other type in a ComposedSchema.
+        if (noSchemaType && schemaRef == null
+                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
+            // FIXME: Gets double wrapped
+            return parserRefs.of(TypeValidation.of(validation), validation);
+        }
+
+        if (schema instanceof ObjectSchema || noSchemaType) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (propertyName == null) {
                 if (isPlainObject) {
@@ -279,22 +297,6 @@ public final class TypeConverter {
             String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(propertyName);
             Dto dto = createDto(syntheticDtoName, schema);
             return parserRefs.of(dto, validation);
-        }
-
-        if (schema instanceof StringSchema) {
-            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(schemaFormat)) {
-                return parserRefs.of(TypeLocalTime.get(), validation);
-            }
-
-            return parserRefs.of(Primitive.STRING, validation);
-        }
-
-        // In no type and reference, assume it is supplemental validation
-        // information for the other type in a ComposedSchema.
-        if (schemaType == null && schemaRef == null
-                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
-            // FIXME: Gets double wrapped
-            return parserRefs.of(TypeValidation.of(validation), validation);
         }
 
         // TODO: the schema for a form has properties, but is otherwise void
@@ -404,7 +406,7 @@ public final class TypeConverter {
 
         SubtypeSelector selector = null;
         Discriminator disc = schema.getDiscriminator();
-        if (disc != null) {
+        if (disc != null && disc.getMapping() != null) {
             Map<String, Reference> mapping = new HashMap<>();
             for (var e : disc.getMapping().entrySet()) {
                 String discName = e.getKey();
