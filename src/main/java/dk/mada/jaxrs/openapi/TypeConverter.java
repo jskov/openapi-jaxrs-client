@@ -281,7 +281,7 @@ public final class TypeConverter {
             return parserRefs.of(TypeValidation.of(validation), validation);
         }
 
-		if (schema instanceof ObjectSchema || noSchemaType) {
+        if (schema instanceof ObjectSchema || noSchemaType) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (propertyName == null) {
                 if (isPlainObject) {
@@ -299,7 +299,7 @@ public final class TypeConverter {
             return parserRefs.of(dto, validation);
         }
 
-		// TODO: the schema for a form has properties, but is otherwise void
+        // TODO: the schema for a form has properties, but is otherwise void
         // not sure if this is a good general handling of the case - in particular
         // because those properties are ignored by this.
         // return parserRefs.of(TypeVoid.getRef(), validation);
