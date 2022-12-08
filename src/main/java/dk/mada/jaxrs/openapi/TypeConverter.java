@@ -263,7 +263,25 @@ public final class TypeConverter {
             return parserRefs.of(TypeUUID.get(), validation);
         }
 
-        if (schema instanceof ObjectSchema) {
+        if (schema instanceof StringSchema) {
+            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(schemaFormat)) {
+                return parserRefs.of(TypeLocalTime.get(), validation);
+            }
+
+            return parserRefs.of(Primitive.STRING, validation);
+        }
+
+        boolean noSchemaType = schemaType == null; // seen in manually created files
+
+        // In no type and reference, assume it is supplemental validation
+        // information for the other type in a ComposedSchema.
+        if (noSchemaType && schemaRef == null
+                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
+            // FIXME: Gets double wrapped
+            return parserRefs.of(TypeValidation.of(validation), validation);
+        }
+
+		if (schema instanceof ObjectSchema || noSchemaType) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (propertyName == null) {
                 if (isPlainObject) {
@@ -281,23 +299,7 @@ public final class TypeConverter {
             return parserRefs.of(dto, validation);
         }
 
-        if (schema instanceof StringSchema) {
-            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(schemaFormat)) {
-                return parserRefs.of(TypeLocalTime.get(), validation);
-            }
-
-            return parserRefs.of(Primitive.STRING, validation);
-        }
-
-        // In no type and reference, assume it is supplemental validation
-        // information for the other type in a ComposedSchema.
-        if (schemaType == null && schemaRef == null
-                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
-            // FIXME: Gets double wrapped
-            return parserRefs.of(TypeValidation.of(validation), validation);
-        }
-
-        // TODO: the schema for a form has properties, but is otherwise void
+		// TODO: the schema for a form has properties, but is otherwise void
         // not sure if this is a good general handling of the case - in particular
         // because those properties are ignored by this.
         // return parserRefs.of(TypeVoid.getRef(), validation);
