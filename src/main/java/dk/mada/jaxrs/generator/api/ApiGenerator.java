@@ -471,33 +471,33 @@ public class ApiGenerator {
                 .build();
     }
 
-    private String makeConsumes(Imports imports, Operation op) {
+    private Optional<String> makeConsumes(Imports imports, Operation op) {
         return op.requestBody()
-                .map(rb -> makeMediaTypeArgs(imports, rb.content().mediaTypes().stream()))
-                .orElse(null);
+                .flatMap(rb -> makeMediaTypeArgs(imports, rb.content().mediaTypes().stream()));
     }
 
-    private String makeProduces(Imports imports, Operation op) {
+    private Optional<String> makeProduces(Imports imports, Operation op) {
         Stream<String> combinedMediaTypes = op.responses().stream()
                 .flatMap(r -> r.content().mediaTypes().stream());
         return makeMediaTypeArgs(imports, combinedMediaTypes);
     }
 
-    private String makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
+    private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
         List<String> wrappedMediaTypes = mediaTypes
                 .map(mt -> toMediaType(imports, mt))
                 .sorted()
                 .distinct()
                 .toList();
 
+        if (wrappedMediaTypes.isEmpty()) {
+            return Optional.empty();
+        }
+
         String arg = String.join(", ", wrappedMediaTypes);
         if (wrappedMediaTypes.size() > 1) {
-            arg = "{" + arg + "}";
+            return Optional.of("{" + arg + "}");
         }
-        if (wrappedMediaTypes.isEmpty()) {
-            arg = null;
-        }
-        return arg;
+        return Optional.of(arg);
     }
 
     private String toMediaType(Imports imports, String mediaType) {
