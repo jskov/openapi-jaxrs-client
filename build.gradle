@@ -43,7 +43,8 @@ dependencies {
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.5'
 
-    annotationProcessor "com.uber.nullaway:nullaway:0.10.5"
+    implementation      'org.jspecify:jspecify:0.3.0-alpha-3'
+    annotationProcessor 'com.uber.nullaway:nullaway:0.10.5'
 
     errorprone          "com.google.errorprone:error_prone_core:$errorproneVersion"
   
@@ -106,8 +107,10 @@ tasks.withType(JavaCompile).configureEach {
         disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
         excludedPaths = ".*/(azure/.*|petstore/dto/Error.java|manual/.*|opts/generator/zoneddatetime/dto/LocalTime.java|OpenapiGeneratorUtils.java|generated/.*)"
 
-        check("NullAway", CheckSeverity.ERROR)
-        option("NullAway:AnnotatedPackages", "dk.mada")
+        if (!name.toLowerCase().contains("test")) {
+            check("NullAway", CheckSeverity.ERROR)
+            option("NullAway:AnnotatedPackages", "dk.mada")
+        }
     }
 }
 
