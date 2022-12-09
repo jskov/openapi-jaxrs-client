@@ -1,6 +1,6 @@
 /**
  * Contexts for DTO template.
  */
-@io.jstach.annotation.JStachePath(prefix = "templates/", suffix = ".mustache")
+@io.jstach.jstache.JStachePath(prefix = "templates/", suffix = ".mustache")
 package dk.mada.jaxrs.generator.dto.tmpl;
 
