@@ -43,8 +43,10 @@ dependencies {
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.5'
 
-    errorprone          "com.google.errorprone:error_prone_core:$errorproneVersion"
+    annotationProcessor "com.uber.nullaway:nullaway:0.10.5"
 
+    errorprone          "com.google.errorprone:error_prone_core:$errorproneVersion"
+  
     testImplementation  platform("org.junit:junit-bom:$junitVersion")
     testImplementation  'org.junit.jupiter:junit-jupiter'
     testImplementation  'org.junit.jupiter:junit-jupiter-params'
@@ -88,17 +90,25 @@ java {
     withSourcesJar()
 }
 
+import net.ltgt.gradle.errorprone.CheckSeverity
+
 tasks.withType(JavaCompile).configureEach {
-    options.errorprone.disableWarningsInGeneratedCode = false
-    // ImmutableEnumChecker:
-    //  https://github.com/google/error-prone/issues/1542 (Set.of)
-    //  ? records
-    // InvalidParam:
-    //  https://github.com/google/error-prone/issues/2321
-    // JavaTimeDefaultTimeZone:
-    //  Timezone is not relevant
-    options.errorprone.disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
-    options.errorprone.excludedPaths = ".*/(azure/.*|petstore/dto/Error.java|manual/.*|opts/generator/zoneddatetime/dto/LocalTime.java|OpenapiGeneratorUtils.java|generated/.*)"
+    options.errorprone {
+        disableWarningsInGeneratedCode = false
+
+        // ImmutableEnumChecker:
+        //  https://github.com/google/error-prone/issues/1542 (Set.of)
+        //  ? records
+        // InvalidParam:
+        //  https://github.com/google/error-prone/issues/2321
+        // JavaTimeDefaultTimeZone:
+        //  Timezone is not relevant
+        disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
+        excludedPaths = ".*/(azure/.*|petstore/dto/Error.java|manual/.*|opts/generator/zoneddatetime/dto/LocalTime.java|OpenapiGeneratorUtils.java|generated/.*)"
+
+        check("NullAway", CheckSeverity.ERROR)
+        option("NullAway:AnnotatedPackages", "dk.mada")
+    }
 }
 
 compileJava {
