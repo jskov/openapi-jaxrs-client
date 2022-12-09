@@ -12,7 +12,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtraDateSerializer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
-import io.jstach.JStachio;
+import io.jstach.jstachio.JStachio;
 
 /**
  * Templates processor.

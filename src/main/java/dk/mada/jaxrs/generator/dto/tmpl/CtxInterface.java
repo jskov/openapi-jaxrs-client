@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
-import io.jstach.annotation.JStache;
+import io.jstach.jstache.JStache;
 
 /**
  * Context passed to Mustache when compiling an interface.
