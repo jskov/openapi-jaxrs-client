@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -42,9 +43,8 @@ public interface CtxDtoExt {
     @Nullable
     String schemaOptions();
 
-    /** {@return a string containing the interfaces implemented by this DTO} */
-    @Nullable
-    String implementsInterfaces();
+    /** {@return an optional string containing the interfaces implemented by this DTO} */
+    Optional<String> implementsInterfaces();
 
     /** {@return true if enumeration data type is primitive and can use == for equals} */
     boolean isEqualsPrimitive();

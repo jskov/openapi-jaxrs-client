@@ -8,10 +8,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -274,7 +274,7 @@ public class DtoGenerator {
 
         String description = dto.description();
 
-        String enumSchema = null;
+        Optional<String> enumSchema = Optional.empty();
         CtxEnum ctxEnum = null;
         if (isEnum) {
             ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
@@ -285,9 +285,8 @@ public class DtoGenerator {
         if (!Objects.equals(dto.mpSchemaName(), dto.name())) {
             schemaEntries.add("name = \"" + dto.mpSchemaName() + "\"");
         }
-        if (enumSchema != null) {
-            schemaEntries.add(enumSchema);
-        }
+        enumSchema.ifPresent(schemaEntries::add);
+
         if (description != null && !description.isBlank()) {
             schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
         }
@@ -298,7 +297,7 @@ public class DtoGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        String implementsInterfaces = defineInterfaces(dto, dtoImports);
+        Optional<String> implementsInterfaces = defineInterfaces(dto, dtoImports);
 
         SubtypeSelector subtypeSelector = dto.subtypeSelector();
         CtxDtoDiscriminator discriminator = null;
@@ -365,7 +364,7 @@ public class DtoGenerator {
                 .build();
     }
 
-    private Comparator<? super CtxProperty> propertySorter() {
+    private @Nullable Comparator<? super CtxProperty> propertySorter() {
         PropertyOrder propertyOrder = opts.getPropertyOrder();
         switch (propertyOrder) {
         case DOCUMENT_ORDER:
@@ -379,7 +378,7 @@ public class DtoGenerator {
         }
     }
 
-    private String defineInterfaces(Dto dto, Imports dtoImports) {
+    private Optional<String> defineInterfaces(Dto dto, Imports dtoImports) {
         Stream<String> serializableInterface;
         if (opts.isUseSerializable() && !dto.isEnum()) {
             serializableInterface = Stream.of("Serializable");
@@ -393,9 +392,9 @@ public class DtoGenerator {
                 .sorted()
                 .collect(joining(", "));
         if (implementsInterfaces.isEmpty()) {
-            implementsInterfaces = null;
+            return Optional.empty();
         }
-        return implementsInterfaces;
+        return Optional.of(implementsInterfaces);
     }
 
     /**
@@ -407,11 +406,11 @@ public class DtoGenerator {
      * @param ctxEnum enumeration constants and values
      * @return schema enumeration arguments, or null if not needed
      */
-    private String buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
+    private Optional<String> buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
         boolean namesMatchValues = ctxEnum.enumVars().stream()
             .allMatch(e -> e.name().equals(e.wireValue()));
         if (namesMatchValues) {
-            return null;
+            return Optional.empty();
         }
 
         String values = ctxEnum.enumVars().stream()
@@ -429,13 +428,13 @@ public class DtoGenerator {
         }
         dtoImports.addMicroProfileSchema();
 
-        return new StringBuilder()
+        String opts = new StringBuilder()
                 .append("enumeration = {").append(values).append("}")
                 .append(type)
                 .toString();
+        return Optional.of(opts);
     }
 
-    @Nullable
     private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
         List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, values)
                 .getEntries().stream()
@@ -522,7 +521,7 @@ public class DtoGenerator {
         final boolean isContainer = isArray || isMap || isSet;
         String enumClassName = typeName;
         String enumTypeName = typeName;
-        String enumSchema = null;
+        Optional<String> enumSchema = Optional.empty();
 
         if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
             isEnum = true;
@@ -592,9 +591,10 @@ public class DtoGenerator {
         if (isNotBlank(p.example())) {
             schemaEntries.add("example = \"" + StringRenderer.encodeForString(p.example()) + "\"");
         }
-        String schemaOptions = null;
+
+        Optional<String> schemaOptions = Optional.empty();
         if (!schemaEntries.isEmpty()) {
-            schemaOptions = String.join(", ", schemaEntries);
+            schemaOptions = Optional.of(String.join(", ", schemaEntries));
             dtoImports.addMicroProfileSchema();
         }
 
@@ -718,7 +718,7 @@ public class DtoGenerator {
         return t.isPrimitive(Primitive.INT);
     }
 
-    private Type getDereferencedInnerEnumType(Type t) {
+    private @Nullable Type getDereferencedInnerEnumType(@Nullable Type t) {
         if (t instanceof TypeReference tr) {
             return tr.refType();
         }
