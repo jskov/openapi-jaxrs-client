@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.dto.tmpl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.SortedSet;
 
 import javax.annotation.Nullable;
@@ -25,12 +26,10 @@ public interface CtxDto {
     String appName();
     /** {@return the application version} */
     String version();
-    /** {@return the application description, or null} */
-    @Nullable
-    String appDescription();
-    /** {@return the application contact email, or null} */
-    @Nullable
-    String infoEmail();
+    /** {@return the optional application description} */
+    Optional<String> appDescription();
+    /** {@return the optional application contact email} */
+    Optional<String> infoEmail();
 
     /** {@return the imports needed in the template} */
     SortedSet<String> getImports();

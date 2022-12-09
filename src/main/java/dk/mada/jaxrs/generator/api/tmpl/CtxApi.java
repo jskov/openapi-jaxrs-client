@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.api.tmpl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.SortedSet;
 
 import javax.annotation.Nullable;
@@ -25,12 +26,10 @@ public interface CtxApi {
     String appName();
     /** {@return the application version} */
     String version();
-    /** {@return the application description, or null} */
-    @Nullable
-    String appDescription();
-    /** {@return the information email, or null} */
-    @Nullable
-    String infoEmail();
+    /** {@return the optional application description} */
+    Optional<String> appDescription();
+    /** {@return the optional information email} */
+    Optional<String> infoEmail();
 
     /**
      * External documentation reference.
@@ -45,7 +44,7 @@ public interface CtxApi {
     /** {@return a list of external documentation references} */
     List<CtxOperationExternalDoc> externalDocs();
 
-    /** {@return return type information for containers. This is wrong.} */
+    /** {@return the return type information for containers. This is wrong.} */
     @Nullable Map<String, String> returnContainer();
 
     /** {@return the imports needed for this API class} */
