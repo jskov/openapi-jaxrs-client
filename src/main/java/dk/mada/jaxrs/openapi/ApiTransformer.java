@@ -50,7 +50,7 @@ public class ApiTransformer {
     private final List<SecurityScheme> securitySchemes;
 
     /** List of operations added as the api is traversed. */
-    private List<Operation> ops;
+    private final List<Operation> ops = new ArrayList<>();
 
     /**
      * Constructs a new API transformer instance.
@@ -72,8 +72,6 @@ public class ApiTransformer {
      * @return Operations in the API
      */
     public Operations transform(OpenAPI specification) {
-        ops = new ArrayList<>();
-
         Paths paths = specification.getPaths();
         if (paths != null) {
             Set<Entry<String, PathItem>> pathEntries = paths.entrySet();

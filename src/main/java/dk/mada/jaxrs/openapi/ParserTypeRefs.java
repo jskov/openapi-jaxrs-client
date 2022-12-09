@@ -92,11 +92,12 @@ public class ParserTypeRefs {
     /** {@return information about parser references} */
     public String info() {
         StringBuilder sb = new StringBuilder("Parser references:").append(NL);
-        parserReferences.keySet().stream()
-            .sorted()
-            .forEach(tn -> {
+        parserReferences.entrySet().stream()
+            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+            .forEach(e -> {
+                TypeName tn = e.getKey();
+                ValidationRefs vr = e.getValue();
                 sb.append(" ").append(tn.name()).append(":").append(NL);
-                ValidationRefs vr = parserReferences.get(tn);
                 sb.append(vr.info());
             });
         return sb.toString();
@@ -127,9 +128,12 @@ public class ParserTypeRefs {
 
         public String info() {
             StringBuilder sb = new StringBuilder();
-            refsByValidation.keySet().stream()
-                .forEach(v -> {
-                    String refs = refsByValidation.get(v).stream()
+            refsByValidation.entrySet().stream()
+                .forEach(e -> {
+                    Validation v = e.getKey();
+                    Set<ParserTypeRef> ptrs = e.getValue();
+
+                    String refs = ptrs.stream()
                             .map(r -> "ref@" + Integer.toHexString(r.hashCode()))
                             .sorted()
                             .collect(joining(", "));

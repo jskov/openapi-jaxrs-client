@@ -8,8 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,7 +119,7 @@ public final class TypeConverter {
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef reference(Schema<?> schema, String propertyName, String parentDtoName) {
+    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
@@ -313,7 +312,7 @@ public final class TypeConverter {
      * @param cs the composed schema
      * @return a referenced type with validation added, or null
      */
-    private Type findTypeValidation(ComposedSchema cs) {
+    private @Nullable Type findTypeValidation(ComposedSchema cs) {
         @SuppressWarnings("rawtypes")
         List<Schema> allOf = cs.getAllOf();
         if (allOf == null) {
@@ -349,7 +348,7 @@ public final class TypeConverter {
         return ParserTypeRef.of(ref.refTypeName(), validation);
     }
 
-    private ParserTypeRef findDto(String ref, Validation validation) {
+    private @Nullable ParserTypeRef findDto(String ref, Validation validation) {
         if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
             String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
             return parserRefs.makeDtoRef(openapiId, validation);
