@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.imports;
 
+import java.util.Optional;
+
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
@@ -10,7 +12,7 @@ import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
  */
 public record UserMappedImport(String path) implements TypedImport {
     @Override
-    public String path(ImportRenderPrefs irp) {
-        return path();
+    public Optional<String> path(ImportRenderPrefs irp) {
+        return Optional.of(path());
     }
 }

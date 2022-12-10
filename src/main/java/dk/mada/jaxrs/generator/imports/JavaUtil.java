@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.generator.imports;
 
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.Set;
 
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
@@ -63,8 +64,8 @@ public enum JavaUtil implements TypedImport {
     }
 
     @Override
-    public String path(ImportRenderPrefs irp) {
-        return importPath;
+    public Optional<String> path(ImportRenderPrefs irp) {
+        return Optional.of(importPath);
     }
 
     /** {@return the import path regardless of rendering preferences} */

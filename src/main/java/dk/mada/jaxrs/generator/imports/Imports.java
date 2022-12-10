@@ -176,10 +176,7 @@ public final class Imports {
      */
     public Imports add(TypedImport... classes) {
         for (TypedImport ti: classes) {
-            String path = ti.path(irp);
-            if (path != null) {
-                importedClasses.add(path);
-            }
+            ti.path(irp).ifPresent(importedClasses::add);
         }
         return this;
     }
@@ -192,10 +189,7 @@ public final class Imports {
      */
     public Imports add(Collection<TypedImport> classes) {
         for (TypedImport ti: classes) {
-            String path = ti.path(irp);
-            if (path != null) {
-                importedClasses.add(path);
-            }
+            ti.path(irp).ifPresent(importedClasses::add);
         }
         return this;
     }
@@ -267,6 +261,6 @@ public final class Imports {
     public void trimContainerImplementations() {
         JavaUtil.containerImplementationTypes().stream()
             .map(it -> it.path(irp))
-            .forEach(importedClasses::remove);
+            .forEach(it -> it.ifPresent(importedClasses::remove));
     }
 }

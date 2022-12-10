@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.imports;
 
+import java.util.Optional;
+
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
@@ -19,11 +21,11 @@ public enum JaxRs implements TypedImport {
     }
 
     @Override
-    public String path(ImportRenderPrefs irp) {
+    public Optional<String> path(ImportRenderPrefs irp) {
         if (irp.isJakarta()) {
-            return importPath.replace("javax", "jakarta");
+            return Optional.of(importPath.replace("javax", "jakarta"));
         } else {
-            return importPath;
+            return Optional.of(importPath);
         }
     }
 }

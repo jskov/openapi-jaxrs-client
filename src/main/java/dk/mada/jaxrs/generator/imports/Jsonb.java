@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.imports;
 
+import java.util.Optional;
+
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
@@ -27,10 +29,10 @@ public enum Jsonb implements TypedImport {
     }
 
     @Override
-    public String path(ImportRenderPrefs irp) {
+    public Optional<String> path(ImportRenderPrefs irp) {
         if (!irp.isJsonb()) {
-            return null;
+            return Optional.empty();
         }
-        return importPath;
+        return Optional.of(importPath);
     }
 }
