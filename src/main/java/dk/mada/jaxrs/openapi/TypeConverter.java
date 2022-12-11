@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import org.jspecify.annotations.Nullable;
@@ -417,7 +418,7 @@ public final class TypeConverter {
 
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))
                 .mpSchemaName(mpSchemaName)
-                .description(schema.getDescription())
+                .description(Optional.ofNullable(schema.getDescription()))
                 .reference(dtoType)
                 .properties(props)
                 .openapiId(typeNames.of(dtoName))
@@ -464,7 +465,7 @@ public final class TypeConverter {
 
             Reference ref = reference(propSchema, propertyName, parentDtoName);
 
-            String exampleStr = Objects.toString(propSchema.getExample(), null);
+            Optional<String> exampleStr = Optional.ofNullable(Objects.toString(propSchema.getExample(), null));
 
             boolean isReadOnly = (propSchema.getReadOnly() != null) && propSchema.getReadOnly();
             boolean isNullable = (propSchema.getNullable() != null) && propSchema.getNullable();
@@ -472,7 +473,7 @@ public final class TypeConverter {
             props.add(Property.builder()
                     .name(propertyName)
                     .reference(ref)
-                    .description(propSchema.getDescription())
+                    .description(Optional.ofNullable(propSchema.getDescription()))
                     .example(exampleStr)
                     .isNullable(isNullable)
                     .isReadonly(isReadOnly)

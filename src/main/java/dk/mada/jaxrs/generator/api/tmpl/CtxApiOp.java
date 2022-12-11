@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.generator.api.tmpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -25,12 +26,10 @@ public interface CtxApiOp {
     /** {@return the operation path} */
     @Nullable
     String path();
-    /** {@return the operation summary} */
-    @Nullable
-    String summary();
-    /** {@return the operation notes} */
-    @Nullable
-    String notes();
+    /** {@return the optional operation summary} */
+    Optional<String> summary();
+    /** {@return the optional operation notes} */
+    Optional<String> notes();
 
     /** {@return all parameters of the operation} */
     List<CtxApiParam> allParams();

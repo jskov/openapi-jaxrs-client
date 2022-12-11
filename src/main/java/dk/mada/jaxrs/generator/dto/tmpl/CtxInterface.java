@@ -3,8 +3,6 @@ package dk.mada.jaxrs.generator.dto.tmpl;
 import java.util.Optional;
 import java.util.SortedSet;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 import io.jstach.jstache.JStache;
@@ -37,9 +35,8 @@ public interface CtxInterface {
         return !getImports().isEmpty();
     }
 
-    /** {@return the description for the class, or null} */
-    @Nullable
-    String description();
+    /** {@return an optional description of the class} */
+    Optional<String> description();
     /** {@return the package name for the class} */
     String packageName();
     /** {@return the classname for the class} */

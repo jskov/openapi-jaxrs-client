@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -42,9 +43,8 @@ public interface Dto extends Type {
     /** {@return the type of the DTO object} */
     Reference reference();
 
-    /** {@return the DTO description, or null} */
-    @Nullable
-    String description();
+    /** {@return the optional description of the DTO} */
+    Optional<String> description();
 
     @Override
     default boolean isDto() {

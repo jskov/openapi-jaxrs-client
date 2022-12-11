@@ -30,12 +30,10 @@ public interface Operation {
     /** {@return the operation id as would be defined by codegen} */
     String codegenOpId();
 
-    /** {@return the operation description or null} */
-    @Nullable
-    String description();
-    /** {@return the operation summary or null} */
-    @Nullable
-    String summary();
+    /** {@return an optional description of the operation} */
+    Optional<String> description();
+    /** {@return an optional summary of the operation} */
+    Optional<String> summary();
     /** {@return true if the operation is deprecated} */
     boolean deprecated();
 

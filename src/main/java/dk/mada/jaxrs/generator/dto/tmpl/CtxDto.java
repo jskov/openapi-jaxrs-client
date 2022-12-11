@@ -39,9 +39,8 @@ public interface CtxDto {
         return !getImports().isEmpty();
     }
 
-    /** {@return the description for the class, or null} */
-    @Nullable
-    String description();
+    /** {@return the optional description of the class} */
+    Optional<String> description();
     /** {@return the package name for the class} */
     String packageName();
     /** {@return the classname for the class} */

@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.model;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -22,12 +23,10 @@ public interface Property {
     String name();
     /** {@return the property type} */
     Reference reference();
-    /** {@return the property description, or null} */
-    @Nullable
-    String description();
-    /** {@return the property example, or null} */
-    @Nullable
-    String example();
+    /** {@return an optional description of the property} */
+    Optional<String> description();
+    /** {@return an optional example for the property} */
+    Optional<String> example();
 
     /** {@return true if the property can be null, otherwise false} */
     boolean isNullable();

@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
+import java.util.Optional;
+
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
@@ -39,9 +41,8 @@ public interface CtxProperty {
     @Nullable
     String defaultValue();
 
-    /** {@return the property description, or null} */
-    @Nullable
-    String description();
+    /** {@return the optional description of the property} */
+    Optional<String> description();
 
     /** {@return true if bean validation should be used for this property, otherwise false} */
     boolean useBeanValidation();
@@ -86,9 +87,8 @@ public interface CtxProperty {
     /** {@return true if this property is required} */
     boolean required();
 
-    /** {@return property example, or null} */
-    @Nullable
-    String example();
+    /** {@return an optional property example} */
+    Optional<String> example();
 
     /** {@return additional custom template data for the property} */
     CtxPropertyExt madaProp();

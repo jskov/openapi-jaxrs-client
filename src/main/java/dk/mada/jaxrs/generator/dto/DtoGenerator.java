@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -272,7 +273,7 @@ public class DtoGenerator {
             dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
         }
 
-        String description = dto.description();
+        Optional<String> description = dto.description();
 
         Optional<String> enumSchema = Optional.empty();
         CtxEnum ctxEnum = null;
@@ -287,9 +288,9 @@ public class DtoGenerator {
         }
         enumSchema.ifPresent(schemaEntries::add);
 
-        if (description != null && !description.isBlank()) {
-            schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
-        }
+        isNotBlank(description, d ->
+            schemaEntries.add("description = \"" + StringRenderer.encodeForString(d) + "\"")
+        );
 
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
@@ -338,7 +339,7 @@ public class DtoGenerator {
 
                 .imports(dtoImports.get())
 
-                .description(StringRenderer.makeValidDtoJavadocSummary(description))
+                .description(description.flatMap(StringRenderer::makeValidDtoJavadocSummary))
                 .packageName(opts.dtoPackage())
                 .classname(dto.name())
                 .classVarName("other")
@@ -564,7 +565,7 @@ public class DtoGenerator {
             dtoImports.add(JavaMath.BIG_DECIMAL);
         }
 
-        String description = p.description();
+        Optional<String> description = p.description();
 
         boolean isUseEmptyCollections =
                 opts.isUseEmptyCollections()
@@ -585,12 +586,12 @@ public class DtoGenerator {
         if (p.isReadonly()) {
             schemaEntries.add("readOnly = true");
         }
-        if (isNotBlank(description)) {
-            schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
-        }
-        if (isNotBlank(p.example())) {
-            schemaEntries.add("example = \"" + StringRenderer.encodeForString(p.example()) + "\"");
-        }
+        isNotBlank(description, d ->
+            schemaEntries.add("description = \"" + StringRenderer.encodeForString(d) + "\"")
+        );
+        isNotBlank(p.example(), e ->
+            schemaEntries.add("example = \"" + StringRenderer.encodeForString(e) + "\"")
+        );
 
         Optional<String> schemaOptions = Optional.empty();
         if (!schemaEntries.isEmpty()) {
@@ -675,7 +676,7 @@ public class DtoGenerator {
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
                 .valid(valid)
-                .renderJavadocMacroSpacer(description != null)
+                .renderJavadocMacroSpacer(description.isPresent())
                 .build();
 
         CtxProperty prop = CtxProperty.builder()
@@ -687,7 +688,7 @@ public class DtoGenerator {
                 .nameInSnakeCase(nameSnaked)
                 .getter(getter)
                 .setter(setter)
-                .description(StringRenderer.makeValidPropertyJavadocSummary(description))
+                .description(description.flatMap(StringRenderer::makeValidPropertyJavadocSummary))
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isMap(isMap)
@@ -734,7 +735,9 @@ public class DtoGenerator {
         return getterPrefix;
     }
 
-    private boolean isNotBlank(String s) {
-        return s != null && !s.isBlank();
+    private void isNotBlank(Optional<String> txt, Consumer<String> f) {
+        txt
+            .filter(s -> !s.isBlank())
+            .ifPresent(f);
     }
 }

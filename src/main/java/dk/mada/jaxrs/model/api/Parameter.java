@@ -1,6 +1,6 @@
 package dk.mada.jaxrs.model.api;
 
-import javax.annotation.Nullable;
+import java.util.Optional;
 
 import org.immutables.value.Value.Immutable;
 
@@ -21,9 +21,8 @@ public interface Parameter {
     /** {@return parameter type} */
     Reference reference();
 
-    /** {@return parameter description, or null} */
-    @Nullable
-    String description();
+    /** {@return an optional description of the parameter} */
+    Optional<String> description();
     /** {@return true if the parameter is required, otherwise false} */
     boolean isRequired();
 

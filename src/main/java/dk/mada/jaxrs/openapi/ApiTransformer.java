@@ -122,8 +122,8 @@ public class ApiTransformer {
 
         ops.add(Operation.builder()
                 .tags(tags)
-                .description(op.getDescription())
-                .summary(op.getSummary())
+                .description(Optional.ofNullable(op.getDescription()))
+                .summary(Optional.ofNullable(op.getSummary()))
                 .deprecated(toBool(op.getDeprecated()))
                 .operationId(op.getOperationId())
                 .codegenOpId(codegenOpId)
@@ -232,7 +232,7 @@ public class ApiTransformer {
 
         return Optional.of(
                 RequestBody.builder()
-                .description(body.getDescription())
+                .description(Optional.ofNullable(body.getDescription()))
                 .isRequired(toBool(body.getRequired()))
                 .content(content)
                 .build());
@@ -284,7 +284,7 @@ public class ApiTransformer {
 
         return Parameter.builder()
                 .name(name)
-                .description(param.getDescription())
+                .description(Optional.ofNullable(param.getDescription()))
                 .isRequired(toBool(param.getRequired()))
                 .reference(ref)
                 .isHeaderParam(isHeaderParam)

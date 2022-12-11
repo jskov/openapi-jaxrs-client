@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.api.tmpl;
 
+import java.util.Optional;
+
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
@@ -16,9 +18,8 @@ public interface CtxApiParam {
 
     /** {@return true if the parameter is a container} */
     boolean isContainer();
-    /** {@return a parameter description, or null} */
-    @Nullable
-    String description();
+    /** {@return an optional description of the parameter} */
+    Optional<String> description();
     /** {@return a default value for the parameter, or null} */
     @Nullable
     String defaultValue();

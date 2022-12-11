@@ -1,6 +1,6 @@
 package dk.mada.jaxrs.model.api;
 
-import javax.annotation.Nullable;
+import java.util.Optional;
 
 import org.immutables.value.Value.Immutable;
 
@@ -17,9 +17,8 @@ public interface RequestBody {
     /** {@return the request body content} */
     Content content();
 
-    /** {@return the request body description, or null} */
-    @Nullable
-    String description();
+    /** {@return the an optional description of the request body} */
+    Optional<String> description();
     /** {@return true if the request body is required, otherwise false} */
     boolean isRequired();
 }

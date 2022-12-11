@@ -2,8 +2,6 @@ package dk.mada.jaxrs.generator.api.tmpl;
 
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -44,7 +42,6 @@ public interface CtxApiOpExt {
     /** {@return true if the operation has any responses, otherwise false} */
     boolean hasResponses();
 
-    /** {@return the summary as a java string, or null} */
-    @Nullable
-    String summaryString();
+    /** {@return an optional summary as a java string} */
+    Optional<String> summaryString();
 }

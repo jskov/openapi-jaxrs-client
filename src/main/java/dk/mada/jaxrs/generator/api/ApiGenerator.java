@@ -226,10 +226,10 @@ public class ApiGenerator {
         boolean renderJavadocReturn = !typeRef.isVoid();
         boolean renderJavadocMacroSpacer = renderJavadocReturn || !allParams.isEmpty();
 
-        String summary = op.summary();
+        Optional<String> summary = op.summary();
 
-        String opSummaryString = StringRenderer.encodeForString(summary);
-        if (opSummaryString != null) {
+        Optional<String> opSummaryString = StringRenderer.encodeForString(summary);
+        if (summary.isPresent()) {
             imports.add(MicroProfile.OPERATION);
         }
 
@@ -243,7 +243,7 @@ public class ApiGenerator {
                 .summaryString(opSummaryString)
                 .build();
 
-        String description = op.description();
+        Optional<String> description = op.description();
 
         return new CtxOperationRef(CtxApiOp.builder()
                 .nickname(nickname)
@@ -252,7 +252,7 @@ public class ApiGenerator {
                 .httpMethod(op.httpMethod().name())
                 .allParams(allParams)
                 .responses(responses)
-                .summary(StringRenderer.makeValidOperationJavadocSummary(summary))
+                .summary(summary.flatMap(StringRenderer::makeValidOperationJavadocSummary))
                 .notes(description)
                 .madaOp(ext)
                 .build());

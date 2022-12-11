@@ -9,8 +9,6 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.openapi.ParserOpts;
@@ -250,7 +248,6 @@ public final class GeneratorOpts {
     }
 
     /** {@return the MP providers} */
-    @Nullable
     public List<String> getMpProviders() {
         String providers = getDefault("generator-mp-api-register-providers", "");
         return splitByComma(providers);
