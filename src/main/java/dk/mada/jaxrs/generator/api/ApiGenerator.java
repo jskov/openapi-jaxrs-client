@@ -192,10 +192,8 @@ public class ApiGenerator {
     private CtxOperationRef toCtxApiOperation(Imports imports, int trimPathLength, Operation op) {
         addOperationImports(imports, op);
 
-        String nickname = op.operationId();
-        if (nickname == null) {
-            nickname = op.codegenOpId();
-        }
+        String nickname = op.operationId()
+                .orElse(op.codegenOpId());
 
         // Gets type for OK if present, or else default, or else void
         Reference typeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
