@@ -52,11 +52,6 @@ public interface CtxInterface {
     /** {@return the optional date of the generation} */
     Optional<String> generatedDate();
 
-    /** {@return true if the generation timestamp should be hidden, otherwise false} */
-    default boolean hideGenerationTimestamp() {
-        return generatedDate().isEmpty();
-    }
-
     /** {@return a string list of implementation DTOs} */
     String implementations();
 }

@@ -78,11 +78,6 @@ public interface CtxApi {
     /** {@return the common REST path for all operations in this API class} */
     String commonPath();
 
-    /** {@return true if the generation timestamp should be hidden, otherwise false} */
-    default boolean hideGenerationTimestamp() {
-        return generatedDate().isEmpty();
-    }
-
     /** {@return additional custom template data for the api} */
     CtxApiExt madaApi();
 }
