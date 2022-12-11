@@ -109,7 +109,7 @@ tasks.withType(JavaCompile).configureEach {
 
         if (!name.toLowerCase().contains("test")) {
             check("NullAway", CheckSeverity.ERROR)
-            option("NullAway:AnnotatedPackages", "dk.mada")
+            option("NullAway:AnnotatedPackages", "dk.mada.jaxrs.generator.dto")
         }
     }
 }

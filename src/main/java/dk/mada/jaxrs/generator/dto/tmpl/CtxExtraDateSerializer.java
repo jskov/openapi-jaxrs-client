@@ -63,13 +63,12 @@ public interface CtxExtraDateSerializer {
     String generatedAnnotationClass();
     /** {@return the name of the generator class} */
     String generatorClass();
-    /** {@return the date of the generation, or null} */
-    @Nullable
-    String generatedDate();
+    /** {@return the optional date of the generation} */
+    Optional<String> generatedDate();
 
     /** {@return true if the generation timestamp should be hidden, otherwise false} */
     default boolean hideGenerationTimestamp() {
-        return generatedDate() == null;
+        return generatedDate().isEmpty();
     }
 
     /** {@return the date format used by the LocalDate serializer, or null} */

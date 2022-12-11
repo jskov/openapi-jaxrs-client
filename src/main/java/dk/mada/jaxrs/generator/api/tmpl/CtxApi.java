@@ -72,16 +72,15 @@ public interface CtxApi {
     String generatedAnnotationClass();
     /** {@return the name of the generator} */
     String generatorClass();
-    /** {@return the generation date, or null} */
-    @Nullable
-    String generatedDate();
+    /** {@return the optional generation date} */
+    Optional<String> generatedDate();
 
     /** {@return the common REST path for all operations in this API class} */
     String commonPath();
 
     /** {@return true if the generation timestamp should be hidden, otherwise false} */
     default boolean hideGenerationTimestamp() {
-        return generatedDate() == null;
+        return generatedDate().isEmpty();
     }
 
     /** {@return additional custom template data for the api} */

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Stream;
 
@@ -139,13 +140,13 @@ public final class GeneratorOpts {
 
     /** {@return true if json serializer options should be used} */
     public boolean isUseJsonSerializeOptions() {
-        return getJsonSerializeOptions() != null;
+        return getJsonSerializeOptions().isPresent();
     }
 
-    /** {@return json serialize options} */
-    public String getJsonSerializeOptions() {
+    /** {@return optional json serialize options} */
+    public Optional<String> getJsonSerializeOptions() {
         if (!isJackson()) {
-            return null;
+            return Optional.empty();
         }
         return get("generator-jackson-json-serialize-options");
     }
@@ -243,9 +244,8 @@ public final class GeneratorOpts {
         return getDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
     }
 
-    /** {@return the MP client config config key, or null} */
-    @Nullable
-    public String getMpClientConfigKey() {
+    /** {@return the optional MP client config key} */
+    public Optional<String> getMpClientConfigKey() {
         return get("generator-mp-api-register-rest-client");
     }
 
@@ -272,8 +272,8 @@ public final class GeneratorOpts {
      * @return mapping of types names to external type imports
      **/
     public Map<String, UserMappedImport> getExternalTypeMapping() {
-        String s = get("generator-map-external-types");
-        if (s == null || s.isBlank()) {
+        String s = get("generator-map-external-types").orElse("");
+        if (s.isBlank()) {
             return Map.of();
         }
 
@@ -362,11 +362,11 @@ public final class GeneratorOpts {
     }
 
     /** {@return the time the generation happened if enabled, or null} */
-    public String getGeneratedAtTime() {
+    public Optional<String> getGeneratedAtTime() {
         if (isShowGenerationTimestamp()) {
-            return generatedAtTime;
+            return Optional.of(generatedAtTime);
         }
-        return null;
+        return Optional.empty();
     }
 
     private boolean isShowGenerationTimestamp() {
@@ -401,8 +401,8 @@ public final class GeneratorOpts {
         return bool("generator-use-api-wrapped-primitives", false);
     }
 
-    /** {@return the default Api resource name none specified via groups} */
-    public String getDefaultApiName() {
+    /** {@return the default Api resource name} */
+    public Optional<String> getDefaultApiName() {
         return get("generator-api-default-name");
     }
 
@@ -428,7 +428,9 @@ public final class GeneratorOpts {
     }
 
     private boolean bool(String name) {
-        return Boolean.parseBoolean(get(name));
+        return get(name)
+            .map(Boolean::parseBoolean)
+            .orElse(false);
     }
 
     private boolean bool(String name, boolean defaultValue) {
@@ -452,13 +454,9 @@ public final class GeneratorOpts {
         return value.trim();
     }
 
-    @Nullable
-    private String get(String name) {
-        String value = options.getProperty(name);
-        if (value == null) {
-            return null;
-        }
-        return value.trim();
+    private Optional<String> get(String name) {
+        return Optional.ofNullable(options.getProperty(name))
+                   .map(String::trim);
     }
 
     /**

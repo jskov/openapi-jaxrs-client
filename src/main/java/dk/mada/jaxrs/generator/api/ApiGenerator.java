@@ -114,10 +114,10 @@ public class ApiGenerator {
     }
 
     private String makeClassName(String groupInput) {
-        String defaultApiName = opts.getDefaultApiName();
-
+        String defaultApiName = opts.getDefaultApiName().orElse(groupInput);
+        
         String group = groupInput;
-        if (defaultApiName != null && "Default".equals(groupInput)) {
+        if ("Default".equals(groupInput)) {
             group = defaultApiName;
         }
         String input = group.endsWith("Api") ? group : group + "Api";
@@ -138,8 +138,8 @@ public class ApiGenerator {
 
         imports.trimContainerImplementations();
 
-        String clientKey = opts.getMpClientConfigKey();
-        if (clientKey != null) {
+        Optional<String> clientKey = opts.getMpClientConfigKey();
+        if (clientKey.isPresent()) {
             imports.add(MicroProfile.REGISTER_REST_CLIENT);
         }
 

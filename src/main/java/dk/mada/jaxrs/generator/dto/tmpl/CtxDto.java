@@ -87,13 +87,12 @@ public interface CtxDto {
     String generatedAnnotationClass();
     /** {@return the name of the generator class} */
     String generatorClass();
-    /** {@return the date of the generation, or null} */
-    @Nullable
-    String generatedDate();
+    /** {@return the optional date of the generation} */
+    Optional<String> generatedDate();
 
     /** {@return true if the generation timestamp should be hidden, otherwise false} */
     default boolean hideGenerationTimestamp() {
-        return generatedDate() == null;
+        return generatedDate().isEmpty();
     }
 
     /** {@return discriminator for sub-class selection, or null} */
