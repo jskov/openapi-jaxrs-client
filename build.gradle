@@ -33,13 +33,13 @@ dependencies {
     implementation      'info.picocli:picocli:4.7.0'
     implementation      'io.swagger.parser.v3:swagger-parser:2.1.9'
 
-    annotationProcessor 'org.immutables:value:2.9.3'
-    aptValue            'org.immutables:value:2.9.2'
-    compileOnly         'org.immutables:value:2.9.2:annotations'
+    annotationProcessor "org.immutables:value:${immutablesVersion}"
+    aptValue            "org.immutables:value:${immutablesVersion}"
+    compileOnly         "org.immutables:value:${immutablesVersion}:annotations"
 
-    implementation      'io.jstach:jstachio:0.8.1'
-    aptStach            'io.jstach:jstachio-apt:0.8.1'
-    annotationProcessor 'io.jstach:jstachio-apt:0.8.1'
+    implementation      "io.jstach:jstachio:${jstachioVersion}"
+    aptStach            "io.jstach:jstachio-apt:${jstachioVersion}"
+    annotationProcessor "io.jstach:jstachio-apt:${jstachioVersion}"
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.6'
 
