@@ -43,7 +43,7 @@ dependencies {
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.5'
 
-    implementation      'org.jspecify:jspecify:0.3.0-alpha-3'
+    implementation      'org.jspecify:jspecify:0.3.0'
     annotationProcessor 'com.uber.nullaway:nullaway:0.10.5'
 
     errorprone          "com.google.errorprone:error_prone_core:$errorproneVersion"
