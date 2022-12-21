@@ -276,7 +276,12 @@ encoding/<project>=UTF-8
     }
 }
 
-tasks.eclipse.dependsOn("prepCodeGen")
+tasks.eclipse {
+    dependsOn("prepCodeGen")
+    doLast {
+        mkdir "build/e2e"
+    }
+}
 
 // When working on templates, eclipse will only run the annotation
 // processor, if the @JStache classes are changed.

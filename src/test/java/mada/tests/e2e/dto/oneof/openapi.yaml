@@ -1,0 +1,402 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /getDefault:
+    get:
+      operationId: getDefault
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    Task:
+      required:
+        - assignee
+        - completed
+        - roomId
+      properties:
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/TaskAssignee'
+            - enum:
+                - ADVISOR
+                - CUSTOMER
+              description: The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
+              nullable: false
+        completed:
+          description: Whether the task has been completed. Events will be propagated in the case of completion.
+          nullable: false
+          type: boolean
+        deadlineDate:
+          description: The date of deadline until the task must be completed by the assignee.
+          format: date
+          nullable: true
+          type: string
+        functionality:
+          allOf:
+            - $ref: '#/components/schemas/TaskFunctionality'
+            - readOnly: true
+        roomId:
+          description: UUID of the room this task exists in.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          nullable: false
+          readOnly: true
+          type: string
+        taskId:
+          description: UUID of this task.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          readOnly: true
+          type: string
+      oneOf:
+        - $ref: '#/components/schemas/AnswerAndSubmitPurposeAndScopeTask'
+        - $ref: '#/components/schemas/AttachFileToDocumentTask'
+        - $ref: '#/components/schemas/QualifyOrClosePurposeAndScopeTask'
+        - $ref: '#/components/schemas/SignStatementOfTruthTask'
+        - $ref: '#/components/schemas/QualifyDocumentTask'
+        - $ref: '#/components/schemas/TaxInfoTask'
+      description: Derived from various functionalities, a Customer Room contains a set of tasks used for guiding the bank and customer through necessary data collection.
+      discriminator:
+        mapping:
+          ANSWER_AND_SUBMIT_PURPOSE_AND_SCOPE: '#/components/schemas/AnswerAndSubmitPurposeAndScopeTask'
+          ATTACH_FILE_TO_DOCUMENT: '#/components/schemas/AttachFileToDocumentTask'
+          QUALIFY_OR_CLOSE_PURPOSE_AND_SCOPE: '#/components/schemas/QualifyOrClosePurposeAndScopeTask'
+          SIGN_STATEMENT_OF_TRUTH: '#/components/schemas/SignStatementOfTruthTask'
+          QUALIFY_DOCUMENT: '#/components/schemas/QualifyDocumentTask'
+          TAX_INFO: '#/components/schemas/TaxInfoTask'
+        propertyName: type
+      nullable: true
+      type: object
+    AnswerAndSubmitPurposeAndScopeTask:
+      required:
+        - type
+        - assignee
+        - completed
+        - roomId
+      properties:
+        type:
+          enum:
+            - ANSWER_AND_SUBMIT_PURPOSE_AND_SCOPE
+          nullable: false
+          type: string
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/TaskAssignee'
+            - enum:
+                - ADVISOR
+                - CUSTOMER
+              description: The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
+              nullable: false
+        completed:
+          description: Whether the task has been completed. Events will be propagated in the case of completion.
+          nullable: false
+          type: boolean
+        deadlineDate:
+          description: The date of deadline until the task must be completed by the assignee.
+          format: date
+          nullable: true
+          type: string
+        functionality:
+          allOf:
+            - $ref: '#/components/schemas/TaskFunctionality'
+            - readOnly: true
+        roomId:
+          description: UUID of the room this task exists in.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          nullable: false
+          readOnly: true
+          type: string
+        taskId:
+          description: UUID of this task.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          readOnly: true
+          type: string
+      description: A task that will exist if the room has the Purpose and Scope extension and a selected Purpose and Scope which is visible to the customer. Will be completed when the Purpose and Scope state is set to anything else than PENDING_ANSWER. The assignee will always be CUSTOMER. The deadlineDate is calculated from the deadlineDate of the Purpose and Scope. The functionality is PURPOSE_AND_SCOPE.
+      type: object
+    TaskAssignee:
+      enum:
+        - ADVISOR
+        - CUSTOMER
+      description: The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
+      type: string
+    TaskFunctionality:
+      enum:
+        - DOCUMENTS
+        - PURPOSE_AND_SCOPE
+        - STATEMENT_OF_TRUTH
+        - TAX_INFO
+      description: The functionality the task belongs to.
+      type: string
+    AttachFileToDocumentTask:
+      required:
+        - type
+        - assignee
+        - completed
+        - roomId
+      properties:
+        type:
+          enum:
+            - ATTACH_FILE_TO_DOCUMENT
+          nullable: false
+          type: string
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/TaskAssignee'
+            - enum:
+                - ADVISOR
+                - CUSTOMER
+              description: The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
+              nullable: false
+        completed:
+          description: Whether the task has been completed. Events will be propagated in the case of completion.
+          nullable: false
+          type: boolean
+        deadlineDate:
+          description: The date of deadline until the task must be completed by the assignee.
+          format: date
+          nullable: true
+          type: string
+        functionality:
+          allOf:
+            - $ref: '#/components/schemas/TaskFunctionality'
+            - readOnly: true
+        roomId:
+          description: UUID of the room this task exists in.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          nullable: false
+          readOnly: true
+          type: string
+        taskId:
+          description: UUID of this task.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          readOnly: true
+          type: string
+        documentId:
+          description: UUID of the document where one must attach the file to.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          type: string
+      description: A task that will exist for every document which is not supplementary and does not have a file attached. Will be completed when a contact attaches a file to the document. The assignee will always be CUSTOMER, and the deadlineDate is derived from the document itself. The functionality is DOCUMENTS.
+      type: object
+    QualifyOrClosePurposeAndScopeTask:
+      required:
+        - type
+        - assignee
+        - completed
+        - roomId
+      properties:
+        type:
+          enum:
+            - QUALIFY_OR_CLOSE_PURPOSE_AND_SCOPE
+          nullable: false
+          type: string
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/TaskAssignee'
+            - enum:
+                - ADVISOR
+                - CUSTOMER
+              description: The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
+              nullable: false
+        completed:
+          description: Whether the task has been completed. Events will be propagated in the case of completion.
+          nullable: false
+          type: boolean
+        deadlineDate:
+          description: The date of deadline until the task must be completed by the assignee.
+          format: date
+          nullable: true
+          type: string
+        functionality:
+          allOf:
+            - $ref: '#/components/schemas/TaskFunctionality'
+            - readOnly: true
+        roomId:
+          description: UUID of the room this task exists in.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          nullable: false
+          readOnly: true
+          type: string
+        taskId:
+          description: UUID of this task.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          readOnly: true
+          type: string
+      description: A task that will exist if the room has the Purpose and Scope extension and a selected Purpose and Scope. Will be completed when the Purpose and Scope state is set to CLOSED or QUALIFIED. The assignee will always be ADVISOR, deadlineDate is not a part of the ADVISOR tasks yet and will be null always. The functionality is PURPOSE_AND_SCOPE.
+      type: object
+    SignStatementOfTruthTask:
+      required:
+        - type
+        - assignee
+        - completed
+        - roomId
+      properties:
+        type:
+          enum:
+            - SIGN_STATEMENT_OF_TRUTH
+          nullable: false
+          type: string
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/TaskAssignee'
+            - enum:
+                - ADVISOR
+                - CUSTOMER
+              description: The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
+              nullable: false
+        completed:
+          description: Whether the task has been completed. Events will be propagated in the case of completion.
+          nullable: false
+          type: boolean
+        deadlineDate:
+          description: The date of deadline until the task must be completed by the assignee.
+          format: date
+          nullable: true
+          type: string
+        functionality:
+          allOf:
+            - $ref: '#/components/schemas/TaskFunctionality'
+            - readOnly: true
+        roomId:
+          description: UUID of the room this task exists in.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          nullable: false
+          readOnly: true
+          type: string
+        taskId:
+          description: UUID of this task.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          readOnly: true
+          type: string
+      description: A task that will exist if the room has the Statement of Truth extension and Statement of Truth exists on the room. Will be completed when a contact has signed Statement of Truth.The assignee will always be CUSTOMER, deadlineDate is set to the deadlineDate of the Statement of Truth. The functionality is STATEMENT_OF_TRUTH.
+      type: object
+    QualifyDocumentTask:
+      required:
+        - type
+        - assignee
+        - completed
+        - roomId
+        - documentId
+      properties:
+        type:
+          enum:
+            - QUALIFY_DOCUMENT
+          nullable: false
+          type: string
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/TaskAssignee'
+            - enum:
+                - ADVISOR
+                - CUSTOMER
+              description: The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
+              nullable: false
+        completed:
+          description: Whether the task has been completed. Events will be propagated in the case of completion.
+          nullable: false
+          type: boolean
+        deadlineDate:
+          description: The date of deadline until the task must be completed by the assignee.
+          format: date
+          nullable: true
+          type: string
+        functionality:
+          allOf:
+            - $ref: '#/components/schemas/TaskFunctionality'
+            - readOnly: true
+        roomId:
+          description: UUID of the room this task exists in.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          nullable: false
+          readOnly: true
+          type: string
+        taskId:
+          description: UUID of this task.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          readOnly: true
+          type: string
+        documentId:
+          description: UUID of the document which must be qualified.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          nullable: false
+          type: string
+      description: A task that will exist for every document which is not yet qualified. Will be completed when the bank qualifies the document. The assignee will always be ADVISOR.The task does not have yet have opportunities for a deadlineDate. The functionality is DOCUMENTS.
+      type: object
+    TaxInfoTask:
+      required:
+        - assignee
+        - completed
+        - roomId
+        - type
+      properties:
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/TaskAssignee'
+            - enum:
+                - ADVISOR
+                - CUSTOMER
+              description: The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
+              nullable: false
+        completed:
+          description: Whether the task has been completed. Events will be propagated in the case of completion.
+          nullable: false
+          type: boolean
+        deadlineDate:
+          description: The date of deadline until the task must be completed by the assignee.
+          format: date
+          nullable: true
+          type: string
+        functionality:
+          allOf:
+            - $ref: '#/components/schemas/TaskFunctionality'
+            - readOnly: true
+        roomId:
+          description: UUID of the room this task exists in.
+          example: c1685198-7fb2-4322-ac57-d30a15bf5287
+          format: uuid
+          nullable: false
+          readOnly: true
+          type: string
+        taskId:
+          description: The id of the task
+          readOnly: true
+          type: string
+        type:
+          enum:
+            - TAX_INFO
+          nullable: false
+          type: string
+      description: A task that can be added to a Room by an external process. The state of the Task is maintained entirely by the external process. A Room with incomplete TaxInfoTasks cannot be closed.
+      type: object
