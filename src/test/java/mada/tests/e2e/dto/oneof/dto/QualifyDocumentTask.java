@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -36,7 +37,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @Schema(description = "A task that will exist for every document which is not yet qualified. Will be completed when the bank qualifies the document. The assignee will always be ADVISOR.The task does not have yet have opportunities for a deadlineDate. The functionality is DOCUMENTS.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class QualifyDocumentTask {
+public class QualifyDocumentTask implements Serializable {
   public static final String JSON_PROPERTY_ASSIGNEE = "assignee";
   @JsonProperty(JSON_PROPERTY_ASSIGNEE)
   @Schema(required = true)

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -35,7 +36,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @Schema(description = "A task that will exist if the room has the Purpose and Scope extension and a selected Purpose and Scope. Will be completed when the Purpose and Scope state is set to CLOSED or QUALIFIED. The assignee will always be ADVISOR, deadlineDate is not a part of the ADVISOR tasks yet and will be null always. The functionality is PURPOSE_AND_SCOPE.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class QualifyOrClosePurposeAndScopeTask {
+public class QualifyOrClosePurposeAndScopeTask implements Serializable {
   public static final String JSON_PROPERTY_ASSIGNEE = "assignee";
   @JsonProperty(JSON_PROPERTY_ASSIGNEE)
   @Schema(required = true)
