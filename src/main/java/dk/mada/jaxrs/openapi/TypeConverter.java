@@ -234,6 +234,18 @@ public final class TypeConverter {
                     return parserRefs.of(allOfRefs.get(0), validation);
                 }
             }
+            
+            Discriminator discriminator = cs.getDiscriminator();
+            if (discriminator != null) {
+            	String discPropName = discriminator.getPropertyName();
+            	logger.info(" discriminator on {}", discPropName);
+            	Map<String, String> mapping = discriminator.getMapping();
+            	logger.info(" mapping {}", mapping);
+            	
+            	logger.info("   for propName:{} parentName:{}", propertyName, parentDtoName);
+
+                return parserRefs.of(Primitive.STRING, validation);
+            }
 
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
