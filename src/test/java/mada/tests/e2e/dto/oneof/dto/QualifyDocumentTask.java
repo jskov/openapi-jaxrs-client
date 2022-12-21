@@ -8,15 +8,15 @@
 
 package mada.tests.e2e.dto.oneof.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -24,7 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * A task that will exist for every document which is not yet qualified. Will be completed when the bank qualifies the document. The assignee will always be ADVISOR.The task does not have yet have opportunities for a deadlineDate. The functionality is DOCUMENTS.
  */
-@JsonbPropertyOrder({
+@JsonPropertyOrder({
   QualifyDocumentTask.JSON_PROPERTY_TYPE,
   QualifyDocumentTask.JSON_PROPERTY_ASSIGNEE,
   QualifyDocumentTask.JSON_PROPERTY_COMPLETED,
@@ -38,36 +38,38 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class QualifyDocumentTask {
   public static final String JSON_PROPERTY_ASSIGNEE = "assignee";
-  @JsonbProperty(JSON_PROPERTY_ASSIGNEE)
+  @JsonProperty(JSON_PROPERTY_ASSIGNEE)
   @Schema(required = true)
   private TaskAssignee assignee;
 
   public static final String JSON_PROPERTY_COMPLETED = "completed";
-  @JsonbProperty(JSON_PROPERTY_COMPLETED)
+  @JsonProperty(JSON_PROPERTY_COMPLETED)
   @Schema(required = true, description = "Whether the task has been completed. Events will be propagated in the case of completion.")
   private Boolean completed;
 
   public static final String JSON_PROPERTY_DEADLINE_DATE = "deadlineDate";
-  @JsonbProperty(JSON_PROPERTY_DEADLINE_DATE)
+  @JsonProperty(JSON_PROPERTY_DEADLINE_DATE)
+  @JsonDeserialize(using = mada.tests.e2e.dto.oneof.KunderumLocalDateDeserializer.class)
+  @JsonSerialize(using = mada.tests.e2e.dto.oneof.KunderumLocalDateSerializer.class)
   @Schema(nullable = true, description = "The date of deadline until the task must be completed by the assignee.")
   private LocalDate deadlineDate;
 
   public static final String JSON_PROPERTY_DOCUMENT_ID = "documentId";
-  @JsonbProperty(JSON_PROPERTY_DOCUMENT_ID)
+  @JsonProperty(JSON_PROPERTY_DOCUMENT_ID)
   @Schema(required = true, description = "UUID of the document which must be qualified.", example = "c1685198-7fb2-4322-ac57-d30a15bf5287")
   private UUID documentId;
 
   public static final String JSON_PROPERTY_FUNCTIONALITY = "functionality";
-  @JsonbProperty(JSON_PROPERTY_FUNCTIONALITY)
+  @JsonProperty(JSON_PROPERTY_FUNCTIONALITY)
   private TaskFunctionality functionality;
 
   public static final String JSON_PROPERTY_ROOM_ID = "roomId";
-  @JsonbProperty(JSON_PROPERTY_ROOM_ID)
+  @JsonProperty(JSON_PROPERTY_ROOM_ID)
   @Schema(required = true, readOnly = true, description = "UUID of the room this task exists in.", example = "c1685198-7fb2-4322-ac57-d30a15bf5287")
   private UUID roomId;
 
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  @JsonbProperty(JSON_PROPERTY_TASK_ID)
+  @JsonProperty(JSON_PROPERTY_TASK_ID)
   @Schema(readOnly = true, description = "UUID of this task.", example = "c1685198-7fb2-4322-ac57-d30a15bf5287")
   private UUID taskId;
 
@@ -80,6 +82,7 @@ public class QualifyDocumentTask {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -89,27 +92,19 @@ public class QualifyDocumentTask {
       return String.valueOf(value);
     }
 
-    public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(TypeEnum e) throws Exception {
-        return Json.createValue(String.valueOf(e.value));
-      }
-
-      @Override
-      public TypeEnum adaptFromJson(JsonString value) throws Exception {
-        for (TypeEnum b : TypeEnum.values()) {
-          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-            return b;
-          }
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (Objects.equals(b.value, value)) {
+          return b;
         }
-        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
       }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @JsonbProperty(JSON_PROPERTY_TYPE)
-  @JsonbTypeAdapter(mada.tests.e2e.dto.oneof.dto.QualifyDocumentTask.TypeEnum.TypeEnumAdapter.class)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @Schema(required = true)
   private TypeEnum type;
 

@@ -8,16 +8,14 @@
 
 package mada.tests.e2e.dto.oneof.dto;
 
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.
  */
-@JsonbTypeAdapter(mada.tests.e2e.dto.oneof.dto.TaskAssignee.TaskAssigneeAdapter.class)
 @Schema(description = "The assignee of a task. If the assignee is ADVISOR, the task is intended for any employee within the bank. If the assignee is CUSTOMER, the task is intended for any contact person in the room on behalf of the customer.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum TaskAssignee {
@@ -30,6 +28,7 @@ public enum TaskAssignee {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -39,20 +38,13 @@ public enum TaskAssignee {
     return String.valueOf(value);
   }
 
-  public static class TaskAssigneeAdapter implements JsonbAdapter<TaskAssignee, JsonString> {
-      @Override
-      public JsonString adaptToJson(TaskAssignee e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
+  @JsonCreator
+  public static TaskAssignee fromValue(String value) {
+    for (TaskAssignee b : TaskAssignee.values()) {
+      if (Objects.equals(b.value, value)) {
+        return b;
       }
-
-      @Override
-      public TaskAssignee adaptFromJson(JsonString value) throws Exception {
-          for (TaskAssignee b : TaskAssignee.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TaskAssignee");
-      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }

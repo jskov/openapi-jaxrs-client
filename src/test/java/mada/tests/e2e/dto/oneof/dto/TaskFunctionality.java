@@ -8,16 +8,14 @@
 
 package mada.tests.e2e.dto.oneof.dto;
 
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * The functionality the task belongs to.
  */
-@JsonbTypeAdapter(mada.tests.e2e.dto.oneof.dto.TaskFunctionality.TaskFunctionalityAdapter.class)
 @Schema(description = "The functionality the task belongs to.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum TaskFunctionality {
@@ -32,6 +30,7 @@ public enum TaskFunctionality {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -41,20 +40,13 @@ public enum TaskFunctionality {
     return String.valueOf(value);
   }
 
-  public static class TaskFunctionalityAdapter implements JsonbAdapter<TaskFunctionality, JsonString> {
-      @Override
-      public JsonString adaptToJson(TaskFunctionality e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
+  @JsonCreator
+  public static TaskFunctionality fromValue(String value) {
+    for (TaskFunctionality b : TaskFunctionality.values()) {
+      if (Objects.equals(b.value, value)) {
+        return b;
       }
-
-      @Override
-      public TaskFunctionality adaptFromJson(JsonString value) throws Exception {
-          for (TaskFunctionality b : TaskFunctionality.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TaskFunctionality");
-      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
