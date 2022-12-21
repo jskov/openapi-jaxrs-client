@@ -244,7 +244,7 @@ public final class TypeConverter {
             	
             	logger.info("   for propName:{} parentName:{}", propertyName, parentDtoName);
 
-                return parserRefs.of(Primitive.STRING, validation);
+                return parserRefs.of(TypeObject.get(), validation);
             }
 
             // allOf is the combination of schemas (subclassing and/or validation)
