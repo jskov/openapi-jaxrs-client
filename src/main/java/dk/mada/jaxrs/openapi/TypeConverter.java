@@ -244,7 +244,24 @@ public final class TypeConverter {
             	
             	logger.info("   for propName:{} parentName:{}", propertyName, parentDtoName);
 
-                return parserRefs.of(TypeObject.get(), validation);
+            	
+//                List<ParserTypeRef> discriminatorRefs = mapping.values().stream()
+//	                .map(this::toReference)
+//	                .distinct() // remove duplicates
+//	                .toList();
+            	List<ParserTypeRef> discriminatorRefs = List.of();
+            	
+                String interfaceName = schema.getName();
+                if (interfaceName == null) {
+                	throw new IllegalStateException("Cannot handle in-property discriminator mapping");
+                }
+
+                TypeName tn = typeNames.of(interfaceName);
+
+                logger.debug(" interface {} : {}", tn, discriminatorRefs);
+
+                TypeInterface ti = parserTypes.getOrMakeInterface(tn, discriminatorRefs);
+                return parserRefs.of(ti, validation);
             }
 
             // allOf is the combination of schemas (subclassing and/or validation)
