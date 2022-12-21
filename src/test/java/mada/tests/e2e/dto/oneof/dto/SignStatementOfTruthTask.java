@@ -36,7 +36,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @Schema(description = "A task that will exist if the room has the Statement of Truth extension and Statement of Truth exists on the room. Will be completed when a contact has signed Statement of Truth.The assignee will always be CUSTOMER, deadlineDate is set to the deadlineDate of the Statement of Truth. The functionality is STATEMENT_OF_TRUTH.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SignStatementOfTruthTask implements Serializable {
+public class SignStatementOfTruthTask implements Serializable, Task {
   public static final String JSON_PROPERTY_ASSIGNEE = "assignee";
   @JsonProperty(JSON_PROPERTY_ASSIGNEE)
   @Schema(required = true)

@@ -37,7 +37,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @Schema(description = "A task that will exist for every document which is not supplementary and does not have a file attached. Will be completed when a contact attaches a file to the document. The assignee will always be CUSTOMER, and the deadlineDate is derived from the document itself. The functionality is DOCUMENTS.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class AttachFileToDocumentTask implements Serializable {
+public class AttachFileToDocumentTask implements Serializable, Task {
   public static final String JSON_PROPERTY_ASSIGNEE = "assignee";
   @JsonProperty(JSON_PROPERTY_ASSIGNEE)
   @Schema(required = true)

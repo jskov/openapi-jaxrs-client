@@ -245,15 +245,14 @@ public final class TypeConverter {
             	logger.info("   for propName:{} parentName:{}", propertyName, parentDtoName);
 
             	
-//                List<ParserTypeRef> discriminatorRefs = mapping.values().stream()
-//	                .map(this::toReference)
-//	                .distinct() // remove duplicates
-//	                .toList();
-            	List<ParserTypeRef> discriminatorRefs = List.of();
+                List<ParserTypeRef> discriminatorRefs = mapping.values().stream()
+                		.map(compRef -> findDto(compRef, Validation.NO_VALIDATION))
+		                .distinct() // remove duplicates
+		                .toList();
             	
-                String interfaceName = schema.getName();
+                String interfaceName = parentDtoName;
                 if (interfaceName == null) {
-                	throw new IllegalStateException("Cannot handle in-property discriminator mapping");
+                	throw new IllegalStateException("Cannot handle discriminator mapping for unknown parent DTO");
                 }
 
                 TypeName tn = typeNames.of(interfaceName);
@@ -426,7 +425,8 @@ public final class TypeConverter {
         // that needs name-conflict-resolution.
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
-        ParserTypeRef dtoType = toReference(schema);
+        logger.info("creating dto {}", dtoName);
+        ParserTypeRef dtoType = reference(schema, null, dtoName);
 
         List<Property> props = readProperties(schema, modelName);
 

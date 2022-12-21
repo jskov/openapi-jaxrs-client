@@ -36,7 +36,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 })
 @Schema(description = "A task that can be added to a Room by an external process. The state of the Task is maintained entirely by the external process. A Room with incomplete TaxInfoTasks cannot be closed.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class TaxInfoTask implements Serializable {
+public class TaxInfoTask implements Serializable, Task {
   public static final String JSON_PROPERTY_ASSIGNEE = "assignee";
   @JsonProperty(JSON_PROPERTY_ASSIGNEE)
   @Schema(required = true)
