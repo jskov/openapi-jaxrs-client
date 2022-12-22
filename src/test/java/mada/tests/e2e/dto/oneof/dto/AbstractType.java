@@ -34,7 +34,7 @@ import javax.validation.Valid;
   @JsonSubTypes.Type(value = TypeFoo.class, name = "FOO"),
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class AbstractType {
+public abstract class AbstractType {
   public static final String JSON_PROPERTY_VALUE_ENUM = "valueEnum";
   @JsonProperty(JSON_PROPERTY_VALUE_ENUM)
   private OtherEnum valueEnum;
