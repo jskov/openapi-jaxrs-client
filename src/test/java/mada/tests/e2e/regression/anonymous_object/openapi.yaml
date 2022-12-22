@@ -1,0 +1,81 @@
+---
+openapi: 3.0.1
+info:
+  title: Test
+  version: 1.0.0
+security:
+- JWT: []
+tags:
+- name: Tag
+paths:
+  /add:
+    post:
+      tags:
+      - Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageSentEvent'
+      responses:
+        "200":
+          description: Success
+components:
+  schemas:
+    MessageSentEvent:
+      required:
+        - type
+        - roomId
+        - messageId
+        - senderType
+        - sentAt
+      properties:
+        type:
+          enum:
+            - MESSAGE_SENT
+          nullable: false
+          type: string
+        bankNumber:
+          description: The bank which the event occurred in.
+          example: '51'
+          format: int32
+          readOnly: true
+          type: integer
+        correlationId:
+          description: Correlation id of the original action which has led to this event.
+          example: 5c812d49-0d13-44fa-8b9f-97765fc5e1ff
+          type: string
+        id:
+          description: Auto-generated id of this event.
+          example: 5c812d49-0d13-44fa-8b9f-97765fc5e1ff
+          readOnly: true
+          type: string
+        occurredAt:
+          description: Time the event was logged determined from the application initiating logging of the event.
+          format: date-time
+          type: string
+        roomId:
+          description: The id of the room which the event occurred in.
+          example: 5c812d49-0d13-44fa-8b9f-97765fc5e1ff
+          nullable: false
+          type: string
+        sub:
+          description: Subject claim on the token which was used to perform the action that led to this event.
+          type: string
+        messageId:
+          description: The UUID of the message.
+          nullable: false
+          type: string
+        sentAt:
+          description: The timestamp for when the message was sent.
+          nullable: false
+          type: object
+      type: object
+    MessageV2:
+      properties:
+        sentAt:
+          description: Time the message was sent. Automatically generated at POST.
+          format: date-time
+          readOnly: true
+          type: string
+      type: object
