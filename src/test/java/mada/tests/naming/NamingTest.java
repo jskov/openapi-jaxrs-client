@@ -17,6 +17,17 @@ class NamingTest {
 
     @ParameterizedTest
     @CsvSource({
+        "Purpose & Scope, PurposeScopeApi",
+        "Foo Bar,         FooBarApi"
+    })
+    void canRenameApis(String input, String expected) {
+        Naming sut = makeSut("REGEXP/[ &]/-/; TYPENAME; REGEXP/Api$//; APPEND/Api/");
+        assertThat(sut.convertTypeName(input))
+            .isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "Danske tegn dør, DanskeTegnDr",
         "Brand new api, BrandNewApi"
     })

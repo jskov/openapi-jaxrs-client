@@ -448,6 +448,15 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >
     default value: false
 
+**naming-rules-api**
+
+>Allows you to control the naming of API classes using the operators described above.
+
+>The API group (or `generator-api-default-name` default) value is given as input.
+
+>
+    default value: TYPENAME; REGEXP/Api$//; APPEND/Api/
+
 **naming-rules-enum-constant**
 
 >Allows you to control the naming of enumeration constants using the operators described above.

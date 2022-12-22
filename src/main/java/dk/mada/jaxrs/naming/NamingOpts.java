@@ -8,6 +8,8 @@ import java.util.Properties;
  * These can be overridden via options provided by the user.
  */
 public class NamingOpts {
+    /** Naming configuration for APIs. */
+    private final String apiNamingConfig;
     /** Naming configuration for types. */
     private final String typeNamingConfig;
     /** Naming configuration for MP Schema name. */
@@ -60,6 +62,7 @@ public class NamingOpts {
      * @param options the options provided by the user
      */
     public NamingOpts(Properties options) {
+        apiNamingConfig = getDefault(options, "naming-rules-api", "TYPENAME; REGEXP/Api$//; APPEND/Api/");
         typeNamingConfig = getDefault(options, "naming-rules-type", "TYPENAME");
         mpSchemaNamingConfig = getDefault(options, "naming-rules-mp-schema", "TYPENAME");
         typeConflictRenamingConfig = getDefault(options, "naming-rules-type-conflict-renaming", "APPEND/X/");
@@ -117,6 +120,11 @@ public class NamingOpts {
     /** {@return the naming configuration for parameter names} */
     public String getParameterNaming() {
         return parameterNamingConfig;
+    }
+
+    /** {@return the naming configuration for api groups} */
+    public String getApiNaming() {
+        return apiNamingConfig;
     }
 
     /** {@return the naming configuration for types} */
