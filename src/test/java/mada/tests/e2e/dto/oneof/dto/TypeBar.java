@@ -8,18 +8,14 @@
 
 package mada.tests.e2e.dto.oneof.dto;
 
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Objects;
 
 /**
  * TypeBar
  */
 @JsonPropertyOrder({
-  TypeBar.JSON_PROPERTY_VALUE_ENUM,
-  TypeBar.JSON_PROPERTY_VALUE_INTEGER,
-  TypeBar.JSON_PROPERTY_VALUE_STRING,
   TypeBar.JSON_PROPERTY_VALUE_BAR_STRING
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
@@ -54,9 +50,8 @@ public class TypeBar extends AbstractType {
       return false;
     }
     TypeBar other = (TypeBar) o;
-    return super.equals(o) &&
-    		Objects.equals(this.valueBarString, other.valueBarString);
-    
+    return Objects.equals(this.valueBarString, other.valueBarString) &&
+        super.equals(o);
   }
 
   @Override
@@ -69,6 +64,7 @@ public class TypeBar extends AbstractType {
     StringBuilder sb = new StringBuilder();
     sb.append("class TypeBar {");
     sb.append("\n    ").append(toIndentedString(super.toString()));
+    sb.append("\n    valueBarString: ").append(toIndentedString(valueBarString));
     sb.append("\n}");
     return sb.toString();
   }
