@@ -123,8 +123,13 @@ public final class Resolver {
         		if (parent != null) {
         			logger.info(" {} -> {}", dto.name(), parent.name());
         			
+        			List<Property> localProperties = dto.properties().stream()
+        					.filter(dtoProperty -> !parent.properties().stream().anyMatch(parentProperty -> parentProperty.name().equals(dtoProperty.name())))
+        					.toList();
+        			
         			return Dto.builderFrom(dto)
         						.parent(parent)
+        						.properties(localProperties)
         						.build();
         			
         		}
