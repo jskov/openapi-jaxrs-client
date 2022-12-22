@@ -352,7 +352,7 @@ public class DtoGenerator {
                 .classname(dto.name())
                 .classVarName("other")
                 .datatypeWithEnum(null)
-                .parent(null)
+                .parent(dto.parent().map(Dto::name))
                 .isNullable(false)
                 .vendorExtensions(null)
 

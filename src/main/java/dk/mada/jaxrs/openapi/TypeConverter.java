@@ -244,7 +244,6 @@ public final class TypeConverter {
             	
             	logger.info("   for propName:{} parentName:{}", propertyName, parentDtoName);
 
-            	
                 List<ParserTypeRef> discriminatorRefs = mapping.values().stream()
                 		.map(compRef -> findDto(compRef, Validation.NO_VALIDATION))
 		                .distinct() // remove duplicates

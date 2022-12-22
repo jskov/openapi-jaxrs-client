@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
@@ -77,9 +78,62 @@ public final class Resolver {
         // targets for dereferencing during the resolve pass.
         Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
 
-        return renamedDtos.stream()
+        Collection<Dto> foldedDtos = foldInheritance(renamedDtos);
+        
+        return foldedDtos.stream()
                 .map(this::derefDto)
                 .toList();
+    }
+
+    /**
+     * Reconstructs the inheritance between DTOs as expressed
+     * by oneof-discriminator information.
+     *
+     * This removes fields from sub-classes that are also present
+     * in the super class. Without any form of validation though.
+     *
+     * @param dtos the DTOs containing discriminator information
+     * @return dtos with inheritance information
+     */
+    private List<Dto> foldInheritance(Collection<Dto> dtos) {
+        Map<TypeName, Dto> dtosWithSuper = new HashMap<>();
+        
+        for (Dto dto : dtos) {
+        	SubtypeSelector subtypes = dto.subtypeSelector();
+        	if (subtypes == null) {
+        		continue;
+        	}
+        	
+        	for (Reference r : subtypes.typeMapping().values()) {
+        		dtosWithSuper.put(r.typeName(), dto);
+        	}
+        }
+
+        List<String> names = dtos.stream()
+            	.map(d -> d.name())
+            	.sorted()
+            	.toList();
+
+        logger.info("See DTOs: {}", names);
+        logger.info("See Supers: {}", dtosWithSuper);
+
+        List<Dto> withInheritance = dtos.stream()
+        	.map(dto -> {
+        		Dto parent = dtosWithSuper.get(dto.typeName());
+        		if (parent != null) {
+        			logger.info(" {} -> {}", dto.name(), parent.name());
+        			
+        			return Dto.builderFrom(dto)
+        						.parent(parent)
+        						.build();
+        			
+        		}
+        		return dto;
+        	})
+        	.toList();
+        
+
+        return withInheritance;
     }
 
     private Dto derefDto(Dto dto) {

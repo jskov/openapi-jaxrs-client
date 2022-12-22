@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -73,4 +74,7 @@ public interface Dto extends Type {
     /** {@return a sub-type mapping, or null} */
     @Nullable
     SubtypeSelector subtypeSelector();
+
+    /** {@return the optional parent that this DTO extends} */
+    Optional<Dto> parent();
 }
