@@ -79,7 +79,7 @@ public final class Resolver {
         Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
 
         Collection<Dto> foldedDtos = foldInheritance(renamedDtos);
-        
+
         return dereferenceDtos(foldedDtos);
     }
 
@@ -103,7 +103,7 @@ public final class Resolver {
     private List<Dto> foldInheritance(Collection<Dto> dtos) {
         logger.debug("Look for DTO inheritance");
         Map<TypeName, Dto> dtosWithSuper = new HashMap<>();
-        
+
         for (Dto dto : dtos) {
             SubtypeSelector subtypes = dto.subtypeSelector();
             if (subtypes == null) {
@@ -134,7 +134,9 @@ public final class Resolver {
             return dto;
         }
 
-        logger.debug(" {} extends {}", dto.name(), parent.name());
+        String parentName = parent.name();
+        String dtoName = dto.name();
+        logger.debug(" {} extends {}", dtoName, parentName);
         List<Property> localProperties = dto.properties()
                 .stream()
                 .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))

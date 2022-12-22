@@ -300,12 +300,12 @@ public class DtoGenerator {
         }
 
         String implementsInterfaces = defineInterfaces(dto, dtoImports);
-        
+
         SubtypeSelector subtypeSelector = dto.subtypeSelector();
 
         String classModifiers = null;
         if (subtypeSelector != null) {
-        	classModifiers = "abstract ";
+            classModifiers = "abstract ";
         }
 
         CtxDtoDiscriminator discriminator = null;
