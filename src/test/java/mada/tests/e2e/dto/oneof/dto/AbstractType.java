@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.Objects;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * AbstractType
@@ -41,6 +43,7 @@ public abstract class AbstractType {
 
   public static final String JSON_PROPERTY_VALUE_INTEGER = "valueInteger";
   @JsonProperty(JSON_PROPERTY_VALUE_INTEGER)
+  @Schema(required = true)
   private Integer valueInteger;
 
   public static final String JSON_PROPERTY_VALUE_STRING = "valueString";
@@ -66,7 +69,7 @@ public abstract class AbstractType {
   }
 
   public AbstractType valueInteger(Integer valueInteger) {
-    this.valueInteger = valueInteger;
+    this.valueInteger = Objects.requireNonNull(valueInteger, "Property valueInteger is required, cannot be null");
     return this;
   }
 
@@ -74,12 +77,13 @@ public abstract class AbstractType {
    * Get valueInteger
    * @return valueInteger
    **/
+  @NotNull
   public Integer getValueInteger() {
     return valueInteger;
   }
 
   public void setValueInteger(Integer valueInteger) {
-    this.valueInteger = valueInteger;
+    this.valueInteger = Objects.requireNonNull(valueInteger, "Property valueInteger is required, cannot be null");
   }
 
   public AbstractType valueString(String valueString) {
