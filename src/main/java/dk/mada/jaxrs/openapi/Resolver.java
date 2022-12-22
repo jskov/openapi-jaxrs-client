@@ -80,6 +80,11 @@ public final class Resolver {
 
         Collection<Dto> foldedDtos = foldInheritance(renamedDtos);
         
+        return dereferenceDtos(foldedDtos);
+    }
+
+    private List<Dto> dereferenceDtos(Collection<Dto> foldedDtos) {
+        logger.debug("Dereference DTOs");
         return foldedDtos.stream()
                 .map(this::derefDto)
                 .toList();
@@ -96,49 +101,54 @@ public final class Resolver {
      * @return dtos with inheritance information
      */
     private List<Dto> foldInheritance(Collection<Dto> dtos) {
+        logger.debug("Look for DTO inheritance");
         Map<TypeName, Dto> dtosWithSuper = new HashMap<>();
         
         for (Dto dto : dtos) {
-        	SubtypeSelector subtypes = dto.subtypeSelector();
-        	if (subtypes == null) {
-        		continue;
-        	}
-        	
-        	for (Reference r : subtypes.typeMapping().values()) {
-        		dtosWithSuper.put(r.typeName(), dto);
-        	}
+            SubtypeSelector subtypes = dto.subtypeSelector();
+            if (subtypes == null) {
+                continue;
+            }
+
+            for (Reference r : subtypes.typeMapping().values()) {
+                dtosWithSuper.put(r.typeName(), dto);
+            }
         }
 
-        List<String> names = dtos.stream()
-            	.map(d -> d.name())
-            	.sorted()
-            	.toList();
+        return dtos.stream()
+                .map(dto -> adjustToParentExtension(dto, dtosWithSuper.get(dto.typeName())))
+                .toList();
+    }
 
-        logger.info("See DTOs: {}", names);
-        logger.info("See Supers: {}", dtosWithSuper);
+    /**
+     * Change DTO if it extends a parent.
+     *
+     * Make a link to the parent and remove inherited properties.
+     *
+     * @param dto the dto to change
+     * @param parent the parent dto, or null
+     * @return the updated dto
+     */
+    private Dto adjustToParentExtension(Dto dto, Dto parent) {
+        if (parent == null) {
+            return dto;
+        }
 
-        List<Dto> withInheritance = dtos.stream()
-        	.map(dto -> {
-        		Dto parent = dtosWithSuper.get(dto.typeName());
-        		if (parent != null) {
-        			logger.info(" {} -> {}", dto.name(), parent.name());
-        			
-        			List<Property> localProperties = dto.properties().stream()
-        					.filter(dtoProperty -> !parent.properties().stream().anyMatch(parentProperty -> parentProperty.name().equals(dtoProperty.name())))
-        					.toList();
-        			
-        			return Dto.builderFrom(dto)
-        						.parent(parent)
-        						.properties(localProperties)
-        						.build();
-        			
-        		}
-        		return dto;
-        	})
-        	.toList();
-        
+        logger.debug(" {} extends {}", dto.name(), parent.name());
+        List<Property> localProperties = dto.properties()
+                .stream()
+                .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))
+                .toList();
 
-        return withInheritance;
+        return Dto.builderFrom(dto)
+                .parent(parent)
+                .properties(localProperties)
+                .build();
+    }
+
+    private boolean isLocalToDto(Dto parent, String propertyName) {
+        return parent.properties().stream()
+                .noneMatch(prop -> propertyName.equals(prop.name()));
     }
 
     private Dto derefDto(Dto dto) {
