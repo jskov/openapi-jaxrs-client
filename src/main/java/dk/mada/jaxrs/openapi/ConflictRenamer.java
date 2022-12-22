@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
@@ -92,13 +93,8 @@ public final class ConflictRenamer {
      * @param dto pre-renamed DTO
      * @return same DTO instance, but renamed if required
      */
-    public Dto getConflictRenamedDto(Dto dto) {
+    public Type getConflictRenamedDto(Dto dto) {
         if (conflictRenamedDtos == null) {
-            return dto;
-        }
-        // This handles some breakage in the TypeConverter
-        // plain Object? Triggered by the primitives test.
-        if (dto.typeName().equals(TypeNames.OBJECT)) {
             return dto;
         }
         Dto renamedDto = conflictRenamedDtos.get(dto);
