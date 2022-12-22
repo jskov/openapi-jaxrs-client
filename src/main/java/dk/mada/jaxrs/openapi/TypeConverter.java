@@ -247,7 +247,7 @@ public final class TypeConverter {
                 // be supplementary discriminator information
                 return parserRefs.of(TypeObject.get(), validation);
             }
-            
+
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
             if (typeWithValidation != null) {
