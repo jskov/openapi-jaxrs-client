@@ -462,11 +462,16 @@ public class ApiGenerator {
             containerType = null;
         }
 
+        String description = r.description();
+        if (description == null) {
+            description = "";
+        }
+
         return CtxApiResponse.builder()
                 .baseType(baseType)
                 .code(r.code().asOpenApiStatus())
                 .containerType(containerType)
-                .description(r.description())
+                .description(description)
                 .isUnique(isUnique)
                 .build();
     }
