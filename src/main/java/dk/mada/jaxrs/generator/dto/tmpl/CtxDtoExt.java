@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -54,4 +55,7 @@ public interface CtxDtoExt {
 
     /** {@return the properties of the class, in openapi document order} */
     List<CtxProperty> varsOpenapiOrder();
+
+    /** {@return the optional class modifiers} */
+    Optional<String> classModifiers();
 }

@@ -8,6 +8,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -299,8 +300,14 @@ public class DtoGenerator {
         }
 
         String implementsInterfaces = defineInterfaces(dto, dtoImports);
-
+        
         SubtypeSelector subtypeSelector = dto.subtypeSelector();
+
+        String classModifiers = null;
+        if (subtypeSelector != null) {
+        	classModifiers = "abstract ";
+        }
+
         CtxDtoDiscriminator discriminator = null;
         // Needs adaptor for jsonb and tweaks for codehaus
         if (subtypeSelector != null && opts.isJacksonFasterxml()) {
@@ -329,6 +336,7 @@ public class DtoGenerator {
                 .isEqualsPrimitive(isTypePrimitiveEquals(dtoType))
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
                 .varsOpenapiOrder(varsOpenapiOrder)
+                .classModifiers(Optional.ofNullable(classModifiers))
                 .build();
 
         return CtxDto.builder()

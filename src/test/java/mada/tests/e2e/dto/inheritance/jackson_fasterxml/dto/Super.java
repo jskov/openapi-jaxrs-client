@@ -32,7 +32,7 @@ import java.util.Objects;
   @JsonSubTypes.Type(value = SubB.class, name = "subtype-B"),
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class Super {
+public abstract class Super {
   public static final String JSON_PROPERTY_IMPL_DISCRIMINATOR = "implDiscriminator";
   @JsonProperty(JSON_PROPERTY_IMPL_DISCRIMINATOR)
   private String implDiscriminator;
