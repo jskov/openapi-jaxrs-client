@@ -234,34 +234,20 @@ public final class TypeConverter {
                     return parserRefs.of(allOfRefs.get(0), validation);
                 }
             }
-            
-            Discriminator discriminator = cs.getDiscriminator();
-            if (discriminator != null) {
-            	String discPropName = discriminator.getPropertyName();
-            	logger.info(" discriminator on {}", discPropName);
-            	Map<String, String> mapping = discriminator.getMapping();
-            	logger.info(" mapping {}", mapping);
-            	
-            	logger.info("   for propName:{} parentName:{}", propertyName, parentDtoName);
 
-                List<ParserTypeRef> discriminatorRefs = mapping.values().stream()
-                		.map(compRef -> findDto(compRef, Validation.NO_VALIDATION))
-		                .distinct() // remove duplicates
-		                .toList();
-            	
-                String interfaceName = parentDtoName;
-                if (interfaceName == null) {
-                	throw new IllegalStateException("Cannot handle discriminator mapping for unknown parent DTO");
-                }
+            @SuppressWarnings("rawtypes")
+            List<Schema> oneOf = cs.getOneOf();
+            if (oneOf != null && !oneOf.isEmpty()) {
+                List<String> oneOfNames = oneOf.stream()
+                    .map(Schema::getName)
+                    .toList();
+                logger.info("  oneof {}", oneOfNames);
 
-                TypeName tn = typeNames.of(interfaceName);
-
-                logger.debug(" interface {} : {}", tn, discriminatorRefs);
-
-                TypeInterface ti = parserTypes.getOrMakeInterface(tn, discriminatorRefs);
-                return parserRefs.of(ti, validation);
+                // regular object, but for now assumes there will
+                // be supplementary discriminator information
+                return parserRefs.of(TypeObject.get(), validation);
             }
-
+            
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
             if (typeWithValidation != null) {
