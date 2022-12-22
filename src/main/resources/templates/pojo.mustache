@@ -28,7 +28,7 @@
 @Schema({{{madaDto.schemaOptions}}})
 {{/madaDto.schemaOptions}}
 {{>generatedAnnotation}}
-public class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}} {
+public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}} {
   {{#vars}}
     {{#isEnum}}
 {{>enumClass}}

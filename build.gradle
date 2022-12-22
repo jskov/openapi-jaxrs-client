@@ -136,6 +136,8 @@ javadoc {
 test {
     useJUnitPlatform()
 
+    //testLogging.showStandardStreams = true
+
     systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
@@ -276,7 +278,12 @@ encoding/<project>=UTF-8
     }
 }
 
-tasks.eclipse.dependsOn("prepCodeGen")
+tasks.eclipse {
+    dependsOn("prepCodeGen")
+    doLast {
+        mkdir "build/e2e"
+    }
+}
 
 // When working on templates, eclipse will only run the annotation
 // processor, if the @JStache classes are changed.

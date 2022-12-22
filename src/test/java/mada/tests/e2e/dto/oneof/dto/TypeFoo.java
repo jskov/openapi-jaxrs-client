@@ -6,39 +6,39 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
+package mada.tests.e2e.dto.oneof.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 
 /**
- * SubB
+ * TypeFoo
  */
 @JsonPropertyOrder({
-  SubB.JSON_PROPERTY_FOO
+  TypeFoo.JSON_PROPERTY_VALUE_FOO_LONG
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SubB extends Super implements SubASubB {
-  public static final String JSON_PROPERTY_FOO = "foo";
-  @JsonProperty(JSON_PROPERTY_FOO)
-  private Integer foo;
+public class TypeFoo extends AbstractType {
+  public static final String JSON_PROPERTY_VALUE_FOO_LONG = "valueFooLong";
+  @JsonProperty(JSON_PROPERTY_VALUE_FOO_LONG)
+  private Long valueFooLong;
 
-  public SubB foo(Integer foo) {
-    this.foo = foo;
+  public TypeFoo valueFooLong(Long valueFooLong) {
+    this.valueFooLong = valueFooLong;
     return this;
   }
 
   /**
-   * Get foo
-   * @return foo
+   * Get valueFooLong
+   * @return valueFooLong
    **/
-  public Integer getFoo() {
-    return foo;
+  public Long getValueFooLong() {
+    return valueFooLong;
   }
 
-  public void setFoo(Integer foo) {
-    this.foo = foo;
+  public void setValueFooLong(Long valueFooLong) {
+    this.valueFooLong = valueFooLong;
   }
 
   @Override
@@ -46,25 +46,25 @@ public class SubB extends Super implements SubASubB {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof SubB)) {
+    if (!(o instanceof TypeFoo)) {
       return false;
     }
-    SubB other = (SubB) o;
-    return Objects.equals(this.foo, other.foo) &&
+    TypeFoo other = (TypeFoo) o;
+    return Objects.equals(this.valueFooLong, other.valueFooLong) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(foo, super.hashCode());
+    return Objects.hash(valueFooLong, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SubB {");
+    sb.append("class TypeFoo {");
     sb.append("\n    ").append(toIndentedString(super.toString()));
-    sb.append("\n    foo: ").append(toIndentedString(foo));
+    sb.append("\n    valueFooLong: ").append(toIndentedString(valueFooLong));
     sb.append("\n}");
     return sb.toString();
   }

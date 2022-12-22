@@ -6,39 +6,39 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
+package mada.tests.e2e.dto.oneof.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 
 /**
- * SubB
+ * TypeBar
  */
 @JsonPropertyOrder({
-  SubB.JSON_PROPERTY_FOO
+  TypeBar.JSON_PROPERTY_VALUE_BAR_STRING
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SubB extends Super implements SubASubB {
-  public static final String JSON_PROPERTY_FOO = "foo";
-  @JsonProperty(JSON_PROPERTY_FOO)
-  private Integer foo;
+public class TypeBar extends AbstractType {
+  public static final String JSON_PROPERTY_VALUE_BAR_STRING = "valueBarString";
+  @JsonProperty(JSON_PROPERTY_VALUE_BAR_STRING)
+  private String valueBarString;
 
-  public SubB foo(Integer foo) {
-    this.foo = foo;
+  public TypeBar valueBarString(String valueBarString) {
+    this.valueBarString = valueBarString;
     return this;
   }
 
   /**
-   * Get foo
-   * @return foo
+   * Get valueBarString
+   * @return valueBarString
    **/
-  public Integer getFoo() {
-    return foo;
+  public String getValueBarString() {
+    return valueBarString;
   }
 
-  public void setFoo(Integer foo) {
-    this.foo = foo;
+  public void setValueBarString(String valueBarString) {
+    this.valueBarString = valueBarString;
   }
 
   @Override
@@ -46,25 +46,25 @@ public class SubB extends Super implements SubASubB {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof SubB)) {
+    if (!(o instanceof TypeBar)) {
       return false;
     }
-    SubB other = (SubB) o;
-    return Objects.equals(this.foo, other.foo) &&
+    TypeBar other = (TypeBar) o;
+    return Objects.equals(this.valueBarString, other.valueBarString) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(foo, super.hashCode());
+    return Objects.hash(valueBarString, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SubB {");
+    sb.append("class TypeBar {");
     sb.append("\n    ").append(toIndentedString(super.toString()));
-    sb.append("\n    foo: ").append(toIndentedString(foo));
+    sb.append("\n    valueBarString: ").append(toIndentedString(valueBarString));
     sb.append("\n}");
     return sb.toString();
   }
