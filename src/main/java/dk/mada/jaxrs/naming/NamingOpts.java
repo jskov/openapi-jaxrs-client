@@ -62,7 +62,7 @@ public class NamingOpts {
      * @param options the options provided by the user
      */
     public NamingOpts(Properties options) {
-        apiNamingConfig = getDefault(options, "naming-rules-api", "REGEXP/[ ]/-/; TYPENAME; REGEXP/Api$//; APPEND/Api/");
+        apiNamingConfig = getDefault(options, "naming-rules-api", "TYPENAME; REGEXP/Api$//; APPEND/Api/");
         typeNamingConfig = getDefault(options, "naming-rules-type", "TYPENAME");
         mpSchemaNamingConfig = getDefault(options, "naming-rules-mp-schema", "TYPENAME");
         typeConflictRenamingConfig = getDefault(options, "naming-rules-type-conflict-renaming", "APPEND/X/");

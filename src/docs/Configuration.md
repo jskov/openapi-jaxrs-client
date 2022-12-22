@@ -455,7 +455,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The API group (or `generator-api-default-name` default) value is given as input.
 
 >
-    default value: REGEXP/[ ]/-/; TYPENAME; REGEXP/Api$//; APPEND/Api/
+    default value: TYPENAME; REGEXP/Api$//; APPEND/Api/
 
 **naming-rules-enum-constant**
 
