@@ -1,5 +1,4 @@
-Manually created. Extracted from kunderum api.
+Example of abstract class inheritance.
 
-Example of complex inheritance.
-
-
+Subclasses are represented in OpenApi document with sum of all properties.
+Generator should suppress those that come from the parent class.

@@ -8,6 +8,11 @@ import {{.}};
 {{/imports}}
 
 {{/hasImports}}
-@Schema(anyOf = { {{implementations}} })
+{{#discriminator}}
+{{>typeInfoAnnotation}}
+{{/discriminator}}
+{{#madaDto.schemaOptions}}
+@Schema({{{madaDto.schemaOptions}}})
+{{/madaDto.schemaOptions}}
 public interface {{classname}} {
 }

@@ -11,22 +11,18 @@ package mada.tests.e2e.dto.oneof.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * The functionality the task belongs to.
+ * OtherEnum
  */
-@Schema(description = "The functionality the task belongs to.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public enum TaskFunctionality {
-  DOCUMENTS("DOCUMENTS"),
-  PURPOSE_AND_SCOPE("PURPOSE_AND_SCOPE"),
-  STATEMENT_OF_TRUTH("STATEMENT_OF_TRUTH"),
-  TAX_INFO("TAX_INFO");
+public enum OtherEnum {
+  PROP_A("PROP_A"),
+  PROP_B("PROP_B");
 
   private final String value;
 
-  TaskFunctionality(String value) {
+  OtherEnum(String value) {
     this.value = value;
   }
 
@@ -41,8 +37,8 @@ public enum TaskFunctionality {
   }
 
   @JsonCreator
-  public static TaskFunctionality fromValue(String value) {
-    for (TaskFunctionality b : TaskFunctionality.values()) {
+  public static OtherEnum fromValue(String value) {
+    for (OtherEnum b : OtherEnum.values()) {
       if (Objects.equals(b.value, value)) {
         return b;
       }
