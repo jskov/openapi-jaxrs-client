@@ -277,11 +277,16 @@ public final class Resolver {
      * @return the final model type
      */
     private Type resolveInner(Type type) {
-        if (type instanceof Dto dto) {
+        if (type instanceof Dto) {
+            // See if DTO has been remapped to something else
+            Type remappedDto = parserTypes.find(type.typeName()).orElse(type);
+            if (remappedDto instanceof Dto dto) {
+                remappedDto = conflictRenamer.getConflictRenamedDto(dto);
+            }
+
             // Convert parser DTO instance to model DTO instance
-            Dto resolvedDto = conflictRenamer.getConflictRenamedDto(dto);
-            // But wrap in a reference - or cyclic DTOs will not be possible
-            return TypeReference.of(resolvedDto, Validation.NO_VALIDATION);
+            // Wrap in a reference - or cyclic DTOs will not be possible
+            return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {
