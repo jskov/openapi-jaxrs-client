@@ -14,13 +14,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * IntEnum
  */
-@Schema(enumeration = {"1", "2", "-3", "unknown_default_open_api"}, type = SchemaType.INTEGER, format = "int32")
+@Schema(enumeration = {"1", "2", "-3", "233495469"}, type = SchemaType.INTEGER, format = "int32")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum IntEnum {
   NUMBER_1(1),
   NUMBER_2(2),
   NUMBER_NEG_3(-3),
-  NUMBER_unknown_default_open_api(unknown_default_open_api);
+  NUMBER_unknown_default_open_api(233495469);
 
   private final int value;
 

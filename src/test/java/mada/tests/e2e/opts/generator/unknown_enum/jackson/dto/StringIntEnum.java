@@ -6,23 +6,22 @@
 
 package mada.tests.e2e.opts.generator.unknown_enum.jackson.dto;
 
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * The values are digits, but the type is string. So will not be handled as integers, but are invalid Java identifiers.
  */
-@JsonbTypeAdapter(mada.tests.e2e.opts.generator.unknown_enum.jackson.dto.StringIntEnum.StringIntEnumAdapter.class)
-@Schema(enumeration = {"1", "2", "-3"}, type = SchemaType.STRING, description = "The values are digits, but the type is string. So will not be handled as integers, but are invalid Java identifiers.")
+@Schema(enumeration = {"1", "2", "-3", "unknown_default_open_api"}, type = SchemaType.STRING, description = "The values are digits, but the type is string. So will not be handled as integers, but are invalid Java identifiers.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum StringIntEnum {
-  NUMBER_1("1"),
-  NUMBER_2("2"),
-  NUMBER_NEG_3("-3");
+  ___1("1"),
+  ___2("2"),
+  _3("-3"),
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private final String value;
 
@@ -30,6 +29,7 @@ public enum StringIntEnum {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -39,20 +39,13 @@ public enum StringIntEnum {
     return String.valueOf(value);
   }
 
-  public static class StringIntEnumAdapter implements JsonbAdapter<StringIntEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(StringIntEnum e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
+  @JsonCreator
+  public static StringIntEnum fromValue(String value) {
+    for (StringIntEnum b : StringIntEnum.values()) {
+      if (Objects.equals(b.value, value)) {
+        return b;
       }
-
-      @Override
-      public StringIntEnum adaptFromJson(JsonString value) throws Exception {
-          for (StringIntEnum b : StringIntEnum.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StringIntEnum");
-      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
