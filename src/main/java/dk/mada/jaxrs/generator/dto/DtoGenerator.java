@@ -66,6 +66,10 @@ import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
  * for template rendering.
  */
 public class DtoGenerator {
+    private static final String ENUM_UNKNOWN_DEFAULT_OPEN_API = "unknown_default_open_api";
+    private static final int ENUM_INT_UNKNOWN_DEFAULT = 2125323949; // 0x7EADDEAD
+    private static final String ENUM_INT_UNKNOWN_DEFAULT_STR = Integer.toString(ENUM_INT_UNKNOWN_DEFAULT);
+
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
 
     /** Naming. */
@@ -337,6 +341,7 @@ public class DtoGenerator {
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
                 .varsOpenapiOrder(varsOpenapiOrder)
                 .classModifiers(Optional.ofNullable(classModifiers))
+                .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .build();
 
         return CtxDto.builder()
@@ -445,12 +450,46 @@ public class DtoGenerator {
 
     @Nullable
     private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
-        List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, values)
+        List<String> renderValues = addUnknownDefault(enumType, values);
+        List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, renderValues)
                 .getEntries().stream()
                 .map(e -> toEnumEntry(enumType, e))
                 .toList();
 
         return new CtxEnum(entries);
+    }
+
+    /**
+     * Adds unknown default enumeration if needed.
+     *
+     * A magic integer is used for integer types.
+     *
+     * @param enumType the enumeration type
+     * @param values the input enumeration values
+     * @return the input values, plus unknown default if needed
+     */
+    private List<String> addUnknownDefault(Type enumType, List<String> values) {
+        if (!opts.isUseEnumUnknownDefault()) {
+            return values;
+        }
+        if (values.contains(ENUM_UNKNOWN_DEFAULT_OPEN_API)) {
+            return values;
+        }
+        
+        boolean isIntEnum = enumType.isPrimitive(Primitive.INT);
+
+        if (isIntEnum
+                && values.contains(ENUM_INT_UNKNOWN_DEFAULT_STR)) {
+            return values;
+        }
+        
+        List<String> renderValues =  new ArrayList<>(values);
+        if (isIntEnum) {
+            renderValues.add(ENUM_INT_UNKNOWN_DEFAULT_STR);
+        } else {
+            renderValues.add(ENUM_UNKNOWN_DEFAULT_OPEN_API);
+        }
+        return renderValues;
     }
 
     private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
