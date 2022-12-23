@@ -67,9 +67,9 @@ import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
  */
 public class DtoGenerator {
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
-    /* Enumeration for unknown values. */
+    /** Enumeration for unknown values. */
     private static final String ENUM_UNKNOWN_DEFAULT_OPEN_API = "unknown_default_open_api";
-    /* Enumeration for unknown integer values. */
+    /** Enumeration for unknown integer values. */
     private static final String ENUM_INT_UNKNOWN_DEFAULT_STR = Integer.toString(2125323949); // 0x7EADDEAD
 
     /** Naming. */
