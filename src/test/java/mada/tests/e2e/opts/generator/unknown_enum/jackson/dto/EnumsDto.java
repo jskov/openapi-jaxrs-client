@@ -65,7 +65,8 @@ public class EnumsDto {
   public enum PropertyEnumStringEnum {
     O("O"),
     M("M"),
-    NEXT("nexT");
+    NEXT("nexT"),
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private final String value;
 
@@ -95,7 +96,7 @@ public class EnumsDto {
             return b;
           }
         }
-        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PropertyEnumStringEnum");
+        return UNKNOWN_DEFAULT_OPEN_API;
       }
     }
   }
