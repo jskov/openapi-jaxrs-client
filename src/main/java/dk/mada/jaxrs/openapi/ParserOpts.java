@@ -69,8 +69,8 @@ public final class ParserOpts {
     }
 
     /** {@return true if null-type with format date/date-time should be fixed} */
-    public boolean isFixupNoTypeDates() {
-        return bool("parser-fixup-no-type-dates", false);
+    public boolean isFixupNullTypeDates() {
+        return bool("parser-fixup-null-type-dates", false);
     }
 
     private boolean bool(String name) {

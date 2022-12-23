@@ -330,7 +330,7 @@ public final class TypeConverter {
     }
 
     private boolean isBrokenDateTimeType(Schema<?> schema, String format) {
-        return parserOpts.isFixupNoTypeDates()
+        return parserOpts.isFixupNullTypeDates()
                 && schema.getType() == null
                 && format.equals(schema.getFormat());
     }
