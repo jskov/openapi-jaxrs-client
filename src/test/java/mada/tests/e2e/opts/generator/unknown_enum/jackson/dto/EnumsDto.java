@@ -6,13 +6,11 @@
 
 package mada.tests.e2e.opts.generator.unknown_enum.jackson.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -20,7 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * EnumsDto
  */
-@JsonbPropertyOrder({
+@JsonPropertyOrder({
   EnumsDto.JSON_PROPERTY_PROPERTY_ENUM_STRING,
   EnumsDto.JSON_PROPERTY_INNER,
   EnumsDto.JSON_PROPERTY_LOWER,
@@ -34,34 +32,34 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
   public static final String JSON_PROPERTY_EXTERNAL = "external";
-  @JsonbProperty(JSON_PROPERTY_EXTERNAL)
+  @JsonProperty(JSON_PROPERTY_EXTERNAL)
   private ExternalEnum external;
 
   public static final String JSON_PROPERTY_EXTERNAL_LOWER = "externalLower";
-  @JsonbProperty(JSON_PROPERTY_EXTERNAL_LOWER)
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_LOWER)
   private ExternalLowerEnum externalLower;
 
   public static final String JSON_PROPERTY_EXTERNAL_MIXED = "externalMixed";
-  @JsonbProperty(JSON_PROPERTY_EXTERNAL_MIXED)
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_MIXED)
   private ExternalMixedEnum externalMixed;
 
   public static final String JSON_PROPERTY_INNER = "inner";
-  @JsonbProperty(JSON_PROPERTY_INNER)
+  @JsonProperty(JSON_PROPERTY_INNER)
   private InnerEnum inner;
 
   public static final String JSON_PROPERTY_INTEGER_ENUM = "integerEnum";
-  @JsonbProperty(JSON_PROPERTY_INTEGER_ENUM)
+  @JsonProperty(JSON_PROPERTY_INTEGER_ENUM)
   private IntEnum integerEnum;
 
   public static final String JSON_PROPERTY_LOWER = "lower";
-  @JsonbProperty(JSON_PROPERTY_LOWER)
+  @JsonProperty(JSON_PROPERTY_LOWER)
   private InnerLowerEnum lower;
 
   public static final String JSON_PROPERTY_MIXED = "mixed";
-  @JsonbProperty(JSON_PROPERTY_MIXED)
+  @JsonProperty(JSON_PROPERTY_MIXED)
   private InnerMixedEnum mixed;
 
-  @Schema(enumeration = {"O", "M", "nexT"}, type = SchemaType.STRING)
+  @Schema(enumeration = {"O", "M", "nexT", "unknown_default_open_api"}, type = SchemaType.STRING)
   public enum PropertyEnumStringEnum {
     O("O"),
     M("M"),
@@ -74,6 +72,7 @@ public class EnumsDto {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -83,31 +82,23 @@ public class EnumsDto {
       return String.valueOf(value);
     }
 
-    public static class PropertyEnumStringEnumAdapter implements JsonbAdapter<PropertyEnumStringEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(PropertyEnumStringEnum e) throws Exception {
-        return Json.createValue(String.valueOf(e.value));
-      }
-
-      @Override
-      public PropertyEnumStringEnum adaptFromJson(JsonString value) throws Exception {
-        for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
-          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-            return b;
-          }
+    @JsonCreator
+    public static PropertyEnumStringEnum fromValue(String value) {
+      for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
+        if (Objects.equals(b.value, value)) {
+          return b;
         }
-        return UNKNOWN_DEFAULT_OPEN_API;
       }
+      return UNKNOWN_DEFAULT_OPEN_API;
     }
   }
 
   public static final String JSON_PROPERTY_PROPERTY_ENUM_STRING = "propertyEnumString";
-  @JsonbProperty(JSON_PROPERTY_PROPERTY_ENUM_STRING)
-  @JsonbTypeAdapter(mada.tests.e2e.opts.generator.unknown_enum.jackson.dto.EnumsDto.PropertyEnumStringEnum.PropertyEnumStringEnumAdapter.class)
+  @JsonProperty(JSON_PROPERTY_PROPERTY_ENUM_STRING)
   private PropertyEnumStringEnum propertyEnumString;
 
   public static final String JSON_PROPERTY_STRING_INTEGER_ENUM = "stringIntegerEnum";
-  @JsonbProperty(JSON_PROPERTY_STRING_INTEGER_ENUM)
+  @JsonProperty(JSON_PROPERTY_STRING_INTEGER_ENUM)
   private StringIntEnum stringIntegerEnum;
 
   public EnumsDto external(ExternalEnum external) {

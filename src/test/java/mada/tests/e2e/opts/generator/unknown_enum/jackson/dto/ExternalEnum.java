@@ -6,19 +6,21 @@
 
 package mada.tests.e2e.opts.generator.unknown_enum.jackson.dto;
 
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * ExternalEnum
  */
-@JsonbTypeAdapter(mada.tests.e2e.opts.generator.unknown_enum.jackson.dto.ExternalEnum.ExternalEnumAdapter.class)
+@Schema(enumeration = {"E", "F", "unknown_default_open_api"}, type = SchemaType.STRING)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum ExternalEnum {
   E("E"),
-  F("F");
+  F("F"),
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private final String value;
 
@@ -26,6 +28,7 @@ public enum ExternalEnum {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -35,20 +38,13 @@ public enum ExternalEnum {
     return String.valueOf(value);
   }
 
-  public static class ExternalEnumAdapter implements JsonbAdapter<ExternalEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(ExternalEnum e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
+  @JsonCreator
+  public static ExternalEnum fromValue(String value) {
+    for (ExternalEnum b : ExternalEnum.values()) {
+      if (Objects.equals(b.value, value)) {
+        return b;
       }
-
-      @Override
-      public ExternalEnum adaptFromJson(JsonString value) throws Exception {
-          for (ExternalEnum b : ExternalEnum.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ExternalEnum");
-      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }

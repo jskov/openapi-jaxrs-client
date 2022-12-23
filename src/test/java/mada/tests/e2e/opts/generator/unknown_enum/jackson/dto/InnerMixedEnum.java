@@ -6,22 +6,21 @@
 
 package mada.tests.e2e.opts.generator.unknown_enum.jackson.dto;
 
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * InnerMixedEnum
  */
-@JsonbTypeAdapter(mada.tests.e2e.opts.generator.unknown_enum.jackson.dto.InnerMixedEnum.InnerMixedEnumAdapter.class)
-@Schema(enumeration = {"MIXED_a", "mixed_B"}, type = SchemaType.STRING)
+@Schema(enumeration = {"MIXED_a", "mixed_B", "unknown_default_open_api"}, type = SchemaType.STRING)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum InnerMixedEnum {
   MIXED_A("MIXED_a"),
-  MIXED_B("mixed_B");
+  MIXED_B("mixed_B"),
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private final String value;
 
@@ -29,6 +28,7 @@ public enum InnerMixedEnum {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -38,20 +38,13 @@ public enum InnerMixedEnum {
     return String.valueOf(value);
   }
 
-  public static class InnerMixedEnumAdapter implements JsonbAdapter<InnerMixedEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(InnerMixedEnum e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
+  @JsonCreator
+  public static InnerMixedEnum fromValue(String value) {
+    for (InnerMixedEnum b : InnerMixedEnum.values()) {
+      if (Objects.equals(b.value, value)) {
+        return b;
       }
-
-      @Override
-      public InnerMixedEnum adaptFromJson(JsonString value) throws Exception {
-          for (InnerMixedEnum b : InnerMixedEnum.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type InnerMixedEnum");
-      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }

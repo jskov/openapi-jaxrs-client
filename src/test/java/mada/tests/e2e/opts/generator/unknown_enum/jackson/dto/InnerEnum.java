@@ -6,19 +6,21 @@
 
 package mada.tests.e2e.opts.generator.unknown_enum.jackson.dto;
 
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * InnerEnum
  */
-@JsonbTypeAdapter(mada.tests.e2e.opts.generator.unknown_enum.jackson.dto.InnerEnum.InnerEnumAdapter.class)
+@Schema(enumeration = {"I", "J", "unknown_default_open_api"}, type = SchemaType.STRING)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum InnerEnum {
   I("I"),
-  J("J");
+  J("J"),
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private final String value;
 
@@ -26,6 +28,7 @@ public enum InnerEnum {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -35,20 +38,13 @@ public enum InnerEnum {
     return String.valueOf(value);
   }
 
-  public static class InnerEnumAdapter implements JsonbAdapter<InnerEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(InnerEnum e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
+  @JsonCreator
+  public static InnerEnum fromValue(String value) {
+    for (InnerEnum b : InnerEnum.values()) {
+      if (Objects.equals(b.value, value)) {
+        return b;
       }
-
-      @Override
-      public InnerEnum adaptFromJson(JsonString value) throws Exception {
-          for (InnerEnum b : InnerEnum.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type InnerEnum");
-      }
+    }
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
