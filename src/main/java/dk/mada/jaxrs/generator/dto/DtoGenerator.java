@@ -66,11 +66,11 @@ import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
  * for template rendering.
  */
 public class DtoGenerator {
-    private static final String ENUM_UNKNOWN_DEFAULT_OPEN_API = "unknown_default_open_api";
-    private static final int ENUM_INT_UNKNOWN_DEFAULT = 2125323949; // 0x7EADDEAD
-    private static final String ENUM_INT_UNKNOWN_DEFAULT_STR = Integer.toString(ENUM_INT_UNKNOWN_DEFAULT);
-
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
+    /* Enumeration for unknown values. */
+    private static final String ENUM_UNKNOWN_DEFAULT_OPEN_API = "unknown_default_open_api";
+    /* Enumeration for unknown integer values. */
+    private static final String ENUM_INT_UNKNOWN_DEFAULT_STR = Integer.toString(2125323949); // 0x7EADDEAD
 
     /** Naming. */
     private final Naming naming;
@@ -475,14 +475,14 @@ public class DtoGenerator {
         if (values.contains(ENUM_UNKNOWN_DEFAULT_OPEN_API)) {
             return values;
         }
-        
+
         boolean isIntEnum = enumType.isPrimitive(Primitive.INT);
 
         if (isIntEnum
                 && values.contains(ENUM_INT_UNKNOWN_DEFAULT_STR)) {
             return values;
         }
-        
+
         List<String> renderValues =  new ArrayList<>(values);
         if (isIntEnum) {
             renderValues.add(ENUM_INT_UNKNOWN_DEFAULT_STR);
@@ -501,7 +501,7 @@ public class DtoGenerator {
             }
         } else {
             value = StringRenderer.quote(value);
-        } 
+        }
         return new CtxEnumEntry(name, value, e.value());
     }
 
