@@ -50,6 +50,9 @@ public interface CtxDtoExt {
     /** {@return true if enumeration data type is primitive and can use == for equals} */
     boolean isEqualsPrimitive();
 
+    /** {@return true if enumeration should deserialize unknown input to the last enumeration entry} */
+    boolean isEnumUnknownDefault();
+
     /** {@return true if DTO should render @RegisterForReflection} */
     boolean quarkusRegisterForReflection();
 

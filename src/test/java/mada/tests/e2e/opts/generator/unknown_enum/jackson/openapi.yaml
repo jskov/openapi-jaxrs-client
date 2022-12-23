@@ -1,0 +1,89 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/enums:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnumsDto'
+components:
+  schemas:
+    EnumsDto:
+      type: object
+      properties:
+        propertyEnumString:
+          enum:
+          - O
+          - M
+          - nexT
+          type: string
+        inner:
+          $ref: '#/components/schemas/InnerEnum'
+        lower:
+          $ref: '#/components/schemas/InnerLowerEnum'
+        mixed:
+          $ref: '#/components/schemas/InnerMixedEnum'
+        external:
+          $ref: '#/components/schemas/ExternalEnum'
+        externalLower:
+          $ref: '#/components/schemas/ExternalLowerEnum'
+        externalMixed:
+          $ref: '#/components/schemas/ExternalMixedEnum'
+        integerEnum:
+          $ref: '#/components/schemas/IntEnum'
+        stringIntegerEnum:
+          $ref: '#/components/schemas/StringIntEnum'
+    ExternalEnum:
+      enum:
+      - E
+      - F
+      type: string
+    ExternalLowerEnum:
+      enum:
+      - low_ext_a
+      - low_ext_b
+      type: string
+    ExternalMixedEnum:
+      enum:
+      - low_EXT_a
+      - low_ext_B
+      type: string
+    InnerEnum:
+      enum:
+      - I
+      - J
+      type: string
+    InnerLowerEnum:
+      enum:
+      - lower_a
+      - lower_b
+      type: string
+    InnerMixedEnum:
+      enum:
+      - MIXED_a
+      - mixed_B
+      type: string
+    IntEnum:
+      format: int32
+      enum:
+      - "1"
+      - "2"
+      - "-3"
+      type: integer
+    StringIntEnum:
+      description: "The values are digits, but the type is string. So will not be\
+        \ handled as integers, but are invalid Java identifiers."
+      enum:
+      - "1"
+      - "2"
+      - "-3"
+      type: string

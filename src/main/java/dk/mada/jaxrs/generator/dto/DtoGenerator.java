@@ -67,6 +67,10 @@ import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
  */
 public class DtoGenerator {
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
+    /** Enumeration for unknown values. */
+    private static final String ENUM_UNKNOWN_DEFAULT_OPEN_API = "unknown_default_open_api";
+    /** Enumeration for unknown integer values. */
+    private static final String ENUM_INT_UNKNOWN_DEFAULT_STR = Integer.toString(2125323949); // 0x7EADDEAD
 
     /** Naming. */
     private final Naming naming;
@@ -337,6 +341,7 @@ public class DtoGenerator {
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
                 .varsOpenapiOrder(varsOpenapiOrder)
                 .classModifiers(Optional.ofNullable(classModifiers))
+                .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .build();
 
         return CtxDto.builder()
@@ -445,7 +450,8 @@ public class DtoGenerator {
 
     @Nullable
     private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
-        List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, values)
+        List<String> renderValues = addUnknownDefault(enumType, values);
+        List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, renderValues)
                 .getEntries().stream()
                 .map(e -> toEnumEntry(enumType, e))
                 .toList();
@@ -453,12 +459,50 @@ public class DtoGenerator {
         return new CtxEnum(entries);
     }
 
+    /**
+     * Adds unknown default enumeration if needed.
+     *
+     * A magic integer is used for integer types.
+     *
+     * @param enumType the enumeration type
+     * @param values the input enumeration values
+     * @return the input values, plus unknown default if needed
+     */
+    private List<String> addUnknownDefault(Type enumType, List<String> values) {
+        if (!opts.isUseEnumUnknownDefault()) {
+            return values;
+        }
+        if (values.contains(ENUM_UNKNOWN_DEFAULT_OPEN_API)) {
+            return values;
+        }
+
+        boolean isIntEnum = enumType.isPrimitive(Primitive.INT);
+
+        if (isIntEnum
+                && values.contains(ENUM_INT_UNKNOWN_DEFAULT_STR)) {
+            return values;
+        }
+
+        List<String> renderValues =  new ArrayList<>(values);
+        if (isIntEnum) {
+            renderValues.add(ENUM_INT_UNKNOWN_DEFAULT_STR);
+        } else {
+            renderValues.add(ENUM_UNKNOWN_DEFAULT_OPEN_API);
+        }
+        return renderValues;
+    }
+
     private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
+        String name = e.name();
         String value = e.value();
-        if (enumType != Primitive.INT) {
+        if (enumType == Primitive.INT) {
+            if (opts.isUseEnumUnknownDefault() && ENUM_INT_UNKNOWN_DEFAULT_STR.equals(value)) {
+                name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase();
+            }
+        } else {
             value = StringRenderer.quote(value);
         }
-        return new CtxEnumEntry(e.name(), value, e.value());
+        return new CtxEnumEntry(name, value, e.value());
     }
 
     private CtxProperty toCtxProperty(Imports dtoImports, Property p) {

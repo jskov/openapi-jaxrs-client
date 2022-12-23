@@ -343,6 +343,13 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-use-enum-unknown-default**
+
+>Allows you to add a fallback value ('unknown_default_open_api') to enumerations.
+>This value is used when deserializing unknown input instead of throwing IllegalStateException.
+
+>
+    default value: false
 
 **generator-use-localdatetime**
 
