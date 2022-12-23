@@ -493,11 +493,16 @@ public class DtoGenerator {
     }
 
     private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
+        String name = e.name();
         String value = e.value();
-        if (enumType != Primitive.INT) {
+        if (enumType == Primitive.INT) {
+            if (opts.isUseEnumUnknownDefault() && ENUM_INT_UNKNOWN_DEFAULT_STR.equals(value)) {
+                name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase();
+            }
+        } else {
             value = StringRenderer.quote(value);
-        }
-        return new CtxEnumEntry(e.name(), value, e.value());
+        } 
+        return new CtxEnumEntry(name, value, e.value());
     }
 
     private CtxProperty toCtxProperty(Imports dtoImports, Property p) {
