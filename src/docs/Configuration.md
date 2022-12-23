@@ -22,6 +22,13 @@ The options are grouped into three sections:
 >
     default value: false
 
+**parser-fixup-null-type-dates**
+
+>This option allows accepting type=null/format=date (or date-time) as date/date-time types.
+
+>
+    default value: false
+
 **parser-inputstream-is-jse**
 
 >This option allows parsing of the type byte[] (`FileSchema` and `BinarySchema`) to be treated by the generator as Java SE `java.io.InputSteam`.

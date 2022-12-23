@@ -49,6 +49,32 @@ paths:
             text/plain:
               schema:
                 type: string
+  /api/params/query/dates:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: date
+        in: query
+        schema:
+          format: date
+          type: string
+      - name: date-time
+        in: query
+        schema:
+          format: date-time
+          type: string
+      - name: time
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
   /api/params/query/list:
     get:
       tags:
