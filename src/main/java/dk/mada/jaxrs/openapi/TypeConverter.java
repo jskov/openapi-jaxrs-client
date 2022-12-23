@@ -127,7 +127,7 @@ public final class TypeConverter {
 
         logger.debug("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
         logger.debug("ref {}", schemaRef);
-
+        
         Validation validation = extractValidation(schema);
         logger.debug("validation {}", validation);
 
@@ -263,12 +263,11 @@ public final class TypeConverter {
             return parserRefs.of(TypeBigDecimal.get(), validation);
         }
 
-        if (schema instanceof DateTimeSchema) {
+        if (isDateTimeType(schema)) {
             return parserRefs.of(TypeDateTime.get(generatorOpts), validation);
         }
 
-        if (schema instanceof DateSchema) {
-            logger.debug(" {} : TypeDate", schema.getName());
+        if (isDateType(schema)) {
             return parserRefs.of(TypeDate.get(), validation);
         }
 
@@ -318,6 +317,22 @@ public final class TypeConverter {
         // return parserRefs.of(TypeVoid.getRef(), validation);
 
         throw new IllegalStateException("No type found for " + schema);
+    }
+
+    private boolean isDateType(Schema<?> schema) {
+        return schema instanceof DateSchema
+                || isBrokenDateTimeType(schema, "date");
+    }
+
+    private boolean isDateTimeType(Schema<?> schema) {
+        return schema instanceof DateTimeSchema
+                || isBrokenDateTimeType(schema, "date-time");
+    }
+
+    private boolean isBrokenDateTimeType(Schema<?> schema, String format) {
+        return parserOpts.isFixupNoTypeDates()
+                && schema.getType() == null
+                && format.equals(schema.getFormat());
     }
 
     /**
