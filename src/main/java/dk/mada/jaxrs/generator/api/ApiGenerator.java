@@ -23,7 +23,6 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
-import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.JaxRs;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
@@ -398,7 +397,7 @@ public class ApiGenerator {
                 imports.add(ValidationApi.NOT_NULL);
             }
 
-            ImmutableCtxApiParam bodyParam = CtxApiParam.builder()
+            CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
                     .dataType(dataType)
@@ -412,6 +411,13 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .useBeanValidation(opts.isUseBeanValidation())
+                    .decimalMaximum(Optional.empty())
+                    .decimalMinimum(Optional.empty())
+                    .maximum(Optional.empty())
+                    .maxLength(Optional.empty())
+                    .minimum(Optional.empty())
+                    .minLength(Optional.empty())
+                    .pattern(Optional.empty())
                     .build();
 
             // Only include body param if it is not void. It may be void

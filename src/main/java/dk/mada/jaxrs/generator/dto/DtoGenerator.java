@@ -315,11 +315,10 @@ public class DtoGenerator {
         Optional<CtxDtoDiscriminator> discriminator = subtypeSelector
             .map(this::buildSubtypeDiscriminator);
 
-        if (discriminator.isPresent()) {
+        if (discriminator.isPresent()
+                && opts.isJacksonFasterxml()) {
             // Needs adaptor for jsonb and tweaks for codehaus
-            if (opts.isJacksonFasterxml()) {
-                dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
-            }
+            dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 
         CtxDtoExt mada = CtxDtoExt.builder()
@@ -683,13 +682,13 @@ public class DtoGenerator {
             // TODO: Make the rendering type Optional<Integer>?
             minLength = p.minItems()
                 .or(p::minLength)
-                .map(i -> Integer.toString(i));
+                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
             if (minLength.isPresent()) {
                 dtoImports.add(ValidationApi.SIZE);
             }
             maxLength = p.maxItems()
                 .or(p::maxLength)
-                .map(i -> Integer.toString(i));
+                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
             if (maxLength.isPresent()) {
                 dtoImports.add(ValidationApi.SIZE);
             }
