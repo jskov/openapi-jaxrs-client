@@ -282,7 +282,8 @@ public class DtoGenerator {
         Optional<String> enumSchema = Optional.empty();
         CtxEnum ctxEnum = null;
         if (isEnum) {
-            ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
+            List<String> enumValues = dto.enumValues().orElse(List.of());
+            ctxEnum = buildEnumEntries(dtoType, enumValues);
             enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
         }
 
@@ -292,8 +293,8 @@ public class DtoGenerator {
         }
         enumSchema.ifPresent(schemaEntries::add);
 
-        isNotBlank(description, d ->
-            schemaEntries.add("description = \"" + StringRenderer.encodeForString(d) + "\"")
+        isNotBlankEncoded(description, d ->
+            schemaEntries.add("description = \"" + d + "\"")
         );
 
         String schemaOptions = null;
@@ -417,7 +418,7 @@ public class DtoGenerator {
      * @param dtoImports the DTO imports
      * @param dtoType type of the enumeration
      * @param ctxEnum enumeration constants and values
-     * @return schema enumeration arguments, or null if not needed
+     * @return optional schema enumeration arguments
      */
     private Optional<String> buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
         boolean namesMatchValues = ctxEnum.enumVars().stream()
@@ -441,11 +442,11 @@ public class DtoGenerator {
         }
         dtoImports.addMicroProfileSchema();
 
-        String opts = new StringBuilder()
+        String args = new StringBuilder()
                 .append("enumeration = {").append(values).append("}")
                 .append(type)
                 .toString();
-        return Optional.of(opts);
+        return Optional.of(args);
     }
 
     private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
@@ -637,11 +638,11 @@ public class DtoGenerator {
         if (p.isReadonly()) {
             schemaEntries.add("readOnly = true");
         }
-        isNotBlank(description, d ->
-            schemaEntries.add("description = \"" + StringRenderer.encodeForString(d) + "\"")
+        isNotBlankEncoded(description, d ->
+            schemaEntries.add("description = \"" + d + "\"")
         );
-        isNotBlank(p.example(), e ->
-            schemaEntries.add("example = \"" + StringRenderer.encodeForString(e) + "\"")
+        isNotBlankEncoded(p.example(), e ->
+            schemaEntries.add("example = \"" + e + "\"")
         );
 
         Optional<String> schemaOptions = Optional.empty();
@@ -789,9 +790,10 @@ public class DtoGenerator {
         return getterPrefix;
     }
 
-    private void isNotBlank(Optional<String> txt, Consumer<String> f) {
+    private void isNotBlankEncoded(Optional<String> txt, Consumer<String> f) {
         txt
             .filter(s -> !s.isBlank())
+            .map(StringRenderer::encodeForString)
             .ifPresent(f);
     }
 }

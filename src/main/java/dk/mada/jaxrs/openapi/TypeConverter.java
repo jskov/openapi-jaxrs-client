@@ -430,9 +430,6 @@ public final class TypeConverter {
 
         List<Property> props = readProperties(schema, modelName);
 
-        @Nullable
-        List<String> enumValues = getEnumValues(schema);
-
         SubtypeSelector selector = null;
         Discriminator disc = schema.getDiscriminator();
         if (disc != null && disc.getMapping() != null) {
@@ -451,7 +448,7 @@ public final class TypeConverter {
                 .reference(dtoType)
                 .properties(props)
                 .openapiId(typeNames.of(dtoName))
-                .enumValues(enumValues)
+                .enumValues(Optional.ofNullable(getEnumValues(schema)))
                 .implementsInterfaces(List.of())
                 .subtypeSelector(selector)
                 .build();

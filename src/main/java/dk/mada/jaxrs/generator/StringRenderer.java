@@ -90,15 +90,26 @@ public final class StringRenderer {
      * @return a single-line string
      */
     public static Optional<String> encodeForString(Optional<String> text) {
-        return text.map(s -> encodeForString(s));
+        return text.map(StringRenderer::encodeForString);
 
     }
 
+    /**
+     * Encodes text for use in string-input.
+     *
+     * The text may contain multiple lines, but needs to be represented
+     * in the source code as a single string input.
+     *
+     * Used for descriptions and examples that need to be specified
+     * as @Schema inputs.
+     *
+     * @param text the text to be protected
+     * @return a single-line string
+     */
     public static String encodeForString(String text) {
         return text.replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"");
     }
 
-    
     /**
      * Quote text.
      *

@@ -115,7 +115,7 @@ public class ApiGenerator {
 
     private String makeClassName(String groupInput) {
         String defaultApiName = opts.getDefaultApiName().orElse(groupInput);
-        
+
         String group = groupInput;
         if ("Default".equals(groupInput)) {
             group = defaultApiName;

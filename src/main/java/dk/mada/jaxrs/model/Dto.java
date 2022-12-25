@@ -57,14 +57,13 @@ public interface Dto extends Type {
     /** {@return the properties on the DTO} */
     List<Property> properties();
 
-    /** {@return the enumeration values on the DTO} */
-    @Nullable
-    List<String> enumValues();
+    /** {@return the optional enumeration values on the DTO} */
+    Optional<List<String>> enumValues();
 
     /** {@return true if this is an enumeration, otherwise false} */
     @Override
     default boolean isEnum() {
-        return enumValues() != null;
+        return enumValues().isPresent();
     }
 
     /** {@return the list of interfaces implemented by this DTO} */
