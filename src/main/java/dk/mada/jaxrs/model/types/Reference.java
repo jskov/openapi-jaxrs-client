@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.model.types;
 
-import javax.annotation.Nullable;
-
 import dk.mada.jaxrs.model.Validation;
 
 /**
@@ -16,9 +14,8 @@ public interface Reference extends Type {
      * Validation information that applies to this
      * particular reference of the type.
      *
-     * @return the validation information, or null.
+     * @return the validation information.
      */
-    @Nullable
     Validation validation();
 
     /** {@return the referenced type} */
