@@ -601,13 +601,13 @@ public class DtoGenerator {
 
         boolean useBeanValidation = opts.isUseBeanValidation();
         boolean valid = false;
-        String minLength = null;
-        String maxLength = null;
-        String minimum = null;
-        String maximum = null;
-        String decimalMinimum = null;
-        String decimalMaximum = null;
-        String pattern = null;
+        Optional<String> minLength = Optional.empty();
+        Optional<String> maxLength = Optional.empty();
+        Optional<String> minimum = Optional.empty();
+        Optional<String> maximum = Optional.empty();
+        Optional<String> decimalMinimum = Optional.empty();
+        Optional<String> decimalMaximum = Optional.empty();
+        Optional<String> pattern = Optional.empty();
         if (useBeanValidation) {
             if (p.isRequired()) {
                 dtoImports.add(ValidationApi.NOT_NULL);
@@ -620,44 +620,47 @@ public class DtoGenerator {
             }
 
             // Note that OpenApi spec xItems/xLength both map to @Size
-            if (p.minItems() != null) {
-                minLength = Integer.toString(p.minItems());
+            // TODO: Make the rendering type Optional<Integer>?
+            minLength = p.minItems()
+                .or(p::minLength)
+                .map(i -> Integer.toString(i));
+            if (minLength.isPresent()) {
                 dtoImports.add(ValidationApi.SIZE);
             }
-            if (p.maxItems() != null) {
-                maxLength = Integer.toString(p.maxItems());
-                dtoImports.add(ValidationApi.SIZE);
-            }
-            if (p.minLength() != null) {
-                minLength = Integer.toString(p.minLength());
-                dtoImports.add(ValidationApi.SIZE);
-            }
-            if (p.maxLength() != null) {
-                maxLength = Integer.toString(p.maxLength());
+            maxLength = p.maxItems()
+                .or(p::maxLength)
+                .map(i -> Integer.toString(i));
+            if (maxLength.isPresent()) {
                 dtoImports.add(ValidationApi.SIZE);
             }
 
-            if (p.minimum() != null) {
-                if (propType.isBigDecimal()) {
-                    dtoImports.add(ValidationApi.DECIMAL_MIN);
-                    decimalMinimum = "\"" + p.minimum().toString() + "\"";
-                } else {
-                    dtoImports.add(ValidationApi.MIN);
-                    minimum = Long.toString(p.minimum().longValue());
-                }
+            if (propType.isBigDecimal()) {
+                decimalMinimum = p.minimum()
+                        .map(min -> "\"" + min.toString() + "\"");
+                decimalMaximum = p.maximum()
+                        .map(max -> "\"" + max.toString() + "\"");
+            } else {
+                minimum = p.minimum()
+                        .map(min -> Long.toString(min.longValue()));
+                maximum = p.maximum()
+                        .map(max -> Long.toString(max.longValue()));
             }
-            if (p.maximum() != null) {
-                if (propType.isBigDecimal()) {
-                    dtoImports.add(ValidationApi.DECIMAL_MAX);
-                    decimalMaximum = "\"" + p.maximum().toString() + "\"";
-                } else {
-                    dtoImports.add(ValidationApi.MAX);
-                    maximum = Long.toString(p.maximum().longValue());
-                }
+            if (decimalMinimum.isPresent()) {
+                dtoImports.add(ValidationApi.DECIMAL_MIN);
+            }
+            if (minimum.isPresent()) {
+                dtoImports.add(ValidationApi.MIN);
+            }
+            if (decimalMinimum.isPresent()) {
+                dtoImports.add(ValidationApi.DECIMAL_MAX);
+            }
+            if (maximum.isPresent()) {
+                dtoImports.add(ValidationApi.MAX);
             }
 
-            if (p.pattern() != null) {
-                pattern = StringRenderer.encodeRegexp(p.pattern());
+            pattern = p.pattern()
+                    .map(StringRenderer::encodeRegexp);
+            if (pattern.isPresent()) {
                 dtoImports.add(ValidationApi.PATTERN);
             }
         }

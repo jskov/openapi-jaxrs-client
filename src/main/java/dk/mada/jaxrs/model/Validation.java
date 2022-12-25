@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.model;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -33,25 +34,18 @@ public interface Validation {
     /** {@return true if the property is required, otherwise false} */
     boolean isRequired();
 
-    /** {@return validation minimum items, or null} */
-    @Nullable
-    Integer minItems();
-    /** {@return validation maximum items, or null} */
-    @Nullable
-    Integer maxItems();
-    /** {@return validation minimum length, or null} */
-    @Nullable
-    Integer minLength();
-    /** {@return validation maximum length, or null} */
-    @Nullable
-    Integer maxLength();
-    /** {@return validation minimum, or null} */
-    @Nullable
-    BigDecimal minimum();
-    /** {@return validation maximum, or null} */
-    @Nullable
-    BigDecimal maximum();
-    /** {@return validation pattern, or null} */
-    @Nullable
-    String pattern();
+    /** {@return optional validation minimum items} */
+    Optional<Integer> minItems();
+    /** {@return optional validation maximum items} */
+    Optional<Integer> maxItems();
+    /** {@return optional validation minimum length} */
+    Optional<Integer> minLength();
+    /** {@return optional validation maximum length} */
+    Optional<Integer> maxLength();
+    /** {@return optional validation minimum} */
+    Optional<BigDecimal> minimum();
+    /** {@return optional validation maximum} */
+    Optional<BigDecimal> maximum();
+    /** {@return optional validation pattern} */
+    Optional<String> pattern();
 }

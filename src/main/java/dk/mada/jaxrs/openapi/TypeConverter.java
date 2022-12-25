@@ -362,13 +362,13 @@ public final class TypeConverter {
                 .isNullable(s.getNullable())
                 .isReadonly(s.getReadOnly())
                 .isRequired(false)
-                .maximum(s.getMaximum())
-                .maxItems(s.getMaxItems())
-                .maxLength(s.getMaxLength())
-                .minimum(s.getMinimum())
-                .minItems(s.getMinItems())
-                .minLength(s.getMinLength())
-                .pattern(s.getPattern())
+                .maximum(Optional.ofNullable(s.getMaximum()))
+                .maxItems(Optional.ofNullable(s.getMaxItems()))
+                .maxLength(Optional.ofNullable(s.getMaxLength()))
+                .minimum(Optional.ofNullable(s.getMinimum()))
+                .minItems(Optional.ofNullable(s.getMinItems()))
+                .minLength(Optional.ofNullable(s.getMinLength()))
+                .pattern(Optional.ofNullable(s.getPattern()))
                 .build();
 
         for (Validation v : validationInstances) {
@@ -478,13 +478,13 @@ public final class TypeConverter {
                     .isNullable(isNullable)
                     .isReadonly(isReadOnly)
                     .isRequired(requiredProperyNames.contains(propertyName))
-                    .minItems(propSchema.getMinItems())
-                    .maxItems(propSchema.getMaxItems())
-                    .minLength(propSchema.getMinLength())
-                    .maxLength(propSchema.getMaxLength())
-                    .minimum(propSchema.getMinimum())
-                    .maximum(propSchema.getMaximum())
-                    .pattern(propSchema.getPattern())
+                    .minItems(Optional.ofNullable(propSchema.getMinItems()))
+                    .maxItems(Optional.ofNullable(propSchema.getMaxItems()))
+                    .minLength(Optional.ofNullable(propSchema.getMinLength()))
+                    .maxLength(Optional.ofNullable(propSchema.getMaxLength()))
+                    .minimum(Optional.ofNullable(propSchema.getMinimum()))
+                    .maximum(Optional.ofNullable(propSchema.getMaximum()))
+                    .pattern(Optional.ofNullable(propSchema.getPattern()))
                     .build());
         }
 
