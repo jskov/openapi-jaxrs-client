@@ -229,8 +229,8 @@ public class DtoGenerator {
 
         dtoImports.addPropertyImports(dto.properties());
 
-        String customLocalDateDeserializer = null;
-        String customLocalDateSerializer = null;
+        Optional<String> customLocalDateDeserializer = Optional.empty();
+        Optional<String> customLocalDateSerializer = Optional.empty();
 
         if (opts.isUseJacksonLocalDateSerializer()
                 && (dtoType.isDate()
@@ -248,8 +248,8 @@ public class DtoGenerator {
             dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
         }
 
-        String customOffsetDateTimeDeserializer = null;
-        String customOffsetDateTimeSerializer = null;
+        Optional<String> customOffsetDateTimeDeserializer = Optional.empty();
+        Optional<String> customOffsetDateTimeSerializer = Optional.empty();
 
         if (opts.isUseJacksonDateTimeSerializer()
                 && (dtoType.isDateTime()

@@ -21,19 +21,15 @@ public interface CtxDtoExt {
     /** {@return optional custom jackson @JsonSerialize options} */
     Optional<String> jacksonJsonSerializeOptions();
 
-    /** {@return the name of a custom LocalDateDeserializer, or null} */
-    @Nullable
-    String customLocalDateDeserializer();
-    /** {@return the name of a custom LocalDateSerializer, or null} */
-    @Nullable
-    String customLocalDateSerializer();
+    /** {@return the optional name of a custom LocalDateDeserializer} */
+    Optional<String> customLocalDateDeserializer();
+    /** {@return the optional name of a custom LocalDateSerializer} */
+    Optional<String> customLocalDateSerializer();
 
-    /** {@return the name of a custom OffsetDateDeserializer, or null} */
-    @Nullable
-    String customOffsetDateTimeDeserializer();
-    /** {@return the name of a custom OffsetDateSerializer, or null} */
-    @Nullable
-    String customOffsetDateTimeSerializer();
+    /** {@return the optional name of a custom OffsetDateDeserializer} */
+    Optional<String> customOffsetDateTimeDeserializer();
+    /** {@return the optional name of a custom OffsetDateSerializer} */
+    Optional<String> customOffsetDateTimeSerializer();
 
     /** {@return true if rendering for jsonb, false otherwise} */
     boolean jsonb();

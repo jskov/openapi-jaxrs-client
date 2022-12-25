@@ -47,7 +47,7 @@ dependencies {
     annotationProcessor 'com.uber.nullaway:nullaway:0.10.5'
 
     errorprone          "com.google.errorprone:error_prone_core:$errorproneVersion"
-  
+
     testImplementation  platform("org.junit:junit-bom:$junitVersion")
     testImplementation  'org.junit.jupiter:junit-jupiter'
     testImplementation  'org.junit.jupiter:junit-jupiter-params'
@@ -109,7 +109,7 @@ tasks.withType(JavaCompile).configureEach {
 
         if (!name.toLowerCase().contains("test")) {
             check("NullAway", CheckSeverity.ERROR)
-            option("NullAway:AnnotatedPackages", "dk.mada.jaxrs.generator.dto")
+            option("NullAway:AnnotatedPackages", "dk.mada.jaxrs.generator")
         }
     }
 }

@@ -3,8 +3,6 @@ package dk.mada.jaxrs.generator.dto.tmpl;
 import java.util.Optional;
 import java.util.SortedSet;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 import io.jstach.jstache.JStache;
@@ -66,15 +64,12 @@ public interface CtxExtraDateSerializer {
     /** {@return the optional date of the generation} */
     Optional<String> generatedDate();
 
-    /** {@return the date format used by the LocalDate serializer, or null} */
-    @Nullable
-    String cannedLocalDateSerializerDTF();
+    /** {@return the optional date format used by the LocalDate serializer} */
+    Optional<String> cannedLocalDateSerializerDTF();
 
-    /** {@return the date time format used by the LocalDateTime serializer, or null} */
-    @Nullable
-    String cannedLocalDateTimeSerializerDTF();
+    /** {@return the optional date time format used by the LocalDateTime serializer} */
+    Optional<String> cannedLocalDateTimeSerializerDTF();
 
-    /** {@return the date time format used by the OffsetDateTime serializer, or null} */
-    @Nullable
-    String cannedOffsetDateTimeSerializerDTF();
+    /** {@return the optional date time format used by the OffsetDateTime serializer} */
+    Optional<String> cannedOffsetDateTimeSerializerDTF();
 }
