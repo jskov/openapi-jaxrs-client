@@ -20,9 +20,8 @@ public interface CtxApiParam {
     boolean isContainer();
     /** {@return an optional description of the parameter} */
     Optional<String> description();
-    /** {@return a default value for the parameter, or null} */
-    @Nullable
-    String defaultValue();
+    /** {@return an optional default value for the parameter} */
+    Optional<String> defaultValue();
     /** {@return base name of a path parameter} */
     String baseName();
     /** {@return the name given to the parameter in the function} */

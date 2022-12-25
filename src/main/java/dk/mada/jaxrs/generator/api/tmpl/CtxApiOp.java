@@ -3,8 +3,6 @@ package dk.mada.jaxrs.generator.api.tmpl;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -24,8 +22,7 @@ public interface CtxApiOp {
     /** {@return the operation http method} */
     String httpMethod();
     /** {@return the operation path} */
-    @Nullable
-    String path();
+    Optional<String> path();
     /** {@return the optional operation summary} */
     Optional<String> summary();
     /** {@return the optional operation notes} */

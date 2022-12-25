@@ -246,7 +246,7 @@ public class ApiGenerator {
         return new CtxOperationRef(CtxApiOp.builder()
                 .nickname(nickname)
                 .returnType(typeRef.typeName().name())
-                .path(path)
+                .path(Optional.ofNullable(path))
                 .httpMethod(op.httpMethod().name())
                 .allParams(allParams)
                 .responses(responses)
