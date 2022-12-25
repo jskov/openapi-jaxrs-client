@@ -282,7 +282,7 @@ public class DtoGenerator {
         Optional<String> enumSchema = Optional.empty();
         CtxEnum ctxEnum = null;
         if (isEnum) {
-            List<String> enumValues = dto.enumValues().orElse(List.of());
+            List<String> enumValues = dto.enumValues();
             ctxEnum = buildEnumEntries(dtoType, enumValues);
             enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
         }

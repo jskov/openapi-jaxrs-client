@@ -448,7 +448,7 @@ public final class TypeConverter {
                 .reference(dtoType)
                 .properties(props)
                 .openapiId(typeNames.of(dtoName))
-                .enumValues(Optional.ofNullable(getEnumValues(schema)))
+                .enumValues(getEnumValues(schema))
                 .implementsInterfaces(List.of())
                 .subtypeSelector(Optional.ofNullable(selector))
                 .build();
@@ -458,11 +458,10 @@ public final class TypeConverter {
         return dto;
     }
 
-    @Nullable
     private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
         List<?> schemaEnumValues = schema.getEnum();
         if (schemaEnumValues == null) {
-            return null;
+            return List.of();
         }
 
         return schemaEnumValues.stream()
