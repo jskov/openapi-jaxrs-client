@@ -305,27 +305,21 @@ public class DtoGenerator {
 
         Optional<String> implementsInterfaces = defineInterfaces(dto, dtoImports);
 
-        SubtypeSelector subtypeSelector = dto.subtypeSelector();
+        Optional<SubtypeSelector> subtypeSelector = dto.subtypeSelector();
 
         String classModifiers = null;
-        if (subtypeSelector != null) {
+        if (subtypeSelector.isPresent()) {
             classModifiers = "abstract ";
         }
 
-        CtxDtoDiscriminator discriminator = null;
-        // Needs adaptor for jsonb and tweaks for codehaus
-        if (subtypeSelector != null && opts.isJacksonFasterxml()) {
-            Map<String, String> vendorExt = null;
-            List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
-                    .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey(), vendorExt))
-                    .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
-                    .toList();
-            discriminator = CtxDtoDiscriminator.builder()
-                    .propertyBaseName(subtypeSelector.propertyName())
-                    .mappedModels(mapping)
-                    .build();
+        Optional<CtxDtoDiscriminator> discriminator = subtypeSelector
+            .map(this::buildSubtypeDiscriminator);
 
-            dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
+        if (discriminator.isPresent()) {
+            // Needs adaptor for jsonb and tweaks for codehaus
+            if (opts.isJacksonFasterxml()) {
+                dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
+            }
         }
 
         CtxDtoExt mada = CtxDtoExt.builder()
@@ -376,6 +370,20 @@ public class DtoGenerator {
                 .discriminator(discriminator)
 
                 .build();
+    }
+
+    private CtxDtoDiscriminator buildSubtypeDiscriminator(SubtypeSelector subtypeSelector) {
+        CtxDtoDiscriminator discriminator;
+        Map<String, String> vendorExt = null;
+        List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
+                .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey(), vendorExt))
+                .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
+                .toList();
+        discriminator = CtxDtoDiscriminator.builder()
+                .propertyBaseName(subtypeSelector.propertyName())
+                .mappedModels(mapping)
+                .build();
+        return discriminator;
     }
 
     private @Nullable Comparator<? super CtxProperty> propertySorter() {

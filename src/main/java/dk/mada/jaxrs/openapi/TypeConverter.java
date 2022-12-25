@@ -450,7 +450,7 @@ public final class TypeConverter {
                 .openapiId(typeNames.of(dtoName))
                 .enumValues(Optional.ofNullable(getEnumValues(schema)))
                 .implementsInterfaces(List.of())
-                .subtypeSelector(selector)
+                .subtypeSelector(Optional.ofNullable(selector))
                 .build();
 
         parserTypes.addDto(dto);

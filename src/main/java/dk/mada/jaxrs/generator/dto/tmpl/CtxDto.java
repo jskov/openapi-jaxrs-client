@@ -88,9 +88,8 @@ public interface CtxDto {
     /** {@return the optional date of the generation} */
     Optional<String> generatedDate();
 
-    /** {@return discriminator for sub-class selection, or null} */
-    @Nullable
-    CtxDtoDiscriminator discriminator();
+    /** {@return an optional discriminator for sub-class selection} */
+    Optional<CtxDtoDiscriminator> discriminator();
 
     /** {@return additional custom template data for the dto} */
     CtxDtoExt madaDto();

@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
-import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
@@ -105,14 +104,11 @@ public final class Resolver {
         Map<TypeName, Dto> dtosWithSuper = new HashMap<>();
 
         for (Dto dto : dtos) {
-            SubtypeSelector subtypes = dto.subtypeSelector();
-            if (subtypes == null) {
-                continue;
-            }
-
-            for (Reference r : subtypes.typeMapping().values()) {
-                dtosWithSuper.put(r.typeName(), dto);
-            }
+            dto.subtypeSelector().ifPresent(subtypes -> {
+                for (Reference r : subtypes.typeMapping().values()) {
+                    dtosWithSuper.put(r.typeName(), dto);
+                }
+            });
         }
 
         return dtos.stream()
