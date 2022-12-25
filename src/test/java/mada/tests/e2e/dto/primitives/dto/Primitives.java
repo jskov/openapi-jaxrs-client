@@ -9,7 +9,6 @@ package mada.tests.e2e.dto.primitives.dto;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.validation.Valid;
 
 /**
  * Primitives
@@ -213,7 +212,6 @@ public class Primitives {
    * Get object
    * @return object
    **/
-  @Valid
   public Object getObject() {
     return object;
   }

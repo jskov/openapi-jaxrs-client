@@ -385,6 +385,11 @@ public final class GeneratorOpts {
         return PropertyOrder.from(order);
     }
 
+    /** {@return true if enumerations should deserialize unknown input to 'unknown_default_open_api'} */
+    public boolean isUseEnumUnknownDefault() {
+        return bool("generator-use-enum-unknown-default");
+    }
+
     /**
      * {@return true if wrapped primitives should be used in API parameters}
      *

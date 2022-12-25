@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
@@ -77,9 +78,79 @@ public final class Resolver {
         // targets for dereferencing during the resolve pass.
         Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
 
-        return renamedDtos.stream()
+        Collection<Dto> foldedDtos = foldInheritance(renamedDtos);
+
+        return dereferenceDtos(foldedDtos);
+    }
+
+    private List<Dto> dereferenceDtos(Collection<Dto> foldedDtos) {
+        logger.debug("Dereference DTOs");
+        return foldedDtos.stream()
                 .map(this::derefDto)
                 .toList();
+    }
+
+    /**
+     * Reconstructs the inheritance between DTOs as expressed
+     * by oneof-discriminator information.
+     *
+     * This removes fields from sub-classes that are also present
+     * in the super class. Without any form of validation though.
+     *
+     * @param dtos the DTOs containing discriminator information
+     * @return dtos with inheritance information
+     */
+    private List<Dto> foldInheritance(Collection<Dto> dtos) {
+        logger.debug("Look for DTO inheritance");
+        Map<TypeName, Dto> dtosWithSuper = new HashMap<>();
+
+        for (Dto dto : dtos) {
+            SubtypeSelector subtypes = dto.subtypeSelector();
+            if (subtypes == null) {
+                continue;
+            }
+
+            for (Reference r : subtypes.typeMapping().values()) {
+                dtosWithSuper.put(r.typeName(), dto);
+            }
+        }
+
+        return dtos.stream()
+                .map(dto -> adjustToParentExtension(dto, dtosWithSuper.get(dto.typeName())))
+                .toList();
+    }
+
+    /**
+     * Change DTO if it extends a parent.
+     *
+     * Make a link to the parent and remove inherited properties.
+     *
+     * @param dto the dto to change
+     * @param parent the parent dto, or null
+     * @return the updated dto
+     */
+    private Dto adjustToParentExtension(Dto dto, Dto parent) {
+        if (parent == null) {
+            return dto;
+        }
+
+        String parentName = parent.name();
+        String dtoName = dto.name();
+        logger.debug(" {} extends {}", dtoName, parentName);
+        List<Property> localProperties = dto.properties()
+                .stream()
+                .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))
+                .toList();
+
+        return Dto.builderFrom(dto)
+                .parent(parent)
+                .properties(localProperties)
+                .build();
+    }
+
+    private boolean isLocalToDto(Dto parent, String propertyName) {
+        return parent.properties().stream()
+                .noneMatch(prop -> propertyName.equals(prop.name()));
     }
 
     private Dto derefDto(Dto dto) {
@@ -206,11 +277,16 @@ public final class Resolver {
      * @return the final model type
      */
     private Type resolveInner(Type type) {
-        if (type instanceof Dto dto) {
+        if (type instanceof Dto) {
+            // See if DTO has been remapped to something else
+            Type remappedDto = parserTypes.find(type.typeName()).orElse(type);
+            if (remappedDto instanceof Dto dto) {
+                remappedDto = conflictRenamer.getConflictRenamedDto(dto);
+            }
+
             // Convert parser DTO instance to model DTO instance
-            Dto resolvedDto = conflictRenamer.getConflictRenamedDto(dto);
-            // But wrap in a reference - or cyclic DTOs will not be possible
-            return TypeReference.of(resolvedDto, Validation.NO_VALIDATION);
+            // Wrap in a reference - or cyclic DTOs will not be possible
+            return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {

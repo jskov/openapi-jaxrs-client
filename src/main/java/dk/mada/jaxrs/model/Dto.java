@@ -73,4 +73,7 @@ public interface Dto extends Type {
     /** {@return a sub-type mapping, or null} */
     @Nullable
     SubtypeSelector subtypeSelector();
+
+    /** {@return the optional parent that this DTO extends} */
+    Optional<Dto> parent();
 }

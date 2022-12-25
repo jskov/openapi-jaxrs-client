@@ -16,23 +16,13 @@ import java.util.Objects;
  * SubA
  */
 @JsonPropertyOrder({
-  SubA.JSON_PROPERTY_IMPL_DISCRIMINATOR,
-  SubA.JSON_PROPERTY_SUPER_VALUE,
   SubA.JSON_PROPERTY_BAR
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SubA implements SubASubB {
+public class SubA extends Super implements SubASubB {
   public static final String JSON_PROPERTY_BAR = "bar";
   @JsonProperty(JSON_PROPERTY_BAR)
   private Integer bar;
-
-  public static final String JSON_PROPERTY_IMPL_DISCRIMINATOR = "implDiscriminator";
-  @JsonProperty(JSON_PROPERTY_IMPL_DISCRIMINATOR)
-  private String implDiscriminator;
-
-  public static final String JSON_PROPERTY_SUPER_VALUE = "superValue";
-  @JsonProperty(JSON_PROPERTY_SUPER_VALUE)
-  private Integer superValue;
 
   public SubA bar(Integer bar) {
     this.bar = bar;
@@ -51,40 +41,6 @@ public class SubA implements SubASubB {
     this.bar = bar;
   }
 
-  public SubA implDiscriminator(String implDiscriminator) {
-    this.implDiscriminator = implDiscriminator;
-    return this;
-  }
-
-  /**
-   * Get implDiscriminator
-   * @return implDiscriminator
-   **/
-  public String getImplDiscriminator() {
-    return implDiscriminator;
-  }
-
-  public void setImplDiscriminator(String implDiscriminator) {
-    this.implDiscriminator = implDiscriminator;
-  }
-
-  public SubA superValue(Integer superValue) {
-    this.superValue = superValue;
-    return this;
-  }
-
-  /**
-   * Get superValue
-   * @return superValue
-   **/
-  public Integer getSuperValue() {
-    return superValue;
-  }
-
-  public void setSuperValue(Integer superValue) {
-    this.superValue = superValue;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -95,22 +51,20 @@ public class SubA implements SubASubB {
     }
     SubA other = (SubA) o;
     return Objects.equals(this.bar, other.bar) &&
-        Objects.equals(this.implDiscriminator, other.implDiscriminator) &&
-        Objects.equals(this.superValue, other.superValue);
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bar, implDiscriminator, superValue);
+    return Objects.hash(bar, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SubA {");
+    sb.append("\n    ").append(toIndentedString(super.toString()));
     sb.append("\n    bar: ").append(toIndentedString(bar));
-    sb.append("\n    implDiscriminator: ").append(toIndentedString(implDiscriminator));
-    sb.append("\n    superValue: ").append(toIndentedString(superValue));
     sb.append("\n}");
     return sb.toString();
   }

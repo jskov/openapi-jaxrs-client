@@ -72,9 +72,8 @@ public interface CtxDto {
     String datatypeWithEnum();
     /** {@return true if the is an enumeration that can be deserialized as null} */
     boolean isNullable();
-    /** {@return the name of a parent class, or null} */
-    @Nullable
-    String parent();
+    /** {@return the optional name of a parent class} */
+    Optional<String> parent();
     /** {@return optional vendor extensions} */
     @Nullable
     Map<String, String> vendorExtensions();

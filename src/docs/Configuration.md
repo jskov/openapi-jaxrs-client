@@ -22,6 +22,13 @@ The options are grouped into three sections:
 >
     default value: false
 
+**parser-fixup-null-type-dates**
+
+>This option allows accepting type=null/format=date (or date-time) as date/date-time types.
+
+>
+    default value: false
+
 **parser-inputstream-is-jse**
 
 >This option allows parsing of the type byte[] (`FileSchema` and `BinarySchema`) to be treated by the generator as Java SE `java.io.InputSteam`.
@@ -336,6 +343,13 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-use-enum-unknown-default**
+
+>Allows you to add a fallback value ('unknown_default_open_api') to enumerations.
+>This value is used when deserializing unknown input instead of throwing IllegalStateException.
+
+>
+    default value: false
 
 **generator-use-localdatetime**
 
@@ -447,6 +461,15 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >
     default value: false
+
+**naming-rules-api**
+
+>Allows you to control the naming of API classes using the operators described above.
+
+>The API group (or `generator-api-default-name` default) value is given as input.
+
+>
+    default value: TYPENAME; REGEXP/Api$//; APPEND/Api/
 
 **naming-rules-enum-constant**
 

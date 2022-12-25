@@ -49,7 +49,12 @@ public enum {{#datatypeWithEnum}}{{datatypeWithEnum}}{{/datatypeWithEnum}}{{^dat
         return b;
       }
     }
+    {{#madaDto.isEnumUnknownDefault}}
+    {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
+    {{/madaDto.isEnumUnknownDefault}}
+    {{^madaDto.isEnumUnknownDefault}}
     {{#isNullable}}return null;{{/isNullable}}{{^isNullable}}throw new IllegalArgumentException("Unexpected value '" + value + "'");{{/isNullable}}
+    {{/madaDto.isEnumUnknownDefault}}
   }
 {{/jackson}}
   {{#madaDto.jsonb}}
@@ -67,7 +72,12 @@ public enum {{#datatypeWithEnum}}{{datatypeWithEnum}}{{/datatypeWithEnum}}{{^dat
                   return b;
               }
           }
+    {{#madaDto.isEnumUnknownDefault}}
+          {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
+    {{/madaDto.isEnumUnknownDefault}}
+    {{^madaDto.isEnumUnknownDefault}}
           throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type {{{classname}}}");
+    {{/madaDto.isEnumUnknownDefault}}
       }
   }
   {{/madaDto.jsonb}}

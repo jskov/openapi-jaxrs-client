@@ -68,6 +68,11 @@ public final class ParserOpts {
         return bool("parser-fixup-void-200-to-204", false);
     }
 
+    /** {@return true if null-type with format date/date-time should be fixed} */
+    public boolean isFixupNullTypeDates() {
+        return bool("parser-fixup-null-type-dates", false);
+    }
+
     private boolean bool(String name) {
         return bool(name, false);
     }

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -167,14 +168,17 @@ public class ParserTypes {
      * @throws IllegalArgumentException if there is no type associated with the given type name
      */
     public Type get(TypeName tn) {
-        Type t = find(tn);
-        if (t == null) {
-            throw new IllegalArgumentException("No type referenced found by name " + tn.name());
-        }
-        return t;
+        return find(tn)
+                .orElseThrow(() -> new IllegalArgumentException("No type referenced found by name " + tn.name()));
     }
 
-    private Type find(TypeName tn) {
+    /**
+     * Find a type from a type name.
+     *
+     * @param tn the type name to get
+     * @return the associated type, or empty
+     */
+    public Optional<Type> find(TypeName tn) {
         String conversion = "na";
         String name = tn.name();
 
@@ -205,7 +209,7 @@ public class ParserTypes {
         }
 
         logger.debug("find {} -> {} : {}", name, conversion, type);
-        return type;
+        return Optional.ofNullable(type);
     }
 
     /**

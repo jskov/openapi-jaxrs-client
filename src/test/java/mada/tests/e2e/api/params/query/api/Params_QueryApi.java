@@ -8,6 +8,8 @@
 
 package mada.tests.e2e.api.params.query.api;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -40,6 +42,20 @@ public interface Params_QueryApi {
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsQueryBooleanWrapperGet(@QueryParam("flag") boolean flag);
+
+  /**
+   * apiParamsQueryDatesGet.
+   *
+   * @param date  (optional)
+   * @param dateTime  (optional)
+   * @param time  (optional)
+   * @return String
+   */
+  @GET
+  @Path("/dates")
+  @Produces(MediaType.TEXT_PLAIN)
+  @APIResponseSchema(String.class)
+  String apiParamsQueryDatesGet(@QueryParam("date") LocalDate date, @QueryParam("date-time") OffsetDateTime dateTime, @QueryParam("time") String time);
 
   /**
    * apiParamsQueryListGet.

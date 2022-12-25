@@ -235,6 +235,19 @@ public final class TypeConverter {
                 }
             }
 
+            @SuppressWarnings("rawtypes")
+            List<Schema> oneOf = cs.getOneOf();
+            if (oneOf != null && !oneOf.isEmpty()) {
+                List<String> oneOfNames = oneOf.stream()
+                    .map(Schema::getName)
+                    .toList();
+                logger.info("  oneof {}", oneOfNames);
+
+                // regular object, but for now assumes there will
+                // be supplementary discriminator information
+                return parserRefs.of(TypeObject.get(), validation);
+            }
+
             // allOf is the combination of schemas (subclassing and/or validation)
             Type typeWithValidation = findTypeValidation(cs);
             if (typeWithValidation != null) {
@@ -250,12 +263,11 @@ public final class TypeConverter {
             return parserRefs.of(TypeBigDecimal.get(), validation);
         }
 
-        if (schema instanceof DateTimeSchema) {
+        if (isDateTimeType(schema)) {
             return parserRefs.of(TypeDateTime.get(generatorOpts), validation);
         }
 
-        if (schema instanceof DateSchema) {
-            logger.debug(" {} : TypeDate", schema.getName());
+        if (isDateType(schema)) {
             return parserRefs.of(TypeDate.get(), validation);
         }
 
@@ -305,6 +317,22 @@ public final class TypeConverter {
         // return parserRefs.of(TypeVoid.getRef(), validation);
 
         throw new IllegalStateException("No type found for " + schema);
+    }
+
+    private boolean isDateType(Schema<?> schema) {
+        return schema instanceof DateSchema
+                || isBrokenDateTimeType(schema, "date");
+    }
+
+    private boolean isDateTimeType(Schema<?> schema) {
+        return schema instanceof DateTimeSchema
+                || isBrokenDateTimeType(schema, "date-time");
+    }
+
+    private boolean isBrokenDateTimeType(Schema<?> schema, String format) {
+        return parserOpts.isFixupNullTypeDates()
+                && schema.getType() == null
+                && format.equals(schema.getFormat());
     }
 
     /**
@@ -397,7 +425,8 @@ public final class TypeConverter {
         // that needs name-conflict-resolution.
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
-        ParserTypeRef dtoType = toReference(schema);
+        logger.info("creating dto {}", dtoName);
+        ParserTypeRef dtoType = reference(schema, null, dtoName);
 
         List<Property> props = readProperties(schema, modelName);
 

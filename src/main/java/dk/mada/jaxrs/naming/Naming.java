@@ -16,6 +16,8 @@ import dk.mada.jaxrs.naming.NamingRules.NamingRule;
 public class Naming {
     private static final Logger logger = LoggerFactory.getLogger(Naming.class);
 
+    /** Naming rules for API group names. */
+    private final List<NamingRule> apiNamingRules;
     /** Naming rules for enumeration constants. */
     private final List<NamingRule> enumConstantNamingRules;
     /** Naming rules for enumeration number constants. */
@@ -49,6 +51,7 @@ public class Naming {
     public Naming(Properties props) {
         namingOpts = new NamingOpts(props);
 
+        apiNamingRules = NamingRules.toRules(namingOpts.getApiNaming());
         entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());
         enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
         enumNumberConstantNamingRules = NamingRules.toRules(namingOpts.getEnumNumberConstantNaming());
@@ -60,6 +63,7 @@ public class Naming {
         getTypeConflictRenaming = NamingRules.toRules(namingOpts.getTypeConflictRenaming());
 
         if (logger.isInfoEnabled()) {
+            logger.info("apiNamingRules: {}", makeRuleInfo(apiNamingRules));
             logger.info("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
             logger.info("enumConstantNamingRules: {}", makeRuleInfo(enumConstantNamingRules));
             logger.info("enumNumberConstantNamingRules: {}", makeRuleInfo(enumNumberConstantNamingRules));
@@ -115,6 +119,16 @@ public class Naming {
      */
     public String convertEnumNumberName(String enumerationEntryName) {
         return convert(enumNumberConstantNamingRules, enumerationEntryName);
+    }
+
+    /**
+     * Converts an API group name into a java API class name.
+     *
+     * @param groupName the OpenApi group name
+     * @return the java API class name
+     */
+    public String convertApiName(String groupName) {
+        return convert(apiNamingRules, groupName);
     }
 
     /**

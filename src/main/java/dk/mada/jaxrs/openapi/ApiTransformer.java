@@ -139,7 +139,7 @@ public class ApiTransformer {
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         Response r = Response.builder()
                 .code(StatusCode.of(code))
-                .description(resp.getDescription())
+                .description(Optional.ofNullable(resp.getDescription()))
                 .content(getContent(resourcePath, resp.getContent()))
                 .build();
 

@@ -121,7 +121,7 @@ public class ApiGenerator {
             group = defaultApiName;
         }
         String input = group.endsWith("Api") ? group : group + "Api";
-        return naming.convertTypeName(input);
+        return naming.convertApiName(input);
     }
 
     private CtxApi toCtx(String classname, List<Operation> operations) {
@@ -460,11 +460,14 @@ public class ApiGenerator {
             containerType = null;
         }
 
+        String description = r.description()
+                .orElse("");
+
         return CtxApiResponse.builder()
                 .baseType(baseType)
                 .code(r.code().asOpenApiStatus())
                 .containerType(containerType)
-                .description(r.description())
+                .description(description)
                 .isUnique(isUnique)
                 .build();
     }
