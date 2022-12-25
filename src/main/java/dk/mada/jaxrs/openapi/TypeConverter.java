@@ -387,8 +387,8 @@ public final class TypeConverter {
 
     private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s) {
         Validation candidate = Validation.builder()
-                .isNullable(s.getNullable())
-                .isReadonly(s.getReadOnly())
+                .isNullable(Optional.ofNullable(s.getNullable()))
+                .isReadonly(Optional.ofNullable(s.getReadOnly()))
                 .isRequired(false)
                 .maximum(Optional.ofNullable(s.getMaximum()))
                 .maxItems(Optional.ofNullable(s.getMaxItems()))

@@ -3,8 +3,6 @@ package dk.mada.jaxrs.model;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -25,12 +23,10 @@ public interface Validation {
         return this == NO_VALIDATION;
     }
 
-    /** {@return true if the property can be null, otherwise false. Null if not specified} */
-    @Nullable
-    Boolean isNullable();
-    /** {@return true if the property is read-only, otherwise false. Null if not specified} */
-    @Nullable
-    Boolean isReadonly();
+    /** {@return optional nullable state for the reference} */
+    Optional<Boolean> isNullable();
+    /** {@return optional read-only state for the reference} */
+    Optional<Boolean> isReadonly();
     /** {@return true if the property is required, otherwise false} */
     boolean isRequired();
 
