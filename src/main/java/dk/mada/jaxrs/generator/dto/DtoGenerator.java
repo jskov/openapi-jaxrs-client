@@ -678,8 +678,7 @@ public class DtoGenerator {
                 dtoImports.add(ValidationApi.VALID);
             }
 
-            // Note that OpenApi spec xItems/xLength both map to @Size
-            // TODO: Make the rendering type Optional<Integer>?
+            // Note that OpenApi specification xItems/xLength both map to @Size
             minLength = p.minItems()
                 .or(p::minLength)
                 .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
