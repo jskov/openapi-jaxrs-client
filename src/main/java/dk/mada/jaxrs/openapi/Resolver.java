@@ -37,6 +37,8 @@ import dk.mada.jaxrs.model.types.TypeVoid;
 public final class Resolver {
     private static final Logger logger = LoggerFactory.getLogger(Resolver.class);
 
+    /** The unknown type. */
+    private static final TypeUnknownAtParseTime UNKNOWN_TYPE = TypeUnknownAtParseTime.get();
     /** Parser types to their dereferenced model type. */
     private final Map<ParserTypeRef, TypeReference> dereferencedTypes = new HashMap<>();
 
@@ -46,8 +48,6 @@ public final class Resolver {
     private final ParserTypes parserTypes;
     /** Conflict renamer. */
     private final ConflictRenamer conflictRenamer;
-    /** The unknown type. */
-    private final TypeUnknownAtParseTime UNKNOWN_TYPE = TypeUnknownAtParseTime.get();
 
     /**
      * Create new instance.

@@ -191,7 +191,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdate-deserializer", ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname());
+        return getOptDefault("generator-jackson-localdate-deserializer",
+                ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname());
     }
 
     /** {@return the optional jackson LocalDate serializer class name} */
@@ -199,7 +200,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdate-serializer", ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
+        return getOptDefault("generator-jackson-localdate-serializer",
+                ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
     }
 
     /** {@return the optional jackson LocalDateTime deserializer class name} */
@@ -207,7 +209,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdatetime-deserializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname());
+        return getOptDefault("generator-jackson-localdatetime-deserializer",
+                ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname());
     }
 
     /** {@return the optional jackson LocalDateTime serializer class name} */
@@ -215,7 +218,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateTimeSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdatetime-serializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
+        return getOptDefault("generator-jackson-localdatetime-serializer",
+                ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
     /** {@return the optional jackson OffsetDateTime deserializer class name} */
@@ -223,7 +227,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-offsetdatetime-deserializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
+        return getOptDefault("generator-jackson-offsetdatetime-deserializer",
+                ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
     }
 
     /** {@return the optional jackson OffsetDateTime serializer class name} */
@@ -231,7 +236,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateTimeSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-offsetdatetime-serializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
+        return getOptDefault("generator-jackson-offsetdatetime-serializer",
+                ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
     /** {@return the optional OffsetDateTime wire format for jackson} */
