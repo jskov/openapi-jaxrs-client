@@ -69,6 +69,8 @@ public final class TypeNames {
     public static final TypeName UUID = new TypeName("UUID");
     /** The type name for a validation marker - not a real type. */
     public static final TypeName MARKER_VALIDATION = new TypeName("<VALIDATION>");
+    /** The type name for an unknown type at parse time - not a real type. */
+    public static final TypeName MARKER_UNKNOWN = new TypeName("<UNKNOWN>");
 
     /** TypeName instances indexed by their name. */
     private final Map<String, TypeName> nameToInstances = new HashMap<>();
@@ -103,6 +105,7 @@ public final class TypeNames {
         nameToInstances.put(BYTE_ARRAY.name(), BYTE_ARRAY);
         nameToInstances.put(INPUT_STREAM.name(), INPUT_STREAM);
         nameToInstances.put(UUID.name(), UUID);
+        nameToInstances.put(MARKER_UNKNOWN.name(), MARKER_UNKNOWN);
         nameToInstances.put(MARKER_VALIDATION.name(), MARKER_VALIDATION);
     }
 

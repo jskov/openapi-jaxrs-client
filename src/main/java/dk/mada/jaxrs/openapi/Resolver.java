@@ -46,6 +46,8 @@ public final class Resolver {
     private final ParserTypes parserTypes;
     /** Conflict renamer. */
     private final ConflictRenamer conflictRenamer;
+    /** The unknown type. */
+    private final TypeUnknownAtParseTime UNKNOWN_TYPE = TypeUnknownAtParseTime.get();
 
     /**
      * Create new instance.
@@ -257,7 +259,7 @@ public final class Resolver {
      * @return the model reference
      */
     private TypeReference resolve(ParserTypeRef ptr) {
-        Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
+        Type t = ptr.refType() == UNKNOWN_TYPE ? parserTypes.get(ptr.refTypeName()) : ptr.refType();
         Type resolvedT = resolveInner(t);
         TypeReference res = dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
 

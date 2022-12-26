@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +47,7 @@ public class ParserTypeRefs {
      */
     public ParserTypeRef makeDtoRef(String name) {
         TypeName tn = typeNames.of(name);
-        return of(null, tn, Validation.NO_VALIDATION);
+        return of(TypeUnknownAtParseTime.get(), tn, Validation.NO_VALIDATION);
     }
 
     /**
@@ -63,7 +61,7 @@ public class ParserTypeRefs {
      */
     public ParserTypeRef makeDtoRef(String name, Validation validation) {
         TypeName tn = typeNames.of(name);
-        return of(null, tn, validation);
+        return of(TypeUnknownAtParseTime.get(), tn, validation);
     }
 
     /**
@@ -83,7 +81,7 @@ public class ParserTypeRefs {
         return of(type, tn, validation);
     }
 
-    private ParserTypeRef of(@Nullable Type type, TypeName tn, Validation validation) {
+    private ParserTypeRef of(Type type, TypeName tn, Validation validation) {
         parserReferences.computeIfAbsent(tn, t -> new ValidationRefs());
         ValidationRefs validationRefs = parserReferences.get(tn);
         return validationRefs.getOrAdd(validation, type, tn);
@@ -108,7 +106,7 @@ public class ParserTypeRefs {
         /** Parser references, mapped by their validation. */
         private final Map<Validation, Set<ParserTypeRef>> refsByValidation = new HashMap<>();
 
-        private ParserTypeRef getOrAdd(Validation validation, @Nullable Type type, TypeName tn) {
+        private ParserTypeRef getOrAdd(Validation validation, Type type, TypeName tn) {
             Set<ParserTypeRef> refs = refsByValidation.computeIfAbsent(validation, v -> new HashSet<ParserTypeRef>());
 
             for (ParserTypeRef ref : refs) {
