@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.imports;
 
+import java.util.Optional;
+
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
@@ -31,7 +33,7 @@ public enum ValidationApi implements TypedImport {
     }
 
     @Override
-    public String path(ImportRenderPrefs irp) {
-        return importPath;
+    public Optional<String> path(ImportRenderPrefs irp) {
+        return Optional.of(importPath);
     }
 }

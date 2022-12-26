@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.imports;
 
+import java.util.Optional;
+
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
@@ -13,5 +15,5 @@ public interface TypedImport {
      *
      * @param irp the import rendering preferences
      */
-    String path(ImportRenderPrefs irp);
+    Optional<String> path(ImportRenderPrefs irp);
 }

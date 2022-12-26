@@ -31,9 +31,9 @@ public class CommonPathFinder {
 
         logger.debug("Paths: {}", paths);
 
-        String shortestPath = null;
+        String shortestPath = paths.get(0);
         for (String p : paths) {
-            if (shortestPath == null || p.length() < shortestPath.length()) {
+            if (p.length() < shortestPath.length()) {
                 shortestPath = p;
             }
         }

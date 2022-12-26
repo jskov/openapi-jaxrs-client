@@ -96,7 +96,7 @@ public final class EnumNamer {
             String name;
 
             List<String> cfn = conflicts.get(defaultName);
-            if (cfn.size() == 1) {
+            if (cfn == null || cfn.size() == 1) {
                 // no conflict
                 name = defaultName;
             } else {

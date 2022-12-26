@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.imports;
 
+import java.util.Optional;
+
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
@@ -90,10 +92,10 @@ public enum Jackson implements TypedImport {
      * @param irp the import rendering preferences
      */
     @Override
-    public String path(ImportRenderPrefs irp) {
+    public Optional<String> path(ImportRenderPrefs irp) {
         if (!irp.isJackson()) {
-            return null;
+            return Optional.empty();
         }
-        return irp.isJacksonCodehaus() ? codehausImport : fasterXmlImport;
+        return irp.isJacksonCodehaus() ? Optional.of(codehausImport) : Optional.of(fasterXmlImport);
     }
 }

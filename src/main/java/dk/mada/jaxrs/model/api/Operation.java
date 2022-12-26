@@ -3,8 +3,6 @@ package dk.mada.jaxrs.model.api;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -24,18 +22,15 @@ public interface Operation {
     /** {@return the operation tags} */
     List<String> tags();
 
-    /** {@return the operation id or null} */
-    @Nullable
-    String operationId();
+    /** {@return an optional operation id} */
+    Optional<String> operationId();
     /** {@return the operation id as would be defined by codegen} */
     String codegenOpId();
 
-    /** {@return the operation description or null} */
-    @Nullable
-    String description();
-    /** {@return the operation summary or null} */
-    @Nullable
-    String summary();
+    /** {@return an optional description of the operation} */
+    Optional<String> description();
+    /** {@return an optional summary of the operation} */
+    Optional<String> summary();
     /** {@return true if the operation is deprecated} */
     boolean deprecated();
 

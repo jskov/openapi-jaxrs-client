@@ -1,8 +1,7 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
+import java.util.Optional;
 import java.util.SortedSet;
-
-import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
@@ -23,12 +22,10 @@ public interface CtxInterface {
     String appName();
     /** {@return the application version} */
     String version();
-    /** {@return the application description, or null} */
-    @Nullable
-    String appDescription();
-    /** {@return the application contact email, or null} */
-    @Nullable
-    String infoEmail();
+    /** {@return the optional application description} */
+    Optional<String> appDescription();
+    /** {@return the optional application contact email} */
+    Optional<String> infoEmail();
 
     /** {@return the imports needed in the template} */
     SortedSet<String> getImports();
@@ -38,9 +35,8 @@ public interface CtxInterface {
         return !getImports().isEmpty();
     }
 
-    /** {@return the description for the class, or null} */
-    @Nullable
-    String description();
+    /** {@return an optional description of the class} */
+    Optional<String> description();
     /** {@return the package name for the class} */
     String packageName();
     /** {@return the classname for the class} */
@@ -50,14 +46,8 @@ public interface CtxInterface {
     String generatedAnnotationClass();
     /** {@return the name of the generator class} */
     String generatorClass();
-    /** {@return the date of the generation, or null} */
-    @Nullable
-    String generatedDate();
-
-    /** {@return true if the generation timestamp should be hidden, otherwise false} */
-    default boolean hideGenerationTimestamp() {
-        return generatedDate() == null;
-    }
+    /** {@return the optional date of the generation} */
+    Optional<String> generatedDate();
 
     /** {@return a string list of implementation DTOs} */
     String implementations();

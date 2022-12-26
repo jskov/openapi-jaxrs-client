@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
+import java.util.Optional;
+
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
@@ -40,13 +42,11 @@ public interface CtxPropertyExt {
     @Nullable
     String enumTypeName();
 
-    /** {@return the schema options for an inline enumeration type, or null} */
-    @Nullable
-    String enumSchemaOptions();
+    /** {@return the optional schema options for an inline enumeration type} */
+    Optional<String> enumSchemaOptions();
 
-    /** {@return the schema options (for use in @Schema), or null} */
-    @Nullable
-    String schemaOptions();
+    /** {@return the optional schema options (for use in @Schema)} */
+    Optional<String> schemaOptions();
 
     /** {@return true to use BigDecimal, false to use Double} */
     boolean isUseBigDecimalForDouble();

@@ -1,8 +1,7 @@
 package dk.mada.jaxrs.generator.dto.tmpl;
 
+import java.util.Optional;
 import java.util.SortedSet;
-
-import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
 
@@ -26,12 +25,10 @@ public interface CtxExtraDateSerializer {
     String appName();
     /** {@return the application version} */
     String version();
-    /** {@return the application description, or null} */
-    @Nullable
-    String appDescription();
-    /** {@return the application contact email, or null} */
-    @Nullable
-    String infoEmail();
+    /** {@return the optional application description} */
+    Optional<String> appDescription();
+    /** {@return the optional application contact email} */
+    Optional<String> infoEmail();
 
     /** {@return the imports needed in the template} */
     SortedSet<String> getImports();
@@ -64,24 +61,15 @@ public interface CtxExtraDateSerializer {
     String generatedAnnotationClass();
     /** {@return the name of the generator class} */
     String generatorClass();
-    /** {@return the date of the generation, or null} */
-    @Nullable
-    String generatedDate();
+    /** {@return the optional date of the generation} */
+    Optional<String> generatedDate();
 
-    /** {@return true if the generation timestamp should be hidden, otherwise false} */
-    default boolean hideGenerationTimestamp() {
-        return generatedDate() == null;
-    }
+    /** {@return the optional date format used by the LocalDate serializer} */
+    Optional<String> cannedLocalDateSerializerDTF();
 
-    /** {@return the date format used by the LocalDate serializer, or null} */
-    @Nullable
-    String cannedLocalDateSerializerDTF();
+    /** {@return the optional date time format used by the LocalDateTime serializer} */
+    Optional<String> cannedLocalDateTimeSerializerDTF();
 
-    /** {@return the date time format used by the LocalDateTime serializer, or null} */
-    @Nullable
-    String cannedLocalDateTimeSerializerDTF();
-
-    /** {@return the date time format used by the OffsetDateTime serializer, or null} */
-    @Nullable
-    String cannedOffsetDateTimeSerializerDTF();
+    /** {@return the optional date time format used by the OffsetDateTime serializer} */
+    Optional<String> cannedOffsetDateTimeSerializerDTF();
 }

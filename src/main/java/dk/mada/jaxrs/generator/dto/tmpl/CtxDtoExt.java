@@ -18,23 +18,18 @@ public interface CtxDtoExt {
         return ImmutableCtxDtoExt.builder();
     }
 
-    /** {@return any custom jackson @JsonSerialize options, or null} */
-    @Nullable
-    String jacksonJsonSerializeOptions();
+    /** {@return optional custom jackson @JsonSerialize options} */
+    Optional<String> jacksonJsonSerializeOptions();
 
-    /** {@return the name of a custom LocalDateDeserializer, or null} */
-    @Nullable
-    String customLocalDateDeserializer();
-    /** {@return the name of a custom LocalDateSerializer, or null} */
-    @Nullable
-    String customLocalDateSerializer();
+    /** {@return the optional name of a custom LocalDateDeserializer} */
+    Optional<String> customLocalDateDeserializer();
+    /** {@return the optional name of a custom LocalDateSerializer} */
+    Optional<String> customLocalDateSerializer();
 
-    /** {@return the name of a custom OffsetDateDeserializer, or null} */
-    @Nullable
-    String customOffsetDateTimeDeserializer();
-    /** {@return the name of a custom OffsetDateSerializer, or null} */
-    @Nullable
-    String customOffsetDateTimeSerializer();
+    /** {@return the optional name of a custom OffsetDateDeserializer} */
+    Optional<String> customOffsetDateTimeDeserializer();
+    /** {@return the optional name of a custom OffsetDateSerializer} */
+    Optional<String> customOffsetDateTimeSerializer();
 
     /** {@return true if rendering for jsonb, false otherwise} */
     boolean jsonb();
@@ -43,9 +38,8 @@ public interface CtxDtoExt {
     @Nullable
     String schemaOptions();
 
-    /** {@return a string containing the interfaces implemented by this DTO} */
-    @Nullable
-    String implementsInterfaces();
+    /** {@return an optional string containing the interfaces implemented by this DTO} */
+    Optional<String> implementsInterfaces();
 
     /** {@return true if enumeration data type is primitive and can use == for equals} */
     boolean isEqualsPrimitive();

@@ -1,6 +1,6 @@
 package dk.mada.jaxrs.model.api;
 
-import javax.annotation.Nullable;
+import java.util.Optional;
 
 import org.immutables.value.Value.Immutable;
 
@@ -19,9 +19,8 @@ public interface Response {
     /** {@return the content of this response} */
     Content content();
 
-    /** {@return the description of this response} */
-    @Nullable
-    String description();
+    /** {@return an optional description of this response} */
+    Optional<String> description();
 
     /** {@return true if this is a void-response} */
     default boolean isVoid() {

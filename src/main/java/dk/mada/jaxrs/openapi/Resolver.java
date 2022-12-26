@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
-import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
@@ -37,6 +37,8 @@ import dk.mada.jaxrs.model.types.TypeVoid;
 public final class Resolver {
     private static final Logger logger = LoggerFactory.getLogger(Resolver.class);
 
+    /** The unknown type. */
+    private static final TypeUnknownAtParseTime UNKNOWN_TYPE = TypeUnknownAtParseTime.get();
     /** Parser types to their dereferenced model type. */
     private final Map<ParserTypeRef, TypeReference> dereferencedTypes = new HashMap<>();
 
@@ -105,14 +107,11 @@ public final class Resolver {
         Map<TypeName, Dto> dtosWithSuper = new HashMap<>();
 
         for (Dto dto : dtos) {
-            SubtypeSelector subtypes = dto.subtypeSelector();
-            if (subtypes == null) {
-                continue;
-            }
-
-            for (Reference r : subtypes.typeMapping().values()) {
-                dtosWithSuper.put(r.typeName(), dto);
-            }
+            dto.subtypeSelector().ifPresent(subtypes -> {
+                for (Reference r : subtypes.typeMapping().values()) {
+                    dtosWithSuper.put(r.typeName(), dto);
+                }
+            });
         }
 
         return dtos.stream()
@@ -129,7 +128,7 @@ public final class Resolver {
      * @param parent the parent dto, or null
      * @return the updated dto
      */
-    private Dto adjustToParentExtension(Dto dto, Dto parent) {
+    private Dto adjustToParentExtension(Dto dto, @Nullable Dto parent) {
         if (parent == null) {
             return dto;
         }
@@ -260,7 +259,7 @@ public final class Resolver {
      * @return the model reference
      */
     private TypeReference resolve(ParserTypeRef ptr) {
-        Type t = ptr.refType() != null ? ptr.refType() : parserTypes.get(ptr.refTypeName());
+        Type t = ptr.refType() == UNKNOWN_TYPE ? parserTypes.get(ptr.refTypeName()) : ptr.refType();
         Type resolvedT = resolveInner(t);
         TypeReference res = dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
 

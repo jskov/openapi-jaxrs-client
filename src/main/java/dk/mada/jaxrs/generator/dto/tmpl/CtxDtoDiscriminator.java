@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.immutables.value.Value.Immutable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Custom extensions. In separate (mada.) context so they are
@@ -27,7 +28,7 @@ public interface CtxDtoDiscriminator {
      * @param mappingName the way it is referred to in the stream
      * @param vendorExtensions map of vendor extensions
      */
-    record ModelMapping(String modelName, String mappingName, Map<String, String> vendorExtensions) {
+    record ModelMapping(String modelName, String mappingName, @Nullable Map<String, String> vendorExtensions) {
     }
 
     /** {@return the list of mapped models} */

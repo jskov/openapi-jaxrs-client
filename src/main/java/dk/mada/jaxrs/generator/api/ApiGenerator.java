@@ -23,7 +23,6 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
-import dk.mada.jaxrs.generator.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.JaxRs;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
@@ -114,10 +113,10 @@ public class ApiGenerator {
     }
 
     private String makeClassName(String groupInput) {
-        String defaultApiName = opts.getDefaultApiName();
+        String defaultApiName = opts.getDefaultApiName().orElse(groupInput);
 
         String group = groupInput;
-        if (defaultApiName != null && "Default".equals(groupInput)) {
+        if ("Default".equals(groupInput)) {
             group = defaultApiName;
         }
         String input = group.endsWith("Api") ? group : group + "Api";
@@ -138,8 +137,8 @@ public class ApiGenerator {
 
         imports.trimContainerImplementations();
 
-        String clientKey = opts.getMpClientConfigKey();
-        if (clientKey != null) {
+        Optional<String> clientKey = opts.getMpClientConfigKey();
+        if (clientKey.isPresent()) {
             imports.add(MicroProfile.REGISTER_REST_CLIENT);
         }
 
@@ -192,10 +191,8 @@ public class ApiGenerator {
     private CtxOperationRef toCtxApiOperation(Imports imports, int trimPathLength, Operation op) {
         addOperationImports(imports, op);
 
-        String nickname = op.operationId();
-        if (nickname == null) {
-            nickname = op.codegenOpId();
-        }
+        String nickname = op.operationId()
+                .orElse(op.codegenOpId());
 
         // Gets type for OK if present, or else default, or else void
         Reference typeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
@@ -226,10 +223,10 @@ public class ApiGenerator {
         boolean renderJavadocReturn = !typeRef.isVoid();
         boolean renderJavadocMacroSpacer = renderJavadocReturn || !allParams.isEmpty();
 
-        String summary = op.summary();
+        Optional<String> summary = op.summary();
 
-        String opSummaryString = StringRenderer.encodeForString(summary);
-        if (opSummaryString != null) {
+        Optional<String> opSummaryString = StringRenderer.encodeForString(summary);
+        if (summary.isPresent()) {
             imports.add(MicroProfile.OPERATION);
         }
 
@@ -243,16 +240,16 @@ public class ApiGenerator {
                 .summaryString(opSummaryString)
                 .build();
 
-        String description = op.description();
+        Optional<String> description = op.description();
 
         return new CtxOperationRef(CtxApiOp.builder()
                 .nickname(nickname)
                 .returnType(typeRef.typeName().name())
-                .path(path)
+                .path(Optional.ofNullable(path))
                 .httpMethod(op.httpMethod().name())
                 .allParams(allParams)
                 .responses(responses)
-                .summary(StringRenderer.makeValidOperationJavadocSummary(summary))
+                .summary(summary.flatMap(StringRenderer::makeValidOperationJavadocSummary))
                 .notes(description)
                 .madaOp(ext)
                 .build());
@@ -400,7 +397,7 @@ public class ApiGenerator {
                 imports.add(ValidationApi.NOT_NULL);
             }
 
-            ImmutableCtxApiParam bodyParam = CtxApiParam.builder()
+            CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
                     .dataType(dataType)
@@ -414,6 +411,13 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .useBeanValidation(opts.isUseBeanValidation())
+                    .decimalMaximum(Optional.empty())
+                    .decimalMinimum(Optional.empty())
+                    .maximum(Optional.empty())
+                    .maxLength(Optional.empty())
+                    .minimum(Optional.empty())
+                    .minLength(Optional.empty())
+                    .pattern(Optional.empty())
                     .build();
 
             // Only include body param if it is not void. It may be void
@@ -462,10 +466,8 @@ public class ApiGenerator {
             containerType = null;
         }
 
-        String description = r.description();
-        if (description == null) {
-            description = "";
-        }
+        String description = r.description()
+                .orElse("");
 
         return CtxApiResponse.builder()
                 .baseType(baseType)
@@ -476,33 +478,33 @@ public class ApiGenerator {
                 .build();
     }
 
-    private String makeConsumes(Imports imports, Operation op) {
+    private Optional<String> makeConsumes(Imports imports, Operation op) {
         return op.requestBody()
-                .map(rb -> makeMediaTypeArgs(imports, rb.content().mediaTypes().stream()))
-                .orElse(null);
+                .flatMap(rb -> makeMediaTypeArgs(imports, rb.content().mediaTypes().stream()));
     }
 
-    private String makeProduces(Imports imports, Operation op) {
+    private Optional<String> makeProduces(Imports imports, Operation op) {
         Stream<String> combinedMediaTypes = op.responses().stream()
                 .flatMap(r -> r.content().mediaTypes().stream());
         return makeMediaTypeArgs(imports, combinedMediaTypes);
     }
 
-    private String makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
+    private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
         List<String> wrappedMediaTypes = mediaTypes
                 .map(mt -> toMediaType(imports, mt))
                 .sorted()
                 .distinct()
                 .toList();
 
+        if (wrappedMediaTypes.isEmpty()) {
+            return Optional.empty();
+        }
+
         String arg = String.join(", ", wrappedMediaTypes);
         if (wrappedMediaTypes.size() > 1) {
-            arg = "{" + arg + "}";
+            return Optional.of("{" + arg + "}");
         }
-        if (wrappedMediaTypes.isEmpty()) {
-            arg = null;
-        }
-        return arg;
+        return Optional.of(arg);
     }
 
     private String toMediaType(Imports imports, String mediaType) {

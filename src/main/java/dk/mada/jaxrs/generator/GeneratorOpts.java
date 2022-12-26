@@ -5,10 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Stream;
-
-import javax.annotation.Nullable;
 
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
@@ -139,13 +138,13 @@ public final class GeneratorOpts {
 
     /** {@return true if json serializer options should be used} */
     public boolean isUseJsonSerializeOptions() {
-        return getJsonSerializeOptions() != null;
+        return getJsonSerializeOptions().isPresent();
     }
 
-    /** {@return json serialize options} */
-    public String getJsonSerializeOptions() {
+    /** {@return optional json serialize options} */
+    public Optional<String> getJsonSerializeOptions() {
         if (!isJackson()) {
-            return null;
+            return Optional.empty();
         }
         return get("generator-jackson-json-serialize-options");
     }
@@ -171,86 +170,90 @@ public final class GeneratorOpts {
         return parserOpts.isJseOffsetDateTime() && isJackson();
     }
 
-    /** {@return the LocalDate wire format for jackson, or null} */
-    public String getJacksonLocalDateWireFormat() {
+    /** {@return the optional LocalDate wire format for jackson} */
+    public Optional<String> getJacksonLocalDateWireFormat() {
         if (!isUseJacksonLocalDateSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
+        return getOptDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
     }
 
-    /** {@return the LocalDateTime wire format for jackson, or null} */
-    public String getJacksonLocalDateTimeWireFormat() {
+    /** {@return the optional LocalDateTime wire format for jackson} */
+    public Optional<String> getJacksonLocalDateTimeWireFormat() {
         if (!isUseJacksonLocalDateTimeSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-localdatetime-wire-format", "ISO_LOCAL_DATE_TIME");
+        return getOptDefault("generator-jackson-localdatetime-wire-format", "ISO_LOCAL_DATE_TIME");
     }
 
-    /** {@return the jackson LocalDate deserializer class name, or null} */
-    public String getJacksonLocalDateDeserializer() {
+    /** {@return the optional jackson LocalDate deserializer class name} */
+    public Optional<String> getJacksonLocalDateDeserializer() {
         if (!isUseJacksonLocalDateSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-localdate-deserializer", ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname());
+        return getOptDefault("generator-jackson-localdate-deserializer",
+                ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname());
     }
 
-    /** {@return the jackson LocalDate serializer class name, or null} */
-    public String getJacksonLocalDateSerializer() {
+    /** {@return the optional jackson LocalDate serializer class name} */
+    public Optional<String> getJacksonLocalDateSerializer() {
         if (!isUseJacksonLocalDateSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-localdate-serializer", ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
+        return getOptDefault("generator-jackson-localdate-serializer",
+                ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
     }
 
-    /** {@return the jackson LocalDateTime deserializer class name, or null} */
-    public String getJacksonLocalDateTimeDeserializer() {
+    /** {@return the optional jackson LocalDateTime deserializer class name} */
+    public Optional<String> getJacksonLocalDateTimeDeserializer() {
         if (!isUseJacksonLocalDateSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-localdatetime-deserializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname());
+        return getOptDefault("generator-jackson-localdatetime-deserializer",
+                ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname());
     }
 
-    /** {@return the jackson LocalDateTime serializer class name, or null} */
-    public String getJacksonLocalDateTimeSerializer() {
+    /** {@return the optional jackson LocalDateTime serializer class name} */
+    public Optional<String> getJacksonLocalDateTimeSerializer() {
         if (!isUseJacksonLocalDateTimeSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-localdatetime-serializer", ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
+        return getOptDefault("generator-jackson-localdatetime-serializer",
+                ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
-    /** {@return the jackson OffsetDateTime deserializer class name, or null} */
-    public String getJacksonOffsetDateTimeDeserializer() {
+    /** {@return the optional jackson OffsetDateTime deserializer class name} */
+    public Optional<String> getJacksonOffsetDateTimeDeserializer() {
         if (!isUseJacksonLocalDateSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-offsetdatetime-deserializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
+        return getOptDefault("generator-jackson-offsetdatetime-deserializer",
+                ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
     }
 
-    /** {@return the jackson OffsetDateTime serializer class name, or null} */
-    public String getJacksonOffsetDateTimeSerializer() {
+    /** {@return the optional jackson OffsetDateTime serializer class name} */
+    public Optional<String> getJacksonOffsetDateTimeSerializer() {
         if (!isUseJacksonLocalDateTimeSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-offsetdatetime-serializer", ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
+        return getOptDefault("generator-jackson-offsetdatetime-serializer",
+                ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
-    /** {@return the OffsetDateTime wire format for jackson, or null} */
-    public String getJacksonOffsetDateTimeWireFormat() {
+    /** {@return the optional OffsetDateTime wire format for jackson} */
+    public Optional<String> getJacksonOffsetDateTimeWireFormat() {
         if (!isUseJacksonOffsetDateTimeSerializer()) {
-            return null;
+            return Optional.empty();
         }
-        return getDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
+        return getOptDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
     }
 
-    /** {@return the MP client config config key, or null} */
-    @Nullable
-    public String getMpClientConfigKey() {
+    /** {@return the optional MP client config key} */
+    public Optional<String> getMpClientConfigKey() {
         return get("generator-mp-api-register-rest-client");
     }
 
     /** {@return the MP providers} */
-    @Nullable
     public List<String> getMpProviders() {
         String providers = getDefault("generator-mp-api-register-providers", "");
         return splitByComma(providers);
@@ -272,8 +275,8 @@ public final class GeneratorOpts {
      * @return mapping of types names to external type imports
      **/
     public Map<String, UserMappedImport> getExternalTypeMapping() {
-        String s = get("generator-map-external-types");
-        if (s == null || s.isBlank()) {
+        String s = get("generator-map-external-types").orElse("");
+        if (s.isBlank()) {
             return Map.of();
         }
 
@@ -298,32 +301,44 @@ public final class GeneratorOpts {
 
     /** {@return true if the extra-template for a jackson LocalDate deserializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateDeserializerTemplate() {
-        return ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname().equals(getJacksonLocalDateDeserializer());
+        return getJacksonLocalDateDeserializer()
+            .map(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname()::equals)
+            .orElse(false);
     }
 
     /** {@return true if the extra-template for a jackson LocalDate serializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateSerializerTemplate() {
-        return ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateSerializer());
+        return getJacksonLocalDateSerializer()
+                .map(ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname()::equals)
+                .orElse(false);
     }
 
     /** {@return true if the extra-template for a jackson LocalDateTime deserializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateTimeDeserializerTemplate() {
-        return ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname().equals(getJacksonLocalDateTimeDeserializer());
+        return getJacksonLocalDateTimeDeserializer()
+                .map(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname()::equals)
+                .orElse(false);
     }
 
     /** {@return true if the extra-template for a jackson LocalDateTime serializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateTimeSerializerTemplate() {
-        return ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonLocalDateTimeSerializer());
+        return getJacksonLocalDateTimeSerializer()
+                .map(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname()::equals)
+                .orElse(false);
     }
 
     /** {@return true if the extra-template for a jackson OffsetDateTime deserializer should be added, otherwise false} */
     public boolean isAddJacksonOffsetDateTimeDeserializerTemplate() {
-        return ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname().equals(getJacksonOffsetDateTimeDeserializer());
+        return getJacksonOffsetDateTimeDeserializer()
+                .map(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname()::equals)
+                .orElse(false);
     }
 
     /** {@return true if the extra-template for a jackson OffsetDateTime serializer should be added, otherwise false} */
     public boolean isAddJacksonOffsetDateTimeSerializerTemplate() {
-        return ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname().equals(getJacksonOffsetDateTimeSerializer());
+        return getJacksonOffsetDateTimeSerializer()
+                .map(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname()::equals)
+                .orElse(false);
     }
 
     /** {@return true if bean validation should be used, otherwise false} */
@@ -362,11 +377,11 @@ public final class GeneratorOpts {
     }
 
     /** {@return the time the generation happened if enabled, or null} */
-    public String getGeneratedAtTime() {
+    public Optional<String> getGeneratedAtTime() {
         if (isShowGenerationTimestamp()) {
-            return generatedAtTime;
+            return Optional.of(generatedAtTime);
         }
-        return null;
+        return Optional.empty();
     }
 
     private boolean isShowGenerationTimestamp() {
@@ -406,8 +421,8 @@ public final class GeneratorOpts {
         return bool("generator-use-api-wrapped-primitives", false);
     }
 
-    /** {@return the default Api resource name none specified via groups} */
-    public String getDefaultApiName() {
+    /** {@return the default Api resource name} */
+    public Optional<String> getDefaultApiName() {
         return get("generator-api-default-name");
     }
 
@@ -433,7 +448,9 @@ public final class GeneratorOpts {
     }
 
     private boolean bool(String name) {
-        return Boolean.parseBoolean(get(name));
+        return get(name)
+            .map(Boolean::parseBoolean)
+            .orElse(false);
     }
 
     private boolean bool(String name, boolean defaultValue) {
@@ -449,6 +466,10 @@ public final class GeneratorOpts {
         return value.trim();
     }
 
+    private Optional<String> getOptDefault(String name, String defaultValue) {
+        return Optional.of(getDefault(name, defaultValue));
+    }
+
     private String getDefault(String name, String defaultValue) {
         String value = options.getProperty(name);
         if (value == null) {
@@ -457,13 +478,9 @@ public final class GeneratorOpts {
         return value.trim();
     }
 
-    @Nullable
-    private String get(String name) {
-        String value = options.getProperty(name);
-        if (value == null) {
-            return null;
-        }
-        return value.trim();
+    private Optional<String> get(String name) {
+        return Optional.ofNullable(options.getProperty(name))
+                   .map(String::trim);
     }
 
     /**

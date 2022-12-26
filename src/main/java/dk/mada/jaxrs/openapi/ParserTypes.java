@@ -270,19 +270,21 @@ public class ParserTypes {
             });
 
         sb.append(" Interfaces:").append(NL);
-        interfaces.keySet().stream()
-            .sorted()
-            .forEach(tn -> {
-                TypeInterface ints = interfaces.get(tn);
+        interfaces.entrySet().stream()
+            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+            .forEach(e -> {
+                TypeName tn = e.getKey();
+                TypeInterface ints = e.getValue();
                 sb.append("  ").append(tn.name())
                     .append(": ").append(ints.implementations()).append(NL);
             });
 
         sb.append(" DTOs:").append(NL);
-        parsedDtos.keySet().stream()
-            .sorted()
-            .forEach(tn -> {
-                Dto dto = parsedDtos.get(tn);
+        parsedDtos.entrySet().stream()
+            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+            .forEach(e -> {
+                TypeName tn = e.getKey();
+                Dto dto = e.getValue();
                 sb.append("  ").append(tn.name())
                     .append(": ").append(dto.name()).append(" - ").append(dto.reference()).append(NL);
             });

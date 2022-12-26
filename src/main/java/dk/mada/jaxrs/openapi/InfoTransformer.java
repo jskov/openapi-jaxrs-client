@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
+import java.util.Optional;
+
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Info.Contact;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -38,12 +40,12 @@ public final class InfoTransformer {
         return Info.builder()
                 .title(title)
                 .version(version)
-                .description(description)
-                .termsOfService(tos)
+                .description(Optional.ofNullable(description))
+                .termsOfService(Optional.ofNullable(tos))
                 .contact(Contact.builder()
-                        .email(email)
-                        .name(name)
-                        .url(url)
+                        .email(Optional.ofNullable(email))
+                        .name(Optional.ofNullable(name))
+                        .url(Optional.ofNullable(url))
                         .build())
                 .build();
     }

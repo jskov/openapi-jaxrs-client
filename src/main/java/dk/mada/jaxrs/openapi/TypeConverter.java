@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,7 +120,7 @@ public final class TypeConverter {
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef reference(Schema<?> schema, String propertyName, String parentDtoName) {
+    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
@@ -341,7 +341,7 @@ public final class TypeConverter {
      * @param cs the composed schema
      * @return a referenced type with validation added, or null
      */
-    private Type findTypeValidation(ComposedSchema cs) {
+    private @Nullable Type findTypeValidation(ComposedSchema cs) {
         @SuppressWarnings("rawtypes")
         List<Schema> allOf = cs.getAllOf();
         if (allOf == null) {
@@ -377,7 +377,7 @@ public final class TypeConverter {
         return ParserTypeRef.of(ref.refTypeName(), validation);
     }
 
-    private ParserTypeRef findDto(String ref, Validation validation) {
+    private @Nullable ParserTypeRef findDto(String ref, Validation validation) {
         if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
             String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
             return parserRefs.makeDtoRef(openapiId, validation);
@@ -387,16 +387,16 @@ public final class TypeConverter {
 
     private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s) {
         Validation candidate = Validation.builder()
-                .isNullable(s.getNullable())
-                .isReadonly(s.getReadOnly())
+                .isNullable(Optional.ofNullable(s.getNullable()))
+                .isReadonly(Optional.ofNullable(s.getReadOnly()))
                 .isRequired(false)
-                .maximum(s.getMaximum())
-                .maxItems(s.getMaxItems())
-                .maxLength(s.getMaxLength())
-                .minimum(s.getMinimum())
-                .minItems(s.getMinItems())
-                .minLength(s.getMinLength())
-                .pattern(s.getPattern())
+                .maximum(Optional.ofNullable(s.getMaximum()))
+                .maxItems(Optional.ofNullable(s.getMaxItems()))
+                .maxLength(Optional.ofNullable(s.getMaxLength()))
+                .minimum(Optional.ofNullable(s.getMinimum()))
+                .minItems(Optional.ofNullable(s.getMinItems()))
+                .minLength(Optional.ofNullable(s.getMinLength()))
+                .pattern(Optional.ofNullable(s.getPattern()))
                 .build();
 
         for (Validation v : validationInstances) {
@@ -430,9 +430,6 @@ public final class TypeConverter {
 
         List<Property> props = readProperties(schema, modelName);
 
-        @Nullable
-        List<String> enumValues = getEnumValues(schema);
-
         SubtypeSelector selector = null;
         Discriminator disc = schema.getDiscriminator();
         if (disc != null && disc.getMapping() != null) {
@@ -447,13 +444,13 @@ public final class TypeConverter {
 
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))
                 .mpSchemaName(mpSchemaName)
-                .description(schema.getDescription())
+                .description(Optional.ofNullable(schema.getDescription()))
                 .reference(dtoType)
                 .properties(props)
                 .openapiId(typeNames.of(dtoName))
-                .enumValues(enumValues)
+                .enumValues(getEnumValues(schema))
                 .implementsInterfaces(List.of())
-                .subtypeSelector(selector)
+                .subtypeSelector(Optional.ofNullable(selector))
                 .build();
 
         parserTypes.addDto(dto);
@@ -461,11 +458,10 @@ public final class TypeConverter {
         return dto;
     }
 
-    @Nullable
     private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
         List<?> schemaEnumValues = schema.getEnum();
         if (schemaEnumValues == null) {
-            return null;
+            return List.of();
         }
 
         return schemaEnumValues.stream()
@@ -494,7 +490,7 @@ public final class TypeConverter {
 
             Reference ref = reference(propSchema, propertyName, parentDtoName);
 
-            String exampleStr = Objects.toString(propSchema.getExample(), null);
+            Optional<String> exampleStr = Optional.ofNullable(Objects.toString(propSchema.getExample(), null));
 
             boolean isReadOnly = (propSchema.getReadOnly() != null) && propSchema.getReadOnly();
             boolean isNullable = (propSchema.getNullable() != null) && propSchema.getNullable();
@@ -502,18 +498,18 @@ public final class TypeConverter {
             props.add(Property.builder()
                     .name(propertyName)
                     .reference(ref)
-                    .description(propSchema.getDescription())
+                    .description(Optional.ofNullable(propSchema.getDescription()))
                     .example(exampleStr)
                     .isNullable(isNullable)
                     .isReadonly(isReadOnly)
                     .isRequired(requiredProperyNames.contains(propertyName))
-                    .minItems(propSchema.getMinItems())
-                    .maxItems(propSchema.getMaxItems())
-                    .minLength(propSchema.getMinLength())
-                    .maxLength(propSchema.getMaxLength())
-                    .minimum(propSchema.getMinimum())
-                    .maximum(propSchema.getMaximum())
-                    .pattern(propSchema.getPattern())
+                    .minItems(Optional.ofNullable(propSchema.getMinItems()))
+                    .maxItems(Optional.ofNullable(propSchema.getMaxItems()))
+                    .minLength(Optional.ofNullable(propSchema.getMinLength()))
+                    .maxLength(Optional.ofNullable(propSchema.getMaxLength()))
+                    .minimum(Optional.ofNullable(propSchema.getMinimum()))
+                    .maximum(Optional.ofNullable(propSchema.getMaximum()))
+                    .pattern(Optional.ofNullable(propSchema.getPattern()))
                     .build());
         }
 

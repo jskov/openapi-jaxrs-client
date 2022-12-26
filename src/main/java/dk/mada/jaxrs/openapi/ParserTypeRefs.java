@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +47,7 @@ public class ParserTypeRefs {
      */
     public ParserTypeRef makeDtoRef(String name) {
         TypeName tn = typeNames.of(name);
-        return of(null, tn, Validation.NO_VALIDATION);
+        return of(TypeUnknownAtParseTime.get(), tn, Validation.NO_VALIDATION);
     }
 
     /**
@@ -63,7 +61,7 @@ public class ParserTypeRefs {
      */
     public ParserTypeRef makeDtoRef(String name, Validation validation) {
         TypeName tn = typeNames.of(name);
-        return of(null, tn, validation);
+        return of(TypeUnknownAtParseTime.get(), tn, validation);
     }
 
     /**
@@ -83,7 +81,7 @@ public class ParserTypeRefs {
         return of(type, tn, validation);
     }
 
-    private ParserTypeRef of(@Nullable Type type, TypeName tn, Validation validation) {
+    private ParserTypeRef of(Type type, TypeName tn, Validation validation) {
         parserReferences.computeIfAbsent(tn, t -> new ValidationRefs());
         ValidationRefs validationRefs = parserReferences.get(tn);
         return validationRefs.getOrAdd(validation, type, tn);
@@ -92,11 +90,12 @@ public class ParserTypeRefs {
     /** {@return information about parser references} */
     public String info() {
         StringBuilder sb = new StringBuilder("Parser references:").append(NL);
-        parserReferences.keySet().stream()
-            .sorted()
-            .forEach(tn -> {
+        parserReferences.entrySet().stream()
+            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+            .forEach(e -> {
+                TypeName tn = e.getKey();
+                ValidationRefs vr = e.getValue();
                 sb.append(" ").append(tn.name()).append(":").append(NL);
-                ValidationRefs vr = parserReferences.get(tn);
                 sb.append(vr.info());
             });
         return sb.toString();
@@ -107,7 +106,7 @@ public class ParserTypeRefs {
         /** Parser references, mapped by their validation. */
         private final Map<Validation, Set<ParserTypeRef>> refsByValidation = new HashMap<>();
 
-        private ParserTypeRef getOrAdd(Validation validation, @Nullable Type type, TypeName tn) {
+        private ParserTypeRef getOrAdd(Validation validation, Type type, TypeName tn) {
             Set<ParserTypeRef> refs = refsByValidation.computeIfAbsent(validation, v -> new HashSet<ParserTypeRef>());
 
             for (ParserTypeRef ref : refs) {
@@ -127,9 +126,12 @@ public class ParserTypeRefs {
 
         public String info() {
             StringBuilder sb = new StringBuilder();
-            refsByValidation.keySet().stream()
-                .forEach(v -> {
-                    String refs = refsByValidation.get(v).stream()
+            refsByValidation.entrySet().stream()
+                .forEach(e -> {
+                    Validation v = e.getKey();
+                    Set<ParserTypeRef> ptrs = e.getValue();
+
+                    String refs = ptrs.stream()
                             .map(r -> "ref@" + Integer.toHexString(r.hashCode()))
                             .sorted()
                             .collect(joining(", "));

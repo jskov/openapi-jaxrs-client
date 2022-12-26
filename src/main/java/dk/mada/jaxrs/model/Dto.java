@@ -3,8 +3,6 @@ package dk.mada.jaxrs.model;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.model.types.Reference;
@@ -43,9 +41,8 @@ public interface Dto extends Type {
     /** {@return the type of the DTO object} */
     Reference reference();
 
-    /** {@return the DTO description, or null} */
-    @Nullable
-    String description();
+    /** {@return the optional description of the DTO} */
+    Optional<String> description();
 
     @Override
     default boolean isDto() {
@@ -58,22 +55,20 @@ public interface Dto extends Type {
     /** {@return the properties on the DTO} */
     List<Property> properties();
 
-    /** {@return the enumeration values on the DTO} */
-    @Nullable
+    /** {@return the optional enumeration values on the DTO} */
     List<String> enumValues();
 
     /** {@return true if this is an enumeration, otherwise false} */
     @Override
     default boolean isEnum() {
-        return enumValues() != null;
+        return !enumValues().isEmpty();
     }
 
     /** {@return the list of interfaces implemented by this DTO} */
     List<TypeInterface> implementsInterfaces();
 
-    /** {@return a sub-type mapping, or null} */
-    @Nullable
-    SubtypeSelector subtypeSelector();
+    /** {@return an optional sub-type mapping} */
+    Optional<SubtypeSelector> subtypeSelector();
 
     /** {@return the optional parent that this DTO extends} */
     Optional<Dto> parent();

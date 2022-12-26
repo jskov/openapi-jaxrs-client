@@ -16,6 +16,7 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,6 +51,7 @@ public final class Main implements Callable<Integer> {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     /** The picoCli spec. */
+    @Nullable
     @Spec
     private CommandSpec spec;
 
@@ -66,6 +68,7 @@ public final class Main implements Callable<Integer> {
     private boolean showParserInfo;
 
     /** Output directory for generated classes. */
+    @Nullable
     @Option(names = { "-o", "--output-directory" },
             description = "Output directory for the generated classes.",
             required = true)
@@ -77,12 +80,14 @@ public final class Main implements Callable<Integer> {
     private boolean overwrite;
 
     /** Input document. */
+    @Nullable
     @Option(names = { "-i", "--input" },
             description = "OpenApi document input.",
             required = true)
     private Path inputDocument;
 
     /** Configuration properties. */
+    @Nullable
     @Option(names = { "-c", "--config" },
             description = "Configuration properties.", showDefaultValue = Visibility.ALWAYS)
     private Path configuration;
@@ -94,6 +99,7 @@ public final class Main implements Callable<Integer> {
     private boolean skipApiGeneration;
 
     /** Package to place the API classes in. */
+    @Nullable
     @Option(names = "--api-package",
             description = "Package to place the API classes in.")
     private String apiPackage;
@@ -105,6 +111,7 @@ public final class Main implements Callable<Integer> {
     private boolean skipDtoGeneration;
 
     /** Package to place the DTO classes in. */
+    @Nullable
     @Option(names = "--dto-package",
             description = "Package to place the DTO classes in.")
     private String dtoPackage;
@@ -134,6 +141,7 @@ public final class Main implements Callable<Integer> {
      * based on the inputDocument argument.
      */
     static class DefaultValues implements IDefaultValueProvider {
+        @Nullable
         @Override
         public String defaultValue(ArgSpec argSpec) throws Exception {
             if (isNamedOption(argSpec, "-c")) {
@@ -153,9 +161,10 @@ public final class Main implements Callable<Integer> {
         /**
          * Get the input document argument.
          *
-         * @param args all arguments
+         * @param args all the arguments
          * @return the input document path or null if not specified.
          */
+        @Nullable
         private String getInputDocument(List<ArgSpec> args) {
             return args.stream()
                 .filter(as -> isNamedOption(as, "-i"))
@@ -200,6 +209,11 @@ public final class Main implements Callable<Integer> {
             logLevel = GeneratorLogLevel.TRACE;
         }
 
+        // nullaway
+        if (outputDir == null || inputDocument == null) {
+            throw new IllegalArgumentException("Need input document and/or output directory");
+        }
+
         validateArguments();
 
         logger.info("Reads OpenApi document from {}", inputDocument);
@@ -236,9 +250,9 @@ public final class Main implements Callable<Integer> {
      * @param configFile the file to read configuration from
      * @return the combined configuration properties
      */
-    private Properties readConfiguration(Path configFile) {
+    private Properties readConfiguration(@Nullable Path configFile) {
         var props = new Properties();
-        if (Files.exists(configFile)) {
+        if (configFile != null && Files.exists(configFile)) {
             logger.info("Reading config from {}", configFile);
             try (Reader r = Files.newBufferedReader(configFile)) {
                 props.load(r);
@@ -269,7 +283,14 @@ public final class Main implements Callable<Integer> {
     }
 
     private void argumentFail(String message) {
-        throw new CommandLine.ParameterException(spec.commandLine(), message);
+        throw new CommandLine.ParameterException(getCommandLine(), message);
+    }
+
+    private CommandLine getCommandLine() {
+        if (spec == null) {
+            throw new IllegalStateException("Missing spec, nullaway handling");
+        }
+        return spec.commandLine();
     }
 
     /**
@@ -290,8 +311,9 @@ public final class Main implements Callable<Integer> {
      */
     public static int mainNoExit(String[] args) {
         LoggerConfig.loadConfig();
-        new CommandLine(new Main()).parseArgs(args);
+        CommandLine commandLine = new CommandLine(new Main());
+        commandLine.parseArgs(args);
 
-        return new CommandLine(new Main()).execute(args);
+        return commandLine.execute(args);
     }
 }

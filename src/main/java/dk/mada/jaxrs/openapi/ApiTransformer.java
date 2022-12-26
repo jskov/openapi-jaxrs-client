@@ -50,7 +50,7 @@ public class ApiTransformer {
     private final List<SecurityScheme> securitySchemes;
 
     /** List of operations added as the api is traversed. */
-    private List<Operation> ops;
+    private final List<Operation> ops = new ArrayList<>();
 
     /**
      * Constructs a new API transformer instance.
@@ -72,8 +72,6 @@ public class ApiTransformer {
      * @return Operations in the API
      */
     public Operations transform(OpenAPI specification) {
-        ops = new ArrayList<>();
-
         Paths paths = specification.getPaths();
         if (paths != null) {
             Set<Entry<String, PathItem>> pathEntries = paths.entrySet();
@@ -124,10 +122,10 @@ public class ApiTransformer {
 
         ops.add(Operation.builder()
                 .tags(tags)
-                .description(op.getDescription())
-                .summary(op.getSummary())
+                .description(Optional.ofNullable(op.getDescription()))
+                .summary(Optional.ofNullable(op.getSummary()))
                 .deprecated(toBool(op.getDeprecated()))
-                .operationId(op.getOperationId())
+                .operationId(Optional.ofNullable(op.getOperationId()))
                 .codegenOpId(codegenOpId)
                 .httpMethod(toModelHttpMethod(httpMethod))
                 .path(resourcePath)
@@ -141,7 +139,7 @@ public class ApiTransformer {
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         Response r = Response.builder()
                 .code(StatusCode.of(code))
-                .description(resp.getDescription())
+                .description(Optional.ofNullable(resp.getDescription()))
                 .content(getContent(resourcePath, resp.getContent()))
                 .build();
 
@@ -234,7 +232,7 @@ public class ApiTransformer {
 
         return Optional.of(
                 RequestBody.builder()
-                .description(body.getDescription())
+                .description(Optional.ofNullable(body.getDescription()))
                 .isRequired(toBool(body.getRequired()))
                 .content(content)
                 .build());
@@ -286,7 +284,7 @@ public class ApiTransformer {
 
         return Parameter.builder()
                 .name(name)
-                .description(param.getDescription())
+                .description(Optional.ofNullable(param.getDescription()))
                 .isRequired(toBool(param.getRequired()))
                 .reference(ref)
                 .isHeaderParam(isHeaderParam)

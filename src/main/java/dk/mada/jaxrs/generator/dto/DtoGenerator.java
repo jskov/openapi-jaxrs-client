@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -229,8 +229,8 @@ public class DtoGenerator {
 
         dtoImports.addPropertyImports(dto.properties());
 
-        String customLocalDateDeserializer = null;
-        String customLocalDateSerializer = null;
+        Optional<String> customLocalDateDeserializer = Optional.empty();
+        Optional<String> customLocalDateSerializer = Optional.empty();
 
         if (opts.isUseJacksonLocalDateSerializer()
                 && (dtoType.isDate()
@@ -248,8 +248,8 @@ public class DtoGenerator {
             dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
         }
 
-        String customOffsetDateTimeDeserializer = null;
-        String customOffsetDateTimeSerializer = null;
+        Optional<String> customOffsetDateTimeDeserializer = Optional.empty();
+        Optional<String> customOffsetDateTimeSerializer = Optional.empty();
 
         if (opts.isUseJacksonDateTimeSerializer()
                 && (dtoType.isDateTime()
@@ -277,12 +277,13 @@ public class DtoGenerator {
             dtoImports.add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
         }
 
-        String description = dto.description();
+        Optional<String> description = dto.description();
 
-        String enumSchema = null;
+        Optional<String> enumSchema = Optional.empty();
         CtxEnum ctxEnum = null;
         if (isEnum) {
-            ctxEnum = buildEnumEntries(dtoType, dto.enumValues());
+            List<String> enumValues = dto.enumValues();
+            ctxEnum = buildEnumEntries(dtoType, enumValues);
             enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
         }
 
@@ -290,12 +291,11 @@ public class DtoGenerator {
         if (!Objects.equals(dto.mpSchemaName(), dto.name())) {
             schemaEntries.add("name = \"" + dto.mpSchemaName() + "\"");
         }
-        if (enumSchema != null) {
-            schemaEntries.add(enumSchema);
-        }
-        if (description != null && !description.isBlank()) {
-            schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
-        }
+        enumSchema.ifPresent(schemaEntries::add);
+
+        isNotBlankEncoded(description, d ->
+            schemaEntries.add("description = \"" + d + "\"")
+        );
 
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
@@ -303,28 +303,21 @@ public class DtoGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        String implementsInterfaces = defineInterfaces(dto, dtoImports);
+        Optional<String> implementsInterfaces = defineInterfaces(dto, dtoImports);
 
-        SubtypeSelector subtypeSelector = dto.subtypeSelector();
+        Optional<SubtypeSelector> subtypeSelector = dto.subtypeSelector();
 
         String classModifiers = null;
-        if (subtypeSelector != null) {
+        if (subtypeSelector.isPresent()) {
             classModifiers = "abstract ";
         }
 
-        CtxDtoDiscriminator discriminator = null;
-        // Needs adaptor for jsonb and tweaks for codehaus
-        if (subtypeSelector != null && opts.isJacksonFasterxml()) {
-            Map<String, String> vendorExt = null;
-            List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
-                    .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey(), vendorExt))
-                    .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
-                    .toList();
-            discriminator = CtxDtoDiscriminator.builder()
-                    .propertyBaseName(subtypeSelector.propertyName())
-                    .mappedModels(mapping)
-                    .build();
+        Optional<CtxDtoDiscriminator> discriminator = subtypeSelector
+            .map(this::buildSubtypeDiscriminator);
 
+        if (discriminator.isPresent()
+                && opts.isJacksonFasterxml()) {
+            // Needs adaptor for jsonb and tweaks for codehaus
             dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 
@@ -352,7 +345,7 @@ public class DtoGenerator {
 
                 .imports(dtoImports.get())
 
-                .description(StringRenderer.makeValidDtoJavadocSummary(description))
+                .description(description.flatMap(StringRenderer::makeValidDtoJavadocSummary))
                 .packageName(opts.dtoPackage())
                 .classname(dto.name())
                 .classVarName("other")
@@ -378,7 +371,21 @@ public class DtoGenerator {
                 .build();
     }
 
-    private Comparator<? super CtxProperty> propertySorter() {
+    private CtxDtoDiscriminator buildSubtypeDiscriminator(SubtypeSelector subtypeSelector) {
+        CtxDtoDiscriminator discriminator;
+        Map<String, String> vendorExt = null;
+        List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
+                .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey(), vendorExt))
+                .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
+                .toList();
+        discriminator = CtxDtoDiscriminator.builder()
+                .propertyBaseName(subtypeSelector.propertyName())
+                .mappedModels(mapping)
+                .build();
+        return discriminator;
+    }
+
+    private @Nullable Comparator<? super CtxProperty> propertySorter() {
         PropertyOrder propertyOrder = opts.getPropertyOrder();
         switch (propertyOrder) {
         case DOCUMENT_ORDER:
@@ -392,7 +399,7 @@ public class DtoGenerator {
         }
     }
 
-    private String defineInterfaces(Dto dto, Imports dtoImports) {
+    private Optional<String> defineInterfaces(Dto dto, Imports dtoImports) {
         Stream<String> serializableInterface;
         if (opts.isUseSerializable() && !dto.isEnum()) {
             serializableInterface = Stream.of("Serializable");
@@ -406,9 +413,9 @@ public class DtoGenerator {
                 .sorted()
                 .collect(joining(", "));
         if (implementsInterfaces.isEmpty()) {
-            implementsInterfaces = null;
+            return Optional.empty();
         }
-        return implementsInterfaces;
+        return Optional.of(implementsInterfaces);
     }
 
     /**
@@ -418,13 +425,13 @@ public class DtoGenerator {
      * @param dtoImports the DTO imports
      * @param dtoType type of the enumeration
      * @param ctxEnum enumeration constants and values
-     * @return schema enumeration arguments, or null if not needed
+     * @return optional schema enumeration arguments
      */
-    private String buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
+    private Optional<String> buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
         boolean namesMatchValues = ctxEnum.enumVars().stream()
             .allMatch(e -> e.name().equals(e.wireValue()));
         if (namesMatchValues) {
-            return null;
+            return Optional.empty();
         }
 
         String values = ctxEnum.enumVars().stream()
@@ -442,13 +449,13 @@ public class DtoGenerator {
         }
         dtoImports.addMicroProfileSchema();
 
-        return new StringBuilder()
+        String args = new StringBuilder()
                 .append("enumeration = {").append(values).append("}")
                 .append(type)
                 .toString();
+        return Optional.of(args);
     }
 
-    @Nullable
     private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
         List<String> renderValues = addUnknownDefault(enumType, values);
         List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, renderValues)
@@ -574,7 +581,7 @@ public class DtoGenerator {
         final boolean isContainer = isArray || isMap || isSet;
         String enumClassName = typeName;
         String enumTypeName = typeName;
-        String enumSchema = null;
+        Optional<String> enumSchema = Optional.empty();
 
         if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
             isEnum = true;
@@ -617,7 +624,7 @@ public class DtoGenerator {
             dtoImports.add(JavaMath.BIG_DECIMAL);
         }
 
-        String description = p.description();
+        Optional<String> description = p.description();
 
         boolean isUseEmptyCollections =
                 opts.isUseEmptyCollections()
@@ -638,27 +645,28 @@ public class DtoGenerator {
         if (p.isReadonly()) {
             schemaEntries.add("readOnly = true");
         }
-        if (isNotBlank(description)) {
-            schemaEntries.add("description = \"" + StringRenderer.encodeForString(description) + "\"");
-        }
-        if (isNotBlank(p.example())) {
-            schemaEntries.add("example = \"" + StringRenderer.encodeForString(p.example()) + "\"");
-        }
-        String schemaOptions = null;
+        isNotBlankEncoded(description, d ->
+            schemaEntries.add("description = \"" + d + "\"")
+        );
+        isNotBlankEncoded(p.example(), e ->
+            schemaEntries.add("example = \"" + e + "\"")
+        );
+
+        Optional<String> schemaOptions = Optional.empty();
         if (!schemaEntries.isEmpty()) {
-            schemaOptions = String.join(", ", schemaEntries);
+            schemaOptions = Optional.of(String.join(", ", schemaEntries));
             dtoImports.addMicroProfileSchema();
         }
 
         boolean useBeanValidation = opts.isUseBeanValidation();
         boolean valid = false;
-        String minLength = null;
-        String maxLength = null;
-        String minimum = null;
-        String maximum = null;
-        String decimalMinimum = null;
-        String decimalMaximum = null;
-        String pattern = null;
+        Optional<String> minLength = Optional.empty();
+        Optional<String> maxLength = Optional.empty();
+        Optional<String> minimum = Optional.empty();
+        Optional<String> maximum = Optional.empty();
+        Optional<String> decimalMinimum = Optional.empty();
+        Optional<String> decimalMaximum = Optional.empty();
+        Optional<String> pattern = Optional.empty();
         if (useBeanValidation) {
             if (p.isRequired()) {
                 dtoImports.add(ValidationApi.NOT_NULL);
@@ -670,45 +678,47 @@ public class DtoGenerator {
                 dtoImports.add(ValidationApi.VALID);
             }
 
-            // Note that OpenApi spec xItems/xLength both map to @Size
-            if (p.minItems() != null) {
-                minLength = Integer.toString(p.minItems());
+            // Note that OpenApi specification xItems/xLength both map to @Size
+            minLength = p.minItems()
+                .or(p::minLength)
+                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
+            if (minLength.isPresent()) {
                 dtoImports.add(ValidationApi.SIZE);
             }
-            if (p.maxItems() != null) {
-                maxLength = Integer.toString(p.maxItems());
-                dtoImports.add(ValidationApi.SIZE);
-            }
-            if (p.minLength() != null) {
-                minLength = Integer.toString(p.minLength());
-                dtoImports.add(ValidationApi.SIZE);
-            }
-            if (p.maxLength() != null) {
-                maxLength = Integer.toString(p.maxLength());
+            maxLength = p.maxItems()
+                .or(p::maxLength)
+                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
+            if (maxLength.isPresent()) {
                 dtoImports.add(ValidationApi.SIZE);
             }
 
-            if (p.minimum() != null) {
-                if (propType.isBigDecimal()) {
-                    dtoImports.add(ValidationApi.DECIMAL_MIN);
-                    decimalMinimum = "\"" + p.minimum().toString() + "\"";
-                } else {
-                    dtoImports.add(ValidationApi.MIN);
-                    minimum = Long.toString(p.minimum().longValue());
-                }
+            if (propType.isBigDecimal()) {
+                decimalMinimum = p.minimum()
+                        .map(min -> "\"" + min.toString() + "\"");
+                decimalMaximum = p.maximum()
+                        .map(max -> "\"" + max.toString() + "\"");
+            } else {
+                minimum = p.minimum()
+                        .map(min -> Long.toString(min.longValue()));
+                maximum = p.maximum()
+                        .map(max -> Long.toString(max.longValue()));
             }
-            if (p.maximum() != null) {
-                if (propType.isBigDecimal()) {
-                    dtoImports.add(ValidationApi.DECIMAL_MAX);
-                    decimalMaximum = "\"" + p.maximum().toString() + "\"";
-                } else {
-                    dtoImports.add(ValidationApi.MAX);
-                    maximum = Long.toString(p.maximum().longValue());
-                }
+            if (decimalMinimum.isPresent()) {
+                dtoImports.add(ValidationApi.DECIMAL_MIN);
+            }
+            if (minimum.isPresent()) {
+                dtoImports.add(ValidationApi.MIN);
+            }
+            if (decimalMinimum.isPresent()) {
+                dtoImports.add(ValidationApi.DECIMAL_MAX);
+            }
+            if (maximum.isPresent()) {
+                dtoImports.add(ValidationApi.MAX);
             }
 
-            if (p.pattern() != null) {
-                pattern = StringRenderer.encodeRegexp(p.pattern());
+            pattern = p.pattern()
+                    .map(StringRenderer::encodeRegexp);
+            if (pattern.isPresent()) {
                 dtoImports.add(ValidationApi.PATTERN);
             }
         }
@@ -727,7 +737,7 @@ public class DtoGenerator {
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
                 .valid(valid)
-                .renderJavadocMacroSpacer(description != null)
+                .renderJavadocMacroSpacer(description.isPresent())
                 .build();
 
         CtxProperty prop = CtxProperty.builder()
@@ -739,7 +749,7 @@ public class DtoGenerator {
                 .nameInSnakeCase(nameSnaked)
                 .getter(getter)
                 .setter(setter)
-                .description(StringRenderer.makeValidPropertyJavadocSummary(description))
+                .description(description.flatMap(StringRenderer::makeValidPropertyJavadocSummary))
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isMap(isMap)
@@ -770,7 +780,7 @@ public class DtoGenerator {
         return t.isPrimitive(Primitive.INT);
     }
 
-    private Type getDereferencedInnerEnumType(Type t) {
+    private @Nullable Type getDereferencedInnerEnumType(@Nullable Type t) {
         if (t instanceof TypeReference tr) {
             return tr.refType();
         }
@@ -786,7 +796,10 @@ public class DtoGenerator {
         return getterPrefix;
     }
 
-    private boolean isNotBlank(String s) {
-        return s != null && !s.isBlank();
+    private void isNotBlankEncoded(Optional<String> txt, Consumer<String> f) {
+        txt
+            .filter(s -> !s.isBlank())
+            .map(StringRenderer::encodeForString)
+            .ifPresent(f);
     }
 }

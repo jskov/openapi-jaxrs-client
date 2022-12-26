@@ -2,6 +2,8 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.Objects;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Primitive types of the java language (plus String).
  */
@@ -54,7 +56,7 @@ public enum Primitive implements Type {
      * @param tn the type name to look for
      * @return the matching primitive, or null if no matches found
      */
-    public static Primitive find(TypeName tn) {
+    public static @Nullable Primitive find(TypeName tn) {
         for (var p : Primitive.values()) {
             if (tn.equals(p.javaPrimitive) || tn.equals(p.wrapperType)) {
                 return p;
@@ -75,7 +77,7 @@ public enum Primitive implements Type {
      * @param format the format to look for
      * @return the matching primitive, or null if no matches found
      */
-    public static Primitive find(String type, String format) {
+    public static @Nullable Primitive find(String type, String format) {
         String typeFormat = type + ":" + Objects.toString(format, "");
         for (var p : Primitive.values()) {
             if (p.typeFormat.equals(typeFormat)) {

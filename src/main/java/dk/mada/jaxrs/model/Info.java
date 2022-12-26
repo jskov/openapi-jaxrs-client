@@ -1,6 +1,6 @@
 package dk.mada.jaxrs.model;
 
-import javax.annotation.Nullable;
+import java.util.Optional;
 
 import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
@@ -21,13 +21,11 @@ public abstract class Info {
     /** {@return the version of the API} */
     public abstract String version();
 
-    /** {@return the description of the API, or null} */
-    @Nullable
-    public abstract String description();
+    /** {@return the optional description of the API} */
+    public abstract Optional<String> description();
 
-    /** {@return the TOS of the API, or null} */
-    @Nullable
-    public abstract String termsOfService();
+    /** {@return the optional TOS of the API} */
+    public abstract Optional<String> termsOfService();
 
     /** {@return the contact information for the API} */
     @Default
@@ -45,25 +43,13 @@ public abstract class Info {
             return ImmutableContact.builder();
         }
 
-        /** {@return the name of the contact, or null} */
-        @Nullable
-        @Default
-        public String name() {
-            return null;
-        }
+        /** {@return the optional name of the contact} */
+        public abstract Optional<String> name();
 
-        /** {@return the URL of the contact, or null} */
-        @Nullable
-        @Default
-        public String url() {
-            return null;
-        }
+        /** {@return the optional URL of the contact} */
+        public abstract Optional<String> url();
 
-        /** {@return the email of the contact, or null} */
-        @Nullable
-        @Default
-        public String email() {
-            return null;
-        }
+        /** {@return the optional email of the contact} */
+        public abstract Optional<String> email();
     }
 }

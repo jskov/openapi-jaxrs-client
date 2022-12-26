@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public final class ConflictRenamer {
     /** Renamed DTO names and their new conflict free names. */
     private Map<String, ConflictRenamed> renameMap = Map.of();
     /** Map from pre-renaming to renamed DTOs. */
-    private Map<Dto, Dto> conflictRenamedDtos;
+    private @Nullable Map<Dto, Dto> conflictRenamedDtos;
 
     /**
      * Constructs a new instance.
@@ -162,7 +163,7 @@ public final class ConflictRenamer {
      *
      * @param dto the DTO to assign a unique name to
      */
-    private ConflictRenamed assignUniqueName(Dto dto) {
+    private @Nullable ConflictRenamed assignUniqueName(Dto dto) {
         String oldTypeName = dto.name();
         String oldMpSchemaName = dto.mpSchemaName();
 

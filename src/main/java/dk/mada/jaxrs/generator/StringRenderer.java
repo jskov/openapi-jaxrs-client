@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator;
 
+import java.util.Optional;
+
 /**
  * Renders text in various forms suitable for
  * use in the templates.
@@ -20,7 +22,7 @@ public final class StringRenderer {
      * @param textIn the text summary
      * @return a valid summary to render as javadoc, or null
      */
-    public static String makeValidOperationJavadocSummary(String textIn) {
+    public static Optional<String> makeValidOperationJavadocSummary(String textIn) {
         return makeValidJavadocSummary(textIn, "  ");
     }
 
@@ -30,7 +32,7 @@ public final class StringRenderer {
      * @param textIn the text summary
      * @return a valid summary to render as javadoc, or null
      */
-    public static String makeValidDtoJavadocSummary(String textIn) {
+    public static Optional<String> makeValidDtoJavadocSummary(String textIn) {
         return makeValidJavadocSummary(textIn, "");
     }
 
@@ -40,7 +42,7 @@ public final class StringRenderer {
      * @param textIn the text summary
      * @return a valid summary to render as javadoc, or null
      */
-    public static String makeValidPropertyJavadocSummary(String textIn) {
+    public static Optional<String> makeValidPropertyJavadocSummary(String textIn) {
         return makeValidJavadocSummary(textIn, "  ");
     }
 
@@ -51,9 +53,9 @@ public final class StringRenderer {
      * @param commentIndent the comment indentation
      * @return a valid summary to render as javadoc, or null
      */
-    private static String makeValidJavadocSummary(String textIn, String commentIndent) {
+    private static Optional<String> makeValidJavadocSummary(String textIn, String commentIndent) {
         if (textIn == null) {
-            return null;
+            return Optional.empty();
         }
 
         String text = textIn;
@@ -72,7 +74,24 @@ public final class StringRenderer {
         text = text.replace(NL, NL + commentIndent + " * ");
         text = text.replace(NL + commentIndent + " * " + NL, NL + commentIndent + " *" + NL);
 
-        return text;
+        return Optional.of(text);
+    }
+
+    /**
+     * Encodes text for use in string-input.
+     *
+     * The text may contain multiple lines, but needs to be represented
+     * in the source code as a single string input.
+     *
+     * Used for descriptions and examples that need to be specified
+     * as @Schema inputs.
+     *
+     * @param text the text to be protected
+     * @return a single-line string
+     */
+    public static Optional<String> encodeForString(Optional<String> text) {
+        return text.map(StringRenderer::encodeForString);
+
     }
 
     /**
@@ -88,10 +107,6 @@ public final class StringRenderer {
      * @return a single-line string
      */
     public static String encodeForString(String text) {
-        if (text == null) {
-            return null;
-        }
-
         return text.replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"");
     }
 

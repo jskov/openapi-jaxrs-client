@@ -1,6 +1,6 @@
 package dk.mada.jaxrs.generator.api.tmpl;
 
-import javax.annotation.Nullable;
+import java.util.Optional;
 
 import org.immutables.value.Value.Immutable;
 
@@ -21,16 +21,14 @@ public interface CtxApiOpExt {
     boolean renderJavadocReturn();
 
     /**
-     * {@return the @Produces value for the operation} If null it is not rendered.
+     * {@return the optional @Produces value for the operation}
      */
-    @Nullable
-    String produces();
+    Optional<String> produces();
 
     /**
-     * {@return the @Consumes value for the operation} If null it is not rendered.
+     * {@return the optional @Consumes value for the operation}
      */
-    @Nullable
-    String consumes();
+    Optional<String> consumes();
 
     /**
      * Use simpler @APIResponseSchema instead of @APIResponses+@APIResponse.
@@ -44,7 +42,6 @@ public interface CtxApiOpExt {
     /** {@return true if the operation has any responses, otherwise false} */
     boolean hasResponses();
 
-    /** {@return the summary as a java string, or null} */
-    @Nullable
-    String summaryString();
+    /** {@return an optional summary as a java string} */
+    Optional<String> summaryString();
 }

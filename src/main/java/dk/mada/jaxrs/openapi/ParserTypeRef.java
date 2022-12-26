@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.model.Validation;
@@ -22,6 +20,22 @@ import dk.mada.jaxrs.model.types.TypeName;
 @Immutable
 public interface ParserTypeRef extends Reference {
     /**
+     * Creates a new reference to a type (a primitive or special type)
+     *
+     * @param refType the type
+     * @param refTypeName the type name
+     * @param validation the validation information if available
+     * @return a reference to the type
+     */
+    static ParserTypeRef of(Type refType, TypeName refTypeName, Validation validation) {
+        return ImmutableParserTypeRef.builder()
+                .refType(refType)
+                .refTypeName(refTypeName)
+                .validation(validation)
+                .build();
+    }
+
+    /**
      * Creates a new reference to a type name (a DTO).
      *
      * @param refTypeName the type name
@@ -29,27 +43,14 @@ public interface ParserTypeRef extends Reference {
      * @return a reference to the type name
      */
     static ParserTypeRef of(TypeName refTypeName, Validation validation) {
-        return ImmutableParserTypeRef.builder().refType(null).refTypeName(refTypeName).validation(validation).build();
-    }
-
-    /**
-     * Creates a new reference to a type (a primitive or special type)
-     *
-     * @param refType the type, or null
-     * @param refTypeName the type name
-     * @param validation the validation information if available
-     * @return a reference to the type
-     */
-    static ParserTypeRef of(@Nullable Type refType, TypeName refTypeName, Validation validation) {
-        return ImmutableParserTypeRef.builder().refType(refType).refTypeName(refTypeName).validation(validation).build();
+        return of(TypeUnknownAtParseTime.get(), refTypeName, validation);
     }
 
     /** {@return the referenced type name} */
     TypeName refTypeName();
 
-    /** {@return the referenced type, or null} */
+    /** {@return the referenced type - note that this may be unknown} */
     @Override
-    @Nullable
     Type refType();
 
     // FIXME: maybe just use typeName instead of ref?

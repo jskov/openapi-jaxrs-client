@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.generator.api.tmpl;
 
+import java.util.Optional;
+
 import javax.annotation.Nullable;
 
 import org.immutables.value.Value.Immutable;
@@ -16,8 +18,8 @@ public interface CtxApiResponse {
 
     /** {@return the HTTP response of this response (or 'default')} */
     String code();
-    /** {@return the description of this response} */
-    String description();
+    /** {@return the optional description of this response} */
+    Optional<String> description();
     /** {@return the type of this response, or null} */
     @Nullable
     String baseType();
