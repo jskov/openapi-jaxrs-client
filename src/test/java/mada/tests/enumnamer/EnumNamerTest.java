@@ -62,8 +62,9 @@ class EnumNamerTest {
      */
     @Test
     void cannotBeHandledAtPresent() {
-        assertThrows(IllegalStateException.class,
-                () -> mkSut(TypeObject.get(), List.of("bad?", "bad!", "ok", "bad__1")));
+        TypeObject obj = TypeObject.get();
+        List<String> list = List.of("bad?", "bad!", "ok", "bad__1");
+        assertThrows(IllegalStateException.class, () -> mkSut(obj, list));
     }
 
     private String str(List<EnumNameValue> entries) {

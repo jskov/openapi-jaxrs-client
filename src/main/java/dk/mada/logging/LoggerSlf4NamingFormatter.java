@@ -12,6 +12,7 @@ import java.util.logging.SimpleFormatter;
  * For the picky log reader who just cannot adopt...
  */
 public final class LoggerSlf4NamingFormatter extends SimpleFormatter {
+    /** Log level bridging between JUL and slf4j. */
     private static final Map<Level, Level> LEVEL_MAPPING = Map.of(
             Level.SEVERE,  new Slf4jLevel("ERROR", 1000),
             Level.WARNING, new Slf4jLevel("WARN", 900),

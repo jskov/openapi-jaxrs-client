@@ -20,17 +20,6 @@ import dk.mada.jaxrs.model.types.TypeName;
 @Immutable
 public interface ParserTypeRef extends Reference {
     /**
-     * Creates a new reference to a type name (a DTO).
-     *
-     * @param refTypeName the type name
-     * @param validation the validation information if available
-     * @return a reference to the type name
-     */
-    static ParserTypeRef of(TypeName refTypeName, Validation validation) {
-        return ImmutableParserTypeRef.builder().refType(TypeUnknownAtParseTime.get()).refTypeName(refTypeName).validation(validation).build();
-    }
-
-    /**
      * Creates a new reference to a type (a primitive or special type)
      *
      * @param refType the type
@@ -39,7 +28,22 @@ public interface ParserTypeRef extends Reference {
      * @return a reference to the type
      */
     static ParserTypeRef of(Type refType, TypeName refTypeName, Validation validation) {
-        return ImmutableParserTypeRef.builder().refType(refType).refTypeName(refTypeName).validation(validation).build();
+        return ImmutableParserTypeRef.builder()
+                .refType(refType)
+                .refTypeName(refTypeName)
+                .validation(validation)
+                .build();
+    }
+
+    /**
+     * Creates a new reference to a type name (a DTO).
+     *
+     * @param refTypeName the type name
+     * @param validation the validation information if available
+     * @return a reference to the type name
+     */
+    static ParserTypeRef of(TypeName refTypeName, Validation validation) {
+        return of(TypeUnknownAtParseTime.get(), refTypeName, validation);
     }
 
     /** {@return the referenced type name} */
