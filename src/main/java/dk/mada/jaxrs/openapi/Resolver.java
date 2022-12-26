@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,7 +126,7 @@ public final class Resolver {
      * @param parent the parent dto, or null
      * @return the updated dto
      */
-    private Dto adjustToParentExtension(Dto dto, Dto parent) {
+    private Dto adjustToParentExtension(Dto dto, @Nullable Dto parent) {
         if (parent == null) {
             return dto;
         }
