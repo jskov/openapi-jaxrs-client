@@ -209,6 +209,11 @@ public final class Main implements Callable<Integer> {
             logLevel = GeneratorLogLevel.TRACE;
         }
 
+        // nullaway
+        if (outputDir == null || inputDocument == null) {
+            throw new IllegalArgumentException("Need input document and/or output directory");
+        }
+
         validateArguments();
 
         logger.info("Reads OpenApi document from {}", inputDocument);
@@ -222,13 +227,10 @@ public final class Main implements Callable<Integer> {
     }
 
     private void validateArguments() {
-        if (inputDocument == null || !Files.isRegularFile(inputDocument)) {
+        if (!Files.isRegularFile(inputDocument)) {
             argumentFail("The OpenApi document '" + inputDocument + "' is not a regular file!");
         }
 
-        if (outputDir == null) {
-            argumentFail("Need output directory");
-        }
         if (Files.exists(outputDir) && !overwrite) {
             argumentFail("Will not write to existing output directory '" + outputDir + "'");
         }
