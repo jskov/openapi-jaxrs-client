@@ -16,6 +16,8 @@ public class NamingOpts {
     private final String mpSchemaNamingConfig;
     /** Naming configuration for renaming of conflicting types. */
     private final String typeConflictRenamingConfig;
+    /** Naming configuration for operations. */
+    private final String operationNamingConfig;
     /** Naming configuration for properties. */
     private final String propertyNamingConfig;
     /** Naming configuration for single-property enumeration types. */
@@ -67,6 +69,7 @@ public class NamingOpts {
         mpSchemaNamingConfig = getDefault(options, "naming-rules-mp-schema", "TYPENAME");
         typeConflictRenamingConfig = getDefault(options, "naming-rules-type-conflict-renaming", "APPEND/X/");
         entityNamingConfig = getDefault(options, "naming-rules-entity", "LITERAL/dto/");
+        operationNamingConfig = getDefault(options, "naming-rules-operation", "OPERATIONNAME");
         propertyNamingConfig = getDefault(options, "naming-rules-property", "PROPERTYNAME");
         parameterNamingConfig = getDefault(options, "naming-rules-parameter", "PROPERTYNAME");
         enumConstantNamingConfig = getDefault(options, "naming-rules-enum-constant", "REGEXP/-/_/; TYPENAME; UPCASE");
@@ -115,6 +118,11 @@ public class NamingOpts {
     /** {@return the naming configuration for properties} */
     public String getPropertyNaming() {
         return propertyNamingConfig;
+    }
+
+    /** {@return the naming configuration for operations} */
+    public String getOperationNaming() {
+        return operationNamingConfig;
     }
 
     /** {@return the naming configuration for parameter names} */
