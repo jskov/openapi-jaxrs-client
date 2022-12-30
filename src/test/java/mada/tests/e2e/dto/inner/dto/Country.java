@@ -8,23 +8,11 @@ package mada.tests.e2e.dto.inner.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 
 /**
  * Country
  */
-@JsonbPropertyOrder({
-  Country.JSON_PROPERTY_TWO_LETTER_CODE,
-  Country.JSON_PROPERTY_THREE_LETTER_CODE,
-  Country.JSON_PROPERTY_NUMERIC_CODE,
-  Country.JSON_PROPERTY_COUNTRY_NAME_DK,
-  Country.JSON_PROPERTY_COUNTRY_NAME_GB,
-  Country.JSON_PROPERTY_COUNTRY_NAME,
-  Country.JSON_PROPERTY_LOCALE,
-  Country.JSON_PROPERTY_REGISTERED_AS_BOND_COUNTRY,
-  Country.JSON_PROPERTY_REGISTERED_AS_SHARE_COUNTRY
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Country {
   public static final String JSON_PROPERTY_COUNTRY_NAME = "countryName";

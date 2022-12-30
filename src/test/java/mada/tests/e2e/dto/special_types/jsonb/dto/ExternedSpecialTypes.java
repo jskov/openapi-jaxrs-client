@@ -11,18 +11,10 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * ExternedSpecialTypes
  */
-@JsonbPropertyOrder({
-  ExternedSpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
-  ExternedSpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExternedSpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";

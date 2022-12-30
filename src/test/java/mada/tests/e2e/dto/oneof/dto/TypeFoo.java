@@ -9,15 +9,11 @@
 package mada.tests.e2e.dto.oneof.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 
 /**
  * TypeFoo
  */
-@JsonPropertyOrder({
-  TypeFoo.JSON_PROPERTY_VALUE_FOO_LONG
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class TypeFoo extends AbstractType {
   public static final String JSON_PROPERTY_VALUE_FOO_LONG = "valueFooLong";

@@ -8,7 +8,6 @@ package mada.tests.e2e.opts.generator.unknown_enum.jackson.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 import javax.validation.Valid;
@@ -18,17 +17,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * EnumsDto
  */
-@JsonPropertyOrder({
-  EnumsDto.JSON_PROPERTY_PROPERTY_ENUM_STRING,
-  EnumsDto.JSON_PROPERTY_INNER,
-  EnumsDto.JSON_PROPERTY_LOWER,
-  EnumsDto.JSON_PROPERTY_MIXED,
-  EnumsDto.JSON_PROPERTY_EXTERNAL,
-  EnumsDto.JSON_PROPERTY_EXTERNAL_LOWER,
-  EnumsDto.JSON_PROPERTY_EXTERNAL_MIXED,
-  EnumsDto.JSON_PROPERTY_INTEGER_ENUM,
-  EnumsDto.JSON_PROPERTY_STRING_INTEGER_ENUM
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
   public static final String JSON_PROPERTY_EXTERNAL = "external";

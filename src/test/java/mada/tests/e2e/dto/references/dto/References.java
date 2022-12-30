@@ -8,15 +8,11 @@ package mada.tests.e2e.dto.references.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 
 /**
  * References
  */
-@JsonbPropertyOrder({
-  References.JSON_PROPERTY_SIMPLE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class References {
   public static final String JSON_PROPERTY_SIMPLE = "simple";

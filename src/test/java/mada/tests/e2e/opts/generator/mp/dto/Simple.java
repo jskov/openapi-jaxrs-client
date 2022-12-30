@@ -8,14 +8,10 @@ package mada.tests.e2e.opts.generator.mp.dto;
 
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 /**
  * Simple
  */
-@JsonPropertyOrder({
-  Simple.JSON_PROPERTY_A_BOOLEAN
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";

@@ -10,14 +10,10 @@ package mada.tests.e2e.api.interfaces.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * ImplA
  */
-@JsonbPropertyOrder({
-  ImplA.JSON_PROPERTY_FOO
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ImplA implements ImplAImplB {
   public static final String JSON_PROPERTY_FOO = "foo";

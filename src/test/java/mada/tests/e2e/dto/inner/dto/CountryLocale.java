@@ -10,27 +10,10 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * CountryLocale
  */
-@JsonbPropertyOrder({
-  CountryLocale.JSON_PROPERTY_LANGUAGE,
-  CountryLocale.JSON_PROPERTY_SCRIPT,
-  CountryLocale.JSON_PROPERTY_COUNTRY,
-  CountryLocale.JSON_PROPERTY_VARIANT,
-  CountryLocale.JSON_PROPERTY_EXTENSION_KEYS,
-  CountryLocale.JSON_PROPERTY_UNICODE_LOCALE_ATTRIBUTES,
-  CountryLocale.JSON_PROPERTY_UNICODE_LOCALE_KEYS,
-  CountryLocale.JSON_PROPERTY_ISO3_LANGUAGE,
-  CountryLocale.JSON_PROPERTY_ISO3_COUNTRY,
-  CountryLocale.JSON_PROPERTY_DISPLAY_LANGUAGE,
-  CountryLocale.JSON_PROPERTY_DISPLAY_SCRIPT,
-  CountryLocale.JSON_PROPERTY_DISPLAY_COUNTRY,
-  CountryLocale.JSON_PROPERTY_DISPLAY_VARIANT,
-  CountryLocale.JSON_PROPERTY_DISPLAY_NAME
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CountryLocale {
   public static final String JSON_PROPERTY_COUNTRY = "country";

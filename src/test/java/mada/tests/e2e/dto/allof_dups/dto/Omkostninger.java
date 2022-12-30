@@ -8,14 +8,10 @@ package mada.tests.e2e.dto.allof_dups.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * Omkostninger
  */
-@JsonbPropertyOrder({
-  Omkostninger.JSON_PROPERTY_FGOO
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Omkostninger {
   public static final String JSON_PROPERTY_FGOO = "fgoo";

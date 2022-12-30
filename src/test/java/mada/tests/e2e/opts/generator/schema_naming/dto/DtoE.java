@@ -8,7 +8,6 @@ package mada.tests.e2e.opts.generator.schema_naming.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -16,9 +15,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * DtoE
  */
-@JsonbPropertyOrder({
-  DtoE.JSON_PROPERTY_MEMBER_IN_E
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class DtoE {
   public static final String JSON_PROPERTY_MEMBER_IN_E = "member-in-E";

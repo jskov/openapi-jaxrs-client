@@ -10,15 +10,11 @@ package mada.tests.e2e.opts.parser.collisions_doc.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 
 /**
  * Aftalepakke
  */
-@JsonbPropertyOrder({
-  Aftalepakke.JSON_PROPERTY_AFTALE_PAKKE_ID_PARTNER_SALG
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Aftalepakke {
   public static final String JSON_PROPERTY_AFTALE_PAKKE_ID_PARTNER_SALG = "AftalePakkeIdPartnerSalg";

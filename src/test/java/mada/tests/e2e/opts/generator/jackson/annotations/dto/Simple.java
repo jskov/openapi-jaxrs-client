@@ -8,15 +8,11 @@ package mada.tests.e2e.opts.generator.jackson.annotations.dto;
 
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  * Simple
  */
-@JsonPropertyOrder({
-  Simple.JSON_PROPERTY_A_BOOLEAN
-})
 @JsonSerialize(include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple {

@@ -10,7 +10,6 @@ package mada.tests.e2e.dto.validation.allof.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -18,10 +17,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * OwnerDTO
  */
-@JsonbPropertyOrder({
-  OwnerDTO.JSON_PROPERTY_AD_GROUP,
-  OwnerDTO.JSON_PROPERTY_EMAIL
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class OwnerDTO {
   public static final String JSON_PROPERTY_AD_GROUP = "ad-group";

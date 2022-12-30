@@ -10,7 +10,6 @@ package mada.tests.e2e.dto.validation.allof.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,15 +18,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * ProjectCreateDTO
  */
-@JsonbPropertyOrder({
-  ProjectCreateDTO.JSON_PROPERTY_CLUSTER,
-  ProjectCreateDTO.JSON_PROPERTY_DESCRIPTION,
-  ProjectCreateDTO.JSON_PROPERTY_DISPLAY_NAME,
-  ProjectCreateDTO.JSON_PROPERTY_NAME,
-  ProjectCreateDTO.JSON_PROPERTY_OWNER,
-  ProjectCreateDTO.JSON_PROPERTY_PRODUCT_OWNER,
-  ProjectCreateDTO.JSON_PROPERTY_TYPE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ProjectCreateDTO {
   public static final String JSON_PROPERTY_CLUSTER = "cluster";

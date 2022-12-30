@@ -10,7 +10,6 @@ import java.util.Objects;
 import javax.validation.Valid;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.annotate.JsonValue;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -18,17 +17,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * EnumsDto
  */
-@JsonPropertyOrder({
-  EnumsDto.JSON_PROPERTY_PROPERTY_ENUM_STRING,
-  EnumsDto.JSON_PROPERTY_INNER,
-  EnumsDto.JSON_PROPERTY_LOWER,
-  EnumsDto.JSON_PROPERTY_MIXED,
-  EnumsDto.JSON_PROPERTY_EXTERNAL,
-  EnumsDto.JSON_PROPERTY_EXTERNAL_LOWER,
-  EnumsDto.JSON_PROPERTY_EXTERNAL_MIXED,
-  EnumsDto.JSON_PROPERTY_INTEGER_ENUM,
-  EnumsDto.JSON_PROPERTY_STRING_INTEGER_ENUM
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumsDto {
   public static final String JSON_PROPERTY_EXTERNAL = "external";

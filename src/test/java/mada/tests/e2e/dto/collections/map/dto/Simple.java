@@ -8,14 +8,10 @@ package mada.tests.e2e.dto.collections.map.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * Simple
  */
-@JsonbPropertyOrder({
-  Simple.JSON_PROPERTY_A_BOOLEAN
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";

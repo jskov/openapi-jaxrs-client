@@ -7,15 +7,11 @@
 package mada.tests.e2e.opts.generator.collections_empty.jackson_fasterxml.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 
 /**
  * Simple
  */
-@JsonPropertyOrder({
-  Simple.JSON_PROPERTY_A_BOOLEAN
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";

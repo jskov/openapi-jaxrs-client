@@ -11,7 +11,6 @@ import javax.json.Json;
 import javax.json.JsonString;
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -19,11 +18,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * ManualInnerEnumDto
  */
-@JsonbPropertyOrder({
-  ManualInnerEnumDto.JSON_PROPERTY_RECEIVER,
-  ManualInnerEnumDto.JSON_PROPERTY_STRING_TYPE,
-  ManualInnerEnumDto.JSON_PROPERTY_NUMBER_TYPE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ManualInnerEnumDto {
   @Schema(enumeration = {"1", "2"}, type = SchemaType.INTEGER, format = "int32")

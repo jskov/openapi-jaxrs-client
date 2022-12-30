@@ -8,15 +8,11 @@ package mada.tests.e2e.dto.allof_dups.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 
 /**
  * AfregningCalculationResponse
  */
-@JsonbPropertyOrder({
-  AfregningCalculationResponse.JSON_PROPERTY_OMKOSTNINGER
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class AfregningCalculationResponse {
   public static final String JSON_PROPERTY_OMKOSTNINGER = "Omkostninger";

@@ -9,15 +9,11 @@ package mada.tests.e2e.regression.anonymous_object.dto;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * MessageV2
  */
-@JsonbPropertyOrder({
-  MessageV2.JSON_PROPERTY_SENT_AT
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MessageV2 {
   public static final String JSON_PROPERTY_SENT_AT = "sentAt";

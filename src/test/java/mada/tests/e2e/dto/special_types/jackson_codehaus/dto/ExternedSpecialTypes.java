@@ -11,20 +11,12 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  * ExternedSpecialTypes
  */
-@JsonPropertyOrder({
-  ExternedSpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
-  ExternedSpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExternedSpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";

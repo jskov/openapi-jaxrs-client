@@ -10,7 +10,6 @@ package mada.tests.e2e.dto.validation.allof.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -18,11 +17,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * ProductOwnerDTO
  */
-@JsonbPropertyOrder({
-  ProductOwnerDTO.JSON_PROPERTY_EMAIL,
-  ProductOwnerDTO.JSON_PROPERTY_NAME,
-  ProductOwnerDTO.JSON_PROPERTY_USER_ID
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ProductOwnerDTO {
   public static final String JSON_PROPERTY_EMAIL = "email";

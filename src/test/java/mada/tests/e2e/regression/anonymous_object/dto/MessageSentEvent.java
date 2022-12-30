@@ -12,7 +12,6 @@ import javax.json.Json;
 import javax.json.JsonString;
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -20,17 +19,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * MessageSentEvent
  */
-@JsonbPropertyOrder({
-  MessageSentEvent.JSON_PROPERTY_TYPE,
-  MessageSentEvent.JSON_PROPERTY_BANK_NUMBER,
-  MessageSentEvent.JSON_PROPERTY_CORRELATION_ID,
-  MessageSentEvent.JSON_PROPERTY_ID,
-  MessageSentEvent.JSON_PROPERTY_OCCURRED_AT,
-  MessageSentEvent.JSON_PROPERTY_ROOM_ID,
-  MessageSentEvent.JSON_PROPERTY_SUB,
-  MessageSentEvent.JSON_PROPERTY_MESSAGE_ID,
-  MessageSentEvent.JSON_PROPERTY_SENT_AT
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MessageSentEvent {
   public static final String JSON_PROPERTY_BANK_NUMBER = "bankNumber";

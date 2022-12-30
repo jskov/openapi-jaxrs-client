@@ -9,15 +9,11 @@
 package mada.tests.e2e.dto.oneof.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 
 /**
  * TypeBar
  */
-@JsonPropertyOrder({
-  TypeBar.JSON_PROPERTY_VALUE_BAR_STRING
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class TypeBar extends AbstractType {
   public static final String JSON_PROPERTY_VALUE_BAR_STRING = "valueBarString";

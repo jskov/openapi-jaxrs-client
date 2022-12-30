@@ -11,20 +11,11 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 
 /**
  * SpecialTypes
  */
-@JsonbPropertyOrder({
-  SpecialTypes.JSON_PROPERTY_A_BIG_DECIMAL,
-  SpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_LOCAL_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_LOCAL_DATE,
-  SpecialTypes.JSON_PROPERTY_LOCAL_TIME
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes {
   public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";

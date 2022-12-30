@@ -7,7 +7,6 @@
 package mada.tests.e2e.dto.special_types.jackson_fasterxml.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.math.BigDecimal;
@@ -20,15 +19,6 @@ import java.util.UUID;
 /**
  * SpecialTypes
  */
-@JsonPropertyOrder({
-  SpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
-  SpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_LOCAL_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_LOCAL_DATE,
-  SpecialTypes.JSON_PROPERTY_LOCAL_TIME,
-  SpecialTypes.JSON_PROPERTY_UUID
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";

@@ -2,21 +2,25 @@
  * {{#description}}{{description}}{{/description}}{{^description}}{{classname}}{{/description}}
  */
 {{#jackson}}
+{{#madaDto.isRenderPropertyOrderAnnotation}}
 @JsonPropertyOrder({
 {{#madaDto.varsOpenapiOrder}}
   {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
 {{/madaDto.varsOpenapiOrder}}
 })
+{{/madaDto.isRenderPropertyOrderAnnotation}}
 {{#madaDto.jacksonJsonSerializeOptions}}
 @JsonSerialize({{{madaDto.jacksonJsonSerializeOptions}}})
 {{/madaDto.jacksonJsonSerializeOptions}}
 {{/jackson}}
 {{#madaDto.jsonb}}
+{{#madaDto.isRenderPropertyOrderAnnotation}}
 @JsonbPropertyOrder({
 {{#madaDto.varsOpenapiOrder}}
   {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
 {{/madaDto.varsOpenapiOrder}}
 })
+{{/madaDto.isRenderPropertyOrderAnnotation}}
 {{/madaDto.jsonb}}
 {{#madaDto.quarkusRegisterForReflection}}
 @RegisterForReflection

@@ -9,15 +9,11 @@
 package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 
 /**
  * SubA
  */
-@JsonPropertyOrder({
-  SubA.JSON_PROPERTY_BAR
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SubA extends Super implements SubASubB {
   public static final String JSON_PROPERTY_BAR = "bar";

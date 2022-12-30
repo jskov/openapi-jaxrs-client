@@ -8,14 +8,10 @@ package mada.tests.e2e.opts.generator.schema_naming.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * DtoB
  */
-@JsonbPropertyOrder({
-  DtoB.JSON_PROPERTY_MEMBER_B
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class DtoB {
   public static final String JSON_PROPERTY_MEMBER_B = "memberB";

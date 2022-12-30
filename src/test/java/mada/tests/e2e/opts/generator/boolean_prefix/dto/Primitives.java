@@ -8,21 +8,10 @@ package mada.tests.e2e.opts.generator.boolean_prefix.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * Primitives
  */
-@JsonbPropertyOrder({
-  Primitives.JSON_PROPERTY_A_BOOLEAN,
-  Primitives.JSON_PROPERTY_A_BYTE,
-  Primitives.JSON_PROPERTY_A_SHORT,
-  Primitives.JSON_PROPERTY_AN_INT,
-  Primitives.JSON_PROPERTY_A_LONG,
-  Primitives.JSON_PROPERTY_A_FLOAT,
-  Primitives.JSON_PROPERTY_A_DOUBLE,
-  Primitives.JSON_PROPERTY_A_STRING
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Primitives {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
