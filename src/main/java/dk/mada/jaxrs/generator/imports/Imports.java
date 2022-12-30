@@ -17,13 +17,12 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
 
 /**
- * Keeps track of imports for a single template, taking
- * generator options into consideration.
+ * Keeps track of imports for a single template, taking generator options into consideration.
  */
 public final class Imports {
     private static final Logger logger = LoggerFactory.getLogger(Imports.class);
 
-    /** Set of classes to be imported.*/
+    /** Set of classes to be imported. */
     private final NavigableSet<String> importedClasses = new TreeSet<>();
 
     /** Flag selecting if imports should be added for DTOs. */
@@ -35,13 +34,13 @@ public final class Imports {
     /**
      * Import rendering preferences.
      *
-     * @param isJackson toggle for jackson serializer
-     * @param isJacksonCodehaus toggle for jackson codehaus
-     * @param isUseJsonSerializeOptions toggle for json serialize options
-     * @param isJakarta toggle for jakarta naming
-     * @param isJsonb toggle for jsonb serializer
+     * @param isJackson                  toggle for jackson serializer
+     * @param isJacksonCodehaus          toggle for jackson codehaus
+     * @param isUseJsonSerializeOptions  toggle for json serialize options
+     * @param isJakarta                  toggle for jakarta naming
+     * @param isJsonb                    toggle for jsonb serializer
      * @param isUseRegisterForReflection toggle for using the Quarkus RegisterForReflection annotation
-     * @param dtoPackage the dto package name
+     * @param dtoPackage                 the dto package name
      */
     record ImportRenderPrefs(
             boolean isJackson,
@@ -66,8 +65,7 @@ public final class Imports {
                 opts.isJakarta(),
                 opts.isJsonb(),
                 opts.isUseRegisterForReflection(),
-                opts.dtoPackage()
-                );
+                opts.dtoPackage());
 
         externalTypeMapping = opts.getExternalTypeMapping();
     }
@@ -110,13 +108,13 @@ public final class Imports {
     /**
      * Creates a new instance for enumeration types.
      *
-     * @param opts the generator options
+     * @param opts           the generator options
      * @param includeObjects flag to include Objects
      * @return a new imports instance loaded with enumeration imports
      */
     public static Imports newEnum(GeneratorOpts opts, boolean includeObjects) {
         return new Imports(opts, false)
-                   .addEnumImports(true, includeObjects);
+                .addEnumImports(true, includeObjects);
     }
 
     /**
@@ -139,23 +137,23 @@ public final class Imports {
      */
     public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
         return new Imports(opts, false)
-                    .add(tmpl.requiredImports());
+                .add(tmpl.requiredImports());
     }
 
     /**
      * Adds imports needed for rendering an enumeration.
      *
      * @param includeTypeAdapter flag to include typeAdaptor
-     * @param includeObjects flag to include Objects
+     * @param includeObjects     flag to include Objects
      * @return this
      */
     public Imports addEnumImports(boolean includeTypeAdapter, boolean includeObjects) {
         return add(irp.isJackson() && includeObjects, JavaUtil.OBJECTS)
-            .add(irp.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
-            .add(irp.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
-            .add(Jackson.JSON_CREATOR, Jackson.JSON_VALUE)
-            .add(Jsonb.JSONB_ADAPTER, Jsonb.JSON, Jsonb.JSON_STRING)
-            .add(includeTypeAdapter, Jsonb.JSONB_TYPE_ADAPTER);
+                .add(irp.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
+                .add(irp.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
+                .add(Jackson.JSON_CREATOR, Jackson.JSON_VALUE)
+                .add(Jsonb.JSONB_ADAPTER, Jsonb.JSON, Jsonb.JSON_STRING)
+                .add(includeTypeAdapter, Jsonb.JSONB_TYPE_ADAPTER);
     }
 
     /**
@@ -165,7 +163,7 @@ public final class Imports {
      */
     public void addPropertyImports(Collection<Property> properties) {
         properties
-            .forEach(p -> add(p.reference()));
+                .forEach(p -> add(p.reference()));
     }
 
     /**
@@ -175,7 +173,7 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports add(TypedImport... classes) {
-        for (TypedImport ti: classes) {
+        for (TypedImport ti : classes) {
             ti.path(irp).ifPresent(importedClasses::add);
         }
         return this;
@@ -188,7 +186,7 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports add(Collection<TypedImport> classes) {
-        for (TypedImport ti: classes) {
+        for (TypedImport ti : classes) {
             ti.path(irp).ifPresent(importedClasses::add);
         }
         return this;
@@ -197,7 +195,7 @@ public final class Imports {
     /**
      * Optionally adds typed imports.
      *
-     * @param active option to control if the classes should be added
+     * @param active  option to control if the classes should be added
      * @param classes the classes to add imports for
      * @return the imports instance
      */
@@ -254,13 +252,11 @@ public final class Imports {
     }
 
     /**
-     * Remove container implementations (e.g. ArrayList) from
-     * imports for use in Api files.
-     * Maybe need a better way to handle this.
+     * Remove container implementations (e.g. ArrayList) from imports for use in Api files. Maybe need a better way to handle this.
      */
     public void trimContainerImplementations() {
         JavaUtil.containerImplementationTypes().stream()
-            .map(it -> it.path(irp))
-            .forEach(it -> it.ifPresent(importedClasses::remove));
+                .map(it -> it.path(irp))
+                .forEach(it -> it.ifPresent(importedClasses::remove));
     }
 }

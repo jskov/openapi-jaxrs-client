@@ -16,8 +16,7 @@ import dk.mada.jaxrs.openapi.ParserOpts;
 /**
  * Generator configuration options.
  *
- * Extracts generator-specific keys from the
- * input properties provided by the user.
+ * Extracts generator-specific keys from the input properties provided by the user.
  */
 public final class GeneratorOpts {
     /** Generator option for API package. */
@@ -44,7 +43,7 @@ public final class GeneratorOpts {
     /**
      * Constructs a new instance.
      *
-     * @param options user's options
+     * @param options    user's options
      * @param parserOpts parser options
      */
     public GeneratorOpts(Properties options, ParserOpts parserOpts) {
@@ -269,8 +268,8 @@ public final class GeneratorOpts {
     /**
      * Returns mapping of external types.
      *
-     * Maps a (OpenApi document) type name (key) into its fully-qualified class name (value).
-     * The keySet serves as a set of DTOs *not* to generate.
+     * Maps a (OpenApi document) type name (key) into its fully-qualified class name (value). The keySet serves as a set of DTOs *not* to
+     * generate.
      *
      * @return mapping of types names to external type imports
      **/
@@ -302,8 +301,8 @@ public final class GeneratorOpts {
     /** {@return true if the extra-template for a jackson LocalDate deserializer should be added, otherwise false} */
     public boolean isAddJacksonLocalDateDeserializerTemplate() {
         return getJacksonLocalDateDeserializer()
-            .map(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname()::equals)
-            .orElse(false);
+                .map(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname()::equals)
+                .orElse(false);
     }
 
     /** {@return true if the extra-template for a jackson LocalDate serializer should be added, otherwise false} */
@@ -411,8 +410,7 @@ public final class GeneratorOpts {
     /**
      * {@return true if wrapped primitives should be used in API parameters}
      *
-     * API parameters representing primitives can use the
-     * primitives in the API (default) or their wrapper counterparts.
+     * API parameters representing primitives can use the primitives in the API (default) or their wrapper counterparts.
      *
      * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/jakarta-restful-ws-spec-3.0.html#resources">resources spec</a>
      * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/apidocs/jakarta/ws/rs/defaultvalue">jakarta.ws.rs.DefaultValue</a>
@@ -449,8 +447,8 @@ public final class GeneratorOpts {
 
     private boolean bool(String name) {
         return get(name)
-            .map(Boolean::parseBoolean)
-            .orElse(false);
+                .map(Boolean::parseBoolean)
+                .orElse(false);
     }
 
     private boolean bool(String name, boolean defaultValue) {
@@ -480,7 +478,7 @@ public final class GeneratorOpts {
 
     private Optional<String> get(String name) {
         return Optional.ofNullable(options.getProperty(name))
-                   .map(String::trim);
+                .map(String::trim);
     }
 
     /**

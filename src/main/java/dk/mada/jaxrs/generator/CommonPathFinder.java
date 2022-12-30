@@ -14,9 +14,8 @@ public class CommonPathFinder {
     /**
      * Find longest common sub-path of the paths provided.
      *
-     * First find shortest path, use that as base.
-     * Look if it prefixes all paths. If so, longest common path found.
-     * If not, trim the last section of and loop around.
+     * First find shortest path, use that as base. Look if it prefixes all paths. If so, longest common path found. If not, trim the last
+     * section of and loop around.
      *
      * @param paths the paths to look through
      * @return the longest common path

@@ -3,11 +3,9 @@ package dk.mada.jaxrs.generator;
 import java.util.Optional;
 
 /**
- * Renders text in various forms suitable for
- * use in the templates.
+ * Renders text in various forms suitable for use in the templates.
  *
- * Duplicates some of the logic in mustache rendering, but does so
- * to allow for use of simpler templates.
+ * Duplicates some of the logic in mustache rendering, but does so to allow for use of simpler templates.
  */
 public final class StringRenderer {
     /** System newline. */
@@ -49,7 +47,7 @@ public final class StringRenderer {
     /**
      * Make a summary valid for use in the javadoc section.
      *
-     * @param textIn the text summary
+     * @param textIn        the text summary
      * @param commentIndent the comment indentation
      * @return a valid summary to render as javadoc, or null
      */
@@ -80,11 +78,9 @@ public final class StringRenderer {
     /**
      * Encodes text for use in string-input.
      *
-     * The text may contain multiple lines, but needs to be represented
-     * in the source code as a single string input.
+     * The text may contain multiple lines, but needs to be represented in the source code as a single string input.
      *
-     * Used for descriptions and examples that need to be specified
-     * as @Schema inputs.
+     * Used for descriptions and examples that need to be specified as @Schema inputs.
      *
      * @param text the text to be protected
      * @return a single-line string
@@ -97,11 +93,9 @@ public final class StringRenderer {
     /**
      * Encodes text for use in string-input.
      *
-     * The text may contain multiple lines, but needs to be represented
-     * in the source code as a single string input.
+     * The text may contain multiple lines, but needs to be represented in the source code as a single string input.
      *
-     * Used for descriptions and examples that need to be specified
-     * as @Schema inputs.
+     * Used for descriptions and examples that need to be specified as @Schema inputs.
      *
      * @param text the text to be protected
      * @return a single-line string
