@@ -68,7 +68,7 @@ public final class Operations {
     private void info(StringBuilder sb, String group, List<Operation> groupOps) {
         sb.append(" Group: ").append(group).append(NL);
         groupOps.forEach(op -> {
-            sb.append("  Op: ").append(op.codegenOpId()).append(NL);
+            sb.append("  Op: ").append(op.syntheticOpId()).append(NL);
             if (!op.parameters().isEmpty()) {
                 sb.append("   Params:").append(NL);
                 op.parameters().forEach(p ->

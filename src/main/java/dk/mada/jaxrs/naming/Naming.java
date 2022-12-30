@@ -28,6 +28,8 @@ public class Naming {
     private final List<NamingRule> mpSchemaNamingRules;
     /** Renaming rules for type name conflicts. */
     private final List<NamingRule> getTypeConflictRenaming;
+    /** Naming rules for operation names. */
+    private final List<NamingRule> operationNamingRules;
     /** Naming rules for property names. */
     private final List<NamingRule> propertyNamingRules;
     /** Naming rules for parameter names. */
@@ -55,6 +57,7 @@ public class Naming {
         entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());
         enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
         enumNumberConstantNamingRules = NamingRules.toRules(namingOpts.getEnumNumberConstantNaming());
+        operationNamingRules = NamingRules.toRules(namingOpts.getOperationNaming());
         parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
         propertyEnumTypeNamingRules = NamingRules.toRules(namingOpts.getPropertyEnumTypeNaming());
         propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
@@ -67,6 +70,7 @@ public class Naming {
             logger.info("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
             logger.info("enumConstantNamingRules: {}", makeRuleInfo(enumConstantNamingRules));
             logger.info("enumNumberConstantNamingRules: {}", makeRuleInfo(enumNumberConstantNamingRules));
+            logger.info("operationNamingRules: {}", makeRuleInfo(operationNamingRules));
             logger.info("parameterNamingRules: {}", makeRuleInfo(parameterNamingRules));
             logger.info("propertyEnumTypeNamingRules: {}", makeRuleInfo(propertyEnumTypeNamingRules));
             logger.info("propertyNamingRules: {}", makeRuleInfo(propertyNamingRules));
@@ -159,6 +163,19 @@ public class Naming {
      */
     public String renameConflictingName(String name) {
         return convert(getTypeConflictRenaming, name);
+    }
+
+    /**
+     * Converts an operation name to a java method name.
+     *
+     * The synthetic operation name is created from
+     * path-httptype.
+     *
+     * @param syntheticOperationName the synthetic name
+     * @return the java method name
+     */
+    public String convertOperationName(String syntheticOperationName) {
+        return convert(operationNamingRules, syntheticOperationName);
     }
 
     /**

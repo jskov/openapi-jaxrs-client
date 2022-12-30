@@ -192,7 +192,7 @@ public class ApiGenerator {
         addOperationImports(imports, op);
 
         String nickname = op.operationId()
-                .orElse(op.codegenOpId());
+                .orElse(op.syntheticOpId());
 
         // Gets type for OK if present, or else default, or else void
         Reference typeRef = getTypeForStatus(op, StatusCode.HTTP_OK)

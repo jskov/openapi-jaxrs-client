@@ -22,6 +22,7 @@ import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
+import dk.mada.jaxrs.naming.Naming;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
@@ -42,6 +43,8 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 public class ApiTransformer {
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
+    /** Naming. */
+    private final Naming naming;
     /** Parser options. */
     private final ParserOpts parseOpts;
     /** Type converter. */
@@ -55,11 +58,13 @@ public class ApiTransformer {
     /**
      * Constructs a new API transformer instance.
      *
+     * @param naming the naming instance
      * @param parseOpts the parser options
      * @param typeConverter the type converter
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(ParserOpts parseOpts, TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
+    public ApiTransformer(Naming naming, ParserOpts parseOpts, TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
+        this.naming = naming;
         this.parseOpts = parseOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
@@ -117,16 +122,13 @@ public class ApiTransformer {
             responses = List.of();
         }
 
-        String methodSuffix = OpenapiGeneratorUtils.camelize(httpMethod.name().toLowerCase());
-        String codegenOpId = OpenapiGeneratorUtils.getOrGenerateOperationId(op, resourcePath, methodSuffix);
-
         ops.add(Operation.builder()
                 .tags(tags)
                 .description(Optional.ofNullable(op.getDescription()))
                 .summary(Optional.ofNullable(op.getSummary()))
                 .deprecated(toBool(op.getDeprecated()))
                 .operationId(Optional.ofNullable(op.getOperationId()))
-                .codegenOpId(codegenOpId)
+                .syntheticOpId(generateSyntheticOpId(resourcePath, httpMethod))
                 .httpMethod(toModelHttpMethod(httpMethod))
                 .path(resourcePath)
                 .responses(responses)
@@ -136,6 +138,16 @@ public class ApiTransformer {
                 .build());
     }
 
+    private String generateSyntheticOpId(String resourcePath, HttpMethod httpMethod) {
+        String opPath = resourcePath
+                .replaceAll("[{}/_]", "-")
+                .replaceFirst("^-", "")
+                .replaceFirst("-$", "");
+        String syntheticOpId = opPath + "-" + httpMethod.name().toLowerCase();
+        
+        return naming.convertParameterName(syntheticOpId);
+    }
+    
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         Response r = Response.builder()
                 .code(StatusCode.of(code))
