@@ -10,7 +10,7 @@ public class GeneratorException extends RuntimeException {
      * Creates a new wrapper exception.
      *
      * @param message the exception message
-     * @param cause the cause of the exception
+     * @param cause   the cause of the exception
      */
     public GeneratorException(String message, Throwable cause) {
         super(message, cause);

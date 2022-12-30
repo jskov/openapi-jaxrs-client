@@ -5,8 +5,7 @@ import java.util.Optional;
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
- * A user-mapped import - replacing a given type
- * with a imported class.
+ * A user-mapped import - replacing a given type with a imported class.
  *
  * @param path the import path
  */

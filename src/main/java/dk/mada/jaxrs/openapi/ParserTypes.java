@@ -37,9 +37,8 @@ import dk.mada.jaxrs.model.types.TypeUUID;
 /**
  * Types found while parsing.
  *
- * This is only used to collect the types. When parsing
- * is completed, they will be moved to the model's Types
- * container after being resolved and mapped.
+ * This is only used to collect the types. When parsing is completed, they will be moved to the model's Types container
+ * after being resolved and mapped.
  */
 public class ParserTypes {
     private static final Logger logger = LoggerFactory.getLogger(ParserTypes.class);
@@ -62,14 +61,12 @@ public class ParserTypes {
     private final Map<TypeName, Type> mappedToJseTypes = new HashMap<>();
 
     /**
-     * JSE standard types that were not mapped (because the user opted
-     * to keep them as DTOs).
+     * JSE standard types that were not mapped (because the user opted to keep them as DTOs).
      */
     private final Set<TypeName> unmappedToJseTypes = new HashSet<>();
 
     /**
-     * Types that (via their type name) have been mapped to
-     * some other types.
+     * Types that (via their type name) have been mapped to some other types.
      */
     private final Map<TypeName, Type> remappedDtoTypes = new HashMap<>();
 
@@ -79,8 +76,8 @@ public class ParserTypes {
     /**
      * Create new instance.
      *
-     * @param typeNames the type names instance
-     * @param parserOpts the parser options
+     * @param typeNames     the type names instance
+     * @param parserOpts    the parser options
      * @param generatorOpts the generator options
      */
     public ParserTypes(TypeNames typeNames, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
@@ -89,15 +86,15 @@ public class ParserTypes {
 
         dtoPackageName = generatorOpts.dtoPackage();
 
-        mapJse(true,                             TypeNames.OBJECT,           TypePlainObject.get());
-        mapJse(parserOpts.isJseBigDecimal(),     TypeNames.BIG_DECIMAL,      TypeBigDecimal.get());
-        mapJse(parserOpts.isJseInputStream(),    TypeNames.INPUT_STREAM,     TypeByteArray.getStream());
-        mapJse(parserOpts.isJseUUID(),           TypeNames.UUID,             TypeUUID.get());
-        mapJse(parserOpts.isJseLocalDate(),      TypeNames.LOCAL_DATE,       TypeDate.get());
-        mapJse(parserOpts.isJseLocalTime(),      TypeNames.LOCAL_TIME,       TypeLocalTime.get());
-        mapJse(parserOpts.isJseLocalDateTime(),  TypeNames.LOCAL_DATE_TIME,  typeDateTime);
+        mapJse(true, TypeNames.OBJECT, TypePlainObject.get());
+        mapJse(parserOpts.isJseBigDecimal(), TypeNames.BIG_DECIMAL, TypeBigDecimal.get());
+        mapJse(parserOpts.isJseInputStream(), TypeNames.INPUT_STREAM, TypeByteArray.getStream());
+        mapJse(parserOpts.isJseUUID(), TypeNames.UUID, TypeUUID.get());
+        mapJse(parserOpts.isJseLocalDate(), TypeNames.LOCAL_DATE, TypeDate.get());
+        mapJse(parserOpts.isJseLocalTime(), TypeNames.LOCAL_TIME, TypeLocalTime.get());
+        mapJse(parserOpts.isJseLocalDateTime(), TypeNames.LOCAL_DATE_TIME, typeDateTime);
         mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.OFFSET_DATE_TIME, typeDateTime);
-        mapJse(parserOpts.isJseZonedDateTime(),  TypeNames.ZONED_DATE_TIME,  typeDateTime);
+        mapJse(parserOpts.isJseZonedDateTime(), TypeNames.ZONED_DATE_TIME, typeDateTime);
 
         logger.info("JSE type overrides: {}", mappedToJseTypes.keySet());
         logger.info("JSE types kept: {}", unmappedToJseTypes);
@@ -114,14 +111,14 @@ public class ParserTypes {
     /**
      * Get or make a new interface type.
      *
-     * @param tn the type name of the interface
+     * @param tn        the type name of the interface
      * @param anyOfRefs the types referenced by the interface
      * @return an existing or new interface type
      */
     public TypeInterface getOrMakeInterface(TypeName tn, List<ParserTypeRef> anyOfRefs) {
         Set<TypeName> usedTypeNames = anyOfRefs.stream()
-            .map(ParserTypeRef::typeName)
-            .collect(toSet());
+                .map(ParserTypeRef::typeName)
+                .collect(toSet());
         return interfaces.computeIfAbsent(tn, k -> TypeInterface.of(dtoPackageName, tn, usedTypeNames));
     }
 
@@ -133,13 +130,14 @@ public class ParserTypes {
 
     /**
      * {@return the interfaces implemented by a given type name}
+     *
      * @param tn the type name to look for.
      **/
     public List<TypeInterface> getInterfacesImplementedBy(TypeName tn) {
         return interfaces.values().stream()
-            .filter(ti -> ti.implementations().contains(tn))
-            .sorted((a, b) -> a.typeName().compareTo(b.typeName()))
-            .toList();
+                .filter(ti -> ti.implementations().contains(tn))
+                .sorted((a, b) -> a.typeName().compareTo(b.typeName()))
+                .toList();
     }
 
     /**
@@ -256,47 +254,47 @@ public class ParserTypes {
         StringBuilder sb = new StringBuilder("Parser Types:").append(NL);
         sb.append(" Unmapped JSE: ");
         sb.append(unmappedToJseTypes.stream()
-                    .sorted()
-                    .map(TypeName::name)
-                    .collect(joining(", "))).append(NL);
+                .sorted()
+                .map(TypeName::name)
+                .collect(joining(", "))).append(NL);
 
         sb.append(" Mapped JSE: ").append(NL);
         mappedToJseTypes.keySet().stream()
-            .sorted()
-            .forEach(tn -> {
-                Type t = mappedToJseTypes.get(tn);
-                sb.append("  ").append(tn.name())
-                    .append(": ").append(t).append(NL);
-            });
+                .sorted()
+                .forEach(tn -> {
+                    Type t = mappedToJseTypes.get(tn);
+                    sb.append("  ").append(tn.name())
+                            .append(": ").append(t).append(NL);
+                });
 
         sb.append(" Interfaces:").append(NL);
         interfaces.entrySet().stream()
-            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
-            .forEach(e -> {
-                TypeName tn = e.getKey();
-                TypeInterface ints = e.getValue();
-                sb.append("  ").append(tn.name())
-                    .append(": ").append(ints.implementations()).append(NL);
-            });
+                .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                .forEach(e -> {
+                    TypeName tn = e.getKey();
+                    TypeInterface ints = e.getValue();
+                    sb.append("  ").append(tn.name())
+                            .append(": ").append(ints.implementations()).append(NL);
+                });
 
         sb.append(" DTOs:").append(NL);
         parsedDtos.entrySet().stream()
-            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
-            .forEach(e -> {
-                TypeName tn = e.getKey();
-                Dto dto = e.getValue();
-                sb.append("  ").append(tn.name())
-                    .append(": ").append(dto.name()).append(" - ").append(dto.reference()).append(NL);
-            });
+                .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                .forEach(e -> {
+                    TypeName tn = e.getKey();
+                    Dto dto = e.getValue();
+                    sb.append("  ").append(tn.name())
+                            .append(": ").append(dto.name()).append(" - ").append(dto.reference()).append(NL);
+                });
 
         sb.append(" Remapped DTOs: ").append(NL);
         remappedDtoTypes.keySet().stream()
-            .sorted()
-            .forEach(tn -> {
-                Type t = remappedDtoTypes.get(tn);
-                sb.append("  ").append(tn.name())
-                    .append(": ").append(t).append(NL);
-            });
+                .sorted()
+                .forEach(tn -> {
+                    Type t = remappedDtoTypes.get(tn);
+                    sb.append("  ").append(tn.name())
+                            .append(": ").append(t).append(NL);
+                });
 
         return sb.toString();
     }

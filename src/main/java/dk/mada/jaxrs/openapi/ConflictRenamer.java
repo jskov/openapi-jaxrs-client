@@ -22,14 +22,10 @@ import dk.mada.jaxrs.naming.Naming;
 /**
  * Renames types to avoid on-disk conflicts.
  *
- * It changes the name of DTOs and adds renaming mapping
- * to the TypeNames so the generators will get the new
- * names.
+ * It changes the name of DTOs and adds renaming mapping to the TypeNames so the generators will get the new names.
  *
- * The MP @Schema name is also changed, using its own namespace.
- * This is needed to avoid @Schema declaring a different name
- * than that assigned to the DTO.
- * May need a separate switch.
+ * The MP @Schema name is also changed, using its own namespace. This is needed to avoid @Schema declaring a different
+ * name than that assigned to the DTO. May need a separate switch.
  */
 public final class ConflictRenamer {
     private static final Logger logger = LoggerFactory.getLogger(ConflictRenamer.class);
@@ -52,8 +48,8 @@ public final class ConflictRenamer {
     /**
      * Constructs a new instance.
      *
-     * @param typeNames the type names instance
-     * @param naming the naming instance
+     * @param typeNames                   the type names instance
+     * @param naming                      the naming instance
      * @param schemaNamesDeclarationOrder the OpenApi schema declaration order
      */
     public ConflictRenamer(TypeNames typeNames, Naming naming, List<String> schemaNamesDeclarationOrder) {
@@ -65,8 +61,7 @@ public final class ConflictRenamer {
     /**
      * Resolves name conflicts in DTOs.
      *
-     * Returns new DTO instances that have been renamed.
-     * References in their properties have *not* been resolved.
+     * Returns new DTO instances that have been renamed. References in their properties have *not* been resolved.
      *
      * @param dtos the DTOs to rename
      * @return the renamed DTOs
@@ -82,14 +77,13 @@ public final class ConflictRenamer {
         }
 
         conflictRenamedDtos = dtos.stream()
-            .collect(toMap(dto -> dto, this::renameDto));
+                .collect(toMap(dto -> dto, this::renameDto));
 
         return conflictRenamedDtos.values();
     }
 
     /**
-     * Maps pre-renamed DTO instance to new
-     * (possibly renamed) instance.
+     * Maps pre-renamed DTO instance to new (possibly renamed) instance.
      *
      * @param dto pre-renamed DTO
      * @return same DTO instance, but renamed if required
@@ -128,8 +122,7 @@ public final class ConflictRenamer {
     }
 
     /**
-     * Order two DTOs by either their name or their declaration
-     * order in the OpenApi document.
+     * Order two DTOs by either their name or their declaration order in the OpenApi document.
      *
      * @param a the first DTO
      * @param b the second DTO
@@ -152,8 +145,8 @@ public final class ConflictRenamer {
      * DTO conflict renaming information.
      *
      * @param originalDtoName the original name of the DTO
-     * @param dtoName the new name of the DTO
-     * @param mpSchemaName the new Schema name of the DTO
+     * @param dtoName         the new name of the DTO
+     * @param mpSchemaName    the new Schema name of the DTO
      */
     record ConflictRenamed(String originalDtoName, String dtoName, String mpSchemaName) {
     }

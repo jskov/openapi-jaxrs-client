@@ -20,8 +20,8 @@ import dk.mada.jaxrs.model.types.Type;
 /**
  * Uses default naming, but provides alternatives in case of naming conflicts.
  *
- * First tries to append the non-upper-cased value to the default naming.
- * This allows the client to make (some) sense of the enumeration values
+ * First tries to append the non-upper-cased value to the default naming. This allows the client to make (some) sense of
+ * the enumeration values
  *
  * If this fails, falls back to numbering of conflicting names.
  */
@@ -44,11 +44,10 @@ public final class EnumNamer {
     /** Flag for all values are numbers. */
     private boolean allNumbers;
 
-
     /**
      * An enumeration name-to-value assignment.
      *
-     * @param name the assigned name to the enumeration entry
+     * @param name  the assigned name to the enumeration entry
      * @param value the value of the enumeration entry
      */
     public record EnumNameValue(String name, String value) {
@@ -57,9 +56,9 @@ public final class EnumNamer {
     /**
      * Constructs a new enumeration namer instance.
      *
-     * @param naming the naming policies
+     * @param naming        the naming policies
      * @param enumValueType the enumeration type
-     * @param values the values of the enumeration
+     * @param values        the values of the enumeration
      */
     public EnumNamer(Naming naming, Type enumValueType, List<String> values) {
         this.naming = naming;
@@ -121,7 +120,7 @@ public final class EnumNamer {
             if (!assignedNames.add(name)) {
                 logger.error("Conflicts when assigning enum names from: {}", values);
                 logger.error("Name {} assigned twice", name);
-                throw new IllegalStateException("Enum name conflict on " + name + " from "  + values);
+                throw new IllegalStateException("Enum name conflict on " + name + " from " + values);
             }
         }
 
@@ -140,11 +139,9 @@ public final class EnumNamer {
     /**
      * Provides a case sensitive renaming.
      *
-     * May provide the reader of the type with better clues than
-     * just abstract numbering.
+     * May provide the reader of the type with better clues than just abstract numbering.
      *
-     * Appends the (case-sensitive) original name as a suffix
-     * to the (case in-sensitive) prefix.
+     * Appends the (case-sensitive) original name as a suffix to the (case in-sensitive) prefix.
      *
      * Still has to map non-chars to _, so may still result in conflicts.
      *
@@ -161,8 +158,7 @@ public final class EnumNamer {
     /**
      * Assign numbers to conflicting names.
      *
-     * Simply (and very abstractly) adds a counter to resolve
-     * name conflicts.
+     * Simply (and very abstractly) adds a counter to resolve name conflicts.
      *
      * @param defaultName the default name
      * @return the name assigned

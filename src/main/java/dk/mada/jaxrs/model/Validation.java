@@ -25,23 +25,31 @@ public interface Validation {
 
     /** {@return optional nullable state for the reference} */
     Optional<Boolean> isNullable();
+
     /** {@return optional read-only state for the reference} */
     Optional<Boolean> isReadonly();
+
     /** {@return true if the property is required, otherwise false} */
     boolean isRequired();
 
     /** {@return optional validation minimum items} */
     Optional<Integer> minItems();
+
     /** {@return optional validation maximum items} */
     Optional<Integer> maxItems();
+
     /** {@return optional validation minimum length} */
     Optional<Integer> minLength();
+
     /** {@return optional validation maximum length} */
     Optional<Integer> maxLength();
+
     /** {@return optional validation minimum} */
     Optional<BigDecimal> minimum();
+
     /** {@return optional validation maximum} */
     Optional<BigDecimal> maximum();
+
     /** {@return optional validation pattern} */
     Optional<String> pattern();
 }

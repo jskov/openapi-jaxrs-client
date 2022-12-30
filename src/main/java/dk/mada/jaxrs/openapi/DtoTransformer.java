@@ -11,9 +11,7 @@ import io.swagger.v3.oas.models.media.Schema;
 /**
  * Transforms OpenApi dtos (models) to local model objects.
  *
- *  DefaultGenerator:processModels
- *  DefaultCodegen:fromModel
- *  DefaultCodegen:fromProperty
+ * DefaultGenerator:processModels DefaultCodegen:fromModel DefaultCodegen:fromProperty
  */
 public class DtoTransformer {
     private static final Logger logger = LoggerFactory.getLogger(DtoTransformer.class);
@@ -33,8 +31,7 @@ public class DtoTransformer {
     /**
      * Transforms OpenApi specification to types model.
      *
-     * The types are added to the Types instance as the specification
-     * is processed.
+     * The types are added to the Types instance as the specification is processed.
      *
      * @param specification the OpenApi specification
      */

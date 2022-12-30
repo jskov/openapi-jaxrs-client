@@ -58,9 +58,9 @@ public class ApiTransformer {
     /**
      * Constructs a new API transformer instance.
      *
-     * @param naming the naming instance
-     * @param parseOpts the parser options
-     * @param typeConverter the type converter
+     * @param naming          the naming instance
+     * @param parseOpts       the parser options
+     * @param typeConverter   the type converter
      * @param securitySchemes the security schemes
      */
     public ApiTransformer(Naming naming, ParserOpts parseOpts, TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
@@ -94,7 +94,7 @@ public class ApiTransformer {
     private void processPath(String resourcePath, PathItem path) {
         logger.info("Process path {}", resourcePath);
         path.readOperationsMap()
-            .forEach((httpMethod, op) -> processOp(resourcePath, httpMethod, op));
+                .forEach((httpMethod, op) -> processOp(resourcePath, httpMethod, op));
     }
 
     private void processOp(String resourcePath, HttpMethod httpMethod, io.swagger.v3.oas.models.Operation op) {
@@ -112,12 +112,12 @@ public class ApiTransformer {
         List<Response> responses;
         if (op.getResponses() != null) {
             responses = op.getResponses().entrySet().stream()
-                .map(e -> {
-                    String code = e.getKey();
-                    ApiResponse resp = e.getValue();
-                    return toResponse(resourcePath, code, resp);
-                })
-                .toList();
+                    .map(e -> {
+                        String code = e.getKey();
+                        ApiResponse resp = e.getValue();
+                        return toResponse(resourcePath, code, resp);
+                    })
+                    .toList();
         } else {
             responses = List.of();
         }
@@ -180,8 +180,8 @@ public class ApiTransformer {
 
             @SuppressWarnings("rawtypes")
             Set<Schema> schemas = c.values().stream()
-                .map(MediaType::getSchema)
-                .collect(toSet());
+                    .map(MediaType::getSchema)
+                    .collect(toSet());
 
             if (schemas.isEmpty()) {
                 ref = TypeVoid.getRef();
@@ -244,19 +244,17 @@ public class ApiTransformer {
 
         return Optional.of(
                 RequestBody.builder()
-                .description(Optional.ofNullable(body.getDescription()))
-                .isRequired(toBool(body.getRequired()))
-                .content(content)
-                .build());
+                        .description(Optional.ofNullable(body.getDescription()))
+                        .isRequired(toBool(body.getRequired()))
+                        .content(content)
+                        .build());
     }
 
     // Just a shortcut to determine if auth header should be added
     /**
-     * Determines if the operation should be given an authorization
-     * header parameter.
+     * Determines if the operation should be given an authorization header parameter.
      *
-     * If there is global security on the entire API, the operation
-     * can still override by using an empty security set.
+     * If there is global security on the entire API, the operation can still override by using an empty security set.
      *
      * @see <a href="https://swagger.io/specification/#securityRequirementObject">OpenApi securityRequirementObject</a>
      *

@@ -16,8 +16,7 @@ public interface TypeMap extends TypeContainer {
     /**
      * Creates a new map-type instance.
      *
-     * The key-type is hardwired to String, but the inner-type is
-     * as specified.
+     * The key-type is hardwired to String, but the inner-type is as specified.
      *
      * @param typeNames the type names instance
      * @param innerType the type of the map values
@@ -32,11 +31,11 @@ public interface TypeMap extends TypeContainer {
         return "HashMap";
     }
 
-    /** {@return the type name}
+    /**
+     * {@return the type name}
      *
-     * Note that this needs to be resolved late (when accessed)
-     * and not when created. This ensures that conflict-renaming
-     * of the inner-type is reflected in the final type name.
+     * Note that this needs to be resolved late (when accessed) and not when created. This ensures that conflict-renaming of
+     * the inner-type is reflected in the final type name.
      */
     @Override
     default TypeName typeName() {

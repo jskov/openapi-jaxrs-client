@@ -62,8 +62,7 @@ import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
 /**
  * DTO generator.
  *
- * Processes the model's DTOs and prepares DTO contexts
- * for template rendering.
+ * Processes the model's DTOs and prepares DTO contexts for template rendering.
  */
 public class DtoGenerator {
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
@@ -96,10 +95,10 @@ public class DtoGenerator {
     /**
      * Constructs a new generator.
      *
-     * @param naming the naming instance
-     * @param opts the generator options
+     * @param naming    the naming instance
+     * @param opts      the generator options
      * @param templates the templates instance
-     * @param model the data model
+     * @param model     the data model
      */
     public DtoGenerator(Naming naming, GeneratorOpts opts, Templates templates, Model model) {
         this.naming = naming;
@@ -116,22 +115,22 @@ public class DtoGenerator {
      */
     public void generateDtoClasses() {
         dtos.getActiveDtos().stream()
-        .sorted((a, b) -> a.name().compareTo(b.name()))
-        .forEach(type -> {
-            String name = type.name();
+                .sorted((a, b) -> a.name().compareTo(b.name()))
+                .forEach(type -> {
+                    String name = type.name();
 
-            UserMappedImport mappedToExternalType = externalTypeMapping.get(name);
-            if (mappedToExternalType != null) {
-                logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
-            } else {
-                logger.info(" generate DTO {}", name);
+                    UserMappedImport mappedToExternalType = externalTypeMapping.get(name);
+                    if (mappedToExternalType != null) {
+                        logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
+                    } else {
+                        logger.info(" generate DTO {}", name);
 
-                CtxDto ctx = toCtx(type);
-                logger.debug("{} ctx: {}", name, ctx);
+                        CtxDto ctx = toCtx(type);
+                        logger.debug("{} ctx: {}", name, ctx);
 
-                templates.renderDtoTemplate(ctx);
-            }
-        });
+                        templates.renderDtoTemplate(ctx);
+                    }
+                });
 
         extraTemplates.forEach(tmpl -> {
             logger.info(" generate extra {}", tmpl);
@@ -152,9 +151,9 @@ public class DtoGenerator {
         var imports = Imports.newInterface(opts);
 
         String implementations = ti.implementations().stream()
-            .map(tn -> tn.name() + ".class")
-            .sorted()
-            .collect(joining(", "));
+                .map(tn -> tn.name() + ".class")
+                .sorted()
+                .collect(joining(", "));
 
         Info info = model.info();
         return CtxInterface.builder()
@@ -211,7 +210,7 @@ public class DtoGenerator {
         Comparator<? super CtxProperty> propertySorter = propertySorter();
 
         Stream<CtxProperty> props = dto.properties().stream()
-            .map(p -> toCtxProperty(dtoImports, p));
+                .map(p -> toCtxProperty(dtoImports, p));
         if (propertySorter != null) {
             props = props.sorted(propertySorter);
         }
@@ -293,9 +292,7 @@ public class DtoGenerator {
         }
         enumSchema.ifPresent(schemaEntries::add);
 
-        isNotBlankEncoded(description, d ->
-            schemaEntries.add("description = \"" + d + "\"")
-        );
+        isNotBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
 
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
@@ -313,7 +310,7 @@ public class DtoGenerator {
         }
 
         Optional<CtxDtoDiscriminator> discriminator = subtypeSelector
-            .map(this::buildSubtypeDiscriminator);
+                .map(this::buildSubtypeDiscriminator);
 
         if (discriminator.isPresent()
                 && opts.isJacksonFasterxml()) {
@@ -419,24 +416,23 @@ public class DtoGenerator {
     }
 
     /**
-     * If the enumeration values are not represented correctly
-     * by the constants, define a schema with the proper values.
+     * If the enumeration values are not represented correctly by the constants, define a schema with the proper values.
      *
      * @param dtoImports the DTO imports
-     * @param dtoType type of the enumeration
-     * @param ctxEnum enumeration constants and values
+     * @param dtoType    type of the enumeration
+     * @param ctxEnum    enumeration constants and values
      * @return optional schema enumeration arguments
      */
     private Optional<String> buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
         boolean namesMatchValues = ctxEnum.enumVars().stream()
-            .allMatch(e -> e.name().equals(e.wireValue()));
+                .allMatch(e -> e.name().equals(e.wireValue()));
         if (namesMatchValues) {
             return Optional.empty();
         }
 
         String values = ctxEnum.enumVars().stream()
-            .map(e -> StringRenderer.quote(e.wireValue()))
-            .collect(joining(", "));
+                .map(e -> StringRenderer.quote(e.wireValue()))
+                .collect(joining(", "));
 
         String type = "";
         if (dtoType.isPrimitive(Primitive.STRING)) {
@@ -472,7 +468,7 @@ public class DtoGenerator {
      * A magic integer is used for integer types.
      *
      * @param enumType the enumeration type
-     * @param values the input enumeration values
+     * @param values   the input enumeration values
      * @return the input values, plus unknown default if needed
      */
     private List<String> addUnknownDefault(Type enumType, List<String> values) {
@@ -490,7 +486,7 @@ public class DtoGenerator {
             return values;
         }
 
-        List<String> renderValues =  new ArrayList<>(values);
+        List<String> renderValues = new ArrayList<>(values);
         if (isIntEnum) {
             renderValues.add(ENUM_INT_UNKNOWN_DEFAULT_STR);
         } else {
@@ -521,7 +517,10 @@ public class DtoGenerator {
         // Both Jackson (Fasterxml) and JsonBinding expect the getter
         // of a 'xX'-prefixed field to be named 'getxX'. Although
         // this is different from Bean Spec naming for getters/setters.
-        // See https://github.com/FasterXML/jackson-databind/blob/2.15/src/main/java/com/fasterxml/jackson/databind/introspect/DefaultAccessorNamingStrategy.java#L182 // NOSONAR
+        //
+        // See https://github.com/FasterXML/jackson-databind/blob/2.15...
+        // /src/main/java/com/fasterxml/jackson/databind/introspect...
+        // /DefaultAccessorNamingStrategy.java#L182
         if (name.length() > 1 && Character.isUpperCase(name.charAt(1))) {
             nameCamelized = Character.toLowerCase(name.charAt(0)) + nameCamelized.substring(1);
         }
@@ -583,7 +582,7 @@ public class DtoGenerator {
         String enumTypeName = typeName;
         Optional<String> enumSchema = Optional.empty();
 
-        if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
+        if (getDereferencedInnerEnumType(innerType)instanceof TypeEnum te) {
             isEnum = true;
             Type enumType = te.innerType();
             enumTypeName = enumType.typeName().name();
@@ -613,8 +612,7 @@ public class DtoGenerator {
         String setter = "set" + nameCamelized;
         String extGetter = getter;
         String extSetter = setter;
-        boolean isUseBigDecimalForDouble =
-                opts.isUseBigDecimalForDouble()
+        boolean isUseBigDecimalForDouble = opts.isUseBigDecimalForDouble()
                 && propType.isPrimitive(Primitive.DOUBLE);
         if (isUseBigDecimalForDouble) {
             getter = getter + "Double";
@@ -626,8 +624,7 @@ public class DtoGenerator {
 
         Optional<String> description = p.description();
 
-        boolean isUseEmptyCollections =
-                opts.isUseEmptyCollections()
+        boolean isUseEmptyCollections = opts.isUseEmptyCollections()
                 && isContainer
                 && !isRequired;
         if (isUseEmptyCollections) {
@@ -645,12 +642,8 @@ public class DtoGenerator {
         if (p.isReadonly()) {
             schemaEntries.add("readOnly = true");
         }
-        isNotBlankEncoded(description, d ->
-            schemaEntries.add("description = \"" + d + "\"")
-        );
-        isNotBlankEncoded(p.example(), e ->
-            schemaEntries.add("example = \"" + e + "\"")
-        );
+        isNotBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
+        isNotBlankEncoded(p.example(), e -> schemaEntries.add("example = \"" + e + "\""));
 
         Optional<String> schemaOptions = Optional.empty();
         if (!schemaEntries.isEmpty()) {
@@ -680,14 +673,14 @@ public class DtoGenerator {
 
             // Note that OpenApi specification xItems/xLength both map to @Size
             minLength = p.minItems()
-                .or(p::minLength)
-                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
+                    .or(p::minLength)
+                    .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
             if (minLength.isPresent()) {
                 dtoImports.add(ValidationApi.SIZE);
             }
             maxLength = p.maxItems()
-                .or(p::maxLength)
-                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
+                    .or(p::maxLength)
+                    .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
             if (maxLength.isPresent()) {
                 dtoImports.add(ValidationApi.SIZE);
             }
@@ -798,8 +791,8 @@ public class DtoGenerator {
 
     private void isNotBlankEncoded(Optional<String> txt, Consumer<String> f) {
         txt
-            .filter(s -> !s.isBlank())
-            .map(StringRenderer::encodeForString)
-            .ifPresent(f);
+                .filter(s -> !s.isBlank())
+                .map(StringRenderer::encodeForString)
+                .ifPresent(f);
     }
 }

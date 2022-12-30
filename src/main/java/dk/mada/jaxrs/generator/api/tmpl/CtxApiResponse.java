@@ -18,14 +18,16 @@ public interface CtxApiResponse {
 
     /** {@return the HTTP response of this response (or 'default')} */
     String code();
+
     /** {@return the optional description of this response} */
     Optional<String> description();
+
     /** {@return the type of this response, or null} */
-    @Nullable
-    String baseType();
+    @Nullable String baseType();
+
     /** {@return the container type of this response, or null} */
-    @Nullable
-    String containerType();
+    @Nullable String containerType();
+
     /** {@return true if the container is a set (array with unique elements)} */
     boolean isUnique();
 }

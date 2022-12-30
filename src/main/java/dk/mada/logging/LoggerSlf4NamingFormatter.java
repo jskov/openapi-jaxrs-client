@@ -6,19 +6,17 @@ import java.util.logging.LogRecord;
 import java.util.logging.SimpleFormatter;
 
 /**
- * Log formatter that translates the JUL level naming to
- * that used by SLF4J.
+ * Log formatter that translates the JUL level naming to that used by SLF4J.
  *
  * For the picky log reader who just cannot adopt...
  */
 public final class LoggerSlf4NamingFormatter extends SimpleFormatter {
     /** Log level bridging between JUL and slf4j. */
     private static final Map<Level, Level> LEVEL_MAPPING = Map.of(
-            Level.SEVERE,  new Slf4jLevel("ERROR", 1000),
+            Level.SEVERE, new Slf4jLevel("ERROR", 1000),
             Level.WARNING, new Slf4jLevel("WARN", 900),
-            Level.FINE,    new Slf4jLevel("DEBUG", 500),
-            Level.FINEST,  new Slf4jLevel("TRACE", 300)
-            );
+            Level.FINE, new Slf4jLevel("DEBUG", 500),
+            Level.FINEST, new Slf4jLevel("TRACE", 300));
 
     @Override
     public String format(LogRecord lr) {

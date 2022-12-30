@@ -43,7 +43,8 @@ public class NamingOpts {
         /** Follow naming order of schemas. */
         NAME_ORDER;
 
-        /** {@return the matching schema ordering}
+        /**
+         * {@return the matching schema ordering}
          *
          * @param name the name of the ordering desired
          */

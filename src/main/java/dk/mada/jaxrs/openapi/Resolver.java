@@ -31,8 +31,7 @@ import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
 
 /**
- * Works through a parsed model that contains parser type
- * references and resolves them to pure model types.
+ * Works through a parsed model that contains parser type references and resolves them to pure model types.
  */
 public final class Resolver {
     private static final Logger logger = LoggerFactory.getLogger(Resolver.class);
@@ -52,8 +51,8 @@ public final class Resolver {
     /**
      * Create new instance.
      *
-     * @param typeNames the type names instance
-     * @param parserTypes the types collected during parsing
+     * @param typeNames       the type names instance
+     * @param parserTypes     the types collected during parsing
      * @param conflictRenamer the conflict renamer
      */
     public Resolver(TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
@@ -63,13 +62,10 @@ public final class Resolver {
     }
 
     /**
-     * Converts the ParserTypes into finally resolved
-     * and mapped DTOs for the model.
+     * Converts the ParserTypes into finally resolved and mapped DTOs for the model.
      *
-     * First the DTOs are renamed (if necessary) to resolve
-     * name conflicts.
-     * Then references to DTOs are resolved, changing parser-
-     * references to model-references.
+     * First the DTOs are renamed (if necessary) to resolve name conflicts. Then references to DTOs are resolved, changing
+     * parser- references to model-references.
      *
      * @return DTOs for the model
      */
@@ -93,11 +89,9 @@ public final class Resolver {
     }
 
     /**
-     * Reconstructs the inheritance between DTOs as expressed
-     * by oneof-discriminator information.
+     * Reconstructs the inheritance between DTOs as expressed by oneof-discriminator information.
      *
-     * This removes fields from sub-classes that are also present
-     * in the super class. Without any form of validation though.
+     * This removes fields from sub-classes that are also present in the super class. Without any form of validation though.
      *
      * @param dtos the DTOs containing discriminator information
      * @return dtos with inheritance information
@@ -124,7 +118,7 @@ public final class Resolver {
      *
      * Make a link to the parent and remove inherited properties.
      *
-     * @param dto the dto to change
+     * @param dto    the dto to change
      * @param parent the parent dto, or null
      * @return the updated dto
      */
@@ -170,8 +164,8 @@ public final class Resolver {
 
     private List<Property> derefProperties(List<Property> properties) {
         return properties.stream()
-                    .map(this::derefProperty)
-                    .toList();
+                .map(this::derefProperty)
+                .toList();
     }
 
     private Property derefProperty(Property property) {
@@ -188,8 +182,8 @@ public final class Resolver {
      */
     public Operations operations(Operations ops) {
         List<Operation> dereferenced = ops.getAll().stream()
-            .map(this::derefOp)
-            .toList();
+                .map(this::derefOp)
+                .toList();
         return new Operations(dereferenced);
     }
 
@@ -250,10 +244,8 @@ public final class Resolver {
     /**
      * Resolve parser references into model references.
      *
-     * All incoming references may point to the initially parsed
-     * DTO instances.
-     * All returned references point to the final model DTO instances
-     * that have been renamed as required.
+     * All incoming references may point to the initially parsed DTO instances. All returned references point to the final
+     * model DTO instances that have been renamed as required.
      *
      * @param ptr the reference to resolve
      * @return the model reference
@@ -268,9 +260,7 @@ public final class Resolver {
     }
 
     /**
-     * Inner-most resolve of types (that can be parsed
-     * DTOs) to model types.
-     * May call itself recursively.
+     * Inner-most resolve of types (that can be parsed DTOs) to model types. May call itself recursively.
      *
      * @param type the type to resolve
      * @return the final model type

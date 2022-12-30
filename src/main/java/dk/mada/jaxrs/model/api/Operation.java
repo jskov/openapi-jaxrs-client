@@ -17,27 +17,34 @@ public interface Operation {
 
     /** {@return the operation resource path} */
     String path();
+
     /** {@return the operation HTTP method} */
     HttpMethod httpMethod();
+
     /** {@return the operation tags} */
     List<String> tags();
 
     /** {@return an optional operation id} */
     Optional<String> operationId();
+
     /** {@return a synthetic operation id computed by path and http type} */
     String syntheticOpId();
 
     /** {@return an optional description of the operation} */
     Optional<String> description();
+
     /** {@return an optional summary of the operation} */
     Optional<String> summary();
+
     /** {@return true if the operation is deprecated} */
     boolean deprecated();
 
     /** {@return the operation responses} */
     List<Response> responses();
+
     /** {@return the operation parameters} */
     List<Parameter> parameters();
+
     /** {@return the optional request body} */
     Optional<RequestBody> requestBody();
 

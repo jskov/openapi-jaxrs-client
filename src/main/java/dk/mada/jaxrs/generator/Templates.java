@@ -37,7 +37,7 @@ public class Templates {
      *
      * The context contains the information to render the template.
      *
-     * @param tmpl the template to generate output from
+     * @param tmpl    the template to generate output from
      * @param context the rendering context
      */
     public void renderExtraTemplate(ExtraTemplate tmpl, CtxExtraDateSerializer context) {
@@ -49,8 +49,7 @@ public class Templates {
     /**
      * Renders and writes the DTO template.
      *
-     * The context contains the information to render the template
-     * for a given DTO class.
+     * The context contains the information to render the template for a given DTO class.
      *
      * @param context the rendering context
      */
@@ -62,8 +61,7 @@ public class Templates {
     /**
      * Renders and writes the interface template.
      *
-     * The context contains the information to render the template
-     * for a given interface class.
+     * The context contains the information to render the template for a given interface class.
      *
      * @param context the rendering context
      */
@@ -75,10 +73,9 @@ public class Templates {
     /**
      * Renders and writes the API template.
      *
-     * The context contains the information to render the template
-     * for a given API class.
+     * The context contains the information to render the template for a given API class.
      *
-     * @param apiDir the directory to generate API classes in
+     * @param apiDir  the directory to generate API classes in
      * @param context the rendering context
      */
     public void renderApiTemplate(Path apiDir, CtxApi context) {

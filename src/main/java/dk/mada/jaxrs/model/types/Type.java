@@ -5,9 +5,8 @@ import java.util.Set;
 /**
  * Types in the model.
  *
- * These model the OpenApi types, so represent both java primitives,
- * containers and some specific java library classes (e.g. for dates).
- * Plus all the specification-specific DTO types.
+ * These model the OpenApi types, so represent both java primitives, containers and some specific java library classes
+ * (e.g. for dates). Plus all the specification-specific DTO types.
  */
 public interface Type {
     /** {@return the type name} */

@@ -168,8 +168,7 @@ public class Naming {
     /**
      * Converts an operation name to a java method name.
      *
-     * The synthetic operation name is created from
-     * path-httptype.
+     * The synthetic operation name is created from path-httptype.
      *
      * @param syntheticOperationName the synthetic name
      * @return the java method name
