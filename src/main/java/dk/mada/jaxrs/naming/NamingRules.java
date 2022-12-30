@@ -34,8 +34,8 @@ public final class NamingRules {
     /**
      * Builds a list of rules based on input configuration.
      *
-     * The caller of this method will then be able to compute a named based on an input string, and applying the list of returned naming
-     * rules sequentially to this string.
+     * The caller of this method will then be able to compute a named based on an input string, and applying the list of
+     * returned naming rules sequentially to this string.
      *
      * @param ruleConfigurations the rule configurations, separated by ;
      * @return a list of naming rules to be applied sequentially

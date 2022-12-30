@@ -37,8 +37,8 @@ import dk.mada.jaxrs.model.types.TypeUUID;
 /**
  * Types found while parsing.
  *
- * This is only used to collect the types. When parsing is completed, they will be moved to the model's Types container after being resolved
- * and mapped.
+ * This is only used to collect the types. When parsing is completed, they will be moved to the model's Types container
+ * after being resolved and mapped.
  */
 public class ParserTypes {
     private static final Logger logger = LoggerFactory.getLogger(ParserTypes.class);

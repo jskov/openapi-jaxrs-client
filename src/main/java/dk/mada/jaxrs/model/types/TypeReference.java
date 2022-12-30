@@ -9,8 +9,8 @@ import dk.mada.jaxrs.model.Validation;
 /**
  * A reference to type with validation requirements.
  *
- * The validation requirements apply for this particular reference (think of it as requirements that apply to the parameter/property that
- * references the type).
+ * The validation requirements apply for this particular reference (think of it as requirements that apply to the
+ * parameter/property that references the type).
  */
 @Immutable
 public interface TypeReference extends Reference {

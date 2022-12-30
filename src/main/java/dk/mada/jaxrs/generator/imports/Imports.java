@@ -252,7 +252,8 @@ public final class Imports {
     }
 
     /**
-     * Remove container implementations (e.g. ArrayList) from imports for use in Api files. Maybe need a better way to handle this.
+     * Remove container implementations (e.g. ArrayList) from imports for use in Api files. Maybe need a better way to
+     * handle this.
      */
     public void trimContainerImplementations() {
         JavaUtil.containerImplementationTypes().stream()

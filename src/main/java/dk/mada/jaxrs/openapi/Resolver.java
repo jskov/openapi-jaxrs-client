@@ -64,8 +64,8 @@ public final class Resolver {
     /**
      * Converts the ParserTypes into finally resolved and mapped DTOs for the model.
      *
-     * First the DTOs are renamed (if necessary) to resolve name conflicts. Then references to DTOs are resolved, changing parser-
-     * references to model-references.
+     * First the DTOs are renamed (if necessary) to resolve name conflicts. Then references to DTOs are resolved, changing
+     * parser- references to model-references.
      *
      * @return DTOs for the model
      */
@@ -244,8 +244,8 @@ public final class Resolver {
     /**
      * Resolve parser references into model references.
      *
-     * All incoming references may point to the initially parsed DTO instances. All returned references point to the final model DTO
-     * instances that have been renamed as required.
+     * All incoming references may point to the initially parsed DTO instances. All returned references point to the final
+     * model DTO instances that have been renamed as required.
      *
      * @param ptr the reference to resolve
      * @return the model reference

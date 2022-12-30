@@ -24,8 +24,8 @@ import dk.mada.jaxrs.naming.Naming;
  *
  * It changes the name of DTOs and adds renaming mapping to the TypeNames so the generators will get the new names.
  *
- * The MP @Schema name is also changed, using its own namespace. This is needed to avoid @Schema declaring a different name than that
- * assigned to the DTO. May need a separate switch.
+ * The MP @Schema name is also changed, using its own namespace. This is needed to avoid @Schema declaring a different
+ * name than that assigned to the DTO. May need a separate switch.
  */
 public final class ConflictRenamer {
     private static final Logger logger = LoggerFactory.getLogger(ConflictRenamer.class);

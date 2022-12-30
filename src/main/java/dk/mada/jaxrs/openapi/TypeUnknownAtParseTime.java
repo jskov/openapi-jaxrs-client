@@ -5,7 +5,8 @@ import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 
 /**
- * Special type for marking types unknown at parse time. In the Reference, these are identified only by their TypeName instead.
+ * Special type for marking types unknown at parse time. In the Reference, these are identified only by their TypeName
+ * instead.
  */
 public final class TypeUnknownAtParseTime implements Type {
     /** The single instance of this object. */

@@ -314,8 +314,8 @@ public class ApiGenerator {
 
     /**
      * Note from https://docs.oracle.com/cd/E19776-01/820-4867/ghrst/index.html If @DefaultValue is not used in conjunction
-     * with @QueryParam, and the query parameter is not present in the request, then value will be an empty collection for List, Set, or
-     * SortedSet; null for other object types; and the Java-defined default for primitive types.
+     * with @QueryParam, and the query parameter is not present in the request, then value will be an empty collection for
+     * List, Set, or SortedSet; null for other object types; and the Java-defined default for primitive types.
      *
      * So the primitive types can be used instead of wrapper types.
      *

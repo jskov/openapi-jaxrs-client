@@ -38,10 +38,14 @@ import picocli.CommandLine.Spec;
 /**
  * Main class for command line invocation.
  */
-@Command(name = "ojc", header = "", mixinStandardHelpOptions = true, versionProvider = Main.Version.class,
-    defaultValueProvider = Main.DefaultValues.class, 
-    description = "Generates API resource (interfaces) and DTO model (classes) from an OpenApi document."
-        + " The output is suitable for use with a Micro Profile REST client.")
+@Command(
+        name = "ojc",
+        header = "",
+        mixinStandardHelpOptions = true,
+        versionProvider = Main.Version.class,
+        defaultValueProvider = Main.DefaultValues.class,
+        description = "Generates API resource (interfaces) and DTO model (classes) from an OpenApi document."
+                + " The output is suitable for use with a Micro Profile REST client.")
 public final class Main implements Callable<Integer> {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 

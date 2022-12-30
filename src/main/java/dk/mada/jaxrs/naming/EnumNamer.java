@@ -20,8 +20,8 @@ import dk.mada.jaxrs.model.types.Type;
 /**
  * Uses default naming, but provides alternatives in case of naming conflicts.
  *
- * First tries to append the non-upper-cased value to the default naming. This allows the client to make (some) sense of the enumeration
- * values
+ * First tries to append the non-upper-cased value to the default naming. This allows the client to make (some) sense of
+ * the enumeration values
  *
  * If this fails, falls back to numbering of conflicting names.
  */

@@ -34,8 +34,8 @@ public interface TypeMap extends TypeContainer {
     /**
      * {@return the type name}
      *
-     * Note that this needs to be resolved late (when accessed) and not when created. This ensures that conflict-renaming of the inner-type
-     * is reflected in the final type name.
+     * Note that this needs to be resolved late (when accessed) and not when created. This ensures that conflict-renaming of
+     * the inner-type is reflected in the final type name.
      */
     @Override
     default TypeName typeName() {

@@ -268,8 +268,8 @@ public final class GeneratorOpts {
     /**
      * Returns mapping of external types.
      *
-     * Maps a (OpenApi document) type name (key) into its fully-qualified class name (value). The keySet serves as a set of DTOs *not* to
-     * generate.
+     * Maps a (OpenApi document) type name (key) into its fully-qualified class name (value). The keySet serves as a set of
+     * DTOs *not* to generate.
      *
      * @return mapping of types names to external type imports
      **/
@@ -412,8 +412,10 @@ public final class GeneratorOpts {
      *
      * API parameters representing primitives can use the primitives in the API (default) or their wrapper counterparts.
      *
-     * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/jakarta-restful-ws-spec-3.0.html#resources">resources spec</a>
-     * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/apidocs/jakarta/ws/rs/defaultvalue">jakarta.ws.rs.DefaultValue</a>
+     * @see <a href="https://jakarta.ee/specifications/restful-ws/3.0/jakarta-restful-ws-spec-3.0.html#resources">resources
+     *      spec</a>
+     * @see <a href=
+     *      "https://jakarta.ee/specifications/restful-ws/3.0/apidocs/jakarta/ws/rs/defaultvalue">jakarta.ws.rs.DefaultValue</a>
      */
     public boolean isUseApiWrappedPrimitives() {
         return bool("generator-use-api-wrapped-primitives", false);

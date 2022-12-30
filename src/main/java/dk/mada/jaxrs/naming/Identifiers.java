@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
  *
  * https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.8
  *
- * A dash causes the following char to be upper-cased (foo-bar becomes fooBar). A group of upper-cased chars will be lower cased (FOOBar
- * becomes fooBar).
+ * A dash causes the following char to be upper-cased (foo-bar becomes fooBar). A group of upper-cased chars will be
+ * lower cased (FOOBar becomes fooBar).
  */
 public final class Identifiers {
     private static final Logger logger = LoggerFactory.getLogger(Identifiers.class);

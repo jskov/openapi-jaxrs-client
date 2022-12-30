@@ -10,7 +10,8 @@ import dk.mada.jaxrs.model.types.TypeName;
 /**
  * A reference to types used during parsing.
  *
- * This is necessary, because the model may not yet have been populated with DTOs that are defined further down in the schema.
+ * This is necessary, because the model may not yet have been populated with DTOs that are defined further down in the
+ * schema.
  *
  * When the entire scheme is parsed, these will be dereferenced to proper model TypeRefs.
  */

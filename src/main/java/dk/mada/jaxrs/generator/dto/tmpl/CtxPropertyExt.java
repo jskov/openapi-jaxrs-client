@@ -24,9 +24,9 @@ public interface CtxPropertyExt {
      *
      * Used in enumerations that are rendered next to the (only) property where they are referenced. See enumClass.mustache.
      *
-     * This is handled separately from the standard dataType/datatypeWithEnum values because they are both used separately by both
-     * containers and enumerations. Which prevents handling of enumerations in containers (or rather, I broke the templates somehow to match
-     * behavior from openapi-generator - and this is easier to read for me).
+     * This is handled separately from the standard dataType/datatypeWithEnum values because they are both used separately
+     * by both containers and enumerations. Which prevents handling of enumerations in containers (or rather, I broke the
+     * templates somehow to match behavior from openapi-generator - and this is easier to read for me).
      *
      * @return the enumeration class name
      */
