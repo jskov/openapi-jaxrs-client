@@ -8,8 +8,7 @@ import javax.annotation.Nullable;
 import org.immutables.value.Value.Immutable;
 
 /**
- * Custom extensions. In separate (mada.) context so they are
- * easier to spot in the templates.
+ * Custom extensions. In separate (mada.) context so they are easier to spot in the templates.
  */
 @Immutable
 public interface CtxDtoExt {
@@ -23,11 +22,13 @@ public interface CtxDtoExt {
 
     /** {@return the optional name of a custom LocalDateDeserializer} */
     Optional<String> customLocalDateDeserializer();
+
     /** {@return the optional name of a custom LocalDateSerializer} */
     Optional<String> customLocalDateSerializer();
 
     /** {@return the optional name of a custom OffsetDateDeserializer} */
     Optional<String> customOffsetDateTimeDeserializer();
+
     /** {@return the optional name of a custom OffsetDateSerializer} */
     Optional<String> customOffsetDateTimeSerializer();
 
@@ -35,8 +36,7 @@ public interface CtxDtoExt {
     boolean jsonb();
 
     /** {@return schema options, or null} */
-    @Nullable
-    String schemaOptions();
+    @Nullable String schemaOptions();
 
     /** {@return an optional string containing the interfaces implemented by this DTO} */
     Optional<String> implementsInterfaces();

@@ -7,8 +7,7 @@ import org.immutables.value.Value.Immutable;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Custom extensions. In separate (mada.) context so they are
- * easier to spot in the templates.
+ * Custom extensions. In separate (mada.) context so they are easier to spot in the templates.
  */
 @Immutable
 public interface CtxDtoDiscriminator {
@@ -21,11 +20,10 @@ public interface CtxDtoDiscriminator {
     String propertyBaseName();
 
     /**
-     * Defines a mapping between a model (DTO) name and a name
-     * used in the serialization stream.
+     * Defines a mapping between a model (DTO) name and a name used in the serialization stream.
      *
-     * @param modelName the name of the model
-     * @param mappingName the way it is referred to in the stream
+     * @param modelName        the name of the model
+     * @param mappingName      the way it is referred to in the stream
      * @param vendorExtensions map of vendor extensions
      */
     record ModelMapping(String modelName, String mappingName, @Nullable Map<String, String> vendorExtensions) {

@@ -24,10 +24,13 @@ public interface CtxDto {
 
     /** {@return the application name} */
     String appName();
+
     /** {@return the application version} */
     String version();
+
     /** {@return the optional application description} */
     Optional<String> appDescription();
+
     /** {@return the optional application contact email} */
     Optional<String> infoEmail();
 
@@ -41,10 +44,13 @@ public interface CtxDto {
 
     /** {@return the optional description of the class} */
     Optional<String> description();
+
     /** {@return the package name for the class} */
     String packageName();
+
     /** {@return the classname for the class} */
     String classname();
+
     /** {@return the class name used in equals method} */
     String classVarName();
 
@@ -62,29 +68,32 @@ public interface CtxDto {
     }
 
     /** {@return the enumeration constants/values, or null} */
-    @Nullable
-    CtxEnum allowableValues();
+    @Nullable CtxEnum allowableValues();
+
     /** {@return the data type of an enumeration, or null} */
-    @Nullable
-    String dataType();
+    @Nullable String dataType();
+
     /** {@return unknown, kept from upstream template} */
-    @Nullable
-    String datatypeWithEnum();
+    @Nullable String datatypeWithEnum();
+
     /** {@return true if the is an enumeration that can be deserialized as null} */
     boolean isNullable();
+
     /** {@return the optional name of a parent class} */
     Optional<String> parent();
+
     /** {@return optional vendor extensions} */
-    @Nullable
-    Map<String, String> vendorExtensions();
+    @Nullable Map<String, String> vendorExtensions();
 
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();
 
     /** {@return the name of the Generated annotation class} */
     String generatedAnnotationClass();
+
     /** {@return the name of the generator class} */
     String generatorClass();
+
     /** {@return the optional date of the generation} */
     Optional<String> generatedDate();
 

@@ -12,8 +12,8 @@ public record CtxEnum(List<CtxEnumEntry> enumVars) {
     /**
      * Context describing an enumeration entry.
      *
-     * @param name the name of the entry
-     * @param value the value suitable for rendering
+     * @param name      the name of the entry
+     * @param value     the value suitable for rendering
      * @param wireValue the wire-value of the entry
      */
     public record CtxEnumEntry(String name, String value, String wireValue) {
