@@ -112,7 +112,7 @@ public final class Main implements Callable<Integer> {
 
                 String version = "Version: " + resourceProps.getProperty("version");
                 String builtOn = "Built on: " + resourceProps.getProperty("builtOn");
-                return new String[] { version, builtOn }; // NOSONAR
+                return new String[] { version, builtOn };
             }
         }
     }
