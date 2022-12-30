@@ -29,6 +29,7 @@ public final class TypeDateTime implements Type {
 
     /**
      * {@return the type object representing a date-time}
+     *
      * @param opts the generator options
      */
     public static TypeDateTime get(GeneratorOpts opts) {

@@ -9,21 +9,21 @@ import org.jspecify.annotations.Nullable;
  */
 public enum Primitive implements Type {
     /** The boolean. */
-    BOOLEAN("boolean:",     TypeNames.BOOLEAN, TypeNames.BOOLEAN_WRAPPER),
+    BOOLEAN("boolean:", TypeNames.BOOLEAN, TypeNames.BOOLEAN_WRAPPER),
     /** The byte. */
-    BYTE("string:byte",     TypeNames.BYTE,    TypeNames.BYTE_WRAPPER),
+    BYTE("string:byte", TypeNames.BYTE, TypeNames.BYTE_WRAPPER),
     /** The short. */
-    SHORT("integer:",       TypeNames.SHORT,   TypeNames.SHORT_WRAPPER),
+    SHORT("integer:", TypeNames.SHORT, TypeNames.SHORT_WRAPPER),
     /** The integer. */
-    INT("integer:int32",    TypeNames.INTEGER, TypeNames.INTEGER_WRAPPER),
+    INT("integer:int32", TypeNames.INTEGER, TypeNames.INTEGER_WRAPPER),
     /** The long. */
-    LONG("integer:int64",   TypeNames.LONG,    TypeNames.LONG_WRAPPER),
+    LONG("integer:int64", TypeNames.LONG, TypeNames.LONG_WRAPPER),
     /** The float. */
-    FLOAT("number:float",   TypeNames.FLOAT,   TypeNames.FLOAT_WRAPPER),
+    FLOAT("number:float", TypeNames.FLOAT, TypeNames.FLOAT_WRAPPER),
     /** The double. */
-    DOUBLE("number:double", TypeNames.DOUBLE,  TypeNames.DOUBLE_WRAPPER),
+    DOUBLE("number:double", TypeNames.DOUBLE, TypeNames.DOUBLE_WRAPPER),
     /** The string (not a primitive, but basically). */
-    STRING("string:",       TypeNames.STRING,  TypeNames.STRING);
+    STRING("string:", TypeNames.STRING, TypeNames.STRING);
 
     /** The OpenApi type:format **/
     private final String typeFormat;
@@ -73,7 +73,7 @@ public enum Primitive implements Type {
     /**
      * Finds a primitive type matching the given OpenApi type and format.
      *
-     * @param type the type to look for
+     * @param type   the type to look for
      * @param format the format to look for
      * @return the matching primitive, or null if no matches found
      */

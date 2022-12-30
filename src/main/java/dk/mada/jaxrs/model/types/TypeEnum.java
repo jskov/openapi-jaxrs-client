@@ -7,17 +7,16 @@ import org.immutables.value.Value.Immutable;
 /**
  * Enumeration type.
  *
- * It captures the value-type of the enumeration and its
- * values.
+ * It captures the value-type of the enumeration and its values.
  */
 @Immutable
 public interface TypeEnum extends Type {
     /**
      * Creates a new enumeration type instance.
      *
-     * @param typeName the type name
+     * @param typeName  the type name
      * @param valueType the enumeration value-type
-     * @param values the enumeration values
+     * @param values    the enumeration values
      * @return a type wrapping the enumeration data
      */
     static TypeEnum of(TypeName typeName, Type valueType, List<String> values) {

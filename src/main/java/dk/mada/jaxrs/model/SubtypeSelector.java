@@ -15,7 +15,7 @@ public interface SubtypeSelector {
      * Creates a new subtype selector instance.
      *
      * @param propertyName the name of the property containing the sub-type selection
-     * @param typeMapping the sub-type mapping
+     * @param typeMapping  the sub-type mapping
      * @return a new instance
      */
     static SubtypeSelector of(String propertyName, Map<String, Reference> typeMapping) {

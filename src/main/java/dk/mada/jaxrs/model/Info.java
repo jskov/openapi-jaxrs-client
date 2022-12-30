@@ -7,6 +7,7 @@ import org.immutables.value.Value.Immutable;
 
 /**
  * API
+ *
  * @see <a href="https://swagger.io/specification/#infoObject">infoObject</a>
  */
 @Immutable
@@ -18,6 +19,7 @@ public abstract class Info {
 
     /** {@return the title of the API} */
     public abstract String title();
+
     /** {@return the version of the API} */
     public abstract String version();
 

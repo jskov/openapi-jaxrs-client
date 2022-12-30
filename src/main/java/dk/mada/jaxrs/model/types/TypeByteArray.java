@@ -5,8 +5,7 @@ import java.util.Set;
 /**
  * Special type for handing byte[] type.
  *
- * In resources this would be treated as a stream, while it
- * it treated as an array in DTOs.
+ * In resources this would be treated as a stream, while it it treated as an array in DTOs.
  */
 public final class TypeByteArray implements Type {
     /** As used in resource operations. */

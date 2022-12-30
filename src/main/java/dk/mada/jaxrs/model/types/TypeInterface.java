@@ -13,11 +13,10 @@ public interface TypeInterface extends Type {
     /**
      * Creates a type for an interface.
      *
-     * I expect all the type names implementing the interface
-     * to be resolved as DTOs.
+     * I expect all the type names implementing the interface to be resolved as DTOs.
      *
-     * @param packageName the package name of DTOs
-     * @param typeName the interface type name
+     * @param packageName     the package name of DTOs
+     * @param typeName        the interface type name
      * @param implementations the type names implementing the interface
      * @return an interface type
      */

@@ -15,16 +15,18 @@ import dk.mada.jaxrs.model.types.TypeName;
  */
 @Immutable
 public interface Dto extends Type {
-    /** {@return a builder for this type}
+    /**
+     * {@return a builder for this type}
      *
-     * @param name the name of the DTO
+     * @param name     the name of the DTO
      * @param typeName the type name of the DTO
      */
     static ImmutableDto.Builder builder(String name, TypeName typeName) {
         return ImmutableDto.builder().name(name).typeName(typeName);
     }
 
-    /** {@return a builder for this type}
+    /**
+     * {@return a builder for this type}
      *
      * @param other the existing DTO to create a builder from
      */

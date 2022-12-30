@@ -16,6 +16,7 @@ public interface Response {
 
     /** {@return the status code of this response} */
     StatusCode code();
+
     /** {@return the content of this response} */
     Content content();
 

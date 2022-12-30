@@ -19,6 +19,7 @@ public interface Content {
 
     /** {@return the content media types supported} */
     Set<String> mediaTypes();
+
     /** {@return the content type} */
     Reference reference();
 

@@ -60,8 +60,8 @@ public final class Operations {
     public String info() {
         StringBuilder sb = new StringBuilder("Operations:").append(NL);
         getByGroup().entrySet().stream()
-            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
-            .forEachOrdered(e -> info(sb, e.getKey(), e.getValue()));
+                .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                .forEachOrdered(e -> info(sb, e.getKey(), e.getValue()));
         return sb.toString();
     }
 
@@ -71,9 +71,7 @@ public final class Operations {
             sb.append("  Op: ").append(op.syntheticOpId()).append(NL);
             if (!op.parameters().isEmpty()) {
                 sb.append("   Params:").append(NL);
-                op.parameters().forEach(p ->
-                    sb.append("    ").append(p.name()).append(" : ").append(p.reference()).append(NL)
-                );
+                op.parameters().forEach(p -> sb.append("    ").append(p.name()).append(" : ").append(p.reference()).append(NL));
             }
             op.requestBody().ifPresent(body -> {
                 sb.append("   Body:").append(NL);
@@ -81,9 +79,8 @@ public final class Operations {
             });
             if (!op.responses().isEmpty()) {
                 sb.append("    Responses:").append(NL);
-                op.responses().stream().forEach(resp ->
-                   sb.append("     ").append(resp.code()).append(" : ").append(resp.content().reference()).append(NL)
-                );
+                op.responses().stream().forEach(
+                        resp -> sb.append("     ").append(resp.code()).append(" : ").append(resp.content().reference()).append(NL));
             }
         });
     }

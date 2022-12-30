@@ -8,11 +8,10 @@ import java.util.Map;
 /**
  * Contains all declared type names in the model.
  *
- * The primitive types and a number of customary types
- * are predefined.
+ * The primitive types and a number of customary types are predefined.
  */
 public final class TypeNames {
-    //-- Primitive(ish) types
+    // -- Primitive(ish) types
     /** The type name of boolean. */
     public static final TypeName BOOLEAN = new TypeName("boolean");
     /** The type name of Boolean. */
@@ -47,7 +46,7 @@ public final class TypeNames {
     public static final TypeName VOID = new TypeName("void");
     /** The type name of Object. */
     public static final TypeName OBJECT = new TypeName("Object");
-    //-- Date/Time types
+    // -- Date/Time types
     /** The type name of LocalDate. */
     public static final TypeName LOCAL_DATE = new TypeName("LocalDate");
     /** The type name of LocalTime. */
@@ -58,7 +57,7 @@ public final class TypeNames {
     public static final TypeName OFFSET_DATE_TIME = new TypeName("OffsetDateTime");
     /** The type name of ZonedDateTime. */
     public static final TypeName ZONED_DATE_TIME = new TypeName("ZonedDateTime");
-    //-- Others
+    // -- Others
     /** The type name for a BigDecimal. */
     public static final TypeName BIG_DECIMAL = new TypeName("BigDecimal");
     /** The type name for a byte array. */
@@ -124,8 +123,8 @@ public final class TypeNames {
         String sep = System.lineSeparator() + "  ";
         return new StringBuilder("Type names:").append(sep)
                 .append(nameToInstances.keySet().stream()
-                    .sorted((a, b) -> a.compareToIgnoreCase(b))
-                    .collect(joining(sep)))
+                        .sorted((a, b) -> a.compareToIgnoreCase(b))
+                        .collect(joining(sep)))
                 .toString();
     }
 }
