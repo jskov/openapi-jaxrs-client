@@ -383,6 +383,11 @@ public final class GeneratorOpts {
         return Optional.empty();
     }
 
+    /** {@return true if the property order annotation should be rendered} */
+    public boolean isUsePropertyOrderAnnotation() {
+        return bool("generator-use-property-order-annotation", false);
+    }
+
     private boolean isShowGenerationTimestamp() {
         return bool("generator-use-generated-timestamp");
     }

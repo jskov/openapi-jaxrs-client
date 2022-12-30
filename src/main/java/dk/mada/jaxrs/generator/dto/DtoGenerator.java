@@ -332,6 +332,7 @@ public class DtoGenerator {
                 .varsOpenapiOrder(varsOpenapiOrder)
                 .classModifiers(Optional.ofNullable(classModifiers))
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
+                .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
                 .build();
 
         return CtxDto.builder()

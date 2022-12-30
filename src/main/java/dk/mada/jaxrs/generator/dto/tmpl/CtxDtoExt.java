@@ -50,6 +50,9 @@ public interface CtxDtoExt {
     /** {@return true if DTO should render @RegisterForReflection} */
     boolean quarkusRegisterForReflection();
 
+    /** {@return true if the property order annotation should be rendered} */
+    boolean isRenderPropertyOrderAnnotation();
+
     /** {@return the properties of the class, in openapi document order} */
     List<CtxProperty> varsOpenapiOrder();
 

@@ -397,6 +397,16 @@ instead of OffsetDateTime.
 >
     default value: alphabetical-nocase-order
 
+**generator-use-property-order-annotation**
+
+>Allows you to control if the annotation for property order should be rendered.
+
+>This is false by default since there are no provisions in the OpenApi specification
+>for transmitting this information (see [MP issue](https://github.com/eclipse/microprofile-open-api/issues/359)).
+
+>
+    default value: false
+
 **generator-use-serializable**
 
 >Allows you to mark all DTOs with Serializable.
