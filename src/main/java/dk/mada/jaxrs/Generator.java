@@ -92,9 +92,7 @@ public final class Generator implements GeneratorService {
     /**
      * Changes logging level for caller.
      *
-     * Note that for DEFAULT nothing is changed, meaning
-     * that unit testing logging gets controlled by
-     * logging-test.properties.
+     * Note that for DEFAULT nothing is changed, meaning that unit testing logging gets controlled by logging-test.properties.
      *
      * @param logLevel the desired log level
      */
