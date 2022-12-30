@@ -170,6 +170,7 @@ checkstyle {
 
 spotless {
     java {
+        target 'src/main/java/**/*.java'
         eclipse().configFile("src/config/spotless/eclipse-formatter-mada.xml")
     }
 }
