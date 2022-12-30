@@ -29,7 +29,8 @@ public class ParserTypeRefs {
     /** Type names. */
     private final TypeNames typeNames;
 
-    /** Constructs new instance.
+    /**
+     * Constructs new instance.
      *
      * @param typeNames the type names instance
      */
@@ -55,7 +56,7 @@ public class ParserTypeRefs {
      *
      * Created from a property/parameter reference, so it does have validation.
      *
-     * @param name the name of the DTO type
+     * @param name       the name of the DTO type
      * @param validation the validation requirements of the reference
      * @return the parser reference
      */
@@ -67,7 +68,7 @@ public class ParserTypeRefs {
     /**
      * Makes a new parser reference to a primitive/special type.
      *
-     * @param type the type to make a reference to
+     * @param type       the type to make a reference to
      * @param validation the validation requirements of the reference
      * @return the parser reference
      */
@@ -91,13 +92,13 @@ public class ParserTypeRefs {
     public String info() {
         StringBuilder sb = new StringBuilder("Parser references:").append(NL);
         parserReferences.entrySet().stream()
-            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
-            .forEach(e -> {
-                TypeName tn = e.getKey();
-                ValidationRefs vr = e.getValue();
-                sb.append(" ").append(tn.name()).append(":").append(NL);
-                sb.append(vr.info());
-            });
+                .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                .forEach(e -> {
+                    TypeName tn = e.getKey();
+                    ValidationRefs vr = e.getValue();
+                    sb.append(" ").append(tn.name()).append(":").append(NL);
+                    sb.append(vr.info());
+                });
         return sb.toString();
     }
 
@@ -111,8 +112,8 @@ public class ParserTypeRefs {
 
             for (ParserTypeRef ref : refs) {
                 if (ref.validation().equals(validation)
-                    && Objects.equals(ref.refTypeName(), tn)
-                    && Objects.equals(ref.refType(), type)) {
+                        && Objects.equals(ref.refTypeName(), tn)
+                        && Objects.equals(ref.refType(), type)) {
                     logger.debug(" found type reference {}", ref);
                     return ref;
                 }
@@ -127,17 +128,17 @@ public class ParserTypeRefs {
         public String info() {
             StringBuilder sb = new StringBuilder();
             refsByValidation.entrySet().stream()
-                .forEach(e -> {
-                    Validation v = e.getKey();
-                    Set<ParserTypeRef> ptrs = e.getValue();
+                    .forEach(e -> {
+                        Validation v = e.getKey();
+                        Set<ParserTypeRef> ptrs = e.getValue();
 
-                    String refs = ptrs.stream()
-                            .map(r -> "ref@" + Integer.toHexString(r.hashCode()))
-                            .sorted()
-                            .collect(joining(", "));
-                    sb.append("  ").append(v).append(NL)
-                      .append("    ").append(refs).append(NL);
-                });
+                        String refs = ptrs.stream()
+                                .map(r -> "ref@" + Integer.toHexString(r.hashCode()))
+                                .sorted()
+                                .collect(joining(", "));
+                        sb.append("  ").append(v).append(NL)
+                                .append("    ").append(refs).append(NL);
+                    });
             return sb.toString();
         }
     }

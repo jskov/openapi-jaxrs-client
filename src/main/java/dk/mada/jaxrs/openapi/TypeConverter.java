@@ -79,14 +79,13 @@ public final class TypeConverter {
     /**
      * Constructs a new type converter.
      *
-     * This operated by looking up types, creating if missing, in the
-     * types instance.
+     * This operated by looking up types, creating if missing, in the types instance.
      *
-     * @param typeNames the type names
-     * @param parserTypes the parser types
-     * @param parserRefs the parser references
-     * @param naming the naming instance
-     * @param parserOpts the parser options
+     * @param typeNames     the type names
+     * @param parserTypes   the parser types
+     * @param parserRefs    the parser references
+     * @param naming        the naming instance
+     * @param parserOpts    the parser options
      * @param generatorOpts the generator options
      */
     public TypeConverter(TypeNames typeNames, ParserTypes parserTypes, ParserTypeRefs parserRefs,
@@ -112,11 +111,10 @@ public final class TypeConverter {
     /**
      * Converts a OpenApi schema to parser type reference.
      *
-     * This serves as a lazy reference to something that will
-     * eventually be resolved to a type in the model.
+     * This serves as a lazy reference to something that will eventually be resolved to a type in the model.
      *
-     * @param schema the OpenApi schema to convert
-     * @param propertyName the name of the property the type is associated with, or null
+     * @param schema        the OpenApi schema to convert
+     * @param propertyName  the name of the property the type is associated with, or null
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @return the found/created parser type reference
      */
@@ -239,8 +237,8 @@ public final class TypeConverter {
             List<Schema> oneOf = cs.getOneOf();
             if (oneOf != null && !oneOf.isEmpty()) {
                 List<String> oneOfNames = oneOf.stream()
-                    .map(Schema::getName)
-                    .toList();
+                        .map(Schema::getName)
+                        .toList();
                 logger.info("  oneof {}", oneOfNames);
 
                 // regular object, but for now assumes there will
@@ -349,14 +347,14 @@ public final class TypeConverter {
         }
 
         List<ParserTypeRef> allOfTypes = allOf.stream()
-            .map(this::toReference)
-            .toList();
+                .map(this::toReference)
+                .toList();
 
         List<ParserTypeRef> refs = new ArrayList<>();
         List<Validation> validations = new ArrayList<>();
         for (ParserTypeRef ptr : allOfTypes) {
             logger.debug(" {}", ptr);
-            if (ptr.refType() instanceof TypeValidation tv) {
+            if (ptr.refType()instanceof TypeValidation tv) {
                 validations.add(tv.validation());
             } else if (!ptr.validation().isEmptyValidation()) {
                 validations.add(ptr.validation());
@@ -414,7 +412,7 @@ public final class TypeConverter {
      * Creates a DTO from an Object schema.
      *
      * @param dtoName the DTO name
-     * @param schema the schema of the DTO
+     * @param schema  the schema of the DTO
      * @return the create DTO
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
@@ -465,8 +463,8 @@ public final class TypeConverter {
         }
 
         return schemaEnumValues.stream()
-                    .map(Object::toString)
-                    .toList();
+                .map(Object::toString)
+                .toList();
     }
 
     private List<Property> readProperties(Schema<?> schema, String parentDtoName) {

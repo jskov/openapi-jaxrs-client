@@ -25,8 +25,8 @@ public final class SecurityTransformer {
         }
 
         return security.stream()
-                   .flatMap(sr -> sr.keySet().stream())
-                   .map(SecurityScheme::new)
-                   .toList();
+                .flatMap(sr -> sr.keySet().stream())
+                .map(SecurityScheme::new)
+                .toList();
     }
 }

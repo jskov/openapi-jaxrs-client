@@ -25,8 +25,7 @@ import io.swagger.v3.parser.core.models.ParseOptions;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 /**
- * Parses OpenAPI specification and transforms to local
- * model classes.
+ * Parses OpenAPI specification and transforms to local model classes.
  */
 public final class Parser {
     private static final Logger logger = LoggerFactory.getLogger(Parser.class);
@@ -50,11 +49,11 @@ public final class Parser {
     /**
      * Constructs a new parser.
      *
-     * @param showInfo flag to enable parser info output
-     * @param typeNames the type names instance
-     * @param naming the naming instance
-     * @param parserRefs the parser references
-     * @param parserOpts the parser options
+     * @param showInfo      flag to enable parser info output
+     * @param typeNames     the type names instance
+     * @param naming        the naming instance
+     * @param parserRefs    the parser references
+     * @param parserOpts    the parser options
      * @param generatorOpts the generator options
      */
     public Parser(boolean showInfo,
@@ -102,7 +101,7 @@ public final class Parser {
                     .append(parserRefs.info()).append(NL)
                     .append(operations.info())
                     .toString();
-             logger.info("{}", infoParsing);
+            logger.info("{}", infoParsing);
         }
 
         parserTypes.consolidateDtos();
@@ -117,9 +116,9 @@ public final class Parser {
 
         if (showInfo) {
             String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)
-                       .append(dtos.info()).append(NL)
-                       .append(derefOps.info())
-                       .toString();
+                    .append(dtos.info()).append(NL)
+                    .append(derefOps.info())
+                    .toString();
             logger.info("{}", infoResolved);
         }
 
@@ -128,8 +127,7 @@ public final class Parser {
     }
 
     /**
-     * Gets openapiIds for schemas in their declaration order (in the
-     * OpenApi document).
+     * Gets openapiIds for schemas in their declaration order (in the OpenApi document).
      *
      * @param specification the OpenApi spec
      * @return the schema names in declaration order

@@ -33,8 +33,7 @@ public final class OpenapiGeneratorUtils {
     }
 
     /**
-     * Camelize name (parameter, property, method, etc) with upper case for first letter
-     * copied from Twitter elephant bird.
+     * Camelize name (parameter, property, method, etc) with upper case for first letter copied from Twitter elephant bird.
      * https://github.com/twitter/elephant-bird/blob/master/core/src/main/java/com/twitter/elephantbird/util/Strings.java
      *
      * @param word string to be camelize
@@ -63,7 +62,7 @@ public final class OpenapiGeneratorUtils {
         // Replace all slashes with dots (package separator)
         Matcher m = camelizeSlashPattern.matcher(word);
         while (m.find()) {
-            word = m.replaceFirst("." + m.group(1)/*.toUpperCase()*/);
+            word = m.replaceFirst("." + m.group(1)/* .toUpperCase() */);
             m = camelizeSlashPattern.matcher(word);
         }
 
@@ -79,7 +78,7 @@ public final class OpenapiGeneratorUtils {
 
         m = camelizeSlashPattern.matcher(word);
         while (m.find()) {
-            word = m.replaceFirst("" + Character.toUpperCase(m.group(1).charAt(0)) + m.group(1).substring(1)/*.toUpperCase()*/);
+            word = m.replaceFirst("" + Character.toUpperCase(m.group(1).charAt(0)) + m.group(1).substring(1)/* .toUpperCase() */);
             m = camelizeSlashPattern.matcher(word);
         }
 
@@ -133,8 +132,7 @@ public final class OpenapiGeneratorUtils {
     private static Pattern dollarPattern = Pattern.compile("\\$");
 
     /**
-     * Underscore the given word.
-     * Copied from Twitter elephant bird
+     * Underscore the given word. Copied from Twitter elephant bird
      * https://github.com/twitter/elephant-bird/blob/master/core/src/main/java/com/twitter/elephantbird/util/Strings.java
      *
      * @param word The word
