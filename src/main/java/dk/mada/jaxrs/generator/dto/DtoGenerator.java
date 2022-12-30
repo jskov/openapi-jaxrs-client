@@ -518,8 +518,7 @@ public class DtoGenerator {
         // of a 'xX'-prefixed field to be named 'getxX'. Although
         // this is different from Bean Spec naming for getters/setters.
         // See
-        // https://github.com/FasterXML/jackson-databind/blob/2.15/src/main/java/com/fasterxml/jackson/databind/introspect/DefaultAccessorNamingStrategy.java#L182
-        // // NOSONAR
+        // https://github.com/FasterXML/jackson-databind/blob/2.15/src/main/java/com/fasterxml/jackson/databind/introspect/DefaultAccessorNamingStrategy.java#L182//NOSONAR
         if (name.length() > 1 && Character.isUpperCase(name.charAt(1))) {
             nameCamelized = Character.toLowerCase(name.charAt(0)) + nameCamelized.substring(1);
         }
