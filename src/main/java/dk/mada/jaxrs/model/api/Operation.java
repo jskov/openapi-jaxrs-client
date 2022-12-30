@@ -24,8 +24,8 @@ public interface Operation {
 
     /** {@return an optional operation id} */
     Optional<String> operationId();
-    /** {@return the operation id as would be defined by codegen} */
-    String codegenOpId();
+    /** {@return a synthetic operation id computed by path and http type} */
+    String syntheticOpId();
 
     /** {@return an optional description of the operation} */
     Optional<String> description();
