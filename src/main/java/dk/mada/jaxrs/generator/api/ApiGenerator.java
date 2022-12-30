@@ -48,8 +48,7 @@ import dk.mada.jaxrs.naming.Naming;
 /**
  * API generator.
  *
- * Processes the model's APIs and prepares API contexts
- * for template rendering.
+ * Processes the model's APIs and prepares API contexts for template rendering.
  */
 public class ApiGenerator {
     private static final Logger logger = LoggerFactory.getLogger(ApiGenerator.class);
@@ -58,11 +57,10 @@ public class ApiGenerator {
      * Media types supported for now.
      */
     private static final Map<String, String> MEDIA_TYPES = Map.of(
-            "application/json",                  "APPLICATION_JSON",
-            "application/octet-stream",          "APPLICATION_OCTET_STREAM",
+            "application/json", "APPLICATION_JSON",
+            "application/octet-stream", "APPLICATION_OCTET_STREAM",
             "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED",
-            "text/plain",                        "TEXT_PLAIN"
-            );
+            "text/plain", "TEXT_PLAIN");
 
     /** Naming. */
     private final Naming naming;
@@ -79,10 +77,10 @@ public class ApiGenerator {
     /**
      * Constructs a new API generator.
      *
-     * @param naming the naming instance
+     * @param naming        the naming instance
      * @param generatorOpts the generator options
-     * @param templates the templates instance
-     * @param model the data model
+     * @param templates     the templates instance
+     * @param model         the data model
      */
     public ApiGenerator(Naming naming, GeneratorOpts generatorOpts, Templates templates, Model model) {
         this.naming = naming;
@@ -98,13 +96,13 @@ public class ApiGenerator {
      */
     public void generateApiClasses(Path apiDir) {
         model.operations().getByGroup().entrySet().stream()
-            .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
-            .forEach(ops -> {
-                String group = ops.getKey();
-                String classname = makeClassName(group);
+                .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                .forEach(ops -> {
+                    String group = ops.getKey();
+                    String classname = makeClassName(group);
 
-                processApi(apiDir, ops, classname);
-        });
+                    processApi(apiDir, ops, classname);
+                });
     }
 
     private void processApi(Path apiDir, Entry<String, List<Operation>> ops, String classname) {
@@ -127,8 +125,8 @@ public class ApiGenerator {
         var imports = Imports.newApi(opts);
 
         List<String> paths = operations.stream()
-                    .map(Operation::path)
-                    .toList();
+                .map(Operation::path)
+                .toList();
         String commonPath = commonPathFinder.findCommonPath(paths);
 
         int trimPathLength = commonPath.length();
@@ -196,13 +194,13 @@ public class ApiGenerator {
 
         // Gets type for OK if present, or else default, or else void
         Reference typeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
-            .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
-            .orElse(TypeVoid.getRef());
+                .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
+                .orElse(TypeVoid.getRef());
 
         // Gets matching media types, check for input-stream replacement
         Set<String> mediaTypes = getMediaTypeForStatus(op, StatusCode.HTTP_OK)
-            .or(() -> getMediaTypeForStatus(op, StatusCode.HTTP_DEFAULT))
-            .orElse(Set.of());
+                .or(() -> getMediaTypeForStatus(op, StatusCode.HTTP_DEFAULT))
+                .orElse(Set.of());
         boolean replaceResponseWithInputStream = opts.getResponseInputStreamMediaTypes().stream()
                 .anyMatch(mediaTypes::contains);
         if (replaceResponseWithInputStream) {
@@ -291,8 +289,7 @@ public class ApiGenerator {
     }
 
     /**
-     * Determine if all the response types can be rendered via
-     * the simple @APIResponseSchema annotation.
+     * Determine if all the response types can be rendered via the simple @APIResponseSchema annotation.
      *
      * @param responses the responses
      */
@@ -311,20 +308,19 @@ public class ApiGenerator {
 
     private void addOperationImports(Imports imports, Operation op) {
         op.responses().stream()
-            .map(r -> r.content().reference())
-            .forEach(imports::add);
+                .map(r -> r.content().reference())
+                .forEach(imports::add);
     }
 
     /**
-     * Note from https://docs.oracle.com/cd/E19776-01/820-4867/ghrst/index.html
-     *  If @DefaultValue is not used in conjunction with @QueryParam, and the query parameter
-     *  is not present in the request, then value will be an empty collection for List, Set,
-     *  or SortedSet; null for other object types; and the Java-defined default for primitive types.
+     * Note from https://docs.oracle.com/cd/E19776-01/820-4867/ghrst/index.html If @DefaultValue is not used in conjunction
+     * with @QueryParam, and the query parameter is not present in the request, then value will be an empty collection for List, Set, or
+     * SortedSet; null for other object types; and the Java-defined default for primitive types.
      *
      * So the primitive types can be used instead of wrapper types.
      *
      * @param imports the imports for the API
-     * @param op the operation to extract parameters from
+     * @param op      the operation to extract parameters from
      */
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
         List<CtxApiParam> params = new ArrayList<>();
@@ -387,7 +383,7 @@ public class ApiGenerator {
 
             // Guard against (simple) conflict with other parameters
             boolean dtoParamNameNotUnique = params.stream()
-                .anyMatch(p -> p.paramName().equals(preferredDtoParamName));
+                    .anyMatch(p -> p.paramName().equals(preferredDtoParamName));
             String dtoParamName = dtoParamNameNotUnique ? preferredDtoParamName + "Entity" : preferredDtoParamName;
 
             String dataType = paramDataType(ref);

@@ -17,14 +17,19 @@ public interface CtxApiOp {
 
     /** {@return the operation return type} */
     String returnType();
+
     /** {@return the operation nickname} */
     String nickname();
+
     /** {@return the operation http method} */
     String httpMethod();
+
     /** {@return the operation path} */
     Optional<String> path();
+
     /** {@return the optional operation summary} */
     Optional<String> summary();
+
     /** {@return the optional operation notes} */
     Optional<String> notes();
 

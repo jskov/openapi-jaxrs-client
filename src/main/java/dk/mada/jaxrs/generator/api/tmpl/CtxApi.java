@@ -24,10 +24,13 @@ public interface CtxApi {
 
     /** {@return the application name} */
     String appName();
+
     /** {@return the application version} */
     String version();
+
     /** {@return the optional application description} */
     Optional<String> appDescription();
+
     /** {@return the optional information email} */
     Optional<String> infoEmail();
 
@@ -35,8 +38,8 @@ public interface CtxApi {
      * External documentation reference.
      *
      * @param description a description of the reference
-     * @param url the URL reference
-     * @param summary a summary of the documentation
+     * @param url         the URL reference
+     * @param summary     a summary of the documentation
      */
     record CtxOperationExternalDoc(String description, String url, String summary) {
     }
@@ -53,25 +56,28 @@ public interface CtxApi {
     /**
      * A reference to an operation.
      *
-     * Needed because the standard template uses 'operations' as
-     * a nesting element.
+     * Needed because the standard template uses 'operations' as a nesting element.
      *
      * @param operation the operation context to reference
      */
     record CtxOperationRef(CtxApiOp operation) {
     }
+
     /** {@return the operation contexts in this API class} */
     List<CtxOperationRef> operations();
 
     /** {@return the package name} */
     String packageName();
+
     /** {@return the class name} */
     String classname();
 
     /** {@return the name of the Generated annotation class} */
     String generatedAnnotationClass();
+
     /** {@return the name of the generator} */
     String generatorClass();
+
     /** {@return the optional generation date} */
     Optional<String> generatedDate();
 
