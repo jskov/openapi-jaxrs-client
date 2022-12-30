@@ -11,23 +11,11 @@ package mada.tests.e2e.dto.serializer.jackson_codehaus.dto;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * openapi class description.
  */
-@JsonPropertyOrder({
-  MicroprofileAnnotations.JSON_PROPERTY_WITH_DESCRIPTION,
-  MicroprofileAnnotations.JSON_PROPERTY_WITH_EXAMPLE,
-  MicroprofileAnnotations.JSON_PROPERTY_IS_REQUIRED,
-  MicroprofileAnnotations.JSON_PROPERTY_REQUIRED_AND_DESCRIPTION_AND_EXAMPLE,
-  MicroprofileAnnotations.JSON_PROPERTY_REQUIRED_AND_EXAMPLE,
-  MicroprofileAnnotations.JSON_PROPERTY_REQUIRED_AND_DESCRIPTION,
-  MicroprofileAnnotations.JSON_PROPERTY_DESCRIPTION_AND_EXAMPLE,
-  MicroprofileAnnotations.JSON_PROPERTY_IS_READONLY,
-  MicroprofileAnnotations.JSON_PROPERTY_READONLY_REQUIRED_AND_DESCRIPTION_AND_EXAMPLE
-})
 @Schema(description = "openapi class description")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MicroprofileAnnotations {

@@ -8,7 +8,6 @@ package mada.tests.e2e.dto.allof_dups.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,11 +16,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * EnvironmentVariableDTO
  */
-@JsonbPropertyOrder({
-  EnvironmentVariableDTO.JSON_PROPERTY_OMKOSTNINGER,
-  EnvironmentVariableDTO.JSON_PROPERTY_NAME,
-  EnvironmentVariableDTO.JSON_PROPERTY_VALUE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnvironmentVariableDTO {
   public static final String JSON_PROPERTY_NAME = "name";

@@ -13,14 +13,10 @@ import javax.json.Json;
 import javax.json.JsonString;
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * EnumArrayInner
  */
-@JsonbPropertyOrder({
-  EnumArrayInner.JSON_PROPERTY_MULIGE_UDBETALINGS_METODER
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumArrayInner {
   public enum MuligeUdbetalingsMetoderEnum {

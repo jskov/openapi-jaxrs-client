@@ -8,23 +8,12 @@ package mada.tests.e2e.opts.generator.bigdecimal_double.jackson.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
  * Primitives
  */
-@JsonPropertyOrder({
-  Primitives.JSON_PROPERTY_A_BOOLEAN,
-  Primitives.JSON_PROPERTY_A_BYTE,
-  Primitives.JSON_PROPERTY_A_SHORT,
-  Primitives.JSON_PROPERTY_AN_INT,
-  Primitives.JSON_PROPERTY_A_LONG,
-  Primitives.JSON_PROPERTY_A_FLOAT,
-  Primitives.JSON_PROPERTY_A_DOUBLE,
-  Primitives.JSON_PROPERTY_A_STRING
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Primitives {
   public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";

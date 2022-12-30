@@ -11,15 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * ArchivePDF
  */
-@JsonbPropertyOrder({
-  ArchivePDF.JSON_PROPERTY_STRING_LIST,
-  ArchivePDF.JSON_PROPERTY_BYTE_LIST
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ArchivePDF {
   public static final String JSON_PROPERTY_BYTE_LIST = "byteList";

@@ -8,13 +8,10 @@ package mada.tests.e2e.opts.generator.zoneddatetime.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * LocalTime
  */
-@JsonbPropertyOrder({
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class LocalTime {
   @Override

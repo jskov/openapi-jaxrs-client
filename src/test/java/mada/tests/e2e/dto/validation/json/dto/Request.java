@@ -7,7 +7,6 @@
 package mada.tests.e2e.dto.validation.json.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -16,9 +15,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * x.
  */
-@JsonPropertyOrder({
-  Request.JSON_PROPERTY_TAXATION
-})
 @Schema(description = "x")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Request {

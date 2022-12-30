@@ -14,28 +14,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import mada.tests.e2e.opts.generator.external_types.p1.Simple;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * ArraysDto
  */
-@JsonPropertyOrder({
-  ArraysDto.JSON_PROPERTY_BOOLEANS,
-  ArraysDto.JSON_PROPERTY_BYTES,
-  ArraysDto.JSON_PROPERTY_SHORTS,
-  ArraysDto.JSON_PROPERTY_INTS,
-  ArraysDto.JSON_PROPERTY_LONGS,
-  ArraysDto.JSON_PROPERTY_STRINGS,
-  ArraysDto.JSON_PROPERTY_REFS,
-  ArraysDto.JSON_PROPERTY_REQUIRED_BOOLEANS,
-  ArraysDto.JSON_PROPERTY_REQUIRED_BYTES,
-  ArraysDto.JSON_PROPERTY_REQUIRED_SHORTS,
-  ArraysDto.JSON_PROPERTY_REQUIRED_INTS,
-  ArraysDto.JSON_PROPERTY_REQUIRED_LONGS,
-  ArraysDto.JSON_PROPERTY_REQUIRED_STRINGS,
-  ArraysDto.JSON_PROPERTY_REQUIRED_REFS
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ArraysDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";

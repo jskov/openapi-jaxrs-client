@@ -7,7 +7,6 @@
 package mada.tests.e2e.opts.generator.jackson.custom_offset_dates.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.math.BigDecimal;
@@ -18,13 +17,6 @@ import java.util.Objects;
 /**
  * ExternedSpecialTypes
  */
-@JsonPropertyOrder({
-  ExternedSpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
-  ExternedSpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExternedSpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";

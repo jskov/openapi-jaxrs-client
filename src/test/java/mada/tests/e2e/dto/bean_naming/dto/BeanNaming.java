@@ -8,21 +8,10 @@ package mada.tests.e2e.dto.bean_naming.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * BeanNaming
  */
-@JsonbPropertyOrder({
-  BeanNaming.JSON_PROPERTY_DOWN_BOOL,
-  BeanNaming.JSON_PROPERTY_A_CAMEL_BOOL,
-  BeanNaming.JSON_PROPERTY_UPPER_BOOL,
-  BeanNaming.JSON_PROPERTY_ALLCAPSBOOL,
-  BeanNaming.JSON_PROPERTY_DOWN_INT,
-  BeanNaming.JSON_PROPERTY_A_CAMEL_INT,
-  BeanNaming.JSON_PROPERTY_UPPER_INT,
-  BeanNaming.JSON_PROPERTY_ALLCAPSINT
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class BeanNaming {
   public static final String JSON_PROPERTY_A_CAMEL_BOOL = "aCamelBool";

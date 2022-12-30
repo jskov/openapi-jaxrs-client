@@ -14,18 +14,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * Note that A sorts alphabetically before a.
  */
-@JsonbPropertyOrder({
-  CollisionA.JSON_PROPERTY_A_CAPITAL_BOOLEAN,
-  CollisionA.JSON_PROPERTY_A_CAPITAL_SET,
-  CollisionA.JSON_PROPERTY_A_CAPITAL_MAP
-})
 @Schema(description = "Note that A sorts alphabetically before a")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CollisionA {

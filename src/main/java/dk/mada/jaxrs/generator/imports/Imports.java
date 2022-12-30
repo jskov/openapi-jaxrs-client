@@ -101,8 +101,8 @@ public final class Imports {
                 .add(JavaUtil.OBJECTS)
                 .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
                 .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
-                .add(Jackson.JSON_PROPERTY, Jackson.JSON_PROPERTY_ORDER)
-                .add(Jsonb.JSONB_PROPERTY, Jsonb.JSONB_PROPERTY_ORDER);
+                .add(opts.isUsePropertyOrderAnnotation(), Jackson.JSON_PROPERTY_ORDER, Jsonb.JSONB_PROPERTY_ORDER)
+                .add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
     }
 
     /**

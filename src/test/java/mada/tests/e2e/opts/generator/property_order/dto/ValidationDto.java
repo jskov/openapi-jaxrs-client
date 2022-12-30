@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -27,18 +26,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * ValidationDto
  */
-@JsonbPropertyOrder({
-  ValidationDto.JSON_PROPERTY_NAME,
-  ValidationDto.JSON_PROPERTY_INT_VALUE,
-  ValidationDto.JSON_PROPERTY_BAD_PARSING_OF_RANGE,
-  ValidationDto.JSON_PROPERTY_A_BIG_DOUBLE,
-  ValidationDto.JSON_PROPERTY_A_BIG_FLOAT,
-  ValidationDto.JSON_PROPERTY_A_BIG_DECIMAL,
-  ValidationDto.JSON_PROPERTY_PATTERN,
-  ValidationDto.JSON_PROPERTY_PATTERN_DIGITS,
-  ValidationDto.JSON_PROPERTY_VALID_OBJECTS,
-  ValidationDto.JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ValidationDto {
   public static final String JSON_PROPERTY_NAME = "name";

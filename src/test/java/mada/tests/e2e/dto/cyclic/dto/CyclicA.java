@@ -10,15 +10,11 @@ package mada.tests.e2e.dto.cyclic.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 
 /**
  * CyclicA
  */
-@JsonbPropertyOrder({
-  CyclicA.JSON_PROPERTY_B
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class CyclicA {
   public static final String JSON_PROPERTY_B = "b";

@@ -10,14 +10,10 @@ package mada.tests.e2e.api.types_mapped.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * ProjectDTO
  */
-@JsonbPropertyOrder({
-  ProjectDTO.JSON_PROPERTY_DESCRIPTION
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ProjectDTO {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";

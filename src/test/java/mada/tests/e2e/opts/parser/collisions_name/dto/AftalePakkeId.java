@@ -11,16 +11,12 @@ package mada.tests.e2e.opts.parser.collisions_name.dto;
 import java.util.Objects;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.constraints.Pattern;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * AftalePakkeId
  */
-@JsonbPropertyOrder({
-  AftalePakkeId.JSON_PROPERTY_VAERDI
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class AftalePakkeId {
   public static final String JSON_PROPERTY_VAERDI = "Vaerdi";

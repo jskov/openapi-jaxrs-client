@@ -10,7 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -18,22 +17,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * SetsDto
  */
-@JsonbPropertyOrder({
-  SetsDto.JSON_PROPERTY_BOOLEANS,
-  SetsDto.JSON_PROPERTY_BYTES,
-  SetsDto.JSON_PROPERTY_SHORTS,
-  SetsDto.JSON_PROPERTY_INTS,
-  SetsDto.JSON_PROPERTY_LONGS,
-  SetsDto.JSON_PROPERTY_STRINGS,
-  SetsDto.JSON_PROPERTY_REFS,
-  SetsDto.JSON_PROPERTY_REQUIRED_BOOLEANS,
-  SetsDto.JSON_PROPERTY_REQUIRED_BYTES,
-  SetsDto.JSON_PROPERTY_REQUIRED_SHORTS,
-  SetsDto.JSON_PROPERTY_REQUIRED_INTS,
-  SetsDto.JSON_PROPERTY_REQUIRED_LONGS,
-  SetsDto.JSON_PROPERTY_REQUIRED_STRINGS,
-  SetsDto.JSON_PROPERTY_REQUIRED_REFS
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SetsDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";

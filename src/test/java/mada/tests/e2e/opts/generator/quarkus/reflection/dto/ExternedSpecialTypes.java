@@ -12,20 +12,11 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 
 /**
  * ExternedSpecialTypes
  */
-@JsonbPropertyOrder({
-  ExternedSpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
-  ExternedSpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE_TIME,
-  ExternedSpecialTypes.JSON_PROPERTY_DATE,
-  ExternedSpecialTypes.JSON_PROPERTY_AN_ENUM
-})
 @RegisterForReflection
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExternedSpecialTypes {

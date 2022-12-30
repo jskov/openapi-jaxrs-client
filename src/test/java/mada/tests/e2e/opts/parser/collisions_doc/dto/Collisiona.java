@@ -12,17 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * Make sure this appears before CollisionA in the document.
  */
-@JsonbPropertyOrder({
-  Collisiona.JSON_PROPERTY_A_BOOLEAN,
-  Collisiona.JSON_PROPERTY_A_LIST
-})
 @Schema(description = "Make sure this appears before CollisionA in the document")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Collisiona {

@@ -8,7 +8,6 @@ package mada.tests.e2e.opts.generator.collections_empty.jackson_fasterxml.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -19,30 +18,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * MapsDto
  */
-@JsonPropertyOrder({
-  MapsDto.JSON_PROPERTY_BOOLEANS,
-  MapsDto.JSON_PROPERTY_BYTES,
-  MapsDto.JSON_PROPERTY_SHORTS,
-  MapsDto.JSON_PROPERTY_INTS,
-  MapsDto.JSON_PROPERTY_LONGS,
-  MapsDto.JSON_PROPERTY_STRINGS,
-  MapsDto.JSON_PROPERTY_REFS,
-  MapsDto.JSON_PROPERTY_REQUIRED_BOOLEANS,
-  MapsDto.JSON_PROPERTY_REQUIRED_BYTES,
-  MapsDto.JSON_PROPERTY_REQUIRED_SHORTS,
-  MapsDto.JSON_PROPERTY_REQUIRED_INTS,
-  MapsDto.JSON_PROPERTY_REQUIRED_LONGS,
-  MapsDto.JSON_PROPERTY_REQUIRED_STRINGS,
-  MapsDto.JSON_PROPERTY_REQUIRED_REFS,
-  MapsDto.JSON_PROPERTY_BOTH_BOOLEANS,
-  MapsDto.JSON_PROPERTY_BOTH_BYTES,
-  MapsDto.JSON_PROPERTY_BOTH_SHORTS,
-  MapsDto.JSON_PROPERTY_BOTH_INTS,
-  MapsDto.JSON_PROPERTY_BOTH_LONGS,
-  MapsDto.JSON_PROPERTY_BOTH_STRINGS,
-  MapsDto.JSON_PROPERTY_BOTH_REFS,
-  MapsDto.JSON_PROPERTY_OBJECTS
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MapsDto {
   public static final String JSON_PROPERTY_BOOLEANS = "booleans";

@@ -8,18 +8,12 @@ package mada.tests.e2e.opts.generator.schema_naming.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * DtoA
  */
-@JsonbPropertyOrder({
-  DtoA.JSON_PROPERTY_MEMBER_A,
-  DtoA.JSON_PROPERTY_REF_B,
-  DtoA.JSON_PROPERTY_REF_E
-})
 @Schema(name = "FullNameA")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class DtoA {

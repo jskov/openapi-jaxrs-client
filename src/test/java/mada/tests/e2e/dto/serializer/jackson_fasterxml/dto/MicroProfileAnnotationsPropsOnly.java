@@ -9,16 +9,12 @@
 package mada.tests.e2e.dto.serializer.jackson_fasterxml.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * MicroProfileAnnotationsPropsOnly
  */
-@JsonPropertyOrder({
-  MicroProfileAnnotationsPropsOnly.JSON_PROPERTY_WITH_DESCRIPTION
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MicroProfileAnnotationsPropsOnly {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";

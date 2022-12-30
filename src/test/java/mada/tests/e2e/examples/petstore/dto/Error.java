@@ -8,17 +8,12 @@ package mada.tests.e2e.examples.petstore.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * Error
  */
-@JsonbPropertyOrder({
-  Error.JSON_PROPERTY_CODE,
-  Error.JSON_PROPERTY_MESSAGE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Error {
   public static final String JSON_PROPERTY_CODE = "code";

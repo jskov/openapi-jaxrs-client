@@ -10,7 +10,6 @@ package mada.tests.e2e.api.javadoc.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
@@ -19,9 +18,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  * - just different YAML syntax?
  * - maybe �ndret
  */
-@JsonbPropertyOrder({
-  Simple.JSON_PROPERTY_A_BOOLEAN
-})
 @Schema(description = "What is it:\r\n- with these weird line breaks?\r\n- just different YAML syntax?\r\n- maybe �ndret")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple {

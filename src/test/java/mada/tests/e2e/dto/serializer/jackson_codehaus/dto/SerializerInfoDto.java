@@ -12,28 +12,11 @@ import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * SerializerInfoDto
  */
-@JsonPropertyOrder({
-  SerializerInfoDto.JSON_PROPERTY_BETA,
-  SerializerInfoDto.JSON_PROPERTY_ALPHA,
-  SerializerInfoDto.JSON_PROPERTY_ZAP_RENAMED,
-  SerializerInfoDto.JSON_PROPERTY_UPPER_CASE,
-  SerializerInfoDto.JSON_PROPERTY_WITH_DASHES,
-  SerializerInfoDto.JSON_PROPERTY_WITH_DIGIT,
-  SerializerInfoDto.JSON_PROPERTY_MUST_INCLUDE,
-  SerializerInfoDto.JSON_PROPERTY_MUST_INCLUDE_VIA_SCHEMA,
-  SerializerInfoDto.JSON_PROPERTY_NOT_NULL,
-  SerializerInfoDto.JSON_PROPERTY_NOT_NULL_VIA_SCHEMA,
-  SerializerInfoDto.JSON_PROPERTY_IS_NULLABLE,
-  SerializerInfoDto.JSON_PROPERTY_IS_NULLABLE_VIA_SCHEMA,
-  SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS,
-  SerializerInfoDto.JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SerializerInfoDto {
   public static final String JSON_PROPERTY_WITH_DIGIT = "0withDigit";

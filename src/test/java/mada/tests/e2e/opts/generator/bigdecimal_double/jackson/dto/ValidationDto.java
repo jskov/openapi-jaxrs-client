@@ -8,7 +8,6 @@ package mada.tests.e2e.opts.generator.bigdecimal_double.jackson.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +25,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * ValidationDto
  */
-@JsonPropertyOrder({
-  ValidationDto.JSON_PROPERTY_NAME,
-  ValidationDto.JSON_PROPERTY_INT_VALUE,
-  ValidationDto.JSON_PROPERTY_BAD_PARSING_OF_RANGE,
-  ValidationDto.JSON_PROPERTY_A_BIG_DOUBLE,
-  ValidationDto.JSON_PROPERTY_A_BIG_FLOAT,
-  ValidationDto.JSON_PROPERTY_A_BIG_DECIMAL,
-  ValidationDto.JSON_PROPERTY_PATTERN,
-  ValidationDto.JSON_PROPERTY_PATTERN_DIGITS,
-  ValidationDto.JSON_PROPERTY_VALID_OBJECTS,
-  ValidationDto.JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ValidationDto {
   public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";

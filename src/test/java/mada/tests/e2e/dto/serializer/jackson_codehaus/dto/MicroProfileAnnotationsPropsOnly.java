@@ -10,15 +10,11 @@ package mada.tests.e2e.dto.serializer.jackson_codehaus.dto;
 
 import java.util.Objects;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * MicroProfileAnnotationsPropsOnly
  */
-@JsonPropertyOrder({
-  MicroProfileAnnotationsPropsOnly.JSON_PROPERTY_WITH_DESCRIPTION
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MicroProfileAnnotationsPropsOnly {
   public static final String JSON_PROPERTY_WITH_DESCRIPTION = "withDescription";

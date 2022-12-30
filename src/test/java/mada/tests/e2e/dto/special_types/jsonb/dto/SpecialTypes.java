@@ -13,20 +13,10 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 
 /**
  * SpecialTypes
  */
-@JsonbPropertyOrder({
-  SpecialTypes.JSON_PROPERTY_BIG_DECIMAL,
-  SpecialTypes.JSON_PROPERTY_ZONED_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_OFFSET_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_LOCAL_DATE_TIME,
-  SpecialTypes.JSON_PROPERTY_LOCAL_DATE,
-  SpecialTypes.JSON_PROPERTY_LOCAL_TIME,
-  SpecialTypes.JSON_PROPERTY_UUID
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes {
   public static final String JSON_PROPERTY_BIG_DECIMAL = "bigDecimal";

@@ -12,19 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.validation.Valid;
 
 /**
  * ExternedLists
  */
-@JsonbPropertyOrder({
-  ExternedLists.JSON_PROPERTY_LIST_STRING,
-  ExternedLists.JSON_PROPERTY_LIST_SIMPLE,
-  ExternedLists.JSON_PROPERTY_LIST_INT,
-  ExternedLists.JSON_PROPERTY_LIST_DATE,
-  ExternedLists.JSON_PROPERTY_LIST_DATE_TIME
-})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExternedLists {
   public static final String JSON_PROPERTY_LIST_DATE = "listDate";
