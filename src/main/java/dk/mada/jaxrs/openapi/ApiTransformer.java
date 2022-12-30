@@ -144,10 +144,10 @@ public class ApiTransformer {
                 .replaceFirst("^-", "")
                 .replaceFirst("-$", "");
         String syntheticOpId = opPath + "-" + httpMethod.name().toLowerCase();
-        
+
         return naming.convertParameterName(syntheticOpId);
     }
-    
+
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         Response r = Response.builder()
                 .code(StatusCode.of(code))

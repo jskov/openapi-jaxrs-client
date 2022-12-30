@@ -502,9 +502,9 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 **naming-rules-operation**
 
->Allows you to control the naming of operations using the operators described above.
+>Allows you to control the naming of operations (without specific operation ids) using the operators described above.
 
->The OpenApi's OperationId name is given as input.
+>A synthetic id, based on the resource path and http-method is provided as input.
 
 >Note that if the operation's id has been specified, this will take precedence.
 
