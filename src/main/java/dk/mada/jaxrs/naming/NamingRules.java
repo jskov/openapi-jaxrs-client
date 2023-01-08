@@ -87,9 +87,9 @@ public final class NamingRules {
      */
     public static NamingRule toRule(String ruleConfiguration) {
         String opConfig = ruleConfiguration.trim();
-        String opName = opConfig.replaceAll("/.*", "");
+        String opName = opConfig.replaceFirst("/.*", "");
 
-        // First handle simplest operations
+        // First handle simple input operations
         NamingRule simpleOpRule = OPS_INPUT.get(opName);
         if (simpleOpRule != null) {
             return simpleOpRule;
@@ -100,13 +100,15 @@ public final class NamingRules {
             throw new IllegalArgumentException("Operations with arguments must end with /, saw: '" + opConfig + "'");
         }
 
+        // Look for a matching single-argument operation
         String value = opConfig.substring(opName.length() + 1, opConfig.length() - 1);
         Function<String, NamingRule> oneArgOperation = OPS_INPUT_ARG.get(opName);
         if (oneArgOperation != null) {
+            logger.debug(" Single-argument operation value: '{}'", value);
             return oneArgOperation.apply(value);
         }
 
-        // If no single-value operation, look for two-value operations
+        // If no single-argument operation, look for two-argument operations
         BiFunction<String, String, NamingRule> twoArgOperation = OPS_INPUT_BIARG.get(opName);
         if (twoArgOperation == null) {
             throw new IllegalArgumentException("Unknown naming rule: '" + opConfig + "'");
@@ -121,7 +123,7 @@ public final class NamingRules {
         value = m.group(1);
         String value2 = m.group(2);
 
-        logger.debug(" Two argument operation values: '{}' / '{}'", value, value2);
+        logger.debug(" Bi-argument operation values: '{}' / '{}'", value, value2);
         return twoArgOperation.apply(value, value2);
     }
 
