@@ -148,11 +148,23 @@ javadoc {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags "accept"
+    }
 
     //testLogging.showStandardStreams = true
 
     systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
+}
+
+task acceptTest(type: Test) {
+    shouldRunAfter(test)
+    dependsOn(publishToMavenLocal)
+
+    useJUnitPlatform {
+        includeTags "accept"
+    }
+    ignoreFailures = true
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
@@ -160,7 +172,7 @@ jacocoTestReport {
     reports {
         xml.required.set(true)
     }
-    dependsOn test // tests are required to run before generating the report
+    dependsOn acceptTest // tests are required to run before generating the report
 }
 
 checkstyle {
@@ -178,8 +190,9 @@ spotless {
 
 sonarqube {
     properties {
-        property "sonar.inclusions", "src/main/**"
+        property "sonar.inclusions", "**/src/main/**"
         property "sonar.exclusions", "**/OpenapiGeneratorUtils.java, **/Immutable*.java"
+        property "sonar.sourceEncoding", "UTF-8"
 
         property "sonar.projectKey", "jskov_openapi-jaxrs-client"
         property "sonar.organization", "jskov-github"
