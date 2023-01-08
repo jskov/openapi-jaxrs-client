@@ -1,5 +1,9 @@
 package dk.mada.jaxrs.gradle.client;
 
+import static java.util.stream.Collectors.joining;
+
+import java.io.File;
+
 import javax.inject.Inject;
 
 import org.gradle.api.DefaultTask;
@@ -49,11 +53,24 @@ public abstract class GenerateClient extends DefaultTask {
     void generate() {
         Project project = getProject();
         
-        FileCollection pluginClasspath = project.getBuildscript().getConfigurations().findByName("classpath")
-                .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
+        FileCollection pluginClasspath = project.getBuildscript().getConfigurations().findByName("classpath");
+//                .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
         Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
         FileCollection combined = generatorClasspath.plus(pluginClasspath);
         
+        FileCollection testClasspath = project.getBuildscript().getConfigurations().findByName("classpath");
+
+                
+        printClasspath("combined-classpath", project, combined);
+        printClasspath("buildscript-classpath", project, testClasspath);
+        project.getConfigurations().forEach(c -> {
+            if (c.isCanBeResolved()) {
+             printClasspath(c.getName(), project, c);
+            }
+        });
+        
+        
+//        WorkQueue workQueue = getWorkerExecutor().noIsolation();
         WorkQueue workQueue = getWorkerExecutor().classLoaderIsolation(workerSpec ->
             workerSpec.getClasspath().from(combined) 
         );
@@ -64,5 +81,13 @@ public abstract class GenerateClient extends DefaultTask {
             p.getOpenapiDocument().set(getOpenApiDocument());
             p.getGeneratorConfig().set(getGeneratorProperties());
         });
+    }
+
+    private void printClasspath(String name, Project project, FileCollection testClasspath) {
+        String path = testClasspath.getFiles().stream()
+            .sorted()
+            .map(File::getAbsolutePath)
+            .collect(joining("\n "));
+        project.getLogger().lifecycle("PATH {}:\n {}", name, path);
     }
 }

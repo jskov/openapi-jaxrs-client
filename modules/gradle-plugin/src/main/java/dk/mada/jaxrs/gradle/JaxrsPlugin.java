@@ -36,7 +36,7 @@ public class JaxrsPlugin implements Plugin<Project> {
         JaxrsPluginExtension jaxrsExtension = project.getExtensions().create("jaxrs", JaxrsPluginExtension.class);
         
         project.getConfigurations().create(CONFIGURATION_NAME);
-        project.getDependencies().addProvider(CONFIGURATION_NAME, jaxrsExtension.getGeneratorGAV());
+//        project.getDependencies().addProvider(CONFIGURATION_NAME, jaxrsExtension.getGeneratorGAV());
 
         createTasksFromDsl(project, jaxrsExtension);
     }

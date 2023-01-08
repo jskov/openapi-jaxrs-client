@@ -5,17 +5,20 @@ plugins {
     id 'com.gradle.plugin-publish' version '1.1.0'
     id 'eclipse'
 }
-
 group "${groupId}"
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
     testImplementation  platform("org.junit:junit-bom:$junitVersion")
     testImplementation  'org.junit.jupiter:junit-jupiter'
     testImplementation  "org.assertj:assertj-core:$assertJVersion"
+
+    testRuntimeOnly rootProject.sourceSets.main.output
+    testRuntimeOnly rootProject.sourceSets.main.resources.destinationDirectory
 }
 
 
@@ -50,6 +53,7 @@ task acceptTest(type: Test) {
         includeTags "accept"
     }
     ignoreFailures = true
+    forkEvery = 1
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 

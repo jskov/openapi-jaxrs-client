@@ -27,7 +27,7 @@ class GenerateCodeTest {
              mavenCentral()
            }
            jaxrs {
-             generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.0.0-SNAPSHOT"
+//             generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.0.0-SNAPSHOT"
              clients {
                petstore {
                  download("https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml")
@@ -62,6 +62,12 @@ generator-dto-package = dk.mada.petstore.dto
 
     private void createBuildFile(String body) throws IOException {
         String pre = """
+            buildscript {
+              dependencies {
+                classpath files("/home/jskov/git/openapi-jaxrs-client/build/classes/java/main")
+                classpath files("/home/jskov/git/openapi-jaxrs-client/build/resources/main")
+              }
+            }
             plugins {
                 id 'dk.mada.jaxrs'
             }
