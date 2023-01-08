@@ -150,24 +150,11 @@ javadoc {
 }
 
 test {
-    useJUnitPlatform {
-        excludeTags "accept"
-    }
+    useJUnitPlatform()
 
-    //testLogging.showStandardStreams = true
+    testLogging.showStandardStreams = true
 
     systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
-}
-
-task acceptTest(type: Test) {
-    shouldRunAfter(test)
-//    dependsOn(publishToMavenLocal)
-
-    useJUnitPlatform {
-        includeTags "accept"
-    }
-    ignoreFailures = true
-    finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
 jacocoTestReport {

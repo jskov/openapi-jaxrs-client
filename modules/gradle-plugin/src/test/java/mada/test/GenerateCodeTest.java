@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
@@ -62,11 +63,15 @@ generator-dto-package = dk.mada.petstore.dto
     }
 
     private void createBuildFile(String body) throws IOException {
+        Path rootDir = Paths.get(".").resolve("../..").toRealPath();
+        System.out.println("RUNNING IN " + Paths.get(".").toAbsolutePath());
+        String classesDir = rootDir.resolve("build/classes/java/main").toString();
+        String resourcesDir = rootDir.resolve("build/resources/main").toString();
         String pre = """
             buildscript {
               dependencies {
-                classpath files("/home/jskov/git/openapi-jaxrs-client/build/classes/java/main")
-                classpath files("/home/jskov/git/openapi-jaxrs-client/build/resources/main")
+                classpath files("@CLASSES_DIR@")
+                classpath files("@RESOURCES_DIR@")
                 //classpath 'info.picocli:picocli:4.7.0'
                 classpath  'io.swagger.parser.v3:swagger-parser:2.1.9'
                 classpath "io.jstach:jstachio:0.9.1"
@@ -76,9 +81,12 @@ generator-dto-package = dk.mada.petstore.dto
             plugins {
                 id 'dk.mada.jaxrs'
             }
-        """;
+        """.replace("@CLASSES_DIR@", classesDir)
+        .replace("@RESOURCES_DIR@", resourcesDir);
         Path buildFile = testProjectDir.resolve("build.gradle");
-        Files.writeString(buildFile, pre + body);
+        String buildFileText = pre + body;
+        System.out.println(buildFileText);
+        Files.writeString(buildFile, buildFileText);
     }
     
 }

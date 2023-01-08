@@ -39,24 +39,11 @@ gradlePlugin {
 }
 
 test {
-    useJUnitPlatform {
-//        excludeTags "accept"
-//        includeTags "accept"
-    }
+    useJUnitPlatform()
+    
+    testLogging.showStandardStreams = true
+    
     forkEvery = 1
-    finalizedBy jacocoTestReport // report is always generated after tests run
-}
-
-task acceptTest(type: Test) {
-    shouldRunAfter(test)
-//    dependsOn(publishToMavenLocal)
-
-    useJUnitPlatform {
-        includeTags "accept"
-    }
-    ignoreFailures = true
-    forkEvery = 1
-    finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
 jacocoTestReport {
