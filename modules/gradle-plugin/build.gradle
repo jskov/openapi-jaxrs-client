@@ -41,7 +41,7 @@ gradlePlugin {
 test {
     useJUnitPlatform()
     
-    //testLogging.showStandardStreams = true
+    testLogging.showStandardStreams = true
   
     dependsOn(":publishToMavenLocal")  
 //    forkEvery = 1
