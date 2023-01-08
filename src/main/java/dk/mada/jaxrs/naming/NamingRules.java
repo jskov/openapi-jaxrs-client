@@ -96,6 +96,9 @@ public final class NamingRules {
         }
 
         // If no match, check for operation arguments
+        if (!opConfig.contains("/")) {
+            throw new IllegalArgumentException("Unknown naming rule: '" + opConfig + "'");
+        }
         if (!opConfig.endsWith("/")) {
             throw new IllegalArgumentException("Operations with arguments must end with /, saw: '" + opConfig + "'");
         }
@@ -117,7 +120,7 @@ public final class NamingRules {
         // Split value argument into two
         Matcher m = PATTERN_TWO_ARGS.matcher(value);
         if (!m.matches()) {
-            throw new IllegalArgumentException("Bad input for operarations with two arguments, saw: '" + opConfig + "'");
+            throw new IllegalArgumentException("Bad input for operations with two arguments, saw: '" + opConfig + "'");
         }
 
         value = m.group(1);

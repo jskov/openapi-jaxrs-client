@@ -1,9 +1,11 @@
 package mada.tests.naming;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.Properties;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -13,6 +15,38 @@ import dk.mada.logging.LoggerConfig;
 class NamingTest {
     static {
         LoggerConfig.loadConfig("/logging-test.properties");
+    }
+
+    @Test
+    void catchesBadArguments() {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> makeSut("REGEXP/TOO/MANY/ARGS/"))
+            .withMessageContaining("Bad input for operations with two arguments")
+            .withMessageContaining("REGEXP/TOO/MANY/ARGS/");
+    }
+
+    @Test
+    void catchesBadArgumentTermination() {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> makeSut("BAD/ARG"))
+            .withMessageContaining("Operations with arguments must end with /")
+            .withMessageContaining("BAD/ARG");
+    }
+
+    @Test
+    void catchesUnknownArgumentOperation() {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> makeSut("UNKNOWNYYY/ARG/"))
+            .withMessageContaining("Unknown naming rule")
+            .withMessageContaining("UNKNOWNYYY");
+    }
+    
+    @Test
+    void catchesUnknownSimpleOperation() {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> makeSut("UNKNOWNXXX"))
+            .withMessageContaining("Unknown naming rule")
+            .withMessageContaining("UNKNOWNXXX");
     }
 
     @ParameterizedTest
