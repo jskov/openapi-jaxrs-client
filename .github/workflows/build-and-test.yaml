@@ -63,7 +63,4 @@ jobs:
           name: junit-reports
           path: "**/build/reports/tests/test/"
           retention-days: 1
-
-      - name: Tree LocalMaven
-        run: tree /home/runner/.m2/repository
           

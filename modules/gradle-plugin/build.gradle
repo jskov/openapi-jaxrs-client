@@ -42,7 +42,9 @@ test {
     useJUnitPlatform()
     
     testLogging.showStandardStreams = true
-  
+
+    systemProperty "releaseVersion", project.version
+
     dependsOn(":publishToMavenLocal")  
 //    forkEvery = 1
 }

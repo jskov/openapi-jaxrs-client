@@ -20,20 +20,22 @@ class GenerateCodeTest {
     
     @Test
     void canRun() throws IOException {
+        String version = System.getProperty("releaseVersion", "0.0.0-SNAPSHOT");
+        
         createBuildFile("""
            repositories {
              mavenLocal()
              mavenCentral()
            }
            jaxrs {
-             generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.0.0-SNAPSHOT"
+             generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:@VERSION@"
              clients {
                petstore {
                  download("https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml")
                }
              }
            }
-           """);
+           """.replace("@VERSION@", version));
         
         createFile(testProjectDir.resolve("src/openapi/petstore.properties"), """
 generator-api-package = dk.mada.petstore.api
