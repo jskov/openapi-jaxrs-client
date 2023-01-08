@@ -44,7 +44,7 @@ jobs:
         # into gradle.properties
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
 
-      - name: Build release
+      - name: Run tests
         uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
         # 2.3.3
         with:
