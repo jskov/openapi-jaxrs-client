@@ -49,8 +49,7 @@ public final class NamingRules {
     }
 
     /**
-     * Simple operations (functions) that operate on the
-     * input string.
+     * Simple operations (functions) that operate on the input string.
      */
     private static final Map<String, Function<String, NamingRule>> SIMPLE_OPS = Map.of(
             // Variable name operators
@@ -65,9 +64,8 @@ public final class NamingRules {
             "TYPENAME", s -> new NamingRule(s, IDENTIFIERS::makeValidTypeName),
             // Case operators
             "UPCASE", s -> new NamingRule(s, String::toUpperCase),
-            "DOWNCASE", s -> new NamingRule(s, String::toLowerCase)
-            );
-    
+            "DOWNCASE", s -> new NamingRule(s, String::toLowerCase));
+
     /**
      * Created a single naming rules based on a single rule configuration.
      *
