@@ -19,17 +19,33 @@ class GenerateCodeTest {
     @Test
     void canRun() throws IOException {
         createBuildFile("""
-                println "hello"
-                """);
+           jaxrs {
+             clients {
+               petstore {
+                 download("https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml")
+               }
+             }
+           }
+           """);
+        
+        createPropertiesFile(testProjectDir.resolve("src/openapi/petstore.properties"), """
+                
+            """);
         
         BuildResult result = GradleRunner.create()
                 .withProjectDir(testProjectDir.toFile())
-//                .withArguments("verifyUrl")
+//                .withArguments("tasks")
+                .withArguments("generateClientPetstore")
                 .withPluginClasspath()
                 .build();
         
         assertThat(result.getOutput())
             .contains("hello");
+    }
+
+    private void createPropertiesFile(Path file, String body) throws IOException {
+        Files.createDirectories(file.getParent());
+        Files.writeString(file, body);
     }
 
     private void createBuildFile(String body) throws IOException {
