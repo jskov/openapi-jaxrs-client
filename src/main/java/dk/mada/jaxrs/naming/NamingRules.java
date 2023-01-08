@@ -41,8 +41,7 @@ public final class NamingRules {
             "DOWNCASE", new NamingRule("DOWNCASE", String::toLowerCase));
 
     /**
-     * Operations that operate on the input string and a single
-     * operation argument.
+     * Operations that operate on the input string and a single operation argument.
      */
     private static final Map<String, Function<String, NamingRule>> OPS_INPUT_ARG = Map.of(
             // Appends argument to input string
@@ -53,13 +52,11 @@ public final class NamingRules {
             "LITERAL", arg -> new NamingRule("LITERAL:" + arg, s -> arg));
 
     /**
-     * Operations that operate on the input string and two operation
-     * arguments.
+     * Operations that operate on the input string and two operation arguments.
      */
     private static final Map<String, BiFunction<String, String, NamingRule>> OPS_INPUT_BIARG = Map.of(
             // Applies regular expression replacement to input string
             "REGEXP", NamingRules::regexpOperation);
-
 
     private NamingRules() {
     }
@@ -114,7 +111,7 @@ public final class NamingRules {
         if (twoArgOperation == null) {
             throw new IllegalArgumentException("Unknown naming rule: '" + opConfig + "'");
         }
-        
+
         // Split value argument into two
         Matcher m = PATTERN_TWO_ARGS.matcher(value);
         if (!m.matches()) {
@@ -130,6 +127,6 @@ public final class NamingRules {
 
     private static NamingRule regexpOperation(String pattern, String replacement) {
         Pattern p = Pattern.compile(pattern);
-        return new NamingRule("REGEXP:"+pattern, s -> p.matcher(s).replaceAll(replacement));
+        return new NamingRule("REGEXP:" + pattern, s -> p.matcher(s).replaceAll(replacement));
     }
 }
