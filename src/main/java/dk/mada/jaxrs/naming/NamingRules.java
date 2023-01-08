@@ -2,6 +2,7 @@ package dk.mada.jaxrs.naming;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
@@ -16,8 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class NamingRules {
     private static final Logger logger = LoggerFactory.getLogger(NamingRules.class);
-    /** Prefix for regular expression input. */
-    private static final String REGEXP = "REGEXP/";
+    private static final Pattern PATTERN_TWO_ARGS = Pattern.compile("([^/]*)/([^/]*)");
     /** Identifiers. */
     private static final Identifiers IDENTIFIERS = new Identifiers();
 
@@ -74,6 +74,15 @@ public final class NamingRules {
             );
 
     /**
+     * Operations that operate on the input string and two operation
+     * arguments.
+     */
+    private static final Map<String, BiFunction<String, String, NamingRule>> OPS_BIARG = Map.of(
+            // Applies regulare expression replacement to input string
+            "REGEXP", NamingRules::regexpOperation
+            );
+
+    /**
      * Created a single naming rules based on a single rule configuration.
      *
      * @param ruleConfiguration the rule configuration
@@ -83,60 +92,44 @@ public final class NamingRules {
         String opConfig = ruleConfiguration.trim();
         String opName = opConfig.replaceAll("/.*", "");
 
+        // First handle simplest operations
         NamingRule simpleOpRule = SIMPLE_OPS.get(opName);
         if (simpleOpRule != null) {
             return simpleOpRule;
         }
 
+        // If no match, check for operation arguments
         if (!opConfig.endsWith("/")) {
             throw new IllegalArgumentException("Operations with arguments must end with /, saw: '" + opConfig + "'");
         }
 
-        String oneArgValue = opConfig.substring(opName.length() + 1, opConfig.length() - 1);
-        
+        String value = opConfig.substring(opName.length() + 1, opConfig.length() - 1);
         Function<String, NamingRule> oneArgOperation = OPS_ARG.get(opName);
         if (oneArgOperation != null) {
-            return oneArgOperation.apply(oneArgValue);
+            return oneArgOperation.apply(value);
         }
-        
-//        if (opConfig.startsWith(APPEND)) {
-//            if (!opConfig.endsWith("/")) {
-//                throw new IllegalArgumentException("APPEND must end with /, saw: " + opConfig);
-//            }
-//            return new NamingRule(opConfig, s -> s + opConfig.substring(APPEND.length(), opConfig.length() - 1));
-//        }
-//        if (opConfig.startsWith(PREPEND)) {
-//            if (!opConfig.endsWith("/")) {
-//                throw new IllegalArgumentException("PREPEND must end with /, saw: " + opConfig);
-//            }
-//            return new NamingRule(opConfig, s -> opConfig.substring(PREPEND.length(), opConfig.length() - 1) + s);
-//        }
-//        if (opConfig.startsWith(LITERAL)) {
-//            if (!opConfig.endsWith("/")) {
-//                throw new IllegalArgumentException("LITERAL must end with /, saw: " + opConfig);
-//            }
-//            return new NamingRule(opConfig, s -> opConfig.substring(LITERAL.length(), opConfig.length() - 1));
-//        }
-        if (opConfig.startsWith(REGEXP)) {
-            if (!opConfig.endsWith("/")) {
-                throw new IllegalArgumentException("REGEXP must end with /, saw: " + opConfig);
-            }
-            String pr = opConfig.substring(REGEXP.length());
 
-            Pattern prPattern = Pattern.compile("([^/]*)/([^/]*)/");
-            Matcher m = prPattern.matcher(pr);
-            if (!m.matches()) {
-                throw new IllegalArgumentException("REGEXP Bad pattern/replacement section, saw: " + pr);
-            }
-
-            String pattern = m.group(1);
-            String replacement = m.group(2);
-
-            logger.debug(" REGEXP: {} / {}", pattern, replacement);
-
-            Pattern p = Pattern.compile(pattern);
-            return new NamingRule(opConfig, s -> p.matcher(s).replaceAll(replacement));
+        // If no single-value operation, look for two-value operations
+        BiFunction<String, String, NamingRule> twoArgOperation = OPS_BIARG.get(opName);
+        if (twoArgOperation == null) {
+            throw new IllegalArgumentException("Unknown naming rule: '" + opConfig + "'");
         }
-        throw new IllegalArgumentException("Unknown naming rule: '" + opConfig + "'");
+
+        // Split value argument into two
+        Matcher m = PATTERN_TWO_ARGS.matcher(value);
+        if (!m.matches()) {
+            throw new IllegalArgumentException("Bad input for operarations with two arguments, saw: '" + opConfig + "'");
+        }
+
+        value = m.group(1);
+        String value2 = m.group(2);
+
+        logger.debug(" Two argument operation values: '{}' / '{}'", value, value2);
+        return twoArgOperation.apply(value, value2);
+    }
+
+    private static NamingRule regexpOperation(String twoArgValue1, String twoArgValue2) {
+        Pattern p = Pattern.compile(twoArgValue1);
+        return new NamingRule("REGEXP", s -> p.matcher(s).replaceAll(twoArgValue2));
     }
 }
