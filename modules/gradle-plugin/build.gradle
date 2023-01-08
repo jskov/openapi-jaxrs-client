@@ -16,9 +16,6 @@ dependencies {
     testImplementation  platform("org.junit:junit-bom:$junitVersion")
     testImplementation  'org.junit.jupiter:junit-jupiter'
     testImplementation  "org.assertj:assertj-core:$assertJVersion"
-
-    testRuntimeOnly rootProject.sourceSets.main.output
-    testRuntimeOnly rootProject.sourceSets.main.resources.destinationDirectory
 }
 
 

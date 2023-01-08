@@ -66,6 +66,10 @@ generator-dto-package = dk.mada.petstore.dto
               dependencies {
                 classpath files("/home/jskov/git/openapi-jaxrs-client/build/classes/java/main")
                 classpath files("/home/jskov/git/openapi-jaxrs-client/build/resources/main")
+                //classpath 'info.picocli:picocli:4.7.0'
+                classpath  'io.swagger.parser.v3:swagger-parser:2.1.9'
+                classpath "io.jstach:jstachio:0.9.1"
+
               }
             }
             plugins {
