@@ -1,6 +1,8 @@
 package dk.mada.jaxrs.naming;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,6 +49,26 @@ public final class NamingRules {
     }
 
     /**
+     * Simple operations (functions) that operate on the
+     * input string.
+     */
+    private static final Map<String, Function<String, NamingRule>> SIMPLE_OPS = Map.of(
+            // Variable name operators
+            "OPERATIONNAME-EDGE", NamingRules::replaceVariableNameEdge,
+            "PARAMETERNAME-EDGE", NamingRules::replaceVariableNameEdge,
+            "PROPERTYNAME-EDGE", NamingRules::replaceVariableNameEdge,
+            "PROPERTYNAME", NamingRules::replaceVariableName,
+            "PARAMETERNAME", NamingRules::replaceVariableName,
+            "OPERATIONNAME", NamingRules::replaceVariableName,
+            // Type name operators
+            "TYPENAME-EDGE", s -> new NamingRule(s, IDENTIFIERS::makeValidEdgeTypeName),
+            "TYPENAME", s -> new NamingRule(s, IDENTIFIERS::makeValidTypeName),
+            // Case operators
+            "UPCASE", s -> new NamingRule(s, String::toUpperCase),
+            "DOWNCASE", s -> new NamingRule(s, String::toLowerCase)
+            );
+    
+    /**
      * Created a single naming rules based on a single rule configuration.
      *
      * @param ruleConfiguration the rule configuration
@@ -54,23 +76,9 @@ public final class NamingRules {
      */
     public static NamingRule toRule(String ruleConfiguration) {
         String r = ruleConfiguration.trim();
-        if ("PROPERTYNAME-EDGE".equals(r) || "PARAMETERNAME-EDGE".equals(r) || "OPERATIONNAME-EDGE".equals(r)) {
-            return new NamingRule(r, IDENTIFIERS::makeValidEdgeVariableName);
-        }
-        if ("PROPERTYNAME".equals(r) || "PARAMETERNAME".equals(r) || "OPERATIONNAME".equals(r)) {
-            return new NamingRule(r, IDENTIFIERS::makeValidVariableName);
-        }
-        if ("TYPENAME-EDGE".equals(r)) {
-            return new NamingRule(r, IDENTIFIERS::makeValidEdgeTypeName);
-        }
-        if ("TYPENAME".equals(r)) {
-            return new NamingRule(r, IDENTIFIERS::makeValidTypeName);
-        }
-        if ("UPCASE".equals(r)) {
-            return new NamingRule(r, String::toUpperCase);
-        }
-        if ("DOWNCASE".equals(r)) {
-            return new NamingRule(r, String::toLowerCase);
+        Function<String, NamingRule> op = SIMPLE_OPS.get(r);
+        if (op != null) {
+            return op.apply(r);
         }
         if (r.startsWith(APPEND)) {
             if (!r.endsWith("/")) {
@@ -111,5 +119,13 @@ public final class NamingRules {
             return new NamingRule(r, s -> p.matcher(s).replaceAll(replacement));
         }
         throw new IllegalArgumentException("Unknown naming rule: '" + r + "'");
+    }
+
+    private static NamingRule replaceVariableNameEdge(String r) {
+        return new NamingRule(r, IDENTIFIERS::makeValidEdgeVariableName);
+    }
+
+    private static NamingRule replaceVariableName(String r) {
+        return new NamingRule(r, IDENTIFIERS::makeValidVariableName);
     }
 }
