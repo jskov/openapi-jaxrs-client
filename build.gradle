@@ -169,6 +169,8 @@ checkstyle {
     configFile = file("src/config/checkstyle/checkstyle.xml")
 }
 
+tasks.checkstyleTest.enabled = false
+
 spotless {
     java {
         target 'src/main/java/**/*.java'
@@ -184,7 +186,7 @@ sonarqube {
         property "sonar.inclusions", "**/src/main/**"
         property "sonar.exclusions", "**/OpenapiGeneratorUtils.java, **/Immutable*.java"
         property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml"
+        property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/*.xml"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/testCodeCoverageReport/*.xml"
     }
 }
