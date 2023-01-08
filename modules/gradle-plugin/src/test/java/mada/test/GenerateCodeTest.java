@@ -8,12 +8,14 @@ import java.nio.file.Path;
 
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 /**
  * Runs the generator on Petstore.yaml to generate code, via the Gradle plugin.
  */
+@Tag("accept")
 class GenerateCodeTest {
     @TempDir Path testProjectDir;
     

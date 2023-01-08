@@ -36,5 +36,17 @@ gradlePlugin {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags "accept"
+    }
+}
+
+task acceptTest(type: Test) {
+    shouldRunAfter(test)
+    dependsOn(publishToMavenLocal)
+
+    useJUnitPlatform {
+        includeTags "accept"
+    }
+    ignoreFailures = true
 }
