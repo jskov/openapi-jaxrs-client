@@ -1,9 +1,11 @@
 plugins {
     id 'jacoco'
+    id 'jacoco-report-aggregation'
     id 'java-gradle-plugin'
     id 'maven-publish'
     id 'com.gradle.plugin-publish' version '1.1.0'
     id 'eclipse'
+    id 'test-report-aggregation'
 }
 group "${groupId}"
 
@@ -38,13 +40,16 @@ gradlePlugin {
 
 test {
     useJUnitPlatform {
-        excludeTags "accept"
+//        excludeTags "accept"
+//        includeTags "accept"
     }
+    forkEvery = 1
+    finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
 task acceptTest(type: Test) {
     shouldRunAfter(test)
-    dependsOn(publishToMavenLocal)
+//    dependsOn(publishToMavenLocal)
 
     useJUnitPlatform {
         includeTags "accept"
@@ -58,7 +63,7 @@ jacocoTestReport {
     reports {
         xml.required.set(true)
     }
-    dependsOn acceptTest // tests are required to run before generating the report
+    dependsOn test // tests are required to run before generating the report
 }
 
 apply from: "$project.rootDir/sonar.gradle"

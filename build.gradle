@@ -6,9 +6,11 @@ plugins {
     id 'eclipse'
     id 'net.ltgt.errorprone' version '3.0.1'
     id 'jacoco'
+    id 'jacoco-report-aggregation'
     id 'java-library'
     id 'org.sonarqube' version '3.5.0.2730'
     id 'maven-publish'
+    id 'test-report-aggregation'
 }
 
 group "${groupId}"
@@ -159,7 +161,7 @@ test {
 
 task acceptTest(type: Test) {
     shouldRunAfter(test)
-    dependsOn(publishToMavenLocal)
+//    dependsOn(publishToMavenLocal)
 
     useJUnitPlatform {
         includeTags "accept"
@@ -172,7 +174,7 @@ jacocoTestReport {
     reports {
         xml.required.set(true)
     }
-    dependsOn acceptTest // tests are required to run before generating the report
+    dependsOn test // tests are required to run before generating the report
 }
 
 checkstyle {

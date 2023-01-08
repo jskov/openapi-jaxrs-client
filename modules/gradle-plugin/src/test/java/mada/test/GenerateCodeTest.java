@@ -15,7 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 /**
  * Runs the generator on Petstore.yaml to generate code, via the Gradle plugin.
  */
-@Tag("accept")
+//@Tag("accept")
 class GenerateCodeTest {
     @TempDir Path testProjectDir;
     
@@ -45,6 +45,7 @@ generator-dto-package = dk.mada.petstore.dto
                 .withProjectDir(testProjectDir.toFile())
                 .withArguments("-s", "generateClientPetstore")
                 .withPluginClasspath()
+                .withDebug(true)
                 .build();
         
         assertThat(result.getOutput())
