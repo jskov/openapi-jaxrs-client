@@ -61,5 +61,5 @@ jobs:
         # 3.1.2
         with:
           name: junit-reports
-          path: **/build/reports/tests/test/
+          path: "**/build/reports/tests/test/"
           retention-days: 1
