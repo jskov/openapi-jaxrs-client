@@ -9,14 +9,12 @@ import java.nio.file.Paths;
 
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 /**
  * Runs the generator on Petstore.yaml to generate code, via the Gradle plugin.
  */
-//@Tag("accept")
 class GenerateCodeTest {
     @TempDir Path testProjectDir;
     
@@ -28,7 +26,7 @@ class GenerateCodeTest {
              mavenCentral()
            }
            jaxrs {
-//             generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.0.0-SNAPSHOT"
+             generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.0.0-SNAPSHOT"
              clients {
                petstore {
                  download("https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml")
@@ -68,16 +66,16 @@ generator-dto-package = dk.mada.petstore.dto
         String classesDir = rootDir.resolve("build/classes/java/main").toString();
         String resourcesDir = rootDir.resolve("build/resources/main").toString();
         String pre = """
-            buildscript {
-              dependencies {
-                classpath files("@CLASSES_DIR@")
-                classpath files("@RESOURCES_DIR@")
-                //classpath 'info.picocli:picocli:4.7.0'
-                classpath  'io.swagger.parser.v3:swagger-parser:2.1.9'
-                classpath "io.jstach:jstachio:0.9.1"
-
-              }
-            }
+//            buildscript {
+//              dependencies {
+//                classpath files("@CLASSES_DIR@")
+//                classpath files("@RESOURCES_DIR@")
+//                //classpath 'info.picocli:picocli:4.7.0'
+//                classpath  'io.swagger.parser.v3:swagger-parser:2.1.9'
+//                classpath "io.jstach:jstachio:0.9.1"
+//
+//              }
+//            }
             plugins {
                 id 'dk.mada.jaxrs'
             }

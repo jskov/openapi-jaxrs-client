@@ -152,7 +152,7 @@ javadoc {
 test {
     useJUnitPlatform()
 
-    testLogging.showStandardStreams = true
+    //testLogging.showStandardStreams = true
 
     systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
 }
@@ -185,7 +185,7 @@ sonarqube {
         property "sonar.exclusions", "**/OpenapiGeneratorUtils.java, **/Immutable*.java"
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml"
-        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/*.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/testCodeCoverageReport/*.xml"
     }
 }
 

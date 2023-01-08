@@ -41,9 +41,10 @@ gradlePlugin {
 test {
     useJUnitPlatform()
     
-    testLogging.showStandardStreams = true
-    
-    forkEvery = 1
+    //testLogging.showStandardStreams = true
+  
+    dependsOn(":publishToMavenLocal")  
+//    forkEvery = 1
 }
 
 jacocoTestReport {
@@ -60,6 +61,6 @@ sonarqube {
         property "sonar.inclusions", "**/src/main/**"
         property "sonar.sourceEncoding", "UTF-8"
 //        property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml"
-        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/*.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/testCodeCoverageReport/*.xml"
     }
 }
