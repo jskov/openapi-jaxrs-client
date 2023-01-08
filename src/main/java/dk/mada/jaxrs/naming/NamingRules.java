@@ -17,9 +17,49 @@ import org.slf4j.LoggerFactory;
  */
 public final class NamingRules {
     private static final Logger logger = LoggerFactory.getLogger(NamingRules.class);
+    /** Pattern for syntax split of two operator arguments. */
     private static final Pattern PATTERN_TWO_ARGS = Pattern.compile("([^/]*)/([^/]*)");
     /** Identifiers. */
     private static final Identifiers IDENTIFIERS = new Identifiers();
+
+    /**
+     * Simple operations that operate on the input string.
+     */
+    private static final Map<String, NamingRule> OPS_INPUT = Map.of(
+            // Variable name operators
+            "OPERATIONNAME-EDGE", new NamingRule("OPERATIONNAME-EDGE", IDENTIFIERS::makeValidEdgeVariableName),
+            "PARAMETERNAME-EDGE", new NamingRule("PARAMETERNAME-EDGE", IDENTIFIERS::makeValidEdgeVariableName),
+            "PROPERTYNAME-EDGE", new NamingRule("PROPERTYNAME-EDGE", IDENTIFIERS::makeValidEdgeVariableName),
+            "PROPERTYNAME", new NamingRule("PROPERTYNAME", IDENTIFIERS::makeValidVariableName),
+            "PARAMETERNAME", new NamingRule("PARAMETERNAME", IDENTIFIERS::makeValidVariableName),
+            "OPERATIONNAME", new NamingRule("OPERATIONNAME", IDENTIFIERS::makeValidVariableName),
+            // Type name operators
+            "TYPENAME-EDGE", new NamingRule("TYPENAME-EDGE", IDENTIFIERS::makeValidEdgeTypeName),
+            "TYPENAME", new NamingRule("TYPENAME", IDENTIFIERS::makeValidTypeName),
+            // Case operators
+            "UPCASE", new NamingRule("UPCASE", String::toUpperCase),
+            "DOWNCASE", new NamingRule("DOWNCASE", String::toLowerCase));
+
+    /**
+     * Operations that operate on the input string and a single
+     * operation argument.
+     */
+    private static final Map<String, Function<String, NamingRule>> OPS_INPUT_ARG = Map.of(
+            // Appends argument to input string
+            "APPEND", arg -> new NamingRule("APPEND:" + arg, s -> s + arg),
+            // Prepends argument to input string
+            "PREPEND", arg -> new NamingRule("PREPEND:" + arg, s -> arg + s),
+            // Replaces input string with argument
+            "LITERAL", arg -> new NamingRule("LITERAL:" + arg, s -> arg));
+
+    /**
+     * Operations that operate on the input string and two operation
+     * arguments.
+     */
+    private static final Map<String, BiFunction<String, String, NamingRule>> OPS_INPUT_BIARG = Map.of(
+            // Applies regular expression replacement to input string
+            "REGEXP", NamingRules::regexpOperation);
+
 
     private NamingRules() {
     }
@@ -43,46 +83,6 @@ public final class NamingRules {
     }
 
     /**
-     * Simple operations that operate on the input string.
-     */
-    private static final Map<String, NamingRule> SIMPLE_OPS = Map.of(
-            // Variable name operators
-            "OPERATIONNAME-EDGE", new NamingRule("OPERATIONNAME-EDGE", IDENTIFIERS::makeValidEdgeVariableName),
-            "PARAMETERNAME-EDGE", new NamingRule("PARAMETERNAME-EDGE", IDENTIFIERS::makeValidEdgeVariableName),
-            "PROPERTYNAME-EDGE", new NamingRule("PROPERTYNAME-EDGE", IDENTIFIERS::makeValidEdgeVariableName),
-            "PROPERTYNAME", new NamingRule("PROPERTYNAME", IDENTIFIERS::makeValidVariableName),
-            "PARAMETERNAME", new NamingRule("PARAMETERNAME", IDENTIFIERS::makeValidVariableName),
-            "OPERATIONNAME", new NamingRule("OPERATIONNAME", IDENTIFIERS::makeValidVariableName),
-            // Type name operators
-            "TYPENAME-EDGE", new NamingRule("TYPENAME-EDGE", IDENTIFIERS::makeValidEdgeTypeName),
-            "TYPENAME", new NamingRule("TYPENAME", IDENTIFIERS::makeValidTypeName),
-            // Case operators
-            "UPCASE", new NamingRule("UPCASE", String::toUpperCase),
-            "DOWNCASE", new NamingRule("DOWNCASE", String::toLowerCase));
-
-    /**
-     * Operations that operate on the input string and a single
-     * operation argument.
-     */
-    private static final Map<String, Function<String, NamingRule>> OPS_ARG = Map.of(
-            // Appends argument to input string
-            "APPEND", arg -> new NamingRule("APPEND:" + arg, s -> s + arg),
-            // Prepends argument to input string
-            "PREPEND", arg -> new NamingRule("PREPEND:" + arg, s -> arg + s),
-            // Replaces input string with argument
-            "LITERAL", arg -> new NamingRule("LITERAL:" + arg, s -> arg)
-            );
-
-    /**
-     * Operations that operate on the input string and two operation
-     * arguments.
-     */
-    private static final Map<String, BiFunction<String, String, NamingRule>> OPS_BIARG = Map.of(
-            // Applies regulare expression replacement to input string
-            "REGEXP", NamingRules::regexpOperation
-            );
-
-    /**
      * Created a single naming rules based on a single rule configuration.
      *
      * @param ruleConfiguration the rule configuration
@@ -93,7 +93,7 @@ public final class NamingRules {
         String opName = opConfig.replaceAll("/.*", "");
 
         // First handle simplest operations
-        NamingRule simpleOpRule = SIMPLE_OPS.get(opName);
+        NamingRule simpleOpRule = OPS_INPUT.get(opName);
         if (simpleOpRule != null) {
             return simpleOpRule;
         }
@@ -104,17 +104,17 @@ public final class NamingRules {
         }
 
         String value = opConfig.substring(opName.length() + 1, opConfig.length() - 1);
-        Function<String, NamingRule> oneArgOperation = OPS_ARG.get(opName);
+        Function<String, NamingRule> oneArgOperation = OPS_INPUT_ARG.get(opName);
         if (oneArgOperation != null) {
             return oneArgOperation.apply(value);
         }
 
         // If no single-value operation, look for two-value operations
-        BiFunction<String, String, NamingRule> twoArgOperation = OPS_BIARG.get(opName);
+        BiFunction<String, String, NamingRule> twoArgOperation = OPS_INPUT_BIARG.get(opName);
         if (twoArgOperation == null) {
             throw new IllegalArgumentException("Unknown naming rule: '" + opConfig + "'");
         }
-
+        
         // Split value argument into two
         Matcher m = PATTERN_TWO_ARGS.matcher(value);
         if (!m.matches()) {
@@ -128,8 +128,8 @@ public final class NamingRules {
         return twoArgOperation.apply(value, value2);
     }
 
-    private static NamingRule regexpOperation(String twoArgValue1, String twoArgValue2) {
-        Pattern p = Pattern.compile(twoArgValue1);
-        return new NamingRule("REGEXP", s -> p.matcher(s).replaceAll(twoArgValue2));
+    private static NamingRule regexpOperation(String pattern, String replacement) {
+        Pattern p = Pattern.compile(pattern);
+        return new NamingRule("REGEXP:"+pattern, s -> p.matcher(s).replaceAll(replacement));
     }
 }
