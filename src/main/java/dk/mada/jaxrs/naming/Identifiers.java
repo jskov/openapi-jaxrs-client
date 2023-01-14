@@ -82,49 +82,22 @@ public final class Identifiers {
         StringBuilder sb = new StringBuilder();
 
         // Fix case of first letter
-        char start = input.charAt(0);
-        if (Character.isJavaIdentifierStart(start)) {
-            if (initialLowerCase && Character.isUpperCase(start)) {
-                sb.append(Character.toLowerCase(start));
-            } else if (!initialLowerCase && Character.isLowerCase(start)) {
-                sb.append(Character.toUpperCase(start));
-            } else {
-                sb.append(start);
-            }
-        } else {
-            sb.append('_');
-        }
+        sb.append(firstLetterCase(input, initialLowerCase));
 
-        // Use upper-case state of previous, this, and next to determine
-        // edges (switching from upper- to lower-case or the reverse).
-        // Keep the upper-case on the edge, but otherwise down-case.
-        boolean prevWasUpperCase = Character.isUpperCase(start);
         boolean upperCaseNext = false;
         for (int i = 1; i < input.length(); i++) {
             char c = input.charAt(i);
-            boolean isUpperCase = Character.isUpperCase(c);
-
-            // Need to look forward to handle FOOBar -> fooBar
-            boolean nextIsUpperCase = isUpperCase;
-            if (i + 1 < input.length()) {
-                nextIsUpperCase = Character.isUpperCase(input.charAt(i + 1));
-            }
-
             if (c == '-') {
                 upperCaseNext = true;
                 continue;
             }
 
-            boolean caseEdge = (prevWasUpperCase && !isUpperCase)
-                    || (!prevWasUpperCase && isUpperCase)
-                    || (isUpperCase && !nextIsUpperCase)
-                    || (!isUpperCase && nextIsUpperCase);
-
-            boolean lowerCaseThis = downcaseOnEdge && !caseEdge;
-            logger.trace(" {} - prev:{} this:{} next:{} | edge:{} > up:{} down:{}",
-                    c, prevWasUpperCase, isUpperCase, nextIsUpperCase, caseEdge, upperCaseNext, lowerCaseThis);
-
-            prevWasUpperCase = isUpperCase;
+            // Use upper-case state of previous, this, and next to determine
+            // edges (switching from upper- to lower-case or the reverse).
+            // Keep the upper-case on the edge, but otherwise down-case.
+            boolean isCaseEdge = isAtCaseEdge(input, i);
+            boolean lowerCaseThis = downcaseOnEdge && !isCaseEdge;
+            logger.trace(" {} - edge:{} > up:{} down:{}", c, isCaseEdge, upperCaseNext, lowerCaseThis);
 
             if (lowerCaseThis) {
                 c = Character.toLowerCase(c);
@@ -149,5 +122,55 @@ public final class Identifiers {
         logger.trace(" >>>> {}", identifier);
 
         return identifier;
+    }
+
+    /**
+     * Determines first character which is controlled primarily by the property/type flag.
+     *
+     * @param input            the input identifier
+     * @param initialLowerCase true for properties, false for types
+     * @return correctly cased first character, or _ if invalid
+     */
+    private char firstLetterCase(String input, boolean initialLowerCase) {
+        char start = input.charAt(0);
+        if (Character.isJavaIdentifierStart(start)) {
+            if (initialLowerCase && Character.isUpperCase(start)) {
+                return Character.toLowerCase(start);
+            } else if (!initialLowerCase && Character.isLowerCase(start)) {
+                return Character.toUpperCase(start);
+            } else {
+                return start;
+            }
+        }
+        return '_';
+    }
+
+    /**
+     * Determines if the index is at a case edge in the input string.
+     *
+     * Note that this function is only called at index > 1.
+     *
+     * @param input the input string
+     * @param index the index into the input
+     * @return true if case switches at the index location
+     */
+    private boolean isAtCaseEdge(String input, int index) {
+        boolean prevWasUpperCase = Character.isUpperCase(input.charAt(index - 1));
+        boolean isUpperCase = Character.isUpperCase(input.charAt(index));
+
+        // Need to look forward to handle FOOBar -> fooBar
+        boolean nextIsUpperCase = nextIsUpperCase(input, index);
+
+        return (prevWasUpperCase && !isUpperCase)
+                || (!prevWasUpperCase && isUpperCase)
+                || (isUpperCase && !nextIsUpperCase)
+                || (!isUpperCase && nextIsUpperCase);
+    }
+
+    private boolean nextIsUpperCase(String input, int index) {
+        if (index + 1 >= input.length()) {
+            return true;
+        }
+        return Character.isUpperCase(input.charAt(index + 1));
     }
 }
