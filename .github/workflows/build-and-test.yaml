@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - gradle-test
   pull_request:
     types: [opened, synchronize, reopened]
     
