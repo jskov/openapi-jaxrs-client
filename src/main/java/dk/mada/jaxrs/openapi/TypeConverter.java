@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -136,46 +137,20 @@ public final class TypeConverter {
         logger.debug("validation {}", validation);
 
         RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, validation);
-        
-        ParserTypeRef ref = List.<TypeMapper>of(this::createPrimitiveTypeRef, this::createDtoRef)
-            .stream()
+
+        ParserTypeRef ref = Stream.<TypeMapper>of(
+                this::createPrimitiveTypeRef,
+                this::createDtoRef,
+                this::createArrayRef,
+                this::createByteArrayRef
+                )
             .map(tm -> tm.apply(ri))
             .filter(Objects::nonNull)
             .findFirst()
             .orElse(null);
-//        List<Function<RefInfo, ParserTypeRef>>.of(this::createPrimitiveTypeRef, this::createDtoRef)
-            
-//            .stream()
-//            .map
-        
-//                Optional.ofNullable(createPrimitiveTypeRef(ri))
-//                    .or(() -> createDtoRef(ri))
-//                    .orElse(null);
+
         if (ref != null) {
             return ref;
-        }
-
-        if (schema instanceof ArraySchema a) {
-            ParserTypeRef innerType = reference(a.getItems(), propertyName, parentDtoName);
-            logger.debug(" array of {}", innerType);
-
-            Boolean isUnique = a.getUniqueItems();
-            if (isUnique != null && isUnique.booleanValue()) {
-                return parserRefs.of(TypeSet.of(typeNames, innerType), validation);
-            }
-
-            if (innerType.refType() instanceof TypeByteArray && parserOpts.isUnwrapByteArrayList()) {
-                return parserRefs.of(TypeByteArray.getArray(), validation);
-            }
-
-            return parserRefs.of(TypeArray.of(typeNames, innerType), validation);
-        }
-
-        if (schema instanceof BinarySchema || schema instanceof FileSchema) {
-            logger.debug(" binary/file schema");
-            boolean isBodyArgument = propertyName == null;
-            TypeByteArray impl = isBodyArgument ? TypeByteArray.getStream() : TypeByteArray.getArray();
-            return parserRefs.of(impl, validation);
         }
 
         if (schema instanceof MapSchema m) {
@@ -366,7 +341,18 @@ public final class TypeConverter {
         }
         return null;
     }
-    
+
+    @Nullable
+    private ParserTypeRef createByteArrayRef(RefInfo ri) {
+        if (!(ri.schema instanceof BinarySchema || ri.schema instanceof FileSchema)) {
+            return null;
+        }
+        logger.debug(" binary/file schema");
+        boolean isBodyArgument = ri.propertyName == null;
+        TypeByteArray impl = isBodyArgument ? TypeByteArray.getStream() : TypeByteArray.getArray();
+        return parserRefs.of(impl, ri.validation);
+    }
+
     private boolean isDateType(Schema<?> schema) {
         return schema instanceof DateSchema
                 || isBrokenDateTimeType(schema, "date");
