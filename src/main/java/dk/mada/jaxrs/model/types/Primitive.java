@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import org.jspecify.annotations.Nullable;
 
+import io.swagger.v3.oas.models.media.Schema;
+
 /**
  * Primitive types of the java language (plus String).
  */
@@ -71,14 +73,13 @@ public enum Primitive implements Type {
     }
 
     /**
-     * Finds a primitive type matching the given OpenApi type and format.
+     * Finds a primitive type matching the given OpenApi schema.
      *
-     * @param type   the type to look for
-     * @param format the format to look for
+     * @param schema the schema to look for type/format for
      * @return the matching primitive, or null if no matches found
      */
-    public static @Nullable Primitive find(String type, String format) {
-        String typeFormat = type + ":" + Objects.toString(format, "");
+    public static @Nullable Primitive find(Schema<?> schema) {
+        String typeFormat = schema.getType() + ":" + Objects.toString(schema.getFormat(), "");
         for (var p : Primitive.values()) {
             if (p.typeFormat.equals(typeFormat)) {
                 return p;

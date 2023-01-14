@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -109,6 +111,18 @@ public final class TypeConverter {
     }
 
     /**
+     * Contains reference information when converting a schema to a type reference.
+     */
+    record RefInfo(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, Validation validation) {
+    }
+
+    /**
+     * The type mappers convert a schema configuration to a type refence if possible (or null otherwise).
+     */
+    private interface TypeMapper extends Function<RefInfo, ParserTypeRef> {
+    }
+
+    /**
      * Converts a OpenApi schema to parser type reference.
      *
      * This serves as a lazy reference to something that will eventually be resolved to a type in the model.
@@ -129,71 +143,117 @@ public final class TypeConverter {
         Validation validation = extractValidation(schema);
         logger.debug("validation {}", validation);
 
-        Type type = Primitive.find(schemaType, schemaFormat);
+        RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, validation);
 
-        if (schema.getEnum() != null) {
-            if (propertyName == null || type == null) {
-                logger.warn("Found enumeration type but no property name provided");
-            } else {
-                String enumTypeName = naming.convertPropertyEnumTypeName(propertyName);
-                TypeName typeName = typeNames.of(enumTypeName);
+        return Stream.<TypeMapper>of(
+                this::createPrimitiveTypeRef,
+                this::createDtoRef,
+                this::createArrayRef,
+                this::createByteArrayRef,
+                this::createMapRef,
+                this::createAnyofRef,
+                this::createAllofRef,
+                this::createOneofRef,
+                this::createComposedValidation,
+                this::createNumberRef,
+                this::createDateTimeRef,
+                this::createDateRef,
+                this::createUUIDRef,
+                this::createStringRef,
+                this::createSupplementalValidation,
+                this::createObjectRef)
+                .map(tm -> tm.apply(ri))
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("No type found for " + schema));
+    }
 
-                List<String> enumValues = schema.getEnum().stream()
-                        .map(Objects::toString)
-                        .toList();
-                logger.debug(" ENUM: {} {} {}", typeName, type, enumValues);
-                return parserRefs.of(TypeEnum.of(typeName, type, enumValues), validation);
-            }
+    /**
+     * Creates reference to a primitive or a property enumeration (of a primitive).
+     *
+     * @param schema       the schema to look for
+     * @param propertyName the property for which to look for
+     * @param validation   the reference validation
+     * @return the found reference or null
+     */
+    @Nullable private ParserTypeRef createPrimitiveTypeRef(RefInfo ri) {
+        Type type = Primitive.find(ri.schema);
+        if (type == null) {
+            return null;
+        }
+        List<?> enumeration = ri.schema.getEnum();
+        if (enumeration == null || ri.propertyName == null) {
+            return parserRefs.of(type, ri.validation);
         }
 
-        if (type != null) {
-            return parserRefs.of(type, validation);
-        }
+        String enumTypeName = naming.convertPropertyEnumTypeName(ri.propertyName);
+        TypeName typeName = typeNames.of(enumTypeName);
 
-        ParserTypeRef ref = findDto(schema.get$ref(), validation);
-        if (ref != null) {
-            return ref;
-        }
+        List<String> enumValues = enumeration.stream()
+                .map(Objects::toString)
+                .toList();
+        logger.debug(" ENUM: {} {} {}", typeName, type, enumValues);
+        return parserRefs.of(TypeEnum.of(typeName, type, enumValues), ri.validation);
+    }
 
-        if (schema instanceof ArraySchema a) {
-            ParserTypeRef innerType = reference(a.getItems(), propertyName, parentDtoName);
+    @Nullable private ParserTypeRef createArrayRef(RefInfo ri) {
+        if (ri.schema instanceof ArraySchema a) {
+            ParserTypeRef innerType = reference(a.getItems(), ri.propertyName, ri.parentDtoName);
             logger.debug(" array of {}", innerType);
 
             Boolean isUnique = a.getUniqueItems();
             if (isUnique != null && isUnique.booleanValue()) {
-                return parserRefs.of(TypeSet.of(typeNames, innerType), validation);
+                return parserRefs.of(TypeSet.of(typeNames, innerType), ri.validation);
             }
 
             if (innerType.refType() instanceof TypeByteArray && parserOpts.isUnwrapByteArrayList()) {
-                return parserRefs.of(TypeByteArray.getArray(), validation);
+                return parserRefs.of(TypeByteArray.getArray(), ri.validation);
             }
 
-            return parserRefs.of(TypeArray.of(typeNames, innerType), validation);
+            return parserRefs.of(TypeArray.of(typeNames, innerType), ri.validation);
         }
+        return null;
+    }
 
-        if (schema instanceof BinarySchema || schema instanceof FileSchema) {
+    @Nullable private ParserTypeRef createByteArrayRef(RefInfo ri) {
+        if (ri.schema instanceof BinarySchema || ri.schema instanceof FileSchema) {
             logger.debug(" binary/file schema");
-            boolean isBodyArgument = propertyName == null;
+            boolean isBodyArgument = ri.propertyName == null;
             TypeByteArray impl = isBodyArgument ? TypeByteArray.getStream() : TypeByteArray.getArray();
-            return parserRefs.of(impl, validation);
+            return parserRefs.of(impl, ri.validation);
         }
+        return null;
+    }
 
-        if (schema instanceof MapSchema m) {
+    @Nullable private ParserTypeRef createMapRef(RefInfo ri) {
+        if (ri.schema instanceof MapSchema m) {
             logger.debug(" map schema");
             Object additionalProperties = m.getAdditionalProperties();
             if (additionalProperties instanceof Schema<?> innerSchema) {
                 Type innerType = toReference(innerSchema);
-                return parserRefs.of(TypeMap.of(typeNames, innerType), validation);
+                return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
             }
         }
+        return null;
+    }
 
-        if (schema instanceof ComposedSchema cs) {
-            logger.debug(" composed schema");
+    @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
+        if (ri.schema instanceof ComposedSchema cs) {
+            logger.debug(" composed validation");
+            if (findTypeValidation(cs)instanceof ParserTypeRef ptr) {
+                return ptr;
+            }
+        }
+        return null;
+    }
+
+    @Nullable private ParserTypeRef createAnyofRef(RefInfo ri) {
+        if (ri.schema instanceof ComposedSchema cs) {
             // anyOf is classes implementing an interface
             @SuppressWarnings("rawtypes")
             List<Schema> anyOf = cs.getAnyOf();
             if (anyOf != null && !anyOf.isEmpty()) {
-                logger.debug("  anyof");
+                logger.debug(" composed anyof");
                 List<ParserTypeRef> anyOfRefs = anyOf.stream()
                         .map(this::toReference)
                         .toList();
@@ -203,7 +263,7 @@ public final class TypeConverter {
                         .sorted()
                         .toList();
 
-                String interfaceName = schema.getName();
+                String interfaceName = cs.getName();
                 if (interfaceName == null) {
                     interfaceName = String.join("", anyOfNames);
                 }
@@ -213,13 +273,18 @@ public final class TypeConverter {
                 logger.debug(" interface {} : {}", tn, anyOfRefs);
 
                 TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
-                return parserRefs.of(ti, validation);
+                return parserRefs.of(ti, ri.validation);
             }
+        }
+        return null;
+    }
 
+    @Nullable private ParserTypeRef createAllofRef(RefInfo ri) {
+        if (ri.schema instanceof ComposedSchema cs) {
             @SuppressWarnings("rawtypes")
             List<Schema> allOf = cs.getAllOf();
             if (allOf != null && !allOf.isEmpty()) {
-                logger.debug("  allof");
+                logger.debug(" composed allof");
 
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
@@ -229,13 +294,19 @@ public final class TypeConverter {
 
                 if (allOfRefs.size() == 1) {
                     logger.debug("   shortcut for duplicate");
-                    return parserRefs.of(allOfRefs.get(0), validation);
+                    return parserRefs.of(allOfRefs.get(0), ri.validation);
                 }
             }
+        }
+        return null;
+    }
 
+    @Nullable private ParserTypeRef createOneofRef(RefInfo ri) {
+        if (ri.schema instanceof ComposedSchema cs) {
             @SuppressWarnings("rawtypes")
             List<Schema> oneOf = cs.getOneOf();
             if (oneOf != null && !oneOf.isEmpty()) {
+                logger.debug(" composed oneoff");
                 List<String> oneOfNames = oneOf.stream()
                         .map(Schema::getName)
                         .toList();
@@ -243,78 +314,83 @@ public final class TypeConverter {
 
                 // regular object, but for now assumes there will
                 // be supplementary discriminator information
-                return parserRefs.of(TypeObject.get(), validation);
-            }
-
-            // allOf is the combination of schemas (subclassing and/or validation)
-            Type typeWithValidation = findTypeValidation(cs);
-            if (typeWithValidation != null) {
-                if (typeWithValidation instanceof ParserTypeRef ptr) {
-                    return ptr;
-                } else {
-                    return parserRefs.of(typeWithValidation, validation);
-                }
+                return parserRefs.of(TypeObject.get(), ri.validation);
             }
         }
+        return null;
+    }
 
-        if (schema instanceof NumberSchema) {
-            return parserRefs.of(TypeBigDecimal.get(), validation);
+    @Nullable private ParserTypeRef createNumberRef(RefInfo ri) {
+        if (ri.schema instanceof NumberSchema) {
+            return parserRefs.of(TypeBigDecimal.get(), ri.validation);
         }
+        return null;
+    }
 
-        if (isDateTimeType(schema)) {
-            return parserRefs.of(TypeDateTime.get(generatorOpts), validation);
+    @Nullable private ParserTypeRef createDateTimeRef(RefInfo ri) {
+        if (isDateTimeType(ri.schema)) {
+            return parserRefs.of(TypeDateTime.get(generatorOpts), ri.validation);
         }
+        return null;
+    }
 
-        if (isDateType(schema)) {
-            return parserRefs.of(TypeDate.get(), validation);
+    @Nullable private ParserTypeRef createDateRef(RefInfo ri) {
+        if (isDateType(ri.schema)) {
+            return parserRefs.of(TypeDate.get(), ri.validation);
         }
+        return null;
+    }
 
-        if (schema instanceof UUIDSchema) {
-            return parserRefs.of(TypeUUID.get(), validation);
+    @Nullable private ParserTypeRef createUUIDRef(RefInfo ri) {
+        if (ri.schema instanceof UUIDSchema) {
+            return parserRefs.of(TypeUUID.get(), ri.validation);
         }
+        return null;
+    }
 
-        if (schema instanceof StringSchema) {
-            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(schemaFormat)) {
-                return parserRefs.of(TypeLocalTime.get(), validation);
+    @Nullable private ParserTypeRef createStringRef(RefInfo ri) {
+        if (ri.schema instanceof StringSchema) {
+            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(ri.schema.getFormat())) {
+                return parserRefs.of(TypeLocalTime.get(), ri.validation);
             }
 
-            return parserRefs.of(Primitive.STRING, validation);
+            return parserRefs.of(Primitive.STRING, ri.validation);
         }
+        return null;
+    }
 
-        boolean noSchemaType = schemaType == null; // seen in manually created files
-
-        // In no type and reference, assume it is supplemental validation
+    @Nullable private ParserTypeRef createSupplementalValidation(RefInfo ri) {
+        Schema<?> schema = ri.schema;
+        // If no type and reference, assume it is supplemental validation
         // information for the other type in a ComposedSchema.
-        if (noSchemaType && schemaRef == null
+        if (schema.getType() == null && schema.get$ref() == null
                 && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
             // FIXME: Gets double wrapped
-            return parserRefs.of(TypeValidation.of(validation), validation);
+            return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
         }
+        return null;
+    }
 
-        if (schema instanceof ObjectSchema || noSchemaType) {
+    @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
+        Schema<?> schema = ri.schema;
+        if (schema instanceof ObjectSchema || schema.getType() == null) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
-            if (propertyName == null) {
+            if (ri.propertyName == null) {
                 if (isPlainObject) {
                     logger.debug(" plain Object, no properties");
-                    return parserRefs.of(TypePlainObject.get(), validation);
+                    return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
                     logger.debug(" plain Object?");
-                    return parserRefs.of(TypeObject.get(), validation);
+                    return parserRefs.of(TypeObject.get(), ri.validation);
                 }
             }
-            logger.debug(" inner-object for property {}", propertyName);
-            String dtoNamePrefix = isPlainObject ? "" : parentDtoName;
-            String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(propertyName);
+            logger.debug(" inner-object for property {}", ri.propertyName);
+            String dtoNamePrefix = isPlainObject ? "" : ri.parentDtoName;
+            String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(ri.propertyName);
             Dto dto = createDto(syntheticDtoName, schema);
-            return parserRefs.of(dto, validation);
+            return parserRefs.of(dto, ri.validation);
         }
-
-        // TODO: the schema for a form has properties, but is otherwise void
-        // not sure if this is a good general handling of the case - in particular
-        // because those properties are ignored by this.
-        // return parserRefs.of(TypeVoid.getRef(), validation);
-
-        throw new IllegalStateException("No type found for " + schema);
+        return null;
     }
 
     private boolean isDateType(Schema<?> schema) {
@@ -375,12 +451,16 @@ public final class TypeConverter {
         return ParserTypeRef.of(ref.refTypeName(), validation);
     }
 
-    private @Nullable ParserTypeRef findDto(String ref, Validation validation) {
-        if (ref != null && ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
-            String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
-            return parserRefs.makeDtoRef(openapiId, validation);
+    @Nullable private ParserTypeRef createDtoRef(RefInfo ri) {
+        return createDtoRef(ri.schema.get$ref(), ri.validation);
+    }
+
+    @Nullable private ParserTypeRef createDtoRef(String ref, Validation validation) {
+        if (ref == null || !ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
+            return null;
         }
-        return null;
+        String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
+        return parserRefs.makeDtoRef(openapiId, validation);
     }
 
     private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s) {
@@ -434,8 +514,7 @@ public final class TypeConverter {
             Map<String, Reference> mapping = new HashMap<>();
             for (var e : disc.getMapping().entrySet()) {
                 String discName = e.getKey();
-                Reference ref = findDto(e.getValue(), Validation.NO_VALIDATION);
-                mapping.put(discName, ref);
+                mapping.put(discName, createDtoRef(e.getValue(), Validation.NO_VALIDATION));
             }
             selector = SubtypeSelector.of(disc.getPropertyName(), mapping);
         }
