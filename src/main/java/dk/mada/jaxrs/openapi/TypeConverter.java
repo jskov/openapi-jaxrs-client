@@ -142,7 +142,9 @@ public final class TypeConverter {
                 this::createPrimitiveTypeRef,
                 this::createDtoRef,
                 this::createArrayRef,
-                this::createByteArrayRef
+                this::createByteArrayRef,
+                this::createMapRef,
+                this::createComposedRef
                 )
             .map(tm -> tm.apply(ri))
             .filter(Objects::nonNull)
@@ -151,85 +153,6 @@ public final class TypeConverter {
 
         if (ref != null) {
             return ref;
-        }
-
-        if (schema instanceof MapSchema m) {
-            logger.debug(" map schema");
-            Object additionalProperties = m.getAdditionalProperties();
-            if (additionalProperties instanceof Schema<?> innerSchema) {
-                Type innerType = toReference(innerSchema);
-                return parserRefs.of(TypeMap.of(typeNames, innerType), validation);
-            }
-        }
-
-        if (schema instanceof ComposedSchema cs) {
-            logger.debug(" composed schema");
-            // anyOf is classes implementing an interface
-            @SuppressWarnings("rawtypes")
-            List<Schema> anyOf = cs.getAnyOf();
-            if (anyOf != null && !anyOf.isEmpty()) {
-                logger.debug("  anyof");
-                List<ParserTypeRef> anyOfRefs = anyOf.stream()
-                        .map(this::toReference)
-                        .toList();
-                List<String> anyOfNames = anyOfRefs.stream()
-                        .map(ParserTypeRef::typeName)
-                        .map(TypeName::name)
-                        .sorted()
-                        .toList();
-
-                String interfaceName = schema.getName();
-                if (interfaceName == null) {
-                    interfaceName = String.join("", anyOfNames);
-                }
-
-                TypeName tn = typeNames.of(interfaceName);
-
-                logger.debug(" interface {} : {}", tn, anyOfRefs);
-
-                TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
-                return parserRefs.of(ti, validation);
-            }
-
-            @SuppressWarnings("rawtypes")
-            List<Schema> allOf = cs.getAllOf();
-            if (allOf != null && !allOf.isEmpty()) {
-                logger.debug("  allof");
-
-                // Note the removal of duplicates, necessary for the allof_dups test
-                List<ParserTypeRef> allOfRefs = allOf.stream()
-                        .map(this::toReference)
-                        .distinct() // remove duplicates
-                        .toList();
-
-                if (allOfRefs.size() == 1) {
-                    logger.debug("   shortcut for duplicate");
-                    return parserRefs.of(allOfRefs.get(0), validation);
-                }
-            }
-
-            @SuppressWarnings("rawtypes")
-            List<Schema> oneOf = cs.getOneOf();
-            if (oneOf != null && !oneOf.isEmpty()) {
-                List<String> oneOfNames = oneOf.stream()
-                        .map(Schema::getName)
-                        .toList();
-                logger.info("  oneof {}", oneOfNames);
-
-                // regular object, but for now assumes there will
-                // be supplementary discriminator information
-                return parserRefs.of(TypeObject.get(), validation);
-            }
-
-            // allOf is the combination of schemas (subclassing and/or validation)
-            Type typeWithValidation = findTypeValidation(cs);
-            if (typeWithValidation != null) {
-                if (typeWithValidation instanceof ParserTypeRef ptr) {
-                    return ptr;
-                } else {
-                    return parserRefs.of(typeWithValidation, validation);
-                }
-            }
         }
 
         if (schema instanceof NumberSchema) {
@@ -353,6 +276,95 @@ public final class TypeConverter {
         return parserRefs.of(impl, ri.validation);
     }
 
+    @Nullable
+    private ParserTypeRef createMapRef(RefInfo ri) {
+        if (ri.schema instanceof MapSchema m) {
+            logger.debug(" map schema");
+            Object additionalProperties = m.getAdditionalProperties();
+            if (additionalProperties instanceof Schema<?> innerSchema) {
+                Type innerType = toReference(innerSchema);
+                return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    private ParserTypeRef createComposedRef(RefInfo ri) {
+        if (ri.schema instanceof ComposedSchema cs) {
+            logger.debug(" composed schema");
+            // anyOf is classes implementing an interface
+            @SuppressWarnings("rawtypes")
+            List<Schema> anyOf = cs.getAnyOf();
+            if (anyOf != null && !anyOf.isEmpty()) {
+                logger.debug("  anyof");
+                List<ParserTypeRef> anyOfRefs = anyOf.stream()
+                        .map(this::toReference)
+                        .toList();
+                List<String> anyOfNames = anyOfRefs.stream()
+                        .map(ParserTypeRef::typeName)
+                        .map(TypeName::name)
+                        .sorted()
+                        .toList();
+    
+                String interfaceName = cs.getName();
+                if (interfaceName == null) {
+                    interfaceName = String.join("", anyOfNames);
+                }
+    
+                TypeName tn = typeNames.of(interfaceName);
+    
+                logger.debug(" interface {} : {}", tn, anyOfRefs);
+    
+                TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
+                return parserRefs.of(ti, ri.validation);
+            }
+    
+            @SuppressWarnings("rawtypes")
+            List<Schema> allOf = cs.getAllOf();
+            if (allOf != null && !allOf.isEmpty()) {
+                logger.debug("  allof");
+    
+                // Note the removal of duplicates, necessary for the allof_dups test
+                List<ParserTypeRef> allOfRefs = allOf.stream()
+                        .map(this::toReference)
+                        .distinct() // remove duplicates
+                        .toList();
+    
+                if (allOfRefs.size() == 1) {
+                    logger.debug("   shortcut for duplicate");
+                    return parserRefs.of(allOfRefs.get(0), ri.validation);
+                }
+            }
+    
+            @SuppressWarnings("rawtypes")
+            List<Schema> oneOf = cs.getOneOf();
+            if (oneOf != null && !oneOf.isEmpty()) {
+                List<String> oneOfNames = oneOf.stream()
+                        .map(Schema::getName)
+                        .toList();
+                logger.info("  oneof {}", oneOfNames);
+    
+                // regular object, but for now assumes there will
+                // be supplementary discriminator information
+                return parserRefs.of(TypeObject.get(), ri.validation);
+            }
+    
+            // allOf is the combination of schemas (subclassing and/or validation)
+            Type typeWithValidation = findTypeValidation(cs);
+            if (typeWithValidation != null) {
+                if (typeWithValidation instanceof ParserTypeRef ptr) {
+                    return ptr;
+                } else {
+                    return parserRefs.of(typeWithValidation, ri.validation);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    
     private boolean isDateType(Schema<?> schema) {
         return schema instanceof DateSchema
                 || isBrokenDateTimeType(schema, "date");
