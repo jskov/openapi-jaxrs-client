@@ -53,7 +53,7 @@ public abstract class GenerateClient extends DefaultTask {
                 .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
         Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
         FileCollection combined = generatorClasspath.plus(pluginClasspath);
-        
+
         WorkQueue workQueue = getWorkerExecutor().classLoaderIsolation(workerSpec ->
             workerSpec.getClasspath().from(combined) 
         );
