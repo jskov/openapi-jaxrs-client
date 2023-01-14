@@ -6,8 +6,7 @@ import java.util.Properties;
 /**
  * Generator service.
  *
- * Allows decoupling the service from the two invocation
- * methods CLI and Gradle.
+ * Allows decoupling the service from the two invocation methods CLI and Gradle.
  */
 public interface GeneratorService {
     /** Log level to use when generating code. */
@@ -24,9 +23,9 @@ public interface GeneratorService {
      * Context for client generator.
      *
      * @param overwrite a flag to allow overwriting existing data in destination dir
-     * @param logLevel the log level to use
-     * @param skipApi a flag to allow disabling generation of API classes
-     * @param skipDto a flag to allow disabling generation of DTO classes
+     * @param logLevel  the log level to use
+     * @param skipApi   a flag to allow disabling generation of API classes
+     * @param skipDto   a flag to allow disabling generation of DTO classes
      */
     public record ClientContext(
             boolean overwrite,
@@ -38,10 +37,10 @@ public interface GeneratorService {
     /**
      * Generate client code.
      *
-     * @param context the context for the generator
+     * @param context         the context for the generator
      * @param openapiDocument the OpenAPI document
-     * @param options the generator options
-     * @param destinationDir the destination directory
+     * @param options         the generator options
+     * @param destinationDir  the destination directory
      */
     void generateClient(ClientContext context, Path openapiDocument, Properties options, Path destinationDir);
 }

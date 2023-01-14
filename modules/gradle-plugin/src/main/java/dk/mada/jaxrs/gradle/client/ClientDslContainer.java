@@ -14,10 +14,10 @@ public abstract class ClientDslContainer {
     /** {@return the OpenApi document file extension. Defaults to .yaml} */
     public abstract Property<String> getDocumentExtension();
 
-    /** {@return the flag to controls if code is generated to the source folder} */ 
+    /** {@return the flag to controls if code is generated to the source folder} */
     public abstract Property<Boolean> getPersistentSource();
 
-    /** {@return the origin URL of the OpenApi document} */ 
+    /** {@return the origin URL of the OpenApi document} */
     public abstract Property<String> getDocumentDownloadUrl();
 
     /**
@@ -26,12 +26,12 @@ public abstract class ClientDslContainer {
      * @param name the client name captured by this container instance
      */
     @Inject
-    public ClientDslContainer(String name) { // NOSONAR - must be public to be found by Gradle 
+    public ClientDslContainer(String name) { // NOSONAR - must be public to be found by Gradle
         this.name = name;
         getDocumentExtension().convention(".yaml");
         getPersistentSource().convention(true);
     }
-    
+
     /** {@return the name of the client} */
     public String getName() {
         return name;

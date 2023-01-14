@@ -5,6 +5,9 @@ plugins {
     id 'com.gradle.plugin-publish' version '1.1.0'
     id 'eclipse'
 }
+
+apply plugin: "com.diffplug.spotless"
+
 group "${groupId}"
 
 repositories {
@@ -50,4 +53,12 @@ jacocoTestReport {
         xml.required.set(true)
     }
     dependsOn test // tests are required to run before generating the report
+}
+
+spotless {
+    java {
+        target 'src/main/java/**/*.java'
+        eclipse().configFile(rootProject.file("src/config/spotless/eclipse-formatter-mada.xml"))
+        formatAnnotations()
+    }
 }

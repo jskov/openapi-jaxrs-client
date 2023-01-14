@@ -17,16 +17,14 @@ import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
 import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
 
 /**
- * Worker which runs with a custom classpath where the
- * generator service can be looked up.
+ * Worker which runs with a custom classpath where the generator service can be looked up.
  *
- * The Gradle worker arguments are rearranged to be suitable
- * for the service, which is then invoked.
+ * The Gradle worker arguments are rearranged to be suitable for the service, which is then invoked.
  */
 public abstract class GenerateClientWorker implements WorkAction<GenerateClientWorkerArgs> {
     /** Flag controlling crude log output for worker. */
     private boolean echoWorkerInfo;
-    
+
     @Override
     public void execute() {
         GenerateClientWorkerArgs params = getParameters();
@@ -34,13 +32,13 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         echoWorkerInfo = Boolean.TRUE.equals(params.getEchoFlag().get());
 
         log("Worker generator");
-        
+
         Path openapiDoc = params.getOpenapiDocument().getAsFile().get().toPath();
         Path config = params.getGeneratorConfig().getAsFile().get().toPath();
         Path destDir = params.getOutputDirectory().getAsFile().get().toPath();
 
         Properties options = loadConfig(config);
-        
+
         log(" OpenApi doc: " + openapiDoc);
         log(" Dest dir: " + destDir);
         log(" Config file: " + config);
@@ -60,9 +58,9 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         if (services.size() > 1) {
             throw new IllegalStateException("Cannot handle multiple GeneratorService implementations: " + services);
         }
-        
+
         GeneratorService activeService = services.get(0);
-        
+
         boolean overwrite = true;
         GeneratorLogLevel logLevel = GeneratorLogLevel.DEFAULT;
         boolean skipApi = false;
