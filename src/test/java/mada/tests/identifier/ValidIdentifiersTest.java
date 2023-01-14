@@ -22,6 +22,9 @@ class ValidIdentifiersTest {
         "true,       true_",
         "FooBAR,     fooBAR",
         "ID,         iD",
+        "iD,         iD",
+        "id,         id",
+        "Id,         id",
         "FOOBar,     fOOBar",
         "delisH,     delisH",
         "fooBar,     fooBar",
@@ -42,12 +45,13 @@ class ValidIdentifiersTest {
         "ID,         id",
         "iD,         iD",
         "id,         id",
+        "Id,         id",
         "FOOBar,     fooBar",
         "delisH,     delisH",
         "fooBar,     fooBar",
         "foo-bar,    fooBar"
     })
-    void edgeVvariableNamesValid(String input, String expected) {
+    void edgeVariableNamesValid(String input, String expected) {
         assertThat(sut.makeValidEdgeVariableName(input))
             .isEqualTo(expected);
     }
@@ -57,7 +61,11 @@ class ValidIdentifiersTest {
         "Foo,        Foo",
         "foo,        Foo",
         "3bad,       _bad",
-        "foo-bar,    FooBar"
+        "foo-bar,    FooBar",
+        "ID,         ID",
+        "iD,         ID",
+        "id,         Id",
+        "Id,         Id",
     })
     void typeNamesValid(String input, String expected) {
         assertThat(sut.makeValidTypeName(input))
