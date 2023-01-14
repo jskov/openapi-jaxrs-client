@@ -111,15 +111,13 @@ public final class TypeConverter {
     }
 
     /**
-     * Contains reference information when converting a schema
-     * to a type reference.
+     * Contains reference information when converting a schema to a type reference.
      */
     record RefInfo(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, Validation validation) {
     }
 
     /**
-     * The type mappers convert a schema configuration to a type refence
-     * if possible (or null otherwise).
+     * The type mappers convert a schema configuration to a type refence if possible (or null otherwise).
      */
     private interface TypeMapper extends Function<RefInfo, ParserTypeRef> {
     };
