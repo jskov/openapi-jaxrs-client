@@ -138,7 +138,7 @@ public final class TypeConverter {
 
         RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, validation);
 
-        ParserTypeRef ref = Stream.<TypeMapper>of(
+        return Stream.<TypeMapper>of(
                 this::createPrimitiveTypeRef,
                 this::createDtoRef,
                 this::createArrayRef,
@@ -149,51 +149,14 @@ public final class TypeConverter {
                 this::createDateTimeRef,
                 this::createDateRef,
                 this::createUUIDRef,
-                this::createStringRef
+                this::createStringRef,
+                this::createSupplementalValidation,
+                this::createObjectRef
                 )
             .map(tm -> tm.apply(ri))
             .filter(Objects::nonNull)
             .findFirst()
-            .orElse(null);
-
-        if (ref != null) {
-            return ref;
-        }
-
-        boolean noSchemaType = schemaType == null; // seen in manually created files
-
-        // In no type and reference, assume it is supplemental validation
-        // information for the other type in a ComposedSchema.
-        if (noSchemaType && schemaRef == null
-                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
-            // FIXME: Gets double wrapped
-            return parserRefs.of(TypeValidation.of(validation), validation);
-        }
-
-        if (schema instanceof ObjectSchema || noSchemaType) {
-            boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
-            if (propertyName == null) {
-                if (isPlainObject) {
-                    logger.debug(" plain Object, no properties");
-                    return parserRefs.of(TypePlainObject.get(), validation);
-                } else {
-                    logger.debug(" plain Object?");
-                    return parserRefs.of(TypeObject.get(), validation);
-                }
-            }
-            logger.debug(" inner-object for property {}", propertyName);
-            String dtoNamePrefix = isPlainObject ? "" : parentDtoName;
-            String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(propertyName);
-            Dto dto = createDto(syntheticDtoName, schema);
-            return parserRefs.of(dto, validation);
-        }
-
-        // TODO: the schema for a form has properties, but is otherwise void
-        // not sure if this is a good general handling of the case - in particular
-        // because those properties are ignored by this.
-        // return parserRefs.of(TypeVoid.getRef(), validation);
-
-        throw new IllegalStateException("No type found for " + schema);
+            .orElseThrow(() -> new IllegalStateException("No type found for " + schema));
     }
 
     /**
@@ -393,7 +356,43 @@ public final class TypeConverter {
         return null;
     }
 
+    @Nullable
+    private ParserTypeRef createSupplementalValidation(RefInfo ri) {
+        Schema<?> schema = ri.schema;
+        // If no type and reference, assume it is supplemental validation
+        // information for the other type in a ComposedSchema.
+        if (schema.getType() == null && schema.get$ref() == null
+                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
+            // FIXME: Gets double wrapped
+            return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
+        }
 
+        return null;
+    }
+    
+    @Nullable
+    private ParserTypeRef createObjectRef(RefInfo ri) {
+        Schema<?> schema = ri.schema;
+        if (schema instanceof ObjectSchema || schema.getType() == null) {
+            boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
+            if (ri.propertyName == null) {
+                if (isPlainObject) {
+                    logger.debug(" plain Object, no properties");
+                    return parserRefs.of(TypePlainObject.get(), ri.validation);
+                } else {
+                    logger.debug(" plain Object?");
+                    return parserRefs.of(TypeObject.get(), ri.validation);
+                }
+            }
+            logger.debug(" inner-object for property {}", ri.propertyName);
+            String dtoNamePrefix = isPlainObject ? "" : ri.parentDtoName;
+            String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(ri.propertyName);
+            Dto dto = createDto(syntheticDtoName, schema);
+            return parserRefs.of(dto, ri.validation);
+        }
+
+        return null;
+    }
     
     private boolean isDateType(Schema<?> schema) {
         return schema instanceof DateSchema
