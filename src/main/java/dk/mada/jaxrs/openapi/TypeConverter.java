@@ -129,24 +129,12 @@ public final class TypeConverter {
         Validation validation = extractValidation(schema);
         logger.debug("validation {}", validation);
 
-        Type type = Primitive.find(schemaType, schemaFormat);
-
-        if (type != null) {
-            if (schema.getEnum() != null && propertyName != null) {
-                String enumTypeName = naming.convertPropertyEnumTypeName(propertyName);
-                TypeName typeName = typeNames.of(enumTypeName);
-    
-                List<String> enumValues = schema.getEnum().stream()
-                        .map(Objects::toString)
-                        .toList();
-                logger.debug(" ENUM: {} {} {}", typeName, type, enumValues);
-                return parserRefs.of(TypeEnum.of(typeName, type, enumValues), validation);
-            } else {
-                return parserRefs.of(type, validation);
-            }
+        ParserTypeRef ref = createPrimitiveTypeRef(schema, propertyName, validation);
+        if (ref != null) {
+            return ref;
         }
 
-        ParserTypeRef ref = findDto(schema.get$ref(), validation);
+        ref = findDto(schema.get$ref(), validation);
         if (ref != null) {
             return ref;
         }
@@ -311,6 +299,34 @@ public final class TypeConverter {
         // return parserRefs.of(TypeVoid.getRef(), validation);
 
         throw new IllegalStateException("No type found for " + schema);
+    }
+
+    /**
+     * Creates reference to a primitive or a property enumeration (of a primitive).
+     *
+     * @param schema the schema to look for
+     * @param propertyName the property for which to look for
+     * @param validation the reference validation
+     * @return the found reference or null
+     */
+    @Nullable
+    private ParserTypeRef createPrimitiveTypeRef(Schema<?> schema, @Nullable String propertyName, Validation validation) {
+        Type type = Primitive.find(schema);
+        if (type == null) {
+            return null;
+        }
+        if (schema.getEnum() == null || propertyName == null) {
+            return parserRefs.of(type, validation);
+        }
+
+        String enumTypeName = naming.convertPropertyEnumTypeName(propertyName);
+        TypeName typeName = typeNames.of(enumTypeName);
+
+        List<String> enumValues = schema.getEnum().stream()
+                .map(Objects::toString)
+                .toList();
+        logger.debug(" ENUM: {} {} {}", typeName, type, enumValues);
+        return parserRefs.of(TypeEnum.of(typeName, type, enumValues), validation);
     }
 
     private boolean isDateType(Schema<?> schema) {
