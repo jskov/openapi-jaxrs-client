@@ -240,15 +240,14 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
         if (ri.schema instanceof ComposedSchema cs) {
             logger.debug(" composed validation");
-            if (findTypeValidation(cs) instanceof ParserTypeRef ptr) {
+            if (findTypeValidation(cs)instanceof ParserTypeRef ptr) {
                 return ptr;
             }
         }
         return null;
     }
 
-    @Nullable
-    private ParserTypeRef createAnyofRef(RefInfo ri) {
+    @Nullable private ParserTypeRef createAnyofRef(RefInfo ri) {
         if (ri.schema instanceof ComposedSchema cs) {
             // anyOf is classes implementing an interface
             @SuppressWarnings("rawtypes")
