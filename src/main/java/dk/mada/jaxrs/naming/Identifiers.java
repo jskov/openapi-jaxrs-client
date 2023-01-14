@@ -125,10 +125,9 @@ public final class Identifiers {
     }
 
     /**
-     * Determines first character which is controlled
-     * primarily by the property/type flag.
+     * Determines first character which is controlled primarily by the property/type flag.
      *
-     * @param input the input identifier
+     * @param input            the input identifier
      * @param initialLowerCase true for properties, false for types
      * @return correctly cased first character, or _ if invalid
      */
