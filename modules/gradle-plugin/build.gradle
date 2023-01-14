@@ -1,10 +1,10 @@
 plugins {
+    id 'jacoco'
     id 'java-gradle-plugin'
     id 'maven-publish'
     id 'com.gradle.plugin-publish' version '1.1.0'
     id 'eclipse'
 }
-
 group "${groupId}"
 
 repositories {
@@ -16,7 +16,6 @@ dependencies {
     testImplementation  'org.junit.jupiter:junit-jupiter'
     testImplementation  "org.assertj:assertj-core:$assertJVersion"
 }
-
 
 pluginBundle {
     website = 'https://github.com/jskov/openapi-jaxrs-client'
@@ -37,5 +36,18 @@ gradlePlugin {
 
 test {
     useJUnitPlatform()
+    
+    testLogging.showStandardStreams = true
+
+    systemProperty "releaseVersion", project.version
+
+    dependsOn(":publishToMavenLocal")  
+//    forkEvery = 1
 }
 
+jacocoTestReport {
+    reports {
+        xml.required.set(true)
+    }
+    dependsOn test // tests are required to run before generating the report
+}
