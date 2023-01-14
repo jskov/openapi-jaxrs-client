@@ -144,7 +144,12 @@ public final class TypeConverter {
                 this::createArrayRef,
                 this::createByteArrayRef,
                 this::createMapRef,
-                this::createComposedRef
+                this::createComposedRef,
+                this::createNumberRef,
+                this::createDateTimeRef,
+                this::createDateRef,
+                this::createUUIDRef,
+                this::createStringRef
                 )
             .map(tm -> tm.apply(ri))
             .filter(Objects::nonNull)
@@ -153,30 +158,6 @@ public final class TypeConverter {
 
         if (ref != null) {
             return ref;
-        }
-
-        if (schema instanceof NumberSchema) {
-            return parserRefs.of(TypeBigDecimal.get(), validation);
-        }
-
-        if (isDateTimeType(schema)) {
-            return parserRefs.of(TypeDateTime.get(generatorOpts), validation);
-        }
-
-        if (isDateType(schema)) {
-            return parserRefs.of(TypeDate.get(), validation);
-        }
-
-        if (schema instanceof UUIDSchema) {
-            return parserRefs.of(TypeUUID.get(), validation);
-        }
-
-        if (schema instanceof StringSchema) {
-            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(schemaFormat)) {
-                return parserRefs.of(TypeLocalTime.get(), validation);
-            }
-
-            return parserRefs.of(Primitive.STRING, validation);
         }
 
         boolean noSchemaType = schemaType == null; // seen in manually created files
@@ -363,6 +344,55 @@ public final class TypeConverter {
 
         return null;
     }
+
+    @Nullable
+    private ParserTypeRef createNumberRef(RefInfo ri) {
+        if (ri.schema instanceof NumberSchema) {
+            return parserRefs.of(TypeBigDecimal.get(), ri.validation);
+        }
+        
+        return null;
+    }
+
+    @Nullable
+    private ParserTypeRef createDateTimeRef(RefInfo ri) {
+        if (isDateTimeType(ri.schema)) {
+            return parserRefs.of(TypeDateTime.get(generatorOpts), ri.validation);
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private ParserTypeRef createDateRef(RefInfo ri) {
+        if (isDateType(ri.schema)) {
+            return parserRefs.of(TypeDate.get(), ri.validation);
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private ParserTypeRef createUUIDRef(RefInfo ri) {
+        if (ri.schema instanceof UUIDSchema) {
+            return parserRefs.of(TypeUUID.get(), ri.validation);
+        }
+        return null;
+    }
+
+    @Nullable
+    private ParserTypeRef createStringRef(RefInfo ri) {
+        if (ri.schema instanceof StringSchema) {
+            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(ri.schema.getFormat())) {
+                return parserRefs.of(TypeLocalTime.get(), ri.validation);
+            }
+    
+            return parserRefs.of(Primitive.STRING, ri.validation);
+        }
+
+        return null;
+    }
+
 
     
     private boolean isDateType(Schema<?> schema) {
