@@ -44,13 +44,23 @@ jobs:
         # into gradle.properties
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
 
-      - name: Build release
+      - name: Run tests
         uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
         # 2.3.3
         with:
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          arguments: build test sonarqube javadoc publish -s
+          arguments: build sonar javadoc publish -s
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Capture junit reports
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: failure()
+        # 3.1.2
+        with:
+          name: junit-reports
+          path: "**/build/reports/tests/test/"
+          retention-days: 1
+          

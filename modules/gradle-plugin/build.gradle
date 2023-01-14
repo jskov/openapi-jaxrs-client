@@ -1,9 +1,13 @@
 plugins {
+    id 'checkstyle'
+    id 'jacoco'
     id 'java-gradle-plugin'
     id 'maven-publish'
     id 'com.gradle.plugin-publish' version '1.1.0'
     id 'eclipse'
 }
+
+apply plugin: "com.diffplug.spotless"
 
 group "${groupId}"
 
@@ -16,7 +20,6 @@ dependencies {
     testImplementation  'org.junit.jupiter:junit-jupiter'
     testImplementation  "org.assertj:assertj-core:$assertJVersion"
 }
-
 
 pluginBundle {
     website = 'https://github.com/jskov/openapi-jaxrs-client'
@@ -37,5 +40,33 @@ gradlePlugin {
 
 test {
     useJUnitPlatform()
+    
+    testLogging.showStandardStreams = true
+
+    systemProperty "releaseVersion", project.version
+
+    dependsOn(":publishToMavenLocal")  
+//    forkEvery = 1
 }
 
+jacocoTestReport {
+    reports {
+        xml.required.set(true)
+    }
+    dependsOn test // tests are required to run before generating the report
+}
+
+checkstyle {
+    ignoreFailures = true
+    configFile = rootProject.file("src/config/checkstyle/checkstyle.xml")
+}
+
+tasks.checkstyleTest.enabled = false
+
+spotless {
+    java {
+        target 'src/main/java/**/*.java'
+        eclipse().configFile(rootProject.file("src/config/spotless/eclipse-formatter-mada.xml"))
+        formatAnnotations()
+    }
+}
