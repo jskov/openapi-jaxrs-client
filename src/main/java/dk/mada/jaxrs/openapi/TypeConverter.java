@@ -120,7 +120,7 @@ public final class TypeConverter {
      * The type mappers convert a schema configuration to a type refence if possible (or null otherwise).
      */
     private interface TypeMapper extends Function<RefInfo, ParserTypeRef> {
-    };
+    }
 
     /**
      * Converts a OpenApi schema to parser type reference.
@@ -151,7 +151,10 @@ public final class TypeConverter {
                 this::createArrayRef,
                 this::createByteArrayRef,
                 this::createMapRef,
-                this::createComposedRef,
+                this::createAnyofRef,
+                this::createAllofRef,
+                this::createOneofRef,
+                this::createComposedValidation,
                 this::createNumberRef,
                 this::createDateTimeRef,
                 this::createDateRef,
@@ -234,14 +237,24 @@ public final class TypeConverter {
         return null;
     }
 
-    @Nullable private ParserTypeRef createComposedRef(RefInfo ri) {
+    @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
         if (ri.schema instanceof ComposedSchema cs) {
-            logger.debug(" composed schema");
+            logger.debug(" composed validation");
+            if (findTypeValidation(cs) instanceof ParserTypeRef ptr) {
+                return ptr;
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    private ParserTypeRef createAnyofRef(RefInfo ri) {
+        if (ri.schema instanceof ComposedSchema cs) {
             // anyOf is classes implementing an interface
             @SuppressWarnings("rawtypes")
             List<Schema> anyOf = cs.getAnyOf();
             if (anyOf != null && !anyOf.isEmpty()) {
-                logger.debug("  anyof");
+                logger.debug(" composed anyof");
                 List<ParserTypeRef> anyOfRefs = anyOf.stream()
                         .map(this::toReference)
                         .toList();
@@ -263,11 +276,16 @@ public final class TypeConverter {
                 TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
                 return parserRefs.of(ti, ri.validation);
             }
+        }
+        return null;
+    }
 
+    @Nullable private ParserTypeRef createAllofRef(RefInfo ri) {
+        if (ri.schema instanceof ComposedSchema cs) {
             @SuppressWarnings("rawtypes")
             List<Schema> allOf = cs.getAllOf();
             if (allOf != null && !allOf.isEmpty()) {
-                logger.debug("  allof");
+                logger.debug(" composed allof");
 
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
@@ -280,10 +298,16 @@ public final class TypeConverter {
                     return parserRefs.of(allOfRefs.get(0), ri.validation);
                 }
             }
+        }
+        return null;
+    }
 
+    @Nullable private ParserTypeRef createOneofRef(RefInfo ri) {
+        if (ri.schema instanceof ComposedSchema cs) {
             @SuppressWarnings("rawtypes")
             List<Schema> oneOf = cs.getOneOf();
             if (oneOf != null && !oneOf.isEmpty()) {
+                logger.debug(" composed oneoff");
                 List<String> oneOfNames = oneOf.stream()
                         .map(Schema::getName)
                         .toList();
@@ -292,16 +316,6 @@ public final class TypeConverter {
                 // regular object, but for now assumes there will
                 // be supplementary discriminator information
                 return parserRefs.of(TypeObject.get(), ri.validation);
-            }
-
-            // allOf is the combination of schemas (subclassing and/or validation)
-            Type typeWithValidation = findTypeValidation(cs);
-            if (typeWithValidation != null) {
-                if (typeWithValidation instanceof ParserTypeRef ptr) {
-                    return ptr;
-                } else {
-                    return parserRefs.of(typeWithValidation, ri.validation);
-                }
             }
         }
         return null;
