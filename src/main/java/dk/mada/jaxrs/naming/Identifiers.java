@@ -83,17 +83,7 @@ public final class Identifiers {
 
         // Fix case of first letter
         char start = input.charAt(0);
-        if (Character.isJavaIdentifierStart(start)) {
-            if (initialLowerCase && Character.isUpperCase(start)) {
-                sb.append(Character.toLowerCase(start));
-            } else if (!initialLowerCase && Character.isLowerCase(start)) {
-                sb.append(Character.toUpperCase(start));
-            } else {
-                sb.append(start);
-            }
-        } else {
-            sb.append('_');
-        }
+        sb.append(firstLetterCase(start, initialLowerCase));
 
         // Use upper-case state of previous, this, and next to determine
         // edges (switching from upper- to lower-case or the reverse).
@@ -102,19 +92,14 @@ public final class Identifiers {
         boolean upperCaseNext = false;
         for (int i = 1; i < input.length(); i++) {
             char c = input.charAt(i);
-            boolean isUpperCase = Character.isUpperCase(c);
-
-            // Need to look forward to handle FOOBar -> fooBar
-            boolean nextIsUpperCase = isUpperCase;
-            if (i + 1 < input.length()) {
-                nextIsUpperCase = Character.isUpperCase(input.charAt(i + 1));
-            }
-
             if (c == '-') {
                 upperCaseNext = true;
                 continue;
             }
 
+            boolean isUpperCase = Character.isUpperCase(c);
+            // Need to look forward to handle FOOBar -> fooBar
+            boolean nextIsUpperCase = nextIsUpperCase(input, i);
             boolean caseEdge = (prevWasUpperCase && !isUpperCase)
                     || (!prevWasUpperCase && isUpperCase)
                     || (isUpperCase && !nextIsUpperCase)
@@ -149,5 +134,26 @@ public final class Identifiers {
         logger.trace(" >>>> {}", identifier);
 
         return identifier;
+    }
+    
+    private char firstLetterCase(char start, boolean initialLowerCase) {
+        if (Character.isJavaIdentifierStart(start)) {
+            if (initialLowerCase && Character.isUpperCase(start)) {
+                return Character.toLowerCase(start);
+            } else if (!initialLowerCase && Character.isLowerCase(start)) {
+                return Character.toUpperCase(start);
+            } else {
+                return start;
+            }
+        } else {
+            return '_';
+        }
+    }
+    
+    private boolean nextIsUpperCase(String input, int index) {
+        if (index + 1 >= input.length()) {
+            return true;
+        }
+        return Character.isUpperCase(input.charAt(index + 1));
     }
 }

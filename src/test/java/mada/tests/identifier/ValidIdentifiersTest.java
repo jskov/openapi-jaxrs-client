@@ -40,6 +40,8 @@ class ValidIdentifiersTest {
         "true,       true_",
         "FooBAR,     fooBar",
         "ID,         id",
+        "iD,         iD",
+        "id,         id",
         "FOOBar,     fooBar",
         "delisH,     delisH",
         "fooBar,     fooBar",
