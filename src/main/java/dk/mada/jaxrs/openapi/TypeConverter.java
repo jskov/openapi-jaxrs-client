@@ -131,23 +131,19 @@ public final class TypeConverter {
 
         Type type = Primitive.find(schemaType, schemaFormat);
 
-        if (schema.getEnum() != null) {
-            if (propertyName == null || type == null) {
-                logger.warn("Found enumeration type but no property name provided");
-            } else {
+        if (type != null) {
+            if (schema.getEnum() != null && propertyName != null) {
                 String enumTypeName = naming.convertPropertyEnumTypeName(propertyName);
                 TypeName typeName = typeNames.of(enumTypeName);
-
+    
                 List<String> enumValues = schema.getEnum().stream()
                         .map(Objects::toString)
                         .toList();
                 logger.debug(" ENUM: {} {} {}", typeName, type, enumValues);
                 return parserRefs.of(TypeEnum.of(typeName, type, enumValues), validation);
+            } else {
+                return parserRefs.of(type, validation);
             }
-        }
-
-        if (type != null) {
-            return parserRefs.of(type, validation);
         }
 
         ParserTypeRef ref = findDto(schema.get$ref(), validation);
