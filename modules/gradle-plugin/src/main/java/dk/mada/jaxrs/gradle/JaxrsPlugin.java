@@ -62,11 +62,9 @@ public class JaxrsPlugin implements Plugin<Project> {
         jaxrsExtension.getClients().all(client -> {
             String docName = client.getName();
             Provider<Directory> taskOutputDir = client.getPersistentSource()
-                    .map(isPersistent -> {
-                        return Boolean.TRUE.equals(isPersistent)
-                                ? extSrcOutputDirectory.dir(docName).get()
-                                : extBuildOutputDirectory.dir(docName).get();
-                    });
+                    .map(isPersistent -> Boolean.TRUE.equals(isPersistent)
+                            ? extSrcOutputDirectory.dir(docName).get()
+                            : extBuildOutputDirectory.dir(docName).get());
             mainSrcSet.getJava().srcDir(taskOutputDir);
 
             Provider<String> openapiDocumentName = client.getDocumentExtension().map(ext -> docName + ext);

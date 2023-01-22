@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
  * REST common path finder.
  */
 public class CommonPathFinder {
+    private static final String SEP = "/";
     private static final Logger logger = LoggerFactory.getLogger(CommonPathFinder.class);
 
     /**
@@ -23,7 +24,7 @@ public class CommonPathFinder {
      */
     public String findCommonPath(List<String> paths) {
         if (paths.isEmpty()) {
-            return "/";
+            return SEP;
         }
         if (paths.size() == 1) {
             return paths.get(0);
@@ -37,9 +38,9 @@ public class CommonPathFinder {
         List<String> potentialCommonPaths = makePotentialCommonPaths(shortestPath);
 
         String commonPath = potentialCommonPaths.stream()
-                .filter(cp -> paths.stream().allMatch(p -> p.equals(cp) || p.startsWith(cp + "/")))
+                .filter(cp -> paths.stream().allMatch(p -> p.equals(cp) || p.startsWith(cp + SEP)))
                 .findFirst()
-                .orElse("/");
+                .orElse(SEP);
 
         logger.debug("Common path: {}", commonPath);
         return commonPath;
@@ -66,7 +67,7 @@ public class CommonPathFinder {
             }
         }
 
-        if (shortestPath.length() > 1 && shortestPath.endsWith("/")) {
+        if (shortestPath.length() > 1 && shortestPath.endsWith(SEP)) {
             shortestPath = shortestPath.substring(0, shortestPath.length() - 1);
         }
         return shortestPath;
