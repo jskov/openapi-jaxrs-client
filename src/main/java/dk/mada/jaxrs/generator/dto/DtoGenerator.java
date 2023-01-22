@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -200,7 +201,7 @@ public class DtoGenerator {
                 .build();
     }
 
-    record DtoSubject(Dto dto, Type type, Imports imports) {
+    record DtoSubject(Dto dto, Type type, List<Property> properties, Imports imports) {
     }
 
     private CtxDto toCtx(Dto dto) {
@@ -210,31 +211,16 @@ public class DtoGenerator {
         boolean isEnum = dto.isEnum();
         var dtoImports = isEnum ? Imports.newEnum(opts, !isTypePrimitiveEquals(dtoType)) : Imports.newDto(opts);
 
-        DtoSubject ds = new DtoSubject(dto, dtoType, dtoImports);
+        DtoSubject ds = new DtoSubject(dto, dtoType, dto.properties(), dtoImports);
 
-        Comparator<? super CtxProperty> propertySorter = propertySorter();
-
-        Stream<CtxProperty> props = dto.properties().stream()
-                .map(p -> toCtxProperty(dtoImports, p));
-        if (propertySorter != null) {
-            props = props.sorted(propertySorter);
-        }
-        List<CtxProperty> vars = props
-                .toList();
-
+        List<CtxProperty> vars = getVars(ds);
         // in original order
-        List<CtxProperty> varsOpenapiOrder = dto.properties().stream()
-                .map(Property::name)
-                .map(baseName -> vars.stream()
-                        .filter(c -> baseName.equals(c.baseName()))
-                        .findFirst()
-                        .orElseThrow())
-                .toList();
+        List<CtxProperty> varsOpenapiOrder = getVarsOpenApiOrder(ds, vars);
 
         dtoImports.addPropertyImports(dto.properties());
 
         CustomSerializers localDateSerializers = defineLocalDateSerializer(ds);
-        CustomSerializers customOffsetDateSerializers = customOffsetDateTimeSerializers(ds);
+        CustomSerializers customOffsetDateSerializers = customDateTimeSerializers(ds);
 
         Optional<String> description = dto.description();
 
@@ -329,6 +315,29 @@ public class DtoGenerator {
                 .build();
     }
 
+    private List<CtxProperty> getVars(DtoSubject ds) {
+        Comparator<? super CtxProperty> propertySorter = propertySorter();
+
+        Stream<CtxProperty> props = ds.properties().stream()
+                .map(p -> toCtxProperty(ds.imports(), p));
+
+        if (propertySorter != null) {
+            props = props.sorted(propertySorter);
+        }
+        return props.toList();
+    }
+
+    private List<CtxProperty> getVarsOpenApiOrder(DtoSubject ds, List<CtxProperty> vars) {
+        // Make the context properties accessible by name
+        Map<String, CtxProperty> byName = vars.stream()
+                .collect(Collectors.toMap(CtxProperty::baseName, p -> p));
+
+        // Then map the openapi properties to context properties, keeping the order
+        return ds.properties().stream()
+                .map(p -> byName.get(p.name()))
+                .toList();
+    }
+
     private record CustomSerializers(Optional<String> deserializer, Optional<String> serializer) {
     }
 
@@ -355,37 +364,41 @@ public class DtoGenerator {
         return new CustomSerializers(deserializer, serializer);
     }
 
-    private CustomSerializers customOffsetDateTimeSerializers(DtoSubject ds) {
-        Optional<String> deserializer = Optional.empty();
-        Optional<String> serializer = Optional.empty();
-
+    private CustomSerializers customDateTimeSerializers(DtoSubject ds) {
         if (opts.isUseJacksonDateTimeSerializer()
                 && (ds.type().isDateTime()
-                        || ds.dto().properties().stream().anyMatch(p -> p.reference().isDateTime()))) {
-            if (opts.isUseLocalDateTime()) {
-                if (opts.isAddJacksonLocalDateTimeDeserializerTemplate()) {
-                    extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER);
-                }
-                if (opts.isAddJacksonLocalDateTimeSerializerTemplate()) {
-                    extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER);
-                }
-                deserializer = opts.getJacksonLocalDateTimeDeserializer();
-                serializer = opts.getJacksonLocalDateTimeSerializer();
-            } else { // is UseOffsetDateTime
-                if (opts.isAddJacksonOffsetDateTimeDeserializerTemplate()) {
-                    extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
-                }
-                if (opts.isAddJacksonOffsetDateTimeSerializerTemplate()) {
-                    extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
-                }
-                deserializer = opts.getJacksonOffsetDateTimeDeserializer();
-                serializer = opts.getJacksonOffsetDateTimeSerializer();
-            }
+                        || ds.properties().stream().anyMatch(p -> p.reference().isDateTime()))) {
 
             ds.imports().add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
+
+            if (opts.isUseLocalDateTime()) {
+                return customLocalDateTimeSerializers();
+            } else { // is UseOffsetDateTime
+                return customOffsetDateTimeSerializers();
+            }
         }
 
-        return new CustomSerializers(deserializer, serializer);
+        return new CustomSerializers(Optional.empty(), Optional.empty());
+    }
+
+    private CustomSerializers customLocalDateTimeSerializers() {
+        if (opts.isAddJacksonLocalDateTimeDeserializerTemplate()) {
+            extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER);
+        }
+        if (opts.isAddJacksonLocalDateTimeSerializerTemplate()) {
+            extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER);
+        }
+        return new CustomSerializers(opts.getJacksonLocalDateTimeDeserializer(), opts.getJacksonLocalDateTimeSerializer());
+    }
+
+    private CustomSerializers customOffsetDateTimeSerializers() {
+        if (opts.isAddJacksonOffsetDateTimeDeserializerTemplate()) {
+            extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER);
+        }
+        if (opts.isAddJacksonOffsetDateTimeSerializerTemplate()) {
+            extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
+        }
+        return new CustomSerializers(opts.getJacksonOffsetDateTimeDeserializer(), opts.getJacksonOffsetDateTimeSerializer());
     }
 
     private CtxDtoDiscriminator buildSubtypeDiscriminator(SubtypeSelector subtypeSelector) {
