@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.generator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,8 +15,8 @@ public class CommonPathFinder {
     /**
      * Find longest common sub-path of the paths provided.
      *
-     * First find shortest path, use that as base. Look if it prefixes all paths. If so, longest common path found. If not,
-     * trim the last section of and loop around.
+     * First find shortest path, use that as base. From this, build all potential common prefixes, by cutting path elements
+     * of. Then simply search this list (which is longest to shortest) for prefixes that matches all paths.
      *
      * @param paths the paths to look through
      * @return the longest common path
@@ -30,6 +31,34 @@ public class CommonPathFinder {
 
         logger.debug("Paths: {}", paths);
 
+        // the shortest path is the longest possible common prefix
+        String shortestPath = findShortestPath(paths);
+        // possible common prefix paths, longest to shortest
+        List<String> potentialCommonPaths = makePotentialCommonPaths(shortestPath);
+
+        String commonPath = potentialCommonPaths.stream()
+                .filter(cp -> paths.stream().allMatch(p -> p.equals(cp) || p.startsWith(cp + "/")))
+                .findFirst()
+                .orElse("/");
+
+        logger.debug("Common path: {}", commonPath);
+        return commonPath;
+    }
+
+    private List<String> makePotentialCommonPaths(String shortestPath) {
+        List<String> potentialCommonPaths = new ArrayList<>();
+        String p = shortestPath;
+        int i;
+        potentialCommonPaths.add(p);
+        while ((i = p.lastIndexOf('/')) > 0) {
+            p = p.substring(0, i);
+            potentialCommonPaths.add(p);
+        }
+        logger.debug(" potential paths: {}", potentialCommonPaths);
+        return potentialCommonPaths;
+    }
+
+    private String findShortestPath(List<String> paths) {
         String shortestPath = paths.get(0);
         for (String p : paths) {
             if (p.length() < shortestPath.length()) {
@@ -40,28 +69,6 @@ public class CommonPathFinder {
         if (shortestPath.length() > 1 && shortestPath.endsWith("/")) {
             shortestPath = shortestPath.substring(0, shortestPath.length() - 1);
         }
-
-        String commonPath = "/";
-        while (shortestPath.length() > 1) {
-            logger.debug("Shortest potential path: {}", shortestPath);
-            String matchPath = shortestPath;
-            if (paths.stream().allMatch(p -> p.equals(matchPath) || p.startsWith(matchPath + "/"))) {
-                commonPath = shortestPath;
-                break;
-            }
-
-            int lastSlash = shortestPath.lastIndexOf('/');
-            if (lastSlash <= 0) {
-                break;
-            }
-            shortestPath = shortestPath.substring(0, lastSlash);
-        }
-
-        if (commonPath.endsWith("/") && commonPath.length() > 1) {
-            commonPath = commonPath.substring(0, commonPath.length() - 1);
-        }
-
-        logger.debug("Common path: {}", commonPath);
-        return commonPath;
+        return shortestPath;
     }
 }
