@@ -6,6 +6,8 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.file.Directory;
+import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.ProjectLayout;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
@@ -49,12 +51,22 @@ public class JaxrsPlugin implements Plugin<Project> {
         SourceSetContainer sourceSets = project.getExtensions().getByType(SourceSetContainer.class);
         SourceSet mainSrcSet = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME);
 
+        ProjectLayout pl = project.getLayout();
+        DirectoryProperty extSrcOutputDirectory = jaxrsExtension.getSrcOutputDirectory()
+                .convention(pl.getProjectDirectory().dir("src/main/java-jaxrs"));
+        DirectoryProperty extBuildOutputDirectory = jaxrsExtension.getBuildOutputDirectory()
+                .convention(pl.getBuildDirectory().dir("java-jaxrs"));
+        DirectoryProperty extOpenApiDocDirectory = jaxrsExtension.getOpenApiDocDirectory()
+                .convention(pl.getProjectDirectory().dir("src/openapi"));
+
         jaxrsExtension.getClients().all(client -> {
             String docName = client.getName();
             Provider<Directory> taskOutputDir = client.getPersistentSource()
-                    .map(isPersistent -> Boolean.TRUE.equals(isPersistent)
-                            ? jaxrsExtension.getSrcOutputDirectory().dir(docName).get()
-                            : jaxrsExtension.getBuildOutputDirectory().dir(docName).get());
+                    .map(isPersistent -> {
+                        return Boolean.TRUE.equals(isPersistent)
+                                ? extSrcOutputDirectory.dir(docName).get()
+                                : extBuildOutputDirectory.dir(docName).get();
+                    });
             mainSrcSet.getJava().srcDir(taskOutputDir);
 
             Provider<String> openapiDocumentName = client.getDocumentExtension().map(ext -> docName + ext);
@@ -69,7 +81,7 @@ public class JaxrsPlugin implements Plugin<Project> {
                         t.setGroup(CLIENT_TASK_GROUP);
                         t.setEnabled(url.isPresent());
                         t.getDocumentUrl().set(url);
-                        t.getOutputFile().set(jaxrsExtension.getOpenApiDocDirectory().file(openapiDocumentName));
+                        t.getOutputFile().set(extOpenApiDocDirectory.file(openapiDocumentName));
                     });
 
             TaskProvider<GenerateClient> generateTask = project.getTasks().register("generateClient" + partialTaskName,
@@ -77,8 +89,8 @@ public class JaxrsPlugin implements Plugin<Project> {
                         t.setDescription("Generates JAX-RS client " + docName);
                         t.setGroup(CLIENT_TASK_GROUP);
                         t.getOutputDirectory().set(taskOutputDir);
-                        t.getOpenApiDocument().set(jaxrsExtension.getOpenApiDocDirectory().file(openapiDocumentName));
-                        t.getGeneratorProperties().set(jaxrsExtension.getOpenApiDocDirectory().file(docName + ".properties"));
+                        t.getOpenApiDocument().set(extOpenApiDocDirectory.file(openapiDocumentName));
+                        t.getGeneratorProperties().set(extOpenApiDocDirectory.file(docName + ".properties"));
                         t.dependsOn(downloadTask);
                     });
 
