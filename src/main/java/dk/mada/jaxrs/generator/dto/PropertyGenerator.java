@@ -150,6 +150,10 @@ public class PropertyGenerator {
         String enumTypeName = typeName;
         Optional<String> enumSchema = Optional.empty();
 
+        // Add import if required
+        addTypeImports(dtoImports, typeName);
+        addTypeImports(dtoImports, innerTypeName);
+
         if (getDereferencedInnerEnumType(innerType)instanceof TypeEnum te) {
             isEnum = true;
             Type enumType = te.innerType();
@@ -161,18 +165,6 @@ public class PropertyGenerator {
             enumSchema = enumGenerator.buildEnumSchema(dtoImports, enumType, ctxEnum);
 
             logger.debug(" enum {} : {}", innerTypeName, te.values());
-        }
-
-        // Add import if required
-        UserMappedImport externalType = externalTypeMapping.get(typeName);
-        if (externalType != null) {
-            dtoImports.add(externalType);
-        }
-        if (innerTypeName != null) {
-            UserMappedImport innerExternalType = externalTypeMapping.get(innerTypeName);
-            if (innerExternalType != null) {
-                dtoImports.add(innerExternalType);
-            }
         }
 
         String getterPrefix = getterPrefix(prop);
@@ -335,6 +327,15 @@ public class PropertyGenerator {
 
         logger.debug("property {} : {}", name, ctx);
         return ctx;
+    }
+
+    private void addTypeImports(Imports dtoImports, @Nullable String typeName) {
+        if (typeName != null) {
+            UserMappedImport externalType = externalTypeMapping.get(typeName);
+            if (externalType != null) {
+                dtoImports.add(externalType);
+            }
+        }
     }
 
     private @Nullable Type getDereferencedInnerEnumType(@Nullable Type t) {
