@@ -136,7 +136,7 @@ public final class StringRenderer {
     /**
      * Encodes input text if it is non-blank for consumer.
      *
-     * @param txt the text to be encoded
+     * @param txt      the text to be encoded
      * @param consumer the consumer of the text
      */
     public static void consumeNonBlankEncoded(Optional<String> txt, Consumer<String> consumer) {

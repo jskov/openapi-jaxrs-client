@@ -35,7 +35,6 @@ import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
 
-
 /**
  * Property generator.
  *
@@ -58,23 +57,23 @@ public class PropertyGenerator {
     /**
      * Constructs a new generator.
      *
-     * @param naming    the naming instance
-     * @param opts      the generator options
+     * @param naming        the naming instance
+     * @param opts          the generator options
      * @param enumGenerator the enumeration generator
      */
     public PropertyGenerator(Naming naming, GeneratorOpts opts, EnumGenerator enumGenerator) {
         this.naming = naming;
         this.opts = opts;
         this.enumGenerator = enumGenerator;
-        
+
         externalTypeMapping = opts.getExternalTypeMapping();
     }
-    
+
     /**
      * Prepares property context for rendering.
      *
      * @param dtoImports the imports for the parent DTO
-     * @param prop the property to make context for
+     * @param prop       the property to make context for
      * @return the property context
      */
     public CtxProperty toCtxProperty(Imports dtoImports, Property prop) {
@@ -151,7 +150,7 @@ public class PropertyGenerator {
         String enumTypeName = typeName;
         Optional<String> enumSchema = Optional.empty();
 
-        if (getDereferencedInnerEnumType(innerType) instanceof TypeEnum te) {
+        if (getDereferencedInnerEnumType(innerType)instanceof TypeEnum te) {
             isEnum = true;
             Type enumType = te.innerType();
             enumTypeName = enumType.typeName().name();

@@ -37,8 +37,8 @@ public class EnumGenerator {
     /**
      * Constructs a new generator.
      *
-     * @param naming    the naming instance
-     * @param opts      the generator options
+     * @param naming the naming instance
+     * @param opts   the generator options
      */
     public EnumGenerator(Naming naming, GeneratorOpts opts) {
         this.naming = naming;
@@ -49,7 +49,7 @@ public class EnumGenerator {
      * Prepares enumeration context for rendering.
      *
      * @param enumType the enumeration type
-     * @param values the enumeration values
+     * @param values   the enumeration values
      * @return the enumeration context
      */
     public CtxEnum toCtxEnum(Type enumType, List<String> values) {
