@@ -95,60 +95,16 @@ public class PropertyGenerator {
 
         logger.debug("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
 
-        Type propType = prop.reference().refType();
+        TypeInfo ti = decodeTypeInfo(dtoImports, prop);
+        EnumInfo ei = decodeEnumInfo(dtoImports, ti);
+
+        Type propType = ti.propType();
         logger.trace(" {}", propType);
 
-        String defaultValue = null;
-        boolean isRequired = prop.isRequired();
-        boolean isByteArray = false;
-        boolean isArray = false;
-        boolean isMap = false;
-        boolean isSet = false;
-        boolean isDate = propType.isDate();
-        boolean isDateTime = propType.isDateTime();
-        boolean isEnum = false;
-        String innerTypeName = null;
-        CtxEnum ctxEnum = null;
-        Type innerType = null;
-
-        if (propType instanceof TypeByteArray) {
-            isByteArray = true;
-            dtoImports.add(JavaUtil.ARRAYS);
-            if (isRequired) {
-                defaultValue = "new byte[] {}";
-            }
-        }
-        if (propType instanceof TypeArray ca) {
-            isArray = true;
-            innerType = ca.innerType();
-            defaultValue = "new " + ca.containerImplementation() + "<>()";
-        }
-        if (propType instanceof TypeMap cm) {
-            isMap = true;
-            innerType = cm.innerType();
-            defaultValue = "new " + cm.containerImplementation() + "<>()";
-        }
-        if (propType instanceof TypeSet cs) {
-            isSet = true;
-            innerType = cs.innerType();
-            defaultValue = "new " + cs.containerImplementation() + "<>()";
-
-            // In templates, array is used for both set and list
-            isArray = true;
-        }
-        if (propType.isEnum()) {
-            innerType = propType;
-        }
-
-        if (innerType != null) {
-            innerTypeName = innerType.typeName().name();
-        }
-
-        final String typeName = propType.wrapperTypeName().name();
-        final boolean isContainer = isArray || isMap || isSet;
-        String enumClassName = typeName;
-        String enumTypeName = typeName;
-        Optional<String> enumSchema = Optional.empty();
+//        CtxEnum ctxEnum = null;
+//        String enumClassName = ti.typeName();
+//        String enumTypeName = ti.typeName();
+//        Optional<String> enumSchema = Optional.empty();
 
         if (prop.name().equals("type")) {
             logger.warn("Bad {}", prop);
@@ -158,21 +114,8 @@ public class PropertyGenerator {
 
         
         // Add import if required
-        addTypeImports(dtoImports, typeName);
-        addTypeImports(dtoImports, innerTypeName);
-
-        if (getDereferencedInnerEnumType(innerType)instanceof TypeEnum te) {
-            isEnum = true;
-            Type enumType = te.innerType();
-            enumTypeName = enumType.typeName().name();
-            enumClassName = te.typeName().name();
-            dtoImports.addEnumImports(!isContainer, !isTypePrimitiveEquals(enumType));
-
-            ctxEnum = enumGenerator.toCtxEnum(enumType, te.values());
-            enumSchema = enumGenerator.buildEnumSchema(dtoImports, enumType, ctxEnum);
-
-            logger.debug(" enum {} : {}", innerTypeName, te.values());
-        }
+        addTypeImports(dtoImports, ti.typeName());
+        addTypeImports(dtoImports, ti.innerTypeName());
 
         String getterPrefix = getterPrefix(prop);
         String getter = getterPrefix + nameCamelized;
@@ -192,15 +135,15 @@ public class PropertyGenerator {
         Optional<String> description = prop.description();
 
         boolean isUseEmptyCollections = opts.isUseEmptyCollections()
-                && isContainer
-                && !isRequired;
+                && ti.isContainer()
+                && !ti.isRequired();
         if (isUseEmptyCollections) {
             dtoImports.add(Jackson.JSON_IGNORE);
             getter = getter + "Nullable";
         }
 
         List<String> schemaEntries = new ArrayList<>();
-        if (isRequired) {
+        if (ti.isRequired()) {
             schemaEntries.add("required = true");
         }
         if (prop.isNullable()) {
@@ -284,14 +227,14 @@ public class PropertyGenerator {
         }
 
         CtxPropertyExt mada = CtxPropertyExt.builder()
-                .innerDatatypeWithEnum(innerTypeName)
-                .enumClassName(enumClassName)
-                .enumTypeName(enumTypeName)
-                .enumSchemaOptions(enumSchema)
+                .innerDatatypeWithEnum(ti.innerTypeName())
+                .enumClassName(ei.enumClassName())
+                .enumTypeName(ei.enumTypeName())
+                .enumSchemaOptions(Optional.ofNullable(ei.enumSchema()))
                 .schemaOptions(schemaOptions)
                 .isUseBigDecimalForDouble(isUseBigDecimalForDouble)
                 .isUseEmptyCollections(isUseEmptyCollections)
-                .isByteArray(isByteArray)
+                .isByteArray(ti.isByteArray())
                 .isEqualsPrimitive(isTypePrimitiveEquals(propType))
                 .getter(extGetter)
                 .setter(extSetter)
@@ -302,25 +245,25 @@ public class PropertyGenerator {
 
         CtxProperty ctx = CtxProperty.builder()
                 .baseName(name)
-                .datatypeWithEnum(typeName)
-                .dataType(innerTypeName)
+                .datatypeWithEnum(ti.typeName())
+                .dataType(ti.innerTypeName())
                 .name(varName)
                 .nameInCamelCase(nameCamelized)
                 .nameInSnakeCase(nameSnaked)
                 .getter(getter)
                 .setter(setter)
                 .description(description.flatMap(StringRenderer::makeValidPropertyJavadocSummary))
-                .isArray(isArray)
-                .isEnum(isEnum)
-                .isMap(isMap)
-                .isSet(isSet)
-                .isContainer(isContainer)
-                .isDate(isDate)
-                .isDateTime(isDateTime)
-                .defaultValue(defaultValue)
-                .required(isRequired)
+                .isArray(ti.isArray())
+                .isEnum(ei.isEnum())
+                .isMap(ti.isMap())
+                .isSet(ti.isSet())
+                .isContainer(ti.isContainer())
+                .isDate(propType.isDate())
+                .isDateTime(propType.isDateTime())
+                .defaultValue(ti.defaultValue())
+                .required(ti.isRequired())
                 .example(prop.example())
-                .allowableValues(ctxEnum)
+                .allowableValues(ei.ctxEnum())
                 .useBeanValidation(useBeanValidation)
                 .minLength(minLength)
                 .maxLength(maxLength)
@@ -345,13 +288,6 @@ public class PropertyGenerator {
         }
     }
 
-    private @Nullable Type getDereferencedInnerEnumType(@Nullable Type t) {
-        if (t instanceof TypeReference tr) {
-            return tr.refType();
-        }
-        return t;
-    }
-
     private String getterPrefix(Property p) {
         boolean isBoolean = p.reference().isPrimitive(Primitive.BOOLEAN);
         String getterPrefix = "get";
@@ -363,5 +299,109 @@ public class PropertyGenerator {
 
     private boolean isTypePrimitiveEquals(Type t) {
         return t.isPrimitive(Primitive.INT);
+    }
+
+    private EnumInfo decodeEnumInfo(Imports dtoImports, TypeInfo ti) {
+        CtxEnum ctxEnum = null;
+        String enumClassName = ti.typeName();
+        String enumTypeName = ti.typeName();
+        Optional<String> enumSchema = Optional.empty();
+
+        if (getDereferencedInnerEnumType(ti.innerType())instanceof TypeEnum te) {
+            Type enumType = te.innerType();
+            enumTypeName = enumType.typeName().name();
+            enumClassName = te.typeName().name();
+            dtoImports.addEnumImports(!ti.isContainer(), !enumType.isPrimitive(Primitive.INT));
+
+            ctxEnum = enumGenerator.toCtxEnum(enumType, te.values());
+            enumSchema = enumGenerator.buildEnumSchema(dtoImports, enumType, ctxEnum);
+
+            logger.debug(" enum {} : {}", ti.innerTypeName(), te.values());
+        }
+
+        return new EnumInfo(ctxEnum, enumClassName, enumTypeName, enumSchema.orElse(null));
+    }
+
+    private TypeInfo decodeTypeInfo(Imports dtoImports, Property prop) {
+        Type propType = prop.reference().refType();
+        Type innerType = null;
+        String defaultValue = null;
+        final boolean isRequired = prop.isRequired();
+        boolean isByteArray = false;
+        boolean isArray = false;
+        boolean isMap = false;
+        boolean isSet = false;
+        String innerTypeName = null;
+
+        if (propType instanceof TypeByteArray) {
+            isByteArray = true;
+            dtoImports.add(JavaUtil.ARRAYS);
+            if (isRequired) {
+                defaultValue = "new byte[] {}";
+            }
+        }
+        if (propType instanceof TypeArray ca) {
+            isArray = true;
+            innerType = ca.innerType();
+            defaultValue = "new " + ca.containerImplementation() + "<>()";
+        }
+        if (propType instanceof TypeMap cm) {
+            isMap = true;
+            innerType = cm.innerType();
+            defaultValue = "new " + cm.containerImplementation() + "<>()";
+        }
+        if (propType instanceof TypeSet cs) {
+            isSet = true;
+            innerType = cs.innerType();
+            defaultValue = "new " + cs.containerImplementation() + "<>()";
+
+            // In templates, array is used for both set and list
+            isArray = true;
+        }
+        if (propType.isEnum()) {
+            innerType = propType;
+        }
+
+        if (innerType != null) {
+            innerTypeName = innerType.typeName().name();
+        }
+
+        final String typeName = propType.wrapperTypeName().name();
+        final boolean isContainer = isArray || isMap || isSet;
+
+        return new TypeInfo(propType, typeName, innerType, innerTypeName, defaultValue,
+                isRequired, isContainer,
+                isByteArray, isArray, isMap, isSet);
+    }
+
+    record TypeInfo(
+            Type propType,
+            String typeName,
+            @Nullable Type innerType,
+            @Nullable String innerTypeName,
+            @Nullable String defaultValue,
+            boolean isRequired,
+            boolean isContainer,
+            boolean isByteArray,
+            boolean isArray,
+            boolean isMap,
+            boolean isSet) {
+    }
+
+    record EnumInfo(
+            @Nullable CtxEnum ctxEnum,
+            @Nullable String enumClassName,
+            @Nullable String enumTypeName,
+            @Nullable String enumSchema) {
+        public boolean isEnum() {
+            return ctxEnum != null;
+        }
+    }
+
+    private static @Nullable Type getDereferencedInnerEnumType(@Nullable Type t) {
+        if (t instanceof TypeReference tr) {
+            return tr.refType();
+        }
+        return t;
     }
 }
