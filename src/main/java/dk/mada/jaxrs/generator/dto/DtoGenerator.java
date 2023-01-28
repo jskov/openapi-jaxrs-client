@@ -26,7 +26,6 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoDiscriminator;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoExt;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
-import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtraDateSerializer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
@@ -36,7 +35,6 @@ import dk.mada.jaxrs.generator.imports.Jackson;
 import dk.mada.jaxrs.generator.imports.JavaIo;
 import dk.mada.jaxrs.generator.imports.JavaMath;
 import dk.mada.jaxrs.generator.imports.JavaUtil;
-import dk.mada.jaxrs.generator.imports.MicroProfile;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.model.Dto;
@@ -55,8 +53,6 @@ import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
-import dk.mada.jaxrs.naming.EnumNamer;
-import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
 
@@ -67,10 +63,6 @@ import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
  */
 public class DtoGenerator {
     private static final Logger logger = LoggerFactory.getLogger(DtoGenerator.class);
-    /** Enumeration for unknown values. */
-    private static final String ENUM_UNKNOWN_DEFAULT_OPEN_API = "unknown_default_open_api";
-    /** Enumeration for unknown integer values. */
-    private static final String ENUM_INT_UNKNOWN_DEFAULT_STR = Integer.toString(2125323949); // 0x7EADDEAD
 
     /** Naming. */
     private final Naming naming;
@@ -93,6 +85,9 @@ public class DtoGenerator {
     /** External type mapping. */
     private final Map<String, UserMappedImport> externalTypeMapping;
 
+    /** Enumeration generator. */
+    private final EnumGenerator enumGenerator;
+
     /**
      * Constructs a new generator.
      *
@@ -109,6 +104,8 @@ public class DtoGenerator {
 
         dtos = model.dtos();
         externalTypeMapping = opts.getExternalTypeMapping();
+
+        enumGenerator = new EnumGenerator(naming, opts);
     }
 
     /**
@@ -228,8 +225,8 @@ public class DtoGenerator {
         CtxEnum ctxEnum = null;
         if (isEnum) {
             List<String> enumValues = dto.enumValues();
-            ctxEnum = buildEnumEntries(dtoType, enumValues);
-            enumSchema = buildEnumSchema(dtoImports, dtoType, ctxEnum);
+            ctxEnum = enumGenerator.buildEnumEntries(dtoType, enumValues);
+            enumSchema = enumGenerator.buildEnumSchema(dtoImports, dtoType, ctxEnum);
         }
 
         List<String> schemaEntries = new ArrayList<>();
@@ -448,98 +445,6 @@ public class DtoGenerator {
         return Optional.of(implementsInterfaces);
     }
 
-    /**
-     * If the enumeration values are not represented correctly by the constants, define a schema with the proper values.
-     *
-     * @param dtoImports the DTO imports
-     * @param dtoType    type of the enumeration
-     * @param ctxEnum    enumeration constants and values
-     * @return optional schema enumeration arguments
-     */
-    private Optional<String> buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
-        boolean namesMatchValues = ctxEnum.enumVars().stream()
-                .allMatch(e -> e.name().equals(e.wireValue()));
-        if (namesMatchValues) {
-            return Optional.empty();
-        }
-
-        String values = ctxEnum.enumVars().stream()
-                .map(e -> StringRenderer.quote(e.wireValue()))
-                .collect(joining(", "));
-
-        String type = "";
-        if (dtoType.isPrimitive(Primitive.STRING)) {
-            type = ", type = SchemaType.STRING";
-        } else if (dtoType.isPrimitive(Primitive.INT)) {
-            type = ", type = SchemaType.INTEGER, format = \"int32\"";
-        }
-        if (!type.isEmpty()) {
-            dtoImports.add(MicroProfile.SCHEMA_TYPE);
-        }
-        dtoImports.addMicroProfileSchema();
-
-        String args = new StringBuilder()
-                .append("enumeration = {").append(values).append("}")
-                .append(type)
-                .toString();
-        return Optional.of(args);
-    }
-
-    private CtxEnum buildEnumEntries(Type enumType, List<String> values) {
-        List<String> renderValues = addUnknownDefault(enumType, values);
-        List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, renderValues)
-                .getEntries().stream()
-                .map(e -> toEnumEntry(enumType, e))
-                .toList();
-
-        return new CtxEnum(entries);
-    }
-
-    /**
-     * Adds unknown default enumeration if needed.
-     *
-     * A magic integer is used for integer types.
-     *
-     * @param enumType the enumeration type
-     * @param values   the input enumeration values
-     * @return the input values, plus unknown default if needed
-     */
-    private List<String> addUnknownDefault(Type enumType, List<String> values) {
-        if (!opts.isUseEnumUnknownDefault()) {
-            return values;
-        }
-        if (values.contains(ENUM_UNKNOWN_DEFAULT_OPEN_API)) {
-            return values;
-        }
-
-        boolean isIntEnum = enumType.isPrimitive(Primitive.INT);
-
-        if (isIntEnum
-                && values.contains(ENUM_INT_UNKNOWN_DEFAULT_STR)) {
-            return values;
-        }
-
-        List<String> renderValues = new ArrayList<>(values);
-        if (isIntEnum) {
-            renderValues.add(ENUM_INT_UNKNOWN_DEFAULT_STR);
-        } else {
-            renderValues.add(ENUM_UNKNOWN_DEFAULT_OPEN_API);
-        }
-        return renderValues;
-    }
-
-    private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
-        String name = e.name();
-        String value = e.value();
-        if (enumType == Primitive.INT) {
-            if (opts.isUseEnumUnknownDefault() && ENUM_INT_UNKNOWN_DEFAULT_STR.equals(value)) {
-                name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase();
-            }
-        } else {
-            value = StringRenderer.quote(value);
-        }
-        return new CtxEnumEntry(name, value, e.value());
-    }
 
     private CtxProperty toCtxProperty(Imports dtoImports, Property p) {
         final String name = p.name();
@@ -620,10 +525,10 @@ public class DtoGenerator {
             Type enumType = te.innerType();
             enumTypeName = enumType.typeName().name();
             enumClassName = te.typeName().name();
-            ctxEnum = buildEnumEntries(enumType, te.values());
             dtoImports.addEnumImports(!isContainer, !isTypePrimitiveEquals(enumType));
 
-            enumSchema = buildEnumSchema(dtoImports, enumType, ctxEnum);
+            ctxEnum = enumGenerator.buildEnumEntries(enumType, te.values());
+            enumSchema = enumGenerator.buildEnumSchema(dtoImports, enumType, ctxEnum);
 
             logger.debug(" enum {} : {}", innerTypeName, te.values());
         }
