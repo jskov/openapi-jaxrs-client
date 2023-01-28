@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.generator.dto;
 
+import static dk.mada.jaxrs.generator.StringRenderer.consumeNonBlankEncoded;
 import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -235,7 +235,7 @@ public class DtoGenerator {
         }
         enumSchema.ifPresent(schemaEntries::add);
 
-        isNotBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
+        consumeNonBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
 
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
@@ -580,8 +580,8 @@ public class DtoGenerator {
         if (p.isReadonly()) {
             schemaEntries.add("readOnly = true");
         }
-        isNotBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
-        isNotBlankEncoded(p.example(), e -> schemaEntries.add("example = \"" + e + "\""));
+        consumeNonBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
+        consumeNonBlankEncoded(p.example(), e -> schemaEntries.add("example = \"" + e + "\""));
 
         Optional<String> schemaOptions = Optional.empty();
         if (!schemaEntries.isEmpty()) {
@@ -725,12 +725,5 @@ public class DtoGenerator {
             getterPrefix = "is";
         }
         return getterPrefix;
-    }
-
-    private void isNotBlankEncoded(Optional<String> txt, Consumer<String> f) {
-        txt
-                .filter(s -> !s.isBlank())
-                .map(StringRenderer::encodeForString)
-                .ifPresent(f);
     }
 }
