@@ -45,7 +45,14 @@ public class EnumGenerator {
         this.opts = opts;
     }
 
-    public CtxEnum buildEnumEntries(Type enumType, List<String> values) {
+    /**
+     * Prepares enumeration context for rendering.
+     *
+     * @param enumType the enumeration type
+     * @param values the enumeration values
+     * @return the enumeration context
+     */
+    public CtxEnum toCtxEnum(Type enumType, List<String> values) {
         List<String> renderValues = addUnknownDefault(enumType, values);
         List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, renderValues)
                 .getEntries().stream()
