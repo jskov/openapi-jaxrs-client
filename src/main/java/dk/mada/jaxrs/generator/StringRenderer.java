@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.generator;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Renders text in various forms suitable for use in the templates.
@@ -87,7 +88,6 @@ public final class StringRenderer {
      */
     public static Optional<String> encodeForString(Optional<String> text) {
         return text.map(StringRenderer::encodeForString);
-
     }
 
     /**
@@ -131,5 +131,18 @@ public final class StringRenderer {
                 .replace("\\\\", doubleHack)
                 .replace("\\", "\\\\")
                 .replace(doubleHack, "\\\\");
+    }
+
+    /**
+     * Encodes input text if it is non-blank for consumer.
+     *
+     * @param txt      the text to be encoded
+     * @param consumer the consumer of the text
+     */
+    public static void consumeNonBlankEncoded(Optional<String> txt, Consumer<String> consumer) {
+        txt
+                .filter(s -> !s.isBlank())
+                .map(StringRenderer::encodeForString)
+                .ifPresent(consumer);
     }
 }
