@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.List;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -112,7 +113,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyListSimpleGet(List<Simple> dto);
+  String apiParamsBodyListSimpleGet(@Valid List<Simple> dto);
 
   /**
    * apiParamsBodyMixedInPathGet.
@@ -128,7 +129,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyMixedInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, Simple dto);
+  String apiParamsBodyMixedInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, @Valid Simple dto);
 
   /**
    * apiParamsBodyRenameEntityParamDtoGet.
@@ -142,7 +143,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyRenameEntityParamDtoGet(@QueryParam("dto") String dto, Simple dtoEntity);
+  String apiParamsBodyRenameEntityParamDtoGet(@QueryParam("dto") String dto, @Valid Simple dtoEntity);
 
   /**
    * apiParamsBodySimpleGet.
@@ -155,7 +156,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodySimpleGet(Simple dto);
+  String apiParamsBodySimpleGet(@Valid Simple dto);
 
   /**
    * apiParamsBodyTimeGet.

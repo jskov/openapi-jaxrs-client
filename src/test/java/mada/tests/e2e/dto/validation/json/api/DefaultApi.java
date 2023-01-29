@@ -6,6 +6,7 @@
 
 package mada.tests.e2e.dto.validation.json.api;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -30,5 +31,5 @@ public interface DefaultApi {
     @APIResponse(responseCode = "204", description = "OK")
   })
   @Operation(summary = "TBD.")
-  void Calcit(@NotNull Request dto);
+  void Calcit(@NotNull @Valid Request dto);
 }

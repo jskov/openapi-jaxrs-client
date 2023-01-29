@@ -16,6 +16,7 @@ import dk.mada.jaxrs.generator.CommonPathFinder;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
+import dk.mada.jaxrs.generator.ValidationGenerator;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi.CtxOperationRef;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiExt;
@@ -23,6 +24,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.JaxRs;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
@@ -73,6 +75,8 @@ public class ApiGenerator {
 
     /** Common path finder. */
     private final CommonPathFinder commonPathFinder = new CommonPathFinder();
+    /** Validation generator. */
+    private ValidationGenerator validationGenerator;
 
     /**
      * Constructs a new API generator.
@@ -87,6 +91,8 @@ public class ApiGenerator {
         this.opts = generatorOpts;
         this.templates = templates;
         this.model = model;
+
+        validationGenerator = new ValidationGenerator(generatorOpts);
     }
 
     /**
@@ -337,6 +343,7 @@ public class ApiGenerator {
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
+                    .validation(Optional.of(validationGenerator.makeRequired()))
                     .useBeanValidation(opts.isUseBeanValidation())
                     .build());
         }
@@ -358,10 +365,13 @@ public class ApiGenerator {
                 imports.add(ValidationApi.NOT_NULL);
             }
 
+            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation, required);
+
             params.add(CtxApiParam.builder()
                     .baseName(p.name())
                     .paramName(paramName)
                     .dataType(dataType)
+                    .validation(valCtx)
                     .required(required)
                     .description(p.description())
                     .isContainer(false)
@@ -393,10 +403,13 @@ public class ApiGenerator {
                 imports.add(ValidationApi.NOT_NULL);
             }
 
+            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation(), isBodyRequired);
+
             CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
                     .dataType(dataType)
+                    .validation(valCtx)
                     .required(isBodyRequired)
                     .description(body.description())
                     .isContainer(false)

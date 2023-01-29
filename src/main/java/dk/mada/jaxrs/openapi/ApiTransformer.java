@@ -13,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.SecurityScheme;
+import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
+import dk.mada.jaxrs.model.api.ImmutableContent;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
@@ -242,10 +244,23 @@ public class ApiTransformer {
         }
         Content content = getContent(resourcePath, body.getContent());
 
+        // The required flag is not on the reference, but on the requestBody.
+        // Copy it into the property validation - should probably check for other validations.
+        boolean isRequired = toBool(body.getRequired());
+        if (isRequired && content.reference()instanceof ParserTypeRef tr) {
+            logger.debug(" overriding body validation to force required");
+            var refRequired = ImmutableParserTypeRef.builder().from(tr)
+                    .validation(Validation.REQUIRED_VALIDATION)
+                    .build();
+            content = ImmutableContent.builder().from(content)
+                    .reference(refRequired)
+                    .build();
+        }
+
         return Optional.of(
                 RequestBody.builder()
                         .description(Optional.ofNullable(body.getDescription()))
-                        .isRequired(toBool(body.getRequired()))
+                        .isRequired(isRequired)
                         .content(content)
                         .build());
     }

@@ -20,6 +20,11 @@ public class ValidationGenerator {
     /** Generator options. */
     private final GeneratorOpts opts;
 
+    /**
+     * Constructs new instance.
+     *
+     * @param opts the generator options
+     */
     public ValidationGenerator(GeneratorOpts opts) {
         this.opts = opts;
     }

@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.api.validation.api;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,5 +29,5 @@ public interface Api_Bean_Validation_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
-  String apiValidationBodyPut(@NotNull Simple dto);
+  String apiValidationBodyPut(@NotNull @Valid Simple dto);
 }

@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.generator.dto.tmpl.CtxValidation;
+
 /**
  * Template data for an API operation parameter.
  */
@@ -46,6 +48,9 @@ public interface CtxApiParam {
 
     /** {@return true if this is a form parameter, otherwise false} */
     boolean isFormParam();
+
+    /** {@return context for bean validation if relevant for this parameter} */
+    Optional<CtxValidation> validation();
 
     /** {@return true if bean validation should be used for this parameter, otherwise false} */
     boolean useBeanValidation();
