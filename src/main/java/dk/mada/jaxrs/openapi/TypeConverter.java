@@ -183,7 +183,8 @@ public final class TypeConverter {
         }
         List<?> enumeration = ri.schema.getEnum();
         if (enumeration == null || ri.propertyName == null) {
-            logger.trace(" - createPrimitiveTypeRef {}", type.typeName().name());
+            String name = type.typeName().name();
+            logger.trace(" - createPrimitiveTypeRef {}", name);
             return parserRefs.of(type, ri.validation);
         }
 
@@ -193,7 +194,8 @@ public final class TypeConverter {
         List<String> enumValues = enumeration.stream()
                 .map(Objects::toString)
                 .toList();
-        logger.trace(" - createPrimitiveTypeRef enum {} {} {}", typeName.name(), type, enumValues);
+        String name = typeName.name();
+        logger.trace(" - createPrimitiveTypeRef enum {} {} {}", name, type, enumValues);
         return parserRefs.of(TypeEnum.of(typeName, type, enumValues), ri.validation);
     }
 
@@ -239,11 +241,10 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
-        if (ri.schema instanceof ComposedSchema cs) {
-            if (findTypeValidation(cs)instanceof ParserTypeRef ptr) {
-                logger.trace(" - createComposedValidation");
-                return ptr;
-            }
+        if (ri.schema instanceof ComposedSchema cs
+                && findTypeValidation(cs)instanceof ParserTypeRef ptr) {
+            logger.trace(" - createComposedValidation");
+            return ptr;
         }
         return null;
     }
@@ -352,7 +353,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createStringRef(RefInfo ri) {
         if (ri.schema instanceof StringSchema) {
-            logger.trace(" - createDateTimeRef");
+            logger.trace(" - createStringRef");
             if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(ri.schema.getFormat())) {
                 return parserRefs.of(TypeLocalTime.get(), ri.validation);
             }
@@ -368,7 +369,7 @@ public final class TypeConverter {
         // information for the other type in a ComposedSchema.
         if (schema.getType() == null && schema.get$ref() == null
                 && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
-            logger.trace(" - createDateTimeRef");
+            logger.trace(" - createSupplementalValidation");
             // FIXME: Gets double wrapped
             return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
         }
@@ -381,14 +382,14 @@ public final class TypeConverter {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
                 if (isPlainObject) {
-                    logger.trace(" - createDateTimeRef, plain Object, no properties");
+                    logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-                    logger.trace(" - createDateTimeRef, plain Object?");
+                    logger.trace(" - createObjectRef, plain Object?");
                     return parserRefs.of(TypeObject.get(), ri.validation);
                 }
             }
-            logger.trace(" - createDateTimeRef, inner-object for property {}", ri.propertyName);
+            logger.trace(" - createObjectRef, inner-object for property {}", ri.propertyName);
             String dtoNamePrefix = isPlainObject ? "" : ri.parentDtoName;
             String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(ri.propertyName);
             Dto dto = createDto(syntheticDtoName, schema);
