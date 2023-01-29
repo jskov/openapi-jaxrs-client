@@ -244,9 +244,10 @@ public class ApiTransformer {
         }
         Content content = getContent(resourcePath, body.getContent());
 
+        boolean isRequired = toBool(body.getRequired());
         // The required flag is not on the reference, but on the requestBody.
         // Copy it into the property validation - should probably check for other validations.
-        boolean isRequired = toBool(body.getRequired());
+        // FIXME: this magic is not active yet - delete if turns out the body-required thing stays
         if (isRequired && content.reference()instanceof ParserTypeRef tr) {
             logger.debug(" overriding body validation to force required");
             var refRequired = ImmutableParserTypeRef.builder().from(tr)
