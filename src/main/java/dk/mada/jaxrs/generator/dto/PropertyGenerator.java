@@ -150,6 +150,13 @@ public class PropertyGenerator {
         String enumTypeName = typeName;
         Optional<String> enumSchema = Optional.empty();
 
+        if (typeName.contains("VALIDA")) {
+            logger.warn("Bad {}", prop);
+            logger.warn("typeName: {}, innerTypeName: {}", typeName, innerTypeName);
+//            throw new IllegalStateException("Bad conversion");
+        }
+
+        
         // Add import if required
         addTypeImports(dtoImports, typeName);
         addTypeImports(dtoImports, innerTypeName);
