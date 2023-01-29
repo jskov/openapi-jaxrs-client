@@ -32,9 +32,10 @@ public class ValidationGenerator {
     /**
      * Generate validation rendering context from type and validation information.
      *
-     * @param imports    the api/dto imports
-     * @param type       the type to make validation for
-     * @param validation the reference validation information
+     * @param imports          the api/dto imports
+     * @param type             the type to make validation for
+     * @param validation       the reference validation information
+     * @param requiredOverride allow overriding required state
      * @return an optional validation rendering context
      */
     // FIXME: get rid of override by fixing validation in param/body conversion
@@ -123,6 +124,7 @@ public class ValidationGenerator {
         return Optional.of(valCtx);
     }
 
+    /** {@return a validation context for required values} */
     public CtxValidation makeRequired() {
         return CtxValidation.builder()
                 .minLength(Optional.empty())
