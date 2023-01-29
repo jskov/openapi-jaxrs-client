@@ -183,6 +183,7 @@ public final class TypeConverter {
         }
         List<?> enumeration = ri.schema.getEnum();
         if (enumeration == null || ri.propertyName == null) {
+            logger.trace(" - createPrimitiveTypeRef {}", type.typeName().name());
             return parserRefs.of(type, ri.validation);
         }
 
@@ -192,14 +193,14 @@ public final class TypeConverter {
         List<String> enumValues = enumeration.stream()
                 .map(Objects::toString)
                 .toList();
-        logger.debug(" ENUM: {} {} {}", typeName, type, enumValues);
+        logger.trace(" - createPrimitiveTypeRef enum {} {} {}", typeName.name(), type, enumValues);
         return parserRefs.of(TypeEnum.of(typeName, type, enumValues), ri.validation);
     }
 
     @Nullable private ParserTypeRef createArrayRef(RefInfo ri) {
         if (ri.schema instanceof ArraySchema a) {
             ParserTypeRef innerType = reference(a.getItems(), ri.propertyName, ri.parentDtoName);
-            logger.debug(" array of {}", innerType);
+            logger.trace(" - createArrayRef {}", innerType);
 
             Boolean isUnique = a.getUniqueItems();
             if (isUnique != null && isUnique.booleanValue()) {
@@ -217,7 +218,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createByteArrayRef(RefInfo ri) {
         if (ri.schema instanceof BinarySchema || ri.schema instanceof FileSchema) {
-            logger.debug(" binary/file schema");
+            logger.trace(" - createByteArrayRef");
             boolean isBodyArgument = ri.propertyName == null;
             TypeByteArray impl = isBodyArgument ? TypeByteArray.getStream() : TypeByteArray.getArray();
             return parserRefs.of(impl, ri.validation);
@@ -227,9 +228,9 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createMapRef(RefInfo ri) {
         if (ri.schema instanceof MapSchema m) {
-            logger.debug(" map schema");
             Object additionalProperties = m.getAdditionalProperties();
             if (additionalProperties instanceof Schema<?> innerSchema) {
+                logger.trace(" - createMapRef");
                 Type innerType = toReference(innerSchema);
                 return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
             }
@@ -239,8 +240,8 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
         if (ri.schema instanceof ComposedSchema cs) {
-            logger.debug(" composed validation");
             if (findTypeValidation(cs)instanceof ParserTypeRef ptr) {
+                logger.trace(" - createComposedValidation");
                 return ptr;
             }
         }
@@ -253,7 +254,6 @@ public final class TypeConverter {
             @SuppressWarnings("rawtypes")
             List<Schema> anyOf = cs.getAnyOf();
             if (anyOf != null && !anyOf.isEmpty()) {
-                logger.debug(" composed anyof");
                 List<ParserTypeRef> anyOfRefs = anyOf.stream()
                         .map(this::toReference)
                         .toList();
@@ -270,7 +270,7 @@ public final class TypeConverter {
 
                 TypeName tn = typeNames.of(interfaceName);
 
-                logger.debug(" interface {} : {}", tn, anyOfRefs);
+                logger.trace(" - createAnyofRef interface {} : {}", tn, anyOfRefs);
 
                 TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
                 return parserRefs.of(ti, ri.validation);
@@ -284,7 +284,6 @@ public final class TypeConverter {
             @SuppressWarnings("rawtypes")
             List<Schema> allOf = cs.getAllOf();
             if (allOf != null && !allOf.isEmpty()) {
-                logger.debug(" composed allof");
 
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
@@ -293,7 +292,7 @@ public final class TypeConverter {
                         .toList();
 
                 if (allOfRefs.size() == 1) {
-                    logger.debug("   shortcut for duplicate");
+                    logger.trace(" - createAllofRef, shortcut for duplicate");
                     return parserRefs.of(allOfRefs.get(0), ri.validation);
                 }
             }
@@ -306,11 +305,10 @@ public final class TypeConverter {
             @SuppressWarnings("rawtypes")
             List<Schema> oneOf = cs.getOneOf();
             if (oneOf != null && !oneOf.isEmpty()) {
-                logger.debug(" composed oneoff");
                 List<String> oneOfNames = oneOf.stream()
                         .map(Schema::getName)
                         .toList();
-                logger.info("  oneof {}", oneOfNames);
+                logger.trace(" - createOneofRef {}", oneOfNames);
 
                 // regular object, but for now assumes there will
                 // be supplementary discriminator information
@@ -322,6 +320,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createNumberRef(RefInfo ri) {
         if (ri.schema instanceof NumberSchema) {
+            logger.trace(" - createNumberRef");
             return parserRefs.of(TypeBigDecimal.get(), ri.validation);
         }
         return null;
@@ -329,6 +328,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createDateTimeRef(RefInfo ri) {
         if (isDateTimeType(ri.schema)) {
+            logger.trace(" - createDateTimeRef");
             return parserRefs.of(TypeDateTime.get(generatorOpts), ri.validation);
         }
         return null;
@@ -336,6 +336,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createDateRef(RefInfo ri) {
         if (isDateType(ri.schema)) {
+            logger.trace(" - createDateRef");
             return parserRefs.of(TypeDate.get(), ri.validation);
         }
         return null;
@@ -343,6 +344,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createUUIDRef(RefInfo ri) {
         if (ri.schema instanceof UUIDSchema) {
+            logger.trace(" - createUUIDRef");
             return parserRefs.of(TypeUUID.get(), ri.validation);
         }
         return null;
@@ -350,6 +352,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createStringRef(RefInfo ri) {
         if (ri.schema instanceof StringSchema) {
+            logger.trace(" - createDateTimeRef");
             if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(ri.schema.getFormat())) {
                 return parserRefs.of(TypeLocalTime.get(), ri.validation);
             }
@@ -365,6 +368,7 @@ public final class TypeConverter {
         // information for the other type in a ComposedSchema.
         if (schema.getType() == null && schema.get$ref() == null
                 && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
+            logger.trace(" - createDateTimeRef");
             // FIXME: Gets double wrapped
             return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
         }
@@ -377,14 +381,14 @@ public final class TypeConverter {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
                 if (isPlainObject) {
-                    logger.debug(" plain Object, no properties");
+                    logger.trace(" - createDateTimeRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-                    logger.debug(" plain Object?");
+                    logger.trace(" - createDateTimeRef, plain Object?");
                     return parserRefs.of(TypeObject.get(), ri.validation);
                 }
             }
-            logger.debug(" inner-object for property {}", ri.propertyName);
+            logger.trace(" - createDateTimeRef, inner-object for property {}", ri.propertyName);
             String dtoNamePrefix = isPlainObject ? "" : ri.parentDtoName;
             String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(ri.propertyName);
             Dto dto = createDto(syntheticDtoName, schema);
@@ -439,6 +443,11 @@ public final class TypeConverter {
             }
         }
 
+        if (validations.isEmpty() && refs.size() == 2) {
+            logger.info("Unpack ref validation: {}", refs);
+            //FIXME: this should not be needed?!
+        }
+        
         if (validations.size() != 1 || refs.size() != 1) {
             logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
             // bail for now
@@ -459,6 +468,7 @@ public final class TypeConverter {
         if (ref == null || !ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
             return null;
         }
+        logger.trace(" - createDtoRef");
         String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
         return parserRefs.makeDtoRef(openapiId, validation);
     }
