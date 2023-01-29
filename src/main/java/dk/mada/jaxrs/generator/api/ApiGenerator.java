@@ -335,16 +335,13 @@ public class ApiGenerator {
                     .baseName("Authorization")
                     .paramName("auth")
                     .dataType(Primitive.STRING.typeName().name())
-                    .required(true)
                     .isContainer(false)
-                    .valid(false)
                     .isBodyParam(false)
                     .isFormParam(false)
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
                     .validation(Optional.of(validationGenerator.makeRequired()))
-                    .useBeanValidation(opts.isUseBeanValidation())
                     .build());
         }
 
@@ -372,16 +369,13 @@ public class ApiGenerator {
                     .paramName(paramName)
                     .dataType(dataType)
                     .validation(valCtx)
-                    .required(required)
                     .description(p.description())
                     .isContainer(false)
-                    .valid(false)
                     .isBodyParam(false)
                     .isFormParam(p.isFormParam())
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
-                    .useBeanValidation(opts.isUseBeanValidation())
                     .build());
         }
 
@@ -410,23 +404,13 @@ public class ApiGenerator {
                     .paramName(dtoParamName)
                     .dataType(dataType)
                     .validation(valCtx)
-                    .required(isBodyRequired)
                     .description(body.description())
                     .isContainer(false)
-                    .valid(false)
                     .isBodyParam(true)
                     .isFormParam(false)
                     .isHeaderParam(false)
                     .isPathParam(false)
                     .isQueryParam(false)
-                    .useBeanValidation(opts.isUseBeanValidation())
-                    .decimalMaximum(Optional.empty())
-                    .decimalMinimum(Optional.empty())
-                    .maximum(Optional.empty())
-                    .maxLength(Optional.empty())
-                    .minimum(Optional.empty())
-                    .minLength(Optional.empty())
-                    .pattern(Optional.empty())
                     .build();
 
             // Only include body param if it is not void. It may be void

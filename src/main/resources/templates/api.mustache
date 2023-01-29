@@ -32,7 +32,7 @@ public interface {{classname}} {
    *
 {{/madaOp.renderJavadocMacroSpacer}}
 {{#allParams}}
-   * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
+   * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#validation}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/validation}}
 {{/allParams}}
 {{#madaOp.renderJavadocReturn}}
    * @return {{returnType}}
