@@ -16,6 +16,7 @@ import dk.mada.jaxrs.generator.CommonPathFinder;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.StringRenderer;
 import dk.mada.jaxrs.generator.Templates;
+import dk.mada.jaxrs.generator.ValidationGenerator;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi.CtxOperationRef;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiExt;
@@ -23,6 +24,7 @@ import dk.mada.jaxrs.generator.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.api.tmpl.CtxApiResponse;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.JaxRs;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
@@ -73,6 +75,8 @@ public class ApiGenerator {
 
     /** Common path finder. */
     private final CommonPathFinder commonPathFinder = new CommonPathFinder();
+    /** Validation generator. */
+    private ValidationGenerator validationGenerator;
 
     /**
      * Constructs a new API generator.
@@ -87,6 +91,8 @@ public class ApiGenerator {
         this.opts = generatorOpts;
         this.templates = templates;
         this.model = model;
+
+        validationGenerator = new ValidationGenerator(generatorOpts);
     }
 
     /**
@@ -329,15 +335,13 @@ public class ApiGenerator {
                     .baseName("Authorization")
                     .paramName("auth")
                     .dataType(Primitive.STRING.typeName().name())
-                    .required(true)
                     .isContainer(false)
-                    .valid(false)
                     .isBodyParam(false)
                     .isFormParam(false)
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
-                    .useBeanValidation(opts.isUseBeanValidation())
+                    .validation(Optional.of(validationGenerator.makeRequired()))
                     .build());
         }
 
@@ -353,25 +357,25 @@ public class ApiGenerator {
             Validation validation = ref.validation();
             logger.debug("See param {} : {} : {}", paramName, type, validation);
 
-            boolean required = validation.isRequired() || p.isRequired();
+            boolean required = validation.isRequired().orElse(false) || p.isRequired();
             if (opts.isUseBeanValidation() && required) {
                 imports.add(ValidationApi.NOT_NULL);
             }
+
+            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation, required);
 
             params.add(CtxApiParam.builder()
                     .baseName(p.name())
                     .paramName(paramName)
                     .dataType(dataType)
-                    .required(required)
+                    .validation(valCtx)
                     .description(p.description())
                     .isContainer(false)
-                    .valid(false)
                     .isBodyParam(false)
                     .isFormParam(p.isFormParam())
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
-                    .useBeanValidation(opts.isUseBeanValidation())
                     .build());
         }
 
@@ -393,27 +397,20 @@ public class ApiGenerator {
                 imports.add(ValidationApi.NOT_NULL);
             }
 
+            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation(), isBodyRequired);
+
             CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
                     .dataType(dataType)
-                    .required(isBodyRequired)
+                    .validation(valCtx)
                     .description(body.description())
                     .isContainer(false)
-                    .valid(false)
                     .isBodyParam(true)
                     .isFormParam(false)
                     .isHeaderParam(false)
                     .isPathParam(false)
                     .isQueryParam(false)
-                    .useBeanValidation(opts.isUseBeanValidation())
-                    .decimalMaximum(Optional.empty())
-                    .decimalMinimum(Optional.empty())
-                    .maximum(Optional.empty())
-                    .maxLength(Optional.empty())
-                    .minimum(Optional.empty())
-                    .minLength(Optional.empty())
-                    .pattern(Optional.empty())
                     .build();
 
             // Only include body param if it is not void. It may be void

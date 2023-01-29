@@ -140,7 +140,7 @@ public final class TypeConverter {
         logger.debug("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
         logger.debug("ref {}", schemaRef);
 
-        Validation validation = extractValidation(schema);
+        Validation validation = extractValidation(schema, false);
         logger.debug("validation {}", validation);
 
         RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, validation);
@@ -474,11 +474,11 @@ public final class TypeConverter {
         return parserRefs.makeDtoRef(openapiId, validation);
     }
 
-    private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s) {
+    private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s, boolean required) {
         Validation candidate = Validation.builder()
                 .isNullable(Optional.ofNullable(s.getNullable()))
                 .isReadonly(Optional.ofNullable(s.getReadOnly()))
-                .isRequired(false)
+                .isRequired(Optional.of(required))
                 .maximum(Optional.ofNullable(s.getMaximum()))
                 .maxItems(Optional.ofNullable(s.getMaxItems()))
                 .maxLength(Optional.ofNullable(s.getMaxLength()))

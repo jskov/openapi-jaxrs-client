@@ -11,7 +11,14 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 public interface Validation {
     /** No validation input. */
-    Validation NO_VALIDATION = Validation.builder().isRequired(false).build();
+    Validation NO_VALIDATION = Validation.builder()
+            .isRequired(false)
+            .build();
+
+    /** Simple required validation. */
+    Validation REQUIRED_VALIDATION = Validation.builder()
+            .isRequired(true)
+            .build();
 
     /** {@return a builder for this type} */
     static ImmutableValidation.Builder builder() {
@@ -23,14 +30,14 @@ public interface Validation {
         return this == NO_VALIDATION;
     }
 
+    /** {@return optional required state for the reference} */
+    Optional<Boolean> isRequired();
+
     /** {@return optional nullable state for the reference} */
     Optional<Boolean> isNullable();
 
     /** {@return optional read-only state for the reference} */
     Optional<Boolean> isReadonly();
-
-    /** {@return true if the property is required, otherwise false} */
-    boolean isRequired();
 
     /** {@return optional validation minimum items} */
     Optional<Integer> minItems();

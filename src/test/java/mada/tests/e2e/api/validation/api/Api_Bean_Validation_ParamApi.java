@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.api.validation.api;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -27,5 +28,5 @@ public interface Api_Bean_Validation_ParamApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
-  String apiValidationParamPathEnvGet(@PathParam("env") @NotNull Environment env);
+  String apiValidationParamPathEnvGet(@PathParam("env") @NotNull @Valid Environment env);
 }

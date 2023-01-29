@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.generator.dto.tmpl.CtxValidation;
+
 /**
  * Template data for an API operation parameter.
  */
@@ -47,33 +49,6 @@ public interface CtxApiParam {
     /** {@return true if this is a form parameter, otherwise false} */
     boolean isFormParam();
 
-    /** {@return true if bean validation should be used for this parameter, otherwise false} */
-    boolean useBeanValidation();
-
-    /** {@return true if the parameter is required, otherwise false} */
-    boolean required();
-
-    /** {@return true if the parameter must be valid, otherwise false} */
-    boolean valid();
-
-    /** {@return an optional validation minimum length} */
-    Optional<String> minLength();
-
-    /** {@return an optional validation maximum length} */
-    Optional<String> maxLength();
-
-    /** {@return an optional validation minimum} */
-    Optional<String> minimum();
-
-    /** {@return an optional validation maximum} */
-    Optional<String> maximum();
-
-    /** {@return an optional validation decimalMinimum} */
-    Optional<String> decimalMinimum();
-
-    /** {@return an optional validation decimalMaximum} */
-    Optional<String> decimalMaximum();
-
-    /** {@return an optional validation pattern} */
-    Optional<String> pattern();
+    /** {@return context for bean validation if relevant for this parameter} */
+    Optional<CtxValidation> validation();
 }
