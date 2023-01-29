@@ -105,14 +105,13 @@ public class PropertyGenerator {
 //        String enumClassName = ti.typeName();
 //        String enumTypeName = ti.typeName();
 //        Optional<String> enumSchema = Optional.empty();
-
+/*
         if (prop.name().equals("type")) {
             logger.warn("Bad {}", prop);
             logger.warn("typeName: {}, innerTypeName: {}", typeName, innerTypeName);
 //            throw new IllegalStateException("Bad conversion");
         }
-
-        
+*/
         // Add import if required
         addTypeImports(dtoImports, ti.typeName());
         addTypeImports(dtoImports, ti.innerTypeName());
