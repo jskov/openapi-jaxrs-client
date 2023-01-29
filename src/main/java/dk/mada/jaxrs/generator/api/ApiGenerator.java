@@ -353,7 +353,7 @@ public class ApiGenerator {
             Validation validation = ref.validation();
             logger.debug("See param {} : {} : {}", paramName, type, validation);
 
-            boolean required = validation.isRequired() || p.isRequired();
+            boolean required = validation.isRequired().orElse(false) || p.isRequired();
             if (opts.isUseBeanValidation() && required) {
                 imports.add(ValidationApi.NOT_NULL);
             }
