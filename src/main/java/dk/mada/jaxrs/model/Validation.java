@@ -12,6 +12,7 @@ import org.immutables.value.Value.Immutable;
 public interface Validation {
     /** No validation input. */
     Validation NO_VALIDATION = Validation.builder()
+            .isRequired(false)
             .build();
 
     /** Simple required validation. */
