@@ -161,7 +161,7 @@ public class PropertyGenerator {
         }
 
         Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation(), false);
-        
+
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(ti.innerTypeName())
                 .enumClassName(ei.enumClassName())
