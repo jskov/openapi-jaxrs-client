@@ -296,9 +296,10 @@ public class ApiGenerator {
     /**
      * Determine if all the response types can be rendered via the simple @APIResponseSchema annotation.
      *
+     * Probably needs to be more clever - must consider that description matches code(). But this will do for now.
+     *
      * @param responses the responses
      */
-    // TODO: probably needs to be more clever - must consider that description matches code(). But this will do for now.
     private boolean isOnlySimpleResponse(List<Response> responses) {
         if (responses.size() != 1) {
             return false;

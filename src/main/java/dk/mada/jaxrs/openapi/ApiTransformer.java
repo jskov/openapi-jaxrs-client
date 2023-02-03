@@ -217,7 +217,6 @@ public class ApiTransformer {
                 .build();
     }
 
-    // TODO: this does not end well.
     // At least an enum parameter may have to be rendered as a standalone
     // type (DTO). This does not happen with this code alone.
     private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
