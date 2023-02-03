@@ -120,10 +120,10 @@ public final class TypeConverter {
      * @param required the required value to override in the reference
      * @return the found/created internal model type
      */
-    public ParserTypeRef toReference(Schema<?> schema, boolean isRequired) {
+    public ParserTypeRef toReference(Schema<?> schema, boolean required) {
         ParserTypeRef ptr = reference(schema, null, null);
 
-        if (isRequired) {
+        if (required) {
             logger.debug(" overriding ptr validation to force required");
             var withRequire = ImmutableValidation.builder().from(ptr.validation())
                     .isRequired(true)

@@ -35,7 +35,6 @@ public class ValidationGenerator {
      * @param imports          the api/dto imports
      * @param type             the type to make validation for
      * @param validation       the reference validation information
-     * @param requiredOverride allow overriding required state
      * @return an optional validation rendering context
      */
     // FIXME: get rid of override by fixing validation in param/body conversion
