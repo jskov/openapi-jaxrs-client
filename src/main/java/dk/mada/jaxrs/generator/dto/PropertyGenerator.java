@@ -163,8 +163,9 @@ public class PropertyGenerator {
                 .renderJavadocMacroSpacer(description.isPresent())
                 .build();
 
+        String propertyName = names.propertyName();
         CtxProperty ctx = CtxProperty.builder()
-                .baseName(names.propertyName())
+                .baseName(propertyName)
                 .datatypeWithEnum(ti.typeName())
                 .dataType(ti.innerTypeName())
                 .name(names.variableName())
@@ -188,7 +189,7 @@ public class PropertyGenerator {
                 .madaProp(mada)
                 .build();
 
-        logger.debug("property {} : {}", names.propertyName(), ctx);
+        logger.debug("property {} : {}", propertyName, ctx);
         return ctx;
     }
 

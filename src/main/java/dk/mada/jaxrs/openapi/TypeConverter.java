@@ -470,11 +470,6 @@ public final class TypeConverter {
             }
         }
 
-        if (validations.isEmpty() && refs.size() == 2) {
-            logger.info("Unpack ref validation: {}", refs);
-            // FIXME: this should not be needed?!
-        }
-
         if (validations.size() != 1 || refs.size() != 1) {
             logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
             // bail for now

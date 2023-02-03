@@ -303,13 +303,6 @@ public class ApiTransformer {
                 .build();
     }
 
-//    private 
-//    if (isRequired && content.reference()instanceof ParserTypeRef tr) {
-//        logger.debug(" overriding body validation to force required");
-//        var refRequired = ImmutableParserTypeRef.builder().from(tr)
-//                .validation(Validation.REQUIRED_VALIDATION)
-//                .build();
-
     private boolean toBool(Boolean b) {
         return Boolean.TRUE.equals(b);
     }
