@@ -6,8 +6,6 @@ import dk.mada.jaxrs.generator.GeneratorOpts;
 
 /**
  * Special type for handing date-time schema.
- *
- * TODO: opts should be a constructor input
  */
 public final class TypeDateTime implements Type {
     /** The single instance of the LocalDateTime object. */

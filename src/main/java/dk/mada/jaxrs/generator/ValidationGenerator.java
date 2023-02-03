@@ -37,7 +37,6 @@ public class ValidationGenerator {
      * @param validation the reference validation information
      * @return an optional validation rendering context
      */
-    // FIXME: get rid of override by fixing validation in param/body conversion
     public Optional<CtxValidation> makeValidation(Imports imports, Type type, @Nullable Validation validation) {
         if (validation == null) {
             return Optional.empty();

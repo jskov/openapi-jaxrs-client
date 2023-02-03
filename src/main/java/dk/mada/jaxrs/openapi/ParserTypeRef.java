@@ -51,7 +51,6 @@ public interface ParserTypeRef extends Reference {
     @Override
     Type refType();
 
-    // FIXME: maybe just use typeName instead of ref?
     @Override
     default TypeName typeName() {
         return refTypeName();

@@ -396,7 +396,6 @@ public final class TypeConverter {
         if (schema.getType() == null && schema.get$ref() == null
                 && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
             logger.trace(" - createSupplementalValidation");
-            // FIXME: Gets double wrapped
             return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
         }
         return null;
@@ -470,11 +469,6 @@ public final class TypeConverter {
             }
         }
 
-        if (validations.isEmpty() && refs.size() == 2) {
-            logger.info("Unpack ref validation: {}", refs);
-            // FIXME: this should not be needed?!
-        }
-
         if (validations.size() != 1 || refs.size() != 1) {
             logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
             // bail for now
@@ -534,10 +528,6 @@ public final class TypeConverter {
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
         String modelName = naming.convertTypeName(dtoName);
-        // FIXME: original dtoName should be stored in the Dto
-        // and used to generate mpSchema name in the Generator.
-        // But maybe keep it since it is a distinct namespace
-        // that needs name-conflict-resolution.
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
         logger.info("creating dto {}", dtoName);

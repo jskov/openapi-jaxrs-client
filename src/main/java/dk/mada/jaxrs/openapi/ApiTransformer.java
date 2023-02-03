@@ -217,7 +217,6 @@ public class ApiTransformer {
                 .build();
     }
 
-    // TODO: this does not end well.
     // At least an enum parameter may have to be rendered as a standalone
     // type (DTO). This does not happen with this code alone.
     private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
@@ -302,13 +301,6 @@ public class ApiTransformer {
                 .isFormParam(false)
                 .build();
     }
-
-//    private 
-//    if (isRequired && content.reference()instanceof ParserTypeRef tr) {
-//        logger.debug(" overriding body validation to force required");
-//        var refRequired = ImmutableParserTypeRef.builder().from(tr)
-//                .validation(Validation.REQUIRED_VALIDATION)
-//                .build();
 
     private boolean toBool(Boolean b) {
         return Boolean.TRUE.equals(b);

@@ -25,6 +25,4 @@ public interface Content {
 
     /** {@return the list of form parameters} */
     List<Parameter> formParameters();
-
-    // TODO: per-media type example
 }

@@ -89,14 +89,6 @@ public class PropertyGenerator {
         Type propType = ti.propType();
         logger.trace(" {}", propType);
 
-//        CtxEnum ctxEnum = null;
-//        String enumClassName = ti.typeName();
-//        String enumTypeName = ti.typeName();
-//        Optional<String> enumSchema = Optional.empty();
-        /*
-         * if (prop.name().equals("type")) { logger.warn("Bad {}", prop); logger.warn("typeName: {}, innerTypeName: {}",
-         * typeName, innerTypeName); // throw new IllegalStateException("Bad conversion"); }
-         */
         // Add import if required
         addTypeImports(dtoImports, ti.typeName());
         addTypeImports(dtoImports, ti.innerTypeName());
@@ -163,8 +155,9 @@ public class PropertyGenerator {
                 .renderJavadocMacroSpacer(description.isPresent())
                 .build();
 
+        String propertyName = names.propertyName();
         CtxProperty ctx = CtxProperty.builder()
-                .baseName(names.propertyName())
+                .baseName(propertyName)
                 .datatypeWithEnum(ti.typeName())
                 .dataType(ti.innerTypeName())
                 .name(names.variableName())
@@ -188,7 +181,7 @@ public class PropertyGenerator {
                 .madaProp(mada)
                 .build();
 
-        logger.debug("property {} : {}", names.propertyName(), ctx);
+        logger.debug("property {} : {}", propertyName, ctx);
         return ctx;
     }
 

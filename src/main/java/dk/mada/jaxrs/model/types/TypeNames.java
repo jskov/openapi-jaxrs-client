@@ -123,7 +123,7 @@ public final class TypeNames {
         String sep = System.lineSeparator() + "  ";
         return new StringBuilder("Type names:").append(sep)
                 .append(nameToInstances.keySet().stream()
-                        .sorted((a, b) -> a.compareToIgnoreCase(b))
+                        .sorted(String::compareToIgnoreCase)
                         .collect(joining(sep)))
                 .toString();
     }
