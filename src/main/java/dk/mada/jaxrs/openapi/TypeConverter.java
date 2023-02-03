@@ -580,24 +580,14 @@ public final class TypeConverter {
 
             Optional<String> exampleStr = Optional.ofNullable(Objects.toString(propSchema.getExample(), null));
 
-            boolean isReadOnly = (propSchema.getReadOnly() != null) && propSchema.getReadOnly();
-            boolean isNullable = (propSchema.getNullable() != null) && propSchema.getNullable();
+            Validation validation = extractValidation(propSchema, requiredProperyNames.contains(propertyName));
 
             props.add(Property.builder()
                     .name(propertyName)
                     .reference(ref)
                     .description(Optional.ofNullable(propSchema.getDescription()))
                     .example(exampleStr)
-                    .isNullable(isNullable)
-                    .isReadonly(isReadOnly)
-                    .isRequired(requiredProperyNames.contains(propertyName))
-                    .minItems(Optional.ofNullable(propSchema.getMinItems()))
-                    .maxItems(Optional.ofNullable(propSchema.getMaxItems()))
-                    .minLength(Optional.ofNullable(propSchema.getMinLength()))
-                    .maxLength(Optional.ofNullable(propSchema.getMaxLength()))
-                    .minimum(Optional.ofNullable(propSchema.getMinimum()))
-                    .maximum(Optional.ofNullable(propSchema.getMaximum()))
-                    .pattern(Optional.ofNullable(propSchema.getPattern()))
+                    .validation(validation)
                     .build());
         }
 

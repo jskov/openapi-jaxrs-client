@@ -13,21 +13,21 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.StringRenderer;
+import dk.mada.jaxrs.generator.ValidationGenerator;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxPropertyExt;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.Jackson;
 import dk.mada.jaxrs.generator.imports.JavaMath;
 import dk.mada.jaxrs.generator.imports.JavaUtil;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
-import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeByteArray;
-import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeReference;
@@ -53,6 +53,8 @@ public class PropertyGenerator {
 
     /** Enumeration generator. */
     private final EnumGenerator enumGenerator;
+    /** Validation generator. */
+    private final ValidationGenerator validationGenerator;
 
     /**
      * Constructs a new generator.
@@ -67,6 +69,7 @@ public class PropertyGenerator {
         this.enumGenerator = enumGenerator;
 
         externalTypeMapping = opts.getExternalTypeMapping();
+        validationGenerator = new ValidationGenerator(opts);
     }
 
     /**
@@ -142,10 +145,10 @@ public class PropertyGenerator {
         if (ti.isRequired()) {
             schemaEntries.add("required = true");
         }
-        if (prop.isNullable()) {
+        if (prop.validation().isNullable().orElse(false)) {
             schemaEntries.add("nullable = true");
         }
-        if (prop.isReadonly()) {
+        if (prop.validation().isReadonly().orElse(false)) {
             schemaEntries.add("readOnly = true");
         }
         consumeNonBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
@@ -157,71 +160,8 @@ public class PropertyGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        boolean useBeanValidation = opts.isUseBeanValidation();
-        boolean valid = false;
-        Optional<String> minLength = Optional.empty();
-        Optional<String> maxLength = Optional.empty();
-        Optional<String> minimum = Optional.empty();
-        Optional<String> maximum = Optional.empty();
-        Optional<String> decimalMinimum = Optional.empty();
-        Optional<String> decimalMaximum = Optional.empty();
-        Optional<String> pattern = Optional.empty();
-        if (useBeanValidation) {
-            if (prop.isRequired()) {
-                dtoImports.add(ValidationApi.NOT_NULL);
-            }
-            // Decide where to put @Valid. I expect this to be too simple...
-            if (propType.isDto()
-                    || (propType instanceof TypeContainer tc && tc.innerType().isDto())) {
-                valid = true;
-                dtoImports.add(ValidationApi.VALID);
-            }
-
-            // Note that OpenApi specification xItems/xLength both map to @Size
-            minLength = prop.minItems()
-                    .or(prop::minLength)
-                    .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
-            if (minLength.isPresent()) {
-                dtoImports.add(ValidationApi.SIZE);
-            }
-            maxLength = prop.maxItems()
-                    .or(prop::maxLength)
-                    .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
-            if (maxLength.isPresent()) {
-                dtoImports.add(ValidationApi.SIZE);
-            }
-
-            if (propType.isBigDecimal()) {
-                decimalMinimum = prop.minimum()
-                        .map(min -> "\"" + min.toString() + "\"");
-                decimalMaximum = prop.maximum()
-                        .map(max -> "\"" + max.toString() + "\"");
-            } else {
-                minimum = prop.minimum()
-                        .map(min -> Long.toString(min.longValue()));
-                maximum = prop.maximum()
-                        .map(max -> Long.toString(max.longValue()));
-            }
-            if (decimalMinimum.isPresent()) {
-                dtoImports.add(ValidationApi.DECIMAL_MIN);
-            }
-            if (minimum.isPresent()) {
-                dtoImports.add(ValidationApi.MIN);
-            }
-            if (decimalMinimum.isPresent()) {
-                dtoImports.add(ValidationApi.DECIMAL_MAX);
-            }
-            if (maximum.isPresent()) {
-                dtoImports.add(ValidationApi.MAX);
-            }
-
-            pattern = prop.pattern()
-                    .map(StringRenderer::encodeRegexp);
-            if (pattern.isPresent()) {
-                dtoImports.add(ValidationApi.PATTERN);
-            }
-        }
-
+        Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation(), false);
+        
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(ti.innerTypeName())
                 .enumClassName(ei.enumClassName())
@@ -235,7 +175,6 @@ public class PropertyGenerator {
                 .getter(extGetter)
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
-                .valid(valid)
                 .renderJavadocMacroSpacer(description.isPresent())
                 .build();
 
@@ -260,14 +199,7 @@ public class PropertyGenerator {
                 .required(ti.isRequired())
                 .example(prop.example())
                 .allowableValues(ei.ctxEnum())
-                .useBeanValidation(useBeanValidation)
-                .minLength(minLength)
-                .maxLength(maxLength)
-                .minimum(minimum)
-                .maximum(maximum)
-                .decimalMinimum(decimalMinimum)
-                .decimalMaximum(decimalMaximum)
-                .pattern(pattern)
+                .validation(beanValidation)
                 .madaProp(mada)
                 .build();
 
@@ -322,7 +254,7 @@ public class PropertyGenerator {
         Type propType = prop.reference().refType();
         Type innerType = null;
         String defaultValue = null;
-        final boolean isRequired = prop.isRequired();
+        final boolean isRequired = prop.validation().isRequired().orElse(false);
         boolean isByteArray = false;
         boolean isArray = false;
         boolean isMap = false;

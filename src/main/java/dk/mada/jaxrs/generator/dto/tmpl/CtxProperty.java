@@ -49,29 +49,8 @@ public interface CtxProperty {
     /** {@return the optional description of the property} */
     Optional<String> description();
 
-    /** {@return true if bean validation should be used for this property, otherwise false} */
-    boolean useBeanValidation();
-
-    /** {@return optional validation minimum length} */
-    Optional<String> minLength();
-
-    /** {@return optional validation maximum length} */
-    Optional<String> maxLength();
-
-    /** {@return optional validation minimum} */
-    Optional<String> minimum();
-
-    /** {@return optional validation maximum} */
-    Optional<String> maximum();
-
-    /** {@return optional validation decimalMinimum} */
-    Optional<String> decimalMinimum();
-
-    /** {@return optional validation decimalMaximum} */
-    Optional<String> decimalMaximum();
-
-    /** {@return optional validation pattern} */
-    Optional<String> pattern();
+    /** {@return context for bean validation if relevant for this property} */
+    Optional<CtxValidation> validation();
 
     /** {@return true if this property should be rendered as an array, otherwise false} */
     boolean isArray();
