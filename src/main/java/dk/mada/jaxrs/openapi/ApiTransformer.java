@@ -261,7 +261,6 @@ public class ApiTransformer {
         return Optional.of(
                 RequestBody.builder()
                         .description(Optional.ofNullable(body.getDescription()))
-                        .isRequired(isRequired)
                         .content(content)
                         .build());
     }

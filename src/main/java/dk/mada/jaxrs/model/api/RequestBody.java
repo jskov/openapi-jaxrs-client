@@ -19,7 +19,4 @@ public interface RequestBody {
 
     /** {@return the an optional description of the request body} */
     Optional<String> description();
-
-    /** {@return true if the request body is required, otherwise false} */
-    boolean isRequired();
 }
