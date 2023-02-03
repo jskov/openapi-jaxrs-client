@@ -356,12 +356,7 @@ public class ApiGenerator {
             Validation validation = ref.validation();
             logger.debug("See param {} : {} : {}", paramName, type, validation);
 
-//            boolean required = validation.isRequired().orElse(false) || p.isRequired();
-//            if (opts.isUseBeanValidation() && required) {
-//                imports.add(ValidationApi.NOT_NULL);
-//            }
-
-            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation, false);
+            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
 
             params.add(CtxApiParam.builder()
                     .baseName(p.name())
@@ -391,7 +386,7 @@ public class ApiGenerator {
 
             String dataType = paramDataType(ref);
 
-            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation(), false);
+            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
 
             CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")

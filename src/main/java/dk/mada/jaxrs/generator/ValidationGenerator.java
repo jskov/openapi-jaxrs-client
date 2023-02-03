@@ -39,7 +39,7 @@ public class ValidationGenerator {
      * @return an optional validation rendering context
      */
     // FIXME: get rid of override by fixing validation in param/body conversion
-    public Optional<CtxValidation> makeValidation(Imports imports, Type type, @Nullable Validation validation, boolean requiredOverride) {
+    public Optional<CtxValidation> makeValidation(Imports imports, Type type, @Nullable Validation validation) {
         if (validation == null) {
             return Optional.empty();
         }
@@ -53,7 +53,7 @@ public class ValidationGenerator {
         Optional<String> decimalMinimum = Optional.empty();
         Optional<String> decimalMaximum = Optional.empty();
         Optional<String> pattern;
-        boolean isRequired = validation.isRequired().orElse(false) || requiredOverride;
+        boolean isRequired = validation.isRequired().orElse(false);
         if (isRequired) {
             imports.add(renderAnnotations, ValidationApi.NOT_NULL);
         }
