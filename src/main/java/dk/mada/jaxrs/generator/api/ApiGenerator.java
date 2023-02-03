@@ -392,11 +392,6 @@ public class ApiGenerator {
 
             String dataType = paramDataType(ref);
 
-            boolean isBodyRequired = ref.validation().isRequired().orElse(false);
-            if (opts.isUseBeanValidation() && isBodyRequired) {
-                imports.add(ValidationApi.NOT_NULL);
-            }
-
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation(), false);
 
             CtxApiParam bodyParam = CtxApiParam.builder()
