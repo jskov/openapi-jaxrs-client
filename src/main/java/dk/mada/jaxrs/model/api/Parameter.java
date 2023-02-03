@@ -25,10 +25,6 @@ public interface Parameter {
     /** {@return an optional description of the parameter} */
     Optional<String> description();
 
-    /** {@return true if the parameter is required, otherwise false} */
-    @Deprecated // should come from reference validation
-    boolean isRequired();
-
     /** {@return true if the parameter is a header parameter, otherwise false} */
     boolean isHeaderParam();
 

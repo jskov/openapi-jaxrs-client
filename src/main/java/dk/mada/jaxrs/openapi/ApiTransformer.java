@@ -13,9 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.SecurityScheme;
-import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
-import dk.mada.jaxrs.model.api.ImmutableContent;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
@@ -154,7 +152,7 @@ public class ApiTransformer {
         Response r = Response.builder()
                 .code(StatusCode.of(code))
                 .description(Optional.ofNullable(resp.getDescription()))
-                .content(getContent(resourcePath, resp.getContent()))
+                .content(getContent(resourcePath, resp.getContent(), false))
                 .build();
 
         if (parseOpts.isFixupVoid200to204()
@@ -169,7 +167,7 @@ public class ApiTransformer {
         return r;
     }
 
-    private Content getContent(String resourcePath, io.swagger.v3.oas.models.media.Content c) {
+    private Content getContent(String resourcePath, io.swagger.v3.oas.models.media.Content c, boolean isRequired) {
         Reference ref;
         Set<String> mediaTypes;
         List<Parameter> formParameters = List.of();
@@ -197,7 +195,7 @@ public class ApiTransformer {
                     // This happens in some documents
                     ref = TypeVoid.getRef();
                 } else {
-                    ref = typeConverter.toReference(ss);
+                    ref = typeConverter.toReference(ss, isRequired);
 
                     // form parameters via properties on body
                     @SuppressWarnings({ "rawtypes" })
@@ -231,7 +229,6 @@ public class ApiTransformer {
                 .isHeaderParam(false)
                 .isPathParam(false)
                 .isQueryParam(false)
-                .isRequired(true)
                 .isFormParam(true)
                 .reference(dtoPtr)
                 .build();
@@ -242,21 +239,8 @@ public class ApiTransformer {
         if (body == null) {
             return Optional.empty();
         }
-        Content content = getContent(resourcePath, body.getContent());
-
         boolean isRequired = toBool(body.getRequired());
-        // The required flag is not on the reference, but on the requestBody.
-        // Copy it into the property validation - should probably check for other validations.
-        // FIXME: this magic is not active yet - delete if turns out the body-required thing stays
-        if (isRequired && content.reference()instanceof ParserTypeRef tr) {
-            logger.debug(" overriding body validation to force required");
-            var refRequired = ImmutableParserTypeRef.builder().from(tr)
-                    .validation(Validation.REQUIRED_VALIDATION)
-                    .build();
-            content = ImmutableContent.builder().from(content)
-                    .reference(refRequired)
-                    .build();
-        }
+        Content content = getContent(resourcePath, body.getContent(), isRequired);
 
         return Optional.of(
                 RequestBody.builder()
@@ -303,14 +287,14 @@ public class ApiTransformer {
         boolean isHeaderParam = param instanceof HeaderParameter || "header".equals(paramIn);
         boolean isQueryParam = param instanceof QueryParameter || "query".equals(paramIn);
 
-        Reference ref = typeConverter.toReference(param.getSchema());
+        boolean isParamRequired = toBool(param.getRequired());
+        Reference ref = typeConverter.toReference(param.getSchema(), isParamRequired);
 
         logger.debug("Parse param {} : {}", name, ref);
 
         return Parameter.builder()
                 .name(name)
                 .description(Optional.ofNullable(param.getDescription()))
-                .isRequired(toBool(param.getRequired()))
                 .reference(ref)
                 .isHeaderParam(isHeaderParam)
                 .isPathParam(isPathParam)
@@ -318,6 +302,13 @@ public class ApiTransformer {
                 .isFormParam(false)
                 .build();
     }
+
+//    private 
+//    if (isRequired && content.reference()instanceof ParserTypeRef tr) {
+//        logger.debug(" overriding body validation to force required");
+//        var refRequired = ImmutableParserTypeRef.builder().from(tr)
+//                .validation(Validation.REQUIRED_VALIDATION)
+//                .build();
 
     private boolean toBool(Boolean b) {
         return Boolean.TRUE.equals(b);

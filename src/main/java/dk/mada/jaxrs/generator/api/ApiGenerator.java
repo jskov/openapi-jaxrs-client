@@ -28,7 +28,6 @@ import dk.mada.jaxrs.generator.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.imports.Imports;
 import dk.mada.jaxrs.generator.imports.JaxRs;
 import dk.mada.jaxrs.generator.imports.MicroProfile;
-import dk.mada.jaxrs.generator.imports.ValidationApi;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -357,12 +356,12 @@ public class ApiGenerator {
             Validation validation = ref.validation();
             logger.debug("See param {} : {} : {}", paramName, type, validation);
 
-            boolean required = validation.isRequired().orElse(false) || p.isRequired();
-            if (opts.isUseBeanValidation() && required) {
-                imports.add(ValidationApi.NOT_NULL);
-            }
+//            boolean required = validation.isRequired().orElse(false) || p.isRequired();
+//            if (opts.isUseBeanValidation() && required) {
+//                imports.add(ValidationApi.NOT_NULL);
+//            }
 
-            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation, required);
+            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation, false);
 
             params.add(CtxApiParam.builder()
                     .baseName(p.name())
