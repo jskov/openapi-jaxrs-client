@@ -32,14 +32,13 @@ public class ValidationGenerator {
     /**
      * Generate validation rendering context from type and validation information.
      *
-     * @param imports          the api/dto imports
-     * @param type             the type to make validation for
-     * @param validation       the reference validation information
-     * @param requiredOverride allow overriding required state
+     * @param imports    the api/dto imports
+     * @param type       the type to make validation for
+     * @param validation the reference validation information
      * @return an optional validation rendering context
      */
     // FIXME: get rid of override by fixing validation in param/body conversion
-    public Optional<CtxValidation> makeValidation(Imports imports, Type type, @Nullable Validation validation, boolean requiredOverride) {
+    public Optional<CtxValidation> makeValidation(Imports imports, Type type, @Nullable Validation validation) {
         if (validation == null) {
             return Optional.empty();
         }
@@ -53,7 +52,7 @@ public class ValidationGenerator {
         Optional<String> decimalMinimum = Optional.empty();
         Optional<String> decimalMaximum = Optional.empty();
         Optional<String> pattern;
-        boolean isRequired = validation.isRequired().orElse(false) || requiredOverride;
+        boolean isRequired = validation.isRequired().orElse(false);
         if (isRequired) {
             imports.add(renderAnnotations, ValidationApi.NOT_NULL);
         }

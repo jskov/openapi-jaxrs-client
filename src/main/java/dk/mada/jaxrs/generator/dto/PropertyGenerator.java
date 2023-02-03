@@ -80,23 +80,8 @@ public class PropertyGenerator {
      * @return the property context
      */
     public CtxProperty toCtxProperty(Imports dtoImports, Property prop) {
-        final String name = prop.name();
-        final String varName = naming.convertPropertyName(name);
-
-        String nameCamelized = OpenapiGeneratorUtils.camelize(varName);
-        String nameSnaked = OpenapiGeneratorUtils.underscore(nameCamelized).toUpperCase();
-        // Both Jackson (Fasterxml) and JsonBinding expect the getter
-        // of a 'xX'-prefixed field to be named 'getxX'. Although
-        // this is different from Bean Spec naming for getters/setters.
-        //
-        // See https://github.com/FasterXML/jackson-databind/blob/2.15...
-        // /src/main/java/com/fasterxml/jackson/databind/introspect...
-        // /DefaultAccessorNamingStrategy.java#L182
-        if (name.length() > 1 && Character.isUpperCase(name.charAt(1))) {
-            nameCamelized = Character.toLowerCase(name.charAt(0)) + nameCamelized.substring(1);
-        }
-
-        logger.debug("Property {} -> {} / {} / {}", name, varName, nameCamelized, nameSnaked);
+        final Names names = getNames(prop);
+        logger.debug("Property {}", names);
 
         TypeInfo ti = decodeTypeInfo(dtoImports, prop);
         EnumInfo ei = decodeEnumInfo(dtoImports, ti);
@@ -117,8 +102,8 @@ public class PropertyGenerator {
         addTypeImports(dtoImports, ti.innerTypeName());
 
         String getterPrefix = getterPrefix(prop);
-        String getter = getterPrefix + nameCamelized;
-        String setter = "set" + nameCamelized;
+        String getter = getterPrefix + names.camelized();
+        String setter = "set" + names.camelized();
         String extGetter = getter;
         String extSetter = setter;
         boolean isUseBigDecimalForDouble = opts.isUseBigDecimalForDouble()
@@ -160,7 +145,7 @@ public class PropertyGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation(), false);
+        Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation());
 
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(ti.innerTypeName())
@@ -179,12 +164,12 @@ public class PropertyGenerator {
                 .build();
 
         CtxProperty ctx = CtxProperty.builder()
-                .baseName(name)
+                .baseName(names.propertyName())
                 .datatypeWithEnum(ti.typeName())
                 .dataType(ti.innerTypeName())
-                .name(varName)
-                .nameInCamelCase(nameCamelized)
-                .nameInSnakeCase(nameSnaked)
+                .name(names.variableName())
+                .nameInCamelCase(names.camelized())
+                .nameInSnakeCase(names.snaked())
                 .getter(getter)
                 .setter(setter)
                 .description(description.flatMap(StringRenderer::makeValidPropertyJavadocSummary))
@@ -203,8 +188,31 @@ public class PropertyGenerator {
                 .madaProp(mada)
                 .build();
 
-        logger.debug("property {} : {}", name, ctx);
+        logger.debug("property {} : {}", names.propertyName(), ctx);
         return ctx;
+    }
+
+    record Names(String propertyName, String variableName, String camelized, String snaked) {
+    }
+
+    private Names getNames(Property prop) {
+        final String name = prop.name();
+        final String varName = naming.convertPropertyName(name);
+
+        String camelized = OpenapiGeneratorUtils.camelize(varName);
+        final String snaked = OpenapiGeneratorUtils.underscore(camelized).toUpperCase();
+        // Both Jackson (Fasterxml) and JsonBinding expect the getter
+        // of a 'xX'-prefixed field to be named 'getxX'. Although
+        // this is different from Bean Spec naming for getters/setters.
+        //
+        // See https://github.com/FasterXML/jackson-databind/blob/2.15...
+        // /src/main/java/com/fasterxml/jackson/databind/introspect...
+        // /DefaultAccessorNamingStrategy.java#L182
+        if (name.length() > 1 && Character.isUpperCase(name.charAt(1))) {
+            camelized = Character.toLowerCase(name.charAt(0)) + camelized.substring(1);
+        }
+
+        return new Names(name, varName, camelized, snaked);
     }
 
     private void addTypeImports(Imports dtoImports, @Nullable String typeName) {

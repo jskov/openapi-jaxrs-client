@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.ImmutableValidation;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
@@ -108,6 +109,31 @@ public final class TypeConverter {
      */
     public ParserTypeRef toReference(Schema<?> schema) {
         return reference(schema, null, null);
+    }
+
+    /**
+     * Creates the schema reference, but overrides the required state.
+     *
+     * This is used from parameters, where the required property comes from the parameter.
+     *
+     * @param schema   the OpenApi schema to convert
+     * @param required the required value to override in the reference
+     * @return the found/created internal model type
+     */
+    public ParserTypeRef toReference(Schema<?> schema, boolean required) {
+        ParserTypeRef ptr = reference(schema, null, null);
+
+        if (required) {
+            logger.debug(" overriding ptr validation to force required");
+            var withRequire = ImmutableValidation.builder().from(ptr.validation())
+                    .isRequired(true)
+                    .build();
+            return ImmutableParserTypeRef.builder().from(ptr)
+                    .validation(withRequire)
+                    .build();
+        } else {
+            return ptr;
+        }
     }
 
     /**
