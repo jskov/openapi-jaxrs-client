@@ -62,9 +62,6 @@ public interface CtxPropertyExt {
     /** {@return true if rendering for jsonb, false otherwise} */
     boolean jsonb();
 
-    /** {@return true if the property must be valid, otherwise false} */
-    boolean valid();
-
     /** {@return the summary as a java string, or null} */
     @Nullable String descriptionString();
 

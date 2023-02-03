@@ -131,6 +131,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{^description}}
    * Get {{name}}
   {{/description}}
+  {{#validation}}
   {{#minimum}}
    * minimum: {{.}}
   {{/minimum}}
@@ -143,6 +144,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{#decimalMaximum}}
    * maximum: {{{.}}}
   {{/decimalMaximum}}
+  {{/validation}}
 {{#madaProp.renderJavadocMacroSpacer}}
    *
 {{/madaProp.renderJavadocMacroSpacer}}
@@ -151,7 +153,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
  {{#vendorExtensions.x-extra-annotation}}
   {{{vendorExtensions.x-extra-annotation}}}
   {{/vendorExtensions.x-extra-annotation}}
-  {{#useBeanValidation}}{{>beanValidationProp}}{{/useBeanValidation}} 
+{{#validation}}  {{>beanValidation}}{{/validation}}
   {{#madaProp.isUseEmptyCollections}}
    {{#jackson}}
   @JsonIgnore
@@ -171,7 +173,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{/madaProp.isUseBigDecimalForDouble}}
   {{#madaProp.isUseEmptyCollections}}
 
-  {{#useBeanValidation}}{{>beanValidationProp}}{{/useBeanValidation}} 
+{{#validation}}  {{>beanValidation}}{{/validation}}
   public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};
