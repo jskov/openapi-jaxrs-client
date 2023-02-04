@@ -1,0 +1,14 @@
+plugins {
+    id('java-platform')
+}
+
+group = 'dk.mada.platform'
+
+// allow the definition of dependencies to other platforms
+javaPlatform.allowDependencies()
+
+dependencies {
+    constraints {
+        api 'info.picocli:picocli:4.7.1'
+    }
+}

@@ -1,0 +1,10 @@
+plugins {
+    id('java-platform')
+}
+
+group = 'dk.mada.platform'
+
+dependencies {
+    constraints {
+    }
+}

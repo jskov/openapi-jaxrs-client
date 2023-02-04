@@ -9,6 +9,8 @@ plugins {
     id 'java-library'
     id 'org.sonarqube' version '3.5.0.2730'
     id 'maven-publish'
+    
+    id 'dk.mada.java'
 }
 
 group "${groupId}"
@@ -31,7 +33,7 @@ configurations {
 }
 
 dependencies {
-    implementation      'info.picocli:picocli:4.7.1'
+    implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser:2.1.11'
 
     annotationProcessor "org.immutables:value:${immutablesVersion}"
@@ -85,9 +87,6 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-    
     withJavadocJar()
     withSourcesJar()
 }
