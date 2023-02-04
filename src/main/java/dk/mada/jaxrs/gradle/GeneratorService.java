@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.gradle;
 
-// FIXME: copy of file in gradle-plugin, cannot get compile dep working
-
 import java.nio.file.Path;
 import java.util.Properties;
 
@@ -9,6 +7,8 @@ import java.util.Properties;
  * Generator service.
  *
  * Allows decoupling the generator service from the two ways of invoking it (from CLI and Gradle).
+ *
+ * NOTE: this class is a copy of the file in gradle-plugin, cannot get compile dep working
  */
 public interface GeneratorService {
     /** Log level to use when generating code. */

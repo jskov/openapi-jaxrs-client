@@ -245,7 +245,7 @@ public class PropertyGenerator {
             ctxEnum = enumGenerator.toCtxEnum(enumType, te.values());
             enumSchema = enumGenerator.buildEnumSchema(dtoImports, enumType, ctxEnum);
 
-            logger.debug(" enum {} : {}", ti.innerTypeName(), te.values());
+            logger.debug(" enum {} : {}", enumTypeName, te.values());
         }
 
         return new EnumInfo(ctxEnum, enumClassName, enumTypeName, enumSchema.orElse(null));
