@@ -11,6 +11,8 @@ plugins {
     id 'maven-publish'
     
     id 'dk.mada.java'
+    id 'dk.mada.apt-values'
+    id 'dk.mada.apt-jstachio'
 }
 
 group "${groupId}"
@@ -27,22 +29,9 @@ repositories {
     mavenLocal()
 }
 
-configurations {
-    aptValue
-    aptStach
-}
-
 dependencies {
     implementation      'info.picocli:picocli'
-    implementation      'io.swagger.parser.v3:swagger-parser:2.1.11'
-
-    annotationProcessor "org.immutables:value:${immutablesVersion}"
-    aptValue            "org.immutables:value:${immutablesVersion}"
-    compileOnly         "org.immutables:value:${immutablesVersion}:annotations"
-
-    implementation      "io.jstach:jstachio:${jstachioVersion}"
-    aptStach            "io.jstach:jstachio-apt:${jstachioVersion}"
-    annotationProcessor "io.jstach:jstachio-apt:${jstachioVersion}"
+    implementation      'io.swagger.parser.v3:swagger-parser'
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.6'
 

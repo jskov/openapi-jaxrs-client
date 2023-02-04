@@ -1,0 +1,16 @@
+plugins {
+    id('java')
+    id('dk.mada.java')
+}
+
+configurations {
+    aptValue
+}
+
+dependencies {
+    aptValue            (platform('dk.mada.platform:product-platform'))
+
+    annotationProcessor "org.immutables:value"
+    aptValue            "org.immutables:value"
+    compileOnly         "org.immutables:value::annotations"
+}

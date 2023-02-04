@@ -10,8 +10,10 @@ java {
     }
 }
 
+
 dependencies {
-    implementation(platform('dk.mada.platform:product-platform'))
+    implementation      (platform('dk.mada.platform:product-platform'))
+    annotationProcessor (platform('dk.mada.platform:product-platform'))
 
     testImplementation(platform('dk.mada.platform:test-platform'))
     testImplementation('org.junit.jupiter:junit-jupiter')
