@@ -65,7 +65,6 @@ The current plans for future releases are (note, no time commitments):
 **0.9.x**
 
 * Split code into modules (converter+model, generator).
-* Refactor the methods that have gotten large during 0.8.x.
 * More code/package documentation.
 * Documentation index with references to the various tests/examples.
 
@@ -74,7 +73,6 @@ The current plans for future releases are (note, no time commitments):
 * For operations with many query parameters, make builder-like flow-pattern call.
 * Handling of extensions (e.g. annotation of in-house @LoggedSecrets operations)
 * Options for adding @ClientHeaderParam and/or @RegisterClientHeaders
-* Custom OffsetDateTime de/serializer options
 * Maybe add generation of server-side code
 
 ## Contributing and Consultancy
