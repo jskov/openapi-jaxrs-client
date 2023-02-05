@@ -30,7 +30,8 @@ publishing {
         }
     }
     publications {
-        maven(MavenPublication) {
+        myPlatform(MavenPublication) {
+            from components.javaPlatform
             pom {
                 name = 'OpenAPI JAXRS client'
                 description = 'A JAXRS client generator'
