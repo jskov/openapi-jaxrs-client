@@ -237,10 +237,13 @@ publishing {
 }
 
 // Not sure how to properly exclude cli from published artifacts
-publish.doLast {
-    project.delete(fileTree(dir: "build/dist/dk", include: "**/*-cli.*").files)
-    project.delete(fileTree(dir: "build/dist/dk", include: "**/*.module*").files)
-    project.delete(fileTree(dir: "build/dist/dk", includes: ["**/*.md5", "**/*.sha1", "**/*.sha256", "**/*.sha512"]).files)
+publish {
+    dependsOn(gradle.includedBuild('platforms').task(':openapi-jaxrs-bom:publish'))
+    doLast {
+        project.delete(fileTree(dir: "build/dist/dk", include: "**/*-cli.*").files)
+        project.delete(fileTree(dir: "build/dist/dk", include: "**/*.module*").files)
+        project.delete(fileTree(dir: "build/dist/dk", includes: ["**/*.md5", "**/*.sha1", "**/*.sha256", "**/*.sha512"]).files)
+    }
 }
 
 
