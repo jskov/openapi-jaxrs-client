@@ -34,7 +34,7 @@ jobs:
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
         # into gradle.properties
-        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
+        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/platforms/openapi-jaxrs-bom/gradle.properties
 
       - name: Build release
         uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
