@@ -12,8 +12,8 @@ java {
 
 
 dependencies {
-    implementation      (platform('dk.mada.jaxrs:openapi-jaxrs-parent'))
-    annotationProcessor (platform('dk.mada.jaxrs:openapi-jaxrs-parent'))
+    implementation      (platform('dk.mada.jaxrs:openapi-jaxrs-bom'))
+    annotationProcessor (platform('dk.mada.jaxrs:openapi-jaxrs-bom'))
 
     testImplementation(platform('dk.mada.jaxrs:test-platform'))
     testImplementation('org.junit.jupiter:junit-jupiter')

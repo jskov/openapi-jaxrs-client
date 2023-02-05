@@ -8,7 +8,7 @@ configurations {
 }
 
 dependencies {
-    aptValue            (platform('dk.mada.jaxrs:openapi-jaxrs-parent'))
+    aptValue            (platform('dk.mada.jaxrs:openapi-jaxrs-bom'))
 
     annotationProcessor "org.immutables:value"
     aptValue            "org.immutables:value"

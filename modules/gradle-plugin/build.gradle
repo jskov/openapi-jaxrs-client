@@ -46,7 +46,7 @@ test {
     systemProperty "releaseVersion", project.version
 
     dependsOn(":publishToMavenLocal")
-    dependsOn(gradle.includedBuild('platforms').task(':openapi-jaxrs-parent:publishToMavenLocal'))
+    dependsOn(gradle.includedBuild('platforms').task(':openapi-jaxrs-bom:publishToMavenLocal'))
     
 //    forkEvery = 1
 }
