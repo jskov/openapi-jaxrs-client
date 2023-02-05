@@ -187,6 +187,10 @@ project.tasks["sonar"].dependsOn([
     ":gradle-plugin:checkstyleMain"
 ])
 
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}
+
 publishing {
     repositories {
         maven {
