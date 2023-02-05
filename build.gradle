@@ -29,6 +29,7 @@ repositories {
     mavenLocal()
 }
 
+
 dependencies {
     implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser'
@@ -218,6 +219,26 @@ publishing {
                     connection = 'scm:git:git://github.com/jskov/openapi-jaxrs-client.git'
                     developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
                     url = 'https://github.com/jskov/openapi-jaxrs-client/'
+                }
+                
+                withXml {
+                    println it
+                    def n = it.asNode()
+                    println n
+                    println n.version
+                    def dep = n.dependencyManagement.dependencies.dependency[0]
+                    println dep
+                    println "---"
+                    def ver = n.version[0]
+                    println "ADD $ver"
+                    def res = dep.append(ver)
+                    println "RES : $res"
+//                    println dep.n.dependencyManagement.dependencies.dependency.appendNode('version', it.version)
+
+                    println dep
+
+                    println it
+                
                 }
             }
         }
