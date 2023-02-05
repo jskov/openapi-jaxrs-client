@@ -1,7 +1,8 @@
 plugins {
     id('groovy-gradle-plugin')
+    id('maven-publish')
 }
 
 dependencies {
-    implementation(platform('dk.mada.platform:plugins-platform'))
+    implementation(platform('dk.mada.jaxrs:plugins-platform'))
 }

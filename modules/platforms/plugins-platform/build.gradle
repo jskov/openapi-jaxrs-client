@@ -2,7 +2,7 @@ plugins {
     id('java-platform')
 }
 
-group = 'dk.mada.platform'
+group = 'dk.mada.jaxrs'
 
 dependencies {
     constraints {

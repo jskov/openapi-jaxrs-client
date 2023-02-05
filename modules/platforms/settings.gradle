@@ -1,5 +1,5 @@
 rootProject.name = 'platforms'
 
-include('product-platform')
+include('openapi-jaxrs-parent')
 include('test-platform')
 include('plugins-platform')

@@ -8,7 +8,7 @@ configurations {
 }
 
 dependencies {
-    aptStach            (platform('dk.mada.platform:product-platform'))
+    aptStach            (platform('dk.mada.jaxrs:openapi-jaxrs-parent'))
 
     implementation      "io.jstach:jstachio"
     aptStach            "io.jstach:jstachio-apt"
