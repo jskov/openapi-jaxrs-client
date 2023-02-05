@@ -222,23 +222,10 @@ publishing {
                 }
                 
                 withXml {
-                    println it
-                    def n = it.asNode()
-                    println n
-                    println n.version
-                    def dep = n.dependencyManagement.dependencies.dependency[0]
-                    println dep
-                    println "---"
-                    def ver = n.version[0]
-                    println "ADD $ver"
-                    def res = dep.append(ver)
-                    println "RES : $res"
-//                    println dep.n.dependencyManagement.dependencies.dependency.appendNode('version', it.version)
-
-                    println dep
-
-                    println it
-                
+                    def node = it.asNode()
+                    def versionNode = node.version[0]
+                    def parentDependency = node.dependencyManagement.dependencies.dependency[0]
+                    parentDependency.append(versionNode)
                 }
             }
         }
