@@ -29,11 +29,11 @@ public class Request {
 
   /**
    * Get taxation
-   * minimum: 100
-   * maximum: 999
+   * minimum: 100L
+   * maximum: 999L
    * @return taxation
    **/
-  @Min(100) @Max(999)
+  @Min(100L) @Max(999L)
   public Integer getTaxation() {
     return taxation;
   }

@@ -97,11 +97,11 @@ public class ValidationDto {
 
   /**
    * Get intValue
-   * minimum: 10
-   * maximum: 20
+   * minimum: 10L
+   * maximum: 20L
    * @return intValue
    **/
-  @Min(10) @Max(20)
+  @Min(10L) @Max(20L)
   public Integer getIntValue() {
     return intValue;
   }
@@ -117,11 +117,11 @@ public class ValidationDto {
 
   /**
    * Get badParsingOfRange
-   * minimum: 100
-   * maximum: 999
+   * minimum: 100L
+   * maximum: 999L
    * @return badParsingOfRange
    **/
-  @Min(100) @Max(999)
+  @Min(100L) @Max(999L)
   public Integer getBadParsingOfRange() {
     return badParsingOfRange;
   }
@@ -137,12 +137,12 @@ public class ValidationDto {
 
   /**
    * With a &quot;quoted&quot; description.
-   * minimum: 0
-   * maximum: 99999999
+   * minimum: 0L
+   * maximum: 99999999L
    *
    * @return aBigDouble
    **/
-  @Min(0) @Max(99999999)
+  @Min(0L) @Max(99999999L)
   public Double getaBigDouble() {
     return aBigDouble;
   }
@@ -158,12 +158,12 @@ public class ValidationDto {
 
   /**
    * a float.
-   * minimum: 0
-   * maximum: 1000
+   * minimum: 0L
+   * maximum: 1000L
    *
    * @return aBigFloat
    **/
-  @Min(0) @Max(1000)
+  @Min(0L) @Max(1000L)
   public Float getaBigFloat() {
     return aBigFloat;
   }
