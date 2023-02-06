@@ -50,7 +50,6 @@ components:
           maxLength: 50
           minLength: 1
           type: string
-          nullable: false
         intValue:
           format: int32
           maximum: 20
@@ -58,7 +57,12 @@ components:
           type: integer
         badParsingOfRange:
           format: int32
-          maximum: 999
+          maximum: 99999999
+          minimum: 100
+          type: integer
+        veryBigLong:
+          format: int64
+          maximum: 9999999999
           minimum: 100
           type: integer
         aBigDouble:
@@ -79,13 +83,11 @@ components:
           minimum: 100
           type: number
         pattern:
-          type: string
-          # Added manually
           pattern: "^[a-zA-Z]{0,3}$"
-        patternDigits:
           type: string
-          # Added manually
+        patternDigits:
           pattern: "^\\d{1,2}$"
+          type: string
         validObjects:
           maxItems: 4
           minItems: 1
