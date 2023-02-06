@@ -72,6 +72,10 @@ public class ValidationDto {
   @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
   private List<Environment> validObjects;
 
+  public static final String JSON_PROPERTY_VERY_BIG_LONG = "veryBigLong";
+  @JsonbProperty(JSON_PROPERTY_VERY_BIG_LONG)
+  private Long veryBigLong;
+
   public ValidationDto aBigDecimal(BigDecimal aBigDecimal) {
     this.aBigDecimal = aBigDecimal;
     return this;
@@ -143,10 +147,10 @@ public class ValidationDto {
   /**
    * Get badParsingOfRange
    * minimum: 100
-   * maximum: 999
+   * maximum: 99999999
    * @return badParsingOfRange
    **/
-  @Min(100) @Max(999)
+  @Min(100) @Max(99999999)
   public Integer getBadParsingOfRange() {
     return badParsingOfRange;
   }
@@ -280,6 +284,26 @@ public class ValidationDto {
     this.validObjects = validObjects;
   }
 
+  public ValidationDto veryBigLong(Long veryBigLong) {
+    this.veryBigLong = veryBigLong;
+    return this;
+  }
+
+  /**
+   * Get veryBigLong
+   * minimum: 100
+   * maximum: 9999999999
+   * @return veryBigLong
+   **/
+  @Min(100) @Max(9999999999L)
+  public Long getVeryBigLong() {
+    return veryBigLong;
+  }
+
+  public void setVeryBigLong(Long veryBigLong) {
+    this.veryBigLong = veryBigLong;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -298,12 +322,13 @@ public class ValidationDto {
         Objects.equals(this.pattern, other.pattern) &&
         Objects.equals(this.patternDigits, other.patternDigits) &&
         Objects.equals(this.primitivesShouldNotHaveValidate, other.primitivesShouldNotHaveValidate) &&
-        Objects.equals(this.validObjects, other.validObjects);
+        Objects.equals(this.validObjects, other.validObjects) &&
+        Objects.equals(this.veryBigLong, other.veryBigLong);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects);
+    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects, veryBigLong);
   }
 
   @Override
@@ -320,6 +345,7 @@ public class ValidationDto {
     sb.append("\n    patternDigits: ").append(toIndentedString(patternDigits));
     sb.append("\n    primitivesShouldNotHaveValidate: ").append(toIndentedString(primitivesShouldNotHaveValidate));
     sb.append("\n    validObjects: ").append(toIndentedString(validObjects));
+    sb.append("\n    veryBigLong: ").append(toIndentedString(veryBigLong));
     sb.append("\n}");
     return sb.toString();
   }
