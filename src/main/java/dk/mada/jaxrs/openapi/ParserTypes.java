@@ -22,6 +22,7 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeByteArray;
+import dk.mada.jaxrs.model.types.TypeComposite;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeInterface;
@@ -235,13 +236,29 @@ public class ParserTypes {
                 // no remapping of kept types
             } else if (dto.isEnum()) {
                 // no remapping of enums
+            } else if (type instanceof TypeComposite tc) {
+            	expandCompositeDto(openapiName, type, tc);
             } else if (!(type instanceof TypeObject)) {
                 remapDto(openapiName, type);
             }
         }
     }
 
-    private void remapDto(TypeName openapiName, Type newType) {
+    /**
+     * After all types have been parsed, composite DTOs can
+     * finally be properly defined.
+     *
+     * Note that if a composite DTO references another unexpanded
+     * DTO this will fail to work correctly. Waiting for a proper
+     * input example before addressing.
+     */
+    private void expandCompositeDto(TypeName openapiName, Type type, TypeComposite tc) {
+    	logger.info("Expand composite DTO {}", openapiName);
+    	logger.info(" type: {}", type);
+    	logger.info(" tc: {}", tc.contains());
+	}
+
+	private void remapDto(TypeName openapiName, Type newType) {
         logger.info("  remap {} to {}", openapiName, newType);
         Type oldType = remappedDtoTypes.put(openapiName, newType);
         if (oldType != null) {

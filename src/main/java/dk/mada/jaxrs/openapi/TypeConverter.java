@@ -543,6 +543,14 @@ public final class TypeConverter {
         logger.info("creating dto {}", dtoName);
         ParserTypeRef dtoType = reference(schema, null, dtoName);
 
+//        if (dtoType.refType() instanceof TypeComposite tc) {
+//        	logger.info("  XXX {}", tc);
+//        	
+//        	tc.contains().stream()
+//        		.forEach(tn -> logger.info("    - {}", tn);
+//        }
+        
+        
         List<Property> props = readProperties(schema, modelName);
 
         SubtypeSelector selector = null;
