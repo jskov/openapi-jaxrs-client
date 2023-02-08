@@ -315,9 +315,17 @@ public final class TypeConverter {
 
             	logger.info("PROCESSING allOf:");
             	
+                String dtoName = ri.parentDtoName();
+                String internalPropertyName;
+                if (dtoName == null) {
+                	internalPropertyName = null;
+                } else {
+                	internalPropertyName = "_internal_properties_" + dtoName;
+                }
+            	
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
-                        .map(s -> reference(s, "_", null))
+                        .map(s -> reference(s, internalPropertyName, dtoName))
                         .distinct() // remove duplicates
                         .toList();
 
@@ -325,8 +333,8 @@ public final class TypeConverter {
                     logger.trace(" - createAllofRef, shortcut for duplicate");
                     return parserRefs.of(allOfRefs.get(0), ri.validation);
                 }
+
                 
-                String dtoName = ri.parentDtoName();
                 if (dtoName != null) {
 	                logger.info("See composite: {}", allOfRefs);
                 
