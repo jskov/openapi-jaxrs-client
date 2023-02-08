@@ -27,6 +27,7 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeByteArray;
+import dk.mada.jaxrs.model.types.TypeComposite;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeEnum;
@@ -322,6 +323,15 @@ public final class TypeConverter {
                     logger.trace(" - createAllofRef, shortcut for duplicate");
                     return parserRefs.of(allOfRefs.get(0), ri.validation);
                 }
+                
+                List<TypeName> names = allOfRefs.stream()
+                	.map(ptr -> ptr.typeName())
+                	.toList();
+                
+                logger.info("See composite: {} : {}", names, allOfRefs);
+                
+                TypeComposite composite = TypeComposite.of("xx", typeNames.of("parent-" + ri.parentDtoName()), names);
+				return parserRefs.of(composite, ri.validation);
             }
         }
         return null;
