@@ -237,7 +237,7 @@ public class ParserTypes {
             } else if (dto.isEnum()) {
                 // no remapping of enums
             } else if (type instanceof TypeComposite tc) {
-            	expandCompositeDto(openapiName, type, tc);
+            	expandCompositeDto(dto, openapiName, type, tc);
             } else if (!(type instanceof TypeObject)) {
                 remapDto(openapiName, type);
             }
@@ -252,10 +252,17 @@ public class ParserTypes {
      * DTO this will fail to work correctly. Waiting for a proper
      * input example before addressing.
      */
-    private void expandCompositeDto(TypeName openapiName, Type type, TypeComposite tc) {
+    private void expandCompositeDto(Dto dto, TypeName openapiName, Type type, TypeComposite tc) {
     	logger.info("Expand composite DTO {}", openapiName);
     	logger.info(" type: {}", type);
-    	logger.info(" tc: {}", tc.contains());
+    	logger.info(" tc: {}", tc.containsTypes());
+    	
+    	tc.containsTypes().stream()
+    		.forEach(ptr -> logger.info("  XX {} {} {}", ptr.refTypeName(), ptr.refType(), find(ptr.refTypeName())));
+    	
+    	logger.info(" properties:");
+    	dto.properties()
+    		.forEach(p -> logger.info("   - {}", p.name()));
 	}
 
 	private void remapDto(TypeName openapiName, Type newType) {

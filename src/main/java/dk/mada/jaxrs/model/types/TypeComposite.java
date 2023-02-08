@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.openapi.ParserTypeRef;
+
 /**
  * Type representing a composite class (schema with allOf).
  * Since java does not allow extending multiple super classes,
@@ -20,21 +22,21 @@ public interface TypeComposite extends Type {
      *
      * @param packageName     the package name of DTOs
      * @param typeName        the class type name
-     * @param contains        the type names aggregated in this type
+     * @param containsTypes   the parser reference aggregated in this type
      * @return an composite type
      */
-    static TypeComposite of(String packageName, TypeName typeName, List<TypeName> contains) {
+    static TypeComposite of(String packageName, TypeName typeName, List<ParserTypeRef> containsTypes) {
         return ImmutableTypeComposite.builder()
                 .typeName(typeName)
                 .packageName(packageName)
-                .contains(contains).build();
+                .containsTypes(containsTypes).build();
     }
 
     /** {@return the name of the package the interface is generated in} */
     String packageName();
 
-    /** {@return the type names implementing this interface} */
-    List<TypeName> contains();
+    /** {@return the parser references to the composite parts of this type} */
+    List<ParserTypeRef> containsTypes();
 
     @Override
     default Set<String> neededImports() {

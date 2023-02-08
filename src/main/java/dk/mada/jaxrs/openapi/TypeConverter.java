@@ -313,9 +313,11 @@ public final class TypeConverter {
             List<Schema> allOf = cs.getAllOf();
             if (allOf != null && !allOf.isEmpty()) {
 
+            	logger.info("PROCESSING allOf:");
+            	
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
-                        .map(this::toReference)
+                        .map(s -> reference(s, "_", null))
                         .distinct() // remove duplicates
                         .toList();
 
@@ -324,14 +326,13 @@ public final class TypeConverter {
                     return parserRefs.of(allOfRefs.get(0), ri.validation);
                 }
                 
-                List<TypeName> names = allOfRefs.stream()
-                	.map(ptr -> ptr.typeName())
-                	.toList();
+                String dtoName = ri.parentDtoName();
+                if (dtoName != null) {
+	                logger.info("See composite: {}", allOfRefs);
                 
-                logger.info("See composite: {} : {}", names, allOfRefs);
-                
-                TypeComposite composite = TypeComposite.of("xx", typeNames.of("parent-" + ri.parentDtoName()), names);
-				return parserRefs.of(composite, ri.validation);
+	                TypeComposite composite = TypeComposite.of("xx", typeNames.of(dtoName), allOfRefs);
+					return parserRefs.of(composite, ri.validation);
+                }
             }
         }
         return null;
