@@ -4,7 +4,7 @@
  * The version of the OpenAPI document: 1.1.1
  */
 
-package mada.tests.e2e.regression.unknown.dto;
+package mada.tests.e2e.dto.allof_composite.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
