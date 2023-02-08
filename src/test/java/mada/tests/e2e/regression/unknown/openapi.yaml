@@ -1,0 +1,31 @@
+openapi: 3.0.1
+info:
+  title: KFA-KRO
+  version: 1.1.1
+paths:
+  /ping:
+    get:
+      operationId: ping
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    KontoDTO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FacilitetDTO'
+        - type: object
+          properties:
+            aendring:
+              type: string
+    FacilitetDTO:
+      title: FacilitetDTO
+      type: object
+      properties:
+        elemId:
+          type: string
