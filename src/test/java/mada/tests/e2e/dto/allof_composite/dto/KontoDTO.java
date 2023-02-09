@@ -45,7 +45,7 @@ public class KontoDTO extends FacilitetDTO {
     }
     KontoDTO other = (KontoDTO) o;
     return Objects.equals(this.aendring, other.aendring) &&
-        super.equals(other);
+        super.equals(o);
   }
 
   @Override
@@ -57,6 +57,7 @@ public class KontoDTO extends FacilitetDTO {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class KontoDTO {");
+    sb.append("\n    ").append(toIndentedString(super.toString()));
     sb.append("\n    aendring: ").append(toIndentedString(aendring));
     sb.append("\n}");
     return sb.toString();

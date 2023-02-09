@@ -196,7 +196,9 @@ public class DtoGenerator {
         boolean isEnum = dto.isEnum();
         var dtoImports = isEnum ? Imports.newEnum(opts, !isTypePrimitiveEquals(dtoType)) : Imports.newDto(opts);
 
-        DtoSubject ds = new DtoSubject(dto, dtoType, dto.properties(), dtoImports);
+        DtoSubject ds = new DtoSubject(dto, dtoType, renderedProperties(dto), dtoImports);
+
+        Optional<String> extendsName = computeExtends(dto);
 
         List<CtxProperty> props = createCtxProps(ds);
         // in original order
@@ -279,7 +281,7 @@ public class DtoGenerator {
                 .classname(dto.name())
                 .classVarName("other")
                 .datatypeWithEnum(null)
-                .parent(dto.parent().map(Dto::name))
+                .parent(extendsName)
                 .isNullable(false)
                 .vendorExtensions(null)
 
@@ -300,31 +302,35 @@ public class DtoGenerator {
                 .build();
     }
 
-    private void x(DtoSubject ds) {
-        Dto dto = ds.dto();
-        List<Dto> externalDtos = dto.extendsParents();
-        logger.info(" Internal properties:");
-        dto.properties()
-            .forEach(p -> logger.info("   - {}", p.name()));
+    private Optional<String> computeExtends(Dto dto) {
+        if (dto.extendsParents().size() == 1) {
+            return Optional.of(dto.extendsParents().get(0).name());
+        }
+        return Optional.empty();
+    }
 
-        externalDtos.stream()
-            .forEach(ex -> {
-                logger.info(" External {}", ex.name());
-                ex.properties()
-                    .forEach(p -> logger.info("   - {}", p.name()));
-                
-            });
-        
-        // Fold properties
-        //  - not optimal, but works
-        if (externalDtos.size() == 1) {
-            List<Property> combinedProps = new ArrayList<>(dto.properties());
+    private List<Property> renderedProperties(Dto dto) {
+        List<Property> combinedProps = new ArrayList<>(dto.properties());
+
+        // If this Dto extends more than one other Dto
+        // it cannot be done in Java. So fold properties
+        // from the parents into this Dto.
+        List<Dto> externalDtos = dto.extendsParents();
+        if (externalDtos.size() > 1) {
             externalDtos.stream()
                 .map(Dto::properties)
                 .forEach(combinedProps::addAll);
 
-            logger.info("XXXX Should use combined {}", combinedProps);
+            if (logger.isDebugEnabled()) {
+                List<String> extendsParentNames = externalDtos.stream()
+                        .map(Dto::name)
+                        .toList();
+
+                logger.debug(" - {} now comines properties from {}", dto.name(), extendsParentNames);
+            }
         }
+
+        return combinedProps;
     }
 
     private List<CtxProperty> createCtxProps(DtoSubject ds) {
