@@ -180,15 +180,15 @@ public final class TypeConverter {
                 this::createByteArrayRef,
                 this::createMapRef,
                 this::createAnyofRef,
+                this::createComposedValidation, // before allofRef, should be combined
                 this::createAllofRef,
                 this::createOneofRef,
-                this::createComposedValidation,
                 this::createNumberRef,
                 this::createDateTimeRef,
                 this::createDateRef,
                 this::createUUIDRef,
-                this::createStringRef,
                 this::createSupplementalValidation,
+                this::createStringRef,
                 this::createObjectRef)
                 .map(tm -> tm.apply(ri))
                 .filter(Objects::nonNull)
@@ -341,6 +341,7 @@ public final class TypeConverter {
 	                ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
 					return parserRefs.of(composite, ri.validation);
                 }
+//                return null;
             }
         }
         return null;
