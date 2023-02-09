@@ -154,8 +154,13 @@ public class ParserTypes {
         return parsedDtos.entrySet().stream()
                 .filter(e -> !mappedToJseTypes.containsKey(e.getKey()))
                 .filter(e -> !remappedDtoTypes.containsKey(e.getKey()))
+                .filter(e -> excludeInternalDtoProperties(e.getKey()))
                 .map(Entry::getValue)
                 .collect(toSet());
+    }
+
+    private boolean excludeInternalDtoProperties(TypeName tn) {
+        return !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER);
     }
 
     /**
@@ -235,6 +240,8 @@ public class ParserTypes {
                 // no remapping of kept types
             } else if (dto.isEnum()) {
                 // no remapping of enums
+            } else if (type instanceof ParserTypeComposite) {
+                // no remapping of composite DTOs
             } else if (!(type instanceof TypeObject)) {
                 remapDto(openapiName, type);
             }

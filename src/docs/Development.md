@@ -10,6 +10,8 @@ To prepare eclipse settings to get eclipse/vscode to work with APT run this task
 
 ### Running subset of tests from Gradle
 
+This will run whichever tests match `testNameContains` in TestIterator:
+
 	./gradlew -Drun_all_tests=false :test --tests TestIterator
 
 ### Updating expected output

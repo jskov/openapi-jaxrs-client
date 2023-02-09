@@ -62,6 +62,8 @@ public final class TypeConverter {
     private static final Logger logger = LoggerFactory.getLogger(TypeConverter.class);
     /** Component schema prefix. */
     private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
+    /** Prefix DTO names for composite properties */
+    public static final String INTERNAL_PROPERTIES_NAME_MARKER = "_internal_$_properties_";
 
     /** Type names. */
     private final TypeNames typeNames;
@@ -178,9 +180,9 @@ public final class TypeConverter {
                 this::createByteArrayRef,
                 this::createMapRef,
                 this::createAnyofRef,
+                this::createComposedValidation, // before allofRef, should be combined
                 this::createAllofRef,
                 this::createOneofRef,
-                this::createComposedValidation,
                 this::createNumberRef,
                 this::createDateTimeRef,
                 this::createDateRef,
@@ -312,15 +314,32 @@ public final class TypeConverter {
             List<Schema> allOf = cs.getAllOf();
             if (allOf != null && !allOf.isEmpty()) {
 
+                logger.info("PROCESSING allOf:");
+
+                String dtoName = ri.parentDtoName();
+                String internalPropertyName;
+                if (dtoName == null) {
+                    internalPropertyName = null;
+                } else {
+                    internalPropertyName = INTERNAL_PROPERTIES_NAME_MARKER + dtoName;
+                }
+
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
-                        .map(this::toReference)
+                        .map(s -> reference(s, internalPropertyName, dtoName))
                         .distinct() // remove duplicates
                         .toList();
 
                 if (allOfRefs.size() == 1) {
                     logger.trace(" - createAllofRef, shortcut for duplicate");
                     return parserRefs.of(allOfRefs.get(0), ri.validation);
+                }
+
+                if (dtoName != null) {
+                    logger.trace(" - createAllofRef, composite: {}", allOfRefs);
+
+                    ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
+                    return parserRefs.of(composite, ri.validation);
                 }
             }
         }
@@ -532,8 +551,10 @@ public final class TypeConverter {
 
         logger.info("creating dto {}", dtoName);
         ParserTypeRef dtoType = reference(schema, null, dtoName);
+        Type refType = dtoType.refType();
 
-        List<Property> props = readProperties(schema, modelName);
+        List<Property> directProps = readProperties(schema, modelName);
+        List<Property> combinedProps = addInternalDtoProperties(refType, directProps);
 
         SubtypeSelector selector = null;
         Discriminator disc = schema.getDiscriminator();
@@ -550,16 +571,31 @@ public final class TypeConverter {
                 .mpSchemaName(mpSchemaName)
                 .description(Optional.ofNullable(schema.getDescription()))
                 .reference(dtoType)
-                .properties(props)
+                .properties(combinedProps)
                 .openapiId(typeNames.of(dtoName))
                 .enumValues(getEnumValues(schema))
                 .implementsInterfaces(List.of())
                 .subtypeSelector(Optional.ofNullable(selector))
+                .extendsParents(List.of())
                 .build();
 
         parserTypes.addDto(dto);
 
         return dto;
+    }
+
+    private List<Property> addInternalDtoProperties(Type refType, List<Property> directProps) {
+        if (refType instanceof ParserTypeComposite tc) {
+            List<Property> compositeProps = tc.internalDtos().stream()
+                    .flatMap(dto -> dto.properties().stream())
+                    .toList();
+
+            List<Property> combinedProps = new ArrayList<>(directProps);
+            combinedProps.addAll(compositeProps);
+            return combinedProps;
+        } else {
+            return directProps;
+        }
     }
 
     private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
