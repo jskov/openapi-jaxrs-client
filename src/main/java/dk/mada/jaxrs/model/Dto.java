@@ -72,9 +72,6 @@ public interface Dto extends Type {
     /** {@return an optional sub-type mapping} */
     Optional<SubtypeSelector> subtypeSelector();
 
-    /** {@return the optional parent that this DTO extends} */
-    Optional<Dto> parent();
-
     /** {@return the parents that this DTO extends} */
     List<Dto> extendsParents();
 }

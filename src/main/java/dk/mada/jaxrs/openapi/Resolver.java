@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.openapi;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,6 @@ import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
@@ -209,8 +209,11 @@ public final class Resolver {
                 .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))
                 .toList();
 
+        ArrayList<Dto> newParents = new ArrayList<>(dto.extendsParents());
+        newParents.add(parent);
+        
         return Dto.builderFrom(dto)
-                .parent(parent)
+                .extendsParents(newParents)
                 .properties(localProperties)
                 .build();
     }
@@ -384,10 +387,9 @@ public final class Resolver {
      * and/or external DTO references. These have all been
      * moved into the Dto object in expandCompositeDtos.
      *
-     * So replace with a plain Object reference.
-     * @param ptc 
-     *
      * @return the simplified object reference
+     * 
+     * FIXME: merge/split with Dto handling above
      */
     private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
         TypeName dtoName = ptc.typeName();
