@@ -240,7 +240,7 @@ public class ParserTypes {
                 // no remapping of kept types
             } else if (dto.isEnum()) {
                 // no remapping of enums
-            } else if (type instanceof ParserTypeComposite tc) {
+            } else if (type instanceof ParserTypeComposite) {
                 // no remapping of composite DTOs
             } else if (!(type instanceof TypeObject)) {
                 remapDto(openapiName, type);

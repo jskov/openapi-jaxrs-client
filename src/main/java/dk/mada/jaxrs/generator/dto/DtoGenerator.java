@@ -323,9 +323,8 @@ public class DtoGenerator {
     /**
      * Returns list of properties to render for the Dto.
      *
-     * If the Dto has multiple parents, the properties of these parents
-     * are folded into this Dto's properties (because it cannot extend
-     * multiple parents).
+     * If the Dto has multiple parents, the properties of these parents are folded into this Dto's properties (because it
+     * cannot extend multiple parents).
      *
      * @param dto the Dto to get properties for
      * @return the properties to be rendered for the Dto

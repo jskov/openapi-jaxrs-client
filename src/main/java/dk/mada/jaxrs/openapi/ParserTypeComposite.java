@@ -46,7 +46,7 @@ public interface ParserTypeComposite extends Type {
     default List<Dto> internalDtos() {
         return containsTypes().stream()
                 .filter(ptr -> ptr.refTypeName().name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
-                .map(ptr -> ptr.refType())
+                .map(ParserTypeRef::refType)
                 .filter(Dto.class::isInstance)
                 .map(Dto.class::cast)
                 .toList();

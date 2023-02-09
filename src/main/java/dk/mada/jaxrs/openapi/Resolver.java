@@ -132,12 +132,7 @@ public final class Resolver {
         logger.debug(" - expand composite DTO {}", openapiName);
 
         List<Dto> externalDtos = tc.externalDtoReferences().stream()
-                .map(tn -> {
-                    return dtos.stream()
-                            .filter(d -> d.typeName().equals(tn))
-                            .findFirst()
-                            .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
-                })
+                .map(tn -> getDtoWithName(dtos, tn))
                 .toList();
 
         if (logger.isDebugEnabled()) {
@@ -151,6 +146,13 @@ public final class Resolver {
         return Dto.builderFrom(dto)
                 .extendsParents(externalDtos)
                 .build();
+    }
+
+    private Dto getDtoWithName(Collection<Dto> dtos, TypeName tn) {
+        return dtos.stream()
+                .filter(d -> d.typeName().equals(tn))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
     }
 
     private List<Dto> dereferenceDtos(Collection<Dto> foldedDtos) {
@@ -386,7 +388,7 @@ public final class Resolver {
      *
      * @return the simplified object reference
      *
-     * FIXME: merge/split with Dto handling above
+     *         FIXME: merge/split with Dto handling above
      */
     private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
         TypeName dtoName = ptc.typeName();
