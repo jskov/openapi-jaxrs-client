@@ -14,6 +14,27 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class KontoDTO {
+  public static final String JSON_PROPERTY_AENDRING = "aendring";
+  @JsonProperty(JSON_PROPERTY_AENDRING)
+  private String aendring;
+
+  public KontoDTO aendring(String aendring) {
+    this.aendring = aendring;
+    return this;
+  }
+
+  /**
+   * Get aendring
+   * @return aendring
+   **/
+  public String getAendring() {
+    return aendring;
+  }
+
+  public void setAendring(String aendring) {
+    this.aendring = aendring;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -22,18 +43,20 @@ public class KontoDTO {
     if (!(o instanceof KontoDTO)) {
       return false;
     }
-    return true;
+    KontoDTO other = (KontoDTO) o;
+    return Objects.equals(this.aendring, other.aendring);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash();
+    return Objects.hash(aendring);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class KontoDTO {");
+    sb.append("\n    aendring: ").append(toIndentedString(aendring));
     sb.append("\n}");
     return sb.toString();
   }

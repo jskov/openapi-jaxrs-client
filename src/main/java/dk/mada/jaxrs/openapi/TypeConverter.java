@@ -553,16 +553,10 @@ public final class TypeConverter {
 
         logger.info("creating dto {}", dtoName);
         ParserTypeRef dtoType = reference(schema, null, dtoName);
+        Type refType = dtoType.refType();
 
-//        if (dtoType.refType() instanceof TypeComposite tc) {
-//        	logger.info("  XXX {}", tc);
-//        	
-//        	tc.contains().stream()
-//        		.forEach(tn -> logger.info("    - {}", tn);
-//        }
-        
-        
-        List<Property> props = readProperties(schema, modelName);
+        List<Property> directProps = readProperties(schema, modelName);
+        List<Property> combinedProps = addInternalDtoProperties(refType, directProps);
 
         SubtypeSelector selector = null;
         Discriminator disc = schema.getDiscriminator();
@@ -579,7 +573,7 @@ public final class TypeConverter {
                 .mpSchemaName(mpSchemaName)
                 .description(Optional.ofNullable(schema.getDescription()))
                 .reference(dtoType)
-                .properties(props)
+                .properties(combinedProps)
                 .openapiId(typeNames.of(dtoName))
                 .enumValues(getEnumValues(schema))
                 .implementsInterfaces(List.of())
@@ -589,6 +583,24 @@ public final class TypeConverter {
         parserTypes.addDto(dto);
 
         return dto;
+    }
+
+    private List<Property> addInternalDtoProperties(Type refType, List<Property> directProps) {
+        if (refType instanceof TypeComposite tc) {
+            List<Property> compositeProps = tc.containsTypes().stream()
+        	    .filter(ptr -> ptr.refTypeName().name().contains(INTERNAL_PROPERTIES_NAME_MARKER))
+        	    .map(ptr -> ptr.refType())
+        	    .filter(Dto.class::isInstance)
+        	    .map(Dto.class::cast)
+        		.flatMap(dto -> dto.properties().stream())
+        		.toList();
+            
+            List<Property> combinedProps = new ArrayList<>(directProps);
+            combinedProps.addAll(compositeProps);
+            return combinedProps;
+        } else {
+            return directProps;
+        }
     }
 
     private List<String> getEnumValues(@SuppressWarnings("rawtypes") Schema schema) {
