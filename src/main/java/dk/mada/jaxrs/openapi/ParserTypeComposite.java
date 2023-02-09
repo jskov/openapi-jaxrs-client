@@ -14,7 +14,7 @@ import dk.mada.jaxrs.model.types.TypeName;
  * The composite may include both internal properties (basically captured as an anonymous placeholder DTO that will not
  * be part of the final model) and references to types that have not been resolved yet. So a TypeComposite DTO needs to
  * be constructed in two steps;
- * 
+ *
  * (1) during parsing, where the internal properties can be copied from the placeholder DTO, and (2) during resolving,
  * where the referenced DTOs are now known, and can be used for copying their properties (or extension).
  */

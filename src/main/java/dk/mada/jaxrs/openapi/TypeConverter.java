@@ -187,8 +187,8 @@ public final class TypeConverter {
                 this::createDateTimeRef,
                 this::createDateRef,
                 this::createUUIDRef,
-                this::createSupplementalValidation,
                 this::createStringRef,
+                this::createSupplementalValidation,
                 this::createObjectRef)
                 .map(tm -> tm.apply(ri))
                 .filter(Objects::nonNull)
@@ -341,7 +341,6 @@ public final class TypeConverter {
                     ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
                     return parserRefs.of(composite, ri.validation);
                 }
-//                return null;
             }
         }
         return null;

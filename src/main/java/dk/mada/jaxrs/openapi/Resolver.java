@@ -385,8 +385,8 @@ public final class Resolver {
      * Dto object in expandCompositeDtos.
      *
      * @return the simplified object reference
-     * 
-     *         FIXME: merge/split with Dto handling above
+     *
+     * FIXME: merge/split with Dto handling above
      */
     private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
         TypeName dtoName = ptc.typeName();
