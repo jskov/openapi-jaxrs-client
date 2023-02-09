@@ -343,16 +343,8 @@ public final class Resolver {
      * @return the final model type
      */
     private Type resolveInner(Type type) {
-        if (type instanceof Dto) {
-            // See if DTO has been remapped to something else
-            Type remappedDto = parserTypes.find(type.typeName()).orElse(type);
-            if (remappedDto instanceof Dto dto) {
-                remappedDto = conflictRenamer.getConflictRenamedDto(dto);
-            }
-
-            // Convert parser DTO instance to model DTO instance
-            // Wrap in a reference - or cyclic DTOs will not be possible
-            return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
+        if (type instanceof Dto dto) {
+            return resolveDto(dto);
         } else if (type instanceof ParserTypeComposite ptc) {
             return resolveCompositeDto(ptc);
         } else if (type instanceof ParserTypeRef ptr) {
@@ -387,13 +379,33 @@ public final class Resolver {
      * Dto object in expandCompositeDtos.
      *
      * @return the simplified object reference
-     *
-     *         FIXME: merge/split with Dto handling above
      */
     private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
         TypeName dtoName = ptc.typeName();
+        // There is no reference to the real DTO type, but it does not matter, as the name
+        // lookup is guaranteed to find it.
+        Dto dto = null;
+        return resolveDto(dtoName, dto);
+    }
+
+    /**
+     * Resolve a Dto.
+     *
+     * The Dto may have been mapped to another types. If so, the replacement happens here.
+     *
+     * @param dto the dto to possibly replace
+     * @return the final type reference for the Dto
+     */
+    private TypeReference resolveDto(Dto dto) {
+        return resolveDto(dto.typeName(), dto);
+    }
+
+    private TypeReference resolveDto(TypeName dtoName, @Nullable Type fallbackDto) {
         // See if DTO has been remapped to something else
-        Type remappedDto = parserTypes.get(dtoName);
+        Type remappedDto = parserTypes.find(dtoName).orElse(fallbackDto);
+        if (remappedDto == null) {
+            throw new IllegalStateException("Did not find a dto named " + dtoName);
+        }
         if (remappedDto instanceof Dto dto) {
             remappedDto = conflictRenamer.getConflictRenamedDto(dto);
         }
