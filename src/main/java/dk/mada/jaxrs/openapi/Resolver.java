@@ -78,7 +78,7 @@ public final class Resolver {
         Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
 
         Collection<Dto> expandedDtos = extractCompositeDtos(renamedDtos);
-        
+
         Collection<Dto> foldedDtos = foldInheritance(expandedDtos);
 
         List<Dto> dereferencedDtos = dereferenceDtos(foldedDtos);
@@ -86,18 +86,18 @@ public final class Resolver {
         if (logger.isDebugEnabled()) {
             logger.debug("Resolved DTOs:");
             dereferencedDtos.stream()
-                .sorted((a, b) -> a.name().compareToIgnoreCase(b.name()))
-                .forEach(d -> logger.info(" - {}", d));
+                    .sorted((a, b) -> a.name().compareToIgnoreCase(b.name()))
+                    .forEach(d -> logger.info(" - {}", d));
         }
-        
+
         return dereferencedDtos;
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
         logger.debug("Look for composite DTOs");
         return dtos.stream()
-            .map(dto -> extractIfCompositeDto(dto, dtos))
-            .toList();
+                .map(dto -> extractIfCompositeDto(dto, dtos))
+                .toList();
     }
 
     private Dto extractIfCompositeDto(Dto dto, Collection<Dto> dtos) {
@@ -109,47 +109,45 @@ public final class Resolver {
 
         return dto;
     }
-    
+
     /**
      * Extract composite Dto information.
      *
-     * A composite DTOs (schema is allOf) has the (assumed) Dto types it expands declared
-     * as name references in the type.
+     * A composite DTOs (schema is allOf) has the (assumed) Dto types it expands declared as name references in the type.
      *
      * Now that parsing is complete, all Dto types are known.
      *
      * So find the referenced Dtos and store it in directly in the Dto's data.
      *
-     * The Dto's type is replaced later during dereferencing (since
-     * all the information captured in ParserTypeComposite has
+     * The Dto's type is replaced later during dereferencing (since all the information captured in ParserTypeComposite has
      * now been moved into the Dto model).
      *
      * @param dtos all the known Dtos.
-     * @param dto the Dto to store data in
-     * @param tc tge composite type information
+     * @param dto  the Dto to store data in
+     * @param tc   tge composite type information
      * @return the updated dto
      */
     private Dto extractCompositeDto(Collection<Dto> dtos, Dto dto, ParserTypeComposite tc) {
         String openapiName = dto.openapiId().name();
         logger.debug(" - expand composite DTO {}", openapiName);
-        
+
         List<Dto> externalDtos = tc.externalDtoReferences().stream()
-            .map(tn -> {
-                return dtos.stream()
-                    .filter(d -> d.typeName().equals(tn))
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
-            })
-            .toList();
-        
+                .map(tn -> {
+                    return dtos.stream()
+                            .filter(d -> d.typeName().equals(tn))
+                            .findFirst()
+                            .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
+                })
+                .toList();
+
         if (logger.isDebugEnabled()) {
             List<String> extendsNames = externalDtos.stream()
-                .map(Dto::name)
-                .sorted()
-                .toList();
+                    .map(Dto::name)
+                    .sorted()
+                    .toList();
             logger.debug("    extends {}", extendsNames);
         }
-        
+
         return Dto.builderFrom(dto)
                 .extendsParents(externalDtos)
                 .build();
@@ -211,7 +209,7 @@ public final class Resolver {
 
         ArrayList<Dto> newParents = new ArrayList<>(dto.extendsParents());
         newParents.add(parent);
-        
+
         return Dto.builderFrom(dto)
                 .extendsParents(newParents)
                 .properties(localProperties)
@@ -383,13 +381,12 @@ public final class Resolver {
     /**
      * Resolves a composite DTO reference.
      *
-     * The composite reference contains local properties
-     * and/or external DTO references. These have all been
-     * moved into the Dto object in expandCompositeDtos.
+     * The composite reference contains local properties and/or external DTO references. These have all been moved into the
+     * Dto object in expandCompositeDtos.
      *
      * @return the simplified object reference
      * 
-     * FIXME: merge/split with Dto handling above
+     *         FIXME: merge/split with Dto handling above
      */
     private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
         TypeName dtoName = ptc.typeName();

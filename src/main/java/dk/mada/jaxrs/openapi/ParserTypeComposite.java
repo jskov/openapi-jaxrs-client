@@ -9,27 +9,22 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
 
 /**
- * Type representing a composite class (schema with allOf)
- * during parsing.
+ * Type representing a composite class (schema with allOf) during parsing.
  *
- * The composite may include both internal properties (basically
- * captured as an anonymous placeholder DTO that will not be part
- * of the final model) and references to types that have not been
- * resolved yet.
- * So a TypeComposite DTO needs to be constructed in two steps;
+ * The composite may include both internal properties (basically captured as an anonymous placeholder DTO that will not
+ * be part of the final model) and references to types that have not been resolved yet. So a TypeComposite DTO needs to
+ * be constructed in two steps;
  * 
- * (1) during parsing, where the internal properties can be copied
- * from the placeholder DTO, and
- * (2) during resolving, where the referenced DTOs are now known,
- * and can be used for copying their properties (or extension).
+ * (1) during parsing, where the internal properties can be copied from the placeholder DTO, and (2) during resolving,
+ * where the referenced DTOs are now known, and can be used for copying their properties (or extension).
  */
 @Immutable
 public interface ParserTypeComposite extends Type {
     /**
      * Creates a type for a composite class.
      *
-     * @param typeName        the class type name
-     * @param containsTypes   the parser reference aggregated in this type
+     * @param typeName      the class type name
+     * @param containsTypes the parser reference aggregated in this type
      * @return an composite type
      */
     static ParserTypeComposite of(TypeName typeName, List<ParserTypeRef> containsTypes) {
@@ -50,11 +45,11 @@ public interface ParserTypeComposite extends Type {
      */
     default List<Dto> internalDtos() {
         return containsTypes().stream()
-            .filter(ptr -> ptr.refTypeName().name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
-            .map(ptr -> ptr.refType())
-            .filter(Dto.class::isInstance)
-            .map(Dto.class::cast)
-            .toList();
+                .filter(ptr -> ptr.refTypeName().name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
+                .map(ptr -> ptr.refType())
+                .filter(Dto.class::isInstance)
+                .map(Dto.class::cast)
+                .toList();
     }
 
     /** {@return a list of the externally referenced type names} */

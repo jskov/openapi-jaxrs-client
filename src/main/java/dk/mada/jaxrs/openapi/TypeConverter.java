@@ -59,7 +59,7 @@ import io.swagger.v3.oas.models.media.UUIDSchema;
  * Converts a specification schema to an internal model type.
  */
 public final class TypeConverter {
-	private static final Logger logger = LoggerFactory.getLogger(TypeConverter.class);
+    private static final Logger logger = LoggerFactory.getLogger(TypeConverter.class);
     /** Component schema prefix. */
     private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
     /** Prefix DTO names for composite properties */
@@ -314,16 +314,16 @@ public final class TypeConverter {
             List<Schema> allOf = cs.getAllOf();
             if (allOf != null && !allOf.isEmpty()) {
 
-            	logger.info("PROCESSING allOf:");
-            	
+                logger.info("PROCESSING allOf:");
+
                 String dtoName = ri.parentDtoName();
                 String internalPropertyName;
                 if (dtoName == null) {
-                	internalPropertyName = null;
+                    internalPropertyName = null;
                 } else {
-                	internalPropertyName = INTERNAL_PROPERTIES_NAME_MARKER + dtoName;
+                    internalPropertyName = INTERNAL_PROPERTIES_NAME_MARKER + dtoName;
                 }
-            	
+
                 // Note the removal of duplicates, necessary for the allof_dups test
                 List<ParserTypeRef> allOfRefs = allOf.stream()
                         .map(s -> reference(s, internalPropertyName, dtoName))
@@ -336,10 +336,10 @@ public final class TypeConverter {
                 }
 
                 if (dtoName != null) {
-	                logger.trace(" - createAllofRef, composite: {}", allOfRefs);
+                    logger.trace(" - createAllofRef, composite: {}", allOfRefs);
 
-	                ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
-					return parserRefs.of(composite, ri.validation);
+                    ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
+                    return parserRefs.of(composite, ri.validation);
                 }
 //                return null;
             }
@@ -588,9 +588,9 @@ public final class TypeConverter {
     private List<Property> addInternalDtoProperties(Type refType, List<Property> directProps) {
         if (refType instanceof ParserTypeComposite tc) {
             List<Property> compositeProps = tc.internalDtos().stream()
-        		.flatMap(dto -> dto.properties().stream())
-        		.toList();
-            
+                    .flatMap(dto -> dto.properties().stream())
+                    .toList();
+
             List<Property> combinedProps = new ArrayList<>(directProps);
             combinedProps.addAll(compositeProps);
             return combinedProps;

@@ -160,9 +160,9 @@ public class ParserTypes {
     }
 
     private boolean excludeInternalDtoProperties(TypeName tn) {
-    	return !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER);
+        return !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER);
     }
-    
+
     /**
      * Get a type from a type name.
      *
@@ -241,7 +241,7 @@ public class ParserTypes {
             } else if (dto.isEnum()) {
                 // no remapping of enums
             } else if (type instanceof ParserTypeComposite tc) {
-            	// no remapping of composite DTOs
+                // no remapping of composite DTOs
             } else if (!(type instanceof TypeObject)) {
                 remapDto(openapiName, type);
             }

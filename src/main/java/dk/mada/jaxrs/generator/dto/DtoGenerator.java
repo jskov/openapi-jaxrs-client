@@ -318,8 +318,8 @@ public class DtoGenerator {
         List<Dto> externalDtos = dto.extendsParents();
         if (externalDtos.size() > 1) {
             externalDtos.stream()
-                .map(Dto::properties)
-                .forEach(combinedProps::addAll);
+                    .map(Dto::properties)
+                    .forEach(combinedProps::addAll);
 
             if (logger.isDebugEnabled()) {
                 List<String> extendsParentNames = externalDtos.stream()
