@@ -242,51 +242,14 @@ public class ParserTypes {
             } else if (dto.isEnum()) {
                 // no remapping of enums
             } else if (type instanceof TypeComposite tc) {
-            	expandCompositeDto(dto, openapiName, type, tc);
+            	// no remapping of composite DTOs
             } else if (!(type instanceof TypeObject)) {
                 remapDto(openapiName, type);
             }
         }
     }
 
-    /**
-     * After all types have been parsed, composite DTOs can
-     * be finalized as all the references should be known.
-     *
-     * Note that if a composite DTO references another unexpanded
-     * DTO this will fail to work correctly. Waiting for a proper
-     * input example before addressing.
-     *
-     * For now it is assumes that only DTOs will be referenced.
-     */
-    private void expandCompositeDto(Dto dto, TypeName openapiName, Type type, TypeComposite tc) {
-    	logger.info("Expand composite DTO {}", openapiName);
-    	logger.info(" type: {}", type);
-    	logger.info(" tc: {}", tc.containsTypes());
-    	
-    	List<Type> externalRefs = tc.externalDtoReferences().stream()
-    	    .map(tn -> get(tn))
-    	    .toList();
-    	
-    	List<Dto> externalDtos = externalRefs.stream()
-    	    .filter(Dto.class::isInstance)
-    	    .map(Dto.class::cast)
-    	    .toList();
-    	
-    	if (externalRefs.size() != externalDtos.size()) {
-    	    logger.warn("Unhandled references in composite {}: {}", openapiName, externalRefs);
-    	}
-    	
-    	
-//    	tc.containsTypes().stream()
-//    		.forEach(ptr -> logger.info("  XX {} {} {}", ptr.refTypeName(), ptr.refType(), find(ptr.refTypeName())));
-    	
-    	logger.info(" properties:");
-    	dto.properties()
-    		.forEach(p -> logger.info("   - {}", p.name()));
-	}
-
-	private void remapDto(TypeName openapiName, Type newType) {
+    private void remapDto(TypeName openapiName, Type newType) {
         logger.info("  remap {} to {}", openapiName, newType);
         Type oldType = remappedDtoTypes.put(openapiName, newType);
         if (oldType != null) {
