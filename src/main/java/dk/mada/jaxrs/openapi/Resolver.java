@@ -1,6 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +77,7 @@ public final class Resolver {
         // targets for dereferencing during the resolve pass.
         Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
 
-        Collection<Dto> expandedDtos = expandCompositeDtos(renamedDtos);
+        Collection<Dto> expandedDtos = extractCompositeDtos(renamedDtos);
         
         Collection<Dto> foldedDtos = foldInheritance(expandedDtos);
 
@@ -94,27 +93,45 @@ public final class Resolver {
         return dereferencedDtos;
     }
 
-    private Collection<Dto> expandCompositeDtos(Collection<Dto> dtos) {
+    private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
+        logger.debug("Look for composite DTOs");
         return dtos.stream()
-            .map(dto -> expandDto(dto, dtos))
+            .map(dto -> extractIfCompositeDto(dto, dtos))
             .toList();
     }
 
-    private Dto expandDto(Dto dto, Collection<Dto> dtos) {
-        Reference ref = dto.reference();
-        Type type = ref.refType();
+    private Dto extractIfCompositeDto(Dto dto, Collection<Dto> dtos) {
+        Type type = dto.reference().refType();
 
         if (type instanceof ParserTypeComposite tc) {
-            return expandCompositeDto(dtos, dto, tc);
+            return extractCompositeDto(dtos, dto, tc);
         }
-        
+
         return dto;
     }
     
-    private Dto expandCompositeDto(Collection<Dto> dtos, Dto dto, ParserTypeComposite tc) {
-        TypeName openapiName = dto.openapiId();
-        logger.info("Expand composite DTO {}", openapiName);
-        logger.info(" tc: {}", tc.containsTypes());
+    /**
+     * Extract composite Dto information.
+     *
+     * A composite DTOs (schema is allOf) has the (assumed) Dto types it expands declared
+     * as name references in the type.
+     *
+     * Now that parsing is complete, all Dto types are known.
+     *
+     * So find the referenced Dtos and store it in directly in the Dto's data.
+     *
+     * The Dto's type is replaced later during dereferencing (since
+     * all the information captured in ParserTypeComposite has
+     * now been moved into the Dto model).
+     *
+     * @param dtos all the known Dtos.
+     * @param dto the Dto to store data in
+     * @param tc tge composite type information
+     * @return the updated dto
+     */
+    private Dto extractCompositeDto(Collection<Dto> dtos, Dto dto, ParserTypeComposite tc) {
+        String openapiName = dto.openapiId().name();
+        logger.debug(" - expand composite DTO {}", openapiName);
         
         List<Dto> externalDtos = tc.externalDtoReferences().stream()
             .map(tn -> {
@@ -125,36 +142,17 @@ public final class Resolver {
             })
             .toList();
         
-        if (externalDtos.isEmpty()) {
-            return dto;
+        if (logger.isDebugEnabled()) {
+            List<String> extendsNames = externalDtos.stream()
+                .map(Dto::name)
+                .sorted()
+                .toList();
+            logger.debug("    extends {}", extendsNames);
         }
-
-        logger.info(" Internal properties:");
-        dto.properties()
-            .forEach(p -> logger.info("   - {}", p.name()));
-
-        externalDtos.stream()
-            .forEach(ex -> {
-                logger.info(" External {}", ex.name());
-                ex.properties()
-                    .forEach(p -> logger.info("   - {}", p.name()));
-                
-            });
         
-        // Fold properties
-        //  - not optimal, but works
-        if (externalDtos.size() == 1) {
-            List<Property> combinedProps = new ArrayList<>(dto.properties());
-            externalDtos.stream()
-                .map(Dto::properties)
-                .forEach(combinedProps::addAll);
-            
-            return Dto.builderFrom(dto)
-                .properties(combinedProps)
+        return Dto.builderFrom(dto)
+                .extendsParents(externalDtos)
                 .build();
-        }
-        
-        return dto;
     }
 
     private List<Dto> dereferenceDtos(Collection<Dto> foldedDtos) {
@@ -173,7 +171,7 @@ public final class Resolver {
      * @return dtos with inheritance information
      */
     private List<Dto> foldInheritance(Collection<Dto> dtos) {
-        logger.debug("Look for DTO inheritance");
+        logger.debug("Look for DTO implements");
         Map<TypeName, Dto> dtosWithSuper = new HashMap<>();
 
         for (Dto dto : dtos) {

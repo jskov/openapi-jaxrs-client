@@ -576,6 +576,7 @@ public final class TypeConverter {
                 .enumValues(getEnumValues(schema))
                 .implementsInterfaces(List.of())
                 .subtypeSelector(Optional.ofNullable(selector))
+                .extendsParents(List.of())
                 .build();
 
         parserTypes.addDto(dto);

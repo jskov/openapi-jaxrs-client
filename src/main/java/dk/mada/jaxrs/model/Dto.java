@@ -74,4 +74,7 @@ public interface Dto extends Type {
 
     /** {@return the optional parent that this DTO extends} */
     Optional<Dto> parent();
+
+    /** {@return the parents that this DTO extends} */
+    List<Dto> extendsParents();
 }
