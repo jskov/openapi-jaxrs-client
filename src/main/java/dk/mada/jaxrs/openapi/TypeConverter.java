@@ -64,7 +64,7 @@ public final class TypeConverter {
     /** Component schema prefix. */
     private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
     /** Prefix DTO names for composite properties */
-    public static final String INTERNAL_PROPERTIES_NAME_PREFIX = "_internal_properties_";
+    public static final String INTERNAL_PROPERTIES_NAME_MARKER = "_internal_$_properties_";
 
     /** Type names. */
     private final TypeNames typeNames;
@@ -322,7 +322,7 @@ public final class TypeConverter {
                 if (dtoName == null) {
                 	internalPropertyName = null;
                 } else {
-                	internalPropertyName = INTERNAL_PROPERTIES_NAME_PREFIX + dtoName;
+                	internalPropertyName = INTERNAL_PROPERTIES_NAME_MARKER + dtoName;
                 }
             	
                 // Note the removal of duplicates, necessary for the allof_dups test

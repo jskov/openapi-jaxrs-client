@@ -161,7 +161,7 @@ public class ParserTypes {
     }
 
     private boolean excludeInternalDtoProperties(TypeName tn) {
-    	return tn.name().startsWith(TypeConverter.INTERNAL_PROPERTIES_NAME_PREFIX);
+    	return !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER);
     }
     
     /**
