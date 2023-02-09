@@ -316,21 +316,6 @@ public final class Resolver {
     }
 
     /**
-     * Resolves a composite DTO reference.
-     *
-     * The composite reference contains local properties
-     * and/or external DTO references. These have all been
-     * moved into the Dto object in expandCompositeDtos.
-     *
-     * So replace with a plain Object reference.
-     *
-     * @return the simplified object reference
-     */
-    private TypeReference resolveCompositeDto() {
-        return TypeReference.of(TypeObject.get(), Validation.NO_VALIDATION);
-    }
-
-    /**
      * Resolve parser references into model references.
      *
      * All incoming references may point to the initially parsed DTO instances. All returned references point to the final
@@ -366,7 +351,7 @@ public final class Resolver {
             // Wrap in a reference - or cyclic DTOs will not be possible
             return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
         } else if (type instanceof ParserTypeComposite ptc) {
-            return resolveCompositeDto();
+            return resolveCompositeDto(ptc);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {
@@ -390,5 +375,30 @@ public final class Resolver {
             logger.debug("NOT dereferencing {}", type);
             return type;
         }
+    }
+
+    /**
+     * Resolves a composite DTO reference.
+     *
+     * The composite reference contains local properties
+     * and/or external DTO references. These have all been
+     * moved into the Dto object in expandCompositeDtos.
+     *
+     * So replace with a plain Object reference.
+     * @param ptc 
+     *
+     * @return the simplified object reference
+     */
+    private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
+        TypeName dtoName = ptc.typeName();
+        // See if DTO has been remapped to something else
+        Type remappedDto = parserTypes.get(dtoName);
+        if (remappedDto instanceof Dto dto) {
+            remappedDto = conflictRenamer.getConflictRenamedDto(dto);
+        }
+
+        // Convert parser DTO instance to model DTO instance
+        // Wrap in a reference - or cyclic DTOs will not be possible
+        return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
     }
 }

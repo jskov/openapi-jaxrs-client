@@ -198,11 +198,11 @@ public class DtoGenerator {
 
         DtoSubject ds = new DtoSubject(dto, dtoType, dto.properties(), dtoImports);
 
-        List<CtxProperty> vars = getVars(ds);
+        List<CtxProperty> props = createCtxProps(ds);
         // in original order
-        List<CtxProperty> varsOpenapiOrder = getVarsOpenApiOrder(ds, vars);
+        List<CtxProperty> propsOpenapiOrder = getPropsOpenApiOrder(ds, props);
 
-        dtoImports.addPropertyImports(dto.properties());
+        dtoImports.addPropertyImports(ds.properties());
 
         CustomSerializers localDateSerializers = defineLocalDateSerializer(ds);
         CustomSerializers customOffsetDateSerializers = customDateTimeSerializers(ds);
@@ -260,7 +260,7 @@ public class DtoGenerator {
                 .implementsInterfaces(implementsInterfaces)
                 .isEqualsPrimitive(isTypePrimitiveEquals(dtoType))
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
-                .varsOpenapiOrder(varsOpenapiOrder)
+                .varsOpenapiOrder(propsOpenapiOrder)
                 .classModifiers(Optional.ofNullable(classModifiers))
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
@@ -283,7 +283,7 @@ public class DtoGenerator {
                 .isNullable(false)
                 .vendorExtensions(null)
 
-                .vars(vars)
+                .vars(props)
 
                 .allowableValues(ctxEnum)
                 .dataType(dtoType.typeName().name())
@@ -300,7 +300,34 @@ public class DtoGenerator {
                 .build();
     }
 
-    private List<CtxProperty> getVars(DtoSubject ds) {
+    private void x(DtoSubject ds) {
+        Dto dto = ds.dto();
+        List<Dto> externalDtos = dto.extendsParents();
+        logger.info(" Internal properties:");
+        dto.properties()
+            .forEach(p -> logger.info("   - {}", p.name()));
+
+        externalDtos.stream()
+            .forEach(ex -> {
+                logger.info(" External {}", ex.name());
+                ex.properties()
+                    .forEach(p -> logger.info("   - {}", p.name()));
+                
+            });
+        
+        // Fold properties
+        //  - not optimal, but works
+        if (externalDtos.size() == 1) {
+            List<Property> combinedProps = new ArrayList<>(dto.properties());
+            externalDtos.stream()
+                .map(Dto::properties)
+                .forEach(combinedProps::addAll);
+
+            logger.info("XXXX Should use combined {}", combinedProps);
+        }
+    }
+
+    private List<CtxProperty> createCtxProps(DtoSubject ds) {
         Comparator<? super CtxProperty> propertySorter = propertySorter();
 
         Stream<CtxProperty> props = ds.properties().stream()
@@ -312,9 +339,9 @@ public class DtoGenerator {
         return props.toList();
     }
 
-    private List<CtxProperty> getVarsOpenApiOrder(DtoSubject ds, List<CtxProperty> vars) {
+    private List<CtxProperty> getPropsOpenApiOrder(DtoSubject ds, List<CtxProperty> props) {
         // Make the context properties accessible by name
-        Map<String, CtxProperty> byName = vars.stream()
+        Map<String, CtxProperty> byName = props.stream()
                 .collect(Collectors.toMap(CtxProperty::baseName, p -> p));
 
         // Then map the openapi properties to context properties, keeping the order
