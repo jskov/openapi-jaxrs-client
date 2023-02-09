@@ -22,7 +22,6 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeByteArray;
-import dk.mada.jaxrs.model.types.TypeComposite;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeInterface;
@@ -241,7 +240,7 @@ public class ParserTypes {
                 // no remapping of kept types
             } else if (dto.isEnum()) {
                 // no remapping of enums
-            } else if (type instanceof TypeComposite tc) {
+            } else if (type instanceof ParserTypeComposite tc) {
             	// no remapping of composite DTOs
             } else if (!(type instanceof TypeObject)) {
                 remapDto(openapiName, type);

@@ -23,11 +23,11 @@ import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
-import dk.mada.jaxrs.model.types.TypeComposite;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
+import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
@@ -82,7 +82,16 @@ public final class Resolver {
         
         Collection<Dto> foldedDtos = foldInheritance(expandedDtos);
 
-        return dereferenceDtos(foldedDtos);
+        List<Dto> dereferencedDtos = dereferenceDtos(foldedDtos);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Resolved DTOs:");
+            dereferencedDtos.stream()
+                .sorted((a, b) -> a.name().compareToIgnoreCase(b.name()))
+                .forEach(d -> logger.info(" - {}", d));
+        }
+        
+        return dereferencedDtos;
     }
 
     private Collection<Dto> expandCompositeDtos(Collection<Dto> dtos) {
@@ -95,14 +104,14 @@ public final class Resolver {
         Reference ref = dto.reference();
         Type type = ref.refType();
 
-        if (type instanceof TypeComposite tc) {
+        if (type instanceof ParserTypeComposite tc) {
             return expandCompositeDto(dtos, dto, tc);
         }
         
         return dto;
     }
     
-    private Dto expandCompositeDto(Collection<Dto> dtos, Dto dto, TypeComposite tc) {
+    private Dto expandCompositeDto(Collection<Dto> dtos, Dto dto, ParserTypeComposite tc) {
         TypeName openapiName = dto.openapiId();
         logger.info("Expand composite DTO {}", openapiName);
         logger.info(" tc: {}", tc.containsTypes());
@@ -309,6 +318,21 @@ public final class Resolver {
     }
 
     /**
+     * Resolves a composite DTO reference.
+     *
+     * The composite reference contains local properties
+     * and/or external DTO references. These have all been
+     * moved into the Dto object in expandCompositeDtos.
+     *
+     * So replace with a plain Object reference.
+     *
+     * @return the simplified object reference
+     */
+    private TypeReference resolveCompositeDto() {
+        return TypeReference.of(TypeObject.get(), Validation.NO_VALIDATION);
+    }
+
+    /**
      * Resolve parser references into model references.
      *
      * All incoming references may point to the initially parsed DTO instances. All returned references point to the final
@@ -343,6 +367,8 @@ public final class Resolver {
             // Convert parser DTO instance to model DTO instance
             // Wrap in a reference - or cyclic DTOs will not be possible
             return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
+        } else if (type instanceof ParserTypeComposite ptc) {
+            return resolveCompositeDto();
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {

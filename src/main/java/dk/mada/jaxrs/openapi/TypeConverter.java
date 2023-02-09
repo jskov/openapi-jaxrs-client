@@ -27,7 +27,6 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeByteArray;
-import dk.mada.jaxrs.model.types.TypeComposite;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeEnum;
@@ -339,7 +338,7 @@ public final class TypeConverter {
                 if (dtoName != null) {
 	                logger.trace(" - createAllofRef, composite: {}", allOfRefs);
 
-	                TypeComposite composite = TypeComposite.of(typeNames.of(dtoName), allOfRefs);
+	                ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
 					return parserRefs.of(composite, ri.validation);
                 }
             }
@@ -585,7 +584,7 @@ public final class TypeConverter {
     }
 
     private List<Property> addInternalDtoProperties(Type refType, List<Property> directProps) {
-        if (refType instanceof TypeComposite tc) {
+        if (refType instanceof ParserTypeComposite tc) {
             List<Property> compositeProps = tc.internalDtos().stream()
         		.flatMap(dto -> dto.properties().stream())
         		.toList();
