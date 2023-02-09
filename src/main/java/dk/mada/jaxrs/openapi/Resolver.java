@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.openapi;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
+import dk.mada.jaxrs.model.types.TypeComposite;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
@@ -76,9 +78,74 @@ public final class Resolver {
         // targets for dereferencing during the resolve pass.
         Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
 
-        Collection<Dto> foldedDtos = foldInheritance(renamedDtos);
+        Collection<Dto> expandedDtos = expandCompositeDtos(renamedDtos);
+        
+        Collection<Dto> foldedDtos = foldInheritance(expandedDtos);
 
         return dereferenceDtos(foldedDtos);
+    }
+
+    private Collection<Dto> expandCompositeDtos(Collection<Dto> dtos) {
+        return dtos.stream()
+            .map(dto -> expandDto(dto, dtos))
+            .toList();
+    }
+
+    private Dto expandDto(Dto dto, Collection<Dto> dtos) {
+        Reference ref = dto.reference();
+        Type type = ref.refType();
+
+        if (type instanceof TypeComposite tc) {
+            return expandCompositeDto(dtos, dto, tc);
+        }
+        
+        return dto;
+    }
+    
+    private Dto expandCompositeDto(Collection<Dto> dtos, Dto dto, TypeComposite tc) {
+        TypeName openapiName = dto.openapiId();
+        logger.info("Expand composite DTO {}", openapiName);
+        logger.info(" tc: {}", tc.containsTypes());
+        
+        List<Dto> externalDtos = tc.externalDtoReferences().stream()
+            .map(tn -> {
+                return dtos.stream()
+                    .filter(d -> d.typeName().equals(tn))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
+            })
+            .toList();
+        
+        if (externalDtos.isEmpty()) {
+            return dto;
+        }
+
+        logger.info(" Internal properties:");
+        dto.properties()
+            .forEach(p -> logger.info("   - {}", p.name()));
+
+        externalDtos.stream()
+            .forEach(ex -> {
+                logger.info(" External {}", ex.name());
+                ex.properties()
+                    .forEach(p -> logger.info("   - {}", p.name()));
+                
+            });
+        
+        // Fold properties
+        //  - not optimal, but works
+        if (externalDtos.size() == 1) {
+            List<Property> combinedProps = new ArrayList<>(dto.properties());
+            externalDtos.stream()
+                .map(Dto::properties)
+                .forEach(combinedProps::addAll);
+            
+            return Dto.builderFrom(dto)
+                .properties(combinedProps)
+                .build();
+        }
+        
+        return dto;
     }
 
     private List<Dto> dereferenceDtos(Collection<Dto> foldedDtos) {

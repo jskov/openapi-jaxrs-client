@@ -251,19 +251,35 @@ public class ParserTypes {
 
     /**
      * After all types have been parsed, composite DTOs can
-     * finally be properly defined.
+     * be finalized as all the references should be known.
      *
      * Note that if a composite DTO references another unexpanded
      * DTO this will fail to work correctly. Waiting for a proper
      * input example before addressing.
+     *
+     * For now it is assumes that only DTOs will be referenced.
      */
     private void expandCompositeDto(Dto dto, TypeName openapiName, Type type, TypeComposite tc) {
     	logger.info("Expand composite DTO {}", openapiName);
     	logger.info(" type: {}", type);
     	logger.info(" tc: {}", tc.containsTypes());
     	
-    	tc.containsTypes().stream()
-    		.forEach(ptr -> logger.info("  XX {} {} {}", ptr.refTypeName(), ptr.refType(), find(ptr.refTypeName())));
+    	List<Type> externalRefs = tc.externalDtoReferences().stream()
+    	    .map(tn -> get(tn))
+    	    .toList();
+    	
+    	List<Dto> externalDtos = externalRefs.stream()
+    	    .filter(Dto.class::isInstance)
+    	    .map(Dto.class::cast)
+    	    .toList();
+    	
+    	if (externalRefs.size() != externalDtos.size()) {
+    	    logger.warn("Unhandled references in composite {}: {}", openapiName, externalRefs);
+    	}
+    	
+    	
+//    	tc.containsTypes().stream()
+//    		.forEach(ptr -> logger.info("  XX {} {} {}", ptr.refTypeName(), ptr.refType(), find(ptr.refTypeName())));
     	
     	logger.info(" properties:");
     	dto.properties()

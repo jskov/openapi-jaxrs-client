@@ -336,11 +336,10 @@ public final class TypeConverter {
                     return parserRefs.of(allOfRefs.get(0), ri.validation);
                 }
 
-                
                 if (dtoName != null) {
-	                logger.info("See composite: {}", allOfRefs);
-                
-	                TypeComposite composite = TypeComposite.of("xx", typeNames.of(dtoName), allOfRefs);
+	                logger.trace(" - createAllofRef, composite: {}", allOfRefs);
+
+	                TypeComposite composite = TypeComposite.of(typeNames.of(dtoName), allOfRefs);
 					return parserRefs.of(composite, ri.validation);
                 }
             }
@@ -587,11 +586,7 @@ public final class TypeConverter {
 
     private List<Property> addInternalDtoProperties(Type refType, List<Property> directProps) {
         if (refType instanceof TypeComposite tc) {
-            List<Property> compositeProps = tc.containsTypes().stream()
-        	    .filter(ptr -> ptr.refTypeName().name().contains(INTERNAL_PROPERTIES_NAME_MARKER))
-        	    .map(ptr -> ptr.refType())
-        	    .filter(Dto.class::isInstance)
-        	    .map(Dto.class::cast)
+            List<Property> compositeProps = tc.internalDtos().stream()
         		.flatMap(dto -> dto.properties().stream())
         		.toList();
             

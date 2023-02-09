@@ -18,6 +18,10 @@ public class KontoDTO {
   @JsonProperty(JSON_PROPERTY_AENDRING)
   private String aendring;
 
+  public static final String JSON_PROPERTY_ELEM_ID = "elemId";
+  @JsonProperty(JSON_PROPERTY_ELEM_ID)
+  private String elemId;
+
   public KontoDTO aendring(String aendring) {
     this.aendring = aendring;
     return this;
@@ -35,6 +39,23 @@ public class KontoDTO {
     this.aendring = aendring;
   }
 
+  public KontoDTO elemId(String elemId) {
+    this.elemId = elemId;
+    return this;
+  }
+
+  /**
+   * Get elemId
+   * @return elemId
+   **/
+  public String getElemId() {
+    return elemId;
+  }
+
+  public void setElemId(String elemId) {
+    this.elemId = elemId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -44,12 +65,13 @@ public class KontoDTO {
       return false;
     }
     KontoDTO other = (KontoDTO) o;
-    return Objects.equals(this.aendring, other.aendring);
+    return Objects.equals(this.aendring, other.aendring) &&
+        Objects.equals(this.elemId, other.elemId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aendring);
+    return Objects.hash(aendring, elemId);
   }
 
   @Override
@@ -57,6 +79,7 @@ public class KontoDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class KontoDTO {");
     sb.append("\n    aendring: ").append(toIndentedString(aendring));
+    sb.append("\n    elemId: ").append(toIndentedString(elemId));
     sb.append("\n}");
     return sb.toString();
   }
