@@ -21,6 +21,8 @@ public interface DefaultApi {
 
   /**
    * create.
+   *
+   * @return String
    */
   @PUT
   @Produces(MediaType.APPLICATION_JSON)
