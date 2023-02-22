@@ -10,6 +10,7 @@ package mada.tests.e2e.dto.oneof_combined.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
+import javax.validation.Valid;
 
 /**
  * WithRef
@@ -18,9 +19,9 @@ import java.util.Objects;
 public class WithRef {
   public static final String JSON_PROPERTY_COMBINED = "combined";
   @JsonProperty(JSON_PROPERTY_COMBINED)
-  private Object combined;
+  private WithRefCombined combined;
 
-  public WithRef combined(Object combined) {
+  public WithRef combined(WithRefCombined combined) {
     this.combined = combined;
     return this;
   }
@@ -29,11 +30,12 @@ public class WithRef {
    * Get combined
    * @return combined
    **/
-  public Object getCombined() {
+  @Valid
+  public WithRefCombined getCombined() {
     return combined;
   }
 
-  public void setCombined(Object combined) {
+  public void setCombined(WithRefCombined combined) {
     this.combined = combined;
   }
 

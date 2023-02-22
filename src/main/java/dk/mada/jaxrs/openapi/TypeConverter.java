@@ -352,10 +352,30 @@ public final class TypeConverter {
             List<Schema> oneOf = cs.getOneOf();
             if (oneOf != null && !oneOf.isEmpty()) {
                 List<String> oneOfNames = oneOf.stream()
+                        .peek(s -> logger.info("WAT {}", s))
                         .map(Schema::getName)
                         .toList();
                 logger.trace(" - createOneofRef {}", oneOfNames);
 
+                // Handle oneof without descriminator
+                if (cs.getDiscriminator() == null) {
+                    String syntheticSchemaName = ri.parentDtoName() + "-" + ri.propertyName();
+                    String dtoName = naming.convertTypeName(syntheticSchemaName);
+                    String mpName = naming.convertMpSchemaName(syntheticSchemaName);
+                    TypeName tn = typeNames.of(dtoName);
+                    
+                    ParserTypeRef objectRef = parserRefs.of(TypeObject.get(), ri.validation);
+                    
+                    Dto combined = Dto.builder(dtoName, tn)
+                            .mpSchemaName(mpName)
+                            .reference(objectRef)
+                            .openapiId(tn)
+                            .build();
+                    parserTypes.addDto(combined);
+
+                    return parserRefs.of(combined, ri.validation);
+                }
+                
                 // regular object, but for now assumes there will
                 // be supplementary discriminator information
                 return parserRefs.of(TypeObject.get(), ri.validation);
