@@ -186,40 +186,36 @@ public final class Resolver {
         }
 
         List<Property> combinedProps = combinesDtos.stream()
-            .flatMap(d -> d.properties().stream())
-            .sorted((a, b) -> a.name().compareTo(b.name()))
-            .toList();
+                .flatMap(d -> d.properties().stream())
+                .sorted((a, b) -> a.name().compareTo(b.name()))
+                .toList();
 
         Set<String> seenPropertyNames = new HashSet<>();
         List<Property> selectedProps = combinedProps.stream()
-            .filter(p -> seenPropertyNames.add(p.name()))
-            .map(this::relaxPropertyValidation)
-            .toList();
-        
+                .filter(p -> seenPropertyNames.add(p.name()))
+                .map(this::relaxPropertyValidation)
+                .toList();
+
         return Dto.builderFrom(dto)
                 .properties(selectedProps)
                 .build();
     }
-    
 
     /**
-     * Ensures that the validation of the property allows
-     * for it to be null/not required.
-     * The combined DTO will have to be able to deserialize any subset of
-     * the combined DTOs. So this relaxation of validation is
-     * necessary.
+     * Ensures that the validation of the property allows for it to be null/not required. The combined DTO will have to be
+     * able to deserialize any subset of the combined DTOs. So this relaxation of validation is necessary.
      *
      * @param prop the property to relax validation for
      * @return property without null
      */
     private Property relaxPropertyValidation(Property p) {
         Validation flattenedValidation = Validation.builder().from(p.validation())
-            .isNullable(true)
-            .isRequired(false)
-            .build();
+                .isNullable(true)
+                .isRequired(false)
+                .build();
         return Property.builder().from(p)
-            .validation(flattenedValidation)
-            .build();
+                .validation(flattenedValidation)
+                .build();
     }
 
     private Dto getDtoWithName(Collection<Dto> dtos, TypeName tn) {

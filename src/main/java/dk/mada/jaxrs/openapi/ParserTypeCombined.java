@@ -11,9 +11,8 @@ import dk.mada.jaxrs.model.types.TypeName;
 /**
  * Type representing a synthetic combined class during parsing.
  *
- * This comes from properties that may have oneof-references to multiple
- * DTOs but no discriminator. Solve by (inelegantly) combining all properties
- * from referenced DTOs into a synthetic DTO.
+ * This comes from properties that may have oneof-references to multiple DTOs but no discriminator. Solve by
+ * (inelegantly) combining all properties from referenced DTOs into a synthetic DTO.
  *
  * May be able to merge with ParserTypeComposite.
  */
@@ -44,7 +43,7 @@ public interface ParserTypeCombined extends Type {
      */
     default List<Dto> internalDtos() {
         return combinesTypes().stream()
-                //.filter(ptr -> ptr.refTypeName().name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
+                // .filter(ptr -> ptr.refTypeName().name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
                 .map(ParserTypeRef::refType)
                 .filter(Dto.class::isInstance)
                 .map(Dto.class::cast)
@@ -55,7 +54,7 @@ public interface ParserTypeCombined extends Type {
     default List<TypeName> externalDtoReferences() {
         return combinesTypes().stream()
                 .map(ptr -> ptr.refTypeName())
-                //.filter(tn -> !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
+                // .filter(tn -> !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
                 .toList();
     }
 }
