@@ -74,4 +74,7 @@ public interface Dto extends Type {
 
     /** {@return the parents that this DTO extends} */
     List<Dto> extendsParents();
+
+    /** {@return the DTOs that this should combine during resolve} */
+    List<Reference> combinesParents();
 }

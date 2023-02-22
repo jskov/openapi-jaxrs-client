@@ -357,8 +357,14 @@ public final class TypeConverter {
                         .toList();
                 logger.trace(" - createOneofRef {}", oneOfNames);
 
+                List<ParserTypeRef> oneOfRefs = oneOf.stream()
+                        .map(Schema::get$ref)
+                        .map(ref -> createDtoRef(ref, Validation.NO_VALIDATION))
+                        .filter(Objects::nonNull)
+                        .toList();
+
                 // Handle oneof without descriminator
-                if (cs.getDiscriminator() == null) {
+                if (cs.getDiscriminator() == null && !oneOfRefs.isEmpty()) {
                     String syntheticSchemaName = ri.parentDtoName() + "-" + ri.propertyName();
                     String dtoName = naming.convertTypeName(syntheticSchemaName);
                     String mpName = naming.convertMpSchemaName(syntheticSchemaName);
@@ -366,10 +372,13 @@ public final class TypeConverter {
                     
                     ParserTypeRef objectRef = parserRefs.of(TypeObject.get(), ri.validation);
                     
+                    
+                    
                     Dto combined = Dto.builder(dtoName, tn)
                             .mpSchemaName(mpName)
                             .reference(objectRef)
                             .openapiId(tn)
+                            .combinesParents(oneOfRefs)
                             .build();
                     parserTypes.addDto(combined);
 
@@ -597,6 +606,7 @@ public final class TypeConverter {
                 .implementsInterfaces(List.of())
                 .subtypeSelector(Optional.ofNullable(selector))
                 .extendsParents(List.of())
+                .combinesParents(List.of())
                 .build();
 
         parserTypes.addDto(dto);
