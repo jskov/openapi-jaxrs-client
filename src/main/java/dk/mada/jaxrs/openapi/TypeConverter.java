@@ -351,46 +351,48 @@ public final class TypeConverter {
             @SuppressWarnings("rawtypes")
             List<Schema> oneOf = cs.getOneOf();
             if (oneOf != null && !oneOf.isEmpty()) {
-                List<String> oneOfNames = oneOf.stream()
-                        .peek(s -> logger.info("WAT {}", s))
-                        .map(Schema::getName)
-                        .toList();
-                logger.trace(" - createOneofRef {}", oneOfNames);
-
                 List<ParserTypeRef> oneOfRefs = oneOf.stream()
                         .map(Schema::get$ref)
                         .map(ref -> createDtoRef(ref, Validation.NO_VALIDATION))
                         .filter(Objects::nonNull)
                         .toList();
 
-                // Handle oneof without descriminator
                 if (cs.getDiscriminator() == null && !oneOfRefs.isEmpty()) {
-                    String syntheticSchemaName = ri.parentDtoName() + "-" + ri.propertyName();
-                    String dtoName = naming.convertTypeName(syntheticSchemaName);
-                    String mpName = naming.convertMpSchemaName(syntheticSchemaName);
-                    TypeName tn = typeNames.of(dtoName);
-                    
-                    ParserTypeRef objectRef = parserRefs.of(TypeObject.get(), ri.validation);
-                    
-                    
-                    
-                    Dto combined = Dto.builder(dtoName, tn)
-                            .mpSchemaName(mpName)
-                            .reference(objectRef)
-                            .openapiId(tn)
-                            .combinesParents(oneOfRefs)
-                            .build();
-                    parserTypes.addDto(combined);
+                    // Handle oneof without descriminator
+                    return createCombinedDto(ri, oneOfRefs);
+                } else {
+                    List<String> oneOfNames = oneOf.stream()
+                            .map(Schema::getName)
+                            .toList();
+                    logger.trace(" - createOneofRef {}", oneOfNames);
 
-                    return parserRefs.of(combined, ri.validation);
+                    // regular object, but for now assumes there will
+                    // be supplementary discriminator information
+                    return parserRefs.of(TypeObject.get(), ri.validation);
                 }
-                
-                // regular object, but for now assumes there will
-                // be supplementary discriminator information
-                return parserRefs.of(TypeObject.get(), ri.validation);
             }
         }
         return null;
+    }
+
+    private ParserTypeRef createCombinedDto(RefInfo ri, List<ParserTypeRef> oneOfRefs) {
+        String syntheticSchemaName = ri.parentDtoName() + "-" + ri.propertyName();
+        String dtoName = naming.convertTypeName(syntheticSchemaName);
+        String mpName = naming.convertMpSchemaName(syntheticSchemaName);
+        TypeName tn = typeNames.of(dtoName);
+        logger.trace(" - createOneofRef combined {}", oneOfRefs);
+        
+        ParserTypeCombined combined = ParserTypeCombined.of(tn, oneOfRefs);
+        ParserTypeRef combinedRef = parserRefs.of(combined, ri.validation);
+        
+        Dto dto = Dto.builder(dtoName, tn)
+                .mpSchemaName(mpName)
+                .reference(combinedRef)
+                .openapiId(tn)
+                .build();
+        parserTypes.addDto(dto);
+
+        return parserRefs.of(dto, ri.validation);
     }
 
     @Nullable private ParserTypeRef createNumberRef(RefInfo ri) {
@@ -606,7 +608,6 @@ public final class TypeConverter {
                 .implementsInterfaces(List.of())
                 .subtypeSelector(Optional.ofNullable(selector))
                 .extendsParents(List.of())
-                .combinesParents(List.of())
                 .build();
 
         parserTypes.addDto(dto);
