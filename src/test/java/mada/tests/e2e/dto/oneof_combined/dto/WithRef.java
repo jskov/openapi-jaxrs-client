@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.dto.oneof_combined;
+package mada.tests.e2e.dto.oneof_combined.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -16,25 +16,25 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class WithRef {
-  public static final String JSON_PROPERTY_REF_TO_ABSTRACT = "refToAbstract";
-  @JsonProperty(JSON_PROPERTY_REF_TO_ABSTRACT)
-  private Object refToAbstract;
+  public static final String JSON_PROPERTY_COMBINED = "combined";
+  @JsonProperty(JSON_PROPERTY_COMBINED)
+  private Object combined;
 
-  public WithRef refToAbstract(Object refToAbstract) {
-    this.refToAbstract = refToAbstract;
+  public WithRef combined(Object combined) {
+    this.combined = combined;
     return this;
   }
 
   /**
-   * Get refToAbstract
-   * @return refToAbstract
+   * Get combined
+   * @return combined
    **/
-  public Object getRefToAbstract() {
-    return refToAbstract;
+  public Object getCombined() {
+    return combined;
   }
 
-  public void setRefToAbstract(Object refToAbstract) {
-    this.refToAbstract = refToAbstract;
+  public void setCombined(Object combined) {
+    this.combined = combined;
   }
 
   @Override
@@ -46,19 +46,19 @@ public class WithRef {
       return false;
     }
     WithRef other = (WithRef) o;
-    return Objects.equals(this.refToAbstract, other.refToAbstract);
+    return Objects.equals(this.combined, other.combined);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(refToAbstract);
+    return Objects.hash(combined);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class WithRef {");
-    sb.append("\n    refToAbstract: ").append(toIndentedString(refToAbstract));
+    sb.append("\n    combined: ").append(toIndentedString(combined));
     sb.append("\n}");
     return sb.toString();
   }
