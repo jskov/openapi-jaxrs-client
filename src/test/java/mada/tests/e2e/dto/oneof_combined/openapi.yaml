@@ -29,37 +29,17 @@ paths:
                 type: string
 components:
   schemas:
-    AbstractType:
-      required:
-      - valueInteger
+    # Manually added
+    WithRef:
       type: object
       properties:
-        valueEnum:
-          $ref: '#/components/schemas/OtherEnum'
-        valueInteger:
-          format: int32
-          type: integer
-        valueString:
-          type: string
-      discriminator:
-        propertyName: implName
-        mapping:
-          FOO: '#/components/schemas/TypeFoo'
-          BAR: '#/components/schemas/TypeBar'
-      # This was added manually
-      oneOf:
-        - $ref: '#/components/schemas/TypeFoo'
-        - $ref: '#/components/schemas/TypeBar'
-    OtherEnum:
-      enum:
-      - PROP_A
-      - PROP_B
-      type: string
+        combined:
+          oneOf:
+            - $ref: '#/components/schemas/TypeFoo'
+            - $ref: '#/components/schemas/TypeBar'
     TypeBar:
       type: object
       properties:
-        valueEnum:
-          $ref: '#/components/schemas/OtherEnum'
         valueInteger:
           format: int32
           type: integer
@@ -72,8 +52,6 @@ components:
       - valueInteger
       type: object
       properties:
-        valueEnum:
-          $ref: '#/components/schemas/OtherEnum'
         valueInteger:
           format: int32
           type: integer

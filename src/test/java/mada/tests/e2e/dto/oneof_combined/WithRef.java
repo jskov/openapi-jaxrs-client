@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.dto.oneof.dto;
+package mada.tests.e2e.dto.oneof_combined;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
