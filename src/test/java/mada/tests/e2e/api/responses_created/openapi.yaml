@@ -1,0 +1,29 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /create:
+    put:
+      operationId: create
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
