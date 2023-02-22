@@ -3,6 +3,7 @@ package dk.mada.jaxrs.openapi;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -106,6 +107,9 @@ public final class Resolver {
         if (type instanceof ParserTypeComposite tc) {
             return extractCompositeDto(dtos, dto, tc);
         }
+        if (type instanceof ParserTypeCombined tc) {
+            return extractCombinedDto(dtos, dto, tc);
+        }
 
         return dto;
     }
@@ -145,6 +149,72 @@ public final class Resolver {
 
         return Dto.builderFrom(dto)
                 .extendsParents(externalDtos)
+                .build();
+    }
+
+    /**
+     * Extract composite Dto information.
+     *
+     * A composite DTOs (schema is allOf) has the (assumed) Dto types it expands declared as name references in the type.
+     *
+     * Now that parsing is complete, all Dto types are known.
+     *
+     * So find the referenced Dtos and store it in directly in the Dto's data.
+     *
+     * The Dto's type is replaced later during dereferencing (since all the information captured in ParserTypeComposite has
+     * now been moved into the Dto model).
+     *
+     * @param dtos all the known Dtos.
+     * @param dto  the Dto to store data in
+     * @param tc   tge composite type information
+     * @return the updated dto
+     */
+    private Dto extractCombinedDto(Collection<Dto> dtos, Dto dto, ParserTypeCombined tc) {
+        String openapiName = dto.openapiId().name();
+        logger.debug(" - expand combined DTO {}", openapiName);
+
+        List<Dto> combinesDtos = tc.externalDtoReferences().stream()
+                .map(tn -> getDtoWithName(dtos, tn))
+                .toList();
+
+        if (logger.isDebugEnabled()) {
+            List<String> combinesNames = combinesDtos.stream()
+                    .map(Dto::name)
+                    .sorted()
+                    .toList();
+            logger.debug("    combines {}", combinesNames);
+        }
+
+        List<Property> combinedProps = combinesDtos.stream()
+                .flatMap(d -> d.properties().stream())
+                .sorted((a, b) -> a.name().compareTo(b.name()))
+                .toList();
+
+        Set<String> seenPropertyNames = new HashSet<>();
+        List<Property> selectedProps = combinedProps.stream()
+                .filter(p -> seenPropertyNames.add(p.name()))
+                .map(this::relaxPropertyValidation)
+                .toList();
+
+        return Dto.builderFrom(dto)
+                .properties(selectedProps)
+                .build();
+    }
+
+    /**
+     * Ensures that the validation of the property allows for it to be null/not required. The combined DTO will have to be
+     * able to deserialize any subset of the combined DTOs. So this relaxation of validation is necessary.
+     *
+     * @param prop the property to relax validation for
+     * @return property without null
+     */
+    private Property relaxPropertyValidation(Property p) {
+        Validation flattenedValidation = Validation.builder().from(p.validation())
+                .isNullable(true)
+                .isRequired(false)
+                .build();
+        return Property.builder().from(p)
+                .validation(flattenedValidation)
                 .build();
     }
 
@@ -347,6 +417,8 @@ public final class Resolver {
             return resolveDto(dto);
         } else if (type instanceof ParserTypeComposite ptc) {
             return resolveCompositeDto(ptc);
+        } else if (type instanceof ParserTypeCombined ptc) {
+            return resolveCombinedDto(ptc);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {
@@ -381,6 +453,22 @@ public final class Resolver {
      * @return the simplified object reference
      */
     private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
+        TypeName dtoName = ptc.typeName();
+        // There is no reference to the real DTO type, but it does not matter, as the name
+        // lookup is guaranteed to find it.
+        Dto dto = null;
+        return resolveDto(dtoName, dto);
+    }
+
+    /**
+     * Resolves a combined DTO reference.
+     *
+     * The combined reference contains local properties and/or external DTO references. These have all been moved into the
+     * Dto object in expandCombinedDtos.
+     *
+     * @return the simplified object reference
+     */
+    private TypeReference resolveCombinedDto(ParserTypeCombined ptc) {
         TypeName dtoName = ptc.typeName();
         // There is no reference to the real DTO type, but it does not matter, as the name
         // lookup is guaranteed to find it.

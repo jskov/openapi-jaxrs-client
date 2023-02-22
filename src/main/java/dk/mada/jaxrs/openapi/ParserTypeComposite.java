@@ -25,7 +25,7 @@ public interface ParserTypeComposite extends Type {
      *
      * @param typeName      the class type name
      * @param containsTypes the parser reference aggregated in this type
-     * @return an composite type
+     * @return a composite type
      */
     static ParserTypeComposite of(TypeName typeName, List<ParserTypeRef> containsTypes) {
         return ImmutableParserTypeComposite.builder()
