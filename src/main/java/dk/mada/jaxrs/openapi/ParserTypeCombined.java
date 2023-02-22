@@ -22,8 +22,8 @@ public interface ParserTypeCombined extends Type {
      * Creates a type for a combined class.
      *
      * @param typeName      the class type name
-     * @param combinesTypes the parser reference aggregated in this type
-     * @return an composite type
+     * @param combinesTypes the parser references combined in this type
+     * @return a combined type
      */
     static ParserTypeCombined of(TypeName typeName, List<ParserTypeRef> combinesTypes) {
         return ImmutableParserTypeCombined.builder()
