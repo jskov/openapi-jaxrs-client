@@ -68,7 +68,7 @@ public interface {{classname}} {
   {{/madaOp.responseSchema}}
   {{/madaOp.hasResponses}}
   {{#madaOp.summaryString}}
-  @Operation(summary = "{{madaOp.summaryString}}")
+  @Operation(summary = "{{{madaOp.summaryString}}}")
   {{/madaOp.summaryString}}
   {{>returnTypes}} {{nickname}}({{#allParams}}{{>formParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
   {{/operation}}

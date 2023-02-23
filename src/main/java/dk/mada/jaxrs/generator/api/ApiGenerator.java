@@ -458,7 +458,7 @@ public class ApiGenerator {
                 .baseType(baseType)
                 .code(r.code().asOpenApiStatus())
                 .containerType(containerType)
-                .description(description)
+                .description(StringRenderer.encodeForString(description))
                 .isUnique(isUnique)
                 .build();
     }
