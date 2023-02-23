@@ -145,6 +145,25 @@ paths:
             text/plain:
               schema:
                 type: string
+  /api/docs/quoted:
+    get:
+      tags:
+      - Api Docs
+      summary: Summary with "quote" 'quote'
+      description: Description with "quote" 'quote'
+      responses:
+        "200":
+          description: Description with "quote" 'quote'
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Description with "quote" 'quote'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Simple'
 components:
   schemas:
     Simple:

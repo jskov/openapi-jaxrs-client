@@ -14,6 +14,11 @@ This will run whichever tests match `testNameContains` in TestIterator:
 
 	./gradlew -Drun_all_tests=false :test --tests TestIterator
 
+If the templates are changed, add:
+
+	rm -rf build/classes/java/main/dk/mada/jaxrs/generator
+
+
 ### Updating expected output
 
 In Eclipse, add build/e2e as a source folder (and exclude **/*.java) to get easy access to test output.
