@@ -21,18 +21,15 @@ dependencies {
     testImplementation  "org.assertj:assertj-core:$assertJVersion"
 }
 
-pluginBundle {
+gradlePlugin {
     website = 'https://github.com/jskov/openapi-jaxrs-client'
     vcsUrl = 'https://github.com/jskov/openapi-jaxrs-client'
-    tags = ['openapi', 'swagger', 'codegen', 'generator', 'jax-rs', 'microprofile']
-}
-
-gradlePlugin {
     plugins {
         openApiJaxrs {
             id = 'dk.mada.jaxrs'
             displayName = 'Plugin for generating JAX-RS code from OpenAPI documents'
             description = 'A plugin that generates JAX-RS code from OpenApi documents. It has many configuration options and a broad test suite to cover many corner cases.'
+            tags.set(['openapi', 'swagger', 'codegen', 'generator', 'jax-rs', 'microprofile'])
             implementationClass = 'dk.mada.jaxrs.gradle.JaxrsPlugin'
         }
     }
