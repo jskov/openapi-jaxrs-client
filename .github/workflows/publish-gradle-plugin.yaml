@@ -37,8 +37,8 @@ jobs:
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
 
       - name: Build release
-        uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
-        # 2.3.3
+        uses: gradle/gradle-build-action@6095a76664413da4c8c134ee32e8a8ae900f0f1f
+        # 2.4.0
         with:
           arguments: publishPlugin -s
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
