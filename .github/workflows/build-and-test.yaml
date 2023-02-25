@@ -16,10 +16,10 @@ jobs:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
           echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
-      - name: Echo env
-        run: env | sort
+#      - name: Echo env
+#        run: env | sort
     
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Set up Java
@@ -33,7 +33,7 @@ jobs:
 
       # From https://docs.sonarqube.org/latest/analysis/github-integration/
       - name: Cache SonarCloud packages
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
@@ -56,9 +56,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Capture junit reports
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@v3
         if: failure()
-        # 3.1.2
         with:
           name: junit-reports
           path: "**/build/reports/tests/test/"

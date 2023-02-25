@@ -14,8 +14,8 @@ jobs:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
           echo "BUILD_LABEL=${INPUT/gradle\/}" >> $GITHUB_ENV
-      - name: Echo env
-        run: env | sort
+#      - name: Echo env
+#        run: env | sort
     
       - uses: actions/checkout@v3
         with:
