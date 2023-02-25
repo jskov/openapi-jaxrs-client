@@ -16,8 +16,8 @@ jobs:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
           echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
-      - name: Echo env
-        run: env | sort
+#      - name: Echo env
+#        run: env | sort
       - uses: actions/checkout@v3
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -50,8 +50,8 @@ jobs:
         run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
         
       - name: Upload CLI artifacts
-        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
-        # v0.1.14
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
+        # v0.1.15
         with:
           draft: true
           tag_name: ${{ env.BUILD_LABEL }}
