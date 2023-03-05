@@ -8,6 +8,11 @@ plugins {
 
 group "${groupId}"
 
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
@@ -26,6 +31,15 @@ dependencies {
     testImplementation  'org.junit.platform:junit-platform-runner'
 
     testImplementation  "org.assertj:assertj-core"
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
 }
 
 tasks.named("test") {

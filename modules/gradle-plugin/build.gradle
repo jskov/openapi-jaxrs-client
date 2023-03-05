@@ -7,12 +7,6 @@ plugins {
     id 'dk.mada.java'
 }
 
-group "${groupId}"
-
-repositories {
-    mavenCentral()
-}
-
 gradlePlugin {
     website = 'https://github.com/jskov/openapi-jaxrs-client'
     vcsUrl = 'https://github.com/jskov/openapi-jaxrs-client'
@@ -28,8 +22,6 @@ gradlePlugin {
 }
 
 test {
-    useJUnitPlatform()
-    
     testLogging.showStandardStreams = true
 
     systemProperty "releaseVersion", project.version
