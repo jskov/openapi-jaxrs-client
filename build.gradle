@@ -142,6 +142,9 @@ publish {
     }
 }
 
+publishToMavenLocal {
+    dependsOn(gradle.includedBuild('platforms').task(':openapi-jaxrs-bom:publishToMavenLocal'))
+}
 
 // This task configures enough of the eclipse settings to make
 // vscode-java plugin work with APT
