@@ -1,0 +1,12 @@
+// Configures jacoco plugin
+
+plugins {
+    id 'jacoco'
+}
+
+jacocoTestReport {
+    reports {
+        xml.required.set(true)
+    }
+    dependsOn test // tests are required to run before generating the report
+}

@@ -2,7 +2,6 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '8.1.0'
     id 'eclipse'
-    id 'jacoco'
     id 'java-library'
     id 'org.sonarqube' version '4.0.0.2929'
     id 'maven-publish'
@@ -102,13 +101,6 @@ test {
     //testLogging.showStandardStreams = true
 
     systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
-}
-
-jacocoTestReport {
-    reports {
-        xml.required.set(true)
-    }
-    dependsOn test // tests are required to run before generating the report
 }
 
 sonarqube {
