@@ -1,5 +1,8 @@
 plugins {
     id('java')
+
+    id 'com.diffplug.spotless'
+// desired:    id 'dk.mada.apt-errorprone'
 }
 
 group "${groupId}"

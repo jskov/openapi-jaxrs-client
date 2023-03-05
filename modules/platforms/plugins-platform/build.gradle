@@ -6,5 +6,7 @@ group = 'dk.mada.jaxrs'
 
 dependencies {
     constraints {
+        api 'net.ltgt.gradle:gradle-errorprone-plugin:3.0.1'
+        api 'com.diffplug.spotless:spotless-plugin-gradle:6.16.0'
     }
 }

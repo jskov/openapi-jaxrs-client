@@ -3,6 +3,13 @@ plugins {
     id('maven-publish')
 }
 
+repositories {
+    gradlePluginPortal()
+}
+
 dependencies {
     implementation  (platform('dk.mada.jaxrs:plugins-platform'))
+
+    implementation  ('net.ltgt.gradle:gradle-errorprone-plugin')
+    implementation  ('com.diffplug.spotless:spotless-plugin-gradle')
 }
