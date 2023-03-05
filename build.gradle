@@ -19,9 +19,7 @@ group "${groupId}"
 
 ext {
     distDir = file("build/dist").getAbsolutePath()
-    builtOn = LocalDateTime.now()
-                .atZone(ZoneId.of('Europe/Copenhagen'))
-                .withNano(0)
+    builtOn = LocalDate.now()
 }
 
 repositories {
