@@ -57,11 +57,3 @@ checkstyle {
 }
 
 tasks.checkstyleTest.enabled = false
-
-spotless {
-    java {
-        target 'src/main/java/**/*.java'
-        eclipse().configFile(rootProject.file("src/config/spotless/eclipse-formatter-mada.xml"))
-        formatAnnotations()
-    }
-}

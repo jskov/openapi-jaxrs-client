@@ -1,7 +1,7 @@
 plugins {
     id('java')
 
-    id 'com.diffplug.spotless'
+    id 'dk.mada.spotless'
 // desired:    id 'dk.mada.apt-errorprone'
 }
 

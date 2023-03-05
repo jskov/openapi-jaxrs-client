@@ -119,14 +119,6 @@ checkstyle {
 
 tasks.checkstyleTest.enabled = false
 
-spotless {
-    java {
-        target 'src/main/java/**/*.java'
-        eclipse().configFile("src/config/spotless/eclipse-formatter-mada.xml")
-        formatAnnotations()
-    }
-}
-
 sonarqube {
     properties {
         property "sonar.projectKey", "jskov_openapi-jaxrs-client"
