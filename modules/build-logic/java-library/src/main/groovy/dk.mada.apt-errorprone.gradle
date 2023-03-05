@@ -1,8 +1,17 @@
+// Configures errorprone plugin with nullaway
+
+//  Project is allowed to configure some properties via the
+//  file src/config/errorprone/dk.mada.apt-errorprone.properties
+
 plugins {
     id('java')
     id('dk.mada.java')
 
     id 'net.ltgt.errorprone'
+}
+
+ext {
+    cachedProps = null
 }
 
 dependencies {
@@ -15,19 +24,33 @@ dependencies {
 
 import net.ltgt.gradle.errorprone.CheckSeverity
 
+Properties readProps() {
+    if (cachedProps == null) {
+        cachedProps = new Properties();
+        def f = project.file("src/config/errorprone/dk.mada.apt-errorprone.properties")
+        if (!f.exists()) {
+            f = project.file("src/config/errorprone/dk.mada.apt-errorprone.properties")
+        }
+        if (f.exists()) {
+            try (InputStream is = new FileInputStream(f)) {
+                cachedProps.load(is)
+            }
+        }
+    }
+    return cachedProps
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.errorprone {
         disableWarningsInGeneratedCode = false
 
-        // ImmutableEnumChecker:
-        //  https://github.com/google/error-prone/issues/1542 (Set.of)
-        //  ? records
-        // InvalidParam:
-        //  https://github.com/google/error-prone/issues/2321
-        // JavaTimeDefaultTimeZone:
-        //  Timezone is not relevant
-        disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
-        excludedPaths = ".*/(azure/.*|petstore/dto/Error.java|manual/.*|opts/generator/zoneddatetime/dto/LocalTime.java|OpenapiGeneratorUtils.java|generated/.*)"
+        readProps().getProperty("disable", "").split(",").each {
+            String checker = it.trim()
+            if (!checker.isEmpty()) {
+                disable(checker)
+            }
+        }
+        excludedPaths = readProps().getProperty("excludedPaths")
 
         if (!name.toLowerCase().contains("test")) {
             check("NullAway", CheckSeverity.ERROR)
