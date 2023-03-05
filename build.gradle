@@ -1,13 +1,13 @@
 plugins {
     id 'application'
     id 'checkstyle'
-    id "com.diffplug.spotless" version "6.14.0"
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id "com.diffplug.spotless" version "6.16.0"
+    id 'com.github.johnrengelman.shadow' version '8.1.0'
     id 'eclipse'
     id 'net.ltgt.errorprone' version '3.0.1'
     id 'jacoco'
     id 'java-library'
-    id 'org.sonarqube' version '3.5.0.2730'
+    id 'org.sonarqube' version '4.0.0.2929'
     id 'maven-publish'
     
     id 'dk.mada.java'
@@ -29,7 +29,6 @@ repositories {
     mavenLocal()
 }
 
-
 dependencies {
     implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser'
@@ -50,7 +49,7 @@ dependencies {
     testImplementation  "org.assertj:assertj-core:$assertJVersion"
 	
     // for the generated code
-    testImplementation  'io.quarkus:quarkus-rest-client:2.16.1.Final'
+    testImplementation  'io.quarkus:quarkus-rest-client:2.16.4.Final'
     testImplementation  'jakarta.annotation:jakarta.annotation-api:2.1.1'
     testImplementation  'jakarta.json:jakarta.json-api:2.1.1'
     testImplementation  'jakarta.json.bind:jakarta.json.bind-api:3.0.0'

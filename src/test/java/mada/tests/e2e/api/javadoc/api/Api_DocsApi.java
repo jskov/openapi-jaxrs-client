@@ -108,4 +108,22 @@ public interface Api_DocsApi {
   @APIResponseSchema(String.class)
   @Operation(summary = "op is missing punctuation")
   String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item, @Valid Simple dto);
+
+  /**
+   * Summary with &quot;quote&quot; 'quote'.
+   * Description with &quot;quote&quot; 'quote'
+   *
+   * @return String
+   */
+  @GET
+  @Path("/quoted")
+  @Produces(MediaType.APPLICATION_JSON)
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "Description with \"quote\" 'quote'",
+                 content = @Content(schema = @Schema(implementation = String.class))),
+    @APIResponse(responseCode = "400", description = "Description with \"quote\" 'quote'",
+                 content = @Content(schema = @Schema(implementation = Simple.class)))
+  })
+  @Operation(summary = "Summary with \"quote\" 'quote'")
+  String apiDocsQuotedGet();
 }

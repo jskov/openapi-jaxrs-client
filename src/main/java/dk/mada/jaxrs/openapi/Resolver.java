@@ -1,7 +1,9 @@
 package dk.mada.jaxrs.openapi;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -76,9 +78,151 @@ public final class Resolver {
         // targets for dereferencing during the resolve pass.
         Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
 
-        Collection<Dto> foldedDtos = foldInheritance(renamedDtos);
+        Collection<Dto> expandedDtos = extractCompositeDtos(renamedDtos);
 
-        return dereferenceDtos(foldedDtos);
+        Collection<Dto> foldedDtos = foldInheritance(expandedDtos);
+
+        List<Dto> dereferencedDtos = dereferenceDtos(foldedDtos);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Resolved DTOs:");
+            dereferencedDtos.stream()
+                    .sorted((a, b) -> a.name().compareToIgnoreCase(b.name()))
+                    .forEach(d -> logger.info(" - {}", d));
+        }
+
+        return dereferencedDtos;
+    }
+
+    private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
+        logger.debug("Look for composite DTOs");
+        return dtos.stream()
+                .map(dto -> extractIfCompositeDto(dto, dtos))
+                .toList();
+    }
+
+    private Dto extractIfCompositeDto(Dto dto, Collection<Dto> dtos) {
+        Type type = dto.reference().refType();
+
+        if (type instanceof ParserTypeComposite tc) {
+            return extractCompositeDto(dtos, dto, tc);
+        }
+        if (type instanceof ParserTypeCombined tc) {
+            return extractCombinedDto(dtos, dto, tc);
+        }
+
+        return dto;
+    }
+
+    /**
+     * Extract composite Dto information.
+     *
+     * A composite DTOs (schema is allOf) has the (assumed) Dto types it expands declared as name references in the type.
+     *
+     * Now that parsing is complete, all Dto types are known.
+     *
+     * So find the referenced Dtos and store it in directly in the Dto's data.
+     *
+     * The Dto's type is replaced later during dereferencing (since all the information captured in ParserTypeComposite has
+     * now been moved into the Dto model).
+     *
+     * @param dtos all the known Dtos.
+     * @param dto  the Dto to store data in
+     * @param tc   tge composite type information
+     * @return the updated dto
+     */
+    private Dto extractCompositeDto(Collection<Dto> dtos, Dto dto, ParserTypeComposite tc) {
+        String openapiName = dto.openapiId().name();
+        logger.debug(" - expand composite DTO {}", openapiName);
+
+        List<Dto> externalDtos = tc.externalDtoReferences().stream()
+                .map(tn -> getDtoWithName(dtos, tn))
+                .toList();
+
+        if (logger.isDebugEnabled()) {
+            List<String> extendsNames = externalDtos.stream()
+                    .map(Dto::name)
+                    .sorted()
+                    .toList();
+            logger.debug("    extends {}", extendsNames);
+        }
+
+        return Dto.builderFrom(dto)
+                .extendsParents(externalDtos)
+                .build();
+    }
+
+    /**
+     * Extract composite Dto information.
+     *
+     * A composite DTOs (schema is allOf) has the (assumed) Dto types it expands declared as name references in the type.
+     *
+     * Now that parsing is complete, all Dto types are known.
+     *
+     * So find the referenced Dtos and store it in directly in the Dto's data.
+     *
+     * The Dto's type is replaced later during dereferencing (since all the information captured in ParserTypeComposite has
+     * now been moved into the Dto model).
+     *
+     * @param dtos all the known Dtos.
+     * @param dto  the Dto to store data in
+     * @param tc   tge composite type information
+     * @return the updated dto
+     */
+    private Dto extractCombinedDto(Collection<Dto> dtos, Dto dto, ParserTypeCombined tc) {
+        String openapiName = dto.openapiId().name();
+        logger.debug(" - expand combined DTO {}", openapiName);
+
+        List<Dto> combinesDtos = tc.externalDtoReferences().stream()
+                .map(tn -> getDtoWithName(dtos, tn))
+                .toList();
+
+        if (logger.isDebugEnabled()) {
+            List<String> combinesNames = combinesDtos.stream()
+                    .map(Dto::name)
+                    .sorted()
+                    .toList();
+            logger.debug("    combines {}", combinesNames);
+        }
+
+        List<Property> combinedProps = combinesDtos.stream()
+                .flatMap(d -> d.properties().stream())
+                .sorted((a, b) -> a.name().compareTo(b.name()))
+                .toList();
+
+        Set<String> seenPropertyNames = new HashSet<>();
+        List<Property> selectedProps = combinedProps.stream()
+                .filter(p -> seenPropertyNames.add(p.name()))
+                .map(this::relaxPropertyValidation)
+                .toList();
+
+        return Dto.builderFrom(dto)
+                .properties(selectedProps)
+                .build();
+    }
+
+    /**
+     * Ensures that the validation of the property allows for it to be null/not required. The combined DTO will have to be
+     * able to deserialize any subset of the combined DTOs. So this relaxation of validation is necessary.
+     *
+     * @param prop the property to relax validation for
+     * @return property without null
+     */
+    private Property relaxPropertyValidation(Property p) {
+        Validation flattenedValidation = Validation.builder().from(p.validation())
+                .isNullable(true)
+                .isRequired(false)
+                .build();
+        return Property.builder().from(p)
+                .validation(flattenedValidation)
+                .build();
+    }
+
+    private Dto getDtoWithName(Collection<Dto> dtos, TypeName tn) {
+        return dtos.stream()
+                .filter(d -> d.typeName().equals(tn))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
     }
 
     private List<Dto> dereferenceDtos(Collection<Dto> foldedDtos) {
@@ -97,7 +241,7 @@ public final class Resolver {
      * @return dtos with inheritance information
      */
     private List<Dto> foldInheritance(Collection<Dto> dtos) {
-        logger.debug("Look for DTO inheritance");
+        logger.debug("Look for DTO implements");
         Map<TypeName, Dto> dtosWithSuper = new HashMap<>();
 
         for (Dto dto : dtos) {
@@ -135,8 +279,11 @@ public final class Resolver {
                 .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))
                 .toList();
 
+        ArrayList<Dto> newParents = new ArrayList<>(dto.extendsParents());
+        newParents.add(parent);
+
         return Dto.builderFrom(dto)
-                .parent(parent)
+                .extendsParents(newParents)
                 .properties(localProperties)
                 .build();
     }
@@ -266,16 +413,12 @@ public final class Resolver {
      * @return the final model type
      */
     private Type resolveInner(Type type) {
-        if (type instanceof Dto) {
-            // See if DTO has been remapped to something else
-            Type remappedDto = parserTypes.find(type.typeName()).orElse(type);
-            if (remappedDto instanceof Dto dto) {
-                remappedDto = conflictRenamer.getConflictRenamedDto(dto);
-            }
-
-            // Convert parser DTO instance to model DTO instance
-            // Wrap in a reference - or cyclic DTOs will not be possible
-            return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
+        if (type instanceof Dto dto) {
+            return resolveDto(dto);
+        } else if (type instanceof ParserTypeComposite ptc) {
+            return resolveCompositeDto(ptc);
+        } else if (type instanceof ParserTypeCombined ptc) {
+            return resolveCombinedDto(ptc);
         } else if (type instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (type instanceof TypeVoid) {
@@ -299,5 +442,64 @@ public final class Resolver {
             logger.debug("NOT dereferencing {}", type);
             return type;
         }
+    }
+
+    /**
+     * Resolves a composite DTO reference.
+     *
+     * The composite reference contains local properties and/or external DTO references. These have all been moved into the
+     * Dto object in expandCompositeDtos.
+     *
+     * @return the simplified object reference
+     */
+    private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
+        TypeName dtoName = ptc.typeName();
+        // There is no reference to the real DTO type, but it does not matter, as the name
+        // lookup is guaranteed to find it.
+        Dto dto = null;
+        return resolveDto(dtoName, dto);
+    }
+
+    /**
+     * Resolves a combined DTO reference.
+     *
+     * The combined reference contains local properties and/or external DTO references. These have all been moved into the
+     * Dto object in expandCombinedDtos.
+     *
+     * @return the simplified object reference
+     */
+    private TypeReference resolveCombinedDto(ParserTypeCombined ptc) {
+        TypeName dtoName = ptc.typeName();
+        // There is no reference to the real DTO type, but it does not matter, as the name
+        // lookup is guaranteed to find it.
+        Dto dto = null;
+        return resolveDto(dtoName, dto);
+    }
+
+    /**
+     * Resolve a Dto.
+     *
+     * The Dto may have been mapped to another types. If so, the replacement happens here.
+     *
+     * @param dto the dto to possibly replace
+     * @return the final type reference for the Dto
+     */
+    private TypeReference resolveDto(Dto dto) {
+        return resolveDto(dto.typeName(), dto);
+    }
+
+    private TypeReference resolveDto(TypeName dtoName, @Nullable Type fallbackDto) {
+        // See if DTO has been remapped to something else
+        Type remappedDto = parserTypes.find(dtoName).orElse(fallbackDto);
+        if (remappedDto == null) {
+            throw new IllegalStateException("Did not find a dto named " + dtoName);
+        }
+        if (remappedDto instanceof Dto dto) {
+            remappedDto = conflictRenamer.getConflictRenamedDto(dto);
+        }
+
+        // Convert parser DTO instance to model DTO instance
+        // Wrap in a reference - or cyclic DTOs will not be possible
+        return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
     }
 }

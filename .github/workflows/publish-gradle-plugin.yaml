@@ -14,8 +14,8 @@ jobs:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
           echo "BUILD_LABEL=${INPUT/gradle\/}" >> $GITHUB_ENV
-      - name: Echo env
-        run: env | sort
+#      - name: Echo env
+#        run: env | sort
     
       - uses: actions/checkout@v3
         with:
@@ -28,8 +28,8 @@ jobs:
           distribution: 'adopt'
 
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@55e685c48d84285a5b0418cd094606e199cca3b6
-        # 1.0.5
+        uses: gradle/wrapper-validation-action@8d49e559aae34d3e0eb16cde532684bc9702762b
+        # 1.0.6
 
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
@@ -37,8 +37,8 @@ jobs:
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/platforms/openapi-jaxrs-bom/gradle.properties
 
       - name: Build release
-        uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
-        # 2.3.3
+        uses: gradle/gradle-build-action@6095a76664413da4c8c134ee32e8a8ae900f0f1f
+        # 2.4.0
         with:
           arguments: publishPlugin -s
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)

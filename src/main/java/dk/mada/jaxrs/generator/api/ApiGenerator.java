@@ -199,11 +199,13 @@ public class ApiGenerator {
 
         // Gets type for OK if present, or else default, or else void
         Reference typeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
+                .or(() -> getTypeForStatus(op, StatusCode.HTTP_CREATED))
                 .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
                 .orElse(TypeVoid.getRef());
 
         // Gets matching media types, check for input-stream replacement
         Set<String> mediaTypes = getMediaTypeForStatus(op, StatusCode.HTTP_OK)
+                .or(() -> getMediaTypeForStatus(op, StatusCode.HTTP_CREATED))
                 .or(() -> getMediaTypeForStatus(op, StatusCode.HTTP_DEFAULT))
                 .orElse(Set.of());
         boolean replaceResponseWithInputStream = opts.getResponseInputStreamMediaTypes().stream()
@@ -456,7 +458,7 @@ public class ApiGenerator {
                 .baseType(baseType)
                 .code(r.code().asOpenApiStatus())
                 .containerType(containerType)
-                .description(description)
+                .description(StringRenderer.encodeForString(description))
                 .isUnique(isUnique)
                 .build();
     }

@@ -72,6 +72,10 @@ public class ValidationDto {
   @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
   private List<Environment> validObjects;
 
+  public static final String JSON_PROPERTY_VERY_BIG_LONG = "veryBigLong";
+  @JsonbProperty(JSON_PROPERTY_VERY_BIG_LONG)
+  private Long veryBigLong;
+
   public ValidationDto aBigDecimal(BigDecimal aBigDecimal) {
     this.aBigDecimal = aBigDecimal;
     return this;
@@ -100,12 +104,12 @@ public class ValidationDto {
 
   /**
    * With a &quot;quoted&quot; description.
-   * minimum: 0
-   * maximum: 99999999
+   * minimum: 0L
+   * maximum: 99999999L
    *
    * @return aBigDouble
    **/
-  @Min(0) @Max(99999999)
+  @Min(0L) @Max(99999999L)
   public Double getaBigDouble() {
     return aBigDouble;
   }
@@ -121,12 +125,12 @@ public class ValidationDto {
 
   /**
    * a float.
-   * minimum: 0
-   * maximum: 1000
+   * minimum: 0L
+   * maximum: 1000L
    *
    * @return aBigFloat
    **/
-  @Min(0) @Max(1000)
+  @Min(0L) @Max(1000L)
   public Float getaBigFloat() {
     return aBigFloat;
   }
@@ -142,11 +146,11 @@ public class ValidationDto {
 
   /**
    * Get badParsingOfRange
-   * minimum: 100
-   * maximum: 999
+   * minimum: 100L
+   * maximum: 99999999L
    * @return badParsingOfRange
    **/
-  @Min(100) @Max(999)
+  @Min(100L) @Max(99999999L)
   public Integer getBadParsingOfRange() {
     return badParsingOfRange;
   }
@@ -162,11 +166,11 @@ public class ValidationDto {
 
   /**
    * Get intValue
-   * minimum: 10
-   * maximum: 20
+   * minimum: 10L
+   * maximum: 20L
    * @return intValue
    **/
-  @Min(10) @Max(20)
+  @Min(10L) @Max(20L)
   public Integer getIntValue() {
     return intValue;
   }
@@ -280,6 +284,26 @@ public class ValidationDto {
     this.validObjects = validObjects;
   }
 
+  public ValidationDto veryBigLong(Long veryBigLong) {
+    this.veryBigLong = veryBigLong;
+    return this;
+  }
+
+  /**
+   * Get veryBigLong
+   * minimum: 100L
+   * maximum: 9999999999L
+   * @return veryBigLong
+   **/
+  @Min(100L) @Max(9999999999L)
+  public Long getVeryBigLong() {
+    return veryBigLong;
+  }
+
+  public void setVeryBigLong(Long veryBigLong) {
+    this.veryBigLong = veryBigLong;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -298,12 +322,13 @@ public class ValidationDto {
         Objects.equals(this.pattern, other.pattern) &&
         Objects.equals(this.patternDigits, other.patternDigits) &&
         Objects.equals(this.primitivesShouldNotHaveValidate, other.primitivesShouldNotHaveValidate) &&
-        Objects.equals(this.validObjects, other.validObjects);
+        Objects.equals(this.validObjects, other.validObjects) &&
+        Objects.equals(this.veryBigLong, other.veryBigLong);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects);
+    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects, veryBigLong);
   }
 
   @Override
@@ -320,6 +345,7 @@ public class ValidationDto {
     sb.append("\n    patternDigits: ").append(toIndentedString(patternDigits));
     sb.append("\n    primitivesShouldNotHaveValidate: ").append(toIndentedString(primitivesShouldNotHaveValidate));
     sb.append("\n    validObjects: ").append(toIndentedString(validObjects));
+    sb.append("\n    veryBigLong: ").append(toIndentedString(veryBigLong));
     sb.append("\n}");
     return sb.toString();
   }

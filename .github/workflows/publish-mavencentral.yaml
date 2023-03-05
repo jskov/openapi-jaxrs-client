@@ -16,8 +16,8 @@ jobs:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
           echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
-      - name: Echo env
-        run: env | sort
+#      - name: Echo env
+#        run: env | sort
       - uses: actions/checkout@v3
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -25,8 +25,8 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@55e685c48d84285a5b0418cd094606e199cca3b6
-        # 1.0.5
+        uses: gradle/wrapper-validation-action@8d49e559aae34d3e0eb16cde532684bc9702762b
+        # 1.0.6
         
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
@@ -34,8 +34,8 @@ jobs:
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/platforms/openapi-jaxrs-bom/gradle.properties
 
       - name: Build release
-        uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
-        # 2.3.3
+        uses: gradle/gradle-build-action@6095a76664413da4c8c134ee32e8a8ae900f0f1f
+        # 2.4.0
         with:
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
@@ -50,8 +50,8 @@ jobs:
         run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
         
       - name: Upload CLI artifacts
-        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
-        # v0.1.14
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
+        # v0.1.15
         with:
           draft: true
           tag_name: ${{ env.BUILD_LABEL }}

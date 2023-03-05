@@ -83,9 +83,9 @@ public class ValidationGenerator {
                     .map(max -> "\"" + max.toString() + "\"");
         } else {
             minimum = validation.minimum()
-                    .map(min -> Long.toString(min.longValue()));
+                    .map(min -> Long.toString(min.longValue()) + "L");
             maximum = validation.maximum()
-                    .map(max -> Long.toString(max.longValue()));
+                    .map(max -> Long.toString(max.longValue()) + "L");
         }
         if (decimalMinimum.isPresent()) {
             imports.add(renderAnnotations, ValidationApi.DECIMAL_MIN);
