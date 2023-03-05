@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    implementation(platform('dk.mada.jaxrs:plugins-platform'))
+    implementation  (platform('dk.mada.jaxrs:plugins-platform'))
 }

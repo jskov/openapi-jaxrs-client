@@ -18,9 +18,9 @@ class ApplyTest {
     void canApply() {
         Project project = ProjectBuilder.builder().build();
         project.getPluginManager().apply("dk.mada.jaxrs");
-        
+
         Object ext = project.getExtensions().findByName("jaxrs");
-        
+
         assertThat(ext)
             .isNotNull();
     }
