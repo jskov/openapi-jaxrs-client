@@ -12,4 +12,5 @@ dependencies {
 
     implementation  ('net.ltgt.gradle:gradle-errorprone-plugin')
     implementation  ('com.diffplug.spotless:spotless-plugin-gradle')
+    implementation  ('org.sonarsource.scanner.gradle:sonarqube-gradle-plugin')
 }
