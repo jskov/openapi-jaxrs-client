@@ -1,0 +1,12 @@
+// Configures checkstyle plugin
+
+plugins {
+    id 'checkstyle'
+}
+
+checkstyle {
+    ignoreFailures = true
+    configFile = rootProject.file("src/config/checkstyle/checkstyle.xml")
+}
+
+tasks.checkstyleTest.enabled = false

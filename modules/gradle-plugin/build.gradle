@@ -1,5 +1,4 @@
 plugins {
-    id 'checkstyle'
     id 'jacoco'
     id 'java-gradle-plugin'
     id 'maven-publish'
@@ -8,8 +7,6 @@ plugins {
     
     id 'dk.mada.java'
 }
-
-apply plugin: "com.diffplug.spotless"
 
 group "${groupId}"
 
@@ -50,10 +47,3 @@ jacocoTestReport {
     }
     dependsOn test // tests are required to run before generating the report
 }
-
-checkstyle {
-    ignoreFailures = true
-    configFile = rootProject.file("src/config/checkstyle/checkstyle.xml")
-}
-
-tasks.checkstyleTest.enabled = false

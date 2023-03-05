@@ -1,6 +1,7 @@
 plugins {
     id('java')
 
+    id 'dk.mada.checkstyle'
     id 'dk.mada.spotless'
 // desired:    id 'dk.mada.apt-errorprone'
 }
