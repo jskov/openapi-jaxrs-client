@@ -8,6 +8,6 @@ group = 'dk.mada.jaxrs'
 javaPlatform.allowDependencies()
 
 dependencies {
-    api   (platform('org.junit:junit-bom:5.9.0'))
+    api   (platform('org.junit:junit-bom:5.9.2'))
     api   (platform('org.assertj:assertj-core:3.23.1'))
 }
