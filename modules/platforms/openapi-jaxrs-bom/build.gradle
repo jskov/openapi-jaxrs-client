@@ -12,6 +12,7 @@ ext {
 // allow the definition of dependencies to other platforms
 javaPlatform.allowDependencies()
 
+// Some of these are compile-only and should be moved to a compile platform
 dependencies {
     constraints {
         api 'info.picocli:picocli:4.7.1'
@@ -22,7 +23,7 @@ dependencies {
 
         api 'com.google.errorprone:error_prone_core:2.16'
         api 'org.jspecify:jspecify:0.3.0'
-        api 'com.uber.nullaway:nullaway:0.10.9'
+        api 'com.uber.nullaway:nullaway:0.10.10'
     }
 }
 
