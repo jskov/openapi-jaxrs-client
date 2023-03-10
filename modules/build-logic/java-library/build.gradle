@@ -8,9 +8,10 @@ repositories {
 }
 
 dependencies {
-    implementation  (platform('dk.mada.jaxrs:plugins-platform'))
+    implementation (platform('dk.mada.jaxrs:plugins-platform'))
 
-    implementation  ('net.ltgt.gradle:gradle-errorprone-plugin')
-    implementation  ('com.diffplug.spotless:spotless-plugin-gradle')
-    implementation  ('org.sonarsource.scanner.gradle:sonarqube-gradle-plugin')
+    implementation ('net.ltgt.gradle:gradle-errorprone-plugin')
+    implementation ('com.diffplug.spotless:spotless-plugin-gradle')
+    implementation ('org.sonarsource.scanner.gradle:sonarqube-gradle-plugin')
+    implementation ('com.diffplug.gradle:goomph')
 }
