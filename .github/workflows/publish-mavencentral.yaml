@@ -86,12 +86,7 @@ jobs:
                --cookie cookies.txt \
                --header 'Content-Type: application/json' \
                --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoId'] } }"
-#          curl --request POST \
-#               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
-#               --cookie cookies.txt \
-#               --header 'Content-Type: application/json' \
-#               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoId'] } }"
-          echo "Publish completed"
+          echo "Publish DISABLED"
           rm -f cookies.txt
 
       - name: Deploy Javadoc
