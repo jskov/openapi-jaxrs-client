@@ -101,12 +101,12 @@ jobs:
                --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
                --cookie cookies.txt \
                --header 'Content-Type: application/json' \
-               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoId'] } }"
-#          curl --request POST \
-#               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
-#               --cookie cookies.txt \
-#               --header 'Content-Type: application/json' \
-#               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoId'] } }"
+               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoClientId'] } }"
+          curl --request POST \
+               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
+               --cookie cookies.txt \
+               --header 'Content-Type: application/json' \
+               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoClientId'] } }"
           echo "Publish completed"
           rm -f cookies.txt
 
