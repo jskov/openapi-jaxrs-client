@@ -63,9 +63,9 @@ jobs:
       - name: Assemble Bundle
         run: |
           cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/
-          jar cvf ../../../../../bundle.jar *.pom *.jar
+          jar cvf ../../../../../bundle.jar *
           cd ../../openapi-jaxrs-bom/${BUILD_LABEL}
-          jar uvf ../../../../../bundle.jar *.pom
+          jar uvf ../../../../../bundle.jar *
 
       - name: List Bundle
         run: unzip -t build/dist/bundle.jar
