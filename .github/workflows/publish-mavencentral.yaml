@@ -61,7 +61,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Assemble Bundle
-        run:
+        run: |
           cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/
           jar cvf ../../../../../bundle.jar *.pom *.jar
           cd ../../openapi-jaxrs-bom/${BUILD_LABEL}
