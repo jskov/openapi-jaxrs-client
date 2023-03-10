@@ -62,7 +62,7 @@ jobs:
 
       - name: Assemble BOM Bundle
         run: |
-          cd build/dist/dk/mada/jaxrs/openapi-jaxrs-com/${BUILD_LABEL}/
+          cd build/dist/dk/mada/jaxrs/openapi-jaxrs-bom/${BUILD_LABEL}/
           jar cvf ../../../../../bundle-bom.jar *
           unzip -t build/dist/bundle-bom.jar
 
