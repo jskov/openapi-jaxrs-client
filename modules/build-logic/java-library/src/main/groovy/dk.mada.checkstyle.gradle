@@ -1,0 +1,16 @@
+// Configures checkstyle plugin
+
+plugins {
+    id 'checkstyle'
+}
+
+checkstyle {
+    ignoreFailures = true
+    configFile = rootProject.file("src/config/checkstyle/checkstyle.xml")
+}
+
+tasks.checkstyleTest.enabled = false
+
+rootProject.tasks.named("sonar") {
+    it.dependsOn(checkstyleMain)
+}

@@ -1,62 +1,28 @@
 plugins {
     id 'application'
-    id 'checkstyle'
-    id "com.diffplug.spotless" version "6.16.0"
     id 'com.github.johnrengelman.shadow' version '8.1.0'
     id 'eclipse'
-    id 'net.ltgt.errorprone' version '3.0.1'
-    id 'jacoco'
     id 'java-library'
-    id 'org.sonarqube' version '4.0.0.2929'
     id 'maven-publish'
-}
 
-group "${groupId}"
+    id 'dk.mada.java'
+    id 'dk.mada.apt-errorprone'
+    id 'dk.mada.apt-values'
+    id 'dk.mada.apt-jstachio'
+    id 'dk.mada.eclipse'
+}
 
 ext {
     distDir = file("build/dist").getAbsolutePath()
-    builtOn = LocalDateTime.now()
-                .atZone(ZoneId.of('Europe/Copenhagen'))
-                .withNano(0)
-}
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
-configurations {
-    aptValue
-    aptStach
+    builtOn = LocalDate.now()
 }
 
 dependencies {
-    implementation      'info.picocli:picocli:4.7.1'
-    implementation      'io.swagger.parser.v3:swagger-parser:2.1.12'
-
-    annotationProcessor "org.immutables:value:${immutablesVersion}"
-    aptValue            "org.immutables:value:${immutablesVersion}"
-    compileOnly         "org.immutables:value:${immutablesVersion}:annotations"
-
-    implementation      "io.jstach:jstachio:${jstachioVersion}"
-    aptStach            "io.jstach:jstachio-apt:${jstachioVersion}"
-    annotationProcessor "io.jstach:jstachio-apt:${jstachioVersion}"
+    implementation      'info.picocli:picocli'
+    implementation      'io.swagger.parser.v3:swagger-parser'
 
     implementation      'org.slf4j:slf4j-jdk14:2.0.6'
 
-    implementation      'org.jspecify:jspecify:0.3.0'
-    annotationProcessor 'com.uber.nullaway:nullaway:0.10.10'
-
-    errorprone          "com.google.errorprone:error_prone_core:$errorproneVersion"
-
-    testImplementation  platform("org.junit:junit-bom:$junitVersion")
-    testImplementation  'org.junit.jupiter:junit-jupiter'
-    testImplementation  'org.junit.jupiter:junit-jupiter-params'
-    testImplementation  'org.junit.jupiter:junit-jupiter-engine'
-    testImplementation  'org.junit.jupiter:junit-jupiter-api'
-    testImplementation  'org.junit.platform:junit-platform-runner'
-    testImplementation  "org.assertj:assertj-core:$assertJVersion"
-	
     // for the generated code
     testImplementation  'io.quarkus:quarkus-rest-client:2.16.4.Final'
     testImplementation  'jakarta.annotation:jakarta.annotation-api:2.1.1'
@@ -85,43 +51,8 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-    
     withJavadocJar()
     withSourcesJar()
-}
-
-import net.ltgt.gradle.errorprone.CheckSeverity
-
-tasks.withType(JavaCompile).configureEach {
-    options.errorprone {
-        disableWarningsInGeneratedCode = false
-
-        // ImmutableEnumChecker:
-        //  https://github.com/google/error-prone/issues/1542 (Set.of)
-        //  ? records
-        // InvalidParam:
-        //  https://github.com/google/error-prone/issues/2321
-        // JavaTimeDefaultTimeZone:
-        //  Timezone is not relevant
-        disable("ImmutableEnumChecker", "InvalidParam", "JavaTimeDefaultTimeZone")
-        excludedPaths = ".*/(azure/.*|petstore/dto/Error.java|manual/.*|opts/generator/zoneddatetime/dto/LocalTime.java|OpenapiGeneratorUtils.java|generated/.*)"
-
-        if (!name.toLowerCase().contains("test")) {
-            check("NullAway", CheckSeverity.ERROR)
-            option("NullAway:AnnotatedPackages", "dk.mada")
-        }
-    }
-}
-
-compileJava {
-    options.encoding = 'UTF-8'
-    options.compilerArgs << '-parameters'
-}
-
-compileTestJava {
-    options.encoding = 'UTF-8'
 }
 
 processResources {
@@ -148,55 +79,14 @@ javadoc {
 }
 
 test {
-    useJUnitPlatform()
-
     //testLogging.showStandardStreams = true
 
     systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
 }
 
-jacocoTestReport {
-    reports {
-        xml.required.set(true)
-    }
-    dependsOn test // tests are required to run before generating the report
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
 }
-
-checkstyle {
-    ignoreFailures = true
-    configFile = file("src/config/checkstyle/checkstyle.xml")
-}
-
-tasks.checkstyleTest.enabled = false
-
-spotless {
-    java {
-        target 'src/main/java/**/*.java'
-        eclipse().configFile("src/config/spotless/eclipse-formatter-mada.xml")
-        formatAnnotations()
-    }
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "jskov_openapi-jaxrs-client"
-        property "sonar.organization", "jskov-github"
-        property "sonar.host.url", "https://sonarcloud.io"
-
-        property "sonar.inclusions", "**/src/main/**"
-        property "sonar.exclusions", "**/OpenapiGeneratorUtils.java, **/Immutable*.java"
-        property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.java.checkstyle.reportPaths", "**/build/reports/checkstyle/*.xml"
-        property "sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/test/*.xml"
-    }
-}
-
-project.tasks["sonar"].dependsOn([
-    ":jacocoTestReport",
-    ":gradle-plugin:jacocoTestReport",
-    ":checkstyleMain",
-    ":gradle-plugin:checkstyleMain"
-])
 
 publishing {
     repositories {
@@ -231,100 +121,28 @@ publishing {
                     developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
                     url = 'https://github.com/jskov/openapi-jaxrs-client/'
                 }
+                
+                withXml {
+                    def node = it.asNode()
+                    def versionNode = node.version[0]
+                    def parentDependency = node.dependencyManagement.dependencies.dependency[0]
+                    parentDependency.append(versionNode)
+                }
             }
         }
     }
 }
 
 // Not sure how to properly exclude cli from published artifacts
-publish.doLast {
-    project.delete(fileTree(dir: "build/dist/dk", include: "**/*-cli.*").files)
-    project.delete(fileTree(dir: "build/dist/dk", include: "**/*.module*").files)
-    project.delete(fileTree(dir: "build/dist/dk", includes: ["**/*.md5", "**/*.sha1", "**/*.sha256", "**/*.sha512"]).files)
-}
-
-// This task configures enough of the eclipse settings to make
-// vscode-java plugin work with APT
-task prepCodeGen() {
+publish {
+    dependsOn(gradle.includedBuild('platforms').task(':openapi-jaxrs-bom:publish'))
     doLast {
-        String valueJarPath = configurations.aptValue.getSingleFile().getAbsolutePath()
-
-        mkdir(".settings")
-        
-        File factoryPath = file(".factorypath")
-        factoryPath.delete()
-        factoryPath << """<factorypath>
-  <factorypathentry kind="EXTJAR" id="${valueJarPath}" enabled="true" runInBatchMode="false"/>
-"""
-        
-        configurations.aptStach.getFiles().each { f ->
-          String p = f.getAbsolutePath()
-          factoryPath << """
-  <factorypathentry kind="EXTJAR" id="${p}" enabled="true" runInBatchMode="false"/>
-"""
-        }
-
-        factoryPath << """
-</factorypath>
-"""
-
-        File apt = file(".settings/org.eclipse.jdt.apt.core.prefs")
-        apt.delete()
-        apt << """eclipse.preferences.version=1
-org.eclipse.jdt.apt.aptEnabled=true
-org.eclipse.jdt.apt.genSrcDir=.apt_generated
-org.eclipse.jdt.apt.genTestSrcDir=.apt_generated_tests
-org.eclipse.jdt.apt.reconcileEnabled=true
-"""
-
-        File jdt = file(".settings/org.eclipse.jdt.core.prefs")
-        jdt.delete()
-        jdt << """eclipse.preferences.version=1
-org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
-org.eclipse.jdt.core.compiler.codegen.methodParameters=do not generate
-org.eclipse.jdt.core.compiler.codegen.targetPlatform=17
-org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve
-org.eclipse.jdt.core.compiler.compliance=17
-org.eclipse.jdt.core.compiler.debug.lineNumber=generate
-org.eclipse.jdt.core.compiler.debug.localVariable=generate
-org.eclipse.jdt.core.compiler.debug.sourceFile=generate
-org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
-org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
-org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
-org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=warning
-org.eclipse.jdt.core.compiler.processAnnotations=enabled
-org.eclipse.jdt.core.compiler.release=disabled
-org.eclipse.jdt.core.compiler.source=17
-"""
-
-        File buildship = file(".settings/org.eclipse.buildship.core.prefs")
-        buildship.delete()
-        buildship << """connection.project.dir=
-eclipse.preferences.version=1
-"""
-
-        File encoding = file(".settings/org.eclipse.core.resources.prefs")
-        encoding.delete()
-        encoding << """eclipse.preferences.version=1
-encoding/<project>=UTF-8
-"""
+        project.delete(fileTree(dir: "build/dist/dk", include: "**/*-cli.*").files)
+        project.delete(fileTree(dir: "build/dist/dk", include: "**/*.module*").files)
+        project.delete(fileTree(dir: "build/dist/dk", includes: ["**/*.md5", "**/*.sha1", "**/*.sha256", "**/*.sha512"]).files)
     }
 }
 
-tasks.eclipse {
-    dependsOn("prepCodeGen")
-    doLast {
-        mkdir "build/e2e"
-    }
-}
-
-// When working on templates, eclipse will only run the annotation
-// processor, if the @JStache classes are changed.
-// So run './gradlew -t processResources' and this hack will deliver.
-processResources {
-    doLast {
-        def time = System.currentTimeMillis()
-        file("src/main/java/dk/mada/jaxrs/generator/api/tmpl/CtxApi.java").setLastModified(time)
-        file("src/main/java/dk/mada/jaxrs/generator/dto/tmpl/CtxDto.java").setLastModified(time)
-    }
+publishToMavenLocal {
+    dependsOn(gradle.includedBuild('platforms').task(':openapi-jaxrs-bom:publishToMavenLocal'))
 }

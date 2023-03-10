@@ -1,5 +1,5 @@
 o TypeRef must be used for all type references. Should allow capture of Validation.
-  So Validation becomes related to the property's type refernce rather than the property itself.
+  So Validation becomes related to the property's type reference rather than the property itself.
   
 o Make options self-documenting
 o Make executable jar

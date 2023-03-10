@@ -1,4 +1,11 @@
+pluginManagement {
+    includeBuild('modules/build-logic')
+}
+
 rootProject.name='openapi-jaxrs-client'
+
+includeBuild 'modules/build-logic'
+includeBuild 'modules/platforms'
 
 include 'gradle-plugin'
 project(':gradle-plugin').projectDir = file('modules/gradle-plugin')

@@ -1,0 +1,5 @@
+rootProject.name = 'platforms'
+
+include('openapi-jaxrs-bom')
+include('test-platform')
+include('plugins-platform')

@@ -1,0 +1,44 @@
+plugins {
+    id('eclipse')
+    id('com.diffplug.eclipse.apt')
+}
+
+// This seem to be missing from the APT plugin (tested with Eclipse 2022.12)
+// Add is as a non-main sourceset so Gradle does not process the output source files in it.
+sourceSets {
+    eclipseApt {
+        java {
+            srcDir '.apt_generated'
+        }
+    }
+}
+// Need to make the output directory, or Gradle will not include it, and Eclipse gets sad.
+tasks.named("eclipseClasspath") {
+    doFirst {
+        // Make Eclipse's apt folder, or it will not be included in the classpath
+        mkdir ".apt_generated"
+        // Make build e2e output folder, so it is easy to add to eclipse classpath manually
+        mkdir "build/e2e"
+    }
+}
+
+// Plugin manager adds a folder to classpath, but does not create it
+// making eclipse sad.
+if (project.pluginManager.hasPlugin('java-gradle-plugin')) {
+    tasks.named("eclipseClasspath") {
+        dependsOn tasks.named("pluginUnderTestMetadata")
+    }
+}
+
+/*
+// When working on templates, eclipse will only run the annotation
+// processor, if the @JStache classes are changed.
+// So run './gradlew -t processResources' and this hack will deliver.
+processResources {
+    doLast {
+        def time = System.currentTimeMillis()
+        file("src/main/java/dk/mada/jaxrs/generator/api/tmpl/CtxApi.java").setLastModified(time)
+        file("src/main/java/dk/mada/jaxrs/generator/dto/tmpl/CtxDto.java").setLastModified(time)
+    }
+}
+*/

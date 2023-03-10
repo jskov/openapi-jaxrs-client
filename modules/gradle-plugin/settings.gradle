@@ -1,0 +1,6 @@
+pluginManagement {
+    includeBuild('../build-logic')
+    includeBuild('../platforms')
+}
+
+rootProject.name='gradle-plugin'

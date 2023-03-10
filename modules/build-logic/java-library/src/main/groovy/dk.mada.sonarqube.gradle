@@ -1,0 +1,22 @@
+// Configures sonarqube plugin
+
+plugins {
+    id 'org.sonarqube'
+
+    id 'dk.mada.checkstyle'
+    id 'dk.mada.jacoco'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "jskov_openapi-jaxrs-client"
+        property "sonar.organization", "jskov-github"
+        property "sonar.host.url", "https://sonarcloud.io"
+
+        property "sonar.inclusions", "**/src/main/**"
+//        property "sonar.exclusions", "**/OpenapiGeneratorUtils.java, **/Immutable*.java"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/test/*.xml"
+    }
+}
