@@ -3,14 +3,7 @@ plugins {
     id('dk.mada.java')
 }
 
-configurations {
-    aptValue
-}
-
 dependencies {
-    aptValue            (platform('dk.mada.jaxrs:openapi-jaxrs-bom'))
-
     annotationProcessor "org.immutables:value"
-    aptValue            "org.immutables:value"
     compileOnly         "org.immutables:value::annotations"
 }

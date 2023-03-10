@@ -3,14 +3,7 @@ plugins {
     id('dk.mada.java')
 }
 
-configurations {
-    aptStach
-}
-
 dependencies {
-    aptStach            (platform('dk.mada.jaxrs:openapi-jaxrs-parent'))
-
     implementation      "io.jstach:jstachio"
-    aptStach            "io.jstach:jstachio-apt"
     annotationProcessor "io.jstach:jstachio-apt"
 }
