@@ -35,10 +35,3 @@ test {
     
 //    forkEvery = 1
 }
-
-/*
-eclipseClasspath.dependsOn(pluginUnderTestMetadata)
-eclipseClasspath.doLast {
-//    mkdir "build/pluginUnderTestMetadata"
-}
-*/
