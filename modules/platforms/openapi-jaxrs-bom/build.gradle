@@ -18,7 +18,7 @@ dependencies {
         api 'info.picocli:picocli:4.7.1'
         api 'io.jstach:jstachio:0.10.1'
         api 'io.jstach:jstachio-apt:0.10.1'
-        api 'io.swagger.parser.v3:swagger-parser:2.1.11'
+        api 'io.swagger.parser.v3:swagger-parser:2.1.12'
         api 'org.immutables:value:2.9.3'
 
         api 'com.google.errorprone:error_prone_core:2.18.0'
