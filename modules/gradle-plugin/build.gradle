@@ -2,9 +2,9 @@ plugins {
     id 'java-gradle-plugin'
     id 'maven-publish'
     id 'com.gradle.plugin-publish' version '1.1.0'
-    id 'eclipse'
-    
+
     id 'dk.mada.java'
+    id 'dk.mada.eclipse'
 }
 
 tasks.withType(GenerateModuleMetadata) {
@@ -35,3 +35,10 @@ test {
     
 //    forkEvery = 1
 }
+
+/*
+eclipseClasspath.dependsOn(pluginUnderTestMetadata)
+eclipseClasspath.doLast {
+//    mkdir "build/pluginUnderTestMetadata"
+}
+*/

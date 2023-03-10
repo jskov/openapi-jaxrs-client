@@ -14,31 +14,19 @@ sourceSets {
     }
 }
 
-// This task configures enough of the eclipse settings to make
-// vscode-java plugin work with APT
-task prepCodeGen() {
-    doLast {
-        mkdir(".settings")
-/*
-        File buildship = file(".settings/org.eclipse.buildship.core.prefs")
-        buildship.delete()
-        buildship << """connection.project.dir=
-eclipse.preferences.version=1
-"""
-
-        File encoding = file(".settings/org.eclipse.core.resources.prefs")
-        encoding.delete()
-        encoding << """eclipse.preferences.version=1
-encoding/<project>=UTF-8
-"""
-*/
+// Plugin manager adds a folder to classpath, but does not create it
+// making eclipse sad.
+if (project.pluginManager.hasPlugin('java-gradle-plugin')) {
+    tasks.named("eclipseClasspath") {
+        dependsOn tasks.named("pluginUnderTestMetadata")
     }
 }
 
-tasks.eclipse {
+// make test output folder so it is easy to add
+// to eclipse - without it getting upset.
+tasks.named("eclipse") {
     doLast {
         mkdir "build/e2e"
-//        mkdir ".apt_generated"
     }
 }
 
