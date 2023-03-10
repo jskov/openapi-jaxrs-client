@@ -90,10 +90,10 @@ jobs:
                --cookie-jar cookies.txt --user "${USERNAME}:${PASSWORD}"
           repoBomId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@build/dist/bundle-bom.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
+               --form file=@/tmp/bundle-bom.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
           repoClientId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@build/dist/bundle-client.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
+               --form file=@/tmp/bundle-client.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
           echo "Wait for repo '$repoBomId' and '$repoClientId' to settle.."
           # should probe for state change
           sleep 60
