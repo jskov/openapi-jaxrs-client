@@ -3,12 +3,23 @@ plugins {
     id('com.diffplug.eclipse.apt')
 }
 
+// This seem to be missing from the APT plugin (tested with Eclipse 2022.12)
+// Need to make the output directory, or Gradle will not include it, and Eclipse gets sad.
+mkdir ".apt_generated"
+sourceSets {
+    main {
+        java {
+            srcDir ".apt_generated"
+        }
+    }
+}
+
 // This task configures enough of the eclipse settings to make
 // vscode-java plugin work with APT
 task prepCodeGen() {
     doLast {
         mkdir(".settings")
-
+/*
         File buildship = file(".settings/org.eclipse.buildship.core.prefs")
         buildship.delete()
         buildship << """connection.project.dir=
@@ -27,6 +38,7 @@ encoding/<project>=UTF-8
 tasks.eclipse {
     doLast {
         mkdir "build/e2e"
+//        mkdir ".apt_generated"
     }
 }
 
