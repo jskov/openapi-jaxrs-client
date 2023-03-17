@@ -270,7 +270,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
         if (ri.schema instanceof ComposedSchema cs
-                && findTypeValidation(cs)instanceof ParserTypeRef ptr) {
+                && findTypeValidation(cs) instanceof ParserTypeRef ptr) {
             logger.trace(" - createComposedValidation");
             return ptr;
         }
@@ -510,7 +510,7 @@ public final class TypeConverter {
         List<Validation> validations = new ArrayList<>();
         for (ParserTypeRef ptr : allOfTypes) {
             logger.debug(" {}", ptr);
-            if (ptr.refType()instanceof TypeValidation tv) {
+            if (ptr.refType() instanceof TypeValidation tv) {
                 validations.add(tv.validation());
             } else if (!ptr.validation().isEmptyValidation()) {
                 validations.add(ptr.validation());
