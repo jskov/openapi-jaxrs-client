@@ -236,7 +236,7 @@ public class PropertyGenerator {
         String enumTypeName = ti.typeName();
         Optional<String> enumSchema = Optional.empty();
 
-        if (getDereferencedInnerEnumType(ti.innerType())instanceof TypeEnum te) {
+        if (getDereferencedInnerEnumType(ti.innerType()) instanceof TypeEnum te) {
             Type enumType = te.innerType();
             enumTypeName = enumType.typeName().name();
             enumClassName = te.typeName().name();
