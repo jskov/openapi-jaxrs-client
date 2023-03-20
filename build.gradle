@@ -21,7 +21,7 @@ dependencies {
     implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser'
 
-    implementation      'org.slf4j:slf4j-jdk14:2.0.6'
+    implementation      'org.slf4j:slf4j-jdk14:2.0.7'
 
     // for the generated code
     testImplementation  'io.quarkus:quarkus-rest-client:2.16.4.Final'
