@@ -24,7 +24,7 @@ dependencies {
     implementation      'org.slf4j:slf4j-jdk14:2.0.7'
 
     // for the generated code
-    testImplementation  'io.quarkus:quarkus-rest-client:2.16.4.Final'
+    testImplementation  'io.quarkus:quarkus-rest-client:2.16.5.Final'
     testImplementation  'jakarta.annotation:jakarta.annotation-api:2.1.1'
     testImplementation  'jakarta.json:jakarta.json-api:2.1.1'
     testImplementation  'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
