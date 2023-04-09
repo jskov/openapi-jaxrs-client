@@ -21,6 +21,17 @@ tasks.named("eclipseClasspath") {
         mkdir "build/e2e"
     }
 }
+// But we do not want to process the folder from Gradle
+tasks.named("compileEclipseAptJava") {
+    enabled = false
+}
+tasks.named("processEclipseAptResources") {
+    enabled = false
+}
+tasks.named("checkstyleEclipseApt") {
+    enabled = false
+}
+
 
 // Plugin manager adds a folder to classpath, but does not create it
 // making eclipse sad.
