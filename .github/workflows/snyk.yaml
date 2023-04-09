@@ -16,7 +16,8 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: monitor
-          args: --sarif-file-output=snyk.sarif --all-sub-projects
+          args: --all-sub-projects
+#          args: --sarif-file-output=snyk.sarif --all-sub-projects
 #      - name: Upload result to GitHub Code Scanning
 #        uses: github/codeql-action/upload-sarif@v2
 #        with:
