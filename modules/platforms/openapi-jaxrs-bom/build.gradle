@@ -15,7 +15,7 @@ javaPlatform.allowDependencies()
 // Some of these are compile-only and should be moved to a compile platform
 dependencies {
     constraints {
-        api 'info.picocli:picocli:4.7.1'
+        api 'info.picocli:picocli:4.7.2'
         api 'io.jstach:jstachio:0.12.0'
         api 'io.jstach:jstachio-apt:0.12.0'
         api 'io.swagger.parser.v3:swagger-parser:2.1.13'
