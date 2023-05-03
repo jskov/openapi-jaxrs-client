@@ -27,7 +27,7 @@ dependencies {
     testImplementation 'javax.json:javax.json-api:1.1.4'
     testImplementation 'javax.json.bind:javax.json.bind-api:1.0'
     testImplementation 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
-    testCompileOnly 'io.quarkus:quarkus-rest-client:3.0.1.Final'
+    testCompileOnly 'io.quarkus:quarkus-rest-client:3.0.2.Final'
     testCompileOnly 'jakarta.annotation:jakarta.annotation-api:2.1.1'
     testCompileOnly 'jakarta.json:jakarta.json-api:2.1.1'
     testCompileOnly 'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
