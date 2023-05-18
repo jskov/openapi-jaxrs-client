@@ -2,6 +2,8 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Special type for handing byte[] type.
  *
@@ -9,9 +11,9 @@ import java.util.Set;
  */
 public final class TypeByteArray implements Type {
     /** As used in resource operations. */
-    private static final TypeByteArray INSTANCE_STREAM = new TypeByteArray(TypeNames.INPUT_STREAM, Set.of("java.io.InputStream"));
+    @Nullable private static TypeByteArray instanceStream;
     /** As used in DTOs. */
-    private static final TypeByteArray INSTANCE_ARRAY = new TypeByteArray(TypeNames.BYTE_ARRAY, Set.of());
+    @Nullable private static TypeByteArray instanceArray;
 
     /** The type name. */
     private final TypeName tn;
@@ -24,23 +26,29 @@ public final class TypeByteArray implements Type {
     }
 
     /** {@return the byte-array instance} */
-    public static TypeByteArray getArray() {
-        return INSTANCE_ARRAY;
+    public static synchronized TypeByteArray getArray() {
+        if (instanceArray == null) {
+            instanceArray = new TypeByteArray(TypeNames.BYTE_ARRAY, Set.of());
+        }
+        return instanceArray;
     }
 
     /** {@return the stream instance} */
-    public static TypeByteArray getStream() {
-        return INSTANCE_STREAM;
+    public static synchronized TypeByteArray getStream() {
+        if (instanceStream == null) {
+            instanceStream = new TypeByteArray(TypeNames.INPUT_STREAM, Set.of("java.io.InputStream"));
+        }
+        return instanceStream;
     }
 
     /** {@return true if this is the stream instance, otherwise false} */
     public boolean isStream() {
-        return this == INSTANCE_STREAM;
+        return this == instanceStream;
     }
 
     /** {@return true if this is the byte-array instance, otherwise false} */
     public boolean isArray() {
-        return this == INSTANCE_ARRAY;
+        return this == instanceArray;
     }
 
     @Override

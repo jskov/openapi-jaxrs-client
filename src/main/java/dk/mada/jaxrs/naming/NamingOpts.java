@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.naming;
 
+import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -49,7 +50,7 @@ public class NamingOpts {
          * @param name the name of the ordering desired
          */
         public static SchemaOrder fromConfigName(String name) {
-            String id = name.toUpperCase().replace('-', '_');
+            String id = name.toUpperCase(Locale.ROOT).replace('-', '_');
             for (var o : SchemaOrder.values()) {
                 if (o.name().equals(id)) {
                     return o;

@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
@@ -137,7 +138,7 @@ public class EnumGenerator {
         String value = e.value();
         if (enumType == Primitive.INT) {
             if (opts.isUseEnumUnknownDefault() && ENUM_INT_UNKNOWN_DEFAULT_STR.equals(value)) {
-                name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase();
+                name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase(Locale.ROOT);
             }
         } else {
             value = StringRenderer.quote(value);

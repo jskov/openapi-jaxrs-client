@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
+import org.jspecify.annotations.Nullable;
+
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
@@ -10,14 +12,17 @@ import dk.mada.jaxrs.model.types.TypeNames;
  */
 public final class TypeUnknownAtParseTime implements Type {
     /** The single instance of this object. */
-    private static final TypeUnknownAtParseTime INSTANCE = new TypeUnknownAtParseTime();
+    @Nullable private static TypeUnknownAtParseTime instance;
 
     private TypeUnknownAtParseTime() {
     }
 
     /** {@return the type representing a yet to be defined type} */
-    public static TypeUnknownAtParseTime get() {
-        return INSTANCE;
+    public static synchronized TypeUnknownAtParseTime get() {
+        if (instance == null) {
+            instance = new TypeUnknownAtParseTime();
+        }
+        return instance;
     }
 
     @Override

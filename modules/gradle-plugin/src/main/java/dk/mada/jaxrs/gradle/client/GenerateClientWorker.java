@@ -25,6 +25,9 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
     /** Flag controlling crude log output for worker. */
     private boolean echoWorkerInfo;
 
+    /**
+     * Executes the action.
+     */
     @Override
     public void execute() {
         GenerateClientWorkerArgs params = getParameters();

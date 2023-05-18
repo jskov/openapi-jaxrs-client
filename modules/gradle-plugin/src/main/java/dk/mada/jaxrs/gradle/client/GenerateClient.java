@@ -43,6 +43,9 @@ public abstract class GenerateClient extends DefaultTask {
     @InputFile
     public abstract RegularFileProperty getGeneratorProperties();
 
+    /**
+     * Generates the code.
+     */
     @TaskAction
     void generate() {
         Project project = getProject();
