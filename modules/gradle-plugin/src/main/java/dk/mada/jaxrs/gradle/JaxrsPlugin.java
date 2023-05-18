@@ -29,6 +29,11 @@ public class JaxrsPlugin implements Plugin<Project> {
     /** The Configuration name used for the generator classpath. */
     public static final String CONFIGURATION_NAME = "dk.mada.jaxrs";
 
+    /**
+     * Applies the plugin to the project.
+     *
+     * @param project the project
+     */
     @Override
     public void apply(Project project) {
         project.getPlugins().apply(JavaPlugin.class);
