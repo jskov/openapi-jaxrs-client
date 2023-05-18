@@ -24,6 +24,8 @@ dependencies {
         api 'com.google.errorprone:error_prone_core:2.19.1'
         api 'org.jspecify:jspecify:0.3.0'
         api 'com.uber.nullaway:nullaway:0.10.10'
+        
+        api 'org.slf4j:slf4j-jdk14:2.0.7'
     }
 }
 
