@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
@@ -506,9 +507,9 @@ public final class GeneratorOpts {
          * @return the matching property order enumeration
          */
         public static PropertyOrder from(String value) {
-            String name = value.toUpperCase().replace('-', '_');
+            String name = value.toUpperCase(Locale.ROOT).replace('-', '_');
             for (var po : PropertyOrder.values()) {
-                if (po.name().equals(name.toUpperCase())) {
+                if (po.name().equals(name)) {
                     return po;
                 }
             }

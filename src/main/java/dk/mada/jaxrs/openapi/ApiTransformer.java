@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toSet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -143,7 +144,7 @@ public class ApiTransformer {
                 .replaceAll("[{}/_]", "-")
                 .replaceFirst("^-", "")
                 .replaceFirst("-$", "");
-        String syntheticOpId = opPath + "-" + httpMethod.name().toLowerCase();
+        String syntheticOpId = opPath + "-" + httpMethod.name().toLowerCase(Locale.ROOT);
 
         return naming.convertParameterName(syntheticOpId);
     }
