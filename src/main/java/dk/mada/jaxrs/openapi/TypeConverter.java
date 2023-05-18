@@ -140,6 +140,11 @@ public final class TypeConverter {
 
     /**
      * Contains reference information when converting a schema to a type reference.
+     *
+     * @param schema        the openapi schema
+     * @param propertyName  the reference property
+     * @param parentDtoName the optional name of the parent dto
+     * @param validation    the reference validation
      */
     record RefInfo(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, Validation validation) {
     }
@@ -199,9 +204,7 @@ public final class TypeConverter {
     /**
      * Creates reference to a primitive or a property enumeration (of a primitive).
      *
-     * @param schema       the schema to look for
-     * @param propertyName the property for which to look for
-     * @param validation   the reference validation
+     * @param ri the reference information
      * @return the found reference or null
      */
     @Nullable private ParserTypeRef createPrimitiveTypeRef(RefInfo ri) {

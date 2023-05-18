@@ -44,11 +44,17 @@ public final class OpenapiGeneratorUtils {
         return camelize(word, false);
     }
 
+    /** camelize slash */
     private static Pattern camelizeSlashPattern = Pattern.compile("\\/(.?)");
+    /** camelize upcase */
     private static Pattern camelizeUppercasePattern = Pattern.compile("(\\.?)(\\w)([^\\.]*)$");
+    /** camelize underscore */
     private static Pattern camelizeUnderscorePattern = Pattern.compile("(_)(.)");
+    /** camelize hyphen */
     private static Pattern camelizeHyphenPattern = Pattern.compile("(-)(.)");
+    /** camelize dollar */
     private static Pattern camelizeDollarPattern = Pattern.compile("\\$");
+    /** camelize simple */
     private static Pattern camelizeSimpleUnderscorePattern = Pattern.compile("_");
 
     /**
@@ -126,9 +132,13 @@ public final class OpenapiGeneratorUtils {
         return word;
     }
 
+    /** capital letter */
     private static Pattern capitalLetterPattern = Pattern.compile("([A-Z]+)([A-Z][a-z][a-z]+)");
+    /** lower case letter */
     private static Pattern lowercasePattern = Pattern.compile("([a-z\\d])([A-Z])");
+    /** package separation letter */
     private static Pattern pkgSeparatorPattern = Pattern.compile("\\.");
+    /** dollar */
     private static Pattern dollarPattern = Pattern.compile("\\$");
 
     /**

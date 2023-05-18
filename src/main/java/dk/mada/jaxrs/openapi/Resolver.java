@@ -208,12 +208,12 @@ public final class Resolver {
      * @param prop the property to relax validation for
      * @return property without null
      */
-    private Property relaxPropertyValidation(Property p) {
-        Validation flattenedValidation = Validation.builder().from(p.validation())
+    private Property relaxPropertyValidation(Property prop) {
+        Validation flattenedValidation = Validation.builder().from(prop.validation())
                 .isNullable(true)
                 .isRequired(false)
                 .build();
-        return Property.builder().from(p)
+        return Property.builder().from(prop)
                 .validation(flattenedValidation)
                 .build();
     }
@@ -450,6 +450,7 @@ public final class Resolver {
      * The composite reference contains local properties and/or external DTO references. These have all been moved into the
      * Dto object in expandCompositeDtos.
      *
+     * @param ptc the composite parser type
      * @return the simplified object reference
      */
     private TypeReference resolveCompositeDto(ParserTypeComposite ptc) {
@@ -466,6 +467,7 @@ public final class Resolver {
      * The combined reference contains local properties and/or external DTO references. These have all been moved into the
      * Dto object in expandCombinedDtos.
      *
+     * @param ptc the combined parser type
      * @return the simplified object reference
      */
     private TypeReference resolveCombinedDto(ParserTypeCombined ptc) {
