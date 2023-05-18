@@ -10,5 +10,8 @@ dependencies {
         api 'com.uber.nullaway:nullaway:0.10.10'
         api 'io.jstach:jstachio-apt:0.17.0'
         api 'org.immutables:value:2.9.3'
+
+        // errorprone includes vulnerable protobuf-java
+        api 'com.google.protobuf:protobuf-java:3.19.6'
     }
 }
