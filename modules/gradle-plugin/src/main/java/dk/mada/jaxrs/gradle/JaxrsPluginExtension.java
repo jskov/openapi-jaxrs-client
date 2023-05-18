@@ -13,17 +13,17 @@ import dk.mada.jaxrs.gradle.client.ClientDslContainer;
  */
 public interface JaxrsPluginExtension {
     /** {@return the GAV used to procure the generator with} */
-    public Property<String> getGeneratorGAV();
+    Property<String> getGeneratorGAV();
 
     /** {@return the output directory for non-persisted sources} */
-    public DirectoryProperty getBuildOutputDirectory();
+    DirectoryProperty getBuildOutputDirectory();
 
     /** {@return the output directory for persisted sources} */
-    public DirectoryProperty getSrcOutputDirectory();
+    DirectoryProperty getSrcOutputDirectory();
 
     /** {@return the directory containing OpenApi documents} */
-    public DirectoryProperty getOpenApiDocDirectory();
+    DirectoryProperty getOpenApiDocDirectory();
 
     /** {@return the nested client definitions} */
-    public NamedDomainObjectContainer<ClientDslContainer> getClients();
+    NamedDomainObjectContainer<ClientDslContainer> getClients();
 }
