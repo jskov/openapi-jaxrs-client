@@ -2,6 +2,8 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Special type for optional special handing of types named LocalTime as if they are LocalTime. This is an (invalid, and
  * thus not properly passed through) example from the Quarkus openapi extension:
@@ -11,7 +13,7 @@ import java.util.Set;
  */
 public final class TypeLocalTime implements Type {
     /** The single instance of this object. */
-    private static final TypeLocalTime INSTANCE = new TypeLocalTime();
+    @Nullable private static TypeLocalTime instance;
     /** The OpenApi custom format used for this type. */
     public static final String OPENAPI_CUSTOM_FORMAT = "local-time";
 
@@ -19,8 +21,11 @@ public final class TypeLocalTime implements Type {
     }
 
     /** {@return the type object representing local-time} */
-    public static TypeLocalTime get() {
-        return INSTANCE;
+    public static synchronized TypeLocalTime get() {
+        if (instance == null) {
+            instance = new TypeLocalTime();
+        }
+        return instance;
     }
 
     @Override
