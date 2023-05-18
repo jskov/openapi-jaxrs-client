@@ -337,6 +337,16 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-use-encoded**
+
+>Allows you to suppress the use of @Encoded annotation for in- and query parameters.
+
+>See https://docs.jboss.org/resteasy/docs/6.2.3.Final/userguide/html_single/index.html#_Encoded_and_encoding
+
+>
+    default value: true
+
+
 **generator-use-enum-unknown-default**
 
 >Allows you to add a fallback value ('unknown_default_open_api') to enumerations.
