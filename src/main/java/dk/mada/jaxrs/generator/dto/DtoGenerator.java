@@ -376,7 +376,8 @@ public class DtoGenerator {
                 .toList();
     }
 
-    private record CustomSerializers(@SuppressWarnings("unused") Optional<String> deserializer, @SuppressWarnings("unused") Optional<String> serializer) {
+    private record CustomSerializers(@SuppressWarnings("unused") Optional<String> deserializer,
+            @SuppressWarnings("unused") Optional<String> serializer) {
     }
 
     private CustomSerializers defineLocalDateSerializer(DtoSubject ds) {
