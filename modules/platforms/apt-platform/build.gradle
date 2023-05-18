@@ -12,6 +12,6 @@ dependencies {
         api 'org.immutables:value:2.9.3'
 
         // errorprone includes vulnerable protobuf-java
-        api 'com.google.protobuf:protobuf-java:3.19.6'
+        api 'com.google.protobuf:protobuf-java:3.23.1'
     }
 }
