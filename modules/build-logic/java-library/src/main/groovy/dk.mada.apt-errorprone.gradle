@@ -15,7 +15,7 @@ ext {
 }
 
 dependencies {
-    errorprone          (platform('dk.mada.jaxrs:openapi-jaxrs-bom'))
+    errorprone          (platform('dk.mada.jaxrs:apt-platform'))
 
     implementation      'org.jspecify:jspecify'
     annotationProcessor 'com.uber.nullaway:nullaway'

@@ -21,21 +21,21 @@ dependencies {
     implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser'
 
-    implementation      'org.slf4j:slf4j-jdk14:2.0.7'
+    implementation      'org.slf4j:slf4j-jdk14'
 
     // for the generated code
-    testImplementation 'javax.json:javax.json-api:1.1.4'
-    testImplementation 'javax.json.bind:javax.json.bind-api:1.0'
-    testImplementation 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
-    testCompileOnly 'io.quarkus:quarkus-rest-client:3.0.3.Final'
-    testCompileOnly 'jakarta.annotation:jakarta.annotation-api:2.1.1'
-    testCompileOnly 'jakarta.json:jakarta.json-api:2.1.1'
-    testCompileOnly 'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
-    testCompileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
-    testCompileOnly 'javax.annotation:javax.annotation-api:1.3.2'
-    testCompileOnly 'javax.ws.rs:javax.ws.rs-api:2.1.1'
-    testCompileOnly 'org.eclipse.microprofile.openapi:microprofile-openapi-api:3.1'
-    testCompileOnly 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api:3.0.1'
+    testImplementation 'javax.json:javax.json-api'
+    testImplementation 'javax.json.bind:javax.json.bind-api'
+    testImplementation 'org.codehaus.jackson:jackson-mapper-asl'
+    testCompileOnly 'io.quarkus:quarkus-rest-client'
+    testCompileOnly 'jakarta.annotation:jakarta.annotation-api'
+    testCompileOnly 'jakarta.json:jakarta.json-api'
+    testCompileOnly 'jakarta.json.bind:jakarta.json.bind-api'
+    testCompileOnly 'jakarta.ws.rs:jakarta.ws.rs-api'
+    testCompileOnly 'javax.annotation:javax.annotation-api'
+    testCompileOnly 'javax.ws.rs:javax.ws.rs-api'
+    testCompileOnly 'org.eclipse.microprofile.openapi:microprofile-openapi-api'
+    testCompileOnly 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
 }
 
 shadowJar {
