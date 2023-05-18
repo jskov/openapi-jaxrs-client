@@ -21,7 +21,7 @@ dependencies {
         api 'org.immutables:value:2.9.3'
 
         // swagger.parser comes with vulnerable rhino + commons-codec 
-        api 'org.mozilla:rhino:1.7.12'
+        api 'org.mozilla:rhino:1.7.14'
         api 'commons-codec:commons-codec:1.15'
 
         api 'org.jspecify:jspecify:0.3.0'
