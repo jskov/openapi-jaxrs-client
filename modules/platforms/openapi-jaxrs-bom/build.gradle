@@ -21,6 +21,9 @@ dependencies {
         api 'io.swagger.parser.v3:swagger-parser:2.1.14'
         api 'org.immutables:value:2.9.3'
 
+        // swagger.parser comes with vulnerable rhino 
+        api 'org.mozilla:rhino@1.7.12'
+
         api 'com.google.errorprone:error_prone_core:2.19.1'
         api 'org.jspecify:jspecify:0.3.0'
         api 'com.uber.nullaway:nullaway:0.10.10'
