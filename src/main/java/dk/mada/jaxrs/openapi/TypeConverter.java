@@ -140,15 +140,16 @@ public final class TypeConverter {
 
     /**
      * Contains reference information when converting a schema to a type reference.
+     *
+     * @param schema        the openapi schema
+     * @param propertyName  the reference property. May be <code>null</code>
+     * @param parentDtoName the optional name of the parent dto. May be <code>null</code>
+     * @param validation    the validation requirements for the reference
      */
     record RefInfo(
-            /** The OpenApi schema. */
             Schema<?> schema,
-            /** The referenced property. May be <code>null</code>. */
             @Nullable String propertyName,
-            /** The name of the parent DTO. May be <code>null</code>. */
             @Nullable String parentDtoName,
-            /** The validation requirements for the reference. */
             Validation validation) {
     }
 
