@@ -22,7 +22,7 @@ dependencies {
 
         // swagger.parser comes with vulnerable rhino + commons-codec 
         api 'org.mozilla:rhino:1.7.12'
-        api 'commons-codec:commons-codec:1.13'
+        api 'commons-codec:commons-codec:1.15'
 
         api 'org.jspecify:jspecify:0.3.0'
         
