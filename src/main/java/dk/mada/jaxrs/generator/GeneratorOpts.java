@@ -32,8 +32,6 @@ public final class GeneratorOpts {
     /** All user's input options. */
     private final Properties options;
 
-    /** Selects Jackson Codehaus as output format. */
-    private final boolean useJacksonCodehaus;
     /** Selects Jackson FasterXml as output format. */
     private final boolean useJacksonFasterxml;
     /** Selects Jsonb as output format (this is the default). */
@@ -55,14 +53,10 @@ public final class GeneratorOpts {
                 .withNano(0)
                 .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-        useJacksonCodehaus = bool("generator-jackson-codehaus");
         useJacksonFasterxml = bool("generator-jackson-fasterxml");
         boolean willUseJsonb = bool("generator-jsonb");
 
         int activatedSerializerApis = 0;
-        if (useJacksonCodehaus) {
-            activatedSerializerApis++;
-        }
         if (useJacksonFasterxml) {
             activatedSerializerApis++;
         }
@@ -113,16 +107,6 @@ public final class GeneratorOpts {
 
     /** {@return true if rendering for jackson, otherwise false} */
     public boolean isJackson() {
-        return isJacksonCodehaus() || isJacksonFasterxml();
-    }
-
-    /** {@return true if rendering for jackson codehaus, otherwise false} */
-    public boolean isJacksonCodehaus() {
-        return useJacksonCodehaus;
-    }
-
-    /** {@return true if rendering for jackson fasterxml, otherwise false} */
-    public boolean isJacksonFasterxml() {
         return useJacksonFasterxml;
     }
 

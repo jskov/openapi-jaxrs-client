@@ -26,7 +26,6 @@ dependencies {
     // for the generated code
     testImplementation 'javax.json:javax.json-api'
     testImplementation 'javax.json.bind:javax.json.bind-api'
-    testImplementation 'org.codehaus.jackson:jackson-mapper-asl'
     testCompileOnly 'io.quarkus:quarkus-rest-client'
     testCompileOnly 'jakarta.annotation:jakarta.annotation-api'
     testCompileOnly 'jakarta.json:jakarta.json-api'

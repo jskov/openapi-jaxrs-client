@@ -6,19 +6,19 @@
 
 package mada.tests.e2e.opts.generator.localdate.opts.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Objects;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  * SpecialTypes
  */
-@JsonSerialize(include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SpecialTypes {
   public static final String JSON_PROPERTY_A_BIG_DECIMAL = "aBigDecimal";
@@ -28,13 +28,13 @@ public class SpecialTypes {
   public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
   @JsonProperty(JSON_PROPERTY_LOCAL_DATE)
   @JsonDeserialize(using = _LocalDateJacksonDeserializer.class)
-  @JsonSerialize(using = _LocalDateJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
+  @JsonSerialize(using = _LocalDateJacksonSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
   private LocalDate localDate;
 
   public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
   @JsonProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime localDateTime;
 
   public static final String JSON_PROPERTY_LOCAL_TIME = "localTime";
@@ -44,13 +44,13 @@ public class SpecialTypes {
   public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
   @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime offsetDateTime;
 
   public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
   @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
   @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL)
+  @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
   private OffsetDateTime zonedDateTime;
 
   public SpecialTypes aBigDecimal(BigDecimal aBigDecimal) {

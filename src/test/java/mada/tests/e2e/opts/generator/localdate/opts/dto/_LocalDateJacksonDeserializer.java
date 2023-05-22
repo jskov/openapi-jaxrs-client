@@ -6,12 +6,12 @@
 
 package mada.tests.e2e.opts.generator.localdate.opts.dto;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.JsonDeserializer;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _LocalDateJacksonDeserializer extends JsonDeserializer<LocalDate> {

@@ -35,7 +35,6 @@ public final class Imports {
      * Import rendering preferences.
      *
      * @param isJackson                  toggle for jackson serializer
-     * @param isJacksonCodehaus          toggle for jackson codehaus
      * @param isUseJsonSerializeOptions  toggle for json serialize options
      * @param isJakarta                  toggle for jakarta naming
      * @param isJsonb                    toggle for jsonb serializer
@@ -44,7 +43,6 @@ public final class Imports {
      */
     record ImportRenderPrefs(
             boolean isJackson,
-            boolean isJacksonCodehaus,
             boolean isUseJsonSerializeOptions,
             boolean isJakarta,
             boolean isJsonb,
@@ -60,7 +58,6 @@ public final class Imports {
 
         irp = new ImportRenderPrefs(
                 opts.isJackson(),
-                opts.isJacksonCodehaus(),
                 opts.isUseJsonSerializeOptions(),
                 opts.isJakarta(),
                 opts.isJsonb(),

@@ -8,8 +8,8 @@
 
 package mada.tests.e2e.opts.generator.validation_api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
-import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Simple

@@ -9,10 +9,11 @@ package mada.tests.e2e.opts.generator.jackson.custom_dates;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.JsonSerializer;
-import org.codehaus.jackson.map.SerializerProvider;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class CustomLocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {

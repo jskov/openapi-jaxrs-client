@@ -9,11 +9,14 @@ package mada.tests.e2e.opts.generator.external_types.p2;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
+
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import mada.tests.e2e.opts.generator.external_types.p1.Simple;
 
