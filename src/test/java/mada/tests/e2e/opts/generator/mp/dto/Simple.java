@@ -6,9 +6,8 @@
 
 package mada.tests.e2e.opts.generator.mp.dto;
 
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /**
  * Simple

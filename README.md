@@ -6,8 +6,7 @@ Generates code to call REST services.
 
 The API classes are intended for use with the MicroProfile client.
 
-The DTO classes can be generated for use with [JSON Binding](https://javaee.github.io/jsonb-spec/), [Jackson FasterXML](https://github.com/FasterXML/jackson-docs), or [Jackson Codehaus](https://github.com/codehaus/jackson).  
-So these can be used in other (older) contexts than with a MicroProfile client.
+The DTO classes can be generated for use with [JSON Binding](https://javaee.github.io/jsonb-spec/) or [Jackson FasterXML](https://github.com/FasterXML/jackson-docs).  
 
 ## Inspiration
 

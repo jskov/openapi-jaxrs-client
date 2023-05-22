@@ -6,10 +6,9 @@
 
 package mada.tests.e2e.opts.generator.external_types.p1;
 
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Objects;
 
 /**
  * Simple

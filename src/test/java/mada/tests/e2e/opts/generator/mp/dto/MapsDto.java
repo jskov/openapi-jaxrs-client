@@ -6,16 +6,13 @@
 
 package mada.tests.e2e.opts.generator.mp.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * MapsDto

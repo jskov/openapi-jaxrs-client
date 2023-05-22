@@ -6,10 +6,9 @@
 
 package mada.tests.e2e.opts.generator.jackson.annotations.dto;
 
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.Objects;
 
 /**
  * Simple

@@ -45,9 +45,6 @@ public interface CtxExtraDateSerializer {
     /** {@return the package name for the class} */
     String packageName();
 
-    /** {@return true if jackson codehaus serializer is used, otherwise false} */
-    boolean jacksonCodehaus();
-
     /** {@return true if jackson fasterxml serializer is used, otherwise false} */
     boolean jacksonFasterxml();
 

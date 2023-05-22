@@ -5,7 +5,7 @@ import java.util.Optional;
 import dk.mada.jaxrs.generator.imports.Imports.ImportRenderPrefs;
 
 /**
- * Jackson imports and their paths for CodeHaus and FasterXml.
+ * Jackson imports and their paths for FasterXml.
  */
 public enum Jackson implements TypedImport {
     /** DeserializationContext. */
