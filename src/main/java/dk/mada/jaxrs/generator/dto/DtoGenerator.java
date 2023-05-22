@@ -176,8 +176,7 @@ public class DtoGenerator {
                 .generatedDate(opts.getGeneratedAtTime())
                 .generatorClass(opts.generatorId())
                 .imports(imports.get())
-                .jacksonCodehaus(opts.isJacksonCodehaus())
-                .jacksonFasterxml(opts.isJacksonFasterxml())
+                .jacksonFasterxml(opts.isJackson())
                 .jsonb(opts.isJsonb())
                 .packageName(opts.dtoPackage())
                 .cannedLocalDateSerializerDTF(opts.getJacksonLocalDateWireFormat())
@@ -245,9 +244,8 @@ public class DtoGenerator {
         Optional<CtxDtoDiscriminator> discriminator = subtypeSelector
                 .map(this::buildSubtypeDiscriminator);
 
-        if (discriminator.isPresent()
-                && opts.isJacksonFasterxml()) {
-            // Needs adaptor for jsonb and tweaks for codehaus
+        if (discriminator.isPresent() && opts.isJackson()) {
+            // Needs adaptor for jsonb
             dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 

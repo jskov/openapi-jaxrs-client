@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import org.codehaus.jackson.annotate.JsonProperty;
+
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * ArraysDto

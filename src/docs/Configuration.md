@@ -135,12 +135,6 @@ The options are grouped into three sections:
 
 >Required option, but can be set via the CLI argument `--dto-package`.
 
-**generator-jackson-codehaus**
-
->Use jackson (codehaus) annotations in generated classes.
->
-    default value: false
-
 **generator-jackson-fasterxml**
 
 >Use jackson (fasterxml) annotations in generated classes.
