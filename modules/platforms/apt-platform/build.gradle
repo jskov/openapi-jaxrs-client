@@ -8,7 +8,7 @@ dependencies {
     constraints {
         api 'com.google.errorprone:error_prone_core:2.19.1'
         api 'com.uber.nullaway:nullaway:0.10.10'
-        api 'io.jstach:jstachio-apt:0.18.0'
+        api 'io.jstach:jstachio-apt:1.0.0'
         api 'org.immutables:value:2.9.3'
 
         // errorprone includes vulnerable protobuf-java
