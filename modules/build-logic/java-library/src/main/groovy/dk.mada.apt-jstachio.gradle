@@ -7,5 +7,5 @@ dependencies {
     compileOnly         (platform('dk.mada.jaxrs:apt-platform'))
 
     annotationProcessor "io.jstach:jstachio-apt"
-    compileOnly         "io.jstach:jstachio"
+    compileOnly         "io.jstach:jstachio-annotation"
 }
