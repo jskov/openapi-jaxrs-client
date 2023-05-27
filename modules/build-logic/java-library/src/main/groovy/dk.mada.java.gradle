@@ -3,7 +3,8 @@ plugins {
 
     id 'dk.mada.sonarqube'
     id 'dk.mada.spotless'
-// desired:    id 'dk.mada.apt-errorprone'
+    // FIXME: enable the below to get null safety for all modules (gradle plugin fails at present)
+//    id 'dk.mada.apt-errorprone'
 }
 
 group "${groupId}"
@@ -21,7 +22,6 @@ java {
 
 dependencies {
     implementation      (platform('dk.mada.jaxrs:openapi-jaxrs-bom'))
-    annotationProcessor (platform('dk.mada.jaxrs:apt-platform'))
 
     testImplementation  (platform('dk.mada.jaxrs:test-platform')) {
         exclude module: "slf4j-jboss-logmanager"

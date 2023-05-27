@@ -6,12 +6,18 @@ group = 'dk.mada.jaxrs'
 
 dependencies {
     constraints {
+        // For null-checking
         api 'com.google.errorprone:error_prone_core:2.19.1'
         api 'com.uber.nullaway:nullaway:0.10.10'
-        api 'io.jstach:jstachio-apt:0.18.0'
-        api 'org.immutables:value:2.9.3'
-
+        api 'org.jspecify:jspecify:0.3.0'
         // errorprone includes vulnerable protobuf-java
         api 'com.google.protobuf:protobuf-java:3.23.1'
+
+        // For templating
+        api 'io.jstach:jstachio:0.18.0'
+        api 'io.jstach:jstachio-apt:0.18.0'
+
+        // For immutables
+        api 'org.immutables:value:2.9.3'
     }
 }
