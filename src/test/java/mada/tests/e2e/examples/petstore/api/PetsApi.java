@@ -27,7 +27,7 @@ public interface PetsApi {
    * List all pets.
    *
    * @param limit How many items to return at one time (max 100) (optional)
-   * @return List&lt;Pet&gt;
+   * @return List<Pet>
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)

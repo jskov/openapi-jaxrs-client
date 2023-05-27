@@ -12,11 +12,11 @@ To prepare eclipse settings to get eclipse/vscode to work with APT run this task
 
 This will run whichever tests match `testNameContains` in TestIterator:
 
-	./gradlew -Drun_all_tests=false :test --tests TestIterator
+    ./gradlew -Drun_all_tests=false :test --tests TestIterator
 
 If the templates are changed, add:
 
-	rm -rf build/classes/java/main/dk/mada/jaxrs/generator
+    rm -rf build/classes/java/main/dk/mada/jaxrs/generator
 
 
 ### Updating expected output
@@ -38,7 +38,7 @@ Running the gradle plugin junit tests under Java 17 causes:
     
 Add to the test runner vm arguments:
 
-	 --add-opens java.base/java.lang=ALL-UNNAMED
+    --add-opens java.base/java.lang=ALL-UNNAMED
 
 ## Gradle Plugin
 

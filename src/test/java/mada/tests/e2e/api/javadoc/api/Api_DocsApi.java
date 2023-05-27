@@ -71,7 +71,7 @@ public interface Api_DocsApi {
    * apiDocsMultipleReturnTypesPost.
    *
    * @param dto  (optional)
-   * @return List&lt;Simple&gt;
+   * @return List<Simple>
    */
   @POST
   @Path("/multiple-return-types")
@@ -110,8 +110,8 @@ public interface Api_DocsApi {
   String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item, @Valid Simple dto);
 
   /**
-   * Summary with &quot;quote&quot; 'quote'.
-   * Description with &quot;quote&quot; 'quote'
+   * Summary with "quote" 'quote'.
+   * Description with "quote" 'quote'
    *
    * @return String
    */
