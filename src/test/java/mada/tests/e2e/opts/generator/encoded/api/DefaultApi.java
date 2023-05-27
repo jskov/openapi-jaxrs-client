@@ -28,7 +28,7 @@ public interface DefaultApi {
   @Path("encoded/{encoded}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String encodedEncodedGet(@PathParam("encoded") @Encoded @NotNull String encoded);
+  String encodedEncodedGet(@PathParam("encoded") @NotNull String encoded);
 
   /**
    * encodedEncodedRawRawGet.
@@ -45,7 +45,7 @@ public interface DefaultApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String encodedEncodedRawRawGet(@PathParam("encoded") @Encoded @NotNull String encoded, @PathParam("raw") @NotNull String raw, @QueryParam("query") String query, @HeaderParam("item") List<String> item, String dto);
+  String encodedEncodedRawRawGet(@PathParam("encoded") @NotNull String encoded, @PathParam("raw") @NotNull String raw, @QueryParam("query") String query, @HeaderParam("item") List<String> item, String dto);
 
   /**
    * rawRawGet.

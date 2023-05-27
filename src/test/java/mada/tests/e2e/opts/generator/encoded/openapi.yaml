@@ -52,6 +52,7 @@ paths:
       parameters:
       - name: encoded
         in: path
+        allowReserved: true
         required: true
         schema:
           type: string
@@ -68,6 +69,7 @@ paths:
       - name: encoded
         in: path
         required: true
+        allowReserved: true
         schema:
           type: string
       - name: raw
@@ -97,5 +99,3 @@ paths:
             text/plain:
               schema:
                 type: string
-
-                
