@@ -25,6 +25,7 @@ public abstract class ClientDslContainer {
      *
      * @param name the client name captured by this container instance
      */
+    @SuppressWarnings("InjectOnConstructorOfAbstractClass") // This is the Gradle way
     @Inject
     public ClientDslContainer(String name) { // NOSONAR - must be public to be found by Gradle
         this.name = name;

@@ -28,6 +28,7 @@ import dk.mada.jaxrs.gradle.JaxrsPlugin;
  */
 public abstract class GenerateClient extends DefaultTask {
     /** {@return the injected worker executor} */
+    @SuppressWarnings("JavaxInjectOnAbstractMethod") // This is the Gradle way
     @Inject
     public abstract WorkerExecutor getWorkerExecutor();
 

@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.gradle;
 
+import java.util.Locale;
 import java.util.Set;
 
 import org.gradle.api.Plugin;
@@ -133,8 +134,8 @@ public class JaxrsPlugin implements Plugin<Project> {
         String s = input
                 .replaceAll("[^a-zA-Z0-9]", "");
         if (s.length() == 1) {
-            return s.toUpperCase();
+            return s.toUpperCase(Locale.ROOT);
         }
-        return s.substring(0, 1).toUpperCase() + s.substring(1);
+        return s.substring(0, 1).toUpperCase(Locale.ROOT) + s.substring(1);
     }
 }
