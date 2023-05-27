@@ -5,7 +5,6 @@
 
 plugins {
     id('java')
-    id('dk.mada.java')
 
     id 'net.ltgt.errorprone'
 }
@@ -15,11 +14,13 @@ ext {
 }
 
 dependencies {
+    annotationProcessor (platform('dk.mada.jaxrs:apt-platform'))
+    compileOnly         (platform('dk.mada.jaxrs:apt-platform'))
     errorprone          (platform('dk.mada.jaxrs:apt-platform'))
 
-    implementation      'org.jspecify:jspecify'
     annotationProcessor 'com.uber.nullaway:nullaway'
     errorprone          'com.google.errorprone:error_prone_core'
+    compileOnly         'org.jspecify:jspecify'
 }
 
 import net.ltgt.gradle.errorprone.CheckSeverity

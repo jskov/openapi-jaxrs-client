@@ -9,10 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.api.tmpl.CtxApi;
+import dk.mada.jaxrs.generator.api.tmpl.CtxApiRenderer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxDto;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxDtoRenderer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxExtraDateSerializer;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxExtraDateSerializerRenderer;
 import dk.mada.jaxrs.generator.dto.tmpl.CtxInterface;
-import io.jstach.jstachio.JStachio;
+import dk.mada.jaxrs.generator.dto.tmpl.CtxInterfaceRenderer;
 
 /**
  * Templates processor.
@@ -41,9 +44,12 @@ public class Templates {
      * @param context the rendering context
      */
     public void renderExtraTemplate(ExtraTemplate tmpl, CtxExtraDateSerializer context) {
-        String tmplName = tmpl.classname();
-        Path outputFile = toDtoFile(tmplName);
-        renderJstachioTemplate(context, outputFile);
+        String classname = tmpl.classname();
+        Path output = toDtoFile(classname);
+
+        logger.info(" generate ExtraDateSerializer {}", classname);
+        String code = CtxExtraDateSerializerRenderer.of().execute(context);
+        writeTemplateCode(output, code);
     }
 
     /**
@@ -54,8 +60,12 @@ public class Templates {
      * @param context the rendering context
      */
     public void renderDtoTemplate(CtxDto context) {
-        Path output = toDtoFile(context.classname());
-        renderJstachioTemplate(context, output);
+        String classname = context.classname();
+        Path output = toDtoFile(classname);
+
+        logger.info(" generate DTO {}", classname);
+        String code = CtxDtoRenderer.of().execute(context);
+        writeTemplateCode(output, code);
     }
 
     /**
@@ -66,8 +76,12 @@ public class Templates {
      * @param context the rendering context
      */
     public void renderInterfaceTemplate(CtxInterface context) {
-        Path outputFile = toDtoFile(context.classname());
-        renderJstachioTemplate(context, outputFile);
+        String classname = context.classname();
+        Path output = toDtoFile(classname);
+
+        logger.info(" generate Interface {}", classname);
+        String code = CtxInterfaceRenderer.of().execute(context);
+        writeTemplateCode(output, code);
     }
 
     /**
@@ -81,17 +95,17 @@ public class Templates {
     public void renderApiTemplate(Path apiDir, CtxApi context) {
         String classname = context.classname();
         Path output = apiDir.resolve(classname + ".java");
-        logger.info(" generate API {}", classname);
 
-        renderJstachioTemplate(context, output);
+        logger.info(" generate API {}", classname);
+        String code = CtxApiRenderer.of().execute(context);
+        writeTemplateCode(output, code);
     }
 
-    private void renderJstachioTemplate(Object context, Path output) {
+    private void writeTemplateCode(Path output, String code) {
         try {
-            String text = JStachio.render(context);
             // remove trailing spaces on a line.
             // if the line is all spaces, remove the full line (include the preceding newline)
-            text = text.replaceAll("(?m)(" + System.lineSeparator() + ")? +$", "");
+            String text = code.replaceAll("(?m)(" + System.lineSeparator() + ")? +$", "");
             Files.writeString(output, text);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to render template to " + output, e);

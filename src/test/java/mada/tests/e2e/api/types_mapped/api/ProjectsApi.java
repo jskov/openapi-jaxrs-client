@@ -25,7 +25,7 @@ public interface ProjectsApi {
   /**
    * projectsGet.
    *
-   * @return List&lt;ProjectDTO&gt;
+   * @return List<ProjectDTO>
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)

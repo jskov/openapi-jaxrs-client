@@ -136,7 +136,7 @@ public class ValidationDto {
   }
 
   /**
-   * With a &quot;quoted&quot; description.
+   * With a "quoted" description.
    * minimum: 0L
    * maximum: 99999999L
    *

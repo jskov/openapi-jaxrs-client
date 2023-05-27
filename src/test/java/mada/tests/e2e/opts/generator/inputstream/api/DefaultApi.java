@@ -24,7 +24,7 @@ public interface DefaultApi {
    * getInfo.
    *
    * @param userId  (required)
-   * @return List&lt;Byte&gt;
+   * @return List<Byte>
    */
   @GET
   @Path("/info")

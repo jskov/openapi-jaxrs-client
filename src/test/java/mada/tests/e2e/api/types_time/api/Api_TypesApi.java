@@ -26,7 +26,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesListTimeGet.
    *
-   * @return List&lt;LocalTime&gt;
+   * @return List<LocalTime>
    */
   @GET
   @Path("/list-time")

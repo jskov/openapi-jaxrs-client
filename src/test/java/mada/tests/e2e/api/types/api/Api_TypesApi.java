@@ -143,7 +143,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesListGet.
    *
-   * @return List&lt;Integer&gt;
+   * @return List<Integer>
    */
   @GET
   @Path("/list")
@@ -157,7 +157,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesListDateGet.
    *
-   * @return List&lt;LocalDate&gt;
+   * @return List<LocalDate>
    */
   @GET
   @Path("/list-date")
@@ -171,7 +171,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesListDatetimeGet.
    *
-   * @return List&lt;OffsetDateTime&gt;
+   * @return List<OffsetDateTime>
    */
   @GET
   @Path("/list-datetime")
@@ -185,7 +185,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesListSimpleGet.
    *
-   * @return List&lt;Simple&gt;
+   * @return List<Simple>
    */
   @GET
   @Path("/list-simple")
@@ -199,7 +199,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesListTimeGet.
    *
-   * @return List&lt;LocalTime&gt;
+   * @return List<LocalTime>
    */
   @GET
   @Path("/list-time")
@@ -224,7 +224,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesMapGet.
    *
-   * @return Map&lt;String, String&gt;
+   * @return Map<String, String>
    */
   @GET
   @Path("/map")
@@ -238,7 +238,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesMapSimpleGet.
    *
-   * @return Map&lt;String, Simple&gt;
+   * @return Map<String, Simple>
    */
   @GET
   @Path("/map-simple")
@@ -252,7 +252,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesSetGet.
    *
-   * @return Set&lt;Integer&gt;
+   * @return Set<Integer>
    */
   @GET
   @Path("/set")
@@ -266,7 +266,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesSetSimpleGet.
    *
-   * @return Set&lt;Simple&gt;
+   * @return Set<Simple>
    */
   @GET
   @Path("/set-simple")

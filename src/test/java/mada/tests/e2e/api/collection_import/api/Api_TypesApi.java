@@ -25,7 +25,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesListSimpleGet.
    *
-   * @return List&lt;Simple&gt;
+   * @return List<Simple>
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
