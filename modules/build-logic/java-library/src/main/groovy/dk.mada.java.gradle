@@ -3,8 +3,7 @@ plugins {
 
     id 'dk.mada.sonarqube'
     id 'dk.mada.spotless'
-    // FIXME: enable the below to get null safety for all modules (gradle plugin fails at present)
-//    id 'dk.mada.apt-errorprone'
+    id 'dk.mada.apt-errorprone'
 }
 
 group "${groupId}"

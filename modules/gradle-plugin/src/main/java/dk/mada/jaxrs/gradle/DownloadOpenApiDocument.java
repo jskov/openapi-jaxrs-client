@@ -74,6 +74,9 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
     private void deleteExistingDocuments(Path doc) throws IOException {
         // Delete with any suffix
         Path dir = doc.getParent();
+        if (dir == null) {
+            throw new IllegalStateException("Failed to find parent folder of " + doc);
+        }
         String baseName = doc.getFileName().toString();
         for (String s : DELETE_SUFFIXES) {
             baseName = baseName.replace(s, "");
