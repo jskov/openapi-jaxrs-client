@@ -156,14 +156,17 @@ public class ApiTransformer {
                 .content(getContent(resourcePath, resp.getContent(), false))
                 .build();
 
-        if (parseOpts.isFixupVoid200to204()
-                && r.code() == StatusCode.HTTP_OK
-                && r.content().reference().isVoid()) {
-            logger.info("Fixing broken 200/void response on path '{}' to 204", resourcePath);
-            r = Response.builder().from(r)
-                    .code(StatusCode.HTTP_NO_CONTENT)
-                    .description("No Content")
-                    .build();
+        if (r.code() == StatusCode.HTTP_OK && r.content().reference().isVoid()) {
+            if (parseOpts.isFixupVoid200to204()) {
+                logger.info("Fixing broken 200/void response on path '{}' to 204", resourcePath);
+                r = Response.builder().from(r)
+                        .code(StatusCode.HTTP_NO_CONTENT)
+                        .description("No Content")
+                        .build();
+            } else {
+                throw new IllegalArgumentException("The path '" + resourcePath
+                        + "' does not provide a return type. Either fix the API, or enable the option parser-fixup-void-200-to-204.");
+            }
         }
         return r;
     }

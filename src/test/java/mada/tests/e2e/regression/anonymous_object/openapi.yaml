@@ -18,7 +18,7 @@ paths:
             schema:
               $ref: '#/components/schemas/MessageSentEvent'
       responses:
-        "200":
+        "204":
           description: Success
 components:
   schemas:
