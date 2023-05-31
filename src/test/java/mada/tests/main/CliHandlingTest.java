@@ -98,8 +98,8 @@ class CliHandlingTest {
         assertThat(res.exitCode)
             .isEqualTo(1);
         assertThat(res.output)
-        	.contains("missing")
-        	.contains("parser-fixup-void-200-to-204");
+            .contains("does not provide a return type")
+            .contains("parser-fixup-void-200-to-204");
     }
 
     /**
