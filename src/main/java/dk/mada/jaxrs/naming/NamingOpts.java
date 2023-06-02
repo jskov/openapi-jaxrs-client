@@ -68,7 +68,7 @@ public class NamingOpts {
     public NamingOpts(Properties options) {
         apiNamingConfig = getDefault(options, "naming-rules-api", "TYPENAME; REGEXP/Api$//; APPEND/Api/");
         typeNamingConfig = getDefault(options, "naming-rules-type", "TYPENAME");
-        mpSchemaNamingConfig = getDefault(options, "naming-rules-mp-schema", "TYPENAME");
+        mpSchemaNamingConfig = getDefault(options, "naming-rules-mp-schema", typeNamingConfig);
         typeConflictRenamingConfig = getDefault(options, "naming-rules-type-conflict-renaming", "APPEND/X/");
         entityNamingConfig = getDefault(options, "naming-rules-entity", "LITERAL/dto/");
         operationNamingConfig = getDefault(options, "naming-rules-operation", "OPERATIONNAME");

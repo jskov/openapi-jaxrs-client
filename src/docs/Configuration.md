@@ -556,7 +556,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The type name is given as input.
 
 >
-    default value: TYPENAME
+    default value: (the value of naming-rules-type)
 
 **naming-rules-type-conflict-renaming**
 
