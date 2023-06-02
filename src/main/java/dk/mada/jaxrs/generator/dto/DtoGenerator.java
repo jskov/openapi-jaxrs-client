@@ -107,7 +107,7 @@ public class DtoGenerator {
                 .forEach(type -> {
                     String name = type.name();
                     UserMappedImport mappedToExternalType = externalTypeMapping.get(name);
-                    
+
                     if (skippedDtoClasses.contains(name)) {
                         logger.info(" skipped DTO  {}", name);
                     } else if (mappedToExternalType != null) {
