@@ -250,6 +250,12 @@ public final class GeneratorOpts {
                 .toList();
     }
 
+    /** {@return the list of DTO classes to skip when generating code} */
+    public List<String> getSkippedDtoClasses() {
+        String skippedDtoTypes = getDefault("generator-dto-skip-types", "");
+        return splitByComma(skippedDtoTypes);
+    }
+
     /**
      * Returns mapping of external types.
      *
