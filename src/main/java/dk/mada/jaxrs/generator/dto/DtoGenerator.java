@@ -70,7 +70,8 @@ public class DtoGenerator {
 
     /** External type mapping. */
     private final Map<String, UserMappedImport> externalTypeMapping;
-
+    /** List of DTO types to skip when generating. */
+    private final List<String> skippedDtoClasses;
     /** Enumeration generator. */
     private final EnumGenerator enumGenerator;
     /** Property generator. */
@@ -91,6 +92,7 @@ public class DtoGenerator {
 
         dtos = model.dtos();
         externalTypeMapping = opts.getExternalTypeMapping();
+        skippedDtoClasses = opts.getSkippedDtoClasses();
 
         enumGenerator = new EnumGenerator(naming, opts);
         propertyGenerator = new PropertyGenerator(naming, opts, enumGenerator);
@@ -104,9 +106,11 @@ public class DtoGenerator {
                 .sorted((a, b) -> a.name().compareTo(b.name()))
                 .forEach(type -> {
                     String name = type.name();
-
                     UserMappedImport mappedToExternalType = externalTypeMapping.get(name);
-                    if (mappedToExternalType != null) {
+
+                    if (skippedDtoClasses.contains(name)) {
+                        logger.info(" skipped DTO  {}", name);
+                    } else if (mappedToExternalType != null) {
                         logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
                     } else {
                         logger.info(" generate DTO {}", name);

@@ -128,12 +128,18 @@ The options are grouped into three sections:
 >
     default value: false
 
-
 **generator-dto-package**
 
 >Name of package to generate DTO classes in.
 
 >Required option, but can be set via the CLI argument `--dto-package`.
+
+**generator-dto-skip-types**
+
+>Allows you to suppress generation of some DTO classes.
+
+>The provided value should be a comma-separated list of OpenApi type IDs.
+
 
 **generator-jackson-fasterxml**
 
