@@ -11,7 +11,7 @@ dependencies {
         api 'com.uber.nullaway:nullaway:0.10.10'
         api 'org.jspecify:jspecify:0.3.0'
         // errorprone includes vulnerable protobuf-java
-        api 'com.google.protobuf:protobuf-java:3.23.2'
+        api 'com.google.protobuf:protobuf-java:3.23.3'
 
         // For templating
         api 'io.jstach:jstachio-annotation:1.1.1'
