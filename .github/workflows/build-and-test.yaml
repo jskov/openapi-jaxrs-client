@@ -45,8 +45,8 @@ jobs:
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/platforms/openapi-jaxrs-bom/gradle.properties
 
       - name: Run tests
-        uses: gradle/gradle-build-action@40b6781dcdec2762ad36556682ac74e31030cfe2
-        # 2.5.1
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
+        # 2.6.0
         with:
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
