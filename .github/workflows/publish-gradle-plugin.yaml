@@ -37,8 +37,8 @@ jobs:
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/platforms/openapi-jaxrs-bom/gradle.properties
 
       - name: Build release
-        uses: gradle/gradle-build-action@915a66c096a03101667f9df2e56c9efef558b165
-        # 2.6.1
+        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c
+        # 2.7.0
         with:
           arguments: publishPlugin -s
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
