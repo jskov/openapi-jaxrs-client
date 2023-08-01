@@ -20,3 +20,5 @@ Caused by: java.lang.IllegalStateException: Did not find referenced DTO TypeName
 	at dk.mada.jaxrs.openapi.Resolver.extractIfCompositeDto(Resolver.java:108)
 	at dk.mada.jaxrs.openapi.Resolver.lambda$extractCompositeDtos$2(Resolver.java:100)
 
+
+Because lookup used the final DTO names, not the OpenApi IDs.

@@ -38,8 +38,8 @@ components:
             properties:
                 registrationNumber:
                     type: integer
-        profileChange:
-            description: Profile
+        interestRateFixation:
+            description: fixation
             type: object
             properties:
                 loanType:
