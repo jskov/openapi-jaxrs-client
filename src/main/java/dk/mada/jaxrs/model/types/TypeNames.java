@@ -121,10 +121,9 @@ public final class TypeNames {
     /** {@return information about the type names} */
     public String info() {
         String sep = System.lineSeparator() + "  ";
-        return new StringBuilder("Type names:").append(sep)
-                .append(nameToInstances.keySet().stream()
+        return "Type names:" + sep
+                + nameToInstances.keySet().stream()
                         .sorted(String::compareToIgnoreCase)
-                        .collect(joining(sep)))
-                .toString();
+                        .collect(joining(sep));
     }
 }

@@ -93,11 +93,7 @@ public class EnumGenerator {
         }
         dtoImports.addMicroProfileSchema();
 
-        String args = new StringBuilder()
-                .append("enumeration = {").append(values).append("}")
-                .append(type)
-                .toString();
-        return Optional.of(args);
+        return Optional.of("enumeration = {" + values + "}" + type);
     }
 
     /**
