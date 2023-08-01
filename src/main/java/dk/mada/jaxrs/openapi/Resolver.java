@@ -75,9 +75,9 @@ public final class Resolver {
         Set<Dto> unresolvedDtos = parserTypes.getActiveDtos();
 
         if (logger.isDebugEnabled()) {
-	        logger.debug("Parsed DTOs:");
-	        unresolvedDtos.stream()
-	        	.forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
+            logger.debug("Parsed DTOs:");
+            unresolvedDtos.stream()
+                    .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
         // Rename DTOs as a separate pass so there are stable
