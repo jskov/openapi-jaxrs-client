@@ -33,6 +33,6 @@ public enum Jsonb implements TypedImport {
         if (!irp.isJsonb()) {
             return Optional.empty();
         }
-        return Optional.of(importPath);
+    	return Optional.of(irp.fixJavaxJakartaImportPath(importPath));
     }
 }
