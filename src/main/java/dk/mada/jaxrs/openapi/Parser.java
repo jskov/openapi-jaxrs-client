@@ -95,12 +95,11 @@ public final class Parser {
         new DtoTransformer(typeConverter).transform(specification);
 
         if (showInfo) {
-            String infoParsing = new StringBuilder("============== PARSING DONE =====").append(NL)
-                    .append(typeNames.info()).append(NL)
-                    .append(parserTypes.info()).append(NL)
-                    .append(parserRefs.info()).append(NL)
-                    .append(operations.info())
-                    .toString();
+            String infoParsing = "============== PARSING DONE =====" + NL
+                    + typeNames.info() + NL
+                    + parserTypes.info() + NL
+                    + parserRefs.info() + NL
+                    + operations.info();
             logger.info("{}", infoParsing);
         }
 
@@ -115,10 +114,9 @@ public final class Parser {
         Dtos dtos = new Dtos(resolver.getDtos());
 
         if (showInfo) {
-            String infoResolved = new StringBuilder("============== RESOLVED =====").append(NL)
-                    .append(dtos.info()).append(NL)
-                    .append(derefOps.info())
-                    .toString();
+            String infoResolved = "============== RESOLVED =====" + NL
+                    + dtos.info() + NL
+                    + derefOps.info();
             logger.info("{}", infoResolved);
         }
 
