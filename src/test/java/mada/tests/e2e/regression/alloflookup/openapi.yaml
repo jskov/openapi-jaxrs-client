@@ -1,0 +1,46 @@
+---
+openapi: 3.0.1
+info:
+  title: Test
+  version: 1.0.0
+security:
+- JWT: []
+tags:
+- name: Tag
+paths:
+  /add:
+    post:
+      tags:
+      - Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/interestRateFixationRequest'
+      responses:
+        "204":
+          description: Success
+components:
+  schemas:
+        interestRateFixationRequest:
+            description: Request body for interest rate fixation
+            type: object
+            allOf:
+                -
+                    type: object
+                -
+                    $ref: '#/components/schemas/account'
+                -
+                    $ref: '#/components/schemas/interestRateFixation'
+        account:
+            description: Account information
+            type: object
+            properties:
+                registrationNumber:
+                    type: integer
+        interestRateFixation:
+            description: fixation
+            type: object
+            properties:
+                loanType:
+                    type: string

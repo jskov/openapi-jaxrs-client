@@ -74,6 +74,12 @@ public final class Resolver {
     public List<Dto> getDtos() {
         Set<Dto> unresolvedDtos = parserTypes.getActiveDtos();
 
+        if (logger.isDebugEnabled()) {
+            logger.debug("Parsed DTOs:");
+            unresolvedDtos.stream()
+                    .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
+        }
+
         // Rename DTOs as a separate pass so there are stable
         // targets for dereferencing during the resolve pass.
         Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
@@ -134,9 +140,11 @@ public final class Resolver {
     private Dto extractCompositeDto(Collection<Dto> dtos, Dto dto, ParserTypeComposite tc) {
         String openapiName = dto.openapiId().name();
         logger.debug(" - expand composite DTO {}", openapiName);
+        logger.info(" tc: contains: {}", tc.containsTypes());
+        logger.info(" tc: external: {}", tc.externalDtoReferences());
 
         List<Dto> externalDtos = tc.externalDtoReferences().stream()
-                .map(tn -> getDtoWithName(dtos, tn))
+                .map(tn -> getDtoWithOpenapiId(dtos, tn))
                 .toList();
 
         if (logger.isDebugEnabled()) {
@@ -174,7 +182,7 @@ public final class Resolver {
         logger.debug(" - expand combined DTO {}", openapiName);
 
         List<Dto> combinesDtos = tc.externalDtoReferences().stream()
-                .map(tn -> getDtoWithName(dtos, tn))
+                .map(tn -> getDtoWithOpenapiId(dtos, tn))
                 .toList();
 
         if (logger.isDebugEnabled()) {
@@ -218,9 +226,9 @@ public final class Resolver {
                 .build();
     }
 
-    private Dto getDtoWithName(Collection<Dto> dtos, TypeName tn) {
+    private Dto getDtoWithOpenapiId(Collection<Dto> dtos, TypeName tn) {
         return dtos.stream()
-                .filter(d -> d.typeName().equals(tn))
+                .filter(d -> d.openapiId().equals(tn))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
     }
