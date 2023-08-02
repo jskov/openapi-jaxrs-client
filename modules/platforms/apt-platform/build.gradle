@@ -7,7 +7,7 @@ group = 'dk.mada.jaxrs'
 dependencies {
     constraints {
         // For null-checking
-        api 'com.google.errorprone:error_prone_core:2.20.0'
+        api 'com.google.errorprone:error_prone_core:2.21.0'
         api 'com.uber.nullaway:nullaway:0.10.11'
         api 'org.jspecify:jspecify:0.3.0'
         // errorprone includes vulnerable protobuf-java
