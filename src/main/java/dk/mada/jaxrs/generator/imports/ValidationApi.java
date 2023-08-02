@@ -34,6 +34,6 @@ public enum ValidationApi implements TypedImport {
 
     @Override
     public Optional<String> path(ImportRenderPrefs irp) {
-        return Optional.of(importPath);
+        return Optional.of(irp.fixJavaxJakartaImportPath(importPath));
     }
 }

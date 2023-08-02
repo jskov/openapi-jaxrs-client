@@ -54,3 +54,27 @@ It will load the generator built from this project via:
 
 Changes to the plugin code will be updated automatically.
 But changes to the generator need to be published.
+
+## Testing the generator in another project
+
+First publish the snapshot artifacts to the local Maven repository:
+
+    # Run in this project
+    ./gradlew publishToMavenLocal
+
+Then in the client project, make sure to allow artifacts from the local Maven repository:
+
+```gradle
+repositories {
+    mavenLocal()
+}
+```
+
+And use the snapshot version:
+
+```gradle
+jaxrs {
+    generatorGAV = 'dk.mada.jaxrs:openapi-jaxrs-client:0.0.0-SNAPSHOT'
+...
+```
+

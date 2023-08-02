@@ -22,10 +22,6 @@ public enum JaxRs implements TypedImport {
 
     @Override
     public Optional<String> path(ImportRenderPrefs irp) {
-        if (irp.isJakarta()) {
-            return Optional.of(importPath.replace("javax", "jakarta"));
-        } else {
-            return Optional.of(importPath);
-        }
+        return Optional.of(irp.fixJavaxJakartaImportPath(importPath));
     }
 }
