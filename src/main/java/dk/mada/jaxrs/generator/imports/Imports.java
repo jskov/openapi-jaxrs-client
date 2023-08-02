@@ -49,18 +49,19 @@ public final class Imports {
             boolean isUseRegisterForReflection,
             String dtoPackage) {
 
-    	/**
-    	 * Fix import path for types that switch from javax to jakarta package.
-    	 *
-    	 * @param importPath the javax import path
-    	 * @return import path changed to jakarta, if specified by the rendering preferences. Otherwise returns the javax import path.
-    	 */
-    	public String fixJavaxJakartaImportPath(String importPath) {
-    		if (isJakarta()) {
-    			return importPath.replace("javax", "jakarta");
-    		} else {
-    			return importPath;
-    		}
+        /**
+         * Fix import path for types that switch from javax to jakarta package.
+         *
+         * @param importPath the javax import path
+         * @return import path changed to jakarta, if specified by the rendering preferences. Otherwise returns the javax import
+         *         path.
+         */
+        public String fixJavaxJakartaImportPath(String importPath) {
+            if (isJakarta()) {
+                return importPath.replace("javax", "jakarta");
+            } else {
+                return importPath;
+            }
         }
     }
 
