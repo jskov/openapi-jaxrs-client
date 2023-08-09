@@ -25,7 +25,7 @@ public interface DefaultApi {
   @Path("/info")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
-  String stupid_long_prefix_getInfo(@PathParam("userId") @NotNull String userId);
+  String getInfo(@PathParam("userId") @NotNull String userId);
 
   /**
    * stupid_long_prefix_getPhoto.
@@ -37,5 +37,5 @@ public interface DefaultApi {
   @Path("/photo")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
-  String stupid_long_prefix_getPhoto(@PathParam("userId") @NotNull String userId);
+  String getPhoto(@PathParam("userId") @NotNull String userId);
 }

@@ -2,7 +2,7 @@ openapi: 3.0.1
 paths:
   /employees/{userId}/info:
     get:
-      operationId: stupid_long_prefix_getInfo
+      operationId: crazy_long_prefix_getInfo
       parameters:
       - name: userId
         in: path
@@ -18,7 +18,7 @@ paths:
                 type: string
   /employees/{userId}/photo:
     get:
-      operationId: stupid_long_prefix_getPhoto
+      operationId: crazy_long_prefix_getPhoto
       parameters:
       - name: userId
         in: path
