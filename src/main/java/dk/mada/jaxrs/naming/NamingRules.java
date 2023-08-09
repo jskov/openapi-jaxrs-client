@@ -75,6 +75,7 @@ public final class NamingRules {
      */
     public static List<NamingRule> toRules(String ruleConfigurations) {
         return Stream.of(ruleConfigurations.split(";"))
+                .filter(s -> !s.isBlank())
                 .map(NamingRules::toRule)
                 .toList();
     }

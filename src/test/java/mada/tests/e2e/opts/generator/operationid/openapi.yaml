@@ -1,0 +1,49 @@
+openapi: 3.0.1
+paths:
+  /employees/{userId}/info:
+    get:
+      operationId: crazy_long_prefix_getInfo
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /employees/{userId}/photo:
+    get:
+      operationId: crazy_long_prefix_getPhoto
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /employees/{userId}/noOperationId:
+    get:
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string

@@ -1,0 +1,48 @@
+openapi: 3.0.1
+paths:
+  /employees/{userId}/info:
+    get:
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /employees/{userId}/photo:
+    get:
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /employees/{userId}/withOperationId:
+    get:
+      operationId: employeesUserId_with_crazy_long_suffix_getter
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
