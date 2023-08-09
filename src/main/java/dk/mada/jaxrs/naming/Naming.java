@@ -192,11 +192,11 @@ public class Naming {
      * @return the java method name
      */
     public Optional<String> convertOperationIdName(@Nullable String operationIdName) {
-    	if (operationIdName != null) {
-    		return Optional.of(convert(operationIdNamingRules, operationIdName));
-    	} else {
-    		return Optional.empty();
-    	}
+        if (operationIdName != null) {
+            return Optional.of(convert(operationIdNamingRules, operationIdName));
+        } else {
+            return Optional.empty();
+        }
     }
 
     /**
