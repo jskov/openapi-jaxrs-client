@@ -516,7 +516,17 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >A synthetic id, based on the resource path and http-method is provided as input.
 
->Note that if the operation's id has been specified, this will take precedence.
+>Note that if the operation's id has been specified, you should use *naming-rules-operationid*.
+
+>
+    default value: OPERATIONNAME
+
+
+**naming-rules-operationid**
+
+>Allows you to transform operationIds using the operators described above.
+
+>The operationId is provided as input.
 
 >
     default value: OPERATIONNAME

@@ -16,7 +16,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 public interface DefaultApi {
 
   /**
-   * stupid_long_prefix_getInfo.
+   * getInfo.
    *
    * @param userId  (required)
    * @return String
@@ -28,7 +28,19 @@ public interface DefaultApi {
   String getInfo(@PathParam("userId") @NotNull String userId);
 
   /**
-   * stupid_long_prefix_getPhoto.
+   * employeesUserIdNoOperationIdGet.
+   *
+   * @param userId  (required)
+   * @return String
+   */
+  @GET
+  @Path("/noOperationId")
+  @Produces(MediaType.APPLICATION_JSON)
+  @APIResponseSchema(String.class)
+  String employeesUserIdNoOperationIdGet(@PathParam("userId") @NotNull String userId);
+
+  /**
+   * getPhoto.
    *
    * @param userId  (required)
    * @return String

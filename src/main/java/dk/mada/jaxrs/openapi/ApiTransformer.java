@@ -128,7 +128,7 @@ public class ApiTransformer {
                 .description(Optional.ofNullable(op.getDescription()))
                 .summary(Optional.ofNullable(op.getSummary()))
                 .deprecated(toBool(op.getDeprecated()))
-                .operationId(Optional.ofNullable(op.getOperationId()))
+                .operationId(naming.convertOperationIdName(op.getOperationId()))
                 .syntheticOpId(generateSyntheticOpId(resourcePath, httpMethod))
                 .httpMethod(toModelHttpMethod(httpMethod))
                 .path(resourcePath)

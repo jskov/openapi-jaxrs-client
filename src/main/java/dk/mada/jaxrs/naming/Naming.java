@@ -1,9 +1,11 @@
 package dk.mada.jaxrs.naming;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,8 @@ public class Naming {
     private final List<NamingRule> getTypeConflictRenaming;
     /** Naming rules for operation names. */
     private final List<NamingRule> operationNamingRules;
+    /** Naming rules for operationId names. */
+    private final List<NamingRule> operationIdNamingRules;
     /** Naming rules for property names. */
     private final List<NamingRule> propertyNamingRules;
     /** Naming rules for parameter names. */
@@ -58,6 +62,7 @@ public class Naming {
         enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
         enumNumberConstantNamingRules = NamingRules.toRules(namingOpts.getEnumNumberConstantNaming());
         operationNamingRules = NamingRules.toRules(namingOpts.getOperationNaming());
+        operationIdNamingRules = NamingRules.toRules(namingOpts.getOperationIdNaming());
         parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
         propertyEnumTypeNamingRules = NamingRules.toRules(namingOpts.getPropertyEnumTypeNaming());
         propertyNamingRules = NamingRules.toRules(namingOpts.getPropertyNaming());
@@ -71,6 +76,7 @@ public class Naming {
             logger.info("enumConstantNamingRules: {}", makeRuleInfo(enumConstantNamingRules));
             logger.info("enumNumberConstantNamingRules: {}", makeRuleInfo(enumNumberConstantNamingRules));
             logger.info("operationNamingRules: {}", makeRuleInfo(operationNamingRules));
+            logger.info("operationIdNamingRules: {}", makeRuleInfo(operationIdNamingRules));
             logger.info("parameterNamingRules: {}", makeRuleInfo(parameterNamingRules));
             logger.info("propertyEnumTypeNamingRules: {}", makeRuleInfo(propertyEnumTypeNamingRules));
             logger.info("propertyNamingRules: {}", makeRuleInfo(propertyNamingRules));
@@ -175,6 +181,22 @@ public class Naming {
      */
     public String convertOperationName(String syntheticOperationName) {
         return convert(operationNamingRules, syntheticOperationName);
+    }
+
+    /**
+     * Converts an operationId name to a java method name.
+     *
+     * This is only used for methods that have a specified operationId.
+     *
+     * @param operationIdName the operationId name, or null
+     * @return the java method name
+     */
+    public Optional<String> convertOperationIdName(@Nullable String operationIdName) {
+    	if (operationIdName != null) {
+    		return Optional.of(convert(operationIdNamingRules, operationIdName));
+    	} else {
+    		return Optional.empty();
+    	}
     }
 
     /**
