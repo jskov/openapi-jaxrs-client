@@ -10,15 +10,12 @@ paths:
         schema:
           type: string
       responses:
-        default:
-          description: default response
+        "200":
+          description: OK
           content:
-            application/pdf:
+            application/json:
               schema:
-                type: array
-                items:
-                  type: string
-                  format: byte
+                type: string
   /employees/{userId}/photo:
     get:
       operationId: stupid_long_prefix_getPhoto
@@ -29,12 +26,9 @@ paths:
         schema:
           type: string
       responses:
-        default:
-          description: default response
+        "200":
+          description: OK
           content:
-            image/jpeg:
+            application/json:
               schema:
-                type: array
-                items:
-                  type: string
-                  format: byte
+                type: string
