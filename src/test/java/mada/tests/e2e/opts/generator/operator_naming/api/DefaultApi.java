@@ -38,4 +38,16 @@ public interface DefaultApi {
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponseSchema(String.class)
   String photoGet(@PathParam("userId") @NotNull String userId);
+
+  /**
+   * employeesUserId_with_crazy_long_suffix_getter.
+   *
+   * @param userId  (required)
+   * @return String
+   */
+  @GET
+  @Path("/withOperationId")
+  @Produces(MediaType.APPLICATION_JSON)
+  @APIResponseSchema(String.class)
+  String employeesUserId_with_crazy_long_suffix_getter(@PathParam("userId") @NotNull String userId);
 }
