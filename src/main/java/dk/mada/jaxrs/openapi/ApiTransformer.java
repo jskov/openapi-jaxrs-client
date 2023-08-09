@@ -146,7 +146,7 @@ public class ApiTransformer {
                 .replaceFirst("-$", "");
         String syntheticOpId = opPath + "-" + httpMethod.name().toLowerCase(Locale.ROOT);
 
-        return naming.convertParameterName(syntheticOpId);
+        return naming.convertOperationName(syntheticOpId);
     }
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
