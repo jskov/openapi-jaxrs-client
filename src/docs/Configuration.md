@@ -529,7 +529,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The operationId is provided as input.
 
 >
-    default value: OPERATIONNAME
+    default value:
 
 
 **naming-rules-parameter**

@@ -74,7 +74,7 @@ public class NamingOpts {
         typeConflictRenamingConfig = getDefault(options, "naming-rules-type-conflict-renaming", "APPEND/X/");
         entityNamingConfig = getDefault(options, "naming-rules-entity", "LITERAL/dto/");
         operationNamingConfig = getDefault(options, "naming-rules-operation", "OPERATIONNAME");
-        operationIdNamingConfig = getDefault(options, "naming-rules-operationid", "OPERATIONNAME");
+        operationIdNamingConfig = getDefault(options, "naming-rules-operationid", "");
         propertyNamingConfig = getDefault(options, "naming-rules-property", "PROPERTYNAME");
         parameterNamingConfig = getDefault(options, "naming-rules-parameter", "PROPERTYNAME");
         enumConstantNamingConfig = getDefault(options, "naming-rules-enum-constant", "REGEXP/-/_/; TYPENAME; UPCASE");
