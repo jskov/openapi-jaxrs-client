@@ -20,7 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface DefaultApi {
 
   /**
-   * getInfo.
+   * infoGet.
    *
    * @param userId  (required)
    * @return List<Byte>
@@ -32,10 +32,10 @@ public interface DefaultApi {
     @APIResponse(responseCode = "default", description = "default response",
                  content = @Content(schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
   })
-  List<Byte> getInfo(@PathParam("userId") @NotNull String userId);
+  List<Byte> infoGet(@PathParam("userId") @NotNull String userId);
 
   /**
-   * getPhoto.
+   * photoGet.
    *
    * @param userId  (required)
    * @return List<Byte>
@@ -47,5 +47,5 @@ public interface DefaultApi {
     @APIResponse(responseCode = "default", description = "default response",
                  content = @Content(schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
   })
-  List<Byte> getPhoto(@PathParam("userId") @NotNull String userId);
+  List<Byte> photoGet(@PathParam("userId") @NotNull String userId);
 }

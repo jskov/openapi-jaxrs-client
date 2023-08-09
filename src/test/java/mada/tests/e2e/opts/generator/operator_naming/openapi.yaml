@@ -2,7 +2,6 @@ openapi: 3.0.1
 paths:
   /employees/{userId}/info:
     get:
-      operationId: getInfo
       parameters:
       - name: userId
         in: path
@@ -21,7 +20,6 @@ paths:
                   format: byte
   /employees/{userId}/photo:
     get:
-      operationId: getPhoto
       parameters:
       - name: userId
         in: path
