@@ -30,15 +30,15 @@ public interface DefaultApi {
    * @return LogResult
    */
   @POST
-  @Consumes({"application/vnd.auditlog.entry+json;version=v1", "application/vnd.auditlog.entry+json;version=v2"})
+  @Consumes("application/vnd.auditlog.entry+json;version=v1")
   @Produces({"application/x.auditlog.error+json;version=v1", "application/x.auditlog.result+json;version=v1", "application/x.auditlog.violations+json;version=v1"})
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Successfully added the log",
-                 content = @Content(schema = @Schema(implementation = LogResult.class))),
+                 content = @Content(schema = @Schema(implementation = LogResult.class), mediaType = "application/x.auditlog.result+json;version=v1")),
     @APIResponse(responseCode = "400", description = "Constraints violation",
-                 content = @Content(schema = @Schema(implementation = ViolationConstraint.class))),
+                 content = @Content(schema = @Schema(implementation = ViolationConstraint.class), mediaType = "application/x.auditlog.violations+json;version=v1")),
     @APIResponse(responseCode = "500", description = "Internal error or backend failure",
-                 content = @Content(schema = @Schema(implementation = ExceptionInformation.class)))
+                 content = @Content(schema = @Schema(implementation = ExceptionInformation.class), mediaType = "application/x.auditlog.error+json;version=v1"))
   })
   @Operation(summary = "adds an audit log")
   LogResult addEntryV1(@Valid LogEntry dto);
