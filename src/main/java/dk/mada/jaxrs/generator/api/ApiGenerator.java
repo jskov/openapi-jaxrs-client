@@ -424,13 +424,17 @@ public class ApiGenerator {
     }
 
     private List<CtxApiResponse> getResponses(Imports imports, Operation op) {
+    	var streamAllTypes = op.responses().stream()
+    		.flatMap(r -> r.content().mediaTypes().stream());
+    	List<String> opResponseMediaTypes = makeCombinedMediaTypes(imports, streamAllTypes);
+    	
         return op.responses().stream()
                 .sorted((a, b) -> a.code().compareTo(b.code()))
-                .map(r -> makeResponse(imports, r))
+                .map(r -> makeResponse(imports, r, opResponseMediaTypes))
                 .toList();
     }
 
-    private CtxApiResponse makeResponse(Imports imports, Response r) {
+    private CtxApiResponse makeResponse(Imports imports, Response r, List<String> opResponseMediaTypes) {
         String baseType;
         String containerType;
         Reference typeRef = r.content().reference();
@@ -451,6 +455,16 @@ public class ApiGenerator {
             containerType = null;
         }
 
+        // If a response uses fewer media-types than the entire op, specify them in the OpenApi annotation
+        Optional<String> mediaType;
+        Set<String> responseMediaTypes = r.content().mediaTypes();
+        if (opResponseMediaTypes.size() > 1 && !responseMediaTypes.containsAll(opResponseMediaTypes)) {
+        	mediaType = makeMediaTypeArgs(imports, responseMediaTypes.stream());
+        	logger.debug("  response needs {} of {}", mediaType, opResponseMediaTypes);
+        } else {
+        	mediaType = Optional.empty();
+        }
+
         String description = r.description()
                 .orElse("");
 
@@ -460,9 +474,12 @@ public class ApiGenerator {
                 .containerType(containerType)
                 .description(StringRenderer.encodeForString(description))
                 .isUnique(isUnique)
+                .mediaType(mediaType)
                 .build();
     }
 
+    // TODO: these should be combined smarter - base should take Content as argument instead, avoid use of streams
+    
     private Optional<String> makeConsumes(Imports imports, Operation op) {
         return op.requestBody()
                 .flatMap(rb -> makeMediaTypeArgs(imports, rb.content().mediaTypes().stream()));
@@ -474,19 +491,26 @@ public class ApiGenerator {
         return makeMediaTypeArgs(imports, combinedMediaTypes);
     }
 
-    private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
-        List<String> wrappedMediaTypes = mediaTypes
+    private List<String> makeCombinedMediaTypes(Imports imports, Stream<String> mediaTypes) {
+    	return mediaTypes
                 .map(mt -> toMediaType(imports, mt))
                 .sorted()
                 .distinct()
                 .toList();
+    }
+    
+    private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
+        List<String> wrappedMediaTypes = makeCombinedMediaTypes(imports, mediaTypes);
+        return makeMediaTypeArgs(imports, wrappedMediaTypes);
+    }
 
-        if (wrappedMediaTypes.isEmpty()) {
+    private Optional<String> makeMediaTypeArgs(Imports imports, List<String> mediaTypes) {
+        if (mediaTypes.isEmpty()) {
             return Optional.empty();
         }
 
-        String arg = String.join(", ", wrappedMediaTypes);
-        if (wrappedMediaTypes.size() > 1) {
+        String arg = String.join(", ", mediaTypes);
+        if (mediaTypes.size() > 1) {
             return Optional.of("{" + arg + "}");
         }
         return Optional.of(arg);

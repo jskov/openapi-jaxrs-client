@@ -28,6 +28,9 @@ public interface CtxApiResponse {
     /** {@return the container type of this response, or null} */
     @Nullable String containerType();
 
+    /** {@return the media-type of this response if necessary} */
+    Optional<String> mediaType();
+
     /** {@return true if the container is a set (array with unique elements)} */
     boolean isUnique();
 }
