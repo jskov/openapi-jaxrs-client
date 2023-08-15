@@ -22,47 +22,46 @@ import io.swagger.v3.oas.models.media.Schema;
  *
  * Some requests or responses may contain multiple media-types.
  *
- * The options parser-api-preferred-response-mediatypes and
- * parser-api-preferred-reply-mediatypes can be used to control
+ * The options parser-api-preferred-response-mediatypes and parser-api-preferred-reply-mediatypes can be used to control
  * which type is selected.
  */
 public class ContentSelector {
-	private static final Logger logger = LoggerFactory.getLogger(ContentSelector.class);
+    private static final Logger logger = LoggerFactory.getLogger(ContentSelector.class);
 
     /** Type converter. */
     private final TypeConverter typeConverter;
     /** Preferred request media types. */
-	private final List<Pattern> preferredRequestMediaTypes;
+    private final List<Pattern> preferredRequestMediaTypes;
     /** Preferred response media types. */
-	private final List<Pattern> preferredResponseMediaTypes;
+    private final List<Pattern> preferredResponseMediaTypes;
 
     /**
      * Constructs a new selector instance.
      *
-     * @param parseOpts       the parser options
-     * @param typeConverter   the type converter
+     * @param parseOpts     the parser options
+     * @param typeConverter the type converter
      */
     public ContentSelector(ParserOpts parseOpts, TypeConverter typeConverter) {
         this.typeConverter = typeConverter;
-        
+
         preferredRequestMediaTypes = parseOpts.getPreferredRequestMediaTypes().stream()
-        	.map(Pattern::compile)
-        	.toList();
+                .map(Pattern::compile)
+                .toList();
         preferredResponseMediaTypes = parseOpts.getPreferredResponseMediaTypes().stream()
-            	.map(Pattern::compile)
-            	.toList();
+                .map(Pattern::compile)
+                .toList();
     }
 
     /** Location of the content to resolve. */
     public enum Location {
-    	REQUEST(ParserOpts.PARSER_API_PREFERRED_REQUEST_MEDIATYPES),
-    	RESPONSE(ParserOpts.PARSER_API_PREFERRED_RESPONSE_MEDIATYPES);
-    	
-    	public final String optionName;
+        REQUEST(ParserOpts.PARSER_API_PREFERRED_REQUEST_MEDIATYPES),
+        RESPONSE(ParserOpts.PARSER_API_PREFERRED_RESPONSE_MEDIATYPES);
 
-		private Location(String optionName) {
-			this.optionName = optionName;
-		}
+        public final String optionName;
+
+        private Location(String optionName) {
+            this.optionName = optionName;
+        }
     }
 
     /**
@@ -101,7 +100,7 @@ public class ContentSelector {
             if (schemas.isEmpty()) {
                 ref = TypeVoid.getRef();
             } else {
-            	Schema<?> ss = getPreferredSchema(c, context);
+                Schema<?> ss = getPreferredSchema(c, context);
 
                 if (ss == null) {
                     // This happens in some documents
@@ -127,29 +126,30 @@ public class ContentSelector {
                 .reference(ref)
                 .formParameters(formParameters)
                 .build();
-	}
-    
-    private Schema<?> getPreferredSchema(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
-    	// Selection implied when only one media type
-    	if (c.size() == 1) {
-    		return c.values().iterator().next().getSchema();
-    	}
-
-    	List<Pattern> preferredMediaTypes = context.location == Location.REQUEST ? preferredRequestMediaTypes : preferredResponseMediaTypes;
-
-    	// Find first match in preference order
-    	for (Pattern p : preferredMediaTypes) {
-    		for (var e : c.entrySet()) {
-    			String mediaType = e.getKey();
-    			if (p.matcher(mediaType).matches()) {
-    				return e.getValue().getSchema();
-    			}
-    		}
-    	}
-
-		throw new IllegalStateException("Path " + context.resourcePath + " has multiple content types. Use " + context.location.optionName + " to select");
     }
-    
+
+    private Schema<?> getPreferredSchema(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
+        // Selection implied when only one media type
+        if (c.size() == 1) {
+            return c.values().iterator().next().getSchema();
+        }
+
+        List<Pattern> preferredMediaTypes = context.location == Location.REQUEST ? preferredRequestMediaTypes : preferredResponseMediaTypes;
+
+        // Find first match in preference order
+        for (Pattern p : preferredMediaTypes) {
+            for (var e : c.entrySet()) {
+                String mediaType = e.getKey();
+                if (p.matcher(mediaType).matches()) {
+                    return e.getValue().getSchema();
+                }
+            }
+        }
+
+        throw new IllegalStateException(
+                "Path " + context.resourcePath + " has multiple content types. Use " + context.location.optionName + " to select");
+    }
+
     // At least an enum parameter may have to be rendered as a standalone
     // type (DTO). This does not happen with this code alone.
     private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {

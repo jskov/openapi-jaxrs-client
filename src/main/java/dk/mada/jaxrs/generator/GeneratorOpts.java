@@ -45,7 +45,7 @@ public final class GeneratorOpts {
      * @param parserOpts parser options
      */
     public GeneratorOpts(OptionReader or, ParserOpts parserOpts) {
-    	this.or = or;
+        this.or = or;
         this.parserOpts = parserOpts;
 
         generatedAtTime = LocalDateTime.now()

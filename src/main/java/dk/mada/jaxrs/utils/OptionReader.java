@@ -15,7 +15,7 @@ public class OptionReader {
     /**
      * Constructs a new instance.
      *
-     * @param options    user's options
+     * @param options user's options
      */
     public OptionReader(Properties options) {
         this.options = options;
@@ -27,45 +27,45 @@ public class OptionReader {
      * @param input the input to split
      * @return the list of trimmed elements
      */
-	public List<String> splitByComma(String input) {
+    public List<String> splitByComma(String input) {
         return Stream.of(input.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .toList();
     }
 
-	/**
-	 * Read boolean property, defaulting to false if missing.
-	 *
-	 * @param name the name of the option.
-	 * @return boolean-value of the option
-	 */
+    /**
+     * Read boolean property, defaulting to false if missing.
+     *
+     * @param name the name of the option.
+     * @return boolean-value of the option
+     */
     public boolean bool(String name) {
         return get(name)
                 .map(Boolean::parseBoolean)
                 .orElse(false);
     }
 
-	/**
-	 * Read boolean property, with default value if missing.
-	 *
-	 * @param name          the name of the option.
-	 * @param defaultValue  the default value if the option is not specified
-	 * @return boolean-value of the option
-	 */
+    /**
+     * Read boolean property, with default value if missing.
+     *
+     * @param name         the name of the option.
+     * @param defaultValue the default value if the option is not specified
+     * @return boolean-value of the option
+     */
     public boolean bool(String name, boolean defaultValue) {
         return Boolean.parseBoolean(options.getProperty(name, Boolean.toString(defaultValue)));
     }
 
-	/**
-	 * Read required option.
-	 *
-	 * @throws IllegalArgumentException if the property is missin
-	 *
-	 * @param name                 the name of the option.
-	 * @param compatibleOptionName fall-back name if primary name not found
-	 * @return the property value
-	 */
+    /**
+     * Read required option.
+     *
+     * @throws IllegalArgumentException if the property is missin
+     *
+     * @param name                 the name of the option.
+     * @param compatibleOptionName fall-back name if primary name not found
+     * @return the property value
+     */
     public String getRequired(String name, String compatibleOptionName) {
         String compat = options.getProperty(compatibleOptionName);
         String value = options.getProperty(name, compat);
@@ -86,7 +86,6 @@ public class OptionReader {
         return Optional.of(getDefault(name, defaultValue));
     }
 
-    
     /**
      * Read optional option with default value.
      *
@@ -105,7 +104,7 @@ public class OptionReader {
     /**
      * Read optional option value.
      *
-     * @param name         the option name
+     * @param name the option name
      * @return the trimmed property value if present
      */
     public Optional<String> get(String name) {

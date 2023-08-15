@@ -8,18 +8,18 @@ import dk.mada.jaxrs.utils.OptionReader;
  * parser-* configuration options.
  */
 public final class ParserOpts {
-	/** Preferred request media types option name. */
-	public static final String PARSER_API_PREFERRED_REQUEST_MEDIATYPES = "parser-api-preferred-request-mediatypes";
-	/** Preferred response media types option name. */
-	public static final String PARSER_API_PREFERRED_RESPONSE_MEDIATYPES = "parser-api-preferred-response-mediatypes";
+    /** Preferred request media types option name. */
+    public static final String PARSER_API_PREFERRED_REQUEST_MEDIATYPES = "parser-api-preferred-request-mediatypes";
+    /** Preferred response media types option name. */
+    public static final String PARSER_API_PREFERRED_RESPONSE_MEDIATYPES = "parser-api-preferred-response-mediatypes";
 
-	/** User options. */
+    /** User options. */
     private final OptionReader or;
 
     /**
      * Constructs a new instance.
      *
-     * @param or  option reader
+     * @param or option reader
      */
     public ParserOpts(OptionReader or) {
         this.or = or;

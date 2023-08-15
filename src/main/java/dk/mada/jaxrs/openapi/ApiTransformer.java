@@ -151,7 +151,7 @@ public class ApiTransformer {
     }
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
-    	ContentContext cc = new ContentContext(resourcePath, false, Location.RESPONSE);
+        ContentContext cc = new ContentContext(resourcePath, false, Location.RESPONSE);
         Response r = Response.builder()
                 .code(StatusCode.of(code))
                 .description(Optional.ofNullable(resp.getDescription()))
@@ -179,7 +179,7 @@ public class ApiTransformer {
             return Optional.empty();
         }
 
-    	ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
+        ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = contentSelector.selectContent(body.getContent(), cc);
 
         return Optional.of(

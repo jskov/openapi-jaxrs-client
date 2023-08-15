@@ -429,10 +429,10 @@ public class ApiGenerator {
     }
 
     private List<CtxApiResponse> getResponses(Imports imports, Operation op) {
-    	var streamAllTypes = op.responses().stream()
-    		.flatMap(r -> r.content().mediaTypes().stream());
-    	List<String> opResponseMediaTypes = makeCombinedMediaTypes(imports, streamAllTypes);
-    	
+        var streamAllTypes = op.responses().stream()
+                .flatMap(r -> r.content().mediaTypes().stream());
+        List<String> opResponseMediaTypes = makeCombinedMediaTypes(imports, streamAllTypes);
+
         return op.responses().stream()
                 .sorted((a, b) -> a.code().compareTo(b.code()))
                 .map(r -> makeResponse(imports, r, opResponseMediaTypes))
@@ -464,10 +464,10 @@ public class ApiGenerator {
         Optional<String> mediaType;
         Set<String> responseMediaTypes = r.content().mediaTypes();
         if (opResponseMediaTypes.size() > 1 && !responseMediaTypes.containsAll(opResponseMediaTypes)) {
-        	mediaType = makeMediaTypeArgs(imports, responseMediaTypes.stream());
-        	logger.debug("  response needs {} of {}", mediaType, opResponseMediaTypes);
+            mediaType = makeMediaTypeArgs(imports, responseMediaTypes.stream());
+            logger.debug("  response needs {} of {}", mediaType, opResponseMediaTypes);
         } else {
-        	mediaType = Optional.empty();
+            mediaType = Optional.empty();
         }
 
         String description = r.description()
@@ -484,13 +484,13 @@ public class ApiGenerator {
     }
 
     // TODO: these should be combined smarter - base should take Content as argument instead, avoid use of streams
-    
-    private Optional<String> makeConsumes(Imports imports, Operation op) {
-    	List<String> mediaTypes = op.requestBody()
-    		.map(rb -> makeCombinedMediaTypes(imports, rb.content().mediaTypes().stream()))
-    		.orElse(List.of());
 
-    	return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.path(), false, Location.REQUEST));
+    private Optional<String> makeConsumes(Imports imports, Operation op) {
+        List<String> mediaTypes = op.requestBody()
+                .map(rb -> makeCombinedMediaTypes(imports, rb.content().mediaTypes().stream()))
+                .orElse(List.of());
+
+        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.path(), false, Location.REQUEST));
     }
 
     private Optional<String> makeProduces(Imports imports, Operation op) {
@@ -500,13 +500,13 @@ public class ApiGenerator {
     }
 
     private List<String> makeCombinedMediaTypes(Imports imports, Stream<String> mediaTypes) {
-    	return mediaTypes
+        return mediaTypes
                 .map(mt -> toMediaType(imports, mt))
                 .sorted()
                 .distinct()
                 .toList();
     }
-    
+
     private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
         List<String> wrappedMediaTypes = makeCombinedMediaTypes(imports, mediaTypes);
         return makeMediaTypeArgs(wrappedMediaTypes);
