@@ -14,6 +14,28 @@ The options are grouped into three sections:
 
 ## Parser options
 
+**parser-api-preferred-request-mediatypes**
+
+>This option allows selection of a preferred media-type for requests.
+
+>You can specify a comma-separated list of regular expressions that will tried to match available media-types in order.
+
+>If a request has multiple media-types and you do not make a selection via this option, parsing will be aborted.
+
+>
+	default value:
+
+**parser-api-preferred-response-mediatypes**
+
+>This option allows selection of a preferred media-type for responses.
+
+>You can specify a comma-separated list of regular expressions that will tried to match available media-types in order.
+
+>If a response has multiple media-types and you do not make a selection via this option, parsing will be aborted.
+
+>
+	default value:
+
 
 **parser-fixup-void-200-to-204**
 
