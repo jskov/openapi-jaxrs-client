@@ -16,6 +16,7 @@ import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.ParserOpts;
 import dk.mada.jaxrs.openapi.ParserTypeRefs;
 import dk.mada.jaxrs.utils.DirectoryDeleter;
+import dk.mada.jaxrs.utils.OptionReader;
 import dk.mada.logging.LoggerConfig;
 
 /**
@@ -54,8 +55,9 @@ public final class Generator implements GeneratorService {
             assertInputFile(openapiDocument);
 
             var typeNames = new TypeNames();
-            var parserOpts = new ParserOpts(options);
-            var generatorOpts = new GeneratorOpts(options, parserOpts);
+            var optionReader = new OptionReader(options);
+            var parserOpts = new ParserOpts(optionReader);
+            var generatorOpts = new GeneratorOpts(optionReader, parserOpts);
             var naming = new Naming(options);
             var parserRefs = new ParserTypeRefs(typeNames);
 

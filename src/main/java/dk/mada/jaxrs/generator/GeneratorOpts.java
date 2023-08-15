@@ -7,12 +7,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
-import java.util.stream.Stream;
 
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.openapi.ParserOpts;
+import dk.mada.jaxrs.utils.OptionReader;
 
 /**
  * Generator configuration options.
@@ -29,8 +28,8 @@ public final class GeneratorOpts {
     private final String generatedAtTime;
     /** Parser options. */
     private final ParserOpts parserOpts;
-    /** All user's input options. */
-    private final Properties options;
+    /** User options. */
+    private final OptionReader or;
 
     /** Selects Jackson FasterXml as output format. */
     private final boolean useJacksonFasterxml;
@@ -42,19 +41,19 @@ public final class GeneratorOpts {
     /**
      * Constructs a new instance.
      *
-     * @param options    user's options
+     * @param or         option reader
      * @param parserOpts parser options
      */
-    public GeneratorOpts(Properties options, ParserOpts parserOpts) {
-        this.options = options;
+    public GeneratorOpts(OptionReader or, ParserOpts parserOpts) {
+    	this.or = or;
         this.parserOpts = parserOpts;
 
         generatedAtTime = LocalDateTime.now()
                 .withNano(0)
                 .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-        useJacksonFasterxml = bool("generator-jackson-fasterxml");
-        boolean willUseJsonb = bool("generator-jsonb");
+        useJacksonFasterxml = or.bool("generator-jackson-fasterxml");
+        boolean willUseJsonb = or.bool("generator-jsonb");
 
         int activatedSerializerApis = 0;
         if (useJacksonFasterxml) {
@@ -73,7 +72,7 @@ public final class GeneratorOpts {
         }
         useJsonb = willUseJsonb;
 
-        useJakarta = bool("generator-jakarta");
+        useJakarta = or.bool("generator-jakarta");
     }
 
     /**
@@ -87,7 +86,7 @@ public final class GeneratorOpts {
 
     /** {@return the package to generate API classes to } */
     public String apiPackage() {
-        return getRequired(GENERATOR_API_PACKAGE, "apiPackage");
+        return or.getRequired(GENERATOR_API_PACKAGE, "apiPackage");
     }
 
     /** {@return the API package in path-form} */
@@ -97,7 +96,7 @@ public final class GeneratorOpts {
 
     /** {@return the package to generate DTO classes to } */
     public String dtoPackage() {
-        return getRequired(GENERATOR_DTO_PACKAGE, "modelPackage");
+        return or.getRequired(GENERATOR_DTO_PACKAGE, "modelPackage");
     }
 
     /** {@return the DTO package in path-form} */
@@ -130,7 +129,7 @@ public final class GeneratorOpts {
         if (!isJackson()) {
             return Optional.empty();
         }
-        return get("generator-jackson-json-serialize-options");
+        return or.get("generator-jackson-json-serialize-options");
     }
 
     /** {@return true if a jackson date-time serializer should be rendered} */
@@ -159,7 +158,7 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
+        return or.getOptDefault("generator-jackson-localdate-wire-format", "ISO_LOCAL_DATE");
     }
 
     /** {@return the optional LocalDateTime wire format for jackson} */
@@ -167,7 +166,7 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateTimeSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdatetime-wire-format", "ISO_LOCAL_DATE_TIME");
+        return or.getOptDefault("generator-jackson-localdatetime-wire-format", "ISO_LOCAL_DATE_TIME");
     }
 
     /** {@return the optional jackson LocalDate deserializer class name} */
@@ -175,7 +174,7 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdate-deserializer",
+        return or.getOptDefault("generator-jackson-localdate-deserializer",
                 ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname());
     }
 
@@ -184,7 +183,7 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdate-serializer",
+        return or.getOptDefault("generator-jackson-localdate-serializer",
                 ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
     }
 
@@ -193,7 +192,7 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdatetime-deserializer",
+        return or.getOptDefault("generator-jackson-localdatetime-deserializer",
                 ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname());
     }
 
@@ -202,7 +201,7 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateTimeSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-localdatetime-serializer",
+        return or.getOptDefault("generator-jackson-localdatetime-serializer",
                 ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
@@ -211,7 +210,7 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-offsetdatetime-deserializer",
+        return or.getOptDefault("generator-jackson-offsetdatetime-deserializer",
                 ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
     }
 
@@ -220,7 +219,7 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateTimeSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-offsetdatetime-serializer",
+        return or.getOptDefault("generator-jackson-offsetdatetime-serializer",
                 ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
@@ -229,31 +228,24 @@ public final class GeneratorOpts {
         if (!isUseJacksonOffsetDateTimeSerializer()) {
             return Optional.empty();
         }
-        return getOptDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
+        return or.getOptDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
     }
 
     /** {@return the optional MP client config key} */
     public Optional<String> getMpClientConfigKey() {
-        return get("generator-mp-api-register-rest-client");
+        return or.get("generator-mp-api-register-rest-client");
     }
 
     /** {@return the MP providers} */
     public List<String> getMpProviders() {
-        String providers = getDefault("generator-mp-api-register-providers", "");
-        return splitByComma(providers);
-    }
-
-    private List<String> splitByComma(String input) {
-        return Stream.of(input.split(","))
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .toList();
+        String providers = or.getDefault("generator-mp-api-register-providers", "");
+        return or.splitByComma(providers);
     }
 
     /** {@return the list of DTO classes to skip when generating code} */
     public List<String> getSkippedDtoClasses() {
-        String skippedDtoTypes = getDefault("generator-dto-skip-types", "");
-        return splitByComma(skippedDtoTypes);
+        String skippedDtoTypes = or.getDefault("generator-dto-skip-types", "");
+        return or.splitByComma(skippedDtoTypes);
     }
 
     /**
@@ -265,7 +257,7 @@ public final class GeneratorOpts {
      * @return mapping of types names to external type imports
      **/
     public Map<String, UserMappedImport> getExternalTypeMapping() {
-        String s = get("generator-map-external-types").orElse("");
+        String s = or.get("generator-map-external-types").orElse("");
         if (s.isBlank()) {
             return Map.of();
         }
@@ -333,37 +325,37 @@ public final class GeneratorOpts {
 
     /** {@return true if bean validation should be used, otherwise false} */
     public boolean isUseBeanValidation() {
-        return bool("generator-use-bean-validation", true);
+        return or.bool("generator-use-bean-validation", true);
     }
 
     /** {@return true if DTOs should be marked with Serializable, otherwise false} */
     public boolean isUseSerializable() {
-        return bool("generator-use-serializable", false);
+        return or.bool("generator-use-serializable", false);
     }
 
     /** {@return true if BigDecimal should be used for double, otherwise use Double} */
     public boolean isUseBigDecimalForDouble() {
-        return bool("generator-use-bigdecimal-for-double");
+        return or.bool("generator-use-bigdecimal-for-double");
     }
 
     /** {@return true if collections should be initialized as empty, otherwise will be null} */
     public boolean isUseEmptyCollections() {
-        return bool("generator-use-empty-collections");
+        return or.bool("generator-use-empty-collections");
     }
 
     /** {@return true if date-time should be rendered with ZonedDateTime} */
     public boolean isUseZonedDateTime() {
-        return bool("generator-use-zoneddatetime");
+        return or.bool("generator-use-zoneddatetime");
     }
 
     /** {@return true if date-time should be rendered with LocalDateTime} */
     public boolean isUseLocalDateTime() {
-        return bool("generator-use-localdatetime");
+        return or.bool("generator-use-localdatetime");
     }
 
     /** {@return true if boolean getters should use 'get' as prefix, otherwise use 'is'} */
     public boolean isUseBooleanGetPrefix() {
-        return bool("generator-use-boolean-get-prefix");
+        return or.bool("generator-use-boolean-get-prefix");
     }
 
     /** {@return the time the generation happened if enabled, or null} */
@@ -376,16 +368,16 @@ public final class GeneratorOpts {
 
     /** {@return true if the property order annotation should be rendered} */
     public boolean isUsePropertyOrderAnnotation() {
-        return bool("generator-use-property-order-annotation", false);
+        return or.bool("generator-use-property-order-annotation", false);
     }
 
     private boolean isShowGenerationTimestamp() {
-        return bool("generator-use-generated-timestamp");
+        return or.bool("generator-use-generated-timestamp");
     }
 
     /** {@return the fully-qualified @Generated annotation class} */
     public String getGeneratorAnnotationClass() {
-        if (bool("generator-use-generated-jdk", true)) {
+        if (or.bool("generator-use-generated-jdk", true)) {
             return "@javax.annotation.processing.Generated";
         } else {
             return "@javax.annotation.Generated";
@@ -394,13 +386,13 @@ public final class GeneratorOpts {
 
     /** {@return the property sorting order to use} */
     public PropertyOrder getPropertyOrder() {
-        String order = getDefault("generator-use-property-order", PropertyOrder.ALPHABETICAL_NOCASE_ORDER.name());
+        String order = or.getDefault("generator-use-property-order", PropertyOrder.ALPHABETICAL_NOCASE_ORDER.name());
         return PropertyOrder.from(order);
     }
 
     /** {@return true if enumerations should deserialize unknown input to 'unknown_default_open_api'} */
     public boolean isUseEnumUnknownDefault() {
-        return bool("generator-use-enum-unknown-default");
+        return or.bool("generator-use-enum-unknown-default");
     }
 
     /**
@@ -414,69 +406,33 @@ public final class GeneratorOpts {
      *      "https://jakarta.ee/specifications/restful-ws/3.0/apidocs/jakarta/ws/rs/defaultvalue">jakarta.ws.rs.DefaultValue</a>
      */
     public boolean isUseApiWrappedPrimitives() {
-        return bool("generator-use-api-wrapped-primitives", false);
+        return or.bool("generator-use-api-wrapped-primitives", false);
     }
 
     /** {@return the default Api resource name} */
     public Optional<String> getDefaultApiName() {
-        return get("generator-api-default-name");
+        return or.get("generator-api-default-name");
     }
 
     /** {@return true if generation of API classes should be skipped.} */
     public boolean isSkipApiClasses() {
-        return bool("generator-api-skip", false);
+        return or.bool("generator-api-skip", false);
     }
 
     /** {@return list of media types that should be handled as input stream} */
     public List<String> getResponseInputStreamMediaTypes() {
-        String mediaTypes = getDefault("generator-api-response-inputstream-mediatypes", "");
-        return splitByComma(mediaTypes);
+        String mediaTypes = or.getDefault("generator-api-response-inputstream-mediatypes", "");
+        return or.splitByComma(mediaTypes);
     }
 
     /** {@return true if @RegisterForReflection should be added to DTOs} */
     public boolean isUseRegisterForReflection() {
-        return bool("generator-quarkus-use-register-for-reflection");
+        return or.bool("generator-quarkus-use-register-for-reflection");
     }
 
     /** {@return true if the destination folder should be kept during testing} */
     public boolean isTestingKeepDestination() {
-        return bool("generator-testing-keep-destination");
-    }
-
-    private boolean bool(String name) {
-        return get(name)
-                .map(Boolean::parseBoolean)
-                .orElse(false);
-    }
-
-    private boolean bool(String name, boolean defaultValue) {
-        return Boolean.parseBoolean(options.getProperty(name, Boolean.toString(defaultValue)));
-    }
-
-    private String getRequired(String name, String compatibleOptionName) {
-        String compat = options.getProperty(compatibleOptionName);
-        String value = options.getProperty(name, compat);
-        if (value == null) {
-            throw new IllegalArgumentException("The property " + name + " must be specified!");
-        }
-        return value.trim();
-    }
-
-    private Optional<String> getOptDefault(String name, String defaultValue) {
-        return Optional.of(getDefault(name, defaultValue));
-    }
-
-    private String getDefault(String name, String defaultValue) {
-        String value = options.getProperty(name);
-        if (value == null) {
-            return defaultValue;
-        }
-        return value.trim();
-    }
-
-    private Optional<String> get(String name) {
-        return Optional.ofNullable(options.getProperty(name))
-                .map(String::trim);
+        return or.bool("generator-testing-keep-destination");
     }
 
     /**
