@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +29,12 @@ import io.swagger.v3.oas.models.media.Schema;
 public class ContentSelector {
 	private static final Logger logger = LoggerFactory.getLogger(ContentSelector.class);
 
-    /** Parser options. */
-    private final ParserOpts parseOpts;
     /** Type converter. */
     private final TypeConverter typeConverter;
+    /** Preferred request media types. */
+	private final List<Pattern> preferredRequestMediaTypes;
+    /** Preferred response media types. */
+	private final List<Pattern> preferredResponseMediaTypes;
 
     /**
      * Constructs a new selector instance.
@@ -40,14 +43,26 @@ public class ContentSelector {
      * @param typeConverter   the type converter
      */
     public ContentSelector(ParserOpts parseOpts, TypeConverter typeConverter) {
-        this.parseOpts = parseOpts;
         this.typeConverter = typeConverter;
+        
+        preferredRequestMediaTypes = parseOpts.getPreferredRequestMediaTypes().stream()
+        	.map(Pattern::compile)
+        	.toList();
+        preferredResponseMediaTypes = parseOpts.getPreferredResponseMediaTypes().stream()
+            	.map(Pattern::compile)
+            	.toList();
     }
 
     /** Location of the content to resolve. */
     public enum Location {
-    	REQUEST,
-    	RESPONSE
+    	REQUEST(ParserOpts.PARSER_API_PREFERRED_REQUEST_MEDIATYPES),
+    	RESPONSE(ParserOpts.PARSER_API_PREFERRED_RESPONSE_MEDIATYPES);
+    	
+    	public final String optionName;
+
+		private Location(String optionName) {
+			this.optionName = optionName;
+		}
     }
 
     /**
@@ -85,24 +100,9 @@ public class ContentSelector {
 
             if (schemas.isEmpty()) {
                 ref = TypeVoid.getRef();
-            } else if (schemas.size() > 1) {
-            	
-                @SuppressWarnings("rawtypes")
-            	List<Schema> selected = c.entrySet().stream()
-	                .peek(e -> logger.warn("media-type '{}': schema {}", e.getKey(), e.getValue()))
-	                .map(e -> e.getValue().getSchema())
-	                .toList();
-
-            	if (selected.size() > 1) {
-            		// FIXME
-            		throw new IllegalStateException("Multiple content types - FIXME use preferred to select one");
-            	}
-
-                // The assumption is that the underlying type must be the same.
-                // But there may be different examples/descriptions whatnot to collect.
-            		throw new IllegalStateException("Cannot handle multiple schemas yet: " + context.resourcePath());
             } else {
-                Schema<?> ss = schemas.iterator().next();
+            	Schema<?> ss = getPreferredSchema(c, context);
+
                 if (ss == null) {
                     // This happens in some documents
                     ref = TypeVoid.getRef();
@@ -128,6 +128,27 @@ public class ContentSelector {
                 .formParameters(formParameters)
                 .build();
 	}
+    
+    private Schema<?> getPreferredSchema(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
+    	// Selection implied when only one media type
+    	if (c.size() == 1) {
+    		return c.values().iterator().next().getSchema();
+    	}
+
+    	List<Pattern> preferredMediaTypes = context.location == Location.REQUEST ? preferredRequestMediaTypes : preferredResponseMediaTypes;
+
+    	// Find first match in preference order
+    	for (Pattern p : preferredMediaTypes) {
+    		for (var e : c.entrySet()) {
+    			String mediaType = e.getKey();
+    			if (p.matcher(mediaType).matches()) {
+    				return e.getValue().getSchema();
+    			}
+    		}
+    	}
+
+		throw new IllegalStateException("Path " + context.resourcePath + " has multiple content types. Use " + context.location.optionName + " to select");
+    }
 
     // At least an enum parameter may have to be rendered as a standalone
     // type (DTO). This does not happen with this code alone.

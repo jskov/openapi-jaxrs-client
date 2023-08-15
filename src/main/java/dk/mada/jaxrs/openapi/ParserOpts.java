@@ -8,7 +8,12 @@ import dk.mada.jaxrs.utils.OptionReader;
  * parser-* configuration options.
  */
 public final class ParserOpts {
-    /** User options. */
+	/** Preferred request media types option name. */
+	public static final String PARSER_API_PREFERRED_REQUEST_MEDIATYPES = "parser-api-preferred-request-mediatypes";
+	/** Preferred response media types option name. */
+	public static final String PARSER_API_PREFERRED_RESPONSE_MEDIATYPES = "parser-api-preferred-response-mediatypes";
+
+	/** User options. */
     private final OptionReader or;
 
     /**
@@ -22,13 +27,13 @@ public final class ParserOpts {
 
     /** {@return list of preferred media types selection if there are multiple types for responses} */
     public List<String> getPreferredResponseMediaTypes() {
-        String mediaTypes = or.getDefault("parser-api-preferred-response-mediatypes", "");
+        String mediaTypes = or.getDefault(PARSER_API_PREFERRED_RESPONSE_MEDIATYPES, "");
         return or.splitByComma(mediaTypes);
     }
 
     /** {@return list of preferred media types selection if there are multiple types for requests} */
     public List<String> getPreferredRequestMediaTypes() {
-        String mediaTypes = or.getDefault("parser-api-preferred-request-mediatypes", "");
+        String mediaTypes = or.getDefault(PARSER_API_PREFERRED_REQUEST_MEDIATYPES, "");
         return or.splitByComma(mediaTypes);
     }
 
