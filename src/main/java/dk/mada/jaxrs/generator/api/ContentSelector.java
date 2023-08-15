@@ -22,7 +22,7 @@ import dk.mada.jaxrs.openapi.ParserOpts;
  * TODO: clone of code in .openapi. Need to converge somehow. Maybe delay selection to render time instead.
  */
 public class ContentSelector {
-	private static final Logger logger = LoggerFactory.getLogger(ContentSelector.class);
+    private static final Logger logger = LoggerFactory.getLogger(ContentSelector.class);
 
     /** Preferred request media types. */
     private final List<Pattern> preferredRequestMediaTypes;
@@ -63,13 +63,13 @@ public class ContentSelector {
 
         // Find first match in preference order
         for (Pattern p : preferredMediaTypes) {
-            for (String mediaType: mediaTypes) {
+            for (String mediaType : mediaTypes) {
                 if (p.matcher(mediaType).matches()) {
                     return Optional.of(mediaType);
                 }
             }
         }
-        
+
         logger.warn("Preferred patterns: {}", preferredMediaTypes);
         logger.warn("Media types: {}", mediaTypes);
 
