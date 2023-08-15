@@ -7,8 +7,8 @@
 
 package mada.tests.e2e.api.types_mediatypes.api;
 
-import javax.validation.Valid;
-import javax.ws.rs.*;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.*;
 import mada.tests.e2e.api.types_mediatypes.dto.ExceptionInformation;
 import mada.tests.e2e.api.types_mediatypes.dto.LogEntry;
 import mada.tests.e2e.api.types_mediatypes.dto.LogResult;
