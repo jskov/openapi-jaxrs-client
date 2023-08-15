@@ -66,7 +66,7 @@ public class ContentSelector {
             this.optionName = optionName;
         }
 
-        /* {@return the option name necessary to control selection at this location} */
+        /** {@return the option name necessary to control selection at this location} */
         public String optionName() {
             return optionName;
         }
