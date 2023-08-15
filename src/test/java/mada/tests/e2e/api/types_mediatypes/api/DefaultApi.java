@@ -10,7 +10,7 @@ package mada.tests.e2e.api.types_mediatypes.api;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import mada.tests.e2e.api.types_mediatypes.dto.ExceptionInformation;
-import mada.tests.e2e.api.types_mediatypes.dto.LogEntryV2;
+import mada.tests.e2e.api.types_mediatypes.dto.LogEntry;
 import mada.tests.e2e.api.types_mediatypes.dto.LogResult;
 import mada.tests.e2e.api.types_mediatypes.dto.ViolationConstraint;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -41,5 +41,5 @@ public interface DefaultApi {
                  content = @Content(schema = @Schema(implementation = ExceptionInformation.class)))
   })
   @Operation(summary = "adds an audit log")
-  LogResult addEntryV1(@Valid LogEntryV2 dto);
+  LogResult addEntryV1(@Valid LogEntry dto);
 }
