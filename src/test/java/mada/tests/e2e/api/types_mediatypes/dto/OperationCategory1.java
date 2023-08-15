@@ -7,10 +7,10 @@
 
 package mada.tests.e2e.api.types_mediatypes.dto;
 
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+import jakarta.json.Json;
+import jakarta.json.JsonString;
+import jakarta.json.bind.adapter.JsonbAdapter;
+import jakarta.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * OperationCategory1

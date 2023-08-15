@@ -7,8 +7,8 @@
 
 package mada.tests.e2e.api.types_mediatypes.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
 
 /**
  * Violation

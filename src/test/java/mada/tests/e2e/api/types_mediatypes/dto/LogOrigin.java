@@ -7,11 +7,11 @@
 
 package mada.tests.e2e.api.types_mediatypes.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**

@@ -7,11 +7,11 @@
 
 package mada.tests.e2e.api.types_mediatypes.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.validation.Valid;
 
 /**
  * ViolationConstraint
