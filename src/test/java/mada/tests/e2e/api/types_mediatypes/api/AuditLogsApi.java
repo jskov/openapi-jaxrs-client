@@ -21,7 +21,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/audit-logs")
-public interface DefaultApi {
+public interface AuditLogsApi {
 
   /**
    * adds an audit log.

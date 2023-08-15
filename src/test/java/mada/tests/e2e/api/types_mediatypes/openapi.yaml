@@ -4,9 +4,15 @@ info:
   title: Auditlog API
   description: API for accessing the auditlogging
   version: 1.0.0
+tags:
+- name: auditlog
+  description: Operations related to auditlogging.
+- name: audit-logs
 paths:
   /audit-logs:
     post:
+      tags:
+      - audit-logs
       summary: adds an audit log
       operationId: addEntryV1
       requestBody:
