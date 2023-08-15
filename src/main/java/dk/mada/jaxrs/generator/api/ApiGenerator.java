@@ -487,10 +487,15 @@ public class ApiGenerator {
 
     private Optional<String> makeConsumes(Imports imports, Operation op) {
         List<String> mediaTypes = op.requestBody()
-                .map(rb -> makeCombinedMediaTypes(imports, rb.content().mediaTypes().stream()))
+                .map(rb -> rb.content().mediaTypes().stream()
+                        .sorted()
+                        .distinct()
+                        .toList()
+                		)
                 .orElse(List.of());
 
-        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.path(), false, Location.REQUEST));
+        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.path(), false, Location.REQUEST))
+        		.map(mt -> toMediaType(imports, mt));
     }
 
     private Optional<String> makeProduces(Imports imports, Operation op) {

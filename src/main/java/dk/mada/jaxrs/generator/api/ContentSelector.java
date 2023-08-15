@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import dk.mada.jaxrs.openapi.ContentSelector.ContentContext;
 import dk.mada.jaxrs.openapi.ContentSelector.Location;
 import dk.mada.jaxrs.openapi.ParserOpts;
@@ -19,6 +22,8 @@ import dk.mada.jaxrs.openapi.ParserOpts;
  * TODO: clone of code in .openapi. Need to converge somehow. Maybe delay selection to render time instead.
  */
 public class ContentSelector {
+	private static final Logger logger = LoggerFactory.getLogger(ContentSelector.class);
+
     /** Preferred request media types. */
     private final List<Pattern> preferredRequestMediaTypes;
     /** Preferred response media types. */
@@ -58,13 +63,15 @@ public class ContentSelector {
 
         // Find first match in preference order
         for (Pattern p : preferredMediaTypes) {
-            for (String mediaTypeQuoted : mediaTypes) {
-                String mediaType = mediaTypeQuoted.replaceFirst("^['\"]", "").replaceFirst("['\"]$", "");
+            for (String mediaType: mediaTypes) {
                 if (p.matcher(mediaType).matches()) {
-                    return Optional.of(mediaTypeQuoted);
+                    return Optional.of(mediaType);
                 }
             }
         }
+        
+        logger.warn("Preferred patterns: {}", preferredMediaTypes);
+        logger.warn("Media types: {}", mediaTypes);
 
         throw new IllegalStateException(
                 "Path " + context.resourcePath() + " has multiple content types. Use " + context.location().optionName + " to select");

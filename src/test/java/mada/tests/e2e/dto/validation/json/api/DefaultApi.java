@@ -26,7 +26,7 @@ public interface DefaultApi {
    * @param dto  (required)
    */
   @POST
-  @Consumes({"application/xml", "text/json", "text/xml", MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON})
+  @Consumes(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "204", description = "OK")
   })
