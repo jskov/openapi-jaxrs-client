@@ -45,6 +45,8 @@ import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.openapi.ContentSelector.ContentContext;
+import dk.mada.jaxrs.openapi.ContentSelector.Location;
 
 /**
  * API generator.
@@ -71,6 +73,8 @@ public class ApiGenerator {
     private final Templates templates;
     /** The data model. */
     private final Model model;
+    /** Content selector. */
+    private final ContentSelector contentSelector;
 
     /** Common path finder. */
     private final CommonPathFinder commonPathFinder = new CommonPathFinder();
@@ -85,8 +89,9 @@ public class ApiGenerator {
      * @param templates     the templates instance
      * @param model         the data model
      */
-    public ApiGenerator(Naming naming, GeneratorOpts generatorOpts, Templates templates, Model model) {
+    public ApiGenerator(Naming naming, ContentSelector contentSelector, GeneratorOpts generatorOpts, Templates templates, Model model) {
         this.naming = naming;
+        this.contentSelector = contentSelector;
         this.opts = generatorOpts;
         this.templates = templates;
         this.model = model;
@@ -481,8 +486,11 @@ public class ApiGenerator {
     // TODO: these should be combined smarter - base should take Content as argument instead, avoid use of streams
     
     private Optional<String> makeConsumes(Imports imports, Operation op) {
-        return op.requestBody()
-                .flatMap(rb -> makeMediaTypeArgs(imports, rb.content().mediaTypes().stream()));
+    	List<String> mediaTypes = op.requestBody()
+    		.map(rb -> makeCombinedMediaTypes(imports, rb.content().mediaTypes().stream()))
+    		.orElse(List.of());
+
+    	return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.path(), false, Location.REQUEST));
     }
 
     private Optional<String> makeProduces(Imports imports, Operation op) {
@@ -501,10 +509,10 @@ public class ApiGenerator {
     
     private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
         List<String> wrappedMediaTypes = makeCombinedMediaTypes(imports, mediaTypes);
-        return makeMediaTypeArgs(imports, wrappedMediaTypes);
+        return makeMediaTypeArgs(wrappedMediaTypes);
     }
 
-    private Optional<String> makeMediaTypeArgs(Imports imports, List<String> mediaTypes) {
+    private Optional<String> makeMediaTypeArgs(List<String> mediaTypes) {
         if (mediaTypes.isEmpty()) {
             return Optional.empty();
         }
