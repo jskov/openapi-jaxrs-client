@@ -7,6 +7,7 @@ import java.util.Properties;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.ApiGenerator;
+import dk.mada.jaxrs.generator.api.ContentSelector;
 import dk.mada.jaxrs.generator.dto.DtoGenerator;
 import dk.mada.jaxrs.gradle.GeneratorService;
 import dk.mada.jaxrs.model.Model;
@@ -16,6 +17,7 @@ import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.ParserOpts;
 import dk.mada.jaxrs.openapi.ParserTypeRefs;
 import dk.mada.jaxrs.utils.DirectoryDeleter;
+import dk.mada.jaxrs.utils.OptionReader;
 import dk.mada.logging.LoggerConfig;
 
 /**
@@ -54,10 +56,12 @@ public final class Generator implements GeneratorService {
             assertInputFile(openapiDocument);
 
             var typeNames = new TypeNames();
-            var parserOpts = new ParserOpts(options);
-            var generatorOpts = new GeneratorOpts(options, parserOpts);
+            var optionReader = new OptionReader(options);
+            var parserOpts = new ParserOpts(optionReader);
+            var generatorOpts = new GeneratorOpts(optionReader, parserOpts);
             var naming = new Naming(options);
             var parserRefs = new ParserTypeRefs(typeNames);
+            var contentSelector = new ContentSelector(parserOpts);
 
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
@@ -69,7 +73,7 @@ public final class Generator implements GeneratorService {
             if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
                 Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
                 Files.createDirectories(apiDir);
-                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
+                new ApiGenerator(naming, contentSelector, generatorOpts, templates, model).generateApiClasses(apiDir);
             }
             if (!clientContext.skipDto()) {
                 Files.createDirectories(dtoDir);

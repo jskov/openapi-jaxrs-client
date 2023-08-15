@@ -45,6 +45,8 @@ import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.openapi.ContentSelector.ContentContext;
+import dk.mada.jaxrs.openapi.ContentSelector.Location;
 
 /**
  * API generator.
@@ -71,6 +73,8 @@ public class ApiGenerator {
     private final Templates templates;
     /** The data model. */
     private final Model model;
+    /** Content selector. */
+    private final ContentSelector contentSelector;
 
     /** Common path finder. */
     private final CommonPathFinder commonPathFinder = new CommonPathFinder();
@@ -80,13 +84,15 @@ public class ApiGenerator {
     /**
      * Constructs a new API generator.
      *
-     * @param naming        the naming instance
-     * @param generatorOpts the generator options
-     * @param templates     the templates instance
-     * @param model         the data model
+     * @param naming          the naming instance
+     * @param contentSelector the content selector
+     * @param generatorOpts   the generator options
+     * @param templates       the templates instance
+     * @param model           the data model
      */
-    public ApiGenerator(Naming naming, GeneratorOpts generatorOpts, Templates templates, Model model) {
+    public ApiGenerator(Naming naming, ContentSelector contentSelector, GeneratorOpts generatorOpts, Templates templates, Model model) {
         this.naming = naming;
+        this.contentSelector = contentSelector;
         this.opts = generatorOpts;
         this.templates = templates;
         this.model = model;
@@ -424,13 +430,17 @@ public class ApiGenerator {
     }
 
     private List<CtxApiResponse> getResponses(Imports imports, Operation op) {
+        var streamAllTypes = op.responses().stream()
+                .flatMap(r -> r.content().mediaTypes().stream());
+        List<String> opResponseMediaTypes = makeCombinedMediaTypes(imports, streamAllTypes);
+
         return op.responses().stream()
                 .sorted((a, b) -> a.code().compareTo(b.code()))
-                .map(r -> makeResponse(imports, r))
+                .map(r -> makeResponse(imports, r, opResponseMediaTypes))
                 .toList();
     }
 
-    private CtxApiResponse makeResponse(Imports imports, Response r) {
+    private CtxApiResponse makeResponse(Imports imports, Response r, List<String> opResponseMediaTypes) {
         String baseType;
         String containerType;
         Reference typeRef = r.content().reference();
@@ -451,6 +461,16 @@ public class ApiGenerator {
             containerType = null;
         }
 
+        // If a response uses fewer media-types than the entire op, specify them in the OpenApi annotation
+        Optional<String> mediaType;
+        Set<String> responseMediaTypes = r.content().mediaTypes();
+        if (opResponseMediaTypes.size() > 1 && !responseMediaTypes.containsAll(opResponseMediaTypes)) {
+            mediaType = makeMediaTypeArgs(imports, responseMediaTypes.stream());
+            logger.debug("  response needs {} of {}", mediaType, opResponseMediaTypes);
+        } else {
+            mediaType = Optional.empty();
+        }
+
         String description = r.description()
                 .orElse("");
 
@@ -460,12 +480,22 @@ public class ApiGenerator {
                 .containerType(containerType)
                 .description(StringRenderer.encodeForString(description))
                 .isUnique(isUnique)
+                .mediaType(mediaType)
                 .build();
     }
 
+    // TODO: these should be combined smarter - base should take Content as argument instead, avoid use of streams
+
     private Optional<String> makeConsumes(Imports imports, Operation op) {
-        return op.requestBody()
-                .flatMap(rb -> makeMediaTypeArgs(imports, rb.content().mediaTypes().stream()));
+        List<String> mediaTypes = op.requestBody()
+                .map(rb -> rb.content().mediaTypes().stream()
+                        .sorted()
+                        .distinct()
+                        .toList())
+                .orElse(List.of());
+
+        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.path(), false, Location.REQUEST))
+                .map(mt -> toMediaType(imports, mt));
     }
 
     private Optional<String> makeProduces(Imports imports, Operation op) {
@@ -474,19 +504,26 @@ public class ApiGenerator {
         return makeMediaTypeArgs(imports, combinedMediaTypes);
     }
 
-    private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
-        List<String> wrappedMediaTypes = mediaTypes
+    private List<String> makeCombinedMediaTypes(Imports imports, Stream<String> mediaTypes) {
+        return mediaTypes
                 .map(mt -> toMediaType(imports, mt))
                 .sorted()
                 .distinct()
                 .toList();
+    }
 
-        if (wrappedMediaTypes.isEmpty()) {
+    private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
+        List<String> wrappedMediaTypes = makeCombinedMediaTypes(imports, mediaTypes);
+        return makeMediaTypeArgs(wrappedMediaTypes);
+    }
+
+    private Optional<String> makeMediaTypeArgs(List<String> mediaTypes) {
+        if (mediaTypes.isEmpty()) {
             return Optional.empty();
         }
 
-        String arg = String.join(", ", wrappedMediaTypes);
-        if (wrappedMediaTypes.size() > 1) {
+        String arg = String.join(", ", mediaTypes);
+        if (mediaTypes.size() > 1) {
             return Optional.of("{" + arg + "}");
         }
         return Optional.of(arg);

@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import static java.util.stream.Collectors.toSet;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -22,14 +20,13 @@ import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.Reference;
-import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.openapi.ContentSelector.ContentContext;
+import dk.mada.jaxrs.openapi.ContentSelector.Location;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
 import io.swagger.v3.oas.models.Paths;
-import io.swagger.v3.oas.models.media.MediaType;
-import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.parameters.PathParameter;
 import io.swagger.v3.oas.models.parameters.QueryParameter;
@@ -52,6 +49,8 @@ public class ApiTransformer {
     private final TypeConverter typeConverter;
     /** Security schemes. */
     private final List<SecurityScheme> securitySchemes;
+    /** Content selector. */
+    private final ContentSelector contentSelector;
 
     /** List of operations added as the api is traversed. */
     private final List<Operation> ops = new ArrayList<>();
@@ -69,6 +68,8 @@ public class ApiTransformer {
         this.parseOpts = parseOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
+
+        contentSelector = new ContentSelector(parseOpts, typeConverter);
     }
 
     /**
@@ -150,10 +151,11 @@ public class ApiTransformer {
     }
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
+        ContentContext cc = new ContentContext(resourcePath, false, Location.RESPONSE);
         Response r = Response.builder()
                 .code(StatusCode.of(code))
                 .description(Optional.ofNullable(resp.getDescription()))
-                .content(getContent(resourcePath, resp.getContent(), false))
+                .content(contentSelector.selectContent(resp.getContent(), cc))
                 .build();
 
         if (r.code() == StatusCode.HTTP_OK && r.content().reference().isVoid()) {
@@ -171,79 +173,14 @@ public class ApiTransformer {
         return r;
     }
 
-    private Content getContent(String resourcePath, io.swagger.v3.oas.models.media.Content c, boolean isRequired) {
-        Reference ref;
-        Set<String> mediaTypes;
-        List<Parameter> formParameters = List.of();
-
-        if (c == null) {
-            ref = TypeVoid.getRef();
-            mediaTypes = Set.of();
-        } else {
-            mediaTypes = c.keySet();
-
-            @SuppressWarnings("rawtypes")
-            Set<Schema> schemas = c.values().stream()
-                    .map(MediaType::getSchema)
-                    .collect(toSet());
-
-            if (schemas.isEmpty()) {
-                ref = TypeVoid.getRef();
-            } else if (schemas.size() > 1) {
-                // The assumption is that the underlying type must be the same.
-                // But there may be different examples/descriptions whatnot to collect.
-                throw new IllegalStateException("Cannot handle multiple schemas yet: " + resourcePath);
-            } else {
-                Schema<?> ss = schemas.iterator().next();
-                if (ss == null) {
-                    // This happens in some documents
-                    ref = TypeVoid.getRef();
-                } else {
-                    ref = typeConverter.toReference(ss, isRequired);
-
-                    // form parameters via properties on body
-                    @SuppressWarnings({ "rawtypes" })
-                    Map<String, Schema> props = ss.getProperties();
-                    if (props != null) {
-                        formParameters = props.entrySet().stream()
-                                .map(e -> toFormParameter(e.getKey(), e.getValue()))
-                                .toList();
-                    }
-                }
-            }
-        }
-        logger.debug("Content reference {}", ref);
-
-        return Content.builder()
-                .mediaTypes(mediaTypes)
-                .reference(ref)
-                .formParameters(formParameters)
-                .build();
-    }
-
-    // At least an enum parameter may have to be rendered as a standalone
-    // type (DTO). This does not happen with this code alone.
-    private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
-        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null);
-        logger.debug("Parse form param {} : {}", name, dtoPtr);
-
-        return Parameter.builder()
-                .name(name)
-                .isHeaderParam(false)
-                .isPathParam(false)
-                .isQueryParam(false)
-                .isFormParam(true)
-                .reference(dtoPtr)
-                .build();
-    }
-
     private Optional<RequestBody> getRequestBody(String resourcePath, io.swagger.v3.oas.models.Operation op) {
         io.swagger.v3.oas.models.parameters.RequestBody body = op.getRequestBody();
         if (body == null) {
             return Optional.empty();
         }
-        boolean isRequired = toBool(body.getRequired());
-        Content content = getContent(resourcePath, body.getContent(), isRequired);
+
+        ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
+        Content content = contentSelector.selectContent(body.getContent(), cc);
 
         return Optional.of(
                 RequestBody.builder()

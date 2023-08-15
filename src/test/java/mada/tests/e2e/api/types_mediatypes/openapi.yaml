@@ -1,0 +1,216 @@
+---
+openapi: 3.0.3
+info:
+  title: Auditlog API
+  description: API for accessing the auditlogging
+  version: 1.0.0
+tags:
+- name: auditlog
+  description: Operations related to auditlogging.
+- name: audit-logs
+paths:
+  /audit-logs:
+    post:
+      tags:
+      - audit-logs
+      summary: adds an audit log
+      operationId: addEntryV1
+      requestBody:
+        content:
+          application/vnd.auditlog.entry+json;version=v2:
+            schema:
+              $ref: '#/components/schemas/LogEntryV2'
+          application/vnd.auditlog.entry+json;version=v1:
+            schema:
+              $ref: '#/components/schemas/LogEntry'
+      responses:
+        "200":
+          description: Successfully added the log
+          content:
+            application/x.auditlog.result+json;version=v1:
+              schema:
+                $ref: '#/components/schemas/LogResult'
+        "400":
+          description: Constraints violation
+          content:
+            application/x.auditlog.violations+json;version=v1:
+              schema:
+                $ref: '#/components/schemas/ViolationConstraint'
+        "500":
+          description: Internal error or backend failure
+          content:
+            application/x.auditlog.error+json;version=v1:
+              schema:
+                $ref: '#/components/schemas/ExceptionInformation'
+components:
+  schemas:
+    Domain:
+      enum:
+      - PRODUCT
+      - TEST
+      type: string
+    Duration:
+      format: duration
+      type: string
+      example: P1D
+    ExceptionInformation:
+      type: object
+      properties:
+        cause:
+          type: string
+        exception-class:
+          type: string
+        message:
+          type: string
+    InitiatorType:
+      enum:
+      - USER_ID
+      - SERVICE_USER
+      type: string
+    LogEntry:
+      required:
+      - correlation-id
+      - origin
+      - initiator
+      - operation-category
+      - operation
+      - message
+      type: object
+      properties:
+        time-of-event:
+          $ref: '#/components/schemas/OffsetDateTime'
+        correlation-id:
+          maxLength: 40
+          minLength: 1
+          type: string
+        origin:
+          $ref: '#/components/schemas/LogOrigin'
+        initiator:
+          $ref: '#/components/schemas/LogInitiator'
+        operation-category:
+          $ref: '#/components/schemas/OperationCategory'
+        operation:
+          pattern: \S
+          type: string
+        message:
+          pattern: \S
+          type: string
+    LogEntryV2:
+      required:
+      - correlation-id
+      - origin
+      - initiator
+      - operation-category
+      - operation
+      - message
+      type: object
+      properties:
+        time-of-event:
+          $ref: '#/components/schemas/OffsetDateTime'
+        correlation-id:
+          maxLength: 40
+          minLength: 1
+          type: string
+        origin:
+          $ref: '#/components/schemas/LogOrigin'
+        initiator:
+          $ref: '#/components/schemas/LogInitiator'
+        operation-category:
+          $ref: '#/components/schemas/OperationCategory1'
+        operation:
+          pattern: \S
+          type: string
+        message:
+          pattern: \S
+          type: string
+    LogInitiator:
+      required:
+      - type
+      - initiator
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/InitiatorType'
+        initiator:
+          pattern: \S
+          type: string
+        remote-host-id:
+          type: string
+        remote-ip:
+          type: string
+    LogOrigin:
+      required:
+      - platform
+      - environment
+      - application-name
+      - application-version
+      - application-host-id
+      - domain
+      type: object
+      properties:
+        platform:
+          $ref: '#/components/schemas/RuntimePlatform'
+        environment:
+          pattern: \S
+          type: string
+        application-name:
+          pattern: \S
+          type: string
+        application-version:
+          pattern: \S
+          type: string
+        application-host-id:
+          pattern: \S
+          type: string
+        domain:
+          $ref: '#/components/schemas/Domain'
+    LogResult:
+      type: object
+      properties:
+        time-of-event:
+          $ref: '#/components/schemas/OffsetDateTime'
+        duration-for-adding-event:
+          $ref: '#/components/schemas/Duration'
+    OffsetDateTime:
+      format: date-time
+      type: string
+      example: 2022-03-10T12:15:50-04:00
+    OperationCategory:
+      enum:
+      - CREATE
+      - READ
+      - UPDATE
+      - DELETE
+      type: string
+    OperationCategory1:
+      enum:
+      - CREATE
+      - READ
+      - UPDATE
+      - DELETE
+      type: string
+    RuntimePlatform:
+      enum:
+      - POSEIDON
+      type: string
+    Violation:
+      type: object
+      properties:
+        property-path:
+          type: string
+        root-bean-class:
+          type: string
+        message:
+          type: string
+    ViolationConstraint:
+      type: object
+      properties:
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Violation'
+  securitySchemes:
+    SecurityScheme:
+      type: http
+      description: Authentication
+      scheme: basic
