@@ -74,6 +74,6 @@ public class ContentSelector {
         logger.warn("Media types: {}", mediaTypes);
 
         throw new IllegalStateException(
-                "Path " + context.resourcePath() + " has multiple content types. Use " + context.location().optionName + " to select");
+                "Path " + context.resourcePath() + " has multiple content types. Use " + context.location().optionName() + " to select");
     }
 }

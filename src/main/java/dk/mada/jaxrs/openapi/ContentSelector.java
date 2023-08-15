@@ -54,13 +54,21 @@ public class ContentSelector {
 
     /** Location of the content to resolve. */
     public enum Location {
+        /** Marks the request part of the operation. */
         REQUEST(ParserOpts.PARSER_API_PREFERRED_REQUEST_MEDIATYPES),
+        /** Marks the response part of the operation. */
         RESPONSE(ParserOpts.PARSER_API_PREFERRED_RESPONSE_MEDIATYPES);
 
-        public final String optionName;
+        /** The option name necessary to control selection at this location. */
+        private final String optionName;
 
-        private Location(String optionName) {
+        Location(String optionName) {
             this.optionName = optionName;
+        }
+
+        /* {@return the option name necessary to control selection at this location} */
+        public String optionName() {
+            return optionName;
         }
     }
 
@@ -147,7 +155,7 @@ public class ContentSelector {
         }
 
         throw new IllegalStateException(
-                "Path " + context.resourcePath + " has multiple content types. Use " + context.location.optionName + " to select");
+                "Path " + context.resourcePath() + " has multiple content types. Use " + context.location().optionName() + " to select");
     }
 
     // At least an enum parameter may have to be rendered as a standalone

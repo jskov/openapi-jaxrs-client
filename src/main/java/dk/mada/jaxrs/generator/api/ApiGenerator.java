@@ -84,10 +84,11 @@ public class ApiGenerator {
     /**
      * Constructs a new API generator.
      *
-     * @param naming        the naming instance
-     * @param generatorOpts the generator options
-     * @param templates     the templates instance
-     * @param model         the data model
+     * @param naming          the naming instance
+     * @param contentSelector the content selector
+     * @param generatorOpts   the generator options
+     * @param templates       the templates instance
+     * @param model           the data model
      */
     public ApiGenerator(Naming naming, ContentSelector contentSelector, GeneratorOpts generatorOpts, Templates templates, Model model) {
         this.naming = naming;
