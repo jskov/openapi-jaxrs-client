@@ -42,6 +42,35 @@ paths:
             application/x.auditlog.error+json;version=v1:
               schema:
                 $ref: '#/components/schemas/ExceptionInformation'
+  /multiple-responses:
+    post:
+      tags:
+      - audit-logs
+      summary: adds an audit log
+      requestBody:
+        content:
+          application/vnd.auditlog.entry+json;version=v2:
+            schema:
+              $ref: '#/components/schemas/LogEntryV2'
+          application/vnd.auditlog.entry+json;version=v1:
+            schema:
+              $ref: '#/components/schemas/LogEntry'
+      responses:
+        "200":
+          description: Successfully added the log
+          content:
+            application/x.auditlog.result+json;version=v1:
+              schema:
+                $ref: '#/components/schemas/LogResult'
+            application/x.auditlog.result+json;version=v2:
+              schema:
+                $ref: '#/components/schemas/LogResultV2'
+        "400":
+          description: Constraints violation
+          content:
+            application/x.auditlog.violations+json;version=v1:
+              schema:
+                $ref: '#/components/schemas/ViolationConstraint'
 components:
   schemas:
     Domain:
@@ -167,6 +196,16 @@ components:
     LogResult:
       type: object
       properties:
+        time-of-event:
+          $ref: '#/components/schemas/OffsetDateTime'
+        duration-for-adding-event:
+          $ref: '#/components/schemas/Duration'
+    # Manually added
+    LogResultV2:
+      type: object
+      properties:
+        summary:
+          type: string
         time-of-event:
           $ref: '#/components/schemas/OffsetDateTime'
         duration-for-adding-event:
