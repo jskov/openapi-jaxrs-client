@@ -494,7 +494,7 @@ public class ApiGenerator {
                         .toList())
                 .orElse(List.of());
 
-        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.path(), false, Location.REQUEST))
+        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.httpMethod(), op.path(), false, Location.REQUEST))
                 .map(mt -> toMediaType(imports, mt));
     }
 

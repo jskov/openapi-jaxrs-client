@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Content;
+import dk.mada.jaxrs.model.api.HttpMethod;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
@@ -25,7 +26,6 @@ import dk.mada.jaxrs.openapi.ContentSelector.ContentContext;
 import dk.mada.jaxrs.openapi.ContentSelector.Location;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
-import io.swagger.v3.oas.models.PathItem.HttpMethod;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.parameters.PathParameter;
@@ -99,16 +99,18 @@ public class ApiTransformer {
                 .forEach((httpMethod, op) -> processOp(resourcePath, httpMethod, op));
     }
 
-    private void processOp(String resourcePath, HttpMethod httpMethod, io.swagger.v3.oas.models.Operation op) {
-        logger.debug(" process op {} : {}", resourcePath, httpMethod);
+    private void processOp(String resourcePath, io.swagger.v3.oas.models.PathItem.HttpMethod openapiHttpMethod, io.swagger.v3.oas.models.Operation op) {
+        logger.debug(" process op {} : {}", resourcePath, openapiHttpMethod);
         List<String> tags = op.getTags();
         if (tags == null) {
             tags = List.of();
         }
 
+        HttpMethod httpMethod = toModelHttpMethod(openapiHttpMethod);
+
         List<Parameter> parameters = new ArrayList<>(getParameters(op));
 
-        Optional<RequestBody> requestBody = getRequestBody(resourcePath, op);
+        Optional<RequestBody> requestBody = getRequestBody(httpMethod, resourcePath, op);
         requestBody.ifPresent(rb -> parameters.addAll(rb.content().formParameters()));
 
         List<Response> responses;
@@ -117,7 +119,7 @@ public class ApiTransformer {
                     .map(e -> {
                         String code = e.getKey();
                         ApiResponse resp = e.getValue();
-                        return toResponse(resourcePath, code, resp);
+                        return toResponse(httpMethod, resourcePath, code, resp);
                     })
                     .toList();
         } else {
@@ -131,7 +133,7 @@ public class ApiTransformer {
                 .deprecated(toBool(op.getDeprecated()))
                 .operationId(naming.convertOperationIdName(op.getOperationId()))
                 .syntheticOpId(generateSyntheticOpId(resourcePath, httpMethod))
-                .httpMethod(toModelHttpMethod(httpMethod))
+                .httpMethod(httpMethod)
                 .path(resourcePath)
                 .responses(responses)
                 .parameters(parameters)
@@ -150,8 +152,8 @@ public class ApiTransformer {
         return naming.convertOperationName(syntheticOpId);
     }
 
-    private Response toResponse(String resourcePath, String code, ApiResponse resp) {
-        ContentContext cc = new ContentContext(resourcePath, false, Location.RESPONSE);
+    private Response toResponse(HttpMethod httpMethod, String resourcePath, String code, ApiResponse resp) {
+        ContentContext cc = new ContentContext(httpMethod, resourcePath, false, Location.RESPONSE);
         Response r = Response.builder()
                 .code(StatusCode.of(code))
                 .description(Optional.ofNullable(resp.getDescription()))
@@ -173,13 +175,13 @@ public class ApiTransformer {
         return r;
     }
 
-    private Optional<RequestBody> getRequestBody(String resourcePath, io.swagger.v3.oas.models.Operation op) {
+    private Optional<RequestBody> getRequestBody(HttpMethod httpMethod, String resourcePath, io.swagger.v3.oas.models.Operation op) {
         io.swagger.v3.oas.models.parameters.RequestBody body = op.getRequestBody();
         if (body == null) {
             return Optional.empty();
         }
 
-        ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
+        ContentContext cc = new ContentContext(httpMethod, resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = contentSelector.selectContent(body.getContent(), cc);
 
         return Optional.of(
@@ -247,7 +249,7 @@ public class ApiTransformer {
         return Boolean.TRUE.equals(b);
     }
 
-    private dk.mada.jaxrs.model.api.HttpMethod toModelHttpMethod(HttpMethod m) {
-        return dk.mada.jaxrs.model.api.HttpMethod.valueOf(m.name());
+    private HttpMethod toModelHttpMethod(io.swagger.v3.oas.models.PathItem.HttpMethod m) {
+        return HttpMethod.valueOf(m.name());
     }
 }

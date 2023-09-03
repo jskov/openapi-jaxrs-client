@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.api.Content;
+import dk.mada.jaxrs.model.api.HttpMethod;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
@@ -75,11 +77,12 @@ public class ContentSelector {
     /**
      * The context of a content lookup.
      *
+     * @param httpMethod   the method of the resource
      * @param resourcePath the resource path where the content needs lookup. Used for error output only.
      * @param isRequired   true if the content is required
      * @param location     the location of the content
      */
-    public record ContentContext(String resourcePath, boolean isRequired, Location location) {
+    public record ContentContext(HttpMethod httpMethod, String resourcePath, boolean isRequired, Location location) {
     }
 
     /**
@@ -154,8 +157,12 @@ public class ContentSelector {
             }
         }
 
+        String mediaTypesStr = c.keySet().stream()
+                .sorted()
+                .collect(Collectors.joining(", "));
+
         throw new IllegalStateException(
-                "Path " + context.resourcePath() + " has multiple content types. Use " + context.location().optionName() + " to select");
+                "Resource " + context.httpMethod() + ":" + context.resourcePath() + " " + context.location() + " has multiple possible content types: " + mediaTypesStr + "\nUse option " + context.location().optionName() + " to select one.");
     }
 
     // At least an enum parameter may have to be rendered as a standalone
