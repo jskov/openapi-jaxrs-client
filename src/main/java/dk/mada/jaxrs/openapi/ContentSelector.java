@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import dk.mada.jaxrs.model.api.StatusCode;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,8 +83,9 @@ public class ContentSelector {
      * @param resourcePath the resource path where the content needs lookup. Used for error output only.
      * @param isRequired   true if the content is required
      * @param location     the location of the content
+     * @param code         the response code if location is a response
      */
-    public record ContentContext(HttpMethod httpMethod, String resourcePath, boolean isRequired, Location location) {
+    public record ContentContext(HttpMethod httpMethod, String resourcePath, boolean isRequired, Location location, @Nullable StatusCode code) {
     }
 
     /**
@@ -161,8 +164,9 @@ public class ContentSelector {
                 .sorted()
                 .collect(Collectors.joining(", "));
 
+        String location = context.location() == Location.RESPONSE ? Location.RESPONSE.toString() : (Location.REQUEST + ":" + "xxx");
         throw new IllegalStateException(
-                "Resource " + context.httpMethod() + ":" + context.resourcePath() + " " + context.location() + " has multiple possible content types: " + mediaTypesStr + "\nUse option " + context.location().optionName() + " to select one.");
+                "Resource " + context.httpMethod() + ":" + context.resourcePath() + " " + location + " has multiple possible content types: " + mediaTypesStr + "\nUse option " + context.location().optionName() + " to select one.");
     }
 
     // At least an enum parameter may have to be rendered as a standalone

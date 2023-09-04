@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import dk.mada.jaxrs.model.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,11 +32,6 @@ import dk.mada.jaxrs.generator.imports.MicroProfile;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
-import dk.mada.jaxrs.model.api.Content;
-import dk.mada.jaxrs.model.api.Operation;
-import dk.mada.jaxrs.model.api.Parameter;
-import dk.mada.jaxrs.model.api.Response;
-import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
@@ -436,11 +432,11 @@ public class ApiGenerator {
 
         return op.responses().stream()
                 .sorted((a, b) -> a.code().compareTo(b.code()))
-                .map(r -> makeResponse(imports, r, opResponseMediaTypes))
+                .map(r -> makeResponse(op, imports, r, opResponseMediaTypes))
                 .toList();
     }
 
-    private CtxApiResponse makeResponse(Imports imports, Response r, List<String> opResponseMediaTypes) {
+    private CtxApiResponse makeResponse(Operation op, Imports imports, Response r, List<String> opResponseMediaTypes) {
         String baseType;
         String containerType;
         Reference typeRef = r.content().reference();
@@ -465,11 +461,17 @@ public class ApiGenerator {
         Optional<String> mediaType;
         Set<String> responseMediaTypes = r.content().mediaTypes();
         if (opResponseMediaTypes.size() > 1 && !responseMediaTypes.containsAll(opResponseMediaTypes)) {
-            mediaType = makeMediaTypeArgs(imports, responseMediaTypes.stream());
+            List<String> selectedMediaType = contentSelector.selectPreferredMediaType(responseMediaTypes, new ContentContext(op.httpMethod(), op.path(), false, Location.RESPONSE, r.code())).stream()
+                    .toList();
+
+            mediaType = makeMediaTypeArgs(imports, selectedMediaType.stream());
             logger.debug("  response needs {} of {}", mediaType, opResponseMediaTypes);
         } else {
             mediaType = Optional.empty();
         }
+
+
+
 
         String description = r.description()
                 .orElse("");
@@ -494,7 +496,7 @@ public class ApiGenerator {
                         .toList())
                 .orElse(List.of());
 
-        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.httpMethod(), op.path(), false, Location.REQUEST))
+        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.httpMethod(), op.path(), false, Location.REQUEST, null))
                 .map(mt -> toMediaType(imports, mt));
     }
 
