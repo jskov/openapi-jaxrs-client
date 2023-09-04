@@ -1,7 +1,7 @@
 package dk.mada.jaxrs.model.api;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.immutables.value.Value.Immutable;
 
@@ -17,11 +17,8 @@ public interface Content {
         return ImmutableContent.builder();
     }
 
-    /** {@return the content media types supported} */
-    Set<String> mediaTypes();
-
-    /** {@return the content type} */
-    Reference reference();
+    /** {@return the content media types supported and their associated types} */
+    Map<String, Reference> mediaTypes();
 
     /** {@return the list of form parameters} */
     List<Parameter> formParameters();
