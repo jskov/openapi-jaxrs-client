@@ -26,6 +26,8 @@ import dk.mada.jaxrs.openapi.ContentSelector.Location;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
+import io.swagger.v3.oas.models.media.MediaType;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.parameters.PathParameter;
@@ -109,7 +111,7 @@ public class ApiTransformer {
         List<Parameter> parameters = new ArrayList<>(getParameters(op));
 
         Optional<RequestBody> requestBody = getRequestBody(resourcePath, op);
-        requestBody.ifPresent(rb -> parameters.addAll(rb.content().formParameters()));
+        requestBody.ifPresent(rb -> parameters.addAll(rb.formParameters()));
 
         List<Response> responses;
         if (op.getResponses() != null) {
@@ -181,12 +183,54 @@ public class ApiTransformer {
 
         ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = contentSelector.selectContent(body.getContent(), cc);
+        List<Parameter> formParameters = extractFormParameters(body.getContent());
 
         return Optional.of(
                 RequestBody.builder()
                         .description(Optional.ofNullable(body.getDescription()))
                         .content(content)
+                        .formParameters(formParameters)
                         .build());
+    }
+
+    /**
+     * Extracts form parameters. Probably too simple.
+     *
+     * @param content the OpenApi content
+     * @return the list of found form parameters
+     */
+    private List<Parameter> extractFormParameters(io.swagger.v3.oas.models.media.Content content) {
+        MediaType mt = content.get("application/x-www-form-urlencoded");
+        if (mt == null || mt.getSchema() == null) {
+            return List.of();
+        }
+
+        // form parameters via properties on body
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        Map<String, Schema> props = mt.getSchema().getProperties();
+        if (props == null) {
+            return List.of();
+        }
+
+        return props.entrySet().stream()
+                .map(e -> toFormParameter(e.getKey(), e.getValue()))
+                .toList();
+    }
+
+    // At least an enum parameter may have to be rendered as a standalone
+    // type (DTO). This does not happen with this code alone.
+    private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
+        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null);
+        logger.debug("Parse form param {} : {}", name, dtoPtr);
+
+        return Parameter.builder()
+                .name(name)
+                .isHeaderParam(false)
+                .isPathParam(false)
+                .isQueryParam(false)
+                .isFormParam(true)
+                .reference(dtoPtr)
+                .build();
     }
 
     // Just a shortcut to determine if auth header should be added

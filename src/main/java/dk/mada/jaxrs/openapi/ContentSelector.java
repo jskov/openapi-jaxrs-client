@@ -3,7 +3,6 @@ package dk.mada.jaxrs.openapi;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -11,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.api.Content;
-import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import io.swagger.v3.oas.models.media.MediaType;
@@ -92,7 +90,6 @@ public class ContentSelector {
     public Content selectContent(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
         Reference ref;
         Set<String> mediaTypes;
-        List<Parameter> formParameters = List.of();
 
         if (c == null) {
             ref = TypeVoid.getRef();
@@ -115,15 +112,6 @@ public class ContentSelector {
                     ref = TypeVoid.getRef();
                 } else {
                     ref = typeConverter.toReference(ss, context.isRequired());
-
-                    // form parameters via properties on body
-                    @SuppressWarnings({ "rawtypes" })
-                    Map<String, Schema> props = ss.getProperties();
-                    if (props != null) {
-                        formParameters = props.entrySet().stream()
-                                .map(e -> toFormParameter(e.getKey(), e.getValue()))
-                                .toList();
-                    }
                 }
             }
         }
@@ -132,7 +120,6 @@ public class ContentSelector {
         return Content.builder()
                 .mediaTypes(mediaTypes)
                 .reference(ref)
-                .formParameters(formParameters)
                 .build();
     }
 
@@ -156,21 +143,5 @@ public class ContentSelector {
 
         throw new IllegalStateException(
                 "Path " + context.resourcePath() + " has multiple content types. Use " + context.location().optionName() + " to select");
-    }
-
-    // At least an enum parameter may have to be rendered as a standalone
-    // type (DTO). This does not happen with this code alone.
-    private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
-        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null);
-        logger.debug("Parse form param {} : {}", name, dtoPtr);
-
-        return Parameter.builder()
-                .name(name)
-                .isHeaderParam(false)
-                .isPathParam(false)
-                .isQueryParam(false)
-                .isFormParam(true)
-                .reference(dtoPtr)
-                .build();
     }
 }
