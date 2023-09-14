@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.model.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.immutables.value.Value.Immutable;
@@ -16,6 +17,9 @@ public interface RequestBody {
 
     /** {@return the request body content} */
     Content content();
+
+    /** {@return the list of form parameters} */
+    List<Parameter> formParameters();
 
     /** {@return the an optional description of the request body} */
     Optional<String> description();

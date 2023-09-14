@@ -353,6 +353,7 @@ public final class Resolver {
     private RequestBody derefRequestBody(RequestBody requestBody) {
         return RequestBody.builder().from(requestBody)
                 .content(derefContent(requestBody.content()))
+                .formParameters(derefParams(requestBody.formParameters()))
                 .build();
     }
 
@@ -383,7 +384,6 @@ public final class Resolver {
     private Content derefContent(Content content) {
         return Content.builder().from(content)
                 .reference(resolve(content.reference()))
-                .formParameters(derefParams(content.formParameters()))
                 .build();
     }
 
