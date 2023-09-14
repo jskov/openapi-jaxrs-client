@@ -196,7 +196,7 @@ public class ApiTransformer {
     /**
      * Extracts form parameters. Probably too simple.
      *
-     * @param the OpenApi content
+     * @param content the OpenApi content
      * @return the list of found form parameters
      */
     private List<Parameter> extractFormParameters(io.swagger.v3.oas.models.media.Content content) {
