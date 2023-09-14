@@ -12,6 +12,17 @@ sourceSets {
         }
     }
 }
+
+// The APT plugin's task will append to the file if it already exists.
+// This causes trouble when updating versions of APT dependencies, as they
+// end up in the file in multiple versions.
+// Fix by deleting before generation
+tasks.named("eclipseFactorypath") {
+    doFirst {
+        delete ".factorypath"
+    }
+}
+
 // Need to make the output directory, or Gradle will not include it, and Eclipse gets sad.
 tasks.named("eclipseClasspath") {
     doFirst {
