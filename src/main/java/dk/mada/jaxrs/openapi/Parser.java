@@ -107,7 +107,7 @@ public final class Parser {
         List<String> schemaNamesDeclarationOrder = getSchemaOrder(specification);
         ConflictRenamer cr = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder);
 
-        Resolver resolver = new Resolver(typeNames, parserTypes, cr);
+        Resolver resolver = new Resolver(parserOpts, typeNames, parserTypes, cr);
         Operations derefOps = resolver.operations(operations);
 
         // This converts the parser references to model type references

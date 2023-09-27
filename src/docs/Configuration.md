@@ -14,6 +14,15 @@ The options are grouped into three sections:
 
 ## Parser options
 
+**parser-abort-on-resolver-failure**
+
+>This option allows you to control if the parser should abort if it cannot resolve a type.
+
+>This is an openapi-jaxrs-client debugging help. It does not help you if the resolver aborts.
+
+>
+    default value: true
+
 **parser-api-preferred-request-mediatypes**
 
 >This option allows selection of a preferred media-type for requests.
