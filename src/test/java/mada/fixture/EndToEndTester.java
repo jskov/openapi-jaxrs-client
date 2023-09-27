@@ -69,7 +69,7 @@ public class EndToEndTester {
         boolean skipDto = Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"));
 
         ClientContext cc = new ClientContext(true, GeneratorLogLevel.DEFAULT, skipApi, skipDto);
-        new Generator(false).generateClient(cc, input, testOptions, outputDir);
+        new Generator(true).generateClient(cc, input, testOptions, outputDir);
 
         logger.info("Generator returned");
         logger.info("Expected dir {}", input);

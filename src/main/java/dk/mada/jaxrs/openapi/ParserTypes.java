@@ -217,6 +217,9 @@ public class ParserTypes {
 
     /**
      * Collection types such as ListDto are changed to {@code List<Dto>}.
+     *
+     * Note: this also causes flat types (plain refs) to be inlined.
+     * This should happen in the resolver instead. 
      */
     public void consolidateDtos() {
         logger.info("Consolidate DTOs");
@@ -245,7 +248,8 @@ public class ParserTypes {
             } else if (type instanceof ParserTypeCombined) {
                 // no remapping of combined DTOs
             } else if (!(type instanceof TypeObject)) {
-                remapDto(openapiName, type);
+                logger.info("fallback remap {} to {} : {}", name, type, ref);
+//                remapDto(openapiName, type);
             }
         }
     }

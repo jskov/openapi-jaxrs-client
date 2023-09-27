@@ -85,9 +85,17 @@ public final class Resolver {
                     .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
+        Collection<Dto> flattenedDtos = flattenDtos(unresolvedDtos);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Flattened DTOs:");
+            unresolvedDtos.stream()
+                    .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
+        }
+
         // Rename DTOs as a separate pass so there are stable
         // targets for dereferencing during the resolve pass.
-        Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
+        Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(flattenedDtos);
 
         Collection<Dto> expandedDtos = extractCompositeDtos(renamedDtos);
 
@@ -103,6 +111,24 @@ public final class Resolver {
         }
 
         return dereferencedDtos;
+    }
+
+    private Collection<Dto> flattenDtos(Collection<Dto> dtos) {
+        logger.debug("Look for DTOs to flatten");
+        return dtos.stream()
+                .filter(this::flattenAndFilterDto)
+                .toList();
+    }
+    
+    private boolean flattenAndFilterDto(Dto dto) {
+        boolean keepDto = true;
+        logger.debug(" - {} {}", dto.name(), dto.reference());
+        
+        // FIXME: also handle non-TypeUnknown
+        TypeReference x = resolve(dto.reference());
+        logger.info("  - into : {}", x);
+        
+        return keepDto;
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
