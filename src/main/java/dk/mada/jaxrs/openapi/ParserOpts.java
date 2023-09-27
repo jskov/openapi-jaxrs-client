@@ -91,4 +91,9 @@ public final class ParserOpts {
     public boolean isFixupNullTypeDates() {
         return or.bool("parser-fixup-null-type-dates", false);
     }
+
+    /** {@return true if resolver should be abort on unknown types} */
+    public boolean isAbortOnResolverFailure() {
+        return or.bool("parser-abort-on-resolver-failure", true);
+    }
 }

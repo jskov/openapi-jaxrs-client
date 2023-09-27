@@ -49,18 +49,23 @@ public final class Resolver {
     private final ParserTypes parserTypes;
     /** Conflict renamer. */
     private final ConflictRenamer conflictRenamer;
+    /** Configuration to abort on resolver failure. */
+    private final boolean abortOnResolverFailure;
 
     /**
      * Create new instance.
      *
+     * @param parserOpts      the parser options
      * @param typeNames       the type names instance
      * @param parserTypes     the types collected during parsing
      * @param conflictRenamer the conflict renamer
      */
-    public Resolver(TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
+    public Resolver(ParserOpts parserOpts, TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
         this.conflictRenamer = conflictRenamer;
+
+        abortOnResolverFailure = parserOpts.isAbortOnResolverFailure();
     }
 
     /**
@@ -407,6 +412,14 @@ public final class Resolver {
      */
     private TypeReference resolve(ParserTypeRef ptr) {
         Type t = ptr.refType() == UNKNOWN_TYPE ? parserTypes.get(ptr.refTypeName()) : ptr.refType();
+
+        // Terminate parsing early if the type cannot be resolve
+        // so nobody gets confused at compile time instead
+        if (abortOnResolverFailure && t == UNKNOWN_TYPE) {
+            throw new IllegalStateException(
+                    "Failed to resolve a pointer:\n " + ptr + "\nThis is probably a bug in openapi-jaxrs-client - please report!");
+        }
+
         Type resolvedT = resolveInner(t);
         TypeReference res = dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
 
