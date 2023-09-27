@@ -238,9 +238,18 @@ public final class Resolver {
                 .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
     }
 
-    private List<Dto> dereferenceDtos(Collection<Dto> foldedDtos) {
+    /**
+     * This dereferences the name-based parser-type-references into
+     * the actual target types.
+     *
+     * FIXME: This is where simple types may get replaced.
+     *
+     * @param dtos the collection of DTOs still using ptrs
+     * @return dereferenced DTOs
+     */
+    private List<Dto> dereferenceDtos(Collection<Dto> dtos) {
         logger.debug("Dereference DTOs");
-        return foldedDtos.stream()
+        return dtos.stream()
                 .map(this::derefDto)
                 .toList();
     }
