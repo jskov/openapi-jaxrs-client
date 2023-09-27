@@ -27,9 +27,11 @@ components:
       required:
         - senestOpdat
       properties:
+        # This should flatten to senest-optat, then bdws-timestamp
         senestOpdat:
           $ref: '#/components/schemas/senest-opdat'
 
+    # This should flatten to bdws-timestamp
     senest-opdat:
       $ref: '#/components/schemas/bdws-timestamp'
 
