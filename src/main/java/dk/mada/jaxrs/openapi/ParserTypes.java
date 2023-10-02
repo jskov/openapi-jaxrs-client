@@ -254,7 +254,7 @@ public class ParserTypes {
         }
     }
 
-    private void remapDto(TypeName openapiName, Type newType) {
+    public void remapDto(TypeName openapiName, Type newType) {
         logger.info("  remap {} to {}", openapiName, newType);
         Type oldType = remappedDtoTypes.put(openapiName, newType);
         if (oldType != null) {

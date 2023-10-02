@@ -89,7 +89,7 @@ public final class Resolver {
 
         if (logger.isDebugEnabled()) {
             logger.debug("Flattened DTOs:");
-            unresolvedDtos.stream()
+            flattenedDtos.stream()
                     .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
@@ -120,15 +120,38 @@ public final class Resolver {
                 .toList();
     }
     
+    // FIXME: so what happens when a reference imparts extra validation?
     private boolean flattenAndFilterDto(Dto dto) {
         boolean keepDto = true;
-        logger.debug(" - {} {}", dto.name(), dto.reference());
+        String name = dto.name();
+        logger.debug(" - {} {}", name, dto.reference());
         
+        Reference ref = dto.reference();
+        if (isReferenceOnly(dto)) {
+            logger.info("XXX {}", dto);
+            
         // FIXME: also handle non-TypeUnknown
-        TypeReference x = resolve(dto.reference());
-        logger.info("  - into : {}", x);
+            TypeReference x = resolve(dto.reference());
+            logger.info("  - flatten {} to {}", name, x);
+            parserTypes.remapDto(dto.typeName(), x);
+            return false;
+        } else {
+            logger.info("  - keep {}", name);
+        }
         
         return keepDto;
+    }
+
+    /** {@return true if this DTO is only a reference to some other DTO} */
+    private static boolean isReferenceOnly(Dto dto) {
+        System.out.println(" see ref " + dto.reference());
+        return dto.reference() != null
+                && (dto.reference().refType() == UNKNOWN_TYPE || dto.reference().isDto())
+                && dto.properties().isEmpty()
+                && !dto.isEnum()
+                && dto.implementsInterfaces().isEmpty()
+                && !dto.subtypeSelector().isPresent()
+                && dto.extendsParents().isEmpty();
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {

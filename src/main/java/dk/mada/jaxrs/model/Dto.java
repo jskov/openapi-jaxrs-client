@@ -42,7 +42,7 @@ public interface Dto extends Type {
 
     /** {@return the type of the DTO object} */
     Reference reference();
-
+    
     /** {@return the optional description of the DTO} */
     Optional<String> description();
 
