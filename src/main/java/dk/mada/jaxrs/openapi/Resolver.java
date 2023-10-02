@@ -21,6 +21,7 @@ import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
+import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -114,34 +115,69 @@ public final class Resolver {
     }
 
     private Collection<Dto> flattenDtos(Collection<Dto> dtos) {
+        Collection<Dto> output = dtos;
         logger.debug("Look for DTOs to flatten");
-        return dtos.stream()
-                .filter(this::flattenAndFilterDto)
-                .toList();
+
+        boolean runAnotherPass;
+        int pass = 1;
+        do {
+            logger.debug(" Pass {}, {} dtos", pass, output.size());
+            boolean hack = pass > 1;
+            
+            List<Dto> updated = output.stream()
+                    .filter(d -> flattenAndFilterDto(d, hack))
+                    .toList();
+            runAnotherPass = output.size() != updated.size();
+            output = updated;
+            pass++;
+        } while (runAnotherPass);
+
+        logger.debug(" flattened to {} dtos", output.size());
+        return output;
     }
     
     // FIXME: so what happens when a reference imparts extra validation?
-    private boolean flattenAndFilterDto(Dto dto) {
+    // only flatten non-object targets
+    //  - hacked two passes:
+    //    1-n: remove $ref-only links
+    //    n: remove dtos that just wrap a primitive with validation (should end up being a TypeReference)
+    //
+    // fixme: requires further flattening of nested typereferences
+//    Types:
+//        DTOs: 
+//         KlarTilBeslutningsGrundlagResponse: TypeReference{validation=Validation{isRequired=false}, refType=TypeObject}
+//           senestOpdat: TypeReference{validation=Validation{isRequired=false}, refType=TypeReference{validation=Validation{isRequired=false}, refType=TypeReference{validation=Validation{isRequired=false}, refType=TypeReference{validation=Validation{isRequired=false}, refType=Dto{typeName=TypeName[name=BdwsTimestamp], name=BdwsTimestamp, mpSchemaName=BdwsTimestamp, reference=ParserTypeRef{validation=Validation{isRequired=false, pattern=^(\d{4}-\d{2}-\d{2}-\d{2}.\d{2}.\d{2}.\d{6})$}, refTypeName=TypeName[name=String], refType=STRING}, openapiId=TypeName[name=bdws-timestamp], properties=[], enumValues=[], implementsInterfaces=[], extendsParents=[]}}}}}
+
+    private boolean flattenAndFilterDto(Dto dto, boolean hack) {
         boolean keepDto = true;
         String name = dto.name();
-        logger.debug(" - {} {}", name, dto.reference());
+        logger.debug(" - {} {}", name, dto);
         
         Reference ref = dto.reference();
         if (isReferenceOnly(dto)) {
             logger.info("XXX {}", dto);
             
-        // FIXME: also handle non-TypeUnknown
             TypeReference x = resolve(dto.reference());
-            logger.info("  - flatten {} to {}", name, x);
+            logger.info("   : ref flatten {} to {}", name, x);
             parserTypes.remapDto(dto.typeName(), x);
             return false;
+        } else if (hack && isPrimitiveWrapperOnly(dto)) {
+            TypeReference x = resolve(dto.reference());
+            parserTypes.remapDto(dto.typeName(), x);
+            logger.info("   : wrapper flatten {} to {}", name, ref);
+            return false;
         } else {
-            logger.info("  - keep {}", name);
+            logger.info("   : keep {}", name);
         }
         
         return keepDto;
     }
 
+    // flatten DTOs that are only wrappers over primitives
+    // so client-site should inherit the validation
+    private static boolean isPrimitiveWrapperOnly(Dto dto) {
+        return dto.reference().refType().isPrimitive(Primitive.STRING);
+    }
     /** {@return true if this DTO is only a reference to some other DTO} */
     private static boolean isReferenceOnly(Dto dto) {
         System.out.println(" see ref " + dto.reference());
@@ -297,7 +333,7 @@ public final class Resolver {
      * @return dereferenced DTOs
      */
     private List<Dto> dereferenceDtos(Collection<Dto> dtos) {
-        logger.debug("Dereference DTOs");
+        logger.debug("==== Dereference DTOs");
         return dtos.stream()
                 .map(this::derefDto)
                 .toList();
@@ -387,8 +423,12 @@ public final class Resolver {
     }
 
     private Property derefProperty(Property property) {
+        String propName = property.name();
+        logger.info("    prop: {}", propName);
+        TypeReference resolvedRef = resolve(property.reference());
+        logger.info("    deref prop {}\n     from: {}\n     to: {}", propName, property.reference(), resolvedRef);
         return Property.builder().from(property)
-                .reference(resolve(property.reference()))
+                .reference(resolvedRef)
                 .build();
     }
 
@@ -451,6 +491,7 @@ public final class Resolver {
     }
 
     private TypeReference resolve(Reference ref) {
+        logger.info(" RESOLVE {}", ref);
         if (ref instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (ref instanceof TypeReference tr) {
@@ -492,6 +533,7 @@ public final class Resolver {
      * @return the final model type
      */
     private Type resolveInner(Type type) {
+        logger.debug(" resolveInner {}", type);
         if (type instanceof Dto dto) {
             return resolveDto(dto);
         } else if (type instanceof ParserTypeComposite ptc) {
@@ -517,6 +559,16 @@ public final class Resolver {
             Type newIt = resolveInner(it);
             logger.debug(" map {} -> {}", it, newIt);
             return TypeMap.of(typeNames, newIt);
+        } else if (type instanceof TypeReference tr) {
+            logger.info("   / see tr {}", tr);
+            if (tr.validation().isEmptyValidation()) {
+                Type refType = tr.refType();
+                if (refType instanceof TypeReference) {
+                    logger.debug(" flatten empty typeref {} -> {}", tr, refType);
+                    return refType;
+                }
+            }
+            return type;
         } else {
             logger.debug("NOT dereferencing {}", type);
             return type;
@@ -575,6 +627,8 @@ public final class Resolver {
         if (remappedDto == null) {
             throw new IllegalStateException("Did not find a dto named " + dtoName);
         }
+        
+        // FIXME: catches 2-level remapped dtos
         if (remappedDto instanceof Dto dto) {
             remappedDto = conflictRenamer.getConflictRenamedDto(dto);
         }

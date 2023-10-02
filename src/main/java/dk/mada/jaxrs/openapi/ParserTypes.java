@@ -31,6 +31,7 @@ import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypePlainObject;
+import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 
@@ -194,6 +195,16 @@ public class ParserTypes {
             type = remappedDtoTypes.get(tn);
             if (type != null) {
                 conversion = "remapped";
+                
+                // FIXME: problem here. find Dto remapped to BdwsTimestamp
+                // and returns it. But that is itself remapped. Maybe just loop here?
+                
+                
+                Type loopedType = remappedDtoTypes.get(type.typeName());
+                if (loopedType != null) {
+                    logger.info(" FIXME: probably continue to {}", loopedType);
+                    type = loopedType;
+                }
             }
         }
 
@@ -211,7 +222,7 @@ public class ParserTypes {
             }
         }
 
-        logger.debug("find {} -> {} : {}", name, conversion, type);
+        logger.info("find {} -> {} : {}", name, conversion, type);
         return Optional.ofNullable(type);
     }
 
@@ -255,10 +266,26 @@ public class ParserTypes {
     }
 
     public void remapDto(TypeName openapiName, Type newType) {
-        logger.info("  remap {} to {}", openapiName, newType);
-        Type oldType = remappedDtoTypes.put(openapiName, newType);
+        Type targetType = newType;
+        
+        // Flatten targets that are just reference pointers
+        boolean replaced;
+        do {
+            replaced = false;
+            if (targetType instanceof TypeReference tr) {
+                if (tr.validation().isEmptyValidation()) {
+                    logger.info("  removing empty reference!");
+                    targetType = tr.refType();
+                    replaced = true;
+                }
+            }
+        } while (replaced);
+
+        logger.info("  remap {} to {}", openapiName, targetType);
+
+        Type oldType = remappedDtoTypes.put(openapiName, targetType);
         if (oldType != null) {
-            throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + newType);
+            throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + targetType);
         }
     }
 
