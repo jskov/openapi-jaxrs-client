@@ -45,4 +45,19 @@ public interface AuditLogsApi {
   })
   @Operation(summary = "adds an audit log")
   LogResult addEntryV1(@Valid LogEntry dto);
+
+  /**
+   * deletes an audit log.
+   *
+   * @param dto  (optional)
+   */
+  @DELETE
+  @Consumes("application/vnd.auditlog.entry+json;version=v1")
+  @APIResponses({
+    @APIResponse(responseCode = "204", description = "Successfully deleted"),
+    @APIResponse(responseCode = "400", description = "Constraints violation",
+                 content = @Content(schema = @Schema(implementation = ViolationConstraint.class), mediaType = "application/x.auditlog.violations+json;version=v1"))
+  })
+  @Operation(summary = "deletes an audit log")
+  void deleteEntryV1(@Valid LogEntry dto);
 }

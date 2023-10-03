@@ -51,6 +51,31 @@ paths:
             application/x.auditlog.error+json;version=v1:
               schema:
                 $ref: '#/components/schemas/ExceptionInformation'
+    delete:
+      tags:
+      - audit-logs
+      summary: deletes an audit log
+      operationId: deleteEntryV1
+      requestBody:
+        content:
+          application/vnd.auditlog.entry+json;version=v2:
+            schema:
+              $ref: '#/components/schemas/LogEntryV2'
+          application/vnd.auditlog.entry+json;version=v1:
+            schema:
+              $ref: '#/components/schemas/LogEntry'
+      responses:
+        "204":
+          description: Successfully deleted
+        "400":
+          description: Constraints violation
+          content:
+            application/x.auditlog.violations+json;version=v1:
+              schema:
+                $ref: '#/components/schemas/ViolationConstraint'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ViolationConstraint'
 components:
   schemas:
     Domain:
