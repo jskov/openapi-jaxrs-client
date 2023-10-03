@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -226,8 +225,10 @@ public class ApiGenerator {
             path = null;
         }
 
+        Optional<String> producesMediaType = makeProduces(imports, op);
+
         List<CtxApiParam> allParams = getParams(imports, op);
-        List<CtxApiResponse> responses = getResponses(imports, op);
+        List<CtxApiResponse> responses = getResponses(imports, op, producesMediaType.stream().toList());
 
         boolean onlySimpleResponse = addImports(imports, op);
 
@@ -243,7 +244,7 @@ public class ApiGenerator {
 
         CtxApiOpExt ext = CtxApiOpExt.builder()
                 .consumes(makeConsumes(imports, op))
-                .produces(makeProduces(imports, op))
+                .produces(producesMediaType)
                 .renderJavadocMacroSpacer(renderJavadocMacroSpacer)
                 .renderJavadocReturn(renderJavadocReturn)
                 .responseSchema(onlySimpleResponse)
@@ -429,14 +430,10 @@ public class ApiGenerator {
                 : type.typeName().name();
     }
 
-    private List<CtxApiResponse> getResponses(Imports imports, Operation op) {
-        var streamAllTypes = op.responses().stream()
-                .flatMap(r -> r.content().mediaTypes().stream());
-        List<String> opResponseMediaTypes = makeCombinedMediaTypes(imports, streamAllTypes);
-
+    private List<CtxApiResponse> getResponses(Imports imports, Operation op, List<String> producesMediaTypes) {
         return op.responses().stream()
                 .sorted((a, b) -> a.code().compareTo(b.code()))
-                .map(r -> makeResponse(imports, op, r, opResponseMediaTypes))
+                .map(r -> makeResponse(imports, op, r, producesMediaTypes))
                 .toList();
     }
 
@@ -461,16 +458,14 @@ public class ApiGenerator {
             containerType = null;
         }
 
-        // If a response uses fewer media-types than the entire op, specify them in the OpenApi annotation
-        Optional<String> mediaType;
         Set<String> responseMediaTypes = r.content().mediaTypes();
-        if (opResponseMediaTypes.size() > 1 && !responseMediaTypes.containsAll(opResponseMediaTypes)) {
-            mediaType = contentSelector.selectPreferredMediaType(responseMediaTypes, new ContentContext(op.path(), true, Location.RESPONSE))
-                    .map(mt -> toMediaType(imports, mt));
-            logger.debug("  response needs {} of {}", mediaType, opResponseMediaTypes);
-        } else {
-            mediaType = Optional.empty();
-        }
+
+        // Only define an explicit media-type for the response, iff it is
+        // not same media-type already declared for the operation
+        Optional<String> mediaType = contentSelector
+                .selectPreferredMediaType(responseMediaTypes, new ContentContext(op.path(), true, Location.RESPONSE))
+                .map(mt -> toMediaType(imports, mt))
+                .filter(mt -> !opResponseMediaTypes.contains(mt));
 
         String description = r.description()
                 .orElse("");
@@ -534,14 +529,6 @@ public class ApiGenerator {
         return op.responses().stream()
                 .sorted((a, b) -> Integer.compare(a.code().ordinal(), b.code().ordinal()))
                 .findFirst();
-    }
-
-    private List<String> makeCombinedMediaTypes(Imports imports, Stream<String> mediaTypes) {
-        return mediaTypes
-                .map(mt -> toMediaType(imports, mt))
-                .sorted()
-                .distinct()
-                .toList();
     }
 
     private String toMediaType(Imports imports, String mediaType) {

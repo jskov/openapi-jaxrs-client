@@ -39,6 +39,12 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ViolationConstraint'
+        "401":
+          description: Another failure with single non-default media-type
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ViolationConstraint'
         "500":
           description: Internal error or backend failure
           content:

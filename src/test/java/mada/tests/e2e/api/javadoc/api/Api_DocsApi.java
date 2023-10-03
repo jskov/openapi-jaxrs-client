@@ -79,15 +79,15 @@ public interface Api_DocsApi {
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The registered cluster",
-                 content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY))),
     @APIResponse(responseCode = "400", description = "Validation errors",
-                 content = @Content(schema = @Schema(implementation = Simple.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = Simple.class))),
     @APIResponse(responseCode = "401", description = "Unauthorized Error",
                  content = @Content(schema = @Schema(implementation = String.class), mediaType = MediaType.TEXT_PLAIN)),
     @APIResponse(responseCode = "409", description = "Cluster already present",
-                 content = @Content(schema = @Schema(implementation = Simple.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = Simple.class))),
     @APIResponse(responseCode = "500", description = "The internal error",
-                 content = @Content(schema = @Schema(implementation = Simple.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = Simple.class)))
   })
   List<Simple> apiDocsMultipleReturnTypesPost(@Valid Simple dto);
 
