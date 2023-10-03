@@ -501,7 +501,7 @@ public class ApiGenerator {
      *
      * So while the operation's correct @Produces media-types will be the sum of the media-types from all return codes, it
      * needs to be set to the desired media-type of the primary return type.
-     * 
+     *
      * @param imports the imports for the API
      * @param op      the operation
      * @return the optional media-type of the return type
