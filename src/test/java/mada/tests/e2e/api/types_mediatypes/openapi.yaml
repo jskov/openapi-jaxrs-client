@@ -36,6 +36,9 @@ paths:
             application/x.auditlog.violations+json;version=v1:
               schema:
                 $ref: '#/components/schemas/ViolationConstraint'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ViolationConstraint'
         "500":
           description: Internal error or backend failure
           content:

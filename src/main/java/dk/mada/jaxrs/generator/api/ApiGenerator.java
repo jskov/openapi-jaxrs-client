@@ -436,11 +436,11 @@ public class ApiGenerator {
 
         return op.responses().stream()
                 .sorted((a, b) -> a.code().compareTo(b.code()))
-                .map(r -> makeResponse(imports, r, opResponseMediaTypes))
+                .map(r -> makeResponse(imports, op, r, opResponseMediaTypes))
                 .toList();
     }
 
-    private CtxApiResponse makeResponse(Imports imports, Response r, List<String> opResponseMediaTypes) {
+    private CtxApiResponse makeResponse(Imports imports, Operation op, Response r, List<String> opResponseMediaTypes) {
         String baseType;
         String containerType;
         Reference typeRef = r.content().reference();
@@ -465,7 +465,8 @@ public class ApiGenerator {
         Optional<String> mediaType;
         Set<String> responseMediaTypes = r.content().mediaTypes();
         if (opResponseMediaTypes.size() > 1 && !responseMediaTypes.containsAll(opResponseMediaTypes)) {
-            mediaType = makeMediaTypeArgs(imports, responseMediaTypes.stream());
+            mediaType = contentSelector.selectPreferredMediaType(responseMediaTypes, new ContentContext(op.path(), true, Location.RESPONSE))
+                    .map(mt -> toMediaType(imports, mt));
             logger.debug("  response needs {} of {}", mediaType, opResponseMediaTypes);
         } else {
             mediaType = Optional.empty();
@@ -541,23 +542,6 @@ public class ApiGenerator {
                 .sorted()
                 .distinct()
                 .toList();
-    }
-
-    private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
-        List<String> wrappedMediaTypes = makeCombinedMediaTypes(imports, mediaTypes);
-        return makeMediaTypeArgs(wrappedMediaTypes);
-    }
-
-    private Optional<String> makeMediaTypeArgs(List<String> mediaTypes) {
-        if (mediaTypes.isEmpty()) {
-            return Optional.empty();
-        }
-
-        String arg = String.join(", ", mediaTypes);
-        if (mediaTypes.size() > 1) {
-            return Optional.of("{" + arg + "}");
-        }
-        return Optional.of(arg);
     }
 
     private String toMediaType(Imports imports, String mediaType) {
