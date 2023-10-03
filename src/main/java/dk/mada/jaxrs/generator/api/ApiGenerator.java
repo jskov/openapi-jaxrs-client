@@ -498,10 +498,41 @@ public class ApiGenerator {
                 .map(mt -> toMediaType(imports, mt));
     }
 
+    /**
+     * Makes list of media types for @Produces
+     *
+     * Note that the client's @Produces determines what it puts in the Accept-header.
+     *
+     * So while the operation's correct @Produces media-types will be the sum of the media-types from all return codes, it
+     * needs to be set to the desired media-type of the primary return type.
+     * 
+     * @param imports the imports for the API
+     * @param op      the operation
+     * @return the optional media-type of the return type
+     */
     private Optional<String> makeProduces(Imports imports, Operation op) {
-        Stream<String> combinedMediaTypes = op.responses().stream()
-                .flatMap(r -> r.content().mediaTypes().stream());
-        return makeMediaTypeArgs(imports, combinedMediaTypes);
+        Optional<Response> mainResponse = getOperationMainResponse(op);
+
+        List<String> potentialMediaTypes = mainResponse
+                .map(r -> List.copyOf(r.content().mediaTypes()))
+                .orElse(List.of());
+
+        return contentSelector.selectPreferredMediaType(potentialMediaTypes, new ContentContext(op.path(), true, Location.RESPONSE))
+                .map(mt -> toMediaType(imports, mt));
+    }
+
+    /**
+     * Returns the main response of the operation.
+     *
+     * Not sure if that is always the result of 200. But assume so for now.
+     *
+     * @param op the operation
+     * @return the main response of the operation
+     */
+    private Optional<Response> getOperationMainResponse(Operation op) {
+        return op.responses().stream()
+                .sorted((a, b) -> Integer.compare(a.code().ordinal(), b.code().ordinal()))
+                .findFirst();
     }
 
     private List<String> makeCombinedMediaTypes(Imports imports, Stream<String> mediaTypes) {

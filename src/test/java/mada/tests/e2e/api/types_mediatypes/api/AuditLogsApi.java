@@ -31,7 +31,7 @@ public interface AuditLogsApi {
    */
   @POST
   @Consumes("application/vnd.auditlog.entry+json;version=v1")
-  @Produces({"application/x.auditlog.error+json;version=v1", "application/x.auditlog.result+json;version=v1", "application/x.auditlog.violations+json;version=v1"})
+  @Produces("application/x.auditlog.result+json;version=v1")
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Successfully added the log",
                  content = @Content(schema = @Schema(implementation = LogResult.class), mediaType = "application/x.auditlog.result+json;version=v1")),

@@ -41,7 +41,7 @@ public interface DefaultApi {
    */
   @GET
   @Path("getNoOutputType")
-  @Produces({"application/xml", MediaType.APPLICATION_JSON})
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "default", description = "default response")
   })

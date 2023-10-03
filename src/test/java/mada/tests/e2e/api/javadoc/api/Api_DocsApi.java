@@ -76,7 +76,7 @@ public interface Api_DocsApi {
   @POST
   @Path("/multiple-return-types")
   @Consumes(MediaType.APPLICATION_JSON)
-  @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+  @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The registered cluster",
                  content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY), mediaType = MediaType.APPLICATION_JSON)),
