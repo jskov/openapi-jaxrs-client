@@ -29,7 +29,6 @@ import dk.mada.jaxrs.model.types.TypeLocalTime;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
@@ -228,12 +227,9 @@ public class ParserTypes {
 
     /**
      * Collection types such as ListDto are changed to {@code List<Dto>}.
-     *
-     * Note: this also causes flat types (plain refs) to be inlined.
-     * This should happen in the resolver instead. 
      */
-    public void consolidateDtos() {
-        logger.info("Consolidate DTOs");
+    public void consolidateContainerDtos() {
+        logger.info("== Consolidate container DTOs");
         for (Dto dto : parsedDtos.values()) {
             String name = dto.name();
             Reference ref = dto.reference();
@@ -241,26 +237,20 @@ public class ParserTypes {
 
             TypeName openapiName = dto.openapiId();
 
-            logger.debug(" consider {} : {} {}/{}", name, dto.getClass(), type.getClass(), type);
-
+            Type newType = null;
             if (type instanceof TypeArray ta) {
-                remapDto(openapiName, TypeArray.of(typeNames, ta.innerType()));
+                newType = remapDto(openapiName, TypeArray.of(typeNames, ta.innerType()));
             } else if (type instanceof TypeSet ts) {
-                remapDto(openapiName, TypeSet.of(typeNames, ts.innerType()));
+                newType = remapDto(openapiName, TypeSet.of(typeNames, ts.innerType()));
             } else if (type instanceof TypeMap) {
                 // no remapping of maps
                 // a DTO with properties of the same type may be represented like this
-            } else if (unmappedToJseTypes.contains(openapiName)) {
-                // no remapping of kept types
-            } else if (dto.isEnum()) {
-                // no remapping of enums
-            } else if (type instanceof ParserTypeComposite) {
-                // no remapping of composite DTOs
-            } else if (type instanceof ParserTypeCombined) {
-                // no remapping of combined DTOs
-            } else if (!(type instanceof TypeObject)) {
-                logger.info("fallback remap {} to {} : {}", name, type, ref);
-//                remapDto(openapiName, type);
+            }
+
+            if (newType != null) {
+                logger.debug(" : remapped {} : {}", name, newType);
+            } else {
+                logger.debug(" : keep {}", name);
             }
         }
     }
