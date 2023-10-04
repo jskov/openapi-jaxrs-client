@@ -89,7 +89,8 @@ public final class Resolver {
 
         Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, this::filterAndRemapTypeRefDto);
         
-        Collection<Dto> flattenedDtos = flattenDtos(withoutTypeRefDtos);
+        Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping("primitive", withoutTypeRefDtos, this::filterAndRemapPrimitiveDtos);
+        Collection<Dto> flattenedDtos = withoutPrimitiveDtos; //flattenDtos(withoutTypeRefDtos);
 
         if (logger.isDebugEnabled()) {
             logger.debug("Flattened DTOs:");
@@ -131,7 +132,7 @@ public final class Resolver {
         boolean runAnotherPass;
         int pass = 1;
         do {
-            logger.debug(" {} pass {}, {} dtos", title, pass, output.size());
+            logger.debug(" {} pass {} with {} dtos", title, pass, output.size());
             
             List<Dto> updated = output.stream()
                     .filter(filter::test)
@@ -146,11 +147,11 @@ public final class Resolver {
     }
 
     /**
-     * It is valid for a type references (just a plain $ref) to be represented in
-     * OpenApi documents,but there is no good way to express it in Java (unless you
+     * It is valid for type references (just a plain $ref) to be represented in
+     * OpenApi documents, but there is no good way to express it in Java (unless you
      * want to consider extension).
      *
-     * So filter out these DTOs, replacing they with whatever it points to.
+     * So filter out these DTOs, replacing them with whatever they point to.
      *
      * Note that this predicate has side effects (namely the remapping).
      *
@@ -183,64 +184,31 @@ public final class Resolver {
                 && dto.extendsParents().isEmpty();
     }
 
-    
-    private Collection<Dto> flattenDtos(Collection<Dto> dtos) {
-        Collection<Dto> output = dtos;
-        logger.debug("Look for DTOs to flatten");
-
-        boolean runAnotherPass;
-        int pass = 1;
-        do {
-            logger.debug(" Pass {}, {} dtos", pass, output.size());
-            boolean hack = pass > 1;
-            
-            List<Dto> updated = output.stream()
-                    .filter(d -> flattenAndFilterDto(d, hack))
-                    .toList();
-            runAnotherPass = output.size() != updated.size();
-            output = updated;
-            pass++;
-        } while (runAnotherPass);
-
-        logger.debug(" flattened to {} dtos", output.size());
-        return output;
-    }
-    
-    // FIXME: so what happens when a reference imparts extra validation?
-    // only flatten non-object targets
-    //  - hacked two passes:
-    //    1-n: remove $ref-only links
-    //    n: remove dtos that just wrap a primitive with validation (should end up being a TypeReference)
-    //
-    // fixme: requires further flattening of nested typereferences
-//    Types:
-//        DTOs: 
-//         KlarTilBeslutningsGrundlagResponse: TypeReference{validation=Validation{isRequired=false}, refType=TypeObject}
-//           senestOpdat: TypeReference{validation=Validation{isRequired=false}, refType=TypeReference{validation=Validation{isRequired=false}, refType=TypeReference{validation=Validation{isRequired=false}, refType=TypeReference{validation=Validation{isRequired=false}, refType=Dto{typeName=TypeName[name=BdwsTimestamp], name=BdwsTimestamp, mpSchemaName=BdwsTimestamp, reference=ParserTypeRef{validation=Validation{isRequired=false, pattern=^(\d{4}-\d{2}-\d{2}-\d{2}.\d{2}.\d{2}.\d{6})$}, refTypeName=TypeName[name=String], refType=STRING}, openapiId=TypeName[name=bdws-timestamp], properties=[], enumValues=[], implementsInterfaces=[], extendsParents=[]}}}}}
-
-    private boolean flattenAndFilterDto(Dto dto, boolean hack) {
-        boolean keepDto = true;
+    /**
+     * It is valid for simple types to be represented in OpenApi documents
+     * as standalone DTOs. But there is no good way to express it in Java.
+     *
+     * So filter out these DTOs, replacing them with whatever they point to.
+     * This will result in the types being represented as property fields instead.
+     *   
+     * Note that this predicate has side effects (namely the remapping).
+     *
+     * @param dto the DTO to consider
+     * @return false if the DTO has been remapped and should be filtered out
+     */
+    private boolean filterAndRemapPrimitiveDtos(Dto dto) {
         String name = dto.name();
-        logger.debug(" - {} {}", name, dto);
+        logger.trace(" - {} {}", name, dto);
         
-        Reference ref = dto.reference();
-        if (isReferenceOnly(dto)) {
-            logger.info("XXX {}", dto);
-            
-            TypeReference x = resolve(dto.reference());
-            logger.info("   : ref flatten {} to {}", name, x);
-            parserTypes.remapDto(dto.typeName(), x);
+        if (isPrimitiveWrapperOnly(dto)) {
+            TypeReference ref = resolve(dto.reference());
+            Type newType = parserTypes.remapDto(dto.typeName(), ref);
+            logger.info("   : remap {} to {}", name, newType);
             return false;
-        } else if (hack && isPrimitiveWrapperOnly(dto)) {
-            TypeReference x = resolve(dto.reference());
-            parserTypes.remapDto(dto.typeName(), x);
-            logger.info("   : wrapper flatten {} to {}", name, ref);
-            return false;
-        } else {
-            logger.info("   : keep {}", name);
         }
         
-        return keepDto;
+        logger.info("   : keep {}", name);
+        return true;
     }
 
     // flatten DTOs that are only wrappers over primitives
@@ -591,7 +559,7 @@ public final class Resolver {
      * @return the final model type
      */
     private Type resolveInner(Type type) {
-        logger.debug(" resolveInner {}", type);
+        logger.trace(" resolveInner {}", type);
         if (type instanceof Dto dto) {
             return resolveDto(dto);
         } else if (type instanceof ParserTypeComposite ptc) {
@@ -605,20 +573,20 @@ public final class Resolver {
         } else if (type instanceof TypeArray ta) {
             Type it = ta.innerType();
             Type newIt = resolveInner(it);
-            logger.debug(" array {} -> {}", it, newIt);
+            logger.trace(" array {} -> {}", it, newIt);
             return TypeArray.of(typeNames, newIt);
         } else if (type instanceof TypeSet ts) {
             Type it = ts.innerType();
             Type newIt = resolveInner(it);
-            logger.debug(" set {} -> {}", it, newIt);
+            logger.trace(" set {} -> {}", it, newIt);
             return TypeSet.of(typeNames, newIt);
         } else if (type instanceof TypeMap tm) {
             Type it = tm.innerType();
             Type newIt = resolveInner(it);
-            logger.debug(" map {} -> {}", it, newIt);
+            logger.trace(" map {} -> {}", it, newIt);
             return TypeMap.of(typeNames, newIt);
         } else if (type instanceof TypeReference tr) {
-            logger.info("   / see tr {}", tr);
+            logger.info("FIXME:  XXXX should probably be removed / see tr {}", tr);
             if (tr.validation().isEmptyValidation()) {
                 Type refType = tr.refType();
                 if (refType instanceof TypeReference) {
@@ -628,7 +596,7 @@ public final class Resolver {
             }
             return type;
         } else {
-            logger.debug("NOT dereferencing {}", type);
+            logger.trace("NOT dereferencing {}", type);
             return type;
         }
     }
