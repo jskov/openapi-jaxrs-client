@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -86,7 +87,9 @@ public final class Resolver {
                     .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
-        Collection<Dto> flattenedDtos = flattenDtos(unresolvedDtos);
+        Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, this::filterAndRemapTypeRefDto);
+        
+        Collection<Dto> flattenedDtos = flattenDtos(withoutTypeRefDtos);
 
         if (logger.isDebugEnabled()) {
             logger.debug("Flattened DTOs:");
@@ -114,6 +117,73 @@ public final class Resolver {
         return dereferencedDtos;
     }
 
+    /**
+     * Remaps DTOs in a loop as long as there are changes.
+     *
+     * @param dtos the DTOs to remap
+     * @return the (remaining) remapped DTOs
+     */
+    private Collection<Dto> loopedDtoRemapping(String title, Collection<Dto> dtos, Predicate<Dto> filter) {
+        Collection<Dto> output = dtos;
+
+        logger.debug("DTO filtering {}", title);
+
+        boolean runAnotherPass;
+        int pass = 1;
+        do {
+            logger.debug(" {} pass {}, {} dtos", title, pass, output.size());
+            
+            List<Dto> updated = output.stream()
+                    .filter(filter::test)
+                    .toList();
+            runAnotherPass = output.size() != updated.size();
+            output = updated;
+            pass++;
+        } while (runAnotherPass);
+
+        logger.debug(" completed {} {}->{} dtos", title, dtos.size(), output.size());
+        return output;
+    }
+
+    /**
+     * It is valid for a type references (just a plain $ref) to be represented in
+     * OpenApi documents,but there is no good way to express it in Java (unless you
+     * want to consider extension).
+     *
+     * So filter out these DTOs, replacing they with whatever it points to.
+     *
+     * Note that this predicate has side effects (namely the remapping).
+     *
+     * @param dto the DTO to consider
+     * @return false if the DTO has been remapped and should be filtered out
+     */
+    private boolean filterAndRemapTypeRefDto(Dto dto) {
+        String name = dto.name();
+        logger.trace(" - {} {}", name, dto);
+        
+        if (isReferenceOnly(dto)) {
+            TypeReference ref = resolve(dto.reference());
+            Type newType = parserTypes.remapDto(dto.typeName(), ref);
+            logger.info("   : remap {} to {}", name, newType);
+            return false;
+        }
+        
+        logger.info("   : keep {}", name);
+        return true;
+    }
+
+    /** {@return true if this DTO is only a reference to some other DTO} */
+    private static boolean isReferenceOnly(Dto dto) {
+        return dto.reference() != null
+                && (dto.reference().refType() == UNKNOWN_TYPE || dto.reference().isDto())
+                && dto.properties().isEmpty()
+                && !dto.isEnum()
+                && dto.implementsInterfaces().isEmpty()
+                && !dto.subtypeSelector().isPresent()
+                && dto.extendsParents().isEmpty();
+    }
+
+    
     private Collection<Dto> flattenDtos(Collection<Dto> dtos) {
         Collection<Dto> output = dtos;
         logger.debug("Look for DTOs to flatten");
@@ -177,17 +247,6 @@ public final class Resolver {
     // so client-site should inherit the validation
     private static boolean isPrimitiveWrapperOnly(Dto dto) {
         return dto.reference().refType().isPrimitive(Primitive.STRING);
-    }
-    /** {@return true if this DTO is only a reference to some other DTO} */
-    private static boolean isReferenceOnly(Dto dto) {
-        System.out.println(" see ref " + dto.reference());
-        return dto.reference() != null
-                && (dto.reference().refType() == UNKNOWN_TYPE || dto.reference().isDto())
-                && dto.properties().isEmpty()
-                && !dto.isEnum()
-                && dto.implementsInterfaces().isEmpty()
-                && !dto.subtypeSelector().isPresent()
-                && dto.extendsParents().isEmpty();
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
@@ -491,7 +550,6 @@ public final class Resolver {
     }
 
     private TypeReference resolve(Reference ref) {
-        logger.info(" RESOLVE {}", ref);
         if (ref instanceof ParserTypeRef ptr) {
             return resolve(ptr);
         } else if (ref instanceof TypeReference tr) {

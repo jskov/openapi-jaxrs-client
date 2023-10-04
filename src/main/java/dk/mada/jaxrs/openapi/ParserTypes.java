@@ -265,7 +265,7 @@ public class ParserTypes {
         }
     }
 
-    public void remapDto(TypeName openapiName, Type newType) {
+    public Type remapDto(TypeName openapiName, Type newType) {
         Type targetType = newType;
         
         // Flatten targets that are just reference pointers
@@ -274,7 +274,7 @@ public class ParserTypes {
             replaced = false;
             if (targetType instanceof TypeReference tr) {
                 if (tr.validation().isEmptyValidation()) {
-                    logger.info("  removing empty reference!");
+                    logger.debug("  removing empty reference!");
                     targetType = tr.refType();
                     replaced = true;
                 }
@@ -287,6 +287,8 @@ public class ParserTypes {
         if (oldType != null) {
             throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + targetType);
         }
+
+        return targetType;
     }
 
     /** {@return information about the model} */
