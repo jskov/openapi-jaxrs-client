@@ -198,10 +198,11 @@ public class ParserTypes {
                 // now lookup again, as the type may have been remapped more than once
                 while (true) {
                     Type derefType = remappedDtoTypes.get(type.typeName());
-                    if (derefType != null) {
-                        type = derefType;
-                    } else {
+                    if (derefType == type || derefType == null) {
                         break;
+                    } else {
+                        // go around again
+                        type = derefType;
                     }
                 }
             }
