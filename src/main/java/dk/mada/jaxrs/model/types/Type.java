@@ -76,4 +76,18 @@ public interface Type {
     default boolean isPrimitive(Primitive primitive) {
         return false;
     }
+
+    /**
+     * Return true if this type is a primitive.
+     *
+     * @return true if this is a privimive type
+     */
+    default boolean isPrimitive() {
+        return false;
+    }
+
+    /** {@return true if this type represents the plain object} */
+    default boolean isPlainObject() {
+        return false;
+    }
 }

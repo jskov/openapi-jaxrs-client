@@ -26,6 +26,11 @@ public final class TypePlainObject implements Type {
     }
 
     @Override
+    public boolean isPlainObject() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "TypePlainObject";
     }

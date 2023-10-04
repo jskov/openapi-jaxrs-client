@@ -72,6 +72,11 @@ public enum Primitive implements Type {
         return this == primitive;
     }
 
+    @Override
+    public boolean isPrimitive() {
+        return true;
+    }
+
     /**
      * Finds a primitive type matching the given OpenApi schema.
      *
