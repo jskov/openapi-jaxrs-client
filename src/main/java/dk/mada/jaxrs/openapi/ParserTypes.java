@@ -265,6 +265,15 @@ public class ParserTypes {
         }
     }
 
+    /**
+     * Remaps a DTO to a new type.
+     *
+     * The target type gets stripped from empty validation references.
+     *
+     * @param openapiName the DTOs OpenApi name
+     * @param newType the type to remap the DTO to
+     * @return the actual type remapped to (may have fewer validation references)
+     */
     public Type remapDto(TypeName openapiName, Type newType) {
         Type targetType = newType;
         
