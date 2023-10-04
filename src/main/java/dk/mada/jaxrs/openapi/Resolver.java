@@ -219,10 +219,8 @@ public final class Resolver {
         Type dtoType = dto.reference().refType();
         return (dtoType.isDate() && parserOpts.isJseLocalDate())
                 || (dtoType.isDateTime()
-                        && parserOpts.isJseLocalDateTime()
-                        && parserOpts.isJseOffsetDateTime()
-                        && parserOpts.isJseZonedDateTime())
-                || dtoType.isTime();
+                        && (parserOpts.isJseLocalDateTime() || parserOpts.isJseOffsetDateTime() || parserOpts.isJseZonedDateTime()))
+                || (dtoType.isTime() && parserOpts.isJseLocalTime());
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
