@@ -210,6 +210,7 @@ public final class Resolver {
      * Filter out DTOs that are of a known model type.
      *
      * TODO: see isDtoPrimitiveWrapperOnly
+     * TODO: this predicate clearly shows a lot of types/options *not* covered by tests
      *
      * @param dto the DTO to consider
      * @return true if the DTO is a known model type.
