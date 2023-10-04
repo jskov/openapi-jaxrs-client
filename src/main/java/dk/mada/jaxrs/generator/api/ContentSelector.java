@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.generator.api;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -50,12 +51,12 @@ public class ContentSelector {
      * @param context    the selection context
      * @return the selected context
      */
-    public Optional<String> selectPreferredMediaType(List<String> mediaTypes, ContentContext context) {
+    public Optional<String> selectPreferredMediaType(Collection<String> mediaTypes, ContentContext context) {
         if (mediaTypes.isEmpty()) {
             return Optional.empty();
         }
         if (mediaTypes.size() == 1) {
-            return Optional.of(mediaTypes.get(0));
+            return Optional.of(mediaTypes.iterator().next());
         }
 
         List<Pattern> preferredMediaTypes = context.location() == Location.REQUEST ? preferredRequestMediaTypes

@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -226,8 +225,10 @@ public class ApiGenerator {
             path = null;
         }
 
+        Optional<String> producesMediaType = makeProduces(imports, op);
+
         List<CtxApiParam> allParams = getParams(imports, op);
-        List<CtxApiResponse> responses = getResponses(imports, op);
+        List<CtxApiResponse> responses = getResponses(imports, op, producesMediaType.stream().toList());
 
         boolean onlySimpleResponse = addImports(imports, op);
 
@@ -243,7 +244,7 @@ public class ApiGenerator {
 
         CtxApiOpExt ext = CtxApiOpExt.builder()
                 .consumes(makeConsumes(imports, op))
-                .produces(makeProduces(imports, op))
+                .produces(producesMediaType)
                 .renderJavadocMacroSpacer(renderJavadocMacroSpacer)
                 .renderJavadocReturn(renderJavadocReturn)
                 .responseSchema(onlySimpleResponse)
@@ -429,18 +430,14 @@ public class ApiGenerator {
                 : type.typeName().name();
     }
 
-    private List<CtxApiResponse> getResponses(Imports imports, Operation op) {
-        var streamAllTypes = op.responses().stream()
-                .flatMap(r -> r.content().mediaTypes().stream());
-        List<String> opResponseMediaTypes = makeCombinedMediaTypes(imports, streamAllTypes);
-
+    private List<CtxApiResponse> getResponses(Imports imports, Operation op, List<String> producesMediaTypes) {
         return op.responses().stream()
                 .sorted((a, b) -> a.code().compareTo(b.code()))
-                .map(r -> makeResponse(imports, r, opResponseMediaTypes))
+                .map(r -> makeResponse(imports, op, r, producesMediaTypes))
                 .toList();
     }
 
-    private CtxApiResponse makeResponse(Imports imports, Response r, List<String> opResponseMediaTypes) {
+    private CtxApiResponse makeResponse(Imports imports, Operation op, Response r, List<String> opResponseMediaTypes) {
         String baseType;
         String containerType;
         Reference typeRef = r.content().reference();
@@ -461,15 +458,14 @@ public class ApiGenerator {
             containerType = null;
         }
 
-        // If a response uses fewer media-types than the entire op, specify them in the OpenApi annotation
-        Optional<String> mediaType;
         Set<String> responseMediaTypes = r.content().mediaTypes();
-        if (opResponseMediaTypes.size() > 1 && !responseMediaTypes.containsAll(opResponseMediaTypes)) {
-            mediaType = makeMediaTypeArgs(imports, responseMediaTypes.stream());
-            logger.debug("  response needs {} of {}", mediaType, opResponseMediaTypes);
-        } else {
-            mediaType = Optional.empty();
-        }
+
+        // Only define an explicit media-type for the response, iff it is
+        // not same media-type already declared for the operation
+        Optional<String> mediaType = contentSelector
+                .selectPreferredMediaType(responseMediaTypes, new ContentContext(op.path(), true, Location.RESPONSE))
+                .map(mt -> toMediaType(imports, mt))
+                .filter(mt -> !opResponseMediaTypes.contains(mt));
 
         String description = r.description()
                 .orElse("");
@@ -498,35 +494,41 @@ public class ApiGenerator {
                 .map(mt -> toMediaType(imports, mt));
     }
 
+    /**
+     * Makes list of media types for @Produces
+     *
+     * Note that the client's @Produces determines what it puts in the Accept-header.
+     *
+     * So while the operation's correct @Produces media-types will be the sum of the media-types from all return codes, it
+     * needs to be set to the desired media-type of the primary return type.
+     *
+     * @param imports the imports for the API
+     * @param op      the operation
+     * @return the optional media-type of the return type
+     */
     private Optional<String> makeProduces(Imports imports, Operation op) {
-        Stream<String> combinedMediaTypes = op.responses().stream()
-                .flatMap(r -> r.content().mediaTypes().stream());
-        return makeMediaTypeArgs(imports, combinedMediaTypes);
+        Optional<Response> mainResponse = getOperationMainResponse(op);
+
+        List<String> potentialMediaTypes = mainResponse
+                .map(r -> List.copyOf(r.content().mediaTypes()))
+                .orElse(List.of());
+
+        return contentSelector.selectPreferredMediaType(potentialMediaTypes, new ContentContext(op.path(), true, Location.RESPONSE))
+                .map(mt -> toMediaType(imports, mt));
     }
 
-    private List<String> makeCombinedMediaTypes(Imports imports, Stream<String> mediaTypes) {
-        return mediaTypes
-                .map(mt -> toMediaType(imports, mt))
-                .sorted()
-                .distinct()
-                .toList();
-    }
-
-    private Optional<String> makeMediaTypeArgs(Imports imports, Stream<String> mediaTypes) {
-        List<String> wrappedMediaTypes = makeCombinedMediaTypes(imports, mediaTypes);
-        return makeMediaTypeArgs(wrappedMediaTypes);
-    }
-
-    private Optional<String> makeMediaTypeArgs(List<String> mediaTypes) {
-        if (mediaTypes.isEmpty()) {
-            return Optional.empty();
-        }
-
-        String arg = String.join(", ", mediaTypes);
-        if (mediaTypes.size() > 1) {
-            return Optional.of("{" + arg + "}");
-        }
-        return Optional.of(arg);
+    /**
+     * Returns the main response of the operation.
+     *
+     * Not sure if that is always the result of 200. But assume so for now.
+     *
+     * @param op the operation
+     * @return the main response of the operation
+     */
+    private Optional<Response> getOperationMainResponse(Operation op) {
+        return op.responses().stream()
+                .sorted((a, b) -> Integer.compare(a.code().ordinal(), b.code().ordinal()))
+                .findFirst();
     }
 
     private String toMediaType(Imports imports, String mediaType) {
