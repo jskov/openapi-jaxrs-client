@@ -82,25 +82,25 @@ public final class Resolver {
         Set<Dto> unresolvedDtos = parserTypes.getActiveDtos();
 
         if (logger.isDebugEnabled()) {
-            logger.debug("Parsed DTOs:");
+            logger.debug("= Parsed DTOs:");
             unresolvedDtos.stream()
                     .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
-        Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, this::filterAndRemapTypeRefDto);
-        
-        Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping("primitive", withoutTypeRefDtos, this::filterAndRemapPrimitiveDtos);
-        Collection<Dto> flattenedDtos = withoutPrimitiveDtos; //flattenDtos(withoutTypeRefDtos);
+        Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, Resolver::isDtoReferenceOnly);
+        Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping("primitive", withoutTypeRefDtos, Resolver::isDtoPrimitiveWrapperOnly);
 
+        Collection<Dto> filteredDtos = withoutPrimitiveDtos;
+        
         if (logger.isDebugEnabled()) {
-            logger.debug("Flattened DTOs:");
-            flattenedDtos.stream()
+            logger.debug("= Filtered DTOs:");
+            filteredDtos.stream()
                     .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
         // Rename DTOs as a separate pass so there are stable
         // targets for dereferencing during the resolve pass.
-        Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(flattenedDtos);
+        Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(filteredDtos);
 
         Collection<Dto> expandedDtos = extractCompositeDtos(renamedDtos);
 
@@ -109,7 +109,7 @@ public final class Resolver {
         List<Dto> dereferencedDtos = dereferenceDtos(foldedDtos);
 
         if (logger.isDebugEnabled()) {
-            logger.debug("Resolved DTOs:");
+            logger.debug("= Resolved DTOs:");
             dereferencedDtos.stream()
                     .sorted((a, b) -> a.name().compareToIgnoreCase(b.name()))
                     .forEach(d -> logger.info(" - {}", d));
@@ -135,34 +135,22 @@ public final class Resolver {
             logger.debug(" {} pass {} with {} dtos", title, pass, output.size());
             
             List<Dto> updated = output.stream()
-                    .filter(filter::test)
+                    .filter(dto -> applyDtoFilter(filter, dto))
                     .toList();
             runAnotherPass = output.size() != updated.size();
             output = updated;
             pass++;
         } while (runAnotherPass);
 
-        logger.debug(" completed {} {}->{} dtos", title, dtos.size(), output.size());
+        logger.debug(" completed {} DTO remapping with {}->{} dtos", title, dtos.size(), output.size());
         return output;
     }
 
-    /**
-     * It is valid for type references (just a plain $ref) to be represented in
-     * OpenApi documents, but there is no good way to express it in Java (unless you
-     * want to consider extension).
-     *
-     * So filter out these DTOs, replacing them with whatever they point to.
-     *
-     * Note that this predicate has side effects (namely the remapping).
-     *
-     * @param dto the DTO to consider
-     * @return false if the DTO has been remapped and should be filtered out
-     */
-    private boolean filterAndRemapTypeRefDto(Dto dto) {
+    private boolean applyDtoFilter(Predicate<Dto> filter, Dto dto) {
         String name = dto.name();
         logger.trace(" - {} {}", name, dto);
         
-        if (isReferenceOnly(dto)) {
+        if (filter.test(dto)) {
             TypeReference ref = resolve(dto.reference());
             Type newType = parserTypes.remapDto(dto.typeName(), ref);
             logger.info("   : remap {} to {}", name, newType);
@@ -173,8 +161,17 @@ public final class Resolver {
         return true;
     }
 
-    /** {@return true if this DTO is only a reference to some other DTO} */
-    private static boolean isReferenceOnly(Dto dto) {
+    /**
+     * It is valid for type references (just a plain $ref) to be represented in
+     * OpenApi documents, but there is no good way to express it in Java (unless
+     * you want to consider extension).
+     *
+     * So replace these DTOs with whatever they point to.
+     *
+     * @param dto the DTO to consider
+     * @return true if this DTO is only a reference to some other DTO
+     */
+    private static boolean isDtoReferenceOnly(Dto dto) {
         return dto.reference() != null
                 && (dto.reference().refType() == UNKNOWN_TYPE || dto.reference().isDto())
                 && dto.properties().isEmpty()
@@ -185,35 +182,17 @@ public final class Resolver {
     }
 
     /**
-     * It is valid for simple types to be represented in OpenApi documents
-     * as standalone DTOs. But there is no good way to express it in Java.
+     * It is valid for simple (non-Object) types to be represented in OpenApi
+     * documents as standalone DTOs. But there is no good way to express it in
+     * Java.
      *
      * So filter out these DTOs, replacing them with whatever they point to.
      * This will result in the types being represented as property fields instead.
-     *   
-     * Note that this predicate has side effects (namely the remapping).
      *
      * @param dto the DTO to consider
-     * @return false if the DTO has been remapped and should be filtered out
+     * @return true if the DTO is a primitive (not object)
      */
-    private boolean filterAndRemapPrimitiveDtos(Dto dto) {
-        String name = dto.name();
-        logger.trace(" - {} {}", name, dto);
-        
-        if (isPrimitiveWrapperOnly(dto)) {
-            TypeReference ref = resolve(dto.reference());
-            Type newType = parserTypes.remapDto(dto.typeName(), ref);
-            logger.info("   : remap {} to {}", name, newType);
-            return false;
-        }
-        
-        logger.info("   : keep {}", name);
-        return true;
-    }
-
-    // flatten DTOs that are only wrappers over primitives
-    // so client-site should inherit the validation
-    private static boolean isPrimitiveWrapperOnly(Dto dto) {
+    private static boolean isDtoPrimitiveWrapperOnly(Dto dto) {
         return dto.reference().refType().isPrimitive(Primitive.STRING);
     }
 
