@@ -194,15 +194,15 @@ public class ParserTypes {
             type = remappedDtoTypes.get(tn);
             if (type != null) {
                 conversion = "remapped";
-                
-                // FIXME: problem here. find Dto remapped to BdwsTimestamp
-                // and returns it. But that is itself remapped. Maybe just loop here?
-                
-                
-                Type loopedType = remappedDtoTypes.get(type.typeName());
-                if (loopedType != null) {
-                    logger.info(" FIXME: probably continue to {}", loopedType);
-                    type = loopedType;
+
+                // now lookup again, as the type may have been remapped more than once
+                while (true) {
+                    Type derefType = remappedDtoTypes.get(type.typeName());
+                    if (derefType != null) {
+                        type = derefType;
+                    } else {
+                        break;
+                    }
                 }
             }
         }
