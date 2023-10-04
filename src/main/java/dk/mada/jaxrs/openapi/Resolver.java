@@ -22,7 +22,6 @@ import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
-import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -45,6 +44,8 @@ public final class Resolver {
     /** Parser types to their dereferenced model type. */
     private final Map<ParserTypeRef, TypeReference> dereferencedTypes = new HashMap<>();
 
+    /** The parser options. */
+    private final ParserOpts parserOpts;
     /** Type names. */
     private final TypeNames typeNames;
     /** Types from parsing. */
@@ -63,6 +64,7 @@ public final class Resolver {
      * @param conflictRenamer the conflict renamer
      */
     public Resolver(ParserOpts parserOpts, TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
+        this.parserOpts = parserOpts;
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
         this.conflictRenamer = conflictRenamer;
@@ -89,8 +91,9 @@ public final class Resolver {
 
         Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, Resolver::isDtoReferenceOnly);
         Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping("primitive", withoutTypeRefDtos, Resolver::isDtoPrimitiveWrapperOnly);
+        Collection<Dto> withoutModelTypes = loopedDtoRemapping("model types", withoutPrimitiveDtos, this::isDtoModelType);
 
-        Collection<Dto> filteredDtos = withoutPrimitiveDtos;
+        Collection<Dto> filteredDtos = withoutModelTypes;
         
         if (logger.isDebugEnabled()) {
             logger.debug("= Filtered DTOs:");
@@ -127,7 +130,7 @@ public final class Resolver {
     private Collection<Dto> loopedDtoRemapping(String title, Collection<Dto> dtos, Predicate<Dto> filter) {
         Collection<Dto> output = dtos;
 
-        logger.debug("DTO filtering {}", title);
+        logger.debug("== DTO filtering {}", title);
 
         boolean runAnotherPass;
         int pass = 1;
@@ -189,13 +192,36 @@ public final class Resolver {
      * So filter out these DTOs, replacing them with whatever they point to.
      * This will result in the types being represented as property fields instead.
      *
+     * TODO: this and isDtoModelType should be reworked to carry a
+     * new TypeDef object into the model. And then let the generator
+     * decide if these should be inlined (so basically move this pass
+     * down).
+     *
      * @param dto the DTO to consider
      * @return true if the DTO is a primitive (not object)
      */
     private static boolean isDtoPrimitiveWrapperOnly(Dto dto) {
         Type dtoType = dto.reference().refType();
         return !dto.isEnum()
-                && dtoType.isPrimitive(Primitive.STRING);
+                && (dtoType.isPrimitive() || dtoType.isPlainObject());
+    }
+
+    /**
+     * Filter out DTOs that are of a known model type.
+     *
+     * TODO: see isDtoPrimitiveWrapperOnly
+     *
+     * @param dto the DTO to consider
+     * @return true if the DTO is a known model type.
+     */
+    private boolean isDtoModelType(Dto dto) {
+        Type dtoType = dto.reference().refType();
+        return (dtoType.isDate() && parserOpts.isJseLocalDate())
+                || (dtoType.isDateTime()
+                        && parserOpts.isJseLocalDateTime()
+                        && parserOpts.isJseOffsetDateTime()
+                        && parserOpts.isJseZonedDateTime())
+                || dtoType.isTime();
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
