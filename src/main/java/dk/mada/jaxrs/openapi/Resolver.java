@@ -193,7 +193,9 @@ public final class Resolver {
      * @return true if the DTO is a primitive (not object)
      */
     private static boolean isDtoPrimitiveWrapperOnly(Dto dto) {
-        return dto.reference().refType().isPrimitive(Primitive.STRING);
+        Type dtoType = dto.reference().refType();
+        return !dto.isEnum()
+                && dtoType.isPrimitive(Primitive.STRING);
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
