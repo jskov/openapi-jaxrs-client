@@ -25,6 +25,7 @@ import dk.mada.jaxrs.generator.imports.JavaMath;
 import dk.mada.jaxrs.generator.imports.JavaUtil;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -84,7 +85,26 @@ public class PropertyGenerator {
         final Names names = getNames(prop);
         logger.debug("Property {}", names);
 
-        TypeInfo ti = decodeTypeInfo(dtoImports, prop);
+        // Take validation from type if the property does not declare one itself
+        // This is a half-measure to fix #412. Should probably attempt merging
+        // if both have validation - and break if they conflict.
+        // And it should happen in the parser instead!
+        Validation propEffectiveValidation = prop.validation();
+        if (prop.reference() instanceof TypeReference tr) {
+            logger.info(" propRef: {}", tr);
+            while (tr.validation().isEmptyValidation()
+                    && tr.refType() instanceof TypeReference innerTr) {
+                logger.info(" propRef*: {}", innerTr);
+                tr = innerTr;
+            }
+            propEffectiveValidation =
+                    Validation.builder().from(tr.validation())
+                        .isRequired(prop.validation().isRequired())
+                        .build();
+        }
+        logger.info(" {} -> {}", prop.validation(), propEffectiveValidation);
+        
+        TypeInfo ti = decodeTypeInfo(dtoImports, prop, propEffectiveValidation);
         EnumInfo ei = decodeEnumInfo(dtoImports, ti);
 
         Type propType = ti.propType();
@@ -123,10 +143,10 @@ public class PropertyGenerator {
         if (ti.isRequired()) {
             schemaEntries.add("required = true");
         }
-        if (prop.validation().isNullable().orElse(false)) {
+        if (propEffectiveValidation.isNullable().orElse(false)) {
             schemaEntries.add("nullable = true");
         }
-        if (prop.validation().isReadonly().orElse(false)) {
+        if (propEffectiveValidation.isReadonly().orElse(false)) {
             schemaEntries.add("readOnly = true");
         }
         consumeNonBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
@@ -138,7 +158,7 @@ public class PropertyGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation());
+        Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, propEffectiveValidation);
 
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(ti.innerTypeName())
@@ -252,11 +272,11 @@ public class PropertyGenerator {
         return new EnumInfo(ctxEnum, enumClassName, enumTypeName, enumSchema.orElse(null));
     }
 
-    private TypeInfo decodeTypeInfo(Imports dtoImports, Property prop) {
+    private TypeInfo decodeTypeInfo(Imports dtoImports, Property prop, Validation propEffectiveValidation) {
         Type propType = prop.reference().refType();
         Type innerType = null;
         String defaultValue = null;
-        final boolean isRequired = prop.validation().isRequired().orElse(false);
+        final boolean isRequired = propEffectiveValidation.isRequired().orElse(false);
         boolean isByteArray = false;
         boolean isArray = false;
         boolean isMap = false;
