@@ -79,7 +79,7 @@ public final class TypeConverter {
     private final ParserTypes parserTypes;
 
     /** Validation instances to make sure we only get one of each. */
-    private final Set<Validation> validationInstances = new HashSet<>(Set.of(Validation.NO_VALIDATION));
+    private final Set<Validation> validationInstances = new HashSet<>(Set.of(Validation.NO_VALIDATION, Validation.REQUIRED_VALIDATION));
 
     /**
      * Constructs a new type converter.

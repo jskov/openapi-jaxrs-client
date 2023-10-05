@@ -460,6 +460,11 @@ public final class Resolver {
         // merged with that of the type. If they conflict, fail (with some config to ignore)
         if (resolvedValidation.isEmptyValidation()) {
             resolvedValidation = resolvedRef.validation();
+        } else if (resolvedValidation == Validation.REQUIRED_VALIDATION) {
+            // handle simple required_validation since it is simplest - and probably enough for now
+            resolvedValidation = Validation.builder().from(resolvedRef.validation())
+                    .isRequired(true)
+                    .build();
         }
 
         // allOf constructed DTOs need to be able to deserialize subsets
