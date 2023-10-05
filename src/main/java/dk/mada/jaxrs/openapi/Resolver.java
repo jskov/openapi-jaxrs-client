@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -480,12 +481,18 @@ public final class Resolver {
                     .isRequired(false)
                     .build();
         }
-        
+
+        // TODO: get example from type, see mada.tests.e2e.regression.string_pattern.dto.KlarTilBeslutningsGrundlagResponse
+        // is should have:
+        // @Schema(required = true, example = "2022-02-18-09.18.12.788990")
+        Optional<String> resolvedExample = property.example();
+
         logger.debug("    deref prop {}\n     from: {}\n           {}\n     to: {}\n         {}",
                 propName,
                 property.reference(), property.validation(),
                 resolvedRef, resolvedValidation);
         return Property.builder().from(property)
+                .example(resolvedExample)
                 .reference(resolvedRef)
                 .validation(resolvedValidation)
                 .build();

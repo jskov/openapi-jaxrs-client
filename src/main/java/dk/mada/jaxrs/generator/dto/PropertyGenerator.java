@@ -85,27 +85,7 @@ public class PropertyGenerator {
         final Names names = getNames(prop);
         logger.debug("Property {}", names);
 
-        // Take validation from type if the property does not declare one itself
-        // This is a half-measure to fix #412. Should probably attempt merging
-        // if both have validation - and break if they conflict.
-        // And it should happen in the parser instead!
         Validation propEffectiveValidation = prop.validation();
-        
-        if (!propEffectiveValidation.isRelaxed()
-             && prop.reference() instanceof TypeReference tr) {
-            logger.info(" propRef: {}", tr);
-            while (tr.validation().isEmptyValidation()
-                    && !tr.validation().isRelaxed()
-                    && tr.refType() instanceof TypeReference innerTr) {
-                logger.info(" propRef*: {}", innerTr);
-                tr = innerTr;
-            }
-            propEffectiveValidation =
-                    Validation.builder().from(tr.validation())
-                        .isRequired(prop.validation().isRequired())
-                        .build();
-        }
-        logger.info(" {} -> {}", prop.validation(), propEffectiveValidation);
         
         TypeInfo ti = decodeTypeInfo(dtoImports, prop, propEffectiveValidation);
         EnumInfo ei = decodeEnumInfo(dtoImports, ti);
