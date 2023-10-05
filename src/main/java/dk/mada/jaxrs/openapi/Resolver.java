@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -54,6 +55,8 @@ public final class Resolver {
     private final ConflictRenamer conflictRenamer;
     /** Configuration to abort on resolver failure. */
     private final boolean abortOnResolverFailure;
+    /** Dto-to-property-names that need validation to be relaxed. */
+    private final Map<TypeName, Set<String>> dtoPropertiesToBeRelaxed = new HashMap<>();
 
     /**
      * Create new instance.
@@ -324,32 +327,22 @@ public final class Resolver {
         Set<String> seenPropertyNames = new HashSet<>();
         List<Property> selectedProps = combinedProps.stream()
                 .filter(p -> seenPropertyNames.add(p.name()))
-                .map(this::relaxPropertyValidation)
                 .toList();
+
+        // Remember the property names for the resolver so their
+        // validation requirements can be relaxed.
+        Set<String> propNamesNeedingRelaxation = selectedProps.stream()
+            .map(Property::name)
+            .collect(Collectors.toSet());
+        
+        dtoPropertiesToBeRelaxed.put(dto.typeName(), propNamesNeedingRelaxation);
 
         return Dto.builderFrom(dto)
                 .properties(selectedProps)
                 .build();
     }
 
-    /**
-     * Ensures that the validation of the property allows for it to be null/not required. The combined DTO will have to be
-     * able to deserialize any subset of the combined DTOs. So this relaxation of validation is necessary.
-     *
-     * @param prop the property to relax validation for
-     * @return property without null
-     */
-    private Property relaxPropertyValidation(Property prop) {
-        Validation flattenedValidation = Validation.builder().from(prop.validation())
-                .isNullable(true)
-                .isRequired(false)
-                .isRelaxed(true)
-                .build();
-        return Property.builder().from(prop)
-                .validation(flattenedValidation)
-                .build();
-    }
-
+    
     private Dto getDtoWithOpenapiId(Collection<Dto> dtos, TypeName tn) {
         return dtos.stream()
                 .filter(d -> d.openapiId().equals(tn))
@@ -445,24 +438,51 @@ public final class Resolver {
         logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builderFrom(dto)
                 .reference(resolve(dtoTypeRef))
-                .properties(derefProperties(dto.properties()))
+                .properties(derefProperties(dto))
                 .implementsInterfaces(implementsInterfaces)
                 .build();
     }
 
-    private List<Property> derefProperties(List<Property> properties) {
-        return properties.stream()
-                .map(this::derefProperty)
+    private List<Property> derefProperties(Dto dto) {
+        return dto.properties().stream()
+                .map(p -> derefProperty(dto, p))
                 .toList();
     }
 
-    private Property derefProperty(Property property) {
+    private Property derefProperty(Dto parent, Property property) {
         String propName = property.name();
         logger.info("    prop: {}", propName);
         TypeReference resolvedRef = resolve(property.reference());
-        logger.info("    deref prop {}\n     from: {}\n     to: {}", propName, property.reference(), resolvedRef);
+        Validation resolvedValidation = property.validation();
+
+        // The type may provide validation - use that if there is none on the property
+        // TODO: If the property has validation, it should probably be attempted
+        // merged with that of the type. If they conflict, fail (with some config to ignore)
+        if (resolvedValidation.isEmptyValidation()) {
+            resolvedValidation = resolvedRef.validation();
+        }
+
+        // allOf constructed DTOs need to be able to deserialize subsets
+        // of their properties, so this part relaxes the validation
+        // requirements for such properties.
+        // This could probably be stricter, but I am unsure about the proper
+        // semantics of such constructs.
+        Set<String> relaxProps = dtoPropertiesToBeRelaxed.get(parent.typeName());
+        if (relaxProps != null && relaxProps.contains(propName)) {
+            logger.trace("     + relaxing validation");
+            resolvedValidation = Validation.builder().from(resolvedValidation)
+                    .isNullable(true)
+                    .isRequired(false)
+                    .build();
+        }
+        
+        logger.debug("    deref prop {}\n     from: {}\n           {}\n     to: {}\n         {}",
+                propName,
+                property.reference(), property.validation(),
+                resolvedRef, resolvedValidation);
         return Property.builder().from(property)
                 .reference(resolvedRef)
+                .validation(resolvedValidation)
                 .build();
     }
 

@@ -563,7 +563,6 @@ public final class TypeConverter {
                 .minItems(Optional.ofNullable(s.getMinItems()))
                 .minLength(Optional.ofNullable(s.getMinLength()))
                 .pattern(Optional.ofNullable(s.getPattern()))
-                .isRelaxed(false)
                 .build();
 
         for (Validation v : validationInstances) {
