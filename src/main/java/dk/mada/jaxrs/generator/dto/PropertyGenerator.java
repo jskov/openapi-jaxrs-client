@@ -90,9 +90,12 @@ public class PropertyGenerator {
         // if both have validation - and break if they conflict.
         // And it should happen in the parser instead!
         Validation propEffectiveValidation = prop.validation();
-        if (prop.reference() instanceof TypeReference tr) {
+        
+        if (!propEffectiveValidation.isRelaxed()
+             && prop.reference() instanceof TypeReference tr) {
             logger.info(" propRef: {}", tr);
             while (tr.validation().isEmptyValidation()
+                    && !tr.validation().isRelaxed()
                     && tr.refType() instanceof TypeReference innerTr) {
                 logger.info(" propRef*: {}", innerTr);
                 tr = innerTr;

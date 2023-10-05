@@ -13,11 +13,13 @@ public interface Validation {
     /** No validation input. */
     Validation NO_VALIDATION = Validation.builder()
             .isRequired(false)
+            .isRelaxed(false)
             .build();
 
     /** Simple required validation. */
     Validation REQUIRED_VALIDATION = Validation.builder()
             .isRequired(true)
+            .isRelaxed(false)
             .build();
 
     /** {@return a builder for this type} */
@@ -59,4 +61,12 @@ public interface Validation {
 
     /** {@return optional validation pattern} */
     Optional<String> pattern();
+
+    /**
+     * Flag to tell that a validation is relaxed to appear in a combined DTO.
+     *
+     * FIXME: should be kept and resolved in the parser!
+     * @return true if this validation is intentionally relaxed
+     */
+    boolean isRelaxed();
 }

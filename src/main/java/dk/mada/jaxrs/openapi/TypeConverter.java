@@ -563,6 +563,7 @@ public final class TypeConverter {
                 .minItems(Optional.ofNullable(s.getMinItems()))
                 .minLength(Optional.ofNullable(s.getMinLength()))
                 .pattern(Optional.ofNullable(s.getPattern()))
+                .isRelaxed(false)
                 .build();
 
         for (Validation v : validationInstances) {
@@ -670,6 +671,9 @@ public final class TypeConverter {
 
             Optional<String> exampleStr = Optional.ofNullable(Objects.toString(propSchema.getExample(), null));
 
+            logger.debug("   ref: {}", ref);
+            logger.debug("   example: {}", exampleStr);
+            
             Validation validation = extractValidation(propSchema, requiredProperyNames.contains(propertyName));
 
             props.add(Property.builder()

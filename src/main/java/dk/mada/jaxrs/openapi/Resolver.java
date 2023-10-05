@@ -343,6 +343,7 @@ public final class Resolver {
         Validation flattenedValidation = Validation.builder().from(prop.validation())
                 .isNullable(true)
                 .isRequired(false)
+                .isRelaxed(true)
                 .build();
         return Property.builder().from(prop)
                 .validation(flattenedValidation)
@@ -524,12 +525,23 @@ public final class Resolver {
     }
 
     private TypeReference resolve(Reference ref) {
+        TypeReference res;
         if (ref instanceof ParserTypeRef ptr) {
-            return resolve(ptr);
+            res = resolve(ptr);
         } else if (ref instanceof TypeReference tr) {
-            return tr;
+            res = tr;
+        } else {
+            throw new IllegalStateException("Unhandled reference type " + ref.getClass());
         }
-        throw new IllegalStateException("Unhandled reference type " + ref.getClass());
+
+        // Remove empty validation chains
+        while (res.validation().isEmptyValidation()
+                && !res.validation().isRelaxed()
+                && res.refType() instanceof TypeReference inner) {
+            res = inner;
+        }
+
+        return res;
     }
 
     /**
