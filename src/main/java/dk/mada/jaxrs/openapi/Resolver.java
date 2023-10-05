@@ -536,7 +536,6 @@ public final class Resolver {
 
         // Remove empty validation chains
         while (res.validation().isEmptyValidation()
-                && !res.validation().isRelaxed()
                 && res.refType() instanceof TypeReference inner) {
             res = inner;
         }
