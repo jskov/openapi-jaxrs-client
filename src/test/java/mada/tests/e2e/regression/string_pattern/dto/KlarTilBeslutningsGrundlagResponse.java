@@ -19,7 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class KlarTilBeslutningsGrundlagResponse {
   public static final String JSON_PROPERTY_SENEST_OPDAT = "senestOpdat";
   @JsonbProperty(JSON_PROPERTY_SENEST_OPDAT)
-  @Schema(required = true, example = "2022-02-18-09.18.12.788990")
+  @Schema(required = true)
   private String senestOpdat;
 
   public KlarTilBeslutningsGrundlagResponse senestOpdat(String senestOpdat) {
