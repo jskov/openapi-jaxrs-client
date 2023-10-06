@@ -128,7 +128,9 @@ public final class Resolver {
     /**
      * Remaps DTOs in a loop as long as there are changes.
      *
-     * @param dtos the DTOs to remap
+     * @param title  the title of the remapping
+     * @param dtos   the DTOs to remap
+     * @param filter the filter to apply to the DTOs
      * @return the (remaining) remapped DTOs
      */
     private Collection<Dto> loopedDtoRemapping(String title, Collection<Dto> dtos, Predicate<Dto> filter) {
@@ -347,8 +349,6 @@ public final class Resolver {
 
     /**
      * This dereferences the name-based parser-type-references into the actual target types.
-     *
-     * FIXME: This is where simple types may get replaced.
      *
      * @param dtos the collection of DTOs still using ptrs
      * @return dereferenced DTOs
@@ -696,7 +696,8 @@ public final class Resolver {
             throw new IllegalStateException("Did not find a dto named " + dtoName);
         }
 
-        // FIXME: catches only 2-level remapped dtos
+        // Note: catches only 2-level remapped dtos. This is enough for now, but
+        // may need to loop
         if (remappedDto instanceof Dto dto) {
             remappedDto = conflictRenamer.getConflictRenamedDto(dto);
         }

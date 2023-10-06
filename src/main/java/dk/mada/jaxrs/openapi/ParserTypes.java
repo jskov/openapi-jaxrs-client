@@ -272,12 +272,11 @@ public class ParserTypes {
         boolean replaced;
         do {
             replaced = false;
-            if (targetType instanceof TypeReference tr) {
-                if (tr.validation().isEmptyValidation()) {
-                    logger.trace("  removing empty reference!");
-                    targetType = tr.refType();
-                    replaced = true;
-                }
+            if (targetType instanceof TypeReference tr
+                    && tr.validation().isEmptyValidation()) {
+                logger.trace("  removing empty reference!");
+                targetType = tr.refType();
+                replaced = true;
             }
         } while (replaced);
 
