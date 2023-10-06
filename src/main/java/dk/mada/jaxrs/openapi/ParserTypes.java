@@ -222,7 +222,7 @@ public class ParserTypes {
             }
         }
 
-        logger.info("find {} -> {} : {}", name, conversion, type);
+        logger.debug("find {} -> {} : {}", name, conversion, type);
         return Optional.ofNullable(type);
     }
 
@@ -274,14 +274,14 @@ public class ParserTypes {
             replaced = false;
             if (targetType instanceof TypeReference tr) {
                 if (tr.validation().isEmptyValidation()) {
-                    logger.debug("  removing empty reference!");
+                    logger.trace("  removing empty reference!");
                     targetType = tr.refType();
                     replaced = true;
                 }
             }
         } while (replaced);
 
-        logger.info("  remap {} to {}", openapiName, targetType);
+        logger.debug("  remap {} to {}", openapiName, targetType);
 
         Type oldType = remappedDtoTypes.put(openapiName, targetType);
         if (oldType != null) {

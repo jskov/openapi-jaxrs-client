@@ -445,7 +445,7 @@ public final class Resolver {
 
     private Property derefProperty(Dto parent, Property property) {
         String propName = property.name();
-        logger.info("    prop: {}", propName);
+        logger.debug("    prop: {}", propName);
         TypeReference resolvedRef = resolve(property.reference());
         Validation resolvedValidation = property.validation();
 

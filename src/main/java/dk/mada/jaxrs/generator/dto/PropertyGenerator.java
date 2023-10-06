@@ -25,7 +25,6 @@ import dk.mada.jaxrs.generator.imports.JavaMath;
 import dk.mada.jaxrs.generator.imports.JavaUtil;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.model.Property;
-import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -85,9 +84,7 @@ public class PropertyGenerator {
         final Names names = getNames(prop);
         logger.debug("Property {}", names);
 
-        Validation propEffectiveValidation = prop.validation();
-
-        TypeInfo ti = decodeTypeInfo(dtoImports, prop, propEffectiveValidation);
+        TypeInfo ti = decodeTypeInfo(dtoImports, prop);
         EnumInfo ei = decodeEnumInfo(dtoImports, ti);
 
         Type propType = ti.propType();
@@ -126,10 +123,10 @@ public class PropertyGenerator {
         if (ti.isRequired()) {
             schemaEntries.add("required = true");
         }
-        if (propEffectiveValidation.isNullable().orElse(false)) {
+        if (prop.validation().isNullable().orElse(false)) {
             schemaEntries.add("nullable = true");
         }
-        if (propEffectiveValidation.isReadonly().orElse(false)) {
+        if (prop.validation().isReadonly().orElse(false)) {
             schemaEntries.add("readOnly = true");
         }
         consumeNonBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
@@ -141,7 +138,7 @@ public class PropertyGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, propEffectiveValidation);
+        Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation());
 
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(ti.innerTypeName())
@@ -255,11 +252,11 @@ public class PropertyGenerator {
         return new EnumInfo(ctxEnum, enumClassName, enumTypeName, enumSchema.orElse(null));
     }
 
-    private TypeInfo decodeTypeInfo(Imports dtoImports, Property prop, Validation propEffectiveValidation) {
+    private TypeInfo decodeTypeInfo(Imports dtoImports, Property prop) {
         Type propType = prop.reference().refType();
         Type innerType = null;
         String defaultValue = null;
-        final boolean isRequired = propEffectiveValidation.isRequired().orElse(false);
+        final boolean isRequired = prop.validation().isRequired().orElse(false);
         boolean isByteArray = false;
         boolean isArray = false;
         boolean isMap = false;
