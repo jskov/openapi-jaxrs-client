@@ -98,7 +98,7 @@ public final class Resolver {
         Collection<Dto> withoutModelTypes = loopedDtoRemapping("model types", withoutPrimitiveDtos, this::isDtoModelType);
 
         Collection<Dto> filteredDtos = withoutModelTypes;
-        
+
         if (logger.isDebugEnabled()) {
             logger.debug("= Filtered DTOs:");
             filteredDtos.stream()
@@ -140,7 +140,7 @@ public final class Resolver {
         int pass = 1;
         do {
             logger.debug(" {} pass {} with {} dtos", title, pass, output.size());
-            
+
             List<Dto> updated = output.stream()
                     .filter(dto -> applyDtoFilter(filter, dto))
                     .toList();
@@ -156,22 +156,21 @@ public final class Resolver {
     private boolean applyDtoFilter(Predicate<Dto> filter, Dto dto) {
         String name = dto.name();
         logger.trace(" - {} {}", name, dto);
-        
+
         if (filter.test(dto)) {
             TypeReference ref = resolve(dto.reference());
             Type newType = parserTypes.remapDto(dto.typeName(), ref);
             logger.info("   : remap {} to {}", name, newType);
             return false;
         }
-        
+
         logger.info("   : keep {}", name);
         return true;
     }
 
     /**
-     * It is valid for type references (just a plain $ref) to be represented in
-     * OpenApi documents, but there is no good way to express it in Java (unless
-     * you want to consider extension).
+     * It is valid for type references (just a plain $ref) to be represented in OpenApi documents, but there is no good way
+     * to express it in Java (unless you want to consider extension).
      *
      * So replace these DTOs with whatever they point to.
      *
@@ -189,17 +188,14 @@ public final class Resolver {
     }
 
     /**
-     * It is valid for simple (non-Object) types to be represented in OpenApi
-     * documents as standalone DTOs. But there is no good way to express it in
-     * Java.
+     * It is valid for simple (non-Object) types to be represented in OpenApi documents as standalone DTOs. But there is no
+     * good way to express it in Java.
      *
-     * So filter out these DTOs, replacing them with whatever they point to.
-     * This will result in the types being represented as property fields instead.
+     * So filter out these DTOs, replacing them with whatever they point to. This will result in the types being represented
+     * as property fields instead.
      *
-     * TODO: this and isDtoModelType should be reworked to carry a
-     * new TypeDef object into the model. And then let the generator
-     * decide if these should be inlined (so basically move this pass
-     * down).
+     * TODO: this and isDtoModelType should be reworked to carry a new TypeDef object into the model. And then let the
+     * generator decide if these should be inlined (so basically move this pass down).
      *
      * @param dto the DTO to consider
      * @return true if the DTO is a primitive (not object)
@@ -213,8 +209,7 @@ public final class Resolver {
     /**
      * Filter out DTOs that are of a known model type.
      *
-     * TODO: see isDtoPrimitiveWrapperOnly
-     * TODO: this predicate clearly shows a lot of types/options *not* covered by tests
+     * TODO: see isDtoPrimitiveWrapperOnly TODO: this predicate clearly shows a lot of types/options *not* covered by tests
      *
      * @param dto the DTO to consider
      * @return true if the DTO is a known model type.
@@ -333,9 +328,9 @@ public final class Resolver {
         // Remember the property names for the resolver so their
         // validation requirements can be relaxed.
         Set<String> propNamesNeedingRelaxation = selectedProps.stream()
-            .map(Property::name)
-            .collect(Collectors.toSet());
-        
+                .map(Property::name)
+                .collect(Collectors.toSet());
+
         dtoPropertiesToBeRelaxed.put(dto.typeName(), propNamesNeedingRelaxation);
 
         return Dto.builderFrom(dto)
@@ -343,7 +338,6 @@ public final class Resolver {
                 .build();
     }
 
-    
     private Dto getDtoWithOpenapiId(Collection<Dto> dtos, TypeName tn) {
         return dtos.stream()
                 .filter(d -> d.openapiId().equals(tn))
@@ -352,8 +346,7 @@ public final class Resolver {
     }
 
     /**
-     * This dereferences the name-based parser-type-references into
-     * the actual target types.
+     * This dereferences the name-based parser-type-references into the actual target types.
      *
      * FIXME: This is where simple types may get replaced.
      *
@@ -702,7 +695,7 @@ public final class Resolver {
         if (remappedDto == null) {
             throw new IllegalStateException("Did not find a dto named " + dtoName);
         }
-        
+
         // FIXME: catches 2-level remapped dtos
         if (remappedDto instanceof Dto dto) {
             remappedDto = conflictRenamer.getConflictRenamedDto(dto);

@@ -262,12 +262,12 @@ public class ParserTypes {
      * The target type gets stripped from empty validation references.
      *
      * @param openapiName the DTOs OpenApi name
-     * @param newType the type to remap the DTO to
+     * @param newType     the type to remap the DTO to
      * @return the actual type remapped to (may have fewer validation references)
      */
     public Type remapDto(TypeName openapiName, Type newType) {
         Type targetType = newType;
-        
+
         // Flatten targets that are just reference pointers
         boolean replaced;
         do {

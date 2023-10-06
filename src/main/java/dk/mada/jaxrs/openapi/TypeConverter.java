@@ -672,7 +672,7 @@ public final class TypeConverter {
 
             logger.debug("   ref: {}", ref);
             logger.debug("   example: {}", exampleStr);
-            
+
             Validation validation = extractValidation(propSchema, requiredProperyNames.contains(propertyName));
 
             props.add(Property.builder()

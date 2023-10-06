@@ -86,7 +86,7 @@ public class PropertyGenerator {
         logger.debug("Property {}", names);
 
         Validation propEffectiveValidation = prop.validation();
-        
+
         TypeInfo ti = decodeTypeInfo(dtoImports, prop, propEffectiveValidation);
         EnumInfo ei = decodeEnumInfo(dtoImports, ti);
 
