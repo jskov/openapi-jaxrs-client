@@ -696,7 +696,7 @@ public final class Resolver {
             throw new IllegalStateException("Did not find a dto named " + dtoName);
         }
 
-        // FIXME: catches 2-level remapped dtos
+        // FIXME: catches only 2-level remapped dtos
         if (remappedDto instanceof Dto dto) {
             remappedDto = conflictRenamer.getConflictRenamedDto(dto);
         }
