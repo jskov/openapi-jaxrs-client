@@ -103,7 +103,7 @@ public final class Parser {
             logger.info("{}", infoParsing);
         }
 
-        parserTypes.consolidateDtos();
+        parserTypes.consolidateContainerDtos();
         List<String> schemaNamesDeclarationOrder = getSchemaOrder(specification);
         ConflictRenamer cr = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder);
 

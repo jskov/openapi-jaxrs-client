@@ -41,19 +41,6 @@ public class ParserTypeRefs {
     /**
      * Makes a new parser reference to a DTO.
      *
-     * Created from the schema definition, so has no validation.
-     *
-     * @param name the name of the DTO type
-     * @return the parser reference
-     */
-    public ParserTypeRef makeDtoRef(String name) {
-        TypeName tn = typeNames.of(name);
-        return of(TypeUnknownAtParseTime.get(), tn, Validation.NO_VALIDATION);
-    }
-
-    /**
-     * Makes a new parser reference to a DTO.
-     *
      * Created from a property/parameter reference, so it does have validation.
      *
      * @param name       the name of the DTO type

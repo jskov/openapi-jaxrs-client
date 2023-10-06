@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -43,6 +46,8 @@ public final class Resolver {
     /** Parser types to their dereferenced model type. */
     private final Map<ParserTypeRef, TypeReference> dereferencedTypes = new HashMap<>();
 
+    /** The parser options. */
+    private final ParserOpts parserOpts;
     /** Type names. */
     private final TypeNames typeNames;
     /** Types from parsing. */
@@ -51,6 +56,8 @@ public final class Resolver {
     private final ConflictRenamer conflictRenamer;
     /** Configuration to abort on resolver failure. */
     private final boolean abortOnResolverFailure;
+    /** Dto-to-property-names that need validation to be relaxed. */
+    private final Map<TypeName, Set<String>> dtoPropertiesToBeRelaxed = new HashMap<>();
 
     /**
      * Create new instance.
@@ -61,6 +68,7 @@ public final class Resolver {
      * @param conflictRenamer the conflict renamer
      */
     public Resolver(ParserOpts parserOpts, TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
+        this.parserOpts = parserOpts;
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
         this.conflictRenamer = conflictRenamer;
@@ -80,14 +88,26 @@ public final class Resolver {
         Set<Dto> unresolvedDtos = parserTypes.getActiveDtos();
 
         if (logger.isDebugEnabled()) {
-            logger.debug("Parsed DTOs:");
+            logger.debug("= Parsed DTOs:");
             unresolvedDtos.stream()
+                    .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
+        }
+
+        Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, Resolver::isDtoReferenceOnly);
+        Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping("primitive", withoutTypeRefDtos, Resolver::isDtoPrimitiveWrapperOnly);
+        Collection<Dto> withoutModelTypes = loopedDtoRemapping("model types", withoutPrimitiveDtos, this::isDtoModelType);
+
+        Collection<Dto> filteredDtos = withoutModelTypes;
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("= Filtered DTOs:");
+            filteredDtos.stream()
                     .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
         // Rename DTOs as a separate pass so there are stable
         // targets for dereferencing during the resolve pass.
-        Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(unresolvedDtos);
+        Collection<Dto> renamedDtos = conflictRenamer.resolveNameConflicts(filteredDtos);
 
         Collection<Dto> expandedDtos = extractCompositeDtos(renamedDtos);
 
@@ -96,13 +116,112 @@ public final class Resolver {
         List<Dto> dereferencedDtos = dereferenceDtos(foldedDtos);
 
         if (logger.isDebugEnabled()) {
-            logger.debug("Resolved DTOs:");
+            logger.debug("= Resolved DTOs:");
             dereferencedDtos.stream()
                     .sorted((a, b) -> a.name().compareToIgnoreCase(b.name()))
                     .forEach(d -> logger.info(" - {}", d));
         }
 
         return dereferencedDtos;
+    }
+
+    /**
+     * Remaps DTOs in a loop as long as there are changes.
+     *
+     * @param title  the title of the remapping
+     * @param dtos   the DTOs to remap
+     * @param filter the filter to apply to the DTOs
+     * @return the (remaining) remapped DTOs
+     */
+    private Collection<Dto> loopedDtoRemapping(String title, Collection<Dto> dtos, Predicate<Dto> filter) {
+        Collection<Dto> output = dtos;
+
+        logger.debug("== DTO filtering {}", title);
+
+        boolean runAnotherPass;
+        int pass = 1;
+        do {
+            logger.debug(" {} pass {} with {} dtos", title, pass, output.size());
+
+            List<Dto> updated = output.stream()
+                    .filter(dto -> applyDtoFilter(filter, dto))
+                    .toList();
+            runAnotherPass = output.size() != updated.size();
+            output = updated;
+            pass++;
+        } while (runAnotherPass);
+
+        logger.debug(" completed {} DTO remapping with {}->{} dtos", title, dtos.size(), output.size());
+        return output;
+    }
+
+    private boolean applyDtoFilter(Predicate<Dto> filter, Dto dto) {
+        String name = dto.name();
+        logger.trace(" - {} {}", name, dto);
+
+        if (filter.test(dto)) {
+            TypeReference ref = resolve(dto.reference());
+            Type newType = parserTypes.remapDto(dto.typeName(), ref);
+            logger.info("   : remap {} to {}", name, newType);
+            return false;
+        }
+
+        logger.info("   : keep {}", name);
+        return true;
+    }
+
+    /**
+     * It is valid for type references (just a plain $ref) to be represented in OpenApi documents, but there is no good way
+     * to express it in Java (unless you want to consider extension).
+     *
+     * So replace these DTOs with whatever they point to.
+     *
+     * @param dto the DTO to consider
+     * @return true if this DTO is only a reference to some other DTO
+     */
+    private static boolean isDtoReferenceOnly(Dto dto) {
+        return dto.reference() != null
+                && (dto.reference().refType() == UNKNOWN_TYPE || dto.reference().isDto())
+                && dto.properties().isEmpty()
+                && !dto.isEnum()
+                && dto.implementsInterfaces().isEmpty()
+                && !dto.subtypeSelector().isPresent()
+                && dto.extendsParents().isEmpty();
+    }
+
+    /**
+     * It is valid for simple (non-Object) types to be represented in OpenApi documents as standalone DTOs. But there is no
+     * good way to express it in Java.
+     *
+     * So filter out these DTOs, replacing them with whatever they point to. This will result in the types being represented
+     * as property fields instead.
+     *
+     * TODO: this and isDtoModelType should be reworked to carry a new TypeDef object into the model. And then let the
+     * generator decide if these should be inlined (so basically move this pass down).
+     *
+     * @param dto the DTO to consider
+     * @return true if the DTO is a primitive (not object)
+     */
+    private static boolean isDtoPrimitiveWrapperOnly(Dto dto) {
+        Type dtoType = dto.reference().refType();
+        return !dto.isEnum()
+                && (dtoType.isPrimitive() || dtoType.isPlainObject());
+    }
+
+    /**
+     * Filter out DTOs that are of a known model type.
+     *
+     * TODO: see isDtoPrimitiveWrapperOnly TODO: this predicate clearly shows a lot of types/options *not* covered by tests
+     *
+     * @param dto the DTO to consider
+     * @return true if the DTO is a known model type.
+     */
+    private boolean isDtoModelType(Dto dto) {
+        Type dtoType = dto.reference().refType();
+        return (dtoType.isDate() && parserOpts.isJseLocalDate())
+                || (dtoType.isDateTime()
+                        && (parserOpts.isJseLocalDateTime() || parserOpts.isJseOffsetDateTime() || parserOpts.isJseZonedDateTime()))
+                || (dtoType.isTime() && parserOpts.isJseLocalTime());
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
@@ -206,28 +325,18 @@ public final class Resolver {
         Set<String> seenPropertyNames = new HashSet<>();
         List<Property> selectedProps = combinedProps.stream()
                 .filter(p -> seenPropertyNames.add(p.name()))
-                .map(this::relaxPropertyValidation)
                 .toList();
+
+        // Remember the property names for the resolver so their
+        // validation requirements can be relaxed.
+        Set<String> propNamesNeedingRelaxation = selectedProps.stream()
+                .map(Property::name)
+                .collect(Collectors.toSet());
+
+        dtoPropertiesToBeRelaxed.put(dto.typeName(), propNamesNeedingRelaxation);
 
         return Dto.builderFrom(dto)
                 .properties(selectedProps)
-                .build();
-    }
-
-    /**
-     * Ensures that the validation of the property allows for it to be null/not required. The combined DTO will have to be
-     * able to deserialize any subset of the combined DTOs. So this relaxation of validation is necessary.
-     *
-     * @param prop the property to relax validation for
-     * @return property without null
-     */
-    private Property relaxPropertyValidation(Property prop) {
-        Validation flattenedValidation = Validation.builder().from(prop.validation())
-                .isNullable(true)
-                .isRequired(false)
-                .build();
-        return Property.builder().from(prop)
-                .validation(flattenedValidation)
                 .build();
     }
 
@@ -238,9 +347,15 @@ public final class Resolver {
                 .orElseThrow(() -> new IllegalStateException("Did not find referenced DTO " + tn));
     }
 
-    private List<Dto> dereferenceDtos(Collection<Dto> foldedDtos) {
-        logger.debug("Dereference DTOs");
-        return foldedDtos.stream()
+    /**
+     * This dereferences the name-based parser-type-references into the actual target types.
+     *
+     * @param dtos the collection of DTOs still using ptrs
+     * @return dereferenced DTOs
+     */
+    private List<Dto> dereferenceDtos(Collection<Dto> dtos) {
+        logger.debug("==== Dereference DTOs");
+        return dtos.stream()
                 .map(this::derefDto)
                 .toList();
     }
@@ -317,20 +432,62 @@ public final class Resolver {
         logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builderFrom(dto)
                 .reference(resolve(dtoTypeRef))
-                .properties(derefProperties(dto.properties()))
+                .properties(derefProperties(dto))
                 .implementsInterfaces(implementsInterfaces)
                 .build();
     }
 
-    private List<Property> derefProperties(List<Property> properties) {
-        return properties.stream()
-                .map(this::derefProperty)
+    private List<Property> derefProperties(Dto dto) {
+        return dto.properties().stream()
+                .map(p -> derefProperty(dto, p))
                 .toList();
     }
 
-    private Property derefProperty(Property property) {
+    private Property derefProperty(Dto parent, Property property) {
+        String propName = property.name();
+        logger.debug("    prop: {}", propName);
+        TypeReference resolvedRef = resolve(property.reference());
+        Validation resolvedValidation = property.validation();
+
+        // The type may provide validation - use that if there is none on the property
+        // TODO: If the property has validation, it should probably be attempted
+        // merged with that of the type. If they conflict, fail (with some config to ignore)
+        if (resolvedValidation.isEmptyValidation()) {
+            resolvedValidation = resolvedRef.validation();
+        } else if (resolvedValidation == Validation.REQUIRED_VALIDATION) {
+            // handle simple required_validation since it is simplest - and probably enough for now
+            resolvedValidation = Validation.builder().from(resolvedRef.validation())
+                    .isRequired(true)
+                    .build();
+        }
+
+        // allOf constructed DTOs need to be able to deserialize subsets
+        // of their properties, so this part relaxes the validation
+        // requirements for such properties.
+        // This could probably be stricter, but I am unsure about the proper
+        // semantics of such constructs.
+        Set<String> relaxProps = dtoPropertiesToBeRelaxed.get(parent.typeName());
+        if (relaxProps != null && relaxProps.contains(propName)) {
+            logger.trace("     + relaxing validation");
+            resolvedValidation = Validation.builder().from(resolvedValidation)
+                    .isNullable(true)
+                    .isRequired(false)
+                    .build();
+        }
+
+        // TODO: get example from type, see mada.tests.e2e.regression.string_pattern.dto.KlarTilBeslutningsGrundlagResponse
+        // is should have:
+        // @Schema(required = true, example = "2022-02-18-09.18.12.788990")
+        Optional<String> resolvedExample = property.example();
+
+        logger.debug("    deref prop {}\n     from: {}\n           {}\n     to: {}\n         {}",
+                propName,
+                property.reference(), property.validation(),
+                resolvedRef, resolvedValidation);
         return Property.builder().from(property)
-                .reference(resolve(property.reference()))
+                .example(resolvedExample)
+                .reference(resolvedRef)
+                .validation(resolvedValidation)
                 .build();
     }
 
@@ -393,12 +550,22 @@ public final class Resolver {
     }
 
     private TypeReference resolve(Reference ref) {
+        TypeReference res;
         if (ref instanceof ParserTypeRef ptr) {
-            return resolve(ptr);
+            res = resolve(ptr);
         } else if (ref instanceof TypeReference tr) {
-            return tr;
+            res = tr;
+        } else {
+            throw new IllegalStateException("Unhandled reference type " + ref.getClass());
         }
-        throw new IllegalStateException("Unhandled reference type " + ref.getClass());
+
+        // Remove empty validation chains
+        while (res.validation().isEmptyValidation()
+                && res.refType() instanceof TypeReference inner) {
+            res = inner;
+        }
+
+        return res;
     }
 
     /**
@@ -434,6 +601,7 @@ public final class Resolver {
      * @return the final model type
      */
     private Type resolveInner(Type type) {
+        logger.trace(" resolveInner {}", type);
         if (type instanceof Dto dto) {
             return resolveDto(dto);
         } else if (type instanceof ParserTypeComposite ptc) {
@@ -447,20 +615,30 @@ public final class Resolver {
         } else if (type instanceof TypeArray ta) {
             Type it = ta.innerType();
             Type newIt = resolveInner(it);
-            logger.debug(" array {} -> {}", it, newIt);
+            logger.trace(" array {} -> {}", it, newIt);
             return TypeArray.of(typeNames, newIt);
         } else if (type instanceof TypeSet ts) {
             Type it = ts.innerType();
             Type newIt = resolveInner(it);
-            logger.debug(" set {} -> {}", it, newIt);
+            logger.trace(" set {} -> {}", it, newIt);
             return TypeSet.of(typeNames, newIt);
         } else if (type instanceof TypeMap tm) {
             Type it = tm.innerType();
             Type newIt = resolveInner(it);
-            logger.debug(" map {} -> {}", it, newIt);
+            logger.trace(" map {} -> {}", it, newIt);
             return TypeMap.of(typeNames, newIt);
+        } else if (type instanceof TypeReference tr) {
+            logger.info("FIXME:  XXXX should probably be removed / see tr {}", tr);
+            if (tr.validation().isEmptyValidation()) {
+                Type refType = tr.refType();
+                if (refType instanceof TypeReference) {
+                    logger.debug(" flatten empty typeref {} -> {}", tr, refType);
+                    return refType;
+                }
+            }
+            return type;
         } else {
-            logger.debug("NOT dereferencing {}", type);
+            logger.trace("NOT dereferencing {}", type);
             return type;
         }
     }
@@ -517,6 +695,9 @@ public final class Resolver {
         if (remappedDto == null) {
             throw new IllegalStateException("Did not find a dto named " + dtoName);
         }
+
+        // Note: catches only 2-level remapped dtos. This is enough for now, but
+        // may need to loop
         if (remappedDto instanceof Dto dto) {
             remappedDto = conflictRenamer.getConflictRenamedDto(dto);
         }

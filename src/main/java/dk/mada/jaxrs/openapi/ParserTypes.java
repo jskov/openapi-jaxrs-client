@@ -29,8 +29,8 @@ import dk.mada.jaxrs.model.types.TypeLocalTime;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
-import dk.mada.jaxrs.model.types.TypeObject;
 import dk.mada.jaxrs.model.types.TypePlainObject;
+import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 
@@ -194,6 +194,17 @@ public class ParserTypes {
             type = remappedDtoTypes.get(tn);
             if (type != null) {
                 conversion = "remapped";
+
+                // now lookup again, as the type may have been remapped more than once
+                while (true) {
+                    Type derefType = remappedDtoTypes.get(type.typeName());
+                    if (derefType == type || derefType == null) {
+                        break;
+                    } else {
+                        // go around again
+                        type = derefType;
+                    }
+                }
             }
         }
 
@@ -218,8 +229,8 @@ public class ParserTypes {
     /**
      * Collection types such as ListDto are changed to {@code List<Dto>}.
      */
-    public void consolidateDtos() {
-        logger.info("Consolidate DTOs");
+    public void consolidateContainerDtos() {
+        logger.info("== Consolidate container DTOs");
         for (Dto dto : parsedDtos.values()) {
             String name = dto.name();
             Reference ref = dto.reference();
@@ -227,35 +238,56 @@ public class ParserTypes {
 
             TypeName openapiName = dto.openapiId();
 
-            logger.debug(" consider {} : {} {}/{}", name, dto.getClass(), type.getClass(), type);
-
+            Type newType = null;
             if (type instanceof TypeArray ta) {
-                remapDto(openapiName, TypeArray.of(typeNames, ta.innerType()));
+                newType = remapDto(openapiName, TypeArray.of(typeNames, ta.innerType()));
             } else if (type instanceof TypeSet ts) {
-                remapDto(openapiName, TypeSet.of(typeNames, ts.innerType()));
+                newType = remapDto(openapiName, TypeSet.of(typeNames, ts.innerType()));
             } else if (type instanceof TypeMap) {
                 // no remapping of maps
                 // a DTO with properties of the same type may be represented like this
-            } else if (unmappedToJseTypes.contains(openapiName)) {
-                // no remapping of kept types
-            } else if (dto.isEnum()) {
-                // no remapping of enums
-            } else if (type instanceof ParserTypeComposite) {
-                // no remapping of composite DTOs
-            } else if (type instanceof ParserTypeCombined) {
-                // no remapping of combined DTOs
-            } else if (!(type instanceof TypeObject)) {
-                remapDto(openapiName, type);
+            }
+
+            if (newType != null) {
+                logger.debug(" : remapped {} : {}", name, newType);
+            } else {
+                logger.debug(" : keep {}", name);
             }
         }
     }
 
-    private void remapDto(TypeName openapiName, Type newType) {
-        logger.info("  remap {} to {}", openapiName, newType);
-        Type oldType = remappedDtoTypes.put(openapiName, newType);
+    /**
+     * Remaps a DTO to a new type.
+     *
+     * The target type gets stripped from empty validation references.
+     *
+     * @param openapiName the DTOs OpenApi name
+     * @param newType     the type to remap the DTO to
+     * @return the actual type remapped to (may have fewer validation references)
+     */
+    public Type remapDto(TypeName openapiName, Type newType) {
+        Type targetType = newType;
+
+        // Flatten targets that are just reference pointers
+        boolean replaced;
+        do {
+            replaced = false;
+            if (targetType instanceof TypeReference tr
+                    && tr.validation().isEmptyValidation()) {
+                logger.trace("  removing empty reference!");
+                targetType = tr.refType();
+                replaced = true;
+            }
+        } while (replaced);
+
+        logger.debug("  remap {} to {}", openapiName, targetType);
+
+        Type oldType = remappedDtoTypes.put(openapiName, targetType);
         if (oldType != null) {
-            throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + newType);
+            throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + targetType);
         }
+
+        return targetType;
     }
 
     /** {@return information about the model} */

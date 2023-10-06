@@ -1,0 +1,41 @@
+---
+openapi: 3.0.1
+info:
+  title: Test
+  version: 1.0.0
+security:
+- JWT: []
+tags:
+- name: Tag
+paths:
+  /add:
+    post:
+      tags:
+      - Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/klarTilBeslutningsGrundlagResponse'
+      responses:
+        "204":
+          description: Success
+components:
+  schemas:
+    klarTilBeslutningsGrundlagResponse:
+      type: object
+      required:
+        - senestOpdat
+      properties:
+        # This should flatten to senest-optat, then bdws-timestamp
+        senestOpdat:
+          $ref: '#/components/schemas/senest-opdat'
+
+    # This should flatten to bdws-timestamp
+    senest-opdat:
+      $ref: '#/components/schemas/bdws-timestamp'
+
+    bdws-timestamp:
+      type: string
+      example: "2022-02-18-09.18.12.788990"
+      pattern: '^(\d{4}-\d{2}-\d{2}-\d{2}.\d{2}.\d{2}.\d{6})$'
