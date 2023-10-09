@@ -431,7 +431,6 @@ public class ApiGenerator {
     }
 
     private List<CtxApiResponse> getResponses(Imports imports, Operation op, List<String> producesMediaTypes) {
-        logger.debug(" Reponses {}:{}", op.path(), op.httpMethod());
         return op.responses().stream()
                 .sorted((a, b) -> a.code().compareTo(b.code()))
                 .map(r -> makeResponse(imports, op, r, producesMediaTypes))
