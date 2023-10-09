@@ -1,0 +1,35 @@
+swagger: '2.0'
+info:
+  version: v1
+  title: Naked Object Test
+paths:
+  /v1/ap/ag:
+    put:
+      tags:
+        - ap
+      operationId: ap_ta
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Request'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+definitions:
+  Request:
+    type: object
+    properties:
+      Id:
+        format: int64
+        type: integer
+  Response:
+    type: object
+    properties: {}
