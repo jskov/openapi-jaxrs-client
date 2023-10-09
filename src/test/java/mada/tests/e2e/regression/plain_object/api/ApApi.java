@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.regression.plain_object.dto.Request;
-import mada.tests.e2e.regression.plain_object.dto.Response;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
@@ -22,11 +21,11 @@ public interface ApApi {
    * ap_ta.
    *
    * @param dto  (required)
-   * @return Response
+   * @return Object
    */
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Response.class)
-  Response ap_ta(@NotNull @Valid Request dto);
+  @APIResponseSchema(Object.class)
+  Object ap_ta(@NotNull @Valid Request dto);
 }
