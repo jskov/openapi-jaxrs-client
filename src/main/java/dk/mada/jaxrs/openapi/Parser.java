@@ -108,10 +108,11 @@ public final class Parser {
         ConflictRenamer cr = new ConflictRenamer(typeNames, naming, schemaNamesDeclarationOrder);
 
         Resolver resolver = new Resolver(parserOpts, typeNames, parserTypes, cr);
-        Operations derefOps = resolver.operations(operations);
 
         // This converts the parser references to model type references
         Dtos dtos = new Dtos(resolver.getDtos());
+        // Convert operations after DTOs to get finally resolved/mapped DTOs
+        Operations derefOps = resolver.operations(operations);
 
         if (showInfo) {
             String infoResolved = "============== RESOLVED =====" + NL

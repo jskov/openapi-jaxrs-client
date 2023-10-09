@@ -82,6 +82,8 @@ public final class Resolver {
      * First the DTOs are renamed (if necessary) to resolve name conflicts. Then references to DTOs are resolved, changing
      * parser- references to model-references.
      *
+     * Note that this updates the resolver/ParserTypes state with renames and type mappings.
+     *
      * @return DTOs for the model
      */
     public List<Dto> getDtos() {
