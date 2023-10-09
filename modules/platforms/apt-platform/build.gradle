@@ -19,6 +19,6 @@ dependencies {
         api 'io.jstach:jstachio-apt:1.3.2'
 
         // For immutables
-        api 'org.immutables:value:2.9.3'
+        api 'org.immutables:value:2.10.0'
     }
 }
