@@ -1,0 +1,60 @@
+---
+openapi: 3.0.3
+info:
+  title: jboss-helloworld
+  version: "1.0"
+servers:
+- url: /jboss-helloworld
+paths:
+  /services/tests:
+    get:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DtoA'
+components:
+  schemas:
+    DtoA:
+      type: object
+      properties:
+        memberA:
+          type: boolean
+        refB:
+          description: ref to object
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/DtoB'
+        refE:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/DtoE'
+          deprecated: true
+    DtoB:
+      type: object
+      properties:
+        memberB:
+          format: int32
+          type: integer
+    DtoE:
+      required:
+      - member-in-E
+      type: object
+      properties:
+        member-in-E:
+          description: enum in E
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/EnumDescription'
+    EnumDescription:
+      description: an enum
+      enum:
+      - VALUE_A
+      - VALUE_B
+      - VALUE_C
+      type: string
+  
