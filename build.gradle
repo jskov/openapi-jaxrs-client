@@ -78,7 +78,7 @@ javadoc {
 }
 
 test {
-    testLogging.showStandardStreams = true
+    //testLogging.showStandardStreams = true
     
     inputs.files(fileTree(dir: "src/test/java", include: "**/openapi.yaml, **/test.properties"))
 

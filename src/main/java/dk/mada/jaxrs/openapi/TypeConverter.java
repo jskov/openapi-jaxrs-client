@@ -212,10 +212,18 @@ public final class TypeConverter {
      * @return the found reference or null
      */
     @Nullable private ParserTypeRef createPrimitiveTypeRef(RefInfo ri) {
+        // If the property declares a primitive type *and* allOf is defined
+        // (as happens from Quarkus 3) ignore the found primitive. It is not
+        // the full story.
+        if (ri.schema.getAllOf() != null) {
+            return null;
+        }
+
         Type type = Primitive.find(ri.schema);
         if (type == null) {
             return null;
         }
+
         List<?> enumeration = ri.schema.getEnum();
         if (enumeration == null || ri.propertyName == null) {
             String name = type.typeName().name();
@@ -319,6 +327,7 @@ public final class TypeConverter {
         if (ri.schema instanceof ComposedSchema cs) {
             @SuppressWarnings("rawtypes")
             List<Schema> allOf = cs.getAllOf();
+
             if (allOf != null && !allOf.isEmpty()) {
 
                 logger.info("PROCESSING allOf:");

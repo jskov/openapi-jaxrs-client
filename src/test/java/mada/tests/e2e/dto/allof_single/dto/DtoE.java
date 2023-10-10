@@ -8,10 +8,9 @@ package mada.tests.e2e.dto.allof_single.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-
-import mada.tests.e2e.opts.generator.schema_naming.dto.EnumDescription;
 
 /**
  * DtoE
@@ -33,7 +32,7 @@ public class DtoE {
    *
    * @return memberInE
    **/
-  @NotNull
+  @NotNull @Valid
   public EnumDescription getMemberInE() {
     return memberInE;
   }
