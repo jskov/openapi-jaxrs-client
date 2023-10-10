@@ -1,5 +1,7 @@
 package mada.fixture;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
 import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
 import dk.mada.jaxrs.utils.DirectoryDeleter;
@@ -15,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.Generator;
+import dk.mada.jaxrs.GeneratorBadInputException;
 
 /**
  * Runs end-to-end test from specified directory.
@@ -69,13 +72,26 @@ public class EndToEndTester {
         boolean skipDto = Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"));
 
         ClientContext cc = new ClientContext(true, GeneratorLogLevel.DEFAULT, skipApi, skipDto);
-        new Generator(false).generateClient(cc, input, testOptions, outputDir);
+        try {
+            new Generator(false).generateClient(cc, input, testOptions, outputDir);
+        } catch (GeneratorBadInputException e) {
+            logger.info("BAD INPUT: {}", e.getMessage());
+
+            String badInputMessageContains = testOptions.getProperty("expected-bad-input-contains");
+            assertThat(badInputMessageContains)
+                .withFailMessage("test.properties should include expected-bad-input-contains property")
+                .isNotBlank();
+
+            assertThat(e.getMessage())
+                .contains(badInputMessageContains);
+            return;
+        } finally {
+            deleteUnwantedOutput(testOptions, generatedFilesRootDir);
+        }
 
         logger.info("Generator returned");
         logger.info("Expected dir {}", input);
         logger.info("Actual dir   {}", generatedFilesRootDir);
-
-        deleteUnwantedOutput(testOptions, generatedFilesRootDir);
 
         OutputDiff differ = new OutputDiff(testName);
         Path outputApiDir = generatedFilesRootDir.resolve("api");
