@@ -178,17 +178,26 @@ public final class Resolver {
      *
      * So replace these DTOs with whatever they point to.
      *
+     * If the DTO points to itself, abort parsing.
+     *
      * @param dto the DTO to consider
      * @return true if this DTO is only a reference to some other DTO
      */
     private static boolean isDtoReferenceOnly(Dto dto) {
-        return dto.reference() != null
+        boolean isRefOnly = dto.reference() != null
                 && (dto.reference().refType() == UNKNOWN_TYPE || dto.reference().isDto())
                 && dto.properties().isEmpty()
                 && !dto.isEnum()
                 && dto.implementsInterfaces().isEmpty()
                 && !dto.subtypeSelector().isPresent()
                 && dto.extendsParents().isEmpty();
+
+        if (isRefOnly
+                && dto.reference() instanceof ParserTypeRef ptr
+                && ptr.refTypeName().equals(dto.openapiId())) {
+            throw new IllegalArgumentException("DTO " + dto.openapiId().name() + " references itself directly!?");
+        }
+        return isRefOnly;
     }
 
     /**

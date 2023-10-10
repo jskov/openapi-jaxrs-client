@@ -79,6 +79,8 @@ public final class Generator implements GeneratorService {
                 Files.createDirectories(dtoDir);
                 new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses();
             }
+        } catch (IllegalArgumentException e) {
+            throw new GeneratorBadInputException(e.getMessage(), e);
         } catch (Exception e) {
             throw new GeneratorException("Failed", e);
         }
