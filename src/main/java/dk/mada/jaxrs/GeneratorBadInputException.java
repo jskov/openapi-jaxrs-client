@@ -1,5 +1,7 @@
 package dk.mada.jaxrs;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Wraps any IllegalArgument exception throw while parsing or generating code.
  *
@@ -14,7 +16,7 @@ public class GeneratorBadInputException extends RuntimeException {
      * @param message the exception message
      * @param cause   the cause of the exception
      */
-    public GeneratorBadInputException(String message, Throwable cause) {
+    public GeneratorBadInputException(@Nullable String message, Throwable cause) {
         super(message, cause);
     }
 }
