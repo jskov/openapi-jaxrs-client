@@ -39,9 +39,6 @@ tasks.named("compileEclipseAptJava") {
 tasks.named("processEclipseAptResources") {
     enabled = false
 }
-tasks.named("checkstyleEclipseApt") {
-    enabled = false
-}
 
 
 // Plugin manager adds a folder to classpath, but does not create it
