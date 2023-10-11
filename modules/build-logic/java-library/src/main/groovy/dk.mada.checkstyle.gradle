@@ -14,3 +14,11 @@ tasks.checkstyleTest.enabled = false
 rootProject.tasks.named("sonar") {
     it.dependsOn(checkstyleMain)
 }
+
+gradle.afterProject { p ->
+    if (project.pluginManager.hasPlugin('com.diffplug.eclipse.apt')) {
+        tasks.named("checkstyleEclipseApt") {
+            enabled = false
+        }
+    }
+}
