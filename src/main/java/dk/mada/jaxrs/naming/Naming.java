@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.naming.NamingOpts.SchemaOrder;
 import dk.mada.jaxrs.naming.NamingRules.NamingRule;
+import dk.mada.jaxrs.openapi.TypeConverter;
 
 /**
  * Executes naming rules.
@@ -232,6 +233,10 @@ public class Naming {
     private String convert(List<NamingRule> rules, String input) {
         String result = input;
         logger.trace(" convert '{}'", input);
+        if (input.startsWith(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER)) {
+            logger.trace("  ignored, internal naming");
+            return input;
+        }
         for (NamingRule nr : rules) {
             String newResult = nr.converter().apply(result);
             String name = nr.name();
