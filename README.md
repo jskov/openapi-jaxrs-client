@@ -2,11 +2,13 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jskov_openapi-jaxrs-client&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jskov_openapi-jaxrs-client) [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://jskov.github.io/openapi-jaxrs-client/)
 
-Generates code to call REST services.
+Generates Java code to call REST services.
 
-The API classes are intended for use with the MicroProfile client.
+The API classes are intended for use with the [MicroProfile client](https://download.eclipse.org/microprofile/microprofile-rest-client-3.0/microprofile-rest-client-spec-3.0.html).
 
 The DTO classes can be generated for use with [JSON Binding](https://javaee.github.io/jsonb-spec/) or [Jackson FasterXML](https://github.com/FasterXML/jackson-docs).  
+
+The code generation is configured via 50+ [options](./src/docs/Configuration.md).
 
 ## Inspiration
 
@@ -52,17 +54,14 @@ The output from many other test OpenApi documents and configuration settings [ca
 
 A [Gradle plugin](./src/docs/Gradle.md) allows easy declaration of OpenApi documents and generator options.
 
-
-## Configuration
-
-The code generation is configured via [options](./src/docs/Configuration.md).
-
 ## Roadmap
 
 The current plans for future releases are (note, no time commitments):
 
 **0.9.x**
 
+* Switch to Java 21 (when Gradle can handle it)
+* Native generator executables
 * Split code into modules (converter+model, generator).
 * More code/package documentation.
 * Documentation index with references to the various tests/examples.
@@ -74,14 +73,53 @@ The current plans for future releases are (note, no time commitments):
 * Options for adding @ClientHeaderParam and/or @RegisterClientHeaders
 * Maybe add generation of server-side code
 
-## Contributing and Consultancy
+## History/Rationale
 
-I am still not entirely sure how I want to manage this project. So this section will change and/or be expanded on.
+We generate client code (originally only DTOs) from a lot of different sources at work, and the input OpenApi documents are not all entirely spec-worthy.
 
-But I will happily accept bug reports.
+So I have spent a lot of hours in the past tweaking [openapi-generator](https://github.com/OpenAPITools/openapi-generator) to generate code of usable quality.
+This was not always possible (because of its architecture), and it was always a pain the butt!
 
-Pull requests with accompanying end-to-end tests will probably be accepted - but please reach out to me in advance, so you do not waste your time.
+To improve my sanity at work, I wrote the bulk of this generator during the Christmas holidays of 2021.
 
-I will offer to implement feature requests as a paid service (pending approval from my employer).
+More and more projects at work now use this generator, and many (weird) corner cases have been fixed over time.
+This has made it possible to deprecated my old generator, so in my book, this is great!
 
-If the above are not agreeable, you are more than welcome to fork the project, and do your own thing.
+The project has a lot of tests to help ensure I do not (accidentally) break behavior.
+
+While the code generation output is the primary goal of the project, I also use it as a test bed for use of code quality tooling and Gradle build logic organization.
+
+### Community Collaboration
+
+I like Open Source just as much as the next guy.
+
+This tool provides infrastructure to whomever uses it, so it should be Open Source. And it is (Apache License).
+
+But (my definition of) stability and quality of the generator's output is more important to me than being able to accept changes from other parties.  
+It is a tool I rely on to provide a difference for colleagues at work.
+
+So while you are welcome to access and fork the source code, I am not at such interested in contributions.  
+Unless they just happen to align with my interests, of course.
+
+If you are itching to make some changes, please open an issue first, so we can discuss.  
+I do not want you to waste your time!
+
+I welcome bug reports if you use the generator and experience problems.
+
+## Consultancy
+
+The project is Open Source and I am happy for you to use the generator, report bugs and suggest changes.
+
+But while the source code is free, it does not come bundled with promises or guarantees of free work.
+
+I will try to fix reported bugs, but will commit to no time tables.
+
+However, I am willing to implement feature requests as a paid service (1,200DKK/hour) assuming:
+
+* I agree with the suggested feature
+* Approval from my employer to work for you (not expected to be a problem, as the context will be this project)
+* I have not reached my yearly limit of consultancy hours (40 hours - VAT limit is 50,000DKK/year)
+
+Please reach out to me via email if you would like to make use of this offer.
+
+If the above requirements are not agreeable, you are more than welcome to fork the project and do your own thing.
