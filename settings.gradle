@@ -9,3 +9,6 @@ includeBuild 'modules/platforms'
 
 include 'gradle-plugin'
 project(':gradle-plugin').projectDir = file('modules/gradle-plugin')
+
+include 'generator-api'
+project(':generator-api').projectDir = file('modules/generator-api')
