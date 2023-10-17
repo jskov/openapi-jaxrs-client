@@ -2,10 +2,6 @@ package mada.fixture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
-import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
-import dk.mada.jaxrs.utils.DirectoryDeleter;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -13,11 +9,13 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 import org.slf4j.Logger;
-
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.GeneratorBadInputException;
+import dk.mada.jaxrs.generator.api.ClientContext;
+import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
+import dk.mada.jaxrs.utils.DirectoryDeleter;
 
 /**
  * Runs end-to-end test from specified directory.

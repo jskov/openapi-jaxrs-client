@@ -21,8 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
-import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
-import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.ClientContext;
+import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.logging.LoggerConfig;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;

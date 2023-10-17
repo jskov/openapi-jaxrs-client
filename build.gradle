@@ -18,7 +18,7 @@ ext {
 }
 
 dependencies {
-//    implementation      'dk.mada.jaxrs:generator-api'
+    implementation      project(':generator-api')
 
     implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser'
