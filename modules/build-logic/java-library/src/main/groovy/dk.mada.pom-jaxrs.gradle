@@ -3,7 +3,7 @@
 plugins {
     id 'maven-publish'
 }
-
+/*
 project.afterEvaluate { p ->
     tasks.withType(GenerateMavenPom).all {
         getPom().url = 'https://github.com/jskov/openapi-jaxrs-client'
@@ -27,3 +27,4 @@ project.afterEvaluate { p ->
         }
     }
 }
+*/

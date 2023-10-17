@@ -7,6 +7,9 @@ rootProject.name='openapi-jaxrs-client'
 includeBuild 'modules/build-logic'
 includeBuild 'modules/platforms'
 
+include 'bom'
+project(':bom').projectDir = file('modules/bom')
+
 include 'gradle-plugin'
 project(':gradle-plugin').projectDir = file('modules/gradle-plugin')
 

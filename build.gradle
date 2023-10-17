@@ -18,6 +18,8 @@ ext {
 }
 
 dependencies {
+//    implementation      'dk.mada.jaxrs:generator-api'
+
     implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser'
 
@@ -122,28 +124,16 @@ publishing {
                     developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
                     url = 'https://github.com/jskov/openapi-jaxrs-client/'
                 }
-                
+/*                
                 withXml {
                     def node = it.asNode()
                     def versionNode = node.version[0]
                     def parentDependency = node.dependencyManagement.dependencies.dependency[0]
                     parentDependency.append(versionNode)
                 }
+                */
             }
         }
     }
 }
 
-// Not sure how to properly exclude cli from published artifacts
-publish {
-    dependsOn(gradle.includedBuild('platforms').task(':openapi-jaxrs-bom:publish'))
-    doLast {
-        project.delete(fileTree(dir: "build/dist/dk", include: "**/*-cli.*").files)
-        project.delete(fileTree(dir: "build/dist/dk", include: "**/*.module*").files)
-        project.delete(fileTree(dir: "build/dist/dk", includes: ["**/*.md5", "**/*.sha1", "**/*.sha256", "**/*.sha512"]).files)
-    }
-}
-
-publishToMavenLocal {
-    dependsOn(gradle.includedBuild('platforms').task(':openapi-jaxrs-bom:publishToMavenLocal'))
-}

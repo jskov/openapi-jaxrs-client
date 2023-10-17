@@ -24,7 +24,7 @@ gradlePlugin {
         }
     }
 }
-
+/*
 publishing {
     publications {
         pluginMaven(MavenPublication) {
@@ -39,7 +39,7 @@ publishing {
         }
     }
 }
-
+*/
 test {
     testLogging.showStandardStreams = true
 
