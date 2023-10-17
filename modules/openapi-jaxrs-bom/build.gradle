@@ -1,9 +1,11 @@
 plugins {
     id('java-platform')
     id 'maven-publish'
+
+    id 'dk.mada.eclipse'
 }
 
-group = 'dk.mada.xxx'
+group = 'dk.mada.jaxrs'
 
 ext {
     distDir = file("../../../build/dist").getAbsolutePath()
