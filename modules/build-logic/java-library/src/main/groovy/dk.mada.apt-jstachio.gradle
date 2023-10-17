@@ -9,15 +9,3 @@ dependencies {
     annotationProcessor "io.jstach:jstachio-apt"
     compileOnly         "io.jstach:jstachio-annotation"
 }
-
-gradle.afterProject { p ->
-    if (project.pluginManager.hasPlugin('com.diffplug.eclipse.apt')) {
-        eclipse {
-            jdt {
-                apt {
-                    processorOptions = [ "jstache.resourcesPath" : file("src/main/resources").getAbsolutePath() ]
-                }
-            }
-        }
-    }
-}
