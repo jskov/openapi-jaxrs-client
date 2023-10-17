@@ -1,0 +1,29 @@
+// Configures POM for modules. Super unhappy with this (yucky, and still duplicated in the bom platform)
+
+plugins {
+    id 'maven-publish'
+}
+
+project.afterEvaluate { p ->
+    tasks.withType(GenerateMavenPom).all {
+        getPom().url = 'https://github.com/jskov/openapi-jaxrs-client'
+        getPom().developers {
+            developer {
+                id = 'jskov'
+                name = 'Jesper Skov'
+                email = 'jskov@mada.dk'
+            }
+        }
+        getPom().licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+        getPom().scm {
+            connection = 'scm:git:git://github.com/jskov/openapi-jaxrs-client.git'
+            developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
+            url = 'https://github.com/jskov/openapi-jaxrs-client/'
+        }
+    }
+}
