@@ -1,6 +1,4 @@
 plugins {
-    id 'application'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'eclipse'
     id 'java-library'
     id 'maven-publish'
@@ -37,18 +35,6 @@ dependencies {
     testCompileOnly 'javax.ws.rs:javax.ws.rs-api'
     testCompileOnly 'org.eclipse.microprofile.openapi:microprofile-openapi-api'
     testCompileOnly 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
-}
-
-shadowJar {
-   archiveBaseName.set('ojc')
-   archiveClassifier.set('cli')
-   archiveVersion.set(project.version)
-   
-   destinationDirectory = file("build/dist")
-}
-
-application {
-    mainClass = "dk.mada.jaxrs.Main"
 }
 
 java {

@@ -68,7 +68,8 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         GeneratorLogLevel logLevel = GeneratorLogLevel.DEFAULT;
         boolean skipApi = false;
         boolean skipDto = false;
-        ClientContext cc = new ClientContext(overwrite, logLevel, skipApi, skipDto);
+        boolean showParserInfo = false;
+        ClientContext cc = new ClientContext(overwrite, logLevel, skipApi, skipDto, showParserInfo);
         activeService.generateClient(cc, openapiDoc, options, destDir);
     }
 

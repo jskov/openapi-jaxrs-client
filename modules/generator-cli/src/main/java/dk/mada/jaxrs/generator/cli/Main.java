@@ -1,4 +1,4 @@
-package dk.mada.jaxrs;
+package dk.mada.jaxrs.generator.cli;
 
 import static java.util.stream.Collectors.joining;
 
@@ -11,9 +11,11 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 
 import org.jspecify.annotations.Nullable;
@@ -23,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.GeneratorService;
 import dk.mada.logging.LoggerConfig;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -201,12 +204,31 @@ public final class Main implements Callable<Integer> {
         logger.info("Generates files in {}", outputDir);
         Properties config = readConfiguration(configuration);
 
-        ClientContext cc = new ClientContext(overwrite, logLevel, skipApiGeneration, skipDtoGeneration);
-        new Generator(showParserInfo).generateClient(cc, inputDocument, config, outputDir);
+        ClientContext cc = new ClientContext(overwrite, logLevel, skipApiGeneration, skipDtoGeneration, showParserInfo);
+        loadGeneratorService().generateClient(cc, inputDocument, config, outputDir);
 
         return 0;
     }
 
+    private GeneratorService loadGeneratorService() {
+        List<GeneratorService> services = new ArrayList<>();
+        ServiceLoader<GeneratorService> loader = ServiceLoader.load(GeneratorService.class);
+        for (GeneratorService service : loader) {
+            logger.debug("Found service {}", service.getClass().getName());
+            services.add(service);
+        }
+        logger.debug("Total {} services", services.size());
+
+        if (services.isEmpty()) {
+            throw new IllegalStateException("Did not find a required GeneratorService. Please review generatorGAV option!");
+        }
+        if (services.size() > 1) {
+            throw new IllegalStateException("Cannot handle multiple GeneratorService implementations: " + services);
+        }
+
+        return services.get(0);
+    }
+    
     private void validateArguments() {
         if (!Files.isRegularFile(inputDocument)) {
             argumentFail("The OpenApi document '" + inputDocument + "' is not a regular file!");

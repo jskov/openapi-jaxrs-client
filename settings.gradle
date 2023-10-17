@@ -15,3 +15,6 @@ project(':gradle-plugin').projectDir = file('modules/gradle-plugin')
 
 include 'generator-api'
 project(':generator-api').projectDir = file('modules/generator-api')
+
+include 'generator-cli'
+project(':generator-cli').projectDir = file('modules/generator-cli')

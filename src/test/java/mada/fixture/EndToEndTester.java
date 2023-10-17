@@ -68,10 +68,10 @@ public class EndToEndTester {
         boolean skipApi = Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"))
                 || Boolean.parseBoolean(testOptions.getProperty("generator-api-skip"));
         boolean skipDto = Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"));
-
-        ClientContext cc = new ClientContext(true, GeneratorLogLevel.DEFAULT, skipApi, skipDto);
+        boolean showParserInfo = false;
+        ClientContext cc = new ClientContext(true, GeneratorLogLevel.DEFAULT, skipApi, skipDto, showParserInfo);
         try {
-            new Generator(false).generateClient(cc, input, testOptions, outputDir);
+            new Generator().generateClient(cc, input, testOptions, outputDir);
         } catch (GeneratorBadInputException e) {
             logger.info("BAD INPUT: {}", e.getMessage());
 
