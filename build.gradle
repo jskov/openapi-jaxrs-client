@@ -18,7 +18,7 @@ ext {
 }
 
 dependencies {
-    implementation      project(':generator-api')
+    api      project(':generator-api')
 
     implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser'
