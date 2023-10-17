@@ -7,6 +7,10 @@ plugins {
     id 'dk.mada.eclipse'
 }
 
+dependencies {
+    implementation      project(':generator-api')
+}
+
 tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
@@ -24,22 +28,7 @@ gradlePlugin {
         }
     }
 }
-/*
-publishing {
-    publications {
-        pluginMaven(MavenPublication) {
-            pom {
-                withXml {
-                    def node = it.asNode()
-                    def versionNode = node.version[0]
-                    def parentDependency = node.dependencyManagement.dependencies.dependency[0]
-                    parentDependency.append(versionNode)
-                }
-            }
-        }
-    }
-}
-*/
+
 test {
     testLogging.showStandardStreams = true
 

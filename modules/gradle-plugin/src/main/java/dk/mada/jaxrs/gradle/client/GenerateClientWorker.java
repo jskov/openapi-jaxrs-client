@@ -12,9 +12,9 @@ import java.util.ServiceLoader;
 
 import org.gradle.workers.WorkAction;
 
-import dk.mada.jaxrs.gradle.GeneratorService;
-import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
-import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.ClientContext;
+import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.GeneratorService;
 
 /**
  * Worker which runs with a custom classpath where the generator service can be looked up.
