@@ -48,7 +48,8 @@ public final class Generator implements GeneratorService {
 
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
-            Model model = new Parser(clientContext.showParserInfo(), typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
+            Model model = new Parser(clientContext.showParserInfo(), typeNames, naming, parserRefs, parserOpts, generatorOpts)
+                    .parse(openapiDocument);
 
             Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
 

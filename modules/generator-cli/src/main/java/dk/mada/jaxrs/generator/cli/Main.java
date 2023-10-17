@@ -228,7 +228,7 @@ public final class Main implements Callable<Integer> {
 
         return services.get(0);
     }
-    
+
     private void validateArguments() {
         if (!Files.isRegularFile(inputDocument)) {
             argumentFail("The OpenApi document '" + inputDocument + "' is not a regular file!");
