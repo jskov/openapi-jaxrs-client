@@ -119,19 +119,17 @@ jobs:
                --form file=@/tmp/bundle-client.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
           echo "Wait for repos '$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', and '$repoClientId' to settle.."
           # should probe for state change
-          sleep 60
-          echo curl --request POST \
-               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
-               --cookie cookies.txt \
-               --header 'Content-Type: application/json' \
-               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoClientId'] } }"
+          sleep 90
           echo "Publish NOT completed! Test repo!"
-          curl --request POST \
+          # release - unless tag starts with 0.0.
+          echo $BUILD_LABEL | grep -q -e "^0[.]0[.]" \
+            && echo WOULD curl --request POST \
                --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
                --cookie cookies.txt \
                --header 'Content-Type: application/json' \
-               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoClientId'] } }"
-          echo "Publish completed"
+               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoClientId'] } }" \
+            && echo "Publish completed" \
+            || echo "Publish skipped / failed"
           rm -f cookies.txt
 
       - name: Deploy Javadoc
