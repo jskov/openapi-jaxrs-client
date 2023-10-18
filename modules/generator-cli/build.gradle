@@ -19,11 +19,11 @@ shadowJar {
    archiveClassifier.set('cli')
    archiveVersion.set(project.version)
    
-   destinationDirectory = file("build/dist")
+   destinationDirectory = project.rootProject.file("build/dist")
 }
 
 application {
-    mainClass = "dk.mada.jaxrs.Main"
+    mainClass = "dk.mada.jaxrs.generator.cli.Main"
 }
 
 publishing {
