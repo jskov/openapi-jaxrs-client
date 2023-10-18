@@ -12,9 +12,10 @@ Publish the release.
 
 ## Maven Central
 
-The `release-bundle-n.n.n.jar` file is for upload to [Maven Central](https://s01.oss.sonatype.org/).
+Tags matching "0.*" are built and published to [Maven Central](https://s01.oss.sonatype.org/) via [publish-mavencentral action](/.github/workflows/publish-mavencentral.yaml).
 
-Log in, and click `Staging Upload`. Select the `Artifact Bundle` option, and upload the `release-bundle` file.
+To test the Maven Artifacts first (whenever something build-relates changes), use a tag matching "^0[.]0[.]" (prefixed "0.0.").  
+This will upload the release artifacts but not release them.  
+You must clean up tag + uploaded artifacts manually!
 
-Wait for a bit, and then check out the `Staging Repositories`. If the repository looks OK, click on `Release`.
-After 1-4 hours the artifacts should be searchable from Maven Central.
+Note that it sometimes take a long time (hours) before the new artifacts are indexed on MavenCentral.

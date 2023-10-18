@@ -31,7 +31,7 @@ jobs:
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
         # into gradle.properties
-        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/platforms/openapi-jaxrs-bom/gradle.properties
+        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/openapi-jaxrs-bom/gradle.properties
 
       - name: Build release
         uses: gradle/gradle-build-action@842c587ad8aa4c68eeba24c396e15af4c2e9f30a
@@ -48,7 +48,12 @@ jobs:
           MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
           MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
         run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
-        
+
+      # Delete unwanted files (or Nexus will make checksums for checksums)
+      - name: Delete unwanted checksum files
+        run: |
+          find build/dist \( -name "*.md5" -o -name "*.sha1" -o -name "*.sha256" -o -name "*.sha512" \) -exec rm "{}" \;
+
       - name: Upload CLI artifacts
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
         # v0.1.15
@@ -65,6 +70,18 @@ jobs:
           cd build/dist/dk/mada/jaxrs/openapi-jaxrs-bom/${BUILD_LABEL}/
           jar cvf /tmp/bundle-bom.jar *
           unzip -t /tmp/bundle-bom.jar
+
+      - name: Assemble generator-api Bundle
+        run: |
+          cd build/dist/dk/mada/jaxrs/generator-api/${BUILD_LABEL}/
+          jar cvf /tmp/bundle-generator-api.jar *
+          unzip -t /tmp/bundle-generator-api.jar
+
+      - name: Assemble generator-cli Bundle
+        run: |
+          cd build/dist/dk/mada/jaxrs/generator-cli/${BUILD_LABEL}/
+          jar cvf /tmp/bundle-generator-cli.jar *
+          unzip -t /tmp/bundle-generator-cli.jar
 
       - name: Assemble client Bundle
         run: |
@@ -91,23 +108,28 @@ jobs:
           repoBomId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
                --form file=@/tmp/bundle-bom.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
+          repoGeneratorApiId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
+               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
+               --form file=@/tmp/bundle-generator-api.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
+          repoGeneratorCliId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
+               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
+               --form file=@/tmp/bundle-generator-cli.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
           repoClientId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
                --form file=@/tmp/bundle-client.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
-          echo "Wait for repo '$repoBomId' and '$repoClientId' to settle.."
+          echo "Wait for repos '$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', and '$repoClientId' to settle.."
           # should probe for state change
-          sleep 60
-          echo curl --request POST \
+          sleep 90
+          echo "Publish NOT completed! Test repo!"
+          # release - unless tag starts with 0.0.
+          echo $BUILD_LABEL | grep -q -v -e "^0[.]0[.]" \
+            && curl --request POST \
                --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
                --cookie cookies.txt \
                --header 'Content-Type: application/json' \
-               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoClientId'] } }"
-          curl --request POST \
-               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
-               --cookie cookies.txt \
-               --header 'Content-Type: application/json' \
-               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoClientId'] } }"
-          echo "Publish completed"
+               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoClientId'] } }" \
+            && echo "Publish completed" \
+            || echo "Publish skipped / failed"
           rm -f cookies.txt
 
       - name: Deploy Javadoc

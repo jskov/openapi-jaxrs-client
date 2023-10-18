@@ -78,3 +78,10 @@ jaxrs {
 ...
 ```
 
+## Testing the java cli generator
+
+```console
+$ ./gradlew publish
+$ java -jar build/dist/ojc-0.0.0-SNAPSHOT-cli.jar --api-package foo.bar.api --dto-package foo.bar.dto -i src/test/java/mada/tests/e2e/examples/petstore/openapi.yaml -o /tmp/xx
+```
+

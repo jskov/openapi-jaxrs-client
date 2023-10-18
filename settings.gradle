@@ -7,5 +7,14 @@ rootProject.name='openapi-jaxrs-client'
 includeBuild 'modules/build-logic'
 includeBuild 'modules/platforms'
 
+include 'openapi-jaxrs-bom'
+project(':openapi-jaxrs-bom').projectDir = file('modules/openapi-jaxrs-bom')
+
 include 'gradle-plugin'
 project(':gradle-plugin').projectDir = file('modules/gradle-plugin')
+
+include 'generator-api'
+project(':generator-api').projectDir = file('modules/generator-api')
+
+include 'generator-cli'
+project(':generator-cli').projectDir = file('modules/generator-cli')

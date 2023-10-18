@@ -7,9 +7,13 @@ import java.util.Properties;
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.ApiGenerator;
+import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.ContentSelector;
+import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.GeneratorService;
+import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
+import dk.mada.jaxrs.generator.api.exceptions.GeneratorException;
 import dk.mada.jaxrs.generator.dto.DtoGenerator;
-import dk.mada.jaxrs.gradle.GeneratorService;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
@@ -24,25 +28,6 @@ import dk.mada.logging.LoggerConfig;
  * Generates JAX-RS code.
  */
 public final class Generator implements GeneratorService {
-    /** Flag to show parser info. */
-    private final boolean showParserInfo;
-
-    /**
-     * Create new instance.
-     */
-    public Generator() {
-        this(false);
-    }
-
-    /**
-     * Create new instance.
-     *
-     * @param showParserInfo true to show parser info
-     */
-    public Generator(boolean showParserInfo) {
-        this.showParserInfo = showParserInfo;
-    }
-
     @Override
     public void generateClient(ClientContext clientContext, Path openapiDocument, final Properties options, Path destinationDir) {
         Console.println("Generate client");
@@ -65,7 +50,8 @@ public final class Generator implements GeneratorService {
 
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
-            Model model = new Parser(showParserInfo, typeNames, naming, parserRefs, parserOpts, generatorOpts).parse(openapiDocument);
+            Model model = new Parser(clientContext.showParserInfo(), typeNames, naming, parserRefs, parserOpts, generatorOpts)
+                    .parse(openapiDocument);
 
             Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
 

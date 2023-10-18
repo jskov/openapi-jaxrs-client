@@ -1,6 +1,5 @@
 rootProject.name = 'platforms'
 
-include('openapi-jaxrs-bom')
 include('apt-platform')
 include('test-platform')
 include('plugins-platform')

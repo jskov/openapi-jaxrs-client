@@ -1,0 +1,37 @@
+plugins {
+    id('java-platform')
+
+    id 'dk.mada.eclipse'
+    id 'dk.mada.pom-jaxrs'
+}
+
+// allow the definition of dependencies to other platforms
+javaPlatform.allowDependencies()
+
+// Some of these are compile-only and should be moved to a compile platform
+dependencies {
+    constraints {
+        api project(':generator-api')
+
+        api 'info.picocli:picocli:4.7.5'
+
+        api 'io.swagger.parser.v3:swagger-parser:2.1.18'
+        // swagger.parser comes with vulnerable rhino + commons-codec
+        api 'org.mozilla:rhino:1.7.14'
+        api 'commons-codec:commons-codec:1.16.0'
+
+        api 'org.slf4j:slf4j-jdk14:2.0.9'
+    }
+}
+
+publishing {
+    publications {
+        myPlatform(MavenPublication) {
+            from components.javaPlatform
+            pom {
+                name = 'OpenAPI JAXRS client'
+                description = 'A JAXRS client generator'
+            }
+        }
+    }
+}

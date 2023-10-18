@@ -1,4 +1,6 @@
-package dk.mada.jaxrs;
+package dk.mada.jaxrs.generator.api.exceptions;
+
+import org.jspecify.annotations.Nullable;
 
 /**
  * Wraps any exception throw while parsing or generating code.
@@ -12,7 +14,7 @@ public class GeneratorException extends RuntimeException {
      * @param message the exception message
      * @param cause   the cause of the exception
      */
-    public GeneratorException(String message, Throwable cause) {
+    public GeneratorException(@Nullable String message, Throwable cause) {
         super(message, cause);
     }
 }

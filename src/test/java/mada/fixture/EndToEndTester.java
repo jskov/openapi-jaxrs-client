@@ -2,10 +2,6 @@ package mada.fixture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import dk.mada.jaxrs.gradle.GeneratorService.ClientContext;
-import dk.mada.jaxrs.gradle.GeneratorService.GeneratorLogLevel;
-import dk.mada.jaxrs.utils.DirectoryDeleter;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -13,11 +9,13 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 import org.slf4j.Logger;
-
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.Generator;
-import dk.mada.jaxrs.GeneratorBadInputException;
+import dk.mada.jaxrs.generator.api.ClientContext;
+import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
+import dk.mada.jaxrs.utils.DirectoryDeleter;
 
 /**
  * Runs end-to-end test from specified directory.
@@ -70,10 +68,10 @@ public class EndToEndTester {
         boolean skipApi = Boolean.parseBoolean(testOptions.getProperty("test-skip-api-comparison"))
                 || Boolean.parseBoolean(testOptions.getProperty("generator-api-skip"));
         boolean skipDto = Boolean.parseBoolean(testOptions.getProperty("test-skip-dto-comparison"));
-
-        ClientContext cc = new ClientContext(true, GeneratorLogLevel.DEFAULT, skipApi, skipDto);
+        boolean showParserInfo = false;
+        ClientContext cc = new ClientContext(true, GeneratorLogLevel.DEFAULT, skipApi, skipDto, showParserInfo);
         try {
-            new Generator(false).generateClient(cc, input, testOptions, outputDir);
+            new Generator().generateClient(cc, input, testOptions, outputDir);
         } catch (GeneratorBadInputException e) {
             logger.info("BAD INPUT: {}", e.getMessage());
 

@@ -1,0 +1,46 @@
+// Configures POM for modules. Somewhat yucky, but avoid duplication
+
+plugins {
+    id 'maven-publish'
+}
+
+group = 'dk.mada.jaxrs'
+
+// MavenCentral publishing requires both javadoc and sources
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "dist"
+            url "file://${project.rootProject.file("build/dist").getAbsolutePath()}"
+        }
+    }
+}
+
+project.afterEvaluate { p ->
+    tasks.withType(GenerateMavenPom).all {
+        getPom().url = 'https://github.com/jskov/openapi-jaxrs-client'
+        getPom().developers {
+            developer {
+                id = 'jskov'
+                name = 'Jesper Skov'
+                email = 'jskov@mada.dk'
+            }
+        }
+        getPom().licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+        getPom().scm {
+            connection = 'scm:git:git://github.com/jskov/openapi-jaxrs-client.git'
+            developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
+            url = 'https://github.com/jskov/openapi-jaxrs-client/'
+        }
+    }
+}

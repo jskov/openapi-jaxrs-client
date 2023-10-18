@@ -71,18 +71,18 @@ public class Naming {
         mpSchemaNamingRules = NamingRules.toRules(namingOpts.getMpSchemaNaming());
         getTypeConflictRenaming = NamingRules.toRules(namingOpts.getTypeConflictRenaming());
 
-        if (logger.isInfoEnabled()) {
-            logger.info("apiNamingRules: {}", makeRuleInfo(apiNamingRules));
-            logger.info("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
-            logger.info("enumConstantNamingRules: {}", makeRuleInfo(enumConstantNamingRules));
-            logger.info("enumNumberConstantNamingRules: {}", makeRuleInfo(enumNumberConstantNamingRules));
-            logger.info("operationNamingRules: {}", makeRuleInfo(operationNamingRules));
-            logger.info("operationIdNamingRules: {}", makeRuleInfo(operationIdNamingRules));
-            logger.info("parameterNamingRules: {}", makeRuleInfo(parameterNamingRules));
-            logger.info("propertyEnumTypeNamingRules: {}", makeRuleInfo(propertyEnumTypeNamingRules));
-            logger.info("propertyNamingRules: {}", makeRuleInfo(propertyNamingRules));
-            logger.info("typeNamingRules: {}", makeRuleInfo(typeNamingRules));
-            logger.info("mpSchemaNamingRules: {}", makeRuleInfo(mpSchemaNamingRules));
+        if (logger.isDebugEnabled()) {
+            logger.debug("apiNamingRules: {}", makeRuleInfo(apiNamingRules));
+            logger.debug("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
+            logger.debug("enumConstantNamingRules: {}", makeRuleInfo(enumConstantNamingRules));
+            logger.debug("enumNumberConstantNamingRules: {}", makeRuleInfo(enumNumberConstantNamingRules));
+            logger.debug("operationNamingRules: {}", makeRuleInfo(operationNamingRules));
+            logger.debug("operationIdNamingRules: {}", makeRuleInfo(operationIdNamingRules));
+            logger.debug("parameterNamingRules: {}", makeRuleInfo(parameterNamingRules));
+            logger.debug("propertyEnumTypeNamingRules: {}", makeRuleInfo(propertyEnumTypeNamingRules));
+            logger.debug("propertyNamingRules: {}", makeRuleInfo(propertyNamingRules));
+            logger.debug("typeNamingRules: {}", makeRuleInfo(typeNamingRules));
+            logger.debug("mpSchemaNamingRules: {}", makeRuleInfo(mpSchemaNamingRules));
         }
     }
 

@@ -13,33 +13,36 @@ sourceSets {
     }
 }
 
-// The APT plugin's task will append to the file if it already exists.
-// This causes trouble when updating versions of APT dependencies, as they
-// end up in the file in multiple versions.
-// Fix by deleting before generation
-tasks.named("eclipseFactorypath") {
-    doFirst {
-        delete ".factorypath"
+if (project.pluginManager.hasPlugin('java')) {
+
+    // The APT plugin's task will append to the file if it already exists.
+    // This causes trouble when updating versions of APT dependencies, as they
+    // end up in the file in multiple versions.
+    // Fix by deleting before generation
+    tasks.named("eclipseFactorypath") {
+        doFirst {
+            delete ".factorypath"
+        }
+    }
+
+    // Need to make the output directory, or Gradle will not include it, and Eclipse gets sad.
+    tasks.named("eclipseClasspath") {
+        doFirst {
+            // Make Eclipse's apt folder, or it will not be included in the classpath
+            mkdir ".apt_generated"
+            // Make build e2e output folder, so it is easy to add to eclipse classpath manually
+            mkdir "build/e2e"
+        }
+    }
+
+    // But we do not want to process the folder from Gradle
+    tasks.named("compileEclipseAptJava") {
+        enabled = false
+    }
+    tasks.named("processEclipseAptResources") {
+        enabled = false
     }
 }
-
-// Need to make the output directory, or Gradle will not include it, and Eclipse gets sad.
-tasks.named("eclipseClasspath") {
-    doFirst {
-        // Make Eclipse's apt folder, or it will not be included in the classpath
-        mkdir ".apt_generated"
-        // Make build e2e output folder, so it is easy to add to eclipse classpath manually
-        mkdir "build/e2e"
-    }
-}
-// But we do not want to process the folder from Gradle
-tasks.named("compileEclipseAptJava") {
-    enabled = false
-}
-tasks.named("processEclipseAptResources") {
-    enabled = false
-}
-
 
 // Plugin manager adds a folder to classpath, but does not create it
 // making eclipse sad.

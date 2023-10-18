@@ -35,7 +35,7 @@ echo $MADA_SIGNING_PASSWORD | gpg --import --batch --pinentry-mode loopback $GNU
 echo -e "5\ny\n" |  gpg --batch --command-fd 0 --expert --edit-key $keyId trust 2>/dev/null
 
 # Sign relevant files
-for f in $(find $d -name \*$version\*.pom -o -name \*$version\*.jar); do
+for f in $(find $d -name \*$version\*.pom -o -name \*$version\*.module -o -name \*$version\*.jar); do
     echo " - $f"
     echo $MADA_SIGNING_PASSWORD | gpg --quiet --batch --yes --pinentry-mode loopback --passphrase-fd 0 -u $keyId --detach-sign --armor "$f"
 done

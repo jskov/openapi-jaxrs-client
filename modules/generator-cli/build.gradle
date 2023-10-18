@@ -1,0 +1,47 @@
+plugins {
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+
+    id 'dk.mada.java'
+    id 'dk.mada.eclipse'
+    id 'dk.mada.pom-jaxrs'
+}
+
+dependencies {
+    implementation      project(':')
+    implementation      'info.picocli:picocli'
+    implementation      'org.slf4j:slf4j-jdk14'
+}
+
+shadowJar {
+   archiveBaseName.set('ojc')
+   archiveClassifier.set('cli')
+   archiveVersion.set(project.version)
+
+   destinationDirectory = project.rootProject.file("build/dist")
+}
+
+application {
+    mainClass = "dk.mada.jaxrs.generator.cli.Main"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'OpenAPI JAXRS generator command'
+                description = 'This provides a way for starting the generator from command line'
+            }
+        }
+    }
+}

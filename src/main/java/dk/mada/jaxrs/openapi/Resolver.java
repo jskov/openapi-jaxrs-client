@@ -164,11 +164,11 @@ public final class Resolver {
         if (filter.test(dto)) {
             TypeReference ref = resolve(dto.reference());
             Type newType = parserTypes.remapDto(dto.typeName(), ref);
-            logger.info("   : remap {} to {}", name, newType);
+            logger.trace("   : remap {} to {}", name, newType);
             return false;
         }
 
-        logger.info("   : keep {}", name);
+        logger.trace("   : keep {}", name);
         return true;
     }
 

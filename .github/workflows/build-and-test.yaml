@@ -42,7 +42,7 @@ jobs:
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
         # into gradle.properties
-        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/platforms/openapi-jaxrs-bom/gradle.properties
+        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties ./modules/openapi-jaxrs-bom/gradle.properties
 
       - name: Run tests
         uses: gradle/gradle-build-action@842c587ad8aa4c68eeba24c396e15af4c2e9f30a

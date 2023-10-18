@@ -8,9 +8,9 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import dk.mada.jaxrs.generator.cli.Main;
 
-import dk.mada.jaxrs.Main;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CliHandlingTest {
     /** Output buffer used for all tests. */

@@ -20,7 +20,8 @@ java {
 }
 
 dependencies {
-    implementation      (platform('dk.mada.jaxrs:openapi-jaxrs-bom'))
+    implementation      (platform(project(':openapi-jaxrs-bom')))
+//    implementation      (platform('dk.mada.jaxrs:openapi-jaxrs-bom'))
 
     testImplementation  (platform('dk.mada.jaxrs:test-platform')) {
         exclude module: "slf4j-jboss-logmanager"

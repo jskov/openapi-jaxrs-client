@@ -1,0 +1,9 @@
+pluginManagement {
+    includeBuild('../build-logic')
+    includeBuild('../platforms')
+}
+
+includeBuild '../build-logic'
+includeBuild '../platforms'
+
+rootProject.name='generator-cli'
