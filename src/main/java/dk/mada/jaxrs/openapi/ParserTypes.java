@@ -96,8 +96,8 @@ public class ParserTypes {
         mapJse(parserOpts.isJseOffsetDateTime(), TypeNames.OFFSET_DATE_TIME, typeDateTime);
         mapJse(parserOpts.isJseZonedDateTime(), TypeNames.ZONED_DATE_TIME, typeDateTime);
 
-        logger.info("JSE type overrides: {}", mappedToJseTypes.keySet());
-        logger.info("JSE types kept: {}", unmappedToJseTypes);
+        logger.debug("JSE type overrides: {}", mappedToJseTypes.keySet());
+        logger.debug("JSE types kept: {}", unmappedToJseTypes);
     }
 
     private void mapJse(boolean doMap, TypeName tn, Type t) {
@@ -230,7 +230,7 @@ public class ParserTypes {
      * Collection types such as ListDto are changed to {@code List<Dto>}.
      */
     public void consolidateContainerDtos() {
-        logger.info("== Consolidate container DTOs");
+        logger.debug("== Consolidate container DTOs");
         for (Dto dto : parsedDtos.values()) {
             String name = dto.name();
             Reference ref = dto.reference();

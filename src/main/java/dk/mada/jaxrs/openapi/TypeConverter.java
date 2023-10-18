@@ -596,7 +596,7 @@ public final class TypeConverter {
         String modelName = naming.convertTypeName(dtoName);
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
-        logger.info("creating dto {}", dtoName);
+        logger.info("creating DTO {}", dtoName);
         ParserTypeRef dtoType = reference(schema, null, dtoName);
         Type refType = dtoType.refType();
 
