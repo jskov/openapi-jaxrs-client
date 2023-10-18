@@ -17,7 +17,7 @@ dependencies {
 
         api 'info.picocli:picocli:4.7.5'
 
-        api 'io.swagger.parser.v3:swagger-parser:2.1.16'
+        api 'io.swagger.parser.v3:swagger-parser:2.1.18'
         // swagger.parser comes with vulnerable rhino + commons-codec 
         api 'org.mozilla:rhino:1.7.14'
         api 'commons-codec:commons-codec:1.16.0'
