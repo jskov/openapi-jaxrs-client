@@ -121,13 +121,14 @@ jobs:
                --header 'Content-Type: application/json' \
                --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoClientId'] } }"
           echo "Publish NOT completed! Test repo!"
+
 #          curl --request POST \
 #               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
 #               --cookie cookies.txt \
 #               --header 'Content-Type: application/json' \
 #               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoClientId'] } }"
 #          echo "Publish completed"
-          rm -f cookies.txt
+#          rm -f cookies.txt
 
 #      - name: Deploy Javadoc
 #        uses: JamesIves/github-pages-deploy-action@a1ea191d508feb8485aceba848389d49f80ca2dc
