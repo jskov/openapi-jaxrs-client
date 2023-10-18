@@ -6,10 +6,6 @@ plugins {
     id 'dk.mada.pom-jaxrs'
 }
 
-dependencies {
-//    api platform(project(":openapi-jaxrs-bom"))
-}
-
 publishing {
     publications {
         maven(MavenPublication) {

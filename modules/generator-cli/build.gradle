@@ -17,7 +17,7 @@ shadowJar {
    archiveBaseName.set('ojc')
    archiveClassifier.set('cli')
    archiveVersion.set(project.version)
-   
+
    destinationDirectory = project.rootProject.file("build/dist")
 }
 

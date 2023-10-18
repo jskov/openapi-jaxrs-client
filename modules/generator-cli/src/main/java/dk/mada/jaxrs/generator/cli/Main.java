@@ -220,7 +220,7 @@ public final class Main implements Callable<Integer> {
         logger.debug("Total {} services", services.size());
 
         if (services.isEmpty()) {
-            throw new IllegalStateException("Did not find a required GeneratorService. Please review generatorGAV option!");
+            throw new IllegalStateException("Did not find a required GeneratorService. Please review classpath!");
         }
         if (services.size() > 1) {
             throw new IllegalStateException("Cannot handle multiple GeneratorService implementations: " + services);
