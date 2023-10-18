@@ -1,4 +1,4 @@
-package dk.mada.jaxrs;
+package dk.mada.jaxrs.generator.api.exceptions;
 
 import org.jspecify.annotations.Nullable;
 
@@ -7,7 +7,7 @@ import org.jspecify.annotations.Nullable;
  *
  * These are user-caused by bad input.
  */
-public class GeneratorBadInputException extends RuntimeException {
+public class GeneratorBadInputException extends GeneratorException {
     private static final long serialVersionUID = -6929398355306690724L;
 
     /**

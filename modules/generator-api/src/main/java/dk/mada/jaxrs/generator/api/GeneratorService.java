@@ -16,6 +16,9 @@ public interface GeneratorService {
      * @param openapiDocument the OpenAPI document
      * @param options         the generator options
      * @param destinationDir  the destination directory
+     *
+     * @throws GeneratorBadInputException if the generator failed due to bad input
+     * @throws GeneratorException         if the generator failed for any other reason
      */
     void generateClient(ClientContext context, Path openapiDocument, Properties options, Path destinationDir);
 }

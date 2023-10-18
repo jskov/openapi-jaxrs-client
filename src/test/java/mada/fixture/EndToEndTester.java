@@ -12,9 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.Generator;
-import dk.mada.jaxrs.GeneratorBadInputException;
 import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
 import dk.mada.jaxrs.utils.DirectoryDeleter;
 
 /**

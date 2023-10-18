@@ -11,6 +11,8 @@ import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.ContentSelector;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.jaxrs.generator.api.GeneratorService;
+import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
+import dk.mada.jaxrs.generator.api.exceptions.GeneratorException;
 import dk.mada.jaxrs.generator.dto.DtoGenerator;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.types.TypeNames;
