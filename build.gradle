@@ -1,17 +1,16 @@
 plugins {
     id 'eclipse'
     id 'java-library'
-    id 'maven-publish'
 
     id 'dk.mada.java'
     id 'dk.mada.apt-errorprone'
     id 'dk.mada.apt-values'
     id 'dk.mada.apt-jstachio'
+    id 'dk.mada.pom-jaxrs'
     id 'dk.mada.eclipse'
 }
 
 ext {
-    distDir = file("build/dist").getAbsolutePath()
     builtOn = LocalDate.now()
 }
 
@@ -78,12 +77,6 @@ tasks.withType(GenerateModuleMetadata) {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "dist"
-            url "file://${distDir}"
-        }
-    }
     publications {
         maven(MavenPublication) {
             from components.java
@@ -91,25 +84,6 @@ publishing {
             pom {
                 name = 'OpenAPI JAXRS client'
                 description = 'A JAXRS client generator'
-                url = 'https://github.com/jskov/openapi-jaxrs-client'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'jskov'
-                        name = 'Jesper Skov'
-                        email = 'jskov@mada.dk'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com/jskov/openapi-jaxrs-client.git'
-                    developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
-                    url = 'https://github.com/jskov/openapi-jaxrs-client/'
-                }
             }
         }
     }

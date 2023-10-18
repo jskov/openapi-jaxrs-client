@@ -1,11 +1,9 @@
 plugins {
     id('java-platform')
-    id 'maven-publish'
 
     id 'dk.mada.eclipse'
+    id 'dk.mada.pom-jaxrs'
 }
-
-group = 'dk.mada.jaxrs'
 
 // allow the definition of dependencies to other platforms
 javaPlatform.allowDependencies()
@@ -27,37 +25,12 @@ dependencies {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "dist"
-            url "file://${distDir}"
-        }
-    }
     publications {
         myPlatform(MavenPublication) {
             from components.javaPlatform
             pom {
                 name = 'OpenAPI JAXRS client'
                 description = 'A JAXRS client generator'
-                url = 'https://github.com/jskov/openapi-jaxrs-client'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'jskov'
-                        name = 'Jesper Skov'
-                        email = 'jskov@mada.dk'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com/jskov/openapi-jaxrs-client.git'
-                    developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
-                    url = 'https://github.com/jskov/openapi-jaxrs-client/'
-                }
             }
         }
     }

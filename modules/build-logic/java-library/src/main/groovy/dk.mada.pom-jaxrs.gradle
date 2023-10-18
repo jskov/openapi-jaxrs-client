@@ -1,9 +1,20 @@
-// Configures POM for modules. Super unhappy with this (yucky, and still duplicated in the bom platform)
+// Configures POM for modules. Somewhat yucky, but avoid duplication
 
 plugins {
     id 'maven-publish'
 }
-/*
+
+group = 'dk.mada.jaxrs'
+
+publishing {
+    repositories {
+        maven {
+            name = "dist"
+            url "file://${project.rootProject.file("build/dist").getAbsolutePath()}"
+        }
+    }
+}
+
 project.afterEvaluate { p ->
     tasks.withType(GenerateMavenPom).all {
         getPom().url = 'https://github.com/jskov/openapi-jaxrs-client'
@@ -27,4 +38,3 @@ project.afterEvaluate { p ->
         }
     }
 }
-*/

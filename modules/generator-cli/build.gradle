@@ -1,7 +1,6 @@
 plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id 'maven-publish'
 
     id 'dk.mada.java'
     id 'dk.mada.eclipse'
@@ -27,12 +26,6 @@ application {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "dist"
-            url "file://${distDir}"
-        }
-    }
     publications {
         maven(MavenPublication) {
             from components.java

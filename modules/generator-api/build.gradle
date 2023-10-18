@@ -1,6 +1,5 @@
 plugins {
     id 'java-library'
-    id 'maven-publish'
 
     id 'dk.mada.java'
     id 'dk.mada.eclipse'
@@ -12,12 +11,6 @@ dependencies {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "dist"
-            url "file://${distDir}"
-        }
-    }
     publications {
         maven(MavenPublication) {
             from components.java
