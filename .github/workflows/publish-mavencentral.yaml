@@ -48,7 +48,12 @@ jobs:
           MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
           MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
         run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
-        
+
+      # Delete unwanted files (or Nexus will make checksums for checksums)
+      - name: Delete unwanted checksum files
+        run: |
+          find build/dist \( -name "*.md5" -o -name "*.sha1" -o -name "*.sha256" -o -name "*.sha512" \) -exec rm "{}" \;
+
       - name: Upload CLI artifacts
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
         # v0.1.15
