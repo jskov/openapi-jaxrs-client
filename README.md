@@ -58,11 +58,11 @@ A [Gradle plugin](./src/docs/Gradle.md) allows easy declaration of OpenApi docum
 
 The current plans for future releases are (note, no time commitments):
 
-**0.9.x**
+**0.10.x**
 
+* Split code into modules (converter+model, generator).
 * Switch to Java 21 (when Gradle can handle it)
 * Native generator executables
-* Split code into modules (converter+model, generator).
 * More code/package documentation.
 * Documentation index with references to the various tests/examples.
 
