@@ -39,8 +39,8 @@ publishing {
                 }
             }
             pom {
-                name = 'OpenAPI JAXRS generator API'
-                description = 'The API used for starting the generator from clients'
+                name = 'OpenAPI JAXRS generator command'
+                description = 'This provides a way for starting the generator from command line'
             }
         }
     }

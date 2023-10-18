@@ -36,11 +36,6 @@ dependencies {
     testCompileOnly 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 processResources {
     inputs.property("version", project.version)
     inputs.property("builtOn", builtOn)
@@ -51,11 +46,6 @@ processResources {
             .replaceAll("builtOn.*", "builtOn = ${builtOn}")
         )
     }
-}
-
-jar {
-    exclude "**/GeneratorService.class"
-    includeEmptyDirs false
 }
 
 javadoc {
