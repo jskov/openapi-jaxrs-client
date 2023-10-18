@@ -17,8 +17,9 @@ public interface GeneratorService {
      * @param options         the generator options
      * @param destinationDir  the destination directory
      *
-     * @throws GeneratorBadInputException if the generator failed due to bad input
-     * @throws GeneratorException         if the generator failed for any other reason
+     * @throws dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException if the generator failed due to bad input
+     * @throws dk.mada.jaxrs.generator.api.exceptions.GeneratorException         if the generator failed for any other
+     *                                                                           reason
      */
     void generateClient(ClientContext context, Path openapiDocument, Properties options, Path destinationDir);
 }
