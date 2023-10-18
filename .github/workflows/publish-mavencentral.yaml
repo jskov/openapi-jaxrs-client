@@ -123,7 +123,7 @@ jobs:
           echo "Publish NOT completed! Test repo!"
           # release - unless tag starts with 0.0.
           echo $BUILD_LABEL | grep -q -v -e "^0[.]0[.]" \
-            && echo WOULD curl --request POST \
+            && curl --request POST \
                --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
                --cookie cookies.txt \
                --header 'Content-Type: application/json' \
