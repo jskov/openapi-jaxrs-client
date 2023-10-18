@@ -110,16 +110,7 @@ publishing {
                     developerConnection = 'scm:git:ssh://github.com:jskov/openapi-jaxrs-client.git'
                     url = 'https://github.com/jskov/openapi-jaxrs-client/'
                 }
-/*                
-                withXml {
-                    def node = it.asNode()
-                    def versionNode = node.version[0]
-                    def parentDependency = node.dependencyManagement.dependencies.dependency[0]
-                    parentDependency.append(versionNode)
-                }
-                */
             }
         }
     }
 }
-

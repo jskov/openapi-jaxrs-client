@@ -7,10 +7,6 @@ plugins {
 
 group = 'dk.mada.jaxrs'
 
-ext {
-    distDir = file("../../../build/dist").getAbsolutePath()
-}
-
 // allow the definition of dependencies to other platforms
 javaPlatform.allowDependencies()
 
