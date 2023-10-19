@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.generator.GeneratorOpts.LeakedParserOpts;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.ApiGenerator;
 import dk.mada.jaxrs.generator.api.ClientContext;
@@ -42,7 +43,10 @@ public final class Generator implements GeneratorService {
 
             var optionReader = new OptionReader(options);
             var parserOpts = new ParserOpts(optionReader);
-            var generatorOpts = new GeneratorOpts(optionReader, parserOpts);
+
+            LeakedParserOpts leakedParserOpts = new LeakedParserOpts(parserOpts.isJseOffsetDateTime(), parserOpts.isJseLocalDateTime(),
+                    parserOpts.isJseLocalDate());
+            var generatorOpts = new GeneratorOpts(optionReader, leakedParserOpts);
             var naming = new Naming(options);
             var contentSelector = new ContentSelector(parserOpts);
 

@@ -52,13 +52,13 @@ public final class Parser {
      * @param showInfo      flag to enable parser info output
      * @param naming        the naming instance
      * @param parserOpts    the parser options
-     * @param generatorOpts the generator options
+     * @param leakedGenOpts the leaked generator options
      */
-    public Parser(boolean showInfo, Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts generatorOpts) {
+    public Parser(boolean showInfo, Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts leakedGenOpts) {
         this.showInfo = showInfo;
         this.naming = naming;
         this.parserOpts = parserOpts;
-        this.leakedGenOpts = generatorOpts;
+        this.leakedGenOpts = leakedGenOpts;
 
         typeNames = new TypeNames();
         parserRefs = new ParserTypeRefs(typeNames);
