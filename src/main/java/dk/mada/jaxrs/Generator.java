@@ -6,17 +6,15 @@ import java.util.Properties;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.GeneratorOpts.LeakedParserOpts;
-import dk.mada.jaxrs.generator.Templates;
-import dk.mada.jaxrs.generator.api.ApiGenerator;
+import dk.mada.jaxrs.generator.JavaClientGenerator;
 import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.jaxrs.generator.api.GeneratorService;
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorException;
-import dk.mada.jaxrs.generator.dto.DtoGenerator;
 import dk.mada.jaxrs.model.Model;
+import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.TypeDateTime;
-import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import dk.mada.jaxrs.openapi.ParserOpts;
@@ -55,18 +53,7 @@ public final class Generator implements GeneratorService {
             Model model = new Parser(clientContext.showParserInfo(), naming, parserOpts, leakedGeneratorOpts)
                     .parse(openapiDocument);
 
-            Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
-
-            var templates = new Templates(dtoDir);
-            if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
-                Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
-                Files.createDirectories(apiDir);
-                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
-            }
-            if (!clientContext.skipDto()) {
-                Files.createDirectories(dtoDir);
-                new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses();
-            }
+            new JavaClientGenerator().generate(model, generatorOpts, clientContext, destinationDir);
         } catch (IllegalArgumentException e) {
             throw new GeneratorBadInputException(e.getMessage(), e);
         } catch (Exception e) {

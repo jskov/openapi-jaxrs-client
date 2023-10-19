@@ -5,9 +5,9 @@ import java.util.List;
 import org.immutables.value.Value.Immutable;
 
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
-import dk.mada.jaxrs.naming.Naming;
 
 /**
  * Type representing a composite class (schema with allOf) during parsing.

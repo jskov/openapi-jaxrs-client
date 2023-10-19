@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.naming;
+package dk.mada.jaxrs.model.naming;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +9,8 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.naming.NamingOpts.SchemaOrder;
-import dk.mada.jaxrs.naming.NamingRules.NamingRule;
+import dk.mada.jaxrs.model.naming.NamingOpts.SchemaOrder;
+import dk.mada.jaxrs.model.naming.NamingRules.NamingRule;
 
 /**
  * Executes naming rules.

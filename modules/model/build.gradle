@@ -1,0 +1,26 @@
+plugins {
+    id 'java-library'
+
+    id 'dk.mada.java'
+    id 'dk.mada.apt-errorprone'
+    id 'dk.mada.apt-values'
+    id 'dk.mada.eclipse'
+    id 'dk.mada.pom-jaxrs'
+}
+
+dependencies {
+    implementation      'org.slf4j:slf4j-jdk14'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'OpenAPI JAXRS generator API'
+                description = 'The API used for starting the generator from clients'
+            }
+        }
+    }
+}

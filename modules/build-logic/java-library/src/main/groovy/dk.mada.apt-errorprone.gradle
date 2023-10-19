@@ -28,9 +28,9 @@ import net.ltgt.gradle.errorprone.CheckSeverity
 Properties readProps() {
     if (cachedProps == null) {
         cachedProps = new Properties();
-        def f = project.file("src/config/errorprone/dk.mada.apt-errorprone.properties")
+        def f = project.rootProject.file("src/config/errorprone/dk.mada.apt-errorprone.properties")
         if (!f.exists()) {
-            f = project.file("src/config/errorprone/dk.mada.apt-errorprone.properties")
+            f = project.rootProject.file("src/config/errorprone/dk.mada.apt-errorprone.properties")
         }
         if (f.exists()) {
             try (InputStream is = new FileInputStream(f)) {

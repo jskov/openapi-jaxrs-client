@@ -83,6 +83,12 @@ jobs:
           jar cvf /tmp/bundle-generator-cli.jar *
           unzip -t /tmp/bundle-generator-cli.jar
 
+      - name: Assemble model Bundle
+        run: |
+          cd build/dist/dk/mada/jaxrs/model/${BUILD_LABEL}/
+          jar cvf /tmp/bundle-model.jar *
+          unzip -t /tmp/bundle-model.jar
+
       - name: Assemble client Bundle
         run: |
           cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/
@@ -114,10 +120,13 @@ jobs:
           repoGeneratorCliId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
                --form file=@/tmp/bundle-generator-cli.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
+          repoModelId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
+               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
+               --form file=@/tmp/bundle-model.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
           repoClientId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
                --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
                --form file=@/tmp/bundle-client.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
-          echo "Wait for repos '$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', and '$repoClientId' to settle.."
+          echo "Wait for repos '$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoModelId', and '$repoClientId' to settle.."
           # should probe for state change
           sleep 90
           echo "Publish NOT completed! Test repo!"
@@ -127,7 +136,7 @@ jobs:
                --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
                --cookie cookies.txt \
                --header 'Content-Type: application/json' \
-               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoClientId'] } }" \
+               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoModelId', '$repoClientId'] } }" \
             && echo "Publish completed" \
             || echo "Publish skipped / failed"
           rm -f cookies.txt

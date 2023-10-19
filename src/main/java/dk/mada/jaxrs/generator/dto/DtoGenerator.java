@@ -39,10 +39,10 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
+import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeInterface;
-import dk.mada.jaxrs.naming.Naming;
 
 /**
  * DTO generator.
@@ -80,12 +80,11 @@ public class DtoGenerator {
     /**
      * Constructs a new generator.
      *
-     * @param naming    the naming instance
      * @param opts      the generator options
      * @param templates the templates instance
      * @param model     the data model
      */
-    public DtoGenerator(Naming naming, GeneratorOpts opts, Templates templates, Model model) {
+    public DtoGenerator(GeneratorOpts opts, Templates templates, Model model) {
         this.opts = opts;
         this.templates = templates;
         this.model = model;
@@ -94,6 +93,7 @@ public class DtoGenerator {
         externalTypeMapping = opts.getExternalTypeMapping();
         skippedDtoClasses = opts.getSkippedDtoClasses();
 
+        Naming naming = model.naming();
         enumGenerator = new EnumGenerator(naming, opts);
         propertyGenerator = new PropertyGenerator(naming, opts, enumGenerator);
     }

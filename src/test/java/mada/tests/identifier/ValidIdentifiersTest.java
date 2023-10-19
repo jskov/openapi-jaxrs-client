@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import dk.mada.jaxrs.naming.Identifiers;
+import dk.mada.jaxrs.model.naming.Identifiers;
 
 /**
  * Tests conversion of strings into valid identifiers.
