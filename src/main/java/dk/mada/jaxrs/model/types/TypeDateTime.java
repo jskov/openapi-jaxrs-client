@@ -38,7 +38,7 @@ public final class TypeDateTime implements Type {
     /**
      * {@return the type object representing a date-time}
      *
-     * @param opts the generator options
+     * @param variant the desired variant
      */
     public static synchronized TypeDateTime get(DateTimeVariant variant) {
         switch (variant) {
