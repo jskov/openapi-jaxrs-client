@@ -14,6 +14,15 @@ import dk.mada.jaxrs.model.Model;
  * Generate Java client classes.
  */
 public class JavaClientGenerator {
+
+    /**
+     * Generates classes for java MP client.
+     *
+     * @param model          the model of the OpenApi document
+     * @param opts           the generator options
+     * @param clientContext  the client context
+     * @param destinationDir the destination directory
+     */
     public void generate(Model model, GeneratorOpts opts, ClientContext clientContext, Path destinationDir) {
         Path dtoDir = destinationDir.resolve(opts.dtoPackageDir());
 
