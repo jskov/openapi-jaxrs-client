@@ -34,7 +34,6 @@ import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.naming.Naming;
-import dk.mada.jaxrs.openapi.OpenapiGeneratorUtils;
 
 /**
  * Property generator.
@@ -193,8 +192,8 @@ public class PropertyGenerator {
         final String name = prop.name();
         final String varName = naming.convertPropertyName(name);
 
-        String camelized = OpenapiGeneratorUtils.camelize(varName);
-        final String snaked = OpenapiGeneratorUtils.underscore(camelized).toUpperCase(Locale.ROOT);
+        String camelized = OpenapiStringUtils.camelize(varName);
+        final String snaked = OpenapiStringUtils.underscore(camelized).toUpperCase(Locale.ROOT);
         // Both Jackson (Fasterxml) and JsonBinding expect the getter
         // of a 'xX'-prefixed field to be named 'getxX'. Although
         // this is different from Bean Spec naming for getters/setters.

@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.openapi;
 
+import java.util.Collections;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -41,9 +42,25 @@ public class DtoTransformer {
 
     private void readSpec(OpenAPI specification) {
         @SuppressWarnings("rawtypes")
-        Map<String, Schema> allDefinitions = OpenapiGeneratorUtils.getSchemas(specification);
+        Map<String, Schema> allDefinitions = getSchemas(specification);
         logger.debug("See schemas: {}", allDefinitions.keySet());
 
         allDefinitions.forEach(typeConverter::createDto);
+    }
+
+    /**
+     * Get schemas.
+     *
+     * From ModelUtils.getSchemas
+     *
+     * @param openAPI the OpenAPI document
+     * @return the schemas mapped by name
+     */
+    @SuppressWarnings("rawtypes")
+    private static Map<String, Schema> getSchemas(OpenAPI openAPI) {
+        if (openAPI != null && openAPI.getComponents() != null && openAPI.getComponents().getSchemas() != null) {
+            return openAPI.getComponents().getSchemas();
+        }
+        return Collections.emptyMap();
     }
 }
