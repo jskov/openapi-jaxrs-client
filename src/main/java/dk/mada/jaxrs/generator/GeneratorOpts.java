@@ -255,14 +255,12 @@ public final class GeneratorOpts {
 
     /** {@return the MP providers} */
     public List<String> getMpProviders() {
-        String providers = or.getDefault("generator-mp-api-register-providers", "");
-        return or.splitByComma(providers);
+        return or.getListDefault("generator-mp-api-register-providers", "");
     }
 
     /** {@return the list of DTO classes to skip when generating code} */
     public List<String> getSkippedDtoClasses() {
-        String skippedDtoTypes = or.getDefault("generator-dto-skip-types", "");
-        return or.splitByComma(skippedDtoTypes);
+        return or.getListDefault("generator-dto-skip-types", "");
     }
 
     /**

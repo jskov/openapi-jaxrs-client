@@ -23,14 +23,12 @@ public final class ParserOpts {
 
     /** {@return list of preferred media types selection if there are multiple types for responses} */
     public List<String> getPreferredResponseMediaTypes() {
-        String mediaTypes = or.getDefault(ContentSelector.PARSER_API_PREFERRED_RESPONSE_MEDIATYPES, "");
-        return or.splitByComma(mediaTypes);
+        return or.getListDefault(ContentSelector.PARSER_API_PREFERRED_RESPONSE_MEDIATYPES, "");
     }
 
     /** {@return list of preferred media types selection if there are multiple types for requests} */
     public List<String> getPreferredRequestMediaTypes() {
-        String mediaTypes = or.getDefault(ContentSelector.PARSER_API_PREFERRED_REQUEST_MEDIATYPES, "");
-        return or.splitByComma(mediaTypes);
+        return or.getListDefault(ContentSelector.PARSER_API_PREFERRED_REQUEST_MEDIATYPES, "");
     }
 
     /** {@return true if {@literal List<byte[]>} should be unwrapped to {@literal byte[]}} */

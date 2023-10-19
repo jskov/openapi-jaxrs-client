@@ -27,7 +27,7 @@ public class OptionReader {
      * @param input the input to split
      * @return the list of trimmed elements
      */
-    public List<String> splitByComma(String input) {
+    private List<String> splitByComma(String input) {
         return Stream.of(input.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
@@ -84,6 +84,18 @@ public class OptionReader {
      */
     public Optional<String> getOptDefault(String name, String defaultValue) {
         return Optional.of(getDefault(name, defaultValue));
+    }
+
+    /**
+     * Read comma-separated list option with default value.
+     *
+     * @param name         the option name
+     * @param defaultValue the default value, if the option is not present
+     * @return the property value
+     */
+    public List<String> getListDefault(String name, String defaultValue) {
+        String value = options.getProperty(name, defaultValue);
+        return splitByComma(value.trim());
     }
 
     /**
