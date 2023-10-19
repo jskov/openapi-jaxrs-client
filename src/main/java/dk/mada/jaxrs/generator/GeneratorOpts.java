@@ -36,8 +36,11 @@ public final class GeneratorOpts {
     private final boolean useJsonb;
     /** Selects use of jakarta over javax for JAX-RS types. */
     private final boolean useJakarta;
+    /** Flag for using OffsetDateTime serializer. */
     private final boolean useJacksonOffsetDateTimeSerializer;
+    /** Flag for using LocalDateTime serializer. */
     private final boolean useJacksonLocalDateTimeSerializer;
+    /** Flag for using LocalDate serializer. */
     private final boolean useJacksonLocalDateSerializer;
 
     /**

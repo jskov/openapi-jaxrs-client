@@ -15,8 +15,6 @@ import org.slf4j.LoggerFactory;
  *
  * The options parser-api-preferred-response-mediatypes and parser-api-preferred-reply-mediatypes can be used to control
  * which type is selected.
- *
- * TODO: clone of code in .openapi. Need to converge somehow. Maybe delay selection to render time instead.
  */
 public class ContentSelector {
     private static final Logger logger = LoggerFactory.getLogger(ContentSelector.class);

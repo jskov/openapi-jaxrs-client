@@ -57,8 +57,9 @@ public final class TypeDateTime implements Type {
                 instanceZoned = new TypeDateTime(TypeNames.ZONED_DATE_TIME, "java.time.ZonedDateTime");
             }
             return instanceZoned;
+        default:
+            throw new IllegalStateException("Unhandled variant " + variant);
         }
-        throw new IllegalStateException("Unhandled variant " + variant);
     }
 
     @Override
