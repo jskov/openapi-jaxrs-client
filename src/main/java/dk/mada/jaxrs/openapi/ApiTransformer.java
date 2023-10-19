@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -8,11 +10,13 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Content;
+import dk.mada.jaxrs.model.api.ContentSelector;
 import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
 import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.api.Operation;
@@ -22,6 +26,7 @@ import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.types.Reference;
+import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.naming.Naming;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
@@ -63,15 +68,16 @@ public class ApiTransformer {
      * @param naming          the naming instance
      * @param parseOpts       the parser options
      * @param typeConverter   the type converter
+     * @param contentSelector the content selector
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(Naming naming, ParserOpts parseOpts, TypeConverter typeConverter, List<SecurityScheme> securitySchemes) {
+    public ApiTransformer(Naming naming, ParserOpts parseOpts, TypeConverter typeConverter, ContentSelector contentSelector,
+            List<SecurityScheme> securitySchemes) {
         this.naming = naming;
         this.parseOpts = parseOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
-
-        contentSelector = new ContentSelector(parseOpts, typeConverter);
+        this.contentSelector = contentSelector;
     }
 
     /**
@@ -157,7 +163,7 @@ public class ApiTransformer {
         Response r = Response.builder()
                 .code(StatusCode.of(code))
                 .description(Optional.ofNullable(resp.getDescription()))
-                .content(contentSelector.selectContent(resp.getContent(), cc))
+                .content(selectContent(resp.getContent(), cc))
                 .build();
 
         if (r.code() == StatusCode.HTTP_OK && r.content().reference().isVoid()) {
@@ -182,7 +188,7 @@ public class ApiTransformer {
         }
 
         ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
-        Content content = contentSelector.selectContent(body.getContent(), cc);
+        Content content = selectContent(body.getContent(), cc);
         List<Parameter> formParameters = extractFormParameters(body.getContent());
 
         return Optional.of(
@@ -293,5 +299,66 @@ public class ApiTransformer {
 
     private dk.mada.jaxrs.model.api.HttpMethod toModelHttpMethod(HttpMethod m) {
         return dk.mada.jaxrs.model.api.HttpMethod.valueOf(m.name());
+    }
+
+    /**
+     * Selects desired content implementation from context and configuration.
+     *
+     * Uses logic partially moved to the model.
+     *
+     * @param c       the OpenApi content to select from
+     * @param context the context where the content is looked up from
+     * @return the selected (model) content
+     */
+    public Content selectContent(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
+        Reference ref;
+        Set<String> mediaTypes;
+
+        if (c == null) {
+            ref = TypeVoid.getRef();
+            mediaTypes = Set.of();
+        } else {
+            mediaTypes = c.keySet();
+
+            @SuppressWarnings("rawtypes")
+            Set<Schema> schemas = c.values().stream()
+                    .map(MediaType::getSchema)
+                    .collect(toSet());
+
+            if (schemas.isEmpty()) {
+                ref = TypeVoid.getRef();
+            } else {
+                @Nullable Schema<?> ss = getPreferredSchema(c, context);
+
+                if (ss == null) {
+                    // This happens in some documents
+                    ref = TypeVoid.getRef();
+                } else {
+                    ref = typeConverter.toReference(ss, context.isRequired());
+                }
+            }
+        }
+        logger.debug("Content reference {}", ref);
+
+        return Content.builder()
+                .mediaTypes(mediaTypes)
+                .reference(ref)
+                .build();
+    }
+
+    private @Nullable Schema<?> getPreferredSchema(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
+        // Selection implied when only one media type
+        if (c.size() == 1) {
+            return c.values().iterator().next().getSchema();
+        }
+
+        String mediaTypeName = contentSelector.selectPreferredMediaType(c.keySet(), context)
+                .orElseThrow(() -> new IllegalStateException("Path " + context.resourcePath() + " has multiple content types. Use "
+                        + context.location().optionName() + " to select"));
+        MediaType mediaType = c.get(mediaTypeName);
+        if (mediaType == null) {
+            throw new IllegalStateException("The media-type name was just found?");
+        }
+        return mediaType.getSchema();
     }
 }

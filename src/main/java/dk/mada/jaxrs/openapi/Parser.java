@@ -110,7 +110,8 @@ public final class Parser {
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
-        Operations operations = new ApiTransformer(naming, parserOpts, typeConverter, securitySchemes).transform(specification);
+        Operations operations = new ApiTransformer(naming, parserOpts, typeConverter, contentSelector, securitySchemes)
+                .transform(specification);
         new DtoTransformer(typeConverter).transform(specification);
 
         if (showInfo) {
