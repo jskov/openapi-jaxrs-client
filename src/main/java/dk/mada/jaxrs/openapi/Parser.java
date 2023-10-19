@@ -50,21 +50,18 @@ public final class Parser {
      * Constructs a new parser.
      *
      * @param showInfo      flag to enable parser info output
-     * @param typeNames     the type names instance
      * @param naming        the naming instance
-     * @param parserRefs    the parser references
      * @param parserOpts    the parser options
      * @param generatorOpts the generator options
      */
-    public Parser(boolean showInfo,
-            TypeNames typeNames, Naming naming, ParserTypeRefs parserRefs,
-            ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public Parser(boolean showInfo, Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
         this.showInfo = showInfo;
-        this.typeNames = typeNames;
         this.naming = naming;
-        this.parserRefs = parserRefs;
         this.parserOpts = parserOpts;
         this.generatorOpts = generatorOpts;
+
+        typeNames = new TypeNames();
+        parserRefs = new ParserTypeRefs(typeNames);
     }
 
     /**

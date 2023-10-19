@@ -15,11 +15,9 @@ import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorException;
 import dk.mada.jaxrs.generator.dto.DtoGenerator;
 import dk.mada.jaxrs.model.Model;
-import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.ParserOpts;
-import dk.mada.jaxrs.openapi.ParserTypeRefs;
 import dk.mada.jaxrs.utils.DirectoryDeleter;
 import dk.mada.jaxrs.utils.OptionReader;
 import dk.mada.logging.LoggerConfig;
@@ -40,17 +38,15 @@ public final class Generator implements GeneratorService {
             setLogLevels(clientContext.logLevel());
             assertInputFile(openapiDocument);
 
-            var typeNames = new TypeNames();
             var optionReader = new OptionReader(options);
             var parserOpts = new ParserOpts(optionReader);
             var generatorOpts = new GeneratorOpts(optionReader, parserOpts);
             var naming = new Naming(options);
-            var parserRefs = new ParserTypeRefs(typeNames);
             var contentSelector = new ContentSelector(parserOpts);
 
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
-            Model model = new Parser(clientContext.showParserInfo(), typeNames, naming, parserRefs, parserOpts, generatorOpts)
+            Model model = new Parser(clientContext.showParserInfo(), naming, parserOpts, generatorOpts)
                     .parse(openapiDocument);
 
             Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
