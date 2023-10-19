@@ -8,9 +8,9 @@ plugins {
 }
 
 dependencies {
-    implementation      project(':')
-    implementation      'info.picocli:picocli'
-    implementation      'org.slf4j:slf4j-jdk14'
+    implementation project(':')
+    implementation 'info.picocli:picocli:4.7.5'
+    implementation 'org.slf4j:slf4j-jdk14'
 }
 
 shadowJar {
