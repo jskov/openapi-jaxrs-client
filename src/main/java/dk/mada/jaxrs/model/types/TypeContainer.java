@@ -1,9 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
-import java.util.HashSet;
 import java.util.Set;
-
-import dk.mada.jaxrs.generator.imports.JavaUtil;
 
 /**
  * Type representing a container.
@@ -23,13 +20,8 @@ public interface TypeContainer extends Type {
         return true;
     }
 
-    /** {@return the containter-specific imports} */
-    Set<JavaUtil> containerImports();
-
     @Override
     default Set<String> neededImports() {
-        Set<String> combined = new HashSet<>(innerType().neededImports());
-        containerImports().forEach(ui -> combined.add(ui.path()));
-        return combined;
+        return innerType().neededImports();
     }
 }

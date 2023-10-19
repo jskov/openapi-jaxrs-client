@@ -3,6 +3,7 @@ package dk.mada.jaxrs.generator.imports;
 import java.util.Collection;
 import java.util.Map;
 import java.util.NavigableSet;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -14,7 +15,10 @@ import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeContainer;
+import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeSet;
 
 /**
  * Keeps track of imports for a single template, taking generator options into consideration.
@@ -239,12 +243,28 @@ public final class Imports {
 
         Type type = ref.refType();
         importedClasses.addAll(type.neededImports());
+        addJavaContainerImports(type);
         addDtoImport(type);
         if (type instanceof TypeContainer tc) {
             addDtoImport(tc.innerType());
         }
 
         return this;
+    }
+
+    private void addJavaContainerImports(Type t) {
+        Set<JavaUtil> addImports = Set.of();
+        if (t instanceof TypeArray) {
+            addImports = JavaUtil.containerListTypes();
+        } else if (t instanceof TypeMap) {
+            addImports = JavaUtil.containerMapTypes();
+        } else if (t instanceof TypeSet) {
+            addImports = JavaUtil.containerSetTypes();
+        }
+
+        addImports.stream()
+                .map(JavaUtil::path)
+                .forEach(importedClasses::add);
     }
 
     /**
