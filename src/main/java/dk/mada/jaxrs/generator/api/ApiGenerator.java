@@ -31,6 +31,8 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
+import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
+import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.Response;
@@ -44,8 +46,6 @@ import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.naming.Naming;
-import dk.mada.jaxrs.openapi.ContentSelector.ContentContext;
-import dk.mada.jaxrs.openapi.ContentSelector.Location;
 
 /**
  * API generator.
@@ -72,8 +72,6 @@ public class ApiGenerator {
     private final Templates templates;
     /** The data model. */
     private final Model model;
-    /** Content selector. */
-    private final ContentSelector contentSelector;
 
     /** Common path finder. */
     private final CommonPathFinder commonPathFinder = new CommonPathFinder();
@@ -83,15 +81,13 @@ public class ApiGenerator {
     /**
      * Constructs a new API generator.
      *
-     * @param naming          the naming instance
-     * @param contentSelector the content selector
-     * @param generatorOpts   the generator options
-     * @param templates       the templates instance
-     * @param model           the data model
+     * @param naming        the naming instance
+     * @param generatorOpts the generator options
+     * @param templates     the templates instance
+     * @param model         the data model
      */
-    public ApiGenerator(Naming naming, ContentSelector contentSelector, GeneratorOpts generatorOpts, Templates templates, Model model) {
+    public ApiGenerator(Naming naming, GeneratorOpts generatorOpts, Templates templates, Model model) {
         this.naming = naming;
-        this.contentSelector = contentSelector;
         this.opts = generatorOpts;
         this.templates = templates;
         this.model = model;
@@ -462,8 +458,9 @@ public class ApiGenerator {
 
         // Only define an explicit media-type for the response, iff it is
         // not same media-type already declared for the operation
-        Optional<String> mediaType = contentSelector
-                .selectPreferredMediaType(responseMediaTypes, new ContentContext(op.path(), true, Location.RESPONSE))
+        ContentContext context = new ContentContext(op.path(), true, Location.RESPONSE);
+        Optional<String> mediaType = model.contentSelector()
+                .selectPreferredMediaType(responseMediaTypes, context)
                 .map(mt -> toMediaType(imports, mt))
                 .filter(mt -> !opResponseMediaTypes.contains(mt));
 
@@ -490,7 +487,8 @@ public class ApiGenerator {
                         .toList())
                 .orElse(List.of());
 
-        return contentSelector.selectPreferredMediaType(mediaTypes, new ContentContext(op.path(), false, Location.REQUEST))
+        ContentContext context = new ContentContext(op.path(), false, Location.REQUEST);
+        return model.contentSelector().selectPreferredMediaType(mediaTypes, context)
                 .map(mt -> toMediaType(imports, mt));
     }
 
@@ -513,7 +511,8 @@ public class ApiGenerator {
                 .map(r -> List.copyOf(r.content().mediaTypes()))
                 .orElse(List.of());
 
-        return contentSelector.selectPreferredMediaType(potentialMediaTypes, new ContentContext(op.path(), true, Location.RESPONSE))
+        ContentContext context = new ContentContext(op.path(), true, Location.RESPONSE);
+        return model.contentSelector().selectPreferredMediaType(potentialMediaTypes, context)
                 .map(mt -> toMediaType(imports, mt));
     }
 

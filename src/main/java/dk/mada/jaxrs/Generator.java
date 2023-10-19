@@ -9,7 +9,6 @@ import dk.mada.jaxrs.generator.GeneratorOpts.LeakedParserOpts;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.ApiGenerator;
 import dk.mada.jaxrs.generator.api.ClientContext;
-import dk.mada.jaxrs.generator.api.ContentSelector;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.jaxrs.generator.api.GeneratorService;
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
@@ -48,7 +47,6 @@ public final class Generator implements GeneratorService {
                     parserOpts.isJseLocalDate());
             var generatorOpts = new GeneratorOpts(optionReader, leakedParserOpts);
             var naming = new Naming(options);
-            var contentSelector = new ContentSelector(parserOpts);
 
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
@@ -63,7 +61,7 @@ public final class Generator implements GeneratorService {
             if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
                 Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
                 Files.createDirectories(apiDir);
-                new ApiGenerator(naming, contentSelector, generatorOpts, templates, model).generateApiClasses(apiDir);
+                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
             }
             if (!clientContext.skipDto()) {
                 Files.createDirectories(dtoDir);

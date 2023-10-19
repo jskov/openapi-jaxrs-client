@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.api.Content;
+import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
+import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import io.swagger.v3.oas.models.media.MediaType;
@@ -48,36 +50,6 @@ public class ContentSelector {
         preferredResponseMediaTypes = parseOpts.getPreferredResponseMediaTypes().stream()
                 .map(Pattern::compile)
                 .toList();
-    }
-
-    /** Location of the content to resolve. */
-    public enum Location {
-        /** Marks the request part of the operation. */
-        REQUEST(ParserOpts.PARSER_API_PREFERRED_REQUEST_MEDIATYPES),
-        /** Marks the response part of the operation. */
-        RESPONSE(ParserOpts.PARSER_API_PREFERRED_RESPONSE_MEDIATYPES);
-
-        /** The option name necessary to control selection at this location. */
-        private final String optionName;
-
-        Location(String optionName) {
-            this.optionName = optionName;
-        }
-
-        /** {@return the option name necessary to control selection at this location} */
-        public String optionName() {
-            return optionName;
-        }
-    }
-
-    /**
-     * The context of a content lookup.
-     *
-     * @param resourcePath the resource path where the content needs lookup. Used for error output only.
-     * @param isRequired   true if the content is required
-     * @param location     the location of the content
-     */
-    public record ContentContext(String resourcePath, boolean isRequired, Location location) {
     }
 
     /**
@@ -129,7 +101,8 @@ public class ContentSelector {
             return c.values().iterator().next().getSchema();
         }
 
-        List<Pattern> preferredMediaTypes = context.location == Location.REQUEST ? preferredRequestMediaTypes : preferredResponseMediaTypes;
+        List<Pattern> preferredMediaTypes = context.location() == Location.REQUEST ? preferredRequestMediaTypes
+                : preferredResponseMediaTypes;
 
         // Find first match in preference order
         for (Pattern p : preferredMediaTypes) {

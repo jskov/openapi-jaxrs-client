@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SecurityScheme;
+import dk.mada.jaxrs.model.api.ContentSelector;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeInterface;
@@ -45,6 +47,8 @@ public final class Parser {
     private final ParserTypeRefs parserRefs;
     /** Type names. */
     private final TypeNames typeNames;
+    /** Content selector. This should probably only be used in the generator (when model captures all the state). */
+    private ContentSelector contentSelector;
 
     /**
      * Constructs a new parser.
@@ -62,6 +66,15 @@ public final class Parser {
 
         typeNames = new TypeNames();
         parserRefs = new ParserTypeRefs(typeNames);
+
+        List<Pattern> preferredRequestMediaTypes = parserOpts.getPreferredRequestMediaTypes().stream()
+                .map(Pattern::compile)
+                .toList();
+        List<Pattern> preferredResponseMediaTypes = parserOpts.getPreferredResponseMediaTypes().stream()
+                .map(Pattern::compile)
+                .toList();
+
+        this.contentSelector = new ContentSelector(preferredRequestMediaTypes, preferredResponseMediaTypes);
     }
 
     /**
@@ -128,7 +141,7 @@ public final class Parser {
         }
 
         Set<TypeInterface> interfaces = parserTypes.getInterfaces();
-        return new Model(info, derefOps, dtos, interfaces, securitySchemes);
+        return new Model(info, derefOps, dtos, interfaces, securitySchemes, contentSelector);
     }
 
     /**
