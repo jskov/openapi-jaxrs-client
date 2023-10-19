@@ -1,10 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
-import java.util.Set;
-
 import org.immutables.value.Value.Immutable;
-
-import dk.mada.jaxrs.generator.imports.JavaUtil;
 
 /**
  * Type representing an array schema with unique elements (aka a set).
@@ -37,10 +33,5 @@ public interface TypeSet extends TypeContainer {
     default TypeName typeName() {
         String innerName = innerType().wrapperTypeName().name();
         return typeNames().of("Set<" + innerName + ">");
-    }
-
-    @Override
-    default Set<JavaUtil> containerImports() {
-        return JavaUtil.containerSetTypes();
     }
 }

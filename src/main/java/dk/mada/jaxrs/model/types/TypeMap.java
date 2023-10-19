@@ -1,10 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
-import java.util.Set;
-
 import org.immutables.value.Value.Immutable;
-
-import dk.mada.jaxrs.generator.imports.JavaUtil;
 
 /**
  * Keys in a map must be a scalar string.
@@ -41,10 +37,5 @@ public interface TypeMap extends TypeContainer {
     default TypeName typeName() {
         String innerName = innerType().wrapperTypeName().name();
         return typeNames().of("Map<String, " + innerName + ">");
-    }
-
-    @Override
-    default Set<JavaUtil> containerImports() {
-        return JavaUtil.containerMapTypes();
     }
 }
