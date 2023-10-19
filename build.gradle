@@ -17,7 +17,6 @@ ext {
 dependencies {
     api      project(':generator-api')
 
-    implementation      'info.picocli:picocli'
     implementation      'io.swagger.parser.v3:swagger-parser'
 
     implementation      'org.slf4j:slf4j-jdk14'
