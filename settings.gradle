@@ -21,4 +21,3 @@ project(':generator-cli').projectDir = file('modules/generator-cli')
 
 include 'model'
 project(':model').projectDir = file('modules/model')
-
