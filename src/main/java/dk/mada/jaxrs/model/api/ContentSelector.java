@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.openapi.ParserOpts;
-
 /**
  * Selects content based on configuration.
  *
@@ -22,6 +20,11 @@ import dk.mada.jaxrs.openapi.ParserOpts;
  */
 public class ContentSelector {
     private static final Logger logger = LoggerFactory.getLogger(ContentSelector.class);
+
+    /** Preferred request media types option name. Not a super placement! */
+    public static final String PARSER_API_PREFERRED_REQUEST_MEDIATYPES = "parser-api-preferred-request-mediatypes";
+    /** Preferred response media types option name. Not a super placement! */
+    public static final String PARSER_API_PREFERRED_RESPONSE_MEDIATYPES = "parser-api-preferred-response-mediatypes";
 
     /** Preferred request media types. */
     private final List<Pattern> preferredRequestMediaTypes;
@@ -86,9 +89,9 @@ public class ContentSelector {
     /** Location of the content to resolve. */
     public enum Location {
         /** Marks the request part of the operation. */
-        REQUEST(ParserOpts.PARSER_API_PREFERRED_REQUEST_MEDIATYPES),
+        REQUEST(PARSER_API_PREFERRED_REQUEST_MEDIATYPES),
         /** Marks the response part of the operation. */
-        RESPONSE(ParserOpts.PARSER_API_PREFERRED_RESPONSE_MEDIATYPES);
+        RESPONSE(PARSER_API_PREFERRED_RESPONSE_MEDIATYPES);
 
         /** The option name necessary to control selection at this location. */
         private final String optionName;
