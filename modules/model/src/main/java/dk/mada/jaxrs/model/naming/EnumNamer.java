@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.naming;
+package dk.mada.jaxrs.model.naming;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;

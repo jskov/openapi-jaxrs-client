@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.naming;
+package dk.mada.jaxrs.model.naming;
 
 import java.util.Locale;
 import java.util.Properties;

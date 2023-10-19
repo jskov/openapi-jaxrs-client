@@ -17,9 +17,11 @@ ext {
 dependencies {
     api      project(':generator-api')
 
-    implementation      'io.swagger.parser.v3:swagger-parser'
+    implementation project(':model')
 
-    implementation      'org.slf4j:slf4j-jdk14'
+    implementation 'io.swagger.parser.v3:swagger-parser'
+
+    implementation 'org.slf4j:slf4j-jdk14'
 
     // for the generated code
     testImplementation 'javax.json:javax.json-api'

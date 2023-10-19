@@ -31,12 +31,13 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
-import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
-import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
+import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
+import dk.mada.jaxrs.model.api.ContentSelector.Location;
+import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
@@ -45,7 +46,6 @@ import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
-import dk.mada.jaxrs.naming.Naming;
 
 /**
  * API generator.

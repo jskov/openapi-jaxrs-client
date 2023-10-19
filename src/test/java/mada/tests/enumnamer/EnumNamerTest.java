@@ -9,12 +9,12 @@ import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
+import dk.mada.jaxrs.model.naming.EnumNamer;
+import dk.mada.jaxrs.model.naming.Naming;
+import dk.mada.jaxrs.model.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeObject;
-import dk.mada.jaxrs.naming.EnumNamer;
-import dk.mada.jaxrs.naming.EnumNamer.EnumNameValue;
-import dk.mada.jaxrs.naming.Naming;
 
 /**
  * Tests enumeration naming.

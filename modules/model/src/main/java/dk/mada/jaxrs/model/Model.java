@@ -5,8 +5,8 @@ import java.util.Set;
 
 import dk.mada.jaxrs.model.api.ContentSelector;
 import dk.mada.jaxrs.model.api.Operations;
+import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.TypeInterface;
-import dk.mada.jaxrs.naming.Naming;
 
 /**
  * The transformed model of an OpenApi specification.

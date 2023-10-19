@@ -25,6 +25,7 @@ import dk.mada.jaxrs.generator.imports.JavaMath;
 import dk.mada.jaxrs.generator.imports.JavaUtil;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -33,7 +34,6 @@ import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
-import dk.mada.jaxrs.naming.Naming;
 
 /**
  * Property generator.
