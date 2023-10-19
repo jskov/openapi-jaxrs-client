@@ -32,6 +32,7 @@ import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
+import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 
 /**
@@ -160,7 +161,7 @@ public class ParserTypes {
     }
 
     private boolean excludeInternalDtoProperties(TypeName tn) {
-        return !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER);
+        return !tn.name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER);
     }
 
     /**

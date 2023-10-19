@@ -7,6 +7,7 @@ import org.immutables.value.Value.Immutable;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
+import dk.mada.jaxrs.naming.Naming;
 
 /**
  * Type representing a composite class (schema with allOf) during parsing.
@@ -45,7 +46,7 @@ public interface ParserTypeComposite extends Type {
      */
     default List<Dto> internalDtos() {
         return containsTypes().stream()
-                .filter(ptr -> ptr.refTypeName().name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
+                .filter(ptr -> ptr.refTypeName().name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER))
                 .map(ParserTypeRef::refType)
                 .filter(Dto.class::isInstance)
                 .map(Dto.class::cast)
@@ -56,7 +57,7 @@ public interface ParserTypeComposite extends Type {
     default List<TypeName> externalDtoReferences() {
         return containsTypes().stream()
                 .map(ptr -> ptr.refTypeName())
-                .filter(tn -> !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
+                .filter(tn -> !tn.name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER))
                 .toList();
     }
 }

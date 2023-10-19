@@ -11,13 +11,15 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.naming.NamingOpts.SchemaOrder;
 import dk.mada.jaxrs.naming.NamingRules.NamingRule;
-import dk.mada.jaxrs.openapi.TypeConverter;
 
 /**
  * Executes naming rules.
  */
 public class Naming {
     private static final Logger logger = LoggerFactory.getLogger(Naming.class);
+
+    /** Prefix DTO names for composite properties. This is only used internally in the parser. */
+    public static final String PARSER_INTERNAL_PROPERTIES_NAME_MARKER = "_internal_$_properties_";
 
     /** Naming rules for API group names. */
     private final List<NamingRule> apiNamingRules;
@@ -233,7 +235,7 @@ public class Naming {
     private String convert(List<NamingRule> rules, String input) {
         String result = input;
         logger.trace(" convert '{}'", input);
-        if (input.startsWith(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER)) {
+        if (input.startsWith(PARSER_INTERNAL_PROPERTIES_NAME_MARKER)) {
             logger.trace("  ignored, internal naming");
             return input;
         }
