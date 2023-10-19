@@ -19,6 +19,7 @@ import dk.mada.jaxrs.naming.Naming;
  * @param securitySchemes the security schemes in the API
  * @param contentSelector selector to pick appropriate content
  */
-public record Model(Naming naming, Info info, Operations operations, Dtos dtos, Set<TypeInterface> interfaces, List<SecurityScheme> securitySchemes,
+public record Model(Naming naming, Info info, Operations operations, Dtos dtos, Set<TypeInterface> interfaces,
+        List<SecurityScheme> securitySchemes,
         ContentSelector contentSelector) {
 }
