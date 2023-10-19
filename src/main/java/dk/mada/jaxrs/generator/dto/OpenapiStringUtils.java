@@ -43,6 +43,7 @@ public final class OpenapiStringUtils {
      * @param lowercaseFirstLetter lower case for first letter if set to true
      * @return camelized string
      */
+    @SuppressWarnings("java:S3776") // ignore complexity warning
     private static String camelize(String word, boolean lowercaseFirstLetter) {
         // Replace all slashes with dots (package separator)
         Matcher m = camelizeSlashPattern.matcher(word);
