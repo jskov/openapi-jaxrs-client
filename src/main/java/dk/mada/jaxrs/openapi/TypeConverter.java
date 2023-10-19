@@ -219,7 +219,7 @@ public final class TypeConverter {
             return null;
         }
 
-        Type type = Primitive.find(ri.schema);
+        Type type = findPrimitive(ri.schema);
         if (type == null) {
             return null;
         }
@@ -240,6 +240,22 @@ public final class TypeConverter {
         String name = typeName.name();
         logger.trace(" - createPrimitiveTypeRef enum {} {} {}", name, type, enumValues);
         return parserRefs.of(TypeEnum.of(typeName, type, enumValues), ri.validation);
+    }
+
+    /**
+     * Finds a primitive type matching the given OpenApi schema.
+     *
+     * @param schema the schema to look for type/format for
+     * @return the matching primitive, or null if no matches found
+     */
+    private static @Nullable Primitive findPrimitive(Schema<?> schema) {
+        String typeFormat = schema.getType() + ":" + Objects.toString(schema.getFormat(), "");
+        for (var p : Primitive.values()) {
+            if (p.openapiTypeFormat().equals(typeFormat)) {
+                return p;
+            }
+        }
+        return null;
     }
 
     @Nullable private ParserTypeRef createArrayRef(RefInfo ri) {
