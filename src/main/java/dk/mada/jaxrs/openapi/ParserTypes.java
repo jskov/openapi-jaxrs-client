@@ -14,7 +14,6 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
@@ -33,6 +32,8 @@ import dk.mada.jaxrs.model.types.TypePlainObject;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
+import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 
 /**
  * Types found while parsing.
@@ -78,13 +79,13 @@ public class ParserTypes {
      *
      * @param typeNames     the type names instance
      * @param parserOpts    the parser options
-     * @param generatorOpts the generator options
+     * @param leakedGenOpts the leaked generator options
      */
-    public ParserTypes(TypeNames typeNames, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public ParserTypes(TypeNames typeNames, ParserOpts parserOpts, LeakedGeneratorOpts leakedGenOpts) {
         this.typeNames = typeNames;
-        TypeDateTime typeDateTime = TypeDateTime.get(generatorOpts);
+        TypeDateTime typeDateTime = leakedGenOpts.dateTimeType();
 
-        dtoPackageName = generatorOpts.dtoPackage();
+        dtoPackageName = leakedGenOpts.dtoPackage();
 
         mapJse(true, TypeNames.OBJECT, TypePlainObject.get());
         mapJse(parserOpts.isJseBigDecimal(), TypeNames.BIG_DECIMAL, TypeBigDecimal.get());
@@ -160,7 +161,7 @@ public class ParserTypes {
     }
 
     private boolean excludeInternalDtoProperties(TypeName tn) {
-        return !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER);
+        return !tn.name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER);
     }
 
     /**

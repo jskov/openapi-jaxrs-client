@@ -1,10 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
-import java.util.Objects;
-
 import org.jspecify.annotations.Nullable;
-
-import io.swagger.v3.oas.models.media.Schema;
 
 /**
  * Primitive types of the java language (plus String).
@@ -28,14 +24,14 @@ public enum Primitive implements Type {
     STRING("string:", TypeNames.STRING, TypeNames.STRING);
 
     /** The OpenApi type:format **/
-    private final String typeFormat;
+    private final String openapiTypeFormat;
     /** The Java language primitive name */
     private final TypeName javaPrimitive;
     /** Java language wrapper type */
     private final TypeName wrapperType;
 
     Primitive(String typeFormat, TypeName javaPrimitive, TypeName wrapperType) {
-        this.typeFormat = typeFormat;
+        this.openapiTypeFormat = typeFormat;
         this.javaPrimitive = javaPrimitive;
         this.wrapperType = wrapperType;
     }
@@ -50,6 +46,11 @@ public enum Primitive implements Type {
     @Override
     public TypeName wrapperTypeName() {
         return wrapperType;
+    }
+
+    /** {@return the OpenApi type:format of this primitive} */
+    public String openapiTypeFormat() {
+        return openapiTypeFormat;
     }
 
     /**
@@ -75,21 +76,5 @@ public enum Primitive implements Type {
     @Override
     public boolean isPrimitive() {
         return true;
-    }
-
-    /**
-     * Finds a primitive type matching the given OpenApi schema.
-     *
-     * @param schema the schema to look for type/format for
-     * @return the matching primitive, or null if no matches found
-     */
-    public static @Nullable Primitive find(Schema<?> schema) {
-        String typeFormat = schema.getType() + ":" + Objects.toString(schema.getFormat(), "");
-        for (var p : Primitive.values()) {
-            if (p.typeFormat.equals(typeFormat)) {
-                return p;
-            }
-        }
-        return null;
     }
 }

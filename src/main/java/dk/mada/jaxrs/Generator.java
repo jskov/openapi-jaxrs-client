@@ -5,21 +5,21 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 import dk.mada.jaxrs.generator.GeneratorOpts;
+import dk.mada.jaxrs.generator.GeneratorOpts.LeakedParserOpts;
 import dk.mada.jaxrs.generator.Templates;
 import dk.mada.jaxrs.generator.api.ApiGenerator;
 import dk.mada.jaxrs.generator.api.ClientContext;
-import dk.mada.jaxrs.generator.api.ContentSelector;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.jaxrs.generator.api.GeneratorService;
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorException;
 import dk.mada.jaxrs.generator.dto.DtoGenerator;
 import dk.mada.jaxrs.model.Model;
-import dk.mada.jaxrs.model.types.TypeNames;
+import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.naming.Naming;
 import dk.mada.jaxrs.openapi.Parser;
+import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import dk.mada.jaxrs.openapi.ParserOpts;
-import dk.mada.jaxrs.openapi.ParserTypeRefs;
 import dk.mada.jaxrs.utils.DirectoryDeleter;
 import dk.mada.jaxrs.utils.OptionReader;
 import dk.mada.logging.LoggerConfig;
@@ -40,17 +40,19 @@ public final class Generator implements GeneratorService {
             setLogLevels(clientContext.logLevel());
             assertInputFile(openapiDocument);
 
-            var typeNames = new TypeNames();
             var optionReader = new OptionReader(options);
             var parserOpts = new ParserOpts(optionReader);
-            var generatorOpts = new GeneratorOpts(optionReader, parserOpts);
+
+            LeakedParserOpts leakedParserOpts = new LeakedParserOpts(parserOpts.isJseOffsetDateTime(), parserOpts.isJseLocalDateTime(),
+                    parserOpts.isJseLocalDate());
+            var generatorOpts = new GeneratorOpts(optionReader, leakedParserOpts);
             var naming = new Naming(options);
-            var parserRefs = new ParserTypeRefs(typeNames);
-            var contentSelector = new ContentSelector(parserOpts);
 
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
-            Model model = new Parser(clientContext.showParserInfo(), typeNames, naming, parserRefs, parserOpts, generatorOpts)
+            var leakedGeneratorOpts = new LeakedGeneratorOpts(TypeDateTime.get(generatorOpts.getDateTimeVariant()),
+                    generatorOpts.dtoPackage());
+            Model model = new Parser(clientContext.showParserInfo(), naming, parserOpts, leakedGeneratorOpts)
                     .parse(openapiDocument);
 
             Path dtoDir = destinationDir.resolve(generatorOpts.dtoPackageDir());
@@ -59,7 +61,7 @@ public final class Generator implements GeneratorService {
             if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
                 Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
                 Files.createDirectories(apiDir);
-                new ApiGenerator(naming, contentSelector, generatorOpts, templates, model).generateApiClasses(apiDir);
+                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
             }
             if (!clientContext.skipDto()) {
                 Files.createDirectories(dtoDir);

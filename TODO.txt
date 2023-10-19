@@ -1,15 +1,11 @@
-o TypeRef must be used for all type references. Should allow capture of Validation.
-  So Validation becomes related to the property's type reference rather than the property itself.
-  
+# Model cleanup
+* TypeLocalTime and TypeDateTime should be passive carriers of the type.
+  Let the generator handle the java-specific implementations (make the model simpler, and more generic).
+
+# Others
+
 o Make options self-documenting
-o Make executable jar
 o Generator option to use primitive types for non-optional fields
-o Handle name conflicts when making identifiers valid.
-  Add counter or something.
-o Prevent keyword collisions in identifiers.
-o Ignore-annotations on bigdecimal/empty_collection option, according to serializer.
-o Avoid this. in getters + add
-o Responses @APIResponse are not handling Maps correctly. Need an example to work from.
 o Generator flag to select primitives/wrappers in API parameters
-o The enum deserializer may be getting strings always - currently assumes int for numbers
+o Responses @APIResponse are not handling Maps correctly. Need an example to work from.
 o Handle form parameters. See disabled tests params/form/* and examples/azure

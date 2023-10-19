@@ -15,7 +15,6 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.ImmutableValidation;
 import dk.mada.jaxrs.model.Property;
@@ -28,7 +27,6 @@ import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeByteArray;
 import dk.mada.jaxrs.model.types.TypeDate;
-import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeLocalTime;
@@ -41,6 +39,7 @@ import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.TypeValidation;
 import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.ComposedSchema;
@@ -62,8 +61,6 @@ public final class TypeConverter {
     private static final Logger logger = LoggerFactory.getLogger(TypeConverter.class);
     /** Component schema prefix. */
     private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
-    /** Prefix DTO names for composite properties */
-    public static final String INTERNAL_PROPERTIES_NAME_MARKER = "_internal_$_properties_";
 
     /** Type names. */
     private final TypeNames typeNames;
@@ -73,8 +70,8 @@ public final class TypeConverter {
     private final ParserTypeRefs parserRefs;
     /** Parser options. */
     private final ParserOpts parserOpts;
-    /** Generator options. */
-    private final GeneratorOpts generatorOpts;
+    /** The type to use for date-time. */
+    private final Type dateTimeType;
     /** Parser types. */
     private final ParserTypes parserTypes;
 
@@ -91,16 +88,17 @@ public final class TypeConverter {
      * @param parserRefs    the parser references
      * @param naming        the naming instance
      * @param parserOpts    the parser options
-     * @param generatorOpts the generator options
+     * @param leakedGenOpts the leaked generator options
      */
     public TypeConverter(TypeNames typeNames, ParserTypes parserTypes, ParserTypeRefs parserRefs,
-            Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+            Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts leakedGenOpts) {
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
         this.parserRefs = parserRefs;
         this.naming = naming;
         this.parserOpts = parserOpts;
-        this.generatorOpts = generatorOpts;
+
+        dateTimeType = leakedGenOpts.dateTimeType();
     }
 
     /**
@@ -219,7 +217,7 @@ public final class TypeConverter {
             return null;
         }
 
-        Type type = Primitive.find(ri.schema);
+        Type type = findPrimitive(ri.schema);
         if (type == null) {
             return null;
         }
@@ -240,6 +238,22 @@ public final class TypeConverter {
         String name = typeName.name();
         logger.trace(" - createPrimitiveTypeRef enum {} {} {}", name, type, enumValues);
         return parserRefs.of(TypeEnum.of(typeName, type, enumValues), ri.validation);
+    }
+
+    /**
+     * Finds a primitive type matching the given OpenApi schema.
+     *
+     * @param schema the schema to look for type/format for
+     * @return the matching primitive, or null if no matches found
+     */
+    private static @Nullable Primitive findPrimitive(Schema<?> schema) {
+        String typeFormat = schema.getType() + ":" + Objects.toString(schema.getFormat(), "");
+        for (var p : Primitive.values()) {
+            if (p.openapiTypeFormat().equals(typeFormat)) {
+                return p;
+            }
+        }
+        return null;
     }
 
     @Nullable private ParserTypeRef createArrayRef(RefInfo ri) {
@@ -337,7 +351,7 @@ public final class TypeConverter {
                 if (dtoName == null) {
                     internalPropertyName = null;
                 } else {
-                    internalPropertyName = INTERNAL_PROPERTIES_NAME_MARKER + dtoName;
+                    internalPropertyName = Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER + dtoName;
                 }
 
                 // Note the removal of duplicates, necessary for the allof_dups test
@@ -422,7 +436,7 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createDateTimeRef(RefInfo ri) {
         if (isDateTimeType(ri.schema)) {
             logger.trace(" - createDateTimeRef");
-            return parserRefs.of(TypeDateTime.get(generatorOpts), ri.validation);
+            return parserRefs.of(dateTimeType, ri.validation);
         }
         return null;
     }

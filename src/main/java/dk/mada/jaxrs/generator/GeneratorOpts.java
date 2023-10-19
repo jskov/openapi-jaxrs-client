@@ -10,7 +10,8 @@ import java.util.Optional;
 
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
-import dk.mada.jaxrs.openapi.ParserOpts;
+import dk.mada.jaxrs.model.types.TypeDateTime;
+import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
 import dk.mada.jaxrs.utils.OptionReader;
 
 /**
@@ -26,8 +27,6 @@ public final class GeneratorOpts {
 
     /** Time that the code was generated. */
     private final String generatedAtTime;
-    /** Parser options. */
-    private final ParserOpts parserOpts;
     /** User options. */
     private final OptionReader or;
 
@@ -37,16 +36,21 @@ public final class GeneratorOpts {
     private final boolean useJsonb;
     /** Selects use of jakarta over javax for JAX-RS types. */
     private final boolean useJakarta;
+    /** Flag for using OffsetDateTime serializer. */
+    private final boolean useJacksonOffsetDateTimeSerializer;
+    /** Flag for using LocalDateTime serializer. */
+    private final boolean useJacksonLocalDateTimeSerializer;
+    /** Flag for using LocalDate serializer. */
+    private final boolean useJacksonLocalDateSerializer;
 
     /**
      * Constructs a new instance.
      *
-     * @param or         option reader
-     * @param parserOpts parser options
+     * @param or               option reader
+     * @param leakedParserOpts leaked parser options
      */
-    public GeneratorOpts(OptionReader or, ParserOpts parserOpts) {
+    public GeneratorOpts(OptionReader or, LeakedParserOpts leakedParserOpts) {
         this.or = or;
-        this.parserOpts = parserOpts;
 
         generatedAtTime = LocalDateTime.now()
                 .withNano(0)
@@ -73,6 +77,20 @@ public final class GeneratorOpts {
         useJsonb = willUseJsonb;
 
         useJakarta = or.bool("generator-jakarta");
+
+        useJacksonOffsetDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseOffsetDateTime();
+        useJacksonLocalDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDateTime();
+        useJacksonLocalDateSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDate();
+    }
+
+    /**
+     * Parser options leaked into the generator. These should be eventually be removed when possible.
+     *
+     * @param isJseOffsetDateTime true if the OffsetDateTime DTO is represented by JSE
+     * @param isJseLocalDateTime  true if the LocalDateTime DTO is represented by JSE
+     * @param isJseLocalDate      true if the LocalDate DTO is represented by JSE
+     */
+    public record LeakedParserOpts(boolean isJseOffsetDateTime, boolean isJseLocalDateTime, boolean isJseLocalDate) {
     }
 
     /**
@@ -134,23 +152,22 @@ public final class GeneratorOpts {
 
     /** {@return true if a jackson date-time serializer should be rendered} */
     public boolean isUseJacksonDateTimeSerializer() {
-        return isJackson()
-                && (parserOpts.isJseOffsetDateTime() && parserOpts.isJseLocalDateTime());
+        return useJacksonOffsetDateTimeSerializer && useJacksonLocalDateTimeSerializer;
     }
 
     /** {@return true if a jackson LocalDate serializer should be rendered} */
     public boolean isUseJacksonLocalDateSerializer() {
-        return parserOpts.isJseLocalDate() && isJackson();
+        return useJacksonLocalDateSerializer;
     }
 
     /** {@return true if a jackson LocalDateTime serializer should be rendered} */
     public boolean isUseJacksonLocalDateTimeSerializer() {
-        return parserOpts.isJseLocalDateTime() && isJackson();
+        return useJacksonLocalDateTimeSerializer;
     }
 
     /** {@return true if a jackson OffsetDateTime serializer should be rendered} */
     public boolean isUseJacksonOffsetDateTimeSerializer() {
-        return parserOpts.isJseOffsetDateTime() && isJackson();
+        return useJacksonOffsetDateTimeSerializer;
     }
 
     /** {@return the optional LocalDate wire format for jackson} */
@@ -461,5 +478,20 @@ public final class GeneratorOpts {
             }
             throw new IllegalArgumentException("Unknown PropertyOrder " + name);
         }
+    }
+
+    /** {@return the date-time implementation variant to use} */
+    public TypeDateTime.DateTimeVariant getDateTimeVariant() {
+        if (isUseZonedDateTime() && isUseLocalDateTime()) {
+            throw new IllegalArgumentException("You can only select one date-time implementation!");
+        }
+
+        if (isUseZonedDateTime()) {
+            return DateTimeVariant.ZONED;
+        }
+        if (isUseLocalDateTime()) {
+            return DateTimeVariant.LOCAL;
+        }
+        return DateTimeVariant.OFFSET;
     }
 }

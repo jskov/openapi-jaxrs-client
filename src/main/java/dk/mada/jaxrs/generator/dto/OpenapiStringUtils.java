@@ -1,35 +1,14 @@
-package dk.mada.jaxrs.openapi;
+package dk.mada.jaxrs.generator.dto;
 
-import java.util.Collections;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.media.Schema;
 
 /**
  * Methods lifted directly from OpenApi-generator.
  */
-public final class OpenapiGeneratorUtils {
-    private OpenapiGeneratorUtils() {
-    }
-
-    /**
-     * Get schemas.
-     *
-     * From ModelUtils.getSchemas
-     *
-     * @param openAPI the OpenAPI document
-     * @return the schemas mapped by name
-     */
-    @SuppressWarnings("rawtypes")
-    public static Map<String, Schema> getSchemas(OpenAPI openAPI) {
-        if (openAPI != null && openAPI.getComponents() != null && openAPI.getComponents().getSchemas() != null) {
-            return openAPI.getComponents().getSchemas();
-        }
-        return Collections.emptyMap();
+public final class OpenapiStringUtils {
+    private OpenapiStringUtils() {
     }
 
     /**
@@ -64,7 +43,8 @@ public final class OpenapiGeneratorUtils {
      * @param lowercaseFirstLetter lower case for first letter if set to true
      * @return camelized string
      */
-    public static String camelize(String word, boolean lowercaseFirstLetter) {
+    @SuppressWarnings("java:S3776") // ignore complexity warning
+    private static String camelize(String word, boolean lowercaseFirstLetter) {
         // Replace all slashes with dots (package separator)
         Matcher m = camelizeSlashPattern.matcher(word);
         while (m.find()) {
