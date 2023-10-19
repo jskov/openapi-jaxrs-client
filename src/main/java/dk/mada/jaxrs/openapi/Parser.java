@@ -8,12 +8,12 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Operations;
+import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.naming.Naming;
@@ -39,8 +39,8 @@ public final class Parser {
     private final Naming naming;
     /** Parser options. */
     private final ParserOpts parserOpts;
-    /** Generator options. */
-    private final GeneratorOpts generatorOpts;
+    /** Leaked generator options. */
+    private final LeakedGeneratorOpts leakedGenOpts;
     /** Parser references. */
     private final ParserTypeRefs parserRefs;
     /** Type names. */
@@ -54,14 +54,23 @@ public final class Parser {
      * @param parserOpts    the parser options
      * @param generatorOpts the generator options
      */
-    public Parser(boolean showInfo, Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+    public Parser(boolean showInfo, Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts generatorOpts) {
         this.showInfo = showInfo;
         this.naming = naming;
         this.parserOpts = parserOpts;
-        this.generatorOpts = generatorOpts;
+        this.leakedGenOpts = generatorOpts;
 
         typeNames = new TypeNames();
         parserRefs = new ParserTypeRefs(typeNames);
+    }
+
+    /**
+     * Generator options that have leaked into the parser. These should be eventually be removed when possible.
+     *
+     * @param dateTimeType the type used to represent OpenApi date-time
+     * @param dtoPackage   the DTO package
+     */
+    public record LeakedGeneratorOpts(TypeDateTime dateTimeType, String dtoPackage) {
     }
 
     /**
@@ -83,8 +92,8 @@ public final class Parser {
             throw new IllegalStateException("No output from parsing document " + spec);
         }
 
-        ParserTypes parserTypes = new ParserTypes(typeNames, parserOpts, generatorOpts);
-        var typeConverter = new TypeConverter(typeNames, parserTypes, parserRefs, naming, parserOpts, generatorOpts);
+        ParserTypes parserTypes = new ParserTypes(typeNames, parserOpts, leakedGenOpts);
+        var typeConverter = new TypeConverter(typeNames, parserTypes, parserRefs, naming, parserOpts, leakedGenOpts);
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);

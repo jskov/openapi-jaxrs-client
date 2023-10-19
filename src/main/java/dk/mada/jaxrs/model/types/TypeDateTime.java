@@ -4,8 +4,6 @@ import java.util.Set;
 
 import org.jspecify.annotations.Nullable;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
-
 /**
  * Special type for handing date-time schema.
  */
@@ -16,6 +14,16 @@ public final class TypeDateTime implements Type {
     @Nullable private static TypeDateTime instanceOffset;
     /** The single instance of the ZonedDateTime object. */
     @Nullable private static TypeDateTime instanceZoned;
+
+    /** The Java variants of date-time implementations. */
+    public enum DateTimeVariant {
+        /** LocalDateTime. */
+        LOCAL,
+        /** OffsetDateTime. */
+        OFFSET,
+        /** ZonedDateTime. */
+        ZONED;
+    }
 
     /** The type name. */
     private final TypeName typeName;
@@ -32,28 +40,25 @@ public final class TypeDateTime implements Type {
      *
      * @param opts the generator options
      */
-    public static synchronized TypeDateTime get(GeneratorOpts opts) {
-        if (opts.isUseZonedDateTime() && opts.isUseLocalDateTime()) {
-            throw new IllegalArgumentException("You can only select one date-time implementation!");
-        }
-
-        if (opts.isUseZonedDateTime()) {
+    public static synchronized TypeDateTime get(DateTimeVariant variant) {
+        switch (variant) {
+        case LOCAL:
+            if (instanceLocal == null) {
+                instanceLocal = new TypeDateTime(TypeNames.LOCAL_DATE_TIME, "java.time.LocalDateTime");
+            }
+            return instanceLocal;
+        case OFFSET:
+            if (instanceOffset == null) {
+                instanceOffset = new TypeDateTime(TypeNames.OFFSET_DATE_TIME, "java.time.OffsetDateTime");
+            }
+            return instanceOffset;
+        case ZONED:
             if (instanceZoned == null) {
                 instanceZoned = new TypeDateTime(TypeNames.ZONED_DATE_TIME, "java.time.ZonedDateTime");
             }
             return instanceZoned;
         }
-        if (opts.isUseLocalDateTime()) {
-            if (instanceLocal == null) {
-                instanceLocal = new TypeDateTime(TypeNames.LOCAL_DATE_TIME, "java.time.LocalDateTime");
-            }
-            return instanceLocal;
-        }
-
-        if (instanceOffset == null) {
-            instanceOffset = new TypeDateTime(TypeNames.OFFSET_DATE_TIME, "java.time.OffsetDateTime");
-        }
-        return instanceOffset;
+        throw new IllegalStateException("Unhandled variant " + variant);
     }
 
     @Override

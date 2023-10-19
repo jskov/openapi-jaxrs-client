@@ -15,7 +15,6 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.ImmutableValidation;
 import dk.mada.jaxrs.model.Property;
@@ -28,7 +27,6 @@ import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeByteArray;
 import dk.mada.jaxrs.model.types.TypeDate;
-import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeLocalTime;
@@ -41,6 +39,7 @@ import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.TypeValidation;
 import dk.mada.jaxrs.naming.Naming;
+import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.ComposedSchema;
@@ -73,8 +72,8 @@ public final class TypeConverter {
     private final ParserTypeRefs parserRefs;
     /** Parser options. */
     private final ParserOpts parserOpts;
-    /** Generator options. */
-    private final GeneratorOpts generatorOpts;
+    /** The type to use for date-time. */
+    private final Type dateTimeType;
     /** Parser types. */
     private final ParserTypes parserTypes;
 
@@ -91,16 +90,17 @@ public final class TypeConverter {
      * @param parserRefs    the parser references
      * @param naming        the naming instance
      * @param parserOpts    the parser options
-     * @param generatorOpts the generator options
+     * @param leakedGenOpts the leaked generator options
      */
     public TypeConverter(TypeNames typeNames, ParserTypes parserTypes, ParserTypeRefs parserRefs,
-            Naming naming, ParserOpts parserOpts, GeneratorOpts generatorOpts) {
+            Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts leakedGenOpts) {
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
         this.parserRefs = parserRefs;
         this.naming = naming;
         this.parserOpts = parserOpts;
-        this.generatorOpts = generatorOpts;
+
+        dateTimeType = leakedGenOpts.dateTimeType();
     }
 
     /**
@@ -438,7 +438,7 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createDateTimeRef(RefInfo ri) {
         if (isDateTimeType(ri.schema)) {
             logger.trace(" - createDateTimeRef");
-            return parserRefs.of(TypeDateTime.get(generatorOpts), ri.validation);
+            return parserRefs.of(dateTimeType, ri.validation);
         }
         return null;
     }

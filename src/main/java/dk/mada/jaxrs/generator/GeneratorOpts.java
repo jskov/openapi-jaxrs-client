@@ -10,6 +10,8 @@ import java.util.Optional;
 
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
+import dk.mada.jaxrs.model.types.TypeDateTime;
+import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
 import dk.mada.jaxrs.openapi.ParserOpts;
 import dk.mada.jaxrs.utils.OptionReader;
 
@@ -461,5 +463,20 @@ public final class GeneratorOpts {
             }
             throw new IllegalArgumentException("Unknown PropertyOrder " + name);
         }
+    }
+
+    /** {@return the date-time implementation variant to use} */
+    public TypeDateTime.DateTimeVariant getDateTimeVariant() {
+        if (isUseZonedDateTime() && isUseLocalDateTime()) {
+            throw new IllegalArgumentException("You can only select one date-time implementation!");
+        }
+
+        if (isUseZonedDateTime()) {
+            return DateTimeVariant.ZONED;
+        }
+        if (isUseLocalDateTime()) {
+            return DateTimeVariant.LOCAL;
+        }
+        return DateTimeVariant.OFFSET;
     }
 }
