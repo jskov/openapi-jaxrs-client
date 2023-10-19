@@ -142,7 +142,7 @@ public final class Parser {
         }
 
         Set<TypeInterface> interfaces = parserTypes.getInterfaces();
-        return new Model(info, derefOps, dtos, interfaces, securitySchemes, contentSelector);
+        return new Model(naming, info, derefOps, dtos, interfaces, securitySchemes, contentSelector);
     }
 
     /**

@@ -81,13 +81,12 @@ public class ApiGenerator {
     /**
      * Constructs a new API generator.
      *
-     * @param naming        the naming instance
      * @param generatorOpts the generator options
      * @param templates     the templates instance
      * @param model         the data model
      */
-    public ApiGenerator(Naming naming, GeneratorOpts generatorOpts, Templates templates, Model model) {
-        this.naming = naming;
+    public ApiGenerator(GeneratorOpts generatorOpts, Templates templates, Model model) {
+        this.naming = model.naming();
         this.opts = generatorOpts;
         this.templates = templates;
         this.model = model;

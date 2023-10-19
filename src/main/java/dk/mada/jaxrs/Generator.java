@@ -61,11 +61,11 @@ public final class Generator implements GeneratorService {
             if (!clientContext.skipApi() && !generatorOpts.isSkipApiClasses()) {
                 Path apiDir = destinationDir.resolve(generatorOpts.apiPackageDir());
                 Files.createDirectories(apiDir);
-                new ApiGenerator(naming, generatorOpts, templates, model).generateApiClasses(apiDir);
+                new ApiGenerator(generatorOpts, templates, model).generateApiClasses(apiDir);
             }
             if (!clientContext.skipDto()) {
                 Files.createDirectories(dtoDir);
-                new DtoGenerator(naming, generatorOpts, templates, model).generateDtoClasses();
+                new DtoGenerator(generatorOpts, templates, model).generateDtoClasses();
             }
         } catch (IllegalArgumentException e) {
             throw new GeneratorBadInputException(e.getMessage(), e);
