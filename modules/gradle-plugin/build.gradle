@@ -34,7 +34,12 @@ test {
 
     systemProperty "releaseVersion", project.version
 
-    dependsOn(":publishToMavenLocal", ":openapi-jaxrs-bom:publishToMavenLocal", ":generator-api:publishToMavenLocal")
+    dependsOn(
+        ":publishToMavenLocal",
+        ":generator-api:publishToMavenLocal",
+        ":model:publishToMavenLocal",
+        ":openapi-jaxrs-bom:publishToMavenLocal",
+    )
 
 //    forkEvery = 1
 }
