@@ -2,9 +2,8 @@ package dk.mada.jaxrs.generator.api.tmpl;
 
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Template data for an API operation response.

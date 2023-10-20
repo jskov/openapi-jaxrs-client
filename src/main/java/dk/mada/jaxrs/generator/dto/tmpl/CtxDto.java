@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.SortedSet;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
+import org.jspecify.annotations.Nullable;
 
 import io.jstach.jstache.JStache;
 

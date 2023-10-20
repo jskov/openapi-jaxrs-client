@@ -1,0 +1,34 @@
+plugins {
+    id 'java-library'
+
+    id 'dk.mada.java'
+    id 'dk.mada.apt-errorprone'
+    id 'dk.mada.apt-values'
+    id 'dk.mada.eclipse'
+    id 'dk.mada.pom-jaxrs'
+}
+
+dependencies {
+    implementation      'org.slf4j:slf4j-jdk14'
+
+    implementation project(':model')
+
+    implementation 'io.swagger.parser.v3:swagger-parser:2.1.18'
+    // swagger.parser comes with vulnerable rhino + commons-codec
+    implementation 'org.mozilla:rhino:1.7.14'
+    implementation 'commons-codec:commons-codec:1.16.0'
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'OpenAPI document parser'
+                description = 'Uses swagger parser to generate the internal java model'
+            }
+        }
+    }
+}

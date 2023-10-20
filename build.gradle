@@ -18,8 +18,7 @@ dependencies {
     api      project(':generator-api')
 
     implementation project(':model')
-
-    implementation 'io.swagger.parser.v3:swagger-parser'
+    implementation project(':parser')
 
     implementation 'org.slf4j:slf4j-jdk14'
 
