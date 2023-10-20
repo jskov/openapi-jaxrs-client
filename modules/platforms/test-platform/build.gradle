@@ -13,7 +13,7 @@ dependencies {
 
     constraints {
         // Use old quarkus 2 until the default switch to jakarta
-        api   'io.quarkus:quarkus-rest-client:2.16.12.Final'
+        api   'io.quarkus:quarkus-rest-client:3.5.0'
 
         api   'com.fasterxml.jackson.core:jackson-annotations:2.15.3'
         api   'com.fasterxml.jackson.core:jackson-core:2.15.3'
