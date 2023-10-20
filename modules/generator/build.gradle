@@ -54,7 +54,7 @@ publishing {
             from components.java
 
             pom {
-                name = 'OpenAPI JAXRS generator'
+                name = 'OpenAPI JAXRS client generator'
                 description = 'Generates api- and dto-classes suitable for use with the MicroProfile client'
             }
         }

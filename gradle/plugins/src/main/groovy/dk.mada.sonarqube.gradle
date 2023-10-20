@@ -2,9 +2,6 @@
 
 plugins {
     id 'org.sonarqube'
-
-    id 'dk.mada.checkstyle'
-    id 'dk.mada.jacoco'
 }
 
 sonarqube {

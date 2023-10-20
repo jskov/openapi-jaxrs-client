@@ -1,33 +1,3 @@
 plugins {
-    id 'java-library'
-
-    id 'dk.mada.java'
-    id 'dk.mada.apt-errorprone'
-    id 'dk.mada.apt-values'
-    id 'dk.mada.apt-jstachio'
-    id 'dk.mada.pom-jaxrs'
-    id 'dk.mada.eclipse'
-}
-
-dependencies {
-    api      project(':generator-api')
-
-    implementation project(':model')
-    implementation project(':parser')
-
-    implementation 'org.slf4j:slf4j-jdk14'
-
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-
-            pom {
-                name = 'OpenAPI JAXRS client'
-                description = 'A JAXRS client generator'
-            }
-        }
-    }
+    id 'dk.mada.sonarqube'
 }

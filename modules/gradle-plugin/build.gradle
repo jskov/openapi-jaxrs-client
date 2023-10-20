@@ -35,7 +35,6 @@ test {
     systemProperty "releaseVersion", project.version
 
     dependsOn(
-        ":publishToMavenLocal",
         ":generator-api:publishToMavenLocal",
         ":model:publishToMavenLocal",
         ":openapi-jaxrs-bom:publishToMavenLocal",
