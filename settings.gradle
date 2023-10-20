@@ -21,3 +21,6 @@ project(':generator-cli').projectDir = file('modules/generator-cli')
 
 include 'model'
 project(':model').projectDir = file('modules/model')
+
+include 'parser'
+project(':parser').projectDir = file('modules/parser')

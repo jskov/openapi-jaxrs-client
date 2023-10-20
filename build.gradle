@@ -18,8 +18,10 @@ dependencies {
     api      project(':generator-api')
 
     implementation project(':model')
+    implementation project(':parser')
 
-    implementation 'io.swagger.parser.v3:swagger-parser'
+    // workaround for immutable @Nullable Map bug (CtxDto)
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 
     // workaround for immutable @Nullable Map bug (CtxDto)
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'

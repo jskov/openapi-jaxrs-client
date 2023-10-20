@@ -39,6 +39,7 @@ test {
         ":generator-api:publishToMavenLocal",
         ":model:publishToMavenLocal",
         ":openapi-jaxrs-bom:publishToMavenLocal",
+        ":parser:publishToMavenLocal",
     )
 
 //    forkEvery = 1

@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.SortedSet;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
+import org.jspecify.annotations.Nullable;
 
 import io.jstach.jstache.JStache;
 
@@ -82,8 +81,9 @@ public interface CtxDto {
     /** {@return the optional name of a parent class} */
     Optional<String> parent();
 
+    // jspecify @Nullable does not work here, for some reason
     /** {@return optional vendor extensions} */
-    @Nullable Map<String, String> vendorExtensions();
+    @javax.annotation.Nullable Map<String, String> vendorExtensions();
 
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();

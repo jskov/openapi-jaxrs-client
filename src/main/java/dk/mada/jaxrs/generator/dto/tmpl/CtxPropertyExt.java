@@ -2,9 +2,8 @@ package dk.mada.jaxrs.generator.dto.tmpl;
 
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import org.immutables.value.Value.Immutable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Custom extensions. In separate (mada.) context so they are easier to spot in the templates.
