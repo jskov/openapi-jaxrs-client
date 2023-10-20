@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
 
     id 'dk.mada.java'
-    id 'dk.mada.apt-errorprone'
     id 'dk.mada.apt-values'
     id 'dk.mada.eclipse'
     id 'dk.mada.pom-jaxrs'

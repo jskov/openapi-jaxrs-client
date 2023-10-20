@@ -8,8 +8,6 @@ plugins {
     id 'dk.mada.jacoco'
 }
 
-group "${groupId}"
-
 repositories {
     mavenCentral()
     mavenLocal()
