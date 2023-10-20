@@ -20,6 +20,9 @@ dependencies {
     implementation project(':model')
     implementation project(':parser')
 
+    // workaround for immutable @Nullable Map bug (CtxDto)
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+
     implementation 'org.slf4j:slf4j-jdk14'
 
     // for the generated code
