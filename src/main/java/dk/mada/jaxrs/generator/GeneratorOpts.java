@@ -10,9 +10,9 @@ import java.util.Optional;
 
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
+import dk.mada.jaxrs.model.options.OptionReader;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
-import dk.mada.jaxrs.utils.OptionReader;
 
 /**
  * Generator configuration options.
@@ -436,8 +436,7 @@ public final class GeneratorOpts {
 
     /** {@return list of media types that should be handled as input stream} */
     public List<String> getResponseInputStreamMediaTypes() {
-        String mediaTypes = or.getDefault("generator-api-response-inputstream-mediatypes", "");
-        return or.splitByComma(mediaTypes);
+        return or.getListDefault("generator-api-response-inputstream-mediatypes", "");
     }
 
     /** {@return true if @RegisterForReflection should be added to DTOs} */

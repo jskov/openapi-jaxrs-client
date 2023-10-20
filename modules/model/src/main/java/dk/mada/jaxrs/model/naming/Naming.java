@@ -2,7 +2,6 @@ package dk.mada.jaxrs.model.naming;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 import org.jspecify.annotations.Nullable;
@@ -11,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.naming.NamingOpts.SchemaOrder;
 import dk.mada.jaxrs.model.naming.NamingRules.NamingRule;
+import dk.mada.jaxrs.model.options.OptionReader;
 
 /**
  * Executes naming rules.
@@ -54,11 +54,11 @@ public class Naming {
      *
      * The properties allow the user to customize naming rules.
      *
-     * @param props the properties with optional user configurations
+     * @param or the option reader
      * @see NamingOpts
      */
-    public Naming(Properties props) {
-        namingOpts = new NamingOpts(props);
+    public Naming(OptionReader or) {
+        namingOpts = new NamingOpts(or);
 
         apiNamingRules = NamingRules.toRules(namingOpts.getApiNaming());
         entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());

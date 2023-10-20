@@ -1,4 +1,4 @@
-package dk.mada.jaxrs.utils;
+package dk.mada.jaxrs.model.options;
 
 import java.util.List;
 import java.util.Optional;

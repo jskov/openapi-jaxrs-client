@@ -1,7 +1,8 @@
 package dk.mada.jaxrs.model.naming;
 
 import java.util.Locale;
-import java.util.Properties;
+
+import dk.mada.jaxrs.model.options.OptionReader;
 
 /**
  * Definitions of naming options.
@@ -65,24 +66,24 @@ public class NamingOpts {
     /**
      * Constructs new instance.
      *
-     * @param options the options provided by the user
+     * @param or the option reader
      */
-    public NamingOpts(Properties options) {
-        apiNamingConfig = getDefault(options, "naming-rules-api", "TYPENAME; REGEXP/Api$//; APPEND/Api/");
-        typeNamingConfig = getDefault(options, "naming-rules-type", "TYPENAME");
-        mpSchemaNamingConfig = getDefault(options, "naming-rules-mp-schema", typeNamingConfig);
-        typeConflictRenamingConfig = getDefault(options, "naming-rules-type-conflict-renaming", "APPEND/X/");
-        entityNamingConfig = getDefault(options, "naming-rules-entity", "LITERAL/dto/");
-        operationNamingConfig = getDefault(options, "naming-rules-operation", "OPERATIONNAME");
-        operationIdNamingConfig = getDefault(options, "naming-rules-operationid", "");
-        propertyNamingConfig = getDefault(options, "naming-rules-property", "PROPERTYNAME");
-        parameterNamingConfig = getDefault(options, "naming-rules-parameter", "PROPERTYNAME");
-        enumConstantNamingConfig = getDefault(options, "naming-rules-enum-constant", "REGEXP/-/_/; TYPENAME; UPCASE");
-        enumNumberConstantNamingConfig = getDefault(options, "naming-rules-enum-number-constant", "REGEXP/-/NEG_/; PREPEND/NUMBER_/");
-        propertyEnumTypeNamingConfig = getDefault(options, "naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
+    public NamingOpts(OptionReader or) {
+        apiNamingConfig = or.getDefault("naming-rules-api", "TYPENAME; REGEXP/Api$//; APPEND/Api/");
+        typeNamingConfig = or.getDefault("naming-rules-type", "TYPENAME");
+        mpSchemaNamingConfig = or.getDefault("naming-rules-mp-schema", typeNamingConfig);
+        typeConflictRenamingConfig = or.getDefault("naming-rules-type-conflict-renaming", "APPEND/X/");
+        entityNamingConfig = or.getDefault("naming-rules-entity", "LITERAL/dto/");
+        operationNamingConfig = or.getDefault("naming-rules-operation", "OPERATIONNAME");
+        operationIdNamingConfig = or.getDefault("naming-rules-operationid", "");
+        propertyNamingConfig = or.getDefault("naming-rules-property", "PROPERTYNAME");
+        parameterNamingConfig = or.getDefault("naming-rules-parameter", "PROPERTYNAME");
+        enumConstantNamingConfig = or.getDefault("naming-rules-enum-constant", "REGEXP/-/_/; TYPENAME; UPCASE");
+        enumNumberConstantNamingConfig = or.getDefault("naming-rules-enum-number-constant", "REGEXP/-/NEG_/; PREPEND/NUMBER_/");
+        propertyEnumTypeNamingConfig = or.getDefault("naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
 
-        renameCaseConflicts = Boolean.parseBoolean(options.getProperty("naming-rename-case-conflicts"));
-        renameCaseConflictsOrder = SchemaOrder.fromConfigName(getDefault(options, "naming-rename-case-conflicts-order", "document-order"));
+        renameCaseConflicts = or.bool("naming-rename-case-conflicts", false);
+        renameCaseConflictsOrder = SchemaOrder.fromConfigName(or.getDefault("naming-rename-case-conflicts-order", "document-order"));
     }
 
     /** {@return true if types should be renamed to avoid conflicts on Windows} */
@@ -153,13 +154,5 @@ public class NamingOpts {
     /** {@return the naming configuration for MP schema name} */
     public String getMpSchemaNaming() {
         return mpSchemaNamingConfig;
-    }
-
-    private String getDefault(Properties opts, String name, String defaultValue) {
-        String value = opts.getProperty(name);
-        if (value == null) {
-            return defaultValue;
-        }
-        return value.trim();
     }
 }
