@@ -40,6 +40,14 @@ dependencies {
     testImplementation 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
 }
 
+test {
+    //testLogging.showStandardStreams = true
+    
+    inputs.files(fileTree(dir: "src/test/java", include: "**/openapi.yaml, **/test.properties"))
+
+    systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
+}
+
 publishing {
     publications {
         maven(MavenPublication) {

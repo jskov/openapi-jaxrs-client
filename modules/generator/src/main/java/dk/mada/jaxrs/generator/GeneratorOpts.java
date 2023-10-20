@@ -19,6 +19,8 @@ import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
  * Extracts generator-specific keys from the input properties provided by the user.
  */
 public final class GeneratorOpts {
+    /** The ID of this generator. */
+    private static final String GENERATOR_ID = "dk.mada.jaxrs.Generator";
     /** Generator option for API package. */
     public static final String GENERATOR_API_PACKAGE = "generator-api-package";
     /** Generator option for DTO package. */
@@ -95,10 +97,11 @@ public final class GeneratorOpts {
     /**
      * {@return the id of this generator}
      *
-     * Used in the @Generator annotation in all generated files.
+     * Used in the @Generator annotation in all generated files. Keep "dk.mada.jaxrs.Generator" as long as this is the only
+     * generator. (yes, it is the wrong class, but it does not matter much)
      */
     public String generatorId() {
-        return JavaMPClientGenerator.class.getName();
+        return GENERATOR_ID;
     }
 
     /** {@return the package to generate API classes to } */

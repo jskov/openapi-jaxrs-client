@@ -7,6 +7,10 @@ plugins {
     id 'dk.mada.pom-jaxrs'
 }
 
+ext {
+    builtOn = LocalDate.now()
+}
+
 dependencies {
     implementation project(':generator')
     implementation 'info.picocli:picocli:4.7.5'
@@ -25,6 +29,18 @@ shadowJar {
 
 application {
     mainClass = "dk.mada.jaxrs.generator.cli.Main"
+}
+
+processResources {
+    inputs.property("version", project.version)
+    inputs.property("builtOn", builtOn)
+
+    filesMatching("**/openapi-jaxrs-client-version.properties") {
+        filter(s -> s
+            .replaceAll("version.*", "version = ${project.version}")
+            .replaceAll("builtOn.*", "builtOn = ${builtOn}")
+        )
+    }
 }
 
 publishing {
