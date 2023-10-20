@@ -1,12 +1,10 @@
-package dk.mada.jaxrs;
+package dk.mada.jaxrs.generator;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.GeneratorOpts.LeakedParserOpts;
-import dk.mada.jaxrs.generator.JavaClientGenerator;
 import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.jaxrs.generator.api.GeneratorService;
@@ -53,7 +51,7 @@ public final class Generator implements GeneratorService {
             Model model = new Parser(clientContext.showParserInfo(), naming, parserOpts, leakedGeneratorOpts)
                     .parse(openapiDocument);
 
-            new JavaClientGenerator().generate(model, generatorOpts, clientContext, destinationDir);
+            new JavaMPClientGenerator().generate(model, generatorOpts, clientContext, destinationDir);
         } catch (IllegalArgumentException e) {
             throw new GeneratorBadInputException(e.getMessage(), e);
         } catch (Exception e) {

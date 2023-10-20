@@ -1,4 +1,4 @@
-package dk.mada.jaxrs;
+package dk.mada.jaxrs.generator;
 
 /**
  * Console provides textual output to the user.

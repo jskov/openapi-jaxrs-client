@@ -11,9 +11,9 @@ import dk.mada.jaxrs.generator.dto.DtoGenerator;
 import dk.mada.jaxrs.model.Model;
 
 /**
- * Generate Java client classes.
+ * Generate Java MicroProfile client classes.
  */
-public class JavaClientGenerator {
+public class JavaMPClientGenerator {
 
     /**
      * Generates classes for java MP client.

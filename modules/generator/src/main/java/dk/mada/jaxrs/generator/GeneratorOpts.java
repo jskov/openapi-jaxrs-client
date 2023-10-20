@@ -8,7 +8,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
 import dk.mada.jaxrs.model.options.OptionReader;
 import dk.mada.jaxrs.model.types.TypeDateTime;
@@ -99,7 +98,7 @@ public final class GeneratorOpts {
      * Used in the @Generator annotation in all generated files.
      */
     public String generatorId() {
-        return Generator.class.getName();
+        return JavaMPClientGenerator.class.getName();
     }
 
     /** {@return the package to generate API classes to } */

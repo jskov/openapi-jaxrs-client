@@ -8,9 +8,11 @@ plugins {
 }
 
 dependencies {
-    implementation project(':')
+    implementation project(':generator')
     implementation 'info.picocli:picocli:4.7.5'
     implementation 'org.slf4j:slf4j-jdk14'
+
+    testRuntimeOnly project(':generator')
 }
 
 shadowJar {
