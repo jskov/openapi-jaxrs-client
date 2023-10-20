@@ -213,10 +213,10 @@ public final class Main implements Callable<Integer> {
         List<GeneratorService> services = new ArrayList<>();
         ServiceLoader<GeneratorService> loader = ServiceLoader.load(GeneratorService.class);
         for (GeneratorService service : loader) {
-            logger.debug("Found service {}", service.getClass().getName());
+            logger.info("Found service {}", service.getClass().getName());
             services.add(service);
         }
-        logger.debug("Total {} services", services.size());
+        logger.info("Total {} services", services.size());
 
         if (services.isEmpty()) {
             throw new IllegalStateException("Did not find a required GeneratorService. Please review classpath!");
