@@ -53,7 +53,7 @@ public final class LoggerConfig {
         Logger logger = LogManager.getLogManager().getLogger("dk.mada");
         logger.setLevel(level); // NOSONAR - intentionally under user's control
     }
-    
+
     /**
      * Log formatter that translates the JUL level naming to that used by SLF4J.
      *
