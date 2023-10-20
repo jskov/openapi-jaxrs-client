@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import dk.mada.jaxrs.model.naming.EnumNamer;
 import dk.mada.jaxrs.model.naming.Naming;
+import dk.mada.jaxrs.model.options.OptionReader;
 import dk.mada.jaxrs.model.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
@@ -74,7 +75,7 @@ class EnumNamerTest {
     }
 
     private EnumNamer mkSut(Type enumValueType, List<String> values) {
-        var naming = new Naming(new Properties());
+        var naming = new Naming(new OptionReader(new Properties()));
         return new EnumNamer(naming, enumValueType, values);
     }
 }

@@ -14,12 +14,12 @@ import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorException;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.naming.Naming;
+import dk.mada.jaxrs.model.options.OptionReader;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import dk.mada.jaxrs.openapi.ParserOpts;
 import dk.mada.jaxrs.utils.DirectoryDeleter;
-import dk.mada.jaxrs.utils.OptionReader;
 import dk.mada.logging.LoggerConfig;
 
 /**
@@ -44,7 +44,7 @@ public final class Generator implements GeneratorService {
             LeakedParserOpts leakedParserOpts = new LeakedParserOpts(parserOpts.isJseOffsetDateTime(), parserOpts.isJseLocalDateTime(),
                     parserOpts.isJseLocalDate());
             var generatorOpts = new GeneratorOpts(optionReader, leakedParserOpts);
-            var naming = new Naming(options);
+            var naming = new Naming(optionReader);
 
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 

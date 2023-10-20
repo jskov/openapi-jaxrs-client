@@ -1,4 +1,4 @@
-package dk.mada.logging;
+package mada.tests;
 
 import java.io.IOException;
 import java.io.InputStream;

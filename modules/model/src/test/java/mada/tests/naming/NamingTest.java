@@ -10,7 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import dk.mada.jaxrs.model.naming.Naming;
-import dk.mada.logging.LoggerConfig;
+import dk.mada.jaxrs.model.options.OptionReader;
+import mada.tests.LoggerConfig;
 
 class NamingTest {
     static {
@@ -124,6 +125,6 @@ class NamingTest {
     private Naming makeSut(String rules) {
         Properties props = new Properties();
         props.setProperty("naming-rules-type", rules);
-        return new Naming(props);
+        return new Naming(new OptionReader(props));
     }
 }

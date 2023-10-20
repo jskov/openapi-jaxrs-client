@@ -10,9 +10,9 @@ import java.util.Optional;
 
 import dk.mada.jaxrs.Generator;
 import dk.mada.jaxrs.generator.imports.UserMappedImport;
+import dk.mada.jaxrs.model.options.OptionReader;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
-import dk.mada.jaxrs.utils.OptionReader;
 
 /**
  * Generator configuration options.
@@ -255,14 +255,12 @@ public final class GeneratorOpts {
 
     /** {@return the MP providers} */
     public List<String> getMpProviders() {
-        String providers = or.getDefault("generator-mp-api-register-providers", "");
-        return or.splitByComma(providers);
+        return or.getListDefault("generator-mp-api-register-providers", "");
     }
 
     /** {@return the list of DTO classes to skip when generating code} */
     public List<String> getSkippedDtoClasses() {
-        String skippedDtoTypes = or.getDefault("generator-dto-skip-types", "");
-        return or.splitByComma(skippedDtoTypes);
+        return or.getListDefault("generator-dto-skip-types", "");
     }
 
     /**
@@ -438,8 +436,7 @@ public final class GeneratorOpts {
 
     /** {@return list of media types that should be handled as input stream} */
     public List<String> getResponseInputStreamMediaTypes() {
-        String mediaTypes = or.getDefault("generator-api-response-inputstream-mediatypes", "");
-        return or.splitByComma(mediaTypes);
+        return or.getListDefault("generator-api-response-inputstream-mediatypes", "");
     }
 
     /** {@return true if @RegisterForReflection should be added to DTOs} */

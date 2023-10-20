@@ -239,7 +239,7 @@ public class ParserTypes {
 
             TypeName openapiName = dto.openapiId();
 
-            Type newType = null;
+            Type newType;
             if (type instanceof TypeArray ta) {
                 newType = remapDto(openapiName, TypeArray.of(typeNames, ta.innerType()));
             } else if (type instanceof TypeSet ts) {
@@ -247,6 +247,9 @@ public class ParserTypes {
             } else if (type instanceof TypeMap) {
                 // no remapping of maps
                 // a DTO with properties of the same type may be represented like this
+                newType = null;
+            } else {
+                newType = null;
             }
 
             if (newType != null) {
