@@ -50,6 +50,9 @@ test {
 publishing {
     publications {
         maven(MavenPublication) {
+            // Keep legacy name for now
+            artifactId = "openapi-jaxrs-client"
+            
             from components.java
 
             pom {

@@ -95,6 +95,7 @@ jobs:
           jar cvf /tmp/bundle-parser.jar *
           unzip -t /tmp/bundle-parser.jar
 
+      # Note that this is the only generator at present, so it keeps the legacy name for now
       - name: Assemble client Bundle
         run: |
           cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/
