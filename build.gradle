@@ -23,14 +23,17 @@ dependencies {
     // workaround for immutable @Nullable Map bug (CtxDto)
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 
+    // workaround for immutable @Nullable Map bug (CtxDto)
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+
     implementation 'org.slf4j:slf4j-jdk14'
 
     // for the generated code
     testImplementation 'javax.json:javax.json-api'
     testImplementation 'javax.json.bind:javax.json.bind-api'
-    
+
     testImplementation 'javax.validation:validation-api'
-    
+
     testImplementation 'com.fasterxml.jackson.core:jackson-annotations'
     testImplementation 'com.fasterxml.jackson.core:jackson-core'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind'
