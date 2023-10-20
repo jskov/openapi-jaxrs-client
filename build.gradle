@@ -21,20 +21,30 @@ dependencies {
 
     implementation 'io.swagger.parser.v3:swagger-parser'
 
+    // workaround for immutable @Nullable Map bug (CtxDto)
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+
     implementation 'org.slf4j:slf4j-jdk14'
 
     // for the generated code
     testImplementation 'javax.json:javax.json-api'
     testImplementation 'javax.json.bind:javax.json.bind-api'
-    testCompileOnly 'io.quarkus:quarkus-rest-client'
-    testCompileOnly 'jakarta.annotation:jakarta.annotation-api'
-    testCompileOnly 'jakarta.json:jakarta.json-api'
-    testCompileOnly 'jakarta.json.bind:jakarta.json.bind-api'
-    testCompileOnly 'jakarta.ws.rs:jakarta.ws.rs-api'
-    testCompileOnly 'javax.annotation:javax.annotation-api'
-    testCompileOnly 'javax.ws.rs:javax.ws.rs-api'
-    testCompileOnly 'org.eclipse.microprofile.openapi:microprofile-openapi-api'
-    testCompileOnly 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
+
+    testImplementation 'javax.validation:validation-api'
+
+    testImplementation 'com.fasterxml.jackson.core:jackson-annotations'
+    testImplementation 'com.fasterxml.jackson.core:jackson-core'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    testImplementation 'io.quarkus:quarkus-rest-client'
+    testImplementation 'jakarta.annotation:jakarta.annotation-api'
+    testImplementation 'jakarta.json:jakarta.json-api'
+    testImplementation 'jakarta.json.bind:jakarta.json.bind-api'
+    testImplementation 'jakarta.validation:jakarta.validation-api'
+    testImplementation 'jakarta.ws.rs:jakarta.ws.rs-api'
+    testImplementation 'javax.annotation:javax.annotation-api'
+    testImplementation 'javax.ws.rs:javax.ws.rs-api'
+    testImplementation 'org.eclipse.microprofile.openapi:microprofile-openapi-api'
+    testImplementation 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
 }
 
 processResources {
