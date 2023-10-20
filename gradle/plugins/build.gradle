@@ -1,7 +1,6 @@
 plugins {
     id 'eclipse'
     id('groovy-gradle-plugin')
-    id('maven-publish')
 }
 
 repositories {
