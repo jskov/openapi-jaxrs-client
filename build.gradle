@@ -1,3 +1,14 @@
 plugins {
     id 'dk.mada.sonarqube'
+    id 'dk.mada.aggregate-javadoc'
+}
+
+ext {
+    aggregateJavadocProjects = [ 
+        project(":generator"),
+        project(":generator-api"),
+        project(":generator-cli"),
+        project(":model"),
+        project(":parser")
+    ]
 }

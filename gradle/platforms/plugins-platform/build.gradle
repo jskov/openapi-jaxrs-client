@@ -10,5 +10,6 @@ dependencies {
         api 'com.diffplug.gradle:goomph:3.43.0'
         api 'net.ltgt.gradle:gradle-errorprone-plugin:3.0.1'
         api 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.0.0.2929'
+        api 'io.freefair.gradle:maven-plugin:8.4'
     }
 }

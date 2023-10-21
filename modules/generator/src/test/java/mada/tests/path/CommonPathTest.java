@@ -3,7 +3,7 @@ package mada.tests.path;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import dk.mada.jaxrs.generator.CommonPathFinder;
+import dk.mada.jaxrs.generator.mpclient.CommonPathFinder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
