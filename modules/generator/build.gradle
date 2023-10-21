@@ -47,11 +47,6 @@ test {
     systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
 }
 
-// Javadoc not happy with the generated code
-tasks.named('javadoc') {
-    enabled = false
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
