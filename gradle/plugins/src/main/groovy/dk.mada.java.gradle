@@ -4,9 +4,9 @@ plugins {
     id 'dk.mada.sonarqube'
     id 'dk.mada.spotless'
     id 'dk.mada.apt-errorprone'
+    id 'dk.mada.checkstyle'
+    id 'dk.mada.jacoco'
 }
-
-group "${groupId}"
 
 repositories {
     mavenCentral()

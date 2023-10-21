@@ -1,0 +1,22 @@
+plugins {
+    id 'io.freefair.aggregate-javadoc'
+}
+
+// Client project should define ext.aggregateJavadocProjects
+
+repositories {
+    mavenCentral()
+}
+
+afterEvaluate {
+    dependencies {
+        javadoc project.ext.aggregateJavadocProjects
+    }
+
+    // The plugin does not work without explitcly adding compileClasspath dependencies
+    tasks.named('javadoc') {
+        project.ext.aggregateJavadocProjects.each { p ->
+            classpath = classpath.plus(p.sourceSets.main.compileClasspath)
+        }
+    }
+}

@@ -22,7 +22,6 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.generator.GeneratorOpts;
 import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.jaxrs.generator.api.GeneratorService;
@@ -214,10 +213,10 @@ public final class Main implements Callable<Integer> {
         List<GeneratorService> services = new ArrayList<>();
         ServiceLoader<GeneratorService> loader = ServiceLoader.load(GeneratorService.class);
         for (GeneratorService service : loader) {
-            logger.debug("Found service {}", service.getClass().getName());
+            logger.info("Found service {}", service.getClass().getName());
             services.add(service);
         }
-        logger.debug("Total {} services", services.size());
+        logger.info("Total {} services", services.size());
 
         if (services.isEmpty()) {
             throw new IllegalStateException("Did not find a required GeneratorService. Please review classpath!");
@@ -266,10 +265,10 @@ public final class Main implements Callable<Integer> {
         }
 
         if (apiPackage != null) {
-            props.setProperty(GeneratorOpts.GENERATOR_API_PACKAGE, apiPackage);
+            props.setProperty("generator-api-package", apiPackage);
         }
         if (dtoPackage != null) {
-            props.setProperty(GeneratorOpts.GENERATOR_DTO_PACKAGE, dtoPackage);
+            props.setProperty("generator-dto-package", dtoPackage);
         }
 
         if (logger.isDebugEnabled()) {

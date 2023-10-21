@@ -12,6 +12,9 @@ project(':openapi-jaxrs-bom').projectDir = file('modules/openapi-jaxrs-bom')
 include 'gradle-plugin'
 project(':gradle-plugin').projectDir = file('modules/gradle-plugin')
 
+include 'generator'
+project(':generator').projectDir = file('modules/generator')
+
 include 'generator-api'
 project(':generator-api').projectDir = file('modules/generator-api')
 

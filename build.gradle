@@ -1,93 +1,14 @@
 plugins {
-    id 'eclipse'
-    id 'java-library'
-
-    id 'dk.mada.java'
-    id 'dk.mada.apt-errorprone'
-    id 'dk.mada.apt-values'
-    id 'dk.mada.apt-jstachio'
-    id 'dk.mada.pom-jaxrs'
-    id 'dk.mada.eclipse'
+    id 'dk.mada.sonarqube'
+    id 'dk.mada.aggregate-javadoc'
 }
 
 ext {
-    builtOn = LocalDate.now()
-}
-
-dependencies {
-    api      project(':generator-api')
-
-    implementation project(':model')
-    implementation project(':parser')
-
-    // workaround for immutable @Nullable Map bug (CtxDto)
-    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
-
-    // workaround for immutable @Nullable Map bug (CtxDto)
-    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
-
-    implementation 'org.slf4j:slf4j-jdk14'
-
-    // for the generated code
-    testImplementation 'javax.json:javax.json-api'
-    testImplementation 'javax.json.bind:javax.json.bind-api'
-
-    testImplementation 'javax.validation:validation-api'
-
-    testImplementation 'com.fasterxml.jackson.core:jackson-annotations'
-    testImplementation 'com.fasterxml.jackson.core:jackson-core'
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
-    testImplementation 'io.quarkus:quarkus-rest-client'
-    testImplementation 'jakarta.annotation:jakarta.annotation-api'
-    testImplementation 'jakarta.json:jakarta.json-api'
-    testImplementation 'jakarta.json.bind:jakarta.json.bind-api'
-    testImplementation 'jakarta.validation:jakarta.validation-api'
-    testImplementation 'jakarta.ws.rs:jakarta.ws.rs-api'
-    testImplementation 'javax.annotation:javax.annotation-api'
-    testImplementation 'javax.ws.rs:javax.ws.rs-api'
-    testImplementation 'org.eclipse.microprofile.openapi:microprofile-openapi-api'
-    testImplementation 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
-}
-
-processResources {
-    inputs.property("version", project.version)
-    inputs.property("builtOn", builtOn)
-
-    filesMatching("**/openapi-jaxrs-client-version.properties") {
-        filter(s -> s
-            .replaceAll("version.*", "version = ${project.version}")
-            .replaceAll("builtOn.*", "builtOn = ${builtOn}")
-        )
-    }
-}
-
-javadoc {
-    options {
-//        verbose()
-    }
-}
-
-test {
-    //testLogging.showStandardStreams = true
-    
-    inputs.files(fileTree(dir: "src/test/java", include: "**/openapi.yaml, **/test.properties"))
-
-    systemProperty("run_all_tests", System.getProperty("run_all_tests", "true"))
-}
-
-tasks.withType(GenerateModuleMetadata) {
-    enabled = false
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-
-            pom {
-                name = 'OpenAPI JAXRS client'
-                description = 'A JAXRS client generator'
-            }
-        }
-    }
+    aggregateJavadocProjects = [ 
+        project(":generator"),
+        project(":generator-api"),
+        project(":generator-cli"),
+        project(":model"),
+        project(":parser")
+    ]
 }

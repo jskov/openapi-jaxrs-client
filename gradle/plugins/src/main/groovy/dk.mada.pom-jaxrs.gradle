@@ -7,9 +7,11 @@ plugins {
 group = 'dk.mada.jaxrs'
 
 // MavenCentral publishing requires both javadoc and sources
-java {
-    withJavadocJar()
-    withSourcesJar()
+if (project.pluginManager.hasPlugin('java')) {
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
 }
 
 publishing {
