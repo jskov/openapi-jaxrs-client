@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.jaxrs.generator.api.GeneratorService;
-import dk.mada.jaxrs.generator.mpclient.LoggerConfig;
+import dk.mada.logging.LoggerConfig;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Help.Visibility;
