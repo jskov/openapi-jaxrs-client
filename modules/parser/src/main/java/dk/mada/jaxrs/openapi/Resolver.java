@@ -33,6 +33,7 @@ import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
+import dk.mada.jaxrs.model.types.TypeValidation;
 import dk.mada.jaxrs.model.types.TypeVoid;
 
 /**
@@ -56,6 +57,8 @@ public final class Resolver {
     private final ConflictRenamer conflictRenamer;
     /** Configuration to abort on resolver failure. */
     private final boolean abortOnResolverFailure;
+    /** Configuration to fixup missing type. */
+    private final boolean fixupMissingType;
     /** Dto-to-property-names that need validation to be relaxed. */
     private final Map<TypeName, Set<String>> dtoPropertiesToBeRelaxed = new HashMap<>();
 
@@ -74,6 +77,7 @@ public final class Resolver {
         this.conflictRenamer = conflictRenamer;
 
         abortOnResolverFailure = parserOpts.isAbortOnResolverFailure();
+        fixupMissingType = parserOpts.isFixupMissingType();
     }
 
     /**
@@ -459,6 +463,20 @@ public final class Resolver {
         logger.debug("    prop: {}", propName);
         TypeReference resolvedRef = resolve(property.reference());
         Validation resolvedValidation = property.validation();
+
+        // Terminate parsing if type is "just" validation.
+        // This happens if no type is provided in the OpenApi document.
+        // This check should live in resolve(), but then the error cannot provide location hints.
+        if (resolvedRef.refType() instanceof TypeValidation) {
+            String location = parent.name() + ":" + propName;
+            if (fixupMissingType) {
+                resolvedRef = resolve(ParserTypeRef.of(TypeNames.OBJECT, resolvedValidation));
+                logger.warn("Assuming type Object for {}", location);
+            } else {
+                throw new IllegalArgumentException(
+                        "Property " + location + " has no type! Set " + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
+            }
+        }
 
         // The type may provide validation - use that if there is none on the property
         // TODO: If the property has validation, it should probably be attempted

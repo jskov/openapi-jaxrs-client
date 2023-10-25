@@ -9,6 +9,8 @@ import dk.mada.jaxrs.model.options.OptionReader;
  * parser-* configuration options.
  */
 public final class ParserOpts {
+    /** Option name for assuming Object on missing type. */
+    public static final String PARSER_FIXUP_MISSING_TYPE = "parser-fixup-missing-type";
     /** User options. */
     private final OptionReader or;
 
@@ -84,6 +86,11 @@ public final class ParserOpts {
     /** {@return true if null-type with format date/date-time should be fixed} */
     public boolean isFixupNullTypeDates() {
         return or.bool("parser-fixup-null-type-dates", false);
+    }
+
+    /** {@return true if missing type should be fixed} */
+    public boolean isFixupMissingType() {
+        return or.bool(PARSER_FIXUP_MISSING_TYPE, false);
     }
 
     /** {@return true if resolver should be abort on unknown types} */
