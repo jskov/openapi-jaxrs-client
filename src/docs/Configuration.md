@@ -45,17 +45,26 @@ The options are grouped into three sections:
 >
 	default value:
 
+**parser-fixup-missing-type**
 
-**parser-fixup-void-200-to-204**
+>This option allows accepting properties where the type has not been specified.
 
->This option allows changing a 200-response that has no declared return type to a 204-response.
+>When set, these properties will take on the type of Object. This will make it possible to generate DTOs, but these will probably not work with de/serialization.
 
 >
     default value: false
 
+
 **parser-fixup-null-type-dates**
 
 >This option allows accepting type=null/format=date (or date-time) as date/date-time types.
+
+>
+    default value: false
+
+**parser-fixup-void-200-to-204**
+
+>This option allows changing a 200-response that has no declared return type to a 204-response.
 
 >
     default value: false
