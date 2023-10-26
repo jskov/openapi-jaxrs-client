@@ -138,7 +138,7 @@ jobs:
                --form file=@/tmp/bundle-client.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
           echo "Wait for repos '$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoModelId', '$repoParserId', and '$repoClientId' to settle.."
           # should probe for state change
-          sleep 90
+          sleep 150
           echo "Publish NOT completed! Test repo!"
           # release - unless tag starts with 0.0.
           echo $BUILD_LABEL | grep -q -v -e "^0[.]0[.]" \
