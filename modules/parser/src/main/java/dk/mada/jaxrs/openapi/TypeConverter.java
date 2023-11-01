@@ -481,6 +481,7 @@ public final class TypeConverter {
         return null;
     }
 
+    boolean once = false;
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
         if (schema instanceof ObjectSchema || schema.getType() == null) {
@@ -490,6 +491,21 @@ public final class TypeConverter {
                     logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
+
+                    if (!once) {
+                        // FIXME: need to create builderDto instead / as option
+                        once = true;
+                        logger.trace(" - createObjectRef, multipartform");
+                        String syntheticDtoName = "MultipartBody" + "ApiMethodname";
+                        @Nullable ParserTypeRef dtoRef = createDtoRef(REF_COMPONENTS_SCHEMAS+syntheticDtoName, ri.validation);
+                        if (dtoRef == null) {
+                            throw new IllegalStateException("Failed to ref multipart dto");
+                        }
+                        
+                        Dto dto = createDto(syntheticDtoName, dtoRef, schema);
+                        return parserRefs.of(dto, ri.validation);
+                    }
+
                     logger.trace(" - createObjectRef, plain Object?");
                     return parserRefs.of(TypeObject.get(), ri.validation);
                 }
@@ -607,11 +623,15 @@ public final class TypeConverter {
      * @return the create DTO
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
+        ParserTypeRef dtoType = reference(schema, null, dtoName);
+        return createDto(dtoName, dtoType, schema);
+    }
+        
+    public Dto createDto(String dtoName, ParserTypeRef dtoType, Schema<?> schema) {
         String modelName = naming.convertTypeName(dtoName);
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
         logger.info("creating DTO {}", dtoName);
-        ParserTypeRef dtoType = reference(schema, null, dtoName);
         Type refType = dtoType.refType();
 
         List<Property> directProps = readProperties(schema, modelName);

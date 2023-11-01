@@ -23,6 +23,7 @@ import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiResponse;
+import dk.mada.jaxrs.generator.mpclient.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
@@ -364,7 +365,7 @@ public class ApiGenerator {
 
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
 
-            params.add(CtxApiParam.builder()
+            ImmutableCtxApiParam param = CtxApiParam.builder()
                     .baseName(p.name())
                     .paramName(paramName)
                     .dataType(dataType)
@@ -376,7 +377,10 @@ public class ApiGenerator {
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
-                    .build());
+                    .build();
+
+            logger.info("PARAM {} : {}", p.name(), p.isFormParam());
+            params.add(param);
         }
 
         op.requestBody().ifPresent(body -> {
@@ -413,6 +417,7 @@ public class ApiGenerator {
             if (!ref.isVoid()) {
                 params.add(bodyParam);
             }
+            logger.info("BODY {}", bodyParam);
         });
 
         logger.debug("Params: {}", params);

@@ -187,9 +187,14 @@ public class ApiTransformer {
             return Optional.empty();
         }
 
+        logger.info("BODY: {}", body);
+        
         ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = selectContent(body.getContent(), cc);
+        logger.info("CONTENT: {}", content);
         List<Parameter> formParameters = extractFormParameters(body.getContent());
+        
+        logger.info("GOT FORM PARAMS: {}", formParameters);
 
         return Optional.of(
                 RequestBody.builder()
@@ -320,6 +325,10 @@ public class ApiTransformer {
         } else {
             mediaTypes = c.keySet();
 
+            if (mediaTypes.contains("multipart/form-data")) {
+//                throw new IllegalStateException("breakage?");
+            }
+            
             @SuppressWarnings("rawtypes")
             Set<Schema> schemas = c.values().stream()
                     .map(MediaType::getSchema)
@@ -330,6 +339,9 @@ public class ApiTransformer {
             } else {
                 @Nullable Schema<?> ss = getPreferredSchema(c, context);
 
+                logger.info("SCHEMA: {}", ss);
+                // FIXME: forms object looks like something to generate a DTO from
+                
                 if (ss == null) {
                     // This happens in some documents
                     ref = TypeVoid.getRef();

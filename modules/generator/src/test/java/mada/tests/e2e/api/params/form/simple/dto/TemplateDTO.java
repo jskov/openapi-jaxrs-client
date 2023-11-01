@@ -9,7 +9,6 @@
 package mada.tests.e2e.api.params.form.simple.dto;
 
 import java.util.Objects;
-
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
