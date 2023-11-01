@@ -21,6 +21,7 @@ import javax.ws.rs.Path;
 
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
 import mada.tests.e2e.api.params.form.simple.dto.TemplateDTO;
 
@@ -31,7 +32,7 @@ public interface TemplatesApi {
   /**
    * apiMethodsCreatePost.
    *
-   * @param dto  Synthetic multipart form-data dto
+   * @param multipartBody  Synthetic multipart body
    */
   @POST
   @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -40,9 +41,9 @@ public interface TemplatesApi {
     @APIResponse(responseCode = "401", description = "Not Authorized"),
     @APIResponse(responseCode = "403", description = "Not Allowed")
   })
-  void apiMethodsCreatePost(ApiMethodsCreatePostMultiPartBody dto);
+  void apiMethodsCreatePost(@MultipartForm ApiMethodsCreatePostMultiPartBody multipartBody);
 
-  /** Synthetic multipart form-data for apiMethodsCreatePost. */
+  /** Synthetic multipart body for apiMethodsCreatePost. */
   public static class ApiMethodsCreatePostMultiPartBody {
     @FormParam("metadata")
     @PartType(MediaType.APPLICATION_JSON)

@@ -168,6 +168,13 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-api-use-multipartform**
+
+>Allows you to bundle @FormParam parameters into a @MultipartForm multipart body.
+
+>
+    default value: false
+
 **generator-dto-package**
 
 >Name of package to generate DTO classes in.
