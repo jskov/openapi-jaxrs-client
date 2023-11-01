@@ -62,6 +62,7 @@ public class ApiGenerator {
             "application/json", "APPLICATION_JSON",
             "application/octet-stream", "APPLICATION_OCTET_STREAM",
             "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED",
+            "multipart/form-data", "MULTIPART_FORM_DATA",
             "text/plain", "TEXT_PLAIN");
 
     /** Naming. */

@@ -22,7 +22,6 @@ import javax.ws.rs.Path;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
-
 import mada.tests.e2e.api.params.form.simple.dto.TemplateDTO;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
@@ -32,7 +31,7 @@ public interface TemplatesApi {
   /**
    * apiMethodsCreatePost.
    *
-   * @param dto   Synthetic multipart form-data dto
+   * @param dto  Synthetic multipart form-data dto
    */
   @POST
   @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -43,6 +42,7 @@ public interface TemplatesApi {
   })
   void apiMethodsCreatePost(ApiMethodsCreatePostMultiPartBody dto);
 
+  /** Synthetic multipart form-data for apiMethodsCreatePost. */
   public static class ApiMethodsCreatePostMultiPartBody {
     @FormParam("metadata")
     @PartType(MediaType.APPLICATION_JSON)
