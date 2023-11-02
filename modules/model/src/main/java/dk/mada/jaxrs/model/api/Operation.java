@@ -55,4 +55,17 @@ public interface Operation {
 
     /** {@return true if this operation requires an authentication parameter} */
     boolean addAuthorizationHeader();
+
+    /**
+     * Get the (first) group of an operation.
+     *
+     * @param op the operation
+     * @return the first group, or Default if it has none
+     */
+    default String group() {
+        if (tags().isEmpty()) {
+            return "Default";
+        }
+        return tags().get(0);
+    }
 }

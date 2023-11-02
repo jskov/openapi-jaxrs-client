@@ -34,21 +34,7 @@ public final class Operations {
     /** {@return the operations grouped by their group-id} */
     public Map<String, List<Operation>> getByGroup() {
         return ops.stream()
-                .collect(Collectors.groupingBy(this::getGroup));
-    }
-
-    /**
-     * Get the (first) group of an operation.
-     *
-     * @param op the operation
-     * @return the first group, or Default if it has none
-     */
-    private String getGroup(Operation op) {
-        List<String> tags = op.tags();
-        if (tags.isEmpty()) {
-            return "Default";
-        }
-        return tags.get(0);
+                .collect(Collectors.groupingBy(Operation::group));
     }
 
     @Override
