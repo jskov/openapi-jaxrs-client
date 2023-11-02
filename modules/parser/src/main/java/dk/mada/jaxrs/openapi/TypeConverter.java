@@ -481,7 +481,7 @@ public final class TypeConverter {
         return null;
     }
 
-    boolean once = false;
+    boolean once = true;
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
         if (schema instanceof ObjectSchema || schema.getType() == null) {
@@ -494,6 +494,7 @@ public final class TypeConverter {
 
                     if (!once) {
                         // FIXME: need to create builderDto instead / as option
+                        // RefInfo could contain flag for formparam
                         once = true;
                         logger.trace(" - createObjectRef, multipartform");
                         String syntheticDtoName = "MultipartBody" + "ApiMethodname";
@@ -615,6 +616,21 @@ public final class TypeConverter {
         return candidate;
     }
 
+    public ParserTypeRef makeMultipartBody(@SuppressWarnings("rawtypes") Schema schema) {
+        Validation requiredValidation = Validation.REQUIRED_VALIDATION;
+        // FIXME: need to create builderDto instead / as option
+        // RefInfo could contain flag for formparam
+        logger.trace(" - createObjectRef, multipartform");
+        String syntheticDtoName = "MultipartBody" + "ApiMethodname";
+        @Nullable ParserTypeRef dtoRef = createDtoRef(REF_COMPONENTS_SCHEMAS+syntheticDtoName, requiredValidation);
+        if (dtoRef == null) {
+            throw new IllegalStateException("Failed to ref multipart dto");
+        }
+        
+        Dto dto = createDto(syntheticDtoName, dtoRef, schema);
+        return parserRefs.of(dto, requiredValidation);
+    }
+    
     /**
      * Creates a DTO from an Object schema.
      *
@@ -626,7 +642,7 @@ public final class TypeConverter {
         ParserTypeRef dtoType = reference(schema, null, dtoName);
         return createDto(dtoName, dtoType, schema);
     }
-        
+
     public Dto createDto(String dtoName, ParserTypeRef dtoType, Schema<?> schema) {
         String modelName = naming.convertTypeName(dtoName);
         String mpSchemaName = naming.convertMpSchemaName(dtoName);

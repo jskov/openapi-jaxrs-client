@@ -14,6 +14,7 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.ContentSelector;
@@ -192,6 +193,27 @@ public class ApiTransformer {
         ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = selectContent(body.getContent(), cc);
         logger.info("CONTENT: {}", content);
+        
+        MediaType mt = body.getContent().get("multipart/form-data");
+        if (mt != null && mt.getSchema() != null) {
+            logger.info("FORM-DATA: {}", mt);
+            @SuppressWarnings("rawtypes")
+            Schema<?> schema = mt.getSchema();
+            ParserTypeRef multipartBody = typeConverter.makeMultipartBody(schema);
+            Content multipartBodyContent = Content.builder()
+                    .reference(multipartBody)
+                    .mediaTypes(List.of("multipart/form-data"))
+                    .build();
+            
+            return Optional.of(
+                    RequestBody.builder()
+                            .description(Optional.ofNullable(body.getDescription()))
+                            .content(multipartBodyContent)
+                            .formParameters(List.of())
+                            .build());
+        }
+
+        
         List<Parameter> formParameters = extractFormParameters(body.getContent());
         
         logger.info("GOT FORM PARAMS: {}", formParameters);
@@ -211,7 +233,7 @@ public class ApiTransformer {
      * @return the list of found form parameters
      */
     private List<Parameter> extractFormParameters(io.swagger.v3.oas.models.media.Content content) {
-        MediaType mt = content.get("application/x-www-form-urlencoded");
+        MediaType mt = content.get("multipart/form-data");
         if (mt == null || mt.getSchema() == null) {
             return List.of();
         }
@@ -233,7 +255,7 @@ public class ApiTransformer {
     private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
         ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null);
         logger.debug("Parse form param {} : {}", name, dtoPtr);
-
+        
         return Parameter.builder()
                 .name(name)
                 .isHeaderParam(false)
@@ -243,7 +265,7 @@ public class ApiTransformer {
                 .reference(dtoPtr)
                 .build();
     }
-
+    
     // Just a shortcut to determine if auth header should be added
     /**
      * Determines if the operation should be given an authorization header parameter.
