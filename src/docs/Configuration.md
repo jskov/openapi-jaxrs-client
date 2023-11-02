@@ -621,6 +621,15 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >
     default value: (the value of naming-rules-type)
 
+**naming-rules-multipart-type**
+
+>Allows you to control the naming of synthetic multipart types created for form parameters.
+
+>The resource method's name is given as input.
+
+>
+    default value: PREPEND/Multipart-/; TYPENAME
+
 **naming-rules-type-conflict-renaming**
 
 >Allows you to control how conflicting types are renamed if `naming-rename-case-conflicts` is enabled.

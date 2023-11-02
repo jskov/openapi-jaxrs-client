@@ -73,7 +73,7 @@ public class NamingOpts {
     public NamingOpts(OptionReader or) {
         apiNamingConfig = or.getDefault("naming-rules-api", "TYPENAME; REGEXP/Api$//; APPEND/Api/");
         typeNamingConfig = or.getDefault("naming-rules-type", "TYPENAME");
-        multipartTypeNamingConfig = or.getDefault("naming-rules-multipart-type", "PREPEND/Multipart-/; REGEXP/://; TYPENAME");
+        multipartTypeNamingConfig = or.getDefault("naming-rules-multipart-type", "PREPEND/Multipart-/; TYPENAME");
         mpSchemaNamingConfig = or.getDefault("naming-rules-mp-schema", typeNamingConfig);
         typeConflictRenamingConfig = or.getDefault("naming-rules-type-conflict-renaming", "APPEND/X/");
         entityNamingConfig = or.getDefault("naming-rules-entity", "LITERAL/dto/");
