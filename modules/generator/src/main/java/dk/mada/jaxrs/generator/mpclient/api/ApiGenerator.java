@@ -28,6 +28,7 @@ import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
 import dk.mada.jaxrs.generator.mpclient.imports.MicroProfile;
+import dk.mada.jaxrs.generator.mpclient.imports.RestEasy;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -387,6 +388,7 @@ public class ApiGenerator {
             Reference ref = body.content().reference();
             imports.add(ref);
 
+            
             String preferredDtoParamName = naming.convertEntityName(ref.typeName().name());
 
             // Guard against (simple) conflict with other parameters
@@ -398,6 +400,10 @@ public class ApiGenerator {
 
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
 
+            boolean isMultipartForm = body.isMultipartForm();
+            if (isMultipartForm) {
+                imports.add(RestEasy.MULTIPART_FORM);
+            }
             CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
@@ -410,6 +416,7 @@ public class ApiGenerator {
                     .isHeaderParam(false)
                     .isPathParam(false)
                     .isQueryParam(false)
+                    .isMultipartForm(isMultipartForm)
                     .build();
 
             // Only include body param if it is not void. It may be void

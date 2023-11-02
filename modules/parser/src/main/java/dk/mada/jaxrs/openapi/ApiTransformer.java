@@ -217,6 +217,7 @@ public class ApiTransformer {
                             .description(Optional.of("Synthetic multipart body"))
                             .content(multipartBodyContent)
                             .formParameters(List.of())
+                            .isMultipartForm(true)
                             .build());
         }
 
@@ -230,6 +231,7 @@ public class ApiTransformer {
                         .description(Optional.ofNullable(body.getDescription()))
                         .content(content)
                         .formParameters(formParameters)
+                        .isMultipartForm(false)
                         .build());
     }
 

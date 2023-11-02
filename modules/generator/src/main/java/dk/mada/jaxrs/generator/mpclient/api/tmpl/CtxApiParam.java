@@ -51,4 +51,7 @@ public interface CtxApiParam {
 
     /** {@return context for bean validation if relevant for this parameter} */
     Optional<CtxValidation> validation();
+
+    /** {@return true if this is a multipart form body, otherwise false} */
+    boolean isMultipartForm();
 }

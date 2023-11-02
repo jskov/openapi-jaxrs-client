@@ -21,6 +21,9 @@ public interface RequestBody {
     /** {@return the list of form parameters} */
     List<Parameter> formParameters();
 
+    /** {@return true if this body is a synthetic multipart body} */
+    boolean isMultipartForm();
+
     /** {@return the an optional description of the request body} */
     Optional<String> description();
 }
