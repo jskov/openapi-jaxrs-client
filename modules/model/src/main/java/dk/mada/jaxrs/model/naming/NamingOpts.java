@@ -14,6 +14,8 @@ public class NamingOpts {
     private final String apiNamingConfig;
     /** Naming configuration for types. */
     private final String typeNamingConfig;
+    /** Naming configuration for multipart body types. */
+    private final String multipartTypeNamingConfig;
     /** Naming configuration for MP Schema name. */
     private final String mpSchemaNamingConfig;
     /** Naming configuration for renaming of conflicting types. */
@@ -71,6 +73,7 @@ public class NamingOpts {
     public NamingOpts(OptionReader or) {
         apiNamingConfig = or.getDefault("naming-rules-api", "TYPENAME; REGEXP/Api$//; APPEND/Api/");
         typeNamingConfig = or.getDefault("naming-rules-type", "TYPENAME");
+        multipartTypeNamingConfig = or.getDefault("naming-rules-multipart-type", "PREPEND/Multipart-/; REGEXP/://; TYPENAME");
         mpSchemaNamingConfig = or.getDefault("naming-rules-mp-schema", typeNamingConfig);
         typeConflictRenamingConfig = or.getDefault("naming-rules-type-conflict-renaming", "APPEND/X/");
         entityNamingConfig = or.getDefault("naming-rules-entity", "LITERAL/dto/");
@@ -149,6 +152,11 @@ public class NamingOpts {
     /** {@return the naming configuration for types} */
     public String getTypeNaming() {
         return typeNamingConfig;
+    }
+
+    /** {@return the naming configuration for multipart types} */
+    public String getMultipartTypeNaming() {
+        return multipartTypeNamingConfig;
     }
 
     /** {@return the naming configuration for MP schema name} */

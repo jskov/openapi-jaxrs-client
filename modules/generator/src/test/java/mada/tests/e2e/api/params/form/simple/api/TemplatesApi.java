@@ -10,16 +10,12 @@ package mada.tests.e2e.api.params.form.simple.api;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-
+import mada.tests.e2e.api.params.form.simple.dto.MultipartApiMethodsCreatePost;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-
-import mada.tests.e2e.api.params.form.simple.dto.MultipartBodyApiMethodname;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/methods/create")
@@ -28,7 +24,7 @@ public interface TemplatesApi {
   /**
    * apiMethodsCreatePost.
    *
-   * @param multipartBody  Synthetic multipart body
+   * @param dto Synthetic multipart body (required)
    */
   @POST
   @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -37,5 +33,5 @@ public interface TemplatesApi {
     @APIResponse(responseCode = "401", description = "Not Authorized"),
     @APIResponse(responseCode = "403", description = "Not Allowed")
   })
-  void apiMethodsCreatePost(@MultipartForm @NotNull @Valid MultipartBodyApiMethodname multipartBody);
+  void apiMethodsCreatePost(@MultipartForm @NotNull @Valid MultipartApiMethodsCreatePost dto);
 }

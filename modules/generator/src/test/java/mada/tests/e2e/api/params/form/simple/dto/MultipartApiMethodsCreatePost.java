@@ -16,10 +16,10 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * MultipartBodyApiMethodname
+ * MultipartApiMethodsCreatePost
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class MultipartBodyApiMethodname {
+public class MultipartApiMethodsCreatePost {
   public static final String JSON_PROPERTY_JAR_SIZE = "jar-size";
   @JsonbProperty(JSON_PROPERTY_JAR_SIZE)
   @Schema(required = true)
@@ -34,7 +34,7 @@ public class MultipartBodyApiMethodname {
   @Schema(required = true)
   private byte[] templateJar = new byte[] {};
 
-  public MultipartBodyApiMethodname jarSize(Long jarSize) {
+  public MultipartApiMethodsCreatePost jarSize(Long jarSize) {
     this.jarSize = Objects.requireNonNull(jarSize, "Property jarSize is required, cannot be null");
     return this;
   }
@@ -52,7 +52,7 @@ public class MultipartBodyApiMethodname {
     this.jarSize = Objects.requireNonNull(jarSize, "Property jarSize is required, cannot be null");
   }
 
-  public MultipartBodyApiMethodname metadata(TemplateDTO metadata) {
+  public MultipartApiMethodsCreatePost metadata(TemplateDTO metadata) {
     this.metadata = metadata;
     return this;
   }
@@ -70,7 +70,7 @@ public class MultipartBodyApiMethodname {
     this.metadata = metadata;
   }
 
-  public MultipartBodyApiMethodname templateJar(byte[] templateJar) {
+  public MultipartApiMethodsCreatePost templateJar(byte[] templateJar) {
     this.templateJar = Objects.requireNonNull(templateJar, "Property templateJar is required, cannot be null");
     return this;
   }
@@ -93,10 +93,10 @@ public class MultipartBodyApiMethodname {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof MultipartBodyApiMethodname)) {
+    if (!(o instanceof MultipartApiMethodsCreatePost)) {
       return false;
     }
-    MultipartBodyApiMethodname other = (MultipartBodyApiMethodname) o;
+    MultipartApiMethodsCreatePost other = (MultipartApiMethodsCreatePost) o;
     return Objects.equals(this.jarSize, other.jarSize) &&
         Objects.equals(this.metadata, other.metadata) &&
         Arrays.equals(this.templateJar, other.templateJar);
@@ -110,7 +110,7 @@ public class MultipartBodyApiMethodname {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultipartBodyApiMethodname {");
+    sb.append("class MultipartApiMethodsCreatePost {");
     sb.append("\n    jarSize: ").append(toIndentedString(jarSize));
     sb.append("\n    metadata: ").append(toIndentedString(metadata));
     sb.append("\n    templateJar: ").append(toIndentedString(templateJar));

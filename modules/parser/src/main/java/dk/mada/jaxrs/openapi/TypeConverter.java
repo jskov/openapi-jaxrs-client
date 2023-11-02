@@ -616,12 +616,22 @@ public final class TypeConverter {
         return candidate;
     }
 
-    public ParserTypeRef makeMultipartBody(@SuppressWarnings("rawtypes") Schema schema) {
+    /**
+     * Creates a synthetic DTO for passing multipart form parameters.
+     *
+     * The name is controlled by the name of the method needing the DTO.
+     *
+     * @param groupOpId the group-operationid of the parent resource method
+     * @param schema    the schema of the DTO
+     * @return a reference to the created DTO
+     */
+    public ParserTypeRef createMultipartDto(String groupOpId, @SuppressWarnings("rawtypes") Schema schema) {
+        String syntheticDtoName = naming.convertMultipartTypeName(groupOpId);
+
         Validation requiredValidation = Validation.REQUIRED_VALIDATION;
         // FIXME: need to create builderDto instead / as option
         // RefInfo could contain flag for formparam
         logger.trace(" - createObjectRef, multipartform");
-        String syntheticDtoName = "MultipartBody" + "ApiMethodname";
         @Nullable ParserTypeRef dtoRef = createDtoRef(REF_COMPONENTS_SCHEMAS+syntheticDtoName, requiredValidation);
         if (dtoRef == null) {
             throw new IllegalStateException("Failed to ref multipart dto");

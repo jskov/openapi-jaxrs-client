@@ -14,18 +14,17 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.ContentSelector;
+import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
+import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
-import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
-import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
@@ -115,9 +114,15 @@ public class ApiTransformer {
             tags = List.of();
         }
 
+        Optional<String> operationId = naming.convertOperationIdName(op.getOperationId());
+        String syntheticOperationId = generateSyntheticOpId(resourcePath, httpMethod);
+
+        // Not including group yet, need behavior from Operation::group
+        String groupOperationId = operationId.orElse(syntheticOperationId);
+
         List<Parameter> parameters = new ArrayList<>(getParameters(op));
 
-        Optional<RequestBody> requestBody = getRequestBody(resourcePath, op);
+        Optional<RequestBody> requestBody = getRequestBody(groupOperationId, resourcePath, op);
         requestBody.ifPresent(rb -> parameters.addAll(rb.formParameters()));
 
         List<Response> responses;
@@ -138,8 +143,8 @@ public class ApiTransformer {
                 .description(Optional.ofNullable(op.getDescription()))
                 .summary(Optional.ofNullable(op.getSummary()))
                 .deprecated(toBool(op.getDeprecated()))
-                .operationId(naming.convertOperationIdName(op.getOperationId()))
-                .syntheticOpId(generateSyntheticOpId(resourcePath, httpMethod))
+                .operationId(operationId)
+                .syntheticOpId(syntheticOperationId)
                 .httpMethod(toModelHttpMethod(httpMethod))
                 .path(resourcePath)
                 .responses(responses)
@@ -182,7 +187,7 @@ public class ApiTransformer {
         return r;
     }
 
-    private Optional<RequestBody> getRequestBody(String resourcePath, io.swagger.v3.oas.models.Operation op) {
+    private Optional<RequestBody> getRequestBody(String groupOpId, String resourcePath, io.swagger.v3.oas.models.Operation op) {
         io.swagger.v3.oas.models.parameters.RequestBody body = op.getRequestBody();
         if (body == null) {
             return Optional.empty();
@@ -194,12 +199,14 @@ public class ApiTransformer {
         Content content = selectContent(body.getContent(), cc);
         logger.info("CONTENT: {}", content);
         
+        // FIXME: test output with flat @FORM options
+        
         MediaType mt = body.getContent().get("multipart/form-data");
         if (mt != null && mt.getSchema() != null) {
             logger.info("FORM-DATA: {}", mt);
             @SuppressWarnings("rawtypes")
             Schema<?> schema = mt.getSchema();
-            ParserTypeRef multipartBody = typeConverter.makeMultipartBody(schema);
+            ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
             Content multipartBodyContent = Content.builder()
                     .reference(multipartBody)
                     .mediaTypes(List.of("multipart/form-data"))
@@ -207,7 +214,7 @@ public class ApiTransformer {
             
             return Optional.of(
                     RequestBody.builder()
-                            .description(Optional.ofNullable(body.getDescription()))
+                            .description(Optional.of("Synthetic multipart body"))
                             .content(multipartBodyContent)
                             .formParameters(List.of())
                             .build());

@@ -33,6 +33,8 @@ public class Naming {
     private final List<NamingRule> mpSchemaNamingRules;
     /** Renaming rules for type name conflicts. */
     private final List<NamingRule> getTypeConflictRenaming;
+    /** Naming rules for multipart type names. */
+    private final List<NamingRule> multipartTypeNamingRules;
     /** Naming rules for operation names. */
     private final List<NamingRule> operationNamingRules;
     /** Naming rules for operationId names. */
@@ -64,6 +66,7 @@ public class Naming {
         entityNamingRules = NamingRules.toRules(namingOpts.getEntityNaming());
         enumConstantNamingRules = NamingRules.toRules(namingOpts.getEnumConstantNaming());
         enumNumberConstantNamingRules = NamingRules.toRules(namingOpts.getEnumNumberConstantNaming());
+        multipartTypeNamingRules = NamingRules.toRules(namingOpts.getMultipartTypeNaming());
         operationNamingRules = NamingRules.toRules(namingOpts.getOperationNaming());
         operationIdNamingRules = NamingRules.toRules(namingOpts.getOperationIdNaming());
         parameterNamingRules = NamingRules.toRules(namingOpts.getParameterNaming());
@@ -78,6 +81,7 @@ public class Naming {
             logger.debug("entityNamingRules: {}", makeRuleInfo(entityNamingRules));
             logger.debug("enumConstantNamingRules: {}", makeRuleInfo(enumConstantNamingRules));
             logger.debug("enumNumberConstantNamingRules: {}", makeRuleInfo(enumNumberConstantNamingRules));
+            logger.debug("multipartTypeNamingRules: {}", makeRuleInfo(multipartTypeNamingRules));
             logger.debug("operationNamingRules: {}", makeRuleInfo(operationNamingRules));
             logger.debug("operationIdNamingRules: {}", makeRuleInfo(operationIdNamingRules));
             logger.debug("parameterNamingRules: {}", makeRuleInfo(parameterNamingRules));
@@ -152,6 +156,18 @@ public class Naming {
      */
     public String convertTypeName(String schemaName) {
         return convert(typeNamingRules, schemaName);
+    }
+
+    /**
+     * Converts a synthetic multipart dto name into a java type name.
+     *
+     * The input is on the form "group-operationid".
+     *
+     * @param groupOpId the group-operationid to base the name on
+     * @return the java type name
+     */
+    public String convertMultipartTypeName(String groupOpId) {
+        return convert(multipartTypeNamingRules, groupOpId);
     }
 
     /**
