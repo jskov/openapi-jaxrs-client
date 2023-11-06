@@ -5,7 +5,7 @@
 {{#madaDto.isRenderPropertyOrderAnnotation}}
 @JsonPropertyOrder({
 {{#madaDto.varsOpenapiOrder}}
-  {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
+  {{classname}}.{{madaProp.jsonPropertyConstant}}{{^-last}},{{/-last}}
 {{/madaDto.varsOpenapiOrder}}
 })
 {{/madaDto.isRenderPropertyOrderAnnotation}}
@@ -17,7 +17,7 @@
 {{#madaDto.isRenderPropertyOrderAnnotation}}
 @JsonbPropertyOrder({
 {{#madaDto.varsOpenapiOrder}}
-  {{classname}}.JSON_PROPERTY_{{nameInSnakeCase}}{{^-last}},{{/-last}}
+  {{classname}}.{{madaProp.jsonPropertyConstant}}{{^-last}},{{/-last}}
 {{/madaDto.varsOpenapiOrder}}
 })
 {{/madaDto.isRenderPropertyOrderAnnotation}}
@@ -37,11 +37,11 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     {{#isEnum}}
 {{>enumClass}}
     {{/isEnum}}
-  {{#madaDto.isRenderJsonProperty}}
-  @JsonProperty(JSON_PROPERTY_{{nameInSnakeCase}})
-  {{/madaDto.isRenderJsonProperty}}
+  {{#madaProp.jsonPropertyConstant}}
+  public static final String {{.}} = "{{baseName}}";
+  {{/madaProp.jsonPropertyConstant}}
   {{#jackson}}
-  public static final String JSON_PROPERTY_{{nameInSnakeCase}} = "{{baseName}}";
+  @JsonProperty({{madaProp.jsonPropertyConstant}})
   {{#isDate}}
     {{#madaDto.customLocalDateDeserializer}}
   @JsonDeserialize(using = {{madaDto.customLocalDateDeserializer}}.class)
@@ -60,6 +60,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{/isDateTime}}
   {{/jackson}}
   {{#madaDto.jsonb}}
+  @JsonbProperty({{madaProp.jsonPropertyConstant}})
     {{#isEnum}}
     {{^isContainer}}
   @JsonbTypeAdapter({{packageName}}.{{classname}}.{{datatypeWithEnum}}.{{datatypeWithEnum}}Adapter.class)
@@ -69,9 +70,10 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{#madaProp.schemaOptions}}
   @Schema({{{madaProp.schemaOptions}}})
   {{/madaProp.schemaOptions}}
-  {{#madaDto.multiform}}
-  @FormParam({{JSON_PROPERTY_{{nameInSnakeCase}})
-  {{/madaDto.multiform}}
+  {{#madaProp.isRenderMultipart}}
+  @FormParam({{madaProp.jsonPropertyConstant}})
+  @PartType(MediaType.APPLICATION_JSON)
+  {{/madaProp.isRenderMultipart}}
   {{#isContainer}}
   private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
   {{/isContainer}}

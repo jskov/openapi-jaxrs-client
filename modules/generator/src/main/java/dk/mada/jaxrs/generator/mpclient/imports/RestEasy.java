@@ -9,7 +9,9 @@ import dk.mada.jaxrs.generator.mpclient.imports.Imports.ImportRenderPrefs;
  */
 public enum RestEasy implements TypedImport {
     /** MultipartForm. */
-    MULTIPART_FORM("org.jboss.resteasy.annotations.providers.multipart.MultipartForm");
+    MULTIPART_FORM("org.jboss.resteasy.annotations.providers.multipart.MultipartForm"),
+    /** Part type. */
+    MULTIPART_PARTTYPE("org.jboss.resteasy.annotations.providers.multipart.PartType");
 
     /** The import path for the type. */
     private final String importPath;

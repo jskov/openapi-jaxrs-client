@@ -10,6 +10,8 @@ import dk.mada.jaxrs.generator.mpclient.imports.Imports.ImportRenderPrefs;
 public enum JaxRs implements TypedImport {
     /** All the JaxRs path types. */
     RS_STAR("javax.ws.rs.*"),
+    /** FormParam. */
+    FORM_PARAM("javax.ws.rs.FormParam"),
     /** MediaType. */
     MEDIA_TYPE("javax.ws.rs.core.MediaType");
 

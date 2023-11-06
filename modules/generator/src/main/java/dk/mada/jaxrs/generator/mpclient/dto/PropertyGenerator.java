@@ -23,7 +23,10 @@ import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.Jackson;
 import dk.mada.jaxrs.generator.mpclient.imports.JavaMath;
 import dk.mada.jaxrs.generator.mpclient.imports.JavaUtil;
+import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
+import dk.mada.jaxrs.generator.mpclient.imports.RestEasy;
 import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
+import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
@@ -79,7 +82,7 @@ public class PropertyGenerator {
      * @param prop       the property to make context for
      * @return the property context
      */
-    public CtxProperty toCtxProperty(Imports dtoImports, Property prop) {
+    public CtxProperty toCtxProperty(Imports dtoImports, Property prop, Dto parentDto) {
         final Names names = getNames(prop);
         logger.debug("Property {}", names);
 
@@ -139,6 +142,16 @@ public class PropertyGenerator {
 
         Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation());
 
+        String jsonPropertyConst = null;
+        if (opts.isJackson() || opts.isJsonb() || parentDto.isMultipartForm()) {
+            jsonPropertyConst = "JSON_PROPERTY_" + names.snaked();
+        }
+
+        if (parentDto.isMultipartForm()) {
+            dtoImports.add(RestEasy.MULTIPART_PARTTYPE);
+            dtoImports.add(JaxRs.FORM_PARAM, JaxRs.MEDIA_TYPE);
+        }
+
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(ti.innerTypeName())
                 .enumClassName(ei.enumClassName())
@@ -153,6 +166,8 @@ public class PropertyGenerator {
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
                 .renderJavadocMacroSpacer(description.isPresent())
+                .isRenderMultipart(parentDto.isMultipartForm())
+                .jsonPropertyConstant(jsonPropertyConst)
                 .build();
 
         String propertyName = names.propertyName();

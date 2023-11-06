@@ -57,7 +57,4 @@ public interface CtxDtoExt {
 
     /** {@return the optional class modifiers} */
     Optional<String> classModifiers();
-
-    /** {@return true if a JSON_PROPERTY_ constant should be rendered} */
-    boolean isRenderJsonPropertyConstant();
 }
