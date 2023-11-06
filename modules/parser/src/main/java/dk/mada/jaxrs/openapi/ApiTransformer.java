@@ -194,13 +194,13 @@ public class ApiTransformer {
         }
 
         logger.info("BODY: {}", body);
-        
+
         ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = selectContent(body.getContent(), cc);
         logger.info("CONTENT: {}", content);
-        
+
         // FIXME: test output with flat @FORM options
-        
+
         MediaType mt = body.getContent().get("multipart/form-data");
         if (mt != null && mt.getSchema() != null) {
             logger.info("FORM-DATA: {}", mt);
@@ -211,7 +211,7 @@ public class ApiTransformer {
                     .reference(multipartBody)
                     .mediaTypes(List.of("multipart/form-data"))
                     .build();
-            
+
             return Optional.of(
                     RequestBody.builder()
                             .description(Optional.of("Synthetic multipart body"))
@@ -221,9 +221,8 @@ public class ApiTransformer {
                             .build());
         }
 
-        
         List<Parameter> formParameters = extractFormParameters(body.getContent());
-        
+
         logger.info("GOT FORM PARAMS: {}", formParameters);
 
         return Optional.of(
@@ -264,7 +263,7 @@ public class ApiTransformer {
     private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
         ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null);
         logger.debug("Parse form param {} : {}", name, dtoPtr);
-        
+
         return Parameter.builder()
                 .name(name)
                 .isHeaderParam(false)
@@ -274,7 +273,7 @@ public class ApiTransformer {
                 .reference(dtoPtr)
                 .build();
     }
-    
+
     // Just a shortcut to determine if auth header should be added
     /**
      * Determines if the operation should be given an authorization header parameter.
@@ -359,7 +358,7 @@ public class ApiTransformer {
             if (mediaTypes.contains("multipart/form-data")) {
 //                throw new IllegalStateException("breakage?");
             }
-            
+
             @SuppressWarnings("rawtypes")
             Set<Schema> schemas = c.values().stream()
                     .map(MediaType::getSchema)
@@ -372,7 +371,7 @@ public class ApiTransformer {
 
                 logger.info("SCHEMA: {}", ss);
                 // FIXME: forms object looks like something to generate a DTO from
-                
+
                 if (ss == null) {
                     // This happens in some documents
                     ref = TypeVoid.getRef();

@@ -22,7 +22,7 @@ public class MediaTypes {
     /**
      * Convert input media type to the render representation.
      *
-     * @param imports the imports for the source file
+     * @param imports   the imports for the source file
      * @param mediaType the media type
      * @return a string or a symbol representing the media type
      */

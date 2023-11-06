@@ -346,7 +346,8 @@ public class ApiGenerator {
             Reference ref = p.reference();
             imports.add(ref);
 
-            String paramName = naming.convertParameterName(p.name());
+            String name = p.name();
+            String paramName = naming.convertParameterName(name);
 
             Type type = ref.refType();
             String dataType = paramDataType(type);
@@ -357,7 +358,7 @@ public class ApiGenerator {
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
 
             ImmutableCtxApiParam param = CtxApiParam.builder()
-                    .baseName(p.name())
+                    .baseName(name)
                     .paramName(paramName)
                     .dataType(dataType)
                     .validation(valCtx)
@@ -371,7 +372,7 @@ public class ApiGenerator {
                     .isMultipartForm(false)
                     .build();
 
-            logger.info("PARAM {} : {}", p.name(), p.isFormParam());
+            logger.debug("PARAM {} : {}", name, p.isFormParam());
             params.add(param);
         }
 
@@ -379,7 +380,6 @@ public class ApiGenerator {
             Reference ref = body.content().reference();
             imports.add(ref);
 
-            
             String preferredDtoParamName = naming.convertEntityName(ref.typeName().name());
 
             // Guard against (simple) conflict with other parameters
@@ -415,7 +415,7 @@ public class ApiGenerator {
             if (!ref.isVoid()) {
                 params.add(bodyParam);
             }
-            logger.info("BODY {}", bodyParam);
+            logger.debug("BODY {}", bodyParam);
         });
 
         logger.debug("Params: {}", params);

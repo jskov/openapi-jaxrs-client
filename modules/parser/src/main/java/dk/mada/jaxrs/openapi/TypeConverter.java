@@ -616,15 +616,15 @@ public final class TypeConverter {
         // FIXME: need to create builderDto instead / as option
         // RefInfo could contain flag for formparam
         logger.trace(" - createObjectRef, multipartform");
-        @Nullable ParserTypeRef dtoRef = createDtoRef(REF_COMPONENTS_SCHEMAS+syntheticDtoName, requiredValidation);
+        @Nullable ParserTypeRef dtoRef = createDtoRef(REF_COMPONENTS_SCHEMAS + syntheticDtoName, requiredValidation);
         if (dtoRef == null) {
             throw new IllegalStateException("Failed to ref multipart dto");
         }
-        
+
         Dto dto = createDto(syntheticDtoName, dtoRef, true, schema);
         return parserRefs.of(dto, requiredValidation);
     }
-    
+
     /**
      * Creates a DTO from an Object schema.
      *

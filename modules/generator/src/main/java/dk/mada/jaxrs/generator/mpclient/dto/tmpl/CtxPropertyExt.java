@@ -69,7 +69,7 @@ public interface CtxPropertyExt {
 
     /** {@return the multipart type associated with this property, or null} */
     @Nullable String multipartType();
-    
+
     /** {@return a json property constant value, or null} */
     @Nullable String jsonPropertyConstant();
 }
