@@ -419,6 +419,7 @@ public final class TypeConverter {
                 .mpSchemaName(mpName)
                 .reference(combinedRef)
                 .openapiId(tn)
+                .isMultipartForm(false)
                 .build();
         parserTypes.addDto(dto);
 

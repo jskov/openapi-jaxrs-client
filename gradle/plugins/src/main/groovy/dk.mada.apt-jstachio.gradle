@@ -9,3 +9,10 @@ dependencies {
     annotationProcessor "io.jstach:jstachio-apt"
     compileOnly         "io.jstach:jstachio-annotation"
 }
+
+tasks.withType(JavaCompile).configureEach {
+  inputs.dir("src/main/resources/templates")
+//  options.compilerArgs += [
+//    '-Ajstache.incremental=true',
+//  ]
+}

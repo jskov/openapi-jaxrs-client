@@ -1,8 +1,8 @@
 {{#isBodyParam}}{{!
 
-    }}{{#isMultipartForm}}@MultipartForm{{/isMultipartForm}}{{!
+    }}{{#isMultipartForm}}@MultipartForm{{#validation}} {{/validation}}{{/isMultipartForm}}{{!
 
-    }}{{#validation}} {{>beanValidation}}{{/validation}}{{!
+    }}{{#validation}}{{>beanValidation}}{{/validation}}{{!
 
     }}{{{dataType}}} {{paramName}}{{!
 

@@ -80,6 +80,7 @@ public class PropertyGenerator {
      *
      * @param dtoImports the imports for the parent DTO
      * @param prop       the property to make context for
+     * @param parentDto  the parent DTO of the property
      * @return the property context
      */
     public CtxProperty toCtxProperty(Imports dtoImports, Property prop, Dto parentDto) {

@@ -349,6 +349,7 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .validation(Optional.of(validationGenerator.makeRequired()))
+                    .isMultipartForm(false)
                     .build());
         }
 
@@ -378,6 +379,7 @@ public class ApiGenerator {
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
+                    .isMultipartForm(false)
                     .build();
 
             logger.info("PARAM {} : {}", p.name(), p.isFormParam());
