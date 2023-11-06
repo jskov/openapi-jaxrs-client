@@ -83,7 +83,7 @@ public final class Parser {
      * @param dateTimeType the type used to represent OpenApi date-time
      * @param dtoPackage   the DTO package
      */
-    public record LeakedGeneratorOpts(TypeDateTime dateTimeType, String dtoPackage) {
+    public record LeakedGeneratorOpts(TypeDateTime dateTimeType, String dtoPackage, boolean isUseMultipartBody) {
     }
 
     /**
@@ -110,7 +110,7 @@ public final class Parser {
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
-        Operations operations = new ApiTransformer(naming, parserOpts, typeConverter, contentSelector, securitySchemes)
+        Operations operations = new ApiTransformer(naming, parserOpts, leakedGenOpts, typeConverter, contentSelector, securitySchemes)
                 .transform(specification);
         new DtoTransformer(typeConverter).transform(specification);
 

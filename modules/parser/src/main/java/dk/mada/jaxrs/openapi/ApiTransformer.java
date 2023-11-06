@@ -28,6 +28,7 @@ import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
+import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
@@ -54,6 +55,8 @@ public class ApiTransformer {
     private final Naming naming;
     /** Parser options. */
     private final ParserOpts parseOpts;
+    /** Leaked generator options. */
+    private LeakedGeneratorOpts leakedGenOpts;
     /** Type converter. */
     private final TypeConverter typeConverter;
     /** Security schemes. */
@@ -69,14 +72,16 @@ public class ApiTransformer {
      *
      * @param naming          the naming instance
      * @param parseOpts       the parser options
+     * @param leakedGenOpts   the leaked generator options
      * @param typeConverter   the type converter
      * @param contentSelector the content selector
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(Naming naming, ParserOpts parseOpts, TypeConverter typeConverter, ContentSelector contentSelector,
+    public ApiTransformer(Naming naming, ParserOpts parseOpts, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter, ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
         this.naming = naming;
         this.parseOpts = parseOpts;
+        this.leakedGenOpts = leakedGenOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
         this.contentSelector = contentSelector;
@@ -198,10 +203,9 @@ public class ApiTransformer {
         ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = selectContent(body.getContent(), cc);
 
-        // FIXME: test output with flat @FORM options
-
         MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
-        if (mt != null && mt.getSchema() != null) {
+
+        if (leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null) {
             logger.debug("FORM-DATA: {}", mt);
             @SuppressWarnings("rawtypes")
             Schema<?> schema = mt.getSchema();
@@ -221,8 +225,15 @@ public class ApiTransformer {
         }
 
         List<Parameter> formParameters = extractFormParameters(body.getContent());
-
         logger.debug("GOT FORM PARAMS: {}", formParameters);
+
+        if (!formParameters.isEmpty()) {
+            // Suppress rendering of DTO if form parameters are rendered
+            content = Content.builder()
+                    .reference(TypeVoid.getRef())
+                    .mediaTypes(List.of())
+                    .build();
+        }
 
         return Optional.of(
                 RequestBody.builder()
