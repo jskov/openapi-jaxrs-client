@@ -46,6 +46,8 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
  * DefaultGenerator:processOperation
  */
 public class ApiTransformer {
+    private static final String MULTIPART_FORM_DATA = "multipart/form-data";
+
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
     /** Naming. */
@@ -193,23 +195,20 @@ public class ApiTransformer {
             return Optional.empty();
         }
 
-        logger.info("BODY: {}", body);
-
         ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = selectContent(body.getContent(), cc);
-        logger.info("CONTENT: {}", content);
 
         // FIXME: test output with flat @FORM options
 
-        MediaType mt = body.getContent().get("multipart/form-data");
+        MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
         if (mt != null && mt.getSchema() != null) {
-            logger.info("FORM-DATA: {}", mt);
+            logger.debug("FORM-DATA: {}", mt);
             @SuppressWarnings("rawtypes")
             Schema<?> schema = mt.getSchema();
             ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
             Content multipartBodyContent = Content.builder()
                     .reference(multipartBody)
-                    .mediaTypes(List.of("multipart/form-data"))
+                    .mediaTypes(List.of(MULTIPART_FORM_DATA))
                     .build();
 
             return Optional.of(
@@ -223,7 +222,7 @@ public class ApiTransformer {
 
         List<Parameter> formParameters = extractFormParameters(body.getContent());
 
-        logger.info("GOT FORM PARAMS: {}", formParameters);
+        logger.debug("GOT FORM PARAMS: {}", formParameters);
 
         return Optional.of(
                 RequestBody.builder()
@@ -241,7 +240,7 @@ public class ApiTransformer {
      * @return the list of found form parameters
      */
     private List<Parameter> extractFormParameters(io.swagger.v3.oas.models.media.Content content) {
-        MediaType mt = content.get("multipart/form-data");
+        MediaType mt = content.get(MULTIPART_FORM_DATA);
         if (mt == null || mt.getSchema() == null) {
             return List.of();
         }
@@ -355,7 +354,7 @@ public class ApiTransformer {
         } else {
             mediaTypes = c.keySet();
 
-            if (mediaTypes.contains("multipart/form-data")) {
+            if (mediaTypes.contains(MULTIPART_FORM_DATA)) {
 //                throw new IllegalStateException("breakage?");
             }
 

@@ -611,10 +611,8 @@ public final class TypeConverter {
      */
     public ParserTypeRef createMultipartDto(String groupOpId, @SuppressWarnings("rawtypes") Schema schema) {
         String syntheticDtoName = naming.convertMultipartTypeName(groupOpId);
-
         Validation requiredValidation = Validation.REQUIRED_VALIDATION;
-        // FIXME: need to create builderDto instead / as option
-        // RefInfo could contain flag for formparam
+
         logger.trace(" - createObjectRef, multipartform");
         @Nullable ParserTypeRef dtoRef = createDtoRef(REF_COMPONENTS_SCHEMAS + syntheticDtoName, requiredValidation);
         if (dtoRef == null) {
