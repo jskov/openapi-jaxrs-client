@@ -13,7 +13,11 @@ import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.core.MediaType;
+
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.jboss.resteasy.annotations.providers.multipart.PartType;
 
 /**
  * MultipartApiMethodsCreatePost
@@ -23,6 +27,8 @@ public class MultipartApiMethodsCreatePost {
   public static final String JSON_PROPERTY_JAR_SIZE = "jar-size";
   @JsonbProperty(JSON_PROPERTY_JAR_SIZE)
   @Schema(required = true)
+  @FormParam("jar-size")
+  @PartType(MediaType.APPLICATION_JSON)
   private Long jarSize;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
