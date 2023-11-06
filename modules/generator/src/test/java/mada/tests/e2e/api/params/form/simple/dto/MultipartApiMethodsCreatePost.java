@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.core.MediaType;
-
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
 
@@ -33,11 +32,16 @@ public class MultipartApiMethodsCreatePost {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @JsonbProperty(JSON_PROPERTY_METADATA)
+  @FormParam(JSON_PROPERTY_METADATA)
+  @PartType(MediaType.APPLICATION_JSON)
+  @Valid
   private TemplateDTO metadata;
 
   public static final String JSON_PROPERTY_TEMPLATE_JAR = "template-jar";
   @JsonbProperty(JSON_PROPERTY_TEMPLATE_JAR)
   @Schema(required = true)
+  @FormParam(JSON_PROPERTY_TEMPLATE_JAR)
+  @PartType(MediaType.APPLICATION_OCTET_STREAM)
   private byte[] templateJar = new byte[] {};
 
   public MultipartApiMethodsCreatePost jarSize(Long jarSize) {
