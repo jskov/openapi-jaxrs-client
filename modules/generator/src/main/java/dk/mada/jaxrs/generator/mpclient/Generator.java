@@ -54,7 +54,7 @@ public final class Generator implements GeneratorService {
         } catch (IllegalArgumentException e) {
             throw new GeneratorBadInputException(e.getMessage(), e);
         } catch (Exception e) {
-            throw new GeneratorException("Failed", e);
+            throw new GeneratorException(e.getMessage(), e);
         }
     }
 
