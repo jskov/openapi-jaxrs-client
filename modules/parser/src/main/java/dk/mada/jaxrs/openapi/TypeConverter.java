@@ -637,7 +637,16 @@ public final class TypeConverter {
         return createDto(dtoName, dtoType, false, schema);
     }
 
-    public Dto createDto(String dtoName, ParserTypeRef dtoType, boolean isMultipartForm, Schema<?> schema) {
+    /**
+     * Creates a DTO from an Object schema.
+     *
+     * @param dtoName         the DTO name
+     * @param dtoType         the DTO type
+     * @param isMultipartForm a flag for synthetic multipart DTO
+     * @param schema          the schema of the DTO
+     * @return the create DTO
+     */
+    private Dto createDto(String dtoName, ParserTypeRef dtoType, boolean isMultipartForm, Schema<?> schema) {
         String modelName = naming.convertTypeName(dtoName);
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 

@@ -3,7 +3,6 @@ package dk.mada.jaxrs.generator.mpclient.api;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.mpclient.CommonPathFinder;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
+import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.Templates;
 import dk.mada.jaxrs.generator.mpclient.ValidationGenerator;
@@ -26,7 +26,6 @@ import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiResponse;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
-import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
 import dk.mada.jaxrs.generator.mpclient.imports.MicroProfile;
 import dk.mada.jaxrs.generator.mpclient.imports.RestEasy;
 import dk.mada.jaxrs.model.Info;
@@ -56,16 +55,6 @@ import dk.mada.jaxrs.model.types.TypeVoid;
  */
 public class ApiGenerator {
     private static final Logger logger = LoggerFactory.getLogger(ApiGenerator.class);
-
-    /**
-     * Media types supported for now.
-     */
-    private static final Map<String, String> MEDIA_TYPES = Map.of(
-            "application/json", "APPLICATION_JSON",
-            "application/octet-stream", "APPLICATION_OCTET_STREAM",
-            "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED",
-            "multipart/form-data", "MULTIPART_FORM_DATA",
-            "text/plain", "TEXT_PLAIN");
 
     /** Naming. */
     private final Naming naming;
@@ -475,7 +464,7 @@ public class ApiGenerator {
         ContentContext context = new ContentContext(op.path(), true, Location.RESPONSE);
         Optional<String> mediaType = model.contentSelector()
                 .selectPreferredMediaType(responseMediaTypes, context)
-                .map(mt -> toMediaType(imports, mt))
+                .map(mt -> MediaTypes.toMediaType(imports, mt))
                 .filter(mt -> !opResponseMediaTypes.contains(mt));
 
         String description = r.description()
@@ -503,7 +492,7 @@ public class ApiGenerator {
 
         ContentContext context = new ContentContext(op.path(), false, Location.REQUEST);
         return model.contentSelector().selectPreferredMediaType(mediaTypes, context)
-                .map(mt -> toMediaType(imports, mt));
+                .map(mt -> MediaTypes.toMediaType(imports, mt));
     }
 
     /**
@@ -527,7 +516,7 @@ public class ApiGenerator {
 
         ContentContext context = new ContentContext(op.path(), true, Location.RESPONSE);
         return model.contentSelector().selectPreferredMediaType(potentialMediaTypes, context)
-                .map(mt -> toMediaType(imports, mt));
+                .map(mt -> MediaTypes.toMediaType(imports, mt));
     }
 
     /**
@@ -542,16 +531,5 @@ public class ApiGenerator {
         return op.responses().stream()
                 .sorted((a, b) -> Integer.compare(a.code().ordinal(), b.code().ordinal()))
                 .findFirst();
-    }
-
-    private String toMediaType(Imports imports, String mediaType) {
-        String mtConstant = MEDIA_TYPES.get(mediaType);
-        if (mtConstant == null) {
-            return "\"" + mediaType + "\"";
-        }
-
-        imports.add(JaxRs.MEDIA_TYPE);
-
-        return "MediaType." + mtConstant;
     }
 }

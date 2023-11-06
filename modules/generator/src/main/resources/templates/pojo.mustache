@@ -70,10 +70,10 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{#madaProp.schemaOptions}}
   @Schema({{{madaProp.schemaOptions}}})
   {{/madaProp.schemaOptions}}
-  {{#madaProp.isRenderMultipart}}
+  {{#madaProp.multipartType}}
   @FormParam({{madaProp.jsonPropertyConstant}})
-  @PartType(MediaType.APPLICATION_JSON)
-  {{/madaProp.isRenderMultipart}}
+  @PartType({{.}})
+  {{/madaProp.multipartType}}
   {{#isContainer}}
   private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
   {{/isContainer}}

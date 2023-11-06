@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
+import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.ValidationGenerator;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum;
@@ -148,7 +149,11 @@ public class PropertyGenerator {
             jsonPropertyConst = "JSON_PROPERTY_" + names.snaked();
         }
 
+        String multipartType = null;
         if (parentDto.isMultipartForm()) {
+            String useType = ti.isByteArray() ? "application/octet-stream" : "application/json";
+            multipartType = MediaTypes.toMediaType(dtoImports, useType);
+
             dtoImports.add(RestEasy.MULTIPART_PARTTYPE);
             dtoImports.add(JaxRs.FORM_PARAM, JaxRs.MEDIA_TYPE);
         }
@@ -167,7 +172,7 @@ public class PropertyGenerator {
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
                 .renderJavadocMacroSpacer(description.isPresent())
-                .isRenderMultipart(parentDto.isMultipartForm())
+                .multipartType(multipartType)
                 .jsonPropertyConstant(jsonPropertyConst)
                 .build();
 
