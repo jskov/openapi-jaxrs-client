@@ -34,7 +34,6 @@ public class MultipartApiMethodsCreatePost {
   @JsonbProperty(JSON_PROPERTY_METADATA)
   @FormParam(JSON_PROPERTY_METADATA)
   @PartType(MediaType.APPLICATION_JSON)
-  @Valid
   private TemplateDTO metadata;
 
   public static final String JSON_PROPERTY_TEMPLATE_JAR = "template-jar";
