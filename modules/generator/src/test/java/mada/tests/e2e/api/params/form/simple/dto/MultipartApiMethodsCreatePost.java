@@ -8,7 +8,7 @@
 
 package mada.tests.e2e.api.params.form.simple.dto;
 
-import java.util.Arrays;
+import java.io.InputStream;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
@@ -41,7 +41,7 @@ public class MultipartApiMethodsCreatePost {
   @Schema(required = true)
   @FormParam(JSON_PROPERTY_TEMPLATE_JAR)
   @PartType(MediaType.APPLICATION_OCTET_STREAM)
-  private byte[] templateJar = new byte[] {};
+  private InputStream templateJar;
 
   public MultipartApiMethodsCreatePost jarSize(Long jarSize) {
     this.jarSize = Objects.requireNonNull(jarSize, "Property jarSize is required, cannot be null");
@@ -79,7 +79,7 @@ public class MultipartApiMethodsCreatePost {
     this.metadata = metadata;
   }
 
-  public MultipartApiMethodsCreatePost templateJar(byte[] templateJar) {
+  public MultipartApiMethodsCreatePost templateJar(InputStream templateJar) {
     this.templateJar = Objects.requireNonNull(templateJar, "Property templateJar is required, cannot be null");
     return this;
   }
@@ -89,11 +89,11 @@ public class MultipartApiMethodsCreatePost {
    * @return templateJar
    **/
   @NotNull
-  public byte[] getTemplateJar() {
+  public InputStream getTemplateJar() {
     return templateJar;
   }
 
-  public void setTemplateJar(byte[] templateJar) {
+  public void setTemplateJar(InputStream templateJar) {
     this.templateJar = Objects.requireNonNull(templateJar, "Property templateJar is required, cannot be null");
   }
 
@@ -108,12 +108,12 @@ public class MultipartApiMethodsCreatePost {
     MultipartApiMethodsCreatePost other = (MultipartApiMethodsCreatePost) o;
     return Objects.equals(this.jarSize, other.jarSize) &&
         Objects.equals(this.metadata, other.metadata) &&
-        Arrays.equals(this.templateJar, other.templateJar);
+        Objects.equals(this.templateJar, other.templateJar);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(jarSize, metadata, Arrays.hashCode(templateJar));
+    return Objects.hash(jarSize, metadata, templateJar);
   }
 
   @Override

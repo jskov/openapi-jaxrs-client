@@ -143,12 +143,14 @@ public final class TypeConverter {
      * @param propertyName  the reference property
      * @param parentDtoName the optional name of the parent dto
      * @param validation    the validation requirements for the reference
+     * @param isFormRef     true if reference is to a form parameter/field
      */
     record RefInfo(
             Schema<?> schema,
             @Nullable String propertyName,
             @Nullable String parentDtoName,
-            Validation validation) {
+            Validation validation,
+            boolean isFormRef) {
     }
 
     /**
@@ -167,7 +169,22 @@ public final class TypeConverter {
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName) {
+    private ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName) {
+        return reference(schema, propertyName, parentDtoName, false);
+    }
+
+    /**
+     * Converts a OpenApi schema to parser type reference.
+     *
+     * This serves as a lazy reference to something that will eventually be resolved to a type in the model.
+     *
+     * @param schema        the OpenApi schema to convert
+     * @param propertyName  the name of the property the type is associated with, or null
+     * @param parentDtoName the name of the DTO this schema is part of, or null
+     * @param isFormRef     true if the reference is a form parameter/field.
+     * @return the found/created parser type reference
+     */
+    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
@@ -178,7 +195,7 @@ public final class TypeConverter {
         Validation validation = extractValidation(schema, false);
         logger.debug("validation {}", validation);
 
-        RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, validation);
+        RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, validation, isFormRef);
 
         return Stream.<TypeMapper>of(
                 this::createPrimitiveTypeRef,
@@ -278,8 +295,8 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createByteArrayRef(RefInfo ri) {
         if (ri.schema instanceof BinarySchema || ri.schema instanceof FileSchema) {
             logger.trace(" - createByteArrayRef");
-            boolean isBodyArgument = ri.propertyName == null;
-            TypeByteArray impl = isBodyArgument ? TypeByteArray.getStream() : TypeByteArray.getArray();
+            boolean isStream = ri.isFormRef || ri.propertyName == null;
+            TypeByteArray impl = isStream ? TypeByteArray.getStream() : TypeByteArray.getArray();
             return parserRefs.of(impl, ri.validation);
         }
         return null;
@@ -651,7 +668,7 @@ public final class TypeConverter {
         logger.info("creating DTO {}", dtoName);
         Type refType = dtoType.refType();
 
-        List<Property> directProps = readProperties(schema, modelName);
+        List<Property> directProps = readProperties(schema, modelName, isMultipartForm);
         List<Property> combinedProps = addInternalDtoProperties(refType, directProps);
 
         SubtypeSelector selector = null;
@@ -708,7 +725,7 @@ public final class TypeConverter {
                 .toList();
     }
 
-    private List<Property> readProperties(Schema<?> schema, String parentDtoName) {
+    private List<Property> readProperties(Schema<?> schema, String parentDtoName, boolean isMultipartForm) {
         logger.debug("Read properties of schema {}/{}", parentDtoName, schema.getName());
         @SuppressWarnings("rawtypes")
         Map<String, Schema> schemaProps = schema.getProperties();
@@ -727,7 +744,7 @@ public final class TypeConverter {
             Schema<?> propSchema = e.getValue();
             logger.debug(" - property {}", propertyName);
 
-            Reference ref = reference(propSchema, propertyName, parentDtoName);
+            Reference ref = reference(propSchema, propertyName, parentDtoName, isMultipartForm);
 
             Optional<String> exampleStr = Optional.ofNullable(Objects.toString(propSchema.getExample(), null));
 

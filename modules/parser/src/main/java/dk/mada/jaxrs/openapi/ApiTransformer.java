@@ -271,7 +271,7 @@ public class ApiTransformer {
     // At least an enum parameter may have to be rendered as a standalone
     // type (DTO). This does not happen with this code alone.
     private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
-        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null);
+        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null, true);
         logger.debug("Parse form param {} : {}", name, dtoPtr);
 
         return Parameter.builder()

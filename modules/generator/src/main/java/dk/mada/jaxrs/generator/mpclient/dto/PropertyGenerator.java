@@ -151,7 +151,7 @@ public class PropertyGenerator {
 
         String multipartType = null;
         if (parentDto.isMultipartForm()) {
-            String useType = ti.isByteArray() ? "application/octet-stream" : "application/json";
+            String useType = ti.isStream() ? "application/octet-stream" : "application/json";
             multipartType = MediaTypes.toMediaType(dtoImports, useType);
 
             dtoImports.add(RestEasy.MULTIPART_PARTTYPE);
@@ -278,16 +278,21 @@ public class PropertyGenerator {
         String defaultValue = null;
         final boolean isRequired = prop.validation().isRequired().orElse(false);
         boolean isByteArray = false;
+        boolean isStream = false;
         boolean isArray = false;
         boolean isMap = false;
         boolean isSet = false;
         String innerTypeName = null;
 
-        if (propType instanceof TypeByteArray) {
-            isByteArray = true;
-            dtoImports.add(JavaUtil.ARRAYS);
-            if (isRequired) {
-                defaultValue = "new byte[] {}";
+        if (propType instanceof TypeByteArray tba) {
+            if (tba.isArray()) {
+                isByteArray = true;
+                dtoImports.add(JavaUtil.ARRAYS);
+                if (isRequired) {
+                    defaultValue = "new byte[] {}";
+                }
+            } else {
+                isStream = true;
             }
         }
         if (propType instanceof TypeArray ca) {
@@ -321,7 +326,7 @@ public class PropertyGenerator {
 
         return new TypeInfo(propType, typeName, innerType, innerTypeName, defaultValue,
                 isRequired, isContainer,
-                isByteArray, isArray, isMap, isSet);
+                isByteArray, isStream, isArray, isMap, isSet);
     }
 
     record TypeInfo(
@@ -333,6 +338,7 @@ public class PropertyGenerator {
             boolean isRequired,
             boolean isContainer,
             boolean isByteArray,
+            boolean isStream,
             boolean isArray,
             boolean isMap,
             boolean isSet) {
