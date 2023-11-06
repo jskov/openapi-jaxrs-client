@@ -481,7 +481,6 @@ public final class TypeConverter {
         return null;
     }
 
-    boolean once = true;
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
         if (schema instanceof ObjectSchema || schema.getType() == null) {
@@ -491,22 +490,6 @@ public final class TypeConverter {
                     logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-
-                    if (!once) {
-                        // FIXME: need to create builderDto instead / as option
-                        // RefInfo could contain flag for formparam
-                        once = true;
-                        logger.trace(" - createObjectRef, multipartform");
-                        String syntheticDtoName = "MultipartBody" + "ApiMethodname";
-                        @Nullable ParserTypeRef dtoRef = createDtoRef(REF_COMPONENTS_SCHEMAS+syntheticDtoName, ri.validation);
-                        if (dtoRef == null) {
-                            throw new IllegalStateException("Failed to ref multipart dto");
-                        }
-                        
-                        Dto dto = createDto(syntheticDtoName, dtoRef, schema);
-                        return parserRefs.of(dto, ri.validation);
-                    }
-
                     logger.trace(" - createObjectRef, plain Object?");
                     return parserRefs.of(TypeObject.get(), ri.validation);
                 }
@@ -637,7 +620,7 @@ public final class TypeConverter {
             throw new IllegalStateException("Failed to ref multipart dto");
         }
         
-        Dto dto = createDto(syntheticDtoName, dtoRef, schema);
+        Dto dto = createDto(syntheticDtoName, dtoRef, true, schema);
         return parserRefs.of(dto, requiredValidation);
     }
     
@@ -650,10 +633,10 @@ public final class TypeConverter {
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
         ParserTypeRef dtoType = reference(schema, null, dtoName);
-        return createDto(dtoName, dtoType, schema);
+        return createDto(dtoName, dtoType, false, schema);
     }
 
-    public Dto createDto(String dtoName, ParserTypeRef dtoType, Schema<?> schema) {
+    public Dto createDto(String dtoName, ParserTypeRef dtoType, boolean isMultipartForm, Schema<?> schema) {
         String modelName = naming.convertTypeName(dtoName);
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
@@ -684,6 +667,7 @@ public final class TypeConverter {
                 .implementsInterfaces(List.of())
                 .subtypeSelector(Optional.ofNullable(selector))
                 .extendsParents(List.of())
+                .isMultipartForm(isMultipartForm)
                 .build();
 
         parserTypes.addDto(dto);

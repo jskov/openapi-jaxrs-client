@@ -27,7 +27,7 @@ public class MultipartApiMethodsCreatePost {
   public static final String JSON_PROPERTY_JAR_SIZE = "jar-size";
   @JsonbProperty(JSON_PROPERTY_JAR_SIZE)
   @Schema(required = true)
-  @FormParam("jar-size")
+  @FormParam(JSON_PROPERTY_JAR_SIZE)
   @PartType(MediaType.APPLICATION_JSON)
   private Long jarSize;
 

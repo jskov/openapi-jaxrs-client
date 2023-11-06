@@ -253,6 +253,8 @@ public class DtoGenerator {
             dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 
+        boolean renderJsonPropertyConstant = opts.isJackson() || opts.isJsonb() || dto.isMultipartForm();
+
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
                 .jsonb(opts.isJsonb())
@@ -268,6 +270,7 @@ public class DtoGenerator {
                 .classModifiers(Optional.ofNullable(classModifiers))
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
+                .isRenderJsonPropertyConstant(renderJsonPropertyConstant)
                 .build();
 
         return CtxDto.builder()
