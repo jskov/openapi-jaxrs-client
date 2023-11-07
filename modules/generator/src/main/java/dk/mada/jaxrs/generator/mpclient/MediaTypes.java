@@ -8,7 +8,7 @@ import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
 /**
  * Handling of media types.
  */
-public class MediaTypes {
+public final class MediaTypes {
     /**
      * Media types supported for now.
      */
@@ -18,6 +18,10 @@ public class MediaTypes {
             "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED",
             "multipart/form-data", "MULTIPART_FORM_DATA",
             "text/plain", "TEXT_PLAIN");
+
+    /** Only static methods. */
+    private MediaTypes() {
+    }
 
     /**
      * Convert input media type to the render representation.

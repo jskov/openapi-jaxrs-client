@@ -80,8 +80,9 @@ public final class Parser {
     /**
      * Generator options that have leaked into the parser. These should be eventually be removed when possible.
      *
-     * @param dateTimeType the type used to represent OpenApi date-time
-     * @param dtoPackage   the DTO package
+     * @param dateTimeType       the type used to represent OpenApi date-time
+     * @param dtoPackage         the DTO package
+     * @param isUseMultipartBody a flag for use of multipart forms
      */
     public record LeakedGeneratorOpts(TypeDateTime dateTimeType, String dtoPackage, boolean isUseMultipartBody) {
     }

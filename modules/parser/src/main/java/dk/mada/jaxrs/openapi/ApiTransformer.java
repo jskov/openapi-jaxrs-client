@@ -47,6 +47,7 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
  * DefaultGenerator:processOperation
  */
 public class ApiTransformer {
+    /** The multipart/form-data media type. */
     private static final String MULTIPART_FORM_DATA = "multipart/form-data";
 
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
@@ -77,7 +78,8 @@ public class ApiTransformer {
      * @param contentSelector the content selector
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(Naming naming, ParserOpts parseOpts, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter, ContentSelector contentSelector,
+    public ApiTransformer(Naming naming, ParserOpts parseOpts, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
+            ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
         this.naming = naming;
         this.parseOpts = parseOpts;
@@ -365,10 +367,6 @@ public class ApiTransformer {
         } else {
             mediaTypes = c.keySet();
 
-            if (mediaTypes.contains(MULTIPART_FORM_DATA)) {
-//                throw new IllegalStateException("breakage?");
-            }
-
             @SuppressWarnings("rawtypes")
             Set<Schema> schemas = c.values().stream()
                     .map(MediaType::getSchema)
@@ -379,8 +377,7 @@ public class ApiTransformer {
             } else {
                 @Nullable Schema<?> ss = getPreferredSchema(c, context);
 
-                logger.info("SCHEMA: {}", ss);
-                // FIXME: forms object looks like something to generate a DTO from
+                logger.debug("SCHEMA: {}", ss);
 
                 if (ss == null) {
                     // This happens in some documents
