@@ -7,12 +7,6 @@ dependencies {
     compileOnly         (platform('dk.mada.jaxrs:apt-platform'))
 
     annotationProcessor "io.jstach:jstachio-apt"
+    annotationProcessor fileTree(layout.projectDirectory.dir('src/main/resources/templates')) { include '**/*' }
     compileOnly         "io.jstach:jstachio-annotation"
-}
-
-tasks.withType(JavaCompile).configureEach {
-  inputs.dir("src/main/resources/templates")
-//  options.compilerArgs += [
-//    '-Ajstache.incremental=true',
-//  ]
 }
