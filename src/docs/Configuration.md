@@ -168,6 +168,13 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-api-use-multipartform**
+
+>Allows you to bundle @FormParam parameters into a @MultipartForm multipart body.
+
+>
+    default value: false
+
 **generator-dto-package**
 
 >Name of package to generate DTO classes in.
@@ -613,6 +620,15 @@ You can specify a number of operators, separated by ';'. They will be applied le
 
 >
     default value: (the value of naming-rules-type)
+
+**naming-rules-multipart-type**
+
+>Allows you to control the naming of synthetic multipart types created for form parameters.
+
+>The resource method's name is given as input.
+
+>
+    default value: PREPEND/Multipart-/; TYPENAME
 
 **naming-rules-type-conflict-renaming**
 

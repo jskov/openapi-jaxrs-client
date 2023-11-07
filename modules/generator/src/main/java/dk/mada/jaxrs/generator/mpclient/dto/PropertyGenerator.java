@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
+import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.ValidationGenerator;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum;
@@ -23,7 +24,10 @@ import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.Jackson;
 import dk.mada.jaxrs.generator.mpclient.imports.JavaMath;
 import dk.mada.jaxrs.generator.mpclient.imports.JavaUtil;
+import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
+import dk.mada.jaxrs.generator.mpclient.imports.RestEasy;
 import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
+import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
@@ -77,9 +81,10 @@ public class PropertyGenerator {
      *
      * @param dtoImports the imports for the parent DTO
      * @param prop       the property to make context for
+     * @param parentDto  the parent DTO of the property
      * @return the property context
      */
-    public CtxProperty toCtxProperty(Imports dtoImports, Property prop) {
+    public CtxProperty toCtxProperty(Imports dtoImports, Property prop, Dto parentDto) {
         final Names names = getNames(prop);
         logger.debug("Property {}", names);
 
@@ -139,6 +144,20 @@ public class PropertyGenerator {
 
         Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation());
 
+        String jsonPropertyConst = null;
+        if (opts.isJackson() || opts.isJsonb() || parentDto.isMultipartForm()) {
+            jsonPropertyConst = "JSON_PROPERTY_" + names.snaked();
+        }
+
+        String multipartType = null;
+        if (parentDto.isMultipartForm()) {
+            String useType = ti.isStream() ? "application/octet-stream" : "application/json";
+            multipartType = MediaTypes.toMediaType(dtoImports, useType);
+
+            dtoImports.add(RestEasy.MULTIPART_PARTTYPE);
+            dtoImports.add(JaxRs.FORM_PARAM, JaxRs.MEDIA_TYPE);
+        }
+
         CtxPropertyExt mada = CtxPropertyExt.builder()
                 .innerDatatypeWithEnum(ti.innerTypeName())
                 .enumClassName(ei.enumClassName())
@@ -153,6 +172,8 @@ public class PropertyGenerator {
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
                 .renderJavadocMacroSpacer(description.isPresent())
+                .multipartType(multipartType)
+                .jsonPropertyConstant(jsonPropertyConst)
                 .build();
 
         String propertyName = names.propertyName();
@@ -257,16 +278,21 @@ public class PropertyGenerator {
         String defaultValue = null;
         final boolean isRequired = prop.validation().isRequired().orElse(false);
         boolean isByteArray = false;
+        boolean isStream = false;
         boolean isArray = false;
         boolean isMap = false;
         boolean isSet = false;
         String innerTypeName = null;
 
-        if (propType instanceof TypeByteArray) {
-            isByteArray = true;
-            dtoImports.add(JavaUtil.ARRAYS);
-            if (isRequired) {
-                defaultValue = "new byte[] {}";
+        if (propType instanceof TypeByteArray tba) {
+            if (tba.isArray()) {
+                isByteArray = true;
+                dtoImports.add(JavaUtil.ARRAYS);
+                if (isRequired) {
+                    defaultValue = "new byte[] {}";
+                }
+            } else {
+                isStream = true;
             }
         }
         if (propType instanceof TypeArray ca) {
@@ -300,7 +326,7 @@ public class PropertyGenerator {
 
         return new TypeInfo(propType, typeName, innerType, innerTypeName, defaultValue,
                 isRequired, isContainer,
-                isByteArray, isArray, isMap, isSet);
+                isByteArray, isStream, isArray, isMap, isSet);
     }
 
     record TypeInfo(
@@ -312,6 +338,7 @@ public class PropertyGenerator {
             boolean isRequired,
             boolean isContainer,
             boolean isByteArray,
+            boolean isStream,
             boolean isArray,
             boolean isMap,
             boolean isSet) {

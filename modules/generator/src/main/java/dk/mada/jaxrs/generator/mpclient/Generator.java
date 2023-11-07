@@ -46,7 +46,7 @@ public final class Generator implements GeneratorService {
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
             var leakedGeneratorOpts = new LeakedGeneratorOpts(TypeDateTime.get(generatorOpts.getDateTimeVariant()),
-                    generatorOpts.dtoPackage());
+                    generatorOpts.dtoPackage(), generatorOpts.isApiUseMultipartForm());
             Model model = new Parser(clientContext.showParserInfo(), naming, parserOpts, leakedGeneratorOpts)
                     .parse(openapiDocument);
 
@@ -54,7 +54,7 @@ public final class Generator implements GeneratorService {
         } catch (IllegalArgumentException e) {
             throw new GeneratorBadInputException(e.getMessage(), e);
         } catch (Exception e) {
-            throw new GeneratorException("Failed", e);
+            throw new GeneratorException(e.getMessage(), e);
         }
     }
 

@@ -359,7 +359,7 @@ public class DtoGenerator {
         Comparator<? super CtxProperty> propertySorter = propertySorter();
 
         Stream<CtxProperty> props = ds.properties().stream()
-                .map(p -> propertyGenerator.toCtxProperty(ds.imports(), p));
+                .map(p -> propertyGenerator.toCtxProperty(ds.imports(), p, ds.dto()));
 
         if (propertySorter != null) {
             props = props.sorted(propertySorter);

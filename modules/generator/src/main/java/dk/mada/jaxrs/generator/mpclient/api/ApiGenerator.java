@@ -3,7 +3,6 @@ package dk.mada.jaxrs.generator.mpclient.api;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.mpclient.CommonPathFinder;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
+import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.Templates;
 import dk.mada.jaxrs.generator.mpclient.ValidationGenerator;
@@ -23,10 +23,11 @@ import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiOp;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiOpExt;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiParam;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiResponse;
+import dk.mada.jaxrs.generator.mpclient.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
-import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
 import dk.mada.jaxrs.generator.mpclient.imports.MicroProfile;
+import dk.mada.jaxrs.generator.mpclient.imports.RestEasy;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.Validation;
@@ -54,15 +55,6 @@ import dk.mada.jaxrs.model.types.TypeVoid;
  */
 public class ApiGenerator {
     private static final Logger logger = LoggerFactory.getLogger(ApiGenerator.class);
-
-    /**
-     * Media types supported for now.
-     */
-    private static final Map<String, String> MEDIA_TYPES = Map.of(
-            "application/json", "APPLICATION_JSON",
-            "application/octet-stream", "APPLICATION_OCTET_STREAM",
-            "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED",
-            "text/plain", "TEXT_PLAIN");
 
     /** Naming. */
     private final Naming naming;
@@ -346,6 +338,7 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .validation(Optional.of(validationGenerator.makeRequired()))
+                    .isMultipartForm(false)
                     .build());
         }
 
@@ -353,7 +346,8 @@ public class ApiGenerator {
             Reference ref = p.reference();
             imports.add(ref);
 
-            String paramName = naming.convertParameterName(p.name());
+            String name = p.name();
+            String paramName = naming.convertParameterName(name);
 
             Type type = ref.refType();
             String dataType = paramDataType(type);
@@ -363,8 +357,8 @@ public class ApiGenerator {
 
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
 
-            params.add(CtxApiParam.builder()
-                    .baseName(p.name())
+            ImmutableCtxApiParam param = CtxApiParam.builder()
+                    .baseName(name)
                     .paramName(paramName)
                     .dataType(dataType)
                     .validation(valCtx)
@@ -375,7 +369,11 @@ public class ApiGenerator {
                     .isHeaderParam(p.isHeaderParam())
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
-                    .build());
+                    .isMultipartForm(false)
+                    .build();
+
+            logger.debug("PARAM {} : {}", name, p.isFormParam());
+            params.add(param);
         }
 
         op.requestBody().ifPresent(body -> {
@@ -393,6 +391,10 @@ public class ApiGenerator {
 
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
 
+            boolean isMultipartForm = body.isMultipartForm();
+            if (isMultipartForm) {
+                imports.add(RestEasy.MULTIPART_FORM);
+            }
             CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
@@ -405,6 +407,7 @@ public class ApiGenerator {
                     .isHeaderParam(false)
                     .isPathParam(false)
                     .isQueryParam(false)
+                    .isMultipartForm(isMultipartForm)
                     .build();
 
             // Only include body param if it is not void. It may be void
@@ -412,6 +415,7 @@ public class ApiGenerator {
             if (!ref.isVoid()) {
                 params.add(bodyParam);
             }
+            logger.debug("BODY {}", bodyParam);
         });
 
         logger.debug("Params: {}", params);
@@ -460,7 +464,7 @@ public class ApiGenerator {
         ContentContext context = new ContentContext(op.path(), true, Location.RESPONSE);
         Optional<String> mediaType = model.contentSelector()
                 .selectPreferredMediaType(responseMediaTypes, context)
-                .map(mt -> toMediaType(imports, mt))
+                .map(mt -> MediaTypes.toMediaType(imports, mt))
                 .filter(mt -> !opResponseMediaTypes.contains(mt));
 
         String description = r.description()
@@ -488,7 +492,7 @@ public class ApiGenerator {
 
         ContentContext context = new ContentContext(op.path(), false, Location.REQUEST);
         return model.contentSelector().selectPreferredMediaType(mediaTypes, context)
-                .map(mt -> toMediaType(imports, mt));
+                .map(mt -> MediaTypes.toMediaType(imports, mt));
     }
 
     /**
@@ -512,7 +516,7 @@ public class ApiGenerator {
 
         ContentContext context = new ContentContext(op.path(), true, Location.RESPONSE);
         return model.contentSelector().selectPreferredMediaType(potentialMediaTypes, context)
-                .map(mt -> toMediaType(imports, mt));
+                .map(mt -> MediaTypes.toMediaType(imports, mt));
     }
 
     /**
@@ -527,16 +531,5 @@ public class ApiGenerator {
         return op.responses().stream()
                 .sorted((a, b) -> Integer.compare(a.code().ordinal(), b.code().ordinal()))
                 .findFirst();
-    }
-
-    private String toMediaType(Imports imports, String mediaType) {
-        String mtConstant = MEDIA_TYPES.get(mediaType);
-        if (mtConstant == null) {
-            return "\"" + mediaType + "\"";
-        }
-
-        imports.add(JaxRs.MEDIA_TYPE);
-
-        return "MediaType." + mtConstant;
     }
 }

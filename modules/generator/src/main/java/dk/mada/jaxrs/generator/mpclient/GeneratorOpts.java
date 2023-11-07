@@ -431,6 +431,11 @@ public final class GeneratorOpts {
         return or.get("generator-api-default-name");
     }
 
+    /** {@return true if generation of API classes should use multipart bodies.} */
+    public boolean isApiUseMultipartForm() {
+        return or.bool("generator-api-use-multipartform", false);
+    }
+
     /** {@return true if generation of API classes should be skipped.} */
     public boolean isSkipApiClasses() {
         return or.bool("generator-api-skip", false);

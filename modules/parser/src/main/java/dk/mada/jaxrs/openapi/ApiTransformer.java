@@ -17,17 +17,18 @@ import org.slf4j.LoggerFactory;
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.ContentSelector;
+import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
+import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.api.Operation;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
 import dk.mada.jaxrs.model.api.StatusCode;
-import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
-import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
+import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
@@ -46,12 +47,17 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
  * DefaultGenerator:processOperation
  */
 public class ApiTransformer {
+    /** The multipart/form-data media type. */
+    private static final String MULTIPART_FORM_DATA = "multipart/form-data";
+
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
     /** Naming. */
     private final Naming naming;
     /** Parser options. */
     private final ParserOpts parseOpts;
+    /** Leaked generator options. */
+    private LeakedGeneratorOpts leakedGenOpts;
     /** Type converter. */
     private final TypeConverter typeConverter;
     /** Security schemes. */
@@ -67,14 +73,17 @@ public class ApiTransformer {
      *
      * @param naming          the naming instance
      * @param parseOpts       the parser options
+     * @param leakedGenOpts   the leaked generator options
      * @param typeConverter   the type converter
      * @param contentSelector the content selector
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(Naming naming, ParserOpts parseOpts, TypeConverter typeConverter, ContentSelector contentSelector,
+    public ApiTransformer(Naming naming, ParserOpts parseOpts, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
+            ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
         this.naming = naming;
         this.parseOpts = parseOpts;
+        this.leakedGenOpts = leakedGenOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
         this.contentSelector = contentSelector;
@@ -114,9 +123,15 @@ public class ApiTransformer {
             tags = List.of();
         }
 
+        Optional<String> operationId = naming.convertOperationIdName(op.getOperationId());
+        String syntheticOperationId = generateSyntheticOpId(resourcePath, httpMethod);
+
+        // Not including group yet, need behavior from Operation::group
+        String groupOperationId = operationId.orElse(syntheticOperationId);
+
         List<Parameter> parameters = new ArrayList<>(getParameters(op));
 
-        Optional<RequestBody> requestBody = getRequestBody(resourcePath, op);
+        Optional<RequestBody> requestBody = getRequestBody(groupOperationId, resourcePath, op);
         requestBody.ifPresent(rb -> parameters.addAll(rb.formParameters()));
 
         List<Response> responses;
@@ -137,8 +152,8 @@ public class ApiTransformer {
                 .description(Optional.ofNullable(op.getDescription()))
                 .summary(Optional.ofNullable(op.getSummary()))
                 .deprecated(toBool(op.getDeprecated()))
-                .operationId(naming.convertOperationIdName(op.getOperationId()))
-                .syntheticOpId(generateSyntheticOpId(resourcePath, httpMethod))
+                .operationId(operationId)
+                .syntheticOpId(syntheticOperationId)
                 .httpMethod(toModelHttpMethod(httpMethod))
                 .path(resourcePath)
                 .responses(responses)
@@ -181,7 +196,7 @@ public class ApiTransformer {
         return r;
     }
 
-    private Optional<RequestBody> getRequestBody(String resourcePath, io.swagger.v3.oas.models.Operation op) {
+    private Optional<RequestBody> getRequestBody(String groupOpId, String resourcePath, io.swagger.v3.oas.models.Operation op) {
         io.swagger.v3.oas.models.parameters.RequestBody body = op.getRequestBody();
         if (body == null) {
             return Optional.empty();
@@ -189,13 +204,45 @@ public class ApiTransformer {
 
         ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
         Content content = selectContent(body.getContent(), cc);
+
+        MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
+
+        if (leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null) {
+            logger.debug("FORM-DATA: {}", mt);
+            @SuppressWarnings("rawtypes")
+            Schema<?> schema = mt.getSchema();
+            ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
+            Content multipartBodyContent = Content.builder()
+                    .reference(multipartBody)
+                    .mediaTypes(List.of(MULTIPART_FORM_DATA))
+                    .build();
+
+            return Optional.of(
+                    RequestBody.builder()
+                            .description(Optional.of("Synthetic multipart body"))
+                            .content(multipartBodyContent)
+                            .formParameters(List.of())
+                            .isMultipartForm(true)
+                            .build());
+        }
+
         List<Parameter> formParameters = extractFormParameters(body.getContent());
+        logger.debug("GOT FORM PARAMS: {}", formParameters);
+
+        if (!formParameters.isEmpty()) {
+            // Suppress rendering of DTO if form parameters are rendered
+            content = Content.builder()
+                    .reference(TypeVoid.getRef())
+                    .mediaTypes(List.of())
+                    .build();
+        }
 
         return Optional.of(
                 RequestBody.builder()
                         .description(Optional.ofNullable(body.getDescription()))
                         .content(content)
                         .formParameters(formParameters)
+                        .isMultipartForm(false)
                         .build());
     }
 
@@ -206,7 +253,7 @@ public class ApiTransformer {
      * @return the list of found form parameters
      */
     private List<Parameter> extractFormParameters(io.swagger.v3.oas.models.media.Content content) {
-        MediaType mt = content.get("application/x-www-form-urlencoded");
+        MediaType mt = content.get(MULTIPART_FORM_DATA);
         if (mt == null || mt.getSchema() == null) {
             return List.of();
         }
@@ -226,7 +273,7 @@ public class ApiTransformer {
     // At least an enum parameter may have to be rendered as a standalone
     // type (DTO). This does not happen with this code alone.
     private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
-        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null);
+        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null, true);
         logger.debug("Parse form param {} : {}", name, dtoPtr);
 
         return Parameter.builder()
@@ -329,6 +376,8 @@ public class ApiTransformer {
                 ref = TypeVoid.getRef();
             } else {
                 @Nullable Schema<?> ss = getPreferredSchema(c, context);
+
+                logger.debug("SCHEMA: {}", ss);
 
                 if (ss == null) {
                     // This happens in some documents

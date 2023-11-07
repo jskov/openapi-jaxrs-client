@@ -28,6 +28,7 @@ dependencies {
     testImplementation 'com.fasterxml.jackson.core:jackson-core'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind'
     testImplementation 'io.quarkus:quarkus-rest-client'
+    testImplementation 'io.quarkus:quarkus-resteasy-multipart'
     testImplementation 'jakarta.annotation:jakarta.annotation-api'
     testImplementation 'jakarta.json:jakarta.json-api'
     testImplementation 'jakarta.json.bind:jakarta.json.bind-api'

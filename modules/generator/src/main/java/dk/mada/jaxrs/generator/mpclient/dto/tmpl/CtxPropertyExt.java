@@ -66,4 +66,10 @@ public interface CtxPropertyExt {
 
     /** {@return true if a spacer is needed before javadoc macros} */
     boolean renderJavadocMacroSpacer();
+
+    /** {@return the multipart type associated with this property, or null} */
+    @Nullable String multipartType();
+
+    /** {@return a json property constant value, or null} */
+    @Nullable String jsonPropertyConstant();
 }

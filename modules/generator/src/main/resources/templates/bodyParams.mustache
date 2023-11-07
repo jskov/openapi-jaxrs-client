@@ -1,5 +1,7 @@
 {{#isBodyParam}}{{!
 
+    }}{{#isMultipartForm}}@MultipartForm{{#validation}} {{/validation}}{{/isMultipartForm}}{{!
+
     }}{{#validation}}{{>beanValidation}}{{/validation}}{{!
 
     }}{{{dataType}}} {{paramName}}{{!

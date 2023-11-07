@@ -74,4 +74,7 @@ public interface Dto extends Type {
 
     /** {@return the parents that this DTO extends} */
     List<Dto> extendsParents();
+
+    /** {@return true if this instance is used as a multipart form body} */
+    boolean isMultipartForm();
 }

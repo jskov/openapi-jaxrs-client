@@ -1,0 +1,51 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+tags: []
+paths:
+  /api/methods/create:
+    post:
+      tags:
+      - templates
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - template-jar
+              - jar-size
+              type: object
+              properties:
+                metadata:
+                  $ref: '#/components/schemas/TemplateDTO'
+                template-jar:
+                  format: binary
+                  type: string
+                jar-size:
+                  format: int64
+                  type: integer
+      responses:
+        "201":
+          description: Created
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+components:
+  schemas:
+    TemplateDTO:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
