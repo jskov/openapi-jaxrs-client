@@ -83,7 +83,6 @@ public class JaxrsPlugin implements Plugin<Project> {
 
                         t.setDescription("Downloads OpenApi document for client " + docName);
                         t.setGroup(CLIENT_TASK_GROUP);
-                        t.setEnabled(url.isPresent());
                         t.getDocumentUrl().set(url);
                         t.getOutputFile().set(extOpenApiDocDirectory.file(openapiDocumentName));
                     });
