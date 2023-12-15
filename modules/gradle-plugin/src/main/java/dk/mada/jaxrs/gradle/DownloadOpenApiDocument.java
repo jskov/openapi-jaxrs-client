@@ -38,6 +38,9 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
         // changed at any time - so it always needs to be downloaded when the task runs.
         // We assume the user knows when it is necessary to re-download the document.
         getOutputs().upToDateWhen(t -> false);
+
+        // But only download if the URL is actually specified.
+    	onlyIf(t -> getDocumentUrl().isPresent());
     }
 
     /**
