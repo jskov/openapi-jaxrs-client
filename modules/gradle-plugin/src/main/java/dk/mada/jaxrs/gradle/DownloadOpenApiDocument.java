@@ -40,7 +40,7 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
         getOutputs().upToDateWhen(t -> false);
 
         // But only download if the URL is actually specified.
-    	onlyIf(t -> getDocumentUrl().isPresent());
+        onlyIf(t -> getDocumentUrl().isPresent());
     }
 
     /**
