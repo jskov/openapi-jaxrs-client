@@ -103,7 +103,7 @@ jobs:
           unzip -t /tmp/bundle-client.jar
 
       - name: Capture Bundle
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bundle
           path: "/tmp/bundle-*.jar"
