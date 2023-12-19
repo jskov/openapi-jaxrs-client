@@ -98,7 +98,7 @@ This tool provides infrastructure to whomever uses it, so it should be Open Sour
 But (my definition of) stability and quality of the generator's output is more important to me than being able to accept changes from other parties.  
 It is a tool I rely on to provide a difference for colleagues at work.
 
-So while you are welcome to access and fork the source code, I am not at such interested in contributions.  
+So while you are welcome to access and fork the source code, I am not as such interested in contributions.  
 Unless they just happen to align with my interests, of course.
 
 If you are itching to make some changes, please open an issue first, so we can discuss.  
