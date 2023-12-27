@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.mpclient;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.Properties;
 
 import dk.mada.jaxrs.generator.api.ClientContext;
@@ -13,6 +14,7 @@ import dk.mada.jaxrs.generator.mpclient.GeneratorOpts.LeakedParserOpts;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.options.OptionReader;
+import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
@@ -43,6 +45,8 @@ public final class Generator implements GeneratorService {
             var generatorOpts = new GeneratorOpts(optionReader, leakedParserOpts);
             var naming = new Naming(optionReader);
 
+            defineLatePrimitives(generatorOpts);
+
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
             var leakedGeneratorOpts = new LeakedGeneratorOpts(TypeDateTime.get(generatorOpts.getDateTimeVariant()),
@@ -56,6 +60,11 @@ public final class Generator implements GeneratorService {
         } catch (Exception e) {
             throw new GeneratorException(e.getMessage(), e);
         }
+    }
+
+    private void defineLatePrimitives(GeneratorOpts genOpts) {
+        Primitive desiredNoFormatIntType = Primitive.valueOf(genOpts.getNoFormatIntegerType().toUpperCase(Locale.ROOT));
+        Primitive.NOFORMAT_INT.setNoformatIntTypes(desiredNoFormatIntType);
     }
 
     private void assertDestinationDir(ClientContext clientContext, GeneratorOpts generatorOpts, Path destinationDir) {

@@ -334,6 +334,15 @@ The options are grouped into three sections:
 >
     default value:
 
+**generator-type-no-format-integer**
+
+>Allows you to define which type to use for integers that have no explicit format defined.
+
+>Historically, this has defaulted to short, but this may change in a later minor release.
+
+>
+    default value: SHORT
+
 **generator-quarkus-use-register-for-reflection**
 
 >Allows you to add @RegisterForReflection to all DTos.
