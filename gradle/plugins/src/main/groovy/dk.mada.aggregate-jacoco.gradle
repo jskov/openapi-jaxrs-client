@@ -1,0 +1,27 @@
+plugins {
+    id 'jacoco-report-aggregation'
+}
+
+// Client project should define ext.aggregateJacocoProjects
+
+afterEvaluate {
+    dependencies {
+        jacocoAggregation project.ext.aggregateJacocoProjects
+    }
+}
+
+reporting {
+    reports {
+        testCodeCoverageReport(JacocoCoverageReport) { 
+            testType = TestSuiteType.UNIT_TEST
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('testCodeCoverageReport', JacocoReport) 
+}
+
+rootProject.tasks.named("sonar") {
+    it.dependsOn('testCodeCoverageReport')
+}
