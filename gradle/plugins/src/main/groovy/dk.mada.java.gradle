@@ -46,3 +46,12 @@ compileTestJava {
 tasks.named("test") {
     useJUnitPlatform()
 }
+
+tasks.named('javadoc') {
+    // Without this hack, ./gradlew clean :generator:javadoc
+    // fails because javadoc does not see the generated classes
+    doFirst {
+        println "Sleep for generated code sync..."
+//        sleep 4000
+    }
+}
