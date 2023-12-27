@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
 import dk.mada.jaxrs.model.options.OptionReader;
+import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
 
@@ -429,6 +430,12 @@ public final class GeneratorOpts {
     /** {@return the default Api resource name} */
     public Optional<String> getDefaultApiName() {
         return or.get("generator-api-default-name");
+    }
+
+    /** {@return the primitive type to use for integers without format} */
+    public String getNoFormatIntegerType() {
+        return or.get("generator-type-no-format-integer")
+                .orElse(Primitive.SHORT.name());
     }
 
     /** {@return true if generation of API classes should use multipart bodies.} */

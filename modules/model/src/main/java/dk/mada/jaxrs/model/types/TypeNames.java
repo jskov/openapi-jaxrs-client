@@ -70,6 +70,8 @@ public final class TypeNames {
     public static final TypeName MARKER_VALIDATION = new TypeName("<VALIDATION>");
     /** The type name for an unknown type at parse time - not a real type. */
     public static final TypeName MARKER_UNKNOWN = new TypeName("<UNKNOWN>");
+    /** The type name marking an integer of unknown format/size. */
+    public static final TypeName MARKER_NOFORMAT_INT = new TypeName("<noformat-int>");
 
     /** TypeName instances indexed by their name. */
     private final Map<String, TypeName> nameToInstances = new HashMap<>();
