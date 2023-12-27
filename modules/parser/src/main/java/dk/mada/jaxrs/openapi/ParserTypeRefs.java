@@ -90,7 +90,7 @@ public class ParserTypeRefs {
     }
 
     /** Parser references mapped by validation requirements. */
-    private static class ValidationRefs {
+    private static final class ValidationRefs {
         /** Parser references, mapped by their validation. */
         private final Map<Validation, Set<ParserTypeRef>> refsByValidation = new HashMap<>();
 

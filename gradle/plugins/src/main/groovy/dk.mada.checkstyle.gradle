@@ -6,6 +6,7 @@ plugins {
 
 checkstyle {
     ignoreFailures = true
+    toolVersion = '10.12.5' // cannot go to 10.12.6 because of google.collections conflict
     configFile = rootProject.file("src/config/checkstyle/checkstyle.xml")
 }
 

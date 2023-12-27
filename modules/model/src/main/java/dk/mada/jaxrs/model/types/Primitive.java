@@ -12,7 +12,7 @@ public enum Primitive implements Type {
     BOOLEAN("boolean:", TypeNames.BOOLEAN, TypeNames.BOOLEAN_WRAPPER),
     /**
      * An integer of unknown format. Generator decides how to render this.
-     * 
+     *
      * @see <a href="https://swagger.io/specification/#data-types">spec</a>
      */
     NOFORMAT_INT("integer:", TypeNames.MARKER_NOFORMAT_INT, TypeNames.MARKER_NOFORMAT_INT),
@@ -20,7 +20,7 @@ public enum Primitive implements Type {
     BYTE("string:byte", TypeNames.BYTE, TypeNames.BYTE_WRAPPER),
     /**
      * The short. This cannot be represented by spec's type/format.
-     * 
+     *
      * @see <a href="https://swagger.io/specification/#data-types">spec</a>
      */
     SHORT("undef", TypeNames.SHORT, TypeNames.SHORT_WRAPPER),
