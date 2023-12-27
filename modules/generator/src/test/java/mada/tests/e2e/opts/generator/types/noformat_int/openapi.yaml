@@ -1,0 +1,73 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /api/types/int32:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int32
+  /api/types/int64:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+  /api/types/noformat:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+components:
+  schemas:
+    PlainObject:
+      type: object
+    Primitives:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+        aByte:
+          format: byte
+          type: string
+        noFormat:
+          type: integer
+        anInt:
+          format: int32
+          type: integer
+        aLong:
+          format: int64
+          type: integer
+        aFloat:
+          format: float
+          type: number
+        aDouble:
+          format: double
+          type: number
+        aString:
+          type: string
+        object:
+          type: object
+        plainObject:
+          $ref: '#/components/schemas/PlainObject'

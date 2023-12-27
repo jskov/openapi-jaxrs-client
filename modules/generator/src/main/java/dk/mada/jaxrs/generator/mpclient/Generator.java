@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.mpclient;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.Properties;
 
 import dk.mada.jaxrs.generator.api.ClientContext;
@@ -62,7 +63,7 @@ public final class Generator implements GeneratorService {
     }
 
     private void defineLatePrimitives(GeneratorOpts genOpts) {
-        Primitive desiredNoFormatIntType = Primitive.valueOf(genOpts.getNoFormatIntegerType());
+        Primitive desiredNoFormatIntType = Primitive.valueOf(genOpts.getNoFormatIntegerType().toUpperCase(Locale.ROOT));
         Primitive.NOFORMAT_INT.setNoformatIntTypes(desiredNoFormatIntType);
     }
 
