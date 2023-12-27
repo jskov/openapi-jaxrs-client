@@ -1,11 +1,10 @@
 plugins {
     id 'dk.mada.sonarqube'
     id 'dk.mada.aggregate-javadoc'
-//    id 'dk.mada.aggregate-jacoco' apply false
     id 'eclipse'
 }
 
-//apply plugin: 'dk.mada.aggregate-jacoco'
+apply plugin: 'dk.mada.aggregate-jacoco'
 
 ext {
     aggregateJavadocProjects = [
