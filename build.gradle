@@ -2,6 +2,28 @@ plugins {
     id 'dk.mada.sonarqube'
     id 'dk.mada.aggregate-javadoc'
     id 'eclipse'
+    id 'jacoco-report-aggregation'
+}
+
+dependencies {
+    jacocoAggregation project(':generator')
+    jacocoAggregation project(':generator-api')
+    jacocoAggregation project(':generator-cli')
+    jacocoAggregation project(':gradle-plugin')
+    jacocoAggregation project(':model')
+    jacocoAggregation project(':parser')
+}
+
+reporting {
+    reports {
+        testCodeCoverageReport(JacocoCoverageReport) { 
+            testType = TestSuiteType.UNIT_TEST
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('testCodeCoverageReport', JacocoReport) 
 }
 
 ext {
