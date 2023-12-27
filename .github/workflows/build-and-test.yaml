@@ -50,7 +50,7 @@ jobs:
         with:
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          arguments: build sonar javadoc publish -s
+          arguments: check sonar javadoc publish -s
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

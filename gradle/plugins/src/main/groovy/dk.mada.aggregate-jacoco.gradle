@@ -18,6 +18,13 @@ reporting {
     }
 }
 
+testCodeCoverageReport {
+    reports {
+        xml.required = true
+        xml.outputLocation = file("build/reports/jacoco/test/jacocoTestReport.xml")
+    }
+}
+
 tasks.named('check') {
     dependsOn tasks.named('testCodeCoverageReport', JacocoReport) 
 }
