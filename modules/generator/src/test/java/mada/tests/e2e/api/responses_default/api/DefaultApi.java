@@ -65,6 +65,8 @@ public interface DefaultApi {
 
   /**
    * getOkWithTypeFromDefault.
+   *
+   * @return String
    */
   @GET
   @Path("getOkWithTypeFromDefault")

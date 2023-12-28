@@ -195,6 +195,16 @@ public class ApiGenerator {
                 .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
                 .orElse(TypeVoid.getRef());
 
+        // If OK is declared as Void, replace with default type (if available)
+        Content okContent = getContentForStatus(op, StatusCode.HTTP_OK)
+                .orElse(null);
+        Content defaultContent = getContentForStatus(op, StatusCode.HTTP_DEFAULT)
+                .orElse(null);
+        if (okContent != null && okContent.reference().isVoid()
+                && defaultContent != null) {
+            typeRef = defaultContent.reference();
+        }
+
         // Gets matching media types, check for input-stream replacement
         Set<String> mediaTypes = getMediaTypeForStatus(op, StatusCode.HTTP_OK)
                 .or(() -> getMediaTypeForStatus(op, StatusCode.HTTP_CREATED))
