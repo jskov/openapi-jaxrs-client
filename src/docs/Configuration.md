@@ -62,13 +62,6 @@ The options are grouped into three sections:
 >
     default value: false
 
-**parser-fixup-void-200-to-204**
-
->This option allows changing a 200-response that has no declared return type to a 204-response.
-
->
-    default value: false
-
 **parser-inputstream-is-jse**
 
 >This option allows parsing of the type byte[] (`FileSchema` and `BinarySchema`) to be treated by the generator as Java SE `java.io.InputSteam`.

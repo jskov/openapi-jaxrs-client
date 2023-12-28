@@ -62,4 +62,17 @@ public interface DefaultApi {
                  content = @Content(schema = @Schema(implementation = String.class)))
   })
   String getOk();
+
+  /**
+   * getOkWithTypeFromDefault.
+   */
+  @GET
+  @Path("getOkWithTypeFromDefault")
+  @Produces(MediaType.APPLICATION_JSON)
+  @APIResponses({
+    @APIResponse(responseCode = "default", description = "default response",
+                 content = @Content(schema = @Schema(implementation = String.class))),
+    @APIResponse(responseCode = "200", description = "OK")
+  })
+  String getOkWithTypeFromDefault();
 }
