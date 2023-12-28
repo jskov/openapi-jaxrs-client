@@ -359,10 +359,14 @@ public class ApiTransformer {
             } else {
                 @Nullable Schema<?> ss = getPreferredSchema(c, context);
 
-                logger.debug("SCHEMA: {}", ss);
+                logger.trace("SCHEMA: {}", ss);
 
                 if (ss == null) {
-                    // This happens in some documents
+                    // This happens in some documents - and can be used to redirect to
+                    // the default schema.
+                    // Retain as Void so generated @APIResponse will retain information.
+                    // Generator can then decide to substitute the default schema type
+                    // in the actual code.
                     ref = TypeVoid.getRef();
                 } else {
                     ref = typeConverter.toReference(ss, context.isRequired());
