@@ -77,4 +77,14 @@ public interface DefaultApi {
     @APIResponse(responseCode = "200", description = "OK")
   })
   String getOkWithTypeFromDefault();
+
+  /**
+   * getOkWithVoid.
+   */
+  @GET
+  @Path("getOkWithVoid")
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "OK")
+  })
+  void getOkWithVoid();
 }
