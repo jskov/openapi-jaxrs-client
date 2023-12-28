@@ -8,7 +8,7 @@ dependencies {
     constraints {
         // For null-checking
         api 'com.google.errorprone:error_prone_core:2.24.0'
-        api 'com.uber.nullaway:nullaway:0.10.18'
+        api 'com.uber.nullaway:nullaway:0.10.19'
         api 'org.jspecify:jspecify:0.3.0'
         // errorprone includes vulnerable protobuf-java
         api 'com.google.protobuf:protobuf-java:3.25.1'
