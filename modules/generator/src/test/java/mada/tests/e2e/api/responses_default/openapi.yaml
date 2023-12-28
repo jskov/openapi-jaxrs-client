@@ -71,4 +71,9 @@ paths:
                 type: string
         "200":
           description: OK
-            
+  /getOkWithVoid:
+    get:
+      operationId: getOkWithVoid
+      responses:
+        "200":
+          description: OK

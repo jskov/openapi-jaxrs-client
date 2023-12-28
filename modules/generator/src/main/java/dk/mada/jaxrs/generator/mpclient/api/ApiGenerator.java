@@ -227,7 +227,7 @@ public class ApiGenerator {
         List<CtxApiParam> allParams = getParams(imports, op);
         List<CtxApiResponse> responses = getResponses(imports, op, producesMediaType.stream().toList());
 
-        boolean onlySimpleResponse = addImports(imports, op);
+        boolean onlySimpleResponse = addResponseImports(imports, op);
 
         boolean renderJavadocReturn = !typeRef.isVoid();
         boolean renderJavadocMacroSpacer = renderJavadocReturn || !allParams.isEmpty();
@@ -281,7 +281,7 @@ public class ApiGenerator {
                 .findFirst();
     }
 
-    private boolean addImports(Imports imports, Operation op) {
+    private boolean addResponseImports(Imports imports, Operation op) {
         if (op.responses().isEmpty()) {
             return false;
         }
@@ -313,7 +313,9 @@ public class ApiGenerator {
 
         Response r = responses.get(0);
         boolean isContainer = r.content().reference().isContainer();
-        boolean isSimpleResponse = !isContainer && r.code() == StatusCode.HTTP_OK;
+        boolean isSimpleResponse = !isContainer
+                && r.code() == StatusCode.HTTP_OK
+                && !r.isVoid();
         logger.debug(" simple: {}", isSimpleResponse);
         return isSimpleResponse;
     }
