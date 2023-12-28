@@ -85,24 +85,6 @@ class CliHandlingTest {
     }
 
     /**
-     * If return type is missing, should fail and recommend use of parser-fixup-void-200-to-204 property.
-     */
-    @Test
-    void shouldRecommendVoidFix() {
-        String dir = outputDir.resolve("new").toAbsolutePath().toString();
-        Result res = run(
-                "--show-parser-info",
-                "--input", "src/test/java/mada/tests/main/openapi-no-return-type.yaml",
-                "--output-directory", dir);
-        
-        assertThat(res.exitCode)
-            .isEqualTo(1);
-        assertThat(res.output)
-            .contains("does not provide a return type")
-            .contains("parser-fixup-void-200-to-204");
-    }
-
-    /**
      * Runs the generator via the command-line interface.
      *
      * Uses a static byte buffer to collect output. This is necessary

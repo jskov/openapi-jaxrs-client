@@ -58,3 +58,22 @@ paths:
           content:
             application/xml: {}
             application/json: {}
+  /getOkWithTypeFromDefault:
+    # From https://github.com/jskov/openapi-jaxrs-client/issues/466
+    get:
+      operationId: getOkWithTypeFromDefault
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+  /getOkWithVoid:
+    get:
+      operationId: getOkWithVoid
+      responses:
+        "200":
+          description: OK

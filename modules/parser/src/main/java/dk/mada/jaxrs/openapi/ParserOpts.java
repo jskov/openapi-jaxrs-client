@@ -78,11 +78,6 @@ public final class ParserOpts {
         return or.bool("parser-inputstream-is-jse", true);
     }
 
-    /** {@return true if a void operation returning 200 should be changed to return 204} */
-    public boolean isFixupVoid200to204() {
-        return or.bool("parser-fixup-void-200-to-204", false);
-    }
-
     /** {@return true if null-type with format date/date-time should be fixed} */
     public boolean isFixupNullTypeDates() {
         return or.bool("parser-fixup-null-type-dates", false);

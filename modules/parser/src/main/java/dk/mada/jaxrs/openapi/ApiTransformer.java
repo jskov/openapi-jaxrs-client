@@ -54,8 +54,6 @@ public class ApiTransformer {
 
     /** Naming. */
     private final Naming naming;
-    /** Parser options. */
-    private final ParserOpts parseOpts;
     /** Leaked generator options. */
     private LeakedGeneratorOpts leakedGenOpts;
     /** Type converter. */
@@ -72,17 +70,15 @@ public class ApiTransformer {
      * Constructs a new API transformer instance.
      *
      * @param naming          the naming instance
-     * @param parseOpts       the parser options
      * @param leakedGenOpts   the leaked generator options
      * @param typeConverter   the type converter
      * @param contentSelector the content selector
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(Naming naming, ParserOpts parseOpts, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
+    public ApiTransformer(Naming naming, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
             ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
         this.naming = naming;
-        this.parseOpts = parseOpts;
         this.leakedGenOpts = leakedGenOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
@@ -175,25 +171,11 @@ public class ApiTransformer {
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         ContentContext cc = new ContentContext(resourcePath, false, Location.RESPONSE);
-        Response r = Response.builder()
+        return Response.builder()
                 .code(StatusCode.of(code))
                 .description(Optional.ofNullable(resp.getDescription()))
                 .content(selectContent(resp.getContent(), cc))
                 .build();
-
-        if (r.code() == StatusCode.HTTP_OK && r.content().reference().isVoid()) {
-            if (parseOpts.isFixupVoid200to204()) {
-                logger.info("Fixing broken 200/void response on path '{}' to 204", resourcePath);
-                r = Response.builder().from(r)
-                        .code(StatusCode.HTTP_NO_CONTENT)
-                        .description("No Content")
-                        .build();
-            } else {
-                throw new IllegalArgumentException("The path '" + resourcePath
-                        + "' does not provide a return type. Either fix the API, or enable the option parser-fixup-void-200-to-204.");
-            }
-        }
-        return r;
     }
 
     private Optional<RequestBody> getRequestBody(String groupOpId, String resourcePath, io.swagger.v3.oas.models.Operation op) {
@@ -377,10 +359,14 @@ public class ApiTransformer {
             } else {
                 @Nullable Schema<?> ss = getPreferredSchema(c, context);
 
-                logger.debug("SCHEMA: {}", ss);
+                logger.trace("SCHEMA: {}", ss);
 
                 if (ss == null) {
-                    // This happens in some documents
+                    // This happens in some documents - and can be used to redirect to
+                    // the default schema.
+                    // Retain as Void so generated @APIResponse will retain information.
+                    // Generator can then decide to substitute the default schema type
+                    // in the actual code.
                     ref = TypeVoid.getRef();
                 } else {
                     ref = typeConverter.toReference(ss, context.isRequired());
