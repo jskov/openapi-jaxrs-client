@@ -9,7 +9,7 @@ javaPlatform.allowDependencies()
 
 dependencies {
     api   (platform('org.junit:junit-bom:5.10.1'))
-    api   (platform('org.assertj:assertj-core:3.25.0'))
+    api   (platform('org.assertj:assertj-core:3.25.1'))
 
     constraints {
         api   'io.quarkus:quarkus-rest-client:3.6.4'
