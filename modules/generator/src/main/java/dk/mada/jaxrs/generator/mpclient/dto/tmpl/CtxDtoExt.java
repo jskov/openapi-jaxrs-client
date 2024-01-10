@@ -57,4 +57,7 @@ public interface CtxDtoExt {
 
     /** {@return the optional class modifiers} */
     Optional<String> classModifiers();
+
+    /** {@return true if the toString should create a single-line string} */
+    boolean isRenderSingleLineToString();
 }

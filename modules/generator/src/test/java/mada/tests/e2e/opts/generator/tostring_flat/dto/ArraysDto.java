@@ -460,6 +460,6 @@ public class ArraysDto {
   }
 
   private String toIndentedString(Object o) {
-	    return Objects.toString(o).replace("\n", "\\n");
+    return Objects.toString(o).replace("\n", "\\n");
   }
 }
