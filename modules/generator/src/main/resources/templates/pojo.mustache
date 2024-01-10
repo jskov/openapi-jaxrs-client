@@ -240,17 +240,17 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     StringBuilder sb = new StringBuilder();
     sb.append("{{classname}} {");
     {{#parent}}
-    sb.append(toIndentedString(super.toString()));
+    sb.append(toSingleLineString(super.toString()));
     {{/parent}}
     {{#vars}}
-    sb{{^@first}}.append(", "){{/@first}}.append("{{name}}: ").append(toIndentedString({{name}}));
+    sb{{^@first}}.append(", "){{/@first}}.append("{{name}}: ").append(toSingleLineString({{name}}));
     {{/vars}}
     sb.append("}");
     return sb.toString();
   }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\\n");
+  private String toSingleLineString(Object o) {
+    return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
   }
 {{/madaDto.isRenderSingleLineToString}}
 {{^madaDto.isRenderSingleLineToString}}

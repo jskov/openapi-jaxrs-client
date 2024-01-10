@@ -190,16 +190,16 @@ public class ExternedLists {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("ExternedLists {");
-    sb.append("listDate: ").append(toIndentedString(listDate));
-    sb.append(", ").append("listDateTime: ").append(toIndentedString(listDateTime));
-    sb.append(", ").append("listInt: ").append(toIndentedString(listInt));
-    sb.append(", ").append("listSimple: ").append(toIndentedString(listSimple));
-    sb.append(", ").append("listString: ").append(toIndentedString(listString));
+    sb.append("listDate: ").append(toSingleLineString(listDate));
+    sb.append(", ").append("listDateTime: ").append(toSingleLineString(listDateTime));
+    sb.append(", ").append("listInt: ").append(toSingleLineString(listInt));
+    sb.append(", ").append("listSimple: ").append(toSingleLineString(listSimple));
+    sb.append(", ").append("listString: ").append(toSingleLineString(listString));
     sb.append("}");
     return sb.toString();
   }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\\n");
+  private String toSingleLineString(Object o) {
+    return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
   }
 }

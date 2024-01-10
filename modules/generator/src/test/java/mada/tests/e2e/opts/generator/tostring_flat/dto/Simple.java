@@ -56,12 +56,12 @@ public class Simple {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("Simple {");
-    sb.append("aBoolean: ").append(toIndentedString(aBoolean));
+    sb.append("aBoolean: ").append(toSingleLineString(aBoolean));
     sb.append("}");
     return sb.toString();
   }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\\n");
+  private String toSingleLineString(Object o) {
+    return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
   }
 }

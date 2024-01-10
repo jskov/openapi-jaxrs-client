@@ -78,13 +78,13 @@ public abstract class Super {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("Super {");
-    sb.append("implDiscriminator: ").append(toIndentedString(implDiscriminator));
-    sb.append(", ").append("superValue: ").append(toIndentedString(superValue));
+    sb.append("implDiscriminator: ").append(toSingleLineString(implDiscriminator));
+    sb.append(", ").append("superValue: ").append(toSingleLineString(superValue));
     sb.append("}");
     return sb.toString();
   }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\\n");
+  private String toSingleLineString(Object o) {
+    return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
   }
 }

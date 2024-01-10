@@ -57,13 +57,13 @@ public class SubA extends Super {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("SubA {");
-    sb.append(toIndentedString(super.toString()));
-    sb.append(", ").append("bar: ").append(toIndentedString(bar));
+    sb.append(toSingleLineString(super.toString()));
+    sb.append(", ").append("bar: ").append(toSingleLineString(bar));
     sb.append("}");
     return sb.toString();
   }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\\n");
+  private String toSingleLineString(Object o) {
+    return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
   }
 }

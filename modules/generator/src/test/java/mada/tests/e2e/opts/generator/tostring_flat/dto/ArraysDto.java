@@ -441,25 +441,25 @@ public class ArraysDto {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("ArraysDto {");
-    sb.append("booleans: ").append(toIndentedString(booleans));
-    sb.append(", ").append("bytes: ").append(toIndentedString(bytes));
-    sb.append(", ").append("ints: ").append(toIndentedString(ints));
-    sb.append(", ").append("longs: ").append(toIndentedString(longs));
-    sb.append(", ").append("refs: ").append(toIndentedString(refs));
-    sb.append(", ").append("requiredBooleans: ").append(toIndentedString(requiredBooleans));
-    sb.append(", ").append("requiredBytes: ").append(toIndentedString(requiredBytes));
-    sb.append(", ").append("requiredInts: ").append(toIndentedString(requiredInts));
-    sb.append(", ").append("requiredLongs: ").append(toIndentedString(requiredLongs));
-    sb.append(", ").append("requiredRefs: ").append(toIndentedString(requiredRefs));
-    sb.append(", ").append("requiredShorts: ").append(toIndentedString(requiredShorts));
-    sb.append(", ").append("requiredStrings: ").append(toIndentedString(requiredStrings));
-    sb.append(", ").append("shorts: ").append(toIndentedString(shorts));
-    sb.append(", ").append("strings: ").append(toIndentedString(strings));
+    sb.append("booleans: ").append(toSingleLineString(booleans));
+    sb.append(", ").append("bytes: ").append(toSingleLineString(bytes));
+    sb.append(", ").append("ints: ").append(toSingleLineString(ints));
+    sb.append(", ").append("longs: ").append(toSingleLineString(longs));
+    sb.append(", ").append("refs: ").append(toSingleLineString(refs));
+    sb.append(", ").append("requiredBooleans: ").append(toSingleLineString(requiredBooleans));
+    sb.append(", ").append("requiredBytes: ").append(toSingleLineString(requiredBytes));
+    sb.append(", ").append("requiredInts: ").append(toSingleLineString(requiredInts));
+    sb.append(", ").append("requiredLongs: ").append(toSingleLineString(requiredLongs));
+    sb.append(", ").append("requiredRefs: ").append(toSingleLineString(requiredRefs));
+    sb.append(", ").append("requiredShorts: ").append(toSingleLineString(requiredShorts));
+    sb.append(", ").append("requiredStrings: ").append(toSingleLineString(requiredStrings));
+    sb.append(", ").append("shorts: ").append(toSingleLineString(shorts));
+    sb.append(", ").append("strings: ").append(toSingleLineString(strings));
     sb.append("}");
     return sb.toString();
   }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\\n");
+  private String toSingleLineString(Object o) {
+    return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
   }
 }
