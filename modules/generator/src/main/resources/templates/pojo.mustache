@@ -243,7 +243,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     sb.append(toSingleLineString(super.toString()));
     {{/parent}}
     {{#vars}}
-    sb{{^@first}}.append(", "){{/@first}}.append("{{name}}: ").append(toSingleLineString({{name}}));
+    sb{{#parent}}{{#@first}}.append(", "){{/@first}}{{/parent}}{{^@first}}.append(", "){{/@first}}.append("{{name}}: ").append(toSingleLineString({{name}}));
     {{/vars}}
     sb.append("}");
     return sb.toString();
