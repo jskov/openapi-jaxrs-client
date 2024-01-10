@@ -1,5 +1,5 @@
 /*
- * openapi-examples API
+ * openapi-examples \'API
  *
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
@@ -189,17 +189,17 @@ public class ExternedLists {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ExternedLists {");
-    sb.append("\n    listDate: ").append(toIndentedString(listDate));
-    sb.append("\n    listDateTime: ").append(toIndentedString(listDateTime));
-    sb.append("\n    listInt: ").append(toIndentedString(listInt));
-    sb.append("\n    listSimple: ").append(toIndentedString(listSimple));
-    sb.append("\n    listString: ").append(toIndentedString(listString));
-    sb.append("\n}");
+    sb.append("ExternedLists {");
+    sb.append("listDate: ").append(toIndentedString(listDate));
+    sb.append(", listDateTime: ").append(toIndentedString(listDateTime));
+    sb.append(", listInt: ").append(toIndentedString(listInt));
+    sb.append(", listSimple: ").append(toIndentedString(listSimple));
+    sb.append(", listString: ").append(toIndentedString(listString));
+    sb.append("}");
     return sb.toString();
   }
 
   private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
+    return Objects.toString(o).replace("\n", "\\n");
   }
 }

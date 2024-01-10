@@ -55,9 +55,9 @@ public class Simple {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Simple {");
-    sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
-    sb.append("\n}");
+    sb.append("Simple {");
+    sb.append("aBoolean: ").append(toIndentedString(aBoolean));
+    sb.append("}");
     return sb.toString();
   }
 
