@@ -463,6 +463,14 @@ instead of OffsetDateTime.
 >
     default value: false
 
+**generator-use-single-line-tostring**
+
+>Allows you to select an alternative toString implementation that will output only a single line.
+
+>
+    default value: false
+
+
 **generator-use-zoneddatetime**
 
 >date-time types are deserialized to OffsetDateTime by default, which matches the information
