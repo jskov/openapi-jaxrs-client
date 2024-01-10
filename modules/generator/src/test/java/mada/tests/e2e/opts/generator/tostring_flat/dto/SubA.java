@@ -57,7 +57,7 @@ public class SubA extends Super {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("SubA {");
-    sb.append("").append(toIndentedString(super.toString()));
+    sb.append(toIndentedString(super.toString()));
     sb.append(", ").append("bar: ").append(toIndentedString(bar));
     sb.append("}");
     return sb.toString();
