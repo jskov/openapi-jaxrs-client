@@ -10,29 +10,29 @@ import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
- * Simple
+ * SubB
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class Simple {
-  public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
-  @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)
-  private Boolean aBoolean;
+public class SubB extends Super {
+  public static final String JSON_PROPERTY_FOO = "foo";
+  @JsonbProperty(JSON_PROPERTY_FOO)
+  private Integer foo;
 
-  public Simple aBoolean(Boolean aBoolean) {
-    this.aBoolean = aBoolean;
+  public SubB foo(Integer foo) {
+    this.foo = foo;
     return this;
   }
 
   /**
-   * Get aBoolean
-   * @return aBoolean
+   * Get foo
+   * @return foo
    **/
-  public Boolean isaBoolean() {
-    return aBoolean;
+  public Integer getFoo() {
+    return foo;
   }
 
-  public void setaBoolean(Boolean aBoolean) {
-    this.aBoolean = aBoolean;
+  public void setFoo(Integer foo) {
+    this.foo = foo;
   }
 
   @Override
@@ -40,23 +40,25 @@ public class Simple {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Simple)) {
+    if (!(o instanceof SubB)) {
       return false;
     }
-    Simple other = (Simple) o;
-    return Objects.equals(this.aBoolean, other.aBoolean);
+    SubB other = (SubB) o;
+    return Objects.equals(this.foo, other.foo) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBoolean);
+    return Objects.hash(foo, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("Simple {");
-    sb.append("aBoolean: ").append(toIndentedString(aBoolean));
+    sb.append("SubB {");
+    sb.append("").append(toIndentedString(super.toString()));
+    sb.append(", ").append("foo: ").append(toIndentedString(foo));
     sb.append("}");
     return sb.toString();
   }

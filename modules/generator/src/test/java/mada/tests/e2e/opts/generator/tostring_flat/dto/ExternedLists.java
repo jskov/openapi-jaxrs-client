@@ -1,5 +1,5 @@
 /*
- * openapi-examples \'API
+ * openapi-examples API
  *
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
@@ -191,10 +191,10 @@ public class ExternedLists {
     StringBuilder sb = new StringBuilder();
     sb.append("ExternedLists {");
     sb.append("listDate: ").append(toIndentedString(listDate));
-    sb.append(", listDateTime: ").append(toIndentedString(listDateTime));
-    sb.append(", listInt: ").append(toIndentedString(listInt));
-    sb.append(", listSimple: ").append(toIndentedString(listSimple));
-    sb.append(", listString: ").append(toIndentedString(listString));
+    sb.append(", ").append("listDateTime: ").append(toIndentedString(listDateTime));
+    sb.append(", ").append("listInt: ").append(toIndentedString(listInt));
+    sb.append(", ").append("listSimple: ").append(toIndentedString(listSimple));
+    sb.append(", ").append("listString: ").append(toIndentedString(listString));
     sb.append("}");
     return sb.toString();
   }

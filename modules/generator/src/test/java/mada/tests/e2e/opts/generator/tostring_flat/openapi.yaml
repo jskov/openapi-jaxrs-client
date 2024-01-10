@@ -135,3 +135,39 @@ components:
     DateTimeObj:
       format: date-time
       type: string
+# From inheritance/jackson_fasterxml
+    SubA:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        bar:
+          format: int32
+          type: integer
+    SubB:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        foo:
+          format: int32
+          type: integer
+    Super:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+      discriminator:
+        propertyName: implDiscriminator
+        mapping:
+          subtype-A: '#/components/schemas/SubA'
+          subtype-B: '#/components/schemas/SubB'
