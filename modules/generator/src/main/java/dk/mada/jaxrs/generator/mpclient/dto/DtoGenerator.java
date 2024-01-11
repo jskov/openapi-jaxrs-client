@@ -268,6 +268,7 @@ public class DtoGenerator {
                 .classModifiers(Optional.ofNullable(classModifiers))
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
+                .isRenderSingleLineToString(opts.isUseSingleLineToString())
                 .build();
 
         return CtxDto.builder()

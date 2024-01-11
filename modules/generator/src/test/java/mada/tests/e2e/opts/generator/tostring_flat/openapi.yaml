@@ -1,0 +1,173 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/collections/array:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArraysDto'
+components:
+  schemas:
+    ArraysDto:
+      required:
+      - requiredBooleans
+      - requiredBytes
+      - requiredShorts
+      - requiredInts
+      - requiredLongs
+      - requiredStrings
+      - requiredRefs
+      type: object
+      properties:
+        booleans:
+          type: array
+          items:
+            type: boolean
+        bytes:
+          format: binary
+          type: string
+        shorts:
+          type: array
+          items:
+            type: integer
+        ints:
+          type: array
+          items:
+            format: int32
+            type: integer
+        longs:
+          type: array
+          items:
+            format: int64
+            type: integer
+        strings:
+          type: array
+          items:
+            type: string
+        refs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
+        requiredBooleans:
+          type: array
+          items:
+            type: boolean
+        requiredBytes:
+          format: binary
+          type: string
+        requiredShorts:
+          type: array
+          items:
+            type: integer
+        requiredInts:
+          type: array
+          items:
+            format: int32
+            type: integer
+        requiredLongs:
+          type: array
+          items:
+            format: int64
+            type: integer
+        requiredStrings:
+          type: array
+          items:
+            type: string
+        requiredRefs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Simple'
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+    ExternedLists:
+      type: object
+      properties:
+        listString:
+          $ref: '#/components/schemas/ListString'
+        listSimple:
+          $ref: '#/components/schemas/ListSimple'
+        listInt:
+          $ref: '#/components/schemas/ListInt'
+        listDate:
+          $ref: '#/components/schemas/ListDate'
+        listDateTime:
+          $ref: '#/components/schemas/ListDateTime'
+    ListString:
+      type: array
+      items:
+        $ref: '#/components/schemas/StringObj'
+    StringObj:
+      type: string
+    ListSimple:
+      type: array
+      items:
+        $ref: '#/components/schemas/Simple'
+    ListInt:
+      type: array
+      items:
+        $ref: '#/components/schemas/IntObj'
+    IntObj:
+      format: int32
+      type: integer
+    ListDate:
+      type: array
+      items:
+        $ref: '#/components/schemas/DateObj'
+    DateObj:
+      format: date
+      type: string
+    ListDateTime:
+      type: array
+      items:
+        $ref: '#/components/schemas/DateTimeObj'
+    DateTimeObj:
+      format: date-time
+      type: string
+# From inheritance/jackson_fasterxml
+    SubA:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        bar:
+          format: int32
+          type: integer
+    SubB:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        foo:
+          format: int32
+          type: integer
+    Super:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+      discriminator:
+        propertyName: implDiscriminator
+        mapping:
+          subtype-A: '#/components/schemas/SubA'
+          subtype-B: '#/components/schemas/SubB'

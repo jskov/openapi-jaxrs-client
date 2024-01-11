@@ -234,6 +234,26 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     return Objects.hash({{#vars}}{{^madaProp.isByteArray}}{{name}}{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays.hashCode({{name}}){{/madaProp.isByteArray}}{{^-last}}, {{/-last}}{{/vars}}{{#parent}}{{#hasVars}}, {{/hasVars}}super.hashCode(){{/parent}});
   }
 
+{{#madaDto.isRenderSingleLineToString}}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("{{classname}} {");
+    {{#parent}}
+    sb.append(toSingleLineString(super.toString()));
+    {{/parent}}
+    {{#vars}}
+    sb{{#parent}}{{#@first}}.append(", "){{/@first}}{{/parent}}{{^@first}}.append(", "){{/@first}}.append("{{name}}: ").append(toSingleLineString({{name}}));
+    {{/vars}}
+    sb.append("}");
+    return sb.toString();
+  }
+
+  private String toSingleLineString(Object o) {
+    return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
+  }
+{{/madaDto.isRenderSingleLineToString}}
+{{^madaDto.isRenderSingleLineToString}}
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -251,4 +271,5 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   private String toIndentedString(Object o) {
     return Objects.toString(o).replace("\n", "\n    ");
   }
+{{/madaDto.isRenderSingleLineToString}}
 }

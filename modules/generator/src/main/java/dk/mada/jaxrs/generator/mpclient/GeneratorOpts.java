@@ -351,6 +351,11 @@ public final class GeneratorOpts {
         return or.bool("generator-use-serializable", false);
     }
 
+    /** {@return true if DTOs should use create a toString generating single-line output} */
+    public boolean isUseSingleLineToString() {
+        return or.bool("generator-use-single-line-tostring", false);
+    }
+
     /** {@return true if BigDecimal should be used for double, otherwise use Double} */
     public boolean isUseBigDecimalForDouble() {
         return or.bool("generator-use-bigdecimal-for-double");
