@@ -57,6 +57,8 @@ public final class Generator implements GeneratorService {
             new JavaMPClientGenerator().generate(model, generatorOpts, clientContext, destinationDir);
         } catch (IllegalArgumentException e) {
             throw new GeneratorBadInputException(e.getMessage(), e);
+        } catch (GeneratorException e) {
+            throw e;
         } catch (Exception e) {
             throw new GeneratorException(e.getMessage(), e);
         }

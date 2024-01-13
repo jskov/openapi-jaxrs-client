@@ -77,6 +77,8 @@ public class DtoGenerator {
     private final EnumGenerator enumGenerator;
     /** Property generator. */
     private PropertyGenerator propertyGenerator;
+    /** DTO subject definer. */
+    private DtoSubjectDefiner dtoSubjectDefiner;
 
     /**
      * Constructs a new generator.
@@ -97,6 +99,7 @@ public class DtoGenerator {
         Naming naming = model.naming();
         enumGenerator = new EnumGenerator(naming, opts);
         propertyGenerator = new PropertyGenerator(naming, opts, enumGenerator);
+        dtoSubjectDefiner = new DtoSubjectDefiner(opts);
     }
 
     /**
@@ -191,7 +194,7 @@ public class DtoGenerator {
     }
 
     private CtxDto toCtx(Dto dto) {
-        DtoSubject ds = new DtoSubjectDefiner().defineDtoSubject(opts, dto);
+        DtoSubject ds = dtoSubjectDefiner.defineDtoSubject(dto);
 
         CustomSerializers localDateSerializers = defineLocalDateSerializer(ds);
         CustomSerializers customOffsetDateSerializers = customDateTimeSerializers(ds);

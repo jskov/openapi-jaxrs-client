@@ -8,10 +8,13 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
+import dk.mada.jaxrs.generator.mpclient.GeneratorOpts.PropertyConflictResolution;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 
@@ -21,11 +24,23 @@ import dk.mada.jaxrs.model.types.Type;
 public class DtoSubjectDefiner {
     private static final Logger logger = LoggerFactory.getLogger(DtoSubjectDefiner.class);
 
+    /** The generator options. */
+    private final GeneratorOpts opts;
+
+    /** The selected conflict resolution. */
+    private final PropertyConflictResolution resolution;
+
+    DtoSubjectDefiner(GeneratorOpts opts) {
+        this.opts = opts;
+
+        resolution = opts.getPropertyConflictResolution();
+    }
+
     record DtoSubject(Dto dto, Type type, boolean isEnum, boolean isPrimitiveEquals, Optional<String> extendsName,
             List<Property> properties, Imports imports) {
     }
 
-    public DtoSubject defineDtoSubject(GeneratorOpts opts, Dto dto) {
+    public DtoSubject defineDtoSubject(Dto dto) {
         Type dtoType = dto.reference().refType();
         boolean isEnum = dto.isEnum();
 
@@ -52,14 +67,15 @@ public class DtoSubjectDefiner {
      * @return the properties to be rendered for the Dto
      */
     private List<Property> findRenderedProperties(Dto dto) {
-        Map<String, Property> combinedProps = addCombinedProperties(new HashMap<>(), dto);
+        String dtoName = dto.name();
+        Map<String, Property> combinedProps = addCombinedProperties(dtoName, new HashMap<>(), dto);
 
         // If this Dto extends more than one other Dto
         // it cannot be done in Java. So fold properties
         // from the parents into this Dto.
         List<Dto> externalDtos = dto.extendsParents();
         if (externalDtos.size() > 1) {
-            externalDtos.forEach(ed -> addCombinedProperties(combinedProps, ed));
+            externalDtos.forEach(ed -> addCombinedProperties(dtoName, combinedProps, ed));
 
             if (logger.isDebugEnabled()) {
                 List<String> extendsParentNames = externalDtos.stream()
@@ -73,12 +89,89 @@ public class DtoSubjectDefiner {
         return List.copyOf(combinedProps.values());
     }
 
-    private Map<String, Property> addCombinedProperties(Map<String, Property> combinedProps, Dto dto) {
-    	
-    	dto.properties().forEach(p -> combinedProps.put(p.name(), p));
-    	return combinedProps;
+    private Map<String, Property> addCombinedProperties(String parentDtoName, Map<String, Property> combinedProps, Dto dto) {
+        String dtoName = dto.name();
+        for (Property newProp : dto.properties()) {
+            String propName = newProp.name();
+            logger.debug(" {} : {}", dtoName, propName);
+            if (combinedProps.containsKey(propName)) {
+                Property prevProp = combinedProps.get(propName);
+
+                String msg = "Dto " + parentDtoName + " in conflict with subtype " + dtoName + " about property " + propName + " ";
+
+                // Always assert that the types match. Cannot imagine this needs an option - and if so, it should be separate.
+                Type prevType = prevProp.reference().refType();
+                Type newType = newProp.reference().refType();
+                if (!prevType.equals(newType)) {
+                    GeneratorBadInputException.failBadInput(msg + "type", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+                }
+
+                if (resolution == PropertyConflictResolution.FIRST) {
+                    continue;
+                }
+
+                Validation resolvedVal = getV(prevProp);
+                Validation newVal = getV(newProp);
+                if (!resolvedVal.equals(newVal)) {
+                    logger.warn("Must resolve validation!");
+                    logger.debug("  new validation:  {}", newVal);
+                    logger.debug("  conflicts with: {}", resolvedVal);
+                    if (resolution == PropertyConflictResolution.CLEAR) {
+                        resolvedVal = Validation.NO_VALIDATION;
+                    } else if (resolution == PropertyConflictResolution.FAIL) {
+                        GeneratorBadInputException.failBadInput(msg + "validation",
+                                GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+                    }
+                }
+
+                Optional<String> resolvedDescription = prevProp.description();
+                Optional<String> newDescription = newProp.description();
+                if (!resolvedDescription.equals(newDescription)) {
+                    logger.warn("Must resolve description!");
+                    logger.debug("  new description: {}", newDescription);
+                    logger.debug("  conflicts with: {}", resolvedDescription);
+                    if (resolution == PropertyConflictResolution.CLEAR) {
+                        resolvedDescription = Optional.empty();
+                    } else if (resolution == PropertyConflictResolution.FAIL) {
+                        GeneratorBadInputException.failBadInput(msg + "description",
+                                GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+                    }
+                }
+
+                Optional<String> resolvedExample = prevProp.example();
+                Optional<String> newExample = newProp.example();
+                if (!resolvedExample.equals(newExample)) {
+                    logger.warn("Must resolve example!");
+                    logger.debug("  new example: {}", newExample);
+                    logger.debug("  conflicts with: {}", resolvedExample);
+                    if (resolution == PropertyConflictResolution.CLEAR) {
+                        resolvedExample = Optional.empty();
+                    } else if (resolution == PropertyConflictResolution.FAIL) {
+                        GeneratorBadInputException.failBadInput(msg + "example", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+                    }
+                }
+
+                Property resolvedProp = Property.builderFrom(prevProp)
+                        .description(resolvedDescription)
+                        .example(resolvedExample)
+                        .validation(resolvedVal)
+                        .build();
+                combinedProps.put(propName, resolvedProp);
+            } else {
+                combinedProps.put(propName, newProp);
+            }
+        }
+        return combinedProps;
     }
-    
+
+    private Validation getV(Property p) {
+        Validation v = p.validation();
+        if (v.isEmptyValidation()) {
+            v = p.reference().validation();
+        }
+        return v;
+    }
+
     /**
      * Compute if the Dto should extend a parent.
      *
