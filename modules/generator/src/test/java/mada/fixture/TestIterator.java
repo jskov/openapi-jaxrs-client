@@ -49,7 +49,7 @@ class TestIterator {
         // Handy when working on a single test
 //        String testNameContains = "conflict_first";
 //        String testNameContains = "conflict_fail";
-        String testNameContains = "special_types/json";
+        String testNameContains = "dto/primi";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);

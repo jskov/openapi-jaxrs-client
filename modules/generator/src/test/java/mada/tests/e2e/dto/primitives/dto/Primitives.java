@@ -6,6 +6,7 @@
 
 package mada.tests.e2e.dto.primitives.dto;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 
@@ -37,6 +38,10 @@ public class Primitives {
   public static final String JSON_PROPERTY_AN_INT = "anInt";
   @JsonbProperty(JSON_PROPERTY_AN_INT)
   private Integer anInt;
+
+  public static final String JSON_PROPERTY_A_NUMBER = "aNumber";
+  @JsonbProperty(JSON_PROPERTY_A_NUMBER)
+  private BigDecimal aNumber;
 
   public static final String JSON_PROPERTY_A_SHORT = "aShort";
   @JsonbProperty(JSON_PROPERTY_A_SHORT)
@@ -156,6 +161,23 @@ public class Primitives {
     this.anInt = anInt;
   }
 
+  public Primitives aNumber(BigDecimal aNumber) {
+    this.aNumber = aNumber;
+    return this;
+  }
+
+  /**
+   * Get aNumber
+   * @return aNumber
+   **/
+  public BigDecimal getaNumber() {
+    return aNumber;
+  }
+
+  public void setaNumber(BigDecimal aNumber) {
+    this.aNumber = aNumber;
+  }
+
   public Primitives aShort(Short aShort) {
     this.aShort = aShort;
     return this;
@@ -239,6 +261,7 @@ public class Primitives {
         Objects.equals(this.aFloat, other.aFloat) &&
         Objects.equals(this.aLong, other.aLong) &&
         Objects.equals(this.anInt, other.anInt) &&
+        Objects.equals(this.aNumber, other.aNumber) &&
         Objects.equals(this.aShort, other.aShort) &&
         Objects.equals(this.aString, other.aString) &&
         Objects.equals(this.object, other.object) &&
@@ -247,7 +270,7 @@ public class Primitives {
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBoolean, aByte, aDouble, aFloat, aLong, anInt, aShort, aString, object, plainObject);
+    return Objects.hash(aBoolean, aByte, aDouble, aFloat, aLong, anInt, aNumber, aShort, aString, object, plainObject);
   }
 
   @Override
@@ -260,6 +283,7 @@ public class Primitives {
     sb.append("\n    aFloat: ").append(toIndentedString(aFloat));
     sb.append("\n    aLong: ").append(toIndentedString(aLong));
     sb.append("\n    anInt: ").append(toIndentedString(anInt));
+    sb.append("\n    aNumber: ").append(toIndentedString(aNumber));
     sb.append("\n    aShort: ").append(toIndentedString(aShort));
     sb.append("\n    aString: ").append(toIndentedString(aString));
     sb.append("\n    object: ").append(toIndentedString(object));

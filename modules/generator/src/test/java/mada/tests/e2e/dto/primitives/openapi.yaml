@@ -35,6 +35,8 @@ components:
         aLong:
           format: int64
           type: integer
+        aNumber:
+          type: number
         aFloat:
           format: float
           type: number
