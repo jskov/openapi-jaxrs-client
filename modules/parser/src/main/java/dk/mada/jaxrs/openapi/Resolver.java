@@ -279,8 +279,8 @@ public final class Resolver {
     private Dto extractCompositeDto(Collection<Dto> dtos, Dto dto, ParserTypeComposite tc) {
         String openapiName = dto.openapiId().name();
         logger.debug(" - expand composite DTO {}", openapiName);
-        logger.info(" tc: contains: {}", tc.containsTypes());
-        logger.info(" tc: external: {}", tc.externalDtoReferences());
+        logger.debug(" tc: contains: {}", tc.containsTypes());
+        logger.debug(" tc: external: {}", tc.externalDtoReferences());
 
         List<Dto> externalDtos = tc.externalDtoReferences().stream()
                 .map(tn -> getDtoWithOpenapiId(dtos, tn))

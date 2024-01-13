@@ -557,7 +557,6 @@ public final class TypeConverter {
         List<ParserTypeRef> refs = new ArrayList<>();
         List<Validation> validations = new ArrayList<>();
         for (ParserTypeRef ptr : allOfTypes) {
-            logger.info(" {}", ptr);
             if (ptr.refType() instanceof TypeValidation tv) {
                 validations.add(tv.validation());
             } else if (!ptr.validation().isEmptyValidation()) {
@@ -568,9 +567,6 @@ public final class TypeConverter {
         }
 
         if (validations.size() != 1 || refs.size() != 1) {
-            logger.info("refs: {}", refs);
-            logger.info("validations: {}", validations);
-
             logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
             // bail for now
             return TypeObject.get();
@@ -668,7 +664,7 @@ public final class TypeConverter {
         String modelName = naming.convertTypeName(dtoName);
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
-        logger.info("creating DTO {}", dtoName);
+        logger.info("Parsing DTO {}", dtoName);
         Type refType = dtoType.refType();
 
         List<Property> directProps = readProperties(schema, modelName, isMultipartForm);
