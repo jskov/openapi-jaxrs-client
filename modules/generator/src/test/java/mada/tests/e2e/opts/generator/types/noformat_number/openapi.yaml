@@ -1,0 +1,298 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /api/types/big-decimal:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: number
+  /api/types/boolean:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /api/types/byte:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: byte
+                type: string
+  /api/types/date:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: date
+                type: string
+  /api/types/date-time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: date-time
+                type: string
+  /api/types/double:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: double
+                type: number
+  /api/types/float:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: float
+                type: number
+  /api/types/input-stream:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+  /api/types/input-stream-jpeg:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            image/jpeg:
+              schema:
+                format: binary
+                type: string
+  /api/types/int:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+  /api/types/list:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: int32
+                  type: integer
+  /api/types/list-date:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: date
+                  type: string
+  /api/types/list-datetime:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: date-time
+                  type: string
+  /api/types/list-time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: local-time
+                  type: string
+                  externalDocs:
+                    description: As defined by 'partial-time' in RFC3339
+                    url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+                  example: 13:45.30.123456789
+  /api/types/long:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: int64
+                type: integer
+  /api/types/map:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/types/set:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  format: int32
+                  type: integer
+  /api/types/short:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+  /api/types/string:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/types/time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalTime'
+  /api/types/void:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "204":
+          description: No Content
+components:
+  schemas:
+    PlainObject:
+      type: object
+    Primitives:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+        aByte:
+          format: byte
+          type: string
+        aShort:
+          type: integer
+        anInt:
+          format: int32
+          type: integer
+        aLong:
+          format: int64
+          type: integer
+        aNumber:
+          type: number
+        aFloat:
+          format: float
+          type: number
+        aDouble:
+          format: double
+          type: number
+        aString:
+          type: string
+        object:
+          type: object
+        plainObject:
+          $ref: '#/components/schemas/PlainObject'
