@@ -76,14 +76,6 @@ public class DtoSubjectDefiner {
         List<Dto> externalDtos = dto.extendsParents();
         if (externalDtos.size() > 1) {
             externalDtos.forEach(ed -> addCombinedProperties(dtoName, combinedProps, ed));
-
-            if (logger.isDebugEnabled()) {
-                List<String> extendsParentNames = externalDtos.stream()
-                        .map(Dto::name)
-                        .toList();
-
-                logger.debug(" - {} now comines properties from {}", dto.name(), extendsParentNames);
-            }
         }
 
         return List.copyOf(combinedProps.values());
@@ -93,7 +85,8 @@ public class DtoSubjectDefiner {
         String dtoName = dto.name();
         for (Property newProp : dto.properties()) {
             String propName = newProp.name();
-            logger.debug(" {} : {}", dtoName, propName);
+            String propSrc = parentDtoName.equals(dtoName) ? parentDtoName : parentDtoName+"/"+dtoName;
+            logger.debug(" {} : {}", propSrc, propName);
             if (combinedProps.containsKey(propName)) {
                 Property prevProp = combinedProps.get(propName);
 
@@ -110,14 +103,12 @@ public class DtoSubjectDefiner {
                     continue;
                 }
 
-                Validation resolvedVal = getV(prevProp);
-                Validation newVal = getV(newProp);
-                if (!resolvedVal.equals(newVal)) {
-                    logger.warn("Must resolve validation!");
-                    logger.debug("  new validation:  {}", newVal);
-                    logger.debug("  conflicts with: {}", resolvedVal);
+                Validation resolvedValidation = getV(prevProp);
+                Validation newValidation = getV(newProp);
+                if (!resolvedValidation.equals(newValidation)) {
                     if (resolution == PropertyConflictResolution.CLEAR) {
-                        resolvedVal = Validation.NO_VALIDATION;
+                    	logger.debug("  clearing valiation: {} / {}", resolvedValidation, newValidation);
+                        resolvedValidation = Validation.NO_VALIDATION;
                     } else if (resolution == PropertyConflictResolution.FAIL) {
                         GeneratorBadInputException.failBadInput(msg + "validation",
                                 GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
@@ -127,10 +118,8 @@ public class DtoSubjectDefiner {
                 Optional<String> resolvedDescription = prevProp.description();
                 Optional<String> newDescription = newProp.description();
                 if (!resolvedDescription.equals(newDescription)) {
-                    logger.warn("Must resolve description!");
-                    logger.debug("  new description: {}", newDescription);
-                    logger.debug("  conflicts with: {}", resolvedDescription);
                     if (resolution == PropertyConflictResolution.CLEAR) {
+                    	logger.debug("  clearing description: {} / {}", resolvedDescription, newDescription);
                         resolvedDescription = Optional.empty();
                     } else if (resolution == PropertyConflictResolution.FAIL) {
                         GeneratorBadInputException.failBadInput(msg + "description",
@@ -141,10 +130,8 @@ public class DtoSubjectDefiner {
                 Optional<String> resolvedExample = prevProp.example();
                 Optional<String> newExample = newProp.example();
                 if (!resolvedExample.equals(newExample)) {
-                    logger.warn("Must resolve example!");
-                    logger.debug("  new example: {}", newExample);
-                    logger.debug("  conflicts with: {}", resolvedExample);
                     if (resolution == PropertyConflictResolution.CLEAR) {
+                    	logger.debug("  clearing example: {} / {}", resolvedExample, newExample);
                         resolvedExample = Optional.empty();
                     } else if (resolution == PropertyConflictResolution.FAIL) {
                         GeneratorBadInputException.failBadInput(msg + "example", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
@@ -154,7 +141,7 @@ public class DtoSubjectDefiner {
                 Property resolvedProp = Property.builderFrom(prevProp)
                         .description(resolvedDescription)
                         .example(resolvedExample)
-                        .validation(resolvedVal)
+                        .validation(resolvedValidation)
                         .build();
                 combinedProps.put(propName, resolvedProp);
             } else {

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
@@ -20,12 +19,10 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class KontantHandlGaranti {
   public static final String JSON_PROPERTY_AFSENDER_NGL = "afsenderNgl";
   @JsonProperty(JSON_PROPERTY_AFSENDER_NGL)
-  @Schema(required = true, description = "Description afsenderNgl in StamOpl")
   private String afsenderNgl;
 
   public static final String JSON_PROPERTY_KUNDE_REFNR = "kundeRefnr";
   @JsonProperty(JSON_PROPERTY_KUNDE_REFNR)
-  @Schema(required = true, description = "Description kundeRefnr in StamOpl")
   private Integer kundeRefnr;
 
   public static final String JSON_PROPERTY_PRODNR = "prodnr";
@@ -43,41 +40,37 @@ public class KontantHandlGaranti {
   private Integer sagstype;
 
   public KontantHandlGaranti afsenderNgl(String afsenderNgl) {
-    this.afsenderNgl = Objects.requireNonNull(afsenderNgl, "Property afsenderNgl is required, cannot be null");
+    this.afsenderNgl = afsenderNgl;
     return this;
   }
 
   /**
-   * Description afsenderNgl in StamOpl.
-   *
+   * Get afsenderNgl
    * @return afsenderNgl
    **/
-  @NotNull
   public String getAfsenderNgl() {
     return afsenderNgl;
   }
 
   public void setAfsenderNgl(String afsenderNgl) {
-    this.afsenderNgl = Objects.requireNonNull(afsenderNgl, "Property afsenderNgl is required, cannot be null");
+    this.afsenderNgl = afsenderNgl;
   }
 
   public KontantHandlGaranti kundeRefnr(Integer kundeRefnr) {
-    this.kundeRefnr = Objects.requireNonNull(kundeRefnr, "Property kundeRefnr is required, cannot be null");
+    this.kundeRefnr = kundeRefnr;
     return this;
   }
 
   /**
-   * Description kundeRefnr in StamOpl.
-   *
+   * Get kundeRefnr
    * @return kundeRefnr
    **/
-  @NotNull @Size(max = 7)
   public Integer getKundeRefnr() {
     return kundeRefnr;
   }
 
   public void setKundeRefnr(Integer kundeRefnr) {
-    this.kundeRefnr = Objects.requireNonNull(kundeRefnr, "Property kundeRefnr is required, cannot be null");
+    this.kundeRefnr = kundeRefnr;
   }
 
   public KontantHandlGaranti prodnr(Integer prodnr) {
