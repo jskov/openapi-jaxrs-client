@@ -107,7 +107,7 @@ public class ApiTransformer {
     }
 
     private void processPath(String resourcePath, PathItem path) {
-        logger.info("Process path {}", resourcePath);
+        logger.info("Parsing API path {}", resourcePath);
         path.readOperationsMap()
                 .forEach((httpMethod, op) -> processOp(resourcePath, httpMethod, op));
     }
@@ -191,7 +191,6 @@ public class ApiTransformer {
 
         if (leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null) {
             logger.debug("FORM-DATA: {}", mt);
-            @SuppressWarnings("rawtypes")
             Schema<?> schema = mt.getSchema();
             ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
             Content multipartBodyContent = Content.builder()

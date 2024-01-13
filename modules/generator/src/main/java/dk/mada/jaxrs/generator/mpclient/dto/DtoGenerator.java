@@ -117,8 +117,6 @@ public class DtoGenerator {
                     } else if (mappedToExternalType != null) {
                         logger.info(" skipped DTO  {}, mapped to {}", name, mappedToExternalType);
                     } else {
-                        logger.info(" generate DTO {}", name);
-
                         CtxDto ctx = toCtx(type);
                         logger.debug("{} ctx: {}", name, ctx);
 
@@ -127,15 +125,11 @@ public class DtoGenerator {
                 });
 
         extraTemplates.forEach(tmpl -> {
-            logger.info(" generate extra {}", tmpl);
-
             CtxExtraDateSerializer ctx = makeCtxExtra(tmpl);
             templates.renderExtraTemplate(tmpl, ctx);
         });
 
         model.interfaces().forEach(ti -> {
-            logger.info(" generate interface {}", ti.typeName().name());
-
             CtxInterface ctx = makeCtxInterface(ti);
             templates.renderInterfaceTemplate(ctx);
         });

@@ -47,7 +47,7 @@ public class Templates {
         String classname = tmpl.classname();
         Path output = toDtoFile(classname);
 
-        logger.info(" generate ExtraDateSerializer {}", classname);
+        logger.info("Generating ExtraDateSerializer {}", classname);
         String code = CtxExtraDateSerializerRenderer.of().execute(context);
         writeTemplateCode(output, code);
     }
@@ -63,7 +63,7 @@ public class Templates {
         String classname = context.classname();
         Path output = toDtoFile(classname);
 
-        logger.info(" generate DTO {}", classname);
+        logger.info("Generating DTO {}", classname);
         String code = CtxDtoRenderer.of().execute(context);
         writeTemplateCode(output, code);
     }
@@ -79,7 +79,7 @@ public class Templates {
         String classname = context.classname();
         Path output = toDtoFile(classname);
 
-        logger.info(" generate Interface {}", classname);
+        logger.info("Generating Interface {}", classname);
         String code = CtxInterfaceRenderer.of().execute(context);
         writeTemplateCode(output, code);
     }
@@ -96,7 +96,7 @@ public class Templates {
         String classname = context.classname();
         Path output = apiDir.resolve(classname + ".java");
 
-        logger.info(" generate API {}", classname);
+        logger.info("Generating API {}", classname);
         String code = CtxApiRenderer.of().execute(context);
         writeTemplateCode(output, code);
     }

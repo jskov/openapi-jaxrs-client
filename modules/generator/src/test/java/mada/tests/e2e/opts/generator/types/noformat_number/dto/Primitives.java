@@ -4,9 +4,8 @@
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.dto.primitives.dto;
+package mada.tests.e2e.opts.generator.types.noformat_number.dto;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 
@@ -41,7 +40,7 @@ public class Primitives {
 
   public static final String JSON_PROPERTY_A_NUMBER = "aNumber";
   @JsonbProperty(JSON_PROPERTY_A_NUMBER)
-  private BigDecimal aNumber;
+  private Double aNumber;
 
   public static final String JSON_PROPERTY_A_SHORT = "aShort";
   @JsonbProperty(JSON_PROPERTY_A_SHORT)
@@ -161,7 +160,7 @@ public class Primitives {
     this.anInt = anInt;
   }
 
-  public Primitives aNumber(BigDecimal aNumber) {
+  public Primitives aNumber(Double aNumber) {
     this.aNumber = aNumber;
     return this;
   }
@@ -170,11 +169,11 @@ public class Primitives {
    * Get aNumber
    * @return aNumber
    **/
-  public BigDecimal getaNumber() {
+  public Double getaNumber() {
     return aNumber;
   }
 
-  public void setaNumber(BigDecimal aNumber) {
+  public void setaNumber(Double aNumber) {
     this.aNumber = aNumber;
   }
 

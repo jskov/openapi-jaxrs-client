@@ -16,6 +16,7 @@ import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.ContentSelector;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.naming.Naming;
+import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeNames;
@@ -54,17 +55,18 @@ public final class Parser {
      * Constructs a new parser.
      *
      * @param showInfo      flag to enable parser info output
+     * @param typeNames     the type names
      * @param naming        the naming instance
      * @param parserOpts    the parser options
      * @param leakedGenOpts the leaked generator options
      */
-    public Parser(boolean showInfo, Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts leakedGenOpts) {
+    public Parser(boolean showInfo, TypeNames typeNames, Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts leakedGenOpts) {
         this.showInfo = showInfo;
+        this.typeNames = typeNames;
         this.naming = naming;
         this.parserOpts = parserOpts;
         this.leakedGenOpts = leakedGenOpts;
 
-        typeNames = new TypeNames();
         parserRefs = new ParserTypeRefs(typeNames);
 
         List<Pattern> preferredRequestMediaTypes = parserOpts.getPreferredRequestMediaTypes().stream()
@@ -83,8 +85,9 @@ public final class Parser {
      * @param dateTimeType       the type used to represent OpenApi date-time
      * @param dtoPackage         the DTO package
      * @param isUseMultipartBody a flag for use of multipart forms
+     * @param noFormatNumberType the type to use for no-format numbers
      */
-    public record LeakedGeneratorOpts(TypeDateTime dateTimeType, String dtoPackage, boolean isUseMultipartBody) {
+    public record LeakedGeneratorOpts(TypeDateTime dateTimeType, String dtoPackage, boolean isUseMultipartBody, Type noFormatNumberType) {
     }
 
     /**

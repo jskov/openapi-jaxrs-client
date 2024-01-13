@@ -25,7 +25,6 @@ import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
-import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeByteArray;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeEnum;
@@ -72,6 +71,8 @@ public final class TypeConverter {
     private final ParserOpts parserOpts;
     /** The type to use for date-time. */
     private final Type dateTimeType;
+    /** The type to use for no-format numbers. */
+    private final Type noFormatNumberType;
     /** Parser types. */
     private final ParserTypes parserTypes;
 
@@ -99,6 +100,7 @@ public final class TypeConverter {
         this.parserOpts = parserOpts;
 
         dateTimeType = leakedGenOpts.dateTimeType();
+        noFormatNumberType = leakedGenOpts.noFormatNumberType();
     }
 
     /**
@@ -446,7 +448,7 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createNumberRef(RefInfo ri) {
         if (ri.schema instanceof NumberSchema) {
             logger.trace(" - createNumberRef");
-            return parserRefs.of(TypeBigDecimal.get(), ri.validation);
+            return parserRefs.of(noFormatNumberType, ri.validation);
         }
         return null;
     }
@@ -557,7 +559,6 @@ public final class TypeConverter {
         List<ParserTypeRef> refs = new ArrayList<>();
         List<Validation> validations = new ArrayList<>();
         for (ParserTypeRef ptr : allOfTypes) {
-            logger.info(" {}", ptr);
             if (ptr.refType() instanceof TypeValidation tv) {
                 validations.add(tv.validation());
             } else if (!ptr.validation().isEmptyValidation()) {
@@ -568,9 +569,6 @@ public final class TypeConverter {
         }
 
         if (validations.size() != 1 || refs.size() != 1) {
-            logger.info("refs: {}", refs);
-            logger.info("validations: {}", validations);
-
             logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
             // bail for now
             return TypeObject.get();
@@ -668,7 +666,7 @@ public final class TypeConverter {
         String modelName = naming.convertTypeName(dtoName);
         String mpSchemaName = naming.convertMpSchemaName(dtoName);
 
-        logger.info("creating DTO {}", dtoName);
+        logger.info("Parsing DTO {}", dtoName);
         Type refType = dtoType.refType();
 
         List<Property> directProps = readProperties(schema, modelName, isMultipartForm);
