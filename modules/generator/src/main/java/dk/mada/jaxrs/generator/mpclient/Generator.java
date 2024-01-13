@@ -72,20 +72,21 @@ public final class Generator implements GeneratorService {
     }
 
     private Type getNoFormatType(TypeNames typeNames, GeneratorOpts opts) {
-    	String name = opts.getNoFormatNumberType();
-		TypeName tn = typeNames.find(name);
-    	if (TypeNames.BIG_DECIMAL.equals(tn)) {
-    		return TypeBigDecimal.get();
-    	} else if (TypeNames.FLOAT.equals(tn) || TypeNames.FLOAT_WRAPPER.equals(tn)) {
-    		return Primitive.FLOAT;
-    	} else if (TypeNames.DOUBLE.equals(tn) || TypeNames.DOUBLE_WRAPPER.equals(tn)) {
-    		return Primitive.DOUBLE;
-    	} else {
-    		throw new GeneratorBadInputException(name + " is not a supported type for no-format number", GeneratorOpts.GENERATOR_TYPE_NO_FORMAT_NUMBER);
-    	}
-	}
+        String name = opts.getNoFormatNumberType();
+        TypeName tn = typeNames.find(name);
+        if (TypeNames.BIG_DECIMAL.equals(tn)) {
+            return TypeBigDecimal.get();
+        } else if (TypeNames.FLOAT.equals(tn) || TypeNames.FLOAT_WRAPPER.equals(tn)) {
+            return Primitive.FLOAT;
+        } else if (TypeNames.DOUBLE.equals(tn) || TypeNames.DOUBLE_WRAPPER.equals(tn)) {
+            return Primitive.DOUBLE;
+        } else {
+            throw new GeneratorBadInputException(name + " is not a supported type for no-format number",
+                    GeneratorOpts.GENERATOR_TYPE_NO_FORMAT_NUMBER);
+        }
+    }
 
-	private void defineLatePrimitives(GeneratorOpts genOpts) {
+    private void defineLatePrimitives(GeneratorOpts genOpts) {
         Primitive desiredNoFormatIntType = Primitive.valueOf(genOpts.getNoFormatIntegerType().toUpperCase(Locale.ROOT));
         Primitive.NOFORMAT_INT.setNoformatIntTypes(desiredNoFormatIntType);
     }

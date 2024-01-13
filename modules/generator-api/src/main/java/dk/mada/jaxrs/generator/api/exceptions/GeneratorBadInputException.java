@@ -49,7 +49,7 @@ public class GeneratorBadInputException extends GeneratorException {
     /**
      * Creates a new wrapper illegal argument exception.
      *
-     * @param message the exception message
+     * @param message      the exception message
      * @param seeConfigOpt an optional option name that may help fix the problem
      */
     public GeneratorBadInputException(String message, String seeConfigOpt) {

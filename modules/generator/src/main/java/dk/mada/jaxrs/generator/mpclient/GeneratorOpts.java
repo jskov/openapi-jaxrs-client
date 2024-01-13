@@ -21,7 +21,7 @@ import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
  * Extracts generator-specific keys from the input properties provided by the user.
  */
 public final class GeneratorOpts {
-	/** The ID of this generator. */
+    /** The ID of this generator. */
     private static final String GENERATOR_ID = "dk.mada.jaxrs.Generator";
     /** Generator option for API package. */
     public static final String GENERATOR_API_PACKAGE = "generator-api-package";

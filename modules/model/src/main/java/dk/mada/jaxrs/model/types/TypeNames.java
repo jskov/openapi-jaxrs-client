@@ -120,9 +120,9 @@ public final class TypeNames {
      * @param name the TypeName to look for
      */
     public @Nullable TypeName find(String name) {
-    	return nameToInstances.get(name);
+        return nameToInstances.get(name);
     }
-    
+
     /**
      * Creates a new type name.
      *
