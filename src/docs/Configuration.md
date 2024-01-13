@@ -336,6 +336,15 @@ The options are grouped into three sections:
 >
     default value: SHORT
 
+**generator-type-no-format-number**
+
+>Allows you to define which type to use for numbers that have no explicit format defined.
+
+>Historically, this has defaulted to BigDecimal, but this may change in a later minor release.
+
+>
+    default value: BigDecimal
+
 **generator-quarkus-use-register-for-reflection**
 
 >Allows you to add @RegisterForReflection to all DTos.

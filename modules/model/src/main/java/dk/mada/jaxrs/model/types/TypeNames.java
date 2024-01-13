@@ -5,6 +5,8 @@ import static java.util.stream.Collectors.joining;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Contains all declared type names in the model.
  *
@@ -72,6 +74,8 @@ public final class TypeNames {
     public static final TypeName MARKER_UNKNOWN = new TypeName("<UNKNOWN>");
     /** The type name marking an integer of unknown format/size. */
     public static final TypeName MARKER_NOFORMAT_INT = new TypeName("<noformat-int>");
+    /** The type name marking an number of unknown format/size. */
+    public static final TypeName MARKER_NOFORMAT_NUMBER = new TypeName("<noformat-number>");
 
     /** TypeName instances indexed by their name. */
     private final Map<String, TypeName> nameToInstances = new HashMap<>();
@@ -110,6 +114,15 @@ public final class TypeNames {
         nameToInstances.put(MARKER_VALIDATION.name(), MARKER_VALIDATION);
     }
 
+    /**
+     * {@return the TypeName with the given name, if it exists. Otherwise null}
+     *
+     * @param name the TypeName to look for
+     */
+    public @Nullable TypeName find(String name) {
+    	return nameToInstances.get(name);
+    }
+    
     /**
      * Creates a new type name.
      *

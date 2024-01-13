@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.generator.mpclient;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
  * Extracts generator-specific keys from the input properties provided by the user.
  */
 public final class GeneratorOpts {
-    /** The ID of this generator. */
+	/** The ID of this generator. */
     private static final String GENERATOR_ID = "dk.mada.jaxrs.Generator";
     /** Generator option for API package. */
     public static final String GENERATOR_API_PACKAGE = "generator-api-package";
@@ -28,6 +29,8 @@ public final class GeneratorOpts {
     public static final String GENERATOR_DTO_PACKAGE = "generator-dto-package";
     /** Generator option for property conflict resolution. */
     public static final String GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION = "generator-use-property-conflict-resolution";
+    /** Generator option for no-format number */
+    public static final String GENERATOR_TYPE_NO_FORMAT_NUMBER = "generator-type-no-format-number";
 
     /** Time that the code was generated. */
     private final String generatedAtTime;
@@ -449,6 +452,12 @@ public final class GeneratorOpts {
     public String getNoFormatIntegerType() {
         return or.get("generator-type-no-format-integer")
                 .orElse(Primitive.SHORT.name());
+    }
+
+    /** {@return the primitive type to use for numbers without format} */
+    public String getNoFormatNumberType() {
+        return or.get(GENERATOR_TYPE_NO_FORMAT_NUMBER)
+                .orElse(BigDecimal.class.getSimpleName());
     }
 
     /** {@return true if generation of API classes should use multipart bodies.} */
