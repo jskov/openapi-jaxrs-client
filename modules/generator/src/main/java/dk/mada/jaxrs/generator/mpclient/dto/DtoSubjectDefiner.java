@@ -1,7 +1,8 @@
 package dk.mada.jaxrs.generator.mpclient.dto;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -51,16 +52,14 @@ public class DtoSubjectDefiner {
      * @return the properties to be rendered for the Dto
      */
     private List<Property> findRenderedProperties(Dto dto) {
-        List<Property> combinedProps = new ArrayList<>(dto.properties());
+        Map<String, Property> combinedProps = addCombinedProperties(new HashMap<>(), dto);
 
         // If this Dto extends more than one other Dto
         // it cannot be done in Java. So fold properties
         // from the parents into this Dto.
         List<Dto> externalDtos = dto.extendsParents();
         if (externalDtos.size() > 1) {
-            externalDtos.stream()
-                    .map(Dto::properties)
-                    .forEach(combinedProps::addAll);
+            externalDtos.forEach(ed -> addCombinedProperties(combinedProps, ed));
 
             if (logger.isDebugEnabled()) {
                 List<String> extendsParentNames = externalDtos.stream()
@@ -71,9 +70,15 @@ public class DtoSubjectDefiner {
             }
         }
 
-        return combinedProps;
+        return List.copyOf(combinedProps.values());
     }
 
+    private Map<String, Property> addCombinedProperties(Map<String, Property> combinedProps, Dto dto) {
+    	
+    	dto.properties().forEach(p -> combinedProps.put(p.name(), p));
+    	return combinedProps;
+    }
+    
     /**
      * Compute if the Dto should extend a parent.
      *
