@@ -557,7 +557,7 @@ public final class TypeConverter {
         List<ParserTypeRef> refs = new ArrayList<>();
         List<Validation> validations = new ArrayList<>();
         for (ParserTypeRef ptr : allOfTypes) {
-            logger.debug(" {}", ptr);
+            logger.info(" {}", ptr);
             if (ptr.refType() instanceof TypeValidation tv) {
                 validations.add(tv.validation());
             } else if (!ptr.validation().isEmptyValidation()) {
@@ -568,6 +568,9 @@ public final class TypeConverter {
         }
 
         if (validations.size() != 1 || refs.size() != 1) {
+            logger.info("refs: {}", refs);
+            logger.info("validations: {}", validations);
+
             logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
             // bail for now
             return TypeObject.get();

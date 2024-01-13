@@ -22,6 +22,7 @@ import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts.PropertyOrder;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.Templates;
+import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubject;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxDtoDiscriminator;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxDtoExt;
@@ -189,25 +190,8 @@ public class DtoGenerator {
                 .build();
     }
 
-    record DtoSubject(Dto dto, Type type, List<Property> properties, Imports imports) {
-    }
-
     private CtxDto toCtx(Dto dto) {
-        Info info = model.info();
-        Type dtoType = dto.reference().refType();
-
-        boolean isEnum = dto.isEnum();
-        var dtoImports = isEnum ? Imports.newEnum(opts, !isTypePrimitiveEquals(dtoType)) : Imports.newDto(opts);
-
-        DtoSubject ds = new DtoSubject(dto, dtoType, findRenderedProperties(dto), dtoImports);
-
-        Optional<String> extendsName = getExtends(dto);
-
-        List<CtxProperty> props = createCtxProps(ds);
-        // in original order
-        List<CtxProperty> propsOpenapiOrder = getPropsOpenApiOrder(ds, props);
-
-        dtoImports.addPropertyImports(ds.properties());
+        DtoSubject ds = new DtoSubjectDefiner().defineDtoSubject(opts, dto);
 
         CustomSerializers localDateSerializers = defineLocalDateSerializer(ds);
         CustomSerializers customOffsetDateSerializers = customDateTimeSerializers(ds);
@@ -216,10 +200,10 @@ public class DtoGenerator {
 
         Optional<String> enumSchema = Optional.empty();
         CtxEnum ctxEnum = null;
-        if (isEnum) {
+        if (ds.isEnum()) {
             List<String> enumValues = dto.enumValues();
-            ctxEnum = enumGenerator.toCtxEnum(dtoType, enumValues);
-            enumSchema = enumGenerator.buildEnumSchema(dtoImports, dtoType, ctxEnum);
+            ctxEnum = enumGenerator.toCtxEnum(ds.type(), enumValues);
+            enumSchema = enumGenerator.buildEnumSchemaForType(ds, ds.type(), ctxEnum);
         }
 
         List<String> schemaEntries = new ArrayList<>();
@@ -233,10 +217,10 @@ public class DtoGenerator {
         String schemaOptions = null;
         if (!schemaEntries.isEmpty()) {
             schemaOptions = String.join(", ", schemaEntries);
-            dtoImports.addMicroProfileSchema();
+            ds.imports().addMicroProfileSchema();
         }
 
-        Optional<String> implementsInterfaces = defineInterfaces(dto, dtoImports);
+        Optional<String> implementsInterfaces = defineInterfaces(ds);
 
         Optional<SubtypeSelector> subtypeSelector = dto.subtypeSelector();
 
@@ -250,8 +234,11 @@ public class DtoGenerator {
 
         if (discriminator.isPresent() && opts.isJackson()) {
             // Needs adaptor for jsonb
-            dtoImports.add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
+            ds.imports().add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
+
+        List<CtxProperty> ctxProps = createCtxProps(ds);
+        List<CtxProperty> ctxPropsOpenapiOrder = getPropsOpenApiOrder(ds, ctxProps);
 
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
@@ -262,36 +249,37 @@ public class DtoGenerator {
                 .customOffsetDateTimeSerializer(customOffsetDateSerializers.serializer())
                 .schemaOptions(schemaOptions)
                 .implementsInterfaces(implementsInterfaces)
-                .isEqualsPrimitive(isTypePrimitiveEquals(dtoType))
+                .isEqualsPrimitive(ds.isPrimitiveEquals())
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
-                .varsOpenapiOrder(propsOpenapiOrder)
+                .varsOpenapiOrder(ctxPropsOpenapiOrder)
                 .classModifiers(Optional.ofNullable(classModifiers))
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
                 .isRenderSingleLineToString(opts.isUseSingleLineToString())
                 .build();
 
+        Info info = model.info();
         return CtxDto.builder()
                 .appName(info.title())
                 .appDescription(info.description())
                 .version(info.version())
                 .infoEmail(info.contact().email())
 
-                .imports(dtoImports.get())
+                .imports(ds.imports().get())
 
                 .description(description.flatMap(StringRenderer::makeValidDtoJavadocSummary))
                 .packageName(opts.dtoPackage())
                 .classname(dto.name())
                 .classVarName("other")
                 .datatypeWithEnum(null)
-                .parent(extendsName)
+                .parent(ds.extendsName())
                 .isNullable(false)
                 .vendorExtensions(null)
 
-                .vars(props)
+                .vars(ctxProps)
 
                 .allowableValues(ctxEnum)
-                .dataType(dtoType.typeName().name())
+                .dataType(ds.type().typeName().name())
 
                 .jackson(opts.isJackson())
 
@@ -305,62 +293,11 @@ public class DtoGenerator {
                 .build();
     }
 
-    /**
-     * Compute if the Dto should extend a parent.
-     *
-     * This is only relevant if the Dto has exactly one parent Dto.
-     *
-     * Otherwise the properties of parent Dtos will be folded into the Dto.
-     *
-     * @param dto the Dto to compute extends for.
-     * @return an optional parent Dto name
-     * @see findRenderedProperties
-     */
-    private Optional<String> getExtends(Dto dto) {
-        if (dto.extendsParents().size() == 1) {
-            return Optional.of(dto.extendsParents().get(0).name());
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * Returns list of properties to render for the Dto.
-     *
-     * If the Dto has multiple parents, the properties of these parents are folded into this Dto's properties (because it
-     * cannot extend multiple parents).
-     *
-     * @param dto the Dto to get properties for
-     * @return the properties to be rendered for the Dto
-     */
-    private List<Property> findRenderedProperties(Dto dto) {
-        List<Property> combinedProps = new ArrayList<>(dto.properties());
-
-        // If this Dto extends more than one other Dto
-        // it cannot be done in Java. So fold properties
-        // from the parents into this Dto.
-        List<Dto> externalDtos = dto.extendsParents();
-        if (externalDtos.size() > 1) {
-            externalDtos.stream()
-                    .map(Dto::properties)
-                    .forEach(combinedProps::addAll);
-
-            if (logger.isDebugEnabled()) {
-                List<String> extendsParentNames = externalDtos.stream()
-                        .map(Dto::name)
-                        .toList();
-
-                logger.debug(" - {} now comines properties from {}", dto.name(), extendsParentNames);
-            }
-        }
-
-        return combinedProps;
-    }
-
     private List<CtxProperty> createCtxProps(DtoSubject ds) {
         Comparator<? super CtxProperty> propertySorter = propertySorter();
 
         Stream<CtxProperty> props = ds.properties().stream()
-                .map(p -> propertyGenerator.toCtxProperty(ds.imports(), p, ds.dto()));
+                .map(p -> propertyGenerator.toCtxProperty(ds, p));
 
         if (propertySorter != null) {
             props = props.sorted(propertySorter);
@@ -471,11 +408,13 @@ public class DtoGenerator {
         }
     }
 
-    private Optional<String> defineInterfaces(Dto dto, Imports dtoImports) {
+    private Optional<String> defineInterfaces(DtoSubject ds) {
+        Dto dto = ds.dto();
+
         Stream<String> serializableInterface;
         if (opts.isUseSerializable() && !dto.isEnum()) {
             serializableInterface = Stream.of("Serializable");
-            dtoImports.add(JavaIo.IO_SERIALIZABLE);
+            ds.imports().add(JavaIo.IO_SERIALIZABLE);
         } else {
             serializableInterface = Stream.of();
         }
@@ -488,9 +427,5 @@ public class DtoGenerator {
             return Optional.empty();
         }
         return Optional.of(implementsInterfaces);
-    }
-
-    private boolean isTypePrimitiveEquals(Type t) {
-        return t.isPrimitive(Primitive.INT);
     }
 }

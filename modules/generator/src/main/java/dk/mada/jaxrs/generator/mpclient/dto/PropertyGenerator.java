@@ -16,6 +16,7 @@ import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.ValidationGenerator;
+import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubject;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxPropertyExt;
@@ -79,17 +80,19 @@ public class PropertyGenerator {
     /**
      * Prepares property context for rendering.
      *
-     * @param dtoImports the imports for the parent DTO
-     * @param prop       the property to make context for
-     * @param parentDto  the parent DTO of the property
+     * @param ds   the DTO subject
+     * @param prop the property to make context for
      * @return the property context
      */
-    public CtxProperty toCtxProperty(Imports dtoImports, Property prop, Dto parentDto) {
+    public CtxProperty toCtxProperty(DtoSubject ds, Property prop) {
+        Imports dtoImports = ds.imports();
+        Dto parentDto = ds.dto();
+
         final Names names = getNames(prop);
         logger.debug("Property {}", names);
 
         TypeInfo ti = decodeTypeInfo(dtoImports, prop);
-        EnumInfo ei = decodeEnumInfo(dtoImports, ti);
+        EnumInfo ei = decodeEnumInfo(ds, ti);
 
         Type propType = ti.propType();
         logger.trace(" {}", propType);
@@ -251,7 +254,7 @@ public class PropertyGenerator {
         return t.isPrimitive(Primitive.INT);
     }
 
-    private EnumInfo decodeEnumInfo(Imports dtoImports, TypeInfo ti) {
+    private EnumInfo decodeEnumInfo(DtoSubject ds, TypeInfo ti) {
         CtxEnum ctxEnum = null;
         String enumClassName = ti.typeName();
         String enumTypeName = ti.typeName();
@@ -261,10 +264,10 @@ public class PropertyGenerator {
             Type enumType = te.innerType();
             enumTypeName = enumType.typeName().name();
             enumClassName = te.typeName().name();
-            dtoImports.addEnumImports(!ti.isContainer(), !enumType.isPrimitive(Primitive.INT));
+            ds.imports().addEnumImports(!ti.isContainer(), !enumType.isPrimitive(Primitive.INT));
 
             ctxEnum = enumGenerator.toCtxEnum(enumType, te.values());
-            enumSchema = enumGenerator.buildEnumSchema(dtoImports, enumType, ctxEnum);
+            enumSchema = enumGenerator.buildEnumSchemaForType(ds, enumType, ctxEnum);
 
             logger.debug(" enum {} : {}", enumTypeName, te.values());
         }
