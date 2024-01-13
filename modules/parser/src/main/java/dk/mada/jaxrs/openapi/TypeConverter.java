@@ -361,7 +361,7 @@ public final class TypeConverter {
 
             if (allOf != null && !allOf.isEmpty()) {
 
-                logger.info("PROCESSING allOf:");
+                logger.trace("PROCESSING allOf:");
 
                 String dtoName = ri.parentDtoName();
                 String internalPropertyName;
