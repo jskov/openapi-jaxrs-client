@@ -140,7 +140,7 @@ jobs:
           # should probe for state change:
           #  curl -v -H 'Accept: application/json' /tmp/cookies.txt https://s01.oss.sonatype.org/service/local/staging/repository/dkmada-1104
           #  Look for type:closed
-          sleep 300
+          sleep 600
           echo "Publish NOT completed! Test repo!"
           # release - unless tag starts with 0.0.
           echo $BUILD_LABEL | grep -q -v -e "^0[.]0[.]" \
