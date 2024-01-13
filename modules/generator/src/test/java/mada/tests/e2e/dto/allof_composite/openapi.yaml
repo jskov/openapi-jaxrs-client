@@ -81,3 +81,30 @@ components:
           description: Description prodnr in Kontanthandelsgaranti
           pattern: "^\\d{1,5}$"
           type: integer
+        ejendom:
+          $ref: '#/components/schemas/EjendomMini'
+        omkostning:
+          $ref: '#/components/schemas/Omkostning'
+
+    EjendomMini:
+      required:
+      - husnr
+      type: object
+      properties:
+        husnr:
+          description: "Husnummeret på ejendommen.<br>Format: String(10)"
+          maxLength: 10
+          minLength: 0
+          type: string
+    Omkostning:
+      type: object
+      properties:
+        notanr:
+          format: int32
+          description: "Nummeret på gebyrnotaen, som de underliggende gebyrer hører\
+            \ til.<br>Hvis pakken er fra boligvejviseren, vil rådgiveren IKKE kunne\
+            \ ændre på omkostningerne i Kreditsagen. Derfor er det et krav, at alle\
+            \ oplysninger omkring omkostninger bliver sendt ind via API’et, hvis der\
+            \ skal bogføres omkostninger på den enkelte facilitet.<br>Format: Number(3)"
+          pattern: "^\\d{1,3}$"
+          type: integer
