@@ -13,9 +13,9 @@ public class GeneratorBadInputException extends GeneratorException {
     /**
      * Creates a new wrapper illegal argument exception.
      *
-     * @param message    the exception message
-     * @param optionName an optional option name that may help fix the problem
-     * @param cause      the cause of the exception
+     * @param message      the exception message
+     * @param seeConfigOpt an optional option name that may help fix the problem
+     * @param cause        the cause of the exception
      */
     public GeneratorBadInputException(@Nullable String message, @Nullable String seeConfigOpt, @Nullable Throwable cause) {
         super(combinedMessage(message, seeConfigOpt), cause);
@@ -49,8 +49,8 @@ public class GeneratorBadInputException extends GeneratorException {
     /**
      * Creates a new wrapper illegal argument exception.
      *
-     * @param message    the exception message
-     * @param optionName an optional option name that may help fix the problem
+     * @param message      the exception message
+     * @param seeConfigOpt an optional option name that may help fix the problem
      */
     public static void failBadInput(String message, String seeConfigOpt) {
         throw new GeneratorBadInputException(message, seeConfigOpt, null);

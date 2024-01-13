@@ -14,7 +14,7 @@ public class GeneratorException extends RuntimeException {
      * @param message the exception message
      * @param cause   the cause of the exception
      */
-    public GeneratorException(@Nullable String message, Throwable cause) {
+    public GeneratorException(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 }

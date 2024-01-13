@@ -40,6 +40,12 @@ public class DtoSubjectDefiner {
             List<Property> properties, Imports imports) {
     }
 
+    /**
+     * Defines a subject for the DTO.
+     *
+     * @param dto the DTO to define a subject for
+     * @return the DTO subject
+     */
     public DtoSubject defineDtoSubject(Dto dto) {
         Type dtoType = dto.reference().refType();
         boolean isEnum = dto.isEnum();
@@ -68,7 +74,7 @@ public class DtoSubjectDefiner {
      */
     private List<Property> findRenderedProperties(Dto dto) {
         String dtoName = dto.name();
-        Map<String, Property> combinedProps = addCombinedProperties(dtoName, new HashMap<>(), dto);
+        Map<String, OrderedProperty> combinedProps = addCombinedProperties(dtoName, new HashMap<>(), dto);
 
         // If this Dto extends more than one other Dto
         // it cannot be done in Java. So fold properties
@@ -78,22 +84,31 @@ public class DtoSubjectDefiner {
             externalDtos.forEach(ed -> addCombinedProperties(dtoName, combinedProps, ed));
         }
 
-        return List.copyOf(combinedProps.values());
+        return combinedProps.values().stream()
+                .sorted((a, b) -> Integer.compare(a.order, b.order))
+                .map(OrderedProperty::prop)
+                .toList();
     }
 
-    private Map<String, Property> addCombinedProperties(String parentDtoName, Map<String, Property> combinedProps, Dto dto) {
+    /**
+     * Wrapper for the property keeping track of the order the property was discovered in.
+     */
+    record OrderedProperty(int order, Property prop) {
+    }
+
+    private Map<String, OrderedProperty> addCombinedProperties(String parentDtoName, Map<String, OrderedProperty> combinedProps, Dto dto) {
         String dtoName = dto.name();
         for (Property newProp : dto.properties()) {
             String propName = newProp.name();
-            String propSrc = parentDtoName.equals(dtoName) ? parentDtoName : parentDtoName+"/"+dtoName;
+            String propSrc = parentDtoName.equals(dtoName) ? parentDtoName : parentDtoName + "/" + dtoName;
             logger.debug(" {} : {}", propSrc, propName);
             if (combinedProps.containsKey(propName)) {
-                Property prevProp = combinedProps.get(propName);
+                OrderedProperty prevProp = combinedProps.get(propName);
 
                 String msg = "Dto " + parentDtoName + " in conflict with subtype " + dtoName + " about property " + propName + " ";
 
                 // Always assert that the types match. Cannot imagine this needs an option - and if so, it should be separate.
-                Type prevType = prevProp.reference().refType();
+                Type prevType = prevProp.prop.reference().refType();
                 Type newType = newProp.reference().refType();
                 if (!prevType.equals(newType)) {
                     GeneratorBadInputException.failBadInput(msg + "type", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
@@ -103,23 +118,13 @@ public class DtoSubjectDefiner {
                     continue;
                 }
 
-                Validation resolvedValidation = getV(prevProp);
-                Validation newValidation = getV(newProp);
-                if (!resolvedValidation.equals(newValidation)) {
-                    if (resolution == PropertyConflictResolution.CLEAR) {
-                    	logger.debug("  clearing valiation: {} / {}", resolvedValidation, newValidation);
-                        resolvedValidation = Validation.NO_VALIDATION;
-                    } else if (resolution == PropertyConflictResolution.FAIL) {
-                        GeneratorBadInputException.failBadInput(msg + "validation",
-                                GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
-                    }
-                }
+                Validation resolvedValidation = getResolvedValidation(msg, prevProp, newProp);
 
-                Optional<String> resolvedDescription = prevProp.description();
+                Optional<String> resolvedDescription = prevProp.prop.description();
                 Optional<String> newDescription = newProp.description();
                 if (!resolvedDescription.equals(newDescription)) {
                     if (resolution == PropertyConflictResolution.CLEAR) {
-                    	logger.debug("  clearing description: {} / {}", resolvedDescription, newDescription);
+                        logger.debug("  clearing description: {} / {}", resolvedDescription, newDescription);
                         resolvedDescription = Optional.empty();
                     } else if (resolution == PropertyConflictResolution.FAIL) {
                         GeneratorBadInputException.failBadInput(msg + "description",
@@ -127,28 +132,44 @@ public class DtoSubjectDefiner {
                     }
                 }
 
-                Optional<String> resolvedExample = prevProp.example();
+                Optional<String> resolvedExample = prevProp.prop.example();
                 Optional<String> newExample = newProp.example();
                 if (!resolvedExample.equals(newExample)) {
                     if (resolution == PropertyConflictResolution.CLEAR) {
-                    	logger.debug("  clearing example: {} / {}", resolvedExample, newExample);
+                        logger.debug("  clearing example: {} / {}", resolvedExample, newExample);
                         resolvedExample = Optional.empty();
                     } else if (resolution == PropertyConflictResolution.FAIL) {
                         GeneratorBadInputException.failBadInput(msg + "example", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
                     }
                 }
 
-                Property resolvedProp = Property.builderFrom(prevProp)
+                Property resolvedProp = Property.builderFrom(prevProp.prop)
                         .description(resolvedDescription)
                         .example(resolvedExample)
                         .validation(resolvedValidation)
                         .build();
-                combinedProps.put(propName, resolvedProp);
+                combinedProps.put(propName, new OrderedProperty(prevProp.order, resolvedProp));
             } else {
-                combinedProps.put(propName, newProp);
+                int propertyNumber = combinedProps.size();
+                combinedProps.put(propName, new OrderedProperty(propertyNumber, newProp));
             }
         }
         return combinedProps;
+    }
+
+    private Validation getResolvedValidation(String conflictionMsg, OrderedProperty prevProp, Property newProp) {
+        Validation resolvedValidation = getV(prevProp.prop);
+        Validation newValidation = getV(newProp);
+        if (!resolvedValidation.equals(newValidation)) {
+            if (resolution == PropertyConflictResolution.CLEAR) {
+                logger.debug("  clearing valiation: {} / {}", resolvedValidation, newValidation);
+                resolvedValidation = Validation.NO_VALIDATION;
+            } else if (resolution == PropertyConflictResolution.FAIL) {
+                GeneratorBadInputException.failBadInput(conflictionMsg + "validation",
+                        GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+            }
+        }
+        return resolvedValidation;
     }
 
     private Validation getV(Property p) {
