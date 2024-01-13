@@ -15,7 +15,11 @@ import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.options.OptionReader;
 import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeDateTime;
+import dk.mada.jaxrs.model.types.TypeName;
+import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import dk.mada.jaxrs.openapi.ParserOpts;
@@ -49,9 +53,12 @@ public final class Generator implements GeneratorService {
 
             assertDestinationDir(clientContext, generatorOpts, destinationDir);
 
+            TypeNames typeNames = new TypeNames();
+
+            Type noFormatNumberType = getNoFormatType(typeNames, generatorOpts);
             var leakedGeneratorOpts = new LeakedGeneratorOpts(TypeDateTime.get(generatorOpts.getDateTimeVariant()),
-                    generatorOpts.dtoPackage(), generatorOpts.isApiUseMultipartForm());
-            Model model = new Parser(clientContext.showParserInfo(), naming, parserOpts, leakedGeneratorOpts)
+                    generatorOpts.dtoPackage(), generatorOpts.isApiUseMultipartForm(), noFormatNumberType);
+            Model model = new Parser(clientContext.showParserInfo(), typeNames, naming, parserOpts, leakedGeneratorOpts)
                     .parse(openapiDocument);
 
             new JavaMPClientGenerator().generate(model, generatorOpts, clientContext, destinationDir);
@@ -64,7 +71,20 @@ public final class Generator implements GeneratorService {
         }
     }
 
-    private void defineLatePrimitives(GeneratorOpts genOpts) {
+    private Type getNoFormatType(TypeNames typeNames, GeneratorOpts opts) {
+    	TypeName tn = typeNames.find(opts.getNoFormatNumberType());
+    	if (tn == TypeNames.BIG_DECIMAL) {
+    		return TypeBigDecimal.get();
+    	} else if (tn == TypeNames.FLOAT || tn == TypeNames.FLOAT_WRAPPER) {
+    		return Primitive.FLOAT;
+    	} else if (tn == TypeNames.DOUBLE || tn == TypeNames.DOUBLE_WRAPPER) {
+    		return Primitive.DOUBLE;
+    	} else {
+    		throw new GeneratorBadInputException(tn.name() + " is not a supported type for no-format number", GeneratorOpts.GENERATOR_TYPE_NO_FORMAT_NUMBER);
+    	}
+	}
+
+	private void defineLatePrimitives(GeneratorOpts genOpts) {
         Primitive desiredNoFormatIntType = Primitive.valueOf(genOpts.getNoFormatIntegerType().toUpperCase(Locale.ROOT));
         Primitive.NOFORMAT_INT.setNoformatIntTypes(desiredNoFormatIntType);
     }

@@ -340,7 +340,7 @@ The options are grouped into three sections:
 
 >Allows you to define which type to use for numbers that have no explicit format defined.
 
->Historically, this has defaulted to BigDecimal, but this may change in a later minor release.
+>Allowed values are BigDecimal, Float, and Decimal.
 
 >
     default value: BigDecimal

@@ -25,7 +25,6 @@ import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
-import dk.mada.jaxrs.model.types.TypeBigDecimal;
 import dk.mada.jaxrs.model.types.TypeByteArray;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeEnum;
@@ -72,6 +71,8 @@ public final class TypeConverter {
     private final ParserOpts parserOpts;
     /** The type to use for date-time. */
     private final Type dateTimeType;
+    /** The type to use for no-format numbers. */
+    private final Type noFormatNumberType;
     /** Parser types. */
     private final ParserTypes parserTypes;
 
@@ -99,6 +100,7 @@ public final class TypeConverter {
         this.parserOpts = parserOpts;
 
         dateTimeType = leakedGenOpts.dateTimeType();
+        noFormatNumberType = leakedGenOpts.noFormatNumberType();
     }
 
     /**
@@ -446,7 +448,7 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createNumberRef(RefInfo ri) {
         if (ri.schema instanceof NumberSchema) {
             logger.trace(" - createNumberRef");
-            return parserRefs.of(TypeBigDecimal.get(), ri.validation);
+            return parserRefs.of(noFormatNumberType, ri.validation);
         }
         return null;
     }
