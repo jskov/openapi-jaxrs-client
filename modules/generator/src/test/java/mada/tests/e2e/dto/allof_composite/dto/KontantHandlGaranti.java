@@ -21,9 +21,17 @@ public class KontantHandlGaranti {
   @JsonProperty(JSON_PROPERTY_AFSENDER_NGL)
   private String afsenderNgl;
 
+  public static final String JSON_PROPERTY_EJENDOM = "ejendom";
+  @JsonProperty(JSON_PROPERTY_EJENDOM)
+  private EjendomMini ejendom;
+
   public static final String JSON_PROPERTY_KUNDE_REFNR = "kundeRefnr";
   @JsonProperty(JSON_PROPERTY_KUNDE_REFNR)
   private Integer kundeRefnr;
+
+  public static final String JSON_PROPERTY_OMKOSTNING = "omkostning";
+  @JsonProperty(JSON_PROPERTY_OMKOSTNING)
+  private Omkostning omkostning;
 
   public static final String JSON_PROPERTY_PRODNR = "prodnr";
   @JsonProperty(JSON_PROPERTY_PRODNR)
@@ -56,6 +64,23 @@ public class KontantHandlGaranti {
     this.afsenderNgl = afsenderNgl;
   }
 
+  public KontantHandlGaranti ejendom(EjendomMini ejendom) {
+    this.ejendom = ejendom;
+    return this;
+  }
+
+  /**
+   * Get ejendom
+   * @return ejendom
+   **/
+  public EjendomMini getEjendom() {
+    return ejendom;
+  }
+
+  public void setEjendom(EjendomMini ejendom) {
+    this.ejendom = ejendom;
+  }
+
   public KontantHandlGaranti kundeRefnr(Integer kundeRefnr) {
     this.kundeRefnr = kundeRefnr;
     return this;
@@ -71,6 +96,23 @@ public class KontantHandlGaranti {
 
   public void setKundeRefnr(Integer kundeRefnr) {
     this.kundeRefnr = kundeRefnr;
+  }
+
+  public KontantHandlGaranti omkostning(Omkostning omkostning) {
+    this.omkostning = omkostning;
+    return this;
+  }
+
+  /**
+   * Get omkostning
+   * @return omkostning
+   **/
+  public Omkostning getOmkostning() {
+    return omkostning;
+  }
+
+  public void setOmkostning(Omkostning omkostning) {
+    this.omkostning = omkostning;
   }
 
   public KontantHandlGaranti prodnr(Integer prodnr) {
@@ -138,7 +180,9 @@ public class KontantHandlGaranti {
     }
     KontantHandlGaranti other = (KontantHandlGaranti) o;
     return Objects.equals(this.afsenderNgl, other.afsenderNgl) &&
+        Objects.equals(this.ejendom, other.ejendom) &&
         Objects.equals(this.kundeRefnr, other.kundeRefnr) &&
+        Objects.equals(this.omkostning, other.omkostning) &&
         Objects.equals(this.prodnr, other.prodnr) &&
         Objects.equals(this.refnr, other.refnr) &&
         Objects.equals(this.sagstype, other.sagstype);
@@ -146,7 +190,7 @@ public class KontantHandlGaranti {
 
   @Override
   public int hashCode() {
-    return Objects.hash(afsenderNgl, kundeRefnr, prodnr, refnr, sagstype);
+    return Objects.hash(afsenderNgl, ejendom, kundeRefnr, omkostning, prodnr, refnr, sagstype);
   }
 
   @Override
@@ -154,7 +198,9 @@ public class KontantHandlGaranti {
     StringBuilder sb = new StringBuilder();
     sb.append("class KontantHandlGaranti {");
     sb.append("\n    afsenderNgl: ").append(toIndentedString(afsenderNgl));
+    sb.append("\n    ejendom: ").append(toIndentedString(ejendom));
     sb.append("\n    kundeRefnr: ").append(toIndentedString(kundeRefnr));
+    sb.append("\n    omkostning: ").append(toIndentedString(omkostning));
     sb.append("\n    prodnr: ").append(toIndentedString(prodnr));
     sb.append("\n    refnr: ").append(toIndentedString(refnr));
     sb.append("\n    sagstype: ").append(toIndentedString(sagstype));
