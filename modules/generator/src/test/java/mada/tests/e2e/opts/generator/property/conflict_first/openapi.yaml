@@ -1,0 +1,80 @@
+openapi: 3.0.1
+info:
+  title: KFA-KRO
+  version: 1.1.1
+paths:
+  /ping:
+    get:
+      operationId: ping
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    # From krediterhverv.bpm.sag kfaService
+    KontoDTO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FacilitetDTO'
+        - type: object
+          properties:
+            aendring:
+              type: string
+    FacilitetDTO:
+      title: FacilitetDTO
+      type: object
+      properties:
+        elemId:
+          type: string
+
+    # From laaneoversigt
+    KontantHandlGaranti:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/StamOpl'
+      - $ref: '#/components/schemas/Kontanthandelsgaranti'
+      properties:
+        kundeRefnr:
+          format: int32
+          type: integer
+        afsenderNgl:
+          type: string
+        sagstype:
+          format: int32
+          type: integer
+
+    StamOpl:
+      required:
+      - kundeRefnr
+      - afsenderNgl
+      type: object
+      properties:
+        kundeRefnr:
+          format: int32
+          description: Description kundeRefnr in StamOpl
+          maxLength: 7
+          type: integer
+        afsenderNgl:
+          description: Description afsenderNgl in StamOpl
+          type: string
+
+    Kontanthandelsgaranti:
+      required:
+      - refnr
+      - prodnr
+      type: object
+      properties:
+        refnr:
+          format: int32
+          description: Description refnr in Kontanthandelsgaranti
+          pattern: "^\\d{1,7}$"
+          type: integer
+        prodnr:
+          format: int32
+          description: Description prodnr in Kontanthandelsgaranti
+          pattern: "^\\d{1,5}$"
+          type: integer
