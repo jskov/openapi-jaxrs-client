@@ -443,14 +443,14 @@ public final class Resolver {
         TypeName typeName = dto.typeName();
 
         List<Dto> resolvedParents = dto.extendsParents().stream()
-        	.map(this::derefDto)
-        	.toList();
+                .map(this::derefDto)
+                .toList();
 
         List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(typeName);
         logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
         logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builderFrom(dto)
-        		.extendsParents(resolvedParents)
+                .extendsParents(resolvedParents)
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto))
                 .implementsInterfaces(implementsInterfaces)

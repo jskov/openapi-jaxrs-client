@@ -56,6 +56,12 @@ public class DtoSubjectDefiner {
         List<Property> propsToRender = findRenderedProperties(dto);
         dtoImports.addPropertyImports(propsToRender);
 
+        if (logger.isDebugEnabled()) {
+            logger.debug(" -- properties summary:");
+            propsToRender
+                    .forEach(p -> logger.debug(" {} : {}", p.name(), p.reference().refType()));
+        }
+
         return new DtoSubject(dto, dtoType, isEnum, isPrimitiveEquals, getExtends(dto), propsToRender, dtoImports);
     }
 
