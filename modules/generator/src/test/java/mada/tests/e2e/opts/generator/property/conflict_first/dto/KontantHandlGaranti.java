@@ -19,10 +19,12 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class KontantHandlGaranti {
   public static final String JSON_PROPERTY_AFSENDER_NGL = "afsenderNgl";
   @JsonProperty(JSON_PROPERTY_AFSENDER_NGL)
+  @Schema(required = true, description = "Description afsenderNgl in KontantHandlGaranti")
   private String afsenderNgl;
 
   public static final String JSON_PROPERTY_KUNDE_REFNR = "kundeRefnr";
   @JsonProperty(JSON_PROPERTY_KUNDE_REFNR)
+  @Schema(description = "Description kundeRefnr in KontantHandlGaranti")
   private Integer kundeRefnr;
 
   public static final String JSON_PROPERTY_PRODNR = "prodnr";
@@ -40,20 +42,22 @@ public class KontantHandlGaranti {
   private Integer sagstype;
 
   public KontantHandlGaranti afsenderNgl(String afsenderNgl) {
-    this.afsenderNgl = afsenderNgl;
+    this.afsenderNgl = Objects.requireNonNull(afsenderNgl, "Property afsenderNgl is required, cannot be null");
     return this;
   }
 
   /**
-   * Get afsenderNgl
+   * Description afsenderNgl in KontantHandlGaranti.
+   *
    * @return afsenderNgl
    **/
+  @NotNull
   public String getAfsenderNgl() {
     return afsenderNgl;
   }
 
   public void setAfsenderNgl(String afsenderNgl) {
-    this.afsenderNgl = afsenderNgl;
+    this.afsenderNgl = Objects.requireNonNull(afsenderNgl, "Property afsenderNgl is required, cannot be null");
   }
 
   public KontantHandlGaranti kundeRefnr(Integer kundeRefnr) {
@@ -62,7 +66,8 @@ public class KontantHandlGaranti {
   }
 
   /**
-   * Get kundeRefnr
+   * Description kundeRefnr in KontantHandlGaranti.
+   *
    * @return kundeRefnr
    **/
   public Integer getKundeRefnr() {
