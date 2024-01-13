@@ -8,6 +8,7 @@ package mada.tests.e2e.dto.allof_composite.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -17,6 +18,14 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Kontanthandelsgaranti {
+  public static final String JSON_PROPERTY_EJENDOM = "ejendom";
+  @JsonProperty(JSON_PROPERTY_EJENDOM)
+  private EjendomMini ejendom;
+
+  public static final String JSON_PROPERTY_OMKOSTNING = "omkostning";
+  @JsonProperty(JSON_PROPERTY_OMKOSTNING)
+  private Omkostning omkostning;
+
   public static final String JSON_PROPERTY_PRODNR = "prodnr";
   @JsonProperty(JSON_PROPERTY_PRODNR)
   @Schema(required = true, description = "Description prodnr in Kontanthandelsgaranti")
@@ -26,6 +35,42 @@ public class Kontanthandelsgaranti {
   @JsonProperty(JSON_PROPERTY_REFNR)
   @Schema(required = true, description = "Description refnr in Kontanthandelsgaranti")
   private Integer refnr;
+
+  public Kontanthandelsgaranti ejendom(EjendomMini ejendom) {
+    this.ejendom = ejendom;
+    return this;
+  }
+
+  /**
+   * Get ejendom
+   * @return ejendom
+   **/
+  @Valid
+  public EjendomMini getEjendom() {
+    return ejendom;
+  }
+
+  public void setEjendom(EjendomMini ejendom) {
+    this.ejendom = ejendom;
+  }
+
+  public Kontanthandelsgaranti omkostning(Omkostning omkostning) {
+    this.omkostning = omkostning;
+    return this;
+  }
+
+  /**
+   * Get omkostning
+   * @return omkostning
+   **/
+  @Valid
+  public Omkostning getOmkostning() {
+    return omkostning;
+  }
+
+  public void setOmkostning(Omkostning omkostning) {
+    this.omkostning = omkostning;
+  }
 
   public Kontanthandelsgaranti prodnr(Integer prodnr) {
     this.prodnr = Objects.requireNonNull(prodnr, "Property prodnr is required, cannot be null");
@@ -74,19 +119,23 @@ public class Kontanthandelsgaranti {
       return false;
     }
     Kontanthandelsgaranti other = (Kontanthandelsgaranti) o;
-    return Objects.equals(this.prodnr, other.prodnr) &&
+    return Objects.equals(this.ejendom, other.ejendom) &&
+        Objects.equals(this.omkostning, other.omkostning) &&
+        Objects.equals(this.prodnr, other.prodnr) &&
         Objects.equals(this.refnr, other.refnr);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(prodnr, refnr);
+    return Objects.hash(ejendom, omkostning, prodnr, refnr);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Kontanthandelsgaranti {");
+    sb.append("\n    ejendom: ").append(toIndentedString(ejendom));
+    sb.append("\n    omkostning: ").append(toIndentedString(omkostning));
     sb.append("\n    prodnr: ").append(toIndentedString(prodnr));
     sb.append("\n    refnr: ").append(toIndentedString(refnr));
     sb.append("\n}");
