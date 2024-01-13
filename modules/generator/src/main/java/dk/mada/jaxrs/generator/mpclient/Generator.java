@@ -72,15 +72,16 @@ public final class Generator implements GeneratorService {
     }
 
     private Type getNoFormatType(TypeNames typeNames, GeneratorOpts opts) {
-    	TypeName tn = typeNames.find(opts.getNoFormatNumberType());
-    	if (tn == TypeNames.BIG_DECIMAL) {
+    	String name = opts.getNoFormatNumberType();
+		TypeName tn = typeNames.find(name);
+    	if (TypeNames.BIG_DECIMAL.equals(tn)) {
     		return TypeBigDecimal.get();
-    	} else if (tn == TypeNames.FLOAT || tn == TypeNames.FLOAT_WRAPPER) {
+    	} else if (TypeNames.FLOAT.equals(tn) || TypeNames.FLOAT_WRAPPER.equals(tn)) {
     		return Primitive.FLOAT;
-    	} else if (tn == TypeNames.DOUBLE || tn == TypeNames.DOUBLE_WRAPPER) {
+    	} else if (TypeNames.DOUBLE.equals(tn) || TypeNames.DOUBLE_WRAPPER.equals(tn)) {
     		return Primitive.DOUBLE;
     	} else {
-    		throw new GeneratorBadInputException(tn.name() + " is not a supported type for no-format number", GeneratorOpts.GENERATOR_TYPE_NO_FORMAT_NUMBER);
+    		throw new GeneratorBadInputException(name + " is not a supported type for no-format number", GeneratorOpts.GENERATOR_TYPE_NO_FORMAT_NUMBER);
     	}
 	}
 
