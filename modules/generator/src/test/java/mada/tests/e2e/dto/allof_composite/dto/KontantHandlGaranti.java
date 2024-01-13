@@ -8,6 +8,7 @@ package mada.tests.e2e.dto.allof_composite.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -73,6 +74,7 @@ public class KontantHandlGaranti {
    * Get ejendom
    * @return ejendom
    **/
+  @Valid
   public EjendomMini getEjendom() {
     return ejendom;
   }
@@ -107,6 +109,7 @@ public class KontantHandlGaranti {
    * Get omkostning
    * @return omkostning
    **/
+  @Valid
   public Omkostning getOmkostning() {
     return omkostning;
   }
