@@ -16,6 +16,15 @@ public interface Property {
         return ImmutableProperty.builder();
     }
 
+    /**
+     * {@return a builder for this type}
+     *
+     * @param other the existing Property to create a builder from
+     */
+    static ImmutableProperty.Builder builderFrom(Property other) {
+        return ImmutableProperty.builder().from(other);
+    }
+
     /** {@return the property name} */
     String name();
 

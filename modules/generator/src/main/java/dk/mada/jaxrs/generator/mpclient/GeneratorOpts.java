@@ -26,6 +26,8 @@ public final class GeneratorOpts {
     public static final String GENERATOR_API_PACKAGE = "generator-api-package";
     /** Generator option for DTO package. */
     public static final String GENERATOR_DTO_PACKAGE = "generator-dto-package";
+    /** Generator option for property conflict resolution. */
+    public static final String GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION = "generator-use-property-conflict-resolution";
 
     /** Time that the code was generated. */
     private final String generatedAtTime;
@@ -413,6 +415,12 @@ public final class GeneratorOpts {
         return PropertyOrder.from(order);
     }
 
+    /** {@return the property conflict resolution to use} */
+    public PropertyConflictResolution getPropertyConflictResolution() {
+        String resolution = or.getDefault(GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION, PropertyConflictResolution.FAIL.name());
+        return PropertyConflictResolution.from(resolution);
+    }
+
     /** {@return true if enumerations should deserialize unknown input to 'unknown_default_open_api'} */
     public boolean isUseEnumUnknownDefault() {
         return or.bool("generator-use-enum-unknown-default");
@@ -509,5 +517,35 @@ public final class GeneratorOpts {
             return DateTimeVariant.LOCAL;
         }
         return DateTimeVariant.OFFSET;
+    }
+
+    /**
+     * The resolution to use when a property has conflicting declarations.
+     */
+    public enum PropertyConflictResolution {
+        /** Fails the code generator. */
+        FAIL,
+        /** Clears the conflicting information. */
+        CLEAR,
+        /** Uses the first declaration information. */
+        FIRST;
+        // LEAST_RESTRICTIVE
+        // MOST_RESTRICTIVE
+
+        /**
+         * Converts property value enum value.
+         *
+         * @param value the input property value
+         * @return the matching property order enumeration
+         */
+        public static PropertyConflictResolution from(String value) {
+            String name = value.toUpperCase(Locale.ROOT).replace('-', '_');
+            for (var po : PropertyConflictResolution.values()) {
+                if (po.name().equals(name)) {
+                    return po;
+                }
+            }
+            throw new IllegalArgumentException("Unknown PropertyConflictResolution " + name);
+        }
     }
 }

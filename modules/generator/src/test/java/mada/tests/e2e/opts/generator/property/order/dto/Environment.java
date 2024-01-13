@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.generator.property_order.dto;
+package mada.tests.e2e.opts.generator.property.order.dto;
 
 import javax.json.Json;
 import javax.json.JsonString;
@@ -18,7 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * Environment
  */
-@JsonbTypeAdapter(mada.tests.e2e.opts.generator.property_order.dto.Environment.EnvironmentAdapter.class)
+@JsonbTypeAdapter(mada.tests.e2e.opts.generator.property.order.dto.Environment.EnvironmentAdapter.class)
 @Schema(enumeration = {"test", "qa", "production"}, type = SchemaType.STRING)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum Environment {

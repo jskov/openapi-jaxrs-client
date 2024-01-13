@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.generator.property_order.dto;
+package mada.tests.e2e.opts.generator.property.order.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;

@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
+import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubject;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
@@ -66,12 +67,14 @@ public class EnumGenerator {
     /**
      * If the enumeration values are not represented correctly by the constants, define a schema with the proper values.
      *
-     * @param dtoImports the DTO imports
-     * @param dtoType    type of the enumeration
-     * @param ctxEnum    enumeration constants and values
+     * @param ds      the DTO subject
+     * @param type    the type to define schema for
+     * @param ctxEnum enumeration constants and values
      * @return optional schema enumeration arguments
      */
-    public Optional<String> buildEnumSchema(Imports dtoImports, Type dtoType, CtxEnum ctxEnum) {
+    public Optional<String> buildEnumSchemaForType(DtoSubject ds, Type type, CtxEnum ctxEnum) {
+        Imports dtoImports = ds.imports();
+
         boolean namesMatchValues = ctxEnum.enumVars().stream()
                 .allMatch(e -> e.name().equals(e.wireValue()));
         if (namesMatchValues) {
@@ -82,18 +85,18 @@ public class EnumGenerator {
                 .map(e -> StringRenderer.quote(e.wireValue()))
                 .collect(joining(", "));
 
-        String type = "";
-        if (dtoType.isPrimitive(Primitive.STRING)) {
-            type = ", type = SchemaType.STRING";
-        } else if (dtoType.isPrimitive(Primitive.INT)) {
-            type = ", type = SchemaType.INTEGER, format = \"int32\"";
+        String typeStr = "";
+        if (type.isPrimitive(Primitive.STRING)) {
+            typeStr = ", type = SchemaType.STRING";
+        } else if (type.isPrimitive(Primitive.INT)) {
+            typeStr = ", type = SchemaType.INTEGER, format = \"int32\"";
         }
-        if (!type.isEmpty()) {
+        if (!typeStr.isEmpty()) {
             dtoImports.add(MicroProfile.SCHEMA_TYPE);
         }
         dtoImports.addMicroProfileSchema();
 
-        return Optional.of("enumeration = {" + values + "}" + type);
+        return Optional.of("enumeration = {" + values + "}" + typeStr);
     }
 
     /**

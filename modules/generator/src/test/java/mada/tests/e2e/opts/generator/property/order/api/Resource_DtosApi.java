@@ -6,11 +6,11 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.generator.property_order.api;
+package mada.tests.e2e.opts.generator.property.order.api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import mada.tests.e2e.opts.generator.property_order.dto.ValidationDto;
+import mada.tests.e2e.opts.generator.property.order.dto.ValidationDto;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")

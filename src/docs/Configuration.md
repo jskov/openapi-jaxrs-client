@@ -428,6 +428,25 @@ instead of OffsetDateTime.
 >
     default value: false
 
+
+**generator-use-property-conflict-resolution**
+
+>Allows you to select the resolution to use when there is conflict in the declarations for a property (in allof/subclassing).
+
+>This could be the validation settings, the description, or the example.
+
+>The legal values are:
+
+> * fail: the code generation is aborted
+
+> * clear: clear the conflicting information
+
+> * first: use the first information found by the parser
+
+
+>
+	default value: FAIL
+
 **generator-use-property-order**
 
 >Allows you to control the order properties (and thus getters, setters, and enums) are
