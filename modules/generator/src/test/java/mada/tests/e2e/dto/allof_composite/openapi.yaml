@@ -33,6 +33,8 @@ components:
 
     # From laaneoversigt
     KontantHandlGaranti:
+      required:
+      - afsenderNgl
       type: object
       allOf:
       - $ref: '#/components/schemas/StamOpl'
@@ -40,9 +42,11 @@ components:
       properties:
         kundeRefnr:
           format: int32
+          description: Description kundeRefnr in KontantHandlGaranti
           type: integer
         afsenderNgl:
           type: string
+          description: Description afsenderNgl in KontantHandlGaranti
         sagstype:
           format: int32
           type: integer
@@ -50,7 +54,6 @@ components:
     StamOpl:
       required:
       - kundeRefnr
-      - afsenderNgl
       type: object
       properties:
         kundeRefnr:

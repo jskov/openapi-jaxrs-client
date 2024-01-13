@@ -5,3 +5,4 @@ krediterhverv.bpm.sag kfaService:
 
 laaneoversigt:
 	example with conflicting property validation
+    (but tweaked a bit to help testing variants of resolution)

@@ -19,7 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class StamOpl {
   public static final String JSON_PROPERTY_AFSENDER_NGL = "afsenderNgl";
   @JsonProperty(JSON_PROPERTY_AFSENDER_NGL)
-  @Schema(required = true, description = "Description afsenderNgl in StamOpl")
+  @Schema(description = "Description afsenderNgl in StamOpl")
   private String afsenderNgl;
 
   public static final String JSON_PROPERTY_KUNDE_REFNR = "kundeRefnr";
@@ -28,7 +28,7 @@ public class StamOpl {
   private Integer kundeRefnr;
 
   public StamOpl afsenderNgl(String afsenderNgl) {
-    this.afsenderNgl = Objects.requireNonNull(afsenderNgl, "Property afsenderNgl is required, cannot be null");
+    this.afsenderNgl = afsenderNgl;
     return this;
   }
 
@@ -37,13 +37,12 @@ public class StamOpl {
    *
    * @return afsenderNgl
    **/
-  @NotNull
   public String getAfsenderNgl() {
     return afsenderNgl;
   }
 
   public void setAfsenderNgl(String afsenderNgl) {
-    this.afsenderNgl = Objects.requireNonNull(afsenderNgl, "Property afsenderNgl is required, cannot be null");
+    this.afsenderNgl = afsenderNgl;
   }
 
   public StamOpl kundeRefnr(Integer kundeRefnr) {
