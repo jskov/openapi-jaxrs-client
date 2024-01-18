@@ -12,7 +12,7 @@ dependencies {
 
     implementation project(':model')
 
-    implementation 'io.swagger.parser.v3:swagger-parser:2.1.19'
+    implementation 'io.swagger.parser.v3:swagger-parser:2.1.20'
     // swagger.parser comes with vulnerable rhino + commons-codec
     implementation 'org.mozilla:rhino:1.7.14'
     implementation 'commons-codec:commons-codec:1.16.0'
