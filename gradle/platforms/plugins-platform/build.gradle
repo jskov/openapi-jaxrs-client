@@ -6,9 +6,7 @@ group = 'dk.mada.jaxrs'
 
 dependencies {
     constraints {
-        api 'com.diffplug.spotless:spotless-plugin-gradle:6.25.0'
         api 'com.diffplug.gradle:goomph:3.44.0'
-        api 'net.ltgt.gradle:gradle-errorprone-plugin:3.0.1'
         api 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.0.0.2929'
         api 'io.freefair.gradle:maven-plugin:8.6'
     }
