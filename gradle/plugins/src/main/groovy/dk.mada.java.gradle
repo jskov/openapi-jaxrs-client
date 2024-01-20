@@ -1,7 +1,8 @@
 plugins {
     id('java')
-//    id 'dk.mada.style' version '0.0.5'
+    id 'dk.mada.style'
 
+    // internal
     id 'dk.mada.sonarqube'
     id 'dk.mada.checkstyle'
     id 'dk.mada.jacoco'
@@ -9,7 +10,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 java {
