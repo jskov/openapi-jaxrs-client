@@ -1,5 +1,4 @@
 plugins {
-    id 'dk.mada.sonarqube'
     id 'dk.mada.aggregate-javadoc'
     id 'eclipse'
 }
