@@ -1,3 +1,10 @@
 plugins {
     id 'eclipse'
 }
+
+// FIXME: after a clean
+// This works:
+//  gradlew classes check
+// But 
+//  gradlew check fails
+// jstachio? values? something else?
