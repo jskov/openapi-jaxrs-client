@@ -3,8 +3,6 @@ plugins {
     id 'dk.mada.style'
 
     // internal
-    id 'dk.mada.sonarqube'
-    id 'dk.mada.checkstyle'
     id 'dk.mada.jacoco'
 }
 
