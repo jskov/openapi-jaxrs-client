@@ -47,7 +47,7 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-        String testNameContains = "external_types";
+        String testNameContains = "simple_dto";
 //        String testNameContains = "conflict_fail";
 //        String testNameContains = "manual";
 

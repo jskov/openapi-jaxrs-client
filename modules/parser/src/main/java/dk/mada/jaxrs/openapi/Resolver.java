@@ -99,9 +99,9 @@ public final class Resolver {
                     .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
-        Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, Resolver::isDtoReferenceOnly);
-        Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping("primitive", withoutTypeRefDtos, Resolver::isDtoPrimitiveWrapperOnly);
-        Collection<Dto> withoutModelTypes = loopedDtoRemapping("model types", withoutPrimitiveDtos, this::isDtoModelType);
+        Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, Resolver::isDtoReferenceOnly, false);
+        Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping("primitive", withoutTypeRefDtos, Resolver::isDtoPrimitiveWrapperOnly, !parserOpts.isMapSimpleDtosToObject());
+        Collection<Dto> withoutModelTypes = loopedDtoRemapping("model types", withoutPrimitiveDtos, this::isDtoModelType, false);
 
         Collection<Dto> filteredDtos = withoutModelTypes;
 
@@ -137,10 +137,16 @@ public final class Resolver {
      * @param title  the title of the remapping
      * @param dtos   the DTOs to remap
      * @param filter the filter to apply to the DTOs
+     * @param skip   flag to skip the step 
      * @return the (remaining) remapped DTOs
      */
-    private Collection<Dto> loopedDtoRemapping(String title, Collection<Dto> dtos, Predicate<Dto> filter) {
+    private Collection<Dto> loopedDtoRemapping(String title, Collection<Dto> dtos, Predicate<Dto> filter, boolean skip) {
         Collection<Dto> output = dtos;
+
+        if (skip) {
+            logger.debug("== DTO filtering {} - skipped", title);
+        	return output;
+        }
 
         logger.debug("== DTO filtering {}", title);
 

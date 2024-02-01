@@ -38,6 +38,11 @@ public final class ParserOpts {
         return or.bool("parser-unwrap-bytearray-list");
     }
 
+    /** {@return true if the parser should map simple DTOs to Object} */
+    public boolean isMapSimpleDtosToObject() {
+        return or.bool("parser-map-simple-dtos-to-object", true);
+    }
+
     /** {@return true if the JSE type LocalTime should be used} */
     public boolean isJseLocalTime() {
         return or.bool("parser-localtime-is-jse", true);
