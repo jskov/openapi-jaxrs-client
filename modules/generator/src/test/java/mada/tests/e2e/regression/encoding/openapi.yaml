@@ -1,0 +1,17 @@
+---
+openapi: 3.0.1
+info:
+  title: Test
+  version: 1.0.0
+security:
+- JWT: []
+tags:
+- name: Tag
+#paths:
+components:
+  schemas:
+    ContactV2MergePatch:
+      properties:
+        email:
+          type: string
+          description: Email address of the contact. Must comply with regex '^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$'
