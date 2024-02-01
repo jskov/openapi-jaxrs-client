@@ -46,16 +46,16 @@ public interface Resource_DtosApi {
   MapsDto dtosCollectionsMapGet();
 
   /**
-   * dtosSuppressedPrimitiveTypeGet.
+   * dtosRemappedArrayMemberGet.
    *
    * @return List<Simple>
    */
   @GET
-  @Path("/suppressedPrimitiveType")
+  @Path("/remapped-array-member")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "OK",
                  content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
   })
-  List<Simple> dtosSuppressedPrimitiveTypeGet();
+  List<Simple> dtosRemappedArrayMemberGet();
 }
