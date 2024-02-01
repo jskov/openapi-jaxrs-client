@@ -18,15 +18,13 @@ import java.util.Map;
 import java.util.Set;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-
+import mada.tests.e2e.api.types_special.dto.Simple;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-
-import mada.tests.e2e.api.types_special.dto.Simple;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/api/types")
