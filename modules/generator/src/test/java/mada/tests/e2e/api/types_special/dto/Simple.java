@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.api.types.dto;
+package mada.tests.e2e.api.types_special.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
