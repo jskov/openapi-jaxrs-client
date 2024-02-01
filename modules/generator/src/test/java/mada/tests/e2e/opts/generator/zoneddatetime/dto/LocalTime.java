@@ -7,7 +7,6 @@
 package mada.tests.e2e.opts.generator.zoneddatetime.dto;
 
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
 
 /**
  * LocalTime
@@ -36,9 +35,5 @@ public class LocalTime {
     sb.append("class LocalTime {");
     sb.append("\n}");
     return sb.toString();
-  }
-
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
   }
 }
