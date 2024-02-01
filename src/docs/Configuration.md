@@ -89,6 +89,36 @@ The options are grouped into three sections:
 >
     default value: true
 
+
+**parser-localtime-is-jse**
+
+>While there is no local-time definition in the [OpenApi spec](https://swagger.io/specification/#data-types),
+>the Quarkus open-api extension will output LocalTime types like this:
+
+>
+    LocalTime:
+      format: local-time
+      type: string
+      externalDocs:
+        description: As defined by 'partial-time' in RFC3339
+        url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+      example: 13:45.30.123456789
+
+>This option allows parsing of the component schema `LocalTime` to be treated by the generator as Java SE `java.time.LocalTime`.
+
+>It can be disabled if your remote connection uses the type name `LocalTime` for something bespoke.
+    
+>
+    default value: true
+
+
+**parser-map-simple-dtos-to-object**
+
+>Allows you to generate simple DTO types that have no properties. They are mapped to Object by default.
+
+>
+	default value: true
+
 **parser-offsetdatetime-is-jse**
 
 >This option allows parsing of the component schema `OffsetDateTime` to be treated by the generator as Java SE `java.time.OffsetDateTime`.
@@ -113,28 +143,6 @@ The options are grouped into three sections:
 
 >It can be disabled if your remote connection uses the type name `ZonedDateTime` for something bespoke.
 
->
-    default value: true
-
-
-**parser-localtime-is-jse**
-
->While there is no local-time definition in the [OpenApi spec](https://swagger.io/specification/#data-types),
->the Quarkus open-api extension will output LocalTime types like this:
-
->
-    LocalTime:
-      format: local-time
-      type: string
-      externalDocs:
-        description: As defined by 'partial-time' in RFC3339
-        url: https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
-      example: 13:45.30.123456789
-
->This option allows parsing of the component schema `LocalTime` to be treated by the generator as Java SE `java.time.LocalTime`.
-
->It can be disabled if your remote connection uses the type name `LocalTime` for something bespoke.
-    
 >
     default value: true
 

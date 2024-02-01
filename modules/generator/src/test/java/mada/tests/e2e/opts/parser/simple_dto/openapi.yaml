@@ -1,0 +1,45 @@
+---
+openapi: 3.0.1
+info:
+  title: Test
+  version: 1.0.0
+security:
+- JWT: []
+tags:
+- name: Tag
+paths:
+  /add:
+    put:
+      tags:
+      - Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoPropsDto'
+      responses:
+        "204":
+          description: Success
+    post:
+      tags:
+      - Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropDto'
+      responses:
+        "204":
+          description: Success
+components:
+  schemas:
+    PropDto:
+      required:
+      - aendring
+      type: object
+      properties:
+        aendring:
+          description: Ændring som beskrevet i KRO API
+          type: string
+    NoPropsDto:
+      type: object

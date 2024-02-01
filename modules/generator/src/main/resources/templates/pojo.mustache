@@ -248,10 +248,12 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     sb.append("}");
     return sb.toString();
   }
+{{#hasVars}}
 
   private String toSingleLineString(Object o) {
     return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
   }
+{{/hasVars}}
 {{/madaDto.isRenderSingleLineToString}}
 {{^madaDto.isRenderSingleLineToString}}
   @Override
@@ -267,9 +269,11 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     sb.append("\n}");
     return sb.toString();
   }
+{{#hasVars}}
 
   private String toIndentedString(Object o) {
     return Objects.toString(o).replace("\n", "\n    ");
   }
+{{/hasVars}}
 {{/madaDto.isRenderSingleLineToString}}
 }
