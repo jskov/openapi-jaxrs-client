@@ -101,7 +101,7 @@ public final class StringRenderer {
      * @return a single-line string
      */
     public static String encodeForString(String text) {
-        return text.replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"");
+        return text.replace("\\", "\\\\").replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"");
     }
 
     /**
