@@ -223,17 +223,27 @@ public final class Imports {
     }
 
     /**
-     * Adds imports for a reference.
+     * Adds import for a reference - the type it references.
      *
-     * If the reference is externally mapped, just adds an import of the class.
+     * @param typeRef the type reference
+     * @return the imports instance
+     */
+    public Imports add(Reference typeRef) {
+        return add(typeRef.refType());
+    }
+
+    /**
+     * Adds imports for a type.
+     *
+     * If the type is externally mapped, just adds an import of the class.
      *
      * Otherwise adds imports for dependency and container-wrapper classes as well.
      *
-     * @param ref the reference to add imports for
+     * @param type the type to add imports for
      * @return the imports instance
      */
-    public Imports add(Reference ref) {
-        String typeName = ref.typeName().name();
+    public Imports add(Type type) {
+        String typeName = type.typeName().name();
         UserMappedImport mappedToExternalType = externalTypeMapping.get(typeName);
         if (mappedToExternalType != null) {
             logger.info("mapping type {} to {}", typeName, mappedToExternalType);
@@ -241,12 +251,12 @@ public final class Imports {
             return this;
         }
 
-        Type type = ref.refType();
         importedClasses.addAll(type.neededImports());
         addJavaContainerImports(type);
-        addDtoImport(type);
         if (type instanceof TypeContainer tc) {
-            addDtoImport(tc.innerType());
+            add(tc.innerType());
+        } else {
+            addDtoImport(type);
         }
 
         return this;

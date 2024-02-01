@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.api.types.api;
+package mada.tests.e2e.api.types_special.api;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import mada.tests.e2e.api.types.dto.Simple;
+import mada.tests.e2e.api.types_special.dto.Simple;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
