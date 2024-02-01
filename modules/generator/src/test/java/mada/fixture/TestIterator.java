@@ -47,7 +47,7 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-        String testNameContains = "allof_composite";
+        String testNameContains = "regression/encoding";
 //        String testNameContains = "conflict_fail";
 //        String testNameContains = "manual";
 
