@@ -50,10 +50,11 @@ public class DtoSubjectDefiner {
         Type dtoType = dto.reference().refType();
         boolean isEnum = dto.isEnum();
 
-        boolean isPrimitiveEquals = isTypePrimitiveEquals(dtoType);
-        var dtoImports = isEnum ? Imports.newEnum(opts, !isPrimitiveEquals) : Imports.newDto(opts);
-
         List<Property> propsToRender = findRenderedProperties(dto);
+
+        boolean isPrimitiveEquals = isTypePrimitiveEquals(dtoType);
+        var dtoImports = isEnum ? Imports.newEnum(opts, !isPrimitiveEquals) : Imports.newDto(opts, !propsToRender.isEmpty());
+
         dtoImports.addPropertyImports(propsToRender);
 
         if (logger.isDebugEnabled()) {

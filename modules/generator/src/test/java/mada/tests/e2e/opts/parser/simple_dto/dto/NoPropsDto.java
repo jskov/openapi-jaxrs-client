@@ -7,7 +7,6 @@
 package mada.tests.e2e.opts.parser.simple_dto.dto;
 
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
 
 /**
  * NoPropsDto
@@ -36,9 +35,5 @@ public class NoPropsDto {
     sb.append("class NoPropsDto {");
     sb.append("\n}");
     return sb.toString();
-  }
-
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
   }
 }

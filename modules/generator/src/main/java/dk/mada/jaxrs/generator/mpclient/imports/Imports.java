@@ -110,15 +110,19 @@ public final class Imports {
      * Adds common imports need by all DTOs.
      *
      * @param opts the generator options
+     * @param hasParams true if the DTO has any properties
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newDto(GeneratorOpts opts) {
-        return new Imports(opts, false)
+    public static Imports newDto(GeneratorOpts opts, boolean hasParams) {
+        Imports res = new Imports(opts, false)
                 .add(JavaUtil.OBJECTS)
                 .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
                 .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
-                .add(opts.isUsePropertyOrderAnnotation(), Jackson.JSON_PROPERTY_ORDER, Jsonb.JSONB_PROPERTY_ORDER)
-                .add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
+                .add(opts.isUsePropertyOrderAnnotation(), Jackson.JSON_PROPERTY_ORDER, Jsonb.JSONB_PROPERTY_ORDER);
+        if (hasParams) {
+        	res = res.add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
+        }
+        return res;
     }
 
     /**
