@@ -109,7 +109,7 @@ public final class Imports {
      *
      * Adds common imports need by all DTOs.
      *
-     * @param opts the generator options
+     * @param opts      the generator options
      * @param hasParams true if the DTO has any properties
      * @return a new imports instance loaded with enumeration imports
      */
@@ -120,7 +120,7 @@ public final class Imports {
                 .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
                 .add(opts.isUsePropertyOrderAnnotation(), Jackson.JSON_PROPERTY_ORDER, Jsonb.JSONB_PROPERTY_ORDER);
         if (hasParams) {
-        	res = res.add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
+            res = res.add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
         }
         return res;
     }
