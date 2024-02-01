@@ -15,6 +15,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArraysDto'
+  # Types in array, variant handling in generator, so needs explicit testing
+  /dtos/remapped-array-member:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Simple'
   /dtos/collections/map:
     get:
       tags:
