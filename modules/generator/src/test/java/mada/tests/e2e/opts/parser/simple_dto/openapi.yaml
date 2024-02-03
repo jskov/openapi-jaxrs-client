@@ -43,3 +43,29 @@ components:
           type: string
     NoPropsDto:
       type: object
+    SubNoProps:
+      type: object
+    SubProps:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        foo:
+          format: int32
+          type: integer
+    Super:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+      discriminator:
+        propertyName: implDiscriminator
+        mapping:
+          subtype-A: '#/components/schemas/SubNoProps'
+          subtype-B: '#/components/schemas/SubProps'
