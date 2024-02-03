@@ -38,11 +38,8 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
-import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.naming.Naming;
-import dk.mada.jaxrs.model.types.Primitive;
-import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeInterface;
 
 /**
@@ -253,6 +250,7 @@ public class DtoGenerator {
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
                 .isRenderSingleLineToString(opts.isUseSingleLineToString())
+                .isRenderToStringHelper(ds.extendsName().isPresent() || !ds.properties().isEmpty())
                 .build();
 
         Info info = model.info();
