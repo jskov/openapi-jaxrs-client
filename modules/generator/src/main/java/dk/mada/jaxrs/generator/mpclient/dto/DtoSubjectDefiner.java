@@ -99,6 +99,9 @@ public class DtoSubjectDefiner {
 
     /**
      * Wrapper for the property keeping track of the order the property was discovered in.
+     *
+     * @param order the OpenApi document order-index of the property
+     * @param prop  the property
      */
     record OrderedProperty(int order, Property prop) {
     }
