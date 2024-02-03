@@ -253,6 +253,7 @@ public class DtoGenerator {
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
                 .isRenderSingleLineToString(opts.isUseSingleLineToString())
+                .isRenderToStringHelper(ds.extendsName().isPresent() || !ds.properties().isEmpty())
                 .build();
 
         Info info = model.info();

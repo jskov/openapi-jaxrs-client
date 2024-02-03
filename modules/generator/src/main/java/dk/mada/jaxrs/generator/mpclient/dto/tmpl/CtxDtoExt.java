@@ -60,4 +60,7 @@ public interface CtxDtoExt {
 
     /** {@return true if the toString should create a single-line string} */
     boolean isRenderSingleLineToString();
+
+    /** {@return true if the toString indentation helper method should be rendered} */
+    boolean isRenderToStringHelper();
 }
