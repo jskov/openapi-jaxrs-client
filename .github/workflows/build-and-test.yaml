@@ -45,8 +45,8 @@ jobs:
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
 
       - name: Run tests
-        uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa
-        # 2.12.0
+        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87
+        # 3.0.0
         with:
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
