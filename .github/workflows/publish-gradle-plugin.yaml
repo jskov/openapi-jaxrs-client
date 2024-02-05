@@ -28,8 +28,8 @@ jobs:
           distribution: 'adopt'
 
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4
-        # 1.1.0
+        uses: gradle/wrapper-validation-action@27152f6fa06a6b8062ef7195c795692e51fc2c81
+        # 2.0.0
 
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
