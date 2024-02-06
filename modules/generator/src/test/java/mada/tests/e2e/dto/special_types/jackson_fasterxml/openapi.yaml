@@ -15,6 +15,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpecialTypes'
+  /api/uuid/query:
+    get:
+      tags:
+      - Resource Dtos
+      parameters:
+        - in: query
+          name: roomId
+          schema:
+            $ref: '#/components/schemas/RoomId'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecialTypes'
 components:
   schemas:
     LocalTime:
@@ -48,6 +64,17 @@ components:
     UUID:
       format: uuid
       pattern: "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+      type: string
+    # Extra type handling test, due to https://github.com/jskov/openapi-jaxrs-client/issues/553
+    RoomId:
+      description: UUID of the room.
+      example: e017e2ea-ff98-4516-9a56-bbd02e1f161a
+      format: uuid
+      type: string
+    ContactId:
+      description: UUID of the contact.
+      example: d67b7bfa-cdf5-438f-9d4e-1d5ac068dad7
+      format: uuid
       type: string
     ExternedSpecialTypes:
       type: object

@@ -47,6 +47,11 @@ public interface Type {
         return false;
     }
 
+    /** {@return true if this type represents UUID} */
+    default boolean isUUID() {
+        return false;
+    }
+
     /** {@return true if this type represents void} */
     default boolean isVoid() {
         return false;

@@ -31,4 +31,9 @@ public final class TypeUUID implements Type {
     public TypeName typeName() {
         return TypeNames.UUID;
     }
+
+    @Override
+    public boolean isUUID() {
+        return true;
+    }
 }
