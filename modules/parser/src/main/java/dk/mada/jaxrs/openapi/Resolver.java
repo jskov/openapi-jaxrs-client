@@ -243,7 +243,8 @@ public final class Resolver {
         return (dtoType.isDate() && parserOpts.isJseLocalDate())
                 || (dtoType.isDateTime()
                         && (parserOpts.isJseLocalDateTime() || parserOpts.isJseOffsetDateTime() || parserOpts.isJseZonedDateTime()))
-                || (dtoType.isTime() && parserOpts.isJseLocalTime());
+                || (dtoType.isTime() && parserOpts.isJseLocalTime())
+                || (dtoType.isUUID() && parserOpts.isJseUUID());
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
