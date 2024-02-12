@@ -67,9 +67,5 @@ components:
           VIRK_PERSON: '#/components/schemas/VirkPersonIdentification'
           SMS_MAIL: '#/components/schemas/SMSMailIdentification'
         propertyName: type
-      oneOf:
-       - $ref: '#/components/schemas/PrivateIdentification'
-       - $ref: '#/components/schemas/VirkPersonIdentification'
-       - $ref: '#/components/schemas/SMSMailIdentification'
       nullable: true
       type: object

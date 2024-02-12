@@ -2,7 +2,7 @@
  * openapi API Title
  * openapi API description
  *
- * The version of the OpenAPI document:
+ * The version of the OpenAPI document: 1.0.0+openapi_API_Version
  */
 
 package mada.tests.e2e.dto.discriminator_invalid.api;
@@ -27,7 +27,7 @@ public interface DefaultApi {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
-    @APIResponse(responseCode = "default", description = "",
+    @APIResponse(responseCode = "default", description = "Returns id",
                  content = @Content(schema = @Schema(implementation = Identification.class)))
   })
   Identification getId();
