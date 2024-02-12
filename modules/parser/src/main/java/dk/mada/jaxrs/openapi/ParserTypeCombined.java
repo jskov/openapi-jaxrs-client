@@ -2,8 +2,6 @@ package dk.mada.jaxrs.openapi;
 
 import java.util.List;
 
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
@@ -15,25 +13,11 @@ import dk.mada.jaxrs.model.types.TypeName;
  * (inelegantly) combining all properties from referenced DTOs into a synthetic DTO.
  *
  * May be able to merge with ParserTypeComposite.
+ *
+ * @param typeName      the class type name
+ * @param combinesTypes the parser references combined in this type
  */
-@Immutable
-public interface ParserTypeCombined extends Type {
-    /**
-     * Creates a type for a combined class.
-     *
-     * @param typeName      the class type name
-     * @param combinesTypes the parser references combined in this type
-     * @return a combined type
-     */
-    static ParserTypeCombined of(TypeName typeName, List<ParserTypeRef> combinesTypes) {
-        return ImmutableParserTypeCombined.builder()
-                .typeName(typeName)
-                .combinesTypes(combinesTypes).build();
-    }
-
-    /** {@return the parser references to the DTOs combined by this type} */
-    List<ParserTypeRef> combinesTypes();
-
+public record ParserTypeCombined(TypeName typeName, List<ParserTypeRef> combinesTypes) implements Type {
     /**
      * Returns a list of the referenced DTOs in this combined DTO.
      *
@@ -41,7 +25,7 @@ public interface ParserTypeCombined extends Type {
      *
      * @return a list of the referenced DTOs in this combined DTO
      */
-    default List<Dto> internalDtos() {
+    public List<Dto> internalDtos() {
         return combinesTypes().stream()
                 // .filter(ptr -> ptr.refTypeName().name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
                 .map(ParserTypeRef::refType)
@@ -51,7 +35,7 @@ public interface ParserTypeCombined extends Type {
     }
 
     /** {@return a list of the externally referenced type names} */
-    default List<TypeName> externalDtoReferences() {
+    public List<TypeName> externalDtoReferences() {
         return combinesTypes().stream()
                 .map(ptr -> ptr.refTypeName())
                 // .filter(tn -> !tn.name().contains(TypeConverter.INTERNAL_PROPERTIES_NAME_MARKER))
