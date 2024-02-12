@@ -3,13 +3,18 @@ openapi: 3.0.3
 info:
   title: openapi API Title
   description: openapi API description
-  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+  license:
+    name: openapi API license name
+  version: 1.0.0+openapi_API_Version
 paths:
   /id:
     get:
       operationId: getId
       responses:
         default:
+          description: Returns id
           content:
             application/json:
               schema:
@@ -62,5 +67,9 @@ components:
           VIRK_PERSON: '#/components/schemas/VirkPersonIdentification'
           SMS_MAIL: '#/components/schemas/SMSMailIdentification'
         propertyName: type
+      oneOf:
+       - $ref: '#/components/schemas/PrivateIdentification'
+       - $ref: '#/components/schemas/VirkPersonIdentification'
+       - $ref: '#/components/schemas/SMSMailIdentification'
       nullable: true
       type: object
