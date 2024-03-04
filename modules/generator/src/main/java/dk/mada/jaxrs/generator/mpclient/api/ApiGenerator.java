@@ -190,7 +190,7 @@ public class ApiGenerator {
                 .orElse(op.syntheticOpId());
 
         // Gets type for OK if present, or else default, or else void
-        Reference typeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
+        Reference returnTypeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
                 .or(() -> getTypeForStatus(op, StatusCode.HTTP_CREATED))
                 .or(() -> getTypeForStatus(op, StatusCode.HTTP_DEFAULT))
                 .orElse(TypeVoid.getRef());
@@ -202,7 +202,7 @@ public class ApiGenerator {
                 .orElse(null);
         if (okContent != null && okContent.reference().isVoid()
                 && defaultContent != null) {
-            typeRef = defaultContent.reference();
+            returnTypeRef = defaultContent.reference();
         }
 
         // Gets matching media types, check for input-stream replacement
@@ -213,8 +213,8 @@ public class ApiGenerator {
         boolean replaceResponseWithInputStream = opts.getResponseInputStreamMediaTypes().stream()
                 .anyMatch(mediaTypes::contains);
         if (replaceResponseWithInputStream) {
-            typeRef = TypeReference.of(TypeByteArray.getStream(), typeRef.validation());
-            imports.add(typeRef);
+            returnTypeRef = TypeReference.of(TypeByteArray.getStream(), returnTypeRef.validation());
+            imports.add(returnTypeRef);
         }
 
         String path = op.path().substring(trimPathLength);
@@ -222,14 +222,14 @@ public class ApiGenerator {
             path = null;
         }
 
-        Optional<String> producesMediaType = makeProduces(imports, op);
+        Optional<String> producesMediaType = makeProduces(imports, op, returnTypeRef);
 
         List<CtxApiParam> allParams = getParams(imports, op);
         List<CtxApiResponse> responses = getResponses(imports, op, producesMediaType.stream().toList());
 
         boolean onlySimpleResponse = addResponseImports(imports, op);
 
-        boolean renderJavadocReturn = !typeRef.isVoid();
+        boolean renderJavadocReturn = !returnTypeRef.isVoid();
         boolean renderJavadocMacroSpacer = renderJavadocReturn || !allParams.isEmpty();
 
         Optional<String> summary = op.summary();
@@ -253,7 +253,7 @@ public class ApiGenerator {
 
         return new CtxOperationRef(CtxApiOp.builder()
                 .nickname(nickname)
-                .returnType(typeRef.typeName().name())
+                .returnType(returnTypeRef.typeName().name())
                 .path(Optional.ofNullable(path))
                 .httpMethod(op.httpMethod().name())
                 .allParams(allParams)
@@ -515,16 +515,24 @@ public class ApiGenerator {
      * So while the operation's correct @Produces media-types will be the sum of the media-types from all return codes, it
      * needs to be set to the desired media-type of the primary return type.
      *
-     * @param imports the imports for the API
-     * @param op      the operation
+     * @param imports       the imports for the API
+     * @param op            the operation
+     * @param returnTypeRef the return type
      * @return the optional media-type of the return type
      */
-    private Optional<String> makeProduces(Imports imports, Operation op) {
+    private Optional<String> makeProduces(Imports imports, Operation op, Reference returnTypeRef) {
         Optional<Response> mainResponse = getOperationMainResponse(op);
 
         List<String> potentialMediaTypes = mainResponse
                 .map(r -> List.copyOf(r.content().mediaTypes()))
                 .orElse(List.of());
+
+        // If there are no media types declared, and the return type is void
+        // a produces media-type can be specified.
+        if (potentialMediaTypes.isEmpty() && returnTypeRef.isVoid()) {
+            return opts.getVoidProducesMediaType()
+                    .map(mt -> MediaTypes.toMediaType(imports, mt));
+        }
 
         ContentContext context = new ContentContext(op.path(), true, Location.RESPONSE);
         return model.contentSelector().selectPreferredMediaType(potentialMediaTypes, context)

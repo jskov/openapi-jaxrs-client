@@ -13,6 +13,7 @@ public final class MediaTypes {
      * Media types supported for now.
      */
     private static final Map<String, String> MEDIA_TYPES = Map.of(
+            "*/*", "WILDCARD",
             "application/json", "APPLICATION_JSON",
             "application/octet-stream", "APPLICATION_OCTET_STREAM",
             "application/x-www-form-urlencoded", "APPLICATION_FORM_URLENCODED",

@@ -176,6 +176,17 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-api-void-produces-mediatype**
+
+>The MicroProfile Client defaults to "application/json" if no @Produces is provided.
+
+>That is not always desirable, so this option allows you to specify the @Produces-media-type for
+>void resource methods that have no other media-type defined.
+
+>
+    default value:
+
+
 **generator-dto-package**
 
 >Name of package to generate DTO classes in.
