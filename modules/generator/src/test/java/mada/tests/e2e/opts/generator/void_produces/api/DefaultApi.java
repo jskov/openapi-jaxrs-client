@@ -26,7 +26,7 @@ public interface DefaultApi {
   @DELETE
   @Path("/DELETE")
   @Consumes(MediaType.APPLICATION_JSON)
-  @Produces("*/*")
+  @Produces(MediaType.WILDCARD)
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No Content")
   })
