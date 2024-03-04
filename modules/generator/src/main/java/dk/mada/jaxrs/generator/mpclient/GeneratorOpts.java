@@ -470,6 +470,11 @@ public final class GeneratorOpts {
         return or.bool("generator-api-skip", false);
     }
 
+    /** {@return the @Produces media type to use for void methods} */
+    public Optional<String> getVoidProducesMediaType() {
+        return or.get("generator-api-void-produces-mediatype");
+    }
+
     /** {@return list of media types that should be handled as input stream} */
     public List<String> getResponseInputStreamMediaTypes() {
         return or.getListDefault("generator-api-response-inputstream-mediatypes", "");
