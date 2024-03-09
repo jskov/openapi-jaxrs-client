@@ -10,3 +10,6 @@ laaneoversigt:
 kroreal?
     example with sub-classes referencing other classes
     (did not preserve the types correctly)
+
+customerRoomV3Service:
+    example with two different locations of properties vs allof
