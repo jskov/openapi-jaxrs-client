@@ -2,6 +2,7 @@ package dk.mada.jaxrs.model;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
@@ -73,7 +74,7 @@ public interface Dto extends Type {
     Optional<SubtypeSelector> subtypeSelector();
 
     /** {@return the parents that this DTO extends} */
-    List<Dto> extendsParents();
+    Set<Dto> extendsParents();
 
     /** {@return true if this instance is used as a multipart form body} */
     boolean isMultipartForm();

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +87,7 @@ public class DtoSubjectDefiner {
         // If this Dto extends more than one other Dto
         // it cannot be done in Java. So fold properties
         // from the parents into this Dto.
-        List<Dto> externalDtos = dto.extendsParents();
+        Set<Dto> externalDtos = dto.extendsParents();
         if (externalDtos.size() > 1) {
             externalDtos.forEach(ed -> addCombinedProperties(dtoName, combinedProps, ed));
         }
@@ -216,10 +217,19 @@ public class DtoSubjectDefiner {
      * @see findRenderedProperties
      */
     private Optional<String> getExtends(Dto dto) {
-        if (dto.extendsParents().size() == 1) {
-            return Optional.of(dto.extendsParents().get(0).name());
+        String dtoName = dto.name();
+        Set<Dto> parents = dto.extendsParents();
+        logger.debug("See DTO {} with parents {}", dtoName, parents);
+
+        if (parents.size() == 1) {
+            String singleParentName = parents.iterator().next().name();
+            logger.debug(" : single parent {}", singleParentName);
+            return Optional.of(singleParentName);
+        } else {
+            if (logger.isDebugEnabled()) {
+                parents.forEach(p -> logger.debug(" parent {} : {}", p.openapiId(), p));
+            }
         }
         return Optional.empty();
     }
-
 }
