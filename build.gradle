@@ -1,26 +1,3 @@
 plugins {
-    id 'dk.mada.sonarqube'
-    id 'dk.mada.aggregate-javadoc'
     id 'eclipse'
-}
-
-apply plugin: 'dk.mada.aggregate-jacoco'
-
-ext {
-    aggregateJavadocProjects = [
-        project(":generator"),
-        project(":generator-api"),
-        project(":generator-cli"),
-        project(":model"),
-        project(":parser")
-    ]
-
-    aggregateJacocoProjects = [
-        project(":generator-api"),
-        project(":model"),
-        project(":parser"),
-        project(":generator"),
-        project(":generator-cli"),
-        project(":gradle-plugin")
-    ]
 }

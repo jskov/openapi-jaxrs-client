@@ -1,5 +1,10 @@
 pluginManagement {
     includeBuild('gradle/plugins')
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        mavenLocal()
+    }
 }
 
 rootProject.name='openapi-jaxrs-client'

@@ -3,6 +3,7 @@ plugins {
     id 'com.gradle.plugin-publish' version '1.2.1'
 
     id 'dk.mada.java'
+    id 'dk.mada.jacoco'
     id 'dk.mada.eclipse'
     id 'dk.mada.pom-jaxrs'
 }

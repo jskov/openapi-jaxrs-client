@@ -1,16 +1,10 @@
 plugins {
     id('java')
-
-    id 'dk.mada.sonarqube'
-    id 'dk.mada.spotless'
-    id 'dk.mada.apt-errorprone'
-    id 'dk.mada.checkstyle'
-    id 'dk.mada.jacoco'
+    id 'dk.mada.style'
 }
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 java {
@@ -21,6 +15,8 @@ java {
 
 dependencies {
     implementation      (platform(project(':openapi-jaxrs-bom')))
+
+    compileOnly         'org.jspecify:jspecify:0.3.0'
 
     testImplementation  (platform('dk.mada.jaxrs:test-platform')) {
         exclude module: "slf4j-jboss-logmanager"
