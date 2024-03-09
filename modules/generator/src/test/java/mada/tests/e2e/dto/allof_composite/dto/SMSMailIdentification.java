@@ -17,7 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  * SMSMailIdentification
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SMSMailIdentification {
+public class SMSMailIdentification extends Identification {
   public static final String JSON_PROPERTY_COUNTRY_CODE = "countryCode";
   @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
   @Schema(description = "DA: Landekode for telefonnummeret<br/>The country code of the phone number", example = "45")
