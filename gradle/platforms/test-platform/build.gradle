@@ -15,7 +15,7 @@ dependencies {
         api   'io.quarkus:quarkus-rest-client:3.6.4'
         api   'io.quarkus:quarkus-resteasy-multipart:3.8.2'
 
-        api   'com.fasterxml.jackson.core:jackson-annotations:2.16.1'
+        api   'com.fasterxml.jackson.core:jackson-annotations:2.16.2'
         api   'com.fasterxml.jackson.core:jackson-core:2.16.1'
         api   'com.fasterxml.jackson.core:jackson-databind:2.16.1'
 
