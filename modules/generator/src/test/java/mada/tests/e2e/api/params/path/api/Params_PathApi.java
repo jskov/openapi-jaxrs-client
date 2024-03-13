@@ -86,4 +86,22 @@ public interface Params_PathApi {
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   String apiParamsPathStringStringIdGet(@PathParam("stringId") @NotNull String stringId);
+
+  /**
+   * apiParamsPathWithSlashStringIdGet.
+   *
+   * @param stringId  (required)
+   */
+  @GET
+  @Path("/with-slash/{string-id}")
+  void apiParamsPathWithSlashStringIdGet(@PathParam("string-id") @NotNull String stringId);
+
+  /**
+   * apiParamsPathWithUnderscoreStringIdGet.
+   *
+   * @param stringId  (required)
+   */
+  @GET
+  @Path("/with-underscore/{string_id}")
+  void apiParamsPathWithUnderscoreStringIdGet(@PathParam("string_id") @NotNull String stringId);
 }

@@ -643,7 +643,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The parameter name is given as input.
 
 >
-    default value: PARAMETERNAME
+    default value: REGEXP/_/-/; PARAMETERNAME
 
 **naming-rules-property**
 
@@ -652,7 +652,7 @@ You can specify a number of operators, separated by ';'. They will be applied le
 >The property name is given as input.
 
 >
-    default value: PROPERTYNAME
+    default value: REGEXP/_/-/; PROPERTYNAME
 
 **naming-rules-type**
 

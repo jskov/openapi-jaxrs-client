@@ -46,6 +46,14 @@ public class BeanNaming {
   @JsonbProperty(JSON_PROPERTY_UPPER_INT)
   private Integer upperInt;
 
+  public static final String JSON_PROPERTY_WITH_SLASH = "with-slash";
+  @JsonbProperty(JSON_PROPERTY_WITH_SLASH)
+  private Boolean withSlash;
+
+  public static final String JSON_PROPERTY_WITH_UNDERSCORE = "with_underscore";
+  @JsonbProperty(JSON_PROPERTY_WITH_UNDERSCORE)
+  private Boolean withUnderscore;
+
   public BeanNaming aCamelBool(Boolean aCamelBool) {
     this.aCamelBool = aCamelBool;
     return this;
@@ -182,6 +190,40 @@ public class BeanNaming {
     this.upperInt = upperInt;
   }
 
+  public BeanNaming withSlash(Boolean withSlash) {
+    this.withSlash = withSlash;
+    return this;
+  }
+
+  /**
+   * Get withSlash
+   * @return withSlash
+   **/
+  public Boolean isWithSlash() {
+    return withSlash;
+  }
+
+  public void setWithSlash(Boolean withSlash) {
+    this.withSlash = withSlash;
+  }
+
+  public BeanNaming withUnderscore(Boolean withUnderscore) {
+    this.withUnderscore = withUnderscore;
+    return this;
+  }
+
+  /**
+   * Get withUnderscore
+   * @return withUnderscore
+   **/
+  public Boolean isWithUnderscore() {
+    return withUnderscore;
+  }
+
+  public void setWithUnderscore(Boolean withUnderscore) {
+    this.withUnderscore = withUnderscore;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -198,12 +240,14 @@ public class BeanNaming {
         Objects.equals(this.downBool, other.downBool) &&
         Objects.equals(this.downInt, other.downInt) &&
         Objects.equals(this.upperBool, other.upperBool) &&
-        Objects.equals(this.upperInt, other.upperInt);
+        Objects.equals(this.upperInt, other.upperInt) &&
+        Objects.equals(this.withSlash, other.withSlash) &&
+        Objects.equals(this.withUnderscore, other.withUnderscore);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aCamelBool, aCamelInt, aLLCAPSBOOL, aLLCAPSINT, downBool, downInt, upperBool, upperInt);
+    return Objects.hash(aCamelBool, aCamelInt, aLLCAPSBOOL, aLLCAPSINT, downBool, downInt, upperBool, upperInt, withSlash, withUnderscore);
   }
 
   @Override
@@ -218,6 +262,8 @@ public class BeanNaming {
     sb.append("\n    downInt: ").append(toIndentedString(downInt));
     sb.append("\n    upperBool: ").append(toIndentedString(upperBool));
     sb.append("\n    upperInt: ").append(toIndentedString(upperInt));
+    sb.append("\n    withSlash: ").append(toIndentedString(withSlash));
+    sb.append("\n    withUnderscore: ").append(toIndentedString(withUnderscore));
     sb.append("\n}");
     return sb.toString();
   }
