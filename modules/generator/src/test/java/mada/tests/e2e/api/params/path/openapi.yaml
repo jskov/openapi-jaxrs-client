@@ -116,3 +116,23 @@ paths:
             text/plain:
               schema:
                 type: string
+  /api/params/path/with-underscore/{string_id}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: string_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/params/path/with-slash/{string-id}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: string-id
+        in: path
+        required: true
+        schema:
+          type: string

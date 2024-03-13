@@ -36,3 +36,7 @@ components:
           type: integer
         ALLCAPSINT:
           type: boolean
+        with-slash:
+          type: boolean
+        with_underscore:
+          type: boolean

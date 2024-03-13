@@ -79,8 +79,8 @@ public class NamingOpts {
         entityNamingConfig = or.getDefault("naming-rules-entity", "LITERAL/dto/");
         operationNamingConfig = or.getDefault("naming-rules-operation", "OPERATIONNAME");
         operationIdNamingConfig = or.getDefault("naming-rules-operationid", "");
-        propertyNamingConfig = or.getDefault("naming-rules-property", "PROPERTYNAME");
-        parameterNamingConfig = or.getDefault("naming-rules-parameter", "PROPERTYNAME");
+        propertyNamingConfig = or.getDefault("naming-rules-property", "REGEXP/_/-/; PROPERTYNAME");
+        parameterNamingConfig = or.getDefault("naming-rules-parameter", "REGEXP/_/-/; PROPERTYNAME");
         enumConstantNamingConfig = or.getDefault("naming-rules-enum-constant", "REGEXP/-/_/; TYPENAME; UPCASE");
         enumNumberConstantNamingConfig = or.getDefault("naming-rules-enum-number-constant", "REGEXP/-/NEG_/; PREPEND/NUMBER_/");
         propertyEnumTypeNamingConfig = or.getDefault("naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
