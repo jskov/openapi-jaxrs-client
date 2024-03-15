@@ -431,7 +431,7 @@ public final class TypeConverter {
         TypeName tn = typeNames.of(dtoName);
         logger.trace(" - createOneofRef combined {}", oneOfRefs);
 
-        ParserTypeCombined combined = ParserTypeCombined.of(tn, oneOfRefs);
+        ParserTypeCombined combined = new ParserTypeCombined(tn, oneOfRefs);
         ParserTypeRef combinedRef = parserRefs.of(combined, ri.validation);
 
         Dto dto = Dto.builder(dtoName, tn)
