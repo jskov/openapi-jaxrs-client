@@ -24,10 +24,10 @@ components:
     PrivateIdentification:
       allOf:
         - $ref: '#/components/schemas/Identification'
-        - properties:
-            sevenFirstCprDigits:
-              type: string
-          type: object
+      properties:
+        sevenFirstCprDigits:
+          type: string
+      type: object
     VirkPersonIdentification:
       allOf:
         - $ref: '#/components/schemas/Identification'
@@ -67,5 +67,6 @@ components:
           VIRK_PERSON: '#/components/schemas/VirkPersonIdentification'
           SMS_MAIL: '#/components/schemas/SMSMailIdentification'
         propertyName: type
+      # NOTE: no anyOf references to the subtypes here
       nullable: true
       type: object
