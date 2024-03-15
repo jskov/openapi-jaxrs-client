@@ -152,11 +152,3 @@ jobs:
             && echo "Publish completed" \
             || echo "Publish skipped / failed"
           rm -f cookies.txt
-
-      - name: Deploy Javadoc
-        uses: JamesIves/github-pages-deploy-action@65b5dfd4f5bcd3a7403bbc2959c144256167464e
-        # 4.5.0
-        with:
-          branch: gh-pages
-          folder: build/docs/javadoc
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
