@@ -28,8 +28,8 @@ jobs:
           distribution: 'temurin'
 
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@699bb18358f12c5b78b37bb0111d3a0e2276e0e2
-        # 2.1.1
+        uses: gradle/wrapper-validation-action@b231772637bb498f11fdbc86052b6e8a8dc9fc92
+        # 2.1.2
 
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
