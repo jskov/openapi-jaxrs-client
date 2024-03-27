@@ -13,7 +13,7 @@ dependencies {
 
     constraints {
         api   'io.quarkus:quarkus-rest-client:3.6.4'
-        api   'io.quarkus:quarkus-resteasy-multipart:3.9.0'
+        api   'io.quarkus:quarkus-resteasy-multipart:3.9.1'
 
         api   'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
         api   'com.fasterxml.jackson.core:jackson-core:2.17.0'
