@@ -39,6 +39,12 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
           arguments: javadoc publish -s
 
+      - name: Remove Gradle plugin artifacts
+        # Gradle artifacts are published separately
+        run: |
+          rm -rf build/dist/dk/mada/jaxrs/dk.mada.jaxrs.gradle.plugin
+          rm -rf build/dist/dk/mada/jaxrs/gradle-plugin
+
       - name: Upload and Release Bundle
         uses: jskov/action-nexus-publish@f93f3a76488c83729461bc6274cb8d43e9abe34a
         with:
