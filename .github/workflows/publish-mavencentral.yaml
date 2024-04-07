@@ -48,6 +48,7 @@ jobs:
       - name: Upload and Release Bundle
         uses: jskov/action-nexus-publish@f93f3a76488c83729461bc6274cb8d43e9abe34a
         with:
+          companion_suffixes: '.jar, .module, -javadoc.jar, -sources.jar, -cli.jar'
           ossrh_username: ${{ secrets.OSSRH_USERNAME }}
           ossrh_token: ${{ secrets.OSSRH_TOKEN }}
           signing_key: ${{ secrets.SIGNING_KEY }}
