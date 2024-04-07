@@ -16,8 +16,6 @@ jobs:
           INPUT: ${{ github.head_ref || github.ref_name }}
         run: |
           echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
-#      - name: Echo env
-#        run: env | sort
       - uses: actions/checkout@v4
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -41,114 +39,19 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
           arguments: javadoc publish -s
 
-      # Signing via bash
-      # Avoids sharing credentials with all Gradle plugins/potential annotation processors
-      - name: Sign dist files
-        env:
-          MADA_SIGNING_KEY: ${{ secrets.MADA_SIGNING_KEY }}
-          MADA_SIGNING_PASSWORD: ${{ secrets.MADA_SIGNING_PASSWORD }}
-        run: .github/sign-published-files.sh build/dist ${BUILD_LABEL} F9B879EDFC0AB297588936F49CCE5D89C917DBD4
-
-      # Delete unwanted files (or Nexus will make checksums for checksums)
-      - name: Delete unwanted checksum files
+      - name: Remove Gradle plugin artifacts
+        # Gradle artifacts are published separately
         run: |
-          find build/dist \( -name "*.md5" -o -name "*.sha1" -o -name "*.sha256" -o -name "*.sha512" \) -exec rm "{}" \;
+          rm -rf build/dist/dk/mada/jaxrs/dk.mada.jaxrs.gradle.plugin
+          rm -rf build/dist/dk/mada/jaxrs/gradle-plugin
 
-      - name: Upload CLI artifacts
-        uses: softprops/action-gh-release@9d7c94cfd0a1f3ed45544c887983e9fa900f0564
-        # v0.1.15
-        with:
-          draft: true
-          tag_name: ${{ env.BUILD_LABEL }}
-          generate_release_notes: true
-          files: build/dist/*-cli.jar*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Assemble BOM Bundle
-        run: |
-          cd build/dist/dk/mada/jaxrs/openapi-jaxrs-bom/${BUILD_LABEL}/
-          jar cvf /tmp/bundle-bom.jar *
-          unzip -t /tmp/bundle-bom.jar
-
-      - name: Assemble generator-api Bundle
-        run: |
-          cd build/dist/dk/mada/jaxrs/generator-api/${BUILD_LABEL}/
-          jar cvf /tmp/bundle-generator-api.jar *
-          unzip -t /tmp/bundle-generator-api.jar
-
-      - name: Assemble generator-cli Bundle
-        run: |
-          cd build/dist/dk/mada/jaxrs/generator-cli/${BUILD_LABEL}/
-          jar cvf /tmp/bundle-generator-cli.jar *
-          unzip -t /tmp/bundle-generator-cli.jar
-
-      - name: Assemble model Bundle
-        run: |
-          cd build/dist/dk/mada/jaxrs/model/${BUILD_LABEL}/
-          jar cvf /tmp/bundle-model.jar *
-          unzip -t /tmp/bundle-model.jar
-
-      - name: Assemble parser Bundle
-        run: |
-          cd build/dist/dk/mada/jaxrs/parser/${BUILD_LABEL}/
-          jar cvf /tmp/bundle-parser.jar *
-          unzip -t /tmp/bundle-parser.jar
-
-      # Note that this is the only generator at present, so it keeps the legacy name for now
-      - name: Assemble client Bundle
-        run: |
-          cd build/dist/dk/mada/jaxrs/openapi-jaxrs-client/${BUILD_LABEL}/
-          jar cvf /tmp/bundle-client.jar *
-          unzip -t /tmp/bundle-client.jar
-
-      - name: Capture Bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: bundle
-          path: "/tmp/bundle-*.jar"
-          retention-days: 1
-
-      # Crude upload inspired by https://mccue.dev/pages/6-1-22-upload-to-maven-central
-      # Avoids sharing credentials with all Gradle plugins/potential annotation processors
       - name: Upload and Release Bundle
-        env:
-          USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-        run: |
-          curl --request GET --url https://s01.oss.sonatype.org/service/local/authentication/login \
-               --cookie-jar cookies.txt --user "${USERNAME}:${PASSWORD}"
-          repoBomId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
-               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@/tmp/bundle-bom.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
-          repoGeneratorApiId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
-               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@/tmp/bundle-generator-api.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
-          repoGeneratorCliId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
-               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@/tmp/bundle-generator-cli.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
-          repoModelId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
-               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@/tmp/bundle-model.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
-          repoParserId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
-               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@/tmp/bundle-parser.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
-          repoClientId=$(curl --request POST --url https://s01.oss.sonatype.org/service/local/staging/bundle_upload \
-               --cookie cookies.txt --header 'Content-Type: multipart/form-data' \
-               --form file=@/tmp/bundle-client.jar | jq -r ".repositoryUris[0]" | sed 's/.*\///')
-          echo "Wait for repos '$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoModelId', '$repoParserId', and '$repoClientId' to settle.."
-          # should probe for state change:
-          #  curl -v -H 'Accept: application/json' /tmp/cookies.txt https://s01.oss.sonatype.org/service/local/staging/repository/dkmada-1104
-          #  Look for type:closed
-          sleep 800
-          echo "Publish NOT completed! Test repo!"
-          # release - unless tag starts with 0.0.
-          echo $BUILD_LABEL | grep -q -v -e "^0[.]0[.]" \
-            && curl --request POST \
-               --url https://s01.oss.sonatype.org/service/local/staging/bulk/promote \
-               --cookie cookies.txt \
-               --header 'Content-Type: application/json' \
-               --data "{ 'data': { 'autoDropAfterRelease': true, 'description': '', 'stagedRepositoryIds': ['$repoBomId', '$repoGeneratorApiId', '$repoGeneratorCliId', '$repoModelId', '$repoParserId', '$repoClientId'] } }" \
-            && echo "Publish completed" \
-            || echo "Publish skipped / failed"
-          rm -f cookies.txt
+        uses: jskov/action-nexus-publish@f93f3a76488c83729461bc6274cb8d43e9abe34a
+        with:
+          companion_suffixes: '.jar, .module, -javadoc.jar, -sources.jar, -cli.jar'
+          ossrh_username: ${{ secrets.OSSRH_USERNAME }}
+          ossrh_token: ${{ secrets.OSSRH_TOKEN }}
+          signing_key: ${{ secrets.SIGNING_KEY }}
+          signing_key_secret: ${{ secrets.SIGNING_KEY_SECRET }}
+          search_directory: build/dist
+          target_action: 'keep'
