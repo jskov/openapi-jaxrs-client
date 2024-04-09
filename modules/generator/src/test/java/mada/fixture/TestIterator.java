@@ -48,7 +48,7 @@ class TestIterator {
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
 //        String testNameContains = "manual";
-        String testNameContains = "nullable";
+        String testNameContains = "collections/map";
 //        String testNameContains = "manual";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
