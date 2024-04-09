@@ -20,8 +20,8 @@ public interface CtxValidation {
     /** {@return true if the property must be valid, otherwise false} */
     boolean valid();
 
-    /** {@return true if the value is required (NotNull), otherwise false} */
-    boolean required();
+    /** {@return true if the value must be NotNull, otherwise false} */
+    boolean notNull();
 
     /** {@return optional validation minimum length} */
     Optional<String> minLength();
