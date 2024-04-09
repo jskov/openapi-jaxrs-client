@@ -37,3 +37,8 @@ components:
         danishProperty:
           description: Danish characters æøåÆØÅ dóh!
           type: string
+    ExternalLowerEnum:
+      enum:
+      - low_ext_a
+      - low_ext_b
+      type: string
