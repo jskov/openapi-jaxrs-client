@@ -51,7 +51,7 @@ public class ValidationGenerator {
         Optional<String> decimalMinimum = Optional.empty();
         Optional<String> decimalMaximum = Optional.empty();
         Optional<String> pattern;
-        
+
         boolean isNullable = validation.isNullable().orElse(false);
         boolean isRequired = validation.isRequired().orElse(false);
         boolean isNotNull = !isNullable && isRequired;
