@@ -63,6 +63,11 @@ public class MapsDto {
   @JsonbProperty(JSON_PROPERTY_LONGS)
   private Map<String, Long> longs;
 
+  public static final String JSON_PROPERTY_MISSING_ADDITIONAL_PROPS = "missingAdditionalProps";
+  @JsonbProperty(JSON_PROPERTY_MISSING_ADDITIONAL_PROPS)
+  @Schema(nullable = true)
+  private Map<String, Object> missingAdditionalProps;
+
   public static final String JSON_PROPERTY_OBJECTS = "objects";
   @JsonbProperty(JSON_PROPERTY_OBJECTS)
   private Map<String, Object> objects;
@@ -390,6 +395,31 @@ public class MapsDto {
     this.longs = longs;
   }
 
+  public MapsDto missingAdditionalProps(Map<String, Object> missingAdditionalProps) {
+    this.missingAdditionalProps = missingAdditionalProps;
+    return this;
+  }
+
+  public MapsDto putMissingAdditionalPropsItem(String key, Object missingAdditionalPropsItem) {
+    if (this.missingAdditionalProps == null) {
+      this.missingAdditionalProps = new HashMap<>();
+    }
+    this.missingAdditionalProps.put(key, missingAdditionalPropsItem);
+    return this;
+  }
+
+  /**
+   * Get missingAdditionalProps
+   * @return missingAdditionalProps
+   **/
+  public Map<String, Object> getMissingAdditionalProps() {
+    return missingAdditionalProps;
+  }
+
+  public void setMissingAdditionalProps(Map<String, Object> missingAdditionalProps) {
+    this.missingAdditionalProps = missingAdditionalProps;
+  }
+
   public MapsDto objects(Map<String, Object> objects) {
     this.objects = objects;
     return this;
@@ -672,6 +702,7 @@ public class MapsDto {
         Objects.equals(this.bytes, other.bytes) &&
         Objects.equals(this.ints, other.ints) &&
         Objects.equals(this.longs, other.longs) &&
+        Objects.equals(this.missingAdditionalProps, other.missingAdditionalProps) &&
         Objects.equals(this.objects, other.objects) &&
         Objects.equals(this.refs, other.refs) &&
         Objects.equals(this.requiredBooleans, other.requiredBooleans) &&
@@ -687,7 +718,7 @@ public class MapsDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs, objects, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
+    return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs, missingAdditionalProps, objects, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
   }
 
   @Override
@@ -705,6 +736,7 @@ public class MapsDto {
     sb.append("\n    bytes: ").append(toIndentedString(bytes));
     sb.append("\n    ints: ").append(toIndentedString(ints));
     sb.append("\n    longs: ").append(toIndentedString(longs));
+    sb.append("\n    missingAdditionalProps: ").append(toIndentedString(missingAdditionalProps));
     sb.append("\n    objects: ").append(toIndentedString(objects));
     sb.append("\n    refs: ").append(toIndentedString(refs));
     sb.append("\n    requiredBooleans: ").append(toIndentedString(requiredBooleans));

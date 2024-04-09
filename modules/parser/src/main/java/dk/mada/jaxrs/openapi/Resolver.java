@@ -477,17 +477,19 @@ public final class Resolver {
         TypeReference resolvedRef = resolve(property.reference());
         Validation resolvedValidation = property.validation();
 
-        // Terminate parsing if type is "just" validation.
-        // This happens if no type is provided in the OpenApi document.
-        // This check should live in resolve(), but then the error cannot provide location hints.
-        if (resolvedRef.refType() instanceof TypeValidation) {
-            String location = parent.name() + ":" + propName;
-            if (fixupMissingType) {
-                resolvedRef = resolve(ParserTypeRef.of(TypeNames.OBJECT, resolvedValidation));
-                logger.warn("Assuming type Object for {}", location);
-            } else {
-                throw new IllegalArgumentException(
-                        "Property " + location + " has no type! Set " + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
+        String location = parent.name() + ":" + propName;
+        resolvedRef = assertOrFixupActualType(resolvedRef, resolvedValidation, location);
+
+        // A Map's inner type may be undefined, try to fix it
+        if (resolvedRef.refType() instanceof TypeMap map) {
+            Type innerType = map.innerType();
+            if (innerType instanceof TypeReference innerRef) {
+                // Not resolving inner type - happens in depth by resolve() on the property
+                TypeReference newInnerType = assertOrFixupActualType(innerRef, innerRef.validation(), location + " (map's value)");
+                if (!newInnerType.equals(innerRef)) {
+                    TypeMap newMap = TypeMap.of(map.typeNames(), newInnerType);
+                    resolvedRef = TypeReference.of(newMap, resolvedRef.validation());
+                }
             }
         }
 
@@ -531,6 +533,31 @@ public final class Resolver {
                 .reference(resolvedRef)
                 .validation(resolvedValidation)
                 .build();
+    }
+
+    /**
+     * Assert on or fixup undeclared types.
+     *
+     * Terminate parsing if type is "just" validation. This happens if no type is provided in the OpenApi document. This
+     * check should live in resolve(), but then the error cannot provide location hints.
+     *
+     * @param typeRef    the type reference
+     * @param validation the validation of the type reference
+     * @param location   location to print in case of failure
+     * @return the input type is valid, or a fallback type if so configured
+     */
+    private TypeReference assertOrFixupActualType(TypeReference typeRef, Validation validation, String location) {
+        if (!(typeRef.refType() instanceof TypeValidation)) {
+            return typeRef;
+        }
+
+        if (fixupMissingType) {
+            logger.warn("Assuming type Object for {}", location);
+            return resolve(ParserTypeRef.of(TypeNames.OBJECT, validation));
+        } else {
+            throw new IllegalArgumentException(
+                    "Property " + location + " has no type! Set " + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
+        }
     }
 
     /**
