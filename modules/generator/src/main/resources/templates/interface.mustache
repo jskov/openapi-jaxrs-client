@@ -8,6 +8,8 @@ import {{.}};
 {{/imports}}
 
 {{/hasImports}}
+{{#renderSchema}}
 @Schema(anyOf = { {{implementations}} })
+{{/renderSchema}}
 public interface {{classname}} {
 }

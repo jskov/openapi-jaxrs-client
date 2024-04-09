@@ -15,7 +15,7 @@ import javax.json.bind.annotation.JsonbProperty;
  * SubB
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SubB extends Super {
+public class SubB extends Super implements SubASubB {
   public static final String JSON_PROPERTY_FOO = "foo";
   @JsonbProperty(JSON_PROPERTY_FOO)
   private Integer foo;

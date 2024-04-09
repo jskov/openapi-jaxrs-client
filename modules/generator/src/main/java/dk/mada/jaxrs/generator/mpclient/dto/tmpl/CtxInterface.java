@@ -58,4 +58,7 @@ public interface CtxInterface {
 
     /** {@return a string list of implementation DTOs} */
     String implementations();
+
+    /** {@return true if OpenApi schema information should be rendered} */
+    boolean renderSchema();
 }

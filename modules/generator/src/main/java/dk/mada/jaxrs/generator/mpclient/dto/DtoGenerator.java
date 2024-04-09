@@ -153,6 +153,7 @@ public class DtoGenerator {
                 .imports(imports.get())
                 .packageName(opts.dtoPackage())
                 .implementations(implementations)
+                .renderSchema(opts.getUseOpenapiSchema())
                 .build();
     }
 

@@ -15,7 +15,7 @@ import javax.json.bind.annotation.JsonbProperty;
  * Super
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public abstract class Super implements SubASubB {
+public abstract class Super {
   public static final String JSON_PROPERTY_IMPL_DISCRIMINATOR = "implDiscriminator";
   @JsonbProperty(JSON_PROPERTY_IMPL_DISCRIMINATOR)
   private String implDiscriminator;
