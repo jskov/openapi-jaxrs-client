@@ -142,6 +142,11 @@ public enum StatusCode {
         this.code = code;
     }
 
+    /** {@return the status code value} */
+    public int code() {
+        return code;
+    }
+
     /**
      * Returns the code in the same form as expected by OpenApi.
      *

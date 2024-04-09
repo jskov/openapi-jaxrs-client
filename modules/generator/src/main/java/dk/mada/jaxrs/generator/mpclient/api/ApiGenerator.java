@@ -549,7 +549,7 @@ public class ApiGenerator {
      */
     private Optional<Response> getOperationMainResponse(Operation op) {
         return op.responses().stream()
-                .sorted((a, b) -> Integer.compare(a.code().ordinal(), b.code().ordinal()))
+                .sorted((a, b) -> Integer.compare(a.code().code(), b.code().code()))
                 .findFirst();
     }
 }
