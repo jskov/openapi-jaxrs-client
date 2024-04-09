@@ -17,6 +17,31 @@ externalDocs:
   url: openapi API ext url
 tags: []
 paths:
+  /api/interfaces/super:
+    get:
+      tags:
+      - Api Interfaces
+      responses:
+        "200":
+          description: interface instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  implDiscriminator:
+                    type: string
+                  superValue:
+                    format: int32
+                    type: integer
+                anyOf:
+                - $ref: '#/components/schemas/SubA'
+                - $ref: '#/components/schemas/SubB'
+                discriminator:
+                  propertyName: implDiscriminator
+                  mapping:
+                    subtype-A: '#/components/schemas/SubA'
+                    subtype-B: '#/components/schemas/SubB'
 components:
   schemas:
     DocsDto:
@@ -42,3 +67,38 @@ components:
       - low_ext_a
       - low_ext_b
       type: string
+    SubA:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        bar:
+          format: int32
+          type: integer
+    SubB:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        foo:
+          format: int32
+          type: integer
+    Super:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+      discriminator:
+        propertyName: implDiscriminator
+        mapping:
+          subtype-A: '#/components/schemas/SubA'
+          subtype-B: '#/components/schemas/SubB'
