@@ -1,0 +1,98 @@
+/*
+ * openapi API Title
+ * openapi API description
+ *
+ * The version of the OpenAPI document: openapi API Version
+ * Contact: openapi API contact email
+ */
+
+package mada.tests.e2e.dto.validation.nullable.dto;
+
+import java.util.Objects;
+import java.util.UUID;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.validation.constraints.NotNull;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
+/**
+ * AdresseIdentifikationDto
+ */
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
+public class AdresseIdentifikationDto {
+  public static final String JSON_PROPERTY_ADGANGSADRESSE_ID = "adgangsadresseId";
+  @JsonbProperty(JSON_PROPERTY_ADGANGSADRESSE_ID)
+  @Schema(required = true)
+  private UUID adgangsadresseId;
+
+  public static final String JSON_PROPERTY_ADRESSE_ID = "adresseId";
+  @JsonbProperty(JSON_PROPERTY_ADRESSE_ID)
+  @Schema(required = true, nullable = true)
+  private UUID adresseId;
+
+  public AdresseIdentifikationDto adgangsadresseId(UUID adgangsadresseId) {
+    this.adgangsadresseId = Objects.requireNonNull(adgangsadresseId, "Property adgangsadresseId is required, cannot be null");
+    return this;
+  }
+
+  /**
+   * Get adgangsadresseId
+   * @return adgangsadresseId
+   **/
+  @NotNull
+  public UUID getAdgangsadresseId() {
+    return adgangsadresseId;
+  }
+
+  public void setAdgangsadresseId(UUID adgangsadresseId) {
+    this.adgangsadresseId = Objects.requireNonNull(adgangsadresseId, "Property adgangsadresseId is required, cannot be null");
+  }
+
+  public AdresseIdentifikationDto adresseId(UUID adresseId) {
+    this.adresseId = Objects.requireNonNull(adresseId, "Property adresseId is required, cannot be null");
+    return this;
+  }
+
+  /**
+   * Get adresseId
+   * @return adresseId
+   **/
+  public UUID getAdresseId() {
+    return adresseId;
+  }
+
+  public void setAdresseId(UUID adresseId) {
+    this.adresseId = Objects.requireNonNull(adresseId, "Property adresseId is required, cannot be null");
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof AdresseIdentifikationDto)) {
+      return false;
+    }
+    AdresseIdentifikationDto other = (AdresseIdentifikationDto) o;
+    return Objects.equals(this.adgangsadresseId, other.adgangsadresseId) &&
+        Objects.equals(this.adresseId, other.adresseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(adgangsadresseId, adresseId);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AdresseIdentifikationDto {");
+    sb.append("\n    adgangsadresseId: ").append(toIndentedString(adgangsadresseId));
+    sb.append("\n    adresseId: ").append(toIndentedString(adresseId));
+    sb.append("\n}");
+    return sb.toString();
+  }
+
+  private String toIndentedString(Object o) {
+    return Objects.toString(o).replace("\n", "\n    ");
+  }
+}
