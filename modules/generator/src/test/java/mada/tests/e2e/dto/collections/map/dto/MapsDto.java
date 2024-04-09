@@ -66,7 +66,7 @@ public class MapsDto {
   public static final String JSON_PROPERTY_MISSING_ADDITIONAL_PROPS = "missingAdditionalProps";
   @JsonbProperty(JSON_PROPERTY_MISSING_ADDITIONAL_PROPS)
   @Schema(nullable = true)
-  private Map<String, String> missingAdditionalProps;
+  private Map<String, Object> missingAdditionalProps;
 
   public static final String JSON_PROPERTY_OBJECTS = "objects";
   @JsonbProperty(JSON_PROPERTY_OBJECTS)
@@ -395,12 +395,12 @@ public class MapsDto {
     this.longs = longs;
   }
 
-  public MapsDto missingAdditionalProps(Map<String, String> missingAdditionalProps) {
+  public MapsDto missingAdditionalProps(Map<String, Object> missingAdditionalProps) {
     this.missingAdditionalProps = missingAdditionalProps;
     return this;
   }
 
-  public MapsDto putMissingAdditionalPropsItem(String key, String missingAdditionalPropsItem) {
+  public MapsDto putMissingAdditionalPropsItem(String key, Object missingAdditionalPropsItem) {
     if (this.missingAdditionalProps == null) {
       this.missingAdditionalProps = new HashMap<>();
     }
@@ -412,11 +412,11 @@ public class MapsDto {
    * Get missingAdditionalProps
    * @return missingAdditionalProps
    **/
-  public Map<String, String> getMissingAdditionalProps() {
+  public Map<String, Object> getMissingAdditionalProps() {
     return missingAdditionalProps;
   }
 
-  public void setMissingAdditionalProps(Map<String, String> missingAdditionalProps) {
+  public void setMissingAdditionalProps(Map<String, Object> missingAdditionalProps) {
     this.missingAdditionalProps = missingAdditionalProps;
   }
 
