@@ -54,4 +54,4 @@ jobs:
           signing_key: ${{ secrets.SIGNING_KEY }}
           signing_key_secret: ${{ secrets.SIGNING_KEY_SECRET }}
           search_directory: build/dist
-          target_action: 'keep'
+          target_action: 'promote_or_keep'
