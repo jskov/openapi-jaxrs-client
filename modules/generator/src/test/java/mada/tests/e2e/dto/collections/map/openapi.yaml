@@ -125,6 +125,10 @@ components:
           type: object
           additionalProperties:
             type: object
+        missingAdditionalProps:
+          type: object
+          additionalProperties: {}
+          nullable: true
     Simple:
       type: object
       properties:
