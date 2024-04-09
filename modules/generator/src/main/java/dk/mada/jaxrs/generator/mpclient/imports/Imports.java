@@ -43,6 +43,7 @@ public final class Imports {
      * @param isJakarta                  toggle for jakarta naming
      * @param isJsonb                    toggle for jsonb serializer
      * @param isUseRegisterForReflection toggle for using the Quarkus RegisterForReflection annotation
+     * @param isUseOpenapiSchema         toggle for import of openapi types
      * @param dtoPackage                 the dto package name
      */
     record ImportRenderPrefs(
@@ -51,6 +52,7 @@ public final class Imports {
             boolean isJakarta,
             boolean isJsonb,
             boolean isUseRegisterForReflection,
+            boolean isUseOpenapiSchema,
             String dtoPackage) {
 
         /**
@@ -81,6 +83,7 @@ public final class Imports {
                 opts.isJakarta(),
                 opts.isJsonb(),
                 opts.isUseRegisterForReflection(),
+                opts.getUseOpenapiSchema(),
                 opts.dtoPackage());
 
         externalTypeMapping = opts.getExternalTypeMapping();
@@ -287,7 +290,11 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports addMicroProfileSchema() {
-        return add(MicroProfile.SCHEMA);
+        if (irp.isUseOpenapiSchema) {
+            return add(MicroProfile.SCHEMA);
+        } else {
+            return this;
+        }
     }
 
     private void addDtoImport(Type type) {

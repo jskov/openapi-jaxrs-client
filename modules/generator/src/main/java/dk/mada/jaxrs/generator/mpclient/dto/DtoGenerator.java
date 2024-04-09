@@ -209,7 +209,7 @@ public class DtoGenerator {
         consumeNonBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
 
         String schemaOptions = null;
-        if (!schemaEntries.isEmpty()) {
+        if (opts.getUseOpenapiSchema() && !schemaEntries.isEmpty()) {
             schemaOptions = String.join(", ", schemaEntries);
             ds.imports().addMicroProfileSchema();
         }
