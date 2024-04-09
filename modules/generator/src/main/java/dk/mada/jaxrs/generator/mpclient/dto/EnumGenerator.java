@@ -73,6 +73,10 @@ public class EnumGenerator {
      * @return optional schema enumeration arguments
      */
     public Optional<String> buildEnumSchemaForType(DtoSubject ds, Type type, CtxEnum ctxEnum) {
+        if (!opts.getUseOpenapiSchema()) {
+            return Optional.empty();
+        }
+
         Imports dtoImports = ds.imports();
 
         boolean namesMatchValues = ctxEnum.enumVars().stream()

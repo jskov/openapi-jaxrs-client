@@ -271,6 +271,11 @@ public final class GeneratorOpts {
         return or.getListDefault("generator-dto-skip-types", "");
     }
 
+    /** {@return true if OpenApi @Schema annotations should be added} */
+    public boolean getUseOpenapiSchema() {
+        return or.bool("generator-dto-use-openapi-schema", true);
+    }
+
     /**
      * Returns mapping of external types.
      *

@@ -140,7 +140,7 @@ public class PropertyGenerator {
         consumeNonBlankEncoded(prop.example(), e -> schemaEntries.add("example = \"" + e + "\""));
 
         Optional<String> schemaOptions = Optional.empty();
-        if (!schemaEntries.isEmpty()) {
+        if (opts.getUseOpenapiSchema() && !schemaEntries.isEmpty()) {
             schemaOptions = Optional.of(String.join(", ", schemaEntries));
             dtoImports.addMicroProfileSchema();
         }
