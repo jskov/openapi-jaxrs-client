@@ -457,6 +457,14 @@ instead of OffsetDateTime.
     default value: false
 
 
+**generator-dto-use-openapi-schema**
+
+>Allows you to disable the OpenApi @Schema annotations that enrich information about properties.
+
+>
+    default value: true
+
+
 **generator-use-property-conflict-resolution**
 
 >Allows you to select the resolution to use when there is conflict in the declarations for a property (in allof/subclassing).
