@@ -29,7 +29,7 @@ public interface Api_TypesApi {
   /**
    * apiSecurityOnGet.
    *
-   * @param auth  (required)
+   * @param auth  (not null)
    */
   @GET
   @Path("/on")

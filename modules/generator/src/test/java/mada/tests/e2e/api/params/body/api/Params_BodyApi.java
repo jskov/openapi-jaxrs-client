@@ -118,7 +118,7 @@ public interface Params_BodyApi {
   /**
    * apiParamsBodyMixedInPathGet.
    *
-   * @param inPath  (required)
+   * @param inPath  (not null)
    * @param query  (optional)
    * @param item  (optional)
    * @param dto  (optional)

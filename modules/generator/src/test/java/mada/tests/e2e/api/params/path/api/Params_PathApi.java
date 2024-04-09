@@ -30,7 +30,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathByteByteIdGet.
    *
-   * @param byteId  (required)
+   * @param byteId  (not null)
    * @return String
    */
   @GET
@@ -42,7 +42,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathIntIntIdGet.
    *
-   * @param intId  (required)
+   * @param intId  (not null)
    * @return String
    */
   @GET
@@ -54,7 +54,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathLongLongIdGet.
    *
-   * @param longId  (required)
+   * @param longId  (not null)
    * @return String
    */
   @GET
@@ -66,7 +66,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathShortShortIdGet.
    *
-   * @param shortId  (required)
+   * @param shortId  (not null)
    * @return String
    */
   @GET
@@ -78,7 +78,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathStringStringIdGet.
    *
-   * @param stringId  (required)
+   * @param stringId  (not null)
    * @return String
    */
   @GET
@@ -90,7 +90,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathWithSlashStringIdGet.
    *
-   * @param stringId  (required)
+   * @param stringId  (not null)
    */
   @GET
   @Path("/with-slash/{string-id}")
@@ -99,7 +99,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathWithUnderscoreStringIdGet.
    *
-   * @param stringId  (required)
+   * @param stringId  (not null)
    */
   @GET
   @Path("/with-underscore/{string_id}")

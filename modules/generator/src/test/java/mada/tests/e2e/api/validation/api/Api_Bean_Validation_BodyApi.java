@@ -22,7 +22,7 @@ public interface Api_Bean_Validation_BodyApi {
   /**
    * apiValidationBodyPut.
    *
-   * @param dto  (required)
+   * @param dto  (not null)
    * @return String
    */
   @PUT

@@ -18,7 +18,7 @@ public interface DefaultApi {
   /**
    * infoGet.
    *
-   * @param userId  (required)
+   * @param userId  (not null)
    * @return String
    */
   @GET
@@ -30,7 +30,7 @@ public interface DefaultApi {
   /**
    * photoGet.
    *
-   * @param userId  (required)
+   * @param userId  (not null)
    * @return String
    */
   @GET
@@ -42,7 +42,7 @@ public interface DefaultApi {
   /**
    * employeesUserId_with_crazy_long_suffix_getter.
    *
-   * @param userId  (required)
+   * @param userId  (not null)
    * @return String
    */
   @GET

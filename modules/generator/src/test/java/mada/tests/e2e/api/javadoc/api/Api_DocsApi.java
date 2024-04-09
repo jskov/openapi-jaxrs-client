@@ -94,7 +94,7 @@ public interface Api_DocsApi {
   /**
    * op is missing punctuation.
    *
-   * @param inPath path param description (required)
+   * @param inPath path param description (not null)
    * @param query query param description (optional)
    * @param queryDeprecated deprecated query param description (optional)
    * @param item  (optional)

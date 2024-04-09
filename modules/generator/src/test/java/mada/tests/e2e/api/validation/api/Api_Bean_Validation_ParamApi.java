@@ -22,7 +22,7 @@ public interface Api_Bean_Validation_ParamApi {
   /**
    * apiValidationParamPathEnvGet.
    *
-   * @param env  (required)
+   * @param env  (not null)
    * @return String
    */
   @GET

@@ -24,7 +24,7 @@ public interface TemplatesApi {
   /**
    * apiMethodsCreatePost.
    *
-   * @param dto Synthetic multipart body (required)
+   * @param dto Synthetic multipart body (not null)
    */
   @POST
   @Consumes(MediaType.MULTIPART_FORM_DATA)

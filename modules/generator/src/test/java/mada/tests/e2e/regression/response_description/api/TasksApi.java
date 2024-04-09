@@ -21,7 +21,7 @@ public interface TasksApi {
    * Delete a task.
    * Delete a task.
    *
-   * @param auth  (required)
+   * @param auth  (not null)
    */
   @DELETE
   @APIResponses({

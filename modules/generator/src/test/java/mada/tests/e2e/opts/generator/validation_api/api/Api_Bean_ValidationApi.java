@@ -21,7 +21,7 @@ public interface Api_Bean_ValidationApi {
   /**
    * apiValidationBodyPut.
    *
-   * @param simple  (required)
+   * @param simple  (not null)
    * @return String
    */
   @PUT
@@ -34,7 +34,7 @@ public interface Api_Bean_ValidationApi {
   /**
    * apiValidationPathparamEnvGet.
    *
-   * @param env  (required)
+   * @param env  (not null)
    * @return String
    */
   @GET
