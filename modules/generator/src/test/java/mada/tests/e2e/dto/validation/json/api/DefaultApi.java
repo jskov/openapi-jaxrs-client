@@ -23,7 +23,7 @@ public interface DefaultApi {
    * TBD.
    * NA
    *
-   * @param dto  (required)
+   * @param dto  (not null)
    */
   @POST
   @Consumes(MediaType.APPLICATION_JSON)

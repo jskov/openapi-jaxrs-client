@@ -51,8 +51,11 @@ public class ValidationGenerator {
         Optional<String> decimalMinimum = Optional.empty();
         Optional<String> decimalMaximum = Optional.empty();
         Optional<String> pattern;
+
+        boolean isNullable = validation.isNullable().orElse(false);
         boolean isRequired = validation.isRequired().orElse(false);
-        if (isRequired) {
+        boolean isNotNull = !isNullable && isRequired;
+        if (isNotNull) {
             imports.add(renderAnnotations, ValidationApi.NOT_NULL);
         }
         // Decide where to put @Valid. I expect this to be too simple...
@@ -115,7 +118,7 @@ public class ValidationGenerator {
                 .decimalMaximum(decimalMaximum)
                 .pattern(pattern)
                 .valid(valid)
-                .required(isRequired)
+                .notNull(isNotNull)
                 .renderAnnotations(renderAnnotations)
                 .build();
 
@@ -133,7 +136,7 @@ public class ValidationGenerator {
                 .decimalMaximum(Optional.empty())
                 .pattern(Optional.empty())
                 .valid(false)
-                .required(true)
+                .notNull(true)
                 .renderAnnotations(opts.isUseBeanValidation())
                 .build();
     }

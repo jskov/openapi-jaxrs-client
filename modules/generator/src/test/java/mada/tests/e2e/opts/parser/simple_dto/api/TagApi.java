@@ -21,7 +21,7 @@ public interface TagApi {
   /**
    * addPost.
    *
-   * @param auth  (required)
+   * @param auth  (not null)
    * @param dto  (optional)
    */
   @POST
@@ -34,7 +34,7 @@ public interface TagApi {
   /**
    * addPut.
    *
-   * @param auth  (required)
+   * @param auth  (not null)
    * @param dto  (optional)
    */
   @PUT

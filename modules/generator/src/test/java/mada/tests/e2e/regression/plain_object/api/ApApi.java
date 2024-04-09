@@ -20,7 +20,7 @@ public interface ApApi {
   /**
    * ap_ta.
    *
-   * @param dto  (required)
+   * @param dto  (not null)
    * @return Object
    */
   @PUT

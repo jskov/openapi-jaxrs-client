@@ -16,7 +16,7 @@ This will run whichever tests match `testNameContains` in TestIterator:
 
 If the templates are changed, add:
 
-    rm -rf build/classes/java/main/dk/mada/jaxrs/generator
+    rm -rf modules/generator/build/classes/java/main/dk/mada/jaxrs/generator
 
 
 ### Updating expected output
@@ -26,7 +26,7 @@ In Eclipse, add build/e2e as a source folder (and exclude **/*.java) to get easy
 When making changes that affect multiple tests, it can be handy to make a bulk update like this:
 
     ./gradlew test
-    cp -r build/e2e/mada/tests src/test/java/mada/
+    cp -r modules/generator/build/e2e/mada/tests modules/generator/src/test/java/mada/
 
 And then inspect the git diff output.
 
@@ -82,6 +82,6 @@ jaxrs {
 
 ```console
 $ ./gradlew publish
-$ java -jar build/dist/ojc-0.0.0-SNAPSHOT-cli.jar --api-package foo.bar.api --dto-package foo.bar.dto -i src/test/java/mada/tests/e2e/examples/petstore/openapi.yaml -o /tmp/xx
+$ java -jar build/dist/ojc-0.0.0-SNAPSHOT-cli.jar --api-package foo.bar.api --dto-package foo.bar.dto -i modules/generator/src/test/java/mada/tests/e2e/examples/petstore/openapi.yaml -o /tmp/xx
 ```
 

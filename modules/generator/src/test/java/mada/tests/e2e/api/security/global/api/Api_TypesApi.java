@@ -19,7 +19,7 @@ public interface Api_TypesApi {
   /**
    * apiTypesVoidGet.
    *
-   * @param auth  (required)
+   * @param auth  (not null)
    */
   @GET
   @APIResponses({

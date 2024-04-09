@@ -37,7 +37,7 @@ public interface DefaultApi {
   /**
    * getNoOutputType.
    *
-   * @param foo  (required)
+   * @param foo  (not null)
    */
   @GET
   @Path("getNoOutputType")

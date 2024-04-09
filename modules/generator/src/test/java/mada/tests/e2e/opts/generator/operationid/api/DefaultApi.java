@@ -18,7 +18,7 @@ public interface DefaultApi {
   /**
    * getInfo.
    *
-   * @param userId  (required)
+   * @param userId  (not null)
    * @return String
    */
   @GET
@@ -30,7 +30,7 @@ public interface DefaultApi {
   /**
    * employeesUserIdNoOperationIdGet.
    *
-   * @param userId  (required)
+   * @param userId  (not null)
    * @return String
    */
   @GET
@@ -42,7 +42,7 @@ public interface DefaultApi {
   /**
    * getPhoto.
    *
-   * @param userId  (required)
+   * @param userId  (not null)
    * @return String
    */
   @GET

@@ -56,7 +56,7 @@ public interface PetsApi {
   /**
    * Info for a specific pet.
    *
-   * @param petId The id of the pet to retrieve (required)
+   * @param petId The id of the pet to retrieve (not null)
    * @return Pet
    */
   @GET

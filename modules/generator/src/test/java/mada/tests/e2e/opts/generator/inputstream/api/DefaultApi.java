@@ -23,7 +23,7 @@ public interface DefaultApi {
   /**
    * getInfo.
    *
-   * @param userId  (required)
+   * @param userId  (not null)
    * @return List<Byte>
    */
   @GET
@@ -38,7 +38,7 @@ public interface DefaultApi {
   /**
    * getPhoto.
    *
-   * @param userId  (required)
+   * @param userId  (not null)
    * @return InputStream
    */
   @GET
