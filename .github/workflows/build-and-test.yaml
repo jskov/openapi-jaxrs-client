@@ -28,8 +28,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@b231772637bb498f11fdbc86052b6e8a8dc9fc92
-        # 2.1.2
+        uses: gradle/wrapper-validation-action@460a3ca55fc5d559238a0efc7fa9f7465df8585d
+        # 3.3.0
 
       # From https://docs.sonarqube.org/latest/analysis/github-integration/
       - name: Cache SonarCloud packages
