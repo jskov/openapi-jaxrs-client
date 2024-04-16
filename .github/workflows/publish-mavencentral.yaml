@@ -26,10 +26,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@6cec5d49d4d6d4bb982fbed7047db31ea6d38f11
-        # v3.3.0
-        
       - name: Set build version
         # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
         # into gradle.properties
@@ -39,8 +35,7 @@ jobs:
         uses: gradle/actions/setup-gradle@6cec5d49d4d6d4bb982fbed7047db31ea6d38f11
         # v3.3.0
         with:
-          # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          validate-wrappers: true
 
       - name: Build release
         run: ./gradlew javadoc publish -s
