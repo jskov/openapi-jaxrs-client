@@ -11,12 +11,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Define BUILD_LABEL
-        env:
-          INPUT: ${{ github.head_ref || github.ref_name }}
-        run: |
-          echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
-    
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -25,21 +19,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-
-      # From https://docs.sonarqube.org/latest/analysis/github-integration/
-#      - name: Cache SonarCloud packages
-#        uses: actions/cache@v4
-#        with:
-#          path: ~/.sonar/cache
-#          key: ${{ runner.os }}-sonar
-#          restore-keys: ${{ runner.os }}-sonar
-#
-      - name: Set build version
-        # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
-        # into gradle.properties
-        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@6cec5d49d4d6d4bb982fbed7047db31ea6d38f11
@@ -48,10 +27,10 @@ jobs:
           validate-wrappers: true
 
       - name: Run tests
-        run: ./gradlew classes check javadoc publish -s
+        run: ./gradlew classes check javadoc publish -s -Pversion=${BUILD_LABEL//\//_}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
 
       - name: Capture junit reports
         uses: actions/upload-artifact@v4

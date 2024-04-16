@@ -11,12 +11,6 @@ jobs:
       contents: write
       packages: write
     steps:
-      - name: Define BUILD_LABEL
-        env:
-          INPUT: ${{ github.head_ref || github.ref_name }}
-        run: |
-          echo "BUILD_LABEL=${INPUT//\//_}" >> $GITHUB_ENV
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -26,11 +20,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set build version
-        # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
-        # into gradle.properties
-        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@6cec5d49d4d6d4bb982fbed7047db31ea6d38f11
         # v3.3.0
@@ -38,13 +27,14 @@ jobs:
           validate-wrappers: true
 
       - name: Build release
-        run: ./gradlew javadoc publish -s
-
-      - name: Remove Gradle plugin artifacts
-        # Gradle artifacts are published separately
         run: |
+          ./gradlew javadoc publish -s -Pversion=${BUILD_LABEL//\//_}
+
+          # Gradle artifacts are published separately, so remove them
           rm -rf build/dist/dk/mada/jaxrs/dk.mada.jaxrs.gradle.plugin
           rm -rf build/dist/dk/mada/jaxrs/gradle-plugin
+        env:
+          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
 
       - name: Upload and Release Bundle
         uses: jskov/action-nexus-publish@f93f3a76488c83729461bc6274cb8d43e9abe34a
