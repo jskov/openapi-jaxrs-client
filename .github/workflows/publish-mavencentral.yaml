@@ -35,13 +35,15 @@ jobs:
         # into gradle.properties
         run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
 
-      - name: Build release
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@6cec5d49d4d6d4bb982fbed7047db31ea6d38f11
         # v3.3.0
         with:
           # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          arguments: javadoc publish -s
+
+      - name: Build release
+        run: ./gradlew javadoc publish -s
 
       - name: Remove Gradle plugin artifacts
         # Gradle artifacts are published separately
