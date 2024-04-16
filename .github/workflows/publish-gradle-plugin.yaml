@@ -9,41 +9,25 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Define BUILD_LABEL
-        env:
-          INPUT: ${{ github.head_ref || github.ref_name }}
-        run: |
-          echo "BUILD_LABEL=${INPUT/gradle\/}" >> $GITHUB_ENV
-#      - name: Echo env
-#        run: env | sort
-    
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@b231772637bb498f11fdbc86052b6e8a8dc9fc92
-        # 2.1.2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set build version
-        # Cannot use ${BUILD_LABEL} with gradle-build-action, so stuff version
-        # into gradle.properties
-        run: sed -i 's/^version.*/version = '${BUILD_LABEL}'/;' ./gradle.properties
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@6cec5d49d4d6d4bb982fbed7047db31ea6d38f11
+        # v3.3.0
+        with:
+          validate-wrappers: true
 
       - name: Build release
-        uses: gradle/actions/setup-gradle@e24011a3b5db78bd5ab798036042d9312002f252
-        # v3.2.0
-        with:
-          arguments: publishPlugin -s
-          # Only write to the cache for builds on the 'main' branch (default - but here for documentation)
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+        run: ./gradlew publishPlugin -s -Pversion=${BUILD_LABEL/gradle\/}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
           GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
+          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
