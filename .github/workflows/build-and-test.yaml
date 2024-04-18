@@ -19,6 +19,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Allows sonar to collect blame information
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@6cec5d49d4d6d4bb982fbed7047db31ea6d38f11
