@@ -14,4 +14,5 @@ dependencies {
     implementation 'com.diffplug.gradle:goomph'
     implementation 'io.freefair.gradle:maven-plugin'
     implementation 'dk.mada.style:mada-style-gradle'
+    implementation 'dk.mada.buildinfo:buildinfo-gradle'
 }
