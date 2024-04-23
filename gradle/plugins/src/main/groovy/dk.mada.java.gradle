@@ -1,16 +1,11 @@
 plugins {
     id('java')
     id 'dk.mada.style'
+    id 'dk.mada.buildinfo'
 }
 
 repositories {
     mavenCentral()
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
 }
 
 dependencies {
