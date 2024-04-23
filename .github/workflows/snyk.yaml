@@ -2,7 +2,9 @@ name: Snyk analysis
 on:
   push:
     branches:
-      - main
+      - DISABLED-NO-GRADLE21-VARIANT-YET-main
+      # See https://github.com/snyk/actions/pull/134
+      # PR from Dec 2023, not accepted? Maybe ditch this...
 
 jobs:
   security:
