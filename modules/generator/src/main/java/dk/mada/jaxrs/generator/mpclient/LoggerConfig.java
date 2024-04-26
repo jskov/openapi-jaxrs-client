@@ -64,6 +64,10 @@ public final class LoggerConfig {
      * For the picky log reader who just cannot adopt...
      */
     public static final class LoggerSlf4NamingFormatter extends SimpleFormatter {
+        /** Creates new instance. */
+        public LoggerSlf4NamingFormatter() {
+        }
+
         /** Log level bridging between JUL and slf4j. */
         private static final Map<Level, Level> LEVEL_MAPPING = Map.of(
                 Level.SEVERE, new Slf4jLevel("ERROR", 1000),

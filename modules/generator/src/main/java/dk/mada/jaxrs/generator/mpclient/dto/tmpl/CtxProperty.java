@@ -75,6 +75,9 @@ public interface CtxProperty {
     /** {@return true if this property is required} */
     boolean required();
 
+    /** {@return true if the property must be NotNull} */
+    boolean notNull();
+
     /** {@return an optional property example} */
     Optional<String> example();
 
