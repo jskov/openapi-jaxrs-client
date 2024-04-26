@@ -10,6 +10,8 @@ The DTO classes can be generated for use with [JSON Binding](https://javaee.gith
 
 The code generation is configured via 50+ [options](./src/docs/Configuration.md).
 
+As of version 0.11, this generator requires a Java 21 runtime.
+
 ## Inspiration
 
 Much of the behavior and templates are lifted more or less directly from [openapi-generator](https://github.com/OpenAPITools/openapi-generator).
@@ -26,7 +28,7 @@ I plan to keep this generator much simpler:
 
 Download the cli-jar release of the generator (and verify its [signature](./src/docs/VerifySigning.md)!).
 
-Then you can run the generator with a Java 17 like this (or see [full CLI usage](./src/docs/Cli.md)):
+Then you can run the generator with a Java 21 like this (or see [full CLI usage](./src/docs/Cli.md)):
 
 ```console
 $ java -jar ojc-x.y.z-cli.jar --api-package foo.bar.api --dto-package foo.bar.dto -i petstore.yaml -o /tmp/output
@@ -58,10 +60,8 @@ A [Gradle plugin](./src/docs/Gradle.md) allows easy declaration of OpenApi docum
 
 The current plans for future releases are (note, no time commitments):
 
-**0.10.x**
+**0.11.x**
 
-* Split code into modules (converter+model, generator).
-* Switch to Java 21 (when Gradle can handle it)
 * Native generator executables
 * More code/package documentation.
 * Documentation index with references to the various tests/examples.
@@ -118,7 +118,7 @@ However, I am willing to implement feature requests as a paid service (1,200DKK/
 
 * I agree with the suggested feature
 * Approval from my employer to work for you (not expected to be a problem, as the context will be this project)
-* I have not reached my yearly limit of consultancy hours (40 hours - VAT limit is 50,000DKK/year)
+* I have not reached my limit of hours (40 hours - Danish VAT limit is 50,000DKK/running-12-months)
 
 Please reach out to me via email if you would like to make use of this offer.
 

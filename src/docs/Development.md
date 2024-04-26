@@ -30,9 +30,9 @@ When making changes that affect multiple tests, it can be handy to make a bulk u
 
 And then inspect the git diff output.
 
-### Java 17
+### Java 21
 
-Running the gradle plugin junit tests under Java 17 causes:
+Running the gradle plugin junit tests under Java 21 causes:
 
     Caused by: java.lang.IllegalAccessException: module java.base does not open java.lang to unnamed module @12405818
     
