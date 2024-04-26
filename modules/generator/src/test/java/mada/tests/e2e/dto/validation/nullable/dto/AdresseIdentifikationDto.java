@@ -48,7 +48,7 @@ public class AdresseIdentifikationDto {
   }
 
   public AdresseIdentifikationDto adresseId(UUID adresseId) {
-    this.adresseId = Objects.requireNonNull(adresseId, "Property adresseId is required, cannot be null");
+    this.adresseId = adresseId;
     return this;
   }
 
@@ -61,7 +61,7 @@ public class AdresseIdentifikationDto {
   }
 
   public void setAdresseId(UUID adresseId) {
-    this.adresseId = Objects.requireNonNull(adresseId, "Property adresseId is required, cannot be null");
+    this.adresseId = adresseId;
   }
 
   @Override
