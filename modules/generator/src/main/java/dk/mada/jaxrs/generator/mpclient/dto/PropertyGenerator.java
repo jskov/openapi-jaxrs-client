@@ -127,10 +127,13 @@ public class PropertyGenerator {
         }
 
         List<String> schemaEntries = new ArrayList<>();
-        if (ti.isRequired()) {
+        boolean isRequired = ti.isRequired();
+        boolean isNullable = prop.validation().isNullable().orElse(false);
+        boolean isNotNull = !isNullable && isRequired;
+        if (isRequired) {
             schemaEntries.add("required = true");
         }
-        if (prop.validation().isNullable().orElse(false)) {
+        if (isNullable) {
             schemaEntries.add("nullable = true");
         }
         if (prop.validation().isReadonly().orElse(false)) {
@@ -199,6 +202,7 @@ public class PropertyGenerator {
                 .isDateTime(propType.isDateTime())
                 .defaultValue(ti.defaultValue())
                 .required(ti.isRequired())
+                .notNull(isNotNull)
                 .example(prop.example())
                 .allowableValues(ei.ctxEnum())
                 .validation(beanValidation)
