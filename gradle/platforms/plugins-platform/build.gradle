@@ -10,6 +10,5 @@ dependencies {
         api 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.0.0.2929'
         api 'io.freefair.gradle:maven-plugin:8.6'
         api 'dk.mada.style:mada-style-gradle:0.9.7'
-        api 'dk.mada.buildinfo:buildinfo-gradle:0.9.1'
     }
 }
