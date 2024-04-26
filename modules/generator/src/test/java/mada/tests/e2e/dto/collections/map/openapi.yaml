@@ -129,6 +129,12 @@ components:
           type: object
           additionalProperties: {}
           nullable: true
+        mapWithListValue:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
     Simple:
       type: object
       properties:
