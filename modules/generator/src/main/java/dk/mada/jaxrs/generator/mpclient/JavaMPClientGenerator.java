@@ -13,7 +13,10 @@ import dk.mada.jaxrs.model.Model;
 /**
  * Generate Java MicroProfile client classes.
  */
-public class JavaMPClientGenerator {
+public final class JavaMPClientGenerator {
+    /** Constructs new instance. */
+    public JavaMPClientGenerator() {
+    }
 
     /**
      * Generates classes for java MP client.

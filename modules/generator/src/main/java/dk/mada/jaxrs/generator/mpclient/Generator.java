@@ -29,6 +29,10 @@ import dk.mada.jaxrs.utils.DirectoryDeleter;
  * Generates JAX-RS code.
  */
 public final class Generator implements GeneratorService {
+    /** Constructs new instance. */
+    public Generator() {
+    }
+
     @Override
     public void generateClient(ClientContext clientContext, Path openapiDocument, final Properties options, Path destinationDir) {
         Console.println("Generate client");

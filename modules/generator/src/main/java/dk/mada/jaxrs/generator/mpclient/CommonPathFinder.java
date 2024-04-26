@@ -9,10 +9,14 @@ import org.slf4j.LoggerFactory;
 /**
  * REST common path finder.
  */
-public class CommonPathFinder {
+public final class CommonPathFinder {
     private static final Logger logger = LoggerFactory.getLogger(CommonPathFinder.class);
     /** The separator string. */
     private static final String SEP = "/";
+
+    /** Constructs new instance. */
+    public CommonPathFinder() {
+    }
 
     /**
      * Find longest common sub-path of the paths provided.
