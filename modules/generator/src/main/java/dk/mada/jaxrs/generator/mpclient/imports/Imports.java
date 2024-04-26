@@ -18,6 +18,7 @@ import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 
 /**
@@ -271,17 +272,33 @@ public final class Imports {
 
     private void addJavaContainerImports(Type t) {
         Set<JavaUtil> addImports = Set.of();
-        if (t instanceof TypeArray) {
-            addImports = JavaUtil.containerListTypes();
+        if (t instanceof TypeReference tr) {
+            // Not sure this is the right place, but
+            // if inner is a reference, it may be a container type
+            // These are only used for signatures, so only need the generic type
+            addJavaGenericContainerImports(tr.refType());
+        } else if (t instanceof TypeArray) {
+            addImports = JavaUtil.containerListImplementationTypes();
         } else if (t instanceof TypeMap) {
-            addImports = JavaUtil.containerMapTypes();
+            addImports = JavaUtil.containerMapImplementationTypes();
         } else if (t instanceof TypeSet) {
-            addImports = JavaUtil.containerSetTypes();
+            addImports = JavaUtil.containerSetImplementationTypes();
         }
 
         addImports.stream()
                 .map(JavaUtil::path)
                 .forEach(importedClasses::add);
+    }
+
+    // FIXME: this should come out of the (outer) type's neededImports, surely?
+    private void addJavaGenericContainerImports(Type t) {
+        if (t instanceof TypeArray) {
+            importedClasses.add(JavaUtil.containerListType().path());
+        } else if (t instanceof TypeMap) {
+            importedClasses.add(JavaUtil.containerMapType().path());
+        } else if (t instanceof TypeSet) {
+            importedClasses.add(JavaUtil.containerSetType().path());
+        }
     }
 
     /**

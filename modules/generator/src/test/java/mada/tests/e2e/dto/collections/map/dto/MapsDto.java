@@ -7,6 +7,7 @@
 package mada.tests.e2e.dto.collections.map.dto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
@@ -62,6 +63,10 @@ public class MapsDto {
   public static final String JSON_PROPERTY_LONGS = "longs";
   @JsonbProperty(JSON_PROPERTY_LONGS)
   private Map<String, Long> longs;
+
+  public static final String JSON_PROPERTY_MAP_WITH_LIST_VALUE = "mapWithListValue";
+  @JsonbProperty(JSON_PROPERTY_MAP_WITH_LIST_VALUE)
+  private Map<String, List<String>> mapWithListValue;
 
   public static final String JSON_PROPERTY_MISSING_ADDITIONAL_PROPS = "missingAdditionalProps";
   @JsonbProperty(JSON_PROPERTY_MISSING_ADDITIONAL_PROPS)
@@ -395,6 +400,31 @@ public class MapsDto {
     this.longs = longs;
   }
 
+  public MapsDto mapWithListValue(Map<String, List<String>> mapWithListValue) {
+    this.mapWithListValue = mapWithListValue;
+    return this;
+  }
+
+  public MapsDto putMapWithListValueItem(String key, List<String> mapWithListValueItem) {
+    if (this.mapWithListValue == null) {
+      this.mapWithListValue = new HashMap<>();
+    }
+    this.mapWithListValue.put(key, mapWithListValueItem);
+    return this;
+  }
+
+  /**
+   * Get mapWithListValue
+   * @return mapWithListValue
+   **/
+  public Map<String, List<String>> getMapWithListValue() {
+    return mapWithListValue;
+  }
+
+  public void setMapWithListValue(Map<String, List<String>> mapWithListValue) {
+    this.mapWithListValue = mapWithListValue;
+  }
+
   public MapsDto missingAdditionalProps(Map<String, Object> missingAdditionalProps) {
     this.missingAdditionalProps = missingAdditionalProps;
     return this;
@@ -702,6 +732,7 @@ public class MapsDto {
         Objects.equals(this.bytes, other.bytes) &&
         Objects.equals(this.ints, other.ints) &&
         Objects.equals(this.longs, other.longs) &&
+        Objects.equals(this.mapWithListValue, other.mapWithListValue) &&
         Objects.equals(this.missingAdditionalProps, other.missingAdditionalProps) &&
         Objects.equals(this.objects, other.objects) &&
         Objects.equals(this.refs, other.refs) &&
@@ -718,7 +749,7 @@ public class MapsDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs, missingAdditionalProps, objects, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
+    return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs, mapWithListValue, missingAdditionalProps, objects, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
   }
 
   @Override
@@ -736,6 +767,7 @@ public class MapsDto {
     sb.append("\n    bytes: ").append(toIndentedString(bytes));
     sb.append("\n    ints: ").append(toIndentedString(ints));
     sb.append("\n    longs: ").append(toIndentedString(longs));
+    sb.append("\n    mapWithListValue: ").append(toIndentedString(mapWithListValue));
     sb.append("\n    missingAdditionalProps: ").append(toIndentedString(missingAdditionalProps));
     sb.append("\n    objects: ").append(toIndentedString(objects));
     sb.append("\n    refs: ").append(toIndentedString(refs));
