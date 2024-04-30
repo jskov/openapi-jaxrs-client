@@ -7,30 +7,19 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Manifest attributes
+ * Manifest attributes.
  */
 @Schema(description = "Manifest attributes")
-@JsonbPropertyOrder({
-  AcrManifests.JSON_PROPERTY_REGISTRY,
-  AcrManifests.JSON_PROPERTY_IMAGE_NAME,
-  AcrManifests.JSON_PROPERTY_MANIFESTS
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class AcrManifests {
-  public static final String JSON_PROPERTY_REGISTRY = "registry";
-  @JsonbProperty(JSON_PROPERTY_REGISTRY)
-  @Schema(description = "Registry name")
-  private String registry;
-
   public static final String JSON_PROPERTY_IMAGE_NAME = "imageName";
   @JsonbProperty(JSON_PROPERTY_IMAGE_NAME)
   @Schema(description = "Image name")
@@ -39,25 +28,12 @@ public class AcrManifests {
   public static final String JSON_PROPERTY_MANIFESTS = "manifests";
   @JsonbProperty(JSON_PROPERTY_MANIFESTS)
   @Schema(description = "List of manifests")
-  private List<ManifestAttributesBase> manifests = null;
+  private List<ManifestAttributesBase> manifests;
 
-  public AcrManifests registry(String registry) {
-    this.registry = registry;
-    return this;
-  }
-
-  /**
-   * Registry name.
-   *
-   * @return registry
-   **/
-  public String getRegistry() {
-    return registry;
-  }
-
-  public void setRegistry(String registry) {
-    this.registry = registry;
-  }
+  public static final String JSON_PROPERTY_REGISTRY = "registry";
+  @JsonbProperty(JSON_PROPERTY_REGISTRY)
+  @Schema(description = "Registry name")
+  private String registry;
 
   public AcrManifests imageName(String imageName) {
     this.imageName = imageName;
@@ -104,32 +80,50 @@ public class AcrManifests {
     this.manifests = manifests;
   }
 
+  public AcrManifests registry(String registry) {
+    this.registry = registry;
+    return this;
+  }
+
+  /**
+   * Registry name.
+   *
+   * @return registry
+   **/
+  public String getRegistry() {
+    return registry;
+  }
+
+  public void setRegistry(String registry) {
+    this.registry = registry;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof AcrManifests)) {
       return false;
     }
     AcrManifests other = (AcrManifests) o;
-    return Objects.equals(this.registry, other.registry) &&
-        Objects.equals(this.imageName, other.imageName) &&
-        Objects.equals(this.manifests, other.manifests);
+    return Objects.equals(this.imageName, other.imageName) &&
+        Objects.equals(this.manifests, other.manifests) &&
+        Objects.equals(this.registry, other.registry);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(registry, imageName, manifests);
+    return Objects.hash(imageName, manifests, registry);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AcrManifests {");
-    sb.append("\n    registry: ").append(toIndentedString(registry));
     sb.append("\n    imageName: ").append(toIndentedString(imageName));
     sb.append("\n    manifests: ").append(toIndentedString(manifests));
+    sb.append("\n    registry: ").append(toIndentedString(registry));
     sb.append("\n}");
     return sb.toString();
   }

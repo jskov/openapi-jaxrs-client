@@ -10,6 +10,11 @@ import io.swagger.v3.oas.models.OpenAPI;
  * Transforms OpenApi info to local model objects.
  */
 public final class InfoTransformer {
+    /** Creates new instance. */
+    public InfoTransformer() {
+        super();
+    }
+
     /**
      * Transforms OpenApi document info section to model.
      *

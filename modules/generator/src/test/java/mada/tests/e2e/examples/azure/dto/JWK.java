@@ -7,48 +7,25 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * A JSON web signature
+ * A JSON web signature.
  */
 @Schema(description = "A JSON web signature")
-@JsonbPropertyOrder({
-  JWK.JSON_PROPERTY_JWK,
-  JWK.JSON_PROPERTY_ALG
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class JWK {
-  public static final String JSON_PROPERTY_JWK = "jwk";
-  @JsonbProperty(JSON_PROPERTY_JWK)
-  private JWKHeader jwk;
-
   public static final String JSON_PROPERTY_ALG = "alg";
   @JsonbProperty(JSON_PROPERTY_ALG)
   @Schema(description = "The algorithm used to sign or encrypt the JWT")
   private String alg;
 
-  public JWK jwk(JWKHeader jwk) {
-    this.jwk = jwk;
-    return this;
-  }
-
-  /**
-   * Get jwk
-   * @return jwk
-   **/
-  @Valid
-  public JWKHeader getJwk() {
-    return jwk;
-  }
-
-  public void setJwk(JWKHeader jwk) {
-    this.jwk = jwk;
-  }
+  public static final String JSON_PROPERTY_JWK = "jwk";
+  @JsonbProperty(JSON_PROPERTY_JWK)
+  private JWKHeader jwk;
 
   public JWK alg(String alg) {
     this.alg = alg;
@@ -68,30 +45,48 @@ public class JWK {
     this.alg = alg;
   }
 
+  public JWK jwk(JWKHeader jwk) {
+    this.jwk = jwk;
+    return this;
+  }
+
+  /**
+   * Get jwk
+   * @return jwk
+   **/
+  @Valid
+  public JWKHeader getJwk() {
+    return jwk;
+  }
+
+  public void setJwk(JWKHeader jwk) {
+    this.jwk = jwk;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof JWK)) {
       return false;
     }
     JWK other = (JWK) o;
-    return Objects.equals(this.jwk, other.jwk) &&
-        Objects.equals(this.alg, other.alg);
+    return Objects.equals(this.alg, other.alg) &&
+        Objects.equals(this.jwk, other.jwk);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(jwk, alg);
+    return Objects.hash(alg, jwk);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class JWK {");
-    sb.append("\n    jwk: ").append(toIndentedString(jwk));
     sb.append("\n    alg: ").append(toIndentedString(alg));
+    sb.append("\n    jwk: ").append(toIndentedString(jwk));
     sb.append("\n}");
     return sb.toString();
   }

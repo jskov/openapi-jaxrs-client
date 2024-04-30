@@ -7,9 +7,10 @@
 
 package mada.tests.e2e.examples.azure.api;
 
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.azure.dto.AcrErrors;
 import mada.tests.e2e.examples.azure.dto.TagAttributes;
 import mada.tests.e2e.examples.azure.dto.TagChangeableAttributes;
@@ -19,19 +20,19 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/acr/v1/{name}/_tags")
 public interface AcrTagApi {
 
   /**
    * List tags of a repository
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param last  (optional)
-   * @param n  (optional)
-   * @param orderby  (optional)
-   * @param digest  (optional)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param last Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
+   * @param n query parameter for max number of items (optional)
+   * @param orderby orderby query parameter (optional)
+   * @param digest filter by digest (optional)
    * @return TagList
    */
   @GET
@@ -47,9 +48,9 @@ public interface AcrTagApi {
   /**
    * Get tag attributes by tag
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param reference  (required)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param reference Tag name (not null)
    * @return TagAttributes
    */
   @GET
@@ -66,9 +67,9 @@ public interface AcrTagApi {
   /**
    * Delete tag
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param reference  (required)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param reference Tag name (not null)
    * @return AcrErrors
    */
   @DELETE
@@ -84,10 +85,11 @@ public interface AcrTagApi {
   /**
    * Update tag attributes
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param reference  (required)
-   * @param dto  (optional)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param reference Tag name (not null)
+   * @param dto Tag attribute value (optional)
+   * @return AcrErrors
    */
   @PATCH
   @Path("/{reference}")
@@ -98,5 +100,5 @@ public interface AcrTagApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "200", description = "The attributes are updated")
   })
-  void Tag_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, TagChangeableAttributes dto);
+  AcrErrors Tag_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @Valid TagChangeableAttributes dto);
 }

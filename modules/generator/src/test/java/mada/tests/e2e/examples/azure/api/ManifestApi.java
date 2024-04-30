@@ -7,9 +7,10 @@
 
 package mada.tests.e2e.examples.azure.api;
 
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.azure.dto.AcrErrors;
 import mada.tests.e2e.examples.azure.dto.Manifest;
 import mada.tests.e2e.examples.azure.dto.ManifestWrapper;
@@ -18,17 +19,17 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/v2/{name}/manifests/{reference}")
 public interface ManifestApi {
 
   /**
-   * Get the manifest identified by &#x60;name&#x60; and &#x60;reference&#x60; where &#x60;reference&#x60; can be a tag or digest.
+   * Get the manifest identified by `name` and `reference` where `reference` can be a tag or digest.
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param reference  (required)
-   * @param accept  (optional)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param reference A tag or a digest, pointing to a specific image (not null)
+   * @param accept Accept header string delimited by comma. For example, application/vnd.docker.distribution.manifest.v2+json (optional)
    * @return ManifestWrapper
    */
   @GET
@@ -42,13 +43,13 @@ public interface ManifestApi {
   ManifestWrapper Manifests_Get(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @HeaderParam("accept") String accept);
 
   /**
-   * Put the manifest identified by &#x60;name&#x60; and &#x60;reference&#x60; where &#x60;reference&#x60; can be a tag or digest.
+   * Put the manifest identified by `name` and `reference` where `reference` can be a tag or digest.
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param reference  (required)
-   * @param dto  (required)
-   * @return AcrErrors
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param reference A tag or a digest, pointing to a specific image (not null)
+   * @param dto Manifest body, can take v1 or v2 values depending on accept header (not null)
+   * @return Object
    */
   @PUT
   @Consumes("application/vnd.docker.distribution.manifest.v2+json")
@@ -59,14 +60,14 @@ public interface ManifestApi {
     @APIResponse(responseCode = "201", description = "The manifest is updated",
                  content = @Content(schema = @Schema(implementation = Object.class)))
   })
-  AcrErrors Manifests_Create(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @NotNull Manifest dto);
+  Object Manifests_Create(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @NotNull @Valid Manifest dto);
 
   /**
-   * Delete the manifest identified by &#x60;name&#x60; and &#x60;reference&#x60;. Note that a manifest can _only_ be deleted by &#x60;digest&#x60;.
+   * Delete the manifest identified by `name` and `reference`. Note that a manifest can _only_ be deleted by `digest`.
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param reference  (required)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param reference A tag or a digest, pointing to a specific image (not null)
    * @return AcrErrors
    */
   @DELETE

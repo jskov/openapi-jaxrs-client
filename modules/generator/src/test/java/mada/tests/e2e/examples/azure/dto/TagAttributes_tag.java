@@ -7,19 +7,15 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Tag
+ * Tag.
  */
 @Schema(description = "Tag")
-@JsonbPropertyOrder({
-  TagAttributes_tag.JSON_PROPERTY_SIGNATURE_RECORD
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class TagAttributes_tag {
   public static final String JSON_PROPERTY_SIGNATURE_RECORD = "signatureRecord";
   @JsonbProperty(JSON_PROPERTY_SIGNATURE_RECORD)
@@ -49,7 +45,7 @@ public class TagAttributes_tag {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof TagAttributes_tag)) {
       return false;
     }
     TagAttributes_tag other = (TagAttributes_tag) o;

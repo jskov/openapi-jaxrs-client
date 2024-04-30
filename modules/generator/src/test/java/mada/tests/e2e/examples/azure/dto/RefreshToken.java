@@ -7,40 +7,36 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * RefreshToken
  */
-@JsonbPropertyOrder({
-  RefreshToken.JSON_PROPERTY_REFRESH_TOKEN
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RefreshToken {
   public static final String JSON_PROPERTY_REFRESH_TOKEN = "refresh_token";
   @JsonbProperty(JSON_PROPERTY_REFRESH_TOKEN)
   @Schema(description = "The refresh token to be used for generating access tokens")
-  private String refresh_token;
+  private String refreshToken;
 
-  public RefreshToken refresh_token(String refresh_token) {
-    this.refresh_token = refresh_token;
+  public RefreshToken refreshToken(String refreshToken) {
+    this.refreshToken = refreshToken;
     return this;
   }
 
   /**
    * The refresh token to be used for generating access tokens.
    *
-   * @return refresh_token
+   * @return refreshToken
    **/
   public String getRefreshToken() {
-    return refresh_token;
+    return refreshToken;
   }
 
-  public void setRefreshToken(String refresh_token) {
-    this.refresh_token = refresh_token;
+  public void setRefreshToken(String refreshToken) {
+    this.refreshToken = refreshToken;
   }
 
   @Override
@@ -48,23 +44,23 @@ public class RefreshToken {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof RefreshToken)) {
       return false;
     }
     RefreshToken other = (RefreshToken) o;
-    return Objects.equals(this.refresh_token, other.refresh_token);
+    return Objects.equals(this.refreshToken, other.refreshToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(refresh_token);
+    return Objects.hash(refreshToken);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RefreshToken {");
-    sb.append("\n    refresh_token: ").append(toIndentedString(refresh_token));
+    sb.append("\n    refreshToken: ").append(toIndentedString(refreshToken));
     sb.append("\n}");
     return sb.toString();
   }

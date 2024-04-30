@@ -7,40 +7,36 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
  * AccessToken
  */
-@JsonbPropertyOrder({
-  AccessToken.JSON_PROPERTY_ACCESS_TOKEN
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class AccessToken {
   public static final String JSON_PROPERTY_ACCESS_TOKEN = "access_token";
   @JsonbProperty(JSON_PROPERTY_ACCESS_TOKEN)
   @Schema(description = "The access token for performing authenticated requests")
-  private String access_token;
+  private String accessToken;
 
-  public AccessToken access_token(String access_token) {
-    this.access_token = access_token;
+  public AccessToken accessToken(String accessToken) {
+    this.accessToken = accessToken;
     return this;
   }
 
   /**
    * The access token for performing authenticated requests.
    *
-   * @return access_token
+   * @return accessToken
    **/
   public String getAccessToken() {
-    return access_token;
+    return accessToken;
   }
 
-  public void setAccessToken(String access_token) {
-    this.access_token = access_token;
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
   }
 
   @Override
@@ -48,23 +44,23 @@ public class AccessToken {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof AccessToken)) {
       return false;
     }
     AccessToken other = (AccessToken) o;
-    return Objects.equals(this.access_token, other.access_token);
+    return Objects.equals(this.accessToken, other.accessToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(access_token);
+    return Objects.hash(accessToken);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AccessToken {");
-    sb.append("\n    access_token: ").append(toIndentedString(access_token));
+    sb.append("\n    accessToken: ").append(toIndentedString(accessToken));
     sb.append("\n}");
     return sb.toString();
   }

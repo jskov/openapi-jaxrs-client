@@ -7,54 +7,30 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Manifest attributes details
+ * Manifest attributes details.
  */
 @Schema(description = "Manifest attributes details")
-@JsonbPropertyOrder({
-  ManifestAttributes_manifest_references.JSON_PROPERTY_DIGEST,
-  ManifestAttributes_manifest_references.JSON_PROPERTY_ARCHITECTURE,
-  ManifestAttributes_manifest_references.JSON_PROPERTY_OS
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ManifestAttributes_manifest_references {
-  public static final String JSON_PROPERTY_DIGEST = "digest";
-  @JsonbProperty(JSON_PROPERTY_DIGEST)
-  @Schema(description = "Manifest digest")
-  private String digest;
-
   public static final String JSON_PROPERTY_ARCHITECTURE = "architecture";
   @JsonbProperty(JSON_PROPERTY_ARCHITECTURE)
   @Schema(description = "CPU architecture")
   private String architecture;
 
+  public static final String JSON_PROPERTY_DIGEST = "digest";
+  @JsonbProperty(JSON_PROPERTY_DIGEST)
+  @Schema(description = "Manifest digest")
+  private String digest;
+
   public static final String JSON_PROPERTY_OS = "os";
   @JsonbProperty(JSON_PROPERTY_OS)
   @Schema(description = "Operating system")
   private String os;
-
-  public ManifestAttributes_manifest_references digest(String digest) {
-    this.digest = digest;
-    return this;
-  }
-
-  /**
-   * Manifest digest.
-   *
-   * @return digest
-   **/
-  public String getDigest() {
-    return digest;
-  }
-
-  public void setDigest(String digest) {
-    this.digest = digest;
-  }
 
   public ManifestAttributes_manifest_references architecture(String architecture) {
     this.architecture = architecture;
@@ -72,6 +48,24 @@ public class ManifestAttributes_manifest_references {
 
   public void setArchitecture(String architecture) {
     this.architecture = architecture;
+  }
+
+  public ManifestAttributes_manifest_references digest(String digest) {
+    this.digest = digest;
+    return this;
+  }
+
+  /**
+   * Manifest digest.
+   *
+   * @return digest
+   **/
+  public String getDigest() {
+    return digest;
+  }
+
+  public void setDigest(String digest) {
+    this.digest = digest;
   }
 
   public ManifestAttributes_manifest_references os(String os) {
@@ -97,26 +91,26 @@ public class ManifestAttributes_manifest_references {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ManifestAttributes_manifest_references)) {
       return false;
     }
     ManifestAttributes_manifest_references other = (ManifestAttributes_manifest_references) o;
-    return Objects.equals(this.digest, other.digest) &&
-        Objects.equals(this.architecture, other.architecture) &&
+    return Objects.equals(this.architecture, other.architecture) &&
+        Objects.equals(this.digest, other.digest) &&
         Objects.equals(this.os, other.os);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(digest, architecture, os);
+    return Objects.hash(architecture, digest, os);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManifestAttributes_manifest_references {");
-    sb.append("\n    digest: ").append(toIndentedString(digest));
     sb.append("\n    architecture: ").append(toIndentedString(architecture));
+    sb.append("\n    digest: ").append(toIndentedString(digest));
     sb.append("\n    os: ").append(toIndentedString(os));
     sb.append("\n}");
     return sb.toString();

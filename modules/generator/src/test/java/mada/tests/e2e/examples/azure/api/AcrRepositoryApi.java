@@ -7,9 +7,10 @@
 
 package mada.tests.e2e.examples.azure.api;
 
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.azure.dto.AcrErrors;
 import mada.tests.e2e.examples.azure.dto.DeletedRepository;
 import mada.tests.e2e.examples.azure.dto.Repositories;
@@ -20,16 +21,16 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/acr/v1")
 public interface AcrRepositoryApi {
 
   /**
    * List repositories
    *
-   * @param auth  (required)
-   * @param last  (optional)
-   * @param n  (optional)
+   * @param auth  (not null)
+   * @param last Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
+   * @param n query parameter for max number of items (optional)
    * @return Repositories
    */
   @GET
@@ -46,8 +47,8 @@ public interface AcrRepositoryApi {
   /**
    * Get repository attributes
    *
-   * @param auth  (required)
-   * @param name  (required)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
    * @return RepositoryAttributes
    */
   @GET
@@ -62,10 +63,10 @@ public interface AcrRepositoryApi {
   RepositoryAttributes Repository_GetAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name);
 
   /**
-   * Delete the repository identified by &#x60;name&#x60;
+   * Delete the repository identified by `name`
    *
-   * @param auth  (required)
-   * @param name  (required)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
    * @return AcrErrors
    */
   @DELETE
@@ -80,11 +81,12 @@ public interface AcrRepositoryApi {
   AcrErrors Repository_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name);
 
   /**
-   * Update the attribute identified by &#x60;name&#x60; where &#x60;reference&#x60; is the name of the repository.
+   * Update the attribute identified by `name` where `reference` is the name of the repository.
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param dto  (optional)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param dto Repository attribute value (optional)
+   * @return AcrErrors
    */
   @PATCH
   @Path("/{name}")
@@ -95,5 +97,5 @@ public interface AcrRepositoryApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "200", description = "The attributes are updated")
   })
-  void Repository_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, RepositoryChangeableAttributes dto);
+  AcrErrors Repository_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @Valid RepositoryChangeableAttributes dto);
 }

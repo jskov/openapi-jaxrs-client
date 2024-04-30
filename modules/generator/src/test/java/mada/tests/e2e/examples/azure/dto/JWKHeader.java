@@ -7,23 +7,15 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * JSON web key parameter
+ * JSON web key parameter.
  */
 @Schema(description = "JSON web key parameter")
-@JsonbPropertyOrder({
-  JWKHeader.JSON_PROPERTY_CRV,
-  JWKHeader.JSON_PROPERTY_KID,
-  JWKHeader.JSON_PROPERTY_KTY,
-  JWKHeader.JSON_PROPERTY_X,
-  JWKHeader.JSON_PROPERTY_Y
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class JWKHeader {
   public static final String JSON_PROPERTY_CRV = "crv";
   @JsonbProperty(JSON_PROPERTY_CRV)
@@ -145,7 +137,7 @@ public class JWKHeader {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof JWKHeader)) {
       return false;
     }
     JWKHeader other = (JWKHeader) o;

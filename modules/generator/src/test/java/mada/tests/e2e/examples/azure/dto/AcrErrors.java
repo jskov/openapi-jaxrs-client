@@ -7,27 +7,23 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Acr error response describing why the operation failed
+ * Acr error response describing why the operation failed.
  */
 @Schema(description = "Acr error response describing why the operation failed")
-@JsonbPropertyOrder({
-  AcrErrors.JSON_PROPERTY_ERRORS
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class AcrErrors {
   public static final String JSON_PROPERTY_ERRORS = "errors";
   @JsonbProperty(JSON_PROPERTY_ERRORS)
   @Schema(description = "Array of detailed error")
-  private List<AcrErrorInfo> errors = null;
+  private List<AcrErrorInfo> errors;
 
   public AcrErrors errors(List<AcrErrorInfo> errors) {
     this.errors = errors;
@@ -61,7 +57,7 @@ public class AcrErrors {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof AcrErrors)) {
       return false;
     }
     AcrErrors other = (AcrErrors) o;

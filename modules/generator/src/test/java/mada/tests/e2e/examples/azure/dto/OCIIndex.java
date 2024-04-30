@@ -7,32 +7,45 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Returns the requested OCI index file
+ * Returns the requested OCI index file.
  */
 @Schema(description = "Returns the requested OCI index file")
-@JsonbPropertyOrder({
-  OCIIndex.JSON_PROPERTY_MANIFESTS,
-  OCIIndex.JSON_PROPERTY_ANNOTATIONS
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class OCIIndex {
-  public static final String JSON_PROPERTY_MANIFESTS = "manifests";
-  @JsonbProperty(JSON_PROPERTY_MANIFESTS)
-  @Schema(description = "List of OCI image layer information")
-  private List<ManifestListAttributes> manifests = null;
-
   public static final String JSON_PROPERTY_ANNOTATIONS = "annotations";
   @JsonbProperty(JSON_PROPERTY_ANNOTATIONS)
   private Annotations annotations;
+
+  public static final String JSON_PROPERTY_MANIFESTS = "manifests";
+  @JsonbProperty(JSON_PROPERTY_MANIFESTS)
+  @Schema(description = "List of OCI image layer information")
+  private List<ManifestListAttributes> manifests;
+
+  public OCIIndex annotations(Annotations annotations) {
+    this.annotations = annotations;
+    return this;
+  }
+
+  /**
+   * Get annotations
+   * @return annotations
+   **/
+  @Valid
+  public Annotations getAnnotations() {
+    return annotations;
+  }
+
+  public void setAnnotations(Annotations annotations) {
+    this.annotations = annotations;
+  }
 
   public OCIIndex manifests(List<ManifestListAttributes> manifests) {
     this.manifests = manifests;
@@ -61,48 +74,30 @@ public class OCIIndex {
     this.manifests = manifests;
   }
 
-  public OCIIndex annotations(Annotations annotations) {
-    this.annotations = annotations;
-    return this;
-  }
-
-  /**
-   * Get annotations
-   * @return annotations
-   **/
-  @Valid
-  public Annotations getAnnotations() {
-    return annotations;
-  }
-
-  public void setAnnotations(Annotations annotations) {
-    this.annotations = annotations;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof OCIIndex)) {
       return false;
     }
     OCIIndex other = (OCIIndex) o;
-    return Objects.equals(this.manifests, other.manifests) &&
-        Objects.equals(this.annotations, other.annotations);
+    return Objects.equals(this.annotations, other.annotations) &&
+        Objects.equals(this.manifests, other.manifests);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(manifests, annotations);
+    return Objects.hash(annotations, manifests);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OCIIndex {");
-    sb.append("\n    manifests: ").append(toIndentedString(manifests));
     sb.append("\n    annotations: ").append(toIndentedString(annotations));
+    sb.append("\n    manifests: ").append(toIndentedString(manifests));
     sb.append("\n}");
     return sb.toString();
   }

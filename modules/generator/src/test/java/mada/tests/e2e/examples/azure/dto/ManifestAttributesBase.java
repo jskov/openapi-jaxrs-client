@@ -7,32 +7,38 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Manifest details
+ * Manifest details.
  */
 @Schema(description = "Manifest details")
-@JsonbPropertyOrder({
-  ManifestAttributesBase.JSON_PROPERTY_DIGEST,
-  ManifestAttributesBase.JSON_PROPERTY_IMAGE_SIZE,
-  ManifestAttributesBase.JSON_PROPERTY_CREATED_TIME,
-  ManifestAttributesBase.JSON_PROPERTY_LAST_UPDATE_TIME,
-  ManifestAttributesBase.JSON_PROPERTY_ARCHITECTURE,
-  ManifestAttributesBase.JSON_PROPERTY_OS,
-  ManifestAttributesBase.JSON_PROPERTY_MEDIA_TYPE,
-  ManifestAttributesBase.JSON_PROPERTY_CONFIG_MEDIA_TYPE,
-  ManifestAttributesBase.JSON_PROPERTY_TAGS,
-  ManifestAttributesBase.JSON_PROPERTY_CHANGEABLE_ATTRIBUTES
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ManifestAttributesBase {
+  public static final String JSON_PROPERTY_ARCHITECTURE = "architecture";
+  @JsonbProperty(JSON_PROPERTY_ARCHITECTURE)
+  @Schema(description = "CPU architecture")
+  private String architecture;
+
+  public static final String JSON_PROPERTY_CHANGEABLE_ATTRIBUTES = "changeableAttributes";
+  @JsonbProperty(JSON_PROPERTY_CHANGEABLE_ATTRIBUTES)
+  private ManifestChangeableAttributes changeableAttributes;
+
+  public static final String JSON_PROPERTY_CONFIG_MEDIA_TYPE = "configMediaType";
+  @JsonbProperty(JSON_PROPERTY_CONFIG_MEDIA_TYPE)
+  @Schema(description = "Config blob media type")
+  private String configMediaType;
+
+  public static final String JSON_PROPERTY_CREATED_TIME = "createdTime";
+  @JsonbProperty(JSON_PROPERTY_CREATED_TIME)
+  @Schema(description = "Created time")
+  private String createdTime;
+
   public static final String JSON_PROPERTY_DIGEST = "digest";
   @JsonbProperty(JSON_PROPERTY_DIGEST)
   @Schema(description = "Manifest")
@@ -43,44 +49,97 @@ public class ManifestAttributesBase {
   @Schema(description = "Image size")
   private Long imageSize;
 
-  public static final String JSON_PROPERTY_CREATED_TIME = "createdTime";
-  @JsonbProperty(JSON_PROPERTY_CREATED_TIME)
-  @Schema(description = "Created time")
-  private String createdTime;
-
   public static final String JSON_PROPERTY_LAST_UPDATE_TIME = "lastUpdateTime";
   @JsonbProperty(JSON_PROPERTY_LAST_UPDATE_TIME)
   @Schema(description = "Last update time")
   private String lastUpdateTime;
-
-  public static final String JSON_PROPERTY_ARCHITECTURE = "architecture";
-  @JsonbProperty(JSON_PROPERTY_ARCHITECTURE)
-  @Schema(description = "CPU architecture")
-  private String architecture;
-
-  public static final String JSON_PROPERTY_OS = "os";
-  @JsonbProperty(JSON_PROPERTY_OS)
-  @Schema(description = "Operating system")
-  private String os;
 
   public static final String JSON_PROPERTY_MEDIA_TYPE = "mediaType";
   @JsonbProperty(JSON_PROPERTY_MEDIA_TYPE)
   @Schema(description = "Media type")
   private String mediaType;
 
-  public static final String JSON_PROPERTY_CONFIG_MEDIA_TYPE = "configMediaType";
-  @JsonbProperty(JSON_PROPERTY_CONFIG_MEDIA_TYPE)
-  @Schema(description = "Config blob media type")
-  private String configMediaType;
+  public static final String JSON_PROPERTY_OS = "os";
+  @JsonbProperty(JSON_PROPERTY_OS)
+  @Schema(description = "Operating system")
+  private String os;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
   @JsonbProperty(JSON_PROPERTY_TAGS)
   @Schema(description = "List of tags")
-  private List<String> tags = null;
+  private List<String> tags;
 
-  public static final String JSON_PROPERTY_CHANGEABLE_ATTRIBUTES = "changeableAttributes";
-  @JsonbProperty(JSON_PROPERTY_CHANGEABLE_ATTRIBUTES)
-  private ManifestChangeableAttributes changeableAttributes;
+  public ManifestAttributesBase architecture(String architecture) {
+    this.architecture = architecture;
+    return this;
+  }
+
+  /**
+   * CPU architecture.
+   *
+   * @return architecture
+   **/
+  public String getArchitecture() {
+    return architecture;
+  }
+
+  public void setArchitecture(String architecture) {
+    this.architecture = architecture;
+  }
+
+  public ManifestAttributesBase changeableAttributes(ManifestChangeableAttributes changeableAttributes) {
+    this.changeableAttributes = changeableAttributes;
+    return this;
+  }
+
+  /**
+   * Get changeableAttributes
+   * @return changeableAttributes
+   **/
+  @Valid
+  public ManifestChangeableAttributes getChangeableAttributes() {
+    return changeableAttributes;
+  }
+
+  public void setChangeableAttributes(ManifestChangeableAttributes changeableAttributes) {
+    this.changeableAttributes = changeableAttributes;
+  }
+
+  public ManifestAttributesBase configMediaType(String configMediaType) {
+    this.configMediaType = configMediaType;
+    return this;
+  }
+
+  /**
+   * Config blob media type.
+   *
+   * @return configMediaType
+   **/
+  public String getConfigMediaType() {
+    return configMediaType;
+  }
+
+  public void setConfigMediaType(String configMediaType) {
+    this.configMediaType = configMediaType;
+  }
+
+  public ManifestAttributesBase createdTime(String createdTime) {
+    this.createdTime = createdTime;
+    return this;
+  }
+
+  /**
+   * Created time.
+   *
+   * @return createdTime
+   **/
+  public String getCreatedTime() {
+    return createdTime;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
 
   public ManifestAttributesBase digest(String digest) {
     this.digest = digest;
@@ -118,24 +177,6 @@ public class ManifestAttributesBase {
     this.imageSize = imageSize;
   }
 
-  public ManifestAttributesBase createdTime(String createdTime) {
-    this.createdTime = createdTime;
-    return this;
-  }
-
-  /**
-   * Created time.
-   *
-   * @return createdTime
-   **/
-  public String getCreatedTime() {
-    return createdTime;
-  }
-
-  public void setCreatedTime(String createdTime) {
-    this.createdTime = createdTime;
-  }
-
   public ManifestAttributesBase lastUpdateTime(String lastUpdateTime) {
     this.lastUpdateTime = lastUpdateTime;
     return this;
@@ -152,42 +193,6 @@ public class ManifestAttributesBase {
 
   public void setLastUpdateTime(String lastUpdateTime) {
     this.lastUpdateTime = lastUpdateTime;
-  }
-
-  public ManifestAttributesBase architecture(String architecture) {
-    this.architecture = architecture;
-    return this;
-  }
-
-  /**
-   * CPU architecture.
-   *
-   * @return architecture
-   **/
-  public String getArchitecture() {
-    return architecture;
-  }
-
-  public void setArchitecture(String architecture) {
-    this.architecture = architecture;
-  }
-
-  public ManifestAttributesBase os(String os) {
-    this.os = os;
-    return this;
-  }
-
-  /**
-   * Operating system.
-   *
-   * @return os
-   **/
-  public String getOs() {
-    return os;
-  }
-
-  public void setOs(String os) {
-    this.os = os;
   }
 
   public ManifestAttributesBase mediaType(String mediaType) {
@@ -208,22 +213,22 @@ public class ManifestAttributesBase {
     this.mediaType = mediaType;
   }
 
-  public ManifestAttributesBase configMediaType(String configMediaType) {
-    this.configMediaType = configMediaType;
+  public ManifestAttributesBase os(String os) {
+    this.os = os;
     return this;
   }
 
   /**
-   * Config blob media type.
+   * Operating system.
    *
-   * @return configMediaType
+   * @return os
    **/
-  public String getConfigMediaType() {
-    return configMediaType;
+  public String getOs() {
+    return os;
   }
 
-  public void setConfigMediaType(String configMediaType) {
-    this.configMediaType = configMediaType;
+  public void setOs(String os) {
+    this.os = os;
   }
 
   public ManifestAttributesBase tags(List<String> tags) {
@@ -252,64 +257,46 @@ public class ManifestAttributesBase {
     this.tags = tags;
   }
 
-  public ManifestAttributesBase changeableAttributes(ManifestChangeableAttributes changeableAttributes) {
-    this.changeableAttributes = changeableAttributes;
-    return this;
-  }
-
-  /**
-   * Get changeableAttributes
-   * @return changeableAttributes
-   **/
-  @Valid
-  public ManifestChangeableAttributes getChangeableAttributes() {
-    return changeableAttributes;
-  }
-
-  public void setChangeableAttributes(ManifestChangeableAttributes changeableAttributes) {
-    this.changeableAttributes = changeableAttributes;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ManifestAttributesBase)) {
       return false;
     }
     ManifestAttributesBase other = (ManifestAttributesBase) o;
-    return Objects.equals(this.digest, other.digest) &&
-        Objects.equals(this.imageSize, other.imageSize) &&
-        Objects.equals(this.createdTime, other.createdTime) &&
-        Objects.equals(this.lastUpdateTime, other.lastUpdateTime) &&
-        Objects.equals(this.architecture, other.architecture) &&
-        Objects.equals(this.os, other.os) &&
-        Objects.equals(this.mediaType, other.mediaType) &&
+    return Objects.equals(this.architecture, other.architecture) &&
+        Objects.equals(this.changeableAttributes, other.changeableAttributes) &&
         Objects.equals(this.configMediaType, other.configMediaType) &&
-        Objects.equals(this.tags, other.tags) &&
-        Objects.equals(this.changeableAttributes, other.changeableAttributes);
+        Objects.equals(this.createdTime, other.createdTime) &&
+        Objects.equals(this.digest, other.digest) &&
+        Objects.equals(this.imageSize, other.imageSize) &&
+        Objects.equals(this.lastUpdateTime, other.lastUpdateTime) &&
+        Objects.equals(this.mediaType, other.mediaType) &&
+        Objects.equals(this.os, other.os) &&
+        Objects.equals(this.tags, other.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(digest, imageSize, createdTime, lastUpdateTime, architecture, os, mediaType, configMediaType, tags, changeableAttributes);
+    return Objects.hash(architecture, changeableAttributes, configMediaType, createdTime, digest, imageSize, lastUpdateTime, mediaType, os, tags);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManifestAttributesBase {");
+    sb.append("\n    architecture: ").append(toIndentedString(architecture));
+    sb.append("\n    changeableAttributes: ").append(toIndentedString(changeableAttributes));
+    sb.append("\n    configMediaType: ").append(toIndentedString(configMediaType));
+    sb.append("\n    createdTime: ").append(toIndentedString(createdTime));
     sb.append("\n    digest: ").append(toIndentedString(digest));
     sb.append("\n    imageSize: ").append(toIndentedString(imageSize));
-    sb.append("\n    createdTime: ").append(toIndentedString(createdTime));
     sb.append("\n    lastUpdateTime: ").append(toIndentedString(lastUpdateTime));
-    sb.append("\n    architecture: ").append(toIndentedString(architecture));
-    sb.append("\n    os: ").append(toIndentedString(os));
     sb.append("\n    mediaType: ").append(toIndentedString(mediaType));
-    sb.append("\n    configMediaType: ").append(toIndentedString(configMediaType));
+    sb.append("\n    os: ").append(toIndentedString(os));
     sb.append("\n    tags: ").append(toIndentedString(tags));
-    sb.append("\n    changeableAttributes: ").append(toIndentedString(changeableAttributes));
     sb.append("\n}");
     return sb.toString();
   }
