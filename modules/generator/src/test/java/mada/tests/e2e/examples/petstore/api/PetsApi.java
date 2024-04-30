@@ -6,10 +6,10 @@
 
 package mada.tests.e2e.examples.petstore.api;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import java.util.List;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.petstore.dto.Error;
 import mada.tests.e2e.examples.petstore.dto.Pet;
 import org.eclipse.microprofile.openapi.annotations.Operation;

@@ -6,9 +6,9 @@
 
 package mada.tests.e2e.examples.petstore.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
