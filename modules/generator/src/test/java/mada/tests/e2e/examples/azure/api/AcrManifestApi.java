@@ -7,9 +7,10 @@
 
 package mada.tests.e2e.examples.azure.api;
 
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.azure.dto.AcrErrors;
 import mada.tests.e2e.examples.azure.dto.AcrManifests;
 import mada.tests.e2e.examples.azure.dto.ManifestAttributes;
@@ -19,18 +20,18 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/acr/v1/{name}/_manifests")
 public interface AcrManifestApi {
 
   /**
    * List manifests of a repository
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param last  (optional)
-   * @param n  (optional)
-   * @param orderby  (optional)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param last Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
+   * @param n query parameter for max number of items (optional)
+   * @param orderby orderby query parameter (optional)
    * @return AcrManifests
    */
   @GET
@@ -46,9 +47,9 @@ public interface AcrManifestApi {
   /**
    * Get manifest attributes
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param reference  (required)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param reference A tag or a digest, pointing to a specific image (not null)
    * @return ManifestAttributes
    */
   @GET
@@ -65,10 +66,11 @@ public interface AcrManifestApi {
   /**
    * Update attributes of a manifest
    *
-   * @param auth  (required)
-   * @param name  (required)
-   * @param reference  (required)
-   * @param dto  (optional)
+   * @param auth  (not null)
+   * @param name Name of the image (including the namespace) (not null)
+   * @param reference A tag or a digest, pointing to a specific image (not null)
+   * @param dto Manifest attribute value (optional)
+   * @return AcrErrors
    */
   @PATCH
   @Path("/{reference}")
@@ -79,5 +81,5 @@ public interface AcrManifestApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "200", description = "The attributes are updated")
   })
-  void Manifests_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, ManifestChangeableAttributes dto);
+  AcrErrors Manifests_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @Valid ManifestChangeableAttributes dto);
 }

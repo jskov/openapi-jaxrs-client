@@ -7,19 +7,15 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * A list of unstructured historical data for v1 compatibility
+ * A list of unstructured historical data for v1 compatibility.
  */
 @Schema(description = "A list of unstructured historical data for v1 compatibility")
-@JsonbPropertyOrder({
-  History.JSON_PROPERTY_V1_COMPATIBILITY
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class History {
   public static final String JSON_PROPERTY_V1_COMPATIBILITY = "v1Compatibility";
   @JsonbProperty(JSON_PROPERTY_V1_COMPATIBILITY)
@@ -49,7 +45,7 @@ public class History {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof History)) {
       return false;
     }
     History other = (History) o;

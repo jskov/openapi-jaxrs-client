@@ -26,7 +26,7 @@ I plan to keep this generator much simpler:
 
 ## Examples
 
-A couple of official APIs are kept as examples: [bitbucket](./modules/generator/src/test/java/mada/tests/e2e/examples/bitbucket), and [petstore](./modules/generator/src/test/java/mada/tests/e2e/examples/petstore).
+A couple of official APIs are kept as examples: [azure](./modules/generator/src/test/java/mada/tests/e2e/examples/azure), [bitbucket](./modules/generator/src/test/java/mada/tests/e2e/examples/bitbucket), and [petstore](./modules/generator/src/test/java/mada/tests/e2e/examples/petstore).
 These should give you an idea of what the generator's output looks like - and they help me evaluate how changes affect the output on larger APIs.
 
 The output from many other test OpenApi documents and configuration settings [can be seen in the test folder](./modules/generator/src/test/java/mada/tests/e2e).

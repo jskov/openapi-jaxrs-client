@@ -7,22 +7,23 @@
 
 package mada.tests.e2e.examples.azure.api;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.azure.dto.AcrErrors;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 @Path("/v2/")
 public interface V2Api {
 
   /**
    * Tells whether this Docker Registry instance supports Docker Registry HTTP API v2
    *
-   * @param auth  (required)
+   * @param auth  (not null)
+   * @return AcrErrors
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
@@ -31,5 +32,5 @@ public interface V2Api {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "200", description = "Successful response. API v2 supported")
   })
-  void V2Support_Check(@HeaderParam("Authorization") String auth);
+  AcrErrors V2Support_Check(@HeaderParam("Authorization") String auth);
 }

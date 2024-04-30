@@ -7,32 +7,27 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Deleted repository
+ * Deleted repository.
  */
 @Schema(description = "Deleted repository")
-@JsonbPropertyOrder({
-  DeletedRepository.JSON_PROPERTY_MANIFESTS_DELETED,
-  DeletedRepository.JSON_PROPERTY_TAGS_DELETED
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class DeletedRepository {
   public static final String JSON_PROPERTY_MANIFESTS_DELETED = "manifestsDeleted";
   @JsonbProperty(JSON_PROPERTY_MANIFESTS_DELETED)
   @Schema(description = "SHA of the deleted image")
-  private List<String> manifestsDeleted = null;
+  private List<String> manifestsDeleted;
 
   public static final String JSON_PROPERTY_TAGS_DELETED = "tagsDeleted";
   @JsonbProperty(JSON_PROPERTY_TAGS_DELETED)
   @Schema(description = "Tag of the deleted image")
-  private List<String> tagsDeleted = null;
+  private List<String> tagsDeleted;
 
   public DeletedRepository manifestsDeleted(List<String> manifestsDeleted) {
     this.manifestsDeleted = manifestsDeleted;
@@ -91,7 +86,7 @@ public class DeletedRepository {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof DeletedRepository)) {
       return false;
     }
     DeletedRepository other = (DeletedRepository) o;

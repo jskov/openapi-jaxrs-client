@@ -7,26 +7,22 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * List of repositories
+ * List of repositories.
  */
 @Schema(description = "List of repositories")
-@JsonbPropertyOrder({
-  Repositories.JSON_PROPERTY_REPOSITORIES
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Repositories {
   public static final String JSON_PROPERTY_REPOSITORIES = "repositories";
   @JsonbProperty(JSON_PROPERTY_REPOSITORIES)
   @Schema(description = "Repository names")
-  private List<String> repositories = null;
+  private List<String> repositories;
 
   public Repositories repositories(List<String> repositories) {
     this.repositories = repositories;
@@ -59,7 +55,7 @@ public class Repositories {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Repositories)) {
       return false;
     }
     Repositories other = (Repositories) o;

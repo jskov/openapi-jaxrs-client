@@ -7,19 +7,15 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Returns the requested manifest file
+ * Returns the requested manifest file.
  */
 @Schema(description = "Returns the requested manifest file")
-@JsonbPropertyOrder({
-  Manifest.JSON_PROPERTY_SCHEMA_VERSION
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Manifest {
   public static final String JSON_PROPERTY_SCHEMA_VERSION = "schemaVersion";
   @JsonbProperty(JSON_PROPERTY_SCHEMA_VERSION)
@@ -49,7 +45,7 @@ public class Manifest {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Manifest)) {
       return false;
     }
     Manifest other = (Manifest) o;

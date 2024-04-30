@@ -7,19 +7,15 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Image layer information
+ * Image layer information.
  */
 @Schema(description = "Image layer information")
-@JsonbPropertyOrder({
-  FsLayer.JSON_PROPERTY_BLOB_SUM
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class FsLayer {
   public static final String JSON_PROPERTY_BLOB_SUM = "blobSum";
   @JsonbProperty(JSON_PROPERTY_BLOB_SUM)
@@ -49,7 +45,7 @@ public class FsLayer {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof FsLayer)) {
       return false;
     }
     FsLayer other = (FsLayer) o;

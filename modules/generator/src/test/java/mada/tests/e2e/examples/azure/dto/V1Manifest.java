@@ -7,57 +7,48 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Returns the requested V1 manifest file
+ * Returns the requested V1 manifest file.
  */
 @Schema(description = "Returns the requested V1 manifest file")
-@JsonbPropertyOrder({
-  V1Manifest.JSON_PROPERTY_ARCHITECTURE,
-  V1Manifest.JSON_PROPERTY_NAME,
-  V1Manifest.JSON_PROPERTY_TAG,
-  V1Manifest.JSON_PROPERTY_FS_LAYERS,
-  V1Manifest.JSON_PROPERTY_HISTORY,
-  V1Manifest.JSON_PROPERTY_SIGNATURES
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class V1Manifest {
   public static final String JSON_PROPERTY_ARCHITECTURE = "architecture";
   @JsonbProperty(JSON_PROPERTY_ARCHITECTURE)
   @Schema(description = "CPU architecture")
   private String architecture;
 
+  public static final String JSON_PROPERTY_FS_LAYERS = "fsLayers";
+  @JsonbProperty(JSON_PROPERTY_FS_LAYERS)
+  @Schema(description = "List of layer information")
+  private List<FsLayer> fsLayers;
+
+  public static final String JSON_PROPERTY_HISTORY = "history";
+  @JsonbProperty(JSON_PROPERTY_HISTORY)
+  @Schema(description = "Image history")
+  private List<History> history;
+
   public static final String JSON_PROPERTY_NAME = "name";
   @JsonbProperty(JSON_PROPERTY_NAME)
   @Schema(description = "Image name")
   private String name;
 
+  public static final String JSON_PROPERTY_SIGNATURES = "signatures";
+  @JsonbProperty(JSON_PROPERTY_SIGNATURES)
+  @Schema(description = "Image signature")
+  private List<ImageSignature> signatures;
+
   public static final String JSON_PROPERTY_TAG = "tag";
   @JsonbProperty(JSON_PROPERTY_TAG)
   @Schema(description = "Image tag")
   private String tag;
-
-  public static final String JSON_PROPERTY_FS_LAYERS = "fsLayers";
-  @JsonbProperty(JSON_PROPERTY_FS_LAYERS)
-  @Schema(description = "List of layer information")
-  private List<FsLayer> fsLayers = null;
-
-  public static final String JSON_PROPERTY_HISTORY = "history";
-  @JsonbProperty(JSON_PROPERTY_HISTORY)
-  @Schema(description = "Image history")
-  private List<History> history = null;
-
-  public static final String JSON_PROPERTY_SIGNATURES = "signatures";
-  @JsonbProperty(JSON_PROPERTY_SIGNATURES)
-  @Schema(description = "Image signature")
-  private List<ImageSignature> signatures = null;
 
   public V1Manifest architecture(String architecture) {
     this.architecture = architecture;
@@ -75,42 +66,6 @@ public class V1Manifest {
 
   public void setArchitecture(String architecture) {
     this.architecture = architecture;
-  }
-
-  public V1Manifest name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Image name.
-   *
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public V1Manifest tag(String tag) {
-    this.tag = tag;
-    return this;
-  }
-
-  /**
-   * Image tag.
-   *
-   * @return tag
-   **/
-  public String getTag() {
-    return tag;
-  }
-
-  public void setTag(String tag) {
-    this.tag = tag;
   }
 
   public V1Manifest fsLayers(List<FsLayer> fsLayers) {
@@ -167,6 +122,24 @@ public class V1Manifest {
     this.history = history;
   }
 
+  public V1Manifest name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Image name.
+   *
+   * @return name
+   **/
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
   public V1Manifest signatures(List<ImageSignature> signatures) {
     this.signatures = signatures;
     return this;
@@ -194,26 +167,44 @@ public class V1Manifest {
     this.signatures = signatures;
   }
 
+  public V1Manifest tag(String tag) {
+    this.tag = tag;
+    return this;
+  }
+
+  /**
+   * Image tag.
+   *
+   * @return tag
+   **/
+  public String getTag() {
+    return tag;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof V1Manifest)) {
       return false;
     }
     V1Manifest other = (V1Manifest) o;
     return Objects.equals(this.architecture, other.architecture) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.tag, other.tag) &&
         Objects.equals(this.fsLayers, other.fsLayers) &&
         Objects.equals(this.history, other.history) &&
-        Objects.equals(this.signatures, other.signatures);
+        Objects.equals(this.name, other.name) &&
+        Objects.equals(this.signatures, other.signatures) &&
+        Objects.equals(this.tag, other.tag);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(architecture, name, tag, fsLayers, history, signatures);
+    return Objects.hash(architecture, fsLayers, history, name, signatures, tag);
   }
 
   @Override
@@ -221,11 +212,11 @@ public class V1Manifest {
     StringBuilder sb = new StringBuilder();
     sb.append("class V1Manifest {");
     sb.append("\n    architecture: ").append(toIndentedString(architecture));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n    tag: ").append(toIndentedString(tag));
     sb.append("\n    fsLayers: ").append(toIndentedString(fsLayers));
     sb.append("\n    history: ").append(toIndentedString(history));
+    sb.append("\n    name: ").append(toIndentedString(name));
     sb.append("\n    signatures: ").append(toIndentedString(signatures));
+    sb.append("\n    tag: ").append(toIndentedString(tag));
     sb.append("\n}");
     return sb.toString();
   }

@@ -7,19 +7,19 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
-import javax.json.Json;
-import javax.json.JsonString;
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+import jakarta.json.Json;
+import jakarta.json.JsonString;
+import jakarta.json.bind.adapter.JsonbAdapter;
+import jakarta.json.bind.annotation.JsonbTypeAdapter;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Can take a value of access_token_refresh_token, or access_token, or refresh_token
+ * Can take a value of access_token_refresh_token, or access_token, or refresh_token.
  */
 @JsonbTypeAdapter(mada.tests.e2e.examples.azure.dto.FormData_Grant_type.FormData_Grant_typeAdapter.class)
-@Schema(enumeration = {"access_token_refresh_token", "access_token", "refresh_token"}, type = SchemaType.STRING)
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@Schema(enumeration = {"access_token_refresh_token", "access_token", "refresh_token"}, type = SchemaType.STRING, description = "Can take a value of access_token_refresh_token, or access_token, or refresh_token")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum FormData_Grant_type {
   ACCESS_TOKEN_REFRESH_TOKEN("access_token_refresh_token"),
   ACCESS_TOKEN("access_token"),

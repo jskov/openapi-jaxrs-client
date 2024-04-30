@@ -7,22 +7,17 @@
 
 package mada.tests.e2e.examples.azure.dto;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Result of the request to list tags of the image
+ * Result of the request to list tags of the image.
  */
 @Schema(description = "Result of the request to list tags of the image")
-@JsonbPropertyOrder({
-  RepositoryTags.JSON_PROPERTY_NAME,
-  RepositoryTags.JSON_PROPERTY_TAGS
-})
-@javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
+@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RepositoryTags {
   public static final String JSON_PROPERTY_NAME = "name";
   @JsonbProperty(JSON_PROPERTY_NAME)
@@ -32,7 +27,7 @@ public class RepositoryTags {
   public static final String JSON_PROPERTY_TAGS = "tags";
   @JsonbProperty(JSON_PROPERTY_TAGS)
   @Schema(description = "List of tags")
-  private List<String> tags = null;
+  private List<String> tags;
 
   public RepositoryTags name(String name) {
     this.name = name;
@@ -83,7 +78,7 @@ public class RepositoryTags {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof RepositoryTags)) {
       return false;
     }
     RepositoryTags other = (RepositoryTags) o;
