@@ -306,7 +306,19 @@ public class ApiTransformer {
         boolean isQueryParam = param instanceof QueryParameter || "query".equals(paramIn);
 
         boolean isParamRequired = toBool(param.getRequired());
-        Reference ref = typeConverter.toReference(param.getSchema(), isParamRequired);
+
+        Schema<?> schema = param.getSchema();
+        if (schema == null) {
+            // If content is provided instead of schema, there can only be one entry
+            io.swagger.v3.oas.models.media.Content content = param.getContent();
+            int contentCount = content.values().size();
+            if (contentCount != 1) {
+                throw new IllegalArgumentException("Parameter " + name + " has " + contentCount + ", expected 1");
+            }
+            schema = List.copyOf(content.values()).getFirst().getSchema();
+        }
+
+        Reference ref = typeConverter.toReference(schema, isParamRequired);
 
         logger.debug("Parse param {} : {}", name, ref);
 

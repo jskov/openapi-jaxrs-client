@@ -136,3 +136,27 @@ paths:
         required: true
         schema:
           type: string
+  # From bitbucket api - use of content instead of schema
+  /branch-utils/latest/projects/{projectKey}/repos/{repositorySlug}/branches/info/{commitId}:
+    get:
+      tags:
+        - Repository
+      summary: Get branch
+      description: Gets the branch information associated with a single commit from a given repository.
+      operationId: findByCommit
+      parameters:
+        - name: projectKey
+          in: path
+          description: The project key.
+          required: true
+          schema:
+            type: string
+        - name: commitId
+          in: path
+          required: true
+          content:
+            application/json:
+              schema:
+                maxLength: 40
+                type: string
+          
