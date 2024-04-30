@@ -24,7 +24,20 @@ I plan to keep this generator much simpler:
  * it will never have as many features as openapi-generator.
  * but its reduced complexity should allow me to acquire the output I desire *and* retain my sanity.
 
+## Examples
+
+A couple of official APIs are kept as examples: [bitbucket](./modules/generator/src/test/java/mada/tests/e2e/examples/bitbucket), and [petstore](./modules/generator/src/test/java/mada/tests/e2e/examples/petstore).
+These should give you an idea of what the generator's output looks like - and they help me evaluate how changes affect the output on larger APIs.
+
+The output from many other test OpenApi documents and configuration settings [can be seen in the test folder](./modules/generator/src/test/java/mada/tests/e2e).
+
 ## Invocation
+
+### Gradle
+
+A [Gradle plugin](./src/docs/Gradle.md) allows easy declaration of OpenApi documents and generator options.
+
+### Command Line
 
 Download the cli-jar release of the generator (and verify its [signature](./src/docs/VerifySigning.md)!).
 
@@ -48,13 +61,8 @@ $ tree /tmp/output/
             └── Pet.java
 ```
 
-The output looks something like [this](./src/test/java/mada/tests/e2e/examples/petstore).
-The output from many other test OpenApi documents and configuration settings [can be seen in the test folder](./src/test/java/mada/tests/e2e).
+The output looks something like [this (petstore)](./modules/generator/src/test/java/mada/tests/e2e/examples/petstore).
 
-
-### Gradle Invocation
-
-A [Gradle plugin](./src/docs/Gradle.md) allows easy declaration of OpenApi documents and generator options.
 
 ## Roadmap
 
