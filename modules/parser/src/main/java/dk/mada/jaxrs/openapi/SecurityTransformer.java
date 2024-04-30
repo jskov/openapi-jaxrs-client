@@ -10,6 +10,9 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
  * Transforms OpenApi security to local model objects.
  */
 public final class SecurityTransformer {
+    /** Creates new instance. */
+    public SecurityTransformer() {
+    }
 
     /**
      * Transforms OpenApi security to local model objects.
