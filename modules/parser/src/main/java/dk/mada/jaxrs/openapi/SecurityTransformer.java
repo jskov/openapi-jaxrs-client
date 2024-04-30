@@ -12,6 +12,7 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 public final class SecurityTransformer {
     /** Creates new instance. */
     public SecurityTransformer() {
+        super();
     }
 
     /**

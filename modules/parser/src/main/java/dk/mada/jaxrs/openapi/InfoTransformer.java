@@ -12,6 +12,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 public final class InfoTransformer {
     /** Creates new instance. */
     public InfoTransformer() {
+        super();
     }
 
     /**
