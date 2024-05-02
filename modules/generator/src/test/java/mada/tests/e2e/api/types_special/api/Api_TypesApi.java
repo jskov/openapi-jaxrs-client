@@ -18,8 +18,8 @@ import java.util.Map;
 import java.util.Set;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import mada.tests.e2e.api.types_special.dto.ResponseApiTypesBitbucketArray;
 import mada.tests.e2e.api.types_special.dto.Simple;
+import mada.tests.e2e.api.types_special.dto._ResponseApiTypesBitbucketArray;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -45,13 +45,13 @@ public interface Api_TypesApi {
   /**
    * apiTypesBitbucketArrayGet.
    *
-   * @return ResponseApiTypesBitbucketArray
+   * @return _ResponseApiTypesBitbucketArray
    */
   @GET
   @Path("/bitbucket-array")
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ResponseApiTypesBitbucketArray.class)
-  ResponseApiTypesBitbucketArray apiTypesBitbucketArrayGet();
+  @APIResponseSchema(_ResponseApiTypesBitbucketArray.class)
+  _ResponseApiTypesBitbucketArray apiTypesBitbucketArrayGet();
 
   /**
    * apiTypesBooleanGet.

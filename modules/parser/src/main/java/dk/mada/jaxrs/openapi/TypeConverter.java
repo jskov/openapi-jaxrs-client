@@ -520,7 +520,7 @@ public final class TypeConverter {
                     if (apiContext != null) {
                         String resourcePath = apiContext.resourcePath();
                         String dtoRawName = "response-" + resourcePath.replace('/', '-').replace('_', '-');
-                        String syntheticDtoName = naming.convertTypeName(dtoRawName);
+                        String syntheticDtoName = "_" + naming.convertTypeName(dtoRawName);
                         logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
                         Dto dto = createDto(syntheticDtoName, schema);
                         return parserRefs.of(dto, ri.validation);
