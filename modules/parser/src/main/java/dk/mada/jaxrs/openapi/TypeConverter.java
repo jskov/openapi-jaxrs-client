@@ -519,13 +519,13 @@ public final class TypeConverter {
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
                     if (ri.context() != null) {
-                        return makeApiInlineTypeRef(ri);
+                        return makeApiInlineTypeRef(ri, ri.context());
+                    } else {
+	                    // This fallback is used when creating plain DTOs - or references to them.
+	                    // Explore a better understanding and cleanup at some time...
+	                    logger.info(" - createObjectRef, plain Object?");
+	                    return parserRefs.of(TypeObject.get(), ri.validation);
                     }
-
-                    // This fallback is used when creating plain DTOs - or references to them.
-                    // Explore a better understanding and cleanup at some time...
-                    logger.info(" - createObjectRef, plain Object?");
-                    return parserRefs.of(TypeObject.get(), ri.validation);
                 }
             }
             logger.trace(" - createObjectRef, inner-object for property {}", ri.propertyName);
@@ -537,9 +537,8 @@ public final class TypeConverter {
         return null;
     }
 
-    private ParserTypeRef makeApiInlineTypeRef(RefInfo ri) {
+    private ParserTypeRef makeApiInlineTypeRef(RefInfo ri, ContentContext apiContext) {
         Schema<?> schema = ri.schema;
-        ContentContext apiContext = ri.context();
         String resourcePath = apiContext.resourcePath();
         String pathSimplified = resourcePath.replaceAll("[/_{}]", "-");
         String dtoRawName = apiContext.location().name().toLowerCase(Locale.ROOT) + "-" + pathSimplified;
