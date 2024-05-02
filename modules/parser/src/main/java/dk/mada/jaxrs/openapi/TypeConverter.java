@@ -145,6 +145,7 @@ public final class TypeConverter {
      * @param schema        the openapi schema
      * @param propertyName  the reference property
      * @param parentDtoName the optional name of the parent dto
+     * @param context       the content context of the reference
      * @param validation    the validation requirements for the reference
      * @param isFormRef     true if reference is to a form parameter/field
      */
@@ -152,6 +153,7 @@ public final class TypeConverter {
             Schema<?> schema,
             @Nullable String propertyName,
             @Nullable String parentDtoName,
+            @Nullable ContentContext context,
             Validation validation,
             boolean isFormRef) {
     }
@@ -199,7 +201,7 @@ public final class TypeConverter {
         Validation validation = extractValidation(schema, false);
         logger.debug("validation {}", validation);
 
-        RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, validation, isFormRef);
+        RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, context, validation, isFormRef);
 
         return Stream.<TypeMapper>of(
                 this::createPrimitiveTypeRef,
@@ -506,8 +508,6 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
         
-        logger.info("GA: {}", schema);
-        
         if (schema instanceof ObjectSchema || schema.getType() == null) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
@@ -515,7 +515,20 @@ public final class TypeConverter {
                     logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-                	new Exception("RESULT").printStackTrace();
+					ContentContext apiContext = ri.context();
+					if (apiContext != null) {
+                		logger.info("Inline DTO for {}", apiContext.resourcePath());
+
+                        String dtoRawName = "result-" + apiContext.resourcePath().replace('/', '-').replace('_', '-');
+						String syntheticDtoName = naming.convertTypeName(dtoRawName);
+                        logger.info("DTO raw:{} name: {}", dtoRawName, syntheticDtoName);
+                        Dto dto = createDto(syntheticDtoName, schema);
+                        logger.info("DTO {}", dto);
+                        return parserRefs.of(dto, ri.validation);
+                	}
+                	
+                	
+                	
                     logger.info(" - createObjectRef, plain Object?");
                     return parserRefs.of(TypeObject.get(), ri.validation);
                 }
