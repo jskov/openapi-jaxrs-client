@@ -18,6 +18,12 @@ package mada.tests.e2e.examples.bitbucket.api;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import java.math.BigDecimal;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestDashboardPullRequestSuggestions;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestDashboardPullRequestSuggestions_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestDashboardPullRequestSuggestions_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestDashboardPullRequests;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestDashboardPullRequests_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestDashboardPullRequests_401;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -36,21 +42,21 @@ Note that although the response is a page object, the interface does not support
    *
    * @param changesSince restrict pull request suggestions to be based on events that occurred since some timein the past. This is expressed in seconds since "now". So to return suggestionsbased only on activity within the past 48 hours, pass a value of 172800. (optional)
    * @param limit restricts the result set to return at most this many suggestions. (optional)
-   * @return Object
+   * @return _ResponseApiLatestDashboardPullRequestSuggestions
    */
   @GET
   @Path("/pull-request-suggestions")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of pull requests that match the search criteria.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestDashboardPullRequestSuggestions.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestDashboardPullRequestSuggestions_400.class))),
     @APIResponse(responseCode = "401", description = "The current user is not authenticated",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestDashboardPullRequestSuggestions_401.class)))
   })
   @Operation(summary = "Get pull request suggestions")
-  Object getPullRequestSuggestions(@QueryParam("changesSince") String changesSince, @QueryParam("limit") String limit);
+  _ResponseApiLatestDashboardPullRequestSuggestions getPullRequestSuggestions(@QueryParam("changesSince") String changesSince, @QueryParam("limit") String limit);
 
   /**
    * Get pull requests for a user.
@@ -64,19 +70,19 @@ Note that although the response is a page object, the interface does not support
    * @param order (optional, defaults to <strong>NEWEST</strong>) the order/(s) to return pull requests in; can choose from <strong>OLDEST</strong> (as in: "oldest first"), <strong>NEWEST</strong>, <strong>DRAFT_STATUS</strong>, <strong>PARTICIPANT_STATUS</strong>, and/or <strong>CLOSED_DATE</strong>. Where <strong>CLOSED_DATE</strong> is specified and the result set includes pull requests that are not in the closed state, these pull requests will appear first in the result set, followed by most recently closed pull requests. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestDashboardPullRequests
    */
   @GET
   @Path("/pull-requests")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of pull requests that match the search criteria.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestDashboardPullRequests.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestDashboardPullRequests_400.class))),
     @APIResponse(responseCode = "401", description = "The current user is not authenticated",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestDashboardPullRequests_401.class)))
   })
   @Operation(summary = "Get pull requests for a user")
-  Object getPullRequests_1(@QueryParam("closedSince") String closedSince, @QueryParam("role") String role, @QueryParam("participantStatus") String participantStatus, @QueryParam("state") String state, @QueryParam("user") String user, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestDashboardPullRequests getPullRequests_1(@QueryParam("closedSince") String closedSince, @QueryParam("role") String role, @QueryParam("participantStatus") String participantStatus, @QueryParam("state") String state, @QueryParam("user") String user, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 }

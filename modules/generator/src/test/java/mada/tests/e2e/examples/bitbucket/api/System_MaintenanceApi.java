@@ -52,6 +52,131 @@ import mada.tests.e2e.examples.bitbucket.dto.RestUserRateLimitSettings;
 import mada.tests.e2e.examples.bitbucket.dto.RestUserRateLimitSettingsUpdateRequest;
 import mada.tests.e2e.examples.bitbucket.dto.UserPasswordUpdate;
 import mada.tests.e2e.examples.bitbucket.dto.UserUpdate;
+import mada.tests.e2e.examples.bitbucket.dto._RequestApiLatestAdminBanner;
+import mada.tests.e2e.examples.bitbucket.dto._RequestApiLatestAdminDefaultBranch;
+import mada.tests.e2e.examples.bitbucket.dto._RequestApiLatestAdminMailServer;
+import mada.tests.e2e.examples.bitbucket.dto._RequestApiLatestMigrationMesh;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAdminSupportedKeyTypes_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAdmin_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAdmin_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminBanner_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminBanner_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminCluster_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminDefaultBranch_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminDefaultBranch_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGitMeshDiagnosticsConnectivity_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGitMeshNodesId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGitMeshNodesId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGitMeshNodesId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGitMeshNodes_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGitMeshNodes_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminLicense_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminLicense_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminLicense_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminLicense_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminMailServerSenderAddress_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminMailServerSenderAddress_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminMailServer_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminMailServer_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminMailServer_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitHistory;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitHistory_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitHistory_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitSettingsUsers;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitSettingsUsers_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitSettingsUsers_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitSettings_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminRateLimitSettings_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHookScriptsScriptIdContent_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHookScriptsScriptIdContent_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHookScriptsScriptId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHookScriptsScriptId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHookScriptsScriptId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHookScriptsScriptId_422;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHookScripts_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHookScripts_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLabels;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLabelsLabelNameLabeled;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLabelsLabelNameLabeled_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLabelsLabelNameLabeled_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLabelsLabelNameLabeled_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLabelsLabelName_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLabelsLabelName_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLabels_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLogsLoggerLoggerNameLevelName_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLogsLoggerLoggerNameLevelName_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLogsLoggerLoggerName_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLogsRootLoggerLevelName_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLogsRootLoggerLevelName_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestLogsRootLogger_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsJobIdCancel_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsJobIdCancel_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsJobIdCancel_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsJobIdMessages;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsJobIdMessages_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsJobIdMessages_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsJobId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsJobId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsPreview_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExportsPreview_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExports_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExports_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationExports_503;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImportsJobIdCancel_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImportsJobIdCancel_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImportsJobIdCancel_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImportsJobIdMessages;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImportsJobIdMessages_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImportsJobIdMessages_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImportsJobId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImportsJobId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImports_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImports_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationImports_503;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdCancel_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdCancel_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdCancel_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdMessages;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdMessages_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdMessages_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdMessages_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdSummary_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdSummary_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobIdSummary_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshJobId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshPreview_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshPreview_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshRepos;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshRepos_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshRepos_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshRepos_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshSummaries;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshSummaries_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshSummary_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMeshSummary_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMesh_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMesh_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMigrationMesh_503;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsersCredentials_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsersCredentials_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsersUserSlugAvatar_png_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsersUserSlugAvatar_png_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsersUserSlugSettings_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsersUserSlugSettings_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsersUserSlug_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsersUserSlug_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsers_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestUsers_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAuditLatestNotificationSettingsRetentionConfigReview_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponsePoliciesLatestAdminReposArchive_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponsePoliciesLatestAdminReposArchive_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponsePoliciesLatestAdminReposDelete_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponsePoliciesLatestAdminReposDelete_401;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -76,7 +201,7 @@ public interface System_MaintenanceApi {
     @APIResponse(responseCode = "200", description = "The global ssh key settings configuration.",
                  content = @Content(schema = @Schema(implementation = RestSshKeySettings.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the ssh keys global settings configuration.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAdmin_401.class)))
   })
   @Operation(summary = "Get global SSH key settings")
   RestSshKeySettings getGlobalSettings();
@@ -93,9 +218,9 @@ public interface System_MaintenanceApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The ssh key global settings were updated."),
     @APIResponse(responseCode = "400", description = "The request was invalid, which may be due to:\n\n\n- attempted to set expiry to less than 1 day\n- attempted to set expiry using partial days\n- attempted to set a restriction on a key type which was invalid\n\n\nThe exact reason for the error will be provided in the error message.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseAdmin_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update these settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseAdmin_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Update global SSH key settings")
   void updateGlobalSettings(@Valid RestSshKeySettings dto);
@@ -110,7 +235,7 @@ public interface System_MaintenanceApi {
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A list of supported SSH key algorithms and lengths."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve this list.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAdminSupportedKeyTypes_401.class)))
   })
   @Operation(summary = "Get supported SSH key algorithms and lengths")
   void getSupportedKeyTypes();
@@ -129,7 +254,7 @@ public interface System_MaintenanceApi {
                  content = @Content(schema = @Schema(implementation = RestAnnouncementBanner.class))),
     @APIResponse(responseCode = "204", description = "There is no banner to display"),
     @APIResponse(responseCode = "401", description = "The user does not have permission to access the banner service through this endpoint",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminBanner_401.class)))
   })
   @Operation(summary = "Get announcement banner")
   RestAnnouncementBanner getBanner();
@@ -147,12 +272,12 @@ Only users authenticated as Admins may call this resource
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The banner was set successfully"),
     @APIResponse(responseCode = "400", description = "There was malformed or incorrect data in the provided JSON",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminBanner_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The user does not have permission to access the banner service through this endpoint",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminBanner_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Update/Set announcement banner")
-  void setBanner(Object dto);
+  void setBanner(@Valid _RequestApiLatestAdminBanner dto);
 
   /**
    * Delete announcement banner.
@@ -163,7 +288,7 @@ Only users authenticated as Admins may call this resource
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The query executed successfully, whether a banner was deleted or not"),
     @APIResponse(responseCode = "401", description = "The user does not have permission to access the banner service through this endpoint",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminBanner_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete announcement banner")
   void deleteBanner();
@@ -183,7 +308,7 @@ The authenticated user must have the <strong>SYS_ADMIN</strong> permission to ca
     @APIResponse(responseCode = "200", description = "A response containing information about the cluster",
                  content = @Content(schema = @Schema(implementation = RestClusterInformation.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the cluster information.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminCluster_401.class)))
   })
   @Operation(summary = "Get cluster node information")
   RestClusterInformation getInformation();
@@ -200,7 +325,7 @@ The user must be authenticated to call this resource.
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The configured global default branch."),
     @APIResponse(responseCode = "404", description = "No global default branch has been configured.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminDefaultBranch_404.class)))
   })
   @Operation(summary = "Get the default branch")
   void getDefaultBranch();
@@ -219,10 +344,10 @@ The authenticated user must have <strong>ADMIN</strong> permission to call this 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The default branch has been set."),
     @APIResponse(responseCode = "401", description = "The current user does not have sufficient permissions to configure the global default branch.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminDefaultBranch_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Update/Set default branch")
-  void setDefaultBranch(Object dto);
+  void setDefaultBranch(@Valid _RequestApiLatestAdminDefaultBranch dto);
 
   /**
    * Clear default branch.
@@ -235,7 +360,7 @@ The authenticated user must have <strong>ADMIN</strong> permission to call this 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The default branch has been cleared."),
     @APIResponse(responseCode = "401", description = "The current user does not have sufficient permissions to clear the global default branch.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminDefaultBranch_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Clear default branch")
   void clearDefaultBranch();
@@ -272,7 +397,7 @@ The authenticated user must have **SYS_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The connectivity report between the Bitbucket node(s) and Mesh node(s).",
                  content = @Content(schema = @Schema(implementation = RestMeshConnectivityReport.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGitMeshDiagnosticsConnectivity_401.class)))
   })
   @Operation(summary = "Generate Mesh connectivity report")
   RestMeshConnectivityReport connectivity();
@@ -292,7 +417,7 @@ The authenticated user must have **SYS_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The list of registered Mesh nodes.",
                  content = @Content(schema = @Schema(implementation = RestMeshNode.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGitMeshNodes_401.class)))
   })
   @Operation(summary = "Get all registered Mesh nodes")
   RestMeshNode getAllRegisteredMeshNodes();
@@ -314,9 +439,9 @@ The authenticated user must have **SYS_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The newly registered Mesh node.",
                  content = @Content(schema = @Schema(implementation = RestMeshNode.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGitMeshNodes_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGitMeshNodes_401.class)))
   })
   @Operation(summary = "Register new Mesh node")
   RestMeshNode registerNewMeshNode(@Valid RestMeshNode dto);
@@ -337,9 +462,9 @@ The authenticated user must have **SYS_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The Mesh node that matches the ID.",
                  content = @Content(schema = @Schema(implementation = RestMeshNode.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGitMeshNodesId_401.class))),
     @APIResponse(responseCode = "404", description = "The Mesh node does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGitMeshNodesId_404.class)))
   })
   @Operation(summary = "Get Mesh node")
   RestMeshNode getRegisteredMeshNodeById(@PathParam("id") @NotNull String id);
@@ -362,9 +487,9 @@ The authenticated user must have **SYS_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The updated Mesh node.",
                  content = @Content(schema = @Schema(implementation = RestMeshNode.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGitMeshNodesId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGitMeshNodesId_401.class)))
   })
   @Operation(summary = "Update Mesh node")
   RestMeshNode updateMeshNode(@PathParam("id") @NotNull String id, @Valid RestMeshNode dto);
@@ -440,9 +565,9 @@ The authenticated user must have <b>ADMIN</b> permission. Unauthenticated users,
     @APIResponse(responseCode = "200", description = "The currently-installed license.",
                  content = @Content(schema = @Schema(implementation = RestBitbucketLicense.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the license, or the request is anonymous.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminLicense_401.class))),
     @APIResponse(responseCode = "404", description = "No license has been installed.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminLicense_404.class)))
   })
   @Operation(summary = "Get license details")
   RestBitbucketLicense get_2();
@@ -472,11 +597,11 @@ The authenticated user must have <b>SYS_ADMIN</b> permission. <b>ADMIN</b> users
     @APIResponse(responseCode = "200", description = "The newly-installed license.",
                  content = @Content(schema = @Schema(implementation = RestBitbucketLicense.class))),
     @APIResponse(responseCode = "400", description = "No encoded license was provided in the JSON body for the POST.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminLicense_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update the license.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminLicense_401.class))),
     @APIResponse(responseCode = "409", description = "The encoded license could not be decoded, or it is not valid for use on this server. Some possible reasons a license may not be applied include: it may be for a different product, it may have already expired, or this Bitbucket version doesn't support Server licenses.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminLicense_409.class)))
   })
   @Operation(summary = "Update license")
   RestBitbucketLicense updateLicense(@Valid RestBitbucketLicense dto);
@@ -496,9 +621,9 @@ The authenticated user must have the <strong>SYS_ADMIN</strong> permission to ca
     @APIResponse(responseCode = "200", description = "The mail configuration",
                  content = @Content(schema = @Schema(implementation = RestMailConfiguration.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the mail configuration.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServer_401.class))),
     @APIResponse(responseCode = "404", description = "The mail server hasn't been configured",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServer_404.class)))
   })
   @Operation(summary = "Get mail configuration")
   RestMailConfiguration getMailConfig();
@@ -520,12 +645,12 @@ The authenticated user must have the <strong>SYS_ADMIN</strong> permission to ca
     @APIResponse(responseCode = "200", description = "The updated mail configuration.",
                  content = @Content(schema = @Schema(implementation = RestMailConfiguration.class))),
     @APIResponse(responseCode = "400", description = "The mail configuration was not updated due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServer_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update themail configuration.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServer_401.class)))
   })
   @Operation(summary = "Update mail configuration")
-  RestMailConfiguration setMailConfig(Object dto);
+  RestMailConfiguration setMailConfig(@Valid _RequestApiLatestAdminMailServer dto);
 
   /**
    * Delete mail configuration.
@@ -538,7 +663,7 @@ The authenticated user must have the <strong>SYS_ADMIN</strong> permission to ca
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The mail configuration was successfully deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the mail server configuration.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServer_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete mail configuration")
   void deleteMailConfig();
@@ -553,7 +678,7 @@ The authenticated user must have the <strong>SYS_ADMIN</strong> permission to ca
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The server email address"),
     @APIResponse(responseCode = "401", description = "he currently authenticated user has insufficient permissions to retrieve the server email address.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServerSenderAddress_401.class)))
   })
   @Operation(summary = "Get server mail address")
   void getSenderAddress();
@@ -573,9 +698,9 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The from address used in notification emails"),
     @APIResponse(responseCode = "400", description = "The server email address was not updated due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServerSenderAddress_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update the server email address.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServerSenderAddress_401.class)))
   })
   @Operation(summary = "Update server mail address")
   void setSenderAddress(String dto);
@@ -591,7 +716,7 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
   @APIResponses({
     @APIResponse(responseCode = "204", description = "he server email address was successfully cleared."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions toclear the server email address.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminMailServerSenderAddress_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Update mail configuration")
   void clearSenderAddress();
@@ -605,21 +730,21 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
    * @param order An optional sort category to arrange the results in descending order (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestAdminRateLimitHistory
    */
   @GET
   @Path("api/latest/admin/rate-limit/history")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A response containing a page of aggregated counters for users who have been recently rate limited.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitHistory.class))),
     @APIResponse(responseCode = "400", description = "The sort query parameter is invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitHistory_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve rate limit history.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitHistory_401.class)))
   })
   @Operation(summary = "Get rate limit history")
-  Object getHistory(@QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestAdminRateLimitHistory getHistory(@QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get rate limit settings.
@@ -636,7 +761,7 @@ The user must be authenticated to call this resource.
     @APIResponse(responseCode = "200", description = "A response containing the rate limit plugin settings for the instance.",
                  content = @Content(schema = @Schema(implementation = RestRateLimitSettings.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve rate limit settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettings_401.class)))
   })
   @Operation(summary = "Get rate limit settings")
   RestRateLimitSettings getSettings_2();
@@ -660,9 +785,9 @@ The authenticated user must have <strong>ADMIN</strong> permission to call this 
     @APIResponse(responseCode = "200", description = "A response containing the updated rate limit plugin settings for the instance.",
                  content = @Content(schema = @Schema(implementation = RestRateLimitSettings.class))),
     @APIResponse(responseCode = "400", description = "One of the following error cases occurred (check the error message for more details):\n\n- The request is empty\n- The enabled field of the request is not a boolean\n- The defaultSettings field of the request does not contain both capacity and fillRate\n- The capacity and fillRate are not positive integers\n\n\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettings_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to set rate limit settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettings_401.class)))
   })
   @Operation(summary = "Set rate limit")
   RestRateLimitSettings setSettings_2(@Valid RestRateLimitSettings dto);
@@ -676,19 +801,19 @@ The authenticated user must have <strong>ADMIN</strong> permission to call this 
    * @param filter Optional filter (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestAdminRateLimitSettingsUsers
    */
   @GET
   @Path("api/latest/admin/rate-limit/settings/users")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A response containing all the user-specific rate limit settings filtered by the optional filter.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsers.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve rate limit settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsers_401.class)))
   })
   @Operation(summary = "Get rate limit settings for user")
-  Object getAllRateLimitSettings(@QueryParam("filter") String filter, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestAdminRateLimitSettingsUsers getAllRateLimitSettings(@QueryParam("filter") String filter, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Set rate limit settings for users.
@@ -707,9 +832,9 @@ The authenticated user must have <strong>ADMIN</strong> permission to call this 
     @APIResponse(responseCode = "200", description = "A response containing the updated user settings.",
                  content = @Content(schema = @Schema(implementation = RestUserRateLimitSettings.class))),
     @APIResponse(responseCode = "400", description = "One of the following valid state error cases occurred (check the error message for more details):\n\n- The request is empty\n- No users are provided in the request\n- One or more of the users are invalid\n- Whitelisted is false or not provided, and no settings are provided either\n- Whitelisted is false or not provided, settings are provided,   but do not contain both capacity and fillRate\n- Whitelisted is false or not provided, settings are provided,   but capacity and fillRate are not positive integers\n- Whitelisted is true, and settings are provided (only one must be provided)\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsers_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to set user settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsers_401.class)))
   })
   @Operation(summary = "Set rate limit settings for users")
   RestUserRateLimitSettings set_2(@Valid RestBulkUserRateLimitSettingsUpdateRequest dto);
@@ -730,9 +855,9 @@ To call this resource, the user must be authenticated and either have <strong>AD
     @APIResponse(responseCode = "200", description = "A response containing the user-specific rate limit settings for the given user.",
                  content = @Content(schema = @Schema(implementation = RestUserRateLimitSettings.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve rate limit settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified user does not exist, or has no settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_404.class)))
   })
   @Operation(summary = "Get user specific rate limit settings")
   RestUserRateLimitSettings get_6(@PathParam("userSlug") @NotNull String userSlug);
@@ -755,9 +880,9 @@ The authenticated user must have <strong>ADMIN</strong> permission to call this 
     @APIResponse(responseCode = "200", description = "A response containing the updated user settings",
                  content = @Content(schema = @Schema(implementation = RestUserRateLimitSettings.class))),
     @APIResponse(responseCode = "400", description = "One of the following valid state error cases occurred (check the error message for more details):\n\n- The request is empty\n- Whitelisted is false or not provided, and no settings are provided either\n- Whitelisted is false or not provided, settings are provided,   but do not contain both capacity and fillRate\n- Whitelisted is false or not provided, settings are provided,   but capacity and fillRate are not positive integers\n- Whitelisted is true, and settings are provided (only one must be provided)\n\n\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to set user settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401.class)))
   })
   @Operation(summary = "Set rate limit settings for user")
   RestUserRateLimitSettings set_3(@PathParam("userSlug") @NotNull String userSlug, @Valid RestUserRateLimitSettingsUpdateRequest dto);
@@ -775,9 +900,9 @@ The authenticated user must have <strong>ADMIN</strong> permission to call this 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the user settings have been deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve rate limit settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified user does not exist, or has no settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete user specific rate limit settings")
   void delete_8(@PathParam("userSlug") @NotNull String userSlug);
@@ -814,9 +939,9 @@ This endpoint requires **SYS_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The newly created hook script.",
                  content = @Content(schema = @Schema(implementation = RestHookScript.class))),
     @APIResponse(responseCode = "400", description = "The hook script was not created due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScripts_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScripts_401.class)))
   })
   @Operation(summary = "Create a new hook script")
   RestHookScript createHookScript(@Valid ExamplePostMultipartFormData dto);
@@ -835,9 +960,9 @@ This endpoint requires **SYS_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The hook script.",
                  content = @Content(schema = @Schema(implementation = RestHookScript.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptId_401.class))),
     @APIResponse(responseCode = "404", description = "The hook script ID supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptId_404.class)))
   })
   @Operation(summary = "Get a hook script")
   RestHookScript getHookScript(@PathParam("scriptId") @NotNull String scriptId);
@@ -860,13 +985,13 @@ This endpoint requires **SYS_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The updated hook script.",
                  content = @Content(schema = @Schema(implementation = RestHookScript.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptId_401.class))),
     @APIResponse(responseCode = "404", description = "The hook script ID supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptId_404.class))),
     @APIResponse(responseCode = "409", description = "A hook script with the same name already exists.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptId_409.class))),
     @APIResponse(responseCode = "422", description = "One or more fields to update must be specified: content, description and/or name.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptId_422.class)))
   })
   @Operation(summary = "Update a hook script")
   RestHookScript updateHookScript(@PathParam("scriptId") @NotNull String scriptId, @Valid ExamplePutMultipartFormData dto);
@@ -884,9 +1009,9 @@ This endpoint requires **SYS_ADMIN** permission.
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The hook script was deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied hook script ID.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a hook script.")
   void deleteHookScript(@PathParam("scriptId") @NotNull String scriptId);
@@ -905,9 +1030,9 @@ This endpoint requires **SYS_ADMIN** permission.
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The hook script content."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptIdContent_401.class))),
     @APIResponse(responseCode = "404", description = "The hook script ID supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestHookScriptsScriptIdContent_404.class)))
   })
   @Operation(summary = "Get hook script content")
   void read(@PathParam("scriptId") @NotNull String scriptId);
@@ -921,19 +1046,19 @@ The user needs to be authenticated to use this resource.
    * @param prefix (optional) prefix to filter the labels on. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestLabels
    */
   @GET
   @Path("api/latest/labels")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of returned labels.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLabels.class))),
     @APIResponse(responseCode = "401", description = "The user is currently not authenticated.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLabels_401.class)))
   })
   @Operation(summary = "Get all labels")
-  Object getLabels(@QueryParam("prefix") String prefix, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestLabels getLabels(@QueryParam("prefix") String prefix, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get label.
@@ -951,9 +1076,9 @@ The user needs to be authenticated to use this resource.
     @APIResponse(responseCode = "200", description = "The label.",
                  content = @Content(schema = @Schema(implementation = RestLabel.class))),
     @APIResponse(responseCode = "401", description = "The user is currently not authenticated.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLabelsLabelName_401.class))),
     @APIResponse(responseCode = "404", description = "The specified label does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLabelsLabelName_404.class)))
   })
   @Operation(summary = "Get label")
   RestLabel getLabel(@PathParam("labelName") @NotNull String labelName);
@@ -968,23 +1093,23 @@ Only labelables that the authenticated user has view access to will be returned.
    * @param labelName The page of labelables. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestLabelsLabelNameLabeled
    */
   @GET
   @Path("api/latest/labels/{labelName}/labeled")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The page of labelables.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLabelsLabelNameLabeled.class))),
     @APIResponse(responseCode = "400", description = "The type of labelable is incorrect, correct values are REPOSITORY.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLabelsLabelNameLabeled_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the labelables",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLabelsLabelNameLabeled_401.class))),
     @APIResponse(responseCode = "404", description = "The specified label does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLabelsLabelNameLabeled_404.class)))
   })
   @Operation(summary = "Get labelables for label")
-  Object getLabelables(@QueryParam("type") String type, @PathParam("labelName") @NotNull String labelName, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestLabelsLabelNameLabeled getLabelables(@QueryParam("type") String type, @PathParam("labelName") @NotNull String labelName, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get current log level.
@@ -1002,7 +1127,7 @@ The authenticated user must have <strong>ADMIN</strong> permission or higher to 
     @APIResponse(responseCode = "200", description = "The log level of the logger.",
                  content = @Content(schema = @Schema(implementation = RestLogLevel.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the log level.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLogsLoggerLoggerName_401.class)))
   })
   @Operation(summary = "Get current log level")
   RestLogLevel getLevel(@PathParam("loggerName") @NotNull String loggerName);
@@ -1021,9 +1146,9 @@ The authenticated user must have <strong>ADMIN</strong> permission or higher to 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The log level was successfully changed."),
     @APIResponse(responseCode = "400", description = "The log level was invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLogsLoggerLoggerNameLevelName_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to set the log level.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLogsLoggerLoggerNameLevelName_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Set log level")
   void setLevel(@PathParam("levelName") @NotNull String levelName, @PathParam("loggerName") @NotNull String loggerName);
@@ -1043,7 +1168,7 @@ The authenticated user must have <strong>ADMIN</strong> permission or higher to 
     @APIResponse(responseCode = "200", description = "The log level of the logger.",
                  content = @Content(schema = @Schema(implementation = RestLogLevel.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the log level.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLogsRootLogger_401.class)))
   })
   @Operation(summary = "Get root log level")
   RestLogLevel getRootLevel();
@@ -1061,9 +1186,9 @@ The authenticated user must have <strong>ADMIN</strong> permission or higher to 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The log level was successfully changed."),
     @APIResponse(responseCode = "400", description = "The log level was invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLogsRootLoggerLevelName_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to set the log level.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestLogsRootLoggerLevelName_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Set root log level")
   void setRootLevel(@PathParam("levelName") @NotNull String levelName);
@@ -1136,11 +1261,11 @@ The authenticated user must have **ADMIN** permission or higher to call this res
     @APIResponse(responseCode = "200", description = "Details about the export job.",
                  content = @Content(schema = @Schema(implementation = RestJob.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExports_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to start anexport",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExports_401.class))),
     @APIResponse(responseCode = "503", description = "The export could not be started because the limit of concurrent migration jobs has been reached.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExports_503.class)))
   })
   @Operation(summary = "Start export job")
   RestJob startExport(@Valid RestExportRequest dto);
@@ -1172,9 +1297,9 @@ The authenticated user must have **ADMIN** permission or higher to call this res
     @APIResponse(responseCode = "200", description = "The effectively selected projects and repositories.",
                  content = @Content(schema = @Schema(implementation = RestScopesExample.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsPreview_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to generate a preview.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsPreview_401.class)))
   })
   @Operation(summary = "Preview export")
   RestScopesExample previewExport(@Valid RestExportRequest dto);
@@ -1195,9 +1320,9 @@ The authenticated user must have **ADMIN** permission or higher to call this res
     @APIResponse(responseCode = "200", description = "The job, including status and progress information.",
                  content = @Content(schema = @Schema(implementation = RestJob.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve information about this job.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified job does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobId_404.class)))
   })
   @Operation(summary = "Get export job details")
   RestJob getExportJob(@PathParam("jobId") @NotNull String jobId);
@@ -1221,11 +1346,11 @@ The authenticated user must have **ADMIN** permission or higher to call this res
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The job has successfully been marked for cancellation"),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to cancel this job.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobIdCancel_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified job does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobIdCancel_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "The job was in a state that does not allow cancellation, e.g. it has already finished.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobIdCancel_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Cancel export job")
   void cancelExportJob(@PathParam("jobId") @NotNull String jobId);
@@ -1247,21 +1372,21 @@ The authenticated user must have **ADMIN** permission or higher to call this res
    * @param subject The subject (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestMigrationExportsJobIdMessages
    */
   @GET
   @Path("api/latest/migration/exports/{jobId}/messages")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The messages generated by this job.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobIdMessages.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve information about this job.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobIdMessages_401.class))),
     @APIResponse(responseCode = "404", description = "The specified job does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobIdMessages_404.class)))
   })
   @Operation(summary = "Get job messages")
-  Object getExportJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestMigrationExportsJobIdMessages getExportJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Start import job.
@@ -1284,11 +1409,11 @@ The authenticated user must have **ADMIN** permission or higher to call this res
     @APIResponse(responseCode = "200", description = "Details about the export job.",
                  content = @Content(schema = @Schema(implementation = RestJob.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImports_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to start an import.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImports_401.class))),
     @APIResponse(responseCode = "503", description = "The import could not be started because the limit of concurrent migration jobs has been reached.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImports_503.class)))
   })
   @Operation(summary = "Start import job")
   RestJob startImport(@Valid RestImportRequest dto);
@@ -1309,9 +1434,9 @@ The authenticated user must have **ADMIN** permission or higher to call this res
     @APIResponse(responseCode = "200", description = "The job, including status and progress information.",
                  content = @Content(schema = @Schema(implementation = RestJob.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve information about this job.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified job does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobId_404.class)))
   })
   @Operation(summary = "Get import job status")
   RestJob getImportJob(@PathParam("jobId") @NotNull String jobId);
@@ -1339,11 +1464,11 @@ The authenticated user must have **ADMIN** permission or higher to call this res
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The job has successfully been marked for cancellation."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to cancel this job.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobIdCancel_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified job does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobIdCancel_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "The job was in a state that does not allow cancellation, e.g. it has already finished.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobIdCancel_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Cancel import job")
   void cancelImportJob(@PathParam("jobId") @NotNull String jobId);
@@ -1365,21 +1490,21 @@ The authenticated user must have **ADMIN** permission or higher to call this res
    * @param subject The subject (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestMigrationImportsJobIdMessages
    */
   @GET
   @Path("api/latest/migration/imports/{jobId}/messages")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The messages generated by this job.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobIdMessages.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve information about this job.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobIdMessages_401.class))),
     @APIResponse(responseCode = "404", description = "The specified job does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobIdMessages_404.class)))
   })
   @Operation(summary = "Get import job messages")
-  Object getImportJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestMigrationImportsJobIdMessages getImportJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Start Mesh migration job.
@@ -1451,14 +1576,14 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
     @APIResponse(responseCode = "200", description = "The started job",
                  content = @Content(schema = @Schema(implementation = RestJob.class))),
     @APIResponse(responseCode = "400", description = "The migration request failed one/more validation checks.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMesh_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMesh_401.class))),
     @APIResponse(responseCode = "503", description = "A migration job is already in progress",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMesh_503.class)))
   })
   @Operation(summary = "Start Mesh migration job")
-  RestJob startMeshMigration(Object dto);
+  RestJob startMeshMigration(@Valid _RequestApiLatestMigrationMesh dto);
 
   /**
    * Preview Mesh migration.
@@ -1485,9 +1610,9 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
     @APIResponse(responseCode = "200", description = "Enumeration of projects and repositories that would be migrated for a given request.",
                  content = @Content(schema = @Schema(implementation = ExamplePreviewMigration.class))),
     @APIResponse(responseCode = "400", description = "The request was invalid or missing.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshPreview_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshPreview_401.class)))
   })
   @Operation(summary = "Preview Mesh migration")
   ExamplePreviewMigration previewMeshMigration(@Valid RestMeshMigrationRequest dto);
@@ -1511,23 +1636,23 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
    * @param remote (optional) Whether the repository has been fully migrated to Mesh. If not present, all repositories are considered regardless of where they're located. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestMigrationMeshRepos
    */
   @GET
   @Path("api/latest/migration/mesh/repos")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of repositories matching the specified criteria.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshRepos.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshRepos_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshRepos_401.class))),
     @APIResponse(responseCode = "404", description = "No migration job with the given ID exists.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshRepos_404.class)))
   })
   @Operation(summary = "Find repositories by Mesh migration state")
-  Object searchMeshMigrationRepos(@QueryParam("migrationId") String migrationId, @QueryParam("projectKey") String projectKey, @QueryParam("name") String name, @QueryParam("state") String state, @QueryParam("remote") String remote, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestMigrationMeshRepos searchMeshMigrationRepos(@QueryParam("migrationId") String migrationId, @QueryParam("projectKey") String projectKey, @QueryParam("name") String name, @QueryParam("state") String state, @QueryParam("remote") String remote, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get all Mesh migration job summaries.
@@ -1537,19 +1662,19 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
    *
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestMigrationMeshSummaries
    */
   @GET
   @Path("api/latest/migration/mesh/summaries")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The summary of the migration job.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshSummaries.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshSummaries_401.class)))
   })
   @Operation(summary = "Get all Mesh migration job summaries")
-  Object getAllMeshMigrationSummaries(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestMigrationMeshSummaries getAllMeshMigrationSummaries(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get summary for Mesh migration job.
@@ -1566,9 +1691,9 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
     @APIResponse(responseCode = "200", description = "The summary of the currently active migration job.",
                  content = @Content(schema = @Schema(implementation = RestMeshMigrationSummary.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshSummary_401.class))),
     @APIResponse(responseCode = "404", description = "No active migration job found.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshSummary_404.class)))
   })
   @Operation(summary = "Get summary for Mesh migration job")
   RestMeshMigrationSummary getActiveMeshMigrationSummary();
@@ -1587,11 +1712,11 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The details of the migration job."),
     @APIResponse(responseCode = "400", description = "The job ID parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified job ID does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobId_404.class)))
   })
   @Operation(summary = "Get Mesh migration job details")
   void getMeshMigrationJob(@PathParam("jobId") @NotNull String jobId);
@@ -1615,11 +1740,11 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The migration job was successfully marked for cancellation."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdCancel_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified job ID does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdCancel_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "The migration job has already been canceled or finished.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdCancel_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Cancel Mesh migration job")
   void cancelMeshMigrationJob(@PathParam("jobId") @NotNull String jobId);
@@ -1642,23 +1767,23 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
    * @param subject The subject (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestMigrationMeshJobIdMessages
    */
   @GET
   @Path("api/latest/migration/mesh/{jobId}/messages")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The details of the migration job.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdMessages.class))),
     @APIResponse(responseCode = "400", description = "The job ID parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdMessages_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdMessages_401.class))),
     @APIResponse(responseCode = "404", description = "The specified job ID does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdMessages_404.class)))
   })
   @Operation(summary = "Get Mesh migration job messages")
-  Object getMeshMigrationJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestMigrationMeshJobIdMessages getMeshMigrationJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get Mesh migration job summary.
@@ -1676,11 +1801,11 @@ The authenticated user must have **SYS_ADMIN** permission to call this resource.
     @APIResponse(responseCode = "200", description = "The summary of the migration job.",
                  content = @Content(schema = @Schema(implementation = RestMeshMigrationSummary.class))),
     @APIResponse(responseCode = "400", description = "The job ID parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdSummary_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to call this resource.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdSummary_401.class))),
     @APIResponse(responseCode = "404", description = "The specified job ID does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdSummary_404.class)))
   })
   @Operation(summary = "Get Mesh migration job summary")
   RestMeshMigrationSummary getMeshMigrationJobSummary(@PathParam("jobId") @NotNull String jobId);
@@ -1742,9 +1867,9 @@ Example valid filter: <code>permission.2=REPO_ADMIN&amp;permission.2.projectKey=
     @APIResponse(responseCode = "200", description = "A page of users.",
                  content = @Content(schema = @Schema(implementation = RestApplicationUser.class))),
     @APIResponse(responseCode = "400", description = "The search request was invalid, which may happen for multiple reasons, among\nothers:\n\n\n- permission filter for project/repository permission with no parameters specifying the project or     repository to apply the filter to\n- invalid permission name\n- permission filter for a project/repository permission pointing to a non-existent project or repository\n\n\nThe exact reason for the error and - in most cases - the request parameter name that had invalid value - will be\nprovided in the error message.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsers_400.class))),
     @APIResponse(responseCode = "401", description = "Authentication failed or was not attempted.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsers_401.class)))
   })
   @Operation(summary = "Get all users")
   RestApplicationUser getUsers_2(@QueryParam("filter") String filter, @QueryParam("permission.N") String permission_N, @QueryParam("permission") String permission, @QueryParam("group") String group);
@@ -1764,9 +1889,9 @@ Example valid filter: <code>permission.2=REPO_ADMIN&amp;permission.2.projectKey=
     @APIResponse(responseCode = "200", description = "The updated user.",
                  content = @Content(schema = @Schema(implementation = RestApplicationUser.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsers_400.class))),
     @APIResponse(responseCode = "401", description = "Authentication failed or was not attempted.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsers_401.class)))
   })
   @Operation(summary = "Update user details")
   RestApplicationUser updateUserDetails_1(@Valid UserUpdate dto);
@@ -1783,9 +1908,9 @@ Example valid filter: <code>permission.2=REPO_ADMIN&amp;permission.2.projectKey=
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The user's password was successfully updated."),
     @APIResponse(responseCode = "400", description = "The request was malformed or the old password was incorrect.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersCredentials_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "Authentication failed or was not attempted.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersCredentials_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Set password")
   void updateUserPassword_1(@Valid UserPasswordUpdate dto);
@@ -1804,9 +1929,9 @@ Example valid filter: <code>permission.2=REPO_ADMIN&amp;permission.2.projectKey=
     @APIResponse(responseCode = "200", description = "The user matching the supplied <strong>userSlug</strong>. Note, this may\n<i>not</i> be the user's username, always use the <strong>user.slug</strong> property.",
                  content = @Content(schema = @Schema(implementation = RestApplicationUser.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the user.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified user does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlug_404.class)))
   })
   @Operation(summary = "Get user")
   RestApplicationUser getUser(@PathParam("userSlug") @NotNull String userSlug);
@@ -1849,9 +1974,9 @@ have global <strong>ADMIN</strong> permission, or global <strong>SYS_ADMIN</stro
   @APIResponses({
     @APIResponse(responseCode = "201", description = "The avatar was uploaded successfully."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update the avatar.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlugAvatar_png_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified user does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlugAvatar_png_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Update user avatar")
   void uploadAvatar_1(@HeaderParam("X-Atlassian-Token") String xAtlassianToken, @PathParam("userSlug") @NotNull String userSlug, @Valid ExampleAvatarMultipartFormData dto);
@@ -1875,9 +2000,9 @@ have global <strong>ADMIN</strong> permission, or global <strong>SYS_ADMIN</stro
     @APIResponse(responseCode = "200", description = "The new avatar URL if the local avatar was successfully deleted or did not exist",
                  content = @Content(schema = @Schema(implementation = RestNamedLink.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user has insufficient permissions to delete the specified avatar.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlugAvatar_png_401.class))),
     @APIResponse(responseCode = "404", description = "The specified user does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlugAvatar_png_404.class)))
   })
   @Operation(summary = "Delete user avatar")
   RestNamedLink deleteAvatar(@PathParam("userSlug") @NotNull String userSlug);
@@ -1896,9 +2021,9 @@ have global <strong>ADMIN</strong> permission, or global <strong>SYS_ADMIN</stro
     @APIResponse(responseCode = "200", description = "The user settings for the specified user slug.",
                  content = @Content(schema = @Schema(implementation = ExampleSettingsMap.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user does not have permission to view the settings of this user.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlugSettings_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project, repository, commit, or report does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlugSettings_404.class)))
   })
   @Operation(summary = "Get user settings")
   ExampleSettingsMap getUserSettings(@PathParam("userSlug") @NotNull String userSlug);
@@ -1916,7 +2041,7 @@ have global <strong>ADMIN</strong> permission, or global <strong>SYS_ADMIN</stro
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The UserSettings were updated successfully"),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not a project administrator.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestUsersUserSlugSettings_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Update user settings")
   void updateSettings(@PathParam("userSlug") @NotNull String userSlug, @Valid ExampleSettingsMap dto);
@@ -1931,7 +2056,7 @@ have global <strong>ADMIN</strong> permission, or global <strong>SYS_ADMIN</stro
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A blank response"),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to dismiss the notification.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAuditLatestNotificationSettingsRetentionConfigReview_401.class)))
   })
   @Operation(summary = "Dismiss retention config notification")
   void dismissRetentionConfigReviewNotification();
@@ -1951,7 +2076,7 @@ The user must be authenticated to access this resource.
     @APIResponse(responseCode = "200", description = "A response containing the repository archive policy for the instance",
                  content = @Content(schema = @Schema(implementation = RestRepositoryPolicy.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the repository archive policy",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponsePoliciesLatestAdminReposArchive_401.class)))
   })
   @Operation(summary = "Get repository archive policy")
   RestRepositoryPolicy getRepositoryArchivePolicy();
@@ -1973,9 +2098,9 @@ The authenticated user must have <b>SYS_ADMIN</b> permission.
     @APIResponse(responseCode = "200", description = "A response containing the repository archive policy for the instance",
                  content = @Content(schema = @Schema(implementation = RestRepositoryPolicy.class))),
     @APIResponse(responseCode = "400", description = "The permission was invalid or does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponsePoliciesLatestAdminReposArchive_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to set the repository archive policy",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponsePoliciesLatestAdminReposArchive_401.class)))
   })
   @Operation(summary = "Update repository archive policy")
   RestRepositoryPolicy setRepositoryArchivePolicy(@Valid RestRepositoryPolicy dto);
@@ -1995,7 +2120,7 @@ The user must be authenticated to access this resource.
     @APIResponse(responseCode = "200", description = "A response containing the repository delete policy for the instance",
                  content = @Content(schema = @Schema(implementation = RestRepositoryPolicy.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the repository delete policy",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponsePoliciesLatestAdminReposDelete_401.class)))
   })
   @Operation(summary = "Get repository delete policy")
   RestRepositoryPolicy getRepositoryDeletePolicy();
@@ -2017,9 +2142,9 @@ The authenticated user must have <b>SYS_ADMIN</b> permission.
     @APIResponse(responseCode = "200", description = "A response containing the repository delete policy for the instance",
                  content = @Content(schema = @Schema(implementation = RestRepositoryPolicy.class))),
     @APIResponse(responseCode = "400", description = "The permission was invalid or does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponsePoliciesLatestAdminReposDelete_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to set the repository delete policy",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponsePoliciesLatestAdminReposDelete_401.class)))
   })
   @Operation(summary = "Update the repository delete policy")
   RestRepositoryPolicy setRepositoryDeletePolicy(@Valid RestRepositoryPolicy dto);

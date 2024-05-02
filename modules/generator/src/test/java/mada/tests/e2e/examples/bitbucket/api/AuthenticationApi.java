@@ -26,6 +26,57 @@ import mada.tests.e2e.examples.bitbucket.dto.RestRawAccessToken;
 import mada.tests.e2e.examples.bitbucket.dto.RestSshAccessKey;
 import mada.tests.e2e.examples.bitbucket.dto.RestSshKey;
 import mada.tests.e2e.examples.bitbucket.dto.RestSshSettings;
+import mada.tests.e2e.examples.bitbucket.dto._RequestKeysLatestSshKeyId;
+import mada.tests.e2e.examples.bitbucket.dto._RequestSshLatestKeys;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKey;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyTokenId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyTokenId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKeyTokenId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKey_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKey_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestProjectsProjectKey_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestUsersUserSlug;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestUsersUserSlugTokenId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestUsersUserSlugTokenId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestUsersUserSlugTokenId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestUsersUserSlug_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestUsersUserSlug_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseAccessTokensLatestUsersUserSlug_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPermissionPermission_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPermissionPermission_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeySsh;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeySshKeyId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeySshKeyId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeySsh_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeySsh_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestProjectsProjectKeySsh_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestSshKeyIdProjects_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestSshKeyIdRepos_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestSshKeyId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseKeysLatestSshKeyId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSshLatestKeys;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSshLatestKeysKeyId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSshLatestKeysKeyId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSshLatestKeys_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSshLatestKeys_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSshLatestKeys_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSshLatestKeys_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSshLatestSettings_401;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -43,21 +94,21 @@ public interface AuthenticationApi {
    * @param projectKey The project key. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseAccessTokensLatestProjectsProjectKey
    */
   @GET
   @Path("access-tokens/latest/projects/{projectKey}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A response containing a page of access tokens and associated details.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKey.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to get access tokens for this project or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKey_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKey_404.class)))
   })
   @Operation(summary = "Get project HTTP tokens")
-  Object getAllAccessTokens(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseAccessTokensLatestProjectsProjectKey getAllAccessTokens(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create project HTTP token.
@@ -75,11 +126,11 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the raw access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestRawAccessToken.class))),
     @APIResponse(responseCode = "400", description = "One of the following error cases occurred (check the error message for more details).\n\n- The request does not contain a token name\n- The request does not contain a list of permissions, or the list of permissions is empty\n- One of the provided permission levels are unknown\n- The project already has the maximum number of tokens\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKey_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to create an access token for this project or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKey_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKey_404.class)))
   })
   @Operation(summary = "Create project HTTP token")
   RestRawAccessToken createAccessToken_1(@PathParam("projectKey") @NotNull String projectKey, @Valid RestAccessTokenRequest dto);
@@ -92,21 +143,21 @@ public interface AuthenticationApi {
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug
    */
   @GET
   @Path("access-tokens/latest/projects/{projectKey}/repos/{repositorySlug}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A response containing a page of access tokens and associated details.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to get access tokens for this repository or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_404.class)))
   })
   @Operation(summary = "Get repository HTTP tokens")
-  Object getAllAccessTokens_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug getAllAccessTokens_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create repository HTTP token.
@@ -125,11 +176,11 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the raw access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestRawAccessToken.class))),
     @APIResponse(responseCode = "400", description = "One of the following error cases occurred (check the error message for more details).\n\n- The request does not contain a token name- The request does not contain a list of permissions, or the list of permissions is empty- One of the provided permission levels are unknown- The repository already has the maximum number of tokens",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to create an access token for this repository or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_404.class)))
   })
   @Operation(summary = "Create repository HTTP token")
   RestRawAccessToken createAccessToken_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestAccessTokenRequest dto);
@@ -150,9 +201,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestAccessToken.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to get access tokens on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified user or token does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_404.class)))
   })
   @Operation(summary = "Get HTTP token by ID")
   RestAccessToken getById_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("tokenId") @NotNull String tokenId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -175,9 +226,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the updated access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestAccessToken.class))),
     @APIResponse(responseCode = "400", description = "One of the provided permission levels are unknown.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to update an access token on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_401.class)))
   })
   @Operation(summary = "Update HTTP token")
   RestAccessToken updateAccessToken_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("tokenId") @NotNull String tokenId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestAccessTokenRequest dto);
@@ -195,9 +246,9 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the token has been deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to delete an access token on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified user or token does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlugTokenId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a HTTP token")
   void deleteById_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("tokenId") @NotNull String tokenId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -217,9 +268,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestAccessToken.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to get access tokens on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyTokenId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified user or token does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyTokenId_404.class)))
   })
   @Operation(summary = "Get HTTP token by ID")
   RestAccessToken getById(@PathParam("projectKey") @NotNull String projectKey, @PathParam("tokenId") @NotNull String tokenId);
@@ -241,9 +292,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the updated access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestAccessToken.class))),
     @APIResponse(responseCode = "400", description = "One of the provided permission levels are unknown.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyTokenId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to update an access token on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyTokenId_401.class)))
   })
   @Operation(summary = "Update HTTP token")
   RestAccessToken updateAccessToken(@PathParam("projectKey") @NotNull String projectKey, @PathParam("tokenId") @NotNull String tokenId, @Valid RestAccessTokenRequest dto);
@@ -260,9 +311,9 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the token has been deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to delete an access token on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyTokenId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified user or token does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestProjectsProjectKeyTokenId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a HTTP token")
   void deleteById(@PathParam("projectKey") @NotNull String projectKey, @PathParam("tokenId") @NotNull String tokenId);
@@ -274,21 +325,21 @@ public interface AuthenticationApi {
    * @param userSlug The user slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseAccessTokensLatestUsersUserSlug
    */
   @GET
   @Path("access-tokens/latest/users/{userSlug}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A response containing a page of access tokens and associated details.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlug.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to get access tokens on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified user does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlug_404.class)))
   })
   @Operation(summary = "Get personal HTTP tokens")
-  Object getAllAccessTokens_2(@PathParam("userSlug") @NotNull String userSlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseAccessTokensLatestUsersUserSlug getAllAccessTokens_2(@PathParam("userSlug") @NotNull String userSlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create personal HTTP token.
@@ -306,11 +357,11 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the raw access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestRawAccessToken.class))),
     @APIResponse(responseCode = "400", description = "One of the following error cases occurred (check the error message for more details).\n\n- The request does not contain a token name\n- The request does not contain a list of permissions, or the list of permissions is empty\n- One of the provided permission levels are unknown\n- The user already has their maximum number of tokens\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlug_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to create an access token on behalf of this user or authentication failed",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified user does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlug_404.class)))
   })
   @Operation(summary = "Create personal HTTP token")
   RestRawAccessToken createAccessToken_3(@PathParam("userSlug") @NotNull String userSlug, @Valid RestAccessTokenRequest dto);
@@ -330,9 +381,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestAccessToken.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to get access tokens on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlugTokenId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified user or token does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlugTokenId_404.class)))
   })
   @Operation(summary = "Get HTTP token by ID")
   RestAccessToken getById_2(@PathParam("tokenId") @NotNull String tokenId, @PathParam("userSlug") @NotNull String userSlug);
@@ -354,9 +405,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "A response containing the updated access token and associated details.",
                  content = @Content(schema = @Schema(implementation = RestAccessToken.class))),
     @APIResponse(responseCode = "400", description = "One of the provided permission levels are unknown.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlugTokenId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to update an access token on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlugTokenId_401.class)))
   })
   @Operation(summary = "Update HTTP token")
   RestAccessToken updateAccessToken_2(@PathParam("tokenId") @NotNull String tokenId, @PathParam("userSlug") @NotNull String userSlug, @Valid RestAccessTokenRequest dto);
@@ -373,9 +424,9 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the token has been deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to delete an access token on behalf of this user or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlugTokenId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified user or token does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseAccessTokensLatestUsersUserSlugTokenId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a HTTP token")
   void deleteById_2(@PathParam("tokenId") @NotNull String tokenId, @PathParam("userSlug") @NotNull String userSlug);
@@ -392,21 +443,21 @@ public interface AuthenticationApi {
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh
    */
   @GET
   @Path("keys/latest/projects/{projectKey}/repos/{repositorySlug}/ssh")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A single page of access keys for the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the access keys for this repository",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_404.class)))
   })
   @Operation(summary = "Get repository SSH keys")
-  Object getForRepository_1(@QueryParam("filter") String filter, @QueryParam("effective") String effective, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("minimumPermission") String minimumPermission, @QueryParam("permission") String permission, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh getForRepository_1(@QueryParam("filter") String filter, @QueryParam("effective") String effective, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("minimumPermission") String minimumPermission, @QueryParam("permission") String permission, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Add repository SSH key.
@@ -425,11 +476,11 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "201", description = "The newly created access key.",
                  content = @Content(schema = @Schema(implementation = RestSshAccessKey.class))),
     @APIResponse(responseCode = "400", description = "The current request contains invalid or missing values.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to add an access key to the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_404.class)))
   })
   @Operation(summary = "Add repository SSH key")
   RestSshAccessKey addForRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestSshAccessKey dto);
@@ -450,9 +501,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "The access key for the repository and SSH key with ID <code>keyId</code>.",
                  content = @Content(schema = @Schema(implementation = RestSshAccessKey.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the access keys for this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or key does not exist or the key does not have access on the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyId_404.class)))
   })
   @Operation(summary = "Get repository SSH key")
   RestSshAccessKey getForRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("keyId") @NotNull String keyId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -470,7 +521,7 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The access key was deleted (or none was found matching the given id)."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to remove access keys for this repository",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Revoke repository SSH key")
   void revokeForRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("keyId") @NotNull String keyId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -492,9 +543,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "The newly created access key.",
                  content = @Content(schema = @Schema(implementation = RestSshAccessKey.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions on the repository to edit its access keys.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPermissionPermission_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPermissionPermission_404.class)))
   })
   @Operation(summary = "Update repository SSH key permission")
   RestSshAccessKey updatePermission_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("keyId") @NotNull String keyId, @PathParam("permission") @NotNull String permission, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -508,21 +559,21 @@ public interface AuthenticationApi {
    * @param permission If specified only SSH access keys with at least the supplied permission will be returned Default is PROJECT_READ. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseKeysLatestProjectsProjectKeySsh
    */
   @GET
   @Path("keys/latest/projects/{projectKey}/ssh")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A single page of access keys associated with the project.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySsh.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the access keys for this project.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySsh_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySsh_404.class)))
   })
   @Operation(summary = "Get SSH key")
-  Object getSshKeysForProject(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("permission") String permission, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseKeysLatestProjectsProjectKeySsh getSshKeysForProject(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("permission") String permission, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Add project SSH key.
@@ -540,11 +591,11 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "201", description = "The newly created access key.",
                  content = @Content(schema = @Schema(implementation = RestSshAccessKey.class))),
     @APIResponse(responseCode = "400", description = "The current request contains invalid or missing values.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySsh_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to add an access key to the project.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySsh_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySsh_404.class)))
   })
   @Operation(summary = "Add project SSH key")
   RestSshAccessKey addForProject(@PathParam("projectKey") @NotNull String projectKey, @Valid RestSshAccessKey dto);
@@ -564,9 +615,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "The access key for the repository and SSH key with ID <code>keyId</code>.",
                  content = @Content(schema = @Schema(implementation = RestSshAccessKey.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the access keys for this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySshKeyId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or key does not exist or the key does not have access on the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySshKeyId_404.class)))
   })
   @Operation(summary = "Get project SSH key")
   RestSshAccessKey getForProject(@PathParam("projectKey") @NotNull String projectKey, @PathParam("keyId") @NotNull String keyId);
@@ -583,7 +634,7 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The access key was deleted (or none was found matching the given id)."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to remove access keys for this project.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySshKeyId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Revoke project SSH key")
   void revokeForProject(@PathParam("projectKey") @NotNull String projectKey, @PathParam("keyId") @NotNull String keyId);
@@ -604,9 +655,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "The newly created access key.",
                  content = @Content(schema = @Schema(implementation = RestSshAccessKey.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions on the project to edit its access keys.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_404.class)))
   })
   @Operation(summary = "Update project SSH key permission")
   RestSshAccessKey updatePermission(@PathParam("projectKey") @NotNull String projectKey, @PathParam("keyId") @NotNull String keyId, @PathParam("permission") @NotNull String permission);
@@ -624,12 +675,12 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The access keys were deleted (or none was found matching the given id and repositories or projects)."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to remove access keys for one or more of the specified projects or repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestSshKeyId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "On or more of the specified repositories or projects does not exist or the key itself does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestSshKeyId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Revoke project SSH key")
-  void revokeMany(@PathParam("keyId") @NotNull String keyId, Object dto);
+  void revokeMany(@PathParam("keyId") @NotNull String keyId, @Valid _RequestKeysLatestSshKeyId dto);
 
   /**
    * Get project SSH keys.
@@ -643,7 +694,7 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The SSH key with ID <code>keyId</code>."),
     @APIResponse(responseCode = "404", description = "The specified key does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestSshKeyIdProjects_404.class)))
   })
   @Operation(summary = "Get project SSH keys")
   void getForProjects(@PathParam("keyId") @NotNull int keyId);
@@ -661,7 +712,7 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The SSH key with ID <code>keyId</code>."),
     @APIResponse(responseCode = "404", description = "The specified key does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseKeysLatestSshKeyIdRepos_404.class)))
   })
   @Operation(summary = "Get repository SSH key")
   void getForRepositories(@PathParam("keyId") @NotNull String keyId, @QueryParam("withRestrictions") String withRestrictions);
@@ -674,21 +725,21 @@ public interface AuthenticationApi {
    * @param user  (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseSshLatestKeys
    */
   @GET
   @Path("ssh/latest/keys")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of SSH keys.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissionsto retrieve the SSH keys. This is only possible when a<strong>user</strong> is explicitly supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys_401.class))),
     @APIResponse(responseCode = "404", description = "No user matches the supplied <strong>user</strong>",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys_404.class)))
   })
   @Operation(summary = "Get SSH keys for user")
-  Object getSshKeys(@QueryParam("userName") String userName, @QueryParam("user") String user, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseSshLatestKeys getSshKeys(@QueryParam("userName") String userName, @QueryParam("user") String user, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Add SSH key for user.
@@ -706,16 +757,16 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "201", description = "The newly created SSH key.",
                  content = @Content(schema = @Schema(implementation = RestSshKey.class))),
     @APIResponse(responseCode = "400", description = "The SSH key was not created because the key was not a valid RSA/DSA/ECDSA/Ed25519 key of a supported length.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys_400.class))),
     @APIResponse(responseCode = "401", description = "Either there is no authenticated user or the currently authenticated user has insufficient permissions to add an SSH key. The latter is only possible when a <strong>user</strong> is explicitly supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys_401.class))),
     @APIResponse(responseCode = "404", description = "No user matches the supplied <strong>user</strong>",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys_404.class))),
     @APIResponse(responseCode = "409", description = "The SSH key already exists on the system.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys_409.class)))
   })
   @Operation(summary = "Add SSH key for user")
-  RestSshKey addSshKey(@QueryParam("user") @Valid RestSshKey user, Object dto);
+  RestSshKey addSshKey(@QueryParam("user") @Valid RestSshKey user, @Valid _RequestSshLatestKeys dto);
 
   /**
    * Delete all user SSH key.
@@ -729,9 +780,9 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The SSH keys matching the supplied <strong>user</strong> were deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the SSH keys. This is only possible when a <strong>user</strong> is explicitly supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "No user matches the supplied <strong>user</strong>",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeys_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete all user SSH key")
   void deleteSshKeys(@QueryParam("userName") String userName, @QueryParam("user") String user);
@@ -750,9 +801,9 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "An SSH key.",
                  content = @Content(schema = @Schema(implementation = RestSshKey.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissionsto retrieve the SSH key. This is only possible when a<strong>keyId</strong> is explicitly supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeysKeyId_401.class))),
     @APIResponse(responseCode = "404", description = "No SSH key matches the supplied <strong>keyId</strong>",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeysKeyId_404.class)))
   })
   @Operation(summary = "Get SSH key for user by keyId")
   RestSshKey getSshKey(@PathParam("keyId") @NotNull String keyId);
@@ -768,7 +819,7 @@ public interface AuthenticationApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The SSH key matching the supplied <strong>id</strong> was deleted or did not exist."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the SSH key.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestKeysKeyId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Remove SSH key")
   void deleteSshKey(@PathParam("keyId") @NotNull String keyId);
@@ -786,7 +837,7 @@ public interface AuthenticationApi {
     @APIResponse(responseCode = "200", description = "The ssh settings from upstream",
                  content = @Content(schema = @Schema(implementation = RestSshSettings.class))),
     @APIResponse(responseCode = "401", description = "The request was not authenticated",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseSshLatestSettings_401.class)))
   })
   @Operation(summary = "Get SSH settings")
   RestSshSettings sshSettings();

@@ -7,12 +7,15 @@
 
 package mada.tests.e2e.examples.azure.api;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.azure.dto.AccessToken;
 import mada.tests.e2e.examples.azure.dto.AcrErrors;
 import mada.tests.e2e.examples.azure.dto.RefreshToken;
+import mada.tests.e2e.examples.azure.dto._RequestOauth2Exchange;
+import mada.tests.e2e.examples.azure.dto._RequestOauth2Token;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -38,7 +41,7 @@ public interface AcrTokenApi {
     @APIResponse(responseCode = "200", description = "Refresh token acquired",
                  content = @Content(schema = @Schema(implementation = RefreshToken.class)))
   })
-  RefreshToken RefreshTokens_GetFromExchange(@NotNull Object dto);
+  RefreshToken RefreshTokens_GetFromExchange(@NotNull @Valid _RequestOauth2Exchange dto);
 
   /**
    * Exchange Username, Password and Scope an ACR Access Token
@@ -75,5 +78,5 @@ public interface AcrTokenApi {
     @APIResponse(responseCode = "200", description = "Access token acquired",
                  content = @Content(schema = @Schema(implementation = AccessToken.class)))
   })
-  AccessToken AccessTokens_Get(@NotNull Object dto);
+  AccessToken AccessTokens_Get(@NotNull @Valid _RequestOauth2Token dto);
 }

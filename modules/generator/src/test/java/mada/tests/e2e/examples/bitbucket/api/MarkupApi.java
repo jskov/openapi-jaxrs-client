@@ -18,6 +18,8 @@ package mada.tests.e2e.examples.bitbucket.api;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.bitbucket.dto.RestMarkup;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMarkupPreview_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestMarkupPreview_401;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -48,9 +50,9 @@ Only authenticated users may call this resource.
     @APIResponse(responseCode = "200", description = "The rendered markdown.",
                  content = @Content(schema = @Schema(implementation = RestMarkup.class))),
     @APIResponse(responseCode = "400", description = "The markdown was invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMarkupPreview_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions preview rendered markdown.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestMarkupPreview_401.class)))
   })
   @Operation(summary = "Preview markdown render")
   RestMarkup preview(@QueryParam("htmlEscape") String htmlEscape, @QueryParam("urlMode") String urlMode, @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap, String dto);

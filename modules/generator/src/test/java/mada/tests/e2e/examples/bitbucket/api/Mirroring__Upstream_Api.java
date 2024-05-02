@@ -31,6 +31,24 @@ import mada.tests.e2e.examples.bitbucket.dto.RestMirroredRepositoryDescriptor;
 import mada.tests.e2e.examples.bitbucket.dto.RestMirroringRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestProject;
 import mada.tests.e2e.examples.bitbucket.dto.RestRepositoryMirrorEvent;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestAccountSettingsPreferredMirror_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestAuthenticate_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestAuthenticate_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestMirrorServers;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestMirrorServersMirrorIdEvents_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestMirrorServersMirrorIdToken_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestMirrorServersMirrorId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestProjectsProjectIdRepos;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestProjectsProjectIdRepos_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestProjectsProjectId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestReposRepoIdMirrors_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestReposRepoId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestRepos_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestRequests;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestRequestsMirroringRequestIdAccept_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestRequestsMirroringRequestIdReject_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestRequestsMirroringRequestId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseMirroringLatestRequests_409;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -55,7 +73,7 @@ public interface Mirroring__Upstream_Api {
     @APIResponse(responseCode = "200", description = "the preferred mirror server",
                  content = @Content(schema = @Schema(implementation = RestMirrorServer.class))),
     @APIResponse(responseCode = "404", description = "The user's preferred mirror server could not be found.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestAccountSettingsPreferredMirror_404.class)))
   })
   @Operation(summary = "Get preferred mirror")
   RestMirrorServer getPreferredMirrorId();
@@ -72,7 +90,7 @@ public interface Mirroring__Upstream_Api {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "an empty response indicating that the user setting has been updated"),
     @APIResponse(responseCode = "404", description = "The mirror could not be found.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestAccountSettingsPreferredMirror_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Set preferred mirror")
   void setPreferredMirrorId(String dto);
@@ -122,9 +140,9 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "The user for the supplied credentials and their effective permissions}.",
                  content = @Content(schema = @Schema(implementation = RestApplicationUserWithPermissions.class))),
     @APIResponse(responseCode = "400", description = "If the supplied credentials are incomplete or not understood.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestAuthenticate_400.class))),
     @APIResponse(responseCode = "401", description = " The currently authenticated user is not permitted to authenticate on behalf of users or authentication with the supplied user credentials failed for some reason",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestAuthenticate_401.class)))
   })
   @Operation(summary = "Authenticate on behalf of a user")
   RestApplicationUserWithPermissions authenticate(@Valid RestAuthenticationRequest dto);
@@ -135,14 +153,14 @@ Currently only username/password, bearer token and SSH credentials are supported
    *
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseMirroringLatestMirrorServers
    */
   @GET
   @Path("/mirrorServers")
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Object.class)
+  @APIResponseSchema(_ResponseMirroringLatestMirrorServers.class)
   @Operation(summary = "Get all mirrors")
-  Object listMirrors(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseMirroringLatestMirrorServers listMirrors(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get mirror by ID.
@@ -158,7 +176,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "the mirror",
                  content = @Content(schema = @Schema(implementation = RestMirrorServer.class))),
     @APIResponse(responseCode = "404", description = "The mirror could not be found.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorId_404.class)))
   })
   @Operation(summary = "Get mirror by ID")
   RestMirrorServer getMirror(@PathParam("mirrorId") @NotNull String mirrorId);
@@ -206,7 +224,7 @@ Currently only username/password, bearer token and SSH credentials are supported
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The event was successfully placed on the queue"),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorIdEvents_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Publish RepositoryMirrorEvent")
   void publishEvent(@PathParam("mirrorId") @NotNull String mirrorId, @Valid RestRepositoryMirrorEvent dto);
@@ -225,7 +243,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "the mirror auth token",
                  content = @Content(schema = @Schema(implementation = RestMirrorAuthToken.class))),
     @APIResponse(responseCode = "404", description = "The mirror could not be found.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorIdToken_404.class)))
   })
   @Operation(summary = "Get mirror auth token")
   RestMirrorAuthToken getAuthToken(@PathParam("mirrorId") @NotNull String mirrorId);
@@ -259,7 +277,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "The project with the specified ID",
                  content = @Content(schema = @Schema(implementation = RestProject.class))),
     @APIResponse(responseCode = "404", description = "Project not found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectId_404.class)))
   })
   @Operation(summary = "Get project")
   RestProject getProjectById(@PathParam("projectId") @NotNull String projectId);
@@ -272,19 +290,19 @@ Currently only username/password, bearer token and SSH credentials are supported
    * @param projectId the id of the requested project (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseMirroringLatestProjectsProjectIdRepos
    */
   @GET
   @Path("/projects/{projectId}/repos")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of repositories with content hashes",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectIdRepos.class))),
     @APIResponse(responseCode = "409", description = "Mirroring is not available",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectIdRepos_409.class)))
   })
   @Operation(summary = "Get hashes for repositories in project")
-  Object getAllReposForProject(@QueryParam("includeDefaultBranch") String includeDefaultBranch, @PathParam("projectId") @NotNull String projectId, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseMirroringLatestProjectsProjectIdRepos getAllReposForProject(@QueryParam("includeDefaultBranch") String includeDefaultBranch, @PathParam("projectId") @NotNull String projectId, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get content hashes for repositories.
@@ -300,7 +318,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "A page of repositories with content hashes and default branch",
                  content = @Content(schema = @Schema(implementation = EnrichedRepository.class))),
     @APIResponse(responseCode = "409", description = "Mirroring is not available",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRepos_409.class)))
   })
   @Operation(summary = "Get content hashes for repositories")
   EnrichedRepository getAllContentHashes(@QueryParam("includeDefaultBranch") String includeDefaultBranch);
@@ -320,7 +338,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "The repository with the specified repoId",
                  content = @Content(schema = @Schema(implementation = EnrichedRepository.class))),
     @APIResponse(responseCode = "404", description = "Repository not found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestReposRepoId_404.class)))
   })
   @Operation(summary = "Get content hash for a repository")
   EnrichedRepository getContentHashById(@PathParam("repoId") @NotNull String repoId, @QueryParam("includeDefaultBranch") boolean includeDefaultBranch);
@@ -339,7 +357,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "The mirrored repository descriptor",
                  content = @Content(schema = @Schema(implementation = RestMirroredRepositoryDescriptor.class))),
     @APIResponse(responseCode = "409", description = "Mirroring is not available",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestReposRepoIdMirrors_409.class)))
   })
   @Operation(summary = "Get mirrors for repository")
   RestMirroredRepositoryDescriptor getRepositoryMirrors(@PathParam("repoId") @NotNull String repoId);
@@ -351,14 +369,14 @@ Currently only username/password, bearer token and SSH credentials are supported
    * @param state (optional) the request state to filter on (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseMirroringLatestRequests
    */
   @GET
   @Path("/requests")
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Object.class)
+  @APIResponseSchema(_ResponseMirroringLatestRequests.class)
   @Operation(summary = "Get mirroring requests")
-  Object listRequests(@QueryParam("state") String state, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseMirroringLatestRequests listRequests(@QueryParam("state") String state, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create a mirroring request.
@@ -375,7 +393,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "The created mirroring request",
                  content = @Content(schema = @Schema(implementation = RestMirroringRequest.class))),
     @APIResponse(responseCode = "409", description = "The request was invalid or missing",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequests_409.class)))
   })
   @Operation(summary = "Create a mirroring request")
   RestMirroringRequest register(@Valid RestMirroringRequest dto);
@@ -394,7 +412,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "The mirroring request",
                  content = @Content(schema = @Schema(implementation = RestMirroringRequest.class))),
     @APIResponse(responseCode = "409", description = "The request could not be found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestId_409.class)))
   })
   @Operation(summary = "Get a mirroring request")
   RestMirroringRequest getMirroringRequest(@PathParam("mirroringRequestId") @NotNull String mirroringRequestId);
@@ -410,7 +428,7 @@ Currently only username/password, bearer token and SSH credentials are supported
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The request was deleted"),
     @APIResponse(responseCode = "409", description = "The request could not be found",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestId_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a mirroring request")
   void deleteMirroringRequest(@PathParam("mirroringRequestId") @NotNull String mirroringRequestId);
@@ -429,7 +447,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "The accepted mirror server",
                  content = @Content(schema = @Schema(implementation = RestMirrorServer.class))),
     @APIResponse(responseCode = "409", description = "The request could not be found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestIdAccept_409.class)))
   })
   @Operation(summary = "Accept a mirroring request")
   RestMirrorServer accept(@PathParam("mirroringRequestId") @NotNull String mirroringRequestId);
@@ -448,7 +466,7 @@ Currently only username/password, bearer token and SSH credentials are supported
     @APIResponse(responseCode = "200", description = "The rejected mirror server",
                  content = @Content(schema = @Schema(implementation = RestMirrorServer.class))),
     @APIResponse(responseCode = "409", description = "The request could not be found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestIdReject_409.class)))
   })
   @Operation(summary = "Reject a mirroring request")
   RestMirrorServer reject(@PathParam("mirroringRequestId") @NotNull String mirroringRequestId);

@@ -23,6 +23,9 @@ import java.util.List;
 import mada.tests.e2e.examples.bitbucket.dto.RestCommentJiraIssue;
 import mada.tests.e2e.examples.bitbucket.dto.RestEnhancedEntityLink;
 import mada.tests.e2e.examples.bitbucket.dto.RestJiraIssue;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseJiraLatestCommentsCommentIdIssues_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseJiraLatestCommentsCommentIdIssues_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseJiraLatestIssuesIssueKeyCommits;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -58,9 +61,9 @@ The JSON structure for the create issue format is specified by Jira's REST v2 AP
     @APIResponse(responseCode = "200", description = "The created Jira issue key and the associated comment ID",
                  content = @Content(schema = @Schema(implementation = RestCommentJiraIssue.class))),
     @APIResponse(responseCode = "400", description = "The specified application link ID does not match any linked Jira instance.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseJiraLatestCommentsCommentIdIssues_400.class))),
     @APIResponse(responseCode = "401", description = "Authentication with the Jira instance is required.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseJiraLatestCommentsCommentIdIssues_401.class)))
   })
   @Operation(summary = "Create Jira Issue")
   RestCommentJiraIssue createIssue(@PathParam("commentId") @NotNull String commentId, @QueryParam("applicationId") String applicationId, String dto);
@@ -73,14 +76,14 @@ The JSON structure for the create issue format is specified by Jira's REST v2 AP
    * @param maxChanges The maximum number of changes to retrieve for each changeset (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseJiraLatestIssuesIssueKeyCommits
    */
   @GET
   @Path("/issues/{issueKey}/commits")
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Object.class)
+  @APIResponseSchema(_ResponseJiraLatestIssuesIssueKeyCommits.class)
   @Operation(summary = "Get changesets for issue key")
-  Object getCommitsByIssueKey(@PathParam("issueKey") @NotNull String issueKey, @QueryParam("maxChanges") String maxChanges, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseJiraLatestIssuesIssueKeyCommits getCommitsByIssueKey(@PathParam("issueKey") @NotNull String issueKey, @QueryParam("maxChanges") String maxChanges, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get entity link.

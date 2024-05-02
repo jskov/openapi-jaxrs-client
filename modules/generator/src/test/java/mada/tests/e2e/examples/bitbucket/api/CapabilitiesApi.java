@@ -18,6 +18,7 @@ package mada.tests.e2e.examples.bitbucket.api;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.bitbucket.dto.RestBuildCapabilities;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestDeploymentCapabilities_404;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -52,7 +53,7 @@ public interface CapabilitiesApi {
   @APIResponses({
     @APIResponse(responseCode = "200", description = "capabilities"),
     @APIResponse(responseCode = "404", description = "This instance of Bitbucket Data Center does not support deployments (for example, it has been disabled using the property 'plugin.deployment.capability.disabled').",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestDeploymentCapabilities_404.class)))
   })
   @Operation(summary = "Get deployment capabilities")
   void getCapabilities_1();

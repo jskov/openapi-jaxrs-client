@@ -29,6 +29,54 @@ import mada.tests.e2e.examples.bitbucket.dto.RestSecretScanningAllowlistRuleSetR
 import mada.tests.e2e.examples.bitbucket.dto.RestSecretScanningRule;
 import mada.tests.e2e.examples.bitbucket.dto.RestSecretScanningRuleSetRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestX509Certificate;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningAllowlist;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningAllowlist_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningAllowlist_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningExempt;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningExempt_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningRules;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningRulesId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningRulesId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningRulesId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningRules_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySecretScanningRules_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningExempt;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningExempt_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningExempt_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningRules;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningRulesId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningRulesId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningRulesId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningRules_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSecretScanningRules_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSigningX509CertificatesCrlId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSigningX509CertificatesCrlId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSigningX509CertificatesId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSigningX509CertificatesId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSigningX509Certificates_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestSigningX509Certificates_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGpgLatestKeys;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGpgLatestKeysFingerprintOrId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGpgLatestKeys_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGpgLatestKeys_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGpgLatestKeys_404;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -51,21 +99,21 @@ Repository **Admin** is required
    * @param order Order by (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/secret-scanning/allowlist")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of allowlist rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist.class))),
     @APIResponse(responseCode = "400", description = "The request was not a correctly formed allowlist rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to view repository rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_401.class)))
   })
   @Operation(summary = "Find repository secret scanning allowlist rules")
-  Object search_2(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist search_2(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create repository secret scanning allowlist rule.
@@ -86,9 +134,9 @@ Repository **Admin** is required
     @APIResponse(responseCode = "200", description = "The created rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningAllowlistRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed allowlist rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to create repository rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_401.class)))
   })
   @Operation(summary = "Create repository secret scanning allowlist rule")
   RestSecretScanningAllowlistRule createAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
@@ -111,9 +159,9 @@ Repository **Admin** is required
     @APIResponse(responseCode = "200", description = "The requested allowlist rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningAllowlistRule.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to view repository allowlist rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class))),
     @APIResponse(responseCode = "404", description = "The requested allowlist rule was not found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_404.class)))
   })
   @Operation(summary = "Get a repository secret scanning allowlist rule")
   RestSecretScanningAllowlistRule getAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -138,9 +186,9 @@ Repository **Admin** is required
     @APIResponse(responseCode = "200", description = "The updated allowlist rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningAllowlistRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed allowlist rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to edit repository allowlist rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class)))
   })
   @Operation(summary = "Edit an existing repository secret scanning allowlist rule")
   RestSecretScanningAllowlistRule editAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
@@ -160,7 +208,7 @@ Repository **Admin** is required
   @APIResponses({
     @APIResponse(responseCode = "204", description = "Empty response indicating that the allowlist rule was deleted"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to delete repository allowlist rules",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a repository secret scanning allowlist rule")
   void deleteAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -175,7 +223,7 @@ Repository **Admin** is required
   @APIResponses({
     @APIResponse(responseCode = "200", description = "True if the repository is exempt from secret scanning, false otherwise"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to check whether a repository is exempt from secret scanning",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class)))
   })
   @Operation(summary = "Get whether a repository is exempt")
   void isRepoExempt();
@@ -193,9 +241,9 @@ Use POST /rest/api/1.0/projects/{projectKey}/secret-scanning/exempt for the proj
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An exempt repo was added"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to exempt a repository from secret scanning",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "At least one of specified repositories have already been previously made exempt.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Exempt a repo from secret scanning")
   void addExemptRepo();
@@ -209,7 +257,7 @@ Use POST /rest/api/1.0/projects/{projectKey}/secret-scanning/exempt for the proj
   @APIResponses({
     @APIResponse(responseCode = "204", description = "Empty response indicating that the exempt repository was deleted"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to delete an exempt repository",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete an exempt repository")
   void deleteExemptRepo();
@@ -226,21 +274,21 @@ Repository **Admin** is required
    * @param order Order by (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/secret-scanning/rules")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules.class))),
     @APIResponse(responseCode = "400", description = "The request was not correctly formed rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to view repository rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_401.class)))
   })
   @Operation(summary = "Find repository secret scanning rules")
-  Object search_3(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules search_3(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create repository secret scanning rule.
@@ -261,9 +309,9 @@ Repository **Admin** is required
     @APIResponse(responseCode = "200", description = "The created rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to create repository rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_401.class)))
   })
   @Operation(summary = "Create repository secret scanning rule")
   RestSecretScanningRule createRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
@@ -286,9 +334,9 @@ Repository **Admin** is required
     @APIResponse(responseCode = "200", description = "The requested rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to view repository rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class))),
     @APIResponse(responseCode = "404", description = "The requested rule was not found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_404.class)))
   })
   @Operation(summary = "Get a repository secret scanning rule")
   RestSecretScanningRule getRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -313,9 +361,9 @@ Repository **Admin** is required
     @APIResponse(responseCode = "200", description = "The updated rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to edit repository rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class)))
   })
   @Operation(summary = "Edit an existing repository secret scanning rule")
   RestSecretScanningRule editRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
@@ -335,7 +383,7 @@ Repository **Admin** is required
   @APIResponses({
     @APIResponse(responseCode = "204", description = "Empty response indicating that the rule was deleted"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to delete repository rules",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a repository secret scanning rule")
   void deleteRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -351,21 +399,21 @@ Project **Admin** is required
    * @param order Order by (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist
    */
   @GET
   @Path("api/latest/projects/{projectKey}/secret-scanning/allowlist")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of allowlist rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist.class))),
     @APIResponse(responseCode = "400", description = "The request was not correctly formed allowlist rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to view project allowlist rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist_401.class)))
   })
   @Operation(summary = "Find project secret scanning allowlist rules")
-  Object searchAllowlistRule(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist searchAllowlistRule(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create project secret scanning allowlist rule.
@@ -385,9 +433,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The created allowlist rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningAllowlistRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed allowlist rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to create project allowlist rules.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist_401.class)))
   })
   @Operation(summary = "Create project secret scanning allowlist rule")
   RestSecretScanningAllowlistRule createAllowlistRule(@PathParam("projectKey") @NotNull String projectKey, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
@@ -409,9 +457,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The requested allowlist rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningAllowlistRule.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to view project allowlist rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_401.class))),
     @APIResponse(responseCode = "404", description = "The requested allowlist rules was not found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_404.class)))
   })
   @Operation(summary = "Get a project secret scanning allowlist rule")
   RestSecretScanningAllowlistRule getAllowlistRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
@@ -435,9 +483,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The updated allowlist rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningAllowlistRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed allowlist rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to modify project allowlist rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_401.class)))
   })
   @Operation(summary = "Edit an existing project secret scanning allowlist rule")
   RestSecretScanningAllowlistRule editAllowlistRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
@@ -456,7 +504,7 @@ Project **Admin** is required
   @APIResponses({
     @APIResponse(responseCode = "204", description = "Empty response indicating that the rule was deleted, or not found at this location"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to delete project rules",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a project secret scanning allowlist rule")
   void deleteAllowlistRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
@@ -468,19 +516,19 @@ Project **Admin** is required
    * @param order Order by project name followed by repository name either ascending or descending, defaults to ascending. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeySecretScanningExempt
    */
   @GET
   @Path("api/latest/projects/{projectKey}/secret-scanning/exempt")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of repositories",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningExempt.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to search exempt repositories for this project",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningExempt_401.class)))
   })
   @Operation(summary = "Find repos exempt from secret scanning for a project")
-  Object findExemptReposByProject(@QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeySecretScanningExempt findExemptReposByProject(@QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Bulk exempt repos from secret scanning.
@@ -494,7 +542,7 @@ Project **Admin** is required
   @APIResponses({
     @APIResponse(responseCode = "204", description = "All requested repositories were made exempt"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to exempt a repository from secret scanning. No repositories were made exempt.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningExempt_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Bulk exempt repos from secret scanning")
   void bulkAddExemptRepositories_1(@Valid Set<RestRepositorySelector> dto);
@@ -510,21 +558,21 @@ Project **Admin** is required
    * @param order Order by (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeySecretScanningRules
    */
   @GET
   @Path("api/latest/projects/{projectKey}/secret-scanning/rules")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRules.class))),
     @APIResponse(responseCode = "400", description = "The request was not correctly formed rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRules_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to view project rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRules_401.class)))
   })
   @Operation(summary = "Find project secret scanning rules")
-  Object search_1(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeySecretScanningRules search_1(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create project secret scanning rule.
@@ -544,9 +592,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The created rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRules_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to create project rules.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRules_401.class)))
   })
   @Operation(summary = "Create project secret scanning rule")
   RestSecretScanningRule createRule(@PathParam("projectKey") @NotNull String projectKey, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
@@ -568,9 +616,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The requested rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to view project rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRulesId_401.class))),
     @APIResponse(responseCode = "404", description = "The requested rules was not found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRulesId_404.class)))
   })
   @Operation(summary = "Get a project secret scanning rule")
   RestSecretScanningRule getRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
@@ -594,9 +642,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The updated rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRulesId_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to modify project rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRulesId_401.class)))
   })
   @Operation(summary = "Edit an existing project secret scanning rule")
   RestSecretScanningRule editRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
@@ -615,7 +663,7 @@ Project **Admin** is required
   @APIResponses({
     @APIResponse(responseCode = "204", description = "Empty response indicating that the rule was deleted, or not found at this location"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to delete project rules",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRulesId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a project secret scanning rule")
   void deleteRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
@@ -627,19 +675,19 @@ Project **Admin** is required
    * @param order Order by project name followed by repository name either ascending or descending, defaults to ascending. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestSecretScanningExempt
    */
   @GET
   @Path("api/latest/secret-scanning/exempt")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of repositories",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningExempt.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to search exempt repositories globally",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningExempt_401.class)))
   })
   @Operation(summary = "Find all repos exempt from secret scan")
-  Object findExemptReposByScope(@QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestSecretScanningExempt findExemptReposByScope(@QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Bulk exempt repos from secret scanning.
@@ -653,9 +701,9 @@ Project **Admin** is required
   @APIResponses({
     @APIResponse(responseCode = "204", description = "All requested repositories were made exempt"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to exempt a repository from secret scanning. No repositories were made exempt.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningExempt_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "At least one of specified repositories have already been previously made exempt.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningExempt_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Bulk exempt repos from secret scanning")
   void bulkAddExemptRepositories(@Valid Set<RestRepositorySelector> dto);
@@ -668,21 +716,21 @@ Project **Admin** is required
    * @param order Order by (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestSecretScanningRules
    */
   @GET
   @Path("api/latest/secret-scanning/rules")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRules.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed search request, see returned error for more details.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRules_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to search global rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRules_401.class)))
   })
   @Operation(summary = "Find global secret scanning rules")
-  Object search_4(@QueryParam("filter") String filter, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestSecretScanningRules search_4(@QueryParam("filter") String filter, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create global secret scanning rule.
@@ -699,9 +747,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The created rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRules_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to create global rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRules_401.class)))
   })
   @Operation(summary = "Create global secret scanning rule")
   RestSecretScanningRule createRule_2(@NotNull @Valid RestSecretScanningRuleSetRequest dto);
@@ -720,9 +768,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The requested rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to get global rules",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRulesId_401.class))),
     @APIResponse(responseCode = "404", description = "The requested rule was not found",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRulesId_404.class)))
   })
   @Operation(summary = "Get a global secret scanning rule")
   RestSecretScanningRule getRule_2(@PathParam("id") @NotNull String id);
@@ -743,9 +791,9 @@ Project **Admin** is required
     @APIResponse(responseCode = "200", description = "The updated rule",
                  content = @Content(schema = @Schema(implementation = RestSecretScanningRule.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a correctly formed rule. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRulesId_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to update global rules",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRulesId_401.class)))
   })
   @Operation(summary = "Edit a global secret scanning rule.")
   RestSecretScanningRule editRule_2(@PathParam("id") @NotNull String id, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
@@ -761,7 +809,7 @@ Project **Admin** is required
   @APIResponses({
     @APIResponse(responseCode = "204", description = "Empty response indicating that the rule was deleted"),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to delete global rules",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningRulesId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a global secret scanning rule")
   void deleteRule_2(@PathParam("id") @NotNull String id);
@@ -781,7 +829,7 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
     @APIResponse(responseCode = "200", description = "A page of X.509 certificates",
                  content = @Content(schema = @Schema(implementation = RestX509Certificate.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to get X.509 certificates",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSigningX509Certificates_401.class)))
   })
   @Operation(summary = "Get all X.509 certificates")
   RestX509Certificate getAllCertificates();
@@ -803,9 +851,9 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
     @APIResponse(responseCode = "201", description = "The newly created X.509 certificate",
                  content = @Content(schema = @Schema(implementation = RestX509Certificate.class))),
     @APIResponse(responseCode = "400", description = "The request did not contain a valid X.509 certificate request. See returned error for more details",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSigningX509Certificates_400.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to create X.509 certificates",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSigningX509Certificates_401.class)))
   })
   @Operation(summary = "Create an X.509 certificate")
   RestX509Certificate createCertificate(@NotNull @Valid ExampleCertificateMultipartFormData dto);
@@ -828,9 +876,9 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Successfully started processing CRLs."),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to update X.509 CRL entries",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSigningX509CertificatesCrlId_401.class))),
     @APIResponse(responseCode = "404", description = "There is no X.509 certificate with the given ID",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSigningX509CertificatesCrlId_404.class)))
   })
   @Operation(summary = "Update X.509 CRL entries")
   void updateCertificateRevocationListEntries(@PathParam("id") @NotNull String id);
@@ -850,9 +898,9 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
     @APIResponse(responseCode = "204", description = "An empty response if the X.509 certificate was successfully deleted",
                  content = @Content(schema = @Schema(implementation = RestX509Certificate.class))),
     @APIResponse(responseCode = "401", description = "The authenticated user is not permitted to delete X.509 certificates",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSigningX509CertificatesId_401.class))),
     @APIResponse(responseCode = "404", description = "There is no X.509 certificate with the given ID",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestSigningX509CertificatesId_404.class)))
   })
   @Operation(summary = "Delete an X.509 certificate")
   void deleteCertificate(@PathParam("id") @NotNull String id);
@@ -866,19 +914,19 @@ Only authenticated users may call this endpoint.
    * @param user The name of the user to get keys for (optional; requires ADMIN permission or higher). (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseGpgLatestKeys
    */
   @GET
   @Path("gpg/latest/keys")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Returns a paged response of of keys for the user.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseGpgLatestKeys.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to perform this operation.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseGpgLatestKeys_401.class)))
   })
   @Operation(summary = "Get all GPG keys")
-  Object getKeysForUser(@QueryParam("user") String user, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseGpgLatestKeys getKeysForUser(@QueryParam("user") String user, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create a GPG key.
@@ -898,9 +946,9 @@ Only authenticated users may call this endpoint.
     @APIResponse(responseCode = "200", description = "Response contains the GPG key that was just created.",
                  content = @Content(schema = @Schema(implementation = RestGpgKey.class))),
     @APIResponse(responseCode = "400", description = "The request has failed validation.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseGpgLatestKeys_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to perform this operation.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseGpgLatestKeys_401.class)))
   })
   @Operation(summary = "Create a GPG key")
   RestGpgKey addKey(@QueryParam("user") String user, @Valid RestGpgKey dto);
@@ -916,9 +964,9 @@ Only authenticated users may call this endpoint.
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The GPG keys matching the supplied <strong>user</strong> were deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the GPG keys. This is only possible when a <strong>user</strong> is explicitly supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseGpgLatestKeys_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "No user matches the supplied <strong>user</strong>.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseGpgLatestKeys_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete all GPG keys for user")
   void deleteForUser(@QueryParam("user") String user);
@@ -934,7 +982,7 @@ Only authenticated users may call this endpoint.
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The key has been deleted successfully."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to perform this operation.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseGpgLatestKeysFingerprintOrId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a GPG key")
   void deleteKey(@PathParam("fingerprintOrId") @NotNull String fingerprintOrId);
