@@ -357,6 +357,17 @@ paths:
                   start:
                     type: integer
                     format: int32
+        '400':
+          description: The permission level is unknown or not related to projects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LocalTime'
 components:
   schemas:
     LocalTime:

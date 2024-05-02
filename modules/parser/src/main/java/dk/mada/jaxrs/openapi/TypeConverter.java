@@ -22,6 +22,7 @@ import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
+import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
@@ -517,15 +518,8 @@ public final class TypeConverter {
                     logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-                    ContentContext apiContext = ri.context();
-                    if (apiContext != null) {
-                        String resourcePath = apiContext.resourcePath();
-                        String pathSimplified = resourcePath.replaceAll("[/_{}]", "-");
-						String dtoRawName = apiContext.location().name().toLowerCase(Locale.ROOT) + "-" + pathSimplified;
-                        String syntheticDtoName = "_" + naming.convertTypeName(dtoRawName);
-                        logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
-                        Dto dto = createDto(syntheticDtoName, schema);
-                        return parserRefs.of(dto, ri.validation);
+                    if (ri.context() != null) {
+                        return makeApiInlineTypeRef(ri);
                     }
 
                     // This fallback is used when creating plain DTOs - or references to them.
@@ -541,6 +535,23 @@ public final class TypeConverter {
             return parserRefs.of(dto, ri.validation);
         }
         return null;
+    }
+
+    private ParserTypeRef makeApiInlineTypeRef(RefInfo ri) {
+        Schema<?> schema = ri.schema;
+        ContentContext apiContext = ri.context();
+        String resourcePath = apiContext.resourcePath();
+        String pathSimplified = resourcePath.replaceAll("[/_{}]", "-");
+        String dtoRawName = apiContext.location().name().toLowerCase(Locale.ROOT) + "-" + pathSimplified;
+        String statusSuffix = "";
+        StatusCode statuscode = apiContext.statuscode();
+        if (statuscode != StatusCode.HTTP_DEFAULT && statuscode != StatusCode.HTTP_OK) {
+            statusSuffix = "_" + statuscode.code();
+        }
+        String syntheticDtoName = "_" + naming.convertTypeName(dtoRawName) + statusSuffix;
+        logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
+        Dto dto = createDto(syntheticDtoName, schema);
+        return parserRefs.of(dto, ri.validation);
     }
 
     private boolean isDateType(Schema<?> schema) {

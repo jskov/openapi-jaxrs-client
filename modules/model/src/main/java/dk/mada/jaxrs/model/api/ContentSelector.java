@@ -78,10 +78,11 @@ public class ContentSelector {
      * The context of a content lookup.
      *
      * @param resourcePath the resource path where the content needs lookup. Used for error output only.
+     * @param statuscode   the status code of the context (HTTP_DEFAULT for requests)
      * @param isRequired   true if the content is required
      * @param location     the location of the content
      */
-    public record ContentContext(String resourcePath, boolean isRequired, Location location) {
+    public record ContentContext(String resourcePath, StatusCode statuscode, boolean isRequired, Location location) {
     }
 
     /** Location of the content to resolve. */

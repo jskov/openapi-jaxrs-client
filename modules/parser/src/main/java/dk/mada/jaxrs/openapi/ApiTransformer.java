@@ -170,9 +170,10 @@ public class ApiTransformer {
     }
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
-        ContentContext cc = new ContentContext(resourcePath, false, Location.RESPONSE);
+        StatusCode status = StatusCode.of(code);
+        ContentContext cc = new ContentContext(resourcePath, status, false, Location.RESPONSE);
         return Response.builder()
-                .code(StatusCode.of(code))
+                .code(status)
                 .description(Optional.ofNullable(resp.getDescription()))
                 .content(selectContent(resp.getContent(), cc))
                 .build();
@@ -184,7 +185,7 @@ public class ApiTransformer {
             return Optional.empty();
         }
 
-        ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
+        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST);
         Content content = selectContent(body.getContent(), cc);
 
         MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
@@ -307,7 +308,7 @@ public class ApiTransformer {
 
         boolean isParamRequired = toBool(param.getRequired());
 
-        ContentContext cc = new ContentContext(resourcePath, isParamRequired, Location.REQUEST);
+        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, isParamRequired, Location.REQUEST);
 
         Schema<?> schema = param.getSchema();
         if (schema == null) {

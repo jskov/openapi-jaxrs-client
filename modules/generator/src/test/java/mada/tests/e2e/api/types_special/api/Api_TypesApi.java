@@ -20,6 +20,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.api.types_special.dto.Simple;
 import mada.tests.e2e.api.types_special.dto._ResponseApiTypesBitbucketArray;
+import mada.tests.e2e.api.types_special.dto._ResponseApiTypesBitbucketArray_400;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -50,7 +51,12 @@ public interface Api_TypesApi {
   @GET
   @Path("/bitbucket-array")
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(_ResponseApiTypesBitbucketArray.class)
+  @APIResponses({
+    @APIResponse(responseCode = "200", description = "A page of projects.",
+                 content = @Content(schema = @Schema(implementation = _ResponseApiTypesBitbucketArray.class))),
+    @APIResponse(responseCode = "400", description = "The permission level is unknown or not related to projects.",
+                 content = @Content(schema = @Schema(implementation = _ResponseApiTypesBitbucketArray_400.class)))
+  })
   _ResponseApiTypesBitbucketArray apiTypesBitbucketArrayGet();
 
   /**
