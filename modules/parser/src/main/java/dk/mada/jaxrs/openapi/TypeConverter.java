@@ -119,7 +119,7 @@ public final class TypeConverter {
      *
      * This is used from parameters, where the required property comes from the parameter.
      *
-     * @param schema   the OpenApi schema to convert
+     * @param schema  the OpenApi schema to convert
      * @param context the context of the reference
      * @return the found/created internal model type
      */
@@ -190,7 +190,8 @@ public final class TypeConverter {
      * @param context       the content context, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef, @Nullable ContentContext context) {
+    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef,
+            @Nullable ContentContext context) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
@@ -507,7 +508,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
-        
+
         if (schema instanceof ObjectSchema || schema.getType() == null) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
@@ -515,20 +516,18 @@ public final class TypeConverter {
                     logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-					ContentContext apiContext = ri.context();
-					if (apiContext != null) {
-                		logger.info("Inline DTO for {}", apiContext.resourcePath());
-
-                        String dtoRawName = "result-" + apiContext.resourcePath().replace('/', '-').replace('_', '-');
-						String syntheticDtoName = naming.convertTypeName(dtoRawName);
-                        logger.info("DTO raw:{} name: {}", dtoRawName, syntheticDtoName);
+                    ContentContext apiContext = ri.context();
+                    if (apiContext != null) {
+                        String resourcePath = apiContext.resourcePath();
+                        String dtoRawName = "result-" + resourcePath.replace('/', '-').replace('_', '-');
+                        String syntheticDtoName = naming.convertTypeName(dtoRawName);
+                        logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
                         Dto dto = createDto(syntheticDtoName, schema);
-                        logger.info("DTO {}", dto);
                         return parserRefs.of(dto, ri.validation);
-                	}
-                	
-                	
-                	
+                    }
+
+                    // This fallback is used when creating plain DTOs - or references to them.
+                    // Explore a better understanding and cleanup at some time...
                     logger.info(" - createObjectRef, plain Object?");
                     return parserRefs.of(TypeObject.get(), ri.validation);
                 }

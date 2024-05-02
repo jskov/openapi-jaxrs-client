@@ -342,7 +342,7 @@ paths:
                   values:
                     type: array
                     items:
-                      $ref: '#/components/schemas/RestProject'
+                      $ref: '#/components/schemas/Simple'
                   size:
                     type: number
                     example: 1
