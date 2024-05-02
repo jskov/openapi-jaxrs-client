@@ -17,10 +17,10 @@ import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * ResultApiTypesBitbucketArray
+ * ResponseApiTypesBitbucketArray
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class ResultApiTypesBitbucketArray {
+public class ResponseApiTypesBitbucketArray {
   public static final String JSON_PROPERTY_IS_LAST_PAGE = "isLastPage";
   @JsonbProperty(JSON_PROPERTY_IS_LAST_PAGE)
   private Boolean isLastPage;
@@ -47,7 +47,7 @@ public class ResultApiTypesBitbucketArray {
   @JsonbProperty(JSON_PROPERTY_VALUES)
   private List<Simple> values;
 
-  public ResultApiTypesBitbucketArray isLastPage(Boolean isLastPage) {
+  public ResponseApiTypesBitbucketArray isLastPage(Boolean isLastPage) {
     this.isLastPage = isLastPage;
     return this;
   }
@@ -64,7 +64,7 @@ public class ResultApiTypesBitbucketArray {
     this.isLastPage = isLastPage;
   }
 
-  public ResultApiTypesBitbucketArray limit(BigDecimal limit) {
+  public ResponseApiTypesBitbucketArray limit(BigDecimal limit) {
     this.limit = limit;
     return this;
   }
@@ -81,7 +81,7 @@ public class ResultApiTypesBitbucketArray {
     this.limit = limit;
   }
 
-  public ResultApiTypesBitbucketArray nextPageStart(Integer nextPageStart) {
+  public ResponseApiTypesBitbucketArray nextPageStart(Integer nextPageStart) {
     this.nextPageStart = nextPageStart;
     return this;
   }
@@ -98,7 +98,7 @@ public class ResultApiTypesBitbucketArray {
     this.nextPageStart = nextPageStart;
   }
 
-  public ResultApiTypesBitbucketArray size(BigDecimal size) {
+  public ResponseApiTypesBitbucketArray size(BigDecimal size) {
     this.size = size;
     return this;
   }
@@ -115,7 +115,7 @@ public class ResultApiTypesBitbucketArray {
     this.size = size;
   }
 
-  public ResultApiTypesBitbucketArray start(Integer start) {
+  public ResponseApiTypesBitbucketArray start(Integer start) {
     this.start = start;
     return this;
   }
@@ -132,12 +132,12 @@ public class ResultApiTypesBitbucketArray {
     this.start = start;
   }
 
-  public ResultApiTypesBitbucketArray values(List<Simple> values) {
+  public ResponseApiTypesBitbucketArray values(List<Simple> values) {
     this.values = values;
     return this;
   }
 
-  public ResultApiTypesBitbucketArray addValuesItem(Simple valuesItem) {
+  public ResponseApiTypesBitbucketArray addValuesItem(Simple valuesItem) {
     if (this.values == null) {
       this.values = new ArrayList<>();
     }
@@ -163,10 +163,10 @@ public class ResultApiTypesBitbucketArray {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ResultApiTypesBitbucketArray)) {
+    if (!(o instanceof ResponseApiTypesBitbucketArray)) {
       return false;
     }
-    ResultApiTypesBitbucketArray other = (ResultApiTypesBitbucketArray) o;
+    ResponseApiTypesBitbucketArray other = (ResponseApiTypesBitbucketArray) o;
     return Objects.equals(this.isLastPage, other.isLastPage) &&
         Objects.equals(this.limit, other.limit) &&
         Objects.equals(this.nextPageStart, other.nextPageStart) &&
@@ -183,7 +183,7 @@ public class ResultApiTypesBitbucketArray {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ResultApiTypesBitbucketArray {");
+    sb.append("class ResponseApiTypesBitbucketArray {");
     sb.append("\n    isLastPage: ").append(toIndentedString(isLastPage));
     sb.append("\n    limit: ").append(toIndentedString(limit));
     sb.append("\n    nextPageStart: ").append(toIndentedString(nextPageStart));

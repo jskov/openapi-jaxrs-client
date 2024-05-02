@@ -519,7 +519,7 @@ public final class TypeConverter {
                     ContentContext apiContext = ri.context();
                     if (apiContext != null) {
                         String resourcePath = apiContext.resourcePath();
-                        String dtoRawName = "result-" + resourcePath.replace('/', '-').replace('_', '-');
+                        String dtoRawName = "response-" + resourcePath.replace('/', '-').replace('_', '-');
                         String syntheticDtoName = naming.convertTypeName(dtoRawName);
                         logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
                         Dto dto = createDto(syntheticDtoName, schema);
