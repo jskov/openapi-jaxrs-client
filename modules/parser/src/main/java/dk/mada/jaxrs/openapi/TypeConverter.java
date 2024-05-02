@@ -22,6 +22,7 @@ import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
+import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
@@ -518,13 +519,13 @@ public final class TypeConverter {
                     logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-                    if (ri.context() != null) {
-                        return makeApiInlineTypeRef(ri, ri.context());
+                    if (treatAsApiInlineTypeRef(ri)) {
+                        return makeApiInlineTypeRef(ri);
                     } else {
-	                    // This fallback is used when creating plain DTOs - or references to them.
-	                    // Explore a better understanding and cleanup at some time...
-	                    logger.info(" - createObjectRef, plain Object?");
-	                    return parserRefs.of(TypeObject.get(), ri.validation);
+                        // This fallback is used when creating plain DTOs - or references to them.
+                        // Explore a better understanding and cleanup at some time...
+                        logger.info(" - createObjectRef, plain Object?");
+                        return parserRefs.of(TypeObject.get(), ri.validation);
                     }
                 }
             }
@@ -537,7 +538,24 @@ public final class TypeConverter {
         return null;
     }
 
-    private ParserTypeRef makeApiInlineTypeRef(RefInfo ri, ContentContext apiContext) {
+    private boolean treatAsApiInlineTypeRef(RefInfo ri) {
+        ContentContext context = ri.context();
+        if (context == null) {
+            return false;
+        }
+
+        // FIXME: See ApiTransformer#getRequestBody - need to coordinate creation of multipart body
+        if (context.statuscode() == StatusCode.HTTP_DEFAULT && context.location() == Location.REQUEST) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private ParserTypeRef makeApiInlineTypeRef(RefInfo ri) {
+
+        ContentContext apiContext = Objects.requireNonNull(ri.context);
+
         Schema<?> schema = ri.schema;
         String resourcePath = apiContext.resourcePath();
         String pathSimplified = resourcePath.replaceAll("[/_{}]", "-");
