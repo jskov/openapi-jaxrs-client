@@ -22,7 +22,6 @@ import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
-import dk.mada.jaxrs.model.api.ContentSelector.Location;
 import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
@@ -544,12 +543,8 @@ public final class TypeConverter {
             return false;
         }
 
-        // FIXME: See ApiTransformer#getRequestBody - need to coordinate creation of multipart body
-        if (context.statuscode() == StatusCode.HTTP_DEFAULT && context.location() == Location.REQUEST) {
-            return false;
-        }
-
-        return true;
+        // Synchronization with ApiTransformer which may generate a synthetic multipart DTO
+        return !context.syntheticMultipart();
     }
 
     private ParserTypeRef makeApiInlineTypeRef(RefInfo ri) {

@@ -171,7 +171,7 @@ public class ApiTransformer {
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         StatusCode status = StatusCode.of(code);
-        ContentContext cc = new ContentContext(resourcePath, status, false, Location.RESPONSE);
+        ContentContext cc = new ContentContext(resourcePath, status, false, Location.RESPONSE, false);
         return Response.builder()
                 .code(status)
                 .description(Optional.ofNullable(resp.getDescription()))
@@ -184,13 +184,14 @@ public class ApiTransformer {
         if (body == null) {
             return Optional.empty();
         }
+        MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
+        boolean createMultipartDto = leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null;
 
-        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST);
+        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST,
+                createMultipartDto);
         Content content = selectContent(body.getContent(), cc);
 
-        MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
-
-        if (leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null) {
+        if (createMultipartDto) {
             logger.debug("FORM-DATA: {}", mt);
             Schema<?> schema = mt.getSchema();
             ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
@@ -308,7 +309,7 @@ public class ApiTransformer {
 
         boolean isParamRequired = toBool(param.getRequired());
 
-        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, isParamRequired, Location.REQUEST);
+        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, isParamRequired, Location.REQUEST, false);
 
         Schema<?> schema = param.getSchema();
         if (schema == null) {
