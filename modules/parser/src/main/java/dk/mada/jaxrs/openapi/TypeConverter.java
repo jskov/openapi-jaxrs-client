@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -519,7 +520,8 @@ public final class TypeConverter {
                     ContentContext apiContext = ri.context();
                     if (apiContext != null) {
                         String resourcePath = apiContext.resourcePath();
-                        String dtoRawName = "response-" + resourcePath.replace('/', '-').replace('_', '-');
+                        String pathSimplified = resourcePath.replaceAll("[/_{}]", "-");
+						String dtoRawName = apiContext.location().name().toLowerCase(Locale.ROOT) + "-" + pathSimplified;
                         String syntheticDtoName = "_" + naming.convertTypeName(dtoRawName);
                         logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
                         Dto dto = createDto(syntheticDtoName, schema);
