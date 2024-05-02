@@ -191,7 +191,7 @@ public class ApiTransformer {
                 createMultipartDto);
         Content content = selectContent(body.getContent(), cc);
 
-        if (createMultipartDto) {
+        if (createMultipartDto && mt != null && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
             logger.debug("FORM-DATA: {}", mt);
             Schema<?> schema = mt.getSchema();
             ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
