@@ -42,6 +42,17 @@ public interface Api_TypesApi {
   BigDecimal apiTypesBigDecimalGet();
 
   /**
+   * apiTypesBitbucketArrayGet.
+   *
+   * @return Object
+   */
+  @GET
+  @Path("/bitbucket-array")
+  @Produces(MediaType.APPLICATION_JSON)
+  @APIResponseSchema(Object.class)
+  Object apiTypesBitbucketArrayGet();
+
+  /**
    * apiTypesBooleanGet.
    *
    * @return boolean
