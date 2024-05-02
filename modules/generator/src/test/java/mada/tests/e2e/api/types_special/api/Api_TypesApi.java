@@ -10,6 +10,7 @@ package mada.tests.e2e.api.types_special.api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import mada.tests.e2e.api.types_special.dto.ResultApiTypesBitbucketArray;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
@@ -19,10 +20,10 @@ public interface Api_TypesApi {
   /**
    * apiTypesBitbucketArrayGet.
    *
-   * @return Object
+   * @return ResultApiTypesBitbucketArray
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Object.class)
-  Object apiTypesBitbucketArrayGet();
+  @APIResponseSchema(ResultApiTypesBitbucketArray.class)
+  ResultApiTypesBitbucketArray apiTypesBitbucketArrayGet();
 }
