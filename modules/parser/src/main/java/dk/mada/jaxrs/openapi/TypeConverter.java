@@ -20,6 +20,7 @@ import dk.mada.jaxrs.model.ImmutableValidation;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
+import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
@@ -119,13 +120,13 @@ public final class TypeConverter {
      * This is used from parameters, where the required property comes from the parameter.
      *
      * @param schema   the OpenApi schema to convert
-     * @param required the required value to override in the reference
+     * @param context the context of the reference
      * @return the found/created internal model type
      */
-    public ParserTypeRef toReference(Schema<?> schema, boolean required) {
-        ParserTypeRef ptr = reference(schema, null, null);
+    public ParserTypeRef toReferenceFromApi(Schema<?> schema, ContentContext context) {
+        ParserTypeRef ptr = reference(schema, null, null, false, context);
 
-        if (required) {
+        if (context.isRequired()) {
             logger.debug(" overriding ptr validation to force required");
             var withRequire = ImmutableValidation.builder().from(ptr.validation())
                     .isRequired(true)
@@ -172,7 +173,7 @@ public final class TypeConverter {
      * @return the found/created parser type reference
      */
     private ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName) {
-        return reference(schema, propertyName, parentDtoName, false);
+        return reference(schema, propertyName, parentDtoName, false, null);
     }
 
     /**
@@ -184,9 +185,10 @@ public final class TypeConverter {
      * @param propertyName  the name of the property the type is associated with, or null
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @param isFormRef     true if the reference is a form parameter/field.
+     * @param context       the content context, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef) {
+    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef, @Nullable ContentContext context) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
@@ -503,6 +505,9 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
+        
+        logger.info("GA: {}", schema);
+        
         if (schema instanceof ObjectSchema || schema.getType() == null) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
@@ -510,7 +515,8 @@ public final class TypeConverter {
                     logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-                    logger.trace(" - createObjectRef, plain Object?");
+                	new Exception("RESULT").printStackTrace();
+                    logger.info(" - createObjectRef, plain Object?");
                     return parserRefs.of(TypeObject.get(), ri.validation);
                 }
             }
@@ -745,7 +751,7 @@ public final class TypeConverter {
             Schema<?> propSchema = e.getValue();
             logger.debug(" - property {}", propertyName);
 
-            Reference ref = reference(propSchema, propertyName, parentDtoName, isMultipartForm);
+            Reference ref = reference(propSchema, propertyName, parentDtoName, isMultipartForm, null);
 
             Optional<String> exampleStr = Optional.ofNullable(Objects.toString(propSchema.getExample(), null));
 
