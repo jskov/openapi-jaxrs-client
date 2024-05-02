@@ -49,6 +49,125 @@ import mada.tests.e2e.examples.bitbucket.dto.RestPullRequestReopenRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestPullRequestSettings;
 import mada.tests.e2e.examples.bitbucket.dto.RestReviewerGroup;
 import mada.tests.e2e.examples.bitbucket.dto.RestUserReaction;
+import mada.tests.e2e.examples.bitbucket.dto._RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminPullRequestsScmId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminPullRequestsScmId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminPullRequestsScmId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminPullRequestsScmId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdPullRequests;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdPullRequests_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdPullRequests_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_403;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdChanges_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdChanges_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommitMessageSuggestion_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommitMessageSuggestion_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommits;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommits_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommits_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDecline_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDecline_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDecline_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMergeBase_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_403;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReopen_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReopen_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReopen_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdWatch_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdWatch_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_patch_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_patch_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroups;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseDefaultReviewersLatestProjectsProjectKeyCondition_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugCondition_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_409;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -77,9 +196,9 @@ The user must be authenticated to call this resource.
     @APIResponse(responseCode = "200", description = "The merge configuration of this instance.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestMergeConfig.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to see the request repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminPullRequestsScmId_401.class))),
     @APIResponse(responseCode = "404", description = "The request repository does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminPullRequestsScmId_404.class)))
   })
   @Operation(summary = "Get merge strategies")
   RestPullRequestMergeConfig getMergeConfig(@PathParam("scmId") @NotNull String scmId);
@@ -115,13 +234,13 @@ Upon completion of this request, the effective configuration will be the default
     @APIResponse(responseCode = "200", description = "The repository pull request merge strategies for the context repository.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestMergeConfig.class))),
     @APIResponse(responseCode = "400", description = "The repository pull request merge strategies were not updated due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminPullRequestsScmId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to administrate thespecified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminPullRequestsScmId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminPullRequestsScmId_404.class))),
     @APIResponse(responseCode = "409", description = "Setting or deleting merge configurations isn't supported on archived repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminPullRequestsScmId_409.class)))
   })
   @Operation(summary = "Update merge strategies")
   RestPullRequestMergeConfig setMergeConfig(@PathParam("scmId") @NotNull String scmId, @Valid RestPullRequestSettings dto);
@@ -137,21 +256,21 @@ The user must be authenticated and have access to the specified repository to ca
    * @param repositorySlug The repository slug (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdPullRequests
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/commits/{commitId}/pull-requests")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Return a page of pull requests in the current repository containing the given commit.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdPullRequests.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to see the request repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdPullRequests_401.class))),
     @APIResponse(responseCode = "404", description = "The request repository does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdPullRequests_404.class)))
   })
   @Operation(summary = "Get repository pull requests containing commit")
-  Object getPullRequests(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdPullRequests getPullRequests(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Search pull request participants.
@@ -166,23 +285,23 @@ Optionally clients can specify following filters.
    * @param direction (optional), Defaults to <strong>INCOMING</strong>) the direction relative to the specified repository. Either <strong>INCOMING</strong> or <strong>OUTGOING</strong>. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/participants")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of users that match the search criteria.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants_404.class)))
   })
   @Operation(summary = "Search pull request participants")
-  Object search(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("role") String role, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("direction") String direction, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants search(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("role") String role, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("direction") String direction, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get pull requests for repository.
@@ -207,23 +326,23 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
    * @param direction (optional, defaults to <strong>INCOMING</strong>) the direction relative to the specified repository. Either <strong>INCOMING</strong> or <strong>OUTGOING</strong>. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of pull requests that match the search criteria.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_404.class)))
   })
   @Operation(summary = "Get pull requests for repository")
-  Object getPage(@QueryParam("withAttributes") String withAttributes, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("withProperties") String withProperties, @QueryParam("draft") String draft, @QueryParam("filterText") String filterText, @QueryParam("state") String state, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("order") String order, @QueryParam("direction") String direction, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests getPage(@QueryParam("withAttributes") String withAttributes, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("withProperties") String withProperties, @QueryParam("draft") String draft, @QueryParam("filterText") String filterText, @QueryParam("state") String state, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("order") String order, @QueryParam("direction") String direction, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create pull request.
@@ -246,13 +365,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the <
     @APIResponse(responseCode = "201", description = "The newly created pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequest.class))),
     @APIResponse(responseCode = "400", description = "The pull request entity supplied in the request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to create a pull request between the two specified repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_401.class))),
     @APIResponse(responseCode = "404", description = "One of the specified repositories or branches does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_404.class))),
     @APIResponse(responseCode = "409", description = "One of the following error cases occurred (check the error message for more details): \n\n- There was a problem resolving one or more reviewers.\n- The specified branches were the same.\n- The <em>to</em> branch is already up-to-date with all the commits on the     <em>from</em> branch.\n- A pull request between the two branches already exists.\n- The <em>to</em> repository is archived.\n",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests_409.class)))
   })
   @Operation(summary = "Create pull request")
   RestPullRequest create(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestPullRequest dto);
@@ -275,9 +394,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The specified pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequest.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_404.class)))
   })
   @Operation(summary = "Get pull request")
   RestPullRequest get_3(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -310,13 +429,13 @@ to call this resource.
     @APIResponse(responseCode = "200", description = "The updated pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequest.class))),
     @APIResponse(responseCode = "400", description = "One of the following error cases occurred (check the error message for more details): \n\n- The request tried to modify the <em>author</em> or <em>participants</em>.\n- The pull request's version attribute was not specified.\n- A reviewer's username was not specified.\n- The toRef ID value was incorrectly left blank\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_401.class))),
     @APIResponse(responseCode = "404", description = "One of the specified repositories or branches does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_404.class))),
     @APIResponse(responseCode = "409", description = "One of the following error cases occurred (check the error message for more details): \n\n- The specified version is out of date.\n- One of the reviewers could not be added to the pull request.\n- If updating the destination branch:    - There is already an open pull request with an identical to branch\n   - The from and new to branch <i>are</i> the same\n   - The new destination branch up-to-date is up-to-date with all of                 changes from the from branch, resulting in a pull request with                 nothing to merge            \n- The <em>to</em> repository is archived.\n",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_409.class)))
   })
   @Operation(summary = "Update pull request metadata")
   RestPullRequest update(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestPullRequest dto);
@@ -346,11 +465,11 @@ A body containing the version of the pull request must be provided with this req
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The pull request was deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "Deleting pull requests isn't supported on archived repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete pull request")
   void delete_3(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestPullRequestDeleteRequest dto);
@@ -394,9 +513,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A patch representing the specified pull request."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to access the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_patch_401.class))),
     @APIResponse(responseCode = "404", description = "The pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_patch_404.class)))
   })
   @Operation(summary = "Stream pull request as patch")
   void streamPatch_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -418,23 +537,23 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/activities")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of activity relating to the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities_404.class)))
   })
   @Operation(summary = "Get pull request activity")
-  Object getActivities(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("fromType") String fromType, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("fromId") String fromId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities getActivities(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("fromType") String fromType, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("fromId") String fromId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get auto-merge request for pull request.
@@ -454,9 +573,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The auto-merge request.",
                  content = @Content(schema = @Schema(implementation = RestAutoMergeRequest.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_404.class)))
   })
   @Operation(summary = "Get auto-merge request for pull request")
   RestAutoMergeRequest getAutoMergeRequest(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -479,13 +598,13 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
     @APIResponse(responseCode = "200", description = "The result of trying to auto-merge the pull request.",
                  content = @Content(schema = @Schema(implementation = RestAutoMergeProcessingResult.class))),
     @APIResponse(responseCode = "400", description = "An auto-merge request was not submitted for this pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to modify the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_401.class))),
     @APIResponse(responseCode = "403", description = "The auto-merge setting is not enabled for the repository that this pull request targets.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_403.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_404.class)))
   })
   @Operation(summary = "Auto-merge pull request")
   RestAutoMergeProcessingResult tryAutoMerge(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -505,11 +624,11 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The auto-merge request was cancelled."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to modify the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "The specified pull request is not open.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdAutoMerge_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Cancel auto-merge for pull request")
   void cancelAutoMerge(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -528,21 +647,21 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
    * @param states (optional). If supplied, only comments with a state in the given list will be returned. The state can be OPEN or RESOLVED. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/blocker-comments")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of Comments from the supplied pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository or pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_404.class)))
   })
   @Operation(summary = "Search pull request comments")
-  Object getComments_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("count") String count, @QueryParam("state") List<String> state, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("states") String states, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments getComments_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("count") String count, @QueryParam("state") List<String> state, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("states") String states, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Add new blocker comment.
@@ -637,13 +756,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "201", description = "The newly created comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "400", description = "The comment was not created due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request, create a comment or watch the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, pull request or parent comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_404.class))),
     @APIResponse(responseCode = "409", description = "The new created name already exists or adding, deleting, or editing comments isn't supported on archived repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_409.class)))
   })
   @Operation(summary = "Add new blocker comment")
   RestComment createComment_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestComment dto);
@@ -667,9 +786,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The requested comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, pull request or comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_404.class)))
   })
   @Operation(summary = "Get pull request comment")
   RestComment getComment_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -729,13 +848,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The newly updated comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "400", description = "The comment was not updated due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request, update a comment or watch the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, pull request or comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_404.class))),
     @APIResponse(responseCode = "409", description = "The comment version supplied does not match the current version or the repository is archived.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_409.class)))
   })
   @Operation(summary = "Update pull request comment")
   RestComment updateComment_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestComment dto);
@@ -757,11 +876,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The operation was successful."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository or pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "The comment has replies, the version supplied does not match the current version or the repository is archived.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerCommentsCommentId_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete pull request comment")
   void deleteComment_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("version") String version, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -794,9 +913,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "A page of unreviewed Changes for the current user from the supplied pull request, including the unreviewedCommits in the properties map.",
                  content = @Content(schema = @Schema(implementation = RestChange.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository or pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdChanges_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdChanges_404.class)))
   })
   @Operation(summary = "Gets pull request changes")
   RestChange streamChanges_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("sinceId") String sinceId, @QueryParam("changeScope") String changeScope, @QueryParam("untilId") String untilId, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("withComments") String withComments, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
@@ -820,21 +939,21 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
    * @param states (optional). If supplied, only comments with a state in the given list will be returned. The state can be OPEN or RESOLVED. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/comments")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of Comments from the supplied pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository or pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_404.class)))
   })
   @Operation(summary = "Get pull request comments for path")
-  Object getComments_2(@QueryParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("fromHash") String fromHash, @QueryParam("anchorState") String anchorState, @QueryParam("diffType") List<String> diffType, @QueryParam("toHash") String toHash, @QueryParam("state") List<String> state, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("diffTypes") String diffTypes, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("states") String states, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments getComments_2(@QueryParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("fromHash") String fromHash, @QueryParam("anchorState") String anchorState, @QueryParam("diffType") List<String> diffType, @QueryParam("toHash") String toHash, @QueryParam("state") List<String> state, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("diffTypes") String diffTypes, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("states") String states, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Add pull request comment.
@@ -924,13 +1043,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "201", description = "The newly created comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "400", description = "The comment was not created due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request, create a comment or watch the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, pull request or parent comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_404.class))),
     @APIResponse(responseCode = "409", description = "Adding, deleting, or editing comments isn't supported on archived repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdComments_409.class)))
   })
   @Operation(summary = "Add pull request comment")
   RestComment createComment_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestComment dto);
@@ -954,9 +1073,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The requested comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, pull request or comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_404.class)))
   })
   @Operation(summary = "Get a pull request comment")
   RestComment getComment_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1008,13 +1127,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The newly updated comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "400", description = "The comment was not updated due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request, update a comment or watch the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, pull request or comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_404.class))),
     @APIResponse(responseCode = "409", description = "The comment version supplied does not match the current version or the repository is archived.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_409.class)))
   })
   @Operation(summary = "Update pull request comment")
   RestComment updateComment_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestComment dto);
@@ -1036,11 +1155,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The operation was successful."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository or pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "The comment has replies, the version supplied does not match the current version or the repository is archived.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentId_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a pull request comment")
   void deleteComment_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("version") String version, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1061,13 +1180,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating the suggestion has been applied."),
     @APIResponse(responseCode = "400", description = "The suggestion was not applied due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to apply the suggestion.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, pull request or parent comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "There was an error applying the suggestion to the source branch. It must be applied manually.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Apply pull request suggestion")
   void applySuggestion(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestApplySuggestionRequest dto);
@@ -1088,9 +1207,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The suggested commit message",
                  content = @Content(schema = @Schema(implementation = RestCommitMessageSuggestion.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommitMessageSuggestion_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommitMessageSuggestion_404.class)))
   })
   @Operation(summary = "Get commit message suggestion")
   RestCommitMessageSuggestion getCommitMessageSuggestion(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1109,21 +1228,21 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommits
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/commits")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of commits from the supplied pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommits.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository or pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommits_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommits_404.class)))
   })
   @Operation(summary = "Get pull request commits")
-  Object getCommits_1(@QueryParam("avatarScheme") String avatarScheme, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("withCounts") String withCounts, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("avatarSize") String avatarSize, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommits getCommits_1(@QueryParam("avatarScheme") String avatarScheme, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("withCounts") String withCounts, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("avatarSize") String avatarSize, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Decline pull request.
@@ -1146,11 +1265,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The pull request was declined.",
                  content = @Content(schema = @Schema(implementation = RestPullRequest.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDecline_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDecline_404.class))),
     @APIResponse(responseCode = "409", description = "The pull request is not OPEN or has been updated since the version specified by the request.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDecline_409.class)))
   })
   @Operation(summary = "Decline pull request")
   RestPullRequest decline(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("version") String version, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestPullRequestDeclineRequest dto);
@@ -1182,23 +1301,23 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/diff/{path}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of differences from a pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath.class))),
     @APIResponse(responseCode = "400", description = "If the request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository or pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath_404.class)))
   })
   @Operation(summary = "Stream a diff within a pull request")
-  Object streamDiff_2(@QueryParam("avatarScheme") String avatarScheme, @PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("contextLines") String contextLines, @QueryParam("sinceId") String sinceId, @QueryParam("srcPath") String srcPath, @QueryParam("diffType") String diffType, @QueryParam("untilId") String untilId, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("whitespace") String whitespace, @QueryParam("withComments") String withComments, @QueryParam("avatarSize") String avatarSize, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdDiffPath streamDiff_2(@QueryParam("avatarScheme") String avatarScheme, @PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("contextLines") String contextLines, @QueryParam("sinceId") String sinceId, @QueryParam("srcPath") String srcPath, @QueryParam("diffType") String diffType, @QueryParam("untilId") String untilId, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("whitespace") String whitespace, @QueryParam("withComments") String withComments, @QueryParam("avatarSize") String avatarSize, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Test if pull request can be merged.
@@ -1224,11 +1343,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The mergeability status of the pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestMergeability.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_404.class))),
     @APIResponse(responseCode = "409", description = "The specified pull request is not open.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_409.class)))
   })
   @Operation(summary = "Test if pull request can be merged")
   RestPullRequestMergeability canMerge(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1254,13 +1373,13 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
     @APIResponse(responseCode = "200", description = "The merged pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequest.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to merge the specified pull request",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_401.class))),
     @APIResponse(responseCode = "403", description = "The auto-merge setting is not enabled for the repository that this pull request targets.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_403.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_404.class))),
     @APIResponse(responseCode = "409", description = "One of the following error cases occurred (check the error message for more details): \n\n- The pull request has conflicts.\n- A merge check vetoed the merge.\n- The specified version is out of date.\n- The specified pull request is not open.\n- The <em>to</em> repository is archived.\n",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMerge_409.class)))
   })
   @Operation(summary = "Merge pull request")
   RestPullRequest merge(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("version") String version, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestPullRequestMergeRequest dto);
@@ -1284,7 +1403,7 @@ If more than one best common ancestor exists, only one will be returned. It is u
                  content = @Content(schema = @Schema(implementation = RestCommit.class))),
     @APIResponse(responseCode = "204", description = "No common parent between exist"),
     @APIResponse(responseCode = "404", description = "The project, repository, or pull request does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdMergeBase_404.class)))
   })
   @Operation(summary = "Get the common ancestor between the latest commits of the source and target branches of the pull request")
   RestCommit getMergeBase_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1300,21 +1419,21 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/participants")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Details of the participants in this pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_404.class)))
   })
   @Operation(summary = "Get pull request participants")
-  Object listParticipants(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants listParticipants(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Assign pull request participant role.
@@ -1340,13 +1459,13 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
     @APIResponse(responseCode = "200", description = "Details of the participants in this pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestParticipant.class))),
     @APIResponse(responseCode = "400", description = "The request does not have the username and role, or is attempting an invalid assignment.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_404.class))),
     @APIResponse(responseCode = "409", description = "Adding reviewers isn't supported on archived repositories",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_409.class)))
   })
   @Operation(summary = "Assign pull request participant role")
   RestPullRequestParticipant assignParticipantRole(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestPullRequestAssignParticipantRoleRequest dto);
@@ -1377,13 +1496,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "Details of the new participant.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestParticipant.class))),
     @APIResponse(responseCode = "400", description = "The specified status was invalid or the currently authenticated user is the author of the PR and cannot have its status updated.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_404.class))),
     @APIResponse(responseCode = "409", description = "The pull request is not open, or has been updated since the version specified by the request.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_409.class)))
   })
   @Operation(summary = "Change pull request status")
   RestPullRequestParticipant updateStatus(@PathParam("projectKey") @NotNull String projectKey, @PathParam("userSlug") @NotNull String userSlug, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("version") String version, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestPullRequestAssignStatusRequest dto);
@@ -1408,13 +1527,13 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The update completed."),
     @APIResponse(responseCode = "400", description = "The request does not have the username.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "Removing reviewers isn't supported on archived repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipantsUserSlug_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Unassign pull request participant")
   void unassignParticipantRole(@PathParam("projectKey") @NotNull String projectKey, @PathParam("userSlug") @NotNull String userSlug, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1440,11 +1559,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The merged pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequest.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to reopen the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReopen_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReopen_404.class))),
     @APIResponse(responseCode = "409", description = "One of the following error cases occurred (check the error message for more details): \n\n- The pull request is not in a declined state.\n- The specified version is out of date.\n- The <em>to</em> repository is archived.\n",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReopen_409.class)))
   })
   @Operation(summary = "Re-open pull request")
   RestPullRequest reopen(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("version") String version, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestPullRequestReopenRequest dto);
@@ -1458,21 +1577,21 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/review")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of Comments from the supplied pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository or pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_404.class)))
   })
   @Operation(summary = "Get pull request comment thread")
-  Object getReview(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview getReview(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Complete pull request review.
@@ -1491,13 +1610,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Getting back the number of published comments and completing the review on a pull request."),
     @APIResponse(responseCode = "400", description = "The request is invalid when there is no request body provided, or the participant status in the request is invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request, update a comment or watch the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_401.class))),
     @APIResponse(responseCode = "404", description = "There is no pull request review for the user to finish.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_404.class))),
     @APIResponse(responseCode = "409", description = "The pull request has been updated since the version specified by the request, or reviews cannot be made on pull requests in archived repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_409.class)))
   })
   @Operation(summary = "Complete pull request review")
   void finishReview(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @QueryParam("version") String version, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestPullRequestFinishReviewRequest dto);
@@ -1517,9 +1636,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The pull request review has been discarded."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to discard the the pull request review",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified pull request or repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdReview_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Discard pull request review")
   void discardReview(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1539,9 +1658,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The user is now watching the pull request."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdWatch_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdWatch_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Watch pull request")
   void watch_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1561,9 +1680,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The user is no longer watching the pull request."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdWatch_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdWatch_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Stop watching pull request")
   void unwatch_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1578,21 +1697,21 @@ The authenticated user must have <b>REPO_READ</b> permission for the specified r
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/settings/reviewer-groups")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A `page` of reviewer group(s) of the provided scope and its inherited scope.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_401.class))),
     @APIResponse(responseCode = "404", description = "The repository scope supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_404.class)))
   })
   @Operation(summary = "Get all reviewer groups")
-  Object getReviewerGroups_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups getReviewerGroups_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create reviewer group.
@@ -1613,13 +1732,13 @@ The authenticated user must have <b>REPO_ADMIN</b> permission for the specified 
     @APIResponse(responseCode = "201", description = "The newly created reviewer group.",
                  content = @Content(schema = @Schema(implementation = RestReviewerGroup.class))),
     @APIResponse(responseCode = "400", description = "The request is missing a reviewer group name.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_401.class))),
     @APIResponse(responseCode = "404", description = "The repository scope supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_404.class))),
     @APIResponse(responseCode = "409", description = "The new created name already exists.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_409.class)))
   })
   @Operation(summary = "Create reviewer group")
   RestReviewerGroup create_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestReviewerGroup dto);
@@ -1642,9 +1761,9 @@ The authenticated user must have <b>REPO_READ</b> permission for the specified r
     @APIResponse(responseCode = "200", description = "The reviewer group.",
                  content = @Content(schema = @Schema(implementation = RestReviewerGroup.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_401.class))),
     @APIResponse(responseCode = "404", description = "The ID supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_404.class)))
   })
   @Operation(summary = "Get reviewer group")
   RestReviewerGroup getReviewerGroup_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1669,13 +1788,13 @@ The authenticated user must have <b>REPO_ADMIN</b> permission for the specified 
     @APIResponse(responseCode = "200", description = "The updated reviewer group.",
                  content = @Content(schema = @Schema(implementation = RestReviewerGroup.class))),
     @APIResponse(responseCode = "400", description = "The updated attribute does not meet the requirements. E.g. the name exceeds 50 characters, setting name to blank.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_401.class))),
     @APIResponse(responseCode = "404", description = "The repository scope supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_404.class))),
     @APIResponse(responseCode = "409", description = "The new updated name already exists.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_409.class)))
   })
   @Operation(summary = "Update reviewer group attributes")
   RestReviewerGroup update_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestReviewerGroup dto);
@@ -1695,9 +1814,9 @@ The authenticated user must have <b>REPO_ADMIN</b> permission for the specified 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The operation was successful"),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the reviewer group in this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied reviewer group ID.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroupsId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete reviewer group")
   void delete_7(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1738,21 +1857,21 @@ The authenticated user must have <b>PROJECT_READ</b> permission for the specifie
    * @param projectKey The project key. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups
    */
   @GET
   @Path("api/latest/projects/{projectKey}/settings/reviewer-groups")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of reviewer group(s) of the provided scope.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the project.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_401.class))),
     @APIResponse(responseCode = "404", description = "The project scope supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_404.class)))
   })
   @Operation(summary = "Get all reviewer groups")
-  Object getReviewerGroups(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups getReviewerGroups(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create reviewer group.
@@ -1772,13 +1891,13 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
     @APIResponse(responseCode = "201", description = "The newly created reviewer group.",
                  content = @Content(schema = @Schema(implementation = RestReviewerGroup.class))),
     @APIResponse(responseCode = "400", description = "The request is missing a reviewer group name.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the project.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_401.class))),
     @APIResponse(responseCode = "404", description = "The project scope supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_404.class))),
     @APIResponse(responseCode = "409", description = "The new created name already exists.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups_409.class)))
   })
   @Operation(summary = "Create reviewer group")
   RestReviewerGroup create_1(@PathParam("projectKey") @NotNull String projectKey, @Valid RestReviewerGroup dto);
@@ -1800,9 +1919,9 @@ The authenticated user must have <b>PROJECT_READ</b> permission for the specifie
     @APIResponse(responseCode = "200", description = "The reviewer group.",
                  content = @Content(schema = @Schema(implementation = RestReviewerGroup.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the project.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_401.class))),
     @APIResponse(responseCode = "404", description = "The ID supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_404.class)))
   })
   @Operation(summary = "Get reviewer group")
   RestReviewerGroup getReviewerGroup(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
@@ -1826,13 +1945,13 @@ The authenticated user must have <b>PROJECT_READ</b> permission for the specifie
     @APIResponse(responseCode = "200", description = "A page of changes.",
                  content = @Content(schema = @Schema(implementation = RestReviewerGroup.class))),
     @APIResponse(responseCode = "400", description = "The updated attribute does not meet the requirements. E.g. the name exceeds 50 characters, setting name to blank.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the project.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_401.class))),
     @APIResponse(responseCode = "404", description = "The project scope supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_404.class))),
     @APIResponse(responseCode = "409", description = "The new updated name already exists.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_409.class)))
   })
   @Operation(summary = "Update reviewer group attributes")
   RestReviewerGroup update_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @Valid RestReviewerGroup dto);
@@ -1851,9 +1970,9 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The operation was successful."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the reviewer group in this project.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied reviewer group ID.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsReviewerGroupsId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete reviewer group")
   void delete_6(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
@@ -1910,7 +2029,7 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
     @APIResponse(responseCode = "200", description = "The default reviewer pull request condition that was created.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestCondition.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseDefaultReviewersLatestProjectsProjectKeyCondition_400.class)))
   })
   @Operation(summary = "Create default reviewer")
   RestPullRequestCondition createPullRequestCondition(@PathParam("projectKey") @NotNull String projectKey, @Valid RestDefaultReviewersRequest dto);
@@ -1932,7 +2051,7 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
     @APIResponse(responseCode = "200", description = "The updated default reviewer pull request condition.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestCondition.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_400.class)))
   })
   @Operation(summary = "Update the default reviewer")
   RestPullRequestCondition updatePullRequestCondition(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @Valid RestDefaultReviewersRequest dto);
@@ -1949,7 +2068,7 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the pull request condition was deleted."),
     @APIResponse(responseCode = "404", description = "An empty response indicating a pull request condition with the given ID could not be found.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Remove default reviewer")
   void deletePullRequestCondition(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
@@ -1988,7 +2107,7 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
     @APIResponse(responseCode = "200", description = "The default reviewer pull request condition that was created.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestCondition.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugCondition_400.class)))
   })
   @Operation(summary = "Create default reviewers condition")
   RestPullRequestCondition createPullRequestCondition_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestDefaultReviewersRequest dto);
@@ -2011,10 +2130,10 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
     @APIResponse(responseCode = "200", description = "The updated default reviewer pull request condition.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestCondition.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId_400.class)))
   })
   @Operation(summary = "Update a default reviewer condition")
-  RestPullRequestCondition updatePullRequestCondition_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug, Object dto);
+  RestPullRequestCondition updatePullRequestCondition_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId dto);
 
   /**
    * Delete a default reviewer condition.
@@ -2029,7 +2148,7 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the pull request condition was deleted"),
     @APIResponse(responseCode = "404", description = "An empty response indicating a pull request condition with the given ID could not be found.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a default reviewer condition")
   void deletePullRequestCondition_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull int id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2110,9 +2229,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The rebaseability status of the pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestRebaseability.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_404.class)))
   })
   @Operation(summary = "Check PR rebase precondition")
   RestPullRequestRebaseability canRebase(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2137,11 +2256,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The merged pull request.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestRebaseResult.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request and/or to update its source branch.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_404.class))),
     @APIResponse(responseCode = "409", description = "Any of the following error cases occurred (check the error message for more details):\n\n- The rebase encountered conflicts.\n- The rebase discarded all of the incoming commits and would have left the pull request empty\n- A <tt>PreRepositoryHook</tt> vetoed the rebase.\n- The specified version is out of date.\n- The specified pull request is not open.\n- The target repository is archived.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_409.class)))
   })
   @Operation(summary = "Rebase pull request")
   RestPullRequestRebaseResult rebase(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestPullRequestRebaseRequest dto);

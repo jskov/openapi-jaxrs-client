@@ -125,7 +125,7 @@ public class ApiTransformer {
         // Not including group yet, need behavior from Operation::group
         String groupOperationId = operationId.orElse(syntheticOperationId);
 
-        List<Parameter> parameters = new ArrayList<>(getParameters(op));
+        List<Parameter> parameters = new ArrayList<>(getParameters(resourcePath, op));
 
         Optional<RequestBody> requestBody = getRequestBody(groupOperationId, resourcePath, op);
         requestBody.ifPresent(rb -> parameters.addAll(rb.formParameters()));
@@ -170,9 +170,10 @@ public class ApiTransformer {
     }
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
-        ContentContext cc = new ContentContext(resourcePath, false, Location.RESPONSE);
+        StatusCode status = StatusCode.of(code);
+        ContentContext cc = new ContentContext(resourcePath, status, false, Location.RESPONSE, false);
         return Response.builder()
-                .code(StatusCode.of(code))
+                .code(status)
                 .description(Optional.ofNullable(resp.getDescription()))
                 .content(selectContent(resp.getContent(), cc))
                 .build();
@@ -183,13 +184,14 @@ public class ApiTransformer {
         if (body == null) {
             return Optional.empty();
         }
+        MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
+        boolean createMultipartDto = leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null;
 
-        ContentContext cc = new ContentContext(resourcePath, toBool(body.getRequired()), Location.REQUEST);
+        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST,
+                createMultipartDto);
         Content content = selectContent(body.getContent(), cc);
 
-        MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
-
-        if (leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null) {
+        if (createMultipartDto && mt != null && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
             logger.debug("FORM-DATA: {}", mt);
             Schema<?> schema = mt.getSchema();
             ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
@@ -254,7 +256,7 @@ public class ApiTransformer {
     // At least an enum parameter may have to be rendered as a standalone
     // type (DTO). This does not happen with this code alone.
     private Parameter toFormParameter(String name, @SuppressWarnings("rawtypes") Schema schema) {
-        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null, true);
+        ParserTypeRef dtoPtr = typeConverter.reference(schema, name, null, true, null);
         logger.debug("Parse form param {} : {}", name, dtoPtr);
 
         return Parameter.builder()
@@ -286,18 +288,18 @@ public class ApiTransformer {
         return isOpSecurityEnabled || (apiHasSecurity && !isOpSecurityDisabled);
     }
 
-    private List<Parameter> getParameters(io.swagger.v3.oas.models.Operation op) {
+    private List<Parameter> getParameters(String resourcePath, io.swagger.v3.oas.models.Operation op) {
         List<io.swagger.v3.oas.models.parameters.Parameter> params = op.getParameters();
         if (params == null) {
             return List.of();
         }
 
         return params.stream()
-                .map(this::toParam)
+                .map(param -> toParam(resourcePath, param))
                 .toList();
     }
 
-    private Parameter toParam(io.swagger.v3.oas.models.parameters.Parameter param) {
+    private Parameter toParam(String resourcePath, io.swagger.v3.oas.models.parameters.Parameter param) {
         String name = param.getName();
         String paramIn = param.getIn();
 
@@ -306,6 +308,8 @@ public class ApiTransformer {
         boolean isQueryParam = param instanceof QueryParameter || "query".equals(paramIn);
 
         boolean isParamRequired = toBool(param.getRequired());
+
+        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, isParamRequired, Location.REQUEST, false);
 
         Schema<?> schema = param.getSchema();
         if (schema == null) {
@@ -318,7 +322,7 @@ public class ApiTransformer {
             schema = List.copyOf(content.values()).getFirst().getSchema();
         }
 
-        Reference ref = typeConverter.toReference(schema, isParamRequired);
+        Reference ref = typeConverter.toReferenceFromApi(schema, cc);
 
         logger.debug("Parse param {} : {}", name, ref);
 
@@ -380,7 +384,7 @@ public class ApiTransformer {
                     // in the actual code.
                     ref = TypeVoid.getRef();
                 } else {
-                    ref = typeConverter.toReference(ss, context.isRequired());
+                    ref = typeConverter.toReferenceFromApi(ss, context);
                 }
             }
         }

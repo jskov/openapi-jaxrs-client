@@ -25,6 +25,38 @@ import mada.tests.e2e.examples.bitbucket.dto.RestBranch;
 import mada.tests.e2e.examples.bitbucket.dto.RestBuildStatus;
 import mada.tests.e2e.examples.bitbucket.dto.RestPullRequestParticipant;
 import mada.tests.e2e.examples.bitbucket.dto.UserPickerContext;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGroupsAddUser_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGroupsAddUser_403;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGroupsAddUser_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGroupsRemoveUser_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGroupsRemoveUser_403;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminGroupsRemoveUser_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminUsersAddGroup_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminUsersAddGroup_403;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestAdminUsersAddGroup_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranchesDefault_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranchesDefault_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdTasksCount_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdTasks_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestTasksTaskId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestTasks_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBuildStatusLatestCommitsCommitId;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBuildStatusLatestCommitsCommitId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBuildStatusLatestCommitsCommitId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_404;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -54,11 +86,11 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The user was added to the group."),
     @APIResponse(responseCode = "401", description = "The authenticated user does not have the <strong>ADMIN</strong> permission.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGroupsAddUser_401.class))),
     @APIResponse(responseCode = "403", description = "The action was disallowed as it would exceed the server's licensing limit, or the groups permissions exceed the authenticated user's permission level.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGroupsAddUser_403.class))),
     @APIResponse(responseCode = "404", description = "The specified user or group does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGroupsAddUser_404.class)))
   })
   @Operation(summary = "Add user to group")
   void addUserToGroup(@Valid UserPickerContext dto);
@@ -82,11 +114,11 @@ In the request entity, the <em>context</em> attribute is the group and the <em>i
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The user was removed from the group."),
     @APIResponse(responseCode = "401", description = "The authenticated user does not have the <strong>ADMIN</strong> permission.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGroupsRemoveUser_401.class))),
     @APIResponse(responseCode = "403", description = "The action was disallowed as the group has a higher permission level than the context user.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGroupsRemoveUser_403.class))),
     @APIResponse(responseCode = "404", description = "The specified user or group does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminGroupsRemoveUser_404.class)))
   })
   @Operation(summary = "Remove user from group")
   void removeUserFromGroup(@Valid UserPickerContext dto);
@@ -110,11 +142,11 @@ The authenticated user must have the <strong>ADMIN</strong> permission to call t
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The user was added to the group"),
     @APIResponse(responseCode = "401", description = "The authenticated user does not have the <strong>ADMIN</strong> permission.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminUsersAddGroup_401.class))),
     @APIResponse(responseCode = "403", description = "The action was disallowed as it would exceed the server's licensing limit, or the groups permissions exceed the authenticated user's permission level.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminUsersAddGroup_403.class))),
     @APIResponse(responseCode = "404", description = "The specified user or group does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestAdminUsersAddGroup_404.class)))
   })
   @Operation(summary = "Add user to group")
   void addGroupToUser(@Valid GroupPickerContext dto);
@@ -139,9 +171,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
                  content = @Content(schema = @Schema(implementation = RestBranch.class))),
     @APIResponse(responseCode = "204", description = "The repository is empty, and has no default branch."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to read the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranchesDefault_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist, or its configured default branch does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranchesDefault_404.class)))
   })
   @Operation(summary = "Get default branch")
   RestBranch getDefaultBranch_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -164,9 +196,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The operation was successful."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranchesDefault_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranchesDefault_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Update default branch")
   void setDefaultBranch_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestBranch dto);
@@ -191,11 +223,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "Details of the new participant.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestParticipant.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_404.class))),
     @APIResponse(responseCode = "409", description = "The pull request is not open.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_409.class)))
   })
   @Operation(summary = "Approve pull request")
   RestPullRequestParticipant approve(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -220,11 +252,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "Details of the updated participant.",
                  content = @Content(schema = @Schema(implementation = RestPullRequestParticipant.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist or the current user is not a participant on the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_404.class))),
     @APIResponse(responseCode = "409", description = "The pull request is not open.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdApprove_409.class)))
   })
   @Operation(summary = "Unapprove pull request")
   RestPullRequestParticipant withdrawApproval(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -251,11 +283,11 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The update completed."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository or pull request does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "Removing reviewers isn't supported on archived repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Unassign pull request participant")
   void unassignParticipantRole_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("username") String username);
@@ -277,7 +309,7 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "404", description = "This endpoint has been removed as tasks are now managed using Comments with severity BLOCKER.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdTasks_404.class)))
   })
   @Operation(summary = "Get pull request tasks")
   void getPullRequestTasks(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -297,7 +329,7 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "404", description = "This endpoint has been removed as tasks are now managed using Comments with severity BLOCKER.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdTasksCount_404.class)))
   })
   @Operation(summary = "Get pull request task count")
   void countPullRequestTasks(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -313,7 +345,7 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "404", description = "This endpoint has been removed as tasks are now managed using Comments with severity BLOCKER.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestTasks_404.class)))
   })
   @Operation(summary = "Create task")
   void createTask();
@@ -331,7 +363,7 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "404", description = "This endpoint has been removed as tasks are now managed using Comments with severity BLOCKER.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestTasksTaskId_404.class)))
   })
   @Operation(summary = "Get task")
   void getTask(@PathParam("taskId") @NotNull String taskId);
@@ -354,7 +386,7 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "404", description = "This endpoint has been removed as tasks are now managed using Comments with severity BLOCKER.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestTasksTaskId_404.class)))
   })
   @Operation(summary = "Update task")
   void updateTask(@PathParam("taskId") @NotNull String taskId);
@@ -374,7 +406,7 @@ Note that only the task's creator, the context's author or an admin of the conte
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "404", description = "This endpoint has been removed as tasks are now managed using Comments with severity BLOCKER.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestTasksTaskId_404.class)))
   })
   @Operation(summary = "Delete task")
   void deleteTask(@PathParam("taskId") @NotNull String taskId);
@@ -389,19 +421,19 @@ Note that only the task's creator, the context's author or an admin of the conte
    * @param commitId Full SHA1 of the commit (ex: <code>e00cf62997a027bbf785614a93e2e55bb331d268</code>) (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseBuildStatusLatestCommitsCommitId
    */
   @GET
   @Path("build-status/latest/commits/{commitId}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A Page of build statuses associated with the commit <br /> (limited to the most recent 100 build statuses associated with the commit)",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBuildStatusLatestCommitsCommitId.class))),
     @APIResponse(responseCode = "401", description = "The user is not authenticated or does not have the <b>LICENSED</b> permission.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseBuildStatusLatestCommitsCommitId_401.class)))
   })
   @Operation(summary = "Get build statuses for commit")
-  Object getBuildStatus(@QueryParam("orderBy") String orderBy, @PathParam("commitId") @NotNull String commitId, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseBuildStatusLatestCommitsCommitId getBuildStatus(@QueryParam("orderBy") String orderBy, @PathParam("commitId") @NotNull String commitId, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create build status for commit.
@@ -418,9 +450,9 @@ Note that only the task's creator, the context's author or an admin of the conte
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response if the build status was successfully stored"),
     @APIResponse(responseCode = "400", description = "An error message if the <code>commitId</code> is not a full 40-characters SHA1, if the build status has a missing mandatory field or if the fields are too large",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseBuildStatusLatestCommitsCommitId_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The user is not authenticated or does not have the <strong>LICENSED</strong> permission",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseBuildStatusLatestCommitsCommitId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Create build status for commit")
   void addBuildStatus(@PathParam("commitId") @NotNull String commitId, @Valid RestBuildStatus dto);
@@ -439,21 +471,21 @@ The authenticated user must have the **REPO_READ** (or higher) permission for th
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes
    */
   @GET
   @Path("comment-likes/latest/projects/{projectKey}/repos/{repositorySlug}/commits/{commitId}/comments/{commentId}/likes")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of users who liked the specified comment",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user does not have sufficient permission (<code>REPO_READ</code>) to query the comment likes",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository, commit or comment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_404.class)))
   })
   @Operation(summary = "Get comment likes")
-  Object getLikers(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes getLikers(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Like a commit comment.
@@ -473,11 +505,11 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No content response indicating that the request succeeded"),
     @APIResponse(responseCode = "400", description = "The currently authenticated user is the comment author",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user does not have sufficient permission",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository, commit or comment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Like a commit comment")
   void like(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -500,11 +532,11 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No content response indicating that the request succeeded"),
     @APIResponse(responseCode = "400", description = "The currently authenticated user is the comment author",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user does not have sufficient permission",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository, commit or comment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Unlike a commit comment")
   void unlike(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -523,21 +555,21 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes
    */
   @GET
   @Path("comment-likes/latest/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/comments/{commentId}/likes")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "Page of users who liked the specified comment",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user does not have sufficient permission (<code>REPO_READ</code>) to query the comment likes",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository, pull request or comment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_404.class)))
   })
   @Operation(summary = "Get pull request comment likes")
-  Object getLikers_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes getLikers_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Like a pull request comment.
@@ -557,9 +589,9 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No content response indicating that the request succeeded"),
     @APIResponse(responseCode = "401", description = "he currently authenticated user does not have sufficient permission (<code>REPO_READ</code>)",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository, pull request or comment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Like a pull request comment")
   void like_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -582,11 +614,11 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No content response indicating that the request succeeded"),
     @APIResponse(responseCode = "400", description = "The currently authenticated user is the comment author",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user does not have sufficient permission (<code>REPO_READ</code>)",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository, pull request or comment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Unlike a pull request comment")
   void unlike_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);

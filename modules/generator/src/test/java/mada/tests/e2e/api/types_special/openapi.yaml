@@ -326,6 +326,48 @@ paths:
       responses:
         "204":
           description: No Content
+  # Bitbucket response
+  /api/types/bitbucket-array:
+    get:
+      tags:
+      - Api Types
+      responses:
+        '200':
+          description: A page of projects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  values:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Simple'
+                  size:
+                    type: number
+                    example: 1
+                  limit:
+                    type: number
+                    example: 25
+                  nextPageStart:
+                    type: integer
+                    format: int32
+                  isLastPage:
+                    type: boolean
+                  start:
+                    type: integer
+                    format: int32
+        '400':
+          description: The permission level is unknown or not related to projects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LocalTime'
 components:
   schemas:
     LocalTime:

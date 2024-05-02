@@ -57,6 +57,177 @@ import mada.tests.e2e.examples.bitbucket.dto.RestUserReaction;
 import mada.tests.e2e.examples.bitbucket.dto.RestWebhook;
 import mada.tests.e2e.examples.bitbucket.dto.RestWebhookCredentials;
 import mada.tests.e2e.examples.bitbucket.dto.RestWebhookRequestResponse;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProfileRecentRepos;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProfileRecentRepos_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProfileRecentRepos_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugArchive_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugArchive_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugArchive_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_403;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowse_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowse_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowse_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDiffPath_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDiffPath_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDiffPath_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdMergeBase_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdMergeBase_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareChanges;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareChanges_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareCommits;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareCommits_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiff_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiff_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiff_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScriptsScriptId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScriptsScriptId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScriptsScriptId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabelsLabelName_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabelsLabelName_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabels_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabels_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabels_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModifiedPath_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModifiedPath_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModifiedPath_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModified_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModified_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModified_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPatch_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPatch_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugPatch_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRawPath_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRawPath_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRawPath_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivitiesBranches;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivitiesBranches_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivitiesBranches_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_403;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooks;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeyEnabled_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeyEnabled_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKey_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKey_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKey_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooks_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooks_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsPullRequests_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsPullRequests_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsPullRequests_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugTagsName_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugTagsName_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWatch_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWatch_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksSearch_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksSearch_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksTest_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksTest_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdLatest_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdLatest_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatistics_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatistics_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooks_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooks_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooks_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestRepos;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestRepos_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranchesInfoCommitId;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranchesInfoCommitId_500;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGitLatestProjectsProjectKeyReposRepositorySlugTagsName_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGitLatestProjectsProjectKeyReposRepositorySlugTagsName_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGitLatestProjectsProjectKeyReposRepositorySlugTagsName_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_409;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_501;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSyncLatestProjectsProjectKeyReposRepositorySlug_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSyncLatestProjectsProjectKeyReposRepositorySlug_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseSyncLatestProjectsProjectKeyReposRepositorySlug_404;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -77,21 +248,21 @@ Repositories are ordered from most recently to least recently accessed. <p>Only 
    * @param permission (optional) If specified, it must be a valid repository permission level name and will limit the resulting repository list to ones that the requesting user has the specified permission level to. If not specified, the default <code>REPO_READ</code> permission level will be assumed. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProfileRecentRepos
    */
   @GET
   @Path("api/latest/profile/recent/repos")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of recently accessed repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProfileRecentRepos.class))),
     @APIResponse(responseCode = "400", description = "The permission level is unknown or not related to repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProfileRecentRepos_400.class))),
     @APIResponse(responseCode = "401", description = "The request is unauthenticated.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProfileRecentRepos_401.class)))
   })
   @Operation(summary = "Get recently accessed repositories")
-  Object getRepositoriesRecentlyAccessed(@QueryParam("permission") String permission, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProfileRecentRepos getRepositoriesRecentlyAccessed(@QueryParam("permission") String permission, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Stream archive of repository.
@@ -136,11 +307,11 @@ Archives of public repositories may be streamed by any authenticated or anonymou
   @APIResponses({
     @APIResponse(responseCode = "200", description = "An archive or the requested commit, in zip, tar or gzipped-tar format."),
     @APIResponse(responseCode = "400", description = "The requested format is not supported.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugArchive_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugArchive_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist or does not contain the at commit.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugArchive_404.class)))
   })
   @Operation(summary = "Stream archive of repository")
   void getArchive(@QueryParam("path") String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("filename") String filename, @QueryParam("at") String at, @QueryParam("prefix") String prefix, @QueryParam("format") String format, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -166,9 +337,9 @@ Range requests (see IETF RFC7233) are supported. However only a single range iss
     @APIResponse(responseCode = "200", description = "the attachment"),
     @APIResponse(responseCode = "206", description = "the requested range of bytes from the attachment"),
     @APIResponse(responseCode = "401", description = "the user is currently not authenticated",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentId_401.class))),
     @APIResponse(responseCode = "404", description = "The attachment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentId_404.class)))
   })
   @Operation(summary = "Get an attachment")
   void getAttachment(@PathParam("projectKey") @NotNull String projectKey, @HeaderParam("User-Agent") String userAgent, @PathParam("attachmentId") @NotNull String attachmentId, @HeaderParam("Range") String range, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -188,9 +359,9 @@ The user must be authenticated and have <strong>REPO_ADMIN</strong> permission f
   @APIResponses({
     @APIResponse(responseCode = "204", description = ""),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the attachment",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The attachment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete an attachment")
   void deleteAttachment(@PathParam("projectKey") @NotNull String projectKey, @PathParam("attachmentId") @NotNull String attachmentId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -213,9 +384,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
     @APIResponse(responseCode = "200", description = "The attachment metadata",
                  content = @Content(schema = @Schema(implementation = RestAttachmentMetadata.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the attachment metadata",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_401.class))),
     @APIResponse(responseCode = "404", description = "The attachment or the attachment metadata does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_404.class)))
   })
   @Operation(summary = "Get attachment metadata")
   RestAttachmentMetadata getAttachmentMetadata(@PathParam("projectKey") @NotNull String projectKey, @PathParam("attachmentId") @NotNull String attachmentId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -238,11 +409,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The attachment metadata"),
     @APIResponse(responseCode = "400", description = "The supplied content is not valid JSON",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to save theattachment metadata",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or the attachment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_404.class)))
   })
   @Operation(summary = "Save attachment metadata")
   void saveAttachmentMetadata(@PathParam("projectKey") @NotNull String projectKey, @PathParam("attachmentId") @NotNull String attachmentId, @PathParam("repositorySlug") @NotNull String repositorySlug, String dto);
@@ -262,9 +433,9 @@ The user must be authenticated and have <strong>REPO_ADMIN</strong> permission f
   @APIResponses({
     @APIResponse(responseCode = "204", description = ""),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete theattachment metadata",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The attachment or the attachment metadata does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete attachment metadata")
   void deleteAttachmentMetadata(@PathParam("projectKey") @NotNull String projectKey, @PathParam("attachmentId") @NotNull String attachmentId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -284,21 +455,21 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
    * @param base Base branch or tag to compare each branch to (for the metadata providers that uses that information (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/branches")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The branches matching the supplied <strong>filterText</strong>.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to read the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches_404.class)))
   })
   @Operation(summary = "Find branches")
-  Object getBranches(@QueryParam("boostMatches") boolean boostMatches, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("orderBy") String orderBy, @QueryParam("details") boolean details, @QueryParam("filterText") String filterText, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("base") String base, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches getBranches(@QueryParam("boostMatches") boolean boostMatches, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("orderBy") String orderBy, @QueryParam("details") boolean details, @QueryParam("filterText") String filterText, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("base") String base, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create branch.
@@ -319,9 +490,9 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
     @APIResponse(responseCode = "200", description = "The created branch.",
                  content = @Content(schema = @Schema(implementation = RestBranch.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to write to the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches_404.class)))
   })
   @Operation(summary = "Create branch")
   RestBranch createBranchForRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestCreateBranchRequest dto);
@@ -365,11 +536,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of contents from a file."),
     @APIResponse(responseCode = "400", description = "The path parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowse_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowse_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowse_404.class)))
   })
   @Operation(summary = "Get file content at revision")
   void getContent(@QueryParam("noContent") String noContent, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("size") String size, @QueryParam("blame") String blame, @QueryParam("type") String type, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -414,11 +585,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of contents from a file."),
     @APIResponse(responseCode = "400", description = "The path or until parameters were not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_404.class)))
   })
   @Operation(summary = "Get file content")
   void getContent_1(@QueryParam("noContent") String noContent, @PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("size") String size, @QueryParam("blame") String blame, @QueryParam("type") String type, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -455,15 +626,15 @@ The file can be updated or created on a new branch. In this case, the sourceBran
     @APIResponse(responseCode = "200", description = "The newly created commit.",
                  content = @Content(schema = @Schema(implementation = RestCommit.class))),
     @APIResponse(responseCode = "400", description = "There are validation errors, e.g. The branch or content parameters were not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user does not have write permission for the given repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_401.class))),
     @APIResponse(responseCode = "403", description = "The request was authenticated using a project or repository access token, which does not have a valid user associated with it",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_403.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_404.class))),
     @APIResponse(responseCode = "409", description = "The file already exists when trying to create a file, or the given content does not modify the file, or the file has changed since the given sourceCommitId, or the repository is archived.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_409.class)))
   })
   @Operation(summary = "Edit file")
   RestCommit editFile(@PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid ExampleMultipartFormData dto);
@@ -482,23 +653,23 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
    * @param since The commit to which <code>until</code> should be compared to produce a page of changes. If not specified the commit's first parent is assumed (if one exists) (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/changes")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of changes",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges.class))),
     @APIResponse(responseCode = "400", description = "The until parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or the since or until parameters supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges_404.class)))
   })
   @Operation(summary = "Get changes made in commit")
-  Object getChanges_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("until") String until, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugChanges getChanges_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("until") String until, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get commits.
@@ -519,23 +690,23 @@ The authenticated user must have <b>REPO_READ</b> permission for the specified r
    * @param ignoreMissing <code>true</code> to ignore missing commits, <code>false</code> otherwise (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/commits")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of commits",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits.class))),
     @APIResponse(responseCode = "400", description = "One of the supplied commit IDs or refs was invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits_404.class)))
   })
   @Operation(summary = "Get commits")
-  Object getCommits(@QueryParam("avatarScheme") String avatarScheme, @QueryParam("path") String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("withCounts") String withCounts, @QueryParam("followRenames") String followRenames, @QueryParam("until") String until, @QueryParam("avatarSize") String avatarSize, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @QueryParam("merges") String merges, @QueryParam("ignoreMissing") String ignoreMissing, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommits getCommits(@QueryParam("avatarScheme") String avatarScheme, @QueryParam("path") String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("withCounts") String withCounts, @QueryParam("followRenames") String followRenames, @QueryParam("until") String until, @QueryParam("avatarSize") String avatarSize, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @QueryParam("merges") String merges, @QueryParam("ignoreMissing") String ignoreMissing, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get commit by ID.
@@ -556,9 +727,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
     @APIResponse(responseCode = "200", description = "A commit",
                  content = @Content(schema = @Schema(implementation = RestCommit.class))),
     @APIResponse(responseCode = "400", description = "The supplied commit ID was invalid",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitId_400.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitId_404.class)))
   })
   @Operation(summary = "Get commit by ID")
   RestCommit getCommit(@QueryParam("path") String path, @PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -578,23 +749,23 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
    * @param since The commit to which <code>until</code> should be compared to produce a page of changes. If not specified the commit's first parent is assumed (if one exists) (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/commits/{commitId}/changes")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of changes",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges.class))),
     @APIResponse(responseCode = "400", description = "The until parameter was not supplied",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges_401.class))),
     @APIResponse(responseCode = "404", description = "The repository or the since or until parameters supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges_404.class)))
   })
   @Operation(summary = "Get changes in commit")
-  Object getChanges(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @QueryParam("withComments") String withComments, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdChanges getChanges(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @QueryParam("withComments") String withComments, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Search for commit comments.
@@ -611,23 +782,23 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
    * @param since For a merge commit, a parent can be provided to specify which diff the comments are on. For a commit range, a sinceId can be provided to specify where the comments are anchored from. (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/commits/{commitId}/comments")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of comments that match the search criteria",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the comment",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, or commit. The missing entity will be specified in the error details.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_404.class)))
   })
   @Operation(summary = "Search for commit comments")
-  Object getComments(@QueryParam("path") String path, @PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments getComments(@QueryParam("path") String path, @PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Add a new commit comment.
@@ -701,13 +872,13 @@ The authenticated user must have REPO_READ permission for the repository that th
     @APIResponse(responseCode = "201", description = "The newly created comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "400", description = "The comment was not created due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the commit, create a comment or watch the commit.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, commit or parent comment. The missing entity will be specified in the error details.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_404.class))),
     @APIResponse(responseCode = "409", description = "Adding, deleting, or editing comments isn't supported on archived repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdComments_409.class)))
   })
   @Operation(summary = "Add a new commit comment")
   RestComment createComment(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since, @Valid RestComment dto);
@@ -731,9 +902,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The requested comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the comment",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, commit or comment. The missing entity will be specified in the error details.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_404.class)))
   })
   @Operation(summary = "Get a commit comment")
   RestComment getComment(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -765,13 +936,13 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
     @APIResponse(responseCode = "200", description = "The newly updated comment.",
                  content = @Content(schema = @Schema(implementation = RestComment.class))),
     @APIResponse(responseCode = "400", description = "The comment was not updated due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the commit, update the comment or watch the commit.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_401.class))),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository, commit or comment. The missing entity will be specified in the error details.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_404.class))),
     @APIResponse(responseCode = "409", description = "The comment version supplied does not match the current version or the repository is archived.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_409.class)))
   })
   @Operation(summary = "Update a commit comment")
   RestComment updateComment(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestComment dto);
@@ -793,11 +964,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The operation was successful"),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the comment.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "Unable to find the supplied project, repository or commit. The missing entity will be specified in the error details.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_404.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "409", description = "The comment has replies, the version supplied does not match the comment's current version or the repository is archived.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentId_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a commit comment")
   void deleteComment(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull String commentId, @PathParam("commitId") @NotNull String commitId, @QueryParam("version") String version, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -834,11 +1005,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
     @APIResponse(responseCode = "200", description = "A diff between two revisions.",
                  content = @Content(schema = @Schema(implementation = RestDiff.class))),
     @APIResponse(responseCode = "400", description = "The until parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDiffPath_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDiffPath_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDiffPath_404.class)))
   })
   @Operation(summary = "Get diff between revisions")
   RestDiff streamDiff(@QueryParam("srcPath") String srcPath, @PathParam("commitId") @NotNull String commitId, @QueryParam("avatarSize") String avatarSize, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("filter") String filter, @QueryParam("avatarScheme") String avatarScheme, @PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("contextLines") String contextLines, @QueryParam("autoSrcPath") String autoSrcPath, @QueryParam("whitespace") String whitespace, @QueryParam("withComments") String withComments, @QueryParam("since") String since);
@@ -863,9 +1034,9 @@ If more than one best common ancestor exists, only one will be returned. It is u
                  content = @Content(schema = @Schema(implementation = RestCommit.class))),
     @APIResponse(responseCode = "204", description = "No common parent between the two commits exist"),
     @APIResponse(responseCode = "400", description = "The supplied commit ID(s) was/were invalid",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdMergeBase_400.class))),
     @APIResponse(responseCode = "404", description = "The project, repository, or commit(s) does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdMergeBase_404.class)))
   })
   @Operation(summary = "Get the common ancestor between two commits")
   RestCommit getMergeBase(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @QueryParam("otherCommitId") String otherCommitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -885,9 +1056,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The user is now watching the commit."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified project, repository or commit does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Watch commit")
   void watch(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -907,9 +1078,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The user is no longer watching the commit."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the pull request.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified project, repository or commit does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Stop watching commit")
   void unwatch(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -928,19 +1099,19 @@ If either the <code> from</code> or <code> to</code> commit are not specified, t
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareChanges
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/compare/changes")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of changes.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareChanges.class))),
     @APIResponse(responseCode = "404", description = "The source repository,target repository, or commit does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareChanges_404.class)))
   })
   @Operation(summary = "Compare commits")
-  Object streamChanges(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("fromRepo") String fromRepo, @QueryParam("from") String from, @QueryParam("to") String to, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareChanges streamChanges(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("fromRepo") String fromRepo, @QueryParam("from") String from, @QueryParam("to") String to, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get accessible commits.
@@ -955,19 +1126,19 @@ If either the <code>from</code> or <code>to</code> commit are not specified, the
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareCommits
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/compare/commits")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of commits.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareCommits.class))),
     @APIResponse(responseCode = "404", description = "The source repository,target repository, or commit does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareCommits_404.class)))
   })
   @Operation(summary = "Get accessible commits")
-  Object streamCommits(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("fromRepo") String fromRepo, @QueryParam("from") String from, @QueryParam("to") String to, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareCommits streamCommits(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("fromRepo") String fromRepo, @QueryParam("from") String from, @QueryParam("to") String to, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get diff between commits.
@@ -986,19 +1157,19 @@ If either the <code> from</code> or <code> to</code> commit are not specified, t
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/compare/diff{path}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The diff of the changes.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath.class))),
     @APIResponse(responseCode = "404", description = "The source repository,target repository, or commit does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath_404.class)))
   })
   @Operation(summary = "Get diff between commits")
-  Object streamDiff_1(@PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("contextLines") String contextLines, @QueryParam("fromRepo") String fromRepo, @QueryParam("srcPath") String srcPath, @QueryParam("from") String from, @QueryParam("to") String to, @QueryParam("whitespace") String whitespace, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath streamDiff_1(@PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("contextLines") String contextLines, @QueryParam("fromRepo") String fromRepo, @QueryParam("srcPath") String srcPath, @QueryParam("from") String from, @QueryParam("to") String to, @QueryParam("whitespace") String whitespace, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get raw diff for path.
@@ -1020,11 +1191,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A raw diff between two revisions."),
     @APIResponse(responseCode = "400", description = "The path parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiff_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiff_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiff_404.class)))
   })
   @Operation(summary = "Get raw diff for path")
   void streamRawDiff(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("contextLines") String contextLines, @QueryParam("srcPath") String srcPath, @QueryParam("until") String until, @QueryParam("whitespace") String whitespace, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since);
@@ -1050,11 +1221,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A raw diff between two revisions."),
     @APIResponse(responseCode = "400", description = "The until parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_404.class)))
   })
   @Operation(summary = "Get raw diff for path")
   void streamRawDiff_1(@PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("contextLines") String contextLines, @QueryParam("srcPath") String srcPath, @QueryParam("until") String until, @QueryParam("whitespace") String whitespace, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since);
@@ -1070,23 +1241,23 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/files")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of files.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles.class))),
     @APIResponse(responseCode = "400", description = "The path parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles_401.class))),
     @APIResponse(responseCode = "404", description = "The path requested does not exist at the supplied commit.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles_404.class)))
   })
   @Operation(summary = "Get files in directory")
-  Object streamFiles(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFiles streamFiles(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get files in directory.
@@ -1100,23 +1271,23 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/files/{path}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of files.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath.class))),
     @APIResponse(responseCode = "400", description = "The path requested is not a directory at the supplied commit.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath_401.class))),
     @APIResponse(responseCode = "404", description = "The path requested does not exist at the supplied commit.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath_404.class)))
   })
   @Operation(summary = "Get files in directory")
-  Object streamFiles_1(@PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath streamFiles_1(@PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get hook scripts.
@@ -1128,21 +1299,21 @@ This endpoint requires **REPO_ADMIN** permission.
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/hook-scripts")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of hook scripts.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts_404.class)))
   })
   @Operation(summary = "Get hook scripts")
-  Object getConfigurations_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts getConfigurations_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create/update a hook script.
@@ -1164,11 +1335,11 @@ This endpoint requires **REPO_ADMIN** permission.
     @APIResponse(responseCode = "200", description = "The updated hook script.",
                  content = @Content(schema = @Schema(implementation = RestHookScriptConfig.class))),
     @APIResponse(responseCode = "400", description = "The hook script was not created/updated due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScriptsScriptId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScriptsScriptId_401.class))),
     @APIResponse(responseCode = "404", description = "The repository slug supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScriptsScriptId_404.class)))
   })
   @Operation(summary = "Create/update a hook script")
   RestHookScriptConfig setConfiguration_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("scriptId") @NotNull String scriptId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestHookScriptTriggers dto);
@@ -1188,9 +1359,9 @@ This endpoint requires **REPO_ADMIN** permission.
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The hook script was successfully deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the specified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScriptsScriptId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The repository slug or hook script ID supplied does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScriptsScriptId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Remove a hook script")
   void removeConfiguration_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("scriptId") @NotNull String scriptId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1212,9 +1383,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
     @APIResponse(responseCode = "200", description = "The applied label.",
                  content = @Content(schema = @Schema(implementation = RestLabel.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the labels.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabels_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabels_404.class)))
   })
   @Operation(summary = "Get repository labels")
   RestLabel getAllLabelsForRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1238,11 +1409,11 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "The applied label.",
                  content = @Content(schema = @Schema(implementation = RestLabel.class))),
     @APIResponse(responseCode = "400", description = "A validation error prevented the label from being created or applied. Possible validation errors include: The name of the label contains uppercase characters, the name is smaller than 3 characters or longer than 50 characters, the label contains other characters than a-z 0-9 and - or the label is already applied to the given repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabels_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to apply a label.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabels_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabels_404.class)))
   })
   @Operation(summary = "Add repository label")
   RestLabel addLabel(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestLabel dto);
@@ -1262,9 +1433,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the label is no longer associated to the repository."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to remove the label.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabelsLabelName_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLabelsLabelName_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Remove repository label")
   void removeLabel(@PathParam("projectKey") @NotNull String projectKey, @PathParam("labelName") @NotNull String labelName, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1287,11 +1458,11 @@ Unless the repository is public, the authenticated user must have <b>REPO_READ</
     @APIResponse(responseCode = "200", description = "A map of files to the last commit that modified them, and the latest commit to the repository (by nature, any commit to a repository modifies its root).",
                  content = @Content(schema = @Schema(implementation = ExampleFiles.class))),
     @APIResponse(responseCode = "400", description = "No <code>at</code> commit was specified. When streaming modifications, an explicit starting commit must be supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModified_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModified_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist or does not contain the <code>at</code> commit.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModified_404.class)))
   })
   @Operation(summary = "Stream files")
   ExampleFiles stream(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1315,11 +1486,11 @@ Unless the repository is public, the authenticated user must have <b>REPO_READ</
     @APIResponse(responseCode = "200", description = "A map of files to the last commit that modified them, and the latest commit to update the requested path.",
                  content = @Content(schema = @Schema(implementation = ExampleFiles.class))),
     @APIResponse(responseCode = "400", description = "No <code>at</code> commit was specified. When streaming modifications, an explicit starting commit must be supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModifiedPath_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModifiedPath_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist or does not contain the <code>at</code> commit, or the <code>at</code> commit does not contain the requested path.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLastModifiedPath_404.class)))
   })
   @Operation(summary = "Stream files with last modified commit in path")
   ExampleFiles stream_1(@PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1344,11 +1515,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The patch contents from a repository."),
     @APIResponse(responseCode = "400", description = "The until parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPatch_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPatch_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPatch_404.class)))
   })
   @Operation(summary = "Get patch content at revision")
   void streamPatch(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("until") String until, @QueryParam("allAncestors") String allAncestors, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("since") String since);
@@ -1374,11 +1545,11 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the s
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The raw contents from a file."),
     @APIResponse(responseCode = "400", description = "The path parameter was not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRawPath_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRawPath_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRawPath_404.class)))
   })
   @Operation(summary = "Get raw content of a file at revision")
   void streamRaw(@PathParam("path") @NotNull String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("markup") String markup, @QueryParam("htmlEscape") String htmlEscape, @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1394,21 +1565,21 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission to call 
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/ref-change-activities")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of ref change activity.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities.class))),
     @APIResponse(responseCode = "401", description = "The user is currently not authenticated or the user does not have REPO_ADMIN permission.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities_404.class)))
   })
   @Operation(summary = "Get ref change activity")
-  Object getRefChangeActivity(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("ref") String ref, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities getRefChangeActivity(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("ref") String ref, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get branches with ref change activities for repository.
@@ -1421,21 +1592,21 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission to call 
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivitiesBranches
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/ref-change-activities/branches")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of branches with ref change activities.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivitiesBranches.class))),
     @APIResponse(responseCode = "401", description = "The user is currently not authenticated or the user does not have REPO_ADMIN permission.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivitiesBranches_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivitiesBranches_404.class)))
   })
   @Operation(summary = "Get branches with ref change activities for repository")
-  Object findBranches(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("filterText") String filterText, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivitiesBranches findBranches(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("filterText") String filterText, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get auto decline settings.
@@ -1454,9 +1625,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for this 
     @APIResponse(responseCode = "200", description = "The auto decline settings",
                  content = @Content(schema = @Schema(implementation = RestAutoDeclineSettings.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the auto decline settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_404.class)))
   })
   @Operation(summary = "Get auto decline settings")
   RestAutoDeclineSettings getAutoDeclineSettings_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1480,11 +1651,11 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for this
     @APIResponse(responseCode = "200", description = "The auto decline settings",
                  content = @Content(schema = @Schema(implementation = RestAutoDeclineSettings.class))),
     @APIResponse(responseCode = "400", description = "inactivityWeeks was not one of 1, 2, 4, 8, or, 12, or the enabled parameter was not included in the request.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to create or update the auto decline settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_404.class)))
   })
   @Operation(summary = "Create auto decline settings")
   RestAutoDeclineSettings setAutoDeclineSettings_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestAutoDeclineSettingsRequest dto);
@@ -1503,9 +1674,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for this
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The auto decline settings have been deleted successfully."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the auto decline settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete auto decline settings")
   void deleteAutoDeclineSettings_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1527,9 +1698,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for this 
     @APIResponse(responseCode = "200", description = "The pull request auto-merge settings",
                  content = @Content(schema = @Schema(implementation = RestAutoMergeRestrictedSettings.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the pull request auto-merge settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_404.class)))
   })
   @Operation(summary = "Get pull request auto-merge settings")
   RestAutoMergeRestrictedSettings get_5(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1553,13 +1724,13 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for this
     @APIResponse(responseCode = "200", description = "The pull request auto-merge settings",
                  content = @Content(schema = @Schema(implementation = RestAutoMergeRestrictedSettings.class))),
     @APIResponse(responseCode = "400", description = "The 'enabled' field was not provided correctly.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to create or update the pull request auto-merge settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_401.class))),
     @APIResponse(responseCode = "403", description = "The pull request auto-merge settings cannot be modified due to a restriction enforced by the supplied repository's project.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_403.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_404.class)))
   })
   @Operation(summary = "Create or update the pull request auto-merge settings")
   RestAutoMergeRestrictedSettings set_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestAutoMergeSettingsRequest dto);
@@ -1578,11 +1749,11 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for this
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The pull request auto-merge settings"),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the pull request auto-merge settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "403", description = "The pull request auto-merge settings cannot be modified due to a restriction enforced by the supplied repository's project.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_403.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete pull request auto-merge settings")
   void delete_5(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1598,21 +1769,21 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooks
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/settings/hooks")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of repository hooks with their associated enabled state.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooks.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the hooks.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooks_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooks_404.class)))
   })
   @Operation(summary = "Get repository hooks")
-  Object getRepositoryHooks_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("type") String type, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooks getRepositoryHooks_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("type") String type, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get repository hook.
@@ -1632,9 +1803,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "The repository hooks with their associated enabled state for the supplied hookKey.",
                  content = @Content(schema = @Schema(implementation = RestRepositoryHook.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the hook.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKey_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository hook does not exist for the given repository, or the repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKey_404.class)))
   })
   @Operation(summary = "Get repository hook")
   RestRepositoryHook getRepositoryHook_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1654,11 +1825,11 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The hook configuration matching the supplied <strong>hookKey</strong> and <strong>repositorySlug</strong> was deleted"),
     @APIResponse(responseCode = "400", description = "The settings specified are invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKey_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete the hook.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKey_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository or hook does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKey_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete repository hook")
   void deleteRepositoryHook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1684,9 +1855,9 @@ A JSON document may be provided to use as the settings for the hook. These struc
     @APIResponse(responseCode = "200", description = "The repository hooks with their associated enabled state for the supplied hookKey.",
                  content = @Content(schema = @Schema(implementation = RestRepositoryHook.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to enable the hook.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeyEnabled_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or hook does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeyEnabled_404.class)))
   })
   @Operation(summary = "Enable repository hook")
   RestRepositoryHook enableHook_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey, @HeaderParam("Content-Length") String contentLength, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1709,9 +1880,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "The repository hooks with their associated enabled state for the supplied hookKey.",
                  content = @Content(schema = @Schema(implementation = RestRepositoryHook.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to disable the hook.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeyEnabled_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or hook does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeyEnabled_404.class)))
   })
   @Operation(summary = "Disable repository hook")
   RestRepositoryHook disableHook_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1734,9 +1905,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "The settings for the hook.",
                  content = @Content(schema = @Schema(implementation = ExampleSettings.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to retrieve the hook settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or hook does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_404.class)))
   })
   @Operation(summary = "Get repository hook settings")
   ExampleSettings getSettings_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1765,11 +1936,11 @@ A JSON document can be provided to use as the settings for the hook. These struc
     @APIResponse(responseCode = "200", description = "The settings for the hook.",
                  content = @Content(schema = @Schema(implementation = ExampleSettings.class))),
     @APIResponse(responseCode = "400", description = "The settings specified are invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to modify the hook settings.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or hook does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_404.class)))
   })
   @Operation(summary = "Update repository hook settings")
   ExampleSettings setSettings_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid ExampleSettings dto);
@@ -1806,9 +1977,9 @@ The property keys for the settings that are bundled with the application are
     @APIResponse(responseCode = "200", description = "The repository pull request settings for the context repository.",
                  content = @Content(schema = @Schema(implementation = RestRepositoryPullRequestSettings.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to see the specified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsPullRequests_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsPullRequests_404.class)))
   })
   @Operation(summary = "Get pull request settings")
   RestRepositoryPullRequestSettings getPullRequestSettings_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1867,11 +2038,11 @@ Upon completion of this request, the effective configuration will be:
     @APIResponse(responseCode = "200", description = "The repository pull request settings for the context repository.",
                  content = @Content(schema = @Schema(implementation = RestRepositoryPullRequestSettings.class))),
     @APIResponse(responseCode = "400", description = "The repository pull request settings were not updated due to a validation error.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsPullRequests_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to see the specified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsPullRequests_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsPullRequests_404.class)))
   })
   @Operation(summary = "Update pull request settings")
   RestRepositoryPullRequestSettings updatePullRequestSettings_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRepositoryPullRequestSettings dto);
@@ -1888,21 +2059,21 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the c
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/tags")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The tags matching the supplied <strong>filterText</strong>.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to read the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags_404.class)))
   })
   @Operation(summary = "Find tag")
-  Object getTags(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("orderBy") String orderBy, @QueryParam("filterText") String filterText, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags getTags(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("orderBy") String orderBy, @QueryParam("filterText") String filterText, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create tag.
@@ -1923,9 +2094,9 @@ The authenticated user must have <strong>REPO_WRITE</strong> permission for the 
     @APIResponse(responseCode = "200", description = "The created tag.",
                  content = @Content(schema = @Schema(implementation = RestTag.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to write to the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags_404.class)))
   })
   @Operation(summary = "Create tag")
   RestTag createTagForRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestCreateTagRequest dto);
@@ -1948,9 +2119,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the c
     @APIResponse(responseCode = "200", description = "The tag which matches the supplied <strong>name</strong>.",
                  content = @Content(schema = @Schema(implementation = RestTag.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to read the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTagsName_401.class))),
     @APIResponse(responseCode = "404", description = "The specified tag does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTagsName_404.class)))
   })
   @Operation(summary = "Get tag")
   RestTag getTag(@PathParam("projectKey") @NotNull String projectKey, @PathParam("name") @NotNull String name, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1971,9 +2142,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The user is now watching the repository."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWatch_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWatch_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Watch repository")
   void watch_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRepository dto);
@@ -1992,9 +2163,9 @@ The authenticated user must have <strong>REPO_READ</strong> permission for the r
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The user is no longer watching the repository."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWatch_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWatch_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Stop watching repository")
   void unwatch_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2016,9 +2187,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of webhooks."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to find webhooks in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooks_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooks_404.class)))
   })
   @Operation(summary = "Find webhooks")
   void findWebhooks_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("event") String event, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("statistics") boolean statistics);
@@ -2042,11 +2213,11 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "A created webhook.",
                  content = @Content(schema = @Schema(implementation = RestWebhook.class))),
     @APIResponse(responseCode = "400", description = "The webhook parameters were invalid or not supplied.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooks_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to create webhooks in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooks_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooks_404.class)))
   })
   @Operation(summary = "Create webhook")
   RestWebhook createWebhook_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestWebhook dto);
@@ -2069,9 +2240,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of webhooks."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to find webhooks in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksSearch_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksSearch_404.class)))
   })
   @Operation(summary = "Search webhooks")
   void searchWebhooks(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("scopeType") String scopeType, @QueryParam("event") String event, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("statistics") boolean statistics);
@@ -2098,9 +2269,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "A webhook.",
                  content = @Content(schema = @Schema(implementation = RestWebhookRequestResponse.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to test a connection.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksTest_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksTest_404.class)))
   })
   @Operation(summary = "Test webhook")
   RestWebhookRequestResponse testWebhook_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("webhookId") int webhookId, @QueryParam("sslVerificationRequired") String sslVerificationRequired, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("url") String url, @Valid RestWebhookCredentials dto);
@@ -2124,9 +2295,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "A webhook.",
                  content = @Content(schema = @Schema(implementation = RestWebhook.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to get a webhook in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookId_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist, or the webhook does not exist in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookId_404.class)))
   })
   @Operation(summary = "Get webhook")
   RestWebhook getWebhook_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("statistics") String statistics);
@@ -2151,9 +2322,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "A webhook.",
                  content = @Content(schema = @Schema(implementation = RestWebhook.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update a webhook in this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookId_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist, or the webhook does not exist in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookId_404.class)))
   })
   @Operation(summary = "Update webhook")
   RestWebhook updateWebhook_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestWebhook dto);
@@ -2173,9 +2344,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The webhook for the repository has been deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete webhooks in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist, or webhook does not exist in this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete webhook")
   void deleteWebhook_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2201,9 +2372,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
                  content = @Content(schema = @Schema(implementation = RestDetailedInvocation.class))),
     @APIResponse(responseCode = "204", description = "No webhook invocations exist."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to get webhook invocations in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdLatest_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist, or the webhook does not exist in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdLatest_404.class)))
   })
   @Operation(summary = "Get last webhook invocation details")
   RestDetailedInvocation getLatestInvocation_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("outcome") String outcome);
@@ -2227,9 +2398,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "A webhook invocation dataset.",
                  content = @Content(schema = @Schema(implementation = RestInvocationHistory.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to get webhook statistics in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatistics_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist, or the webhook does not exist in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatistics_404.class)))
   })
   @Operation(summary = "Get webhook statistics")
   RestInvocationHistory getStatistics_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2252,9 +2423,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
     @APIResponse(responseCode = "200", description = "A webhook invocation dataset.",
                  content = @Content(schema = @Schema(implementation = RestInvocationHistory.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to get webhook statistics summary in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist, or the webhook does not exist in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_404.class)))
   })
   @Operation(summary = "Get webhook statistics summary")
   RestInvocationHistory getStatisticsSummary_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2276,19 +2447,19 @@ This resource is anonymously accessible.
    * @param state (optional) if specified, it must be a valid repository state name and will limit the resulting repository list to ones that are in the specified state. The currently supported explicit state values are <tt>AVAILABLE</tt>, <tt>INITIALISING</tt> and <tt>INITIALISATION_FAILED</tt>.<br> <em>Available since 5.13</em> (optional)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseApiLatestRepos
    */
   @GET
   @Path("api/latest/repos")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of repositories.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestRepos.class))),
     @APIResponse(responseCode = "400", description = "The <code>visibility</code> parameter contains an invalid value.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestRepos_400.class)))
   })
   @Operation(summary = "Search for repositories")
-  Object getRepositories_1(@QueryParam("archived") String archived, @QueryParam("projectname") String projectname, @QueryParam("projectkey") String projectkey, @QueryParam("visibility") String visibility, @QueryParam("name") String name, @QueryParam("permission") String permission, @QueryParam("state") String state, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseApiLatestRepos getRepositories_1(@QueryParam("archived") String archived, @QueryParam("projectname") String projectname, @QueryParam("projectkey") String projectkey, @QueryParam("visibility") String visibility, @QueryParam("name") String name, @QueryParam("permission") String permission, @QueryParam("state") String state, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Search for ref restrictions.
@@ -2303,23 +2474,23 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission or highe
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions
    */
   @GET
   @Path("branch-permissions/latest/projects/{projectKey}/repos/{repositorySlug}/restrictions")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A response containing a page of restrictions.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions.class))),
     @APIResponse(responseCode = "400", description = "The request has failed validation.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to get restrictions on the provided project",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_401.class))),
     @APIResponse(responseCode = "404", description = "No restriction exists for the provided ID.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_404.class)))
   })
   @Operation(summary = "Search for ref restrictions")
-  Object getRestrictions_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("matcherType") String matcherType, @QueryParam("matcherId") String matcherId, @QueryParam("type") String type, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions getRestrictions_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("matcherType") String matcherType, @QueryParam("matcherId") String matcherId, @QueryParam("type") String type, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Create multiple ref restrictions.
@@ -2338,9 +2509,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission or highe
     @APIResponse(responseCode = "200", description = "Response contains the ref restriction that was just created.",
                  content = @Content(schema = @Schema(implementation = RestRefRestriction.class))),
     @APIResponse(responseCode = "400", description = "The request has failed validation.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to perform this operation.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_401.class)))
   })
   @Operation(summary = "Create multiple ref restrictions")
   RestRefRestriction createRestrictions_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid List<RestRestrictionRequest> dto);
@@ -2363,11 +2534,11 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission or highe
     @APIResponse(responseCode = "200", description = "A response containing the restriction.",
                  content = @Content(schema = @Schema(implementation = RestRefRestriction.class))),
     @APIResponse(responseCode = "400", description = "The request has failed validation.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to get restrictions on the provided project",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_401.class))),
     @APIResponse(responseCode = "404", description = "No restriction exists for the provided ID.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_404.class)))
   })
   @Operation(summary = "Get a ref restriction")
   RestRefRestriction getRestriction_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2387,9 +2558,9 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission or highe
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the operation was successful"),
     @APIResponse(responseCode = "400", description = "The request has failed validation.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to delete restrictions on the provided project",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a ref restriction")
   void deleteRestriction_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2416,11 +2587,11 @@ that is to be created.
     @APIResponse(responseCode = "201", description = "JSON representation of the newly created branch",
                  content = @Content(schema = @Schema(implementation = RestBranch.class))),
     @APIResponse(responseCode = "400", description = "The branch was not created because the request was invalid, e.g. the provided\nref name already existed in the repository, or was not a valid ref name in the\nrepository",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to create a branch. This could be due to insufficient repository permissions, or lack of branch permission for the provided ref name",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_401.class))),
     @APIResponse(responseCode = "409", description = "The branch name overlapped with an existing branch",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_409.class)))
   })
   @Operation(summary = "Create branch")
   RestBranch createBranch(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestBranchCreateRequest dto);
@@ -2454,9 +2625,9 @@ that is to be created.
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the branch no longer exists in the repository"),
     @APIResponse(responseCode = "400", description = "The branch was not deleted because the request was invalid, e.g. no ref name\nto delete was provided, or the provided ref name points to the default branch\nin the repository that cannot be deleted",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete a\nbranch. This could be due to insufficient repository permissions, or lack of\nbranch permission for the provided ref name.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete branch")
   void deleteBranch(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestBranchDeleteRequest dto);
@@ -2470,19 +2641,19 @@ that is to be created.
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranchesInfoCommitId
    */
   @GET
   @Path("branch-utils/latest/projects/{projectKey}/repos/{repositorySlug}/branches/info/{commitId}")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of branch refs associated with the commit",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranchesInfoCommitId.class))),
     @APIResponse(responseCode = "500", description = "The request has timed out processing the branch request",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranchesInfoCommitId_500.class)))
   })
   @Operation(summary = "Get branch")
-  Object findByCommit(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull @Size(max = 40) String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranchesInfoCommitId findByCommit(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull @Size(max = 40) String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * React to a comment.
@@ -2541,9 +2712,9 @@ The authenticated user must have an effective <strong>REPO_WRITE</strong> permis
     @APIResponse(responseCode = "201", description = "A JSON representation of the newly created tag.",
                  content = @Content(schema = @Schema(implementation = RestTag.class))),
     @APIResponse(responseCode = "400", description = "The tag was not created because the request was invalid, e.g. the provided ref name already existed in the repository, or was not a valid ref name in the repository, or the start point is invalid.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to create a tag. This could be due to insufficient repository permissions.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_401.class)))
   })
   @Operation(summary = "Create tag")
   RestTag createTag(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestGitTagCreateRequest dto);
@@ -2563,11 +2734,11 @@ The authenticated user must have an effective <strong>REPO_WRITE</strong> permis
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the tag no longer exists in the repository."),
     @APIResponse(responseCode = "400", description = "The tag was not deleted because repository is either empty, or is not a git repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTagsName_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete a tag. This could be due to insufficient repository permissions.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTagsName_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "If the tag doesn't exist in the repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTagsName_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete tag")
   void deleteTag(@PathParam("projectKey") @NotNull String projectKey, @PathParam("name") @NotNull String name, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2590,9 +2761,9 @@ The authenticated user must have <b>REPO_READ</b> permission for the repository,
     @APIResponse(responseCode = "200", description = "Synchronization status for the specified repository, or specific ref within that repository.",
                  content = @Content(schema = @Schema(implementation = RestRefSyncStatus.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository, or the repository is not public if the request is anonymous.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlug_404.class)))
   })
   @Operation(summary = "Get synchronization status")
   RestRefSyncStatus getStatus(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -2620,11 +2791,11 @@ The authenticated user must have <b>REPO_ADMIN</b> permission for the specified 
                  content = @Content(schema = @Schema(implementation = RestRefSyncStatus.class))),
     @APIResponse(responseCode = "204", description = "Synchronization has successfully been disabled. 200 OK, with updated status information, is returned instead after enabling synchronization."),
     @APIResponse(responseCode = "400", description = "The JSON payload for the request did not define the \"enabled\" property.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlug_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to manage synchronization in the specified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlug_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlug_404.class)))
   })
   @Operation(summary = "Disable synchronization")
   RestRefSyncStatus setEnabled(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRefSyncStatus dto);
@@ -2658,15 +2829,15 @@ The authenticated user must have <b>REPO_WRITE</b> permission for the specified 
                  content = @Content(schema = @Schema(implementation = RestRejectedRef.class))),
     @APIResponse(responseCode = "204", description = "The requested action was successfully performed and the ref is now in sync with upstream. If the action updates the ref but does not bring it in sync with upstream, 200 OK is returned instead."),
     @APIResponse(responseCode = "400", description = "The requested synchronization action was not understood.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to update refs within the specified repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_404.class))),
     @APIResponse(responseCode = "409", description = "Synchronization is not available or enabled for the specified repository, or the ref is already in sync with upstream.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_409.class))),
     @APIResponse(responseCode = "501", description = "The requested synchronization action was understood by the server, but the mechanism to apply it has not been implemented.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_501.class)))
   })
   @Operation(summary = "Manual synchronization")
   RestRejectedRef synchronize(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRefSyncRequest dto);

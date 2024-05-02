@@ -34,6 +34,32 @@ import mada.tests.e2e.examples.bitbucket.dto.RestRequiredBuildCondition;
 import mada.tests.e2e.examples.bitbucket.dto.RestRequiredBuildConditionSetRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestSetInsightReportRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestSingleAddInsightAnnotationRequest;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBuildStatusLatestCommitsStatsCommitId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseBuildStatusLatestCommitsStats_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdAnnotations_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdAnnotations_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReports;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotationsExternalId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotationsExternalId_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotations_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotations_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReports_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReports_404;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditionId_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditionId_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugCondition_400;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugCondition_401;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions;
+import mada.tests.e2e.examples.bitbucket.dto._ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions_401;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -64,11 +90,11 @@ The authenticated user must have **REPO_READ** permission for the provided repos
     @APIResponse(responseCode = "200", description = "The build status associated with the provided commit and key",
                  content = @Content(schema = @Schema(implementation = RestBuildStatus.class))),
     @APIResponse(responseCode = "400", description = "The request has failed validation",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions this repository",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository, commit or build status does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_404.class)))
   })
   @Operation(summary = "Get a specific build status")
   RestBuildStatus get(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("key") String key);
@@ -111,11 +137,11 @@ These fields are optional:
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The build status was posted"),
     @APIResponse(responseCode = "400", description = "The build status was not added as the request was invalid. This could be because of a number of things:\n\n\n- an invalid commit hash was provided\n- build key was blank or longer than 255 characters\n- invalid branch was provided\n- invalid state was provided\n- build status url was blank or longer than 450 characters\n\nThe specifics will be included in the error message.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to push a build status to this repository",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Store a build status")
   void add(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestBuildStatusSetRequest dto);
@@ -136,11 +162,11 @@ The authenticated user must have **REPO_ADMIN** permission for the provided repo
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The build status associated with the provided commit and key has been deleted"),
     @APIResponse(responseCode = "400", description = "The request has failed validation",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions this repository",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdBuilds_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a specific build status")
   void delete(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("key") String key);
@@ -166,11 +192,11 @@ The user must have REPO_READ.
     @APIResponse(responseCode = "200", description = "The deployment",
                  content = @Content(schema = @Schema(implementation = RestDeployment.class))),
     @APIResponse(responseCode = "400", description = "could not get the deployment because the request was invalid",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository or deployment does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_404.class)))
   })
   @Operation(summary = "Get a deployment")
   RestDeployment get_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("deploymentSequenceNumber") String deploymentSequenceNumber, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("key") String key, @QueryParam("environmentKey") String environmentKey);
@@ -195,11 +221,11 @@ The user must have REPO_READ.
     @APIResponse(responseCode = "200", description = "The deployment was created",
                  content = @Content(schema = @Schema(implementation = RestDeployment.class))),
     @APIResponse(responseCode = "400", description = "the deployment was not created because the request was invalid",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to view the repository",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_404.class)))
   })
   @Operation(summary = "Create or update a deployment")
   RestDeployment createOrUpdateDeployment(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestDeploymentSetRequest dto);
@@ -222,11 +248,11 @@ The user must have REPO_ADMIN.
   @APIResponses({
     @APIResponse(responseCode = "204", description = "the request has been processed"),
     @APIResponse(responseCode = "400", description = "the deployment was not deleted because the request was invalid",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_400.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete a deployment",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdDeployments_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a deployment")
   void delete_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("deploymentSequenceNumber") String deploymentSequenceNumber, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("key") String key, @QueryParam("environmentKey") String environmentKey);
@@ -246,7 +272,7 @@ The user must have REPO_ADMIN.
     @APIResponse(responseCode = "200", description = "The number of successful/failed/in-progress/cancelled/unknown builds for each commit (with the caveat that the commits <em>without any builds associated with them</em> will not be present in the response)",
                  content = @Content(schema = @Schema(implementation = RestMultipleBuildStats.class))),
     @APIResponse(responseCode = "401", description = "The user is not authenticated or does not have the <strong>LICENSED</strong> permission",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseBuildStatusLatestCommitsStats_401.class)))
   })
   @Operation(summary = "Get build status statistics for multiple commits")
   RestMultipleBuildStats getMultipleBuildStatusStats(List<String> dto);
@@ -266,7 +292,7 @@ The user must have REPO_ADMIN.
     @APIResponse(responseCode = "200", description = "The number of successful/failed/in-progress/cancelled/unknown builds for the commit",
                  content = @Content(schema = @Schema(implementation = RestBuildStats.class))),
     @APIResponse(responseCode = "401", description = "The user is not authenticated or does not have the <b>LICENSED</b> permission.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseBuildStatusLatestCommitsStatsCommitId_401.class)))
   })
   @Operation(summary = "Get build status statistics for commit")
   RestBuildStats getBuildStatusStats(@QueryParam("includeUnique") boolean includeUnique, @PathParam("commitId") @NotNull String commitId);
@@ -292,9 +318,9 @@ The user must have REPO_ADMIN.
     @APIResponse(responseCode = "200", description = "The requested annotations.",
                  content = @Content(schema = @Schema(implementation = RestInsightAnnotationsResponse.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions (<code>REPO_READ</code>) to get insight annotations.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdAnnotations_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project, repository, commit, or report does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdAnnotations_404.class)))
   })
   @Operation(summary = "Get Code Insights annotations for a commit")
   RestInsightAnnotationsResponse getAnnotations(@QueryParam("severity") String severity, @QueryParam("path") String path, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("externalId") String externalId, @PathParam("commitId") @NotNull String commitId, @QueryParam("type") String type, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("key") String key);
@@ -308,21 +334,21 @@ The user must have REPO_ADMIN.
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReports
    */
   @GET
   @Path("insights/latest/projects/{projectKey}/repos/{repositorySlug}/commits/{commitId}/reports")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A page of reports",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReports.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions (<code>REPO_READ</code>) to get insight reports.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReports_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project, repository or commit does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReports_404.class)))
   })
   @Operation(summary = "Get all Code Insights reports for a commit")
-  Object getReports(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReports getReports(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Get a Code Insights report.
@@ -341,9 +367,9 @@ The user must have REPO_ADMIN.
     @APIResponse(responseCode = "200", description = "The specified report.",
                  content = @Content(schema = @Schema(implementation = RestInsightReport.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions (<code>REPO_READ needed</code>) to get insight reports.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project, repository, commit, or report does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_404.class)))
   })
   @Operation(summary = "Get a Code Insights report")
   RestInsightReport getACodeInsightsReport(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @PathParam("key") @NotNull String key);
@@ -369,9 +395,9 @@ The report key should be a unique string chosen by the reporter and should be un
     @APIResponse(responseCode = "200", description = "The created report.",
                  content = @Content(schema = @Schema(implementation = RestInsightReport.class))),
     @APIResponse(responseCode = "400", description = "One of the following error cases occurred (check the error message for more details):\n\n- The request does not contain a report title.\n- The data field contains unsupported objects.\n- The request does not contain a report key/\n- The provided commit hash is invalid, according to  the validation rules mentioned for the commitId above.\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not permitted to create an insight report or authentication failed.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_401.class)))
   })
   @Operation(summary = "Create a Code Insights report")
   RestInsightReport setACodeInsightsReport(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @PathParam("key") @NotNull String key, @Valid RestSetInsightReportRequest dto);
@@ -390,9 +416,9 @@ The report key should be a unique string chosen by the reporter and should be un
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The report and associated annotations were successfully deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete insight reports or was not the author (<code>REPO_READ</code> for author otherwise <code>REPO_ADMIN</code>).",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified project, repository, commit or report does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a Code Insights report")
   void deleteACodeInsightsReport(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @PathParam("key") @NotNull String key);
@@ -414,9 +440,9 @@ The report key should be a unique string chosen by the reporter and should be un
     @APIResponse(responseCode = "200", description = "The specified annotations.",
                  content = @Content(schema = @Schema(implementation = RestInsightAnnotationsResponse.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions (<code>REPO_READ needed</code>) to get insight reports.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotations_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project, repository, commit, or report does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotations_404.class)))
   })
   @Operation(summary = "Get Code Insights annotations for a report")
   RestInsightAnnotationsResponse getAnnotations_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @PathParam("key") @NotNull String key);
@@ -454,9 +480,9 @@ A few things to note:- Annotations are an extension of a report, so a report mus
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating that the request succeeded."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not the author of the report, or the author no longer has sufficient permissions (<code>REPO_READ</code>).",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotations_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified project, repository, commit, or report does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotations_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Add Code Insights annotations")
   void addAnnotations(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @PathParam("key") @NotNull String key, @Valid RestBulkAddInsightAnnotationRequest dto);
@@ -476,9 +502,9 @@ A few things to note:- Annotations are an extension of a report, so a report mus
   @APIResponses({
     @APIResponse(responseCode = "204", description = "The annotations were successfully deleted."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete insight reports or was not the author (<code>REPO_READ</code> for author otherwise <code>REPO_ADMIN</code>).",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotations_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified project, repository, commit or report does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotations_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete Code Insights annotations")
   void deleteAnnotations(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("externalId") String externalId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @PathParam("key") @NotNull String key);
@@ -500,9 +526,9 @@ A few things to note:- Annotations are an extension of a report, so a report mus
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No content, indicating that the request succeeded."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user is not the author of the report, or the author no longer has sufficient permissions (<code>REPO_READ</code>).",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON)),
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotationsExternalId_401.class), mediaType = MediaType.APPLICATION_JSON)),
     @APIResponse(responseCode = "404", description = "The specified project, repository, commit, report or annotation does not exist.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKeyAnnotationsExternalId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Create or replace a Code Insights annotation")
   void setAnnotation(@PathParam("projectKey") @NotNull String projectKey, @PathParam("externalId") @NotNull String externalId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @PathParam("key") @NotNull String key, @Valid RestSingleAddInsightAnnotationRequest dto);
@@ -543,9 +569,9 @@ These fields are optional:
     @APIResponse(responseCode = "200", description = "A response containing the newly created required build merge check.",
                  content = @Content(schema = @Schema(implementation = RestRequiredBuildCondition.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed. This could be caused because:\n\n- The build parent key list is empty\n- Either of the provided ref matchers is of an unrecognized type\n- Either of the provided ref matchers could not be created with the provided type and id\n\n\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugCondition_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to create a required build merge check in this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugCondition_401.class)))
   })
   @Operation(summary = "Create a required builds merge check")
   RestRequiredBuildCondition createRequiredBuildsMergeCheck(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRequiredBuildConditionSetRequest dto);
@@ -587,9 +613,9 @@ These fields are optional:
     @APIResponse(responseCode = "200", description = "The details needed to update a required build merge check.",
                  content = @Content(schema = @Schema(implementation = RestRequiredBuildCondition.class))),
     @APIResponse(responseCode = "400", description = "The request was malformed. This could be caused because:\n\n- The build parent key list is empty\n- Either of the provided ref matchers is of an unrecognized type\n- Either of the provided ref matchers could not be created with the provided type and id\n\n\n",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditionId_400.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to create a required build merge check in this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditionId_401.class)))
   })
   @Operation(summary = "Update a required builds merge check")
   RestRequiredBuildCondition updateRequiredBuildsMergeCheck(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull long id, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRequiredBuildConditionSetRequest dto);
@@ -609,7 +635,7 @@ The authenticated user must have **REPO_ADMIN** permission for the target reposi
   @APIResponses({
     @APIResponse(responseCode = "204", description = "An empty response indicating the merge check was successfully deleted, or was never present."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to delete a required build merge check in this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class), mediaType = MediaType.APPLICATION_JSON))
+                 content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditionId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a required builds merge check")
   void deleteRequiredBuildsMergeCheck(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull long id, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -624,17 +650,17 @@ The authenticated user must have **REPO_READ** permission for the target reposit
    * @param repositorySlug The repository being used (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
    * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
-   * @return Object
+   * @return _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions
    */
   @GET
   @Path("required-builds/latest/projects/{projectKey}/repos/{repositorySlug}/conditions")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The required build merge checks associated with the provided repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class))),
+                 content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to request a page of required build merge checks in this repository.",
-                 content = @Content(schema = @Schema(implementation = Object.class)))
+                 content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions_401.class)))
   })
   @Operation(summary = "Get required builds merge checks")
-  Object getPageOfRequiredBuildsMergeChecks(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions getPageOfRequiredBuildsMergeChecks(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 }

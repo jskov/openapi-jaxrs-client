@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -20,6 +21,8 @@ import dk.mada.jaxrs.model.ImmutableValidation;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
+import dk.mada.jaxrs.model.api.ContentSelector.ContentContext;
+import dk.mada.jaxrs.model.api.StatusCode;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
@@ -118,14 +121,14 @@ public final class TypeConverter {
      *
      * This is used from parameters, where the required property comes from the parameter.
      *
-     * @param schema   the OpenApi schema to convert
-     * @param required the required value to override in the reference
+     * @param schema  the OpenApi schema to convert
+     * @param context the context of the reference
      * @return the found/created internal model type
      */
-    public ParserTypeRef toReference(Schema<?> schema, boolean required) {
-        ParserTypeRef ptr = reference(schema, null, null);
+    public ParserTypeRef toReferenceFromApi(Schema<?> schema, ContentContext context) {
+        ParserTypeRef ptr = reference(schema, null, null, false, context);
 
-        if (required) {
+        if (context.isRequired()) {
             logger.debug(" overriding ptr validation to force required");
             var withRequire = ImmutableValidation.builder().from(ptr.validation())
                     .isRequired(true)
@@ -144,6 +147,7 @@ public final class TypeConverter {
      * @param schema        the openapi schema
      * @param propertyName  the reference property
      * @param parentDtoName the optional name of the parent dto
+     * @param context       the content context of the reference
      * @param validation    the validation requirements for the reference
      * @param isFormRef     true if reference is to a form parameter/field
      */
@@ -151,6 +155,7 @@ public final class TypeConverter {
             Schema<?> schema,
             @Nullable String propertyName,
             @Nullable String parentDtoName,
+            @Nullable ContentContext context,
             Validation validation,
             boolean isFormRef) {
     }
@@ -172,7 +177,7 @@ public final class TypeConverter {
      * @return the found/created parser type reference
      */
     private ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName) {
-        return reference(schema, propertyName, parentDtoName, false);
+        return reference(schema, propertyName, parentDtoName, false, null);
     }
 
     /**
@@ -184,9 +189,11 @@ public final class TypeConverter {
      * @param propertyName  the name of the property the type is associated with, or null
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @param isFormRef     true if the reference is a form parameter/field.
+     * @param context       the content context, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef) {
+    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef,
+            @Nullable ContentContext context) {
         String schemaType = schema.getType();
         String schemaFormat = schema.getFormat();
         String schemaRef = schema.get$ref();
@@ -197,7 +204,7 @@ public final class TypeConverter {
         Validation validation = extractValidation(schema, false);
         logger.debug("validation {}", validation);
 
-        RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, validation, isFormRef);
+        RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, context, validation, isFormRef);
 
         return Stream.<TypeMapper>of(
                 this::createPrimitiveTypeRef,
@@ -503,6 +510,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
+
         if (schema instanceof ObjectSchema || schema.getType() == null) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
@@ -510,8 +518,14 @@ public final class TypeConverter {
                     logger.trace(" - createObjectRef, plain Object, no properties");
                     return parserRefs.of(TypePlainObject.get(), ri.validation);
                 } else {
-                    logger.trace(" - createObjectRef, plain Object?");
-                    return parserRefs.of(TypeObject.get(), ri.validation);
+                    if (treatAsApiInlineTypeRef(ri)) {
+                        return makeApiInlineTypeRef(ri);
+                    } else {
+                        // This fallback is used when creating plain DTOs - or references to them.
+                        // Explore a better understanding and cleanup at some time...
+                        logger.info(" - createObjectRef, plain Object?");
+                        return parserRefs.of(TypeObject.get(), ri.validation);
+                    }
                 }
             }
             logger.trace(" - createObjectRef, inner-object for property {}", ri.propertyName);
@@ -521,6 +535,35 @@ public final class TypeConverter {
             return parserRefs.of(dto, ri.validation);
         }
         return null;
+    }
+
+    private boolean treatAsApiInlineTypeRef(RefInfo ri) {
+        ContentContext context = ri.context();
+        if (context == null) {
+            return false;
+        }
+
+        // Synchronization with ApiTransformer which may generate a synthetic multipart DTO
+        return !context.syntheticMultipart();
+    }
+
+    private ParserTypeRef makeApiInlineTypeRef(RefInfo ri) {
+
+        ContentContext apiContext = Objects.requireNonNull(ri.context);
+
+        Schema<?> schema = ri.schema;
+        String resourcePath = apiContext.resourcePath();
+        String pathSimplified = resourcePath.replaceAll("[/_{}]", "-");
+        String dtoRawName = apiContext.location().name().toLowerCase(Locale.ROOT) + "-" + pathSimplified;
+        String statusSuffix = "";
+        StatusCode statuscode = apiContext.statuscode();
+        if (statuscode != StatusCode.HTTP_DEFAULT && statuscode != StatusCode.HTTP_OK) {
+            statusSuffix = "_" + statuscode.code();
+        }
+        String syntheticDtoName = "_" + naming.convertTypeName(dtoRawName) + statusSuffix;
+        logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
+        Dto dto = createDto(syntheticDtoName, schema);
+        return parserRefs.of(dto, ri.validation);
     }
 
     private boolean isDateType(Schema<?> schema) {
@@ -745,7 +788,7 @@ public final class TypeConverter {
             Schema<?> propSchema = e.getValue();
             logger.debug(" - property {}", propertyName);
 
-            Reference ref = reference(propSchema, propertyName, parentDtoName, isMultipartForm);
+            Reference ref = reference(propSchema, propertyName, parentDtoName, isMultipartForm, null);
 
             Optional<String> exampleStr = Optional.ofNullable(Objects.toString(propSchema.getExample(), null));
 
