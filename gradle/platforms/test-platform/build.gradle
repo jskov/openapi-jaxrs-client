@@ -26,7 +26,7 @@ dependencies {
         api   'jakarta.json:jakarta.json-api:2.1.3'
         api   'jakarta.json.bind:jakarta.json.bind-api:3.0.1'
         api   'jakarta.validation:jakarta.validation-api:3.0.2'
-        api   'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
+        api   'jakarta.ws.rs:jakarta.ws.rs-api:4.0.0'
         api   'javax.annotation:javax.annotation-api:1.3.2'
         api   'javax.json:javax.json-api:1.1.4'
         api   'javax.json.bind:javax.json.bind-api:1.0'
