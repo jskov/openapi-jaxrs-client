@@ -16,7 +16,7 @@ dependencies {
         api   'io.quarkus:quarkus-resteasy-multipart:3.10.0'
 
         api   'com.fasterxml.jackson.core:jackson-annotations:2.17.1'
-        api   'com.fasterxml.jackson.core:jackson-core:2.17.0'
+        api   'com.fasterxml.jackson.core:jackson-core:2.17.1'
         api   'com.fasterxml.jackson.core:jackson-databind:2.17.1'
 
         // Old javax.validation
