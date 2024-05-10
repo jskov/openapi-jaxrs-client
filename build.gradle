@@ -1,4 +1,4 @@
 plugins {
     id 'eclipse'
-    id 'dk.mada.buildinfo' version '1.0.0'
+    id 'dk.mada.buildinfo' version '1.0.1'
 }
