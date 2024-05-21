@@ -285,7 +285,6 @@ public class DtoGenerator {
 
                 .madaDto(mada)
                 .discriminator(discriminator)
-
                 .build();
     }
 

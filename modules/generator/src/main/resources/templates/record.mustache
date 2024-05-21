@@ -1,0 +1,273 @@
+/**
+ * {{#description}}{{description}}{{/description}}{{^description}}{{classname}}{{/description}}
+ */
+{{#jackson}}
+{{#madaDto.isRenderPropertyOrderAnnotation}}
+@JsonPropertyOrder({
+{{#madaDto.varsOpenapiOrder}}
+  FIXME-names{{^-last}},{{/-last}}
+{{/madaDto.varsOpenapiOrder}}
+})
+{{/madaDto.isRenderPropertyOrderAnnotation}}
+{{#madaDto.jacksonJsonSerializeOptions}}
+@JsonSerialize({{{madaDto.jacksonJsonSerializeOptions}}})
+{{/madaDto.jacksonJsonSerializeOptions}}
+{{/jackson}}
+{{#madaDto.jsonb}}
+{{#madaDto.isRenderPropertyOrderAnnotation}}
+@JsonbPropertyOrder({
+{{#madaDto.varsOpenapiOrder}}
+  FIXME-names{{^-last}},{{/-last}}
+{{/madaDto.varsOpenapiOrder}}
+})
+{{/madaDto.isRenderPropertyOrderAnnotation}}
+{{/madaDto.jsonb}}
+{{#madaDto.quarkusRegisterForReflection}}
+@RegisterForReflection
+{{/madaDto.quarkusRegisterForReflection}}
+{{#madaDto.schemaOptions}}
+@Schema({{{madaDto.schemaOptions}}})
+{{/madaDto.schemaOptions}}
+{{>generatedAnnotation}}
+public record {{classname}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}} {
+  {{#vars}}
+    {{#isEnum}}
+{{>enumClass}}
+    {{/isEnum}}
+  {{#jackson}}
+  @JsonProperty("{{baseName}}")
+  {{#isDate}}
+    {{#madaDto.customLocalDateDeserializer}}
+  @JsonDeserialize(using = {{madaDto.customLocalDateDeserializer}}.class)
+    {{/madaDto.customLocalDateDeserializer}}
+    {{#madaDto.customLocalDateSerializer}}
+  @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
+    {{/madaDto.customLocalDateSerializer}}
+  {{/isDate}}
+  {{#isDateTime}}
+    {{#madaDto.customOffsetDateTimeDeserializer}}
+  @JsonDeserialize(using = {{madaDto.customOffsetDateTimeDeserializer}}.class)
+    {{/madaDto.customOffsetDateTimeDeserializer}}
+    {{#madaDto.customOffsetDateTimeSerializer}}
+  @JsonSerialize(using = {{madaDto.customOffsetDateTimeSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
+    {{/madaDto.customOffsetDateTimeSerializer}}
+  {{/isDateTime}}
+  {{/jackson}}
+  {{#madaDto.jsonb}}
+  @JsonbProperty("{{baseName}}")
+    {{#isEnum}}
+    {{^isContainer}}
+  @JsonbTypeAdapter({{packageName}}.{{classname}}.{{datatypeWithEnum}}.{{datatypeWithEnum}}Adapter.class)
+    {{/isContainer}}
+    {{/isEnum}}
+  {{/madaDto.jsonb}}
+  {{#madaProp.schemaOptions}}
+  @Schema({{{madaProp.schemaOptions}}})
+  {{/madaProp.schemaOptions}}
+  {{#madaProp.multipartType}}
+  @FormParam("{{baseName}}")
+  @PartType({{.}})
+  {{/madaProp.multipartType}}
+  {{#isContainer}}
+  private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
+  {{/isContainer}}
+  {{^isContainer}}
+  private {{{datatypeWithEnum}}} {{name}}{{#defaultValue}} = {{{.}}}{{/defaultValue}};
+  {{/isContainer}}
+
+  {{/vars}}
+  {{#vars}}
+  public {{classname}} {{name}}({{{datatypeWithEnum}}} {{name}}) {
+    {{#notNull}}
+    this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
+    {{/notNull}}
+    {{^notNull}}
+    this.{{name}} = {{name}};
+    {{/notNull}}
+    return this;
+  }
+  {{#madaProp.isUseBigDecimalForDouble}}
+
+  public {{classname}} {{name}}(BigDecimal {{name}}) {
+    {{#notNull}}
+    this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
+    {{/notNull}}
+    {{^notNull}}
+    this.{{name}} = {{name}} == null ? null : {{name}}.doubleValue();
+    {{/notNull}}
+    return this;
+  }
+  {{/madaProp.isUseBigDecimalForDouble}}
+  {{#isArray}}
+
+  public {{classname}} add{{nameInCamelCase}}Item({{{madaProp.innerDatatypeWithEnum}}} {{name}}Item) {
+    {{^notNull}}
+    if (this.{{name}} == null) {
+      this.{{name}} = {{{defaultValue}}};
+    }
+    {{/notNull}}
+    this.{{name}}.add({{name}}Item);
+    return this;
+  }
+  {{/isArray}}
+  {{#isMap}}
+
+  public {{classname}} put{{nameInCamelCase}}Item(String key, {{{madaProp.innerDatatypeWithEnum}}} {{name}}Item) {
+    {{^notNull}}
+    if (this.{{name}} == null) {
+      this.{{name}} = {{{defaultValue}}};
+    }
+    {{/notNull}}
+    this.{{name}}.put(key, {{name}}Item);
+    return this;
+  }
+  {{/isMap}}
+
+  /**
+  {{#description}}
+   * {{.}}
+  {{/description}}
+  {{^description}}
+   * Get {{name}}
+  {{/description}}
+  {{#validation}}
+  {{#minimum}}
+   * minimum: {{.}}
+  {{/minimum}}
+  {{#decimalMinimum}}
+   * minimum: {{{.}}}
+  {{/decimalMinimum}}
+  {{#maximum}}
+   * maximum: {{.}}
+  {{/maximum}}
+  {{#decimalMaximum}}
+   * maximum: {{{.}}}
+  {{/decimalMaximum}}
+  {{/validation}}
+{{#madaProp.renderJavadocMacroSpacer}}
+   *
+{{/madaProp.renderJavadocMacroSpacer}}
+   * @return {{name}}
+   **/
+ {{#vendorExtensions.x-extra-annotation}}
+  {{{vendorExtensions.x-extra-annotation}}}
+  {{/vendorExtensions.x-extra-annotation}}
+{{#validation}}  {{>beanValidation}}{{/validation}}
+  {{#madaProp.isUseEmptyCollections}}
+   {{#jackson}}
+  @JsonIgnore
+   {{/jackson}}
+  {{/madaProp.isUseEmptyCollections}}
+  public {{{datatypeWithEnum}}} {{getter}}() {
+    return {{name}};
+  }
+  {{#madaProp.isUseBigDecimalForDouble}}
+
+  {{#jackson}}
+  @JsonIgnore
+  {{/jackson}}
+  public BigDecimal {{madaProp.getter}}() {
+    return {{name}} == null ? null : new BigDecimal({{name}});
+  }
+  {{/madaProp.isUseBigDecimalForDouble}}
+  {{#madaProp.isUseEmptyCollections}}
+
+{{#validation}}  {{>beanValidation}}{{/validation}}
+  public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
+    if (this.{{name}} == null) {
+      this.{{name}} = {{{defaultValue}}};
+    }
+    return this.{{name}};
+  }
+  {{/madaProp.isUseEmptyCollections}}
+
+  {{#vendorExtensions.x-setter-extra-annotation}}
+  {{{vendorExtensions.x-setter-extra-annotation}}}
+  {{/vendorExtensions.x-setter-extra-annotation}}
+  public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
+    {{#notNull}}
+    this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
+    {{/notNull}}
+    {{^notNull}}
+    this.{{name}} = {{name}};
+    {{/notNull}}
+  }
+  {{#madaProp.isUseBigDecimalForDouble}}
+
+  {{#jackson}}
+  @JsonIgnore
+  {{/jackson}}
+  public void {{madaProp.setter}}(BigDecimal {{name}}) {
+    {{#notNull}}
+    this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
+    {{/notNull}}
+    {{^notNull}}
+    this.{{name}} = {{name}} == null ? null : {{name}}.doubleValue();
+    {{/notNull}}
+  }
+  {{/madaProp.isUseBigDecimalForDouble}}
+
+  {{/vars}}
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof {{classname}})) {
+      return false;
+    }{{#hasVars}}
+    {{classname}} {{classVarName}} = ({{classname}}) o;
+    return {{#vars}}{{^madaProp.isByteArray}}Objects{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays{{/madaProp.isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{^-last}} &&
+        {{/-last}}{{/vars}}{{#parent}} &&
+        super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
+    return true;{{/hasVars}}
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash({{#vars}}{{^madaProp.isByteArray}}{{name}}{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays.hashCode({{name}}){{/madaProp.isByteArray}}{{^-last}}, {{/-last}}{{/vars}}{{#parent}}{{#hasVars}}, {{/hasVars}}super.hashCode(){{/parent}});
+  }
+
+{{#madaDto.isRenderSingleLineToString}}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("{{classname}} {");
+    {{#parent}}
+    sb.append(toSingleLineString(super.toString()));
+    {{/parent}}
+    {{#vars}}
+    sb{{#parent}}{{#@first}}.append(", "){{/@first}}{{/parent}}{{^@first}}.append(", "){{/@first}}.append("{{name}}: ").append(toSingleLineString({{name}}));
+    {{/vars}}
+    sb.append("}");
+    return sb.toString();
+  }
+{{#madaDto.isRenderToStringHelper}}
+
+  private String toSingleLineString(Object o) {
+    return Objects.toString(o).replace("\n", "\\n").replace("\r", "\\r");
+  }
+{{/madaDto.isRenderToStringHelper}}
+{{/madaDto.isRenderSingleLineToString}}
+{{^madaDto.isRenderSingleLineToString}}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class {{classname}} {");
+    {{#parent}}
+    sb.append("\n    ").append(toIndentedString(super.toString()));
+    {{/parent}}
+    {{#vars}}
+    sb.append("\n    {{name}}: ").append(toIndentedString({{name}}));
+    {{/vars}}
+    sb.append("\n}");
+    return sb.toString();
+  }
+{{#madaDto.isRenderToStringHelper}}
+
+  private String toIndentedString(Object o) {
+    return Objects.toString(o).replace("\n", "\n    ");
+  }
+{{/madaDto.isRenderToStringHelper}}
+{{/madaDto.isRenderSingleLineToString}}
+}

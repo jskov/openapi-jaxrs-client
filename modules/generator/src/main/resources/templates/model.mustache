@@ -8,4 +8,4 @@ import {{.}};
 {{/imports}}
 
 {{/hasImports}}
-{{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{>pojo}}{{/isEnum}}
+{{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{#isaRecord}}{{>record}}{{/isaRecord}}{{^isaRecord}}{{>pojo}}{{/isaRecord}}{{/isEnum}}
