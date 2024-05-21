@@ -55,7 +55,6 @@ public interface CtxDto {
 
     /** {@return the properties of the class} */
     List<CtxProperty> vars();
-
     
     /** {@return true if there are properties to render, otherwise false} */
     default boolean hasVars() {
@@ -67,11 +66,8 @@ public interface CtxDto {
         return allowableValues() != null;
     }
 
-    
     /** {@return true if this DTO should be rendered as a record} */
-    default boolean isaRecord() {
-        return true;
-    }
+    boolean isRecord();
 
     /** {@return the enumeration constants/values, or null} */
     @Nullable CtxEnum allowableValues();

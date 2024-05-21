@@ -37,7 +37,7 @@ public class DtoSubjectDefiner {
         resolution = opts.getPropertyConflictResolution();
     }
 
-    record DtoSubject(Dto dto, Type type, boolean isEnum, boolean isPrimitiveEquals, Optional<String> extendsName,
+    record DtoSubject(Dto dto, Type type, boolean isEnum, boolean isRecord, boolean isPrimitiveEquals, Optional<String> extendsName,
             List<Property> properties, Imports imports) {
     }
 
@@ -49,12 +49,22 @@ public class DtoSubjectDefiner {
      */
     public DtoSubject defineDtoSubject(Dto dto) {
         Type dtoType = dto.reference().refType();
+        
+        boolean canRenderAsRecord = true;
+        boolean isRecord = opts.isDtoRecords() && canRenderAsRecord;
         boolean isEnum = dto.isEnum();
 
         List<Property> propsToRender = findRenderedProperties(dto);
 
         boolean isPrimitiveEquals = isTypePrimitiveEquals(dtoType);
-        var dtoImports = isEnum ? Imports.newEnum(opts, !isPrimitiveEquals) : Imports.newDto(opts, !propsToRender.isEmpty());
+        Imports dtoImports;
+        if (isEnum) {
+            dtoImports = Imports.newEnum(opts, !isPrimitiveEquals);
+        } else if (isRecord) {
+            dtoImports = Imports.newRecord(opts, !propsToRender.isEmpty());
+        } else {
+            dtoImports = Imports.newDto(opts, !propsToRender.isEmpty());
+        }
 
         dtoImports.addPropertyImports(propsToRender);
 
@@ -64,7 +74,7 @@ public class DtoSubjectDefiner {
                     .forEach(p -> logger.debug(" {} : {}", p.name(), p.reference().refType()));
         }
 
-        return new DtoSubject(dto, dtoType, isEnum, isPrimitiveEquals, getExtends(dto), propsToRender, dtoImports);
+        return new DtoSubject(dto, dtoType, isEnum, isRecord, isPrimitiveEquals, getExtends(dto), propsToRender, dtoImports);
     }
 
     private boolean isTypePrimitiveEquals(Type t) {

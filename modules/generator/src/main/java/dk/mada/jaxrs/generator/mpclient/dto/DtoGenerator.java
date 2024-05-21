@@ -285,6 +285,8 @@ public class DtoGenerator {
 
                 .madaDto(mada)
                 .discriminator(discriminator)
+
+                .isRecord(ds.isRecord())
                 .build();
     }
 
