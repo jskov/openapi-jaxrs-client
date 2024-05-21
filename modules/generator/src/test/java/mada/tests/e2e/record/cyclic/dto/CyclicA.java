@@ -16,7 +16,7 @@ import javax.validation.Valid;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record CyclicA(
-  @Valid
   @JsonbProperty("b")
+  @Valid
   CyclicB b) {
 }

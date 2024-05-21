@@ -68,6 +68,7 @@ public record {{classname}}{{#madaDto.implementsInterfaces}} implements {{madaDt
   @FormParam("{{baseName}}")
   @PartType({{.}})
   {{/madaProp.multipartType}}
+{{#validation}}  {{>beanValidation}}{{/validation}}
   {{{datatypeWithEnum}}} {{name}}{{^-last}},
 
 {{/-last}}{{#-last}}) {
@@ -87,7 +88,6 @@ public record {{classname}}{{#madaDto.implementsInterfaces}} implements {{madaDt
       FIXME: map default value: this.{{name}} = {{{defaultValue}}};
     {{/notNull}}
   {{/isMap}}
-{{#validation}}  {{>beanValidation}}{{/validation}}
   {{#madaProp.isUseEmptyCollections}}
   FIXME: may need serializer/deserializer to provide empty (instead of null) collections
   {{/madaProp.isUseEmptyCollections}}
