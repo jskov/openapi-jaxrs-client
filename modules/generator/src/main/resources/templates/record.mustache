@@ -31,9 +31,6 @@
 {{>generatedAnnotation}}
 public record {{classname}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}}(
   {{#vars}}
-    {{#isEnum}}
-{{>enumClass}}
-    {{/isEnum}}
   {{#jackson}}
   @JsonProperty("{{baseName}}")
   {{#isDate}}
@@ -94,5 +91,11 @@ public record {{classname}}{{#madaDto.implementsInterfaces}} implements {{madaDt
   {{#madaProp.isUseBigDecimalForDouble}}
   FIXME: may need serializer/deserializer to provide BigDecimal
   {{/madaProp.isUseBigDecimalForDouble}}
+  {{/vars}}
+  {{#vars}}
+    {{#isEnum}}
+
+{{>enumClass}}
+    {{/isEnum}}
   {{/vars}}
 }
