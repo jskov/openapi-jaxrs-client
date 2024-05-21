@@ -193,6 +193,14 @@ The options are grouped into three sections:
 
 >Required option, but can be set via the CLI argument `--dto-package`.
 
+
+**generator-dto-records**
+
+>Allows you to generate record DTOs instead of POJO DTOs.
+
+>
+    default value: false
+
 **generator-dto-skip-types**
 
 >Allows you to suppress generation of some DTO classes.
@@ -370,7 +378,6 @@ The options are grouped into three sections:
 
 >
     default value: false
-
 
 **generator-use-api-wrapped-primitives**
 

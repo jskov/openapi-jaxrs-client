@@ -276,6 +276,11 @@ public final class GeneratorOpts {
         return or.bool("generator-dto-use-openapi-schema", true);
     }
 
+    /** {@return true if DTOs should be generated as records instead of POJOs} */
+    public boolean isDtoRecords() {
+        return or.bool("generator-dto-records", false);
+    }
+    
     /**
      * Returns mapping of external types.
      *
