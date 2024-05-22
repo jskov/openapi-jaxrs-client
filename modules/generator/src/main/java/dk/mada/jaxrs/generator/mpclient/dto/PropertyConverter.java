@@ -52,7 +52,13 @@ public class PropertyConverter {
     record DtoCtxProps(List<CtxProperty> props, List<CtxProperty> propsOpenapiOrder) {
     }
 
-    public DtoCtxProps defineCtxProperties(DtoSubjectBase base) {
+    /**
+     * Defines ctx properties for the DTO subject
+     *
+     * @param base the DTO subject base
+     * @return the CTX properties, sorted both by preference by openapi order
+     */
+    DtoCtxProps defineCtxProperties(DtoSubjectBase base) {
         List<Property> propsToRender = findRenderedProperties(base.dto());
 
         base.imports().addPropertyImports(propsToRender);
