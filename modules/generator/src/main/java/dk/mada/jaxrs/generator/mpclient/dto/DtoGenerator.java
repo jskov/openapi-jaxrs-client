@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -33,6 +32,7 @@ import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.Jackson;
 import dk.mada.jaxrs.generator.mpclient.imports.JavaIo;
+import dk.mada.jaxrs.generator.mpclient.imports.JavaUtil;
 import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
@@ -96,7 +96,8 @@ public class DtoGenerator {
         Naming naming = model.naming();
         enumGenerator = new EnumGenerator(naming, opts);
         propertyGenerator = new PropertyGenerator(naming, opts, enumGenerator);
-        dtoSubjectDefiner = new DtoSubjectDefiner(opts);
+        PropertyConverter propertyConverter = new PropertyConverter(opts, propertyGenerator);
+        dtoSubjectDefiner = new DtoSubjectDefiner(opts, propertyConverter);
     }
 
     /**
@@ -198,7 +199,7 @@ public class DtoGenerator {
         if (ds.isEnum()) {
             List<String> enumValues = dto.enumValues();
             ctxEnum = enumGenerator.toCtxEnum(ds.type(), enumValues);
-            enumSchema = enumGenerator.buildEnumSchemaForType(ds, ds.type(), ctxEnum);
+            enumSchema = enumGenerator.buildEnumSchemaForType(ds.base(), ds.type(), ctxEnum);
         }
 
         List<String> schemaEntries = new ArrayList<>();
@@ -232,8 +233,10 @@ public class DtoGenerator {
             ds.imports().add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 
-        List<CtxProperty> ctxProps = createCtxProps(ds);
-        List<CtxProperty> ctxPropsOpenapiOrder = getPropsOpenApiOrder(ds, ctxProps);
+        boolean recordCanonicalConstructor = ds.ctxProps().stream().anyMatch(CtxProperty::notNull);
+        if (recordCanonicalConstructor) {
+            ds.imports().add(JavaUtil.OBJECTS);
+        }
 
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
@@ -246,12 +249,13 @@ public class DtoGenerator {
                 .implementsInterfaces(implementsInterfaces)
                 .isEqualsPrimitive(ds.isPrimitiveEquals())
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
-                .varsOpenapiOrder(ctxPropsOpenapiOrder)
+                .varsOpenapiOrder(ds.ctxPropsOpenApiOrder())
                 .classModifiers(Optional.ofNullable(classModifiers))
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
                 .isRenderSingleLineToString(opts.isUseSingleLineToString())
-                .isRenderToStringHelper(ds.extendsName().isPresent() || !ds.properties().isEmpty())
+                .isRenderToStringHelper(ds.extendsName().isPresent() || !ds.ctxProps().isEmpty())
+                .isRecordCanonicalConstructor(recordCanonicalConstructor)
                 .build();
 
         Info info = model.info();
@@ -272,7 +276,7 @@ public class DtoGenerator {
                 .isNullable(false)
                 .vendorExtensions(null)
 
-                .vars(ctxProps)
+                .vars(ds.ctxProps())
 
                 .allowableValues(ctxEnum)
                 .dataType(ds.type().typeName().name())
@@ -288,29 +292,6 @@ public class DtoGenerator {
 
                 .isRecord(ds.isRecord())
                 .build();
-    }
-
-    private List<CtxProperty> createCtxProps(DtoSubject ds) {
-        Comparator<? super CtxProperty> propertySorter = propertySorter();
-
-        Stream<CtxProperty> props = ds.properties().stream()
-                .map(p -> propertyGenerator.toCtxProperty(ds, p));
-
-        if (propertySorter != null) {
-            props = props.sorted(propertySorter);
-        }
-        return props.toList();
-    }
-
-    private List<CtxProperty> getPropsOpenApiOrder(DtoSubject ds, List<CtxProperty> props) {
-        // Make the context properties accessible by name
-        Map<String, CtxProperty> byName = props.stream()
-                .collect(Collectors.toMap(CtxProperty::baseName, p -> p));
-
-        // Then map the openapi properties to context properties, keeping the order
-        return ds.properties().stream()
-                .map(p -> byName.get(p.name()))
-                .toList();
     }
 
     private record CustomSerializers(@SuppressWarnings("unused") Optional<String> deserializer,
@@ -343,7 +324,7 @@ public class DtoGenerator {
     private CustomSerializers customDateTimeSerializers(DtoSubject ds) {
         if (opts.isUseJacksonDateTimeSerializer()
                 && (ds.type().isDateTime()
-                        || ds.properties().stream().anyMatch(p -> p.reference().isDateTime()))) {
+                        || ds.ctxProps().stream().anyMatch(p -> p.isDateTime()))) {
 
             ds.imports().add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
 
@@ -389,20 +370,6 @@ public class DtoGenerator {
                 .mappedModels(mapping)
                 .build();
         return discriminator;
-    }
-
-    private @Nullable Comparator<? super CtxProperty> propertySorter() {
-        PropertyOrder propertyOrder = opts.getPropertyOrder();
-        switch (propertyOrder) {
-        case DOCUMENT_ORDER:
-            return null;
-        case ALPHABETICAL_ORDER:
-            return (a, b) -> a.name().compareTo(b.name());
-        case ALPHABETICAL_NOCASE_ORDER:
-            return (a, b) -> a.name().compareToIgnoreCase(b.name());
-        default:
-            throw new IllegalStateException("Unhandled ordering " + propertyOrder);
-        }
     }
 
     private Optional<String> defineInterfaces(DtoSubject ds) {

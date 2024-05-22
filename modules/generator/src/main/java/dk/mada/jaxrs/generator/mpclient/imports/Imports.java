@@ -113,19 +113,15 @@ public final class Imports {
      *
      * Adds common imports need by all DTOs.
      *
-     * @param opts      the generator options
-     * @param hasParams true if the DTO has any properties
+     * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newDto(GeneratorOpts opts, boolean hasParams) {
+    public static Imports newDto(GeneratorOpts opts) {
         Imports res = new Imports(opts, false)
                 .add(JavaUtil.OBJECTS)
                 .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
                 .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
                 .add(opts.isUsePropertyOrderAnnotation(), Jackson.JSON_PROPERTY_ORDER, Jsonb.JSONB_PROPERTY_ORDER);
-        if (hasParams) {
-            res = res.add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
-        }
         return res;
     }
 
@@ -134,18 +130,14 @@ public final class Imports {
      *
      * Adds common imports need by all DTOs.
      *
-     * @param opts      the generator options
-     * @param hasParams true if the DTO has any properties
+     * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newRecord(GeneratorOpts opts, boolean hasParams) {
+    public static Imports newRecord(GeneratorOpts opts) {
         Imports res = new Imports(opts, false)
                 .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
                 .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
                 .add(opts.isUsePropertyOrderAnnotation(), Jackson.JSON_PROPERTY_ORDER, Jsonb.JSONB_PROPERTY_ORDER);
-        if (hasParams) {
-            res = res.add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
-        }
         return res;
     }
 

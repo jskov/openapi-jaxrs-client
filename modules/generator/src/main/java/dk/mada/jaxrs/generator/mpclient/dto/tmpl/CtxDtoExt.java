@@ -63,4 +63,7 @@ public interface CtxDtoExt {
 
     /** {@return true if the toString indentation helper method should be rendered} */
     boolean isRenderToStringHelper();
+
+    /** {@return true if a canonical constructor should be added to the record} */
+    boolean isRecordCanonicalConstructor();
 }

@@ -280,7 +280,7 @@ public final class GeneratorOpts {
     public boolean isDtoRecords() {
         return or.bool("generator-dto-records", false);
     }
-    
+
     /**
      * Returns mapping of external types.
      *

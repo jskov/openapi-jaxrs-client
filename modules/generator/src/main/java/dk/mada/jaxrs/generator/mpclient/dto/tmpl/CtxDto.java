@@ -55,7 +55,7 @@ public interface CtxDto {
 
     /** {@return the properties of the class} */
     List<CtxProperty> vars();
-    
+
     /** {@return true if there are properties to render, otherwise false} */
     default boolean hasVars() {
         return !vars().isEmpty();

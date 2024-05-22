@@ -71,9 +71,11 @@ public record {{classname}}{{#madaDto.implementsInterfaces}} implements {{madaDt
 {{/-last}}{{#-last}}) {
 {{/-last}}
   {{/vars}}
+  {{#madaDto.isRecordCanonicalConstructor}}
+    public {{classname}} {
   {{#vars}}
     {{#notNull}}
-    FIXME this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
+      Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
     {{/notNull}}
   {{#isArray}}
     {{^notNull}}
@@ -92,6 +94,8 @@ public record {{classname}}{{#madaDto.implementsInterfaces}} implements {{madaDt
   FIXME: may need serializer/deserializer to provide BigDecimal
   {{/madaProp.isUseBigDecimalForDouble}}
   {{/vars}}
+    }
+  {{/madaDto.isRecordCanonicalConstructor}}
   {{#vars}}
     {{#isEnum}}
 
