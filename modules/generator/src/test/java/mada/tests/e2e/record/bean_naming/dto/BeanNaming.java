@@ -42,4 +42,5 @@ public record BeanNaming(
 
   @JsonbProperty("with_underscore")
   Boolean withUnderscore) {
+
 }

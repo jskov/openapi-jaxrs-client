@@ -19,4 +19,5 @@ public record CyclicA(
   @JsonbProperty("b")
   @Valid
   CyclicB b) {
+
 }

@@ -54,6 +54,7 @@ public record EnumsDto(
   @Valid
   StringIntEnum stringIntegerEnum) {
 
+
   @Schema(enumeration = {"O", "M", "nexT"}, type = SchemaType.STRING)
   public enum PropertyEnumStringEnum {
     O("O"),

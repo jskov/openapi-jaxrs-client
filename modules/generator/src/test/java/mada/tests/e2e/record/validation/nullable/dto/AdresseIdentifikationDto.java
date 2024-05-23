@@ -27,6 +27,7 @@ public record AdresseIdentifikationDto(
   @JsonbProperty("adresseId")
   @Schema(required = true, nullable = true)
   UUID adresseId) {
+
     public AdresseIdentifikationDto {
       Objects.requireNonNull(adgangsadresseId, "Property adgangsadresseId is required, cannot be null");
     }

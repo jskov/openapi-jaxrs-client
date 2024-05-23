@@ -31,6 +31,7 @@ public record ManualInnerEnumDto(
   @Schema(description = "This selects transport form.\nEMAIL = this is an email\nSMS : this is an SMS")
   StringTypeEnum stringType) {
 
+
   @Schema(enumeration = {"1", "2"}, type = SchemaType.INTEGER, format = "int32")
   public enum NumberTypeEnum {
     NUMBER_1(1),
