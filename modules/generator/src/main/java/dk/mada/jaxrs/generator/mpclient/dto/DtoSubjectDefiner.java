@@ -14,6 +14,7 @@ import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.Jackson;
 import dk.mada.jaxrs.generator.mpclient.imports.Jsonb;
 import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 
@@ -57,10 +58,11 @@ public class DtoSubjectDefiner {
      * @param isRecord          flag for records
      * @param isPrimitiveEquals flag for use of primitive equals
      * @param extendsName       optional type this DTO extends
+     * @param subtypeSelector   optional subtype selector (would be parent type for those with extends)
      * @param ctxProperties     the ctx properties of the DTO
      */
     record DtoSubject(DtoSubjectBase base, boolean isEnum, boolean isRecord, boolean isPrimitiveEquals, Optional<String> extendsName,
-            DtoCtxProps ctxProperties) {
+            Optional<SubtypeSelector> subtypeSelector, DtoCtxProps ctxProperties) {
         public Imports imports() {
             return base.imports();
         }
@@ -91,9 +93,13 @@ public class DtoSubjectDefiner {
     public DtoSubject defineDtoSubject(Dto dto) {
         Type dtoType = dto.reference().refType();
 
-        boolean canRenderAsRecord = true;
+        Optional<String> extendsParent = getExtends(dto);
+        Optional<SubtypeSelector> subtypeSelector = dto.subtypeSelector();
+
+        boolean canRenderAsRecord = extendsParent.isEmpty() && subtypeSelector.isEmpty();
         boolean isRecord = opts.isDtoRecords() && canRenderAsRecord;
         boolean isEnum = dto.isEnum();
+
 
         boolean isPrimitiveEquals = isTypePrimitiveEquals(dtoType);
         Imports dtoImports;
@@ -112,7 +118,7 @@ public class DtoSubjectDefiner {
             dtoImports.add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
         }
 
-        return new DtoSubject(base, isEnum, isRecord, isPrimitiveEquals, getExtends(dto), dtoProps);
+        return new DtoSubject(base, isEnum, isRecord, isPrimitiveEquals, extendsParent, subtypeSelector, dtoProps);
     }
 
     private boolean isTypePrimitiveEquals(Type t) {

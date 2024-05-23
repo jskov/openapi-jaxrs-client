@@ -29,7 +29,7 @@
 @Schema({{{madaDto.schemaOptions}}})
 {{/madaDto.schemaOptions}}
 {{>generatedAnnotation}}
-public record {{classname}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}}(
+public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}}(
   {{#vars}}
   {{#jackson}}
   @JsonProperty("{{baseName}}")

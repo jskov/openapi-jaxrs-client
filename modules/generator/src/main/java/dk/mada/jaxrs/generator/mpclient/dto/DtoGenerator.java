@@ -218,14 +218,12 @@ public class DtoGenerator {
 
         Optional<String> implementsInterfaces = defineInterfaces(ds);
 
-        Optional<SubtypeSelector> subtypeSelector = dto.subtypeSelector();
-
         String classModifiers = null;
-        if (subtypeSelector.isPresent()) {
+        if (ds.subtypeSelector().isPresent()) {
             classModifiers = "abstract ";
         }
 
-        Optional<CtxDtoDiscriminator> discriminator = subtypeSelector
+        Optional<CtxDtoDiscriminator> discriminator = ds.subtypeSelector()
                 .map(this::buildSubtypeDiscriminator);
 
         if (discriminator.isPresent() && opts.isJackson()) {
