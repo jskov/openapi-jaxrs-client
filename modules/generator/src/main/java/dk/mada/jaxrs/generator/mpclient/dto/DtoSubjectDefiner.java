@@ -43,25 +43,25 @@ public class DtoSubjectDefiner {
     /**
      * The base parts of a DTO subject.
      *
-     * @param dto     the DTO
-     * @param type    the DTO type
-     * @param imports the imports for the DTO
+     * @param dto      the DTO
+     * @param type     the DTO type
+     * @param isEnum   flag for enums
+     * @param isRecord flag for records
+     * @param imports  the imports for the DTO
      */
-    record DtoSubjectBase(Dto dto, Type type, Imports imports) {
+    record DtoSubjectBase(Dto dto, Type type, boolean isEnum, boolean isRecord, Imports imports) {
     }
 
     /**
      * The DTO subject
      *
      * @param base              the subject base
-     * @param isEnum            flag for enums
-     * @param isRecord          flag for records
      * @param isPrimitiveEquals flag for use of primitive equals
      * @param extendsName       optional type this DTO extends
      * @param subtypeSelector   optional subtype selector (would be parent type for those with extends)
      * @param ctxProperties     the ctx properties of the DTO
      */
-    record DtoSubject(DtoSubjectBase base, boolean isEnum, boolean isRecord, boolean isPrimitiveEquals, Optional<String> extendsName,
+    record DtoSubject(DtoSubjectBase base, boolean isPrimitiveEquals, Optional<String> extendsName,
             Optional<SubtypeSelector> subtypeSelector, DtoCtxProps ctxProperties) {
         public Imports imports() {
             return base.imports();
@@ -100,7 +100,6 @@ public class DtoSubjectDefiner {
         boolean isRecord = opts.isDtoRecords() && canRenderAsRecord;
         boolean isEnum = dto.isEnum();
 
-
         boolean isPrimitiveEquals = isTypePrimitiveEquals(dtoType);
         Imports dtoImports;
         if (isEnum) {
@@ -111,14 +110,14 @@ public class DtoSubjectDefiner {
             dtoImports = Imports.newDto(opts);
         }
 
-        DtoSubjectBase base = new DtoSubjectBase(dto, dtoType, dtoImports);
+        DtoSubjectBase base = new DtoSubjectBase(dto, dtoType, isEnum, isRecord, dtoImports);
         DtoCtxProps dtoProps = propertyConverter.defineCtxProperties(base);
 
         if (!dtoProps.props().isEmpty()) {
             dtoImports.add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
         }
 
-        return new DtoSubject(base, isEnum, isRecord, isPrimitiveEquals, extendsParent, subtypeSelector, dtoProps);
+        return new DtoSubject(base, isPrimitiveEquals, extendsParent, subtypeSelector, dtoProps);
     }
 
     private boolean isTypePrimitiveEquals(Type t) {

@@ -4,7 +4,6 @@ import static dk.mada.jaxrs.generator.mpclient.StringRenderer.consumeNonBlankEnc
 import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -12,16 +11,15 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.mpclient.ExtraTemplate;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
-import dk.mada.jaxrs.generator.mpclient.GeneratorOpts.PropertyOrder;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.Templates;
 import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubject;
+import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubjectBase;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxDto;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxDtoDiscriminator;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxDtoExt;
@@ -188,6 +186,7 @@ public class DtoGenerator {
 
     private CtxDto toCtx(Dto dto) {
         DtoSubject ds = dtoSubjectDefiner.defineDtoSubject(dto);
+        DtoSubjectBase dsb = ds.base();
 
         CustomSerializers localDateSerializers = defineLocalDateSerializer(ds);
         CustomSerializers customOffsetDateSerializers = customDateTimeSerializers(ds);
@@ -196,7 +195,7 @@ public class DtoGenerator {
 
         Optional<String> enumSchema = Optional.empty();
         CtxEnum ctxEnum = null;
-        if (ds.isEnum()) {
+        if (dsb.isEnum()) {
             List<String> enumValues = dto.enumValues();
             ctxEnum = enumGenerator.toCtxEnum(ds.type(), enumValues);
             enumSchema = enumGenerator.buildEnumSchemaForType(ds.base(), ds.type(), ctxEnum);
@@ -288,7 +287,7 @@ public class DtoGenerator {
                 .madaDto(mada)
                 .discriminator(discriminator)
 
-                .isRecord(ds.isRecord())
+                .isRecord(dsb.isRecord())
                 .build();
     }
 

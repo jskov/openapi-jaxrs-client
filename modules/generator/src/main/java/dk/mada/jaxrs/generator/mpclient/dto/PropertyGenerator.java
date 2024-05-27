@@ -91,7 +91,7 @@ public class PropertyGenerator {
         final Names names = getNames(prop);
         logger.debug("Property {}", names);
 
-        TypeInfo ti = decodeTypeInfo(dtoImports, prop);
+        TypeInfo ti = decodeTypeInfo(dsb, prop);
         EnumInfo ei = decodeEnumInfo(dsb, ti);
 
         Type propType = ti.propType();
@@ -279,7 +279,10 @@ public class PropertyGenerator {
         return new EnumInfo(ctxEnum, enumClassName, enumTypeName, enumSchema.orElse(null));
     }
 
-    private TypeInfo decodeTypeInfo(Imports dtoImports, Property prop) {
+    private TypeInfo decodeTypeInfo(DtoSubjectBase dsb, Property prop) {
+        Imports dtoImports = dsb.imports();
+        boolean addImportsForDefaultValues = !dsb.isRecord();
+
         Type propType = prop.reference().refType();
         Type innerType = null;
         String defaultValue = null;
@@ -294,7 +297,8 @@ public class PropertyGenerator {
         if (propType instanceof TypeByteArray tba) {
             if (tba.isArray()) {
                 isByteArray = true;
-                dtoImports.add(JavaUtil.ARRAYS);
+                // FIXME: This import should really live with the type handling in Imports
+                dtoImports.add(addImportsForDefaultValues, JavaUtil.ARRAYS);
                 if (isRequired) {
                     defaultValue = "new byte[] {}";
                 }
