@@ -78,22 +78,6 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
     {{#notNull}}
       Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
     {{/notNull}}
-  {{#isArray}}
-    {{^notNull}}
-      FIXME: array default value: this.{{name}} = {{{defaultValue}}};
-    {{/notNull}}
-  {{/isArray}}
-  {{#isMap}}
-    {{^notNull}}
-      FIXME: map default value: this.{{name}} = {{{defaultValue}}};
-    {{/notNull}}
-  {{/isMap}}
-  {{#madaProp.isUseEmptyCollections}}
-  FIXME: may need serializer/deserializer to provide empty (instead of null) collections
-  {{/madaProp.isUseEmptyCollections}}
-  {{#madaProp.isUseBigDecimalForDouble}}
-  FIXME: may need serializer/deserializer to provide BigDecimal
-  {{/madaProp.isUseBigDecimalForDouble}}
   {{/vars}}
     }
   {{/madaDto.isRecordCanonicalConstructor}}

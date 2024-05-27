@@ -6,8 +6,6 @@
 
 package mada.tests.e2e.record.collections.list.dto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
@@ -78,10 +76,6 @@ public record ArraysDto(
   List<String> strings) {
 
     public ArraysDto {
-//      FIXME: array default value: this.booleans = new ArrayList<>();
-//      FIXME: array default value: this.ints = new ArrayList<>();
-//      FIXME: array default value: this.longs = new ArrayList<>();
-//      FIXME: array default value: this.refs = new ArrayList<>();
       Objects.requireNonNull(requiredBooleans, "Property requiredBooleans is required, cannot be null");
       Objects.requireNonNull(requiredBytes, "Property requiredBytes is required, cannot be null");
       Objects.requireNonNull(requiredInts, "Property requiredInts is required, cannot be null");
@@ -89,7 +83,5 @@ public record ArraysDto(
       Objects.requireNonNull(requiredRefs, "Property requiredRefs is required, cannot be null");
       Objects.requireNonNull(requiredShorts, "Property requiredShorts is required, cannot be null");
       Objects.requireNonNull(requiredStrings, "Property requiredStrings is required, cannot be null");
-//      FIXME: array default value: this.shorts = new ArrayList<>();
-//      FIXME: array default value: this.strings = new ArrayList<>();
     }
 }

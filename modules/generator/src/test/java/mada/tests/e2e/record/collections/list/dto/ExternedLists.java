@@ -8,7 +8,6 @@ package mada.tests.e2e.record.collections.list.dto;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
