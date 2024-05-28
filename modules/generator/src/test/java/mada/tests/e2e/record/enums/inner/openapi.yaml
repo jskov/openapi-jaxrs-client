@@ -37,5 +37,4 @@ components:
           - 2
           type: integer
           format: int32
-
           
