@@ -230,7 +230,9 @@ public class DtoGenerator {
             ds.imports().add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 
-        boolean recordCanonicalConstructor = ds.ctxProps().stream().anyMatch(CtxProperty::notNull);
+        boolean recordCanonicalConstructor =
+                opts.isUseRecordsRequireNull()
+                && ds.ctxProps().stream().anyMatch(CtxProperty::notNull);
         if (recordCanonicalConstructor) {
             ds.imports().add(JavaUtil.OBJECTS);
         }

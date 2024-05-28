@@ -201,6 +201,14 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-dto-records-use-requirenonnull**
+
+>Allows you to control record's use of canonical constructor with Objects.requireNonNull
+
+>
+    default value: true
+
+
 **generator-dto-skip-types**
 
 >Allows you to suppress generation of some DTO classes.
