@@ -21,6 +21,27 @@ public record CyclicA(
   CyclicB b) {
 
     public static class Builder {
+        private CyclicB b;
+
+        public Builder of() {
+            return new Builder();
+        }
+
+        public Builder of(CyclicA from) {
+            Builder o = new Builder();
+            o.b = from.b();
+            return o;
+        }
+
+        public Builder b(CyclicB b) {
+            this.b = b;
+            return this;
+        }
         
+        public CyclicA build() {
+            return new CyclicA(
+                    b
+                    );
+        }
     }
 }
