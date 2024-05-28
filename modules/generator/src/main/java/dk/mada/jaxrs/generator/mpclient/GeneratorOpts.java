@@ -55,6 +55,8 @@ public final class GeneratorOpts {
     private final boolean useJacksonLocalDateTimeSerializer;
     /** Flag for using LocalDate serializer. */
     private final boolean useJacksonLocalDateSerializer;
+    /** Predicate for record builders to create. */
+    private final Predicate<TypeName> recordBuilderPredicate;
 
     /**
      * Constructs a new instance.
@@ -94,6 +96,14 @@ public final class GeneratorOpts {
         useJacksonOffsetDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseOffsetDateTime();
         useJacksonLocalDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDateTime();
         useJacksonLocalDateSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDate();
+
+        String value = or.getDefault("generator-dto-records-use-builder", "all");
+        RecordBuilderControl control = RecordBuilderControl.from(value);
+        recordBuilderPredicate = switch (control) {
+            case ALL -> tn -> true;
+            case NONE -> tn -> false;
+            case NAMED -> predicateFromNamed(value);
+        };
     }
 
     /**
@@ -294,28 +304,17 @@ public final class GeneratorOpts {
 
     /** {@return a predicate which will define which records to generate builders for} */
     public Predicate<TypeName> getRecordBuilderPredicate() {
-        String value = or.getDefault("generator-dto-records-use-builder", "all");
-        RecordBuilderControl control = RecordBuilderControl.from(value);
-        
-        return switch (control) {
-            case ALL -> tn -> true;
-            case NONE -> tn -> false;
-            case NAMED -> fromX(value);
-        };
-        
-//        return splitByComma(value.trim());
-//
-//        or.getListDefault(GENERATOR_DTO_PACKAGE, GENERATOR_API_PACKAGE)
-//        return or.bool("generator-dto-records-use-requirenonnull", true);
+        return recordBuilderPredicate;
     }
 
-    private Predicate<TypeName> fromX(String x) {
-        int ix = x.indexOf(':');
-        if (ix == -1) {
-            throw new IllegalArgumentException("Expected list of type names: '" + x + "'");
+    private Predicate<TypeName> predicateFromNamed(String namedOpt) {
+        int ix = namedOpt.indexOf(':');
+        int splitIx = ix + 1;
+        if (ix == -1 || splitIx > namedOpt.length()) {
+            throw new IllegalArgumentException("Expected list of type names: '" + namedOpt + "'");
         }
-        List<String> names = OptionReader.splitByComma(x.substring(ix));
-        logger.info("Will generate record builders for: {}", names);
+        List<String> names = OptionReader.splitByComma(namedOpt.substring(splitIx));
+        logger.debug("Will generate record builders for records named: {}", names);
         return tn -> names.contains(tn.name());
     }
     

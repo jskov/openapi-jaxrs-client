@@ -236,7 +236,8 @@ public class DtoGenerator {
         if (recordCanonicalConstructor) {
             ds.imports().add(JavaUtil.OBJECTS);
         }
-        boolean recordBuilder = true;
+        
+        boolean recordBuilder = opts.getRecordBuilderPredicate().test(dto.typeName());
         
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
