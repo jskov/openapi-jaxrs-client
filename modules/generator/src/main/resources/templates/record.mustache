@@ -102,10 +102,11 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
       {{#vars}}
       public Builder {{name}}({{datatypeWithEnum}} {{name}}) {
         this.{{name}} = {{name}};
+        
         return this;
       }
-      {{/vars}}
 
+      {{/vars}}
       public {{classname}} build() {
         return new {{classname}}(
           {{#vars}}
