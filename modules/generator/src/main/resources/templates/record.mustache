@@ -81,6 +81,40 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
   {{/vars}}
     }
   {{/madaDto.isRecordCanonicalConstructor}}
+  {{#madaDto.isRecordBuilder}}
+    public static class Builder {
+  {{#vars}}
+      private {{{datatypeWithEnum}}} {{name}};
+  {{/vars}}
+
+      public Builder of() {
+        return new Builder();
+      }
+
+      public Builder of({{classname}} from) {
+        Builder o = new Builder();
+        {{#vars}}
+        o.{{name}} = from.{{name}}();
+        {{/vars}}
+        return o;
+      }
+
+      {{#vars}}
+      public Builder {{name}}({{datatypeWithEnum}} {{name}}) {
+        this.{{name}} = {{name}};
+        return this;
+      }
+      {{/vars}}
+
+      public {{classname}} build() {
+        return new {{classname}}(
+          {{#vars}}
+                 {{name}}{{^-last}},{{/-last}}
+          {{/vars}}
+               );
+      }
+    }
+  {{/madaDto.isRecordBuilder}}
   {{#vars}}
     {{#isEnum}}
 

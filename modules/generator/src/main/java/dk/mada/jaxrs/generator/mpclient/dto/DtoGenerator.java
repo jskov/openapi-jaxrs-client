@@ -236,7 +236,8 @@ public class DtoGenerator {
         if (recordCanonicalConstructor) {
             ds.imports().add(JavaUtil.OBJECTS);
         }
-
+        boolean recordBuilder = true;
+        
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
                 .jsonb(opts.isJsonb())
@@ -255,6 +256,7 @@ public class DtoGenerator {
                 .isRenderSingleLineToString(opts.isUseSingleLineToString())
                 .isRenderToStringHelper(ds.extendsName().isPresent() || !ds.ctxProps().isEmpty())
                 .isRecordCanonicalConstructor(recordCanonicalConstructor)
+                .isRecordBuilder(recordBuilder)
                 .build();
 
         Info info = model.info();
