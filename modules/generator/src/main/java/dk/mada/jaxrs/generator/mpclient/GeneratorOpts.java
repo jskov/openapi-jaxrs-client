@@ -100,9 +100,9 @@ public final class GeneratorOpts {
         String value = or.getDefault("generator-dto-records-use-builder", "none");
         RecordBuilderControl control = RecordBuilderControl.from(value);
         recordBuilderPredicate = switch (control) {
-            case ALL -> tn -> true;
-            case NONE -> tn -> false;
-            case NAMED -> predicateFromNamed(value);
+        case ALL -> tn -> true;
+        case NONE -> tn -> false;
+        case NAMED -> predicateFromNamed(value);
         };
     }
 
@@ -317,7 +317,7 @@ public final class GeneratorOpts {
         logger.debug("Will generate record builders for records named: {}", names);
         return tn -> names.contains(tn.name());
     }
-    
+
     /**
      * Returns mapping of external types.
      *

@@ -230,15 +230,14 @@ public class DtoGenerator {
             ds.imports().add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 
-        boolean recordCanonicalConstructor =
-                opts.isUseRecordsRequireNull()
+        boolean recordCanonicalConstructor = opts.isUseRecordsRequireNull()
                 && ds.ctxProps().stream().anyMatch(CtxProperty::notNull);
         if (recordCanonicalConstructor) {
             ds.imports().add(JavaUtil.OBJECTS);
         }
-        
+
         boolean recordBuilder = opts.getRecordBuilderPredicate().test(dto.typeName());
-        
+
         CtxDtoExt mada = CtxDtoExt.builder()
                 .jacksonJsonSerializeOptions(opts.getJsonSerializeOptions())
                 .jsonb(opts.isJsonb())
