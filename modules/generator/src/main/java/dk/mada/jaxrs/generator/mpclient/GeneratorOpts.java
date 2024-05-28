@@ -97,7 +97,7 @@ public final class GeneratorOpts {
         useJacksonLocalDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDateTime();
         useJacksonLocalDateSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDate();
 
-        String value = or.getDefault("generator-dto-records-use-builder", "all");
+        String value = or.getDefault("generator-dto-records-use-builder", "none");
         RecordBuilderControl control = RecordBuilderControl.from(value);
         recordBuilderPredicate = switch (control) {
             case ALL -> tn -> true;
