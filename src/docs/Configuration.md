@@ -193,6 +193,38 @@ The options are grouped into three sections:
 
 >Required option, but can be set via the CLI argument `--dto-package`.
 
+
+**generator-dto-records**
+
+>Allows you to generate record DTOs instead of POJO DTOs.
+
+>
+    default value: false
+
+**generator-dto-records-use-requirenonnull**
+
+>Allows you to control record's use of canonical constructor with Objects.requireNonNull
+
+>
+    default value: true
+
+**generator-dto-records-use-builder**
+
+>Allows you to generate builders for records. These can be handy when you need to create
+>records with many arguments.
+
+>The legal values are:
+
+> * ALL: Builder is created for all records.
+
+> * NAMED:name1,name2,... Builder is created for records with the listed names
+
+> * NONE: No builders are created.
+
+>
+    default value: ALL
+
+
 **generator-dto-skip-types**
 
 >Allows you to suppress generation of some DTO classes.
@@ -370,7 +402,6 @@ The options are grouped into three sections:
 
 >
     default value: false
-
 
 **generator-use-api-wrapped-primitives**
 

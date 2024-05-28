@@ -16,7 +16,7 @@ import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.ValidationGenerator;
-import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubject;
+import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubjectBase;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxProperty;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxPropertyExt;
@@ -80,19 +80,19 @@ public class PropertyGenerator {
     /**
      * Prepares property context for rendering.
      *
-     * @param ds   the DTO subject
+     * @param dsb  the DTO subject base
      * @param prop the property to make context for
      * @return the property context
      */
-    public CtxProperty toCtxProperty(DtoSubject ds, Property prop) {
-        Imports dtoImports = ds.imports();
-        Dto parentDto = ds.dto();
+    public CtxProperty toCtxProperty(DtoSubjectBase dsb, Property prop) {
+        Imports dtoImports = dsb.imports();
+        Dto parentDto = dsb.dto();
 
         final Names names = getNames(prop);
         logger.debug("Property {}", names);
 
-        TypeInfo ti = decodeTypeInfo(dtoImports, prop);
-        EnumInfo ei = decodeEnumInfo(ds, ti);
+        TypeInfo ti = decodeTypeInfo(dsb, prop);
+        EnumInfo ei = decodeEnumInfo(dsb, ti);
 
         Type propType = ti.propType();
         logger.trace(" {}", propType);
@@ -258,7 +258,7 @@ public class PropertyGenerator {
         return t.isPrimitive(Primitive.INT);
     }
 
-    private EnumInfo decodeEnumInfo(DtoSubject ds, TypeInfo ti) {
+    private EnumInfo decodeEnumInfo(DtoSubjectBase dsb, TypeInfo ti) {
         CtxEnum ctxEnum = null;
         String enumClassName = ti.typeName();
         String enumTypeName = ti.typeName();
@@ -268,10 +268,10 @@ public class PropertyGenerator {
             Type enumType = te.innerType();
             enumTypeName = enumType.typeName().name();
             enumClassName = te.typeName().name();
-            ds.imports().addEnumImports(!ti.isContainer(), !enumType.isPrimitive(Primitive.INT));
+            dsb.imports().addEnumImports(!ti.isContainer(), !enumType.isPrimitive(Primitive.INT));
 
             ctxEnum = enumGenerator.toCtxEnum(enumType, te.values());
-            enumSchema = enumGenerator.buildEnumSchemaForType(ds, enumType, ctxEnum);
+            enumSchema = enumGenerator.buildEnumSchemaForType(dsb, enumType, ctxEnum);
 
             logger.debug(" enum {} : {}", enumTypeName, te.values());
         }
@@ -279,7 +279,10 @@ public class PropertyGenerator {
         return new EnumInfo(ctxEnum, enumClassName, enumTypeName, enumSchema.orElse(null));
     }
 
-    private TypeInfo decodeTypeInfo(Imports dtoImports, Property prop) {
+    private TypeInfo decodeTypeInfo(DtoSubjectBase dsb, Property prop) {
+        Imports dtoImports = dsb.imports();
+        boolean addImportsForDefaultValues = !dsb.isRecord();
+
         Type propType = prop.reference().refType();
         Type innerType = null;
         String defaultValue = null;
@@ -294,7 +297,8 @@ public class PropertyGenerator {
         if (propType instanceof TypeByteArray tba) {
             if (tba.isArray()) {
                 isByteArray = true;
-                dtoImports.add(JavaUtil.ARRAYS);
+                // FIXME: This import should really live with the type handling in Imports
+                dtoImports.add(addImportsForDefaultValues, JavaUtil.ARRAYS);
                 if (isRequired) {
                     defaultValue = "new byte[] {}";
                 }

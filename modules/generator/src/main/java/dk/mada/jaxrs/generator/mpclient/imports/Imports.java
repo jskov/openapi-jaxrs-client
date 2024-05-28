@@ -35,6 +35,8 @@ public final class Imports {
 
     /** External type mapping. */
     private final Map<String, UserMappedImport> externalTypeMapping;
+    /** The source file type the imports are for. */
+    private final SourceType sourceType;
 
     /**
      * Import rendering preferences.
@@ -75,7 +77,7 @@ public final class Imports {
     /** The active import rendering preferences. */
     private final ImportRenderPrefs irp;
 
-    private Imports(GeneratorOpts opts, boolean includeDtoImports) {
+    private Imports(GeneratorOpts opts, boolean includeDtoImports, SourceType sourceType) {
         this.includeDtoImports = includeDtoImports;
 
         irp = new ImportRenderPrefs(
@@ -88,6 +90,7 @@ public final class Imports {
                 opts.dtoPackage());
 
         externalTypeMapping = opts.getExternalTypeMapping();
+        this.sourceType = sourceType;
     }
 
     /** {@return a sorted set of classes to import} */
@@ -104,28 +107,40 @@ public final class Imports {
      * @return a new imports instance loaded with enumeration imports
      */
     public static Imports newApi(GeneratorOpts opts) {
-        return new Imports(opts, true)
+        return new Imports(opts, true, SourceType.API)
                 .add(JaxRs.RS_STAR);
     }
 
     /**
-     * Creates a new instance for DTO files.
+     * Creates a new instance for DTO POJO files.
      *
      * Adds common imports need by all DTOs.
      *
-     * @param opts      the generator options
-     * @param hasParams true if the DTO has any properties
+     * @param opts the generator options
      * @return a new imports instance loaded with enumeration imports
      */
-    public static Imports newDto(GeneratorOpts opts, boolean hasParams) {
-        Imports res = new Imports(opts, false)
+    public static Imports newDto(GeneratorOpts opts) {
+        Imports res = new Imports(opts, false, SourceType.POJO)
                 .add(JavaUtil.OBJECTS)
                 .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
                 .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
                 .add(opts.isUsePropertyOrderAnnotation(), Jackson.JSON_PROPERTY_ORDER, Jsonb.JSONB_PROPERTY_ORDER);
-        if (hasParams) {
-            res = res.add(Jackson.JSON_PROPERTY, Jsonb.JSONB_PROPERTY);
-        }
+        return res;
+    }
+
+    /**
+     * Creates a new instance for DTO record files.
+     *
+     * Adds common imports need by all DTOs.
+     *
+     * @param opts the generator options
+     * @return a new imports instance loaded with enumeration imports
+     */
+    public static Imports newRecord(GeneratorOpts opts) {
+        Imports res = new Imports(opts, false, SourceType.RECORD)
+                .add(opts.isUseRegisterForReflection(), Quarkus.REGISTER_FOR_REFLECTION)
+                .add(opts.isUseJsonSerializeOptions(), Jackson.JSON_SERIALIZE)
+                .add(opts.isUsePropertyOrderAnnotation(), Jackson.JSON_PROPERTY_ORDER, Jsonb.JSONB_PROPERTY_ORDER);
         return res;
     }
 
@@ -137,7 +152,7 @@ public final class Imports {
      * @return a new imports instance loaded with enumeration imports
      */
     public static Imports newEnum(GeneratorOpts opts, boolean includeObjects) {
-        return new Imports(opts, false)
+        return new Imports(opts, false, SourceType.ENUM)
                 .addEnumImports(true, includeObjects);
     }
 
@@ -148,7 +163,7 @@ public final class Imports {
      * @return a new imports instance
      */
     public static Imports newInterface(GeneratorOpts opts) {
-        return new Imports(opts, false)
+        return new Imports(opts, false, SourceType.INTERFACE)
                 .addMicroProfileSchema();
     }
 
@@ -160,7 +175,7 @@ public final class Imports {
      * @return a new imports instance
      */
     public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
-        return new Imports(opts, false)
+        return new Imports(opts, false, SourceType.EXTRA)
                 .add(tmpl.requiredImports());
     }
 
@@ -260,7 +275,11 @@ public final class Imports {
         }
 
         importedClasses.addAll(type.neededImports());
-        addJavaContainerImports(type);
+        if (sourceType != SourceType.RECORD) {
+            addJavaContainerImports(type);
+        } else {
+            addJavaGenericContainerImports(type);
+        }
         if (type instanceof TypeContainer tc) {
             add(tc.innerType());
         } else {
@@ -329,5 +348,23 @@ public final class Imports {
         JavaUtil.containerImplementationTypes().stream()
                 .map(it -> it.path(irp))
                 .forEach(it -> it.ifPresent(importedClasses::remove));
+    }
+
+    /**
+     * Defines the source file type the imports are intended for.
+     */
+    private enum SourceType {
+        /** A resource API class. */
+        API,
+        /** An interface class. */
+        INTERFACE,
+        /** A record class. */
+        RECORD,
+        /** An Enum class. */
+        ENUM,
+        /** An extras class (e.g, synthetic de/serialzer). */
+        EXTRA,
+        /** A plain old java class. */
+        POJO;
     }
 }

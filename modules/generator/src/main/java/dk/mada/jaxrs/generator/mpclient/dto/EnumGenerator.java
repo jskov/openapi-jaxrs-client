@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
-import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubject;
+import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubjectBase;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum.CtxEnumEntry;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
@@ -67,17 +67,17 @@ public class EnumGenerator {
     /**
      * If the enumeration values are not represented correctly by the constants, define a schema with the proper values.
      *
-     * @param ds      the DTO subject
-     * @param type    the type to define schema for
+     * @param dsb     the DTO subject
+     * @param type    the type to define schema for (which may differ from the subject's!)
      * @param ctxEnum enumeration constants and values
      * @return optional schema enumeration arguments
      */
-    public Optional<String> buildEnumSchemaForType(DtoSubject ds, Type type, CtxEnum ctxEnum) {
+    public Optional<String> buildEnumSchemaForType(DtoSubjectBase dsb, Type type, CtxEnum ctxEnum) {
         if (!opts.getUseOpenapiSchema()) {
             return Optional.empty();
         }
 
-        Imports dtoImports = ds.imports();
+        Imports dtoImports = dsb.imports();
 
         boolean namesMatchValues = ctxEnum.enumVars().stream()
                 .allMatch(e -> e.name().equals(e.wireValue()));

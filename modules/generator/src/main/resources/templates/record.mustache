@@ -1,0 +1,124 @@
+/**
+ * {{#description}}{{description}}{{/description}}{{^description}}{{classname}}{{/description}}
+ */
+{{#jackson}}
+{{#madaDto.isRenderPropertyOrderAnnotation}}
+@JsonPropertyOrder({
+{{#madaDto.varsOpenapiOrder}}
+  FIXME-names{{^-last}},{{/-last}}
+{{/madaDto.varsOpenapiOrder}}
+})
+{{/madaDto.isRenderPropertyOrderAnnotation}}
+{{#madaDto.jacksonJsonSerializeOptions}}
+@JsonSerialize({{{madaDto.jacksonJsonSerializeOptions}}})
+{{/madaDto.jacksonJsonSerializeOptions}}
+{{/jackson}}
+{{#madaDto.jsonb}}
+{{#madaDto.isRenderPropertyOrderAnnotation}}
+@JsonbPropertyOrder({
+{{#madaDto.varsOpenapiOrder}}
+  FIXME-names{{^-last}},{{/-last}}
+{{/madaDto.varsOpenapiOrder}}
+})
+{{/madaDto.isRenderPropertyOrderAnnotation}}
+{{/madaDto.jsonb}}
+{{#madaDto.quarkusRegisterForReflection}}
+@RegisterForReflection
+{{/madaDto.quarkusRegisterForReflection}}
+{{#madaDto.schemaOptions}}
+@Schema({{{madaDto.schemaOptions}}})
+{{/madaDto.schemaOptions}}
+{{>generatedAnnotation}}
+public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}}(
+  {{#vars}}
+  {{#jackson}}
+  @JsonProperty("{{baseName}}")
+  {{#isDate}}
+    {{#madaDto.customLocalDateDeserializer}}
+  @JsonDeserialize(using = {{madaDto.customLocalDateDeserializer}}.class)
+    {{/madaDto.customLocalDateDeserializer}}
+    {{#madaDto.customLocalDateSerializer}}
+  @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
+    {{/madaDto.customLocalDateSerializer}}
+  {{/isDate}}
+  {{#isDateTime}}
+    {{#madaDto.customOffsetDateTimeDeserializer}}
+  @JsonDeserialize(using = {{madaDto.customOffsetDateTimeDeserializer}}.class)
+    {{/madaDto.customOffsetDateTimeDeserializer}}
+    {{#madaDto.customOffsetDateTimeSerializer}}
+  @JsonSerialize(using = {{madaDto.customOffsetDateTimeSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
+    {{/madaDto.customOffsetDateTimeSerializer}}
+  {{/isDateTime}}
+  {{/jackson}}
+  {{#madaDto.jsonb}}
+  @JsonbProperty("{{baseName}}")
+    {{#isEnum}}
+    {{^isContainer}}
+  @JsonbTypeAdapter({{packageName}}.{{classname}}.{{datatypeWithEnum}}.{{datatypeWithEnum}}Adapter.class)
+    {{/isContainer}}
+    {{/isEnum}}
+  {{/madaDto.jsonb}}
+  {{#madaProp.schemaOptions}}
+  @Schema({{{madaProp.schemaOptions}}})
+  {{/madaProp.schemaOptions}}
+  {{#madaProp.multipartType}}
+  @FormParam("{{baseName}}")
+  @PartType({{.}})
+  {{/madaProp.multipartType}}
+{{#validation}}  {{>beanValidation}}{{/validation}}
+  {{{datatypeWithEnum}}} {{name}}{{^-last}},
+
+{{/-last}}{{#-last}}) {
+{{/-last}}
+  {{/vars}}
+
+  {{#madaDto.isRecordCanonicalConstructor}}
+    public {{classname}} {
+  {{#vars}}
+    {{#notNull}}
+      Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
+    {{/notNull}}
+  {{/vars}}
+    }
+  {{/madaDto.isRecordCanonicalConstructor}}
+  {{#madaDto.isRecordBuilder}}
+    public static class Builder {
+  {{#vars}}
+      private {{{datatypeWithEnum}}} {{name}};
+  {{/vars}}
+
+      public Builder of() {
+        return new Builder();
+      }
+
+      public Builder of({{classname}} from) {
+        Builder o = new Builder();
+        {{#vars}}
+        o.{{name}} = from.{{name}}();
+        {{/vars}}
+        return o;
+      }
+
+      {{#vars}}
+      public Builder {{name}}({{datatypeWithEnum}} {{name}}) {
+        this.{{name}} = {{name}};
+        return this;
+      }
+
+      {{/vars}}
+      public {{classname}} build() {
+        return new {{classname}}(
+          {{#vars}}
+                 {{name}}{{^-last}},{{/-last}}
+          {{/vars}}
+               );
+      }
+    }
+  {{/madaDto.isRecordBuilder}}
+  {{#vars}}
+    {{#isEnum}}
+
+{{>enumClass}}
+    {{/isEnum}}
+  {{/vars}}
+}

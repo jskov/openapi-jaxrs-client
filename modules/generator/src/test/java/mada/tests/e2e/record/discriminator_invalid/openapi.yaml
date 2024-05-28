@@ -1,0 +1,72 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  contact:
+    name: openapi API contact name
+  license:
+    name: openapi API license name
+  version: 1.0.0+openapi_API_Version
+paths:
+  /id:
+    get:
+      operationId: getId
+      responses:
+        default:
+          description: Returns id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Identification'
+components:
+  schemas:
+    PrivateIdentification:
+      allOf:
+        - $ref: '#/components/schemas/Identification'
+      properties:
+        sevenFirstCprDigits:
+          type: string
+      type: object
+    VirkPersonIdentification:
+      allOf:
+        - $ref: '#/components/schemas/Identification'
+        - properties:
+            virkUnitNumber:
+              type: string
+          type: object
+    SMSMailIdentification:
+      allOf:
+        - $ref: '#/components/schemas/Identification'
+        - properties:
+            countryCode:
+              type: string
+          type: object
+    IdentificationType:
+      enum:
+        - PRIVATE
+        - VIRK_PERSON
+        - SMS_MAIL
+      type: string
+    Identification:
+      required:
+        - type
+      properties:
+        type:
+          $ref: '#/components/schemas/IdentificationType'
+        locked:
+          default: false
+          readOnly: true
+          type: boolean
+        loginId:
+          readOnly: true
+          type: string
+      discriminator:
+        mapping:
+          PRIVATE: '#/components/schemas/PrivateIdentification'
+          VIRK_PERSON: '#/components/schemas/VirkPersonIdentification'
+          SMS_MAIL: '#/components/schemas/SMSMailIdentification'
+        propertyName: type
+      # NOTE: no anyOf references to the subtypes here
+      nullable: true
+      type: object

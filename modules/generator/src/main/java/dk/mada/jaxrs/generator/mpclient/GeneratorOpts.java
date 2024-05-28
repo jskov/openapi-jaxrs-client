@@ -8,12 +8,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
 import dk.mada.jaxrs.model.options.OptionReader;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
+import dk.mada.jaxrs.model.types.TypeName;
 
 /**
  * Generator configuration options.
@@ -21,6 +26,7 @@ import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
  * Extracts generator-specific keys from the input properties provided by the user.
  */
 public final class GeneratorOpts {
+    private static final Logger logger = LoggerFactory.getLogger(GeneratorOpts.class);
     /** The ID of this generator. */
     private static final String GENERATOR_ID = "dk.mada.jaxrs.Generator";
     /** Generator option for API package. */
@@ -49,6 +55,8 @@ public final class GeneratorOpts {
     private final boolean useJacksonLocalDateTimeSerializer;
     /** Flag for using LocalDate serializer. */
     private final boolean useJacksonLocalDateSerializer;
+    /** Predicate for record builders to create. */
+    private final Predicate<TypeName> recordBuilderPredicate;
 
     /**
      * Constructs a new instance.
@@ -88,6 +96,14 @@ public final class GeneratorOpts {
         useJacksonOffsetDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseOffsetDateTime();
         useJacksonLocalDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDateTime();
         useJacksonLocalDateSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDate();
+
+        String value = or.getDefault("generator-dto-records-use-builder", "none");
+        RecordBuilderControl control = RecordBuilderControl.from(value);
+        recordBuilderPredicate = switch (control) {
+        case ALL -> tn -> true;
+        case NONE -> tn -> false;
+        case NAMED -> predicateFromNamed(value);
+        };
     }
 
     /**
@@ -274,6 +290,32 @@ public final class GeneratorOpts {
     /** {@return true if OpenApi @Schema annotations should be added} */
     public boolean getUseOpenapiSchema() {
         return or.bool("generator-dto-use-openapi-schema", true);
+    }
+
+    /** {@return true if DTOs should be generated as records instead of POJOs} */
+    public boolean isDtoRecords() {
+        return or.bool("generator-dto-records", false);
+    }
+
+    /** {@return true if record DTOs should include null-checks} */
+    public boolean isUseRecordsRequireNull() {
+        return or.bool("generator-dto-records-use-requirenonnull", true);
+    }
+
+    /** {@return a predicate which will define which records to generate builders for} */
+    public Predicate<TypeName> getRecordBuilderPredicate() {
+        return recordBuilderPredicate;
+    }
+
+    private Predicate<TypeName> predicateFromNamed(String namedOpt) {
+        int ix = namedOpt.indexOf(':');
+        int splitIx = ix + 1;
+        if (ix == -1 || splitIx > namedOpt.length()) {
+            throw new IllegalArgumentException("Expected list of type names: '" + namedOpt + "'");
+        }
+        List<String> names = OptionReader.splitByComma(namedOpt.substring(splitIx));
+        logger.debug("Will generate record builders for records named: {}", names);
+        return tn -> names.contains(tn.name());
     }
 
     /**
@@ -565,6 +607,34 @@ public final class GeneratorOpts {
                 }
             }
             throw new IllegalArgumentException("Unknown PropertyConflictResolution " + name);
+        }
+    }
+
+    /**
+     * Control of builders in records.
+     */
+    public enum RecordBuilderControl {
+        /** Create builder in all records. */
+        ALL,
+        /** Create builder in named records only. */
+        NAMED,
+        /** No builders created. */
+        NONE;
+
+        /**
+         * Converts enum value.
+         *
+         * @param value the input configuration value
+         * @return the matching record builder control
+         */
+        public static RecordBuilderControl from(String value) {
+            String name = value.toUpperCase(Locale.ROOT).replace('-', '_').replaceAll(":.*", "");
+            for (var po : RecordBuilderControl.values()) {
+                if (po.name().equals(name)) {
+                    return po;
+                }
+            }
+            throw new IllegalArgumentException("Unknown RecordBuilderControl " + name);
         }
     }
 }

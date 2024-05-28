@@ -66,6 +66,9 @@ public interface CtxDto {
         return allowableValues() != null;
     }
 
+    /** {@return true if this DTO should be rendered as a record} */
+    boolean isRecord();
+
     /** {@return the enumeration constants/values, or null} */
     @Nullable CtxEnum allowableValues();
 
