@@ -281,6 +281,11 @@ public final class GeneratorOpts {
         return or.bool("generator-dto-records", false);
     }
 
+    /** {@return true if record DTOs should include null-checks} */
+    public boolean isUseRecordsRequireNull() {
+        return or.bool("generator-dto-records-use-requirenonnull", true);
+    }
+
     /**
      * Returns mapping of external types.
      *
