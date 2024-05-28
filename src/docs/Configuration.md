@@ -208,6 +208,22 @@ The options are grouped into three sections:
 >
     default value: true
 
+**generator-dto-records-use-builder**
+
+>Allows you to generate builders for records. These can be handy when you need to create
+>records with many arguments.
+
+>The legal values are:
+
+> * ALL: Builder is created for all records.
+
+> * NAMED:name1,name2,... Builder is created for records with the listed names
+
+> * NONE: No builders are created.
+
+>
+    default value: ALL
+
 
 **generator-dto-skip-types**
 

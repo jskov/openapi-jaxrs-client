@@ -27,7 +27,7 @@ public class OptionReader {
      * @param input the input to split
      * @return the list of trimmed elements
      */
-    private List<String> splitByComma(String input) {
+    public static List<String> splitByComma(String input) {
         return Stream.of(input.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())

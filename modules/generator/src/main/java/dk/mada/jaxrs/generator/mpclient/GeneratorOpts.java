@@ -8,12 +8,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
 import dk.mada.jaxrs.model.options.OptionReader;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
+import dk.mada.jaxrs.model.types.TypeName;
 
 /**
  * Generator configuration options.
@@ -21,6 +26,7 @@ import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
  * Extracts generator-specific keys from the input properties provided by the user.
  */
 public final class GeneratorOpts {
+    private static final Logger logger = LoggerFactory.getLogger(GeneratorOpts.class);
     /** The ID of this generator. */
     private static final String GENERATOR_ID = "dk.mada.jaxrs.Generator";
     /** Generator option for API package. */
@@ -286,6 +292,33 @@ public final class GeneratorOpts {
         return or.bool("generator-dto-records-use-requirenonnull", true);
     }
 
+    /** {@return a predicate which will define which records to generate builders for} */
+    public Predicate<TypeName> getRecordBuilderPredicate() {
+        String value = or.getDefault("generator-dto-records-use-builder", "all");
+        RecordBuilderControl control = RecordBuilderControl.from(value);
+        
+        return switch (control) {
+            case ALL -> tn -> true;
+            case NONE -> tn -> false;
+            case NAMED -> fromX(value);
+        };
+        
+//        return splitByComma(value.trim());
+//
+//        or.getListDefault(GENERATOR_DTO_PACKAGE, GENERATOR_API_PACKAGE)
+//        return or.bool("generator-dto-records-use-requirenonnull", true);
+    }
+
+    private Predicate<TypeName> fromX(String x) {
+        int ix = x.indexOf(':');
+        if (ix == -1) {
+            throw new IllegalArgumentException("Expected list of type names: '" + x + "'");
+        }
+        List<String> names = OptionReader.splitByComma(x.substring(ix));
+        logger.info("Will generate record builders for: {}", names);
+        return tn -> names.contains(tn.name());
+    }
+    
     /**
      * Returns mapping of external types.
      *
@@ -575,6 +608,34 @@ public final class GeneratorOpts {
                 }
             }
             throw new IllegalArgumentException("Unknown PropertyConflictResolution " + name);
+        }
+    }
+
+    /**
+     * Control of builders in records.
+     */
+    public enum RecordBuilderControl {
+        /** Create builder in all records. */
+        ALL,
+        /** Create builder in named records only. */
+        NAMED,
+        /** No builders created. */
+        NONE;
+
+        /**
+         * Converts enum value.
+         *
+         * @param value the input configuration value
+         * @return the matching record builder control
+         */
+        public static RecordBuilderControl from(String value) {
+            String name = value.toUpperCase(Locale.ROOT).replace('-', '_').replaceAll(":.*", "");
+            for (var po : RecordBuilderControl.values()) {
+                if (po.name().equals(name)) {
+                    return po;
+                }
+            }
+            throw new IllegalArgumentException("Unknown RecordBuilderControl " + name);
         }
     }
 }
