@@ -13,6 +13,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.jspecify.annotations.Nullable;
 
 /**
  * ManualInnerEnumDto
@@ -21,14 +22,17 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public record ManualInnerEnumDto(
   @JsonbProperty("numberType")
   @JsonbTypeAdapter(mada.tests.e2e.record.enums.inner.dto.ManualInnerEnumDto.NumberTypeEnum.NumberTypeEnumAdapter.class)
+  @Nullable
   NumberTypeEnum numberType,
 
   @JsonbProperty("receiver")
+  @Nullable
   String receiver,
 
   @JsonbProperty("stringType")
   @JsonbTypeAdapter(mada.tests.e2e.record.enums.inner.dto.ManualInnerEnumDto.StringTypeEnum.StringTypeEnumAdapter.class)
   @Schema(description = "This selects transport form.\nEMAIL = this is an email\nSMS : this is an SMS")
+  @Nullable
   StringTypeEnum stringType) {
 
 
