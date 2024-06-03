@@ -6,35 +6,31 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.dto.jspecify.dto;
+package mada.tests.e2e.dto.jspecify.records.dto;
 
 import java.util.Objects;
+import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Pet
+ * AdresseIdentifikationDto
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public record Pet(
-  @JsonbProperty("id")
+public record AdresseIdentifikationDto(
+  @JsonbProperty("adgangsadresseId")
   @Schema(required = true)
   @NotNull
-  Long id,
+  UUID adgangsadresseId,
 
-  @JsonbProperty("name")
-  @Schema(required = true)
-  @NotNull
-  String name,
-
-  @JsonbProperty("tag")
+  @JsonbProperty("adresseId")
+  @Schema(required = true, nullable = true)
   @Nullable
-  String tag) {
+  UUID adresseId) {
 
-    public Pet {
-      Objects.requireNonNull(id, "Property id is required, cannot be null");
-      Objects.requireNonNull(name, "Property name is required, cannot be null");
+    public AdresseIdentifikationDto {
+      Objects.requireNonNull(adgangsadresseId, "Property adgangsadresseId is required, cannot be null");
     }
 }
