@@ -26,7 +26,7 @@ paths:
                 $ref: '#/components/schemas/AdresseIdentifikationDto'
 components:
   schemas:
-    AdresseIdentifikationDto:
+    AdresseIdentifikationDto: # Explicitly nullable
       title: Adresseindentifikation
       required:
         - adgangsadresseId
