@@ -10,6 +10,7 @@ package mada.tests.e2e.opts.generator.record.builders_all.dto;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
+import org.jspecify.annotations.Nullable;
 
 /**
  * CyclicB
@@ -18,10 +19,11 @@ import javax.validation.Valid;
 public record CyclicB(
   @JsonbProperty("a")
   @Valid
+  @Nullable
   CyclicA a) {
 
     public static class Builder {
-      private CyclicA a;
+      private @Nullable CyclicA a;
 
       public Builder of() {
         return new Builder();
@@ -33,7 +35,7 @@ public record CyclicB(
         return o;
       }
 
-      public Builder a(CyclicA a) {
+      public Builder a(@Nullable CyclicA a) {
         this.a = a;
         return this;
       }
