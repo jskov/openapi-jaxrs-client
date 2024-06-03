@@ -6,14 +6,13 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.generator.jspecify.validation.dto;
+package mada.tests.e2e.opts.generator.jspecify.dto;
 
 import java.util.Objects;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.jspecify.annotations.Nullable;
 
 /**
  * AdresseIdentifikationDto
@@ -27,7 +26,6 @@ public record AdresseIdentifikationDto(
 
   @JsonbProperty("adresseId")
   @Schema(required = true, nullable = true)
-  @Nullable
   UUID adresseId) {
 
     public AdresseIdentifikationDto {
