@@ -180,6 +180,7 @@ public class PropertyGenerator {
                 .renderJavadocMacroSpacer(description.isPresent())
                 .multipartType(multipartType)
                 .jsonPropertyConstant(jsonPropertyConst)
+                .isNullable(isNullable)
                 .build();
 
         String propertyName = names.propertyName();

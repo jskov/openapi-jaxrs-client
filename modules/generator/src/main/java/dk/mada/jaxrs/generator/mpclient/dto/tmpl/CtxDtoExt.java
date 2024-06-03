@@ -69,4 +69,7 @@ public interface CtxDtoExt {
 
     /** {@return true if a builder should be added to the record} */
     boolean isRecordBuilder();
+
+    /** {@return true if jspecify annotations should be used} */
+    boolean isJspecify();
 }

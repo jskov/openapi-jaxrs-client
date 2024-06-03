@@ -72,4 +72,7 @@ public interface CtxPropertyExt {
 
     /** {@return a json property constant value, or null} */
     @Nullable String jsonPropertyConstant();
+
+    /** {@return true if this property is nullable} */
+    boolean isNullable();
 }

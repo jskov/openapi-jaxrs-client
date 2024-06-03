@@ -66,6 +66,11 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
   @PartType({{.}})
   {{/madaProp.multipartType}}
 {{#validation}}  {{>beanValidation}}{{/validation}}
+  {{#madaDto.isJspecify}}
+    {{#madaProp.isNullable}}
+  @Nullable
+    {{/madaProp.isNullable}}
+  {{/madaDto.isJspecify}}
   {{{datatypeWithEnum}}} {{name}}{{^-last}},
 
 {{/-last}}{{#-last}}) {

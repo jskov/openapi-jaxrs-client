@@ -31,6 +31,7 @@ import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.Jackson;
 import dk.mada.jaxrs.generator.mpclient.imports.JavaIo;
 import dk.mada.jaxrs.generator.mpclient.imports.JavaUtil;
+import dk.mada.jaxrs.generator.mpclient.imports.Jspecify;
 import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Dtos;
@@ -235,6 +236,11 @@ public class DtoGenerator {
         if (recordCanonicalConstructor) {
             ds.imports().add(JavaUtil.OBJECTS);
         }
+        boolean isUsingJspecifyNullable = opts.isJspecify()
+                && ds.ctxProps().stream().anyMatch(c -> c.madaProp().isNullable());
+        if (isUsingJspecifyNullable) {
+            ds.imports().add(Jspecify.NULLABLE);
+        }
 
         boolean recordBuilder = opts.getRecordBuilderPredicate().test(dto.typeName());
 
@@ -257,6 +263,7 @@ public class DtoGenerator {
                 .isRenderToStringHelper(ds.extendsName().isPresent() || !ds.ctxProps().isEmpty())
                 .isRecordCanonicalConstructor(recordCanonicalConstructor)
                 .isRecordBuilder(recordBuilder)
+                .isJspecify(opts.isJspecify())
                 .build();
 
         Info info = model.info();
