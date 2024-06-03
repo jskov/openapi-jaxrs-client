@@ -198,6 +198,8 @@ The options are grouped into three sections:
 
 >Allows you to generate record DTOs instead of POJO DTOs.
 
+>Note: enables `generator-jspecify` per default - if unwanted, you can specify it as `false`.
+
 >
     default value: false
 
