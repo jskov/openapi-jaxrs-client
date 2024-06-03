@@ -348,6 +348,14 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-jspecify**
+
+>Use [jspecify](https://jspecify.dev/) annotations for improved null checking.
+
+>
+    default value: false
+
+
 
 **generator-map-external-types**
 

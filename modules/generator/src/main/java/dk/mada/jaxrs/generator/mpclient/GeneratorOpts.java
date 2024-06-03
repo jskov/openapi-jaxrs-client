@@ -49,6 +49,8 @@ public final class GeneratorOpts {
     private final boolean useJsonb;
     /** Selects use of jakarta over javax for JAX-RS types. */
     private final boolean useJakarta;
+    /** Flag for using jspecify nullable annotations. */
+    private final boolean useJspecify;
     /** Flag for using OffsetDateTime serializer. */
     private final boolean useJacksonOffsetDateTimeSerializer;
     /** Flag for using LocalDateTime serializer. */
@@ -92,6 +94,7 @@ public final class GeneratorOpts {
         useJsonb = willUseJsonb;
 
         useJakarta = or.bool("generator-jakarta");
+        useJspecify = or.bool("generator-jspecify");
 
         useJacksonOffsetDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseOffsetDateTime();
         useJacksonLocalDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDateTime();
@@ -159,6 +162,11 @@ public final class GeneratorOpts {
     /** {@return true if rendering for jakarta, false if rendering for javax} */
     public boolean isJakarta() {
         return useJakarta;
+    }
+
+    /** {@return true if rendering with jspecify annotations} */
+    public boolean isJspecify() {
+        return useJspecify;
     }
 
     /** {@return true if json serializer options should be used} */
