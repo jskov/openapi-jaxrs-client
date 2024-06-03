@@ -352,6 +352,8 @@ The options are grouped into three sections:
 
 >Use [jspecify](https://jspecify.dev/) annotations for improved null checking.
 
+>Enabled by default when using `generator-record`.
+
 >
     default value: false
 

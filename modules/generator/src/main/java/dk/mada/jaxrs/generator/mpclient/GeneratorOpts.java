@@ -51,6 +51,8 @@ public final class GeneratorOpts {
     private final boolean useJakarta;
     /** Flag for using jspecify nullable annotations. */
     private final boolean useJspecify;
+    /** Flag for rendering DTOs as records. */
+    private final boolean useRecords;
     /** Flag for using OffsetDateTime serializer. */
     private final boolean useJacksonOffsetDateTimeSerializer;
     /** Flag for using LocalDateTime serializer. */
@@ -94,7 +96,8 @@ public final class GeneratorOpts {
         useJsonb = willUseJsonb;
 
         useJakarta = or.bool("generator-jakarta");
-        useJspecify = or.bool("generator-jspecify");
+        useRecords = or.bool("generator-dto-records", false);
+        useJspecify = or.bool("generator-jspecify", useRecords);
 
         useJacksonOffsetDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseOffsetDateTime();
         useJacksonLocalDateTimeSerializer = useJacksonFasterxml && leakedParserOpts.isJseLocalDateTime();
@@ -302,7 +305,7 @@ public final class GeneratorOpts {
 
     /** {@return true if DTOs should be generated as records instead of POJOs} */
     public boolean isDtoRecords() {
-        return or.bool("generator-dto-records", false);
+        return useRecords;
     }
 
     /** {@return true if record DTOs should include null-checks} */
