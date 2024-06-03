@@ -1,0 +1,57 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+paths:
+  /dtos/validation:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdresseIdentifikationDto'
+components:
+  schemas:
+    AdresseIdentifikationDto:
+      title: Adresseindentifikation
+      required:
+        - adgangsadresseId
+        - adresseId
+      type: object
+      properties:
+        adresseId:
+          type: string
+          format: uuid
+          nullable: true
+        adgangsadresseId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    Pet: # from Petstore - implied nullable
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+      
