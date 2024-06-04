@@ -1,9 +1,9 @@
 /**
  * {{#description}}{{description}}{{/description}}{{^description}}{{classname}}{{/description}}
  */
-{{#madaDto.isJspecifyNonNullable}}
-@NonNullable
-{{/madaDto.isJspecifyNonNullable}}
+{{#madaDto.isJspecifyNullUnmarked}}
+@NullUnmarked
+{{/madaDto.isJspecifyNullUnmarked}}
 {{#jackson}}
 {{#madaDto.isRenderPropertyOrderAnnotation}}
 @JsonPropertyOrder({

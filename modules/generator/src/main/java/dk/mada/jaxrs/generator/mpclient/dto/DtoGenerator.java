@@ -245,14 +245,14 @@ public class DtoGenerator {
                 && ds.ctxProps().stream().anyMatch(c -> !c.madaProp().isNullable());
         boolean isUsingJspecifyNullable = opts.isJspecify()
                 && (isNullableRecord || isNullablePojo);
-        boolean isUsingJspecifyNonNullable = opts.isJspecify()
+        boolean isUsingJspecifyNullUnmarked = opts.isJspecify()
                 && isPojo && !isNullablePojo;
 
         if (isUsingJspecifyNullable) {
             ds.imports().add(Jspecify.NULLABLE);
         }
-        if (isUsingJspecifyNonNullable) {
-            ds.imports().add(Jspecify.NON_NULLABLE);
+        if (isUsingJspecifyNullUnmarked) {
+            ds.imports().add(Jspecify.NULL_UNMARKED);
         }
 
         boolean recordBuilder = opts.getRecordBuilderPredicate().test(dto.typeName());
@@ -277,7 +277,7 @@ public class DtoGenerator {
                 .isRecordCanonicalConstructor(recordCanonicalConstructor)
                 .isRecordBuilder(recordBuilder)
                 .isJspecify(isUsingJspecifyNullable)
-                .isJspecifyNonNullable(isUsingJspecifyNonNullable)
+                .isJspecifyNullUnmarked(isUsingJspecifyNullUnmarked)
                 .build();
 
         Info info = model.info();
