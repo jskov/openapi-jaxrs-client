@@ -236,10 +236,23 @@ public class DtoGenerator {
         if (recordCanonicalConstructor) {
             ds.imports().add(JavaUtil.OBJECTS);
         }
-        boolean isUsingJspecifyNullable = opts.isJspecify()
+
+        boolean isPojo = !dsb.isRecord();
+        boolean isRecord = dsb.isRecord();
+        boolean isNullableRecord = isRecord
                 && ds.ctxProps().stream().anyMatch(c -> c.madaProp().isNullable());
+        boolean isNullablePojo = isPojo
+                && ds.ctxProps().stream().anyMatch(c -> !c.madaProp().isNullable());
+        boolean isUsingJspecifyNullable = opts.isJspecify()
+                && (isNullableRecord || isNullablePojo);
+        boolean isUsingJspecifyNonNullable = opts.isJspecify()
+                && isPojo && !isNullablePojo;
+
         if (isUsingJspecifyNullable) {
             ds.imports().add(Jspecify.NULLABLE);
+        }
+        if (isUsingJspecifyNonNullable) {
+            ds.imports().add(Jspecify.NON_NULLABLE);
         }
 
         boolean recordBuilder = opts.getRecordBuilderPredicate().test(dto.typeName());
@@ -263,7 +276,8 @@ public class DtoGenerator {
                 .isRenderToStringHelper(ds.extendsName().isPresent() || !ds.ctxProps().isEmpty())
                 .isRecordCanonicalConstructor(recordCanonicalConstructor)
                 .isRecordBuilder(recordBuilder)
-                .isJspecify(opts.isJspecify())
+                .isJspecify(isUsingJspecifyNullable)
+                .isJspecifyNonNullable(isUsingJspecifyNonNullable)
                 .build();
 
         Info info = model.info();

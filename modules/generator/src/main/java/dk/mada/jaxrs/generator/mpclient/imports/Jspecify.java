@@ -8,6 +8,8 @@ import dk.mada.jaxrs.generator.mpclient.imports.Imports.ImportRenderPrefs;
  * JSpecify import paths.
  */
 public enum Jspecify implements TypedImport {
+    /** NonNullable. */
+    NON_NULLABLE("org.jspecify.annotations.NonNullable"),
     /** Nullable. */
     NULLABLE("org.jspecify.annotations.Nullable");
 
