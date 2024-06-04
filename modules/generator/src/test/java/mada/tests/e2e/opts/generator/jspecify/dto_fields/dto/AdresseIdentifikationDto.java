@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.generator.jspecify.dto;
+package mada.tests.e2e.opts.generator.jspecify.dto_fields.dto;
 
 import java.util.Objects;
 import java.util.UUID;
