@@ -239,10 +239,14 @@ public class DtoGenerator {
 
         boolean isPojo = !dsb.isRecord();
         boolean isRecord = dsb.isRecord();
+        // Can only mark a POJO with @Nullable if all fields are so.
+        // Otherwise the constructor will not be able to create a valid object.
+        // (may be revised for POJOs with necessary default values)
+        boolean isNullablePojo = isPojo
+                && ds.ctxProps().stream().allMatch(c -> !c.madaProp().isNullable());
+        // Records are always suitable for annotation, because no constructor is created
         boolean isNullableRecord = isRecord
                 && ds.ctxProps().stream().anyMatch(c -> c.madaProp().isNullable());
-        boolean isNullablePojo = isPojo
-                && ds.ctxProps().stream().anyMatch(c -> !c.madaProp().isNullable());
         boolean isUsingJspecifyNullable = opts.isJspecify()
                 && (isNullableRecord || isNullablePojo);
         boolean isUsingJspecifyNullUnmarked = opts.isJspecify()

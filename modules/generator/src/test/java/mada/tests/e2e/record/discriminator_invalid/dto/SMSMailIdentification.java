@@ -9,10 +9,12 @@ package mada.tests.e2e.record.discriminator_invalid.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * SMSMailIdentification
  */
+@NullUnmarked
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SMSMailIdentification extends Identification {
   public static final String JSON_PROPERTY_COUNTRY_CODE = "countryCode";
