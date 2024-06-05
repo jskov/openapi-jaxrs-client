@@ -85,7 +85,7 @@ public interface Type {
     /**
      * Return true if this type is a primitive.
      *
-     * @return true if this is a privimive type
+     * @return true if this is a primitive type
      */
     default boolean isPrimitive() {
         return false;

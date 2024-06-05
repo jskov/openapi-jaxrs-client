@@ -54,4 +54,7 @@ public interface CtxApiParam {
 
     /** {@return true if this is a multipart form body, otherwise false} */
     boolean isMultipartForm();
+
+    /** {@return true if this parameter is nullable} */
+    boolean isNullable();
 }

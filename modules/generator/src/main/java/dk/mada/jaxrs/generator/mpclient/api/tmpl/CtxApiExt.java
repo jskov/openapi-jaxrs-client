@@ -20,4 +20,7 @@ public interface CtxApiExt {
 
     /** {@return fully qualified class names of MP providers} */
     List<String> mpProviders();
+
+    /** {@return true if jspecify Nullable annotations should be used} */
+    boolean isJspecify();
 }
