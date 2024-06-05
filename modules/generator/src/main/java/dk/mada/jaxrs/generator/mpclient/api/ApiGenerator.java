@@ -353,6 +353,7 @@ public class ApiGenerator {
                     .isQueryParam(false)
                     .validation(Optional.of(validationGenerator.makeRequired()))
                     .isMultipartForm(false)
+                    .isNullable(false)
                     .build());
         }
 
@@ -377,7 +378,7 @@ public class ApiGenerator {
             boolean isNullable = validationAllowsNull
                     && isNullableRef
                     && (p.isQueryParam() || p.isFormParam() || p.isHeaderParam());
-            if (isNullable) {
+            if (isNullable && opts.isJspecify()) {
                 imports.add(Jspecify.NULLABLE);
             }
 
@@ -433,6 +434,7 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .isMultipartForm(isMultipartForm)
+                    .isNullable(false)
                     .build();
 
             // Only include body param if it is not void. It may be void
