@@ -377,7 +377,7 @@ public class ApiGenerator {
             boolean validationAllowsNull = !valCtx.map(v -> v.notNull()).orElse(false);
             boolean isNullable = validationAllowsNull
                     && isNullableRef
-                    && (p.isQueryParam() || p.isFormParam() || p.isHeaderParam());
+                    && (p.isQueryParam() || p.isHeaderParam());
             if (isNullable && opts.isJspecify()) {
                 imports.add(Jspecify.NULLABLE);
             }
