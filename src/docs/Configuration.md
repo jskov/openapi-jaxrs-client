@@ -198,6 +198,8 @@ The options are grouped into three sections:
 
 >Allows you to generate record DTOs instead of POJO DTOs.
 
+>Note: enables `generator-jspecify` per default - if unwanted, you can specify it as `false`.
+
 >
     default value: false
 
@@ -347,6 +349,16 @@ The options are grouped into three sections:
 >Use jsonb annotations in generated classes.
 >
     default value: false
+
+**generator-jspecify**
+
+>Use [jspecify](https://jspecify.dev/) annotations for improved null checking.
+
+>Enabled by default when using `generator-record`.
+
+>
+    default value: false
+
 
 
 **generator-map-external-types**

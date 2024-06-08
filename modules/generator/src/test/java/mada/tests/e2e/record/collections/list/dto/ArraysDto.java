@@ -12,6 +12,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.jspecify.annotations.Nullable;
 
 /**
  * ArraysDto
@@ -19,19 +20,24 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record ArraysDto(
   @JsonbProperty("booleans")
+  @Nullable
   List<Boolean> booleans,
 
   @JsonbProperty("bytes")
+  @Nullable
   byte[] bytes,
 
   @JsonbProperty("ints")
+  @Nullable
   List<Integer> ints,
 
   @JsonbProperty("longs")
+  @Nullable
   List<Long> longs,
 
   @JsonbProperty("refs")
   @Valid
+  @Nullable
   List<Simple> refs,
 
   @JsonbProperty("requiredBooleans")
@@ -70,9 +76,11 @@ public record ArraysDto(
   List<String> requiredStrings,
 
   @JsonbProperty("shorts")
+  @Nullable
   List<Short> shorts,
 
   @JsonbProperty("strings")
+  @Nullable
   List<String> strings) {
 
     public ArraysDto {

@@ -10,6 +10,7 @@ package mada.tests.e2e.record.cyclic.dto;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
+import org.jspecify.annotations.Nullable;
 
 /**
  * CyclicB
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 public record CyclicB(
   @JsonbProperty("a")
   @Valid
+  @Nullable
   CyclicA a) {
 
 }

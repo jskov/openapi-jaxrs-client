@@ -13,6 +13,7 @@ import java.util.Objects;
 import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.jspecify.annotations.Nullable;
 
 /**
  * EnumsDto
@@ -21,37 +22,46 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public record EnumsDto(
   @JsonProperty("external")
   @Valid
+  @Nullable
   ExternalEnum external,
 
   @JsonProperty("externalLower")
   @Valid
+  @Nullable
   ExternalLowerEnum externalLower,
 
   @JsonProperty("externalMixed")
   @Valid
+  @Nullable
   ExternalMixedEnum externalMixed,
 
   @JsonProperty("inner")
   @Valid
+  @Nullable
   InnerEnum inner,
 
   @JsonProperty("integerEnum")
   @Valid
+  @Nullable
   IntEnum integerEnum,
 
   @JsonProperty("lower")
   @Valid
+  @Nullable
   InnerLowerEnum lower,
 
   @JsonProperty("mixed")
   @Valid
+  @Nullable
   InnerMixedEnum mixed,
 
   @JsonProperty("propertyEnumString")
+  @Nullable
   PropertyEnumStringEnum propertyEnumString,
 
   @JsonProperty("stringIntegerEnum")
   @Valid
+  @Nullable
   StringIntEnum stringIntegerEnum) {
 
 

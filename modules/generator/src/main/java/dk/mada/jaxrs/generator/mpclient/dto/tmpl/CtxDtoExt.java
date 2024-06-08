@@ -69,4 +69,10 @@ public interface CtxDtoExt {
 
     /** {@return true if a builder should be added to the record} */
     boolean isRecordBuilder();
+
+    /** {@return true if jspecify Nullable annotations should be used} */
+    boolean isJspecify();
+
+    /** {@return true if type is jspecify NullUnmarked - note, not the opposite of isJspecify} */
+    boolean isJspecifyNullUnmarked();
 }

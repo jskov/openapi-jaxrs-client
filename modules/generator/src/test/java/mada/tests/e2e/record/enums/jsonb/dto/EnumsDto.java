@@ -14,6 +14,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.validation.Valid;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.jspecify.annotations.Nullable;
 
 /**
  * EnumsDto
@@ -22,38 +23,47 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public record EnumsDto(
   @JsonbProperty("external")
   @Valid
+  @Nullable
   ExternalEnum external,
 
   @JsonbProperty("externalLower")
   @Valid
+  @Nullable
   ExternalLowerEnum externalLower,
 
   @JsonbProperty("externalMixed")
   @Valid
+  @Nullable
   ExternalMixedEnum externalMixed,
 
   @JsonbProperty("inner")
   @Valid
+  @Nullable
   InnerEnum inner,
 
   @JsonbProperty("integerEnum")
   @Valid
+  @Nullable
   IntEnum integerEnum,
 
   @JsonbProperty("lower")
   @Valid
+  @Nullable
   InnerLowerEnum lower,
 
   @JsonbProperty("mixed")
   @Valid
+  @Nullable
   InnerMixedEnum mixed,
 
   @JsonbProperty("propertyEnumString")
   @JsonbTypeAdapter(mada.tests.e2e.record.enums.jsonb.dto.EnumsDto.PropertyEnumStringEnum.PropertyEnumStringEnumAdapter.class)
+  @Nullable
   PropertyEnumStringEnum propertyEnumString,
 
   @JsonbProperty("stringIntegerEnum")
   @Valid
+  @Nullable
   StringIntEnum stringIntegerEnum) {
 
 

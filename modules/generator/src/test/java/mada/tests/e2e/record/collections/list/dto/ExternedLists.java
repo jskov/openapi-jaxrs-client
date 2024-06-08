@@ -11,6 +11,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
+import org.jspecify.annotations.Nullable;
 
 /**
  * ExternedLists
@@ -18,19 +19,24 @@ import javax.validation.Valid;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record ExternedLists(
   @JsonbProperty("listDate")
+  @Nullable
   List<LocalDate> listDate,
 
   @JsonbProperty("listDateTime")
+  @Nullable
   List<OffsetDateTime> listDateTime,
 
   @JsonbProperty("listInt")
+  @Nullable
   List<Integer> listInt,
 
   @JsonbProperty("listSimple")
   @Valid
+  @Nullable
   List<Simple> listSimple,
 
   @JsonbProperty("listString")
+  @Nullable
   List<String> listString) {
 
 }

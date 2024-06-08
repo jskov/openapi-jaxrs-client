@@ -26,6 +26,7 @@ import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiResponse;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.ImmutableCtxApiParam;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
+import dk.mada.jaxrs.generator.mpclient.imports.Jspecify;
 import dk.mada.jaxrs.generator.mpclient.imports.MicroProfile;
 import dk.mada.jaxrs.generator.mpclient.imports.RestEasy;
 import dk.mada.jaxrs.model.Info;
@@ -147,6 +148,7 @@ public class ApiGenerator {
         CtxApiExt apiExt = CtxApiExt.builder()
                 .mpRestClientConfigKey(clientKey)
                 .mpProviders(mpProviders)
+                .isJspecify(opts.isJspecify())
                 .build();
 
         Info info = model.info();
@@ -351,6 +353,7 @@ public class ApiGenerator {
                     .isQueryParam(false)
                     .validation(Optional.of(validationGenerator.makeRequired()))
                     .isMultipartForm(false)
+                    .isNullable(false)
                     .build());
         }
 
@@ -369,6 +372,16 @@ public class ApiGenerator {
 
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
 
+            boolean isNullableRef = type.isPrimitive(Primitive.STRING)
+                    || (!type.isPrimitive() || opts.isUseApiWrappedPrimitives());
+            boolean validationAllowsNull = !valCtx.map(v -> v.notNull()).orElse(false);
+            boolean isNullable = validationAllowsNull
+                    && isNullableRef
+                    && (p.isQueryParam() || p.isHeaderParam());
+            if (isNullable && opts.isJspecify()) {
+                imports.add(Jspecify.NULLABLE);
+            }
+
             ImmutableCtxApiParam param = CtxApiParam.builder()
                     .baseName(name)
                     .paramName(paramName)
@@ -382,6 +395,7 @@ public class ApiGenerator {
                     .isQueryParam(p.isQueryParam())
                     .isPathParam(p.isPathParam())
                     .isMultipartForm(false)
+                    .isNullable(isNullable)
                     .build();
 
             logger.debug("PARAM {} : {}", name, p.isFormParam());
@@ -420,6 +434,7 @@ public class ApiGenerator {
                     .isPathParam(false)
                     .isQueryParam(false)
                     .isMultipartForm(isMultipartForm)
+                    .isNullable(false)
                     .build();
 
             // Only include body param if it is not void. It may be void

@@ -128,12 +128,13 @@ public class PropertyGenerator {
 
         List<String> schemaEntries = new ArrayList<>();
         boolean isRequired = ti.isRequired();
-        boolean isNullable = prop.validation().isNullable().orElse(false);
-        boolean isNotNull = !isNullable && isRequired;
+        boolean isJaxrsNullable = prop.validation().isNullable().orElse(false);
+        boolean isImpliedNullable = !isRequired;
+        boolean isNotNull = !isJaxrsNullable && isRequired;
         if (isRequired) {
             schemaEntries.add("required = true");
         }
-        if (isNullable) {
+        if (isJaxrsNullable) {
             schemaEntries.add("nullable = true");
         }
         if (prop.validation().isReadonly().orElse(false)) {
@@ -180,6 +181,7 @@ public class PropertyGenerator {
                 .renderJavadocMacroSpacer(description.isPresent())
                 .multipartType(multipartType)
                 .jsonPropertyConstant(jsonPropertyConst)
+                .isNullable(isJaxrsNullable || isImpliedNullable)
                 .build();
 
         String propertyName = names.propertyName();

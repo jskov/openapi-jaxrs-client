@@ -66,6 +66,11 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
   @PartType({{.}})
   {{/madaProp.multipartType}}
 {{#validation}}  {{>beanValidation}}{{/validation}}
+  {{#madaDto.isJspecify}}
+    {{#madaProp.isNullable}}
+  @Nullable
+    {{/madaProp.isNullable}}
+  {{/madaDto.isJspecify}}
   {{{datatypeWithEnum}}} {{name}}{{^-last}},
 
 {{/-last}}{{#-last}}) {
@@ -84,7 +89,7 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
   {{#madaDto.isRecordBuilder}}
     public static class Builder {
   {{#vars}}
-      private {{{datatypeWithEnum}}} {{name}};
+      private {{>nullablePrefix}}{{{datatypeWithEnum}}} {{name}};
   {{/vars}}
 
       public Builder of() {
@@ -100,7 +105,7 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
       }
 
       {{#vars}}
-      public Builder {{name}}({{datatypeWithEnum}} {{name}}) {
+      public Builder {{name}}({{>nullablePrefix}}{{datatypeWithEnum}} {{name}}) {
         this.{{name}} = {{name}};
         return this;
       }

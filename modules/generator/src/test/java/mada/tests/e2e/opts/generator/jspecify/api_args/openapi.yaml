@@ -1,0 +1,355 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /api/params/path:
+    get:
+      tags:
+      - Params Path
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/byte/{byteId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: byteId
+        in: path
+        required: true
+        schema:
+          format: byte
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/int/{intId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: intId
+        in: path
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/long/{longId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: longId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/short/{shortId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: shortId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/string/{stringId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: stringId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/with-underscore/{string_id}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: string_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/params/path/with-slash/{string-id}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: string-id
+        in: path
+        required: true
+        schema:
+          type: string
+  # From bitbucket api - use of content instead of schema
+  /branch-utils/latest/projects/{projectKey}/repos/{repositorySlug}/branches/info/{commitId}:
+    get:
+      tags:
+        - Repository
+      summary: Get branch
+      description: Gets the branch information associated with a single commit from a given repository.
+      operationId: findByCommit
+      parameters:
+        - name: projectKey
+          in: path
+          description: The project key.
+          required: true
+          schema:
+            type: string
+        - name: commitId
+          in: path
+          required: true
+          content:
+            application/json:
+              schema:
+                maxLength: 40
+                type: string
+  /api/params/query/boolean-primitive:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: flag
+        in: query
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/boolean-wrapper:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: flag
+        in: query
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/dates:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: date
+        in: query
+        schema:
+          format: date
+          type: string
+      - name: date-time
+        in: query
+        schema:
+          format: date-time
+          type: string
+      - name: time
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/list:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: item
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/mixed:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: flag
+        in: query
+        schema:
+          type: boolean
+      - name: item
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: name
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/boolean-primitive:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/boolean-wrapper:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/invalid-name-dashes:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: invalid-value
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/list:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/mixed:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      - name: name
+        in: header
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string

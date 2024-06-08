@@ -12,10 +12,12 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * Identification
  */
+@NullUnmarked
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public abstract class Identification {
   public static final String JSON_PROPERTY_LOCKED = "locked";
