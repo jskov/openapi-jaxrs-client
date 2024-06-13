@@ -94,6 +94,7 @@ public class JaxrsPlugin implements Plugin<Project> {
                         t.getOutputDirectory().set(taskOutputDir);
                         t.getOpenApiDocument().set(extOpenApiDocDirectory.file(openapiDocumentName));
                         t.getGeneratorProperties().set(extOpenApiDocDirectory.file(docName + ".properties"));
+                        t.getGeneratorGav().set(jaxrsExtension.getGeneratorGAV());
                         t.dependsOn(downloadTask);
                     });
 
