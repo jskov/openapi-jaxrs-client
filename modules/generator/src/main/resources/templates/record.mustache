@@ -92,11 +92,11 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
       private {{>nullablePrefix}}{{{datatypeWithEnum}}} {{name}};
   {{/vars}}
 
-      public Builder of() {
+      public static Builder of() {
         return new Builder();
       }
 
-      public Builder of({{classname}} from) {
+      public static Builder of({{classname}} from) {
         Builder o = new Builder();
         {{#vars}}
         o.{{name}} = from.{{name}}();

@@ -25,11 +25,11 @@ public record CyclicA(
     public static class Builder {
       private @Nullable CyclicB b;
 
-      public Builder of() {
+      public static Builder of() {
         return new Builder();
       }
 
-      public Builder of(CyclicA from) {
+      public static Builder of(CyclicA from) {
         Builder o = new Builder();
         o.b = from.b();
         return o;
