@@ -9,6 +9,8 @@ import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.logging.LogLevel;
+import org.gradle.api.provider.Property;
+import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
@@ -43,6 +45,14 @@ public abstract class GenerateClient extends DefaultTask {
     /** {@return the generator properties} */
     @InputFile
     public abstract RegularFileProperty getGeneratorProperties();
+
+    /**
+     * {@return the generator version}
+     *
+     * This is not used as such by the task, but having it ensures that code is regenerated, if the GAV is updated.
+     */
+    @Input
+    public abstract Property<String> getGeneratorGav();
 
     /**
      * Generates the code.
