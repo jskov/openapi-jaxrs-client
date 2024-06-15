@@ -1,0 +1,123 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: http://test.com
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: http://test.com
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: http://test.com/openapi API ext url
+tags: []
+paths:
+  /api/interfaces/super:
+    get:
+      tags:
+      - Api Interfaces
+      responses:
+        "200":
+          description: interface instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  implDiscriminator:
+                    type: string
+                  superValue:
+                    format: int32
+                    type: integer
+                anyOf:
+                - $ref: '#/components/schemas/SubA'
+                - $ref: '#/components/schemas/SubB'
+                discriminator:
+                  propertyName: implDiscriminator
+                  mapping:
+                    subtype-A: '#/components/schemas/SubA'
+                    subtype-B: '#/components/schemas/SubB'
+components:
+  schemas:
+    SubA:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        bar:
+          format: int32
+          type: integer
+    SubB:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        foo:
+          format: int32
+          type: integer
+    Super:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+      discriminator:
+        propertyName: implDiscriminator
+        mapping:
+          subtype-A: '#/components/schemas/SubA'
+          subtype-B: '#/components/schemas/SubB'
+# manually added
+    PostDto:
+      type: object
+      discriminator:
+        propertyName: postType
+        mapping:
+          PostSubA: '#/components/schemas/PostSubA'
+          PostSubB: '#/components/schemas/PostSubB'
+      properties:
+        postType:
+          type: string
+          description: Contains typename
+        enumRef:
+          $ref: '#/components/schemas/AnEnum'
+        aSharedField:
+          type: number
+          minimum: 0
+          maximum: 1
+    PostSubA:
+      allOf:
+      - $ref: '#/components/schemas/PostDto'
+      - type: object
+        properties:
+          # Note this overrides enum in super.
+          # Handle without breaking
+          enumRef:
+            $ref: '#/components/schemas/AnEnum'
+          fieldOnlyInSubA:
+            type: string
+    PostSubB:
+      allOf:
+      - $ref: '#/components/schemas/PostDto'
+      - type: object
+        properties:
+          fieldOnlyInSubB:
+            type: integer
+            format: int64
+    AnEnum:
+      type: string
+      enum:
+      - VALUE_A
+      - VALUE_B
