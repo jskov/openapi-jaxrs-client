@@ -58,35 +58,39 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
 
         try {
             Files.createDirectories(toPath.getParent());
-            deleteExistingDocuments(toPath);
 
             try (InputStream is = new URI(url).toURL().openStream()) {
                 Files.copy(is, toPath, StandardCopyOption.REPLACE_EXISTING);
             }
+            deleteSiblingDocuments(toPath);
         } catch (IOException | URISyntaxException e) {
             throw new UncheckedIOException("Failed to download file from " + url + " to " + toPath, e);
         }
     }
 
     /**
-     * Deletes any existing documents with same name but any of a number of extensions.
+     * Deletes any existing sibling documents with same name but any of a number of extensions.
      *
      * This is done to gracefully handle if the user changes the document extension.
      *
-     * @param doc the document (and extension-siblings) to delete
+     * @param keepDoc the document of which to delete extension-siblings
      */
-    private void deleteExistingDocuments(Path doc) throws IOException {
+    private void deleteSiblingDocuments(Path keepDoc) throws IOException {
         // Delete with any suffix
-        Path dir = doc.getParent();
+        Path dir = keepDoc.getParent();
         if (dir == null) {
-            throw new IllegalStateException("Failed to find parent folder of " + doc);
+            throw new IllegalStateException("Failed to find parent folder of " + keepDoc);
         }
-        String baseName = doc.getFileName().toString();
+        String baseName = keepDoc.getFileName().toString();
         for (String s : DELETE_SUFFIXES) {
             baseName = baseName.replace(s, "");
         }
         for (String s : DELETE_SUFFIXES) {
             Path f = dir.resolve(baseName + s);
+            // Skip deletion of the actual document
+            if (keepDoc.equals(f)) {
+                continue;
+            }
             if (Files.exists(f) && !Files.deleteIfExists(f)) {
                 throw new IOException("Failed to delete target file " + f);
             }

@@ -1,0 +1,568 @@
+diff --git a/src/main/java/dk/mada/jaxrs/model/types/TypeNames.java b/src/main/java/dk/mada/jaxrs/model/types/TypeNames.java
+index a2d8ecde..9d855fa6 100644
+--- a/src/main/java/dk/mada/jaxrs/model/types/TypeNames.java
++++ b/src/main/java/dk/mada/jaxrs/model/types/TypeNames.java
+@@ -200,5 +200,10 @@ public final class TypeNames {
+             TypeName other = (TypeName) obj;
+             return Objects.equals(name, other.name);
+         }
++
++        @Override
++        public String toString() {
++            return "TypeName:" + name();
++        }
+     }
+ }
+diff --git a/src/main/java/dk/mada/jaxrs/model/types/TypeObject.java b/src/main/java/dk/mada/jaxrs/model/types/TypeObject.java
+index 8868a1df..6d23fda7 100644
+--- a/src/main/java/dk/mada/jaxrs/model/types/TypeObject.java
++++ b/src/main/java/dk/mada/jaxrs/model/types/TypeObject.java
+@@ -21,4 +21,9 @@ public final class TypeObject implements Type {
+     public TypeName typeName() {
+         return TypeNames.OBJECT;
+     }
++
++    @Override
++    public String toString() {
++        return "Type:Object";
++    }
+ }
+diff --git a/src/main/java/dk/mada/jaxrs/openapi/TypeConverter.java b/src/main/java/dk/mada/jaxrs/openapi/TypeConverter.java
+index 263a0dc5..3462d6ac 100644
+--- a/src/main/java/dk/mada/jaxrs/openapi/TypeConverter.java
++++ b/src/main/java/dk/mada/jaxrs/openapi/TypeConverter.java
+@@ -1,5 +1,7 @@
+ package dk.mada.jaxrs.openapi;
+ 
++import static java.util.stream.Collectors.joining;
++
+ import java.util.ArrayList;
+ import java.util.HashMap;
+ import java.util.HashSet;
+@@ -99,7 +101,7 @@ public final class TypeConverter {
+     }
+ 
+     /**
+-     * Converts a OpenApi schema to an internal model type.
++     * Converts an OpenApi schema to an internal model type.
+      *
+      * @param schema the OpenApi schema to convert
+      * @return the found/created internal model type
+@@ -108,6 +110,18 @@ public final class TypeConverter {
+         return reference(schema, null, null);
+     }
+ 
++    /**
++     * Converts an OpenApi schema to an internal model type with
++     * the provided parent.
++     *
++     * @param schema
++     * @param parentDtoName the name of the DTO this schema is part of, or null
++     * @return the found/created internal model type
++     */
++    public ParserTypeRef toReferenceForParentDto(Schema<?> schema, String parentDtoName) {
++        return reference(schema, null, parentDtoName);
++    }
++    
+     /**
+      * Converts a OpenApi schema to parser type reference.
+      *
+@@ -124,8 +138,8 @@ public final class TypeConverter {
+         String schemaFormat = schema.getFormat();
+         String schemaRef = schema.get$ref();
+ 
+-        logger.debug("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
+-        logger.debug("ref {}", schemaRef);
++        logger.info("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
++        logger.info("ref {}", schemaRef);
+ 
+         Validation validation = extractValidation(schema);
+ 
+@@ -213,7 +227,7 @@ public final class TypeConverter {
+             }
+ 
+             // allOf is the combination of schemas (subclassing and/or validation)
+-            Type typeWithValidation = findTypeValidation(cs);
++            Type typeWithValidation = findTypeValidation(cs, parentDtoName);
+             if (typeWithValidation != null) {
+                 if (typeWithValidation instanceof ParserTypeRef ptr) {
+                     return ptr;
+@@ -242,7 +256,8 @@ public final class TypeConverter {
+ 
+         if (schema instanceof ObjectSchema) {
+             if (propertyName == null) {
+-                logger.debug(" plain Object?");
++                logger.debug(" plain Object ({})?", parentDtoName);
++                // FIXME: Need to figure out how to handle this. Method to extend an existing type with more fields?
+                 return parserRefs.of(TypeObject.get(), validation);
+             }
+             logger.debug(" inner-object for property {}", propertyName);
+@@ -281,7 +296,7 @@ public final class TypeConverter {
+      * @param cs the composed schema
+      * @return a referenced type with validation added, or null
+      */
+-    private Type findTypeValidation(ComposedSchema cs) {
++    private Type findTypeValidation(ComposedSchema cs, String parentDtoName) {
+         @SuppressWarnings("rawtypes")
+         List<Schema> allOf = cs.getAllOf();
+         if (allOf == null) {
+@@ -289,7 +304,7 @@ public final class TypeConverter {
+         }
+ 
+         List<ParserTypeRef> allOfTypes = allOf.stream()
+-            .map(this::toReference)
++            .map(s -> toReferenceForParentDto(s, parentDtoName))
+             .toList();
+ 
+         List<ParserTypeRef> refs = new ArrayList<>();
+@@ -306,7 +321,11 @@ public final class TypeConverter {
+         }
+ 
+         if (validations.size() != 1 || refs.size() != 1) {
+-            logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
++            String referencedTypes = refs.stream()
++                .map(r -> r.refTypeName().name())
++                .sorted()
++                .collect(joining(", "));
++            logger.debug("Unabled to handle allOf for '{}' with validations {}", referencedTypes, validations);
+             // bail for now
+             return TypeObject.get();
+         }
+@@ -356,10 +375,12 @@ public final class TypeConverter {
+      * @return the create DTO
+      */
+     public Dto createDto(String dtoName, Schema<?> schema) {
++        logger.info("Converting DTO {}", dtoName);
+         String modelName = naming.convertTypeName(dtoName);
+         String mpSchemaName = naming.convertMpSchemaName(dtoName);
+ 
+-        ParserTypeRef dtoType = toReference(schema);
++        ParserTypeRef dtoType = toReferenceForParentDto(schema, dtoName);
++        logger.info(" got ref {}", dtoType);
+ 
+         List<Property> props = readProperties(schema, modelName);
+ 
+@@ -407,9 +428,15 @@ public final class TypeConverter {
+     }
+ 
+     private List<Property> readProperties(Schema<?> schema, String parentDtoName) {
++        logger.info(" read properties for {}", parentDtoName);
++
++        // FIXME: dive into sub-schemas here - similar how to sub-validations are processed
++        PARKED
++        
+         @SuppressWarnings("rawtypes")
+         Map<String, Schema> schemaProps = schema.getProperties();
+         if (schemaProps == null || schemaProps.isEmpty()) {
++            logger.debug("  no schema properties");
+             return List.of();
+         }
+ 
+@@ -422,6 +449,8 @@ public final class TypeConverter {
+         for (var e : schemaProps.entrySet()) {
+             String propertyName = e.getKey();
+             Schema<?> propSchema = e.getValue();
++            
++            logger.info("  - {}", propertyName);
+ 
+             Reference ref = reference(propSchema, propertyName, parentDtoName);
+ 
+diff --git a/src/test/java/mada/fixture/TestIterator.java b/src/test/java/mada/fixture/TestIterator.java
+index 4e27428e..fc195ead 100644
+--- a/src/test/java/mada/fixture/TestIterator.java
++++ b/src/test/java/mada/fixture/TestIterator.java
+@@ -46,7 +46,7 @@ class TestIterator {
+ 
+         // Replace with partial test name (or empty to run all tests)
+         // Handy when working on a single test
+-        String testNameContains = "opts/generator/collections_empty";
++        String testNameContains = "inheritance";
+ //        String testNameContains = "generator/bigde";
+ 
+         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
+diff --git a/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/README.txt b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/README.txt
+new file mode 100644
+index 00000000..2057e4b6
+--- /dev/null
++++ b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/README.txt
+@@ -0,0 +1,10 @@
++Added manual test input to add new variance (from kundedata)
++
++The added OpenApi code does not look like that generated by Java OpenApi
++(the upper part).
++
++But it does look valid and sensible; the subtypes relies on declarations on
++the super type to be inherited (where as the java OpenApi output are duplicated).
++
++I have added two sub-class variants, one (a) overrides one of the fields
++of the super. The other (b) does not.
+diff --git a/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/AnEnum.java b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/AnEnum.java
+new file mode 100644
+index 00000000..325a5078
+--- /dev/null
++++ b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/AnEnum.java
+@@ -0,0 +1,48 @@
++/*
++ * openapi API Title
++ * openapi API description
++ *
++ * The version of the OpenAPI document: openapi API Version
++ * Contact: openapi API contact email
++ */
++
++package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
++
++import com.fasterxml.jackson.annotation.JsonCreator;
++import com.fasterxml.jackson.annotation.JsonValue;
++import java.util.Objects;
++
++/**
++ * AnEnum
++ */
++@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
++public enum AnEnum {
++  VALUE_A("VALUE_A"),
++  VALUE_B("VALUE_B");
++
++  private final String value;
++
++  AnEnum(String value) {
++    this.value = value;
++  }
++
++  @JsonValue
++  public String getValue() {
++    return value;
++  }
++
++  @Override
++  public String toString() {
++    return String.valueOf(value);
++  }
++
++  @JsonCreator
++  public static AnEnum fromValue(String value) {
++    for (AnEnum b : AnEnum.values()) {
++      if (Objects.equals(b.value, value)) {
++        return b;
++      }
++    }
++    throw new IllegalArgumentException("Unexpected value '" + value + "'");
++  }
++}
+diff --git a/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostDto.java b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostDto.java
+new file mode 100644
+index 00000000..5fcf8156
+--- /dev/null
++++ b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostDto.java
+@@ -0,0 +1,144 @@
++/*
++ * openapi API Title
++ * openapi API description
++ *
++ * The version of the OpenAPI document: openapi API Version
++ * Contact: openapi API contact email
++ */
++
++package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
++
++import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
++import com.fasterxml.jackson.annotation.JsonProperty;
++import com.fasterxml.jackson.annotation.JsonPropertyOrder;
++import com.fasterxml.jackson.annotation.JsonSubTypes;
++import com.fasterxml.jackson.annotation.JsonTypeInfo;
++import java.math.BigDecimal;
++import java.util.Objects;
++import javax.validation.Valid;
++import javax.validation.constraints.DecimalMax;
++import javax.validation.constraints.DecimalMin;
++import org.eclipse.microprofile.openapi.annotations.media.Schema;
++
++/**
++ * PostDto
++ */
++@JsonPropertyOrder({
++  PostDto.JSON_PROPERTY_POST_TYPE,
++  PostDto.JSON_PROPERTY_ENUM_REF,
++  PostDto.JSON_PROPERTY_A_SHARED_FIELD
++})
++@JsonIgnoreProperties(
++  value = "postType", // ignore manually set postType, it will be automatically generated by Jackson during serialization
++  allowSetters = true // allows the postType to be set during deserialization
++)
++@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "postType", visible = true)
++@JsonSubTypes({
++  @JsonSubTypes.Type(value = PostSubA.class, name = "PostSubA"),
++  @JsonSubTypes.Type(value = PostSubB.class, name = "PostSubB"),
++})
++@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
++public class PostDto {
++  public static final String JSON_PROPERTY_POST_TYPE = "postType";
++  @JsonProperty(JSON_PROPERTY_POST_TYPE)
++  @Schema(description = "Contains typename")
++  private String postType;
++
++  public static final String JSON_PROPERTY_ENUM_REF = "enumRef";
++  @JsonProperty(JSON_PROPERTY_ENUM_REF)
++  private AnEnum enumRef;
++
++  public static final String JSON_PROPERTY_A_SHARED_FIELD = "aSharedField";
++  @JsonProperty(JSON_PROPERTY_A_SHARED_FIELD)
++  private BigDecimal aSharedField;
++
++  public PostDto postType(String postType) {
++    this.postType = postType;
++    return this;
++  }
++
++  /**
++   * Contains typename.
++   *
++   * @return postType
++   **/
++  public String getPostType() {
++    return postType;
++  }
++
++  public void setPostType(String postType) {
++    this.postType = postType;
++  }
++
++  public PostDto enumRef(AnEnum enumRef) {
++    this.enumRef = enumRef;
++    return this;
++  }
++
++  /**
++   * Get enumRef
++   * @return enumRef
++   **/
++  @Valid
++  public AnEnum getEnumRef() {
++    return enumRef;
++  }
++
++  public void setEnumRef(AnEnum enumRef) {
++    this.enumRef = enumRef;
++  }
++
++  public PostDto aSharedField(BigDecimal aSharedField) {
++    this.aSharedField = aSharedField;
++    return this;
++  }
++
++  /**
++   * Get aSharedField
++   * minimum: "0"
++   * maximum: "1"
++   * @return aSharedField
++   **/
++  @DecimalMin("0") @DecimalMax("1")
++  public BigDecimal getASharedField() {
++    return aSharedField;
++  }
++
++  public void setASharedField(BigDecimal aSharedField) {
++    this.aSharedField = aSharedField;
++  }
++
++  @Override
++  public boolean equals(Object o) {
++    if (this == o) {
++      return true;
++    }
++    if (o == null || getClass() != o.getClass()) {
++      return false;
++    }
++    PostDto other = (PostDto) o;
++    return Objects.equals(this.postType, other.postType) &&
++        Objects.equals(this.enumRef, other.enumRef) &&
++        Objects.equals(this.aSharedField, other.aSharedField);
++  }
++
++  @Override
++  public int hashCode() {
++    return Objects.hash(postType, enumRef, aSharedField);
++  }
++
++  @Override
++  public String toString() {
++    StringBuilder sb = new StringBuilder();
++    sb.append("class PostDto {");
++    sb.append("\n    postType: ").append(toIndentedString(postType));
++    sb.append("\n    enumRef: ").append(toIndentedString(enumRef));
++    sb.append("\n    aSharedField: ").append(toIndentedString(aSharedField));
++    sb.append("\n}");
++    return sb.toString();
++  }
++
++  private String toIndentedString(Object o) {
++    return Objects.toString(o).replace("\n", "\n    ");
++  }
++}
+diff --git a/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostSubA.java b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostSubA.java
+new file mode 100644
+index 00000000..6298b621
+--- /dev/null
++++ b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostSubA.java
+@@ -0,0 +1,55 @@
++/*
++ * openapi API Title
++ * openapi API description
++ *
++ * The version of the OpenAPI document: openapi API Version
++ * Contact: openapi API contact email
++ */
++
++package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
++
++import com.fasterxml.jackson.annotation.JsonProperty;
++import com.fasterxml.jackson.annotation.JsonPropertyOrder;
++import java.util.Objects;
++
++/**
++ * PostSubA
++ */
++@JsonPropertyOrder({
++})
++@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
++public class PostSubA extends PostDto {
++  public static final String JSON_PROPERTY_FIELD_ONLY_IN_SUB_A = "fieldOnlyInSubA";
++  @JsonProperty(JSON_PROPERTY_FIELD_ONLY_IN_SUB_A)
++  private String fieldOnlyInSubA;
++
++  @Override
++  public boolean equals(Object o) {
++    if (this == o) {
++      return true;
++    }
++    if (o == null || getClass() != o.getClass()) {
++      return false;
++    }
++    return true // fields
++            && super.equals(o);
++  }
++
++  @Override
++  public int hashCode() {
++    return Objects.hash(super.hashCode());
++  }
++
++  @Override
++  public String toString() {
++    StringBuilder sb = new StringBuilder();
++    sb.append("class PostSubA {");
++    sb.append(toIndentedString(super.toString()));
++    sb.append("\n}");
++    return sb.toString();
++  }
++
++  private String toIndentedString(Object o) {
++    return Objects.toString(o).replace("\n", "\n    ");
++  }
++}
+diff --git a/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostSubB.java b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostSubB.java
+new file mode 100644
+index 00000000..0ca01277
+--- /dev/null
++++ b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/dto/PostSubB.java
+@@ -0,0 +1,49 @@
++/*
++ * openapi API Title
++ * openapi API description
++ *
++ * The version of the OpenAPI document: openapi API Version
++ * Contact: openapi API contact email
++ */
++
++package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
++
++import com.fasterxml.jackson.annotation.JsonProperty;
++import com.fasterxml.jackson.annotation.JsonPropertyOrder;
++import java.util.Objects;
++
++/**
++ * PostSubB
++ */
++@JsonPropertyOrder({
++})
++@javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
++public class PostSubB {
++  @Override
++  public boolean equals(Object o) {
++    if (this == o) {
++      return true;
++    }
++    if (o == null || getClass() != o.getClass()) {
++      return false;
++    }
++    return true;
++  }
++
++  @Override
++  public int hashCode() {
++    return Objects.hash();
++  }
++
++  @Override
++  public String toString() {
++    StringBuilder sb = new StringBuilder();
++    sb.append("class PostSubB {");
++    sb.append("\n}");
++    return sb.toString();
++  }
++
++  private String toIndentedString(Object o) {
++    return Objects.toString(o).replace("\n", "\n    ");
++  }
++}
+diff --git a/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/openapi.yaml b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/openapi.yaml
+index 8ce1d288..d5bf5e87 100644
+--- a/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/openapi.yaml
++++ b/src/test/java/mada/tests/e2e/dto/inheritance/jackson_fasterxml/openapi.yaml
+@@ -79,3 +79,45 @@ components:
+         mapping:
+           subtype-A: '#/components/schemas/SubA'
+           subtype-B: '#/components/schemas/SubB'
++# manually added
++    PostDto:
++      type: object
++      discriminator:
++        propertyName: postType
++        mapping:
++          PostSubA: '#/components/schemas/PostSubA'
++          PostSubB: '#/components/schemas/PostSubB'
++      properties:
++        postType:
++          type: string
++          description: Contains typename
++        enumRef:
++          $ref: '#/components/schemas/AnEnum'
++        aSharedField:
++          type: number
++          minimum: 0
++          maximum: 1
++    PostSubA:
++      allOf:
++      - $ref: '#/components/schemas/PostDto'
++      - type: object
++        properties:
++          # Note this overrides enum in super.
++          # Handle without breaking
++          enumRef:
++            $ref: '#/components/schemas/AnEnum'
++          fieldOnlyInSubA:
++            type: string
++    PostSubB:
++      allOf:
++      - $ref: '#/components/schemas/PostDto'
++      - type: object
++        properties:
++          fieldOnlyInSubB:
++            type: integer
++            format: int64
++    AnEnum:
++      type: string
++      enum:
++      - VALUE_A
++      - VALUE_B
