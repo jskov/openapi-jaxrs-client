@@ -15,7 +15,7 @@ dependencies {
     implementation 'io.swagger.parser.v3:swagger-parser:2.1.22'
     // swagger.parser comes with vulnerable rhino + commons-codec
     implementation 'org.mozilla:rhino:1.7.15'
-    implementation 'commons-codec:commons-codec:1.17.0'
+    implementation 'commons-codec:commons-codec:1.17.1'
 
 }
 
