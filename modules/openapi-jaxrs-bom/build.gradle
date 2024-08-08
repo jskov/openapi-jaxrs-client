@@ -17,7 +17,7 @@ dependencies {
         api project(':model')
         api project(':parser')
 
-        api 'org.slf4j:slf4j-jdk14:2.0.14'
+        api 'org.slf4j:slf4j-jdk14:2.0.15'
     }
 }
 
