@@ -8,7 +8,7 @@ Activate the plugin with:
 
 ```gradle
 plugins {
-    id 'dk.mada.jaxrs' version "0.10.3"
+    id 'dk.mada.jaxrs' version "0.11.5"
 }
 ```
 

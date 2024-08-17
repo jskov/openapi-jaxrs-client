@@ -1,6 +1,7 @@
 # An OpenAPI JAX-RS client code generator
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jskov_openapi-jaxrs-client&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jskov_openapi-jaxrs-client)
+[![Reproducible Builds](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jvm-repo-rebuild/reproducible-central/master/content/dk/mada/jaxrs/openapi-jaxrs-client/badge.json)](https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/dk/mada/jaxrs/openapi-jaxrs-client/README.md)
 
 Generates Java code to call REST services.
 
