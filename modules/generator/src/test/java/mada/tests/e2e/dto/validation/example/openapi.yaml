@@ -88,6 +88,44 @@ components:
         patternDigits:
           pattern: "^\\d{1,2}$"
           type: string
+        aNonNullableBoolean:
+          type: boolean
+          nullable: false
+        aNonNullableDate:
+          type: string
+          format: date
+          nullable: false
+          example: 2020-07-10
+        aNonNullableNumber:
+          type: number
+          nullable: false
+          example: 3000
+        aNonNullableString:
+          type: string
+          nullable: false
+        aNonNullableUUID:
+          type: string
+          format: uuid
+          nullable: false
+        aNullableBoolean:
+          type: boolean
+          nullable: true
+        aNullableDate:
+          type: string
+          format: date
+          nullable: true
+          example: 2020-07-10
+        aNullableNumber:
+          type: number
+          nullable: true
+          example: 3000
+        aNullableString:
+          type: string
+          nullable: true
+        aNullableUUID:
+          type: string
+          format: uuid
+          nullable: true
         validObjects:
           maxItems: 4
           minItems: 1

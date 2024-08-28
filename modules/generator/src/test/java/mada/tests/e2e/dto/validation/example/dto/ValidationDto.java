@@ -9,9 +9,11 @@
 package mada.tests.e2e.dto.validation.example.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
@@ -42,6 +44,53 @@ public class ValidationDto {
   @JsonbProperty(JSON_PROPERTY_A_BIG_FLOAT)
   @Schema(description = "a float")
   private Float aBigFloat;
+
+  public static final String JSON_PROPERTY_A_NON_NULLABLE_BOOLEAN = "aNonNullableBoolean";
+  @JsonbProperty(JSON_PROPERTY_A_NON_NULLABLE_BOOLEAN)
+  private Boolean aNonNullableBoolean;
+
+  public static final String JSON_PROPERTY_A_NON_NULLABLE_DATE = "aNonNullableDate";
+  @JsonbProperty(JSON_PROPERTY_A_NON_NULLABLE_DATE)
+  @Schema(example = "Fri Jul 10 02:00:00 CEST 2020")
+  private LocalDate aNonNullableDate;
+
+  public static final String JSON_PROPERTY_A_NON_NULLABLE_NUMBER = "aNonNullableNumber";
+  @JsonbProperty(JSON_PROPERTY_A_NON_NULLABLE_NUMBER)
+  @Schema(example = "3000")
+  private BigDecimal aNonNullableNumber;
+
+  public static final String JSON_PROPERTY_A_NON_NULLABLE_STRING = "aNonNullableString";
+  @JsonbProperty(JSON_PROPERTY_A_NON_NULLABLE_STRING)
+  private String aNonNullableString;
+
+  public static final String JSON_PROPERTY_A_NON_NULLABLE_UUID = "aNonNullableUUID";
+  @JsonbProperty(JSON_PROPERTY_A_NON_NULLABLE_UUID)
+  private UUID aNonNullableUUID;
+
+  public static final String JSON_PROPERTY_A_NULLABLE_BOOLEAN = "aNullableBoolean";
+  @JsonbProperty(JSON_PROPERTY_A_NULLABLE_BOOLEAN)
+  @Schema(nullable = true)
+  private Boolean aNullableBoolean;
+
+  public static final String JSON_PROPERTY_A_NULLABLE_DATE = "aNullableDate";
+  @JsonbProperty(JSON_PROPERTY_A_NULLABLE_DATE)
+  @Schema(nullable = true, example = "Fri Jul 10 02:00:00 CEST 2020")
+  private LocalDate aNullableDate;
+
+  public static final String JSON_PROPERTY_A_NULLABLE_NUMBER = "aNullableNumber";
+  @JsonbProperty(JSON_PROPERTY_A_NULLABLE_NUMBER)
+  @Schema(nullable = true, example = "3000")
+  private BigDecimal aNullableNumber;
+
+  public static final String JSON_PROPERTY_A_NULLABLE_STRING = "aNullableString";
+  @JsonbProperty(JSON_PROPERTY_A_NULLABLE_STRING)
+  @Schema(nullable = true)
+  private String aNullableString;
+
+  public static final String JSON_PROPERTY_A_NULLABLE_UUID = "aNullableUUID";
+  @JsonbProperty(JSON_PROPERTY_A_NULLABLE_UUID)
+  @Schema(nullable = true)
+  private UUID aNullableUUID;
 
   public static final String JSON_PROPERTY_BAD_PARSING_OF_RANGE = "badParsingOfRange";
   @JsonbProperty(JSON_PROPERTY_BAD_PARSING_OF_RANGE)
@@ -137,6 +186,180 @@ public class ValidationDto {
 
   public void setaBigFloat(Float aBigFloat) {
     this.aBigFloat = aBigFloat;
+  }
+
+  public ValidationDto aNonNullableBoolean(Boolean aNonNullableBoolean) {
+    this.aNonNullableBoolean = aNonNullableBoolean;
+    return this;
+  }
+
+  /**
+   * Get aNonNullableBoolean
+   * @return aNonNullableBoolean
+   **/
+  public Boolean isaNonNullableBoolean() {
+    return aNonNullableBoolean;
+  }
+
+  public void setaNonNullableBoolean(Boolean aNonNullableBoolean) {
+    this.aNonNullableBoolean = aNonNullableBoolean;
+  }
+
+  public ValidationDto aNonNullableDate(LocalDate aNonNullableDate) {
+    this.aNonNullableDate = aNonNullableDate;
+    return this;
+  }
+
+  /**
+   * Get aNonNullableDate
+   * @return aNonNullableDate
+   **/
+  @NotNull
+  public LocalDate getaNonNullableDate() {
+    return aNonNullableDate;
+  }
+
+  public void setaNonNullableDate(LocalDate aNonNullableDate) {
+    this.aNonNullableDate = aNonNullableDate;
+  }
+
+  public ValidationDto aNonNullableNumber(BigDecimal aNonNullableNumber) {
+    this.aNonNullableNumber = aNonNullableNumber;
+    return this;
+  }
+
+  /**
+   * Get aNonNullableNumber
+   * @return aNonNullableNumber
+   **/
+  @NotNull
+  public BigDecimal getaNonNullableNumber() {
+    return aNonNullableNumber;
+  }
+
+  public void setaNonNullableNumber(BigDecimal aNonNullableNumber) {
+    this.aNonNullableNumber = aNonNullableNumber;
+  }
+
+  public ValidationDto aNonNullableString(String aNonNullableString) {
+    this.aNonNullableString = aNonNullableString;
+    return this;
+  }
+
+  /**
+   * Get aNonNullableString
+   * @return aNonNullableString
+   **/
+  @NotNull
+  public String getaNonNullableString() {
+    return aNonNullableString;
+  }
+
+  public void setaNonNullableString(String aNonNullableString) {
+    this.aNonNullableString = aNonNullableString;
+  }
+
+  public ValidationDto aNonNullableUUID(UUID aNonNullableUUID) {
+    this.aNonNullableUUID = aNonNullableUUID;
+    return this;
+  }
+
+  /**
+   * Get aNonNullableUUID
+   * @return aNonNullableUUID
+   **/
+  @NotNull
+  public UUID getaNonNullableUUID() {
+    return aNonNullableUUID;
+  }
+
+  public void setaNonNullableUUID(UUID aNonNullableUUID) {
+    this.aNonNullableUUID = aNonNullableUUID;
+  }
+
+  public ValidationDto aNullableBoolean(Boolean aNullableBoolean) {
+    this.aNullableBoolean = aNullableBoolean;
+    return this;
+  }
+
+  /**
+   * Get aNullableBoolean
+   * @return aNullableBoolean
+   **/
+  public Boolean isaNullableBoolean() {
+    return aNullableBoolean;
+  }
+
+  public void setaNullableBoolean(Boolean aNullableBoolean) {
+    this.aNullableBoolean = aNullableBoolean;
+  }
+
+  public ValidationDto aNullableDate(LocalDate aNullableDate) {
+    this.aNullableDate = aNullableDate;
+    return this;
+  }
+
+  /**
+   * Get aNullableDate
+   * @return aNullableDate
+   **/
+  public LocalDate getaNullableDate() {
+    return aNullableDate;
+  }
+
+  public void setaNullableDate(LocalDate aNullableDate) {
+    this.aNullableDate = aNullableDate;
+  }
+
+  public ValidationDto aNullableNumber(BigDecimal aNullableNumber) {
+    this.aNullableNumber = aNullableNumber;
+    return this;
+  }
+
+  /**
+   * Get aNullableNumber
+   * @return aNullableNumber
+   **/
+  public BigDecimal getaNullableNumber() {
+    return aNullableNumber;
+  }
+
+  public void setaNullableNumber(BigDecimal aNullableNumber) {
+    this.aNullableNumber = aNullableNumber;
+  }
+
+  public ValidationDto aNullableString(String aNullableString) {
+    this.aNullableString = aNullableString;
+    return this;
+  }
+
+  /**
+   * Get aNullableString
+   * @return aNullableString
+   **/
+  public String getaNullableString() {
+    return aNullableString;
+  }
+
+  public void setaNullableString(String aNullableString) {
+    this.aNullableString = aNullableString;
+  }
+
+  public ValidationDto aNullableUUID(UUID aNullableUUID) {
+    this.aNullableUUID = aNullableUUID;
+    return this;
+  }
+
+  /**
+   * Get aNullableUUID
+   * @return aNullableUUID
+   **/
+  public UUID getaNullableUUID() {
+    return aNullableUUID;
+  }
+
+  public void setaNullableUUID(UUID aNullableUUID) {
+    this.aNullableUUID = aNullableUUID;
   }
 
   public ValidationDto badParsingOfRange(Integer badParsingOfRange) {
@@ -316,6 +539,16 @@ public class ValidationDto {
     return Objects.equals(this.aBigDecimal, other.aBigDecimal) &&
         Objects.equals(this.aBigDouble, other.aBigDouble) &&
         Objects.equals(this.aBigFloat, other.aBigFloat) &&
+        Objects.equals(this.aNonNullableBoolean, other.aNonNullableBoolean) &&
+        Objects.equals(this.aNonNullableDate, other.aNonNullableDate) &&
+        Objects.equals(this.aNonNullableNumber, other.aNonNullableNumber) &&
+        Objects.equals(this.aNonNullableString, other.aNonNullableString) &&
+        Objects.equals(this.aNonNullableUUID, other.aNonNullableUUID) &&
+        Objects.equals(this.aNullableBoolean, other.aNullableBoolean) &&
+        Objects.equals(this.aNullableDate, other.aNullableDate) &&
+        Objects.equals(this.aNullableNumber, other.aNullableNumber) &&
+        Objects.equals(this.aNullableString, other.aNullableString) &&
+        Objects.equals(this.aNullableUUID, other.aNullableUUID) &&
         Objects.equals(this.badParsingOfRange, other.badParsingOfRange) &&
         Objects.equals(this.intValue, other.intValue) &&
         Objects.equals(this.name, other.name) &&
@@ -328,7 +561,7 @@ public class ValidationDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects, veryBigLong);
+    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, aNonNullableBoolean, aNonNullableDate, aNonNullableNumber, aNonNullableString, aNonNullableUUID, aNullableBoolean, aNullableDate, aNullableNumber, aNullableString, aNullableUUID, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects, veryBigLong);
   }
 
   @Override
@@ -338,6 +571,16 @@ public class ValidationDto {
     sb.append("\n    aBigDecimal: ").append(toIndentedString(aBigDecimal));
     sb.append("\n    aBigDouble: ").append(toIndentedString(aBigDouble));
     sb.append("\n    aBigFloat: ").append(toIndentedString(aBigFloat));
+    sb.append("\n    aNonNullableBoolean: ").append(toIndentedString(aNonNullableBoolean));
+    sb.append("\n    aNonNullableDate: ").append(toIndentedString(aNonNullableDate));
+    sb.append("\n    aNonNullableNumber: ").append(toIndentedString(aNonNullableNumber));
+    sb.append("\n    aNonNullableString: ").append(toIndentedString(aNonNullableString));
+    sb.append("\n    aNonNullableUUID: ").append(toIndentedString(aNonNullableUUID));
+    sb.append("\n    aNullableBoolean: ").append(toIndentedString(aNullableBoolean));
+    sb.append("\n    aNullableDate: ").append(toIndentedString(aNullableDate));
+    sb.append("\n    aNullableNumber: ").append(toIndentedString(aNullableNumber));
+    sb.append("\n    aNullableString: ").append(toIndentedString(aNullableString));
+    sb.append("\n    aNullableUUID: ").append(toIndentedString(aNullableUUID));
     sb.append("\n    badParsingOfRange: ").append(toIndentedString(badParsingOfRange));
     sb.append("\n    intValue: ").append(toIndentedString(intValue));
     sb.append("\n    name: ").append(toIndentedString(name));
