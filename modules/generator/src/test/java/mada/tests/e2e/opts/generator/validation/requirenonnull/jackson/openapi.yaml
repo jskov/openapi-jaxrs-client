@@ -78,4 +78,18 @@ components:
           type: array
           items:
             type: boolean
-          
+    AdresseIdentifikationDto:
+      title: Adresseindentifikation
+      required:
+        - adgangsadresseId
+        - adresseId
+      type: object
+      properties:
+        adresseId:
+          type: string
+          format: uuid
+          nullable: true
+        adgangsadresseId:
+          type: string
+          format: uuid
+      additionalProperties: false
