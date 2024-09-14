@@ -472,7 +472,7 @@ public final class GeneratorOpts {
 
     /** {@return the line ending to use} */
     public LineEnding getLineEnding() {
-        String le = or.getDefault("generator-use-line-ending", LineEnding.DEFAULT.name());
+        String le = or.getDefault("generator-use-line-ending", LineEnding.AUTO.name());
         return LineEnding.from(le);
     }
 
@@ -586,8 +586,8 @@ public final class GeneratorOpts {
      * Line endings.
      */
     public enum LineEnding {
-        /** Platform default. */
-        DEFAULT(System.lineSeparator()),
+        /** Auto - the platform's default. */
+        AUTO(System.lineSeparator()),
         /** Unix line endings, LF. */
         UNIX("\n"),
         /** Windows line endings, CRLF. */
