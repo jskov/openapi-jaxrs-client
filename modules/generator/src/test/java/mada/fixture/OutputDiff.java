@@ -67,8 +67,8 @@ public final class OutputDiff {
         Path expected = expectedDir.resolve(a);
         Path actual = actualDir.resolve(a);
 
-        String expectedStr = readFileToString(expected).replace("\r\n", "\n");
-        String actualStr = readFileToString(actual).replace("\r\n", "\n");
+        String expectedStr = readFileToString(expected);
+        String actualStr = readFileToString(actual);
 
         StandardRepresentation representation = new StandardRepresentation() {
             private boolean diffPrinted;

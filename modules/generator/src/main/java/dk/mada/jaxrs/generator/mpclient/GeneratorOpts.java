@@ -470,6 +470,12 @@ public final class GeneratorOpts {
         }
     }
 
+    /** {@return the line ending to use} */
+    public LineEnding getLineEnding() {
+        String le = or.getDefault("generator-use-line-ending", LineEnding.DEFAULT.name());
+        return LineEnding.from(le);
+    }
+
     /** {@return the property sorting order to use} */
     public PropertyOrder getPropertyOrder() {
         String order = or.getDefault("generator-use-property-order", PropertyOrder.ALPHABETICAL_NOCASE_ORDER.name());
@@ -560,7 +566,7 @@ public final class GeneratorOpts {
         ALPHABETICAL_NOCASE_ORDER;
 
         /**
-         * Converts property value enum value.
+         * Converts property value to enumeration value.
          *
          * @param value the input property value
          * @return the matching property order enumeration
@@ -573,6 +579,46 @@ public final class GeneratorOpts {
                 }
             }
             throw new IllegalArgumentException("Unknown PropertyOrder " + name);
+        }
+    }
+
+    /**
+     * Line endings.
+     */
+    public enum LineEnding {
+        /** Platform default. */
+        DEFAULT(System.lineSeparator()),
+        /** Unix line endings, LF. */
+        UNIX("\n"),
+        /** Windows line endings, CRLF. */
+        WINDOWS("\r\n");
+
+        /** The line ending's line break sequence. */
+        final String lineBreak;
+
+        LineEnding(String string) {
+            this.lineBreak = string;
+        }
+
+        /** {@return the active line break sequence} */
+        public String lineBreak() {
+            return lineBreak;
+        }
+
+        /**
+         * Converts property value to enumeration value.
+         *
+         * @param value the input property value
+         * @return the matching line ending enumeration
+         */
+        public static LineEnding from(String value) {
+            String name = value.toUpperCase(Locale.ROOT);
+            for (var po : LineEnding.values()) {
+                if (po.name().equals(name)) {
+                    return po;
+                }
+            }
+            throw new IllegalArgumentException("Unknown LineEnding " + name);
         }
     }
 

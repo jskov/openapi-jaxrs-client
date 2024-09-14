@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.generator.mpclient.GeneratorOpts.LineEnding;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiRenderer;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxDto;
@@ -25,14 +27,19 @@ public class Templates {
 
     /** Directory to write DTO classes to. */
     private final Path dtoDir;
+    /** The line ending to use when rendering templates. */
+    private final LineEnding lineEnding;
 
     /**
      * Creates templates.
      *
+     * @param opts   the generator options
      * @param dtoDir the directory to generate DTO classes in
      */
-    public Templates(Path dtoDir) {
+    public Templates(GeneratorOpts opts, Path dtoDir) {
         this.dtoDir = dtoDir;
+
+        lineEnding = opts.getLineEnding();
     }
 
     /**
@@ -105,7 +112,12 @@ public class Templates {
         try {
             // remove trailing spaces on a line.
             // if the line is all spaces, remove the full line (include the preceding newline)
-            String text = code.replaceAll("(?m)(" + System.lineSeparator() + ")? +$", "");
+            String text = code
+                    .replaceAll("(?m)(" + System.lineSeparator() + ")? +$", "")
+                    .lines()
+                    .collect(Collectors.joining(lineEnding.lineBreak()))
+                    + lineEnding.lineBreak();
+
             Files.writeString(output, text);
         } catch (IOException e) {
             throw new UncheckedIOException("Failed to render template to " + output, e);

@@ -48,7 +48,7 @@ class TestIterator {
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
 //        String testNameContains = "manual";
-        String testNameContains = "inheritance";
+        String testNameContains = "line_ending";
 //        String testNameContains = "api/types_special";
 //        String testNameContains = "opts/generator/record";
 

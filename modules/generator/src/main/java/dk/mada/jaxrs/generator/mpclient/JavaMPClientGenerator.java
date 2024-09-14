@@ -29,7 +29,7 @@ public final class JavaMPClientGenerator {
     public void generate(Model model, GeneratorOpts opts, ClientContext clientContext, Path destinationDir) {
         Path dtoDir = destinationDir.resolve(opts.dtoPackageDir());
 
-        var templates = new Templates(dtoDir);
+        var templates = new Templates(opts, dtoDir);
         if (!clientContext.skipApi() && !opts.isSkipApiClasses()) {
             Path apiDir = destinationDir.resolve(opts.apiPackageDir());
             createDirs(apiDir);
