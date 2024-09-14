@@ -28,7 +28,7 @@ public class AdresseIdentifikationDto {
   private UUID adresseId;
 
   public AdresseIdentifikationDto adgangsadresseId(UUID adgangsadresseId) {
-    this.adgangsadresseId = adgangsadresseId;
+    this.adgangsadresseId = Objects.requireNonNull(adgangsadresseId, "Property adgangsadresseId is required, cannot be null");
     return this;
   }
 
@@ -42,7 +42,7 @@ public class AdresseIdentifikationDto {
   }
 
   public void setAdgangsadresseId(UUID adgangsadresseId) {
-    this.adgangsadresseId = adgangsadresseId;
+    this.adgangsadresseId = Objects.requireNonNull(adgangsadresseId, "Property adgangsadresseId is required, cannot be null");
   }
 
   public AdresseIdentifikationDto adresseId(UUID adresseId) {

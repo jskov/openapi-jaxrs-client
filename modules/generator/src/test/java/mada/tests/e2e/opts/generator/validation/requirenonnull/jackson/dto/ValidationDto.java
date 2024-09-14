@@ -190,7 +190,7 @@ public class ValidationDto {
   }
 
   public ValidationDto name(String name) {
-    this.name = name;
+    this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");
     return this;
   }
 
@@ -204,7 +204,7 @@ public class ValidationDto {
   }
 
   public void setName(String name) {
-    this.name = name;
+    this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");
   }
 
   public ValidationDto pattern(String pattern) {
