@@ -75,4 +75,7 @@ public interface CtxPropertyExt {
 
     /** {@return true if this property is nullable} */
     boolean isNullable();
+
+    /** {@return true if this property should guard against nulls with Objects.requireNonNull} */
+    boolean isRequireNonNull();
 }

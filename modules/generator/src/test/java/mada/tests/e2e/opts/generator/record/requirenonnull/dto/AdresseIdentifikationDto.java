@@ -6,8 +6,9 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.generator.record.nonnull.dto;
+package mada.tests.e2e.opts.generator.record.requirenonnull.dto;
 
+import java.util.Objects;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.constraints.NotNull;
@@ -29,4 +30,7 @@ public record AdresseIdentifikationDto(
   @Nullable
   UUID adresseId) {
 
+    public AdresseIdentifikationDto {
+      Objects.requireNonNull(adgangsadresseId, "Property adgangsadresseId is required, cannot be null");
+    }
 }

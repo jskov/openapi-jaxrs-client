@@ -1,0 +1,95 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/validation:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationDto'
+components:
+  schemas:
+    Environment:
+      enum:
+      - test
+      - qa
+      - production
+      type: string
+    ValidationDto:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 1
+          type: string
+          nullable: false
+        intValue:
+          format: int32
+          maximum: 20
+          minimum: 10
+          type: integer
+        badParsingOfRange:
+          format: int32
+          maximum: 999
+          minimum: 100
+          type: integer
+        aBigDouble:
+          format: double
+          description: With a "quoted" description
+          maximum: 99999999
+          minimum: 0
+          type: number
+        aBigFloat:
+          format: float
+          description: a float
+          maximum: 1000
+          minimum: 0
+          type: number
+        aBigDecimal:
+          description: a BigDecimal
+          maximum: 1000
+          minimum: 100
+          type: number
+        pattern:
+          type: string
+          # Added manually
+          pattern: "^[a-zA-Z]{0,3}$"
+        patternDigits:
+          type: string
+          # Added manually
+          pattern: "^\\d{1,2}$"
+        validObjects:
+          maxItems: 4
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Environment'
+        primitivesShouldNotHaveValidate:
+          type: array
+          items:
+            type: boolean
+    AdresseIdentifikationDto:
+      title: Adresseindentifikation
+      required:
+        - adgangsadresseId
+        - adresseId
+      type: object
+      properties:
+        adresseId:
+          type: string
+          format: uuid
+          nullable: true
+        adgangsadresseId:
+          type: string
+          format: uuid
+      additionalProperties: false
