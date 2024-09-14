@@ -6,7 +6,7 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.generator.record.nonnull.dto;
+package mada.tests.e2e.opts.generator.record.no_requirenonnull.dto;
 
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
