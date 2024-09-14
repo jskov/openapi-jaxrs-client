@@ -471,6 +471,20 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-use-line-ending**
+
+>Allows you to control the line endings used in templates.
+>
+
+> * auto: use the standard line endings for the current platform.
+
+> * unix: use Unix line endings (LF).
+
+> * windows: use Windows line endings (CRLF).
+
+>
+    default value: auto
+
 **generator-use-localdatetime**
 
 >date-time types are deserialized to OffsetDateTime by default, which matches the information

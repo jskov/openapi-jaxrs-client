@@ -1,0 +1,5 @@
+# Default is auto conversion
+* text=auto
+
+modules/generator/src/test/java/mada/tests/e2e/opts/generator/line_ending/dos/*/*.java text eol=crlf
+modules/generator/src/test/java/mada/tests/e2e/opts/generator/line_ending/unix/*/*.java text eol=lf
