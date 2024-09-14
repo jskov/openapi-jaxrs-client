@@ -6,12 +6,12 @@
  * Contact: openapi API contact email
  */
 
-package mada.tests.e2e.opts.generator.validation_api.api;
+package mada.tests.e2e.opts.generator.validation.body_required.api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import mada.tests.e2e.opts.generator.validation_api.dto.Environment;
-import mada.tests.e2e.opts.generator.validation_api.dto.Simple;
+import mada.tests.e2e.opts.generator.validation.body_required.dto.Environment;
+import mada.tests.e2e.opts.generator.validation.body_required.dto.Simple;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
