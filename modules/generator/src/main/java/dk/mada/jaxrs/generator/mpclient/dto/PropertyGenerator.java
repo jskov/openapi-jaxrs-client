@@ -182,6 +182,7 @@ public class PropertyGenerator {
                 .multipartType(multipartType)
                 .jsonPropertyConstant(jsonPropertyConst)
                 .isNullable(isJaxrsNullable || isImpliedNullable)
+                .isRequireNonNull(isNotNull && opts.isUsePojoRequireNonNull())
                 .build();
 
         String propertyName = names.propertyName();

@@ -87,23 +87,23 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{/vars}}
   {{#vars}}
   public {{classname}} {{name}}({{>nullablePrefix}}{{{datatypeWithEnum}}} {{name}}) {
-    {{#notNull}}
+    {{#madaProp.requireNonNull}}
     this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
-    {{/notNull}}
-    {{^notNull}}
+    {{/madaProp.requireNonNull}}
+    {{^madaProp.requireNonNull}}
     this.{{name}} = {{name}};
-    {{/notNull}}
+    {{/madaProp.requireNonNull}}
     return this;
   }
   {{#madaProp.isUseBigDecimalForDouble}}
 
   public {{classname}} {{name}}({{>nullablePrefix}}BigDecimal {{name}}) {
-    {{#notNull}}
+    {{#madaProp.requireNonNull}}
     this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
-    {{/notNull}}
-    {{^notNull}}
+    {{/madaProp.requireNonNull}}
+    {{^madaProp.requireNonNull}}
     this.{{name}} = {{name}} == null ? null : {{name}}.doubleValue();
-    {{/notNull}}
+    {{/madaProp.requireNonNull}}
     return this;
   }
   {{/madaProp.isUseBigDecimalForDouble}}
@@ -194,12 +194,12 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{{vendorExtensions.x-setter-extra-annotation}}}
   {{/vendorExtensions.x-setter-extra-annotation}}
   public void {{setter}}({{>nullablePrefix}}{{{datatypeWithEnum}}} {{name}}) {
-    {{#notNull}}
+    {{#madaProp.requireNonNull}}
     this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
-    {{/notNull}}
-    {{^notNull}}
+    {{/madaProp.requireNonNull}}
+    {{^madaProp.requireNonNull}}
     this.{{name}} = {{name}};
-    {{/notNull}}
+    {{/madaProp.requireNonNull}}
   }
   {{#madaProp.isUseBigDecimalForDouble}}
 
@@ -207,12 +207,12 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   @JsonIgnore
   {{/jackson}}
   public void {{madaProp.setter}}({{>nullablePrefix}}BigDecimal {{name}}) {
-    {{#notNull}}
+    {{#madaProp.requireNonNull}}
     this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
-    {{/notNull}}
-    {{^notNull}}
+    {{/madaProp.requireNonNull}}
+    {{^madaProp.requireNonNull}}
     this.{{name}} = {{name}} == null ? null : {{name}}.doubleValue();
-    {{/notNull}}
+    {{/madaProp.requireNonNull}}
   }
   {{/madaProp.isUseBigDecimalForDouble}}
 

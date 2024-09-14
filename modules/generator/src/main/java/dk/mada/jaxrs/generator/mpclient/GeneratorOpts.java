@@ -313,6 +313,11 @@ public final class GeneratorOpts {
         return or.bool("generator-dto-records-use-requirenonnull", true);
     }
 
+    /** {@return true if POJO DTOs should include null guards} */
+    public boolean isUsePojoRequireNonNull() {
+        return or.bool("generator-dto-pojo-use-requirenonnull", true);
+    }
+
     /** {@return a predicate which will define which records to generate builders for} */
     public Predicate<TypeName> getRecordBuilderPredicate() {
         return recordBuilderPredicate;

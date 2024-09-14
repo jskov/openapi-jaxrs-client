@@ -203,6 +203,14 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-dto-pojo-use-requirenonnull**
+
+>Allows you to control POJO's use of Objects.requireNonNull in setters.
+
+>
+    default value: true
+
+
 **generator-dto-records-use-requirenonnull**
 
 >Allows you to control record's use of canonical constructor with Objects.requireNonNull
