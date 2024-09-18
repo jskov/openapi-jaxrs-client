@@ -1,6 +1,10 @@
 apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
 
 dependencies {
+    implementation      (libs.logger)
+
+    annotationProcessor (libs.immutablesApt)
+    compileOnly         (libs.immutablesAnnotations)
 }
 
 publishing {

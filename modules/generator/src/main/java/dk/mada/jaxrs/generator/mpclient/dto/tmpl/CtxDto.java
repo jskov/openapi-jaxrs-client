@@ -84,9 +84,8 @@ public interface CtxDto {
     /** {@return the optional name of a parent class} */
     Optional<String> parent();
 
-    // jspecify @Nullable does not work here, for some reason
     /** {@return optional vendor extensions} */
-    @javax.annotation.Nullable Map<String, String> vendorExtensions();
+    @Nullable Map<String, String> vendorExtensions();
 
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();

@@ -5,15 +5,19 @@ plugins {
 apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
 
 dependencies {
-    api project(':generator-api')
-    implementation project(':model')
-    implementation project(':parser')
+    api                 project(':generator-api')
+    implementation      (libs.logger)
+    implementation      project(':model')
+    implementation      project(':parser')
 
-    // workaround for immutable @Nullable Map bug (CtxDto)
-    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+    annotationProcessor (libs.immutablesApt)
+    compileOnly         (libs.immutablesAnnotations)
 
-    implementation      'org.slf4j:slf4j-jdk14'
+    annotationProcessor (libs.jstachioApt)
+    annotationProcessor fileTree(layout.projectDirectory.dir('src/main/resources/templates')) { include '**/*' }
+    compileOnly         (libs.jstachioAnnotations)
 
+/*
     // for the generated code
     testImplementation 'javax.json:javax.json-api'
     testImplementation 'javax.json.bind:javax.json.bind-api'
@@ -34,6 +38,7 @@ dependencies {
     testImplementation 'javax.ws.rs:javax.ws.rs-api'
     testImplementation 'org.eclipse.microprofile.openapi:microprofile-openapi-api'
     testImplementation 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
+*/
 }
 
 test {
