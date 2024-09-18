@@ -1,5 +1,4 @@
 pluginManagement {
-    includeBuild('gradle/plugins')
     repositories {
         mavenCentral()
         gradlePluginPortal()
@@ -8,8 +7,6 @@ pluginManagement {
 }
 
 rootProject.name='openapi-jaxrs-client'
-
-includeBuild 'gradle/platforms'
 
 include 'openapi-jaxrs-bom'
 project(':openapi-jaxrs-bom').projectDir = file('modules/openapi-jaxrs-bom')

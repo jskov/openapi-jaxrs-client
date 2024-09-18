@@ -1,0 +1,16 @@
+apply from: "${project.rootDir}/gradle/dk.mada.eclipse.gradle"
+apply from: "${project.rootDir}/gradle/dk.mada.jacoco.gradle"
+apply from: "${project.rootDir}/gradle/dk.mada.publish.gradle"
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}

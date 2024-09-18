@@ -1,4 +1,7 @@
 plugins {
     id 'eclipse'
-    id 'dk.mada.buildinfo' version '1.0.1'
+
+    id 'com.diffplug.eclipse.apt' version '4.0.1'
+    id 'dk.mada.reproducible' version '1.0.2'
+    id 'dk.mada.style' version '1.0.0'
 }

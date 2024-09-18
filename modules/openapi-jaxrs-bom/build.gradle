@@ -1,9 +1,8 @@
 plugins {
     id('java-platform')
-
-    id 'dk.mada.eclipse'
-    id 'dk.mada.pom-jaxrs'
 }
+
+apply from: "${project.rootDir}/gradle/dk.mada.publish.gradle"
 
 // allow the definition of dependencies to other platforms
 javaPlatform.allowDependencies()
