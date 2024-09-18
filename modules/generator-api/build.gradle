@@ -1,8 +1,7 @@
-plugins {
-    id 'java-library'
-}
-
 apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
+
+dependencies {
+}
 
 publishing {
     publications {
