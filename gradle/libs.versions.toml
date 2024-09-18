@@ -1,0 +1,16 @@
+[versions]
+jspecify = "1.0.0"
+immutables = "2.10.1"
+slf4j = "2.0.16"
+swagger = "2.1.22"
+
+[libraries]
+jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
+
+immutablesApt = { module = "org.immutables:value", version.ref = "immutables" }
+immutablesAnnotations = { module = "org.immutables:value", version.ref = "immutables" }
+
+logger = { module = "org.slf4j:slf4j-jdk14", version.ref = "slf4j" }
+
+swaggerParser = { module = "io.swagger.parser.v3:swagger-parser", version.ref = "swagger" }
+

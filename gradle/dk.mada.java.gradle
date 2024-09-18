@@ -10,10 +10,8 @@ repositories {
 
 dependencies {
     api platform(project(':openapi-jaxrs-bom'))
-    compileOnly platform(project(':openapi-jaxrs-bom'))
-    annotationProcessor platform(project(':openapi-jaxrs-bom'))
 
-    compileOnly 'org.jspecify:jspecify'
+    compileOnly(libs.jspecify)
 }
 
 compileJava {

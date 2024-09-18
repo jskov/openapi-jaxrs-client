@@ -10,7 +10,7 @@ javaPlatform.allowDependencies()
 // Some of these are compile-only and should be moved to a compile platform
 dependencies {
     constraints {
-        api 'org.jspecify:jspecify:1.0.0'
+//        api 'org.jspecify:jspecify:1.0.0'
         
         /*
         api project(':generator')
