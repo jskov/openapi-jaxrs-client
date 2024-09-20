@@ -1,7 +1,5 @@
 apply plugin: 'jacoco'
 
-// Configures jacoco plugin
-
 tasks.named('jacocoTestReport') {
     reports {
         xml.required.set(true)
