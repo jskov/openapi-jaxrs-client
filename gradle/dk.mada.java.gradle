@@ -1,4 +1,5 @@
 apply plugin: 'java-library'
+apply plugin: 'dk.mada.style'
 
 apply from: "${project.rootDir}/gradle/dk.mada.eclipse.gradle"
 apply from: "${project.rootDir}/gradle/dk.mada.jacoco.gradle"
