@@ -11,34 +11,21 @@ dependencies {
     implementation      project(':parser')
 
     annotationProcessor (libs.immutablesApt)
-    compileOnly         (libs.immutablesAnnotations)
+    compileOnly         (libs.immutablesAnn)
 
     annotationProcessor (libs.jstachioApt)
     annotationProcessor fileTree(layout.projectDirectory.dir('src/main/resources/templates')) { include '**/*' }
-    compileOnly         (libs.jstachioAnnotations)
+    compileOnly         (libs.jstachioAnn)
 
-/*
-    // for the generated code
-    testImplementation 'javax.json:javax.json-api'
-    testImplementation 'javax.json.bind:javax.json.bind-api'
-
-    testImplementation 'javax.validation:validation-api'
-
-    testImplementation 'com.fasterxml.jackson.core:jackson-annotations'
-    testImplementation 'com.fasterxml.jackson.core:jackson-core'
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    testImplementation  (libs.bundles.testUnit)
+    testImplementation  (libs.bundles.testGen)
+    testImplementation  enforcedPlatform(libs.quarkusBom)
     testImplementation 'io.quarkus:quarkus-rest-client'
     testImplementation 'io.quarkus:quarkus-resteasy-multipart'
-    testImplementation 'jakarta.annotation:jakarta.annotation-api'
-    testImplementation 'jakarta.json:jakarta.json-api'
-    testImplementation 'jakarta.json.bind:jakarta.json.bind-api'
-    testImplementation 'jakarta.validation:jakarta.validation-api'
-    testImplementation 'jakarta.ws.rs:jakarta.ws.rs-api'
-    testImplementation 'javax.annotation:javax.annotation-api'
-    testImplementation 'javax.ws.rs:javax.ws.rs-api'
     testImplementation 'org.eclipse.microprofile.openapi:microprofile-openapi-api'
     testImplementation 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api'
-*/
+    testImplementation 'jakarta.json.bind:jakarta.json.bind-api'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
 test {

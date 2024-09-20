@@ -16,6 +16,7 @@ dependencies {
     implementation 'info.picocli:picocli:4.7.6'
     implementation 'org.slf4j:slf4j-jdk14'
 
+    testImplementation  (libs.bundles.testUnit)
     testRuntimeOnly project(':generator')
 }
 

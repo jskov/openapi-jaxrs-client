@@ -10,7 +10,7 @@ dependencies {
     implementation      (libs.swaggerParser)
 
     annotationProcessor (libs.immutablesApt)
-    compileOnly         (libs.immutablesAnnotations)
+    compileOnly         (libs.immutablesAnn)
 }
 
 publishing {

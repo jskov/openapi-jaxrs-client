@@ -4,7 +4,9 @@ dependencies {
     implementation      (libs.logger)
 
     annotationProcessor (libs.immutablesApt)
-    compileOnly         (libs.immutablesAnnotations)
+    compileOnly         (libs.immutablesAnn)
+
+    testImplementation  (libs.bundles.testUnit)
 }
 
 publishing {
