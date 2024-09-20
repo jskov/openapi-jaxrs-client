@@ -14,13 +14,17 @@ dependencies {
     compileOnly(libs.jspecify)
 }
 
-compileJava {
+tasks.named('compileJava') {
     options.encoding = 'UTF-8'
     options.compilerArgs << '-parameters'
 }
 
-compileTestJava {
+tasks.named('compileTestJava') {
     options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }
 
 // MavenCentral publishing requires both javadoc and sources
@@ -29,17 +33,17 @@ java {
     withSourcesJar()
 }
 
-jar {
+tasks.named('jar') {
     group = "Module generator"
     archiveBaseName = "generator"
 }
 
-sourcesJar {
+tasks.named('sourcesJar') {
     group = "Module generator"
     archiveBaseName = "generator"
 }
 
-javadocJar {
+tasks.named('javadocJar') {
     group = "Module generator"
     archiveBaseName = "generator"
 }
