@@ -4,22 +4,14 @@ plugins {
 
 apply from: "${project.rootDir}/gradle/dk.mada.publish.gradle"
 
-// allow the definition of dependencies to other platforms
-javaPlatform.allowDependencies()
-
-// Some of these are compile-only and should be moved to a compile platform
 dependencies {
     constraints {
-//        api 'org.jspecify:jspecify:1.0.0'
-        
-        /*
         api project(':generator')
         api project(':generator-api')
         api project(':generator-cli')
         api project(':model')
         api project(':parser')
-*/
-        api 'org.slf4j:slf4j-jdk14:2.0.16'
+        api (libs.logger)
     }
 }
 
