@@ -6,6 +6,7 @@ apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
 
 dependencies {
     implementation      project(':model')
+
     implementation      (libs.logger)
     implementation      (libs.swaggerParser)
 
