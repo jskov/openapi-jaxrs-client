@@ -86,7 +86,7 @@ public interface CtxDto {
 
     // jspecify @Nullable does not work here, for some reason
     /** {@return optional vendor extensions} */
-    @javax.annotation.Nullable Map<String, String> vendorExtensions();
+    @jakarta.annotation.Nullable Map<String, String> vendorExtensions();
 
     /** {@return true if a jackson serializer is used, otherwise false} */
     boolean jackson();

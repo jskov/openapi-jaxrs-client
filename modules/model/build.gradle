@@ -1,15 +1,16 @@
 plugins {
     id 'java-library'
-
-    id 'dk.mada.java'
-    id 'dk.mada.jacoco'
-    id 'dk.mada.apt-values'
-    id 'dk.mada.eclipse'
-    id 'dk.mada.pom-jaxrs'
 }
 
+apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
+
 dependencies {
-    implementation      'org.slf4j:slf4j-jdk14'
+    implementation      (libs.logger)
+
+    annotationProcessor (libs.immutablesApt)
+    compileOnly         (libs.immutablesAnn)
+
+    testImplementation  (libs.bundles.testUnit)
 }
 
 publishing {

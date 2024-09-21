@@ -1,0 +1,50 @@
+apply plugin: 'java-library'
+apply plugin: 'dk.mada.style'
+
+apply from: "${project.rootDir}/gradle/dk.mada.eclipse.gradle"
+apply from: "${project.rootDir}/gradle/dk.mada.jacoco.gradle"
+apply from: "${project.rootDir}/gradle/dk.mada.publish.gradle"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api platform(project(':openapi-jaxrs-bom'))
+
+    compileOnly(libs.jspecify)
+}
+
+tasks.named('compileJava') {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+tasks.named('compileTestJava') {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// MavenCentral publishing requires both javadoc and sources
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+tasks.named('jar') {
+    group = "Module generator"
+    archiveBaseName = "generator"
+}
+
+tasks.named('sourcesJar') {
+    group = "Module generator"
+    archiveBaseName = "generator"
+}
+
+tasks.named('javadocJar') {
+    group = "Module generator"
+    archiveBaseName = "generator"
+}

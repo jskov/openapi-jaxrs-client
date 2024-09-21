@@ -1,14 +1,9 @@
 plugins {
     id('java-platform')
-
-    id 'dk.mada.eclipse'
-    id 'dk.mada.pom-jaxrs'
 }
 
-// allow the definition of dependencies to other platforms
-javaPlatform.allowDependencies()
+apply from: "${project.rootDir}/gradle/dk.mada.publish.gradle"
 
-// Some of these are compile-only and should be moved to a compile platform
 dependencies {
     constraints {
         api project(':generator')
@@ -16,8 +11,6 @@ dependencies {
         api project(':generator-cli')
         api project(':model')
         api project(':parser')
-
-        api 'org.slf4j:slf4j-jdk14:2.0.16'
     }
 }
 

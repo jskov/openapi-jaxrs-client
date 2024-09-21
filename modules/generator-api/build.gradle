@@ -1,9 +1,10 @@
-plugins {
-    id 'java-library'
+apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
 
-    id 'dk.mada.java'
-    id 'dk.mada.eclipse'
-    id 'dk.mada.pom-jaxrs'
+dependencies {
+    annotationProcessor (libs.immutablesApt)
+    compileOnly         (libs.immutablesAnn)
+
+    testImplementation  (libs.bundles.testUnit)
 }
 
 publishing {

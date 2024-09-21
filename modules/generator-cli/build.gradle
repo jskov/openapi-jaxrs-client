@@ -1,24 +1,24 @@
 plugins {
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
 
-    id 'dk.mada.java'
-    id 'dk.mada.jacoco'
-    id 'dk.mada.eclipse'
-    id 'dk.mada.pom-jaxrs'
+    id 'com.gradleup.shadow' version '8.3.1'
 }
+
+apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
 
 ext {
     builtOn = LocalDate.now()
 }
 
 dependencies {
-    implementation project(':generator-api')
-    implementation project(':generator')
-    implementation 'info.picocli:picocli:4.7.6'
-    implementation 'org.slf4j:slf4j-jdk14'
+    implementation      project(':generator-api')
+    implementation      project(':generator')
 
-    testRuntimeOnly project(':generator')
+    implementation      (libs.logger)
+    implementation      (libs.picocli)
+
+    testImplementation  (libs.bundles.testUnit)
+    testRuntimeOnly     project(':generator')
 }
 
 shadowJar {

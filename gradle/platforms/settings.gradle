@@ -1,3 +1,0 @@
-include('apt-platform')
-include('test-platform')
-include('plugins-platform')

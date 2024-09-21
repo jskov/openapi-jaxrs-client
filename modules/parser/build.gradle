@@ -1,22 +1,17 @@
 plugins {
     id 'java-library'
-
-    id 'dk.mada.java'
-    id 'dk.mada.apt-values'
-    id 'dk.mada.eclipse'
-    id 'dk.mada.pom-jaxrs'
 }
 
+apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
+
 dependencies {
-    implementation      'org.slf4j:slf4j-jdk14'
+    implementation      project(':model')
 
-    implementation project(':model')
+    implementation      (libs.logger)
+    implementation      (libs.swaggerParser)
 
-    implementation 'io.swagger.parser.v3:swagger-parser:2.1.22'
-    // swagger.parser comes with vulnerable rhino + commons-codec
-    implementation 'org.mozilla:rhino:1.7.15'
-    implementation 'commons-codec:commons-codec:1.17.1'
-
+    annotationProcessor (libs.immutablesApt)
+    compileOnly         (libs.immutablesAnn)
 }
 
 publishing {

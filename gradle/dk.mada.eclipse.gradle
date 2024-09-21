@@ -1,7 +1,5 @@
-plugins {
-    id('eclipse')
-    id('com.diffplug.eclipse.apt')
-}
+apply plugin: 'eclipse'
+apply plugin: 'com.diffplug.eclipse.apt'
 
 // This seem to be missing from the APT plugin (tested with Eclipse 2022.12)
 // Add is as a non-main sourceset so Gradle does not process the output source files in it.

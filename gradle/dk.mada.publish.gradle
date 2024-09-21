@@ -1,18 +1,7 @@
+apply plugin: 'maven-publish'
+
 // Configures POM for modules. Somewhat yucky, but avoid duplication
-
-plugins {
-    id 'maven-publish'
-}
-
 group = 'dk.mada.jaxrs'
-
-// MavenCentral publishing requires both javadoc and sources
-if (project.pluginManager.hasPlugin('java')) {
-    java {
-        withJavadocJar()
-        withSourcesJar()
-    }
-}
 
 publishing {
     repositories {
