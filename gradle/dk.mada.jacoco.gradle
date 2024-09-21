@@ -4,8 +4,17 @@ tasks.named('jacocoTestReport') {
     enabled = false // combined report generated from root project
 }
 
+// Make (root) combinedCoverageReport depend on test.
+// And sonar depend on (root) combinedCoverageReport (and thus all the system's tests)
+rootProject.tasks.named("combinedCoverageReport").configure {
+    dependsOn(test) 
+}
+tasks.named('sonar') {
+    dependsOn(":combinedCoverageReport")
+}
+
 sonar {
     properties {
-        property 'sonar.coverage.jacoco.xmlReportPaths', "${project.rootDir}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+        property 'sonar.coverage.jacoco.xmlReportPaths', "${project.rootDir}/build/reports/jacoco/combinedCoverageReport/combinedCoverageReport.xml"
     }
 }
