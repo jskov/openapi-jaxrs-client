@@ -13,6 +13,7 @@ dependencies {
 
     annotationProcessor (libs.immutablesApt)
     compileOnly         (libs.immutablesAnn)
+    compileOnly         (libs.jakartaAnn) // for CtxDto @Nullable hack
 
     annotationProcessor (libs.jstachioApt)
     annotationProcessor fileTree(layout.projectDirectory.dir('src/main/resources/templates')) { include '**/*' }

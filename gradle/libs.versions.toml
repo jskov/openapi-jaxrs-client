@@ -10,34 +10,36 @@ swagger    = "2.1.22"
 unit       = "5.11.0"
 
 [libraries]
-assertJ          = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+assertJ             = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 
-immutablesApt    = { module = "org.immutables:value", version.ref = "immutables" }
-immutablesAnn    = { module = "org.immutables:value", version.ref = "immutables" }
+immutablesApt       = { module = "org.immutables:value", version.ref = "immutables" }
+immutablesAnn       = { module = "org.immutables:value", version.ref = "immutables" }
 
-jspecify         = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
+jakartaAnn          = { module = "jakarta.annotation:jakarta.annotation-api", version = "3.0.0" }
 
-jstachioApt      = { module = "io.jstach:jstachio-apt", version.ref = "jstachio" }
-jstachioAnn      = { module = "io.jstach:jstachio-annotation", version.ref = "jstachio" }
+javaxRs             = { module = "javax.ws.rs:javax.ws.rs-api", version = "2.1.1" }
+javaxBind           = { module = "javax.json.bind:javax.json.bind-api", version = "1.0" }
+javaxJson           = { module = "javax.json:javax.json-api", version = "1.1.4" }
+javaxAnn            = { module = "javax.annotation:javax.annotation-api", version = "1.3.2" }
+javaxValidation     = { module = "javax.validation:validation-api", version = "2.0.1.Final" }
 
-logger           = { module = "org.slf4j:slf4j-jdk14", version.ref = "slf4j" }
+jspecify            = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
 
-picocli          = { module = "info.picocli:picocli", version.ref = "picocli" }
+jstachioApt         = { module = "io.jstach:jstachio-apt", version.ref = "jstachio" }
+jstachioAnn         = { module = "io.jstach:jstachio-annotation", version.ref = "jstachio" }
 
-quarkusBom       = { module = "io.quarkus.platform:quarkus-bom", version.ref = "quarkus" }
+logger              = { module = "org.slf4j:slf4j-jdk14", version.ref = "slf4j" }
 
-swaggerParser    = { module = "io.swagger.parser.v3:swagger-parser", version.ref = "swagger" }
+picocli             = { module = "info.picocli:picocli", version.ref = "picocli" }
 
-unit             = { module = "org.junit.jupiter:junit-jupiter", version.ref = "unit" }
-unitPlatform     = { module = "org.junit.platform:junit-platform-runner", version = "1.11.0" }
+quarkusBom          = { module = "io.quarkus.platform:quarkus-bom", version.ref = "quarkus" }
 
-javaxRs          = { module = "javax.ws.rs:javax.ws.rs-api", version = "2.1.1" }
-javaxBind        = { module = "javax.json.bind:javax.json.bind-api", version = "1.0" }
-javaxJson        = { module = "javax.json:javax.json-api", version = "1.1.4" }
-javaxAnn         = { module = "javax.annotation:javax.annotation-api", version = "1.3.2" }
-javaxValidation  = { module = "javax.validation:validation-api", version = "2.0.1.Final" }
+swaggerParser       = { module = "io.swagger.parser.v3:swagger-parser", version.ref = "swagger" }
+
+unit                = { module = "org.junit.jupiter:junit-jupiter", version.ref = "unit" }
+unitPlatform        = { module = "org.junit.platform:junit-platform-runner", version = "1.11.0" }
 
 [bundles]
 
-testUnit         = [ "assertJ", "unit", "unitPlatform" ]
-testGen          = [ "javaxRs", "javaxBind", "javaxJson", "javaxAnn", "javaxValidation", "jspecify" ]
+testUnit            = [ "assertJ", "unit", "unitPlatform" ]
+testGen             = [ "javaxRs", "javaxBind", "javaxJson", "javaxAnn", "javaxValidation", "jspecify" ]
