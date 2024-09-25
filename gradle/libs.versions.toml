@@ -7,7 +7,7 @@ picocli    = "4.7.6"
 quarkus    = "3.14.4"
 slf4j      = "2.0.16"
 swagger    = "2.1.22"
-unit       = "5.11.0"
+unit       = "5.11.1"
 
 [libraries]
 assertJ             = { module = "org.assertj:assertj-core", version.ref = "assertj" }
