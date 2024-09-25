@@ -5,7 +5,6 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
-    
 jobs:
   build:
     name: Build
@@ -36,7 +35,14 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Run tests
-        run: ./gradlew classes check javadoc publish sonar -s -Pversion=${BUILD_LABEL//\//_}
+        run: ./gradlew classes check javadoc publish -s -Pversion=${BUILD_LABEL//\//_}
+        env:
+          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
+
+      # Run sonar separately - skip on dependabot; the report emails drive me nuts
+      - name: Run sonar
+        run: ./gradlew sonar -s -Pversion=${BUILD_LABEL//\//_}
+        if: github.event.pull_request.user.login != 'dependabot[bot]'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
