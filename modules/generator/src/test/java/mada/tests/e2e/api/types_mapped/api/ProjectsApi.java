@@ -23,28 +23,30 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/")
 public interface ProjectsApi {
 
-  /**
-   * projectIdGet.
-   *
-   * @return String
-   */
-  @GET
-  @Path("projectId")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String projectIdGet();
+    /**
+     * projectIdGet.
+     *
+     * @return String
+     */
+    @GET
+    @Path("projectId")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String projectIdGet();
 
-  /**
-   * projectsGet.
-   *
-   * @return List<ProjectDTO>
-   */
-  @GET
-  @Path("projects")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "200", description = "OK",
-                 content = @Content(schema = @Schema(implementation = ProjectDTO.class, type = SchemaType.ARRAY)))
-  })
-  List<ProjectDTO> projectsGet();
+    /**
+     * projectsGet.
+     *
+     * @return List<ProjectDTO>
+     */
+    @GET
+    @Path("projects")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = ProjectDTO.class, type = SchemaType.ARRAY)))
+    })
+    List<ProjectDTO> projectsGet();
 }

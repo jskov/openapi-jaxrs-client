@@ -18,13 +18,13 @@ import mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto.SubASubB;
 @Path("/api/interfaces/super")
 public interface Api_InterfacesApi {
 
-  /**
-   * apiInterfacesSuperGet.
-   *
-   * @return SubASubB
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(SubASubB.class)
-  SubASubB apiInterfacesSuperGet();
+    /**
+     * apiInterfacesSuperGet.
+     *
+     * @return SubASubB
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(SubASubB.class)
+    SubASubB apiInterfacesSuperGet();
 }

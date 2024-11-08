@@ -23,39 +23,41 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/dtos")
 public interface Resource_DtosApi {
 
-  /**
-   * dtosCollectionsArrayGet.
-   *
-   * @return ArraysDto
-   */
-  @GET
-  @Path("/collections/array")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ArraysDto.class)
-  ArraysDto dtosCollectionsArrayGet();
+    /**
+     * dtosCollectionsArrayGet.
+     *
+     * @return ArraysDto
+     */
+    @GET
+    @Path("/collections/array")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(ArraysDto.class)
+    ArraysDto dtosCollectionsArrayGet();
 
-  /**
-   * dtosCollectionsMapGet.
-   *
-   * @return MapsDto
-   */
-  @GET
-  @Path("/collections/map")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(MapsDto.class)
-  MapsDto dtosCollectionsMapGet();
+    /**
+     * dtosCollectionsMapGet.
+     *
+     * @return MapsDto
+     */
+    @GET
+    @Path("/collections/map")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(MapsDto.class)
+    MapsDto dtosCollectionsMapGet();
 
-  /**
-   * dtosRemappedArrayMemberGet.
-   *
-   * @return List<Simple>
-   */
-  @GET
-  @Path("/remapped-array-member")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "200", description = "OK",
-                 content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
-  })
-  List<Simple> dtosRemappedArrayMemberGet();
+    /**
+     * dtosRemappedArrayMemberGet.
+     *
+     * @return List<Simple>
+     */
+    @GET
+    @Path("/remapped-array-member")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
+    })
+    List<Simple> dtosRemappedArrayMemberGet();
 }

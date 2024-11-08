@@ -15,13 +15,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/dtos/schema")
 public interface Resource_DtosApi {
 
-  /**
-   * dtosSchemaGet.
-   *
-   * @return DtoA
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(DtoA.class)
-  DtoA dtosSchemaGet();
+    /**
+     * dtosSchemaGet.
+     *
+     * @return DtoA
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(DtoA.class)
+    DtoA dtosSchemaGet();
 }

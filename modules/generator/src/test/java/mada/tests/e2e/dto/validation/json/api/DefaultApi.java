@@ -19,17 +19,16 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/api/Test/Calc")
 public interface DefaultApi {
 
-  /**
-   * TBD.
-   * NA
-   *
-   * @param dto  (not null)
-   */
-  @POST
-  @Consumes(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "204", description = "OK")
-  })
-  @Operation(summary = "TBD.")
-  void Calcit(@NotNull @Valid Request dto);
+    /**
+     * TBD. NA
+     *
+     * @param dto (not null)
+     */
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(responseCode = "204", description = "OK")
+    })
+    @Operation(summary = "TBD.")
+    void Calcit(@NotNull @Valid Request dto);
 }

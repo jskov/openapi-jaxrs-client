@@ -17,19 +17,21 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/oauth2/token")
 public interface AcrTokenApi {
 
-  /**
-   * Exchange ACR Refresh token for an ACR Access Token
-   *
-   * @param auth  (required)
-   * @param grant_type  (required)
-   * @param service  (required)
-   * @param scope  (required)
-   * @param refresh_token  (required)
-   * @return Object
-   */
-  @POST
-  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Object.class)
-  Object AccessTokens_Get(@HeaderParam("Authorization") String auth, @NotNull @FormParam("grant_type") Grant_typeEnum grant_type, @NotNull @FormParam("service") String service, @NotNull @FormParam("scope") String scope, @NotNull @FormParam("refresh_token") String refresh_token);
+    /**
+     * Exchange ACR Refresh token for an ACR Access Token
+     *
+     * @param auth          (required)
+     * @param grant_type    (required)
+     * @param service       (required)
+     * @param scope         (required)
+     * @param refresh_token (required)
+     * @return Object
+     */
+    @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(Object.class)
+    Object AccessTokens_Get(@HeaderParam("Authorization") String auth, @NotNull @FormParam("grant_type") Grant_typeEnum grant_type,
+            @NotNull @FormParam("service") String service, @NotNull @FormParam("scope") String scope,
+            @NotNull @FormParam("refresh_token") String refresh_token);
 }

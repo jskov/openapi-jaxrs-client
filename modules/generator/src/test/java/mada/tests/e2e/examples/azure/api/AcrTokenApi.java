@@ -25,58 +25,72 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/oauth2")
 public interface AcrTokenApi {
 
-  /**
-   * Exchange AAD tokens for an ACR refresh Token
-   *
-   * @param dto  (not null)
-   * @return RefreshToken
-   */
-  @POST
-  @Path("/exchange")
-  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "ACR error response describing why the operation failed.",
-                 content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-    @APIResponse(responseCode = "200", description = "Refresh token acquired",
-                 content = @Content(schema = @Schema(implementation = RefreshToken.class)))
-  })
-  RefreshToken RefreshTokens_GetFromExchange(@NotNull @Valid _RequestOauth2Exchange dto);
+    /**
+     * Exchange AAD tokens for an ACR refresh Token
+     *
+     * @param dto (not null)
+     * @return RefreshToken
+     */
+    @POST
+    @Path("/exchange")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "ACR error response describing why the operation failed.",
+                    content = @Content(schema = @Schema(implementation = AcrErrors.class))),
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Refresh token acquired",
+                    content = @Content(schema = @Schema(implementation = RefreshToken.class)))
+    })
+    RefreshToken RefreshTokens_GetFromExchange(@NotNull @Valid _RequestOauth2Exchange dto);
 
-  /**
-   * Exchange Username, Password and Scope an ACR Access Token
-   *
-   * @param auth  (not null)
-   * @param service Indicates the name of your Azure container registry. (not null)
-   * @param scope Expected to be a valid scope, and can be specified more than once for multiple scope requests. You can obtain this from the Www-Authenticate response header from the challenge. (not null)
-   * @return AccessToken
-   */
-  @GET
-  @Path("/token")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "ACR error response describing why the operation failed.",
-                 content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-    @APIResponse(responseCode = "200", description = "Access token acquired",
-                 content = @Content(schema = @Schema(implementation = AccessToken.class)))
-  })
-  AccessToken AccessTokens_GetFromLogin(@HeaderParam("Authorization") String auth, @QueryParam("service") @NotNull String service, @QueryParam("scope") @NotNull String scope);
+    /**
+     * Exchange Username, Password and Scope an ACR Access Token
+     *
+     * @param auth    (not null)
+     * @param service Indicates the name of your Azure container registry. (not null)
+     * @param scope   Expected to be a valid scope, and can be specified more than once for multiple scope requests. You can
+     *                obtain this from the Www-Authenticate response header from the challenge. (not null)
+     * @return AccessToken
+     */
+    @GET
+    @Path("/token")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "ACR error response describing why the operation failed.",
+                    content = @Content(schema = @Schema(implementation = AcrErrors.class))),
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Access token acquired",
+                    content = @Content(schema = @Schema(implementation = AccessToken.class)))
+    })
+    AccessToken AccessTokens_GetFromLogin(@HeaderParam("Authorization") String auth, @QueryParam("service") @NotNull String service,
+            @QueryParam("scope") @NotNull String scope);
 
-  /**
-   * Exchange ACR Refresh token for an ACR Access Token
-   *
-   * @param dto  (not null)
-   * @return AccessToken
-   */
-  @POST
-  @Path("/token")
-  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "ACR error response describing why the operation failed.",
-                 content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-    @APIResponse(responseCode = "200", description = "Access token acquired",
-                 content = @Content(schema = @Schema(implementation = AccessToken.class)))
-  })
-  AccessToken AccessTokens_Get(@NotNull @Valid _RequestOauth2Token dto);
+    /**
+     * Exchange ACR Refresh token for an ACR Access Token
+     *
+     * @param dto (not null)
+     * @return AccessToken
+     */
+    @POST
+    @Path("/token")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "ACR error response describing why the operation failed.",
+                    content = @Content(schema = @Schema(implementation = AcrErrors.class))),
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Access token acquired",
+                    content = @Content(schema = @Schema(implementation = AccessToken.class)))
+    })
+    AccessToken AccessTokens_Get(@NotNull @Valid _RequestOauth2Token dto);
 }

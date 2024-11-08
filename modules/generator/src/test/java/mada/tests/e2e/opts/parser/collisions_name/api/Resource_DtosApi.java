@@ -17,13 +17,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/dtos/collision")
 public interface Resource_DtosApi {
 
-  /**
-   * dtosCollisionGet.
-   *
-   * @return Collisions
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Collisions.class)
-  Collisions dtosCollisionGet();
+    /**
+     * dtosCollisionGet.
+     *
+     * @return Collisions
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(Collisions.class)
+    Collisions dtosCollisionGet();
 }

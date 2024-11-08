@@ -19,16 +19,18 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/id")
 public interface DefaultApi {
 
-  /**
-   * getId.
-   *
-   * @return Identification
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "Returns id",
-                 content = @Content(schema = @Schema(implementation = Identification.class)))
-  })
-  Identification getId();
+    /**
+     * getId.
+     *
+     * @return Identification
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "Returns id",
+                    content = @Content(schema = @Schema(implementation = Identification.class)))
+    })
+    Identification getId();
 }

@@ -19,16 +19,18 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/create")
 public interface DefaultApi {
 
-  /**
-   * create.
-   *
-   * @return String
-   */
-  @PUT
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "201", description = "OK",
-                 content = @Content(schema = @Schema(implementation = String.class)))
-  })
-  String create();
+    /**
+     * create.
+     *
+     * @return String
+     */
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "201",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = String.class)))
+    })
+    String create();
 }

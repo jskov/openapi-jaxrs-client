@@ -20,71 +20,79 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/")
 public interface DefaultApi {
 
-  /**
-   * getDefault.
-   *
-   * @return String
-   */
-  @GET
-  @Path("getDefault")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "default response",
-                 content = @Content(schema = @Schema(implementation = String.class)))
-  })
-  String getDefault();
+    /**
+     * getDefault.
+     *
+     * @return String
+     */
+    @GET
+    @Path("getDefault")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "default response",
+                    content = @Content(schema = @Schema(implementation = String.class)))
+    })
+    String getDefault();
 
-  /**
-   * getNoOutputType.
-   *
-   * @param foo  (not null)
-   */
-  @GET
-  @Path("getNoOutputType")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "default response")
-  })
-  void getNoOutputType(@PathParam("foo") @NotNull String foo);
+    /**
+     * getNoOutputType.
+     *
+     * @param foo (not null)
+     */
+    @GET
+    @Path("getNoOutputType")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(responseCode = "default", description = "default response")
+    })
+    void getNoOutputType(@PathParam("foo") @NotNull String foo);
 
-  /**
-   * getOk.
-   *
-   * @return String
-   */
-  @GET
-  @Path("getOk")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "default response",
-                 content = @Content(schema = @Schema(implementation = Boolean.class))),
-    @APIResponse(responseCode = "200", description = "OK",
-                 content = @Content(schema = @Schema(implementation = String.class)))
-  })
-  String getOk();
+    /**
+     * getOk.
+     *
+     * @return String
+     */
+    @GET
+    @Path("getOk")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "default response",
+                    content = @Content(schema = @Schema(implementation = Boolean.class))),
+            @APIResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = String.class)))
+    })
+    String getOk();
 
-  /**
-   * getOkWithTypeFromDefault.
-   *
-   * @return String
-   */
-  @GET
-  @Path("getOkWithTypeFromDefault")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "default response",
-                 content = @Content(schema = @Schema(implementation = String.class))),
-    @APIResponse(responseCode = "200", description = "OK")
-  })
-  String getOkWithTypeFromDefault();
+    /**
+     * getOkWithTypeFromDefault.
+     *
+     * @return String
+     */
+    @GET
+    @Path("getOkWithTypeFromDefault")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "default response",
+                    content = @Content(schema = @Schema(implementation = String.class))),
+            @APIResponse(responseCode = "200", description = "OK")
+    })
+    String getOkWithTypeFromDefault();
 
-  /**
-   * getOkWithVoid.
-   */
-  @GET
-  @Path("getOkWithVoid")
-  @APIResponses({
-    @APIResponse(responseCode = "200", description = "OK")
-  })
-  void getOkWithVoid();
+    /**
+     * getOkWithVoid.
+     */
+    @GET
+    @Path("getOkWithVoid")
+    @APIResponses({
+            @APIResponse(responseCode = "200", description = "OK")
+    })
+    void getOkWithVoid();
 }

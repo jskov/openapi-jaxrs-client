@@ -18,29 +18,29 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/add")
 public interface TagApi {
 
-  /**
-   * addPost.
-   *
-   * @param auth  (not null)
-   * @param dto  (optional)
-   */
-  @POST
-  @Consumes(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "204", description = "Success")
-  })
-  void addPost(@HeaderParam("Authorization") String auth, @Valid PropDto dto);
+    /**
+     * addPost.
+     *
+     * @param auth (not null)
+     * @param dto  (optional)
+     */
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(responseCode = "204", description = "Success")
+    })
+    void addPost(@HeaderParam("Authorization") String auth, @Valid PropDto dto);
 
-  /**
-   * addPut.
-   *
-   * @param auth  (not null)
-   * @param dto  (optional)
-   */
-  @PUT
-  @Consumes(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "204", description = "Success")
-  })
-  void addPut(@HeaderParam("Authorization") String auth, @Valid NoPropsDto dto);
+    /**
+     * addPut.
+     *
+     * @param auth (not null)
+     * @param dto  (optional)
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(responseCode = "204", description = "Success")
+    })
+    void addPut(@HeaderParam("Authorization") String auth, @Valid NoPropsDto dto);
 }

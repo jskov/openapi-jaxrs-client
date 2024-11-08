@@ -14,13 +14,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/ping")
 public interface DefaultApi {
 
-  /**
-   * ping.
-   *
-   * @return String
-   */
-  @GET
-  @Produces(MediaType.WILDCARD)
-  @APIResponseSchema(String.class)
-  String ping();
+    /**
+     * ping.
+     *
+     * @return String
+     */
+    @GET
+    @Produces(MediaType.WILDCARD)
+    @APIResponseSchema(String.class)
+    String ping();
 }

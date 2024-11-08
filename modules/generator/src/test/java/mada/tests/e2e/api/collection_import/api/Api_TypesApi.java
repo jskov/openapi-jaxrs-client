@@ -22,16 +22,18 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/api/types/list-simple")
 public interface Api_TypesApi {
 
-  /**
-   * apiTypesListSimpleGet.
-   *
-   * @return List<Simple>
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "200", description = "OK",
-                 content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
-  })
-  List<Simple> apiTypesListSimpleGet();
+    /**
+     * apiTypesListSimpleGet.
+     *
+     * @return List<Simple>
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
+    })
+    List<Simple> apiTypesListSimpleGet();
 }

@@ -24,81 +24,98 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/acr/v1/{name}/_tags")
 public interface AcrTagApi {
 
-  /**
-   * List tags of a repository
-   *
-   * @param auth  (not null)
-   * @param name Name of the image (including the namespace) (not null)
-   * @param last Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
-   * @param n query parameter for max number of items (optional)
-   * @param orderby orderby query parameter (optional)
-   * @param digest filter by digest (optional)
-   * @return TagList
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "ACR error response describing why the operation failed.",
-                 content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-    @APIResponse(responseCode = "200", description = "Tag details of a repository",
-                 content = @Content(schema = @Schema(implementation = TagList.class)))
-  })
-  TagList Tag_GetList(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @QueryParam("last") String last, @QueryParam("n") short n, @QueryParam("orderby") String orderby, @QueryParam("digest") String digest);
+    /**
+     * List tags of a repository
+     *
+     * @param auth    (not null)
+     * @param name    Name of the image (including the namespace) (not null)
+     * @param last    Query parameter for the last item in previous query. Result set will include values lexically after
+     *                last. (optional)
+     * @param n       query parameter for max number of items (optional)
+     * @param orderby orderby query parameter (optional)
+     * @param digest  filter by digest (optional)
+     * @return TagList
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "ACR error response describing why the operation failed.",
+                    content = @Content(schema = @Schema(implementation = AcrErrors.class))),
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Tag details of a repository",
+                    content = @Content(schema = @Schema(implementation = TagList.class)))
+    })
+    TagList Tag_GetList(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @QueryParam("last") String last,
+            @QueryParam("n") short n, @QueryParam("orderby") String orderby, @QueryParam("digest") String digest);
 
-  /**
-   * Get tag attributes by tag
-   *
-   * @param auth  (not null)
-   * @param name Name of the image (including the namespace) (not null)
-   * @param reference Tag name (not null)
-   * @return TagAttributes
-   */
-  @GET
-  @Path("/{reference}")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "ACR error response describing why the operation failed.",
-                 content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-    @APIResponse(responseCode = "200", description = "Tag attributes",
-                 content = @Content(schema = @Schema(implementation = TagAttributes.class)))
-  })
-  TagAttributes Tag_GetAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
+    /**
+     * Get tag attributes by tag
+     *
+     * @param auth      (not null)
+     * @param name      Name of the image (including the namespace) (not null)
+     * @param reference Tag name (not null)
+     * @return TagAttributes
+     */
+    @GET
+    @Path("/{reference}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "ACR error response describing why the operation failed.",
+                    content = @Content(schema = @Schema(implementation = AcrErrors.class))),
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Tag attributes",
+                    content = @Content(schema = @Schema(implementation = TagAttributes.class)))
+    })
+    TagAttributes Tag_GetAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference);
 
-  /**
-   * Delete tag
-   *
-   * @param auth  (not null)
-   * @param name Name of the image (including the namespace) (not null)
-   * @param reference Tag name (not null)
-   * @return AcrErrors
-   */
-  @DELETE
-  @Path("/{reference}")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "ACR error response describing why the operation failed.",
-                 content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-    @APIResponse(responseCode = "202", description = "The tag is deleted")
-  })
-  AcrErrors Tag_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
+    /**
+     * Delete tag
+     *
+     * @param auth      (not null)
+     * @param name      Name of the image (including the namespace) (not null)
+     * @param reference Tag name (not null)
+     * @return AcrErrors
+     */
+    @DELETE
+    @Path("/{reference}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "ACR error response describing why the operation failed.",
+                    content = @Content(schema = @Schema(implementation = AcrErrors.class))),
+            @APIResponse(responseCode = "202", description = "The tag is deleted")
+    })
+    AcrErrors Tag_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference);
 
-  /**
-   * Update tag attributes
-   *
-   * @param auth  (not null)
-   * @param name Name of the image (including the namespace) (not null)
-   * @param reference Tag name (not null)
-   * @param dto Tag attribute value (optional)
-   * @return AcrErrors
-   */
-  @PATCH
-  @Path("/{reference}")
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "ACR error response describing why the operation failed.",
-                 content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-    @APIResponse(responseCode = "200", description = "The attributes are updated")
-  })
-  AcrErrors Tag_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @Valid TagChangeableAttributes dto);
+    /**
+     * Update tag attributes
+     *
+     * @param auth      (not null)
+     * @param name      Name of the image (including the namespace) (not null)
+     * @param reference Tag name (not null)
+     * @param dto       Tag attribute value (optional)
+     * @return AcrErrors
+     */
+    @PATCH
+    @Path("/{reference}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "ACR error response describing why the operation failed.",
+                    content = @Content(schema = @Schema(implementation = AcrErrors.class))),
+            @APIResponse(responseCode = "200", description = "The attributes are updated")
+    })
+    AcrErrors Tag_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference, @Valid TagChangeableAttributes dto);
 }

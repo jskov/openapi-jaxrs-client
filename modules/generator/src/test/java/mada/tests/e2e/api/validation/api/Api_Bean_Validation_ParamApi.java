@@ -19,14 +19,14 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/api/validation/param/path/{env}")
 public interface Api_Bean_Validation_ParamApi {
 
-  /**
-   * apiValidationParamPathEnvGet.
-   *
-   * @param env  (not null)
-   * @return String
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String apiValidationParamPathEnvGet(@PathParam("env") @NotNull @Valid Environment env);
+    /**
+     * apiValidationParamPathEnvGet.
+     *
+     * @param env (not null)
+     * @return String
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String apiValidationParamPathEnvGet(@PathParam("env") @NotNull @Valid Environment env);
 }

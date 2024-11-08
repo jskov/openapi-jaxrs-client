@@ -18,27 +18,27 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/api/methods")
 public interface FooBarApi {
 
-  /**
-   * apiMethodsDELETEDelete.
-   *
-   * @param dto  (optional)
-   */
-  @DELETE
-  @Path("/DELETE")
-  @Consumes(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "204", description = "No Content")
-  })
-  void apiMethodsDELETEDelete(String dto);
+    /**
+     * apiMethodsDELETEDelete.
+     *
+     * @param dto (optional)
+     */
+    @DELETE
+    @Path("/DELETE")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(responseCode = "204", description = "No Content")
+    })
+    void apiMethodsDELETEDelete(String dto);
 
-  /**
-   * apiMethodsGETGet.
-   *
-   * @return String
-   */
-  @GET
-  @Path("/GET")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String apiMethodsGETGet();
+    /**
+     * apiMethodsGETGet.
+     *
+     * @return String
+     */
+    @GET
+    @Path("/GET")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String apiMethodsGETGet();
 }

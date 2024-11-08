@@ -15,39 +15,39 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/employees/{userId}")
 public interface DefaultApi {
 
-  /**
-   * infoGet.
-   *
-   * @param userId  (not null)
-   * @return String
-   */
-  @GET
-  @Path("/info")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String infoGet(@PathParam("userId") @NotNull String userId);
+    /**
+     * infoGet.
+     *
+     * @param userId (not null)
+     * @return String
+     */
+    @GET
+    @Path("/info")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String infoGet(@PathParam("userId") @NotNull String userId);
 
-  /**
-   * photoGet.
-   *
-   * @param userId  (not null)
-   * @return String
-   */
-  @GET
-  @Path("/photo")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String photoGet(@PathParam("userId") @NotNull String userId);
+    /**
+     * photoGet.
+     *
+     * @param userId (not null)
+     * @return String
+     */
+    @GET
+    @Path("/photo")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String photoGet(@PathParam("userId") @NotNull String userId);
 
-  /**
-   * employeesUserId_with_crazy_long_suffix_getter.
-   *
-   * @param userId  (not null)
-   * @return String
-   */
-  @GET
-  @Path("/withOperationId")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String employeesUserId_with_crazy_long_suffix_getter(@PathParam("userId") @NotNull String userId);
+    /**
+     * employeesUserId_with_crazy_long_suffix_getter.
+     *
+     * @param userId (not null)
+     * @return String
+     */
+    @GET
+    @Path("/withOperationId")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String employeesUserId_with_crazy_long_suffix_getter(@PathParam("userId") @NotNull String userId);
 }

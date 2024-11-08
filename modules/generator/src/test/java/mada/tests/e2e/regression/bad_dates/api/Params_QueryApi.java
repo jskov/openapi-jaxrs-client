@@ -18,16 +18,17 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/api/params/query/dates")
 public interface Params_QueryApi {
 
-  /**
-   * apiParamsQueryDatesGet.
-   *
-   * @param date  (optional)
-   * @param dateTime  (optional)
-   * @param time  (optional)
-   * @return String
-   */
-  @GET
-  @Produces(MediaType.TEXT_PLAIN)
-  @APIResponseSchema(String.class)
-  String apiParamsQueryDatesGet(@QueryParam("date") LocalDate date, @QueryParam("date-time") OffsetDateTime dateTime, @QueryParam("time") String time);
+    /**
+     * apiParamsQueryDatesGet.
+     *
+     * @param date     (optional)
+     * @param dateTime (optional)
+     * @param time     (optional)
+     * @return String
+     */
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @APIResponseSchema(String.class)
+    String apiParamsQueryDatesGet(@QueryParam("date") LocalDate date, @QueryParam("date-time") OffsetDateTime dateTime,
+            @QueryParam("time") String time);
 }

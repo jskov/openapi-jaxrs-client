@@ -21,17 +21,17 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 @Path("/api/methods/create")
 public interface TemplatesApi {
 
-  /**
-   * apiMethodsCreatePost.
-   *
-   * @param dto Synthetic multipart body (not null)
-   */
-  @POST
-  @Consumes(MediaType.MULTIPART_FORM_DATA)
-  @APIResponses({
-    @APIResponse(responseCode = "201", description = "Created"),
-    @APIResponse(responseCode = "401", description = "Not Authorized"),
-    @APIResponse(responseCode = "403", description = "Not Allowed")
-  })
-  void apiMethodsCreatePost(@MultipartForm @NotNull @Valid MultipartApiMethodsCreatePost dto);
+    /**
+     * apiMethodsCreatePost.
+     *
+     * @param dto Synthetic multipart body (not null)
+     */
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @APIResponses({
+            @APIResponse(responseCode = "201", description = "Created"),
+            @APIResponse(responseCode = "401", description = "Not Authorized"),
+            @APIResponse(responseCode = "403", description = "Not Allowed")
+    })
+    void apiMethodsCreatePost(@MultipartForm @NotNull @Valid MultipartApiMethodsCreatePost dto);
 }

@@ -18,28 +18,28 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/api/validation")
 public interface Api_Bean_ValidationApi {
 
-  /**
-   * apiValidationBodyPut.
-   *
-   * @param simple  (not null)
-   * @return String
-   */
-  @PUT
-  @Path("/body")
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String apiValidationBodyPut(Simple simple);
+    /**
+     * apiValidationBodyPut.
+     *
+     * @param simple (not null)
+     * @return String
+     */
+    @PUT
+    @Path("/body")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String apiValidationBodyPut(Simple simple);
 
-  /**
-   * apiValidationPathparamEnvGet.
-   *
-   * @param env  (not null)
-   * @return String
-   */
-  @GET
-  @Path("/pathparam/{env}")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String apiValidationPathparamEnvGet(@PathParam("env") Environment env);
+    /**
+     * apiValidationPathparamEnvGet.
+     *
+     * @param env (not null)
+     * @return String
+     */
+    @GET
+    @Path("/pathparam/{env}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String apiValidationPathparamEnvGet(@PathParam("env") Environment env);
 }

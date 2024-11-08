@@ -17,13 +17,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/dtos/validation")
 public interface Resource_DtosApi {
 
-  /**
-   * dtosValidationGet.
-   *
-   * @return ValidationDto
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ValidationDto.class)
-  ValidationDto dtosValidationGet();
+    /**
+     * dtosValidationGet.
+     *
+     * @return ValidationDto
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(ValidationDto.class)
+    ValidationDto dtosValidationGet();
 }

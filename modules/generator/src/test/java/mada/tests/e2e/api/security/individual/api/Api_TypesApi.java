@@ -16,25 +16,25 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/api/security")
 public interface Api_TypesApi {
 
-  /**
-   * apiSecurityOffGet.
-   */
-  @GET
-  @Path("/off")
-  @APIResponses({
-    @APIResponse(responseCode = "204", description = "No Content")
-  })
-  void apiSecurityOffGet();
+    /**
+     * apiSecurityOffGet.
+     */
+    @GET
+    @Path("/off")
+    @APIResponses({
+            @APIResponse(responseCode = "204", description = "No Content")
+    })
+    void apiSecurityOffGet();
 
-  /**
-   * apiSecurityOnGet.
-   *
-   * @param auth  (not null)
-   */
-  @GET
-  @Path("/on")
-  @APIResponses({
-    @APIResponse(responseCode = "204", description = "No Content")
-  })
-  void apiSecurityOnGet(@HeaderParam("Authorization") String auth);
+    /**
+     * apiSecurityOnGet.
+     *
+     * @param auth (not null)
+     */
+    @GET
+    @Path("/on")
+    @APIResponses({
+            @APIResponse(responseCode = "204", description = "No Content")
+    })
+    void apiSecurityOnGet(@HeaderParam("Authorization") String auth);
 }

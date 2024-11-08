@@ -30,31 +30,31 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/api/latest")
 public interface CapabilitiesApi {
 
-  /**
-   * Get build capabilities.
-   * Returns the build capabilities of this instance
-   *
-   * @return RestBuildCapabilities
-   */
-  @GET
-  @Path("/build/capabilities")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(RestBuildCapabilities.class)
-  @Operation(summary = "Get build capabilities")
-  RestBuildCapabilities getCapabilities();
+    /**
+     * Get build capabilities. Returns the build capabilities of this instance
+     *
+     * @return RestBuildCapabilities
+     */
+    @GET
+    @Path("/build/capabilities")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(RestBuildCapabilities.class)
+    @Operation(summary = "Get build capabilities")
+    RestBuildCapabilities getCapabilities();
 
-  /**
-   * Get deployment capabilities.
-   * Returns the Deployment capabilities of this instance
-   */
-  @GET
-  @Path("/deployment/capabilities")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "200", description = "capabilities"),
-    @APIResponse(responseCode = "404", description = "This instance of Bitbucket Data Center does not support deployments (for example, it has been disabled using the property 'plugin.deployment.capability.disabled').",
-                 content = @Content(schema = @Schema(implementation = _ResponseApiLatestDeploymentCapabilities_404.class)))
-  })
-  @Operation(summary = "Get deployment capabilities")
-  void getCapabilities_1();
+    /**
+     * Get deployment capabilities. Returns the Deployment capabilities of this instance
+     */
+    @GET
+    @Path("/deployment/capabilities")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(responseCode = "200", description = "capabilities"),
+            @APIResponse(
+                    responseCode = "404",
+                    description = "This instance of Bitbucket Data Center does not support deployments (for example, it has been disabled using the property 'plugin.deployment.capability.disabled').",
+                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestDeploymentCapabilities_404.class)))
+    })
+    @Operation(summary = "Get deployment capabilities")
+    void getCapabilities_1();
 }

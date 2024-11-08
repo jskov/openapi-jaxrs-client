@@ -23,28 +23,30 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/api/types")
 public interface Api_TypesApi {
 
-  /**
-   * apiTypesListTimeGet.
-   *
-   * @return List<LocalTime>
-   */
-  @GET
-  @Path("/list-time")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponses({
-    @APIResponse(responseCode = "200", description = "OK",
-                 content = @Content(schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
-  })
-  List<LocalTime> apiTypesListTimeGet();
+    /**
+     * apiTypesListTimeGet.
+     *
+     * @return List<LocalTime>
+     */
+    @GET
+    @Path("/list-time")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
+    })
+    List<LocalTime> apiTypesListTimeGet();
 
-  /**
-   * apiTypesTimeGet.
-   *
-   * @return LocalTime
-   */
-  @GET
-  @Path("/time")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(LocalTime.class)
-  LocalTime apiTypesTimeGet();
+    /**
+     * apiTypesTimeGet.
+     *
+     * @return LocalTime
+     */
+    @GET
+    @Path("/time")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(LocalTime.class)
+    LocalTime apiTypesTimeGet();
 }

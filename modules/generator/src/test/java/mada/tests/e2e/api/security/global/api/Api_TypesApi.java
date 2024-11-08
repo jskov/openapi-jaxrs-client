@@ -16,14 +16,14 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/api/types/void")
 public interface Api_TypesApi {
 
-  /**
-   * apiTypesVoidGet.
-   *
-   * @param auth  (not null)
-   */
-  @GET
-  @APIResponses({
-    @APIResponse(responseCode = "204", description = "No Content")
-  })
-  void apiTypesVoidGet(@HeaderParam("Authorization") String auth);
+    /**
+     * apiTypesVoidGet.
+     *
+     * @param auth (not null)
+     */
+    @GET
+    @APIResponses({
+            @APIResponse(responseCode = "204", description = "No Content")
+    })
+    void apiTypesVoidGet(@HeaderParam("Authorization") String auth);
 }

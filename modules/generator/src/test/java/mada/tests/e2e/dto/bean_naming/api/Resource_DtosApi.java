@@ -15,13 +15,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/dtos/bean-naming")
 public interface Resource_DtosApi {
 
-  /**
-   * dtosBeanNamingGet.
-   *
-   * @return BeanNaming
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(BeanNaming.class)
-  BeanNaming dtosBeanNamingGet();
+    /**
+     * dtosBeanNamingGet.
+     *
+     * @return BeanNaming
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(BeanNaming.class)
+    BeanNaming dtosBeanNamingGet();
 }

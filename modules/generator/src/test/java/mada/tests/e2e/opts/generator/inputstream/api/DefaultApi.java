@@ -20,33 +20,37 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/employees/{userId}")
 public interface DefaultApi {
 
-  /**
-   * getInfo.
-   *
-   * @param userId  (not null)
-   * @return List<Byte>
-   */
-  @GET
-  @Path("/info")
-  @Produces("application/pdf")
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "default response",
-                 content = @Content(schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
-  })
-  List<Byte> getInfo(@PathParam("userId") @NotNull String userId);
+    /**
+     * getInfo.
+     *
+     * @param userId (not null)
+     * @return List<Byte>
+     */
+    @GET
+    @Path("/info")
+    @Produces("application/pdf")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "default response",
+                    content = @Content(schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
+    })
+    List<Byte> getInfo(@PathParam("userId") @NotNull String userId);
 
-  /**
-   * getPhoto.
-   *
-   * @param userId  (not null)
-   * @return InputStream
-   */
-  @GET
-  @Path("/photo")
-  @Produces("image/jpeg")
-  @APIResponses({
-    @APIResponse(responseCode = "default", description = "default response",
-                 content = @Content(schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
-  })
-  InputStream getPhoto(@PathParam("userId") @NotNull String userId);
+    /**
+     * getPhoto.
+     *
+     * @param userId (not null)
+     * @return InputStream
+     */
+    @GET
+    @Path("/photo")
+    @Produces("image/jpeg")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "default",
+                    description = "default response",
+                    content = @Content(schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
+    })
+    InputStream getPhoto(@PathParam("userId") @NotNull String userId);
 }

@@ -16,13 +16,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/hyphen-path/hyphen-method")
 public interface Api_PathsApi {
 
-  /**
-   * hyphenPathHyphenMethodGet.
-   *
-   * @return String
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String hyphenPathHyphenMethodGet();
+    /**
+     * hyphenPathHyphenMethodGet.
+     *
+     * @return String
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String hyphenPathHyphenMethodGet();
 }

@@ -17,15 +17,15 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/v1/ap/ag")
 public interface ApApi {
 
-  /**
-   * ap_ta.
-   *
-   * @param dto  (not null)
-   * @return Object
-   */
-  @PUT
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Object.class)
-  Object ap_ta(@NotNull @Valid Request dto);
+    /**
+     * ap_ta.
+     *
+     * @param dto (not null)
+     * @return Object
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(Object.class)
+    Object ap_ta(@NotNull @Valid Request dto);
 }

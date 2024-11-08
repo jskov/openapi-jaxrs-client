@@ -17,65 +17,66 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/api/params/header")
 public interface Params_HeaderApi {
 
-  /**
-   * apiParamsHeaderBooleanPrimitiveGet.
-   *
-   * @param flag  (optional)
-   * @return String
-   */
-  @GET
-  @Path("/boolean-primitive")
-  @Produces(MediaType.TEXT_PLAIN)
-  @APIResponseSchema(String.class)
-  String apiParamsHeaderBooleanPrimitiveGet(@HeaderParam("flag") boolean flag);
+    /**
+     * apiParamsHeaderBooleanPrimitiveGet.
+     *
+     * @param flag (optional)
+     * @return String
+     */
+    @GET
+    @Path("/boolean-primitive")
+    @Produces(MediaType.TEXT_PLAIN)
+    @APIResponseSchema(String.class)
+    String apiParamsHeaderBooleanPrimitiveGet(@HeaderParam("flag") boolean flag);
 
-  /**
-   * apiParamsHeaderBooleanWrapperGet.
-   *
-   * @param flag  (optional)
-   * @return String
-   */
-  @GET
-  @Path("/boolean-wrapper")
-  @Produces(MediaType.TEXT_PLAIN)
-  @APIResponseSchema(String.class)
-  String apiParamsHeaderBooleanWrapperGet(@HeaderParam("flag") boolean flag);
+    /**
+     * apiParamsHeaderBooleanWrapperGet.
+     *
+     * @param flag (optional)
+     * @return String
+     */
+    @GET
+    @Path("/boolean-wrapper")
+    @Produces(MediaType.TEXT_PLAIN)
+    @APIResponseSchema(String.class)
+    String apiParamsHeaderBooleanWrapperGet(@HeaderParam("flag") boolean flag);
 
-  /**
-   * apiParamsHeaderInvalidNameDashesGet.
-   *
-   * @param invalidValue  (optional)
-   * @return String
-   */
-  @GET
-  @Path("/invalid-name-dashes")
-  @Produces(MediaType.TEXT_PLAIN)
-  @APIResponseSchema(String.class)
-  String apiParamsHeaderInvalidNameDashesGet(@HeaderParam("invalid-value") boolean invalidValue);
+    /**
+     * apiParamsHeaderInvalidNameDashesGet.
+     *
+     * @param invalidValue (optional)
+     * @return String
+     */
+    @GET
+    @Path("/invalid-name-dashes")
+    @Produces(MediaType.TEXT_PLAIN)
+    @APIResponseSchema(String.class)
+    String apiParamsHeaderInvalidNameDashesGet(@HeaderParam("invalid-value") boolean invalidValue);
 
-  /**
-   * apiParamsHeaderListGet.
-   *
-   * @param item  (optional)
-   * @return String
-   */
-  @GET
-  @Path("/list")
-  @Produces(MediaType.TEXT_PLAIN)
-  @APIResponseSchema(String.class)
-  String apiParamsHeaderListGet(@HeaderParam("item") List<String> item);
+    /**
+     * apiParamsHeaderListGet.
+     *
+     * @param item (optional)
+     * @return String
+     */
+    @GET
+    @Path("/list")
+    @Produces(MediaType.TEXT_PLAIN)
+    @APIResponseSchema(String.class)
+    String apiParamsHeaderListGet(@HeaderParam("item") List<String> item);
 
-  /**
-   * apiParamsHeaderMixedGet.
-   *
-   * @param flag  (optional)
-   * @param item  (optional)
-   * @param name  (optional)
-   * @return String
-   */
-  @GET
-  @Path("/mixed")
-  @Produces(MediaType.TEXT_PLAIN)
-  @APIResponseSchema(String.class)
-  String apiParamsHeaderMixedGet(@HeaderParam("flag") boolean flag, @HeaderParam("item") List<String> item, @HeaderParam("name") String name);
+    /**
+     * apiParamsHeaderMixedGet.
+     *
+     * @param flag (optional)
+     * @param item (optional)
+     * @param name (optional)
+     * @return String
+     */
+    @GET
+    @Path("/mixed")
+    @Produces(MediaType.TEXT_PLAIN)
+    @APIResponseSchema(String.class)
+    String apiParamsHeaderMixedGet(@HeaderParam("flag") boolean flag, @HeaderParam("item") List<String> item,
+            @HeaderParam("name") String name);
 }

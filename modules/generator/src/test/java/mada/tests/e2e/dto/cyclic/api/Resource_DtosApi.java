@@ -17,13 +17,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/dtos/cyclic")
 public interface Resource_DtosApi {
 
-  /**
-   * dtosCyclicGet.
-   *
-   * @return CyclicA
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(CyclicA.class)
-  CyclicA dtosCyclicGet();
+    /**
+     * dtosCyclicGet.
+     *
+     * @return CyclicA
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(CyclicA.class)
+    CyclicA dtosCyclicGet();
 }

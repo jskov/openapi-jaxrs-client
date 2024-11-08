@@ -15,13 +15,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/dtos/special-types")
 public interface Resource_DtosApi {
 
-  /**
-   * dtosSpecialTypesGet.
-   *
-   * @return SpecialTypes
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(SpecialTypes.class)
-  SpecialTypes dtosSpecialTypesGet();
+    /**
+     * dtosSpecialTypesGet.
+     *
+     * @return SpecialTypes
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(SpecialTypes.class)
+    SpecialTypes dtosSpecialTypesGet();
 }

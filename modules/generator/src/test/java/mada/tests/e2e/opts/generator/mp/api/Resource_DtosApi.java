@@ -21,25 +21,25 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @Path("/dtos/collections")
 public interface Resource_DtosApi {
 
-  /**
-   * dtosCollectionsArrayGet.
-   *
-   * @return ArraysDto
-   */
-  @GET
-  @Path("/array")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ArraysDto.class)
-  ArraysDto dtosCollectionsArrayGet();
+    /**
+     * dtosCollectionsArrayGet.
+     *
+     * @return ArraysDto
+     */
+    @GET
+    @Path("/array")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(ArraysDto.class)
+    ArraysDto dtosCollectionsArrayGet();
 
-  /**
-   * dtosCollectionsMapGet.
-   *
-   * @return MapsDto
-   */
-  @GET
-  @Path("/map")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(MapsDto.class)
-  MapsDto dtosCollectionsMapGet();
+    /**
+     * dtosCollectionsMapGet.
+     *
+     * @return MapsDto
+     */
+    @GET
+    @Path("/map")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(MapsDto.class)
+    MapsDto dtosCollectionsMapGet();
 }

@@ -19,15 +19,15 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/api/validation/body")
 public interface Api_Bean_Validation_BodyApi {
 
-  /**
-   * apiValidationBodyPut.
-   *
-   * @param dto  (not null)
-   * @return String
-   */
-  @PUT
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(String.class)
-  String apiValidationBodyPut(@NotNull @Valid Simple dto);
+    /**
+     * apiValidationBodyPut.
+     *
+     * @param dto (not null)
+     * @return String
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(String.class)
+    String apiValidationBodyPut(@NotNull @Valid Simple dto);
 }

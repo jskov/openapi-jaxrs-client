@@ -16,61 +16,63 @@ import {{.}};
 @Path("{{commonPath}}")
 public interface {{classname}} {
 {{#operations}}{{#operation}}
-  /**
-    {{#summary}}
-   * {{summary}}
-    {{/summary}}
-    {{#notes}}
-   * {{notes}}
-    {{/notes}}
-    {{^summary}}
-        {{^notes}}
-   * {{nickname}}.
-        {{/notes}}
-    {{/summary}}
+    /**
+      {{#summary}}
+     * {{summary}}
+      {{/summary}}
+      {{#notes}}
+     * {{notes}}
+      {{/notes}}
+      {{^summary}}
+          {{^notes}}
+     * {{nickname}}.
+          {{/notes}}
+      {{/summary}}
 {{#madaOp.renderJavadocMacroSpacer}}
-   *
+     *
 {{/madaOp.renderJavadocMacroSpacer}}
 {{#allParams}}
-   * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#validation}}{{#notNull}} (not null){{/notNull}}{{^notNull}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/notNull}}{{/validation}}
+     * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#validation}}{{#notNull}} (not null){{/notNull}}{{^notNull}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/notNull}}{{/validation}}
 {{/allParams}}
 {{#madaOp.renderJavadocReturn}}
-   * @return {{returnType}}
+     * @return {{returnType}}
 {{/madaOp.renderJavadocReturn}}
 {{#externalDocs}}
-   * {{description}}
-   * @see <a href="{{url}}">{{summary}} Documentation</a>
+     * {{description}}
+     * @see <a href="{{url}}">{{summary}} Documentation</a>
 {{/externalDocs}}
-   */
-  @{{httpMethod}}
-  {{#path}}
-  @Path("{{{path}}}")
-  {{/path}}
-  {{#madaOp.consumes}}
-  @Consumes({{{madaOp.consumes}}})
-  {{/madaOp.consumes}}
-  {{#madaOp.produces}}
-  @Produces({{{madaOp.produces}}})
-  {{/madaOp.produces}}
-  {{#madaOp.hasResponses}}
-  {{#madaOp.responseSchema}}
-  {{#responses}}
-  @APIResponseSchema({{baseType}}.class)
-  {{/responses}}
-  {{/madaOp.responseSchema}}
-  {{^madaOp.responseSchema}}
-  @APIResponses({
+     */
+    @{{httpMethod}}
+    {{#path}}
+    @Path("{{{path}}}")
+    {{/path}}
+    {{#madaOp.consumes}}
+    @Consumes({{{madaOp.consumes}}})
+    {{/madaOp.consumes}}
+    {{#madaOp.produces}}
+    @Produces({{{madaOp.produces}}})
+    {{/madaOp.produces}}
+    {{#madaOp.hasResponses}}
+    {{#madaOp.responseSchema}}
     {{#responses}}
-    @APIResponse(responseCode = "{{code}}", description = "{{{description}}}"{{#baseType}},
-                 content = @Content(schema = @Schema(implementation = {{{baseType}}}.class{{#containerType}}, type = {{{.}}}{{/containerType}}{{#isUnique}}, uniqueItems = true{{/isUnique}}){{#mediaType}}, mediaType = {{{.}}}{{/mediaType}}){{/baseType}}){{^-last}},{{/-last}}
+    @APIResponseSchema({{baseType}}.class)
     {{/responses}}
-  })
-  {{/madaOp.responseSchema}}
-  {{/madaOp.hasResponses}}
-  {{#madaOp.summaryString}}
-  @Operation(summary = "{{{madaOp.summaryString}}}")
-  {{/madaOp.summaryString}}
-  {{>returnTypes}} {{nickname}}({{#allParams}}{{>formParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
-  {{/operation}}
+    {{/madaOp.responseSchema}}
+    {{^madaOp.responseSchema}}
+    @APIResponses({
+            {{#responses}}
+            @APIResponse(
+                    responseCode = "{{code}}",
+                    description = "{{{description}}}"{{#baseType}},
+                    content = @Content(schema = @Schema(implementation = {{{baseType}}}.class{{#containerType}}, type = {{{.}}}{{/containerType}}{{#isUnique}}, uniqueItems = true{{/isUnique}}){{#mediaType}}, mediaType = {{{.}}}{{/mediaType}}){{/baseType}}){{^-last}},{{/-last}}
+        {{/responses}}
+    })
+    {{/madaOp.responseSchema}}
+    {{/madaOp.hasResponses}}
+    {{#madaOp.summaryString}}
+    @Operation(summary = "{{{madaOp.summaryString}}}")
+    {{/madaOp.summaryString}}
+    {{>returnTypes}} {{nickname}}({{#allParams}}{{>formParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
+    {{/operation}}
 {{/operations}}
 }

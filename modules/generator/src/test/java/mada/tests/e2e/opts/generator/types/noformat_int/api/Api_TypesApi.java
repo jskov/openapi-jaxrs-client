@@ -14,36 +14,36 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/api/types")
 public interface Api_TypesApi {
 
-  /**
-   * apiTypesInt32Get.
-   *
-   * @return int
-   */
-  @GET
-  @Path("/int32")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Integer.class)
-  int apiTypesInt32Get();
+    /**
+     * apiTypesInt32Get.
+     *
+     * @return int
+     */
+    @GET
+    @Path("/int32")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(Integer.class)
+    int apiTypesInt32Get();
 
-  /**
-   * apiTypesInt64Get.
-   *
-   * @return long
-   */
-  @GET
-  @Path("/int64")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Long.class)
-  long apiTypesInt64Get();
+    /**
+     * apiTypesInt64Get.
+     *
+     * @return long
+     */
+    @GET
+    @Path("/int64")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(Long.class)
+    long apiTypesInt64Get();
 
-  /**
-   * apiTypesNoformatGet.
-   *
-   * @return int
-   */
-  @GET
-  @Path("/noformat")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(Integer.class)
-  int apiTypesNoformatGet();
+    /**
+     * apiTypesNoformatGet.
+     *
+     * @return int
+     */
+    @GET
+    @Path("/noformat")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(Integer.class)
+    int apiTypesNoformatGet();
 }

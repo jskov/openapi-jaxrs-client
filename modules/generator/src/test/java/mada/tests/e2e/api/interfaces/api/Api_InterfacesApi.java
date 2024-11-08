@@ -17,25 +17,25 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/api/interfaces")
 public interface Api_InterfacesApi {
 
-  /**
-   * apiInterfacesInterfaceGet.
-   *
-   * @return ImplAImplB
-   */
-  @GET
-  @Path("/interface")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ImplAImplB.class)
-  ImplAImplB apiInterfacesInterfaceGet();
+    /**
+     * apiInterfacesInterfaceGet.
+     *
+     * @return ImplAImplB
+     */
+    @GET
+    @Path("/interface")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(ImplAImplB.class)
+    ImplAImplB apiInterfacesInterfaceGet();
 
-  /**
-   * apiInterfacesListGet.
-   *
-   * @return ImplAImplB
-   */
-  @GET
-  @Path("/list")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ImplAImplB.class)
-  ImplAImplB apiInterfacesListGet();
+    /**
+     * apiInterfacesListGet.
+     *
+     * @return ImplAImplB
+     */
+    @GET
+    @Path("/list")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(ImplAImplB.class)
+    ImplAImplB apiInterfacesListGet();
 }

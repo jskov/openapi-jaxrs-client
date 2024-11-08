@@ -16,26 +16,26 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 @Path("/")
 public interface Resource_DtosApi {
 
-  /**
-   * apiUuidQueryGet.
-   *
-   * @param roomId  (optional)
-   * @return SpecialTypes
-   */
-  @GET
-  @Path("api/uuid/query")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(SpecialTypes.class)
-  SpecialTypes apiUuidQueryGet(@QueryParam("roomId") UUID roomId);
+    /**
+     * apiUuidQueryGet.
+     *
+     * @param roomId (optional)
+     * @return SpecialTypes
+     */
+    @GET
+    @Path("api/uuid/query")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(SpecialTypes.class)
+    SpecialTypes apiUuidQueryGet(@QueryParam("roomId") UUID roomId);
 
-  /**
-   * dtosSpecialTypesGet.
-   *
-   * @return SpecialTypes
-   */
-  @GET
-  @Path("dtos/special-types")
-  @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(SpecialTypes.class)
-  SpecialTypes dtosSpecialTypesGet();
+    /**
+     * dtosSpecialTypesGet.
+     *
+     * @return SpecialTypes
+     */
+    @GET
+    @Path("dtos/special-types")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponseSchema(SpecialTypes.class)
+    SpecialTypes dtosSpecialTypesGet();
 }
