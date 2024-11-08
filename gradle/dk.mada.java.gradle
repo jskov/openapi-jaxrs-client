@@ -48,3 +48,5 @@ tasks.named('javadocJar') {
     group = "Module generator"
     archiveBaseName = "generator"
 }
+
+task preCommit(dependsOn: ['check', 'javadoc'])
