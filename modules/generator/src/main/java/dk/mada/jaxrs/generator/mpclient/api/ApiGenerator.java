@@ -56,7 +56,8 @@ import dk.mada.jaxrs.model.types.TypeVoid;
  */
 public class ApiGenerator {
     private static final Logger logger = LoggerFactory.getLogger(ApiGenerator.class);
-
+    /** Length of the parameter named used for body. */
+    private static final int BODY_PARAM_NAME_LENGTH = "dto".length();
     /** Naming. */
     private final Naming naming;
     /** Generator options. */
@@ -357,6 +358,15 @@ public class ApiGenerator {
                     .build());
         }
 
+        int propNameLengths = op.parameters().stream()
+            .mapToInt(p -> p.name().length())
+            .max()
+            .orElse(0);
+        if (op.requestBody().isPresent() && propNameLengths <= BODY_PARAM_NAME_LENGTH) {
+            propNameLengths = BODY_PARAM_NAME_LENGTH + 1;
+        }
+        int indentJavadocTextBy = propNameLengths;
+
         for (Parameter p : op.parameters()) {
             Reference ref = p.reference();
             imports.add(ref);
@@ -382,12 +392,15 @@ public class ApiGenerator {
                 imports.add(Jspecify.NULLABLE);
             }
 
+            String validationNote = makeValidationNote(valCtx, isNullable, p.description().isPresent());
             ImmutableCtxApiParam param = CtxApiParam.builder()
                     .baseName(name)
                     .paramName(paramName)
                     .dataType(dataType)
                     .validation(valCtx)
+                    .indentation(" ".repeat(indentJavadocTextBy - paramName.length()))
                     .description(p.description())
+                    .validationNote(validationNote)
                     .isContainer(false)
                     .isBodyParam(false)
                     .isFormParam(p.isFormParam())
@@ -417,6 +430,9 @@ public class ApiGenerator {
 
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
 
+            boolean notNull = valCtx.map(CtxValidation::notNull).orElse(true);
+            String validationNote = makeValidationNote(valCtx, !notNull, body.description().isPresent());
+
             boolean isMultipartForm = body.isMultipartForm();
             if (isMultipartForm) {
                 imports.add(RestEasy.MULTIPART_FORM);
@@ -427,6 +443,8 @@ public class ApiGenerator {
                     .dataType(dataType)
                     .validation(valCtx)
                     .description(body.description())
+                    .indentation(" ".repeat(indentJavadocTextBy - BODY_PARAM_NAME_LENGTH))
+                    .validationNote(validationNote)
                     .isContainer(false)
                     .isBodyParam(true)
                     .isFormParam(false)
@@ -448,6 +466,22 @@ public class ApiGenerator {
         logger.debug("Params: {}", params);
 
         return params;
+    }
+
+    private String makeValidationNote(Optional<CtxValidation> valCtx, boolean isNullable, boolean hasDescription) {
+        String validationNote = "";
+        if (valCtx.isPresent()) {
+            if (isNullable) {
+                // FIXME: test and implement (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}})
+                validationNote = "(optional)";
+            } else {
+                validationNote = "(not null)";
+            }
+            if (hasDescription) {
+                validationNote = " " + validationNote;
+            }
+        }
+        return validationNote;
     }
 
     private String paramDataType(Type type) {

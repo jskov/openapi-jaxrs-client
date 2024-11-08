@@ -22,6 +22,12 @@ public interface CtxApiParam {
     /** {@return an optional description of the parameter} */
     Optional<String> description();
 
+    /** {@return the indentation to use in javadoc description} */
+    String indentation();
+
+    /** {@return the (correctly formatted) validation notes for this parameter} */
+    String validationNote();
+
     /** {@return an optional default value for the parameter} */
     Optional<String> defaultValue();
 

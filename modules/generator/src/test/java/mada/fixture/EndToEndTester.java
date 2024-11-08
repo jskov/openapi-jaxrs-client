@@ -69,11 +69,16 @@ public class EndToEndTester {
         try {
             new Generator().generateClient(cc, input, testOptions, outputDir);
         } catch (GeneratorBadInputException e) {
-            logger.info("BAD INPUT: {}", e.getMessage());
+            logger.info("BAD INPUT: {}", e.getMessage(), e);
 
             String badInputMessageContains = testOptions.getProperty("expected-bad-input-contains");
+            if (badInputMessageContains == null || badInputMessageContains.isBlank()) {
+                throw new IllegalStateException("\"test.properties should include expected-bad-input-contains property", e);
+            }
+            
+            
             assertThat(badInputMessageContains)
-                    .withFailMessage("test.properties should include expected-bad-input-contains property")
+                    .withFailMessage("test.properties should include expected-bad-input-contains property, saw: " + e.getMessage())
                     .isNotBlank();
 
             assertThat(e.getMessage())
