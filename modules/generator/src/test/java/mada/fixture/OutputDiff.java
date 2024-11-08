@@ -21,8 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Compares output file tree from a test with an expected
- * file tree.
+ * Compares output file tree from a test with an expected file tree.
  */
 public final class OutputDiff {
     private static final Logger logger = LoggerFactory.getLogger(OutputDiff.class);
@@ -43,22 +42,21 @@ public final class OutputDiff {
     }
 
     /**
-     * Compare the generated output directory tree with the expected
-     * directory tree.
+     * Compare the generated output directory tree with the expected directory tree.
      *
      * @param generated the generated directory tree
-     * @param expected the expected directory tree
+     * @param expected  the expected directory tree
      */
     public void compareDirs(Path generated, Path expected) {
         String actualTree = makeDirTree(generated);
         String expectedTree = makeDirTree(expected);
 
         assertThat(actualTree)
-            .isEqualTo(expectedTree);
+                .isEqualTo(expectedTree);
 
         getTreeFiles(expected).stream()
-            .map(expected::relativize)
-            .forEach(f -> compareExpectedAndActualFile(expected, generated, f));
+                .map(expected::relativize)
+                .forEach(f -> compareExpectedAndActualFile(expected, generated, f));
     }
 
     private void compareExpectedAndActualFile(Path expectedDir, Path actualDir, Path a) {
@@ -84,9 +82,9 @@ public final class OutputDiff {
         };
 
         assertThat(actualStr)
-            .as("Test %s file %s", testName, a.toString().replace('\\', '/'))
-            .withRepresentation(representation)
-            .isEqualTo(expectedStr);
+                .as("Test %s file %s", testName, a.toString().replace('\\', '/'))
+                .withRepresentation(representation)
+                .isEqualTo(expectedStr);
     }
 
     private String readFileToString(Path expected) {

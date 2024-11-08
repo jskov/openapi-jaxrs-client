@@ -19,22 +19,22 @@ class CommonPathTest {
 
     @ParameterizedTest
     @CsvSource(textBlock = """
-            'foo, bar',                          /
+                    'foo, bar',                          /
 
-            'path, path/simple',                 path
+                    'path, path/simple',                 path
 
-            'path/foo, path/bar',                path
-            'path/foo, path/foo-bar',            path
-            'x/path/foo, x/path/foo-bar',        x/path
-            
-            '/foo, /bar',                       /
+                    'path/foo, path/bar',                path
+                    'path/foo, path/foo-bar',            path
+                    'x/path/foo, x/path/foo-bar',        x/path
 
-            'common, common',                    common
-    """)
+                    '/foo, /bar',                       /
+
+                    'common, common',                    common
+            """)
     void runTests(String paths, String expected) {
         List<String> input = toList(paths);
         assertThat(sut.findCommonPath(input))
-            .isEqualTo(expected);
+                .isEqualTo(expected);
     }
 
     private List<String> toList(String paths) {

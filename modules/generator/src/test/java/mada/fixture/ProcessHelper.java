@@ -19,7 +19,7 @@ public final class ProcessHelper {
      * Waits for process output.
      *
      * @param process the process to wait for
-     * @param output the stream to copy the process output to
+     * @param output  the stream to copy the process output to
      *
      * @return process exit value
      * @throws IllegalStateException if interrupted

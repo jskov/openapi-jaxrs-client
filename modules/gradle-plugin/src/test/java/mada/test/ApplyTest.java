@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Simple can-apply test.
  *
- * Works from gradle, but not from Eclipse. Not sure it is worth
- * the effort to get working.
+ * Works from gradle, but not from Eclipse. Not sure it is worth the effort to get working.
  */
 class ApplyTest {
 
@@ -22,6 +21,6 @@ class ApplyTest {
         Object ext = project.getExtensions().findByName("jaxrs");
 
         assertThat(ext)
-            .isNotNull();
+                .isNotNull();
     }
 }

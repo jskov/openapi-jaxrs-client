@@ -27,8 +27,7 @@ class TestIterator {
     private static final Path OUTPUT_DIR = Paths.get("build/e2e");
 
     /**
-     * Make output dir at exit, so it is present, even if no test executes.
-     * Otherwise Eclipse gets sad...
+     * Make output dir at exit, so it is present, even if no test executes. Otherwise Eclipse gets sad...
      */
     @AfterAll
     static void createOutputDir() throws IOException {
@@ -54,8 +53,7 @@ class TestIterator {
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
-        Predicate<? super Path> filterByName = p ->
-            runAllTests || p.toString().contains(testNameContains);
+        Predicate<? super Path> filterByName = p -> runAllTests || p.toString().contains(testNameContains);
 
         Predicate<? super Path> testFilter = testDir.isEmpty() ? filterByName : filterByProperty;
 
@@ -64,27 +62,27 @@ class TestIterator {
 
         try (Stream<Path> files = Files.walk(rootDir)) {
             return files
-                .filter(p -> {
-                    String filename = p.getFileName().toString();
-                    return "openapi.yaml".equals(filename)
-                            || "openapi.json".equals(filename);
-                })
-                .filter(p -> !runAllTests || !p.toString().contains("/manual/"))
-                .filter(testFilter)
-                .map(testInput -> {
-                    Path testRootDir = testInput.getParent();
-                    Path testPath = testSrcDir.relativize(testRootDir);
-                    Path testOutputDir = OUTPUT_DIR.resolve(testPath);
+                    .filter(p -> {
+                        String filename = p.getFileName().toString();
+                        return "openapi.yaml".equals(filename)
+                                || "openapi.json".equals(filename);
+                    })
+                    .filter(p -> !runAllTests || !p.toString().contains("/manual/"))
+                    .filter(testFilter)
+                    .map(testInput -> {
+                        Path testRootDir = testInput.getParent();
+                        Path testPath = testSrcDir.relativize(testRootDir);
+                        Path testOutputDir = OUTPUT_DIR.resolve(testPath);
 
-                    String name = testPath.toString().replace("/", ".");
+                        String name = testPath.toString().replace("/", ".");
 
-                    String pkgPrefix = testSrcDir.relativize(testRootDir).toString().replace("/", ".");
+                        String pkgPrefix = testSrcDir.relativize(testRootDir).toString().replace("/", ".");
 
-                    return DynamicTest.dynamicTest(name, () ->
-                        new EndToEndTester().runTest(OUTPUT_DIR, pkgPrefix, testRootDir, testOutputDir));
-                })
-                .sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
-                .collect(Collectors.toList());
+                        return DynamicTest.dynamicTest(name,
+                                () -> new EndToEndTester().runTest(OUTPUT_DIR, pkgPrefix, testRootDir, testOutputDir));
+                    })
+                    .sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
+                    .collect(Collectors.toList());
         }
     }
 }

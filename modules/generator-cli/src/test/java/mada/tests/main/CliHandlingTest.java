@@ -21,8 +21,7 @@ class CliHandlingTest {
     private Path outputDir;
 
     /**
-     * If no properties file is specified, assume location based
-     * on input file. Required if no API+DTO packages provided.
+     * If no properties file is specified, assume location based on input file. Required if no API+DTO packages provided.
      */
     @Test
     void willAssumePropertiesFromInput() {
@@ -32,9 +31,9 @@ class CliHandlingTest {
                 "--output-directory", dir);
 
         assertThat(res.exitCode)
-            .isEqualTo(2);
+                .isEqualTo(2);
         assertThat(res.output)
-            .contains("openapi-no-props.properties' is not a regular file");
+                .contains("openapi-no-props.properties' is not a regular file");
     }
 
     /**
@@ -47,11 +46,10 @@ class CliHandlingTest {
                 "--input", "src/test/java/mada/tests/main/openapi-no-props.yaml",
                 "--output-directory", dir,
                 "--api-package", "dk.mada.api",
-                "--dto-package", "dk.mada.dto"
-                );
+                "--dto-package", "dk.mada.dto");
 
         assertThat(res.exitCode)
-            .isZero();
+                .isZero();
     }
 
     /**
@@ -65,7 +63,7 @@ class CliHandlingTest {
                 "--output-directory", dir);
 
         assertThat(res.exitCode)
-            .isZero();
+                .isZero();
     }
 
     /**
@@ -80,15 +78,14 @@ class CliHandlingTest {
                 "--output-directory", dir);
 
         assertThat(res.exitCode)
-            .isZero();
+                .isZero();
         // have to assume the output is written. cannot make it work reliably with all tests
     }
 
     /**
      * Runs the generator via the command-line interface.
      *
-     * Uses a static byte buffer to collect output. This is necessary
-     * since JUL will keep writing to the same stream.
+     * Uses a static byte buffer to collect output. This is necessary since JUL will keep writing to the same stream.
      *
      * @param args the arguments to pass
      * @return the result, exit code and output

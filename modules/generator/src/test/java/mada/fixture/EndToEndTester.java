@@ -20,17 +20,13 @@ import dk.mada.jaxrs.utils.DirectoryDeleter;
 /**
  * Runs end-to-end test from specified directory.
  *
- * The input is the OpenApi file (openapi.yaml) and
- * the test options (test.props).
+ * The input is the OpenApi file (openapi.yaml) and the test options (test.props).
  *
- * The expected output is the api and dto folders (both
- * optional depending on the test options).
+ * The expected output is the api and dto folders (both optional depending on the test options).
  *
- * The test is executed by generating code from the test
- * input and comparing it to the expected output.
+ * The test is executed by generating code from the test input and comparing it to the expected output.
  *
- * If the generated code does not match the expected output,
- * a diff is run on the folders to help diagnostics.
+ * If the generated code does not match the expected output, a diff is run on the folders to help diagnostics.
  */
 public class EndToEndTester {
     private static final Logger logger = LoggerFactory.getLogger(EndToEndTester.class);
@@ -38,9 +34,9 @@ public class EndToEndTester {
     /**
      * Runs a single end-to-end test.
      *
-     * @param outputDir the directory where files are generated to
-     * @param pkgPrefix the package prefix for the test
-     * @param expectedFilesDir the directory containing expected files for the test
+     * @param outputDir             the directory where files are generated to
+     * @param pkgPrefix             the package prefix for the test
+     * @param expectedFilesDir      the directory containing expected files for the test
      * @param generatedFilesRootDir the directory where the generated api/dto folders are generated
      *
      * @throws IOException if there is an IO problem
@@ -77,11 +73,11 @@ public class EndToEndTester {
 
             String badInputMessageContains = testOptions.getProperty("expected-bad-input-contains");
             assertThat(badInputMessageContains)
-                .withFailMessage("test.properties should include expected-bad-input-contains property")
-                .isNotBlank();
+                    .withFailMessage("test.properties should include expected-bad-input-contains property")
+                    .isNotBlank();
 
             assertThat(e.getMessage())
-                .contains(badInputMessageContains);
+                    .contains(badInputMessageContains);
             return;
         } finally {
             deleteUnwantedOutput(testOptions, generatedFilesRootDir);
