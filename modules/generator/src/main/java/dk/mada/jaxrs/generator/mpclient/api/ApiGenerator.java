@@ -342,9 +342,13 @@ public class ApiGenerator {
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
         List<CtxApiParam> params = new ArrayList<>();
         if (op.addAuthorizationHeader()) {
+            Optional<CtxValidation> valCtx = Optional.of(validationGenerator.makeRequired());
+            String validationNote = makeValidationNote(valCtx, false, false);
             params.add(CtxApiParam.builder()
                     .baseName("Authorization")
                     .paramName("auth")
+                    .indentation(" ")
+                    .validationNote(validationNote)
                     .dataType(Primitive.STRING.typeName().name())
                     .isContainer(false)
                     .isBodyParam(false)
@@ -352,7 +356,7 @@ public class ApiGenerator {
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
-                    .validation(Optional.of(validationGenerator.makeRequired()))
+                    .validation(valCtx)
                     .isMultipartForm(false)
                     .isNullable(false)
                     .build());

@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterAll;
@@ -48,7 +47,7 @@ class TestIterator {
         // Handy when working on a single test
 //        String testNameContains = "manual";
 //        String testNameContains = "requirenonnull";
-        String testNameContains = "api/collection_import";
+        String testNameContains = "api/javadoc";
 //        String testNameContains = "opts/generator/record";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
@@ -82,7 +81,7 @@ class TestIterator {
                                 () -> new EndToEndTester().runTest(OUTPUT_DIR, pkgPrefix, testRootDir, testOutputDir));
                     })
                     .sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
-                    .collect(Collectors.toList());
+                    .toList();
         }
     }
 }
