@@ -26,7 +26,7 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
     private boolean echoWorkerInfo;
 
     /** Create new instance. */
-    protected GenerateClientWorker() {
+    public GenerateClientWorker() { // NOSONAR - must be public for Gradle to be happy
         // empty
     }
 

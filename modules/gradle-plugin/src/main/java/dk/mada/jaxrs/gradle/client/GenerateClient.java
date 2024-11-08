@@ -55,7 +55,7 @@ public abstract class GenerateClient extends DefaultTask {
     public abstract Property<String> getGeneratorGav();
 
     /** Create new instance. */
-    protected GenerateClient() {
+    public GenerateClient() { // NOSONAR - must be public for Gradle to be happy
         // empty
     }
 
