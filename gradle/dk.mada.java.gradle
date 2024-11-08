@@ -26,6 +26,8 @@ tasks.named('compileTestJava') {
 
 tasks.named('test') {
     useJUnitPlatform()
+
+    testLogging.showStandardStreams = true
 }
 
 // MavenCentral publishing requires both javadoc and sources
