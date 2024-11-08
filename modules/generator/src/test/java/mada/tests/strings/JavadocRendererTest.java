@@ -48,8 +48,19 @@ class JavadocRendererTest {
                      * section. Make a summary valid for use in the javadoc section. Make a summary valid for use in the javadoc section.""");
     }
 
-    // break two long lines, join middle
-    
+    /**
+     * Two adjacent lines getting broken should really be joined.
+     * Line 2 gets broken (as does 3) but they are joined.
+     */
+    @Test
+    void shouldJoinBrokenLines() {
+        assertThat(StringRenderer.makeValidDtoJavadocSummary("Line 1.\nLine 2 one two tree four five Make a summary valid for use in the javadoc section. Make a summary valid for use in the javadoc section.\nLine 3 one two tree four five Make a summary valid for use in the javadoc section. Make a summary valid for use in the javadoc section.\n"))
+            .contains("""
+                    Line 1. Line 2 one two tree four five Make a summary valid for use in the javadoc section. Make a summary valid for
+                     * use in the javadoc section. Line 3 one two tree four five Make a summary valid for use in the javadoc section. Make a
+                     * summary valid for use in the javadoc section.""");
+    }
+
     /**
      * Allow sentence separation with double newlines.
      */

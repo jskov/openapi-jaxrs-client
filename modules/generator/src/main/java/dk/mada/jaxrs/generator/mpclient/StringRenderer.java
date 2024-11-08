@@ -107,7 +107,7 @@ public final class StringRenderer {
                 sb.append(NL);
                 currentLineLength = indent;
             }
-            if (currentLineLength != 0) {
+            if (currentLineLength != indent) {
                 sb.append(" ");
                 currentLineLength += 1;
             }
