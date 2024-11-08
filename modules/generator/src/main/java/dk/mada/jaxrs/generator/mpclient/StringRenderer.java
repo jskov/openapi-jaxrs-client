@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.mpclient;
 
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * Renders text in various forms suitable for use in the templates.
@@ -9,6 +10,7 @@ import java.util.function.Consumer;
  * Duplicates some of the logic in mustache rendering, but does so to allow for use of simpler templates.
  */
 public final class StringRenderer {
+    private static final String JAVADOC_PREFIX = " * ";
     /** System newline. */
     private static final String NL = System.lineSeparator();
 
@@ -22,7 +24,7 @@ public final class StringRenderer {
      * @return a valid summary to render as javadoc, or null
      */
     public static Optional<String> makeValidOperationJavadocSummary(String textIn) {
-        return makeValidJavadocSummary(textIn, "  ");
+        return makeValidJavadocSummary(textIn, "    ");
     }
 
     /**
@@ -48,6 +50,9 @@ public final class StringRenderer {
     /**
      * Make a summary valid for use in the javadoc section.
      *
+     * Make a summary valid for use in the javadoc section. Make a summary valid for use in the javadoc section. Make a
+     * summary valid for use in the javadoc section. Make a summary valid for use in the javadoc section.
+     *
      * @param textIn        the text summary
      * @param commentIndent the comment indentation
      * @return a valid summary to render as javadoc, or null
@@ -69,11 +74,47 @@ public final class StringRenderer {
         // Crude - handle carriage return (on Unix, turns to \n, on Windows stays \r\n)
         text = text.replace("\r\n", NL);
 
+        text = text.lines()
+                .map(String::stripTrailing)
+                .collect(Collectors.joining(NL));
+
+        // Replaces 2+ newlines with a single space.
+        text = text.replaceAll("\n{2,}", "@@NL@@")
+                .replace(NL, " ")
+                .replace("@@NL@@", NL);
+
+        // Breaks long lines
+        int indent = commentIndent.length();
+        text = text.lines()
+                .map(l -> shorten(l, indent))
+                .collect(Collectors.joining(NL));
+
         // Crude - but simple - newline handling
-        text = text.replace(NL, NL + commentIndent + " * ");
-        text = text.replace(NL + commentIndent + " * " + NL, NL + commentIndent + " *" + NL);
+        text = text.replace(NL, NL + commentIndent + JAVADOC_PREFIX);
+//        text = text.replace(NL + commentIndent + " * " + NL, NL + commentIndent + " *" + NL);
 
         return Optional.of(text);
+    }
+
+    private static final int MAX_LINE_WIDTH = 120;
+    private static final int LINE_BREAK_LENGTH = MAX_LINE_WIDTH - JAVADOC_PREFIX.length() - 1;
+    private static String shorten(String s, int indent) {
+        int currentLineLength = indent;
+        StringBuilder sb = new StringBuilder();
+        for (String w : s.split(" ", -1)) {
+            int length = w.length();
+            if (currentLineLength + length > LINE_BREAK_LENGTH) {
+                sb.append(NL);
+                currentLineLength = indent;
+            }
+            if (currentLineLength != 0) {
+                sb.append(" ");
+                currentLineLength += 1;
+            }
+            currentLineLength += length;
+            sb.append(w);
+        }
+        return sb.toString();
     }
 
     /**
