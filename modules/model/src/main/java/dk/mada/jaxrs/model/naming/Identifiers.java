@@ -16,6 +16,11 @@ import org.slf4j.LoggerFactory;
 public final class Identifiers {
     private static final Logger logger = LoggerFactory.getLogger(Identifiers.class);
 
+    /** Creates new instance. */
+    public Identifiers() {
+        // empty
+    }
+
     /**
      * Make a valid variable name for java.
      *

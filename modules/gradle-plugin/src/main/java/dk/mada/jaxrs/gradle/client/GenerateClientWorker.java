@@ -25,6 +25,11 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
     /** Flag controlling crude log output for worker. */
     private boolean echoWorkerInfo;
 
+    /** Create new instance. */
+    protected GenerateClientWorker() {
+        // empty
+    }
+
     /**
      * Executes the action.
      */

@@ -14,7 +14,9 @@ import java.util.logging.SimpleFormatter;
  * Controls (JUL) logging backend.
  */
 public final class LoggerConfig {
+    /** Creates new instance. */
     private LoggerConfig() {
+        // empty
     }
 
     /** Loads default logger configuration. */
@@ -66,6 +68,11 @@ public final class LoggerConfig {
                 Level.WARNING, new Slf4jLevel("WARN", 900),
                 Level.FINE, new Slf4jLevel("DEBUG", 500),
                 Level.FINEST, new Slf4jLevel("TRACE", 300));
+
+        /** Creates new instance. */
+        public LoggerSlf4NamingFormatter() {
+            // empty
+        }
 
         @Override
         public String format(LogRecord lr) {

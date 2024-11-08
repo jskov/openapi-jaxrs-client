@@ -14,7 +14,9 @@ import java.util.logging.SimpleFormatter;
  * Controls (JUL) logging backend.
  */
 public final class LoggerConfig {
+    /** Creates new instance. */
     private LoggerConfig() {
+        // empty
     }
 
     /** Loads default logger configuration. */
@@ -66,6 +68,7 @@ public final class LoggerConfig {
     public static final class LoggerSlf4NamingFormatter extends SimpleFormatter {
         /** Creates new instance. */
         public LoggerSlf4NamingFormatter() {
+            // empty
         }
 
         /** Log level bridging between JUL and slf4j. */

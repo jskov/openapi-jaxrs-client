@@ -54,6 +54,11 @@ public abstract class GenerateClient extends DefaultTask {
     @Input
     public abstract Property<String> getGeneratorGav();
 
+    /** Create new instance. */
+    protected GenerateClient() {
+        // empty
+    }
+
     /**
      * Generates the code.
      */
