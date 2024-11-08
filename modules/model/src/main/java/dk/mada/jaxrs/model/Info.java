@@ -12,6 +12,11 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 public abstract class Info {
+    /** Creates new instance. */
+    protected Info() {
+        // empty
+    }
+
     /** {@return a builder for this type} */
     public static ImmutableInfo.Builder builder() {
         return ImmutableInfo.builder();
@@ -40,6 +45,11 @@ public abstract class Info {
      */
     @Immutable
     public abstract static class Contact {
+        /** Creates new instance. */
+        protected Contact() {
+            // empty
+        }
+
         /** {@return a builder for this type} */
         public static ImmutableContact.Builder builder() {
             return ImmutableContact.builder();

@@ -54,6 +54,11 @@ public abstract class GenerateClient extends DefaultTask {
     @Input
     public abstract Property<String> getGeneratorGav();
 
+    /** Create new instance. */
+    public GenerateClient() { // NOSONAR - must be public for Gradle to be happy
+        // empty
+    }
+
     /**
      * Generates the code.
      */

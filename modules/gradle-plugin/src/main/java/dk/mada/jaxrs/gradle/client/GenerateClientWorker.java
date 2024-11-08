@@ -25,6 +25,11 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
     /** Flag controlling crude log output for worker. */
     private boolean echoWorkerInfo;
 
+    /** Create new instance. */
+    public GenerateClientWorker() { // NOSONAR - must be public for Gradle to be happy
+        // empty
+    }
+
     /**
      * Executes the action.
      */
