@@ -31,7 +31,7 @@ class GenerateCodeTest {
              generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:@VERSION@"
              clients {
                petstore {
-                 download("https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml")
+                 download("https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/tests/v3.0/pass/petstore.yaml")
                }
              }
            }
