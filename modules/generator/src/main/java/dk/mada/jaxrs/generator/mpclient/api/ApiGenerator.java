@@ -56,8 +56,8 @@ import dk.mada.jaxrs.model.types.TypeVoid;
  */
 public class ApiGenerator {
     private static final Logger logger = LoggerFactory.getLogger(ApiGenerator.class);
-    /** Length of the parameter named used for body. */
-    private static final int BODY_PARAM_NAME_LENGTH = "dto".length();
+    /** Parameter name used for (synthetic) authentication parameter. */
+    private static final String AUTH_PARAM_NAME = "auth";
     /** Naming. */
     private final Naming naming;
     /** Generator options. */
@@ -262,7 +262,7 @@ public class ApiGenerator {
                 .allParams(allParams)
                 .responses(responses)
                 .summary(summary.flatMap(StringRenderer::makeValidOperationJavadocSummary))
-                .notes(description)
+                .notes(description.flatMap(StringRenderer::makeValidOperationJavadocSummary))
                 .madaOp(ext)
                 .build());
     }
@@ -346,7 +346,7 @@ public class ApiGenerator {
             String validationNote = makeValidationNote(valCtx, false, false);
             params.add(CtxApiParam.builder()
                     .baseName("Authorization")
-                    .paramName("auth")
+                    .paramName(AUTH_PARAM_NAME)
                     .indentation(" ")
                     .validationNote(validationNote)
                     .dataType(Primitive.STRING.typeName().name())
@@ -362,12 +362,29 @@ public class ApiGenerator {
                     .build());
         }
 
-        int propNameLengths = op.parameters().stream()
-            .mapToInt(p -> p.name().length())
+        List<String> paramNames = op.parameters().stream().map(Parameter::name).toList();
+        int propNameLengths = paramNames.stream()
+            .mapToInt(String::length)
             .max()
             .orElse(0);
-        if (op.requestBody().isPresent() && propNameLengths <= BODY_PARAM_NAME_LENGTH) {
-            propNameLengths = BODY_PARAM_NAME_LENGTH + 1;
+
+        Optional<String> bodyParamName = op.requestBody()
+                .map(body -> {
+                    Reference ref = body.content().reference();
+                    String preferredDtoParamName = naming.convertEntityName(ref.typeName().name());
+
+                    // Guard against (simple) conflict with other parameters
+                    boolean dtoParamNameNotUnique = paramNames.stream()
+                            .anyMatch(preferredDtoParamName::equals);
+                    return dtoParamNameNotUnique ? preferredDtoParamName + "Entity" : preferredDtoParamName;
+                });
+
+        int bodyParamNameLength = bodyParamName.orElse("").length();
+        if (propNameLengths <= bodyParamNameLength) {
+            propNameLengths = bodyParamNameLength + 1;
+        }
+        if (op.addAuthorizationHeader() && propNameLengths <= AUTH_PARAM_NAME.length()) {
+            propNameLengths = AUTH_PARAM_NAME.length() + 1;
         }
         int indentJavadocTextBy = propNameLengths;
 
@@ -419,16 +436,10 @@ public class ApiGenerator {
             params.add(param);
         }
 
+        
         op.requestBody().ifPresent(body -> {
             Reference ref = body.content().reference();
             imports.add(ref);
-
-            String preferredDtoParamName = naming.convertEntityName(ref.typeName().name());
-
-            // Guard against (simple) conflict with other parameters
-            boolean dtoParamNameNotUnique = params.stream()
-                    .anyMatch(p -> p.paramName().equals(preferredDtoParamName));
-            String dtoParamName = dtoParamNameNotUnique ? preferredDtoParamName + "Entity" : preferredDtoParamName;
 
             String dataType = paramDataType(ref);
 
@@ -443,11 +454,11 @@ public class ApiGenerator {
             }
             CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
-                    .paramName(dtoParamName)
+                    .paramName(bodyParamName.orElseThrow())
                     .dataType(dataType)
                     .validation(valCtx)
                     .description(body.description())
-                    .indentation(" ".repeat(indentJavadocTextBy - BODY_PARAM_NAME_LENGTH))
+                    .indentation(" ".repeat(indentJavadocTextBy - bodyParamNameLength))
                     .validationNote(validationNote)
                     .isContainer(false)
                     .isBodyParam(true)
