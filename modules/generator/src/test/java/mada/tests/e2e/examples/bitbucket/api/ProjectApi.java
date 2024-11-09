@@ -1891,7 +1891,7 @@ public interface ProjectApi {
      *
      * @param projectKey    The project key. (not null)
      * @param hookKey       The hook key. (not null)
-     * @param contentLength The content length. (not null)
+     * @param contentLength The content length. (optional)
      * @return RestRepositoryHook
      */
     @PUT
@@ -2102,7 +2102,7 @@ public interface ProjectApi {
      *
      * @param projectKey The project key. (not null)
      * @param event      List of <code>com.atlassian.webhooks.WebhookEvent</code> IDs to filter for (optional)
-     * @param statistics <code>true</code> if statistics should be provided for all found webhooks (not null)
+     * @param statistics <code>true</code> if statistics should be provided for all found webhooks (optional)
      */
     @GET
     @Path("api/latest/projects/{projectKey}/webhooks")
@@ -2167,8 +2167,8 @@ public interface ProjectApi {
      * resource.
      *
      * @param projectKey              The project key. (not null)
-     * @param webhookId               (not null)
-     * @param sslVerificationRequired (not null)
+     * @param webhookId               (optional)
+     * @param sslVerificationRequired (optional)
      * @param url                     The url in which to connect to (optional)
      * @param dto                     Basic authentication credentials, if required. (optional)
      * @return RestWebhookRequestResponse

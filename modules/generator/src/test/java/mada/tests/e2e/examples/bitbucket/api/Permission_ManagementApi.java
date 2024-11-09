@@ -647,10 +647,10 @@ public interface Permission_ManagementApi {
      *
      * @param emailAddress      The e-mail address for the new user. (not null)
      * @param password          The password for the new user. Required if the <code>notify</code> parameter is not present or is set to <code>false</false> (optional)
-     * @param addToDefaultGroup Set <code>true</code> to add the user to the default group, which can be used to grant them a set of initial permissions; otherwise, <code>false</code> to not add them to a group. (not null)
+     * @param addToDefaultGroup Set <code>true</code> to add the user to the default group, which can be used to grant them a set of initial permissions; otherwise, <code>false</code> to not add them to a group. (optional)
      * @param displayName       The display name for the new user. (not null)
      * @param name              The username for the new user. (not null)
-     * @param notify            If present and not <code>false</code> instead of requiring a password, the create user will be notified via email their account has been created and requires a password to be reset. This option can only be used if a mail server has been configured. (not null)
+     * @param notify            If present and not <code>false</code> instead of requiring a password, the create user will be notified via email their account has been created and requires a password to be reset. This option can only be used if a mail server has been configured. (optional)
      */
     @POST
     @Path("/admin/users")

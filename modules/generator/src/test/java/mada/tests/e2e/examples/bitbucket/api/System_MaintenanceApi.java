@@ -584,7 +584,7 @@ public interface System_MaintenanceApi {
      * Delete a Mesh node
      * The authenticated user must have **SYS_ADMIN** permission.
      *
-     * @param force (not null)
+     * @param force (optional)
      * @param id    (not null)
      */
     @DELETE

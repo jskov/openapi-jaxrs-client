@@ -343,7 +343,7 @@ public class ApiGenerator {
         List<CtxApiParam> params = new ArrayList<>();
         if (op.addAuthorizationHeader()) {
             Optional<CtxValidation> valCtx = Optional.of(validationGenerator.makeRequired());
-            String validationNote = makeValidationNote(valCtx, false, false);
+            String validationNote = makeValidationNote(valCtx, true, false, false);
             params.add(CtxApiParam.builder()
                     .baseName("Authorization")
                     .paramName(AUTH_PARAM_NAME)
@@ -426,7 +426,12 @@ public class ApiGenerator {
                 imports.add(Jspecify.NULLABLE);
             }
 
-            String validationNote = makeValidationNote(valCtx, isNullable, p.description().isPresent());
+            boolean required = validation.isRequired().orElse(false);
+            logger.info(" XX {} : required:{} / nullable:{}", name, required, isNullable);
+            
+//            * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#validation}}{{#notNull}} (not null){{/notNull}}{{^notNull}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/notNull}}{{/validation}}
+
+            String validationNote = makeValidationNote(valCtx, required, isNullable, p.description().isPresent());
             ImmutableCtxApiParam param = CtxApiParam.builder()
                     .baseName(name)
                     .paramName(paramName)
@@ -458,7 +463,7 @@ public class ApiGenerator {
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
 
             boolean notNull = valCtx.map(CtxValidation::notNull).orElse(true);
-            String validationNote = makeValidationNote(valCtx, !notNull, body.description().map(s -> !s.isBlank()).orElse(false));
+            String validationNote = makeValidationNote(valCtx, true, !notNull, body.description().map(s -> !s.isBlank()).orElse(false));
 
             boolean isMultipartForm = body.isMultipartForm();
             if (isMultipartForm) {
@@ -495,14 +500,21 @@ public class ApiGenerator {
         return params;
     }
 
-    private String makeValidationNote(Optional<CtxValidation> valCtx, boolean isNullable, boolean hasDescription) {
+    private String makeValidationNote(Optional<CtxValidation> valCtx, boolean isRequired, boolean isNullable, boolean hasDescription) {
         String validationNote = "";
+        
+        
         if (valCtx.isPresent()) {
-            if (isNullable) {
+            logger.info("See VAL: {}", valCtx);
+            if (!isRequired) {
                 // FIXME: test and implement (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}})
                 validationNote = "(optional)";
             } else {
-                validationNote = "(not null)";
+                if (isNullable) {
+                    validationNote = "(optional)";
+                } else {
+                    validationNote = "(not null)";
+                }
             }
             if (hasDescription) {
                 validationNote = " " + validationNote;

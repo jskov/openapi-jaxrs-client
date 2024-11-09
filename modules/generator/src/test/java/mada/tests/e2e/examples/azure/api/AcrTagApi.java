@@ -30,7 +30,7 @@ public interface AcrTagApi {
      * @param auth (not null)
      * @param name    Name of the image (including the namespace) (not null)
      * @param last    Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
-     * @param n       query parameter for max number of items (not null)
+     * @param n       query parameter for max number of items (optional)
      * @param orderby orderby query parameter (optional)
      * @param digest  filter by digest (optional)
      * @return TagList

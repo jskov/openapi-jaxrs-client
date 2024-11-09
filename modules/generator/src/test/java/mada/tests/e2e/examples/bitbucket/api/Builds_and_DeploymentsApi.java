@@ -338,7 +338,7 @@ These fields are optional:
      *
      * Gets statistics regarding the builds associated with a commit.
      *
-     * @param includeUnique include a unique build result if there is either only one failed build, only one in-progress build or only one successful build (not null)
+     * @param includeUnique include a unique build result if there is either only one failed build, only one in-progress build or only one successful build (optional)
      * @param commitId      full SHA1 of the commit (not null)
      * @return RestBuildStats
      */

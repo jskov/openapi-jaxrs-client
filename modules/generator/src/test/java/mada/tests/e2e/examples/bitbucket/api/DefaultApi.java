@@ -30,8 +30,8 @@ public interface DefaultApi {
      * Returns a page of pull requests in the user's inbox.
      *
      * @param role  (optional)
-     * @param limit (not null)
-     * @param start (not null)
+     * @param limit (optional)
+     * @param start (optional)
      */
     @GET
     @Produces("application/json;charset=UTF-8")

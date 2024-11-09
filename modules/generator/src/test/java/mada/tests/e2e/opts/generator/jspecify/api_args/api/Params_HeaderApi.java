@@ -21,7 +21,7 @@ public interface Params_HeaderApi {
     /**
      * apiParamsHeaderBooleanPrimitiveGet.
      *
-     * @param flag (not null)
+     * @param flag (optional)
      * @return String
      */
     @GET
@@ -33,7 +33,7 @@ public interface Params_HeaderApi {
     /**
      * apiParamsHeaderBooleanWrapperGet.
      *
-     * @param flag (not null)
+     * @param flag (optional)
      * @return String
      */
     @GET
@@ -45,7 +45,7 @@ public interface Params_HeaderApi {
     /**
      * apiParamsHeaderInvalidNameDashesGet.
      *
-     * @param invalidValue (not null)
+     * @param invalidValue (optional)
      * @return String
      */
     @GET
@@ -69,7 +69,7 @@ public interface Params_HeaderApi {
     /**
      * apiParamsHeaderMixedGet.
      *
-     * @param flag (not null)
+     * @param flag (optional)
      * @param item (optional)
      * @param name (optional)
      * @return String

@@ -389,7 +389,7 @@ public interface Mirroring__Upstream_Api {
      * Returns a repository enriched with a content hash and default branch.
      *
      * @param repoId               the ID of the requested repository (not null)
-     * @param includeDefaultBranch (not null)
+     * @param includeDefaultBranch (optional)
      * @return EnrichedRepository
      */
     @GET
