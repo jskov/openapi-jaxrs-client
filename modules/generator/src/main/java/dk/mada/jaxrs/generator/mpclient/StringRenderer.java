@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
  */
 public final class StringRenderer {
     private static final String JAVADOC_PREFIX = " * ";
+    /** Max line length. */
+    public static final int MAX_LINE_WIDTH = 120;
+    /** Javadoc line break length. */
+    private static final int LINE_BREAK_LENGTH = MAX_LINE_WIDTH - JAVADOC_PREFIX.length() - 1;
     /** System newline. */
     private static final String NL = System.lineSeparator();
 
@@ -101,9 +105,6 @@ public final class StringRenderer {
 
         return Optional.of(text);
     }
-
-    private static final int MAX_LINE_WIDTH = 120;
-    private static final int LINE_BREAK_LENGTH = MAX_LINE_WIDTH - JAVADOC_PREFIX.length() - 1;
 
     private static String shorten(String s, int indent) {
         int currentLineLength = indent;

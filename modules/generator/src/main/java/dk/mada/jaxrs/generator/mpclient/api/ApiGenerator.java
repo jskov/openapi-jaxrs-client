@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,6 +59,8 @@ public class ApiGenerator {
     private static final Logger logger = LoggerFactory.getLogger(ApiGenerator.class);
     /** Parameter name used for (synthetic) authentication parameter. */
     private static final String AUTH_PARAM_NAME = "auth";
+    /** System newline. */
+    private static final String NL = System.lineSeparator();
     /** Naming. */
     private final Naming naming;
     /** Generator options. */
@@ -569,6 +572,8 @@ public class ApiGenerator {
         String description = r.description()
                 .orElse("");
 
+        Optional<String> apiContent = createContent(op, baseType, containerType, isUnique, mediaType);
+
         return CtxApiResponse.builder()
                 .baseType(baseType)
                 .code(r.code().asOpenApiStatus())
@@ -576,7 +581,52 @@ public class ApiGenerator {
                 .description(StringRenderer.encodeForString(description))
                 .isUnique(isUnique)
                 .mediaType(mediaType)
+                .apiContent(apiContent)
                 .build();
+    }
+
+    private Optional<String> createContent(Operation op, @Nullable String baseType, @Nullable String containerType, boolean isUnique,
+            Optional<String> mediaType) {
+        if (baseType == null) {
+            return Optional.empty();
+        }
+
+        int breakColumn = 94;
+
+        String s = "schema = @Schema(implementation = " + baseType + ".class";
+        if (containerType != null) {
+            s += ", type = " + containerType;
+            if (isUnique) {
+                s += ", uniqueItems = true";
+            }
+        }
+        s += ")";
+        String baseIndent = "                    ";
+        String stepIndent = "        ";
+        String c = "content = @Content(";
+        @Nullable String addMt = mediaType.map(mt -> "mediaType = " + mt).orElse(null);
+        int l = baseIndent.length() + c.length() + s.length();
+        if (l < breakColumn) {
+            c += s;
+        } else {
+            c += NL + baseIndent + stepIndent + s;
+            l = baseIndent.length() + stepIndent.length() + s.length();
+        }
+
+        String sep = ", ";
+        if (addMt != null) {
+            if (l + sep.length() + addMt.length() < breakColumn) {
+                c += sep + addMt;
+            } else {
+                c += "," + NL + baseIndent + stepIndent + addMt;
+            }
+        }
+        c = c + ")";
+        return Optional.of(c);
+//      content = @Content(
+//              schema = @Schema(implementation = {{{baseType}}}.class{{#containerType}}, type = {{{.}}}{{/containerType}}{{#isUnique}}, uniqueItems = true{{/isUnique}}){{#mediaType}},
+//              mediaType = {{{.}}}{{/mediaType}}){{/baseType}}){{^-last}},{{/-last}}
+
     }
 
     // TODO: these should be combined smarter - base should take Content as argument instead, avoid use of streams

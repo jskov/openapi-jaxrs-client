@@ -32,4 +32,6 @@ public interface CtxApiResponse {
 
     /** {@return true if the container is a set (array with unique elements)} */
     boolean isUnique();
+
+    Optional<String> apiContent();
 }

@@ -66,8 +66,8 @@ public interface {{classname}} {
             {{#responses}}
             @APIResponse(
                     responseCode = "{{code}}",
-                    description = "{{{description}}}"{{#baseType}},
-                    content = @Content(schema = @Schema(implementation = {{{baseType}}}.class{{#containerType}}, type = {{{.}}}{{/containerType}}{{#isUnique}}, uniqueItems = true{{/isUnique}}){{#mediaType}}, mediaType = {{{.}}}{{/mediaType}}){{/baseType}}){{^-last}},{{/-last}}
+                    description = "{{{description}}}"{{#apiContent}},
+                    {{apiContent}}{{/apiContent}}){{^-last}},{{/-last}}
         {{/responses}}
     })
     {{/madaOp.responseSchema}}
