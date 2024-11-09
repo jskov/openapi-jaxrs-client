@@ -39,7 +39,8 @@ public interface PetsApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A paged array of pets",
-                    content = @Content(schema = @Schema(implementation = Pet.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Pet.class, type = SchemaType.ARRAY)))
     })
     @Operation(summary = "List all pets")
     List<Pet> listPets(@QueryParam("limit") int limit);

@@ -30,7 +30,8 @@ public interface DefaultApi {
             @APIResponse(
                     responseCode = "default",
                     description = "Returns id",
-                    content = @Content(schema = @Schema(implementation = Identification.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = Identification.class)))
     })
     Identification getId();
 }

@@ -45,11 +45,13 @@ public interface System_SigningApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The configuration details for system signing Git objects",
-                    content = @Content(schema = @Schema(implementation = RestSystemSigningConfiguration.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestSystemSigningConfiguration.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to retrieve the configuration details for system signing Git objects.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestSystemSigningConfiguration_401.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestSystemSigningConfiguration_401.class)))
     })
     @Operation(summary = "Get system signing configuration")
     RestSystemSigningConfiguration getSystemSigningConfiguration();
@@ -69,15 +71,18 @@ public interface System_SigningApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The updated configuration details for system signing Git objects",
-                    content = @Content(schema = @Schema(implementation = RestSystemSigningConfiguration.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestSystemSigningConfiguration.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The configuration details could not be updated because the provided request was invalid",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestSystemSigningConfiguration_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestSystemSigningConfiguration_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to retrieve the configuration details for system signing Git objects.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestSystemSigningConfiguration_401.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestSystemSigningConfiguration_401.class)))
     })
     @Operation(summary = "Update system signing configuration")
     RestSystemSigningConfiguration updateSystemSigningConfiguration(@Valid _RequestApiLatestSystemSigningConfiguration dto);

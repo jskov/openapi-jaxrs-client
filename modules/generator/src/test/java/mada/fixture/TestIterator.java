@@ -48,7 +48,7 @@ class TestIterator {
 //        String testNameContains = "manual";
 //        String testNameContains = "requirenonnull";
 //        String testNameContains = "regression/bad_dates";
-        String testNameContains = "params/query";
+        String testNameContains = "types_mediatypes";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);

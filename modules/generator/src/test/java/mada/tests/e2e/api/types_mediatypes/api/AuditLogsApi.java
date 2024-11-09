@@ -47,7 +47,9 @@ public interface AuditLogsApi {
             @APIResponse(
                     responseCode = "401",
                     description = "Another failure with single non-default media-type",
-                    content = @Content(schema = @Schema(implementation = ViolationConstraint.class), mediaType = MediaType.TEXT_PLAIN)),
+                    content = @Content(
+                            schema = @Schema(implementation = ViolationConstraint.class),
+                            mediaType = MediaType.TEXT_PLAIN)),
             @APIResponse(
                     responseCode = "500",
                     description = "Internal error or backend failure",

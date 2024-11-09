@@ -59,7 +59,8 @@ public interface CapabilitiesApi {
             @APIResponse(
                     responseCode = "404",
                     description = "This instance of Bitbucket Data Center does not support deployments (for example, it has been disabled using the property 'plugin.deployment.capability.disabled').",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestDeploymentCapabilities_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestDeploymentCapabilities_404.class)))
     })
     @Operation(summary = "Get deployment capabilities")
     void getCapabilities_1();

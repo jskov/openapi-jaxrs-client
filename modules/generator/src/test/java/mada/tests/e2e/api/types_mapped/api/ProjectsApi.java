@@ -46,7 +46,8 @@ public interface ProjectsApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = ProjectDTO.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = ProjectDTO.class, type = SchemaType.ARRAY)))
     })
     List<ProjectDTO> projectsGet();
 }

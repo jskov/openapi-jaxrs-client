@@ -29,7 +29,8 @@ public interface AcrTagApi {
      *
      * @param auth    (not null)
      * @param name    Name of the image (including the namespace) (not null)
-     * @param last    Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
+     * @param last    Query parameter for the last item in previous query. Result set will include values lexically after
+     *                last. (optional)
      * @param n       query parameter for max number of items (optional)
      * @param orderby orderby query parameter (optional)
      * @param digest  filter by digest (optional)
@@ -47,7 +48,8 @@ public interface AcrTagApi {
                     description = "Tag details of a repository",
                     content = @Content(schema = @Schema(implementation = TagList.class)))
     })
-    TagList Tag_GetList(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @QueryParam("last") String last, @QueryParam("n") short n, @QueryParam("orderby") String orderby, @QueryParam("digest") String digest);
+    TagList Tag_GetList(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @QueryParam("last") String last,
+            @QueryParam("n") short n, @QueryParam("orderby") String orderby, @QueryParam("digest") String digest);
 
     /**
      * Get tag attributes by tag.
@@ -70,7 +72,8 @@ public interface AcrTagApi {
                     description = "Tag attributes",
                     content = @Content(schema = @Schema(implementation = TagAttributes.class)))
     })
-    TagAttributes Tag_GetAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
+    TagAttributes Tag_GetAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference);
 
     /**
      * Delete tag.
@@ -92,7 +95,8 @@ public interface AcrTagApi {
                     responseCode = "202",
                     description = "The tag is deleted")
     })
-    AcrErrors Tag_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
+    AcrErrors Tag_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference);
 
     /**
      * Update tag attributes.
@@ -116,5 +120,6 @@ public interface AcrTagApi {
                     responseCode = "200",
                     description = "The attributes are updated")
     })
-    AcrErrors Tag_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @Valid TagChangeableAttributes dto);
+    AcrErrors Tag_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference, @Valid TagChangeableAttributes dto);
 }

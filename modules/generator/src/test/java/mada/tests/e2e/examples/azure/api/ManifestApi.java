@@ -29,7 +29,8 @@ public interface ManifestApi {
      * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference A tag or a digest, pointing to a specific image (not null)
-     * @param accept    Accept header string delimited by comma. For example, application/vnd.docker.distribution.manifest.v2+json (optional)
+     * @param accept    Accept header string delimited by comma. For example,
+     *                  application/vnd.docker.distribution.manifest.v2+json (optional)
      * @return ManifestWrapper
      */
     @GET
@@ -42,9 +43,11 @@ public interface ManifestApi {
             @APIResponse(
                     responseCode = "200",
                     description = "Returns the requested manifest file in a larger combined group",
-                    content = @Content(schema = @Schema(implementation = ManifestWrapper.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = ManifestWrapper.class)))
     })
-    ManifestWrapper Manifests_Get(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @HeaderParam("accept") String accept);
+    ManifestWrapper Manifests_Get(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference, @HeaderParam("accept") String accept);
 
     /**
      * Put the manifest identified by `name` and `reference` where `reference` can be a tag or digest.
@@ -68,7 +71,8 @@ public interface ManifestApi {
                     description = "The manifest is updated",
                     content = @Content(schema = @Schema(implementation = Object.class)))
     })
-    Object Manifests_Create(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @NotNull @Valid Manifest dto);
+    Object Manifests_Create(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference, @NotNull @Valid Manifest dto);
 
     /**
      * Delete the manifest identified by `name` and `reference`. Note that a manifest can _only_ be deleted by `digest`.
@@ -89,5 +93,6 @@ public interface ManifestApi {
                     responseCode = "202",
                     description = "The manifest has been deleted")
     })
-    AcrErrors Manifests_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
+    AcrErrors Manifests_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
+            @PathParam("reference") @NotNull String reference);
 }

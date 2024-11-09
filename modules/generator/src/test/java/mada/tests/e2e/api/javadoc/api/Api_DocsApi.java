@@ -53,8 +53,7 @@ public interface Api_DocsApi {
     String apiDocsDeprecatedGet();
 
     /**
-     * Javadoc start. But multiple lines of text.
-     * Last line.
+     * Javadoc start. But multiple lines of text. Last line.
      *
      * @return String
      */
@@ -79,7 +78,8 @@ public interface Api_DocsApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The registered cluster",
-                    content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY))),
+                    content = @Content(
+                            schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY))),
             @APIResponse(
                     responseCode = "400",
                     description = "Validation errors",
@@ -87,7 +87,9 @@ public interface Api_DocsApi {
             @APIResponse(
                     responseCode = "401",
                     description = "Unauthorized Error",
-                    content = @Content(schema = @Schema(implementation = String.class), mediaType = MediaType.TEXT_PLAIN)),
+                    content = @Content(
+                            schema = @Schema(implementation = String.class),
+                            mediaType = MediaType.TEXT_PLAIN)),
             @APIResponse(
                     responseCode = "409",
                     description = "Cluster already present",
@@ -115,7 +117,8 @@ public interface Api_DocsApi {
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
     @Operation(summary = "op is missing punctuation")
-    String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item, @Valid Simple dto);
+    String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query,
+            @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item, @Valid Simple dto);
 
     /**
      * Summary with "quote" 'quote'.

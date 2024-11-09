@@ -74,11 +74,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "the preferred mirror server",
-                    content = @Content(schema = @Schema(implementation = RestMirrorServer.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirrorServer.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The user's preferred mirror server could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestAccountSettingsPreferredMirror_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestAccountSettingsPreferredMirror_404.class)))
     })
     @Operation(summary = "Get preferred mirror")
     RestMirrorServer getPreferredMirrorId();
@@ -100,7 +102,9 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "404",
                     description = "The mirror could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestAccountSettingsPreferredMirror_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestAccountSettingsPreferredMirror_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Set preferred mirror")
     void setPreferredMirrorId(String dto);
@@ -137,12 +141,11 @@ public interface Mirroring__Upstream_Api {
     /**
      * Authenticate on behalf of a user.
      *
-     * Authenticates on behalf of a user. Used by mirrors to check the credentials supplied to them by users. If
-     * successful a user and their effective permissions are returned as follows -
-     * * For SSH credentials - all the effective user permissions are returned. * For all other credentials - the
-     * highest global permission is returned along with highest repository permission if repository ID is also provided
-     * in the request.
-     * Currently only username/password, bearer token and SSH credentials are supported.
+     * Authenticates on behalf of a user. Used by mirrors to check the credentials supplied to them by users. If successful
+     * a user and their effective permissions are returned as follows - * For SSH credentials - all the effective user
+     * permissions are returned. * For all other credentials - the highest global permission is returned along with highest
+     * repository permission if repository ID is also provided in the request. Currently only username/password, bearer
+     * token and SSH credentials are supported.
      *
      * @param dto (optional)
      * @return RestApplicationUserWithPermissions
@@ -155,15 +158,18 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The user for the supplied credentials and their effective permissions}.",
-                    content = @Content(schema = @Schema(implementation = RestApplicationUserWithPermissions.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestApplicationUserWithPermissions.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "If the supplied credentials are incomplete or not understood.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestAuthenticate_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestAuthenticate_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = " The currently authenticated user is not permitted to authenticate on behalf of users or authentication with the supplied user credentials failed for some reason",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestAuthenticate_401.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestAuthenticate_401.class)))
     })
     @Operation(summary = "Authenticate on behalf of a user")
     RestApplicationUserWithPermissions authenticate(@Valid RestAuthenticationRequest dto);
@@ -199,11 +205,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "the mirror",
-                    content = @Content(schema = @Schema(implementation = RestMirrorServer.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirrorServer.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The mirror could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorId_404.class)))
     })
     @Operation(summary = "Get mirror by ID")
     RestMirrorServer getMirror(@PathParam("mirrorId") @NotNull String mirrorId);
@@ -212,7 +220,8 @@ public interface Mirroring__Upstream_Api {
      * Upgrade add-on for a mirror.
      *
      * Upgrades the add-on for the mirror server in question This endpoint can only be called by the mirror instance or
-     * system administrators<br>Since 5.8
+     * system administrators<br>
+     * Since 5.8
      *
      * @param mirrorId the ID of the mirror to upgrade (not null)
      * @param dto      (optional)
@@ -261,7 +270,9 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorIdEvents_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorIdEvents_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Publish RepositoryMirrorEvent")
     void publishEvent(@PathParam("mirrorId") @NotNull String mirrorId, @Valid RestRepositoryMirrorEvent dto);
@@ -281,11 +292,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "the mirror auth token",
-                    content = @Content(schema = @Schema(implementation = RestMirrorAuthToken.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirrorAuthToken.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The mirror could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorIdToken_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorIdToken_404.class)))
     })
     @Operation(summary = "Get mirror auth token")
     RestMirrorAuthToken getAuthToken(@PathParam("mirrorId") @NotNull String mirrorId);
@@ -311,7 +324,8 @@ public interface Mirroring__Upstream_Api {
     /**
      * Get project.
      *
-     * Returns the requested project using its primary key ID.<br> Since 6.7
+     * Returns the requested project using its primary key ID.<br>
+     * Since 6.7
      *
      * @param projectId the ID of the requested project (not null)
      * @return RestProject
@@ -327,7 +341,8 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "404",
                     description = "Project not found",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectId_404.class)))
     })
     @Operation(summary = "Get project")
     RestProject getProjectById(@PathParam("projectId") @NotNull String projectId);
@@ -337,7 +352,8 @@ public interface Mirroring__Upstream_Api {
      *
      * Returns a page of repositories for a given project, enriched with a content hash.
      *
-     * @param includeDefaultBranch includes defaultBranchId in the response, if <code>true</code>. Default value is <code>false</code> (optional)
+     * @param includeDefaultBranch includes defaultBranchId in the response, if <code>true</code>. Default value is
+     *                             <code>false</code> (optional)
      * @param projectId            the id of the requested project (not null)
      * @param start                Start number for the page (inclusive). If not passed, first page is assumed. (optional)
      * @param limit                Number of items to return. If not passed, a page size of 25 is used. (optional)
@@ -350,21 +366,26 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of repositories with content hashes",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectIdRepos.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectIdRepos.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "Mirroring is not available",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectIdRepos_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectIdRepos_409.class)))
     })
     @Operation(summary = "Get hashes for repositories in project")
-    _ResponseMirroringLatestProjectsProjectIdRepos getAllReposForProject(@QueryParam("includeDefaultBranch") String includeDefaultBranch, @PathParam("projectId") @NotNull String projectId, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseMirroringLatestProjectsProjectIdRepos getAllReposForProject(@QueryParam("includeDefaultBranch") String includeDefaultBranch,
+            @PathParam("projectId") @NotNull String projectId, @QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get content hashes for repositories.
      *
      * Returns a page of repositories enriched with a content hash and default branch.
      *
-     * @param includeDefaultBranch includes defaultBranchId for each repository in the response, if <code>true</code>. Default value is <code>false</code>. (optional)
+     * @param includeDefaultBranch includes defaultBranchId for each repository in the response, if <code>true</code>.
+     *                             Default value is <code>false</code>. (optional)
      * @return EnrichedRepository
      */
     @GET
@@ -374,11 +395,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of repositories with content hashes and default branch",
-                    content = @Content(schema = @Schema(implementation = EnrichedRepository.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = EnrichedRepository.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "Mirroring is not available",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRepos_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestRepos_409.class)))
     })
     @Operation(summary = "Get content hashes for repositories")
     EnrichedRepository getAllContentHashes(@QueryParam("includeDefaultBranch") String includeDefaultBranch);
@@ -399,21 +422,24 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The repository with the specified repoId",
-                    content = @Content(schema = @Schema(implementation = EnrichedRepository.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = EnrichedRepository.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "Repository not found",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestReposRepoId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestReposRepoId_404.class)))
     })
     @Operation(summary = "Get content hash for a repository")
-    EnrichedRepository getContentHashById(@PathParam("repoId") @NotNull String repoId, @QueryParam("includeDefaultBranch") boolean includeDefaultBranch);
+    EnrichedRepository getContentHashById(@PathParam("repoId") @NotNull String repoId,
+            @QueryParam("includeDefaultBranch") boolean includeDefaultBranch);
 
     /**
      * Get mirrors for repository.
      *
      * Returns a page of mirrors for a repository. This resource will return <strong>all mirrors</strong> along with
-     * authorized links to the mirror's repository REST resource. To determine if a repository is available on the
-     * mirror, the returned URL needs to be called.
+     * authorized links to the mirror's repository REST resource. To determine if a repository is available on the mirror,
+     * the returned URL needs to be called.
      *
      * @param repoId the ID of the requested repository (not null)
      * @return RestMirroredRepositoryDescriptor
@@ -425,11 +451,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The mirrored repository descriptor",
-                    content = @Content(schema = @Schema(implementation = RestMirroredRepositoryDescriptor.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirroredRepositoryDescriptor.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "Mirroring is not available",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestReposRepoIdMirrors_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestReposRepoIdMirrors_409.class)))
     })
     @Operation(summary = "Get mirrors for repository")
     RestMirroredRepositoryDescriptor getRepositoryMirrors(@PathParam("repoId") @NotNull String repoId);
@@ -449,7 +477,8 @@ public interface Mirroring__Upstream_Api {
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponseSchema(_ResponseMirroringLatestRequests.class)
     @Operation(summary = "Get mirroring requests")
-    _ResponseMirroringLatestRequests listRequests(@QueryParam("state") String state, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseMirroringLatestRequests listRequests(@QueryParam("state") String state, @QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create a mirroring request.
@@ -467,11 +496,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The created mirroring request",
-                    content = @Content(schema = @Schema(implementation = RestMirroringRequest.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirroringRequest.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "The request was invalid or missing",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequests_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestRequests_409.class)))
     })
     @Operation(summary = "Create a mirroring request")
     RestMirroringRequest register(@Valid RestMirroringRequest dto);
@@ -491,11 +522,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The mirroring request",
-                    content = @Content(schema = @Schema(implementation = RestMirroringRequest.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirroringRequest.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "The request could not be found",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestId_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestId_409.class)))
     })
     @Operation(summary = "Get a mirroring request")
     RestMirroringRequest getMirroringRequest(@PathParam("mirroringRequestId") @NotNull String mirroringRequestId);
@@ -516,7 +549,9 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "409",
                     description = "The request could not be found",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestId_409.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestId_409.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete a mirroring request")
     void deleteMirroringRequest(@PathParam("mirroringRequestId") @NotNull String mirroringRequestId);
@@ -536,11 +571,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The accepted mirror server",
-                    content = @Content(schema = @Schema(implementation = RestMirrorServer.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirrorServer.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "The request could not be found",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestIdAccept_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestIdAccept_409.class)))
     })
     @Operation(summary = "Accept a mirroring request")
     RestMirrorServer accept(@PathParam("mirroringRequestId") @NotNull String mirroringRequestId);
@@ -560,11 +597,13 @@ public interface Mirroring__Upstream_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The rejected mirror server",
-                    content = @Content(schema = @Schema(implementation = RestMirrorServer.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirrorServer.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "The request could not be found",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestIdReject_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestRequestsMirroringRequestIdReject_409.class)))
     })
     @Operation(summary = "Reject a mirroring request")
     RestMirrorServer reject(@PathParam("mirroringRequestId") @NotNull String mirroringRequestId);

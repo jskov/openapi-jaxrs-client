@@ -35,7 +35,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
     })
     List<LocalTime> apiTypesListTimeGet();
 

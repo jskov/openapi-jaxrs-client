@@ -33,7 +33,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
     })
     List<Simple> apiTypesListSimpleGet();
 }

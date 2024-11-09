@@ -148,7 +148,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY)))
     })
     List<Integer> apiTypesListGet();
 
@@ -164,7 +165,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = LocalDate.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = LocalDate.class, type = SchemaType.ARRAY)))
     })
     List<LocalDate> apiTypesListDateGet();
 
@@ -180,7 +182,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = OffsetDateTime.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = OffsetDateTime.class, type = SchemaType.ARRAY)))
     })
     List<OffsetDateTime> apiTypesListDatetimeGet();
 
@@ -196,7 +199,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
     })
     List<LocalTime> apiTypesListTimeGet();
 
@@ -223,7 +227,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = String.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = String.class, type = SchemaType.ARRAY)))
     })
     Map<String, String> apiTypesMapGet();
 
@@ -239,7 +244,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY, uniqueItems = true)))
+                    content = @Content(
+                            schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY, uniqueItems = true)))
     })
     Set<Integer> apiTypesSetGet();
 

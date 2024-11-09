@@ -64,7 +64,8 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to refresh sidecar configuration.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestMeshConfigRefresh_401.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestMeshConfigRefresh_401.class)))
     })
     @Operation(summary = "Refresh sidecar configuration")
     void refresh();
@@ -72,11 +73,11 @@ public interface Mirroring__Mirror_Api {
     /**
      * Get items in ref changes queue.
      *
-     * Retrieves a list of up to <code>plugin.mirroring.farm.max.ref.change.queue.dump.size</code> items currently in
-     * the ref changes queue. The ref changes queue is an internal component of every mirror farm, and is shared between
-     * all nodes. When the contents of an upstream repository changes, an item is added to this queue so that the mirror
-     * farm nodes know to synchronize. The mirror farm constantly polls and removes items from this queue for
-     * processing, so it is empty most of the time.
+     * Retrieves a list of up to <code>plugin.mirroring.farm.max.ref.change.queue.dump.size</code> items currently in the
+     * ref changes queue. The ref changes queue is an internal component of every mirror farm, and is shared between all
+     * nodes. When the contents of an upstream repository changes, an item is added to this queue so that the mirror farm
+     * nodes know to synchronize. The mirror farm constantly polls and removes items from this queue for processing, so it
+     * is empty most of the time.
      *
      * @return RestRefSyncQueue
      */
@@ -117,7 +118,8 @@ public interface Mirroring__Mirror_Api {
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponseSchema(_ResponseMirroringLatestSupportInfoRepoSyncStatus.class)
     @Operation(summary = "Get sync status of repositories")
-    _ResponseMirroringLatestSupportInfoRepoSyncStatus getRepoSyncStatus(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseMirroringLatestSupportInfoRepoSyncStatus getRepoSyncStatus(@QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get upstream servers.
@@ -133,7 +135,8 @@ public interface Mirroring__Mirror_Api {
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponseSchema(_ResponseMirroringLatestUpstreamServers.class)
     @Operation(summary = "Get upstream servers")
-    _ResponseMirroringLatestUpstreamServers listUpstreamServers(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseMirroringLatestUpstreamServers listUpstreamServers(@QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get upstream server by ID.
@@ -150,11 +153,13 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The upstream server.",
-                    content = @Content(schema = @Schema(implementation = RestUpstreamServer.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestUpstreamServer.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The upstream server could not be found",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamId_404.class)))
     })
     @Operation(summary = "Get upstream server by ID")
     RestUpstreamServer getUpstreamServer(@PathParam("upstreamId") @NotNull String upstreamId);
@@ -174,7 +179,8 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The list of farm nodes",
-                    content = @Content(schema = @Schema(implementation = RestClusterNode.class, type = SchemaType.ARRAY))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestClusterNode.class, type = SchemaType.ARRAY))),
             @APIResponse(
                     responseCode = "404",
                     description = "The upstream server could not be found",
@@ -187,11 +193,25 @@ public interface Mirroring__Mirror_Api {
      * Get synchronization progress state.
      *
      * Retrieves synchronization progress state for the specified upstream server.If there's no progress to report, this
-     * resource will return <pre><code> {"discovering":false,"syncedRepos":0,"totalRepos":0}</code></pre> If there are
-     * repositories in the process of synchronizing, but the precise number hasn't been discovered yet, this resource
-     * will return: <pre><code> {"discovering":true,"syncedRepos":3,"totalRepos":100}</code></pre> If there is progress
-     * to report and the total number of repositories is known, this resource will return: <pre> <code>
-     * {"discovering":false,"syncedRepos":242,"totalRepos":1071}</code> </pre>
+     * resource will return
+     * 
+     * <pre>
+     * <code> {"discovering":false,"syncedRepos":0,"totalRepos":0}</code>
+     * </pre>
+     * 
+     * If there are repositories in the process of synchronizing, but the precise number hasn't been discovered yet, this
+     * resource will return:
+     * 
+     * <pre>
+     * <code> {"discovering":true,"syncedRepos":3,"totalRepos":100}</code>
+     * </pre>
+     * 
+     * If there is progress to report and the total number of repositories is known, this resource will return:
+     * 
+     * <pre>
+     *  <code>
+     * {"discovering":false,"syncedRepos":242,"totalRepos":1071}</code>
+     * </pre>
      *
      * @param upstreamId the upstream server ID to retrieve settings for (not null)
      * @return RestSyncProgress
@@ -203,11 +223,13 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "the synchronization progress state",
-                    content = @Content(schema = @Schema(implementation = RestSyncProgress.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestSyncProgress.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The upstream server could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdProgress_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdProgress_404.class)))
     })
     @Operation(summary = "Get synchronization progress state")
     RestSyncProgress getSynchronizationProgress(@PathParam("upstreamId") @NotNull String upstreamId);
@@ -228,14 +250,18 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "The mirrored repository's information.",
-                    content = @Content(schema = @Schema(implementation = RestMirroredRepository.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMirroredRepository.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The upstream server or the repository could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdReposUpstreamRepoId_404.class)))
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdReposUpstreamRepoId_404.class)))
     })
     @Operation(summary = "Get clone URLs")
-    RestMirroredRepository getMirroredRepository(@PathParam("upstreamRepoId") @NotNull String upstreamRepoId, @PathParam("upstreamId") @NotNull String upstreamId);
+    RestMirroredRepository getMirroredRepository(@PathParam("upstreamRepoId") @NotNull String upstreamRepoId,
+            @PathParam("upstreamId") @NotNull String upstreamId);
 
     /**
      * Get upstream settings.
@@ -252,11 +278,13 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "the mirror settings",
-                    content = @Content(schema = @Schema(implementation = RestUpstreamSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestUpstreamSettings.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The upstream server could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdSettings_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdSettings_404.class)))
     })
     @Operation(summary = "Get upstream settings")
     RestUpstreamSettings getMirrorSettings(@PathParam("upstreamId") @NotNull String upstreamId);
@@ -278,11 +306,13 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "200",
                     description = "the updated mirror settings",
-                    content = @Content(schema = @Schema(implementation = RestUpstreamSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestUpstreamSettings.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The upstream server could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdSettings_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdSettings_404.class)))
     })
     @Operation(summary = "Update upstream settings")
     RestUpstreamSettings setMirrorSettings(@PathParam("upstreamId") @NotNull String upstreamId, @Valid RestUpstreamSettings dto);
@@ -304,7 +334,8 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "404",
                     description = "The upstream server could not be found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_404.class)))
     })
     @Operation(summary = "Get mirror mode")
     void getMirrorMode(@PathParam("upstreamId") @NotNull String upstreamId);
@@ -328,7 +359,8 @@ public interface Mirroring__Mirror_Api {
             @APIResponse(
                     responseCode = "400",
                     description = "The provided mode is invalid",
-                    content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_400.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_400.class)))
     })
     @Operation(summary = "Update mirror mode")
     void setMirrorMode(@PathParam("upstreamId") @NotNull String upstreamId, String dto);

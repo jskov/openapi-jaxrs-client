@@ -115,7 +115,8 @@ public interface Params_BodyApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
-    String apiParamsBodyMixedInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @HeaderParam("item") List<String> item, @Valid Simple simple);
+    String apiParamsBodyMixedInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query,
+            @HeaderParam("item") List<String> item, @Valid Simple simple);
 
     /**
      * apiParamsBodySimpleGet.

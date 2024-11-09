@@ -180,7 +180,8 @@ public interface ProjectApi {
      * Retrieve the avatar for the project matching the supplied <strong>moduleKey</strong>.
      *
      * @param hookKey The complete module key of the hook module. (not null)
-     * @param version (optional) Version used for HTTP caching only - any non-blank version will result in a large max-age Cache-Control header. Note that this does not affect the Last-Modified header. (optional)
+     * @param version (optional) Version used for HTTP caching only - any non-blank version will result in a large max-age
+     *                Cache-Control header. Note that this does not affect the Last-Modified header. (optional)
      */
     @GET
     @Path("api/latest/hooks/{hookKey}/avatar")
@@ -192,11 +193,13 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to view the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestHooksHookKeyAvatar_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestHooksHookKeyAvatar_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestHooksHookKeyAvatar_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestHooksHookKeyAvatar_404.class)))
     })
     @Operation(summary = "Get project avatar")
     void getAvatar(@PathParam("hookKey") @NotNull String hookKey, @QueryParam("version") String version);
@@ -204,8 +207,8 @@ public interface ProjectApi {
     /**
      * Get projects.
      *
-     * Retrieve a page of projects.
-     * Only projects for which the authenticated user has the <strong>PROJECT_VIEW</strong> permission will be returned.
+     * Retrieve a page of projects. Only projects for which the authenticated user has the <strong>PROJECT_VIEW</strong>
+     * permission will be returned.
      *
      * @param name       Name to filter by. (optional)
      * @param permission Permission to filter by (optional)
@@ -220,25 +223,32 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of projects.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjects.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjects.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The permission level is unknown or not related to projects.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjects_400.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjects_400.class)))
     })
     @Operation(summary = "Get projects")
-    _ResponseApiLatestProjects getProjects(@QueryParam("name") String name, @QueryParam("permission") String permission, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjects getProjects(@QueryParam("name") String name, @QueryParam("permission") String permission,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create a new project.
      *
-     * Create a new project.
-     * To include a custom avatar for the project, the project definition should contain an additional attribute with
-     * the key <code>avatar</code> and the value a data URI containing Base64-encoded image data. The URI should be in
-     * the following format: <pre>    data:(content type, e.g. image/png);base64,(data) </pre>If the data is not
-     * Base64-encoded, or if a character set is defined in the URI, or the URI is otherwise invalid, <em>project
-     * creation will fail</em>.
-     * The authenticated user must have <strong>PROJECT_CREATE</strong> permission to call this resource.
+     * Create a new project. To include a custom avatar for the project, the project definition should contain an additional
+     * attribute with the key <code>avatar</code> and the value a data URI containing Base64-encoded image data. The URI
+     * should be in the following format:
+     * 
+     * <pre>
+     *     data:(content type, e.g. image/png);base64,(data)
+     * </pre>
+     * 
+     * If the data is not Base64-encoded, or if a character set is defined in the URI, or the URI is otherwise invalid,
+     * <em>project creation will fail</em>. The authenticated user must have <strong>PROJECT_CREATE</strong> permission to
+     * call this resource.
      *
      * @param dto The project. (optional)
      * @return RestProject
@@ -255,15 +265,18 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The currently authenticated user has insufficient permissions to update the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjects_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjects_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to create a project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjects_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjects_401.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "The project key or name is already in use.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjects_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjects_409.class)))
     })
     @Operation(summary = "Create a new project")
     RestProject createProject(@Valid RestProject dto);
@@ -271,9 +284,8 @@ public interface ProjectApi {
     /**
      * Get a project.
      *
-     * Retrieve the project matching the supplied <strong>projectKey</strong>.
-     * The authenticated user must have <strong>PROJECT_VIEW</strong> permission for the specified project to call this
-     * resource.
+     * Retrieve the project matching the supplied <strong>projectKey</strong>. The authenticated user must have
+     * <strong>PROJECT_VIEW</strong> permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @return RestProject
@@ -289,11 +301,13 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to view the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_404.class)))
     })
     @Operation(summary = "Get a project")
     RestProject getProject(@PathParam("projectKey") @NotNull String projectKey);
@@ -301,14 +315,12 @@ public interface ProjectApi {
     /**
      * Update project.
      *
-     * Update the project matching the <strong>projectKey</strong> supplied in the resource path.
-     * To include a custom avatar for the updated project, the project definition should contain an additional attribute
-     * with the key <code>avatar</code> and the value a data URI containing Base64-encoded image data. The URI should be
-     * in the following format: ```    data:(content type, e.g. image/png);base64,(data)```
-     * If the data is not Base64-encoded, or if a character set is defined in the URI, or the URI is otherwise invalid,
-     * <em>project creation will fail</em>.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Update the project matching the <strong>projectKey</strong> supplied in the resource path. To include a custom avatar
+     * for the updated project, the project definition should contain an additional attribute with the key
+     * <code>avatar</code> and the value a data URI containing Base64-encoded image data. The URI should be in the following
+     * format: ``` data:(content type, e.g. image/png);base64,(data)``` If the data is not Base64-encoded, or if a character
+     * set is defined in the URI, or the URI is otherwise invalid, <em>project creation will fail</em>. The authenticated
+     * user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param dto        Project parameters to update. (optional)
@@ -330,15 +342,18 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The project was not updated due to a validation error.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to update the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_404.class)))
     })
     @Operation(summary = "Update project")
     RestProject updateProject(@PathParam("projectKey") @NotNull String projectKey, @Valid RestProject dto);
@@ -346,9 +361,8 @@ public interface ProjectApi {
     /**
      * Delete project.
      *
-     * Delete the project matching the supplied <strong>projectKey</strong>.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Delete the project matching the supplied <strong>projectKey</strong>. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      */
@@ -361,15 +375,21 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to delete the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_404.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_404.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "409",
                     description = "The project can not be deleted as it contains repositories.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_409.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKey_409.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete project")
     void deleteProject(@PathParam("projectKey") @NotNull String projectKey);
@@ -377,12 +397,12 @@ public interface ProjectApi {
     /**
      * Get avatar for project.
      *
-     * Retrieve the avatar for the project matching the supplied <strong>projectKey</strong>.
-     * The authenticated user must have <strong>PROJECT_VIEW</strong> permission for the specified project to call this
-     * resource.
+     * Retrieve the avatar for the project matching the supplied <strong>projectKey</strong>. The authenticated user must
+     * have <strong>PROJECT_VIEW</strong> permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
-     * @param s          The desired size of the image. The server will return an image as close as possible to the specified size. (optional)
+     * @param s          The desired size of the image. The server will return an image as close as possible to the
+     *                   specified size. (optional)
      */
     @GET
     @Path("api/latest/projects/{projectKey}/avatar.png")
@@ -394,11 +414,13 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to view the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyAvatar_png_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyAvatar_png_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyAvatar_png_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyAvatar_png_404.class)))
     })
     @Operation(summary = "Get avatar for project")
     void getProjectAvatar(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("s") String s);
@@ -406,18 +428,16 @@ public interface ProjectApi {
     /**
      * Update project avatar.
      *
-     * Update the avatar for the project matching the supplied <strong>projectKey</strong>.
-     * This resource accepts POST multipart form data, containing a single image in a form-field named 'avatar'.
-     * There are configurable server limits on both the dimensions (1024x1024 pixels by default) and uploaded file size
-     * (1MB by default). Several different image formats are supported, but <strong>PNG</strong> and
-     * <strong>JPEG</strong> are preferred due to the file size limit.
+     * Update the avatar for the project matching the supplied <strong>projectKey</strong>. This resource accepts POST
+     * multipart form data, containing a single image in a form-field named 'avatar'. There are configurable server limits
+     * on both the dimensions (1024x1024 pixels by default) and uploaded file size (1MB by default). Several different image
+     * formats are supported, but <strong>PNG</strong> and <strong>JPEG</strong> are preferred due to the file size limit.
      * This resource has Cross-Site Request Forgery (XSRF) protection. To allow the request to pass the XSRF check the
-     * caller needs to send an <code>X-Atlassian-Token</code> HTTP header with the value <code>no-check</code>.
-     * An example <a href="http://curl.haxx.se/">curl</a> request to upload an image name 'avatar.png' would be: ```curl
-     * -X POST -u username:password -H "X-Atlassian-Token: no-check"
-     * http://example.com/rest/api/1.0/projects/STASH/avatar.png -F avatar=@avatar.png ```
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * caller needs to send an <code>X-Atlassian-Token</code> HTTP header with the value <code>no-check</code>. An example
+     * <a href="http://curl.haxx.se/">curl</a> request to upload an image name 'avatar.png' would be: ```curl -X POST -u
+     * username:password -H "X-Atlassian-Token: no-check" http://example.com/rest/api/1.0/projects/STASH/avatar.png -F
+     * avatar=@avatar.png ``` The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified
+     * project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param dto        The mutlipart form data containing the file. (optional)
@@ -433,11 +453,13 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to update the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyAvatar_png_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyAvatar_png_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyAvatar_png_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyAvatar_png_404.class)))
     })
     @Operation(summary = "Update project avatar")
     void uploadAvatar(@PathParam("projectKey") @NotNull String projectKey, @Valid ExampleAvatarMultipartFormData dto);
@@ -445,8 +467,8 @@ public interface ProjectApi {
     /**
      * Get configured hook scripts.
      *
-     * Return a page of hook scripts configured for the specified project.
-     * This endpoint requires **PROJECT_ADMIN** permission.
+     * Return a page of hook scripts configured for the specified project. This endpoint requires **PROJECT_ADMIN**
+     * permission.
      *
      * @param projectKey The project key. (not null)
      * @param start      Start number for the page (inclusive). If not passed, first page is assumed. (optional)
@@ -460,24 +482,28 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of hook scripts.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScripts.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScripts.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to view the specified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScripts_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScripts_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScripts_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScripts_404.class)))
     })
     @Operation(summary = "Get configured hook scripts")
-    _ResponseApiLatestProjectsProjectKeyHookScripts getConfigurations(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyHookScripts getConfigurations(@PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create/update a hook script.
      *
-     * Creates/updates the hook script configuration for the provided hook script and project.
-     * This endpoint requires **PROJECT_ADMIN** permission.
+     * Creates/updates the hook script configuration for the provided hook script and project. This endpoint requires
+     * **PROJECT_ADMIN** permission.
      *
      * @param projectKey The project key. (not null)
      * @param scriptId   The ID of the hook script (not null)
@@ -492,28 +518,33 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The updated hook script.",
-                    content = @Content(schema = @Schema(implementation = RestHookScriptConfig.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestHookScriptConfig.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The hook script was not created/updated due to a validation error.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to view the specified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The project key supplied does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404.class)))
     })
     @Operation(summary = "Create/update a hook script")
-    RestHookScriptConfig setConfiguration(@PathParam("projectKey") @NotNull String projectKey, @PathParam("scriptId") @NotNull String scriptId, @Valid RestHookScriptTriggers dto);
+    RestHookScriptConfig setConfiguration(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("scriptId") @NotNull String scriptId, @Valid RestHookScriptTriggers dto);
 
     /**
      * Remove a hook script.
      *
-     * Removes the hook script from the set of hook scripts configured to run in all repositories under the project.
-     * This endpoint requires **PROJECT_ADMIN** permission.
+     * Removes the hook script from the set of hook scripts configured to run in all repositories under the project. This
+     * endpoint requires **PROJECT_ADMIN** permission.
      *
      * @param projectKey The project key. (not null)
      * @param scriptId   The ID of the hook script (not null)
@@ -527,11 +558,15 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to view the specified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The project key or hook script ID supplied does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Remove a hook script")
     void removeConfiguration(@PathParam("projectKey") @NotNull String projectKey, @PathParam("scriptId") @NotNull String scriptId);
@@ -539,11 +574,11 @@ public interface ProjectApi {
     /**
      * Revoke project permissions.
      *
-     * Revoke all permissions for the specified project for the given groups and users.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
-     * In addition, a user may not revoke a group's permission if their own permission would be revoked as a result, nor
-     * may they revoke their own permission unless they have a global permission that already implies that permission.
+     * Revoke all permissions for the specified project for the given groups and users. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global permission to call this
+     * resource. In addition, a user may not revoke a group's permission if their own permission would be revoked as a
+     * result, nor may they revoke their own permission unless they have a global permission that already implies that
+     * permission.
      *
      * @param projectKey The project key (not null)
      * @param user       The names of the users (optional)
@@ -561,25 +596,32 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not an administrator for the specifiedspecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissions_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissions_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist, or one or more of the users or groups provided does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissions_404.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissions_404.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "409",
                     description = "The action was disallowed as it would revoke the currently authenticated user's permission on the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissions_409.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissions_409.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Revoke project permissions")
-    void revokePermissions(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("user") String user, @QueryParam("group") String group);
+    void revokePermissions(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("user") String user,
+            @QueryParam("group") String group);
 
     /**
      * Get groups with permission to project.
      *
-     * Retrieve a page of groups that have been granted at least one permission for the specified project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
+     * Retrieve a page of groups that have been granted at least one permission for the specified project. The authenticated
+     * user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global permission to
+     * call this resource.
      *
      * @param filter     If specified only group names containing the supplied string will be returned (optional)
      * @param projectKey The project key (not null)
@@ -594,37 +636,42 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of groups and their highest permissions for the specified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not a project administrator for the specified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_404.class)))
     })
     @Operation(summary = "Get groups with permission to project")
-    _ResponseApiLatestProjectsProjectKeyPermissionsGroups getGroupsWithAnyPermission_1(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyPermissionsGroups getGroupsWithAnyPermission_1(@QueryParam("filter") String filter,
+            @PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Update group project permission.
      *
-     * Promote or demote a group's permission level for the specified project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource. In addition, a user may not demote a group's permission level if
-     * theirown permission level would be reduced as a result.
+     * Promote or demote a group's permission level for the specified project. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global permission to call this
+     * resource. In addition, a user may not demote a group's permission level if theirown permission level would be reduced
+     * as a result.
      *
      * @param projectKey The project key (not null)
      * @param name       The names of the groups (optional)
-     * @param permission The permission to grant.See the [permissions documentation](https://confluence.atlassian.com/display/BitbucketServer/Using+project+permissions)for a detailed explanation of what each permission entails. Available project permissions are:
-
-- PROJECT_READ
-- PROJECT_WRITE
-- PROJECT_ADMIN
-
-
- (optional)
+     * @param permission The permission to grant.See the [permissions
+     *                   documentation](https://confluence.atlassian.com/display/BitbucketServer/Using+project+permissions)for
+     *                   a detailed explanation of what each permission entails. Available project permissions are:
+     * 
+     *                   - PROJECT_READ - PROJECT_WRITE - PROJECT_ADMIN
+     * 
+     * 
+     *                   (optional)
      */
     @PUT
     @Path("api/latest/projects/{projectKey}/permissions/groups")
@@ -635,30 +682,38 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The request was malformed or the specified permission does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_400.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_400.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not an administrator for the specifiedspecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "403",
                     description = "The action was disallowed as it would reduce the currently authenticated user'spermission level.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_403.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_403.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Update group project permission")
-    void setPermissionForGroups_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("name") String name, @QueryParam("permission") String permission);
+    void setPermissionForGroups_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("name") String name,
+            @QueryParam("permission") String permission);
 
     /**
      * Revoke group project permission.
      *
-     * Revoke all permissions for the specified project for a group.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
-     * In addition, a user may not revoke a group's permissions if it will reduce their own permission level.
+     * Revoke all permissions for the specified project for a group. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global permission to call this
+     * resource. In addition, a user may not revoke a group's permissions if it will reduce their own permission level.
      *
      * @param projectKey The project key (not null)
      * @param name       The name of the group (optional)
@@ -672,15 +727,21 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not an administrator for the specifiedspecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_404.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_404.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "409",
                     description = " The action was disallowed as it would reduce the currently authenticated user'spermission level.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_409.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroups_409.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Revoke group project permission")
     void revokePermissionsForGroup_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("name") String name);
@@ -688,8 +749,8 @@ public interface ProjectApi {
     /**
      * Get groups without project permission.
      *
-     * Retrieve a page of groups that have no granted permissions for the specified project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
+     * Retrieve a page of groups that have no granted permissions for the specified project. The authenticated user must
+     * have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
      *
      * @param filter     If specified only group names containing the supplied string will be returned (optional)
      * @param projectKey The project key (not null)
@@ -703,35 +764,42 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "202",
                     description = "A page of groups that have not been granted any permissions for the specifiedproject.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroupsNone_202.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroupsNone_202.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not a project administrator for thespecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroupsNone_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroupsNone_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroupsNone_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsGroupsNone_404.class)))
     })
     @Operation(summary = "Get groups without project permission")
-    void getGroupsWithoutAnyPermission_1(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    void getGroupsWithoutAnyPermission_1(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Search project permissions.
      *
      * Search direct and implied permissions of principals (users and groups). This endpoint returns a superset of the
-     * results returned by the /users and /groups endpoints because it allows filtering by global permissions too.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
+     * results returned by the /users and /groups endpoints because it allows filtering by global permissions too. The
+     * authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global
+     * permission to call this resource.
      *
      * @param projectKey The project key (not null)
-     * @param permission Permissions to filter by. See the [permissions documentation](https://confluence.atlassian.com/display/BitbucketServer/Using+project+permissions)for a detailed explanation of what each permission entails. This parameter can be specified multiple times to filter by more than one permission, and can contain global and project permissions.
-
- (optional)
+     * @param permission Permissions to filter by. See the [permissions
+     *                   documentation](https://confluence.atlassian.com/display/BitbucketServer/Using+project+permissions)for
+     *                   a detailed explanation of what each permission entails. This parameter can be specified multiple
+     *                   times to filter by more than one permission, and can contain global and project permissions.
+     * 
+     *                   (optional)
      * @param filterText Name of the user or group to filter the name of (optional)
      * @param type       Type of entity (user or group)Valid entity types are:
-
-- USER- GROUP (optional)
+     * 
+     *                   - USER- GROUP (optional)
      */
     @GET
     @Path("api/latest/projects/{projectKey}/permissions/search")
@@ -742,14 +810,15 @@ public interface ProjectApi {
                     description = "default response")
     })
     @Operation(summary = "Search project permissions")
-    void searchPermissions(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("permission") String permission, @QueryParam("filterText") String filterText, @QueryParam("type") String type);
+    void searchPermissions(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("permission") String permission,
+            @QueryParam("filterText") String filterText, @QueryParam("type") String type);
 
     /**
      * Get users with permission to project.
      *
-     * Retrieve a page of users that have been granted at least one permission for the specified project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
+     * Retrieve a page of users that have been granted at least one permission for the specified project. The authenticated
+     * user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global permission to
+     * call this resource.
      *
      * @param filter     If specified only user names containing the supplied string will be returned (optional)
      * @param projectKey The project key (not null)
@@ -764,37 +833,42 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of users and their highest permissions for the specified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not a project administrator for thespecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_404.class)))
     })
     @Operation(summary = "Get users with permission to project")
-    _ResponseApiLatestProjectsProjectKeyPermissionsUsers getUsersWithAnyPermission_1(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyPermissionsUsers getUsersWithAnyPermission_1(@QueryParam("filter") String filter,
+            @PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Update user project permission.
      *
-     * Promote or demote a user's permission level for the specified project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource. In addition, a user may not reduce their own permission level unless
-     * they have a global permission that already implies that permission.
+     * Promote or demote a user's permission level for the specified project. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global permission to call this
+     * resource. In addition, a user may not reduce their own permission level unless they have a global permission that
+     * already implies that permission.
      *
      * @param projectKey The project key (not null)
      * @param name       The names of the users (optional)
-     * @param permission The permission to grant.See the [permissions documentation](https://confluence.atlassian.com/display/BitbucketServer/Using+project+permissions)for a detailed explanation of what each permission entails. Available project permissions are:
-
-- PROJECT_READ
-- PROJECT_WRITE
-- PROJECT_ADMIN
-
-
- (optional)
+     * @param permission The permission to grant.See the [permissions
+     *                   documentation](https://confluence.atlassian.com/display/BitbucketServer/Using+project+permissions)for
+     *                   a detailed explanation of what each permission entails. Available project permissions are:
+     * 
+     *                   - PROJECT_READ - PROJECT_WRITE - PROJECT_ADMIN
+     * 
+     * 
+     *                   (optional)
      */
     @PUT
     @Path("api/latest/projects/{projectKey}/permissions/users")
@@ -805,30 +879,39 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The request was malformed or the specified permission does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_400.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_400.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not an administrator for the specifiedspecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "403",
                     description = "The action was disallowed as it would reduce the currently authenticated user'spermission level.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_403.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_403.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Update user project permission")
-    void setPermissionForUsers_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("name") String name, @QueryParam("permission") String permission);
+    void setPermissionForUsers_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("name") String name,
+            @QueryParam("permission") String permission);
 
     /**
      * Revoke user project permission.
      *
-     * Revoke all permissions for the specified project for a user.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
-     * In addition, a user may not revoke their own project permissions if they do not have a higher global permission.
+     * Revoke all permissions for the specified project for a user. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global permission to call this
+     * resource. In addition, a user may not revoke their own project permissions if they do not have a higher global
+     * permission.
      *
      * @param projectKey The project key (not null)
      * @param name       The name of the user (optional)
@@ -842,15 +925,21 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not an administrator for the specifiedspecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_404.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_404.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "409",
                     description = " The action was disallowed as it would reduce the currently authenticated user'spermission level.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_409.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsers_409.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Revoke user project permission")
     void revokePermissionsForUser_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("name") String name);
@@ -858,9 +947,9 @@ public interface ProjectApi {
     /**
      * Get users without project permission.
      *
-     * Retrieve a page of <i>licensed</i> users that have no granted permissions for the specified project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
+     * Retrieve a page of <i>licensed</i> users that have no granted permissions for the specified project. The
+     * authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global
+     * permission to call this resource.
      *
      * @param filter     If specified only user names containing the supplied string will be returned (optional)
      * @param projectKey The project key (not null)
@@ -875,35 +964,38 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of users that have not been granted any permissions for the specified project",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not a project administrator for thespecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone_404.class)))
     })
     @Operation(summary = "Get users without project permission")
-    _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone getUsersWithoutPermission(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone getUsersWithoutPermission(@QueryParam("filter") String filter,
+            @PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Check default project permission.
      *
-     * Check whether the specified permission is the default permission (granted to all users) for a project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
+     * Check whether the specified permission is the default permission (granted to all users) for a project. The
+     * authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global
+     * permission to call this resource.
      *
      * @param projectKey The project key (not null)
      * @param permission The permission to grant. Available project permissions are:
-
-- PROJECT_READ
-- PROJECT_WRITE
-- PROJECT_ADMIN
-
-
- (not null)
+     * 
+     *                   - PROJECT_READ - PROJECT_WRITE - PROJECT_ADMIN
+     * 
+     * 
+     *                   (not null)
      * @return RestPermitted
      */
     @GET
@@ -917,40 +1009,44 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The request was malformed or the specified permission does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not an administrator for the specifiedspecified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_401.class))),
             @APIResponse(
                     responseCode = "403",
                     description = "The action was disallowed as it would reduce the currently authenticated user'spermission level.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_403.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_403.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_404.class)))
     })
     @Operation(summary = "Check default project permission")
-    RestPermitted hasAllUserPermission(@PathParam("projectKey") @NotNull String projectKey, @PathParam("permission") @NotNull String permission);
+    RestPermitted hasAllUserPermission(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("permission") @NotNull String permission);
 
     /**
      * Grant project permission.
      *
-     * Grant or revoke a project permission to all users, i.e. set the default permission.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher
-     * global permission to call this resource.
+     * Grant or revoke a project permission to all users, i.e. set the default permission. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project or a higher global permission to call this
+     * resource.
      *
-     * @param allow      <em>true</em> to grant the specified permission to all users, or <em>false</em> to revoke it (optional)
+     * @param allow      <em>true</em> to grant the specified permission to all users, or <em>false</em> to revoke it
+     *                   (optional)
      * @param projectKey The project key (not null)
      * @param permission The permission to grant. Available project permissions are:
-
-- PROJECT_READ
-- PROJECT_WRITE
-- PROJECT_ADMIN
-
-
- (not null)
+     * 
+     *                   - PROJECT_READ - PROJECT_WRITE - PROJECT_ADMIN
+     * 
+     * 
+     *                   (not null)
      */
     @POST
     @Path("api/latest/projects/{projectKey}/permissions/{permission}/all")
@@ -961,25 +1057,31 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The request was malformed or the specified permission does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_400.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_400.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not an administrator for the specified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyPermissionsPermissionAll_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Grant project permission")
-    void modifyAllUserPermission(@QueryParam("allow") String allow, @PathParam("projectKey") @NotNull String projectKey, @PathParam("permission") @NotNull String permission);
+    void modifyAllUserPermission(@QueryParam("allow") String allow, @PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("permission") @NotNull String permission);
 
     /**
      * Get repositories for project.
      *
-     * Retrieve repositories from the project corresponding to the supplied <strong>projectKey</strong>.
-     * The authenticated user must have <strong>PROJECT_READ</strong> permission for the specified project to call this
-     * resource.
+     * Retrieve repositories from the project corresponding to the supplied <strong>projectKey</strong>. The authenticated
+     * user must have <strong>PROJECT_READ</strong> permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param start      Start number for the page (inclusive). If not passed, first page is assumed. (optional)
@@ -993,26 +1095,29 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The repositories matching the supplied <strong>projectKey</strong>.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to see the specified project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_404.class)))
     })
     @Operation(summary = "Get repositories for project")
-    _ResponseApiLatestProjectsProjectKeyRepos getRepositories(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyRepos getRepositories(@PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create repository.
      *
-     * Create a new repository. Requires an existing project in which this repository will be created. The only
-     * parameters which will be used are name and scmId.
-     * The authenticated user must have <strong>REPO_CREATE</strong> permission or higher, for the context project to
-     * call this resource.
+     * Create a new repository. Requires an existing project in which this repository will be created. The only parameters
+     * which will be used are name and scmId. The authenticated user must have <strong>REPO_CREATE</strong> permission or
+     * higher, for the context project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param dto        The repository (optional)
@@ -1026,19 +1131,23 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "201",
                     description = "The newly created repository.",
-                    content = @Content(schema = @Schema(implementation = RestRepository.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRepository.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The repository was not created due to a validation error.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to create a repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_401.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "A repository with same name already exists.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyRepos_409.class)))
     })
     @Operation(summary = "Create repository")
     RestRepository createRepository(@PathParam("projectKey") @NotNull String projectKey, @Valid RestRepository dto);
@@ -1046,8 +1155,8 @@ public interface ProjectApi {
     /**
      * Get repository.
      *
-     * Retrieve the repository matching the supplied <strong>projectKey</strong> and <strong>repositorySlug</strong>.
-     * The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository to call this
+     * Retrieve the repository matching the supplied <strong>projectKey</strong> and <strong>repositorySlug</strong>. The
+     * authenticated user must have <strong>REPO_READ</strong> permission for the specified repository to call this
      * resource.
      *
      * @param projectKey     The project key. (not null)
@@ -1061,31 +1170,33 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The repository which matches the supplied <strong>projectKey</strong> and <strong>repositorySlug</strong>.",
-                    content = @Content(schema = @Schema(implementation = RestRepository.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRepository.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to see the specified repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_404.class)))
     })
     @Operation(summary = "Get repository")
-    RestRepository getRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
+    RestRepository getRepository(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug);
 
     /**
      * Fork repository.
      *
-     * Create a new repository forked from an existing repository.
-     * The JSON body for this <code>POST</code> is not required to contain <i>any</i> properties. Even the name may be
-     * omitted. The following properties will be used, if provided:
-     * - <code>"name":"Fork name"</code> - Specifies the forked repository's name   - Defaults to the name of the origin
-     * repository if not specified - <code>"defaultBranch":"main"</code> - Specifies the forked repository's default
-     * branch   - Defaults to the origin repository's default branch if not specified -
-     * <code>"project":{"key":"TARGET_KEY"}</code> - Specifies the forked repository's target project by key   -
-     * Defaults to the current user's personal project if not specified
-     * The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository and
+     * Create a new repository forked from an existing repository. The JSON body for this <code>POST</code> is not required
+     * to contain <i>any</i> properties. Even the name may be omitted. The following properties will be used, if provided: -
+     * <code>"name":"Fork name"</code> - Specifies the forked repository's name - Defaults to the name of the origin
+     * repository if not specified - <code>"defaultBranch":"main"</code> - Specifies the forked repository's default branch
+     * - Defaults to the origin repository's default branch if not specified - <code>"project":{"key":"TARGET_KEY"}</code> -
+     * Specifies the forked repository's target project by key - Defaults to the current user's personal project if not
+     * specified The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository and
      * <strong>PROJECT_ADMIN</strong> on the target project to call this resource. Note that users <i>always</i> have
      * <b>PROJECT_ADMIN</b> permission on their personal projects.
      *
@@ -1102,34 +1213,37 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "201",
                     description = "The newly created fork.",
-                    content = @Content(schema = @Schema(implementation = RestRepository.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRepository.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "A validation error prevented the fork from being created. Possible validation errors include: The name or slug for the fork collides with another repository in the target project; an SCM type was specified in the JSON body; a project was specified in the JSON body without a \"key\" property.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to create a fork.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist, or, if a target project was specified, the target project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_404.class)))
     })
     @Operation(summary = "Fork repository")
-    RestRepository forkRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRepository dto);
+    RestRepository forkRepository(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRepository dto);
 
     /**
      * Update repository.
      *
-     * Update the repository matching the <strong>repositorySlug</strong> supplied in the resource path.
-     * The repository's slug is derived from its name. If the name changes the slug may also change.
-     * This resource can be used to change the repository's default branch by specifying a new default branch in the
-     * request. For example: <code>"defaultBranch":"main"</code>
-     * This resource can be used to move the repository to a different project by specifying a new project in the
-     * request. For example: <code>"project":{"key":"NEW_KEY"}</code>
-     * The authenticated user must have <strong>REPO_ADMIN</strong> permission for the specified repository to call this
-     * resource.
+     * Update the repository matching the <strong>repositorySlug</strong> supplied in the resource path. The repository's
+     * slug is derived from its name. If the name changes the slug may also change. This resource can be used to change the
+     * repository's default branch by specifying a new default branch in the request. For example:
+     * <code>"defaultBranch":"main"</code> This resource can be used to move the repository to a different project by
+     * specifying a new project in the request. For example: <code>"project":{"key":"NEW_KEY"}</code> The authenticated user
+     * must have <strong>REPO_ADMIN</strong> permission for the specified repository to call this resource.
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
@@ -1144,38 +1258,44 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "201",
                     description = "The updated repository.",
-                    content = @Content(schema = @Schema(implementation = RestRepository.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRepository.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The repository was not updated due to a validation error.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to update a repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_401.class))),
             @APIResponse(
                     responseCode = "403",
                     description = "Cannot archive repository because it has open pull requests.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_403.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_403.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_404.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_404.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "A repository with the same name as the target already exists, or the repository is archived.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_409.class)))
     })
     @Operation(summary = "Update repository")
-    RestRepository updateRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRepository dto);
+    RestRepository updateRepository(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRepository dto);
 
     /**
      * Delete repository.
      *
-     * Schedule the repository matching the supplied <strong>projectKey</strong> and <strong>repositorySlug</strong> to
-     * be deleted.
-     * The authenticated user must have sufficient permissions specified by the repository delete policy to call this
-     * resource. The default permission required is <strong>REPO_ADMIN</strong> permission.
+     * Schedule the repository matching the supplied <strong>projectKey</strong> and <strong>repositorySlug</strong> to be
+     * deleted. The authenticated user must have sufficient permissions specified by the repository delete policy to call
+     * this resource. The default permission required is <strong>REPO_ADMIN</strong> permission.
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
@@ -1190,11 +1310,13 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "204",
                     description = "No repository matching the supplied <strong>projectKey</strong> and <strong>repositorySlug</strong> was found.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_204.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_204.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to delete the repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_401.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_401.class)))
     })
     @Operation(summary = "Delete repository")
     void deleteRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
@@ -1202,19 +1324,27 @@ public interface ProjectApi {
     /**
      * Get repository contributing guidelines.
      *
-     * Retrieves the contributing guidelines for the repository, if they've been defined.
-     * This checks the repository for a CONTRIBUTING file, optionally with an md or txt extension, and, if found,
-     * streams it. By default, the <i>raw content</i> of the file is streamed. Appending <code>?markup</code> to the URL
-     * will stream an HTML-rendered version instead.
-     * The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository to call this
-     * resource.
+     * Retrieves the contributing guidelines for the repository, if they've been defined. This checks the repository for a
+     * CONTRIBUTING file, optionally with an md or txt extension, and, if found, streams it. By default, the <i>raw
+     * content</i> of the file is streamed. Appending <code>?markup</code> to the URL will stream an HTML-rendered version
+     * instead. The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository to call
+     * this resource.
      *
      * @param projectKey       The project key. (not null)
-     * @param at               A specific commit or ref to retrieve the guidelines at, or the default branch if not specified (optional)
-     * @param markup           If present or <code>"true"</code>, triggers the raw content to be markup-rendered and returned as HTML; otherwise, if not specified, or any value other than <code>"true"</code>, the content is streamed without markup (optional)
-     * @param htmlEscape       (Optional) true if HTML should be escaped in the input markup, false otherwise. If not specified, the value of the <code>markup.render.html.escape</code> property, which is <code>true</code> by default, will be used (optional)
-     * @param includeHeadingId (Optional) true if headings should contain an ID based on the heading content. If not specified, the value of the <code>markup.render.headerids</code> property, which is false by default, will be used (optional)
-     * @param hardwrap         (Optional) Whether the markup implementation should convert newlines to breaks. If not specified, the value of the <code>markup.render.hardwrap</code> property, which is <code>true</code> by default, will be used (optional)
+     * @param at               A specific commit or ref to retrieve the guidelines at, or the default branch if not
+     *                         specified (optional)
+     * @param markup           If present or <code>"true"</code>, triggers the raw content to be markup-rendered and
+     *                         returned as HTML; otherwise, if not specified, or any value other than <code>"true"</code>,
+     *                         the content is streamed without markup (optional)
+     * @param htmlEscape       (Optional) true if HTML should be escaped in the input markup, false otherwise. If not
+     *                         specified, the value of the <code>markup.render.html.escape</code> property, which is
+     *                         <code>true</code> by default, will be used (optional)
+     * @param includeHeadingId (Optional) true if headings should contain an ID based on the heading content. If not
+     *                         specified, the value of the <code>markup.render.headerids</code> property, which is false by
+     *                         default, will be used (optional)
+     * @param hardwrap         (Optional) Whether the markup implementation should convert newlines to breaks. If not
+     *                         specified, the value of the <code>markup.render.hardwrap</code> property, which is
+     *                         <code>true</code> by default, will be used (optional)
      * @param repositorySlug   The repository slug. (not null)
      */
     @GET
@@ -1227,24 +1357,29 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to read the repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugContributing_401.class))),
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugContributing_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugContributing_404.class)))
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugContributing_404.class)))
     })
     @Operation(summary = "Get repository contributing guidelines")
-    void streamContributing(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("markup") String markup, @QueryParam("htmlEscape") String htmlEscape, @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap, @PathParam("repositorySlug") @NotNull String repositorySlug);
+    void streamContributing(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at,
+            @QueryParam("markup") String markup, @QueryParam("htmlEscape") String htmlEscape,
+            @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap,
+            @PathParam("repositorySlug") @NotNull String repositorySlug);
 
     /**
      * Get repository default branch.
      *
-     * Retrieves the repository's <i>configured</i> default branch.
-     * Every repository has a <i>configured</i> default branch, but that branch may not actually <i>exist</i> in the
-     * repository. For example, a newly-created repository will have a configured default branch even though no branches
-     * have been pushed yet.
-     * The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository to call this
-     * resource.
+     * Retrieves the repository's <i>configured</i> default branch. Every repository has a <i>configured</i> default branch,
+     * but that branch may not actually <i>exist</i> in the repository. For example, a newly-created repository will have a
+     * configured default branch even though no branches have been pushed yet. The authenticated user must have
+     * <strong>REPO_READ</strong> permission for the specified repository to call this resource.
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
@@ -1257,25 +1392,30 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The configured default branch for the repository.",
-                    content = @Content(schema = @Schema(implementation = RestMinimalRef.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestMinimalRef.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to read the repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_401.class))),
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist, or its configured default branch does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_404.class)))
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_404.class)))
     })
     @Operation(summary = "Get repository default branch")
-    RestMinimalRef getDefaultBranch_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
+    RestMinimalRef getDefaultBranch_2(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug);
 
     /**
      * Update default branch for repository.
      *
-     * Update the default branch of a repository.
-     * The authenticated user must have <strong>REPO_ADMIN</strong> permission for the specified repository to call this
-     * resource.
+     * Update the default branch of a repository. The authenticated user must have <strong>REPO_ADMIN</strong> permission
+     * for the specified repository to call this resource.
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
@@ -1291,23 +1431,30 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The authenticated user does not have permission to modify the default branch.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Update default branch for repository")
-    void setDefaultBranch_2(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestBranch dto);
+    void setDefaultBranch_2(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestBranch dto);
 
     /**
      * Get repository forks.
      *
-     * Retrieve repositories which have been forked from this one. Unlike #getRelatedRepositories(Repository,
-     * PageRequest) related repositories, this only looks at a given repository's direct forks. If those forks have
-     * themselves been the origin of more forks, such "grandchildren" repositories will not be retrieved.
-     * Only repositories to which the authenticated user has <b>REPO_READ</b> permission will be included, even if other
-     * repositories have been forked from this one.
+     * Retrieve repositories which have been forked from this one. Unlike #getRelatedRepositories(Repository, PageRequest)
+     * related repositories, this only looks at a given repository's direct forks. If those forks have themselves been the
+     * origin of more forks, such "grandchildren" repositories will not be retrieved. Only repositories to which the
+     * authenticated user has <b>REPO_READ</b> permission will be included, even if other repositories have been forked from
+     * this one.
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
@@ -1322,35 +1469,69 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of repositories related to the request repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugForks.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugForks.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to see the request repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugForks_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugForks_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The request repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugForks_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugForks_404.class)))
     })
     @Operation(summary = "Get repository forks")
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugForks getForkedRepositories(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugForks getForkedRepositories(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get repository license.
      *
-     * Retrieves the license for the repository, if it's been defined.
-     * This checks the repository for a <pre>LICENSE</pre> file, optionally with an <pre>md</pre> or
-     * <pre>txt</pre>extension, and, if found, streams it. By default, the <i>raw content</i> of the file is streamed.
-     * Appending <pre>?markup</pre> to the URL will stream an HTML-rendered version instead.
-     * The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository to call this
-     * resource.
+     * Retrieves the license for the repository, if it's been defined. This checks the repository for a
+     * 
+     * <pre>
+     * LICENSE
+     * </pre>
+     * 
+     * file, optionally with an
+     * 
+     * <pre>
+     * md
+     * </pre>
+     * 
+     * or
+     * 
+     * <pre>
+     * txt
+     * </pre>
+     * 
+     * extension, and, if found, streams it. By default, the <i>raw content</i> of the file is streamed. Appending
+     * 
+     * <pre>
+     * ?markup
+     * </pre>
+     * 
+     * to the URL will stream an HTML-rendered version instead. The authenticated user must have <strong>REPO_READ</strong>
+     * permission for the specified repository to call this resource.
      *
      * @param projectKey       The project key. (not null)
-     * @param at               A specific commit or ref to retrieve the guidelines at, or the default branch if not specified (optional)
-     * @param markup           If present or <code>"true"</code>, triggers the raw content to be markup-rendered and returned as HTML; otherwise, if not specified, or any value other than <code>"true"</code>, the content is streamed without markup (optional)
-     * @param htmlEscape       (Optional) true if HTML should be escaped in the input markup, false otherwise. If not specified, the value of the <code>markup.render.html.escape</code> property, which is <code>true</code> by default, will be used (optional)
-     * @param includeHeadingId (Optional) true if headings should contain an ID based on the heading content. If not specified, the value of the <code>markup.render.headerids</code> property, which is false by default, will be used (optional)
-     * @param hardwrap         (Optional) Whether the markup implementation should convert newlines to breaks. If not specified, the value of the <code>markup.render.hardwrap</code> property, which is <code>true</code> by default, will be used (optional)
+     * @param at               A specific commit or ref to retrieve the guidelines at, or the default branch if not
+     *                         specified (optional)
+     * @param markup           If present or <code>"true"</code>, triggers the raw content to be markup-rendered and
+     *                         returned as HTML; otherwise, if not specified, or any value other than <code>"true"</code>,
+     *                         the content is streamed without markup (optional)
+     * @param htmlEscape       (Optional) true if HTML should be escaped in the input markup, false otherwise. If not
+     *                         specified, the value of the <code>markup.render.html.escape</code> property, which is
+     *                         <code>true</code> by default, will be used (optional)
+     * @param includeHeadingId (Optional) true if headings should contain an ID based on the heading content. If not
+     *                         specified, the value of the <code>markup.render.headerids</code> property, which is false by
+     *                         default, will be used (optional)
+     * @param hardwrap         (Optional) Whether the markup implementation should convert newlines to breaks. If not
+     *                         specified, the value of the <code>markup.render.hardwrap</code> property, which is
+     *                         <code>true</code> by default, will be used (optional)
      * @param repositorySlug   The repository slug. (not null)
      */
     @GET
@@ -1363,32 +1544,66 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to read the repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_404.class)))
     })
     @Operation(summary = "Get repository license")
-    void streamLicense(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("markup") String markup, @QueryParam("htmlEscape") String htmlEscape, @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap, @PathParam("repositorySlug") @NotNull String repositorySlug);
+    void streamLicense(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at,
+            @QueryParam("markup") String markup, @QueryParam("htmlEscape") String htmlEscape,
+            @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap,
+            @PathParam("repositorySlug") @NotNull String repositorySlug);
 
     /**
      * Get repository readme.
      *
-     * Retrieves the README for the repository, if it's been defined.
-     * This checks the repository for a <pre>README</pre> file, optionally with an <pre>md</pre> or
-     * <pre>txt</pre>extension, and, if found, streams it. By default, the <i>raw content</i> of the file is streamed.
-     * Appending <pre>?markup</pre> to the URL will stream an HTML-rendered version instead. Note that, when streaming
-     * HTML, relative URLs in the README will not work if applied relative to this URL.
-     * The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository to call this
-     * resource.
+     * Retrieves the README for the repository, if it's been defined. This checks the repository for a
+     * 
+     * <pre>
+     * README
+     * </pre>
+     * 
+     * file, optionally with an
+     * 
+     * <pre>
+     * md
+     * </pre>
+     * 
+     * or
+     * 
+     * <pre>
+     * txt
+     * </pre>
+     * 
+     * extension, and, if found, streams it. By default, the <i>raw content</i> of the file is streamed. Appending
+     * 
+     * <pre>
+     * ?markup
+     * </pre>
+     * 
+     * to the URL will stream an HTML-rendered version instead. Note that, when streaming HTML, relative URLs in the README
+     * will not work if applied relative to this URL. The authenticated user must have <strong>REPO_READ</strong> permission
+     * for the specified repository to call this resource.
      *
      * @param projectKey       The project key. (not null)
-     * @param at               A specific commit or ref to retrieve the guidelines at, or the default branch if not specified (optional)
-     * @param markup           If present or <code>"true"</code>, triggers the raw content to be markup-rendered and returned as HTML; otherwise, if not specified, or any value other than <code>"true"</code>, the content is streamed without markup (optional)
-     * @param htmlEscape       (Optional) true if HTML should be escaped in the input markup, false otherwise. If not specified, the value of the <code>markup.render.html.escape</code> property, which is <code>true</code> by default, will be used (optional)
-     * @param includeHeadingId (Optional) true if headings should contain an ID based on the heading content. If not specified, the value of the <code>markup.render.headerids</code> property, which is false by default, will be used (optional)
-     * @param hardwrap         (Optional) Whether the markup implementation should convert newlines to breaks. If not specified, the value of the <code>markup.render.hardwrap</code> property, which is <code>true</code> by default, will be used (optional)
+     * @param at               A specific commit or ref to retrieve the guidelines at, or the default branch if not
+     *                         specified (optional)
+     * @param markup           If present or <code>"true"</code>, triggers the raw content to be markup-rendered and
+     *                         returned as HTML; otherwise, if not specified, or any value other than <code>"true"</code>,
+     *                         the content is streamed without markup (optional)
+     * @param htmlEscape       (Optional) true if HTML should be escaped in the input markup, false otherwise. If not
+     *                         specified, the value of the <code>markup.render.html.escape</code> property, which is
+     *                         <code>true</code> by default, will be used (optional)
+     * @param includeHeadingId (Optional) true if headings should contain an ID based on the heading content. If not
+     *                         specified, the value of the <code>markup.render.headerids</code> property, which is false by
+     *                         default, will be used (optional)
+     * @param hardwrap         (Optional) Whether the markup implementation should convert newlines to breaks. If not
+     *                         specified, the value of the <code>markup.render.hardwrap</code> property, which is
+     *                         <code>true</code> by default, will be used (optional)
      * @param repositorySlug   The repository slug. (not null)
      */
     @GET
@@ -1401,22 +1616,25 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to read the repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugReadme_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugReadme_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugReadme_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugReadme_404.class)))
     })
     @Operation(summary = "Get repository readme")
-    void streamReadme(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("markup") String markup, @QueryParam("htmlEscape") String htmlEscape, @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap, @PathParam("repositorySlug") @NotNull String repositorySlug);
+    void streamReadme(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("at") String at, @QueryParam("markup") String markup,
+            @QueryParam("htmlEscape") String htmlEscape, @QueryParam("includeHeadingId") String includeHeadingId,
+            @QueryParam("hardwrap") String hardwrap, @PathParam("repositorySlug") @NotNull String repositorySlug);
 
     /**
      * Retry repository creation.
      *
      * If a create or fork operation fails, calling this method will clean up the broken repository and try again. The
-     * repository must be in an INITIALISATION_FAILED state.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * repository must be in an INITIALISATION_FAILED state. The authenticated user must have <strong>PROJECT_ADMIN</strong>
+     * permission for the specified project to call this resource.
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
@@ -1429,30 +1647,34 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The newly created repository.",
-                    content = @Content(schema = @Schema(implementation = RestRepository.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRepository.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The repository was not created due to a validation error.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRecreate_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRecreate_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to create a repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRecreate_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRecreate_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRecreate_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRecreate_404.class)))
     })
     @Operation(summary = "Retry repository creation")
-    RestRepository retryCreateRepository(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug);
+    RestRepository retryCreateRepository(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug);
 
     /**
      * Get related repository.
      *
      * Retrieve repositories which are related to this one. Related repositories are from the same
-     * Repository#getHierarchyId() hierarchy as this repository.
-     * Only repositories to which the authenticated user has <b>REPO_READ</b> permission will be included, even if more
-     * repositories are part of this repository's hierarchy.
+     * Repository#getHierarchyId() hierarchy as this repository. Only repositories to which the authenticated user has
+     * <b>REPO_READ</b> permission will be included, even if more repositories are part of this repository's hierarchy.
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
@@ -1467,31 +1689,36 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of repositories related to the request repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to see the request repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The request repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated_404.class)))
     })
     @Operation(summary = "Get related repository")
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated getRelatedRepositories(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated getRelatedRepositories(
+            @PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get enforcing project setting.
      *
-     * Get a specified project settings restriction for the given namespace, feature key and component key. Note that
-     * not providing the component key will **not** return restrictions for the namespace and feature key with a
-     * component key set.
-     * The authenticated user must have **PROJECT_VIEW** permission for the target project to retrieve a settings
+     * Get a specified project settings restriction for the given namespace, feature key and component key. Note that not
+     * providing the component key will **not** return restrictions for the namespace and feature key with a component key
+     * set. The authenticated user must have **PROJECT_VIEW** permission for the target project to retrieve a settings
      * restriction.
      *
      * @param projectKey   The project key. (not null)
      * @param namespace    The namespace used to identify the provider of the feature (not null)
-     * @param componentKey The component key to uniquely identify individually restrictable subcomponents of a feature within the provided feature key and namespace (optional)
+     * @param componentKey The component key to uniquely identify individually restrictable subcomponents of a feature
+     *                     within the provided feature key and namespace (optional)
      * @param featureKey   The feature key to uniquely identify the feature within the provided namespace (not null)
      * @return RestProjectSettingsRestriction
      */
@@ -1502,29 +1729,34 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The settings restriction associated with the provided namespace and feature key",
-                    content = @Content(schema = @Schema(implementation = RestProjectSettingsRestriction.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestProjectSettingsRestriction.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The settings restriction could not be retrieved because the provided parameters were invalid. Possible issues include:\n\n- The namespace was not provided, or longer than 255 characters\n- The featureKey was not provided, or longer than 255 characters\n- The provided componentKey was fewer than 2 characters, or longer than 255 characters",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to retrieve a settings restriction",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project, or settings restriction does not exist",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_404.class)))
     })
     @Operation(summary = "Get enforcing project setting")
-    RestProjectSettingsRestriction get_7(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("namespace") @NotNull String namespace, @QueryParam("componentKey") String componentKey, @QueryParam("featureKey") @NotNull String featureKey);
+    RestProjectSettingsRestriction get_7(@PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("namespace") @NotNull String namespace, @QueryParam("componentKey") String componentKey,
+            @QueryParam("featureKey") @NotNull String featureKey);
 
     /**
      * Enforce project restriction.
      *
-     * Create a new project settings restriction for the given project.
-     * The authenticated user must have **PROJECT_ADMIN** permission for the target project to create a settings
-     * restriction.
+     * Create a new project settings restriction for the given project. The authenticated user must have **PROJECT_ADMIN**
+     * permission for the target project to create a settings restriction.
      *
      * @param projectKey The project key. (not null)
      * @param dto        The project settings restriction to create (not null)
@@ -1538,39 +1770,44 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The settings restriction was successfully created",
-                    content = @Content(schema = @Schema(implementation = RestProjectSettingsRestriction.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestProjectSettingsRestriction.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The settings restriction was not created because the request was invalid. Possible issues include:\n\n- The namespace was not provided, or longer than 255 characters\n- The featureKey was not provided, or longer than 255 characters\n- The provided componentKey was fewer than 2 characters, or longer than 255 characters",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to create a settings restriction",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_404.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_404.class))),
             @APIResponse(
                     responseCode = "409",
                     description = "A settings restriction with the same namespace, featureKey and componentKey already exists on this project",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_409.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_409.class)))
     })
     @Operation(summary = "Enforce project restriction")
-    RestProjectSettingsRestriction create_3(@PathParam("projectKey") @NotNull String projectKey, @NotNull @Valid RestProjectSettingsRestrictionRequest dto);
+    RestProjectSettingsRestriction create_3(@PathParam("projectKey") @NotNull String projectKey,
+            @NotNull @Valid RestProjectSettingsRestrictionRequest dto);
 
     /**
      * Stop enforcing project restriction.
      *
-     * Delete a specified project settings restriction.
-     * If a restriction does not exist for the specified project, namespace, featureKey, and componentKey, the request
-     * will be ignored and a 204 response will be returned.
-     * The authenticated user must have **PROJECT_ADMIN** permission for the target project to delete a settings
-     * restriction.
+     * Delete a specified project settings restriction. If a restriction does not exist for the specified project,
+     * namespace, featureKey, and componentKey, the request will be ignored and a 204 response will be returned. The
+     * authenticated user must have **PROJECT_ADMIN** permission for the target project to delete a settings restriction.
      *
      * @param projectKey   The project key. (not null)
      * @param namespace    A namespace used to identify the provider of the feature (not null)
-     * @param componentKey A key to uniquely identify individually restrictable subcomponents of a feature within the provided feature key and namespace (optional)
+     * @param componentKey A key to uniquely identify individually restrictable subcomponents of a feature within the
+     *                     provided feature key and namespace (optional)
      * @param featureKey   A key to uniquely identify the feature within the provided namespace (not null)
      */
     @DELETE
@@ -1582,25 +1819,31 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The settings restriction was not deleted because the request was invalid. Possible issues include:\n\n- The namespace was not provided, or longer than 255 characters\n- The featureKey was not provided, or longer than 255 characters\n- The provided componentKey was fewer than 2 characters, or longer than 255 characters",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_400.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_400.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to delete a settings restriction",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestriction_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Stop enforcing project restriction")
-    void delete_9(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("namespace") @NotNull String namespace, @QueryParam("componentKey") String componentKey, @QueryParam("featureKey") @NotNull String featureKey);
+    void delete_9(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("namespace") @NotNull String namespace,
+            @QueryParam("componentKey") String componentKey, @QueryParam("featureKey") @NotNull String featureKey);
 
     /**
      * Get all enforcing project settings.
      *
-     * Get all project settings restrictions for the given namespace and feature key, including those with a component
-     * key set.
-     * The authenticated user must have **PROJECT_VIEW** permission for the target project to retrieve a settings
+     * Get all project settings restrictions for the given namespace and feature key, including those with a component key
+     * set. The authenticated user must have **PROJECT_VIEW** permission for the target project to retrieve a settings
      * restrictions.
      *
      * @param projectKey The project key. (not null)
@@ -1617,28 +1860,34 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of settings restrictions associated with the provided namespace and feature key",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The settings restrictions could not be retrieved because the provided parameters were invalid. Possible issues include:\n\n- The namespace was not provided, or longer than 255 characters\n- The featureKey was not provided, or longer than 255 characters",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to retrieve project settings restrictions",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll_404.class)))
     })
     @Operation(summary = "Get all enforcing project settings")
-    _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll getAll(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("namespace") @NotNull String namespace, @QueryParam("featureKey") @NotNull String featureKey, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll getAll(@PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("namespace") @NotNull String namespace, @QueryParam("featureKey") @NotNull String featureKey,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get auto decline settings.
      *
-     * Retrieves the auto decline settings for the supplied project. Default settings are returned if no explicit
-     * settings have been set for the project.
+     * Retrieves the auto decline settings for the supplied project. Default settings are returned if no explicit settings
+     * have been set for the project.
      *
      * @param projectKey The project key (not null)
      * @return RestAutoDeclineSettings
@@ -1650,15 +1899,18 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The auto decline settings",
-                    content = @Content(schema = @Schema(implementation = RestAutoDeclineSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestAutoDeclineSettings.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to retrieve the auto decline settings.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404.class)))
     })
     @Operation(summary = "Get auto decline settings")
     RestAutoDeclineSettings getAutoDeclineSettings(@PathParam("projectKey") @NotNull String projectKey);
@@ -1666,8 +1918,8 @@ public interface ProjectApi {
     /**
      * Create/Update auto decline settings.
      *
-     * Creates or updates the auto decline settings for the supplied project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for this project to call the resource.
+     * Creates or updates the auto decline settings for the supplied project. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for this project to call the resource.
      *
      * @param projectKey The project key (not null)
      * @param dto        The settings to create or update (optional)
@@ -1681,28 +1933,33 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The auto decline settings",
-                    content = @Content(schema = @Schema(implementation = RestAutoDeclineSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestAutoDeclineSettings.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "inactivityWeeks was not one of 1, 2, 4, 8, or, 12, or the enabled parameter was not included in the request.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to create or update the auto decline settings.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404.class)))
     })
     @Operation(summary = "Create/Update auto decline settings")
-    RestAutoDeclineSettings setAutoDeclineSettings(@PathParam("projectKey") @NotNull String projectKey, @Valid RestAutoDeclineSettingsRequest dto);
+    RestAutoDeclineSettings setAutoDeclineSettings(@PathParam("projectKey") @NotNull String projectKey,
+            @Valid RestAutoDeclineSettingsRequest dto);
 
     /**
      * Delete auto decline settings.
      *
-     * Delete auto decline settings for the supplied project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for this project to call the resource.
+     * Delete auto decline settings for the supplied project. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for this project to call the resource.
      *
      * @param projectKey The project key (not null)
      */
@@ -1715,11 +1972,15 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to delete the auto decline settings.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete auto decline settings")
     void deleteAutoDeclineSettings(@PathParam("projectKey") @NotNull String projectKey);
@@ -1728,8 +1989,8 @@ public interface ProjectApi {
      * Get pull request auto-merge settings.
      *
      * Retrieves the pull request auto-merge settings for the supplied project. Default settings will be returned if no
-     * explicit settings have been set for the project
-     * The authenticated user must have <strong>PROJECT_VIEW</strong> permission for this project to call the resource.
+     * explicit settings have been set for the project The authenticated user must have <strong>PROJECT_VIEW</strong>
+     * permission for this project to call the resource.
      *
      * @param projectKey The project key (not null)
      * @return RestAutoMergeRestrictedSettings
@@ -1741,15 +2002,18 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The pull request auto-merge settings",
-                    content = @Content(schema = @Schema(implementation = RestAutoMergeRestrictedSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestAutoMergeRestrictedSettings.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to retrieve the pull request auto-merge settings.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_404.class)))
     })
     @Operation(summary = "Get pull request auto-merge settings")
     RestAutoMergeRestrictedSettings get_4(@PathParam("projectKey") @NotNull String projectKey);
@@ -1757,9 +2021,9 @@ public interface ProjectApi {
     /**
      * Create or update the pull request auto-merge settings.
      *
-     * Creates or updates the pull request auto-merge settings for the supplied project, and applies the restriction
-     * action specified in the request.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for this project to call the resource.
+     * Creates or updates the pull request auto-merge settings for the supplied project, and applies the restriction action
+     * specified in the request. The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for this project
+     * to call the resource.
      *
      * @param projectKey The project key (not null)
      * @param dto        The settings to create or update (optional)
@@ -1773,28 +2037,33 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The pull request auto-merge settings",
-                    content = @Content(schema = @Schema(implementation = RestAutoMergeRestrictedSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestAutoMergeRestrictedSettings.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The 'enabled' and 'restrictionAction' fields were not provided correctly.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to create or update the pull request auto-merge settings.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_404.class)))
     })
     @Operation(summary = "Create or update the pull request auto-merge settings")
-    RestAutoMergeRestrictedSettings set(@PathParam("projectKey") @NotNull String projectKey, @Valid RestAutoMergeProjectSettingsRequest dto);
+    RestAutoMergeRestrictedSettings set(@PathParam("projectKey") @NotNull String projectKey,
+            @Valid RestAutoMergeProjectSettingsRequest dto);
 
     /**
      * Delete pull request auto-merge settings.
      *
-     * Deletes pull request auto-merge settings for the supplied project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for this project to call the resource.
+     * Deletes pull request auto-merge settings for the supplied project. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for this project to call the resource.
      *
      * @param projectKey The project key (not null)
      */
@@ -1807,11 +2076,15 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to delete the pull request auto-merge settings.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsAutoMerge_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete pull request auto-merge settings")
     void delete_4(@PathParam("projectKey") @NotNull String projectKey);
@@ -1819,9 +2092,8 @@ public interface ProjectApi {
     /**
      * Get repository hooks.
      *
-     * Retrieve a page of repository hooks for this project.
-     * The authenticated user must have <strong>PROJECT_READ</strong> permission for the specified project to call this
-     * resource.
+     * Retrieve a page of repository hooks for this project. The authenticated user must have <strong>PROJECT_READ</strong>
+     * permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param type       The optional type to filter by. (optional)
@@ -1836,25 +2108,28 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of repository hooks with their associated enabled state.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooks.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooks.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to retrieve the hooks.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooks_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooks_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooks_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooks_404.class)))
     })
     @Operation(summary = "Get repository hooks")
-    _ResponseApiLatestProjectsProjectKeySettingsHooks getRepositoryHooks(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("type") String type, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeySettingsHooks getRepositoryHooks(@PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("type") String type, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get a repository hook.
      *
-     * Retrieve a repository hook for this project.
-     * The authenticated user must have <strong>PROJECT_READ</strong> permission for the specified project to call this
-     * resource.
+     * Retrieve a repository hook for this project. The authenticated user must have <strong>PROJECT_READ</strong>
+     * permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param hookKey    The hook key. (not null)
@@ -1867,27 +2142,30 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "Returns the repository hooks with their associated enabled state for the supplied hookKey.",
-                    content = @Content(schema = @Schema(implementation = RestRepositoryHook.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRepositoryHook.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to enable the hook.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKey_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKey_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository hook does not exist for the given project, or the project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKey_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKey_404.class)))
     })
     @Operation(summary = "Get a repository hook")
-    RestRepositoryHook getRepositoryHook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey);
+    RestRepositoryHook getRepositoryHook(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("hookKey") @NotNull String hookKey);
 
     /**
      * Enable repository hook.
      *
-     * Enable a repository hook for this project and optionally apply new configuration.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
-     * A JSON document may be provided to use as the settings for the hook. These structure and validity of the document
-     * is decided by the plugin providing the hook.
+     * Enable a repository hook for this project and optionally apply new configuration. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project to call this resource. A JSON document may be
+     * provided to use as the settings for the hook. These structure and validity of the document is decided by the plugin
+     * providing the hook.
      *
      * @param projectKey    The project key. (not null)
      * @param hookKey       The hook key. (not null)
@@ -1901,29 +2179,33 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The repository hooks with their associated enabled state for the supplied hookKey.",
-                    content = @Content(schema = @Schema(implementation = RestRepositoryHook.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRepositoryHook.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The settings specified are invalid.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to enable the hook.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project or hook does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_404.class)))
     })
     @Operation(summary = "Enable repository hook")
-    RestRepositoryHook enableHook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey, @HeaderParam("Content-Length") long contentLength);
+    RestRepositoryHook enableHook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey,
+            @HeaderParam("Content-Length") long contentLength);
 
     /**
      * Disable repository hook.
      *
-     * Disable a repository hook for this project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Disable a repository hook for this project. The authenticated user must have <strong>PROJECT_ADMIN</strong>
+     * permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param hookKey    The hook key. (not null)
@@ -1936,15 +2218,18 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The repository hooks with their associated enabled state for the supplied hookKey.",
-                    content = @Content(schema = @Schema(implementation = RestRepositoryHook.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRepositoryHook.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to disable the hook.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project or hook does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_404.class)))
     })
     @Operation(summary = "Disable repository hook")
     RestRepositoryHook disableHook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey);
@@ -1952,9 +2237,8 @@ public interface ProjectApi {
     /**
      * Get repository hook settings.
      *
-     * Retrieve the settings for a repository hook for this project.
-     * The authenticated user must have <strong>PROJECT_READ</strong> permission for the specified project to call this
-     * resource.
+     * Retrieve the settings for a repository hook for this project. The authenticated user must have
+     * <strong>PROJECT_READ</strong> permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param hookKey    The hook key. (not null)
@@ -1967,15 +2251,18 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The settings for the hook.",
-                    content = @Content(schema = @Schema(implementation = ExampleSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = ExampleSettings.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to retrieve the hook settings.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project or hook does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_404.class)))
     })
     @Operation(summary = "Get repository hook settings")
     ExampleSettings getSettings(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey);
@@ -1983,12 +2270,10 @@ public interface ProjectApi {
     /**
      * Update repository hook settings.
      *
-     * Modify the settings for a repository hook for this project.
-     * The service will reject any settings which are too large, the current limit is 32KB once serialized.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
-     * A JSON document can be provided to use as the settings for the hook. These structure and validity of the document
-     * is decided by the plugin providing the hook.
+     * Modify the settings for a repository hook for this project. The service will reject any settings which are too large,
+     * the current limit is 32KB once serialized. The authenticated user must have <strong>PROJECT_ADMIN</strong> permission
+     * for the specified project to call this resource. A JSON document can be provided to use as the settings for the hook.
+     * These structure and validity of the document is decided by the plugin providing the hook.
      *
      * @param projectKey The project key. (not null)
      * @param hookKey    The complete module key of the hook module. (not null)
@@ -2003,29 +2288,33 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The settings for the hook.",
-                    content = @Content(schema = @Schema(implementation = ExampleSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = ExampleSettings.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The settings specified are invalid.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to modify the hook settings.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project or hook does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_404.class)))
     })
     @Operation(summary = "Update repository hook settings")
-    ExampleSettings setSettings(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey, @Valid ExampleSettings dto);
+    ExampleSettings setSettings(@PathParam("projectKey") @NotNull String projectKey, @PathParam("hookKey") @NotNull String hookKey,
+            @Valid ExampleSettings dto);
 
     /**
      * Get merge strategy.
      *
-     * Retrieve the merge strategy configuration for this project and SCM.
-     * The authenticated user must have <strong>PROJECT_READ</strong> permission for the context repository to call this
-     * resource.
+     * Retrieve the merge strategy configuration for this project and SCM. The authenticated user must have
+     * <strong>PROJECT_READ</strong> permission for the context repository to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param scmId      The SCM to get strategies for. (not null)
@@ -2038,30 +2327,37 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The merge configuration of the request project.",
-                    content = @Content(schema = @Schema(implementation = RestPullRequestSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestPullRequestSettings.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to see the request repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The request repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_404.class)))
     })
     @Operation(summary = "Get merge strategy")
-    RestPullRequestSettings getPullRequestSettings(@PathParam("projectKey") @NotNull String projectKey, @PathParam("scmId") @NotNull String scmId);
+    RestPullRequestSettings getPullRequestSettings(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("scmId") @NotNull String scmId);
 
     /**
      * Update merge strategy.
      *
-     * Update the pull request merge strategy configuration for this project and SCM.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the context repository to call
-     * this resource.
-     * Only the strategies provided will be enabled, the default must be set and included in the set of strategies.
-     * An explicitly set pull request merge strategy configuration can be deleted by POSTing a document with an empty
-     * "mergeConfig" attribute. i.e: <pre>{     "mergeConfig": {} } </pre>
-     * Upon completion of this request, the effective configuration will be the configuration explicitly set for the
-     * SCM, or if no such explicit configuration is set then the default configuration will be used.
+     * Update the pull request merge strategy configuration for this project and SCM. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the context repository to call this resource. Only the strategies
+     * provided will be enabled, the default must be set and included in the set of strategies. An explicitly set pull
+     * request merge strategy configuration can be deleted by POSTing a document with an empty "mergeConfig" attribute. i.e:
+     * 
+     * <pre>
+     * {     "mergeConfig": {} }
+     * </pre>
+     * 
+     * Upon completion of this request, the effective configuration will be the configuration explicitly set for the SCM, or
+     * if no such explicit configuration is set then the default configuration will be used.
      *
      * @param projectKey The project key. (not null)
      * @param scmId      The SCM to get strategies for. (not null)
@@ -2076,29 +2372,33 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "The merge configuration of the request project.",
-                    content = @Content(schema = @Schema(implementation = RestPullRequestSettings.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestPullRequestSettings.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The repository pull request merge strategies were not updated due to a validation error.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to administrate the specified repository.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified repository does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySettingsPullRequestsScmId_404.class)))
     })
     @Operation(summary = "Update merge strategy")
-    RestPullRequestSettings updatePullRequestSettings(@PathParam("projectKey") @NotNull String projectKey, @PathParam("scmId") @NotNull String scmId, @Valid RestPullRequestSettings dto);
+    RestPullRequestSettings updatePullRequestSettings(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("scmId") @NotNull String scmId, @Valid RestPullRequestSettings dto);
 
     /**
      * Find webhooks.
      *
-     * Find webhooks in this project.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Find webhooks in this project. The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the
+     * specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param event      List of <code>com.atlassian.webhooks.WebhookEvent</code> IDs to filter for (optional)
@@ -2114,21 +2414,23 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to find webhooks in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_404.class)))
     })
     @Operation(summary = "Find webhooks")
-    void findWebhooks(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("event") String event, @QueryParam("statistics") boolean statistics);
+    void findWebhooks(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("event") String event,
+            @QueryParam("statistics") boolean statistics);
 
     /**
      * Create webhook.
      *
-     * Create a webhook for the project specified via the URL.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Create a webhook for the project specified via the URL. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param dto        The webhook to be created for this project. (optional)
@@ -2146,15 +2448,18 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The webhook parameters were invalid or not supplied.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to create webhooks in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooks_404.class)))
     })
     @Operation(summary = "Create webhook")
     RestWebhook createWebhook(@PathParam("projectKey") @NotNull String projectKey, @Valid RestWebhook dto);
@@ -2162,9 +2467,8 @@ public interface ProjectApi {
     /**
      * Test webhook.
      *
-     * Test connectivity to a specific endpoint.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Test connectivity to a specific endpoint. The authenticated user must have <strong>PROJECT_ADMIN</strong> permission
+     * for the specified project to call this resource.
      *
      * @param projectKey              The project key. (not null)
      * @param webhookId               (optional)
@@ -2181,25 +2485,29 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A webhook.",
-                    content = @Content(schema = @Schema(implementation = RestWebhookRequestResponse.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestWebhookRequestResponse.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to test a connection.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksTest_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksTest_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksTest_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksTest_404.class)))
     })
     @Operation(summary = "Test webhook")
-    RestWebhookRequestResponse testWebhook(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("webhookId") int webhookId, @QueryParam("sslVerificationRequired") boolean sslVerificationRequired, @QueryParam("url") String url, @Valid RestWebhookCredentials dto);
+    RestWebhookRequestResponse testWebhook(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("webhookId") int webhookId,
+            @QueryParam("sslVerificationRequired") boolean sslVerificationRequired, @QueryParam("url") String url,
+            @Valid RestWebhookCredentials dto);
 
     /**
      * Get webhook.
      *
-     * Get a webhook by ID.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Get a webhook by ID. The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified
+     * project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param webhookId  ID of the webhook (not null)
@@ -2217,21 +2525,23 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to get a webhook in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The project does not exist, or the webhook does not exist in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_404.class)))
     })
     @Operation(summary = "Get webhook")
-    RestWebhook getWebhook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("statistics") String statistics);
+    RestWebhook getWebhook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId,
+            @QueryParam("statistics") String statistics);
 
     /**
      * Update webhook.
      *
-     * Update an existing webhook.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Update an existing webhook. The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the
+     * specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param webhookId  Id of the existing webhook (not null)
@@ -2250,21 +2560,23 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to update a webhook in this project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The project does not exist, or the webhook does not exist in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_404.class)))
     })
     @Operation(summary = "Update webhook")
-    RestWebhook updateWebhook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @Valid RestWebhook dto);
+    RestWebhook updateWebhook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId,
+            @Valid RestWebhook dto);
 
     /**
      * Delete webhook.
      *
-     * Delete a webhook for the project specified via the URL.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Delete a webhook for the project specified via the URL. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param webhookId  The ID of the webhook to be deleted. (not null)
@@ -2278,11 +2590,15 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to delete webhooks in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_401.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_401.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist, or webhook does not exist in this project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_404.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookId_404.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete webhook")
     void deleteWebhook(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId);
@@ -2290,14 +2606,14 @@ public interface ProjectApi {
     /**
      * Get last webhook invocation details.
      *
-     * Get the latest invocations for a specific webhook.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Get the latest invocations for a specific webhook. The authenticated user must have <strong>PROJECT_ADMIN</strong>
+     * permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param webhookId  ID of the webhook (not null)
      * @param event      The string ID of a specific event to retrieve the last invocation for. (optional)
-     * @param outcome    The outcome to filter for. Can be SUCCESS, FAILURE, ERROR. None specified means that the all will be considered (optional)
+     * @param outcome    The outcome to filter for. Can be SUCCESS, FAILURE, ERROR. None specified means that the all will
+     *                   be considered (optional)
      * @return RestDetailedInvocation
      */
     @GET
@@ -2307,29 +2623,33 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A webhook invocation dataset.",
-                    content = @Content(schema = @Schema(implementation = RestDetailedInvocation.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestDetailedInvocation.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to get webhook invocations in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdLatest_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdLatest_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist, or the webhook does not exist in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdLatest_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdLatest_404.class)))
     })
     @Operation(summary = "Get last webhook invocation details")
-    RestDetailedInvocation getLatestInvocation(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event, @QueryParam("outcome") String outcome);
+    RestDetailedInvocation getLatestInvocation(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event, @QueryParam("outcome") String outcome);
 
     /**
      * Get webhook statistics.
      *
-     * Get the statistics for a specific webhook.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Get the statistics for a specific webhook. The authenticated user must have <strong>PROJECT_ADMIN</strong> permission
+     * for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param webhookId  ID of the webhook (not null)
-     * @param event      The string ID of a specific event to retrieve the last invocation for. May be empty, in which case all events are considered (optional)
+     * @param event      The string ID of a specific event to retrieve the last invocation for. May be empty, in which case
+     *                   all events are considered (optional)
      * @return RestInvocationHistory
      */
     @GET
@@ -2339,25 +2659,28 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A webhook invocation dataset.",
-                    content = @Content(schema = @Schema(implementation = RestInvocationHistory.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestInvocationHistory.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to get webhook statistics in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatistics_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatistics_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The specified project does not exist, or the webhook does not exist in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatistics_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatistics_404.class)))
     })
     @Operation(summary = "Get webhook statistics")
-    RestInvocationHistory getStatistics(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event);
+    RestInvocationHistory getStatistics(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event);
 
     /**
      * Get webhook statistics summary.
      *
-     * Get the statistics summary for a specific webhook.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this
-     * resource.
+     * Get the statistics summary for a specific webhook. The authenticated user must have <strong>PROJECT_ADMIN</strong>
+     * permission for the specified project to call this resource.
      *
      * @param projectKey The project key. (not null)
      * @param webhookId  ID of the webhook (not null)
@@ -2370,28 +2693,34 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A webhook invocation dataset.",
-                    content = @Content(schema = @Schema(implementation = RestInvocationHistory.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestInvocationHistory.class))),
             @APIResponse(
                     responseCode = "204",
                     description = "No webhook invocations exist."),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to get webhook statistics summary in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatisticsSummary_401.class))),
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatisticsSummary_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The project does not exist, or the webhook does not exist in the project.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatisticsSummary_404.class)))
+                    content = @Content(
+                            schema = @Schema(
+                                    implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatisticsSummary_404.class)))
     })
     @Operation(summary = "Get webhook statistics summary")
-    RestInvocationHistory getStatisticsSummary(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId);
+    RestInvocationHistory getStatisticsSummary(@PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("webhookId") @NotNull String webhookId);
 
     /**
      * Search for ref restrictions.
      *
-     * Search for restrictions using the supplied parameters.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission or higher to call this resource. Only
-     * authenticated users may call this resource.
+     * Search for restrictions using the supplied parameters. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission or higher to call this resource. Only authenticated users may call this
+     * resource.
      *
      * @param projectKey  The project key. (not null)
      * @param matcherType Matcher type to filter on (optional)
@@ -2408,22 +2737,28 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A response containing a page of restrictions.",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The request has failed validation.",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not permitted to get restrictions on the provided project",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "No restriction exists for the provided ID.",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_404.class)))
     })
     @Operation(summary = "Search for ref restrictions")
-    _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions getRestrictions(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("matcherType") String matcherType, @QueryParam("matcherId") String matcherId, @QueryParam("type") String type, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions getRestrictions(@PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("matcherType") String matcherType, @QueryParam("matcherId") String matcherId, @QueryParam("type") String type,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create multiple ref restrictions.
@@ -2442,15 +2777,18 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "Response contains the ref restriction that was just created.",
-                    content = @Content(schema = @Schema(implementation = RestRefRestriction.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRefRestriction.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The request has failed validation.",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to perform this operation.",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_401.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_401.class)))
     })
     @Operation(summary = "Create multiple ref restrictions")
     RestRefRestriction createRestrictions(@PathParam("projectKey") @NotNull String projectKey, @Valid List<RestRestrictionRequest> dto);
@@ -2458,9 +2796,9 @@ public interface ProjectApi {
     /**
      * Get a ref restriction.
      *
-     * Returns a restriction as specified by a restriction id.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission or higher to call this resource. Only
-     * authenticated users may call this resource.
+     * Returns a restriction as specified by a restriction id. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission or higher to call this resource. Only authenticated users may call this
+     * resource.
      *
      * @param projectKey The project key. (not null)
      * @param id         The restriction id. (not null)
@@ -2473,19 +2811,23 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A response containing the restriction.",
-                    content = @Content(schema = @Schema(implementation = RestRefRestriction.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = RestRefRestriction.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The request has failed validation.",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_400.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not permitted to get restrictions on the provided project",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_401.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "No restriction exists for the provided ID.",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_404.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_404.class)))
     })
     @Operation(summary = "Get a ref restriction")
     RestRefRestriction getRestriction(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
@@ -2493,9 +2835,9 @@ public interface ProjectApi {
     /**
      * Delete a ref restriction.
      *
-     * Deletes a restriction as specified by a restriction id.
-     * The authenticated user must have <strong>PROJECT_ADMIN</strong> permission or higher to call this resource. Only
-     * authenticated users may call this resource.
+     * Deletes a restriction as specified by a restriction id. The authenticated user must have
+     * <strong>PROJECT_ADMIN</strong> permission or higher to call this resource. Only authenticated users may call this
+     * resource.
      *
      * @param projectKey The project key. (not null)
      * @param id         The restriction id. (not null)
@@ -2509,11 +2851,15 @@ public interface ProjectApi {
             @APIResponse(
                     responseCode = "400",
                     description = "The request has failed validation.",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_400.class), mediaType = MediaType.APPLICATION_JSON)),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_400.class),
+                            mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user is not permitted to delete restrictions on the provided project",
-                    content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_401.class), mediaType = MediaType.APPLICATION_JSON))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_401.class),
+                            mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete a ref restriction")
     void deleteRestriction(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);

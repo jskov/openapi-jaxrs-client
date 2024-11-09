@@ -55,11 +55,13 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "A page of projects.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiTypesBitbucketArray.class))),
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiTypesBitbucketArray.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The permission level is unknown or not related to projects.",
-                    content = @Content(schema = @Schema(implementation = _ResponseApiTypesBitbucketArray_400.class)))
+                    content = @Content(
+                            schema = @Schema(implementation = _ResponseApiTypesBitbucketArray_400.class)))
     })
     _ResponseApiTypesBitbucketArray apiTypesBitbucketArrayGet();
 
@@ -174,7 +176,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY)))
     })
     List<Integer> apiTypesListGet();
 
@@ -190,7 +193,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = LocalDate.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = LocalDate.class, type = SchemaType.ARRAY)))
     })
     List<LocalDate> apiTypesListDateGet();
 
@@ -206,7 +210,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = OffsetDateTime.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = OffsetDateTime.class, type = SchemaType.ARRAY)))
     })
     List<OffsetDateTime> apiTypesListDatetimeGet();
 
@@ -222,7 +227,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
     })
     List<Simple> apiTypesListSimpleGet();
 
@@ -238,7 +244,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = LocalTime.class, type = SchemaType.ARRAY)))
     })
     List<LocalTime> apiTypesListTimeGet();
 
@@ -265,7 +272,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = String.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = String.class, type = SchemaType.ARRAY)))
     })
     Map<String, String> apiTypesMapGet();
 
@@ -281,7 +289,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
     })
     Map<String, Simple> apiTypesMapSimpleGet();
 
@@ -297,7 +306,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY, uniqueItems = true)))
+                    content = @Content(
+                            schema = @Schema(implementation = Integer.class, type = SchemaType.ARRAY, uniqueItems = true)))
     })
     Set<Integer> apiTypesSetGet();
 
@@ -313,7 +323,8 @@ public interface Api_TypesApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY, uniqueItems = true)))
+                    content = @Content(
+                            schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY, uniqueItems = true)))
     })
     Set<Simple> apiTypesSetSimpleGet();
 

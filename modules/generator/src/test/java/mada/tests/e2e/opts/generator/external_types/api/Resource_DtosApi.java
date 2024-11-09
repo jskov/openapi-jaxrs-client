@@ -57,7 +57,8 @@ public interface Resource_DtosApi {
             @APIResponse(
                     responseCode = "200",
                     description = "OK",
-                    content = @Content(schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Simple.class, type = SchemaType.ARRAY)))
     })
     List<Simple> dtosRemappedArrayMemberGet();
 }

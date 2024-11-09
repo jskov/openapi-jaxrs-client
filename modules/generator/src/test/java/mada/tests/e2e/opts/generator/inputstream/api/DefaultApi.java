@@ -33,7 +33,8 @@ public interface DefaultApi {
             @APIResponse(
                     responseCode = "default",
                     description = "default response",
-                    content = @Content(schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
     })
     List<Byte> getInfo(@PathParam("userId") @NotNull String userId);
 
@@ -50,7 +51,8 @@ public interface DefaultApi {
             @APIResponse(
                     responseCode = "default",
                     description = "default response",
-                    content = @Content(schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
+                    content = @Content(
+                            schema = @Schema(implementation = Byte.class, type = SchemaType.ARRAY)))
     })
     InputStream getPhoto(@PathParam("userId") @NotNull String userId);
 }
