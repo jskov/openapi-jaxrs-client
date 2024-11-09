@@ -26,7 +26,7 @@ public interface ManifestApi {
     /**
      * Get the manifest identified by `name` and `reference` where `reference` can be a tag or digest.
      *
-     * @param auth (not null)
+     * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference A tag or a digest, pointing to a specific image (not null)
      * @param accept    Accept header string delimited by comma. For example, application/vnd.docker.distribution.manifest.v2+json (optional)
@@ -49,7 +49,7 @@ public interface ManifestApi {
     /**
      * Put the manifest identified by `name` and `reference` where `reference` can be a tag or digest.
      *
-     * @param auth (not null)
+     * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference A tag or a digest, pointing to a specific image (not null)
      * @param dto       Manifest body, can take v1 or v2 values depending on accept header (not null)
@@ -73,7 +73,7 @@ public interface ManifestApi {
     /**
      * Delete the manifest identified by `name` and `reference`. Note that a manifest can _only_ be deleted by `digest`.
      *
-     * @param auth (not null)
+     * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference A tag or a digest, pointing to a specific image (not null)
      * @return AcrErrors

@@ -27,7 +27,7 @@ public interface AcrManifestApi {
     /**
      * List manifests of a repository.
      *
-     * @param auth (not null)
+     * @param auth    (not null)
      * @param name    Name of the image (including the namespace) (not null)
      * @param last    Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
      * @param n       query parameter for max number of items (optional)
@@ -51,7 +51,7 @@ public interface AcrManifestApi {
     /**
      * Get manifest attributes.
      *
-     * @param auth (not null)
+     * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference A tag or a digest, pointing to a specific image (not null)
      * @return ManifestAttributes
@@ -74,7 +74,7 @@ public interface AcrManifestApi {
     /**
      * Update attributes of a manifest.
      *
-     * @param auth (not null)
+     * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference A tag or a digest, pointing to a specific image (not null)
      * @param dto       Manifest attribute value (optional)

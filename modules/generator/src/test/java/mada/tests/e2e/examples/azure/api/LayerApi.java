@@ -24,7 +24,7 @@ public interface LayerApi {
     /**
      * Mount a blob identified by the `mount` parameter from another repository.
      *
-     * @param auth (not null)
+     * @param auth  (not null)
      * @param name  Name of the image (including the namespace) (not null)
      * @param from  Name of the source repository. (not null)
      * @param mount Digest of blob to mount from the source repository. (not null)
@@ -46,7 +46,7 @@ public interface LayerApi {
     /**
      * Retrieve the blob from the registry identified by digest.
      *
-     * @param auth (not null)
+     * @param auth   (not null)
      * @param name   Name of the image (including the namespace) (not null)
      * @param digest Digest of a BLOB (not null)
      * @return InputStream
@@ -72,7 +72,7 @@ public interface LayerApi {
     /**
      * Same as GET, except only the headers are returned.
      *
-     * @param auth (not null)
+     * @param auth   (not null)
      * @param name   Name of the image (including the namespace) (not null)
      * @param digest Digest of a BLOB (not null)
      * @return AcrErrors
@@ -97,7 +97,7 @@ public interface LayerApi {
     /**
      * Removes an already uploaded blob.
      *
-     * @param auth (not null)
+     * @param auth   (not null)
      * @param name   Name of the image (including the namespace) (not null)
      * @param digest Digest of a BLOB (not null)
      * @return AcrErrors
@@ -121,7 +121,7 @@ public interface LayerApi {
      * Retrieve status of upload identified by uuid. The primary purpose of this endpoint is to resolve the current
      * status of a resumable upload.
      *
-     * @param auth (not null)
+     * @param auth             (not null)
      * @param nextBlobUuidLink Link acquired from upload start or previous chunk. Note, do not include initial / (must do substring(1) ) (not null)
      * @return AcrErrors
      */
@@ -143,7 +143,7 @@ public interface LayerApi {
      * Complete the upload, providing all the data in the body, if necessary. A request without a body will just
      * complete the upload with previously uploaded content.
      *
-     * @param auth (not null)
+     * @param auth             (not null)
      * @param digest           Digest of a BLOB (not null)
      * @param nextBlobUuidLink Link acquired from upload start or previous chunk. Note, do not include initial / (must do substring(1) ) (not null)
      * @param dto              Optional raw data of blob (optional)
@@ -167,7 +167,7 @@ public interface LayerApi {
      * Cancel outstanding upload processes, releasing associated resources. If this is not called, the unfinished
      * uploads will eventually timeout.
      *
-     * @param auth (not null)
+     * @param auth             (not null)
      * @param nextBlobUuidLink Link acquired from upload start or previous chunk. Note, do not include initial / (must do substring(1) ) (not null)
      * @return AcrErrors
      */
@@ -188,7 +188,7 @@ public interface LayerApi {
     /**
      * Upload a stream of data without completing the upload.
      *
-     * @param auth (not null)
+     * @param auth             (not null)
      * @param nextBlobUuidLink Link acquired from upload start or previous chunk. Note, do not include initial / (must do substring(1) ) (not null)
      * @param dto              Raw data of blob (not null)
      * @return AcrErrors

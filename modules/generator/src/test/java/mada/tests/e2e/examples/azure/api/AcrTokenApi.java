@@ -50,7 +50,7 @@ public interface AcrTokenApi {
     /**
      * Exchange Username, Password and Scope an ACR Access Token.
      *
-     * @param auth (not null)
+     * @param auth    (not null)
      * @param service Indicates the name of your Azure container registry. (not null)
      * @param scope   Expected to be a valid scope, and can be specified more than once for multiple scope requests. You can obtain this from the Www-Authenticate response header from the challenge. (not null)
      * @return AccessToken

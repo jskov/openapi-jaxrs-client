@@ -27,7 +27,7 @@ public interface AcrTagApi {
     /**
      * List tags of a repository.
      *
-     * @param auth (not null)
+     * @param auth    (not null)
      * @param name    Name of the image (including the namespace) (not null)
      * @param last    Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
      * @param n       query parameter for max number of items (optional)
@@ -52,7 +52,7 @@ public interface AcrTagApi {
     /**
      * Get tag attributes by tag.
      *
-     * @param auth (not null)
+     * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference Tag name (not null)
      * @return TagAttributes
@@ -75,7 +75,7 @@ public interface AcrTagApi {
     /**
      * Delete tag.
      *
-     * @param auth (not null)
+     * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference Tag name (not null)
      * @return AcrErrors
@@ -97,7 +97,7 @@ public interface AcrTagApi {
     /**
      * Update tag attributes.
      *
-     * @param auth (not null)
+     * @param auth      (not null)
      * @param name      Name of the image (including the namespace) (not null)
      * @param reference Tag name (not null)
      * @param dto       Tag attribute value (optional)

@@ -341,27 +341,6 @@ public class ApiGenerator {
      */
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
         List<CtxApiParam> params = new ArrayList<>();
-        if (op.addAuthorizationHeader()) {
-            Optional<CtxValidation> valCtx = Optional.of(validationGenerator.makeRequired());
-            String validationNote = makeValidationNote(valCtx, true, false, false);
-            params.add(CtxApiParam.builder()
-                    .baseName("Authorization")
-                    .paramName(AUTH_PARAM_NAME)
-                    .indentation(" ")
-                    .validationNote(validationNote)
-                    .dataType(Primitive.STRING.typeName().name())
-                    .isContainer(false)
-                    .isBodyParam(false)
-                    .isFormParam(false)
-                    .isHeaderParam(true)
-                    .isPathParam(false)
-                    .isQueryParam(false)
-                    .validation(valCtx)
-                    .isMultipartForm(false)
-                    .isNullable(false)
-                    .build());
-        }
-
         List<String> paramNames = op.parameters().stream()
                 .map(Parameter::name)
                 .map(naming::convertParameterName)
@@ -401,6 +380,27 @@ public class ApiGenerator {
 //        }
         int indentJavadocTextBy = longestParameterName;
 
+        if (op.addAuthorizationHeader()) {
+            Optional<CtxValidation> valCtx = Optional.of(validationGenerator.makeRequired());
+            String validationNote = makeValidationNote(valCtx, true, false, false);
+            params.add(CtxApiParam.builder()
+                    .baseName("Authorization")
+                    .paramName(AUTH_PARAM_NAME)
+                    .indentation(" ".repeat(indentJavadocTextBy - AUTH_PARAM_NAME.length()))
+                    .validationNote(validationNote)
+                    .dataType(Primitive.STRING.typeName().name())
+                    .isContainer(false)
+                    .isBodyParam(false)
+                    .isFormParam(false)
+                    .isHeaderParam(true)
+                    .isPathParam(false)
+                    .isQueryParam(false)
+                    .validation(valCtx)
+                    .isMultipartForm(false)
+                    .isNullable(false)
+                    .build());
+        }
+
         for (Parameter p : op.parameters()) {
             Reference ref = p.reference();
             imports.add(ref);
@@ -428,7 +428,7 @@ public class ApiGenerator {
 
             boolean required = validation.isRequired().orElse(false);
             logger.info(" XX {} : required:{} / nullable:{}", name, required, isNullable);
-            
+
 //            * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#validation}}{{#notNull}} (not null){{/notNull}}{{^notNull}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/notNull}}{{/validation}}
 
             String validationNote = makeValidationNote(valCtx, required, isNullable, p.description().isPresent());
@@ -453,7 +453,7 @@ public class ApiGenerator {
             logger.debug("PARAM {} : {}", name, p.isFormParam());
             params.add(param);
         }
-        
+
         op.requestBody().ifPresent(body -> {
             Reference ref = body.content().reference();
             imports.add(ref);
@@ -502,8 +502,7 @@ public class ApiGenerator {
 
     private String makeValidationNote(Optional<CtxValidation> valCtx, boolean isRequired, boolean isNullable, boolean hasDescription) {
         String validationNote = "";
-        
-        
+
         if (valCtx.isPresent()) {
             logger.info("See VAL: {}", valCtx);
             if (!isRequired) {

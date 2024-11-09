@@ -67,7 +67,7 @@ public final class StringRenderer {
             System.out.println(" '" + commentIndent + "' : " + Base64.getEncoder().encodeToString(textIn.getBytes()));
             System.out.println("" + textIn);
         }
-        
+
         String text = textIn;
 
         // Make sure there is sentence
@@ -104,6 +104,7 @@ public final class StringRenderer {
 
     private static final int MAX_LINE_WIDTH = 120;
     private static final int LINE_BREAK_LENGTH = MAX_LINE_WIDTH - JAVADOC_PREFIX.length() - 1;
+
     private static String shorten(String s, int indent) {
         int currentLineLength = indent;
         StringBuilder sb = new StringBuilder();
