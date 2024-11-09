@@ -362,11 +362,10 @@ public class ApiGenerator {
                     .build());
         }
 
-        List<String> paramNames = op.parameters().stream().map(Parameter::name).toList();
-        int propNameLengths = paramNames.stream()
-            .mapToInt(String::length)
-            .max()
-            .orElse(0);
+        List<String> paramNames = op.parameters().stream()
+                .map(Parameter::name)
+                .map(naming::convertParameterName)
+                .toList();
 
         Optional<String> bodyParamName = op.requestBody()
                 .map(body -> {
@@ -379,14 +378,28 @@ public class ApiGenerator {
                     return dtoParamNameNotUnique ? preferredDtoParamName + "Entity" : preferredDtoParamName;
                 });
 
+        List<String> allParamNames = new ArrayList<>(paramNames);
+        bodyParamName.ifPresent(allParamNames::add);
+        if (op.addAuthorizationHeader()) {
+            allParamNames.add(AUTH_PARAM_NAME);
+        }
+
+        int longestParameterName = allParamNames.stream()
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
+
+        logger.info("All parameter names (max length:{}): {}", longestParameterName, allParamNames);
+        longestParameterName += 1; // always want one space between the longest name and the description
+
         int bodyParamNameLength = bodyParamName.orElse("").length();
-        if (propNameLengths <= bodyParamNameLength) {
-            propNameLengths = bodyParamNameLength + 1;
-        }
-        if (op.addAuthorizationHeader() && propNameLengths <= AUTH_PARAM_NAME.length()) {
-            propNameLengths = AUTH_PARAM_NAME.length() + 1;
-        }
-        int indentJavadocTextBy = propNameLengths;
+//        if (longestParameterName < bodyParamNameLength) {
+//            longestParameterName = bodyParamNameLength + 1;
+//        }
+//        if (op.addAuthorizationHeader() && longestParameterName < AUTH_PARAM_NAME.length()) {
+//            longestParameterName = AUTH_PARAM_NAME.length() + 1;
+//        }
+        int indentJavadocTextBy = longestParameterName;
 
         for (Parameter p : op.parameters()) {
             Reference ref = p.reference();
@@ -435,7 +448,6 @@ public class ApiGenerator {
             logger.debug("PARAM {} : {}", name, p.isFormParam());
             params.add(param);
         }
-
         
         op.requestBody().ifPresent(body -> {
             Reference ref = body.content().reference();
@@ -446,7 +458,7 @@ public class ApiGenerator {
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
 
             boolean notNull = valCtx.map(CtxValidation::notNull).orElse(true);
-            String validationNote = makeValidationNote(valCtx, !notNull, body.description().isPresent());
+            String validationNote = makeValidationNote(valCtx, !notNull, body.description().map(s -> !s.isBlank()).orElse(false));
 
             boolean isMultipartForm = body.isMultipartForm();
             if (isMultipartForm) {
