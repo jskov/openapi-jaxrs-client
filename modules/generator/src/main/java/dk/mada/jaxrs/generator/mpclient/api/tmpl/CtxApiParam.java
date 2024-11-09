@@ -22,9 +22,6 @@ public interface CtxApiParam {
     /** {@return an optional description of the parameter} */
     Optional<String> description();
 
-    /** {@return the indentation to use in javadoc description} */
-    String indentation();
-
     /** {@return the (correctly formatted) validation notes for this parameter} */
     String validationNote();
 
@@ -63,4 +60,11 @@ public interface CtxApiParam {
 
     /** {@return true if this parameter is nullable} */
     boolean isNullable();
+
+    /** {@return the indentation to use for the javadoc description} */
+    String javadocIndentation();
+
+    /** {@return the indentation to use in the function. This may include a newline} */
+    Optional<String> functionIndentation();
+
 }

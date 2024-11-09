@@ -389,7 +389,8 @@ public class ApiGenerator {
             params.add(CtxApiParam.builder()
                     .baseName("Authorization")
                     .paramName(AUTH_PARAM_NAME)
-                    .indentation(" ".repeat(indentJavadocTextBy - AUTH_PARAM_NAME.length()))
+                    .javadocIndentation(" ".repeat(indentJavadocTextBy - AUTH_PARAM_NAME.length()))
+                    .functionIndentation(Optional.empty())
                     .validationNote(validationNote)
                     .dataType(Primitive.STRING.typeName().name())
                     .isContainer(false)
@@ -404,6 +405,7 @@ public class ApiGenerator {
                     .build());
         }
 
+        int column = 0;
         for (Parameter p : op.parameters()) {
             Reference ref = p.reference();
             imports.add(ref);
@@ -434,13 +436,18 @@ public class ApiGenerator {
 
 //            * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#validation}}{{#notNull}} (not null){{/notNull}}{{^notNull}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/notNull}}{{/validation}}
 
+            // FIXME: need to match rendering templates for size checking
+            column += 1;
+            String indent = column == 3 ? "\n            " : null;
+
             String validationNote = makeValidationNote(valCtx, required, isNullable, p.description().isPresent());
             ImmutableCtxApiParam param = CtxApiParam.builder()
                     .baseName(name)
                     .paramName(paramName)
                     .dataType(dataType)
                     .validation(valCtx)
-                    .indentation(" ".repeat(indentJavadocTextBy - paramName.length()))
+                    .javadocIndentation(" ".repeat(indentJavadocTextBy - paramName.length()))
+                    .functionIndentation(Optional.ofNullable(indent))
                     .description(p.description())
                     .validationNote(validationNote)
                     .isContainer(false)
@@ -478,7 +485,8 @@ public class ApiGenerator {
                     .dataType(dataType)
                     .validation(valCtx)
                     .description(body.description())
-                    .indentation(" ".repeat(indentJavadocTextBy - bodyParamNameLength))
+                    .javadocIndentation(" ".repeat(indentJavadocTextBy - bodyParamNameLength))
+                    .functionIndentation(Optional.empty())
                     .validationNote(validationNote)
                     .isContainer(false)
                     .isBodyParam(true)

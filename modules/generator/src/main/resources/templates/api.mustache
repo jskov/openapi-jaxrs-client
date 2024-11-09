@@ -35,7 +35,7 @@ public interface {{classname}} {
      *
 {{/madaOp.renderJavadocMacroSpacer}}
 {{#allParams}}
-     * @param {{paramName}}{{indentation}}{{#description}}{{description}}{{/description}}{{validationNote}}
+     * @param {{paramName}}{{javadocIndentation}}{{#description}}{{description}}{{/description}}{{validationNote}}
 {{/allParams}}
 {{#madaOp.renderJavadocReturn}}
      * @return {{returnType}}
@@ -75,7 +75,7 @@ public interface {{classname}} {
     {{#madaOp.summaryString}}
     @Operation(summary = "{{{madaOp.summaryString}}}")
     {{/madaOp.summaryString}}
-    {{>returnTypes}} {{nickname}}({{#allParams}}{{>formParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
+    {{>returnTypes}} {{nickname}}({{#allParams}}{{functionIndentation}}{{>formParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{^-last}}, {{/-last}}{{/allParams}});
     {{/operation}}
 {{/operations}}
 }
