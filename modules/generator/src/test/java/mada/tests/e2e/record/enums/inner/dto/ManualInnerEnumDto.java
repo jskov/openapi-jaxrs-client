@@ -76,9 +76,7 @@ public record ManualInnerEnumDto(
 
 
   /**
-   * This selects transport form.
-   * EMAIL = this is an email
-   * SMS : this is an SMS
+   * This selects transport form. EMAIL = this is an email SMS : this is an SMS
    */
   public enum StringTypeEnum {
     EMAIL("EMAIL"),

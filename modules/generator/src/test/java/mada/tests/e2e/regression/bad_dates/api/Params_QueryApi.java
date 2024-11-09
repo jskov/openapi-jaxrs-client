@@ -29,6 +29,5 @@ public interface Params_QueryApi {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
-    String apiParamsQueryDatesGet(@QueryParam("date") LocalDate date, @QueryParam("date-time") OffsetDateTime dateTime,
-            @QueryParam("time") String time);
+    String apiParamsQueryDatesGet(@QueryParam("date") LocalDate date, @QueryParam("date-time") OffsetDateTime dateTime, @QueryParam("time") String time);
 }

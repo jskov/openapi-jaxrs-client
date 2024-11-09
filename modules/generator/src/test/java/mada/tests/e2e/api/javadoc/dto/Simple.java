@@ -13,10 +13,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * What is it:
- * - with these weird line breaks?
- * - just different YAML syntax?
- * - maybe �ndret
+ * What is it: - with these weird line breaks? - just different YAML syntax? - maybe �ndret
  */
 @Schema(description = "What is it:\r\n- with these weird line breaks?\r\n- just different YAML syntax?\r\n- maybe �ndret")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")

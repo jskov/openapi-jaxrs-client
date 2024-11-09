@@ -23,7 +23,7 @@ public interface Params_QueryApi {
     /**
      * apiParamsQueryBooleanPrimitiveGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @return String
      */
     @GET
@@ -35,7 +35,7 @@ public interface Params_QueryApi {
     /**
      * apiParamsQueryBooleanWrapperGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @return String
      */
     @GET
@@ -56,8 +56,7 @@ public interface Params_QueryApi {
     @Path("/dates")
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
-    String apiParamsQueryDatesGet(@QueryParam("date") @Nullable LocalDate date, @QueryParam("date-time") @Nullable OffsetDateTime dateTime,
-            @QueryParam("time") @Nullable String time);
+    String apiParamsQueryDatesGet(@QueryParam("date") @Nullable LocalDate date, @QueryParam("date-time") @Nullable OffsetDateTime dateTime, @QueryParam("time") @Nullable String time);
 
     /**
      * apiParamsQueryListGet.
@@ -74,7 +73,7 @@ public interface Params_QueryApi {
     /**
      * apiParamsQueryMixedGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @param item (optional)
      * @param name (optional)
      * @return String
@@ -83,6 +82,5 @@ public interface Params_QueryApi {
     @Path("/mixed")
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
-    String apiParamsQueryMixedGet(@QueryParam("flag") boolean flag, @QueryParam("item") @Nullable List<String> item,
-            @QueryParam("name") @Nullable String name);
+    String apiParamsQueryMixedGet(@QueryParam("flag") boolean flag, @QueryParam("item") @Nullable List<String> item, @QueryParam("name") @Nullable String name);
 }

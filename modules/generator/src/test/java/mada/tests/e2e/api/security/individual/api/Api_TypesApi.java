@@ -22,7 +22,9 @@ public interface Api_TypesApi {
     @GET
     @Path("/off")
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "No Content")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "No Content")
     })
     void apiSecurityOffGet();
 
@@ -34,7 +36,9 @@ public interface Api_TypesApi {
     @GET
     @Path("/on")
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "No Content")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "No Content")
     })
     void apiSecurityOnGet(@HeaderParam("Authorization") String auth);
 }

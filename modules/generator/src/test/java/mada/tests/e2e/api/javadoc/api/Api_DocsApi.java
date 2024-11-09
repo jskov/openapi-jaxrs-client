@@ -27,7 +27,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface Api_DocsApi {
 
     /**
-     * op summary? with punctuation op description
+     * op summary? with punctuation
+     *
+     * op description.
      *
      * @return String
      */
@@ -52,7 +54,6 @@ public interface Api_DocsApi {
 
     /**
      * Javadoc start. But multiple lines of text.
-     *
      * Last line.
      *
      * @return String
@@ -114,11 +115,12 @@ public interface Api_DocsApi {
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
     @Operation(summary = "op is missing punctuation")
-    String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query,
-            @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item, @Valid Simple dto);
+    String apiDocsParamsInPathGet(@PathParam("in-path") @NotNull String inPath, @QueryParam("query") String query, @QueryParam("query-deprecated") String queryDeprecated, @HeaderParam("item") List<String> item, @Valid Simple dto);
 
     /**
-     * Summary with "quote" 'quote'. Description with "quote" 'quote'
+     * Summary with "quote" 'quote'.
+     *
+     * Description with "quote" 'quote'.
      *
      * @return String
      */

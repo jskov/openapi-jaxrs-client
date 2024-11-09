@@ -29,9 +29,15 @@ public interface TemplatesApi {
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @APIResponses({
-            @APIResponse(responseCode = "201", description = "Created"),
-            @APIResponse(responseCode = "401", description = "Not Authorized"),
-            @APIResponse(responseCode = "403", description = "Not Allowed")
+            @APIResponse(
+                    responseCode = "201",
+                    description = "Created"),
+            @APIResponse(
+                    responseCode = "401",
+                    description = "Not Authorized"),
+            @APIResponse(
+                    responseCode = "403",
+                    description = "Not Allowed")
     })
     void apiMethodsCreatePost(@MultipartForm @NotNull @Valid MultipartApiMethodsCreatePost dto);
 }

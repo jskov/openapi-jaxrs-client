@@ -27,7 +27,9 @@ public interface TagApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "Success")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "Success")
     })
     void addPost(@HeaderParam("Authorization") String auth, @Valid PropDto dto);
 
@@ -40,7 +42,9 @@ public interface TagApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "Success")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "Success")
     })
     void addPut(@HeaderParam("Authorization") String auth, @Valid NoPropsDto dto);
 }

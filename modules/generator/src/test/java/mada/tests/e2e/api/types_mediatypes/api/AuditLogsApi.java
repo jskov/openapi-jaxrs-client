@@ -41,9 +41,7 @@ public interface AuditLogsApi {
             @APIResponse(
                     responseCode = "400",
                     description = "Constraints violation",
-                    content = @Content(
-                            schema = @Schema(implementation = ViolationConstraint.class),
-                            mediaType = "application/x.auditlog.violations+json;version=v1")),
+                    content = @Content(schema = @Schema(implementation = ViolationConstraint.class), mediaType = "application/x.auditlog.violations+json;version=v1")),
             @APIResponse(
                     responseCode = "401",
                     description = "Another failure with single non-default media-type",
@@ -51,9 +49,7 @@ public interface AuditLogsApi {
             @APIResponse(
                     responseCode = "500",
                     description = "Internal error or backend failure",
-                    content = @Content(
-                            schema = @Schema(implementation = ExceptionInformation.class),
-                            mediaType = "application/x.auditlog.error+json;version=v1"))
+                    content = @Content(schema = @Schema(implementation = ExceptionInformation.class), mediaType = "application/x.auditlog.error+json;version=v1"))
     })
     @Operation(summary = "adds an audit log")
     LogResult addEntryV1(@Valid LogEntry dto);
@@ -66,13 +62,13 @@ public interface AuditLogsApi {
     @DELETE
     @Consumes("application/vnd.auditlog.entry+json;version=v1")
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "Successfully deleted"),
+            @APIResponse(
+                    responseCode = "204",
+                    description = "Successfully deleted"),
             @APIResponse(
                     responseCode = "400",
                     description = "Constraints violation",
-                    content = @Content(
-                            schema = @Schema(implementation = ViolationConstraint.class),
-                            mediaType = "application/x.auditlog.violations+json;version=v1"))
+                    content = @Content(schema = @Schema(implementation = ViolationConstraint.class), mediaType = "application/x.auditlog.violations+json;version=v1"))
     })
     @Operation(summary = "deletes an audit log")
     void deleteEntryV1(@Valid LogEntry dto);

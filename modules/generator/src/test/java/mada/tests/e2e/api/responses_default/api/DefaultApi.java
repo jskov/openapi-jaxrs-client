@@ -45,7 +45,9 @@ public interface DefaultApi {
     @Path("getNoOutputType")
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponses({
-            @APIResponse(responseCode = "default", description = "default response")
+            @APIResponse(
+                    responseCode = "default",
+                    description = "default response")
     })
     void getNoOutputType(@PathParam("foo") @NotNull String foo);
 
@@ -82,7 +84,9 @@ public interface DefaultApi {
                     responseCode = "default",
                     description = "default response",
                     content = @Content(schema = @Schema(implementation = String.class))),
-            @APIResponse(responseCode = "200", description = "OK")
+            @APIResponse(
+                    responseCode = "200",
+                    description = "OK")
     })
     String getOkWithTypeFromDefault();
 
@@ -92,7 +96,9 @@ public interface DefaultApi {
     @GET
     @Path("getOkWithVoid")
     @APIResponses({
-            @APIResponse(responseCode = "200", description = "OK")
+            @APIResponse(
+                    responseCode = "200",
+                    description = "OK")
     })
     void getOkWithVoid();
 }

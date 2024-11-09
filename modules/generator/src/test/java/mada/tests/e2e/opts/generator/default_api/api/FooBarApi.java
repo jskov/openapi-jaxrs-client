@@ -27,7 +27,9 @@ public interface FooBarApi {
     @Path("/DELETE")
     @Consumes(MediaType.APPLICATION_JSON)
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "No Content")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "No Content")
     })
     void apiMethodsDELETEDelete(String dto);
 

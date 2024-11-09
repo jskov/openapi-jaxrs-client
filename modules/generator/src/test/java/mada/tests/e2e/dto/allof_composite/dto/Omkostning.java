@@ -27,7 +27,10 @@ public class Omkostning {
   }
 
   /**
-   * Nummeret på gebyrnotaen, som de underliggende gebyrer hører til.<br>Hvis pakken er fra boligvejviseren, vil rådgiveren IKKE kunne ændre på omkostningerne i Kreditsagen. Derfor er det et krav, at alle oplysninger omkring omkostninger bliver sendt ind via API’et, hvis der skal bogføres omkostninger på den enkelte facilitet.<br>Format: Number(3)
+   * Nummeret på gebyrnotaen, som de underliggende gebyrer hører til.<br>Hvis pakken er fra boligvejviseren, vil
+   * rådgiveren IKKE kunne ændre på omkostningerne i Kreditsagen. Derfor er det et krav, at alle oplysninger omkring
+   * omkostninger bliver sendt ind via API’et, hvis der skal bogføres omkostninger på den enkelte facilitet.<br>Format:
+   * Number(3)
    *
    * @return notanr
    **/

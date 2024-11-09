@@ -23,7 +23,9 @@ public interface Api_TypesApi {
      */
     @GET
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "No Content")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "No Content")
     })
     void apiTypesVoidGet(@HeaderParam("Authorization") String auth);
 }

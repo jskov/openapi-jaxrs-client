@@ -57,9 +57,7 @@ public class DocsDto {
   }
 
   /**
-   * Property description.
-   * Property description line 2
-   *
+   * Property description. Property description line 2
    * Last line.
    *
    * @return dosProperty
@@ -78,9 +76,7 @@ public class DocsDto {
   }
 
   /**
-   * Property description.
-   * Property description line 2
-   *
+   * Property description. Property description line 2
    * Last line.
    *
    * @return property

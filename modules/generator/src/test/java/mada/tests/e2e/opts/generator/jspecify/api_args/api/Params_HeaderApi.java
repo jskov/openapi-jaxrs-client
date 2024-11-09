@@ -21,7 +21,7 @@ public interface Params_HeaderApi {
     /**
      * apiParamsHeaderBooleanPrimitiveGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @return String
      */
     @GET
@@ -33,7 +33,7 @@ public interface Params_HeaderApi {
     /**
      * apiParamsHeaderBooleanWrapperGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @return String
      */
     @GET
@@ -45,7 +45,7 @@ public interface Params_HeaderApi {
     /**
      * apiParamsHeaderInvalidNameDashesGet.
      *
-     * @param invalidValue (optional)
+     * @param invalidValue (not null)
      * @return String
      */
     @GET
@@ -69,7 +69,7 @@ public interface Params_HeaderApi {
     /**
      * apiParamsHeaderMixedGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @param item (optional)
      * @param name (optional)
      * @return String
@@ -78,6 +78,5 @@ public interface Params_HeaderApi {
     @Path("/mixed")
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
-    String apiParamsHeaderMixedGet(@HeaderParam("flag") boolean flag, @HeaderParam("item") @Nullable List<String> item,
-            @HeaderParam("name") @Nullable String name);
+    String apiParamsHeaderMixedGet(@HeaderParam("flag") boolean flag, @HeaderParam("item") @Nullable List<String> item, @HeaderParam("name") @Nullable String name);
 }

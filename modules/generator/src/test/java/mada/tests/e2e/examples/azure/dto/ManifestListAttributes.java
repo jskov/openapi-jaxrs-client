@@ -60,7 +60,8 @@ public class ManifestListAttributes {
   }
 
   /**
-   * The MIME type of the referenced object. This will generally be application/vnd.docker.image.manifest.v2+json, but it could also be application/vnd.docker.image.manifest.v1+json
+   * The MIME type of the referenced object. This will generally be application/vnd.docker.image.manifest.v2+json, but
+   * it could also be application/vnd.docker.image.manifest.v1+json
    *
    * @return mediaType
    **/

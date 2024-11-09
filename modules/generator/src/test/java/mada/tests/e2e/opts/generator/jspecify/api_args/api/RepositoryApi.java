@@ -18,7 +18,9 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 public interface RepositoryApi {
 
     /**
-     * Get branch. Gets the branch information associated with a single commit from a given repository.
+     * Get branch.
+     *
+     * Gets the branch information associated with a single commit from a given repository.
      *
      * @param projectKey The project key. (not null)
      * @param commitId   (not null)

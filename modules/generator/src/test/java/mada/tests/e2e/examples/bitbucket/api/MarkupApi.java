@@ -31,16 +31,15 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface MarkupApi {
 
     /**
-     * Preview markdown render. Preview generated HTML for the given markdown content.
-     * 
+     * Preview markdown render.
+     *
+     * Preview generated HTML for the given markdown content.
      * Only authenticated users may call this resource.
      *
      * @param htmlEscape       (Optional) true if HTML should be escaped in the input markup, false otherwise. (optional)
-     * @param urlMode          (Optional) The mode to use when building URLs. One of: ABSOLUTE, RELATIVE or, CONFIGURED. By
-     *                         default this is RELATIVE. (optional)
+     * @param urlMode          (Optional) The mode to use when building URLs. One of: ABSOLUTE, RELATIVE or, CONFIGURED. By default this is RELATIVE. (optional)
      * @param includeHeadingId (Optional) true if headers should contain an ID based on the heading content. (optional)
-     * @param hardwrap         (Optional) Whether the markup implementation should convert newlines to breaks. By default
-     *                         this is false which reflects the standard markdown specification. (optional)
+     * @param hardwrap         (Optional) Whether the markup implementation should convert newlines to breaks. By default this is false which reflects the standard markdown specification. (optional)
      * @param dto              (optional)
      * @return RestMarkup
      */
@@ -62,6 +61,5 @@ public interface MarkupApi {
                     content = @Content(schema = @Schema(implementation = _ResponseApiLatestMarkupPreview_401.class)))
     })
     @Operation(summary = "Preview markdown render")
-    RestMarkup preview(@QueryParam("htmlEscape") String htmlEscape, @QueryParam("urlMode") String urlMode,
-            @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap, String dto);
+    RestMarkup preview(@QueryParam("htmlEscape") String htmlEscape, @QueryParam("urlMode") String urlMode, @QueryParam("includeHeadingId") String includeHeadingId, @QueryParam("hardwrap") String hardwrap, String dto);
 }

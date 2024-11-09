@@ -29,7 +29,8 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRepositoryPolicy {
   /**
-   * The permission required to delete repositories. Must be one of: "SYS_ADMIN", "ADMIN", "PROJECT_ADMIN", "REPO_ADMIN".
+   * The permission required to delete repositories. Must be one of: "SYS_ADMIN", "ADMIN", "PROJECT_ADMIN",
+   * "REPO_ADMIN".
    */
   public enum PermissionEnum {
     SYS_ADMIN("SYS_ADMIN"),
@@ -82,7 +83,8 @@ public class RestRepositoryPolicy {
   }
 
   /**
-   * The permission required to delete repositories. Must be one of: "SYS_ADMIN", "ADMIN", "PROJECT_ADMIN", "REPO_ADMIN".
+   * The permission required to delete repositories. Must be one of: "SYS_ADMIN", "ADMIN", "PROJECT_ADMIN",
+   * "REPO_ADMIN".
    *
    * @return permission
    **/

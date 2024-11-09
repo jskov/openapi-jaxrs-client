@@ -20,7 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface V2Api {
 
     /**
-     * Tells whether this Docker Registry instance supports Docker Registry HTTP API v2
+     * Tells whether this Docker Registry instance supports Docker Registry HTTP API v2.
      *
      * @param auth (not null)
      * @return AcrErrors
@@ -32,7 +32,9 @@ public interface V2Api {
                     responseCode = "default",
                     description = "ACR error response describing why the operation failed.",
                     content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-            @APIResponse(responseCode = "200", description = "Successful response. API v2 supported")
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Successful response. API v2 supported")
     })
     AcrErrors V2Support_Check(@HeaderParam("Authorization") String auth);
 }

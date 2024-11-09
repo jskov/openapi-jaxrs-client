@@ -367,7 +367,9 @@ public interface Api_TypesApi {
     @GET
     @Path("/void")
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "No Content")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "No Content")
     })
     void apiTypesVoidGet();
 }

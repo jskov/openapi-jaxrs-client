@@ -14,7 +14,8 @@ import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * The platform object describes the platform which the image in the manifest runs on. A full list of valid operating system and architecture values are listed in the Go language documentation for $GOOS and $GOARCH
+ * The platform object describes the platform which the image in the manifest runs on. A full list of valid operating
+ * system and architecture values are listed in the Go language documentation for $GOOS and $GOARCH
  */
 @Schema(description = "The platform object describes the platform which the image in the manifest runs on. A full list of valid operating system and architecture values are listed in the Go language documentation for $GOOS and $GOARCH")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
@@ -81,7 +82,8 @@ public class Platform {
   }
 
   /**
-   * The optional features field specifies an array of strings, each listing a required CPU feature (for example sse4 or aes.
+   * The optional features field specifies an array of strings, each listing a required CPU feature (for example sse4 or
+   * aes.
    *
    * @return features
    **/
@@ -125,7 +127,8 @@ public class Platform {
   }
 
   /**
-   * The optional os.features field specifies an array of strings, each listing a required OS feature (for example on Windows win32k
+   * The optional os.features field specifies an array of strings, each listing a required OS feature (for example on
+   * Windows win32k
    *
    * @return os_features
    **/
@@ -161,7 +164,8 @@ public class Platform {
   }
 
   /**
-   * The optional variant field specifies a variant of the CPU, for example armv6l to specify a particular CPU variant of the ARM CPU.
+   * The optional variant field specifies a variant of the CPU, for example armv6l to specify a particular CPU variant
+   * of the ARM CPU.
    *
    * @return variant
    **/

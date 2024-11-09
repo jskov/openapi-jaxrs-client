@@ -33,7 +33,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface System_SigningApi {
 
     /**
-     * Get system signing configuration. Gets the configuration details for system signing Git objects.
+     * Get system signing configuration.
+     *
+     * Gets the configuration details for system signing Git objects.
      *
      * @return RestSystemSigningConfiguration
      */
@@ -53,7 +55,9 @@ public interface System_SigningApi {
     RestSystemSigningConfiguration getSystemSigningConfiguration();
 
     /**
-     * Update system signing configuration. Updates the configuration for system signing Git objects.
+     * Update system signing configuration.
+     *
+     * Updates the configuration for system signing Git objects.
      *
      * @param dto (optional)
      * @return RestSystemSigningConfiguration

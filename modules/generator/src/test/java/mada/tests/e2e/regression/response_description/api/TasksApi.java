@@ -18,13 +18,17 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface TasksApi {
 
     /**
-     * Delete a task. Delete a task.
+     * Delete a task.
+     *
+     * Delete a task.
      *
      * @param auth (not null)
      */
     @DELETE
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "")
     })
     @Operation(summary = "Delete a task.")
     void deleteTask(@HeaderParam("Authorization") String auth);

@@ -25,28 +25,36 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface DefaultApi {
 
     /**
-     * Get pull requests in inbox. Returns a page of pull requests in the user's inbox.
+     * Get pull requests in inbox.
+     *
+     * Returns a page of pull requests in the user's inbox.
      *
      * @param role  (optional)
-     * @param limit (optional)
-     * @param start (optional)
+     * @param limit (not null)
+     * @param start (not null)
      */
     @GET
     @Produces("application/json;charset=UTF-8")
     @APIResponses({
-            @APIResponse(responseCode = "default", description = "default response")
+            @APIResponse(
+                    responseCode = "default",
+                    description = "default response")
     })
     @Operation(summary = "Get pull requests in inbox")
     void getPullRequests_2(@QueryParam("role") String role, @QueryParam("limit") int limit, @QueryParam("start") int start);
 
     /**
-     * Get total number of pull requests in inbox. Returns the total number of pull requests in the user's inbox
+     * Get total number of pull requests in inbox.
+     *
+     * Returns the total number of pull requests in the user's inbox.
      */
     @GET
     @Path("/count")
     @Produces("application/json;charset=UTF-8")
     @APIResponses({
-            @APIResponse(responseCode = "default", description = "default response")
+            @APIResponse(
+                    responseCode = "default",
+                    description = "default response")
     })
     @Operation(summary = "Get total number of pull requests in inbox")
     void getPullRequestCount();

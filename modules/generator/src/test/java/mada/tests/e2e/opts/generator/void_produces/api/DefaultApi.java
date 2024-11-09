@@ -28,7 +28,9 @@ public interface DefaultApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.WILDCARD)
     @APIResponses({
-            @APIResponse(responseCode = "204", description = "No Content")
+            @APIResponse(
+                    responseCode = "204",
+                    description = "No Content")
     })
     void apiMethodsDELETEDelete(String dto);
 

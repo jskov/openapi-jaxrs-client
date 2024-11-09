@@ -26,12 +26,11 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface AcrRepositoryApi {
 
     /**
-     * List repositories
+     * List repositories.
      *
      * @param auth (not null)
-     * @param last Query parameter for the last item in previous query. Result set will include values lexically after last.
-     *             (optional)
-     * @param n    query parameter for max number of items (optional)
+     * @param last Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
+     * @param n    query parameter for max number of items (not null)
      * @return Repositories
      */
     @GET
@@ -50,7 +49,7 @@ public interface AcrRepositoryApi {
     Repositories Repository_GetList(@HeaderParam("Authorization") String auth, @QueryParam("last") String last, @QueryParam("n") short n);
 
     /**
-     * Get repository attributes
+     * Get repository attributes.
      *
      * @param auth (not null)
      * @param name Name of the image (including the namespace) (not null)
@@ -72,7 +71,7 @@ public interface AcrRepositoryApi {
     RepositoryAttributes Repository_GetAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name);
 
     /**
-     * Delete the repository identified by `name`
+     * Delete the repository identified by `name`.
      *
      * @param auth (not null)
      * @param name Name of the image (including the namespace) (not null)
@@ -110,8 +109,9 @@ public interface AcrRepositoryApi {
                     responseCode = "default",
                     description = "ACR error response describing why the operation failed.",
                     content = @Content(schema = @Schema(implementation = AcrErrors.class))),
-            @APIResponse(responseCode = "200", description = "The attributes are updated")
+            @APIResponse(
+                    responseCode = "200",
+                    description = "The attributes are updated")
     })
-    AcrErrors Repository_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
-            @Valid RepositoryChangeableAttributes dto);
+    AcrErrors Repository_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @Valid RepositoryChangeableAttributes dto);
 }

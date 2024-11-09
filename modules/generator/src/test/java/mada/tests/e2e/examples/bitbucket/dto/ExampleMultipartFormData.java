@@ -91,7 +91,8 @@ public class ExampleMultipartFormData {
   }
 
   /**
-   * The message associated with this change, to be used as the commit message. Or null if the default message should be used.
+   * The message associated with this change, to be used as the commit message. Or null if the default message should be
+   * used.
    *
    * @return message
    **/
@@ -109,7 +110,8 @@ public class ExampleMultipartFormData {
   }
 
   /**
-   * The starting point for <code>branch</code>. If provided and different from <code>branch</code>, <code>branch</code> will be created as a new branch, branching off from <code>sourceBranch</code>.
+   * The starting point for <code>branch</code>. If provided and different from <code>branch</code>, <code>branch</code>
+   * will be created as a new branch, branching off from <code>sourceBranch</code>.
    *
    * @return sourceBranch
    **/
@@ -127,7 +129,8 @@ public class ExampleMultipartFormData {
   }
 
   /**
-   * The commit ID of the file before it was edited, used to identify if content has changed. Or null if this is a new file
+   * The commit ID of the file before it was edited, used to identify if content has changed. Or null if this is a new
+   * file
    *
    * @return sourceCommitId
    **/

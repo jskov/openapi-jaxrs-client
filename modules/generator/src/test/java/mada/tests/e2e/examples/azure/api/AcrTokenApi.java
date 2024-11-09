@@ -26,7 +26,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public interface AcrTokenApi {
 
     /**
-     * Exchange AAD tokens for an ACR refresh Token
+     * Exchange AAD tokens for an ACR refresh Token.
      *
      * @param dto (not null)
      * @return RefreshToken
@@ -48,12 +48,11 @@ public interface AcrTokenApi {
     RefreshToken RefreshTokens_GetFromExchange(@NotNull @Valid _RequestOauth2Exchange dto);
 
     /**
-     * Exchange Username, Password and Scope an ACR Access Token
+     * Exchange Username, Password and Scope an ACR Access Token.
      *
-     * @param auth    (not null)
+     * @param auth (not null)
      * @param service Indicates the name of your Azure container registry. (not null)
-     * @param scope   Expected to be a valid scope, and can be specified more than once for multiple scope requests. You can
-     *                obtain this from the Www-Authenticate response header from the challenge. (not null)
+     * @param scope   Expected to be a valid scope, and can be specified more than once for multiple scope requests. You can obtain this from the Www-Authenticate response header from the challenge. (not null)
      * @return AccessToken
      */
     @GET
@@ -69,11 +68,10 @@ public interface AcrTokenApi {
                     description = "Access token acquired",
                     content = @Content(schema = @Schema(implementation = AccessToken.class)))
     })
-    AccessToken AccessTokens_GetFromLogin(@HeaderParam("Authorization") String auth, @QueryParam("service") @NotNull String service,
-            @QueryParam("scope") @NotNull String scope);
+    AccessToken AccessTokens_GetFromLogin(@HeaderParam("Authorization") String auth, @QueryParam("service") @NotNull String service, @QueryParam("scope") @NotNull String scope);
 
     /**
-     * Exchange ACR Refresh token for an ACR Access Token
+     * Exchange ACR Refresh token for an ACR Access Token.
      *
      * @param dto (not null)
      * @return AccessToken

@@ -22,7 +22,7 @@ public interface Params_QueryApi {
     /**
      * apiParamsQueryBooleanPrimitiveGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @return String
      */
     @GET
@@ -34,7 +34,7 @@ public interface Params_QueryApi {
     /**
      * apiParamsQueryBooleanWrapperGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @return String
      */
     @GET
@@ -55,8 +55,7 @@ public interface Params_QueryApi {
     @Path("/dates")
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
-    String apiParamsQueryDatesGet(@QueryParam("date") LocalDate date, @QueryParam("date-time") OffsetDateTime dateTime,
-            @QueryParam("time") String time);
+    String apiParamsQueryDatesGet(@QueryParam("date") LocalDate date, @QueryParam("date-time") OffsetDateTime dateTime, @QueryParam("time") String time);
 
     /**
      * apiParamsQueryListGet.
@@ -73,7 +72,7 @@ public interface Params_QueryApi {
     /**
      * apiParamsQueryMixedGet.
      *
-     * @param flag (optional)
+     * @param flag (not null)
      * @param item (optional)
      * @param name (optional)
      * @return String

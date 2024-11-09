@@ -50,7 +50,8 @@ public class SMSMailIdentification extends Identification {
   }
 
   /**
-   * DA: Telefonnummer til brug ved SMS login<br/>The phone number to use for SMS login. Maximum of 30 digits excluding spaces allowed.
+   * DA: Telefonnummer til brug ved SMS login<br/>The phone number to use for SMS login. Maximum of 30 digits excluding
+   * spaces allowed.
    *
    * @return phoneNumber
    **/

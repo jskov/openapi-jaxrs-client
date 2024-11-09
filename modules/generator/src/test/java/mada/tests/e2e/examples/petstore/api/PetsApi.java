@@ -26,7 +26,7 @@ public interface PetsApi {
     /**
      * List all pets.
      *
-     * @param limit How many items to return at one time (max 100) (optional)
+     * @param limit How many items to return at one time (max 100) (not null)
      * @return List<Pet>
      */
     @GET
@@ -54,7 +54,9 @@ public interface PetsApi {
                     responseCode = "default",
                     description = "unexpected error",
                     content = @Content(schema = @Schema(implementation = Error.class))),
-            @APIResponse(responseCode = "201", description = "Null response")
+            @APIResponse(
+                    responseCode = "201",
+                    description = "Null response")
     })
     @Operation(summary = "Create a pet")
     void createPets();
