@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.mpclient.dto.tmpl;
 
 import java.util.List;
 
+
 /**
  * Context passed to Mustache when compiling an enum.
  *

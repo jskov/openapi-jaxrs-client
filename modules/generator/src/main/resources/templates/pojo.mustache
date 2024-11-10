@@ -78,15 +78,17 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     @PartType({{.}})
   {{/madaProp.multipartType}}
   {{#isContainer}}
-    {{>nullablePrefix}}private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
+    {{>nullablePrefix}}
+    private {{{datatypeWithEnum}}} {{name}}{{#required}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/required}};
   {{/isContainer}}
   {{^isContainer}}
-    {{>nullablePrefix}}private {{{datatypeWithEnum}}} {{name}}{{#defaultValue}} = {{{.}}}{{/defaultValue}};
+    {{>nullablePrefix}}
+    private {{{datatypeWithEnum}}} {{name}}{{#defaultValue}} = {{{.}}}{{/defaultValue}};
   {{/isContainer}}
 
   {{/vars}}
   {{#vars}}
-    public {{classname}} {{name}}({{>nullablePrefix}}{{{datatypeWithEnum}}} {{name}}) {
+    public {{classname}} {{name}}({{>nullablePrefixSpace}}{{{datatypeWithEnum}}} {{name}}) {
         {{#madaProp.requireNonNull}}
         this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
         {{/madaProp.requireNonNull}}
@@ -97,7 +99,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     }
   {{#madaProp.isUseBigDecimalForDouble}}
 
-    public {{classname}} {{name}}({{>nullablePrefix}}BigDecimal {{name}}) {
+    public {{classname}} {{name}}({{>nullablePrefixSpace}}BigDecimal {{name}}) {
         {{#madaProp.requireNonNull}}
         this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
         {{/madaProp.requireNonNull}}
@@ -167,7 +169,8 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     @JsonIgnore
    {{/jackson}}
   {{/madaProp.isUseEmptyCollections}}
-    {{>nullablePrefix}}public {{{datatypeWithEnum}}} {{getter}}() {
+    {{>nullablePrefix}}
+    public {{{datatypeWithEnum}}} {{getter}}() {
         return {{name}};
     }
   {{#madaProp.isUseBigDecimalForDouble}}
@@ -175,14 +178,16 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{#jackson}}
     @JsonIgnore
   {{/jackson}}
-    {{>nullablePrefix}}public BigDecimal {{madaProp.getter}}() {
+    {{>nullablePrefix}}
+    public BigDecimal {{madaProp.getter}}() {
         return {{name}} == null ? null : new BigDecimal({{name}});
     }
   {{/madaProp.isUseBigDecimalForDouble}}
   {{#madaProp.isUseEmptyCollections}}
 
 {{#validation}}    {{>beanValidation}}{{/validation}}
-    {{>nullablePrefix}}public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
+    {{>nullablePrefix}}
+    public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
         if (this.{{name}} == null) {
             this.{{name}} = {{{defaultValue}}};
         }
@@ -193,7 +198,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     {{#vendorExtensions.x-setter-extra-annotation}}
     {{{vendorExtensions.x-setter-extra-annotation}}}
     {{/vendorExtensions.x-setter-extra-annotation}}
-    public void {{setter}}({{>nullablePrefix}}{{{datatypeWithEnum}}} {{name}}) {
+    public void {{setter}}({{>nullablePrefixSpace}}{{{datatypeWithEnum}}} {{name}}) {
         {{#madaProp.requireNonNull}}
         this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
         {{/madaProp.requireNonNull}}
@@ -206,7 +211,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     {{#jackson}}
     @JsonIgnore
     {{/jackson}}
-    public void {{madaProp.setter}}({{>nullablePrefix}}BigDecimal {{name}}) {
+    public void {{madaProp.setter}}({{>nullablePrefixSpace}}BigDecimal {{name}}) {
         {{#madaProp.requireNonNull}}
         this.{{name}} = Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null").doubleValue();
         {{/madaProp.requireNonNull}}

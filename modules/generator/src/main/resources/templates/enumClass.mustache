@@ -1,80 +1,80 @@
 {{#description}}
-  /**
-   * {{description}}
-   */
+    /**
+     * {{description}}
+     */
 {{/description}}
   {{#madaProp.enumSchemaOptions}}
-  @Schema({{{madaProp.enumSchemaOptions}}})
+    @Schema({{{madaProp.enumSchemaOptions}}})
   {{/madaProp.enumSchemaOptions}}
-  public enum {{{madaProp.enumClassName}}} {
+    public enum {{{madaProp.enumClassName}}} {
         {{#allowableValues}}
             {{#enumVars}}
-    {{{name}}}({{{value}}}){{^-last}},{{/-last}}{{#-last}};{{/-last}}
+      {{{name}}}({{{value}}}){{^-last}},{{/-last}}{{#-last}};{{/-last}}
             {{/enumVars}}
         {{/allowableValues}}
 
-    private final {{{madaProp.enumTypeName}}} value;
+      private final {{{madaProp.enumTypeName}}} value;
 
-    {{{madaProp.enumClassName}}}({{{madaProp.enumTypeName}}} value) {
-      this.value = value;
-    }
-
-{{#jackson}}
-    @JsonValue
-{{/jackson}}
-    public {{{madaProp.enumTypeName}}} getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-{{#jackson}}
-
-    @JsonCreator
-    public static {{{madaProp.enumClassName}}} fromValue({{{madaProp.enumTypeName}}} value) {
-      for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
-      {{#madaProp.isEqualsPrimitive}}
-        if (b.value == value) {
-      {{/madaProp.isEqualsPrimitive}}
-      {{^madaProp.isEqualsPrimitive}}
-        if (Objects.equals(b.value, value)) {
-      {{/madaProp.isEqualsPrimitive}}
-          return b;
-        }
+      {{{madaProp.enumClassName}}}({{{madaProp.enumTypeName}}} value) {
+        this.value = value;
       }
-    {{#madaDto.isEnumUnknownDefault}}
-      {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
-    {{/madaDto.isEnumUnknownDefault}}
-    {{^madaDto.isEnumUnknownDefault}}
-      {{#isNullable}}return null;{{/isNullable}}{{^isNullable}}throw new IllegalArgumentException("Unexpected value '" + value + "'");{{/isNullable}}
-    {{/madaDto.isEnumUnknownDefault}}
-    }
+
+{{#jackson}}
+      @JsonValue
+{{/jackson}}
+      public {{{madaProp.enumTypeName}}} getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+{{#jackson}}
+
+      @JsonCreator
+      public static {{{madaProp.enumClassName}}} fromValue({{{madaProp.enumTypeName}}} value) {
+          for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
+          {{#madaProp.isEqualsPrimitive}}
+              if (b.value == value) {
+          {{/madaProp.isEqualsPrimitive}}
+          {{^madaProp.isEqualsPrimitive}}
+              if (Objects.equals(b.value, value)) {
+          {{/madaProp.isEqualsPrimitive}}
+                return b;
+              }
+          }
+      {{#madaDto.isEnumUnknownDefault}}
+          {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
+      {{/madaDto.isEnumUnknownDefault}}
+      {{^madaDto.isEnumUnknownDefault}}
+          {{#isNullable}}return null;{{/isNullable}}{{^isNullable}}throw new IllegalArgumentException("Unexpected value '" + value + "'");{{/isNullable}}
+      {{/madaDto.isEnumUnknownDefault}}
+      }
 {{/jackson}}
     {{#madaProp.jsonb}}
 
-    public static class {{{madaProp.enumClassName}}}Adapter implements JsonbAdapter<{{{madaProp.enumClassName}}}, JsonString> {
-      @Override
-      public JsonString adaptToJson({{{madaProp.enumClassName}}} e) throws Exception {
-        return Json.createValue(String.valueOf(e.value));
-      }
-
-      @Override
-      public {{{madaProp.enumClassName}}} adaptFromJson(JsonString value) throws Exception {
-        for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
-          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-            return b;
+      public static class {{{madaProp.enumClassName}}}Adapter implements JsonbAdapter<{{{madaProp.enumClassName}}}, JsonString> {
+          @Override
+          public JsonString adaptToJson({{{madaProp.enumClassName}}} e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
           }
-        }
+
+        @Override
+        public {{{madaProp.enumClassName}}} adaptFromJson(JsonString value) throws Exception {
+            for ({{{madaProp.enumClassName}}} b : {{{madaProp.enumClassName}}}.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
+                }
+            }
     {{#madaDto.isEnumUnknownDefault}}
-        {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
+            {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
     {{/madaDto.isEnumUnknownDefault}}
     {{^madaDto.isEnumUnknownDefault}}
-        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type {{{madaProp.enumClassName}}}");
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type {{{madaProp.enumClassName}}}");
     {{/madaDto.isEnumUnknownDefault}}
+          }
       }
-    }
     {{/madaProp.jsonb}}
   }
 

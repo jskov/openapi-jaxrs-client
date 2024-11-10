@@ -89,7 +89,7 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
   {{#madaDto.isRecordBuilder}}
     public static class Builder {
   {{#vars}}
-      private {{>nullablePrefix}}{{{datatypeWithEnum}}} {{name}};
+      private {{>nullablePrefixSpace}}{{{datatypeWithEnum}}} {{name}};
   {{/vars}}
 
       public static Builder of() {
@@ -105,7 +105,7 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
       }
 
       {{#vars}}
-      public Builder {{name}}({{>nullablePrefix}}{{datatypeWithEnum}} {{name}}) {
+      public Builder {{name}}({{>nullablePrefixSpace}}{{datatypeWithEnum}} {{name}}) {
         this.{{name}} = {{name}};
         return this;
       }
