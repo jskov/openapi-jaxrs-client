@@ -49,7 +49,7 @@ public class SMSMailIdentification extends Identification {
         }
         SMSMailIdentification other = (SMSMailIdentification) o;
         return Objects.equals(this.countryCode, other.countryCode) &&
-              super.equals(o);
+                super.equals(o);
     }
 
     @Override

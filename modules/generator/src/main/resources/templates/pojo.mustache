@@ -228,7 +228,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
         {{classname}} {{classVarName}} = ({{classname}}) o;
         return {{#vars}}{{^madaProp.isByteArray}}Objects{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays{{/madaProp.isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{^-last}} &&
                 {{/-last}}{{/vars}}{{#parent}} &&
-              super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
+                super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
         return true;{{/hasVars}}
     }
 

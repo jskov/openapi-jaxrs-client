@@ -8,7 +8,6 @@ import java.util.SortedSet;
 import org.immutables.value.Value.Immutable;
 import org.jspecify.annotations.Nullable;
 
-
 import io.jstach.jstache.JStache;
 
 /**

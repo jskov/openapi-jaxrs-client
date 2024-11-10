@@ -46,7 +46,7 @@ public class SubProps extends Super {
         }
         SubProps other = (SubProps) o;
         return Objects.equals(this.foo, other.foo) &&
-              super.equals(o);
+                super.equals(o);
     }
 
     @Override

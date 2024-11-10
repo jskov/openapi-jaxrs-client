@@ -48,7 +48,7 @@ public class TypeBar extends AbstractType {
         }
         TypeBar other = (TypeBar) o;
         return Objects.equals(this.valueBarString, other.valueBarString) &&
-              super.equals(o);
+                super.equals(o);
     }
 
     @Override
