@@ -32,46 +32,46 @@
 public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.implementsInterfaces}} implements {{madaDto.implementsInterfaces}}{{/madaDto.implementsInterfaces}}(
   {{#vars}}
   {{#jackson}}
-  @JsonProperty("{{baseName}}")
+        @JsonProperty("{{baseName}}")
   {{#isDate}}
     {{#madaDto.customLocalDateDeserializer}}
-  @JsonDeserialize(using = {{madaDto.customLocalDateDeserializer}}.class)
+        @JsonDeserialize(using = {{madaDto.customLocalDateDeserializer}}.class)
     {{/madaDto.customLocalDateDeserializer}}
     {{#madaDto.customLocalDateSerializer}}
-  @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
+        @JsonSerialize(using = {{madaDto.customLocalDateSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
     {{/madaDto.customLocalDateSerializer}}
   {{/isDate}}
   {{#isDateTime}}
     {{#madaDto.customOffsetDateTimeDeserializer}}
-  @JsonDeserialize(using = {{madaDto.customOffsetDateTimeDeserializer}}.class)
+        @JsonDeserialize(using = {{madaDto.customOffsetDateTimeDeserializer}}.class)
     {{/madaDto.customOffsetDateTimeDeserializer}}
     {{#madaDto.customOffsetDateTimeSerializer}}
-  @JsonSerialize(using = {{madaDto.customOffsetDateTimeSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
+        @JsonSerialize(using = {{madaDto.customOffsetDateTimeSerializer}}.class{{#madaDto.jacksonJsonSerializeOptions}}, {{{madaDto.jacksonJsonSerializeOptions}}}{{/madaDto.jacksonJsonSerializeOptions}})
     {{/madaDto.customOffsetDateTimeSerializer}}
   {{/isDateTime}}
   {{/jackson}}
   {{#madaDto.jsonb}}
-  @JsonbProperty("{{baseName}}")
+        @JsonbProperty("{{baseName}}")
     {{#isEnum}}
     {{^isContainer}}
-  @JsonbTypeAdapter({{packageName}}.{{classname}}.{{datatypeWithEnum}}.{{datatypeWithEnum}}Adapter.class)
+        @JsonbTypeAdapter({{packageName}}.{{classname}}.{{datatypeWithEnum}}.{{datatypeWithEnum}}Adapter.class)
     {{/isContainer}}
     {{/isEnum}}
   {{/madaDto.jsonb}}
   {{#madaProp.schemaOptions}}
-  @Schema({{{madaProp.schemaOptions}}})
+        @Schema({{{madaProp.schemaOptions}}})
   {{/madaProp.schemaOptions}}
   {{#madaProp.multipartType}}
-  @FormParam("{{baseName}}")
-  @PartType({{.}})
+        @FormParam("{{baseName}}")
+        @PartType({{.}})
   {{/madaProp.multipartType}}
-{{#validation}}  {{>beanValidation}}{{/validation}}
+{{#validation}}        {{>beanValidation}}{{/validation}}
   {{#madaDto.isJspecify}}
     {{#madaProp.isNullable}}
-  @Nullable
+        @Nullable
     {{/madaProp.isNullable}}
   {{/madaDto.isJspecify}}
-  {{{datatypeWithEnum}}} {{name}}{{^-last}},
+        {{{datatypeWithEnum}}} {{name}}{{^-last}},
 
 {{/-last}}{{#-last}}) {
 {{/-last}}
@@ -81,7 +81,7 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
     public {{classname}} {
   {{#vars}}
     {{#notNull}}
-      Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
+        Objects.requireNonNull({{name}}, "Property {{name}} is required, cannot be null");
     {{/notNull}}
   {{/vars}}
     }

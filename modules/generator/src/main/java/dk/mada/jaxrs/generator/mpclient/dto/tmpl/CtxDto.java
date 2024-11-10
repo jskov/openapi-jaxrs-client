@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.generator.mpclient.dto.tmpl;
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

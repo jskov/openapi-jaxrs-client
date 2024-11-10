@@ -163,14 +163,12 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
  {{#vendorExtensions.x-extra-annotation}}
   {{{vendorExtensions.x-extra-annotation}}}
   {{/vendorExtensions.x-extra-annotation}}
-{{#validation}}    {{>beanValidation}}{{/validation}}
   {{#madaProp.isUseEmptyCollections}}
    {{#jackson}}
     @JsonIgnore
    {{/jackson}}
   {{/madaProp.isUseEmptyCollections}}
-    {{>nullablePrefix}}
-    public {{{datatypeWithEnum}}} {{getter}}() {
+    {{#validation}}{{>beanValidation}}{{/validation}}{{>nullablePrefixSpace}}public {{{datatypeWithEnum}}} {{getter}}() {
         return {{name}};
     }
   {{#madaProp.isUseBigDecimalForDouble}}
@@ -185,9 +183,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{/madaProp.isUseBigDecimalForDouble}}
   {{#madaProp.isUseEmptyCollections}}
 
-{{#validation}}    {{>beanValidation}}{{/validation}}
-    {{>nullablePrefix}}
-    public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
+    {{#validation}}{{>beanValidation}}{{/validation}}{{>nullablePrefixSpace}}public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
         if (this.{{name}} == null) {
             this.{{name}} = {{{defaultValue}}};
         }
@@ -232,7 +228,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
         }{{#hasVars}}
         {{classname}} {{classVarName}} = ({{classname}}) o;
         return {{#vars}}{{^madaProp.isByteArray}}Objects{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays{{/madaProp.isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{^-last}} &&
-              {{/-last}}{{/vars}}{{#parent}} &&
+                {{/-last}}{{/vars}}{{#parent}} &&
               super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
         return true;{{/hasVars}}
     }

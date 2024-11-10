@@ -1,6 +1,5 @@
 package dk.mada.jaxrs.generator.mpclient;
 
-import java.util.Base64;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
