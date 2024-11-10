@@ -100,7 +100,7 @@ public class EnumGenerator {
         }
         dtoImports.addMicroProfileSchema();
 
-        return Optional.of("enumeration = {" + values + "}" + typeStr);
+        return Optional.of("enumeration = { " + values + " }" + typeStr);
     }
 
     /**
