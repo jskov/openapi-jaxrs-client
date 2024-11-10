@@ -119,7 +119,7 @@ public class RestPullRequestSuggestionRefChange {
      *
      * @return ref
      **/
-    @Valid public RestPullRequestSuggestionRefChangeRef getRef() {
+    public @Valid RestPullRequestSuggestionRefChangeRef getRef() {
         return ref;
     }
 

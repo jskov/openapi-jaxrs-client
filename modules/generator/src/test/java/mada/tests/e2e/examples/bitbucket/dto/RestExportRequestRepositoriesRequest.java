@@ -48,7 +48,7 @@ public class RestExportRequestRepositoriesRequest {
      *
      * @return includes
      **/
-    @NotNull @Valid public Set<RestRepositorySelector> getIncludes() {
+    public @NotNull @Valid Set<RestRepositorySelector> getIncludes() {
         return includes;
     }
 

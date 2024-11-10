@@ -54,7 +54,7 @@ public class Descriptor {
      *
      * @return annotations
      **/
-    @Valid public Annotations getAnnotations() {
+    public @Valid Annotations getAnnotations() {
         return annotations;
     }
 

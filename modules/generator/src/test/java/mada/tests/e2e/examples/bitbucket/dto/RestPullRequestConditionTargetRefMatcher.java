@@ -85,7 +85,7 @@ public class RestPullRequestConditionTargetRefMatcher {
      *
      * @return type
      **/
-    @Valid public RestPullRequestConditionTargetRefMatcherType getType() {
+    public @Valid RestPullRequestConditionTargetRefMatcherType getType() {
         return type;
     }
 

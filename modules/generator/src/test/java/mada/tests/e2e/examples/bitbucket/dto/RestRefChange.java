@@ -119,7 +119,7 @@ public class RestRefChange {
      *
      * @return ref
      **/
-    @Valid public RestRefChangeRef getRef() {
+    public @Valid RestRefChangeRef getRef() {
         return ref;
     }
 

@@ -42,7 +42,7 @@ public class EnvironmentVariableDTO {
      *
      * @return name
      **/
-    @NotNull @Size(min = 1, max = 300) public String getName() {
+    public @NotNull @Size(min = 1, max = 300) String getName() {
         return name;
     }
 
@@ -60,7 +60,7 @@ public class EnvironmentVariableDTO {
      *
      * @return omkostninger
      **/
-    @Valid public Omkostninger getOmkostninger() {
+    public @Valid Omkostninger getOmkostninger() {
         return omkostninger;
     }
 
@@ -78,7 +78,7 @@ public class EnvironmentVariableDTO {
      *
      * @return value
      **/
-    @NotNull @Size(min = 1, max = 300) public String getValue() {
+    public @NotNull @Size(min = 1, max = 300) String getValue() {
         return value;
     }
 

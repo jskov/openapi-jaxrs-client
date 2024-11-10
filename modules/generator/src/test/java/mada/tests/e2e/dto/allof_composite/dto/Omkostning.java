@@ -33,7 +33,7 @@ public class Omkostning {
    * Number(3)
      * @return notanr
      **/
-    @Pattern(regexp = "^\\d{1,3}$") public Integer getNotanr() {
+    public @Pattern(regexp = "^\\d{1,3}$") Integer getNotanr() {
         return notanr;
     }
 

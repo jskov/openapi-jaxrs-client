@@ -59,7 +59,7 @@ public class LogOrigin {
      *
      * @return applicationHostId
      **/
-    @NotNull @Pattern(regexp = "\\S") public String getApplicationHostId() {
+    public @NotNull @Pattern(regexp = "\\S") String getApplicationHostId() {
         return applicationHostId;
     }
 
@@ -77,7 +77,7 @@ public class LogOrigin {
      *
      * @return applicationName
      **/
-    @NotNull @Pattern(regexp = "\\S") public String getApplicationName() {
+    public @NotNull @Pattern(regexp = "\\S") String getApplicationName() {
         return applicationName;
     }
 
@@ -95,7 +95,7 @@ public class LogOrigin {
      *
      * @return applicationVersion
      **/
-    @NotNull @Pattern(regexp = "\\S") public String getApplicationVersion() {
+    public @NotNull @Pattern(regexp = "\\S") String getApplicationVersion() {
         return applicationVersion;
     }
 
@@ -113,7 +113,7 @@ public class LogOrigin {
      *
      * @return domain
      **/
-    @NotNull @Valid public Domain getDomain() {
+    public @NotNull @Valid Domain getDomain() {
         return domain;
     }
 
@@ -131,7 +131,7 @@ public class LogOrigin {
      *
      * @return environment
      **/
-    @NotNull @Pattern(regexp = "\\S") public String getEnvironment() {
+    public @NotNull @Pattern(regexp = "\\S") String getEnvironment() {
         return environment;
     }
 
@@ -149,7 +149,7 @@ public class LogOrigin {
      *
      * @return platform
      **/
-    @NotNull @Valid public RuntimePlatform getPlatform() {
+    public @NotNull @Valid RuntimePlatform getPlatform() {
         return platform;
     }
 

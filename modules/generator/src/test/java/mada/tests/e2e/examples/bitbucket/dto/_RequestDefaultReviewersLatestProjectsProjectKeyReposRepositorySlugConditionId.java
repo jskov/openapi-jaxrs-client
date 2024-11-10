@@ -80,7 +80,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
      *
      * @return reviewers
      **/
-    @Valid public List<RestApplicationUser> getReviewers() {
+    public @Valid List<RestApplicationUser> getReviewers() {
         return reviewers;
     }
 
@@ -98,7 +98,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
      *
      * @return sourceMatcher
      **/
-    @Valid public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher getSourceMatcher() {
+    public @Valid _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher getSourceMatcher() {
         return sourceMatcher;
     }
 
@@ -116,7 +116,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
      *
      * @return targetMatcher
      **/
-    @Valid public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdTargetMatcher getTargetMatcher() {
+    public @Valid _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdTargetMatcher getTargetMatcher() {
         return targetMatcher;
     }
 

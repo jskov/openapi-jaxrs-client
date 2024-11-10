@@ -170,7 +170,7 @@ public class RestMirroredRepositoryDescriptorMirrorServer {
      *
      * @return lastSeenDate
      **/
-    @NotNull public OffsetDateTime getLastSeenDate() {
+    public @NotNull OffsetDateTime getLastSeenDate() {
         return lastSeenDate;
     }
 

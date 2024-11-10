@@ -163,7 +163,7 @@ public class MessageSentEvent {
      * The UUID of the message.
      * @return messageId
      **/
-    @NotNull public String getMessageId() {
+    public @NotNull String getMessageId() {
         return messageId;
     }
 
@@ -197,7 +197,7 @@ public class MessageSentEvent {
      * The id of the room which the event occurred in.
      * @return roomId
      **/
-    @NotNull public String getRoomId() {
+    public @NotNull String getRoomId() {
         return roomId;
     }
 
@@ -214,7 +214,7 @@ public class MessageSentEvent {
      * The timestamp for when the message was sent.
      * @return sentAt
      **/
-    @NotNull public Object getSentAt() {
+    public @NotNull Object getSentAt() {
         return sentAt;
     }
 
@@ -249,7 +249,7 @@ public class MessageSentEvent {
      *
      * @return type
      **/
-    @NotNull public TypeEnum getType() {
+    public @NotNull TypeEnum getType() {
         return type;
     }
 

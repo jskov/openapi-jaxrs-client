@@ -311,7 +311,7 @@ public class RestSshAccessKeyRepository {
      *
      * @return origin
      **/
-    @Valid public RestSshAccessKeyRepositoryOrigin getOrigin() {
+    public @Valid RestSshAccessKeyRepositoryOrigin getOrigin() {
         return origin;
     }
 
@@ -347,7 +347,7 @@ public class RestSshAccessKeyRepository {
      *
      * @return project
      **/
-    @Valid public RestSshAccessKeyRepositoryProject getProject() {
+    public @Valid RestSshAccessKeyRepositoryProject getProject() {
         return project;
     }
 

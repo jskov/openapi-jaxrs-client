@@ -38,7 +38,7 @@ public class RestPullRequestRebaseResult {
      *
      * @return refChange
      **/
-    @Valid public RestPullRequestRebaseResultRefChange getRefChange() {
+    public @Valid RestPullRequestRebaseResultRefChange getRefChange() {
         return refChange;
     }
 

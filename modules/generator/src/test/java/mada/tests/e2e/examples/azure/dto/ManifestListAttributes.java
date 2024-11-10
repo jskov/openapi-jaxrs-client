@@ -81,7 +81,7 @@ public class ManifestListAttributes {
      *
      * @return platform
      **/
-    @Valid public Platform getPlatform() {
+    public @Valid Platform getPlatform() {
         return platform;
     }
 

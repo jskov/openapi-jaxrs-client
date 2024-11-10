@@ -182,7 +182,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{/madaProp.isUseBigDecimalForDouble}}
   {{#madaProp.isUseEmptyCollections}}
 
-    {{#validation}}{{>beanValidation}}{{/validation}}{{>nullablePrefixSpace}}public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
+    public {{#validation}}{{>beanValidation}}{{/validation}}{{>nullablePrefixSpace}}{{{datatypeWithEnum}}} {{madaProp.getter}}() {
         if (this.{{name}} == null) {
             this.{{name}} = {{{defaultValue}}};
         }

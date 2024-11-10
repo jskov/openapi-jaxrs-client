@@ -54,7 +54,7 @@ public class JWK {
      *
      * @return jwk
      **/
-    @Valid public JWKHeader getJwk() {
+    public @Valid JWKHeader getJwk() {
         return jwk;
     }
 

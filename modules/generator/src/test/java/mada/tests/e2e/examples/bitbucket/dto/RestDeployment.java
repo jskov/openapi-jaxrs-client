@@ -186,7 +186,7 @@ public class RestDeployment {
      *
      * @return environment
      **/
-    @Valid public RestDeploymentEnvironment getEnvironment() {
+    public @Valid RestDeploymentEnvironment getEnvironment() {
         return environment;
     }
 
@@ -204,7 +204,7 @@ public class RestDeployment {
      *
      * @return fromCommit
      **/
-    @Valid public RestDeploymentFromCommit getFromCommit() {
+    public @Valid RestDeploymentFromCommit getFromCommit() {
         return fromCommit;
     }
 
@@ -258,7 +258,7 @@ public class RestDeployment {
      *
      * @return repository
      **/
-    @Valid public RestDeploymentRepository getRepository() {
+    public @Valid RestDeploymentRepository getRepository() {
         return repository;
     }
 
@@ -294,7 +294,7 @@ public class RestDeployment {
      *
      * @return toCommit
      **/
-    @Valid public RestDeploymentToCommit getToCommit() {
+    public @Valid RestDeploymentToCommit getToCommit() {
         return toCommit;
     }
 

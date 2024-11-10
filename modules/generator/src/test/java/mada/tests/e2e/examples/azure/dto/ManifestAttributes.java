@@ -59,7 +59,7 @@ public class ManifestAttributes {
      *
      * @return manifest
      **/
-    @Valid public ManifestAttributesBase getManifest() {
+    public @Valid ManifestAttributesBase getManifest() {
         return manifest;
     }
 

@@ -18,33 +18,33 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(enumeration = {"lower_a", "lower_b", "unknown_default_open_api"}, type = SchemaType.STRING)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum InnerLowerEnum {
-  LOWER_A("lower_a"),
-  LOWER_B("lower_b"),
-  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    LOWER_A("lower_a"),
+    LOWER_B("lower_b"),
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
-  private final String value;
+    private final String value;
 
-  InnerLowerEnum(String value) {
-    this.value = value;
-  }
-
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static InnerLowerEnum fromValue(String value) {
-    for (InnerLowerEnum b : InnerLowerEnum.values()) {
-      if (Objects.equals(b.value, value)) {
-        return b;
-      }
+    InnerLowerEnum(String value) {
+        this.value = value;
     }
-    return UNKNOWN_DEFAULT_OPEN_API;
-  }
+
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static InnerLowerEnum fromValue(String value) {
+        for (InnerLowerEnum b : InnerLowerEnum.values()) {
+            if (Objects.equals(b.value, value)) {
+                return b;
+            }
+        }
+        return UNKNOWN_DEFAULT_OPEN_API;
+    }
 }

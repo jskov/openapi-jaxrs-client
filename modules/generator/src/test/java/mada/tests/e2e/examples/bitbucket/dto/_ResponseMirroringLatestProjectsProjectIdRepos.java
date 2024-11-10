@@ -162,7 +162,7 @@ public class _ResponseMirroringLatestProjectsProjectIdRepos {
      *
      * @return values
      **/
-    @Valid public List<EnrichedRepository> getValues() {
+    public @Valid List<EnrichedRepository> getValues() {
         return values;
     }
 

@@ -162,7 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsRevi
      *
      * @return values
      **/
-    @Valid public List<RestReviewerGroup> getValues() {
+    public @Valid List<RestReviewerGroup> getValues() {
         return values;
     }
 

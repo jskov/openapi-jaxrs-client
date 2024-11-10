@@ -42,7 +42,7 @@ public class ImageSignature {
      *
      * @return header
      **/
-    @Valid public JWK getHeader() {
+    public @Valid JWK getHeader() {
         return header;
     }
 

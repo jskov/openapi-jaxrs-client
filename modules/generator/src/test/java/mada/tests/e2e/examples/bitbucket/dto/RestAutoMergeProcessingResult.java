@@ -108,7 +108,7 @@ public class RestAutoMergeProcessingResult {
      *
      * @return pullRequest
      **/
-    @Valid public RestAutoMergeProcessingResultPullRequest getPullRequest() {
+    public @Valid RestAutoMergeProcessingResultPullRequest getPullRequest() {
         return pullRequest;
     }
 

@@ -80,7 +80,7 @@ public class RestDefaultReviewersRequest {
      *
      * @return reviewers
      **/
-    @Valid public List<RestApplicationUser> getReviewers() {
+    public @Valid List<RestApplicationUser> getReviewers() {
         return reviewers;
     }
 
@@ -98,7 +98,7 @@ public class RestDefaultReviewersRequest {
      *
      * @return sourceMatcher
      **/
-    @Valid public RestDefaultReviewersRequestSourceMatcher getSourceMatcher() {
+    public @Valid RestDefaultReviewersRequestSourceMatcher getSourceMatcher() {
         return sourceMatcher;
     }
 
@@ -116,7 +116,7 @@ public class RestDefaultReviewersRequest {
      *
      * @return targetMatcher
      **/
-    @Valid public RestDefaultReviewersRequestTargetMatcher getTargetMatcher() {
+    public @Valid RestDefaultReviewersRequestTargetMatcher getTargetMatcher() {
         return targetMatcher;
     }
 

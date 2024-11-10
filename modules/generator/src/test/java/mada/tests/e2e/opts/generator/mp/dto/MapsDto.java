@@ -262,7 +262,7 @@ public class MapsDto {
      *
      * @return bothRefs
      **/
-    @Valid public Map<String, Simple> getBothRefs() {
+    public @Valid Map<String, Simple> getBothRefs() {
         return bothRefs;
     }
 
@@ -444,7 +444,7 @@ public class MapsDto {
      *
      * @return refs
      **/
-    @Valid public Map<String, Simple> getRefs() {
+    public @Valid Map<String, Simple> getRefs() {
         return refs;
     }
 
@@ -467,7 +467,7 @@ public class MapsDto {
      *
      * @return requiredBooleans
      **/
-    @NotNull public Map<String, Boolean> getRequiredBooleans() {
+    public @NotNull Map<String, Boolean> getRequiredBooleans() {
         return requiredBooleans;
     }
 
@@ -490,7 +490,7 @@ public class MapsDto {
      *
      * @return requiredBytes
      **/
-    @NotNull public Map<String, Byte> getRequiredBytes() {
+    public @NotNull Map<String, Byte> getRequiredBytes() {
         return requiredBytes;
     }
 
@@ -513,7 +513,7 @@ public class MapsDto {
      *
      * @return requiredInts
      **/
-    @NotNull public Map<String, Integer> getRequiredInts() {
+    public @NotNull Map<String, Integer> getRequiredInts() {
         return requiredInts;
     }
 
@@ -536,7 +536,7 @@ public class MapsDto {
      *
      * @return requiredLongs
      **/
-    @NotNull public Map<String, Long> getRequiredLongs() {
+    public @NotNull Map<String, Long> getRequiredLongs() {
         return requiredLongs;
     }
 
@@ -559,7 +559,7 @@ public class MapsDto {
      *
      * @return requiredRefs
      **/
-    @NotNull @Valid public Map<String, Simple> getRequiredRefs() {
+    public @NotNull @Valid Map<String, Simple> getRequiredRefs() {
         return requiredRefs;
     }
 
@@ -582,7 +582,7 @@ public class MapsDto {
      *
      * @return requiredShorts
      **/
-    @NotNull public Map<String, Short> getRequiredShorts() {
+    public @NotNull Map<String, Short> getRequiredShorts() {
         return requiredShorts;
     }
 
@@ -605,7 +605,7 @@ public class MapsDto {
      *
      * @return requiredStrings
      **/
-    @NotNull public Map<String, String> getRequiredStrings() {
+    public @NotNull Map<String, String> getRequiredStrings() {
         return requiredStrings;
     }
 

@@ -36,7 +36,7 @@ public class Error {
      *
      * @return code
      **/
-    @NotNull public Integer getCode() {
+    public @NotNull Integer getCode() {
         return code;
     }
 
@@ -54,7 +54,7 @@ public class Error {
      *
      * @return message
      **/
-    @NotNull public String getMessage() {
+    public @NotNull String getMessage() {
         return message;
     }
 

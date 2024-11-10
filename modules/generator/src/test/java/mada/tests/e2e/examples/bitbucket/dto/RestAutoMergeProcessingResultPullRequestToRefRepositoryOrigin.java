@@ -324,7 +324,7 @@ public class RestAutoMergeProcessingResultPullRequestToRefRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public RestAutoMergeProcessingResultPullRequestToRefRepositoryOriginProject getProject() {
+    public @Valid RestAutoMergeProcessingResultPullRequestToRefRepositoryOriginProject getProject() {
         return project;
     }
 

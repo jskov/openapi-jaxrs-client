@@ -38,7 +38,7 @@ public class RestPullRequestSettings {
      *
      * @return mergeConfig
      **/
-    @Valid public RestPullRequestSettingsMergeConfig getMergeConfig() {
+    public @Valid RestPullRequestSettingsMergeConfig getMergeConfig() {
         return mergeConfig;
     }
 

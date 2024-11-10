@@ -197,7 +197,7 @@ public class ArraysDto {
      *
      * @return refs
      **/
-    @Valid public List<Simple> getRefs() {
+    public @Valid List<Simple> getRefs() {
         return refs;
     }
 
@@ -220,7 +220,7 @@ public class ArraysDto {
      *
      * @return requiredBooleans
      **/
-    @NotNull public List<Boolean> getRequiredBooleans() {
+    public @NotNull List<Boolean> getRequiredBooleans() {
         return requiredBooleans;
     }
 
@@ -238,7 +238,7 @@ public class ArraysDto {
      *
      * @return requiredBytes
      **/
-    @NotNull public byte[] getRequiredBytes() {
+    public @NotNull byte[] getRequiredBytes() {
         return requiredBytes;
     }
 
@@ -261,7 +261,7 @@ public class ArraysDto {
      *
      * @return requiredInts
      **/
-    @NotNull public List<Integer> getRequiredInts() {
+    public @NotNull List<Integer> getRequiredInts() {
         return requiredInts;
     }
 
@@ -284,7 +284,7 @@ public class ArraysDto {
      *
      * @return requiredLongs
      **/
-    @NotNull public List<Long> getRequiredLongs() {
+    public @NotNull List<Long> getRequiredLongs() {
         return requiredLongs;
     }
 
@@ -307,7 +307,7 @@ public class ArraysDto {
      *
      * @return requiredRefs
      **/
-    @NotNull @Valid public List<Simple> getRequiredRefs() {
+    public @NotNull @Valid List<Simple> getRequiredRefs() {
         return requiredRefs;
     }
 
@@ -330,7 +330,7 @@ public class ArraysDto {
      *
      * @return requiredShorts
      **/
-    @NotNull public List<Short> getRequiredShorts() {
+    public @NotNull List<Short> getRequiredShorts() {
         return requiredShorts;
     }
 
@@ -353,7 +353,7 @@ public class ArraysDto {
      *
      * @return requiredStrings
      **/
-    @NotNull public List<String> getRequiredStrings() {
+    public @NotNull List<String> getRequiredStrings() {
         return requiredStrings;
     }
 

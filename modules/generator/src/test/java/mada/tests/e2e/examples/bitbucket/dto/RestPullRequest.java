@@ -248,7 +248,7 @@ public class RestPullRequest {
      *
      * @return fromRef
      **/
-    @Valid public RestPullRequestFromRef getFromRef() {
+    public @Valid RestPullRequestFromRef getFromRef() {
         return fromRef;
     }
 
@@ -364,7 +364,7 @@ public class RestPullRequest {
      *
      * @return participants
      **/
-    @Valid public List<RestPullRequestParticipant> getParticipants() {
+    public @Valid List<RestPullRequestParticipant> getParticipants() {
         return participants;
     }
 
@@ -390,7 +390,7 @@ public class RestPullRequest {
      *
      * @return reviewers
      **/
-    @Valid public List<RestPullRequestParticipant> getReviewers() {
+    public @Valid List<RestPullRequestParticipant> getReviewers() {
         return reviewers;
     }
 
@@ -444,7 +444,7 @@ public class RestPullRequest {
      *
      * @return toRef
      **/
-    @Valid public RestPullRequestToRef getToRef() {
+    public @Valid RestPullRequestToRef getToRef() {
         return toRef;
     }
 

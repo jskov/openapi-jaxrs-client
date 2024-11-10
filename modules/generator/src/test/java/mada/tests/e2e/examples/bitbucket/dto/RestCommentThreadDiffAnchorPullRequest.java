@@ -248,7 +248,7 @@ public class RestCommentThreadDiffAnchorPullRequest {
      *
      * @return fromRef
      **/
-    @Valid public RestCommentThreadDiffAnchorPullRequestFromRef getFromRef() {
+    public @Valid RestCommentThreadDiffAnchorPullRequestFromRef getFromRef() {
         return fromRef;
     }
 
@@ -364,7 +364,7 @@ public class RestCommentThreadDiffAnchorPullRequest {
      *
      * @return participants
      **/
-    @Valid public List<RestPullRequestParticipant> getParticipants() {
+    public @Valid List<RestPullRequestParticipant> getParticipants() {
         return participants;
     }
 
@@ -390,7 +390,7 @@ public class RestCommentThreadDiffAnchorPullRequest {
      *
      * @return reviewers
      **/
-    @Valid public List<RestPullRequestParticipant> getReviewers() {
+    public @Valid List<RestPullRequestParticipant> getReviewers() {
         return reviewers;
     }
 
@@ -444,7 +444,7 @@ public class RestCommentThreadDiffAnchorPullRequest {
      *
      * @return toRef
      **/
-    @Valid public RestCommentThreadDiffAnchorPullRequestToRef getToRef() {
+    public @Valid RestCommentThreadDiffAnchorPullRequestToRef getToRef() {
         return toRef;
     }
 

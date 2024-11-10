@@ -311,7 +311,7 @@ public class RestRepositoryRefChangeActivityRepository {
      *
      * @return origin
      **/
-    @Valid public RestRepositoryRefChangeActivityRepositoryOrigin getOrigin() {
+    public @Valid RestRepositoryRefChangeActivityRepositoryOrigin getOrigin() {
         return origin;
     }
 
@@ -347,7 +347,7 @@ public class RestRepositoryRefChangeActivityRepository {
      *
      * @return project
      **/
-    @Valid public RestRepositoryRefChangeActivityRepositoryProject getProject() {
+    public @Valid RestRepositoryRefChangeActivityRepositoryProject getProject() {
         return project;
     }
 

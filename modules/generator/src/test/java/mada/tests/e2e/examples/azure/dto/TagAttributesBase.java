@@ -57,7 +57,7 @@ public class TagAttributesBase {
      *
      * @return changeableAttributes
      **/
-    @Valid public TagChangeableAttributes getChangeableAttributes() {
+    public @Valid TagChangeableAttributes getChangeableAttributes() {
         return changeableAttributes;
     }
 

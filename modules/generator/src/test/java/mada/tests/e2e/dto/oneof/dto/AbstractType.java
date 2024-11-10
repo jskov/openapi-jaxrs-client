@@ -54,7 +54,7 @@ public abstract class AbstractType {
      *
      * @return valueEnum
      **/
-    @Valid public OtherEnum getValueEnum() {
+    public @Valid OtherEnum getValueEnum() {
         return valueEnum;
     }
 
@@ -72,7 +72,7 @@ public abstract class AbstractType {
      *
      * @return valueInteger
      **/
-    @NotNull public Integer getValueInteger() {
+    public @NotNull Integer getValueInteger() {
         return valueInteger;
     }
 

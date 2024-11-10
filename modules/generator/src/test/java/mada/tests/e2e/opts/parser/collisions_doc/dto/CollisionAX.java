@@ -71,7 +71,7 @@ public class CollisionAX {
      *
      * @return aCapitalMap
      **/
-    @Valid public Map<String, Collisiona> getaCapitalMap() {
+    public @Valid Map<String, Collisiona> getaCapitalMap() {
         return aCapitalMap;
     }
 
@@ -97,7 +97,7 @@ public class CollisionAX {
      *
      * @return aCapitalSet
      **/
-    @Valid public Set<Collisiona> getaCapitalSet() {
+    public @Valid Set<Collisiona> getaCapitalSet() {
         return aCapitalSet;
     }
 

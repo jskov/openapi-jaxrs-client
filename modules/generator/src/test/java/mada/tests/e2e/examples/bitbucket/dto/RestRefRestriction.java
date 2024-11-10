@@ -77,7 +77,7 @@ public class RestRefRestriction {
      *
      * @return accessKeys
      **/
-    @Valid public List<RestSshAccessKey> getAccessKeys() {
+    public @Valid List<RestSshAccessKey> getAccessKeys() {
         return accessKeys;
     }
 
@@ -139,7 +139,7 @@ public class RestRefRestriction {
      *
      * @return matcher
      **/
-    @Valid public RestRefRestrictionMatcher getMatcher() {
+    public @Valid RestRefRestrictionMatcher getMatcher() {
         return matcher;
     }
 
@@ -157,7 +157,7 @@ public class RestRefRestriction {
      *
      * @return scope
      **/
-    @Valid public RestRefRestrictionScope getScope() {
+    public @Valid RestRefRestrictionScope getScope() {
         return scope;
     }
 
@@ -201,7 +201,7 @@ public class RestRefRestriction {
      *
      * @return users
      **/
-    @Valid public List<RestApplicationUser> getUsers() {
+    public @Valid List<RestApplicationUser> getUsers() {
         return users;
     }
 

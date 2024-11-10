@@ -113,7 +113,7 @@ public class RestPermittedUser {
      *
      * @return user
      **/
-    @Valid public RestPermittedUserUser getUser() {
+    public @Valid RestPermittedUserUser getUser() {
         return user;
     }
 

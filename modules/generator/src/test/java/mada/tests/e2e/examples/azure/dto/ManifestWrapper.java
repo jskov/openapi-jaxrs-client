@@ -83,7 +83,7 @@ public class ManifestWrapper {
      *
      * @return annotations
      **/
-    @Valid public Annotations getAnnotations() {
+    public @Valid Annotations getAnnotations() {
         return annotations;
     }
 
@@ -118,7 +118,7 @@ public class ManifestWrapper {
      *
      * @return config
      **/
-    @Valid public Descriptor getConfig() {
+    public @Valid Descriptor getConfig() {
         return config;
     }
 
@@ -143,7 +143,7 @@ public class ManifestWrapper {
      * (V1) List of layer information.
      * @return fsLayers
      **/
-    @Valid public List<FsLayer> getFsLayers() {
+    public @Valid List<FsLayer> getFsLayers() {
         return fsLayers;
     }
 
@@ -168,7 +168,7 @@ public class ManifestWrapper {
      * (V1) Image history.
      * @return history
      **/
-    @Valid public List<History> getHistory() {
+    public @Valid List<History> getHistory() {
         return history;
     }
 
@@ -193,7 +193,7 @@ public class ManifestWrapper {
      * (V2, OCI) List of V2 image layer information.
      * @return layers
      **/
-    @Valid public List<Descriptor> getLayers() {
+    public @Valid List<Descriptor> getLayers() {
         return layers;
     }
 
@@ -218,7 +218,7 @@ public class ManifestWrapper {
      * (ManifestList, OCIIndex) List of V2 image layer information.
      * @return manifests
      **/
-    @Valid public List<ManifestListAttributes> getManifests() {
+    public @Valid List<ManifestListAttributes> getManifests() {
         return manifests;
     }
 
@@ -277,7 +277,7 @@ public class ManifestWrapper {
      * (V1) Image signature.
      * @return signatures
      **/
-    @Valid public List<ImageSignature> getSignatures() {
+    public @Valid List<ImageSignature> getSignatures() {
         return signatures;
     }
 

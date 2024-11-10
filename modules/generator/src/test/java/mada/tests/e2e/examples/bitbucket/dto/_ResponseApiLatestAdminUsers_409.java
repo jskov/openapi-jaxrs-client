@@ -48,7 +48,7 @@ public class _ResponseApiLatestAdminUsers_409 {
      *
      * @return errors
      **/
-    @Valid public List<RestErrorMessage> getErrors() {
+    public @Valid List<RestErrorMessage> getErrors() {
         return errors;
     }
 

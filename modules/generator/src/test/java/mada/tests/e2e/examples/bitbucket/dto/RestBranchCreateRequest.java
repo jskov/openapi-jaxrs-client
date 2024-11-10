@@ -61,7 +61,7 @@ public class RestBranchCreateRequest {
      * Commit ID from which the branch is created.
      * @return startPoint
      **/
-    @Size(max = 40) public String getStartPoint() {
+    public @Size(max = 40) String getStartPoint() {
         return startPoint;
     }
 

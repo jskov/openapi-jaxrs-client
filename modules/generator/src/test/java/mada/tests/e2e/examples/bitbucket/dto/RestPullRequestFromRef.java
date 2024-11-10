@@ -154,7 +154,7 @@ public class RestPullRequestFromRef {
      *
      * @return repository
      **/
-    @Valid public RestPullRequestFromRefRepository getRepository() {
+    public @Valid RestPullRequestFromRefRepository getRepository() {
         return repository;
     }
 

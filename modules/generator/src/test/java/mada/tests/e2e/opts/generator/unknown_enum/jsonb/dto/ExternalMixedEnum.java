@@ -20,39 +20,39 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(enumeration = {"low_EXT_a", "low_ext_B", "unknown_default_open_api"}, type = SchemaType.STRING)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum ExternalMixedEnum {
-  LOW_EXT_A("low_EXT_a"),
-  LOW_EXT_B("low_ext_B"),
-  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    LOW_EXT_A("low_EXT_a"),
+    LOW_EXT_B("low_ext_B"),
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
-  private final String value;
+    private final String value;
 
-  ExternalMixedEnum(String value) {
-    this.value = value;
-  }
+    ExternalMixedEnum(String value) {
+        this.value = value;
+    }
 
-  public String getValue() {
-    return value;
-  }
+    public String getValue() {
+        return value;
+    }
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 
-  public static class ExternalMixedEnumAdapter implements JsonbAdapter<ExternalMixedEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(ExternalMixedEnum e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
-      }
+    public static class ExternalMixedEnumAdapter implements JsonbAdapter<ExternalMixedEnum, JsonString> {
+        @Override
+        public JsonString adaptToJson(ExternalMixedEnum e) throws Exception {
+            return Json.createValue(String.valueOf(e.value));
+        }
 
-      @Override
-      public ExternalMixedEnum adaptFromJson(JsonString value) throws Exception {
-          for (ExternalMixedEnum b : ExternalMixedEnum.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          return UNKNOWN_DEFAULT_OPEN_API;
-      }
-  }
+        @Override
+        public ExternalMixedEnum adaptFromJson(JsonString value) throws Exception {
+            for (ExternalMixedEnum b : ExternalMixedEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
+                }
+            }
+            return UNKNOWN_DEFAULT_OPEN_API;
+        }
+    }
 }

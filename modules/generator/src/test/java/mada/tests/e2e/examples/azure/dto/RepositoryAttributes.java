@@ -62,7 +62,7 @@ public class RepositoryAttributes {
      *
      * @return changeableAttributes
      **/
-    @Valid public RepositoryChangeableAttributes getChangeableAttributes() {
+    public @Valid RepositoryChangeableAttributes getChangeableAttributes() {
         return changeableAttributes;
     }
 

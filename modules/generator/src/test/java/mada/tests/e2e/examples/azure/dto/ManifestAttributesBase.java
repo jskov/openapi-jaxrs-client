@@ -96,7 +96,7 @@ public class ManifestAttributesBase {
      *
      * @return changeableAttributes
      **/
-    @Valid public ManifestChangeableAttributes getChangeableAttributes() {
+    public @Valid ManifestChangeableAttributes getChangeableAttributes() {
         return changeableAttributes;
     }
 

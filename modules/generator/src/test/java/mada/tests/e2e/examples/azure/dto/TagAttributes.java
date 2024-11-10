@@ -76,7 +76,7 @@ public class TagAttributes {
      *
      * @return tag
      **/
-    @Valid public TagAttributesBase getTag() {
+    public @Valid TagAttributesBase getTag() {
         return tag;
     }
 

@@ -66,7 +66,7 @@ public class RestBranchDeleteRequest {
      * Commit ID that the provided ref name is expected to point to.
      * @return endPoint
      **/
-    @Size(max = 40) public String getEndPoint() {
+    public @Size(max = 40) String getEndPoint() {
         return endPoint;
     }
 

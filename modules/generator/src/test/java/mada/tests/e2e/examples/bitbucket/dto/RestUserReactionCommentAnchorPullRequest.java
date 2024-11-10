@@ -248,7 +248,7 @@ public class RestUserReactionCommentAnchorPullRequest {
      *
      * @return fromRef
      **/
-    @Valid public RestUserReactionCommentAnchorPullRequestFromRef getFromRef() {
+    public @Valid RestUserReactionCommentAnchorPullRequestFromRef getFromRef() {
         return fromRef;
     }
 
@@ -364,7 +364,7 @@ public class RestUserReactionCommentAnchorPullRequest {
      *
      * @return participants
      **/
-    @Valid public List<RestPullRequestParticipant> getParticipants() {
+    public @Valid List<RestPullRequestParticipant> getParticipants() {
         return participants;
     }
 
@@ -390,7 +390,7 @@ public class RestUserReactionCommentAnchorPullRequest {
      *
      * @return reviewers
      **/
-    @Valid public List<RestPullRequestParticipant> getReviewers() {
+    public @Valid List<RestPullRequestParticipant> getReviewers() {
         return reviewers;
     }
 
@@ -444,7 +444,7 @@ public class RestUserReactionCommentAnchorPullRequest {
      *
      * @return toRef
      **/
-    @Valid public RestUserReactionCommentAnchorPullRequestToRef getToRef() {
+    public @Valid RestUserReactionCommentAnchorPullRequestToRef getToRef() {
         return toRef;
     }
 

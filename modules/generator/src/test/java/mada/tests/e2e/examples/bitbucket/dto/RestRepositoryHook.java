@@ -68,7 +68,7 @@ public class RestRepositoryHook {
      *
      * @return details
      **/
-    @Valid public RepositoryHookDetails getDetails() {
+    public @Valid RepositoryHookDetails getDetails() {
         return details;
     }
 
@@ -104,7 +104,7 @@ public class RestRepositoryHook {
      *
      * @return scope
      **/
-    @Valid public RestRepositoryHookScope getScope() {
+    public @Valid RestRepositoryHookScope getScope() {
         return scope;
     }
 

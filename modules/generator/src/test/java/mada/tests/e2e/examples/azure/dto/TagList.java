@@ -86,7 +86,7 @@ public class TagList {
      * List of tag attribute details.
      * @return tags
      **/
-    @Valid public List<TagAttributesBase> getTags() {
+    public @Valid List<TagAttributesBase> getTags() {
         return tags;
     }
 

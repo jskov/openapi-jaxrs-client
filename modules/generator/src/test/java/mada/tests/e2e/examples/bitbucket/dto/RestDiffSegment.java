@@ -99,7 +99,7 @@ public class RestDiffSegment {
      *
      * @return lines
      **/
-    @Valid public List<RestDiffLine> getLines() {
+    public @Valid List<RestDiffLine> getLines() {
         return lines;
     }
 

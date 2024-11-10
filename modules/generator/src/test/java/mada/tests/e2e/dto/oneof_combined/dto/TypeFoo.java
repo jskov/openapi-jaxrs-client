@@ -59,7 +59,7 @@ public class TypeFoo {
      *
      * @return valueInteger
      **/
-    @NotNull public Integer getValueInteger() {
+    public @NotNull Integer getValueInteger() {
         return valueInteger;
     }
 

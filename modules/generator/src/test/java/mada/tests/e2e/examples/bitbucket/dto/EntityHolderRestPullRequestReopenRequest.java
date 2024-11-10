@@ -38,7 +38,7 @@ public class EntityHolderRestPullRequestReopenRequest {
      *
      * @return entity
      **/
-    @Valid public EntityHolderRestPullRequestReopenRequestEntity getEntity() {
+    public @Valid EntityHolderRestPullRequestReopenRequestEntity getEntity() {
         return entity;
     }
 

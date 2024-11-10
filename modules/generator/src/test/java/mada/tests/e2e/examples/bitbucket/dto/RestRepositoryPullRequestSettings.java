@@ -62,7 +62,7 @@ public class RestRepositoryPullRequestSettings {
      *
      * @return mergeConfig
      **/
-    @Valid public RestRepositoryPullRequestSettingsMergeConfig getMergeConfig() {
+    public @Valid RestRepositoryPullRequestSettingsMergeConfig getMergeConfig() {
         return mergeConfig;
     }
 
@@ -116,7 +116,7 @@ public class RestRepositoryPullRequestSettings {
      *
      * @return requiredApprovers
      **/
-    @Valid public RestRepositoryPullRequestSettingsRequiredApprovers getRequiredApprovers() {
+    public @Valid RestRepositoryPullRequestSettingsRequiredApprovers getRequiredApprovers() {
         return requiredApprovers;
     }
 
@@ -152,7 +152,7 @@ public class RestRepositoryPullRequestSettings {
      *
      * @return requiredSuccessfulBuilds
      **/
-    @Valid public RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds getRequiredSuccessfulBuilds() {
+    public @Valid RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds getRequiredSuccessfulBuilds() {
         return requiredSuccessfulBuilds;
     }
 

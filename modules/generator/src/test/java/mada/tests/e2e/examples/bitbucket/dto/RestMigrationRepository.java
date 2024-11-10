@@ -107,7 +107,7 @@ public class RestMigrationRepository {
      *
      * @return repository
      **/
-    @Valid public RestMigrationRepositoryRepository getRepository() {
+    public @Valid RestMigrationRepositoryRepository getRepository() {
         return repository;
     }
 

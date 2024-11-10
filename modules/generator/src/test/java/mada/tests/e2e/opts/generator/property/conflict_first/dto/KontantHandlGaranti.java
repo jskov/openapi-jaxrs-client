@@ -50,7 +50,7 @@ public class KontantHandlGaranti {
      * Description afsenderNgl in KontantHandlGaranti.
      * @return afsenderNgl
      **/
-    @NotNull public String getAfsenderNgl() {
+    public @NotNull String getAfsenderNgl() {
         return afsenderNgl;
     }
 
@@ -84,7 +84,7 @@ public class KontantHandlGaranti {
      * Description prodnr in Kontanthandelsgaranti.
      * @return prodnr
      **/
-    @NotNull @Pattern(regexp = "^\\d{1,5}$") public Integer getProdnr() {
+    public @NotNull @Pattern(regexp = "^\\d{1,5}$") Integer getProdnr() {
         return prodnr;
     }
 
@@ -101,7 +101,7 @@ public class KontantHandlGaranti {
      * Description refnr in Kontanthandelsgaranti.
      * @return refnr
      **/
-    @NotNull @Pattern(regexp = "^\\d{1,7}$") public Integer getRefnr() {
+    public @NotNull @Pattern(regexp = "^\\d{1,7}$") Integer getRefnr() {
         return refnr;
     }
 

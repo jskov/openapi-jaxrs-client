@@ -154,7 +154,7 @@ public class RestBranch {
      *
      * @return type
      **/
-    @Valid public RefType getType() {
+    public @Valid RefType getType() {
         return type;
     }
 

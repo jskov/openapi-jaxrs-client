@@ -45,7 +45,7 @@ public class RestUsernamePasswordCredentials {
      *
      * @return password
      **/
-    @NotNull public String getPassword() {
+    public @NotNull String getPassword() {
         return password;
     }
 
@@ -63,7 +63,7 @@ public class RestUsernamePasswordCredentials {
      *
      * @return username
      **/
-    @NotNull public String getUsername() {
+    public @NotNull String getUsername() {
         return username;
     }
 

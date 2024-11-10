@@ -299,7 +299,7 @@ public class RestBuildStatus {
      *
      * @return testResults
      **/
-    @Valid public RestBuildStatusTestResults getTestResults() {
+    public @Valid RestBuildStatusTestResults getTestResults() {
         return testResults;
     }
 

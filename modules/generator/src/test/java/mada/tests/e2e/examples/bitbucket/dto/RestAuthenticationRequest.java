@@ -49,7 +49,7 @@ public class RestAuthenticationRequest {
      *
      * @return credentials
      **/
-    @NotNull @Valid public Credentials getCredentials() {
+    public @NotNull @Valid Credentials getCredentials() {
         return credentials;
     }
 

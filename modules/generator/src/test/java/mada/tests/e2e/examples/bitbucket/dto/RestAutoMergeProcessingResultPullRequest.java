@@ -248,7 +248,7 @@ public class RestAutoMergeProcessingResultPullRequest {
      *
      * @return fromRef
      **/
-    @Valid public RestAutoMergeProcessingResultPullRequestFromRef getFromRef() {
+    public @Valid RestAutoMergeProcessingResultPullRequestFromRef getFromRef() {
         return fromRef;
     }
 
@@ -364,7 +364,7 @@ public class RestAutoMergeProcessingResultPullRequest {
      *
      * @return participants
      **/
-    @Valid public List<RestPullRequestParticipant> getParticipants() {
+    public @Valid List<RestPullRequestParticipant> getParticipants() {
         return participants;
     }
 
@@ -390,7 +390,7 @@ public class RestAutoMergeProcessingResultPullRequest {
      *
      * @return reviewers
      **/
-    @Valid public List<RestPullRequestParticipant> getReviewers() {
+    public @Valid List<RestPullRequestParticipant> getReviewers() {
         return reviewers;
     }
 
@@ -444,7 +444,7 @@ public class RestAutoMergeProcessingResultPullRequest {
      *
      * @return toRef
      **/
-    @Valid public RestAutoMergeProcessingResultPullRequestToRef getToRef() {
+    public @Valid RestAutoMergeProcessingResultPullRequestToRef getToRef() {
         return toRef;
     }
 

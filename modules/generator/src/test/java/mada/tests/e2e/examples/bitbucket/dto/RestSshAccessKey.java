@@ -103,7 +103,7 @@ public class RestSshAccessKey {
      *
      * @return key
      **/
-    @Valid public RestSshAccessKeyKey getKey() {
+    public @Valid RestSshAccessKeyKey getKey() {
         return key;
     }
 
@@ -139,7 +139,7 @@ public class RestSshAccessKey {
      *
      * @return project
      **/
-    @Valid public RestSshAccessKeyProject getProject() {
+    public @Valid RestSshAccessKeyProject getProject() {
         return project;
     }
 
@@ -157,7 +157,7 @@ public class RestSshAccessKey {
      *
      * @return repository
      **/
-    @Valid public RestSshAccessKeyRepository getRepository() {
+    public @Valid RestSshAccessKeyRepository getRepository() {
         return repository;
     }
 

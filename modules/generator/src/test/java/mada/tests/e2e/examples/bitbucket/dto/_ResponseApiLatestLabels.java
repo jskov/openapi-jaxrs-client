@@ -162,7 +162,7 @@ public class _ResponseApiLatestLabels {
      *
      * @return values
      **/
-    @Valid public List<RestLabel> getValues() {
+    public @Valid List<RestLabel> getValues() {
         return values;
     }
 

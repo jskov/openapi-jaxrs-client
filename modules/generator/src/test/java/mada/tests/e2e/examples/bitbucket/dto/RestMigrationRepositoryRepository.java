@@ -311,7 +311,7 @@ public class RestMigrationRepositoryRepository {
      *
      * @return origin
      **/
-    @Valid public RestMigrationRepositoryRepositoryOrigin getOrigin() {
+    public @Valid RestMigrationRepositoryRepositoryOrigin getOrigin() {
         return origin;
     }
 
@@ -347,7 +347,7 @@ public class RestMigrationRepositoryRepository {
      *
      * @return project
      **/
-    @Valid public RestMigrationRepositoryRepositoryProject getProject() {
+    public @Valid RestMigrationRepositoryRepositoryProject getProject() {
         return project;
     }
 

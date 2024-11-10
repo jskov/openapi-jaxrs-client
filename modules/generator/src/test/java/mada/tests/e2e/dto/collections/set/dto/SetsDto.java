@@ -204,7 +204,7 @@ public class SetsDto {
      *
      * @return refs
      **/
-    @Valid public Set<Simple> getRefs() {
+    public @Valid Set<Simple> getRefs() {
         return refs;
     }
 
@@ -227,7 +227,7 @@ public class SetsDto {
      *
      * @return requiredBooleans
      **/
-    @NotNull public Set<Boolean> getRequiredBooleans() {
+    public @NotNull Set<Boolean> getRequiredBooleans() {
         return requiredBooleans;
     }
 
@@ -250,7 +250,7 @@ public class SetsDto {
      *
      * @return requiredBytes
      **/
-    @NotNull public Set<Byte> getRequiredBytes() {
+    public @NotNull Set<Byte> getRequiredBytes() {
         return requiredBytes;
     }
 
@@ -273,7 +273,7 @@ public class SetsDto {
      *
      * @return requiredInts
      **/
-    @NotNull public Set<Integer> getRequiredInts() {
+    public @NotNull Set<Integer> getRequiredInts() {
         return requiredInts;
     }
 
@@ -296,7 +296,7 @@ public class SetsDto {
      *
      * @return requiredLongs
      **/
-    @NotNull public Set<Long> getRequiredLongs() {
+    public @NotNull Set<Long> getRequiredLongs() {
         return requiredLongs;
     }
 
@@ -319,7 +319,7 @@ public class SetsDto {
      *
      * @return requiredRefs
      **/
-    @NotNull @Valid public Set<Simple> getRequiredRefs() {
+    public @NotNull @Valid Set<Simple> getRequiredRefs() {
         return requiredRefs;
     }
 
@@ -342,7 +342,7 @@ public class SetsDto {
      *
      * @return requiredShorts
      **/
-    @NotNull public Set<Short> getRequiredShorts() {
+    public @NotNull Set<Short> getRequiredShorts() {
         return requiredShorts;
     }
 
@@ -365,7 +365,7 @@ public class SetsDto {
      *
      * @return requiredStrings
      **/
-    @NotNull public Set<String> getRequiredStrings() {
+    public @NotNull Set<String> getRequiredStrings() {
         return requiredStrings;
     }
 

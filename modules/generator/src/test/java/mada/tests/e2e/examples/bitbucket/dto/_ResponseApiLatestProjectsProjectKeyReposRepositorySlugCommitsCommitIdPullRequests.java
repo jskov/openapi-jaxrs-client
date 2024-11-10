@@ -162,7 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommi
      *
      * @return values
      **/
-    @Valid public List<RestPullRequest> getValues() {
+    public @Valid List<RestPullRequest> getValues() {
         return values;
     }
 

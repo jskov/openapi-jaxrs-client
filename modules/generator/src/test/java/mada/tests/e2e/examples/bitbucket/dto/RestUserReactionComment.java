@@ -141,7 +141,7 @@ public class RestUserReactionComment {
      *
      * @return anchor
      **/
-    @Valid public RestUserReactionCommentAnchor getAnchor() {
+    public @Valid RestUserReactionCommentAnchor getAnchor() {
         return anchor;
     }
 
@@ -177,7 +177,7 @@ public class RestUserReactionComment {
      *
      * @return author
      **/
-    @Valid public RestUserReactionCommentAuthor getAuthor() {
+    public @Valid RestUserReactionCommentAuthor getAuthor() {
         return author;
     }
 
@@ -203,7 +203,7 @@ public class RestUserReactionComment {
      *
      * @return comments
      **/
-    @Valid public List<RestComment> getComments() {
+    public @Valid List<RestComment> getComments() {
         return comments;
     }
 
@@ -275,7 +275,7 @@ public class RestUserReactionComment {
      *
      * @return parent
      **/
-    @Valid public RestUserReactionCommentParent getParent() {
+    public @Valid RestUserReactionCommentParent getParent() {
         return parent;
     }
 
@@ -365,7 +365,7 @@ public class RestUserReactionComment {
      *
      * @return resolver
      **/
-    @Valid public RestUserReactionCommentResolver getResolver() {
+    public @Valid RestUserReactionCommentResolver getResolver() {
         return resolver;
     }
 
@@ -472,7 +472,7 @@ public class RestUserReactionComment {
      *
      * @return threadResolver
      **/
-    @Valid public RestUserReactionCommentThreadResolver getThreadResolver() {
+    public @Valid RestUserReactionCommentThreadResolver getThreadResolver() {
         return threadResolver;
     }
 

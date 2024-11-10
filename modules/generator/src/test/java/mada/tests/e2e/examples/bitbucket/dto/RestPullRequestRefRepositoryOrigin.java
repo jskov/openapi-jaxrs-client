@@ -324,7 +324,7 @@ public class RestPullRequestRefRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public RestPullRequestRefRepositoryOriginProject getProject() {
+    public @Valid RestPullRequestRefRepositoryOriginProject getProject() {
         return project;
     }
 

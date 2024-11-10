@@ -38,7 +38,7 @@ public class EntityHolderRestPullRequestMergeRequest {
      *
      * @return entity
      **/
-    @Valid public EntityHolderRestPullRequestMergeRequestEntity getEntity() {
+    public @Valid EntityHolderRestPullRequestMergeRequestEntity getEntity() {
         return entity;
     }
 

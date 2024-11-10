@@ -53,7 +53,7 @@ public class SMSMailIdentification extends Identification {
    * spaces allowed.
      * @return phoneNumber
      **/
-    @Size(max = 40) public String getPhoneNumber() {
+    public @Size(max = 40) String getPhoneNumber() {
         return phoneNumber;
     }
 

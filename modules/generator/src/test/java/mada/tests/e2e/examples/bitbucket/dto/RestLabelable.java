@@ -370,7 +370,7 @@ public class RestLabelable {
      *
      * @return origin
      **/
-    @Valid public RestLabelableOrigin getOrigin() {
+    public @Valid RestLabelableOrigin getOrigin() {
         return origin;
     }
 
@@ -406,7 +406,7 @@ public class RestLabelable {
      *
      * @return project
      **/
-    @Valid public RestLabelableProject getProject() {
+    public @Valid RestLabelableProject getProject() {
         return project;
     }
 

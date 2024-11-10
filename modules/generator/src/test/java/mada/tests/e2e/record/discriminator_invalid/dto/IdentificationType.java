@@ -18,39 +18,39 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @JsonbTypeAdapter(mada.tests.e2e.record.discriminator_invalid.dto.IdentificationType.IdentificationTypeAdapter.class)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum IdentificationType {
-  PRIVATE("PRIVATE"),
-  VIRK_PERSON("VIRK_PERSON"),
-  SMS_MAIL("SMS_MAIL");
+    PRIVATE("PRIVATE"),
+    VIRK_PERSON("VIRK_PERSON"),
+    SMS_MAIL("SMS_MAIL");
 
-  private final String value;
+    private final String value;
 
-  IdentificationType(String value) {
-    this.value = value;
-  }
+    IdentificationType(String value) {
+        this.value = value;
+    }
 
-  public String getValue() {
-    return value;
-  }
+    public String getValue() {
+        return value;
+    }
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 
-  public static class IdentificationTypeAdapter implements JsonbAdapter<IdentificationType, JsonString> {
-      @Override
-      public JsonString adaptToJson(IdentificationType e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
-      }
+    public static class IdentificationTypeAdapter implements JsonbAdapter<IdentificationType, JsonString> {
+        @Override
+        public JsonString adaptToJson(IdentificationType e) throws Exception {
+            return Json.createValue(String.valueOf(e.value));
+        }
 
-      @Override
-      public IdentificationType adaptFromJson(JsonString value) throws Exception {
-          for (IdentificationType b : IdentificationType.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type IdentificationType");
-      }
-  }
+        @Override
+        public IdentificationType adaptFromJson(JsonString value) throws Exception {
+            for (IdentificationType b : IdentificationType.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
+                }
+            }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type IdentificationType");
+        }
+    }
 }

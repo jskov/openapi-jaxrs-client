@@ -163,7 +163,7 @@ public class RestPushRefChange {
      *
      * @return ref
      **/
-    @Valid public RestPushRefChangeRef getRef() {
+    public @Valid RestPushRefChangeRef getRef() {
         return ref;
     }
 

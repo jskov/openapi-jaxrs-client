@@ -125,7 +125,7 @@ public class RestDeploymentSetRequest {
      *
      * @return deploymentSequenceNumber
      **/
-    @NotNull public Long getDeploymentSequenceNumber() {
+    public @NotNull Long getDeploymentSequenceNumber() {
         return deploymentSequenceNumber;
     }
 
@@ -143,7 +143,7 @@ public class RestDeploymentSetRequest {
      *
      * @return description
      **/
-    @NotNull @Size(min = 0, max = 255) public String getDescription() {
+    public @NotNull @Size(min = 0, max = 255) String getDescription() {
         return description;
     }
 
@@ -161,7 +161,7 @@ public class RestDeploymentSetRequest {
      *
      * @return displayName
      **/
-    @NotNull @Size(min = 0, max = 255) public String getDisplayName() {
+    public @NotNull @Size(min = 0, max = 255) String getDisplayName() {
         return displayName;
     }
 
@@ -179,7 +179,7 @@ public class RestDeploymentSetRequest {
      *
      * @return environment
      **/
-    @NotNull @Valid public RestDeploymentEnvironment getEnvironment() {
+    public @NotNull @Valid RestDeploymentEnvironment getEnvironment() {
         return environment;
     }
 
@@ -197,7 +197,7 @@ public class RestDeploymentSetRequest {
      *
      * @return key
      **/
-    @NotNull @Size(min = 0, max = 255) public String getKey() {
+    public @NotNull @Size(min = 0, max = 255) String getKey() {
         return key;
     }
 
@@ -216,7 +216,7 @@ public class RestDeploymentSetRequest {
      *
      * @return lastUpdated
      **/
-    @Min(0L) public Long getLastUpdated() {
+    public @Min(0L) Long getLastUpdated() {
         return lastUpdated;
     }
 
@@ -234,7 +234,7 @@ public class RestDeploymentSetRequest {
      *
      * @return state
      **/
-    @NotNull public StateEnum getState() {
+    public @NotNull StateEnum getState() {
         return state;
     }
 
@@ -252,7 +252,7 @@ public class RestDeploymentSetRequest {
      *
      * @return url
      **/
-    @NotNull @Size(min = 0, max = 1024) public String getUrl() {
+    public @NotNull @Size(min = 0, max = 1024) String getUrl() {
         return url;
     }
 

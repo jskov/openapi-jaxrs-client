@@ -175,7 +175,7 @@ public class RestProjectSettingsRestriction {
      *
      * @return project
      **/
-    @Valid public RestProjectSettingsRestrictionProject getProject() {
+    public @Valid RestProjectSettingsRestrictionProject getProject() {
         return project;
     }
 

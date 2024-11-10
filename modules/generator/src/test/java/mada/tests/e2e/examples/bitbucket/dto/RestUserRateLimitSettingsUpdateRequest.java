@@ -42,7 +42,7 @@ public class RestUserRateLimitSettingsUpdateRequest {
      *
      * @return settings
      **/
-    @Valid public RestUserRateLimitSettingsUpdateRequestSettings getSettings() {
+    public @Valid RestUserRateLimitSettingsUpdateRequestSettings getSettings() {
         return settings;
     }
 

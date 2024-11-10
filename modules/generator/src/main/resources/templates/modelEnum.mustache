@@ -14,71 +14,71 @@
 public enum {{#datatypeWithEnum}}{{datatypeWithEnum}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} {
   {{#allowableValues}}
   {{#enumVars}}
-  {{{name}}}({{{value}}}){{^-last}},{{/-last}}{{#-last}};{{/-last}}
+    {{{name}}}({{{value}}}){{^-last}},{{/-last}}{{#-last}};{{/-last}}
   {{/enumVars}}
   {{/allowableValues}}
 
-  private final {{{dataType}}} value;
+    private final {{{dataType}}} value;
 
-  {{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}}({{{dataType}}} value) {
-    this.value = value;
-  }
-
-{{#jackson}}
-  @JsonValue
-{{/jackson}}
-  public {{{dataType}}} getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-{{#jackson}}
-
-  @JsonCreator
-  public static {{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} fromValue({{{dataType}}} value) {
-    for ({{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} b : {{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}}.values()) {
-    {{#madaDto.isEqualsPrimitive}}
-      if (b.value == value) {
-    {{/madaDto.isEqualsPrimitive}}
-    {{^madaDto.isEqualsPrimitive}}
-      if (Objects.equals(b.value, value)) {
-    {{/madaDto.isEqualsPrimitive}}
-        return b;
-      }
+    {{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}}({{{dataType}}} value) {
+        this.value = value;
     }
-    {{#madaDto.isEnumUnknownDefault}}
-    {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
-    {{/madaDto.isEnumUnknownDefault}}
-    {{^madaDto.isEnumUnknownDefault}}
-    {{#isNullable}}return null;{{/isNullable}}{{^isNullable}}throw new IllegalArgumentException("Unexpected value '" + value + "'");{{/isNullable}}
-    {{/madaDto.isEnumUnknownDefault}}
-  }
+
+{{#jackson}}
+    @JsonValue
+{{/jackson}}
+    public {{{dataType}}} getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+{{#jackson}}
+
+    @JsonCreator
+    public static {{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} fromValue({{{dataType}}} value) {
+        for ({{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} b : {{#datatypeWithEnum}}{{{datatypeWithEnum}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}}.values()) {
+      {{#madaDto.isEqualsPrimitive}}
+            if (b.value == value) {
+      {{/madaDto.isEqualsPrimitive}}
+      {{^madaDto.isEqualsPrimitive}}
+            if (Objects.equals(b.value, value)) {
+      {{/madaDto.isEqualsPrimitive}}
+                return b;
+            }
+        }
+      {{#madaDto.isEnumUnknownDefault}}
+        {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
+      {{/madaDto.isEnumUnknownDefault}}
+      {{^madaDto.isEnumUnknownDefault}}
+        {{#isNullable}}return null;{{/isNullable}}{{^isNullable}}throw new IllegalArgumentException("Unexpected value '" + value + "'");{{/isNullable}}
+      {{/madaDto.isEnumUnknownDefault}}
+    }
 {{/jackson}}
   {{#madaDto.jsonb}}
 
-  public static class {{{classname}}}Adapter implements JsonbAdapter<{{{classname}}}, JsonString> {
-      @Override
-      public JsonString adaptToJson({{{classname}}} e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
-      }
+    public static class {{{classname}}}Adapter implements JsonbAdapter<{{{classname}}}, JsonString> {
+        @Override
+        public JsonString adaptToJson({{{classname}}} e) throws Exception {
+            return Json.createValue(String.valueOf(e.value));
+        }
 
-      @Override
-      public {{{classname}}} adaptFromJson(JsonString value) throws Exception {
-          for ({{{classname}}} b : {{{classname}}}.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-    {{#madaDto.isEnumUnknownDefault}}
-          {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
-    {{/madaDto.isEnumUnknownDefault}}
-    {{^madaDto.isEnumUnknownDefault}}
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type {{{classname}}}");
-    {{/madaDto.isEnumUnknownDefault}}
-      }
-  }
+        @Override
+        public {{{classname}}} adaptFromJson(JsonString value) throws Exception {
+            for ({{{classname}}} b : {{{classname}}}.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
+                }
+            }
+        {{#madaDto.isEnumUnknownDefault}}
+            {{#allowableValues}}{{#enumVars}}{{#-last}}return {{name}};{{/-last}}{{/enumVars}}{{/allowableValues}}
+        {{/madaDto.isEnumUnknownDefault}}
+        {{^madaDto.isEnumUnknownDefault}}
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type {{{classname}}}");
+        {{/madaDto.isEnumUnknownDefault}}
+        }
+    }
   {{/madaDto.jsonb}}
 }

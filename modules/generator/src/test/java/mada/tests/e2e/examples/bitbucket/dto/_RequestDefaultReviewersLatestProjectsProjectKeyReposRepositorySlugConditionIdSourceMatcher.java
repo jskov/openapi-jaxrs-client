@@ -85,7 +85,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
      *
      * @return type
      **/
-    @Valid public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType getType() {
+    public @Valid _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType getType() {
         return type;
     }
 

@@ -116,7 +116,7 @@ public class _RequestOauth2Exchange {
      * Can take a value of access_token_refresh_token, or access_token, or refresh_token.
      * @return grantType
      **/
-    @NotNull public Grant_typeEnum getGrantType() {
+    public @NotNull Grant_typeEnum getGrantType() {
         return grantType;
     }
 
@@ -150,7 +150,7 @@ public class _RequestOauth2Exchange {
      * Indicates the name of your Azure container registry.
      * @return service
      **/
-    @NotNull public String getService() {
+    public @NotNull String getService() {
         return service;
     }
 

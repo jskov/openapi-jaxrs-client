@@ -52,7 +52,7 @@ public class UserAndGroups {
      *
      * @return groups
      **/
-    @NotNull public Set<String> getGroups() {
+    public @NotNull Set<String> getGroups() {
         return groups;
     }
 

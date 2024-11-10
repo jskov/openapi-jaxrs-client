@@ -162,7 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeySecretScanningRules {
      *
      * @return values
      **/
-    @Valid public List<RestSecretScanningRule> getValues() {
+    public @Valid List<RestSecretScanningRule> getValues() {
         return values;
     }
 

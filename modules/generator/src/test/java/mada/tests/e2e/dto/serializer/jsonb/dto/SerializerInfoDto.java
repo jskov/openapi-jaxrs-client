@@ -179,7 +179,7 @@ public class SerializerInfoDto {
      *
      * @return mpAnnotations
      **/
-    @Valid public MicroprofileAnnotations getMpAnnotations() {
+    public @Valid MicroprofileAnnotations getMpAnnotations() {
         return mpAnnotations;
     }
 
@@ -197,7 +197,7 @@ public class SerializerInfoDto {
      *
      * @return mpAnnotationsPropsOnly
      **/
-    @Valid public MicroProfileAnnotationsPropsOnly getMpAnnotationsPropsOnly() {
+    public @Valid MicroProfileAnnotationsPropsOnly getMpAnnotationsPropsOnly() {
         return mpAnnotationsPropsOnly;
     }
 
@@ -215,7 +215,7 @@ public class SerializerInfoDto {
      *
      * @return mustInclude
      **/
-    @NotNull public String getMustInclude() {
+    public @NotNull String getMustInclude() {
         return mustInclude;
     }
 
@@ -233,7 +233,7 @@ public class SerializerInfoDto {
      *
      * @return mustIncludeViaSchema
      **/
-    @NotNull public String getMustIncludeViaSchema() {
+    public @NotNull String getMustIncludeViaSchema() {
         return mustIncludeViaSchema;
     }
 
@@ -251,7 +251,7 @@ public class SerializerInfoDto {
      *
      * @return notNull
      **/
-    @NotNull public String getNotNull() {
+    public @NotNull String getNotNull() {
         return notNull;
     }
 

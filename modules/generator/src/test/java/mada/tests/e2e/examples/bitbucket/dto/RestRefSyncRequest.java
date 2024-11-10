@@ -110,7 +110,7 @@ public class RestRefSyncRequest {
      *
      * @return context
      **/
-    @Valid public Context getContext() {
+    public @Valid Context getContext() {
         return context;
     }
 

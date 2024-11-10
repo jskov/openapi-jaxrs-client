@@ -92,7 +92,7 @@ public class RestChangeConflictTheirChange {
      *
      * @return path
      **/
-    @Valid public RestChangeConflictTheirChangePath getPath() {
+    public @Valid RestChangeConflictTheirChangePath getPath() {
         return path;
     }
 
@@ -110,7 +110,7 @@ public class RestChangeConflictTheirChange {
      *
      * @return srcPath
      **/
-    @Valid public RestChangeConflictTheirChangeSrcPath getSrcPath() {
+    public @Valid RestChangeConflictTheirChangeSrcPath getSrcPath() {
         return srcPath;
     }
 

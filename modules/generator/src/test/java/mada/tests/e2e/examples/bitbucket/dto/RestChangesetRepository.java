@@ -311,7 +311,7 @@ public class RestChangesetRepository {
      *
      * @return origin
      **/
-    @Valid public RestChangesetRepositoryOrigin getOrigin() {
+    public @Valid RestChangesetRepositoryOrigin getOrigin() {
         return origin;
     }
 
@@ -347,7 +347,7 @@ public class RestChangesetRepository {
      *
      * @return project
      **/
-    @Valid public RestChangesetRepositoryProject getProject() {
+    public @Valid RestChangesetRepositoryProject getProject() {
         return project;
     }
 

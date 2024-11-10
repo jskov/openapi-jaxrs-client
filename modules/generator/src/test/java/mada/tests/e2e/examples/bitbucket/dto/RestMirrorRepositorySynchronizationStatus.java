@@ -109,7 +109,7 @@ public class RestMirrorRepositorySynchronizationStatus {
      *
      * @return hashes
      **/
-    @Valid public RestMirrorRepositorySynchronizationStatusHashes getHashes() {
+    public @Valid RestMirrorRepositorySynchronizationStatusHashes getHashes() {
         return hashes;
     }
 

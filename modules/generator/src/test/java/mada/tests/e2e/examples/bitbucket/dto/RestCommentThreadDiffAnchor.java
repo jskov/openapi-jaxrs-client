@@ -308,7 +308,7 @@ public class RestCommentThreadDiffAnchor {
      *
      * @return path
      **/
-    @Valid public RestCommentThreadDiffAnchorPath getPath() {
+    public @Valid RestCommentThreadDiffAnchorPath getPath() {
         return path;
     }
 
@@ -326,7 +326,7 @@ public class RestCommentThreadDiffAnchor {
      *
      * @return pullRequest
      **/
-    @Valid public RestCommentThreadDiffAnchorPullRequest getPullRequest() {
+    public @Valid RestCommentThreadDiffAnchorPullRequest getPullRequest() {
         return pullRequest;
     }
 
@@ -344,7 +344,7 @@ public class RestCommentThreadDiffAnchor {
      *
      * @return srcPath
      **/
-    @Valid public RestCommentThreadDiffAnchorSrcPath getSrcPath() {
+    public @Valid RestCommentThreadDiffAnchorSrcPath getSrcPath() {
         return srcPath;
     }
 

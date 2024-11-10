@@ -48,7 +48,7 @@ public class RestPullRequestRebaseability {
      *
      * @return vetoes
      **/
-    @Valid public List<RestRepositoryHookVeto> getVetoes() {
+    public @Valid List<RestRepositoryHookVeto> getVetoes() {
         return vetoes;
     }
 

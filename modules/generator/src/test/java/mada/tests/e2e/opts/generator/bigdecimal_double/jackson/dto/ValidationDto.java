@@ -82,7 +82,7 @@ public class ValidationDto {
      * maximum: "1000"
      * @return aBigDecimal
      **/
-    @DecimalMin("100") @DecimalMax("1000") public BigDecimal getaBigDecimal() {
+    public @DecimalMin("100") @DecimalMax("1000") BigDecimal getaBigDecimal() {
         return aBigDecimal;
     }
 
@@ -106,7 +106,7 @@ public class ValidationDto {
      * maximum: 99999999L
      * @return aBigDouble
      **/
-    @Min(0L) @Max(99999999L) public Double getaBigDoubleDouble() {
+    public @Min(0L) @Max(99999999L) Double getaBigDoubleDouble() {
         return aBigDouble;
     }
 
@@ -135,7 +135,7 @@ public class ValidationDto {
      * maximum: 1000L
      * @return aBigFloat
      **/
-    @Min(0L) @Max(1000L) public Float getaBigFloat() {
+    public @Min(0L) @Max(1000L) Float getaBigFloat() {
         return aBigFloat;
     }
 
@@ -155,7 +155,7 @@ public class ValidationDto {
      *
      * @return badParsingOfRange
      **/
-    @Min(100L) @Max(999L) public Integer getBadParsingOfRange() {
+    public @Min(100L) @Max(999L) Integer getBadParsingOfRange() {
         return badParsingOfRange;
     }
 
@@ -175,7 +175,7 @@ public class ValidationDto {
      *
      * @return intValue
      **/
-    @Min(10L) @Max(20L) public Integer getIntValue() {
+    public @Min(10L) @Max(20L) Integer getIntValue() {
         return intValue;
     }
 
@@ -193,7 +193,7 @@ public class ValidationDto {
      *
      * @return name
      **/
-    @NotNull @Size(min = 1, max = 50) public String getName() {
+    public @NotNull @Size(min = 1, max = 50) String getName() {
         return name;
     }
 
@@ -211,7 +211,7 @@ public class ValidationDto {
      *
      * @return pattern
      **/
-    @Pattern(regexp = "^[a-zA-Z]{0,3}$") public String getPattern() {
+    public @Pattern(regexp = "^[a-zA-Z]{0,3}$") String getPattern() {
         return pattern;
     }
 
@@ -229,7 +229,7 @@ public class ValidationDto {
      *
      * @return patternDigits
      **/
-    @Pattern(regexp = "^\\d{1,2}$") public String getPatternDigits() {
+    public @Pattern(regexp = "^\\d{1,2}$") String getPatternDigits() {
         return patternDigits;
     }
 
@@ -281,7 +281,7 @@ public class ValidationDto {
      *
      * @return validObjects
      **/
-    @Valid @Size(min = 1, max = 4) public List<Environment> getValidObjects() {
+    public @Valid @Size(min = 1, max = 4) List<Environment> getValidObjects() {
         return validObjects;
     }
 

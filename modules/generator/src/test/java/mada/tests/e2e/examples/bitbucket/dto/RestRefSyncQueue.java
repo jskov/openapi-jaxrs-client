@@ -48,7 +48,7 @@ public class RestRefSyncQueue {
      *
      * @return values
      **/
-    @Valid public List<RestFarmSynchronizationRequest> getValues() {
+    public @Valid List<RestFarmSynchronizationRequest> getValues() {
         return values;
     }
 

@@ -36,7 +36,7 @@ public class Kontanthandelsgaranti {
      * Description prodnr in Kontanthandelsgaranti.
      * @return prodnr
      **/
-    @NotNull @Pattern(regexp = "^\\d{1,5}$") public Integer getProdnr() {
+    public @NotNull @Pattern(regexp = "^\\d{1,5}$") Integer getProdnr() {
         return prodnr;
     }
 
@@ -53,7 +53,7 @@ public class Kontanthandelsgaranti {
      * Description refnr in Kontanthandelsgaranti.
      * @return refnr
      **/
-    @NotNull @Pattern(regexp = "^\\d{1,7}$") public Integer getRefnr() {
+    public @NotNull @Pattern(regexp = "^\\d{1,7}$") Integer getRefnr() {
         return refnr;
     }
 

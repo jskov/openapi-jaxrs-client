@@ -311,7 +311,7 @@ public class RestDeploymentRepository {
      *
      * @return origin
      **/
-    @Valid public RestDeploymentRepositoryOrigin getOrigin() {
+    public @Valid RestDeploymentRepositoryOrigin getOrigin() {
         return origin;
     }
 
@@ -347,7 +347,7 @@ public class RestDeploymentRepository {
      *
      * @return project
      **/
-    @Valid public RestDeploymentRepositoryProject getProject() {
+    public @Valid RestDeploymentRepositoryProject getProject() {
         return project;
     }
 

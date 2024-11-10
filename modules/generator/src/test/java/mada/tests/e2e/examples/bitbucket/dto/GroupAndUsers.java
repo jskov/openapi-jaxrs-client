@@ -70,7 +70,7 @@ public class GroupAndUsers {
      *
      * @return users
      **/
-    @NotNull public Set<String> getUsers() {
+    public @NotNull Set<String> getUsers() {
         return users;
     }
 

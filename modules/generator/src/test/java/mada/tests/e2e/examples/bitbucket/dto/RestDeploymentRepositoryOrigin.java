@@ -324,7 +324,7 @@ public class RestDeploymentRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public RestDeploymentRepositoryOriginProject getProject() {
+    public @Valid RestDeploymentRepositoryOriginProject getProject() {
         return project;
     }
 

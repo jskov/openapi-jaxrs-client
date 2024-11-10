@@ -34,7 +34,7 @@ public class Request {
      *
      * @return taxation
      **/
-    @Min(100L) @Max(999L) public Integer getTaxation() {
+    public @Min(100L) @Max(999L) Integer getTaxation() {
         return taxation;
     }
 

@@ -92,7 +92,7 @@ public class _RequestOauth2Token {
      * Grant type is expected to be refresh_token.
      * @return grantType
      **/
-    @NotNull public Grant_typeEnum getGrantType() {
+    public @NotNull Grant_typeEnum getGrantType() {
         return grantType;
     }
 
@@ -109,7 +109,7 @@ public class _RequestOauth2Token {
      * Must be a valid ACR refresh token.
      * @return refreshToken
      **/
-    @NotNull public String getRefreshToken() {
+    public @NotNull String getRefreshToken() {
         return refreshToken;
     }
 
@@ -127,7 +127,7 @@ public class _RequestOauth2Token {
    * obtained this from the Www-Authenticate response header from the challenge.
      * @return scope
      **/
-    @NotNull public String getScope() {
+    public @NotNull String getScope() {
         return scope;
     }
 
@@ -144,7 +144,7 @@ public class _RequestOauth2Token {
      * Indicates the name of your Azure container registry.
      * @return service
      **/
-    @NotNull public String getService() {
+    public @NotNull String getService() {
         return service;
     }
 

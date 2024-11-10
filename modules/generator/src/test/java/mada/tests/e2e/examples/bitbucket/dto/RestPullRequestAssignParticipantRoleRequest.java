@@ -103,7 +103,7 @@ public class RestPullRequestAssignParticipantRoleRequest {
      *
      * @return user
      **/
-    @Valid public RestPullRequestAssignParticipantRoleRequestUser getUser() {
+    public @Valid RestPullRequestAssignParticipantRoleRequestUser getUser() {
         return user;
     }
 

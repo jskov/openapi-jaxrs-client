@@ -202,7 +202,7 @@ public class RestCommentParentAnchorPullRequestToRefRepositoryProject {
      *
      * @return key
      **/
-    @NotNull public String getKey() {
+    public @NotNull String getKey() {
         return key;
     }
 
@@ -238,7 +238,7 @@ public class RestCommentParentAnchorPullRequestToRefRepositoryProject {
      *
      * @return name
      **/
-    @Pattern(regexp = "^[^~].*") public String getName() {
+    public @Pattern(regexp = "^[^~].*") String getName() {
         return name;
     }
 

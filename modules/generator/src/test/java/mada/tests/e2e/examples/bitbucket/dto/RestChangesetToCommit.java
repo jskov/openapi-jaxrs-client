@@ -74,7 +74,7 @@ public class RestChangesetToCommit {
      *
      * @return author
      **/
-    @Valid public RestChangesetToCommitAuthor getAuthor() {
+    public @Valid RestChangesetToCommitAuthor getAuthor() {
         return author;
     }
 
@@ -110,7 +110,7 @@ public class RestChangesetToCommit {
      *
      * @return committer
      **/
-    @Valid public RestChangesetToCommitCommitter getCommitter() {
+    public @Valid RestChangesetToCommitCommitter getCommitter() {
         return committer;
     }
 
@@ -208,7 +208,7 @@ public class RestChangesetToCommit {
      *
      * @return parents
      **/
-    @Valid public List<RestMinimalCommit> getParents() {
+    public @Valid List<RestMinimalCommit> getParents() {
         return parents;
     }
 

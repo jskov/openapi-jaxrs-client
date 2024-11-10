@@ -127,7 +127,7 @@ public class RestSecretScanningRule {
      * The scope in which this rule was configured for.
      * @return scope
      **/
-    @Valid public RestSecretScanningRuleScope getScope() {
+    public @Valid RestSecretScanningRuleScope getScope() {
         return scope;
     }
 

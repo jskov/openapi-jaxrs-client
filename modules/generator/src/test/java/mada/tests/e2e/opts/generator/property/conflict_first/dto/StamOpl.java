@@ -53,7 +53,7 @@ public class StamOpl {
      * Description kundeRefnr in StamOpl.
      * @return kundeRefnr
      **/
-    @NotNull @Size(max = 7) public Integer getKundeRefnr() {
+    public @NotNull @Size(max = 7) Integer getKundeRefnr() {
         return kundeRefnr;
     }
 

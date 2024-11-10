@@ -44,7 +44,7 @@ public class RestNodeConnectivityReport {
      *
      * @return node
      **/
-    @Valid public RestNodeConnectivityReportNode getNode() {
+    public @Valid RestNodeConnectivityReportNode getNode() {
         return node;
     }
 
@@ -70,7 +70,7 @@ public class RestNodeConnectivityReport {
      *
      * @return summaries
      **/
-    @Valid public List<RestNodeConnectivitySummary> getSummaries() {
+    public @Valid List<RestNodeConnectivitySummary> getSummaries() {
         return summaries;
     }
 

@@ -18,32 +18,32 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(enumeration = {"low_ext_a", "low_ext_b"}, type = SchemaType.STRING)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum ExternalLowerEnum {
-  LOW_EXT_A("low_ext_a"),
-  LOW_EXT_B("low_ext_b");
+    LOW_EXT_A("low_ext_a"),
+    LOW_EXT_B("low_ext_b");
 
-  private final String value;
+    private final String value;
 
-  ExternalLowerEnum(String value) {
-    this.value = value;
-  }
-
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static ExternalLowerEnum fromValue(String value) {
-    for (ExternalLowerEnum b : ExternalLowerEnum.values()) {
-      if (Objects.equals(b.value, value)) {
-        return b;
-      }
+    ExternalLowerEnum(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
+
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ExternalLowerEnum fromValue(String value) {
+        for (ExternalLowerEnum b : ExternalLowerEnum.values()) {
+            if (Objects.equals(b.value, value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
 }

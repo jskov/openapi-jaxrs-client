@@ -53,7 +53,7 @@ public class MultipartApiMethodsCreatePost {
      *
      * @return jarSize
      **/
-    @NotNull public Long getJarSize() {
+    public @NotNull Long getJarSize() {
         return jarSize;
     }
 
@@ -71,7 +71,7 @@ public class MultipartApiMethodsCreatePost {
      *
      * @return metadata
      **/
-    @Valid public TemplateDTO getMetadata() {
+    public @Valid TemplateDTO getMetadata() {
         return metadata;
     }
 
@@ -89,7 +89,7 @@ public class MultipartApiMethodsCreatePost {
      *
      * @return templateJar
      **/
-    @NotNull public InputStream getTemplateJar() {
+    public @NotNull InputStream getTemplateJar() {
         return templateJar;
     }
 

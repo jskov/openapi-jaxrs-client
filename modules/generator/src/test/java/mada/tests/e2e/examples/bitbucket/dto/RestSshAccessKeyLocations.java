@@ -42,7 +42,7 @@ public class RestSshAccessKeyLocations {
      *
      * @return projects
      **/
-    @Valid public RestProject getProjects() {
+    public @Valid RestProject getProjects() {
         return projects;
     }
 
@@ -60,7 +60,7 @@ public class RestSshAccessKeyLocations {
      *
      * @return repositories
      **/
-    @Valid public RestRepository getRepositories() {
+    public @Valid RestRepository getRepositories() {
         return repositories;
     }
 

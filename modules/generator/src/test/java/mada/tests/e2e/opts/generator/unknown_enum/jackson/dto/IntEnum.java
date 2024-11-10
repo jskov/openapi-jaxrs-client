@@ -17,34 +17,34 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(enumeration = {"1", "2", "-3", "2125323949"}, type = SchemaType.INTEGER, format = "int32")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum IntEnum {
-  NUMBER_1(1),
-  NUMBER_2(2),
-  NUMBER_NEG_3(-3),
-  UNKNOWN_DEFAULT_OPEN_API(2125323949);
+    NUMBER_1(1),
+    NUMBER_2(2),
+    NUMBER_NEG_3(-3),
+    UNKNOWN_DEFAULT_OPEN_API(2125323949);
 
-  private final int value;
+    private final int value;
 
-  IntEnum(int value) {
-    this.value = value;
-  }
-
-  @JsonValue
-  public int getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static IntEnum fromValue(int value) {
-    for (IntEnum b : IntEnum.values()) {
-      if (b.value == value) {
-        return b;
-      }
+    IntEnum(int value) {
+        this.value = value;
     }
-    return UNKNOWN_DEFAULT_OPEN_API;
-  }
+
+    @JsonValue
+    public int getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static IntEnum fromValue(int value) {
+        for (IntEnum b : IntEnum.values()) {
+            if (b.value == value) {
+                return b;
+            }
+        }
+        return UNKNOWN_DEFAULT_OPEN_API;
+    }
 }

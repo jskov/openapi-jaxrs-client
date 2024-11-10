@@ -68,7 +68,7 @@ public class RestProjectSettingsRestrictionRequest {
      *
      * @return featureKey
      **/
-    @NotNull public String getFeatureKey() {
+    public @NotNull String getFeatureKey() {
         return featureKey;
     }
 
@@ -86,7 +86,7 @@ public class RestProjectSettingsRestrictionRequest {
      *
      * @return namespace
      **/
-    @NotNull public String getNamespace() {
+    public @NotNull String getNamespace() {
         return namespace;
     }
 

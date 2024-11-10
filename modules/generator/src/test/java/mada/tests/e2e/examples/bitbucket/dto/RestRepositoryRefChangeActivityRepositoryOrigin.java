@@ -324,7 +324,7 @@ public class RestRepositoryRefChangeActivityRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public RestRepositoryRefChangeActivityRepositoryOriginProject getProject() {
+    public @Valid RestRepositoryRefChangeActivityRepositoryOriginProject getProject() {
         return project;
     }
 

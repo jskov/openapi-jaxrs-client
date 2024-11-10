@@ -47,7 +47,7 @@ class TestIterator {
         // Handy when working on a single test
 //        String testNameContains = "manual";
 //        String testNameContains = "requirenonnull";
-        String testNameContains = "params/form";
+        String testNameContains = "types_mediatypes";
 //        String testNameContains = "opts/generator";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));

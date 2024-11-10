@@ -48,7 +48,7 @@ public class RestHookScriptConfig {
      *
      * @return scope
      **/
-    @Valid public RestHookScriptConfigScope getScope() {
+    public @Valid RestHookScriptConfigScope getScope() {
         return scope;
     }
 
@@ -66,7 +66,7 @@ public class RestHookScriptConfig {
      *
      * @return script
      **/
-    @Valid public RestHookScriptConfigScript getScript() {
+    public @Valid RestHookScriptConfigScript getScript() {
         return script;
     }
 

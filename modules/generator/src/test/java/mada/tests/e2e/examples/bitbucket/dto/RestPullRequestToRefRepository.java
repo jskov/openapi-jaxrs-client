@@ -311,7 +311,7 @@ public class RestPullRequestToRefRepository {
      *
      * @return origin
      **/
-    @Valid public RestPullRequestToRefRepositoryOrigin getOrigin() {
+    public @Valid RestPullRequestToRefRepositoryOrigin getOrigin() {
         return origin;
     }
 
@@ -347,7 +347,7 @@ public class RestPullRequestToRefRepository {
      *
      * @return project
      **/
-    @Valid public RestPullRequestToRefRepositoryProject getProject() {
+    public @Valid RestPullRequestToRefRepositoryProject getProject() {
         return project;
     }
 

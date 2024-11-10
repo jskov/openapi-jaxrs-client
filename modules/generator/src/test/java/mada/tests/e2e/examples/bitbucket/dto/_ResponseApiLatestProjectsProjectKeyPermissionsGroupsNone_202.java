@@ -162,7 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyPermissionsGroupsNone_202 {
      *
      * @return values
      **/
-    @Valid public List<RestDetailedGroup> getValues() {
+    public @Valid List<RestDetailedGroup> getValues() {
         return values;
     }
 

@@ -20,39 +20,39 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(enumeration = {"MIXED_a", "mixed_B", "unknown_default_open_api"}, type = SchemaType.STRING)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum InnerMixedEnum {
-  MIXED_A("MIXED_a"),
-  MIXED_B("mixed_B"),
-  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    MIXED_A("MIXED_a"),
+    MIXED_B("mixed_B"),
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
-  private final String value;
+    private final String value;
 
-  InnerMixedEnum(String value) {
-    this.value = value;
-  }
+    InnerMixedEnum(String value) {
+        this.value = value;
+    }
 
-  public String getValue() {
-    return value;
-  }
+    public String getValue() {
+        return value;
+    }
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 
-  public static class InnerMixedEnumAdapter implements JsonbAdapter<InnerMixedEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(InnerMixedEnum e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
-      }
+    public static class InnerMixedEnumAdapter implements JsonbAdapter<InnerMixedEnum, JsonString> {
+        @Override
+        public JsonString adaptToJson(InnerMixedEnum e) throws Exception {
+            return Json.createValue(String.valueOf(e.value));
+        }
 
-      @Override
-      public InnerMixedEnum adaptFromJson(JsonString value) throws Exception {
-          for (InnerMixedEnum b : InnerMixedEnum.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          return UNKNOWN_DEFAULT_OPEN_API;
-      }
-  }
+        @Override
+        public InnerMixedEnum adaptFromJson(JsonString value) throws Exception {
+            for (InnerMixedEnum b : InnerMixedEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
+                }
+            }
+            return UNKNOWN_DEFAULT_OPEN_API;
+        }
+    }
 }

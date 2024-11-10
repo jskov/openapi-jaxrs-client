@@ -40,7 +40,7 @@ public class Pet {
      *
      * @return id
      **/
-    @NotNull public Long getId() {
+    public @NotNull Long getId() {
         return id;
     }
 
@@ -58,7 +58,7 @@ public class Pet {
      *
      * @return name
      **/
-    @NotNull public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 

@@ -85,7 +85,7 @@ public class RestRestrictionRequestMatcher {
      *
      * @return type
      **/
-    @Valid public RestRestrictionRequestMatcherType getType() {
+    public @Valid RestRestrictionRequestMatcherType getType() {
         return type;
     }
 

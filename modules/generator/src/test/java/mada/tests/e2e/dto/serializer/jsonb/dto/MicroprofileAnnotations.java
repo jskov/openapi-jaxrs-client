@@ -109,7 +109,7 @@ public class MicroprofileAnnotations {
      *
      * @return isRequired
      **/
-    @NotNull public String getIsRequired() {
+    public @NotNull String getIsRequired() {
         return isRequired;
     }
 
@@ -126,7 +126,7 @@ public class MicroprofileAnnotations {
      * text_description.
      * @return readonlyRequiredAndDescriptionAndExample
      **/
-    @NotNull public String getReadonlyRequiredAndDescriptionAndExample() {
+    public @NotNull String getReadonlyRequiredAndDescriptionAndExample() {
         return readonlyRequiredAndDescriptionAndExample;
     }
 
@@ -143,7 +143,7 @@ public class MicroprofileAnnotations {
      * text_description.
      * @return requiredAndDescription
      **/
-    @NotNull public String getRequiredAndDescription() {
+    public @NotNull String getRequiredAndDescription() {
         return requiredAndDescription;
     }
 
@@ -160,7 +160,7 @@ public class MicroprofileAnnotations {
      * text_description.
      * @return requiredAndDescriptionAndExample
      **/
-    @NotNull public String getRequiredAndDescriptionAndExample() {
+    public @NotNull String getRequiredAndDescriptionAndExample() {
         return requiredAndDescriptionAndExample;
     }
 
@@ -178,7 +178,7 @@ public class MicroprofileAnnotations {
      *
      * @return requiredAndExample
      **/
-    @NotNull public String getRequiredAndExample() {
+    public @NotNull String getRequiredAndExample() {
         return requiredAndExample;
     }
 

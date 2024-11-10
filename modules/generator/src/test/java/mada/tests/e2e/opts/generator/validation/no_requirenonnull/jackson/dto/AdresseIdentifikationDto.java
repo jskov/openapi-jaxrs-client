@@ -37,7 +37,7 @@ public class AdresseIdentifikationDto {
      *
      * @return adgangsadresseId
      **/
-    @NotNull public UUID getAdgangsadresseId() {
+    public @NotNull UUID getAdgangsadresseId() {
         return adgangsadresseId;
     }
 

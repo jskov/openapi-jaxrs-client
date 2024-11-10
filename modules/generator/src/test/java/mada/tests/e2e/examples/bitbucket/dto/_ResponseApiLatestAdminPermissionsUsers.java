@@ -162,7 +162,7 @@ public class _ResponseApiLatestAdminPermissionsUsers {
      *
      * @return values
      **/
-    @Valid public List<RestPermittedGroup> getValues() {
+    public @Valid List<RestPermittedGroup> getValues() {
         return values;
     }
 

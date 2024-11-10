@@ -31,7 +31,7 @@ public class CyclicA {
      *
      * @return b
      **/
-    @Valid public CyclicB getB() {
+    public @Valid CyclicB getB() {
         return b;
     }
 

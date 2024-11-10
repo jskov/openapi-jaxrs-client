@@ -48,7 +48,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranchesDefa
      *
      * @return errors
      **/
-    @Valid public List<RestErrorMessage> getErrors() {
+    public @Valid List<RestErrorMessage> getErrors() {
         return errors;
     }
 

@@ -31,7 +31,7 @@ public class Aftalepakke {
      *
      * @return aftalePakkeIdPartnerSalg
      **/
-    @Valid public AftalePakkeId getAftalePakkeIdPartnerSalg() {
+    public @Valid AftalePakkeId getAftalePakkeIdPartnerSalg() {
         return aftalePakkeIdPartnerSalg;
     }
 

@@ -326,7 +326,7 @@ public class RestBitbucketLicense {
      *
      * @return status
      **/
-    @Valid public RestBitbucketLicenseStatus getStatus() {
+    public @Valid RestBitbucketLicenseStatus getStatus() {
         return status;
     }
 

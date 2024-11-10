@@ -74,7 +74,7 @@ public class ExampleJsonLastModifiedCallbackReadmeMd {
      *
      * @return author
      **/
-    @Valid public ExampleJsonLastModifiedCallbackReadmeMdAuthor getAuthor() {
+    public @Valid ExampleJsonLastModifiedCallbackReadmeMdAuthor getAuthor() {
         return author;
     }
 
@@ -110,7 +110,7 @@ public class ExampleJsonLastModifiedCallbackReadmeMd {
      *
      * @return committer
      **/
-    @Valid public ExampleJsonLastModifiedCallbackReadmeMdCommitter getCommitter() {
+    public @Valid ExampleJsonLastModifiedCallbackReadmeMdCommitter getCommitter() {
         return committer;
     }
 
@@ -208,7 +208,7 @@ public class ExampleJsonLastModifiedCallbackReadmeMd {
      *
      * @return parents
      **/
-    @Valid public List<RestMinimalCommit> getParents() {
+    public @Valid List<RestMinimalCommit> getParents() {
         return parents;
     }
 

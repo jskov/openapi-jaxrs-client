@@ -102,7 +102,7 @@ public class RestDetailedInvocation {
      *
      * @return eventScope
      **/
-    @Valid public RestDetailedInvocationEventScope getEventScope() {
+    public @Valid RestDetailedInvocationEventScope getEventScope() {
         return eventScope;
     }
 

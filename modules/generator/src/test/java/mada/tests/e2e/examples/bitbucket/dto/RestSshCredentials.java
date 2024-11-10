@@ -66,7 +66,7 @@ public class RestSshCredentials {
      * The public key text in the OpenSSH format. The algorithm must be specified in case of the legacy X.509 keys
      * @return publicKey
      **/
-    @NotNull public String getPublicKey() {
+    public @NotNull String getPublicKey() {
         return publicKey;
     }
 

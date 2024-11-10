@@ -39,7 +39,7 @@ public class OCIIndex {
      *
      * @return annotations
      **/
-    @Valid public Annotations getAnnotations() {
+    public @Valid Annotations getAnnotations() {
         return annotations;
     }
 
@@ -64,7 +64,7 @@ public class OCIIndex {
      * List of OCI image layer information.
      * @return manifests
      **/
-    @Valid public List<ManifestListAttributes> getManifests() {
+    public @Valid List<ManifestListAttributes> getManifests() {
         return manifests;
     }
 

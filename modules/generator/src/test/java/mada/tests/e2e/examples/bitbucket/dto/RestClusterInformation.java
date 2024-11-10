@@ -48,7 +48,7 @@ public class RestClusterInformation {
      *
      * @return localNode
      **/
-    @Valid public RestClusterInformationLocalNode getLocalNode() {
+    public @Valid RestClusterInformationLocalNode getLocalNode() {
         return localNode;
     }
 
@@ -74,7 +74,7 @@ public class RestClusterInformation {
      *
      * @return nodes
      **/
-    @Valid public List<RestClusterNode> getNodes() {
+    public @Valid List<RestClusterNode> getNodes() {
         return nodes;
     }
 

@@ -163,7 +163,7 @@ public class RestRepositoryRefChangeActivityRefChange {
      *
      * @return ref
      **/
-    @Valid public RestRepositoryRefChangeActivityRefChangeRef getRef() {
+    public @Valid RestRepositoryRefChangeActivityRefChangeRef getRef() {
         return ref;
     }
 

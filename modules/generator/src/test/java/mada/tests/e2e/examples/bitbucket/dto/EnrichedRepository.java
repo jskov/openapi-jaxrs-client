@@ -315,7 +315,7 @@ public class EnrichedRepository {
      *
      * @return origin
      **/
-    @Valid public EnrichedRepositoryOrigin getOrigin() {
+    public @Valid EnrichedRepositoryOrigin getOrigin() {
         return origin;
     }
 
@@ -351,7 +351,7 @@ public class EnrichedRepository {
      *
      * @return project
      **/
-    @Valid public EnrichedRepositoryProject getProject() {
+    public @Valid EnrichedRepositoryProject getProject() {
         return project;
     }
 
@@ -369,7 +369,7 @@ public class EnrichedRepository {
      *
      * @return properties
      **/
-    @Valid public EnrichedRepositoryProperties getProperties() {
+    public @Valid EnrichedRepositoryProperties getProperties() {
         return properties;
     }
 

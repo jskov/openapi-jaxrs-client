@@ -324,7 +324,7 @@ public class EnrichedRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public EnrichedRepositoryOriginProject getProject() {
+    public @Valid EnrichedRepositoryOriginProject getProject() {
         return project;
     }
 

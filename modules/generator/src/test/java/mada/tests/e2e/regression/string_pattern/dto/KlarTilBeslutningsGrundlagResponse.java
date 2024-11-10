@@ -32,7 +32,7 @@ public class KlarTilBeslutningsGrundlagResponse {
      *
      * @return senestOpdat
      **/
-    @NotNull @Pattern(regexp = "^(\\d{4}-\\d{2}-\\d{2}-\\d{2}.\\d{2}.\\d{2}.\\d{6})$") public String getSenestOpdat() {
+    public @NotNull @Pattern(regexp = "^(\\d{4}-\\d{2}-\\d{2}-\\d{2}.\\d{2}.\\d{2}.\\d{6})$") String getSenestOpdat() {
         return senestOpdat;
     }
 

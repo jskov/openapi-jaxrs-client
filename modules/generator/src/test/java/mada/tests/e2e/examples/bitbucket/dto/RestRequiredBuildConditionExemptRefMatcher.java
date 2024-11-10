@@ -85,7 +85,7 @@ public class RestRequiredBuildConditionExemptRefMatcher {
      *
      * @return type
      **/
-    @Valid public RestRequiredBuildConditionExemptRefMatcherType getType() {
+    public @Valid RestRequiredBuildConditionExemptRefMatcherType getType() {
         return type;
     }
 

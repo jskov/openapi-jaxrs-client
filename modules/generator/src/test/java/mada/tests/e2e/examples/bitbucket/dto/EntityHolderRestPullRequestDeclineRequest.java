@@ -38,7 +38,7 @@ public class EntityHolderRestPullRequestDeclineRequest {
      *
      * @return entity
      **/
-    @Valid public EntityHolderRestPullRequestDeclineRequestEntity getEntity() {
+    public @Valid EntityHolderRestPullRequestDeclineRequestEntity getEntity() {
         return entity;
     }
 

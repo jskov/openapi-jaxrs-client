@@ -308,7 +308,7 @@ public class RestCommentParentAnchor {
      *
      * @return path
      **/
-    @Valid public RestCommentParentAnchorPath getPath() {
+    public @Valid RestCommentParentAnchorPath getPath() {
         return path;
     }
 
@@ -326,7 +326,7 @@ public class RestCommentParentAnchor {
      *
      * @return pullRequest
      **/
-    @Valid public RestCommentParentAnchorPullRequest getPullRequest() {
+    public @Valid RestCommentParentAnchorPullRequest getPullRequest() {
         return pullRequest;
     }
 
@@ -344,7 +344,7 @@ public class RestCommentParentAnchor {
      *
      * @return srcPath
      **/
-    @Valid public RestCommentParentAnchorSrcPath getSrcPath() {
+    public @Valid RestCommentParentAnchorSrcPath getSrcPath() {
         return srcPath;
     }
 

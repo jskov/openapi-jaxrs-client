@@ -154,7 +154,7 @@ public class RestAutoMergeProcessingResultPullRequestToRef {
      *
      * @return repository
      **/
-    @Valid public RestAutoMergeProcessingResultPullRequestToRefRepository getRepository() {
+    public @Valid RestAutoMergeProcessingResultPullRequestToRefRepository getRepository() {
         return repository;
     }
 

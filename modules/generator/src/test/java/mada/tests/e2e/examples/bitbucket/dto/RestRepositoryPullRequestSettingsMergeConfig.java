@@ -58,7 +58,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
      *
      * @return commitMessageTemplate
      **/
-    @Valid public RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
+    public @Valid RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
         return commitMessageTemplate;
     }
 
@@ -94,7 +94,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
      *
      * @return defaultStrategy
      **/
-    @Valid public RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy getDefaultStrategy() {
+    public @Valid RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy getDefaultStrategy() {
         return defaultStrategy;
     }
 
@@ -120,7 +120,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
      *
      * @return strategies
      **/
-    @Valid public List<RestPullRequestMergeStrategy> getStrategies() {
+    public @Valid List<RestPullRequestMergeStrategy> getStrategies() {
         return strategies;
     }
 

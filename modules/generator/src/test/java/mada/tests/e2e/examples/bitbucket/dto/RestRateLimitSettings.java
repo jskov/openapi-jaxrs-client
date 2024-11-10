@@ -42,7 +42,7 @@ public class RestRateLimitSettings {
      *
      * @return defaultSettings
      **/
-    @Valid public RestRateLimitSettingsDefaultSettings getDefaultSettings() {
+    public @Valid RestRateLimitSettingsDefaultSettings getDefaultSettings() {
         return defaultSettings;
     }
 

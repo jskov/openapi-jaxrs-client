@@ -324,7 +324,7 @@ public class RestRepository {
      *
      * @return project
      **/
-    @Valid public RestRepositoryProject getProject() {
+    public @Valid RestRepositoryProject getProject() {
         return project;
     }
 

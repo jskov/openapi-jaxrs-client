@@ -162,7 +162,7 @@ public class _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugC
      *
      * @return values
      **/
-    @Valid public List<RestRequiredBuildCondition> getValues() {
+    public @Valid List<RestRequiredBuildCondition> getValues() {
         return values;
     }
 

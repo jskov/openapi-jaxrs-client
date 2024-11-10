@@ -130,7 +130,7 @@ public class RestAutoMergeRestrictedSettings {
      * The scope that these settings apply to.
      * @return scope
      **/
-    @Valid public RestAutoMergeRestrictedSettingsScope getScope() {
+    public @Valid RestAutoMergeRestrictedSettingsScope getScope() {
         return scope;
     }
 

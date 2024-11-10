@@ -46,7 +46,7 @@ public class ExampleJsonLastModifiedCallback {
      *
      * @return latestCommit
      **/
-    @Valid public ExampleJsonLastModifiedCallbackLatestCommit getLatestCommit() {
+    public @Valid ExampleJsonLastModifiedCallbackLatestCommit getLatestCommit() {
         return latestCommit;
     }
 
@@ -64,7 +64,7 @@ public class ExampleJsonLastModifiedCallback {
      *
      * @return pomXml
      **/
-    @Valid public ExampleJsonLastModifiedCallbackPomXml getPomXml() {
+    public @Valid ExampleJsonLastModifiedCallbackPomXml getPomXml() {
         return pomXml;
     }
 
@@ -82,7 +82,7 @@ public class ExampleJsonLastModifiedCallback {
      *
      * @return readmeMd
      **/
-    @Valid public ExampleJsonLastModifiedCallbackReadmeMd getReadmeMd() {
+    public @Valid ExampleJsonLastModifiedCallbackReadmeMd getReadmeMd() {
         return readmeMd;
     }
 

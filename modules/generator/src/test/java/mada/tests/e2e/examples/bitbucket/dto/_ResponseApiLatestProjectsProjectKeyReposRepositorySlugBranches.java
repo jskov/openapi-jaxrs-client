@@ -162,7 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBranches {
      *
      * @return values
      **/
-    @Valid public List<RestBranch> getValues() {
+    public @Valid List<RestBranch> getValues() {
         return values;
     }
 

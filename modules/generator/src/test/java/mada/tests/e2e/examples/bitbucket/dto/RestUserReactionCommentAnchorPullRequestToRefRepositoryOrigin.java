@@ -324,7 +324,7 @@ public class RestUserReactionCommentAnchorPullRequestToRefRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public RestUserReactionCommentAnchorPullRequestToRefRepositoryOriginProject getProject() {
+    public @Valid RestUserReactionCommentAnchorPullRequestToRefRepositoryOriginProject getProject() {
         return project;
     }
 

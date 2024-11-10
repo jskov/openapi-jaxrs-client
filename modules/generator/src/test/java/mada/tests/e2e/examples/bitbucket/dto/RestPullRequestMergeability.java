@@ -135,7 +135,7 @@ public class RestPullRequestMergeability {
      *
      * @return vetoes
      **/
-    @Valid public List<RestRepositoryHookVeto> getVetoes() {
+    public @Valid List<RestRepositoryHookVeto> getVetoes() {
         return vetoes;
     }
 

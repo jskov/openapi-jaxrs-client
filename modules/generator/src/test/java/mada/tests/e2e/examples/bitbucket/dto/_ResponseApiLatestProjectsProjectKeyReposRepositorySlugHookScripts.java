@@ -162,7 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugHookScripts 
      *
      * @return values
      **/
-    @Valid public List<RestHookScriptConfig> getValues() {
+    public @Valid List<RestHookScriptConfig> getValues() {
         return values;
     }
 

@@ -98,7 +98,7 @@ public class EnumsDto {
      *
      * @return external
      **/
-    @Valid public ExternalEnum getExternal() {
+    public @Valid ExternalEnum getExternal() {
         return external;
     }
 
@@ -116,7 +116,7 @@ public class EnumsDto {
      *
      * @return externalLower
      **/
-    @Valid public ExternalLowerEnum getExternalLower() {
+    public @Valid ExternalLowerEnum getExternalLower() {
         return externalLower;
     }
 
@@ -134,7 +134,7 @@ public class EnumsDto {
      *
      * @return externalMixed
      **/
-    @Valid public ExternalMixedEnum getExternalMixed() {
+    public @Valid ExternalMixedEnum getExternalMixed() {
         return externalMixed;
     }
 
@@ -152,7 +152,7 @@ public class EnumsDto {
      *
      * @return inner
      **/
-    @Valid public InnerEnum getInner() {
+    public @Valid InnerEnum getInner() {
         return inner;
     }
 
@@ -170,7 +170,7 @@ public class EnumsDto {
      *
      * @return integerEnum
      **/
-    @Valid public IntEnum getIntegerEnum() {
+    public @Valid IntEnum getIntegerEnum() {
         return integerEnum;
     }
 
@@ -188,7 +188,7 @@ public class EnumsDto {
      *
      * @return lower
      **/
-    @Valid public InnerLowerEnum getLower() {
+    public @Valid InnerLowerEnum getLower() {
         return lower;
     }
 
@@ -206,7 +206,7 @@ public class EnumsDto {
      *
      * @return mixed
      **/
-    @Valid public InnerMixedEnum getMixed() {
+    public @Valid InnerMixedEnum getMixed() {
         return mixed;
     }
 
@@ -242,7 +242,7 @@ public class EnumsDto {
      *
      * @return stringIntegerEnum
      **/
-    @Valid public StringIntEnum getStringIntegerEnum() {
+    public @Valid StringIntEnum getStringIntegerEnum() {
         return stringIntegerEnum;
     }
 

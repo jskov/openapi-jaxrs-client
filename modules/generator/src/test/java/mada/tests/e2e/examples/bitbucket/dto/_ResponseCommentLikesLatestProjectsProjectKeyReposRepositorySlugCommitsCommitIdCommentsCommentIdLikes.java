@@ -162,7 +162,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCom
      *
      * @return values
      **/
-    @Valid public List<RestApplicationUser> getValues() {
+    public @Valid List<RestApplicationUser> getValues() {
         return values;
     }
 

@@ -162,7 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRelated {
      *
      * @return values
      **/
-    @Valid public List<RestRepository> getValues() {
+    public @Valid List<RestRepository> getValues() {
         return values;
     }
 

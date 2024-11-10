@@ -135,7 +135,7 @@ public class ExternedLists {
      *
      * @return listSimple
      **/
-    @Valid public List<Simple> getListSimple() {
+    public @Valid List<Simple> getListSimple() {
         return listSimple;
     }
 

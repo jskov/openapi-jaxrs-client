@@ -48,7 +48,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags_401 {
      *
      * @return errors
      **/
-    @Valid public List<RestErrorMessage> getErrors() {
+    public @Valid List<RestErrorMessage> getErrors() {
         return errors;
     }
 

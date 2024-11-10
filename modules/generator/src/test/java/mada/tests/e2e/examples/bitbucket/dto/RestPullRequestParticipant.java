@@ -210,7 +210,7 @@ public class RestPullRequestParticipant {
      *
      * @return user
      **/
-    @Valid public RestPullRequestParticipantUser getUser() {
+    public @Valid RestPullRequestParticipantUser getUser() {
         return user;
     }
 

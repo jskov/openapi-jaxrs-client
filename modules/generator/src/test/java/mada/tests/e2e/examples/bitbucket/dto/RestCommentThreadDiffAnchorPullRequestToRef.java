@@ -154,7 +154,7 @@ public class RestCommentThreadDiffAnchorPullRequestToRef {
      *
      * @return repository
      **/
-    @Valid public RestCommentThreadDiffAnchorPullRequestToRefRepository getRepository() {
+    public @Valid RestCommentThreadDiffAnchorPullRequestToRefRepository getRepository() {
         return repository;
     }
 

@@ -324,7 +324,7 @@ public class RestMigrationRepositoryRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public RestMigrationRepositoryRepositoryOriginProject getProject() {
+    public @Valid RestMigrationRepositoryRepositoryOriginProject getProject() {
         return project;
     }
 

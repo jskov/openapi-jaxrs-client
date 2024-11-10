@@ -167,7 +167,7 @@ public class RestChange {
      *
      * @return conflict
      **/
-    @Valid public RestChangeConflict getConflict() {
+    public @Valid RestChangeConflict getConflict() {
         return conflict;
     }
 
@@ -275,7 +275,7 @@ public class RestChange {
      *
      * @return path
      **/
-    @Valid public RestChangePath getPath() {
+    public @Valid RestChangePath getPath() {
         return path;
     }
 
@@ -329,7 +329,7 @@ public class RestChange {
      *
      * @return srcPath
      **/
-    @Valid public RestChangeSrcPath getSrcPath() {
+    public @Valid RestChangeSrcPath getSrcPath() {
         return srcPath;
     }
 

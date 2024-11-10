@@ -135,7 +135,7 @@ public class RestReviewerGroup {
      *
      * @return scope
      **/
-    @Valid public RestReviewerGroupScope getScope() {
+    public @Valid RestReviewerGroupScope getScope() {
         return scope;
     }
 
@@ -161,7 +161,7 @@ public class RestReviewerGroup {
      *
      * @return users
      **/
-    @Valid public List<ApplicationUser> getUsers() {
+    public @Valid List<ApplicationUser> getUsers() {
         return users;
     }
 

@@ -163,7 +163,7 @@ public class RestPullRequestActivity {
      *
      * @return user
      **/
-    @Valid public RestPullRequestActivityUser getUser() {
+    public @Valid RestPullRequestActivityUser getUser() {
         return user;
     }
 

@@ -162,7 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeAct
      *
      * @return values
      **/
-    @Valid public List<RestRepositoryRefChangeActivity> getValues() {
+    public @Valid List<RestRepositoryRefChangeActivity> getValues() {
         return values;
     }
 

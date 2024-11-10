@@ -85,7 +85,7 @@ public class RestDefaultReviewersRequestSourceMatcher {
      *
      * @return type
      **/
-    @Valid public RestDefaultReviewersRequestSourceMatcherType getType() {
+    public @Valid RestDefaultReviewersRequestSourceMatcherType getType() {
         return type;
     }
 

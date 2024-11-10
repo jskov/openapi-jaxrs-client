@@ -112,7 +112,7 @@ public class RestSshSettings {
      *
      * @return fingerprint
      **/
-    @Valid public SimpleSshKeyFingerprint getFingerprint() {
+    public @Valid SimpleSshKeyFingerprint getFingerprint() {
         return fingerprint;
     }
 

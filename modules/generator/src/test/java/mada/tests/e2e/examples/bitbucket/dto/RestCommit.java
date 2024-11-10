@@ -74,7 +74,7 @@ public class RestCommit {
      *
      * @return author
      **/
-    @Valid public RestCommitAuthor getAuthor() {
+    public @Valid RestCommitAuthor getAuthor() {
         return author;
     }
 
@@ -110,7 +110,7 @@ public class RestCommit {
      *
      * @return committer
      **/
-    @Valid public RestCommitCommitter getCommitter() {
+    public @Valid RestCommitCommitter getCommitter() {
         return committer;
     }
 
@@ -208,7 +208,7 @@ public class RestCommit {
      *
      * @return parents
      **/
-    @Valid public List<RestMinimalCommit> getParents() {
+    public @Valid List<RestMinimalCommit> getParents() {
         return parents;
     }
 

@@ -65,7 +65,7 @@ public class LogEntry {
      *
      * @return correlationId
      **/
-    @NotNull @Size(min = 1, max = 40) public String getCorrelationId() {
+    public @NotNull @Size(min = 1, max = 40) String getCorrelationId() {
         return correlationId;
     }
 
@@ -83,7 +83,7 @@ public class LogEntry {
      *
      * @return initiator
      **/
-    @NotNull @Valid public LogInitiator getInitiator() {
+    public @NotNull @Valid LogInitiator getInitiator() {
         return initiator;
     }
 
@@ -101,7 +101,7 @@ public class LogEntry {
      *
      * @return message
      **/
-    @NotNull @Pattern(regexp = "\\S") public String getMessage() {
+    public @NotNull @Pattern(regexp = "\\S") String getMessage() {
         return message;
     }
 
@@ -119,7 +119,7 @@ public class LogEntry {
      *
      * @return operation
      **/
-    @NotNull @Pattern(regexp = "\\S") public String getOperation() {
+    public @NotNull @Pattern(regexp = "\\S") String getOperation() {
         return operation;
     }
 
@@ -137,7 +137,7 @@ public class LogEntry {
      *
      * @return operationCategory
      **/
-    @NotNull @Valid public OperationCategory getOperationCategory() {
+    public @NotNull @Valid OperationCategory getOperationCategory() {
         return operationCategory;
     }
 
@@ -155,7 +155,7 @@ public class LogEntry {
      *
      * @return origin
      **/
-    @NotNull @Valid public LogOrigin getOrigin() {
+    public @NotNull @Valid LogOrigin getOrigin() {
         return origin;
     }
 

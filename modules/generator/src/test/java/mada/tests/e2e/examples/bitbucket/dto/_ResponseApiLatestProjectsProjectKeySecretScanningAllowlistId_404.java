@@ -48,7 +48,7 @@ public class _ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_404 {
      *
      * @return errors
      **/
-    @Valid public List<RestErrorMessage> getErrors() {
+    public @Valid List<RestErrorMessage> getErrors() {
         return errors;
     }
 

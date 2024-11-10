@@ -308,7 +308,7 @@ public class RestUserReactionCommentAnchor {
      *
      * @return path
      **/
-    @Valid public RestUserReactionCommentAnchorPath getPath() {
+    public @Valid RestUserReactionCommentAnchorPath getPath() {
         return path;
     }
 
@@ -326,7 +326,7 @@ public class RestUserReactionCommentAnchor {
      *
      * @return pullRequest
      **/
-    @Valid public RestUserReactionCommentAnchorPullRequest getPullRequest() {
+    public @Valid RestUserReactionCommentAnchorPullRequest getPullRequest() {
         return pullRequest;
     }
 
@@ -344,7 +344,7 @@ public class RestUserReactionCommentAnchor {
      *
      * @return srcPath
      **/
-    @Valid public RestUserReactionCommentAnchorSrcPath getSrcPath() {
+    public @Valid RestUserReactionCommentAnchorSrcPath getSrcPath() {
         return srcPath;
     }
 

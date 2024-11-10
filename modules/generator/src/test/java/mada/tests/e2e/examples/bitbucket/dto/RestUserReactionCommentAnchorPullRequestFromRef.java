@@ -154,7 +154,7 @@ public class RestUserReactionCommentAnchorPullRequestFromRef {
      *
      * @return repository
      **/
-    @Valid public RestUserReactionCommentAnchorPullRequestFromRefRepository getRepository() {
+    public @Valid RestUserReactionCommentAnchorPullRequestFromRefRepository getRepository() {
         return repository;
     }
 

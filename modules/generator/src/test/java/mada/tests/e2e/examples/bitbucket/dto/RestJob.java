@@ -163,7 +163,7 @@ public class RestJob {
      *
      * @return initiator
      **/
-    @Valid public RestJobInitiator getInitiator() {
+    public @Valid RestJobInitiator getInitiator() {
         return initiator;
     }
 
@@ -199,7 +199,7 @@ public class RestJob {
      *
      * @return progress
      **/
-    @Valid public RestJobProgress getProgress() {
+    public @Valid RestJobProgress getProgress() {
         return progress;
     }
 

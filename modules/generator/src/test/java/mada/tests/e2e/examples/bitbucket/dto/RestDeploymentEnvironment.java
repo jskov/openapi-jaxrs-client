@@ -56,7 +56,7 @@ public class RestDeploymentEnvironment {
      *
      * @return displayName
      **/
-    @Size(min = 0, max = 255) public String getDisplayName() {
+    public @Size(min = 0, max = 255) String getDisplayName() {
         return displayName;
     }
 
@@ -74,7 +74,7 @@ public class RestDeploymentEnvironment {
      *
      * @return key
      **/
-    @Size(min = 0, max = 255) public String getKey() {
+    public @Size(min = 0, max = 255) String getKey() {
         return key;
     }
 
@@ -92,7 +92,7 @@ public class RestDeploymentEnvironment {
      *
      * @return type
      **/
-    @Pattern(regexp = "DEVELOPMENT|TESTING|STAGING|PRODUCTION") public String getType() {
+    public @Pattern(regexp = "DEVELOPMENT|TESTING|STAGING|PRODUCTION") String getType() {
         return type;
     }
 
@@ -110,7 +110,7 @@ public class RestDeploymentEnvironment {
      *
      * @return url
      **/
-    @Size(min = 0, max = 1024) public String getUrl() {
+    public @Size(min = 0, max = 1024) String getUrl() {
         return url;
     }
 

@@ -80,7 +80,7 @@ public class RestRequiredBuildCondition {
      *
      * @return exemptRefMatcher
      **/
-    @Valid public RestRequiredBuildConditionExemptRefMatcher getExemptRefMatcher() {
+    public @Valid RestRequiredBuildConditionExemptRefMatcher getExemptRefMatcher() {
         return exemptRefMatcher;
     }
 
@@ -116,7 +116,7 @@ public class RestRequiredBuildCondition {
      *
      * @return refMatcher
      **/
-    @Valid public RestRequiredBuildConditionRefMatcher getRefMatcher() {
+    public @Valid RestRequiredBuildConditionRefMatcher getRefMatcher() {
         return refMatcher;
     }
 

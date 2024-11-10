@@ -40,7 +40,7 @@ public class RestBearerTokenCredentials {
      *
      * @return token
      **/
-    @NotNull public String getToken() {
+    public @NotNull String getToken() {
         return token;
     }
 

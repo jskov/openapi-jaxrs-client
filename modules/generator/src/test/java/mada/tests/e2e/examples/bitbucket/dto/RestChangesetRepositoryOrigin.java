@@ -324,7 +324,7 @@ public class RestChangesetRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public RestChangesetRepositoryOriginProject getProject() {
+    public @Valid RestChangesetRepositoryOriginProject getProject() {
         return project;
     }
 

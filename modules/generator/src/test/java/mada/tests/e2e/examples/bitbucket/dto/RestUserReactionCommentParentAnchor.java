@@ -308,7 +308,7 @@ public class RestUserReactionCommentParentAnchor {
      *
      * @return path
      **/
-    @Valid public RestUserReactionCommentParentAnchorPath getPath() {
+    public @Valid RestUserReactionCommentParentAnchorPath getPath() {
         return path;
     }
 
@@ -326,7 +326,7 @@ public class RestUserReactionCommentParentAnchor {
      *
      * @return pullRequest
      **/
-    @Valid public RestUserReactionCommentParentAnchorPullRequest getPullRequest() {
+    public @Valid RestUserReactionCommentParentAnchorPullRequest getPullRequest() {
         return pullRequest;
     }
 
@@ -344,7 +344,7 @@ public class RestUserReactionCommentParentAnchor {
      *
      * @return srcPath
      **/
-    @Valid public RestUserReactionCommentParentAnchorSrcPath getSrcPath() {
+    public @Valid RestUserReactionCommentParentAnchorSrcPath getSrcPath() {
         return srcPath;
     }
 

@@ -57,7 +57,7 @@ public class RestRequiredBuildConditionSetRequest {
      * A non-empty list of build parent keys that require green builds for this merge check to pass.
      * @return buildParentKeys
      **/
-    @NotNull @Size(min = 0, max = 100) public List<String> getBuildParentKeys() {
+    public @NotNull @Size(min = 0, max = 100) List<String> getBuildParentKeys() {
         return buildParentKeys;
     }
 
@@ -75,7 +75,7 @@ public class RestRequiredBuildConditionSetRequest {
      *
      * @return exemptRefMatcher
      **/
-    @Valid public RestRefMatcher getExemptRefMatcher() {
+    public @Valid RestRefMatcher getExemptRefMatcher() {
         return exemptRefMatcher;
     }
 
@@ -93,7 +93,7 @@ public class RestRequiredBuildConditionSetRequest {
      *
      * @return refMatcher
      **/
-    @NotNull @Valid public RestRequiredBuildConditionSetRequestRefMatcher getRefMatcher() {
+    public @NotNull @Valid RestRequiredBuildConditionSetRequestRefMatcher getRefMatcher() {
         return refMatcher;
     }
 

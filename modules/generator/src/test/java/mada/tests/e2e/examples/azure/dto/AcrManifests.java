@@ -69,7 +69,7 @@ public class AcrManifests {
      * List of manifests.
      * @return manifests
      **/
-    @Valid public List<ManifestAttributesBase> getManifests() {
+    public @Valid List<ManifestAttributesBase> getManifests() {
         return manifests;
     }
 

@@ -324,7 +324,7 @@ public class RestLabelableOrigin {
      *
      * @return project
      **/
-    @Valid public RestLabelableOriginProject getProject() {
+    public @Valid RestLabelableOriginProject getProject() {
         return project;
     }
 

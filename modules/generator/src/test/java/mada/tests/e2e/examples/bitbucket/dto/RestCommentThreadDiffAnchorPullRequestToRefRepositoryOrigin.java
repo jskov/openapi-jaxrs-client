@@ -324,7 +324,7 @@ public class RestCommentThreadDiffAnchorPullRequestToRefRepositoryOrigin {
      *
      * @return project
      **/
-    @Valid public RestCommentThreadDiffAnchorPullRequestToRefRepositoryOriginProject getProject() {
+    public @Valid RestCommentThreadDiffAnchorPullRequestToRefRepositoryOriginProject getProject() {
         return project;
     }
 

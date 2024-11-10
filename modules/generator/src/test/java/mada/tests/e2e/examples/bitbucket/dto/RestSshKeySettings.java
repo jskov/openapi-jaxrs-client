@@ -52,7 +52,7 @@ public class RestSshKeySettings {
      *
      * @return keyTypeRestrictions
      **/
-    @Valid public List<RestSshKeyTypeRestriction> getKeyTypeRestrictions() {
+    public @Valid List<RestSshKeyTypeRestriction> getKeyTypeRestrictions() {
         return keyTypeRestrictions;
     }
 
@@ -70,7 +70,7 @@ public class RestSshKeySettings {
      *
      * @return maxExpiryDays
      **/
-    @Valid public RestSshKeySettingsMaxExpiryDays getMaxExpiryDays() {
+    public @Valid RestSshKeySettingsMaxExpiryDays getMaxExpiryDays() {
         return maxExpiryDays;
     }
 

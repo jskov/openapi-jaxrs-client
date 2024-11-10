@@ -137,7 +137,7 @@ public class RestBuildStatusSetRequest {
      *
      * @return buildNumber
      **/
-    @Size(min = 0, max = 255) public String getBuildNumber() {
+    public @Size(min = 0, max = 255) String getBuildNumber() {
         return buildNumber;
     }
 
@@ -191,7 +191,7 @@ public class RestBuildStatusSetRequest {
      *
      * @return key
      **/
-    @NotNull @Size(min = 0, max = 255) public String getKey() {
+    public @NotNull @Size(min = 0, max = 255) String getKey() {
         return key;
     }
 
@@ -227,7 +227,7 @@ public class RestBuildStatusSetRequest {
      *
      * @return name
      **/
-    @Size(min = 0, max = 255) public String getName() {
+    public @Size(min = 0, max = 255) String getName() {
         return name;
     }
 
@@ -245,7 +245,7 @@ public class RestBuildStatusSetRequest {
      *
      * @return parent
      **/
-    @Size(min = 0, max = 1024) public String getParent() {
+    public @Size(min = 0, max = 1024) String getParent() {
         return parent;
     }
 
@@ -263,7 +263,7 @@ public class RestBuildStatusSetRequest {
      *
      * @return ref
      **/
-    @Pattern(regexp = "^refs\\/.*") @Size(min = 0, max = 1024) public String getRef() {
+    public @Pattern(regexp = "^refs\\/.*") @Size(min = 0, max = 1024) String getRef() {
         return ref;
     }
 
@@ -281,7 +281,7 @@ public class RestBuildStatusSetRequest {
      *
      * @return state
      **/
-    @NotNull public StateEnum getState() {
+    public @NotNull StateEnum getState() {
         return state;
     }
 
@@ -299,7 +299,7 @@ public class RestBuildStatusSetRequest {
      *
      * @return testResults
      **/
-    @Valid public RestBuildStatusSetRequestTestResults getTestResults() {
+    public @Valid RestBuildStatusSetRequestTestResults getTestResults() {
         return testResults;
     }
 
@@ -317,7 +317,7 @@ public class RestBuildStatusSetRequest {
      *
      * @return url
      **/
-    @NotNull @Size(min = 0, max = 450) public String getUrl() {
+    public @NotNull @Size(min = 0, max = 450) String getUrl() {
         return url;
     }
 

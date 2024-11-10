@@ -47,7 +47,7 @@ public class ManifestList {
      * List of V2 image layer information.
      * @return manifests
      **/
-    @Valid public List<ManifestListAttributes> getManifests() {
+    public @Valid List<ManifestListAttributes> getManifests() {
         return manifests;
     }
 

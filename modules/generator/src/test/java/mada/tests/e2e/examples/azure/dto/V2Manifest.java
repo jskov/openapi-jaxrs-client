@@ -44,7 +44,7 @@ public class V2Manifest {
      *
      * @return config
      **/
-    @Valid public Descriptor getConfig() {
+    public @Valid Descriptor getConfig() {
         return config;
     }
 
@@ -69,7 +69,7 @@ public class V2Manifest {
      * List of V2 image layer information.
      * @return layers
      **/
-    @Valid public List<Descriptor> getLayers() {
+    public @Valid List<Descriptor> getLayers() {
         return layers;
     }
 

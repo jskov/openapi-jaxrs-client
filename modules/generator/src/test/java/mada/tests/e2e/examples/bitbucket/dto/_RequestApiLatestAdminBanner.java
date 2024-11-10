@@ -90,7 +90,7 @@ public class _RequestApiLatestAdminBanner {
      *
      * @return audience
      **/
-    @NotNull public AudienceEnum getAudience() {
+    public @NotNull AudienceEnum getAudience() {
         return audience;
     }
 

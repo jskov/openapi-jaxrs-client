@@ -162,7 +162,7 @@ public class _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh {
      *
      * @return values
      **/
-    @Valid public List<RestSshAccessKey> getValues() {
+    public @Valid List<RestSshAccessKey> getValues() {
         return values;
     }
 
