@@ -10,7 +10,6 @@ import org.jspecify.annotations.Nullable;
 
 import io.jstach.jstache.JStache;
 
-
 /**
  * Context passed to Mustache when compiling a model.
  */

@@ -67,11 +67,6 @@ public final class StringRenderer {
             return Optional.empty();
         }
 
-        if (textIn.contains("Retrieve a page of groups")) {
-            System.out.println(" '" + commentIndent + "' : " + Base64.getEncoder().encodeToString(textIn.getBytes()));
-            System.out.println("" + textIn);
-        }
-
         String text = textIn;
 
         // Make sure there is sentence
