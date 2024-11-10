@@ -168,7 +168,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     @JsonIgnore
    {{/jackson}}
   {{/madaProp.isUseEmptyCollections}}
-    {{#validation}}{{>beanValidation}}{{/validation}}{{>nullablePrefixSpace}}public {{{datatypeWithEnum}}} {{getter}}() {
+    public {{#validation}}{{>beanValidation}}{{/validation}}{{>nullablePrefixSpace}}{{{datatypeWithEnum}}} {{getter}}() {
         return {{name}};
     }
   {{#madaProp.isUseBigDecimalForDouble}}
@@ -176,8 +176,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{#jackson}}
     @JsonIgnore
   {{/jackson}}
-    {{>nullablePrefix}}
-    public BigDecimal {{madaProp.getter}}() {
+    public {{>nullablePrefixSpace}}BigDecimal {{madaProp.getter}}() {
         return {{name}} == null ? null : new BigDecimal({{name}});
     }
   {{/madaProp.isUseBigDecimalForDouble}}
