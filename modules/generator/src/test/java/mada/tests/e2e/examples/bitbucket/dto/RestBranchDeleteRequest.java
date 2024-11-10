@@ -47,7 +47,6 @@ public class RestBranchDeleteRequest {
 
     /**
      * Don't actually delete the ref name, just do a dry run.
-     * 
      * @return dryRun
      **/
     public Boolean isDryRun() {
@@ -65,11 +64,9 @@ public class RestBranchDeleteRequest {
 
     /**
      * Commit ID that the provided ref name is expected to point to.
-     * 
      * @return endPoint
      **/
-    @Size(max = 40)
-    public String getEndPoint() {
+    @Size(max = 40) public String getEndPoint() {
         return endPoint;
     }
 
@@ -84,7 +81,6 @@ public class RestBranchDeleteRequest {
 
     /**
      * Name of the ref to be deleted.
-     * 
      * @return name
      **/
     public String getName() {

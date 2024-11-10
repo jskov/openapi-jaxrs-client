@@ -47,38 +47,38 @@ public class EnumsDto {
     @JsonProperty(JSON_PROPERTY_MIXED)
     private InnerMixedEnum mixed;
 
-    @Schema(enumeration = { "O", "M", "nexT" }, type = SchemaType.STRING)
+    @Schema(enumeration = {"O", "M", "nexT"}, type = SchemaType.STRING)
     public enum PropertyEnumStringEnum {
-        O("O"),
-        M("M"),
-        NEXT("nexT");
+      O("O"),
+      M("M"),
+      NEXT("nexT");
 
-        private final String value;
+      private final String value;
 
-        PropertyEnumStringEnum(String value) {
-            this.value = value;
-        }
+      PropertyEnumStringEnum(String value) {
+        this.value = value;
+      }
 
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
+      @JsonValue
+      public String getValue() {
+          return value;
+      }
 
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
 
-        @JsonCreator
-        public static PropertyEnumStringEnum fromValue(String value) {
-            for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
-                if (Objects.equals(b.value, value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
+      @JsonCreator
+      public static PropertyEnumStringEnum fromValue(String value) {
+          for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
+              if (Objects.equals(b.value, value)) {
+                return b;
+              }
+          }
+          throw new IllegalArgumentException("Unexpected value '" + value + "'");
+      }
+  }
 
     public static final String JSON_PROPERTY_PROPERTY_ENUM_STRING = "propertyEnumString";
     @JsonProperty(JSON_PROPERTY_PROPERTY_ENUM_STRING)
@@ -98,8 +98,7 @@ public class EnumsDto {
      *
      * @return external
      **/
-    @Valid
-    public ExternalEnum getExternal() {
+    @Valid public ExternalEnum getExternal() {
         return external;
     }
 
@@ -117,8 +116,7 @@ public class EnumsDto {
      *
      * @return externalLower
      **/
-    @Valid
-    public ExternalLowerEnum getExternalLower() {
+    @Valid public ExternalLowerEnum getExternalLower() {
         return externalLower;
     }
 
@@ -136,8 +134,7 @@ public class EnumsDto {
      *
      * @return externalMixed
      **/
-    @Valid
-    public ExternalMixedEnum getExternalMixed() {
+    @Valid public ExternalMixedEnum getExternalMixed() {
         return externalMixed;
     }
 
@@ -155,8 +152,7 @@ public class EnumsDto {
      *
      * @return inner
      **/
-    @Valid
-    public InnerEnum getInner() {
+    @Valid public InnerEnum getInner() {
         return inner;
     }
 
@@ -174,8 +170,7 @@ public class EnumsDto {
      *
      * @return integerEnum
      **/
-    @Valid
-    public IntEnum getIntegerEnum() {
+    @Valid public IntEnum getIntegerEnum() {
         return integerEnum;
     }
 
@@ -193,8 +188,7 @@ public class EnumsDto {
      *
      * @return lower
      **/
-    @Valid
-    public InnerLowerEnum getLower() {
+    @Valid public InnerLowerEnum getLower() {
         return lower;
     }
 
@@ -212,8 +206,7 @@ public class EnumsDto {
      *
      * @return mixed
      **/
-    @Valid
-    public InnerMixedEnum getMixed() {
+    @Valid public InnerMixedEnum getMixed() {
         return mixed;
     }
 
@@ -249,8 +242,7 @@ public class EnumsDto {
      *
      * @return stringIntegerEnum
      **/
-    @Valid
-    public StringIntEnum getStringIntegerEnum() {
+    @Valid public StringIntEnum getStringIntegerEnum() {
         return stringIntegerEnum;
     }
 
@@ -280,8 +272,7 @@ public class EnumsDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(external, externalLower, externalMixed, inner, integerEnum, lower, mixed, propertyEnumString,
-                stringIntegerEnum);
+        return Objects.hash(external, externalLower, externalMixed, inner, integerEnum, lower, mixed, propertyEnumString, stringIntegerEnum);
     }
 
     @Override

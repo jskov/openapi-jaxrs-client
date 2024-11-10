@@ -46,8 +46,7 @@ public class RestUserRateLimitSettings {
      *
      * @return settings
      **/
-    @Valid
-    public RestUserRateLimitSettingsSettings getSettings() {
+    @Valid public RestUserRateLimitSettingsSettings getSettings() {
         return settings;
     }
 
@@ -65,8 +64,7 @@ public class RestUserRateLimitSettings {
      *
      * @return user
      **/
-    @Valid
-    public RestUserRateLimitSettingsUser getUser() {
+    @Valid public RestUserRateLimitSettingsUser getUser() {
         return user;
     }
 

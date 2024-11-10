@@ -39,8 +39,7 @@ public class OwnerDTO {
      *
      * @return adGroup
      **/
-    @NotNull @Size(min = 1, max = 100)
-    public String getAdGroup() {
+    @NotNull @Size(min = 1, max = 100) public String getAdGroup() {
         return adGroup;
     }
 
@@ -58,8 +57,7 @@ public class OwnerDTO {
      *
      * @return email
      **/
-    @NotNull @Size(min = 1, max = 100)
-    public String getEmail() {
+    @NotNull @Size(min = 1, max = 100) public String getEmail() {
         return email;
     }
 

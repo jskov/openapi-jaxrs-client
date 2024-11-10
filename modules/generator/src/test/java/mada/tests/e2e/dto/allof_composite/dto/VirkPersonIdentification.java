@@ -11,8 +11,7 @@ import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * DA: Virk.dk registreret person-id. <br/>
- * Virk.dk registered personId
+ * DA: Virk.dk registreret person-id. <br/>Virk.dk registered personId
  */
 @Schema(description = "DA: Virk.dk registreret person-id. <br/>Virk.dk registered personId")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
@@ -28,9 +27,7 @@ public class VirkPersonIdentification extends Identification {
     }
 
     /**
-     * DA: Virk.dk person id<br/>
-     * The id for a person at virk.dk
-     * 
+     * DA: Virk.dk person id<br/>The id for a person at virk.dk
      * @return virkUnitNumber
      **/
     public String getVirkUnitNumber() {
@@ -51,7 +48,7 @@ public class VirkPersonIdentification extends Identification {
         }
         VirkPersonIdentification other = (VirkPersonIdentification) o;
         return Objects.equals(this.virkUnitNumber, other.virkUnitNumber) &&
-                super.equals(o);
+              super.equals(o);
     }
 
     @Override

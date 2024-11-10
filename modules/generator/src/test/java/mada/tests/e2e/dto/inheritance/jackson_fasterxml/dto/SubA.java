@@ -48,7 +48,7 @@ public class SubA extends Super implements SubASubB {
         }
         SubA other = (SubA) o;
         return Objects.equals(this.bar, other.bar) &&
-                super.equals(o);
+              super.equals(o);
     }
 
     @Override

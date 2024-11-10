@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyRepos {
      *
      * @return values
      **/
-    @Valid
-    public List<RestRepository> getValues() {
+    @Valid public List<RestRepository> getValues() {
         return values;
     }
 

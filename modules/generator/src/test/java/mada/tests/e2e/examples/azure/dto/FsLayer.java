@@ -29,7 +29,6 @@ public class FsLayer {
 
     /**
      * SHA of an image layer.
-     * 
      * @return blobSum
      **/
     public String getBlobSum() {

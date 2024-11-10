@@ -48,8 +48,7 @@ public class _ResponseApiLatestAdminGroups_403 {
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 

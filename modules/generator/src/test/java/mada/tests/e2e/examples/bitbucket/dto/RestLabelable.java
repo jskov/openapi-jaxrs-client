@@ -60,40 +60,40 @@ public class RestLabelable {
     private Integer id;
 
     public enum LabelableTypeEnum {
-        REPOSITORY("REPOSITORY");
+      REPOSITORY("REPOSITORY");
 
-        private final String value;
+      private final String value;
 
-        LabelableTypeEnum(String value) {
-            this.value = value;
-        }
+      LabelableTypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class LabelableTypeEnumAdapter implements JsonbAdapter<LabelableTypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(LabelableTypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class LabelableTypeEnumAdapter implements JsonbAdapter<LabelableTypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(LabelableTypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public LabelableTypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (LabelableTypeEnum b : LabelableTypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public LabelableTypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (LabelableTypeEnum b : LabelableTypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type LabelableTypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type LabelableTypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_LABELABLE_TYPE = "labelableType";
     @JsonbProperty(JSON_PROPERTY_LABELABLE_TYPE)
@@ -149,43 +149,43 @@ public class RestLabelable {
     private String slug;
 
     public enum StateEnum {
-        AVAILABLE("AVAILABLE"),
-        INITIALISATION_FAILED("INITIALISATION_FAILED"),
-        INITIALISING("INITIALISING"),
-        OFFLINE("OFFLINE");
+      AVAILABLE("AVAILABLE"),
+      INITIALISATION_FAILED("INITIALISATION_FAILED"),
+      INITIALISING("INITIALISING"),
+      OFFLINE("OFFLINE");
 
-        private final String value;
+      private final String value;
 
-        StateEnum(String value) {
-            this.value = value;
-        }
+      StateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StateEnum adaptFromJson(JsonString value) throws Exception {
-                for (StateEnum b : StateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StateEnum adaptFromJson(JsonString value) throws Exception {
+            for (StateEnum b : StateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATE = "state";
     @JsonbProperty(JSON_PROPERTY_STATE)
@@ -370,8 +370,7 @@ public class RestLabelable {
      *
      * @return origin
      **/
-    @Valid
-    public RestLabelableOrigin getOrigin() {
+    @Valid public RestLabelableOrigin getOrigin() {
         return origin;
     }
 
@@ -407,8 +406,7 @@ public class RestLabelable {
      *
      * @return project
      **/
-    @Valid
-    public RestLabelableProject getProject() {
+    @Valid public RestLabelableProject getProject() {
         return project;
     }
 
@@ -574,8 +572,7 @@ public class RestLabelable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(archived, defaultBranch, description, forkable, hierarchyId, id, labelableType, links, name, origin, partition,
-                project, public_, relatedLinks, scmId, scope, slug, state, statusMessage);
+        return Objects.hash(archived, defaultBranch, description, forkable, hierarchyId, id, labelableType, links, name, origin, partition, project, public_, relatedLinks, scmId, scope, slug, state, statusMessage);
     }
 
     @Override

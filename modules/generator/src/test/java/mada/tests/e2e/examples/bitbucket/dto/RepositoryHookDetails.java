@@ -46,84 +46,84 @@ public class RepositoryHookDetails {
     private String name;
 
     public enum SupportedScopesEnum {
-        GLOBAL("GLOBAL"),
-        PROJECT("PROJECT"),
-        REPOSITORY("REPOSITORY");
+      GLOBAL("GLOBAL"),
+      PROJECT("PROJECT"),
+      REPOSITORY("REPOSITORY");
 
-        private final String value;
+      private final String value;
 
-        SupportedScopesEnum(String value) {
-            this.value = value;
-        }
+      SupportedScopesEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class SupportedScopesEnumAdapter implements JsonbAdapter<SupportedScopesEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(SupportedScopesEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class SupportedScopesEnumAdapter implements JsonbAdapter<SupportedScopesEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(SupportedScopesEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public SupportedScopesEnum adaptFromJson(JsonString value) throws Exception {
-                for (SupportedScopesEnum b : SupportedScopesEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public SupportedScopesEnum adaptFromJson(JsonString value) throws Exception {
+            for (SupportedScopesEnum b : SupportedScopesEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type SupportedScopesEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type SupportedScopesEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_SUPPORTED_SCOPES = "supportedScopes";
     @JsonbProperty(JSON_PROPERTY_SUPPORTED_SCOPES)
     private Set<SupportedScopesEnum> supportedScopes;
 
     public enum TypeEnum {
-        PRE_RECEIVE("PRE_RECEIVE"),
-        PRE_PULL_REQUEST_MERGE("PRE_PULL_REQUEST_MERGE"),
-        POST_RECEIVE("POST_RECEIVE");
+      PRE_RECEIVE("PRE_RECEIVE"),
+      PRE_PULL_REQUEST_MERGE("PRE_PULL_REQUEST_MERGE"),
+      POST_RECEIVE("POST_RECEIVE");
 
-        private final String value;
+      private final String value;
 
-        TypeEnum(String value) {
-            this.value = value;
-        }
+      TypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(TypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(TypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public TypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (TypeEnum b : TypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public TypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @JsonbProperty(JSON_PROPERTY_TYPE)

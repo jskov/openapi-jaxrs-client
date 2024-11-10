@@ -27,17 +27,12 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class RestSshCredentials {
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
     @JsonbProperty(JSON_PROPERTY_ALGORITHM)
-    @Schema(
-            description = "The key algorithm, if passing in a legacy X.509 encoded key. Do not specify for OpenSSH encoded keys",
-            example = "RSA")
+    @Schema(description = "The key algorithm, if passing in a legacy X.509 encoded key. Do not specify for OpenSSH encoded keys", example = "RSA")
     private String algorithm;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
     @JsonbProperty(JSON_PROPERTY_PUBLIC_KEY)
-    @Schema(
-            required = true,
-            description = "The public key text in the OpenSSH format. The algorithm must be specified in case of the legacy X.509 keys",
-            example = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjFjYCLJjrIY/jCXPbJ9wd3drcGospvPkKFNZ1ZcacA test@test.local")
+    @Schema(required = true, description = "The public key text in the OpenSSH format. The algorithm must be specified in case of the legacy X.509 keys", example = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjFjYCLJjrIY/jCXPbJ9wd3drcGospvPkKFNZ1ZcacA test@test.local")
     private String publicKey;
 
     public static final String JSON_PROPERTY_USERNAME = "username";
@@ -52,7 +47,6 @@ public class RestSshCredentials {
 
     /**
      * The key algorithm, if passing in a legacy X.509 encoded key. Do not specify for OpenSSH encoded keys
-     * 
      * @return algorithm
      **/
     public String getAlgorithm() {
@@ -70,7 +64,6 @@ public class RestSshCredentials {
 
     /**
      * The public key text in the OpenSSH format. The algorithm must be specified in case of the legacy X.509 keys
-     * 
      * @return publicKey
      **/
     @NotNull public String getPublicKey() {

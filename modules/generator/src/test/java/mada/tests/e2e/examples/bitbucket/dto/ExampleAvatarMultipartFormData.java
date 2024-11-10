@@ -37,7 +37,6 @@ public class ExampleAvatarMultipartFormData {
 
     /**
      * The avatar file to upload.
-     * 
      * @return avatar
      **/
     public byte[] getAvatar() {

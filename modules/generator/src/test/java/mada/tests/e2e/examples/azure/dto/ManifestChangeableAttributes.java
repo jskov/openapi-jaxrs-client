@@ -54,7 +54,6 @@ public class ManifestChangeableAttributes {
 
     /**
      * Delete enabled.
-     * 
      * @return deleteEnabled
      **/
     public Boolean isDeleteEnabled() {
@@ -72,7 +71,6 @@ public class ManifestChangeableAttributes {
 
     /**
      * List enabled.
-     * 
      * @return listEnabled
      **/
     public Boolean isListEnabled() {
@@ -90,7 +88,6 @@ public class ManifestChangeableAttributes {
 
     /**
      * Quarantine details.
-     * 
      * @return quarantineDetails
      **/
     public String getQuarantineDetails() {
@@ -108,7 +105,6 @@ public class ManifestChangeableAttributes {
 
     /**
      * Quarantine state.
-     * 
      * @return quarantineState
      **/
     public String getQuarantineState() {
@@ -126,7 +122,6 @@ public class ManifestChangeableAttributes {
 
     /**
      * Read enabled.
-     * 
      * @return readEnabled
      **/
     public Boolean isReadEnabled() {
@@ -144,7 +139,6 @@ public class ManifestChangeableAttributes {
 
     /**
      * Write enabled.
-     * 
      * @return writeEnabled
      **/
     public Boolean isWriteEnabled() {

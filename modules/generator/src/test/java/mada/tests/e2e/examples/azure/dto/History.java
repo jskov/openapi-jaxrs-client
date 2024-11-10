@@ -29,7 +29,6 @@ public class History {
 
     /**
      * The raw v1 compatibility information.
-     * 
      * @return v1Compatibility
      **/
     public String getV1Compatibility() {

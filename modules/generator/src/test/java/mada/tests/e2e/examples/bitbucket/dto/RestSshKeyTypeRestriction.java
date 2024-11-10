@@ -86,8 +86,7 @@ public class RestSshKeyTypeRestriction {
      *
      * @return minKeyLength
      **/
-    @Valid
-    public RestSshKeyTypeRestrictionMinKeyLength getMinKeyLength() {
+    @Valid public RestSshKeyTypeRestrictionMinKeyLength getMinKeyLength() {
         return minKeyLength;
     }
 

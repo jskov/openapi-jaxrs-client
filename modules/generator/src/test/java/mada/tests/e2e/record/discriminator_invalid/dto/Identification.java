@@ -81,8 +81,7 @@ public abstract class Identification {
      *
      * @return type
      **/
-    @NotNull @Valid
-    public IdentificationType getType() {
+    @NotNull @Valid public IdentificationType getType() {
         return type;
     }
 

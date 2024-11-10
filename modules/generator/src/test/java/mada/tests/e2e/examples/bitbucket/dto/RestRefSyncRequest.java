@@ -30,42 +30,42 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRefSyncRequest {
     public enum ActionEnum {
-        DISCARD("DISCARD"),
-        MERGE("MERGE"),
-        REBASE("REBASE");
+      DISCARD("DISCARD"),
+      MERGE("MERGE"),
+      REBASE("REBASE");
 
-        private final String value;
+      private final String value;
 
-        ActionEnum(String value) {
-            this.value = value;
-        }
+      ActionEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class ActionEnumAdapter implements JsonbAdapter<ActionEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(ActionEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class ActionEnumAdapter implements JsonbAdapter<ActionEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(ActionEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public ActionEnum adaptFromJson(JsonString value) throws Exception {
-                for (ActionEnum b : ActionEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public ActionEnum adaptFromJson(JsonString value) throws Exception {
+            for (ActionEnum b : ActionEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ActionEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ActionEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_ACTION = "action";
     @JsonbProperty(JSON_PROPERTY_ACTION)
@@ -110,8 +110,7 @@ public class RestRefSyncRequest {
      *
      * @return context
      **/
-    @Valid
-    public Context getContext() {
+    @Valid public Context getContext() {
         return context;
     }
 

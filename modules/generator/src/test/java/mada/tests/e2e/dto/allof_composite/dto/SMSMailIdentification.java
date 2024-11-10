@@ -23,9 +23,7 @@ public class SMSMailIdentification extends Identification {
 
     public static final String JSON_PROPERTY_PHONE_NUMBER = "phoneNumber";
     @JsonProperty(JSON_PROPERTY_PHONE_NUMBER)
-    @Schema(
-            description = "DA: Telefonnummer til brug ved SMS login<br/>The phone number to use for SMS login. Maximum of 30 digits excluding spaces allowed.",
-            example = "12345678")
+    @Schema(description = "DA: Telefonnummer til brug ved SMS login<br/>The phone number to use for SMS login. Maximum of 30 digits excluding spaces allowed.", example = "12345678")
     private String phoneNumber;
 
     public SMSMailIdentification countryCode(String countryCode) {
@@ -34,9 +32,7 @@ public class SMSMailIdentification extends Identification {
     }
 
     /**
-     * DA: Landekode for telefonnummeret<br/>
-     * The country code of the phone number.
-     * 
+     * DA: Landekode for telefonnummeret<br/>The country code of the phone number.
      * @return countryCode
      **/
     public String getCountryCode() {
@@ -53,13 +49,11 @@ public class SMSMailIdentification extends Identification {
     }
 
     /**
-     * DA: Telefonnummer til brug ved SMS login<br/>
-     * The phone number to use for SMS login. Maximum of 30 digits excluding spaces allowed.
-     * 
+     * DA: Telefonnummer til brug ved SMS login<br/>The phone number to use for SMS login. Maximum of 30 digits excluding
+   * spaces allowed.
      * @return phoneNumber
      **/
-    @Size(max = 40)
-    public String getPhoneNumber() {
+    @Size(max = 40) public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -78,7 +72,7 @@ public class SMSMailIdentification extends Identification {
         SMSMailIdentification other = (SMSMailIdentification) o;
         return Objects.equals(this.countryCode, other.countryCode) &&
                 Objects.equals(this.phoneNumber, other.phoneNumber) &&
-                super.equals(o);
+              super.equals(o);
     }
 
     @Override

@@ -44,8 +44,7 @@ public class ProductOwnerDTO {
      *
      * @return email
      **/
-    @NotNull @Size(min = 1, max = 150)
-    public String getEmail() {
+    @NotNull @Size(min = 1, max = 150) public String getEmail() {
         return email;
     }
 
@@ -63,8 +62,7 @@ public class ProductOwnerDTO {
      *
      * @return name
      **/
-    @NotNull @Size(min = 1, max = 300)
-    public String getName() {
+    @NotNull @Size(min = 1, max = 300) public String getName() {
         return name;
     }
 
@@ -82,8 +80,7 @@ public class ProductOwnerDTO {
      *
      * @return userId
      **/
-    @NotNull @Size(min = 1, max = 100)
-    public String getUserId() {
+    @NotNull @Size(min = 1, max = 100) public String getUserId() {
         return userId;
     }
 

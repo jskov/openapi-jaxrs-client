@@ -17,29 +17,33 @@ import org.jspecify.annotations.Nullable;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record CyclicA(
-        @JsonbProperty("b") @Valid @Nullable CyclicB b) {
+        @JsonbProperty("b")
+        @Valid
+        @Nullable
+        CyclicB b) {
 
     public static class Builder {
-        private @Nullable CyclicB b;
+      private @Nullable CyclicB b;
 
-        public static Builder of() {
-            return new Builder();
-        }
+      public static Builder of() {
+        return new Builder();
+      }
 
-        public static Builder of(CyclicA from) {
-            Builder o = new Builder();
-            o.b = from.b();
-            return o;
-        }
+      public static Builder of(CyclicA from) {
+        Builder o = new Builder();
+        o.b = from.b();
+        return o;
+      }
 
-        public Builder b(@Nullable CyclicB b) {
-            this.b = b;
-            return this;
-        }
+      public Builder b(@Nullable CyclicB b) {
+        this.b = b;
+        return this;
+      }
 
-        public CyclicA build() {
-            return new CyclicA(
-                    b);
-        }
+      public CyclicA build() {
+        return new CyclicA(
+                 b
+               );
+      }
     }
 }

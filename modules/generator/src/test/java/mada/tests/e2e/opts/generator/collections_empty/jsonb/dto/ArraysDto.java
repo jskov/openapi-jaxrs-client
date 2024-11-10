@@ -218,13 +218,11 @@ public class ArraysDto {
      *
      * @return refs
      **/
-    @Valid
-    public List<Simple> getRefsNullable() {
+    @Valid public List<Simple> getRefsNullable() {
         return refs;
     }
 
-    @Valid
-    public List<Simple> getRefs() {
+    @Valid public List<Simple> getRefs() {
         if (this.refs == null) {
             this.refs = new ArrayList<>();
         }
@@ -337,8 +335,7 @@ public class ArraysDto {
      *
      * @return requiredRefs
      **/
-    @NotNull @Valid
-    public List<Simple> getRequiredRefs() {
+    @NotNull @Valid public List<Simple> getRequiredRefs() {
         return requiredRefs;
     }
 
@@ -485,8 +482,7 @@ public class ArraysDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(booleans, Arrays.hashCode(bytes), ints, longs, refs, requiredBooleans, Arrays.hashCode(requiredBytes),
-                requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
+        return Objects.hash(booleans, Arrays.hashCode(bytes), ints, longs, refs, requiredBooleans, Arrays.hashCode(requiredBytes), requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
     }
 
     @Override

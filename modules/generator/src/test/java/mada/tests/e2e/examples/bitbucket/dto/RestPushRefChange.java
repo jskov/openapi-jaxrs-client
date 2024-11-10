@@ -49,42 +49,42 @@ public class RestPushRefChange {
     private String toHash;
 
     public enum TypeEnum {
-        ADD("ADD"),
-        DELETE("DELETE"),
-        UPDATE("UPDATE");
+      ADD("ADD"),
+      DELETE("DELETE"),
+      UPDATE("UPDATE");
 
-        private final String value;
+      private final String value;
 
-        TypeEnum(String value) {
-            this.value = value;
-        }
+      TypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(TypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(TypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public TypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (TypeEnum b : TypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public TypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @JsonbProperty(JSON_PROPERTY_TYPE)
@@ -92,43 +92,43 @@ public class RestPushRefChange {
     private TypeEnum type;
 
     public enum UpdatedTypeEnum {
-        UNKNOWN("UNKNOWN"),
-        UNRESOLVED("UNRESOLVED"),
-        NOT_FORCED("NOT_FORCED"),
-        FORCED("FORCED");
+      UNKNOWN("UNKNOWN"),
+      UNRESOLVED("UNRESOLVED"),
+      NOT_FORCED("NOT_FORCED"),
+      FORCED("FORCED");
 
-        private final String value;
+      private final String value;
 
-        UpdatedTypeEnum(String value) {
-            this.value = value;
-        }
+      UpdatedTypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class UpdatedTypeEnumAdapter implements JsonbAdapter<UpdatedTypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(UpdatedTypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class UpdatedTypeEnumAdapter implements JsonbAdapter<UpdatedTypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(UpdatedTypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public UpdatedTypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (UpdatedTypeEnum b : UpdatedTypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public UpdatedTypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (UpdatedTypeEnum b : UpdatedTypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type UpdatedTypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type UpdatedTypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_UPDATED_TYPE = "updatedType";
     @JsonbProperty(JSON_PROPERTY_UPDATED_TYPE)
@@ -163,8 +163,7 @@ public class RestPushRefChange {
      *
      * @return ref
      **/
-    @Valid
-    public RestPushRefChangeRef getRef() {
+    @Valid public RestPushRefChangeRef getRef() {
         return ref;
     }
 

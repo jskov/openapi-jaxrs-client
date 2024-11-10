@@ -48,8 +48,7 @@ public class _ResponseApiLatestProjectsProjectKey_401 {
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 

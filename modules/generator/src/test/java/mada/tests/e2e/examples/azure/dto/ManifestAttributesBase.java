@@ -76,7 +76,6 @@ public class ManifestAttributesBase {
 
     /**
      * CPU architecture.
-     * 
      * @return architecture
      **/
     public String getArchitecture() {
@@ -97,8 +96,7 @@ public class ManifestAttributesBase {
      *
      * @return changeableAttributes
      **/
-    @Valid
-    public ManifestChangeableAttributes getChangeableAttributes() {
+    @Valid public ManifestChangeableAttributes getChangeableAttributes() {
         return changeableAttributes;
     }
 
@@ -113,7 +111,6 @@ public class ManifestAttributesBase {
 
     /**
      * Config blob media type.
-     * 
      * @return configMediaType
      **/
     public String getConfigMediaType() {
@@ -131,7 +128,6 @@ public class ManifestAttributesBase {
 
     /**
      * Created time.
-     * 
      * @return createdTime
      **/
     public String getCreatedTime() {
@@ -149,7 +145,6 @@ public class ManifestAttributesBase {
 
     /**
      * Manifest.
-     * 
      * @return digest
      **/
     public String getDigest() {
@@ -167,7 +162,6 @@ public class ManifestAttributesBase {
 
     /**
      * Image size.
-     * 
      * @return imageSize
      **/
     public Long getImageSize() {
@@ -185,7 +179,6 @@ public class ManifestAttributesBase {
 
     /**
      * Last update time.
-     * 
      * @return lastUpdateTime
      **/
     public String getLastUpdateTime() {
@@ -203,7 +196,6 @@ public class ManifestAttributesBase {
 
     /**
      * Media type.
-     * 
      * @return mediaType
      **/
     public String getMediaType() {
@@ -221,7 +213,6 @@ public class ManifestAttributesBase {
 
     /**
      * Operating system.
-     * 
      * @return os
      **/
     public String getOs() {
@@ -247,7 +238,6 @@ public class ManifestAttributesBase {
 
     /**
      * List of tags.
-     * 
      * @return tags
      **/
     public List<String> getTags() {
@@ -281,8 +271,7 @@ public class ManifestAttributesBase {
 
     @Override
     public int hashCode() {
-        return Objects.hash(architecture, changeableAttributes, configMediaType, createdTime, digest, imageSize, lastUpdateTime, mediaType,
-                os, tags);
+        return Objects.hash(architecture, changeableAttributes, configMediaType, createdTime, digest, imageSize, lastUpdateTime, mediaType, os, tags);
     }
 
     @Override

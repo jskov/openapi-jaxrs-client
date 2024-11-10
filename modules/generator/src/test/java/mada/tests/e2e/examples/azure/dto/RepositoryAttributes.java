@@ -62,8 +62,7 @@ public class RepositoryAttributes {
      *
      * @return changeableAttributes
      **/
-    @Valid
-    public RepositoryChangeableAttributes getChangeableAttributes() {
+    @Valid public RepositoryChangeableAttributes getChangeableAttributes() {
         return changeableAttributes;
     }
 
@@ -78,7 +77,6 @@ public class RepositoryAttributes {
 
     /**
      * Image created time.
-     * 
      * @return createdTime
      **/
     public String getCreatedTime() {
@@ -96,7 +94,6 @@ public class RepositoryAttributes {
 
     /**
      * Image name.
-     * 
      * @return imageName
      **/
     public String getImageName() {
@@ -114,7 +111,6 @@ public class RepositoryAttributes {
 
     /**
      * Image last update time.
-     * 
      * @return lastUpdateTime
      **/
     public String getLastUpdateTime() {
@@ -132,7 +128,6 @@ public class RepositoryAttributes {
 
     /**
      * Number of the manifests.
-     * 
      * @return manifestCount
      **/
     public Short getManifestCount() {
@@ -150,7 +145,6 @@ public class RepositoryAttributes {
 
     /**
      * Registry name.
-     * 
      * @return registry
      **/
     public String getRegistry() {
@@ -168,7 +162,6 @@ public class RepositoryAttributes {
 
     /**
      * Number of the tags.
-     * 
      * @return tagCount
      **/
     public Short getTagCount() {

@@ -54,8 +54,7 @@ public class Descriptor {
      *
      * @return annotations
      **/
-    @Valid
-    public Annotations getAnnotations() {
+    @Valid public Annotations getAnnotations() {
         return annotations;
     }
 
@@ -70,7 +69,6 @@ public class Descriptor {
 
     /**
      * Layer digest.
-     * 
      * @return digest
      **/
     public String getDigest() {
@@ -88,7 +86,6 @@ public class Descriptor {
 
     /**
      * Layer media type.
-     * 
      * @return mediaType
      **/
     public String getMediaType() {
@@ -106,7 +103,6 @@ public class Descriptor {
 
     /**
      * Layer size.
-     * 
      * @return size
      **/
     public Long getSize() {
@@ -132,7 +128,6 @@ public class Descriptor {
 
     /**
      * Specifies a list of URIs from which this object may be downloaded.
-     * 
      * @return urls
      **/
     public List<String> getUrls() {

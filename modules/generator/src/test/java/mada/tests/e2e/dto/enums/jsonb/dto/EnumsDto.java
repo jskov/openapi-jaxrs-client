@@ -49,44 +49,44 @@ public class EnumsDto {
     @JsonbProperty(JSON_PROPERTY_MIXED)
     private InnerMixedEnum mixed;
 
-    @Schema(enumeration = { "O", "M", "nexT" }, type = SchemaType.STRING)
+    @Schema(enumeration = {"O", "M", "nexT"}, type = SchemaType.STRING)
     public enum PropertyEnumStringEnum {
-        O("O"),
-        M("M"),
-        NEXT("nexT");
+      O("O"),
+      M("M"),
+      NEXT("nexT");
 
-        private final String value;
+      private final String value;
 
-        PropertyEnumStringEnum(String value) {
-            this.value = value;
-        }
+      PropertyEnumStringEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class PropertyEnumStringEnumAdapter implements JsonbAdapter<PropertyEnumStringEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(PropertyEnumStringEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class PropertyEnumStringEnumAdapter implements JsonbAdapter<PropertyEnumStringEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(PropertyEnumStringEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public PropertyEnumStringEnum adaptFromJson(JsonString value) throws Exception {
-                for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public PropertyEnumStringEnum adaptFromJson(JsonString value) throws Exception {
+            for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PropertyEnumStringEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PropertyEnumStringEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_PROPERTY_ENUM_STRING = "propertyEnumString";
     @JsonbProperty(JSON_PROPERTY_PROPERTY_ENUM_STRING)
@@ -107,8 +107,7 @@ public class EnumsDto {
      *
      * @return external
      **/
-    @Valid
-    public ExternalEnum getExternal() {
+    @Valid public ExternalEnum getExternal() {
         return external;
     }
 
@@ -126,8 +125,7 @@ public class EnumsDto {
      *
      * @return externalLower
      **/
-    @Valid
-    public ExternalLowerEnum getExternalLower() {
+    @Valid public ExternalLowerEnum getExternalLower() {
         return externalLower;
     }
 
@@ -145,8 +143,7 @@ public class EnumsDto {
      *
      * @return externalMixed
      **/
-    @Valid
-    public ExternalMixedEnum getExternalMixed() {
+    @Valid public ExternalMixedEnum getExternalMixed() {
         return externalMixed;
     }
 
@@ -164,8 +161,7 @@ public class EnumsDto {
      *
      * @return inner
      **/
-    @Valid
-    public InnerEnum getInner() {
+    @Valid public InnerEnum getInner() {
         return inner;
     }
 
@@ -183,8 +179,7 @@ public class EnumsDto {
      *
      * @return integerEnum
      **/
-    @Valid
-    public IntEnum getIntegerEnum() {
+    @Valid public IntEnum getIntegerEnum() {
         return integerEnum;
     }
 
@@ -202,8 +197,7 @@ public class EnumsDto {
      *
      * @return lower
      **/
-    @Valid
-    public InnerLowerEnum getLower() {
+    @Valid public InnerLowerEnum getLower() {
         return lower;
     }
 
@@ -221,8 +215,7 @@ public class EnumsDto {
      *
      * @return mixed
      **/
-    @Valid
-    public InnerMixedEnum getMixed() {
+    @Valid public InnerMixedEnum getMixed() {
         return mixed;
     }
 
@@ -258,8 +251,7 @@ public class EnumsDto {
      *
      * @return stringIntegerEnum
      **/
-    @Valid
-    public StringIntEnum getStringIntegerEnum() {
+    @Valid public StringIntEnum getStringIntegerEnum() {
         return stringIntegerEnum;
     }
 
@@ -289,8 +281,7 @@ public class EnumsDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(external, externalLower, externalMixed, inner, integerEnum, lower, mixed, propertyEnumString,
-                stringIntegerEnum);
+        return Objects.hash(external, externalLower, externalMixed, inner, integerEnum, lower, mixed, propertyEnumString, stringIntegerEnum);
     }
 
     @Override

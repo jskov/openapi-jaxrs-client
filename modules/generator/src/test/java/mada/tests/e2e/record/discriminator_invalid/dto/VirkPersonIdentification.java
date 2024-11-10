@@ -49,7 +49,7 @@ public class VirkPersonIdentification extends Identification {
         }
         VirkPersonIdentification other = (VirkPersonIdentification) o;
         return Objects.equals(this.virkUnitNumber, other.virkUnitNumber) &&
-                super.equals(o);
+              super.equals(o);
     }
 
     @Override

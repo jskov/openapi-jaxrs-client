@@ -29,42 +29,42 @@ import java.util.Objects;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestAssignParticipantRoleRequest {
     public enum RoleEnum {
-        AUTHOR("AUTHOR"),
-        REVIEWER("REVIEWER"),
-        PARTICIPANT("PARTICIPANT");
+      AUTHOR("AUTHOR"),
+      REVIEWER("REVIEWER"),
+      PARTICIPANT("PARTICIPANT");
 
-        private final String value;
+      private final String value;
 
-        RoleEnum(String value) {
-            this.value = value;
-        }
+      RoleEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class RoleEnumAdapter implements JsonbAdapter<RoleEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(RoleEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class RoleEnumAdapter implements JsonbAdapter<RoleEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(RoleEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public RoleEnum adaptFromJson(JsonString value) throws Exception {
-                for (RoleEnum b : RoleEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public RoleEnum adaptFromJson(JsonString value) throws Exception {
+            for (RoleEnum b : RoleEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RoleEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RoleEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_ROLE = "role";
     @JsonbProperty(JSON_PROPERTY_ROLE)
@@ -103,8 +103,7 @@ public class RestPullRequestAssignParticipantRoleRequest {
      *
      * @return user
      **/
-    @Valid
-    public RestPullRequestAssignParticipantRoleRequestUser getUser() {
+    @Valid public RestPullRequestAssignParticipantRoleRequestUser getUser() {
         return user;
     }
 

@@ -155,8 +155,7 @@ public class _ResponseApiTypesBitbucketArray {
      *
      * @return values
      **/
-    @Valid
-    public List<Simple> getValues() {
+    @Valid public List<Simple> getValues() {
         return values;
     }
 

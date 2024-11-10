@@ -29,7 +29,6 @@ public class MicroProfileAnnotationsPropsOnly {
 
     /**
      * property description.
-     * 
      * @return withDescription
      **/
     public String getWithDescription() {

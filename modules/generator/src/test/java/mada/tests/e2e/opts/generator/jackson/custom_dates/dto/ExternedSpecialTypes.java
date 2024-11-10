@@ -27,33 +27,25 @@ public class ExternedSpecialTypes {
     public static final String JSON_PROPERTY_DATE = "date";
     @JsonProperty(JSON_PROPERTY_DATE)
     @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateDeserializer.class)
-    @JsonSerialize(
-            using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateSerializer.class,
-            include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
     private LocalDate date;
 
     public static final String JSON_PROPERTY_DATE_TIME = "dateTime";
     @JsonProperty(JSON_PROPERTY_DATE_TIME)
     @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeDeserializer.class)
-    @JsonSerialize(
-            using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class,
-            include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
     private LocalDateTime dateTime;
 
     public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
     @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
     @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeDeserializer.class)
-    @JsonSerialize(
-            using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class,
-            include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
     private LocalDateTime offsetDateTime;
 
     public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
     @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
     @JsonDeserialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeDeserializer.class)
-    @JsonSerialize(
-            using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class,
-            include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(using = mada.tests.e2e.opts.generator.jackson.custom_dates.CustomLocalDateTimeSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
     private LocalDateTime zonedDateTime;
 
     public ExternedSpecialTypes bigDecimal(BigDecimal bigDecimal) {

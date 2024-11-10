@@ -45,43 +45,43 @@ public class RestProjectSettingsRestriction {
     private String namespace;
 
     public enum ProcessedStateEnum {
-        UNPROCESSED("UNPROCESSED"),
-        PROCESSED("PROCESSED"),
-        FAILED("FAILED"),
-        IN_PROGRESS("IN_PROGRESS");
+      UNPROCESSED("UNPROCESSED"),
+      PROCESSED("PROCESSED"),
+      FAILED("FAILED"),
+      IN_PROGRESS("IN_PROGRESS");
 
-        private final String value;
+      private final String value;
 
-        ProcessedStateEnum(String value) {
-            this.value = value;
-        }
+      ProcessedStateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class ProcessedStateEnumAdapter implements JsonbAdapter<ProcessedStateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(ProcessedStateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class ProcessedStateEnumAdapter implements JsonbAdapter<ProcessedStateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(ProcessedStateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public ProcessedStateEnum adaptFromJson(JsonString value) throws Exception {
-                for (ProcessedStateEnum b : ProcessedStateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public ProcessedStateEnum adaptFromJson(JsonString value) throws Exception {
+            for (ProcessedStateEnum b : ProcessedStateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ProcessedStateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ProcessedStateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_PROCESSED_STATE = "processedState";
     @JsonbProperty(JSON_PROPERTY_PROCESSED_STATE)
@@ -175,8 +175,7 @@ public class RestProjectSettingsRestriction {
      *
      * @return project
      **/
-    @Valid
-    public RestProjectSettingsRestrictionProject getProject() {
+    @Valid public RestProjectSettingsRestrictionProject getProject() {
         return project;
     }
 

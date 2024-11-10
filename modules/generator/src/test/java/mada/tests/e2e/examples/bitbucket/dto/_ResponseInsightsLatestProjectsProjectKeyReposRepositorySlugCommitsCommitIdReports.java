@@ -162,8 +162,7 @@ public class _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommits
      *
      * @return values
      **/
-    @Valid
-    public List<RestInsightReport> getValues() {
+    @Valid public List<RestInsightReport> getValues() {
         return values;
     }
 

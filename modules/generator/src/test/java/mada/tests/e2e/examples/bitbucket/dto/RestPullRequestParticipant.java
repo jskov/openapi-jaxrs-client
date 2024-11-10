@@ -39,42 +39,42 @@ public class RestPullRequestParticipant {
     private String lastReviewedCommit;
 
     public enum RoleEnum {
-        AUTHOR("AUTHOR"),
-        REVIEWER("REVIEWER"),
-        PARTICIPANT("PARTICIPANT");
+      AUTHOR("AUTHOR"),
+      REVIEWER("REVIEWER"),
+      PARTICIPANT("PARTICIPANT");
 
-        private final String value;
+      private final String value;
 
-        RoleEnum(String value) {
-            this.value = value;
-        }
+      RoleEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class RoleEnumAdapter implements JsonbAdapter<RoleEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(RoleEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class RoleEnumAdapter implements JsonbAdapter<RoleEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(RoleEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public RoleEnum adaptFromJson(JsonString value) throws Exception {
-                for (RoleEnum b : RoleEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public RoleEnum adaptFromJson(JsonString value) throws Exception {
+            for (RoleEnum b : RoleEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RoleEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RoleEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_ROLE = "role";
     @JsonbProperty(JSON_PROPERTY_ROLE)
@@ -82,42 +82,42 @@ public class RestPullRequestParticipant {
     private RoleEnum role;
 
     public enum StatusEnum {
-        UNAPPROVED("UNAPPROVED"),
-        NEEDS_WORK("NEEDS_WORK"),
-        APPROVED("APPROVED");
+      UNAPPROVED("UNAPPROVED"),
+      NEEDS_WORK("NEEDS_WORK"),
+      APPROVED("APPROVED");
 
-        private final String value;
+      private final String value;
 
-        StatusEnum(String value) {
-            this.value = value;
-        }
+      StatusEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StatusEnumAdapter implements JsonbAdapter<StatusEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StatusEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StatusEnumAdapter implements JsonbAdapter<StatusEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StatusEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StatusEnum adaptFromJson(JsonString value) throws Exception {
-                for (StatusEnum b : StatusEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StatusEnum adaptFromJson(JsonString value) throws Exception {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StatusEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StatusEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATUS = "status";
     @JsonbProperty(JSON_PROPERTY_STATUS)
@@ -210,8 +210,7 @@ public class RestPullRequestParticipant {
      *
      * @return user
      **/
-    @Valid
-    public RestPullRequestParticipantUser getUser() {
+    @Valid public RestPullRequestParticipantUser getUser() {
         return user;
     }
 

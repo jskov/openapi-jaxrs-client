@@ -30,45 +30,45 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestAutoMergeProcessingResult {
     public enum AutoMergeProcessingStatusEnum {
-        CANCELLED("CANCELLED"),
-        VETOED("VETOED"),
-        STALE("STALE"),
-        MERGED("MERGED"),
-        LOCK_FAILURE("LOCK_FAILURE"),
-        UNKNOWN("UNKNOWN");
+      CANCELLED("CANCELLED"),
+      VETOED("VETOED"),
+      STALE("STALE"),
+      MERGED("MERGED"),
+      LOCK_FAILURE("LOCK_FAILURE"),
+      UNKNOWN("UNKNOWN");
 
-        private final String value;
+      private final String value;
 
-        AutoMergeProcessingStatusEnum(String value) {
-            this.value = value;
-        }
+      AutoMergeProcessingStatusEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class AutoMergeProcessingStatusEnumAdapter implements JsonbAdapter<AutoMergeProcessingStatusEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(AutoMergeProcessingStatusEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class AutoMergeProcessingStatusEnumAdapter implements JsonbAdapter<AutoMergeProcessingStatusEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(AutoMergeProcessingStatusEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public AutoMergeProcessingStatusEnum adaptFromJson(JsonString value) throws Exception {
-                for (AutoMergeProcessingStatusEnum b : AutoMergeProcessingStatusEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public AutoMergeProcessingStatusEnum adaptFromJson(JsonString value) throws Exception {
+            for (AutoMergeProcessingStatusEnum b : AutoMergeProcessingStatusEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type AutoMergeProcessingStatusEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type AutoMergeProcessingStatusEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_AUTO_MERGE_PROCESSING_STATUS = "autoMergeProcessingStatus";
     @JsonbProperty(JSON_PROPERTY_AUTO_MERGE_PROCESSING_STATUS)
@@ -108,8 +108,7 @@ public class RestAutoMergeProcessingResult {
      *
      * @return pullRequest
      **/
-    @Valid
-    public RestAutoMergeProcessingResultPullRequest getPullRequest() {
+    @Valid public RestAutoMergeProcessingResultPullRequest getPullRequest() {
         return pullRequest;
     }
 

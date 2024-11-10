@@ -20,41 +20,41 @@ import javax.json.bind.annotation.JsonbProperty;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EnumArrayInner {
     public enum MuligeUdbetalingsMetoderEnum {
-        HURTIGST_MULIGT("HURTIGST_MULIGT"),
-        UKENDT("UKENDT");
+      HURTIGST_MULIGT("HURTIGST_MULIGT"),
+      UKENDT("UKENDT");
 
-        private final String value;
+      private final String value;
 
-        MuligeUdbetalingsMetoderEnum(String value) {
-            this.value = value;
-        }
+      MuligeUdbetalingsMetoderEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class MuligeUdbetalingsMetoderEnumAdapter implements JsonbAdapter<MuligeUdbetalingsMetoderEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(MuligeUdbetalingsMetoderEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class MuligeUdbetalingsMetoderEnumAdapter implements JsonbAdapter<MuligeUdbetalingsMetoderEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(MuligeUdbetalingsMetoderEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public MuligeUdbetalingsMetoderEnum adaptFromJson(JsonString value) throws Exception {
-                for (MuligeUdbetalingsMetoderEnum b : MuligeUdbetalingsMetoderEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public MuligeUdbetalingsMetoderEnum adaptFromJson(JsonString value) throws Exception {
+            for (MuligeUdbetalingsMetoderEnum b : MuligeUdbetalingsMetoderEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type MuligeUdbetalingsMetoderEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type MuligeUdbetalingsMetoderEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_MULIGE_UDBETALINGS_METODER = "muligeUdbetalingsMetoder";
     @JsonbProperty(JSON_PROPERTY_MULIGE_UDBETALINGS_METODER)

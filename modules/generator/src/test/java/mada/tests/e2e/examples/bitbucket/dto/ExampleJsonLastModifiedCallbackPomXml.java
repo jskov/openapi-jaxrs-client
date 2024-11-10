@@ -74,8 +74,7 @@ public class ExampleJsonLastModifiedCallbackPomXml {
      *
      * @return author
      **/
-    @Valid
-    public ExampleJsonLastModifiedCallbackPomXmlAuthor getAuthor() {
+    @Valid public ExampleJsonLastModifiedCallbackPomXmlAuthor getAuthor() {
         return author;
     }
 
@@ -111,8 +110,7 @@ public class ExampleJsonLastModifiedCallbackPomXml {
      *
      * @return committer
      **/
-    @Valid
-    public ExampleJsonLastModifiedCallbackPomXmlCommitter getCommitter() {
+    @Valid public ExampleJsonLastModifiedCallbackPomXmlCommitter getCommitter() {
         return committer;
     }
 
@@ -210,8 +208,7 @@ public class ExampleJsonLastModifiedCallbackPomXml {
      *
      * @return parents
      **/
-    @Valid
-    public List<RestMinimalCommit> getParents() {
+    @Valid public List<RestMinimalCommit> getParents() {
         return parents;
     }
 

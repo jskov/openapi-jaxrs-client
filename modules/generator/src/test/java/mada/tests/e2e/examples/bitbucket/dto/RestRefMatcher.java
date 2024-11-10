@@ -85,8 +85,7 @@ public class RestRefMatcher {
      *
      * @return type
      **/
-    @Valid
-    public RestRefMatcherType getType() {
+    @Valid public RestRefMatcherType getType() {
         return type;
     }
 

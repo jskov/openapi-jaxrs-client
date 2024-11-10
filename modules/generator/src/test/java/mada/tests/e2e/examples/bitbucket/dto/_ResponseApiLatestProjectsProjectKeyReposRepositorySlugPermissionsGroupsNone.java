@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPermissionsG
      *
      * @return values
      **/
-    @Valid
-    public List<RestDetailedGroup> getValues() {
+    @Valid public List<RestDetailedGroup> getValues() {
         return values;
     }
 

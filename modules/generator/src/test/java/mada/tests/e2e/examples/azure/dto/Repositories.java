@@ -39,7 +39,6 @@ public class Repositories {
 
     /**
      * Repository names.
-     * 
      * @return repositories
      **/
     public List<String> getRepositories() {

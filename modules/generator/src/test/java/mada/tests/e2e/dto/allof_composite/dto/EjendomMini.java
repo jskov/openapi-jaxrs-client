@@ -28,13 +28,10 @@ public class EjendomMini {
     }
 
     /**
-     * Husnummeret på ejendommen.<br>
-     * Format: String(10)
-     * 
+     * Husnummeret på ejendommen.<br>Format: String(10)
      * @return husnr
      **/
-    @NotNull @Size(min = 0, max = 10)
-    public String getHusnr() {
+    @NotNull @Size(min = 0, max = 10) public String getHusnr() {
         return husnr;
     }
 

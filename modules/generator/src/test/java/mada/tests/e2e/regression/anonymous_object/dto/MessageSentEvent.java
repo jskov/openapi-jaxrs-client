@@ -28,9 +28,7 @@ public class MessageSentEvent {
 
     public static final String JSON_PROPERTY_CORRELATION_ID = "correlationId";
     @JsonbProperty(JSON_PROPERTY_CORRELATION_ID)
-    @Schema(
-            description = "Correlation id of the original action which has led to this event.",
-            example = "5c812d49-0d13-44fa-8b9f-97765fc5e1ff")
+    @Schema(description = "Correlation id of the original action which has led to this event.", example = "5c812d49-0d13-44fa-8b9f-97765fc5e1ff")
     private String correlationId;
 
     public static final String JSON_PROPERTY_ID = "id";
@@ -50,10 +48,7 @@ public class MessageSentEvent {
 
     public static final String JSON_PROPERTY_ROOM_ID = "roomId";
     @JsonbProperty(JSON_PROPERTY_ROOM_ID)
-    @Schema(
-            required = true,
-            description = "The id of the room which the event occurred in.",
-            example = "5c812d49-0d13-44fa-8b9f-97765fc5e1ff")
+    @Schema(required = true, description = "The id of the room which the event occurred in.", example = "5c812d49-0d13-44fa-8b9f-97765fc5e1ff")
     private String roomId;
 
     public static final String JSON_PROPERTY_SENT_AT = "sentAt";
@@ -67,40 +62,40 @@ public class MessageSentEvent {
     private String sub;
 
     public enum TypeEnum {
-        MESSAGE_SENT("MESSAGE_SENT");
+      MESSAGE_SENT("MESSAGE_SENT");
 
-        private final String value;
+      private final String value;
 
-        TypeEnum(String value) {
-            this.value = value;
-        }
+      TypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(TypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(TypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public TypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (TypeEnum b : TypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public TypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @JsonbProperty(JSON_PROPERTY_TYPE)
@@ -115,7 +110,6 @@ public class MessageSentEvent {
 
     /**
      * The bank which the event occurred in.
-     * 
      * @return bankNumber
      **/
     public Integer getBankNumber() {
@@ -133,7 +127,6 @@ public class MessageSentEvent {
 
     /**
      * Correlation id of the original action which has led to this event.
-     * 
      * @return correlationId
      **/
     public String getCorrelationId() {
@@ -151,7 +144,6 @@ public class MessageSentEvent {
 
     /**
      * Auto-generated id of this event.
-     * 
      * @return id
      **/
     public String getId() {
@@ -169,7 +161,6 @@ public class MessageSentEvent {
 
     /**
      * The UUID of the message.
-     * 
      * @return messageId
      **/
     @NotNull public String getMessageId() {
@@ -187,7 +178,6 @@ public class MessageSentEvent {
 
     /**
      * Time the event was logged determined from the application initiating logging of the event.
-     * 
      * @return occurredAt
      **/
     public OffsetDateTime getOccurredAt() {
@@ -205,7 +195,6 @@ public class MessageSentEvent {
 
     /**
      * The id of the room which the event occurred in.
-     * 
      * @return roomId
      **/
     @NotNull public String getRoomId() {
@@ -223,7 +212,6 @@ public class MessageSentEvent {
 
     /**
      * The timestamp for when the message was sent.
-     * 
      * @return sentAt
      **/
     @NotNull public Object getSentAt() {
@@ -241,7 +229,6 @@ public class MessageSentEvent {
 
     /**
      * Subject claim on the token which was used to perform the action that led to this event.
-     * 
      * @return sub
      **/
     public String getSub() {

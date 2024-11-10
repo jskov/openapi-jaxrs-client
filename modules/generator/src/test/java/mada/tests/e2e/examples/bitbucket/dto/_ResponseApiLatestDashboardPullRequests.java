@@ -162,8 +162,7 @@ public class _ResponseApiLatestDashboardPullRequests {
      *
      * @return values
      **/
-    @Valid
-    public List<RestPullRequest> getValues() {
+    @Valid public List<RestPullRequest> getValues() {
         return values;
     }
 

@@ -46,8 +46,7 @@ public class RestUserReaction {
      *
      * @return comment
      **/
-    @Valid
-    public RestUserReactionComment getComment() {
+    @Valid public RestUserReactionComment getComment() {
         return comment;
     }
 
@@ -65,8 +64,7 @@ public class RestUserReaction {
      *
      * @return emoticon
      **/
-    @Valid
-    public RestUserReactionEmoticon getEmoticon() {
+    @Valid public RestUserReactionEmoticon getEmoticon() {
         return emoticon;
     }
 
@@ -84,8 +82,7 @@ public class RestUserReaction {
      *
      * @return user
      **/
-    @Valid
-    public RestUserReactionUser getUser() {
+    @Valid public RestUserReactionUser getUser() {
         return user;
     }
 

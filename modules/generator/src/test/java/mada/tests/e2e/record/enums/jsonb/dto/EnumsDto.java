@@ -21,61 +21,89 @@ import org.jspecify.annotations.Nullable;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record EnumsDto(
-        @JsonbProperty("external") @Valid @Nullable ExternalEnum external,
+        @JsonbProperty("external")
+        @Valid
+        @Nullable
+        ExternalEnum external,
 
-        @JsonbProperty("externalLower") @Valid @Nullable ExternalLowerEnum externalLower,
+        @JsonbProperty("externalLower")
+        @Valid
+        @Nullable
+        ExternalLowerEnum externalLower,
 
-        @JsonbProperty("externalMixed") @Valid @Nullable ExternalMixedEnum externalMixed,
+        @JsonbProperty("externalMixed")
+        @Valid
+        @Nullable
+        ExternalMixedEnum externalMixed,
 
-        @JsonbProperty("inner") @Valid @Nullable InnerEnum inner,
+        @JsonbProperty("inner")
+        @Valid
+        @Nullable
+        InnerEnum inner,
 
-        @JsonbProperty("integerEnum") @Valid @Nullable IntEnum integerEnum,
+        @JsonbProperty("integerEnum")
+        @Valid
+        @Nullable
+        IntEnum integerEnum,
 
-        @JsonbProperty("lower") @Valid @Nullable InnerLowerEnum lower,
+        @JsonbProperty("lower")
+        @Valid
+        @Nullable
+        InnerLowerEnum lower,
 
-        @JsonbProperty("mixed") @Valid @Nullable InnerMixedEnum mixed,
+        @JsonbProperty("mixed")
+        @Valid
+        @Nullable
+        InnerMixedEnum mixed,
 
-        @JsonbProperty("propertyEnumString") @JsonbTypeAdapter(mada.tests.e2e.record.enums.jsonb.dto.EnumsDto.PropertyEnumStringEnum.PropertyEnumStringEnumAdapter.class) @Nullable PropertyEnumStringEnum propertyEnumString,
+        @JsonbProperty("propertyEnumString")
+        @JsonbTypeAdapter(mada.tests.e2e.record.enums.jsonb.dto.EnumsDto.PropertyEnumStringEnum.PropertyEnumStringEnumAdapter.class)
+        @Nullable
+        PropertyEnumStringEnum propertyEnumString,
 
-        @JsonbProperty("stringIntegerEnum") @Valid @Nullable StringIntEnum stringIntegerEnum) {
+        @JsonbProperty("stringIntegerEnum")
+        @Valid
+        @Nullable
+        StringIntEnum stringIntegerEnum) {
 
-    @Schema(enumeration = { "O", "M", "nexT" }, type = SchemaType.STRING)
+
+    @Schema(enumeration = {"O", "M", "nexT"}, type = SchemaType.STRING)
     public enum PropertyEnumStringEnum {
-        O("O"),
-        M("M"),
-        NEXT("nexT");
+      O("O"),
+      M("M"),
+      NEXT("nexT");
 
-        private final String value;
+      private final String value;
 
-        PropertyEnumStringEnum(String value) {
-            this.value = value;
-        }
+      PropertyEnumStringEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class PropertyEnumStringEnumAdapter implements JsonbAdapter<PropertyEnumStringEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(PropertyEnumStringEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class PropertyEnumStringEnumAdapter implements JsonbAdapter<PropertyEnumStringEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(PropertyEnumStringEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public PropertyEnumStringEnum adaptFromJson(JsonString value) throws Exception {
-                for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public PropertyEnumStringEnum adaptFromJson(JsonString value) throws Exception {
+            for (PropertyEnumStringEnum b : PropertyEnumStringEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PropertyEnumStringEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PropertyEnumStringEnum");
+          }
+      }
+  }
 
 }

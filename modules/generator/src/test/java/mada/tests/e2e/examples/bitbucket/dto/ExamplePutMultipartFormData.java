@@ -46,7 +46,6 @@ public class ExamplePutMultipartFormData {
 
     /**
      * The hook script contents.
-     * 
      * @return content
      **/
     public String getContent() {
@@ -64,7 +63,6 @@ public class ExamplePutMultipartFormData {
 
     /**
      * A description of the hook script (useful when querying registered hook scripts).
-     * 
      * @return description
      **/
     public String getDescription() {
@@ -82,7 +80,6 @@ public class ExamplePutMultipartFormData {
 
     /**
      * The name of the hook script (useful when querying registered hook scripts).
-     * 
      * @return name
      **/
     public String getName() {

@@ -52,42 +52,42 @@ public class RestChange {
     private Object links;
 
     public enum NodeTypeEnum {
-        DIRECTORY("DIRECTORY"),
-        FILE("FILE"),
-        SUBMODULE("SUBMODULE");
+      DIRECTORY("DIRECTORY"),
+      FILE("FILE"),
+      SUBMODULE("SUBMODULE");
 
-        private final String value;
+      private final String value;
 
-        NodeTypeEnum(String value) {
-            this.value = value;
-        }
+      NodeTypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class NodeTypeEnumAdapter implements JsonbAdapter<NodeTypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(NodeTypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class NodeTypeEnumAdapter implements JsonbAdapter<NodeTypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(NodeTypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public NodeTypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (NodeTypeEnum b : NodeTypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public NodeTypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (NodeTypeEnum b : NodeTypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type NodeTypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type NodeTypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_NODE_TYPE = "nodeType";
     @JsonbProperty(JSON_PROPERTY_NODE_TYPE)
@@ -112,45 +112,45 @@ public class RestChange {
     private RestChangeSrcPath srcPath;
 
     public enum TypeEnum {
-        ADD("ADD"),
-        COPY("COPY"),
-        DELETE("DELETE"),
-        MODIFY("MODIFY"),
-        MOVE("MOVE"),
-        UNKNOWN("UNKNOWN");
+      ADD("ADD"),
+      COPY("COPY"),
+      DELETE("DELETE"),
+      MODIFY("MODIFY"),
+      MOVE("MOVE"),
+      UNKNOWN("UNKNOWN");
 
-        private final String value;
+      private final String value;
 
-        TypeEnum(String value) {
-            this.value = value;
-        }
+      TypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(TypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(TypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public TypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (TypeEnum b : TypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public TypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @JsonbProperty(JSON_PROPERTY_TYPE)
@@ -167,8 +167,7 @@ public class RestChange {
      *
      * @return conflict
      **/
-    @Valid
-    public RestChangeConflict getConflict() {
+    @Valid public RestChangeConflict getConflict() {
         return conflict;
     }
 
@@ -276,8 +275,7 @@ public class RestChange {
      *
      * @return path
      **/
-    @Valid
-    public RestChangePath getPath() {
+    @Valid public RestChangePath getPath() {
         return path;
     }
 
@@ -331,8 +329,7 @@ public class RestChange {
      *
      * @return srcPath
      **/
-    @Valid
-    public RestChangeSrcPath getSrcPath() {
+    @Valid public RestChangeSrcPath getSrcPath() {
         return srcPath;
     }
 
@@ -382,8 +379,7 @@ public class RestChange {
 
     @Override
     public int hashCode() {
-        return Objects.hash(conflict, contentId, executable, fromContentId, links, nodeType, path, percentUnchanged, srcExecutable, srcPath,
-                type);
+        return Objects.hash(conflict, contentId, executable, fromContentId, links, nodeType, path, percentUnchanged, srcExecutable, srcPath, type);
     }
 
     @Override

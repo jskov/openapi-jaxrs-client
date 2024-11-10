@@ -57,7 +57,6 @@ public class V1Manifest {
 
     /**
      * CPU architecture.
-     * 
      * @return architecture
      **/
     public String getArchitecture() {
@@ -83,11 +82,9 @@ public class V1Manifest {
 
     /**
      * List of layer information.
-     * 
      * @return fsLayers
      **/
-    @Valid
-    public List<FsLayer> getFsLayers() {
+    @Valid public List<FsLayer> getFsLayers() {
         return fsLayers;
     }
 
@@ -110,11 +107,9 @@ public class V1Manifest {
 
     /**
      * Image history.
-     * 
      * @return history
      **/
-    @Valid
-    public List<History> getHistory() {
+    @Valid public List<History> getHistory() {
         return history;
     }
 
@@ -129,7 +124,6 @@ public class V1Manifest {
 
     /**
      * Image name.
-     * 
      * @return name
      **/
     public String getName() {
@@ -155,11 +149,9 @@ public class V1Manifest {
 
     /**
      * Image signature.
-     * 
      * @return signatures
      **/
-    @Valid
-    public List<ImageSignature> getSignatures() {
+    @Valid public List<ImageSignature> getSignatures() {
         return signatures;
     }
 
@@ -174,7 +166,6 @@ public class V1Manifest {
 
     /**
      * Image tag.
-     * 
      * @return tag
      **/
     public String getTag() {

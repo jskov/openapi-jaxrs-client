@@ -28,7 +28,6 @@ public class PropDto {
 
     /**
      * Ændring som beskrevet i KRO API.
-     * 
      * @return aendring
      **/
     @NotNull public String getAendring() {

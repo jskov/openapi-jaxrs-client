@@ -44,8 +44,7 @@ public class V2Manifest {
      *
      * @return config
      **/
-    @Valid
-    public Descriptor getConfig() {
+    @Valid public Descriptor getConfig() {
         return config;
     }
 
@@ -68,11 +67,9 @@ public class V2Manifest {
 
     /**
      * List of V2 image layer information.
-     * 
      * @return layers
      **/
-    @Valid
-    public List<Descriptor> getLayers() {
+    @Valid public List<Descriptor> getLayers() {
         return layers;
     }
 
@@ -87,7 +84,6 @@ public class V2Manifest {
 
     /**
      * Media type for this Manifest.
-     * 
      * @return mediaType
      **/
     public String getMediaType() {

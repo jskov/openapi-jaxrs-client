@@ -85,8 +85,7 @@ public class RestAutoDeclineSettings {
      *
      * @return scope
      **/
-    @Valid
-    public RestAutoDeclineSettingsScope getScope() {
+    @Valid public RestAutoDeclineSettingsScope getScope() {
         return scope;
     }
 

@@ -25,8 +25,7 @@ public class Annotations {
 
     public static final String JSON_PROPERTY_ORG_OPENCONTAINERS_IMAGE_CREATED = "org.opencontainers.image.created";
     @JsonbProperty(JSON_PROPERTY_ORG_OPENCONTAINERS_IMAGE_CREATED)
-    @Schema(
-            description = "Date and time on which the image was built (string, date-time as defined by https://tools.ietf.org/html/rfc3339#section-5.6)")
+    @Schema(description = "Date and time on which the image was built (string, date-time as defined by https://tools.ietf.org/html/rfc3339#section-5.6)")
     private OffsetDateTime org_opencontainers_image_created;
 
     public static final String JSON_PROPERTY_ORG_OPENCONTAINERS_IMAGE_DESCRIPTION = "org.opencontainers.image.description";
@@ -76,8 +75,7 @@ public class Annotations {
 
     public static final String JSON_PROPERTY_ORG_OPENCONTAINERS_IMAGE_VERSION = "org.opencontainers.image.version";
     @JsonbProperty(JSON_PROPERTY_ORG_OPENCONTAINERS_IMAGE_VERSION)
-    @Schema(
-            description = "Version of the packaged software. The version MAY match a label or tag in the source code repository, may also be Semantic versioning-compatible")
+    @Schema(description = "Version of the packaged software. The version MAY match a label or tag in the source code repository, may also be Semantic versioning-compatible")
     private String org_opencontainers_image_version;
 
     public Annotations org_opencontainers_image_authors(String org_opencontainers_image_authors) {
@@ -87,7 +85,6 @@ public class Annotations {
 
     /**
      * Contact details of the people or organization responsible for the image.
-     * 
      * @return org_opencontainers_image_authors
      **/
     public String getOrgOpencontainersImageAuthors() {
@@ -105,8 +102,7 @@ public class Annotations {
 
     /**
      * Date and time on which the image was built (string, date-time as defined by
-     * https://tools.ietf.org/html/rfc3339#section-5.6)
-     * 
+   * https://tools.ietf.org/html/rfc3339#section-5.6)
      * @return org_opencontainers_image_created
      **/
     public OffsetDateTime getOrgOpencontainersImageCreated() {
@@ -124,7 +120,6 @@ public class Annotations {
 
     /**
      * Human-readable description of the software packaged in the image.
-     * 
      * @return org_opencontainers_image_description
      **/
     public String getOrgOpencontainersImageDescription() {
@@ -142,7 +137,6 @@ public class Annotations {
 
     /**
      * URL to get documentation on the image.
-     * 
      * @return org_opencontainers_image_documentation
      **/
     public String getOrgOpencontainersImageDocumentation() {
@@ -160,7 +154,6 @@ public class Annotations {
 
     /**
      * License(s) under which contained software is distributed as an SPDX License Expression.
-     * 
      * @return org_opencontainers_image_licenses
      **/
     public String getOrgOpencontainersImageLicenses() {
@@ -178,7 +171,6 @@ public class Annotations {
 
     /**
      * Name of the reference for a target.
-     * 
      * @return org_opencontainers_image_ref_name
      **/
     public String getOrgOpencontainersImageRefName() {
@@ -196,7 +188,6 @@ public class Annotations {
 
     /**
      * Source control revision identifier for the packaged software.
-     * 
      * @return org_opencontainers_image_revision
      **/
     public String getOrgOpencontainersImageRevision() {
@@ -214,7 +205,6 @@ public class Annotations {
 
     /**
      * URL to get source code for building the image.
-     * 
      * @return org_opencontainers_image_source
      **/
     public String getOrgOpencontainersImageSource() {
@@ -232,7 +222,6 @@ public class Annotations {
 
     /**
      * Human-readable title of the image.
-     * 
      * @return org_opencontainers_image_title
      **/
     public String getOrgOpencontainersImageTitle() {
@@ -250,7 +239,6 @@ public class Annotations {
 
     /**
      * URL to find more information on the image.
-     * 
      * @return org_opencontainers_image_url
      **/
     public String getOrgOpencontainersImageUrl() {
@@ -268,7 +256,6 @@ public class Annotations {
 
     /**
      * Name of the distributing entity, organization or individual.
-     * 
      * @return org_opencontainers_image_vendor
      **/
     public String getOrgOpencontainersImageVendor() {
@@ -286,8 +273,7 @@ public class Annotations {
 
     /**
      * Version of the packaged software. The version MAY match a label or tag in the source code repository, may also be
-     * Semantic versioning-compatible
-     * 
+   * Semantic versioning-compatible
      * @return org_opencontainers_image_version
      **/
     public String getOrgOpencontainersImageVersion() {
@@ -323,10 +309,7 @@ public class Annotations {
 
     @Override
     public int hashCode() {
-        return Objects.hash(org_opencontainers_image_authors, org_opencontainers_image_created, org_opencontainers_image_description,
-                org_opencontainers_image_documentation, org_opencontainers_image_licenses, org_opencontainers_image_ref_name,
-                org_opencontainers_image_revision, org_opencontainers_image_source, org_opencontainers_image_title,
-                org_opencontainers_image_url, org_opencontainers_image_vendor, org_opencontainers_image_version);
+        return Objects.hash(org_opencontainers_image_authors, org_opencontainers_image_created, org_opencontainers_image_description, org_opencontainers_image_documentation, org_opencontainers_image_licenses, org_opencontainers_image_ref_name, org_opencontainers_image_revision, org_opencontainers_image_source, org_opencontainers_image_title, org_opencontainers_image_url, org_opencontainers_image_vendor, org_opencontainers_image_version);
     }
 
     @Override

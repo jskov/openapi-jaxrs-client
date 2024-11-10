@@ -125,9 +125,7 @@ public class RestSetInsightReportRequest {
      *
      * @return data
      **/
-    @NotNull @Valid
-    @Size(min = 0, max = 6)
-    public List<RestInsightReportData> getData() {
+    @NotNull @Valid @Size(min = 0, max = 6) public List<RestInsightReportData> getData() {
         return data;
     }
 
@@ -199,8 +197,7 @@ public class RestSetInsightReportRequest {
      *
      * @return reporter
      **/
-    @Size(min = 0, max = 450)
-    public String getReporter() {
+    @Size(min = 0, max = 450) public String getReporter() {
         return reporter;
     }
 
@@ -218,8 +215,7 @@ public class RestSetInsightReportRequest {
      *
      * @return result
      **/
-    @Pattern(regexp = "FAIL|PASS")
-    public String getResult() {
+    @Pattern(regexp = "FAIL|PASS") public String getResult() {
         return result;
     }
 
@@ -237,8 +233,7 @@ public class RestSetInsightReportRequest {
      *
      * @return title
      **/
-    @NotNull @Size(min = 0, max = 450)
-    public String getTitle() {
+    @NotNull @Size(min = 0, max = 450) public String getTitle() {
         return title;
     }
 

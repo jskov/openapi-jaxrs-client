@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeySettingsReviewerGroups {
      *
      * @return values
      **/
-    @Valid
-    public List<RestReviewerGroup> getValues() {
+    @Valid public List<RestReviewerGroup> getValues() {
         return values;
     }
 

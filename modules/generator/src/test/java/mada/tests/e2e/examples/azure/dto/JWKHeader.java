@@ -49,7 +49,6 @@ public class JWKHeader {
 
     /**
      * crv value.
-     * 
      * @return crv
      **/
     public String getCrv() {
@@ -67,7 +66,6 @@ public class JWKHeader {
 
     /**
      * kid value.
-     * 
      * @return kid
      **/
     public String getKid() {
@@ -85,7 +83,6 @@ public class JWKHeader {
 
     /**
      * kty value.
-     * 
      * @return kty
      **/
     public String getKty() {
@@ -103,7 +100,6 @@ public class JWKHeader {
 
     /**
      * x value.
-     * 
      * @return x
      **/
     public String getX() {
@@ -121,7 +117,6 @@ public class JWKHeader {
 
     /**
      * y value.
-     * 
      * @return y
      **/
     public String getY() {

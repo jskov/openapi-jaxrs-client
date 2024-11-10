@@ -65,8 +65,7 @@ public class RestRefSyncStatus {
      *
      * @return aheadRefs
      **/
-    @Valid
-    public RestRefSyncStatusAheadRefs getAheadRefs() {
+    @Valid public RestRefSyncStatusAheadRefs getAheadRefs() {
         return aheadRefs;
     }
 
@@ -102,8 +101,7 @@ public class RestRefSyncStatus {
      *
      * @return divergedRefs
      **/
-    @Valid
-    public RestRefSyncStatusDivergedRefs getDivergedRefs() {
+    @Valid public RestRefSyncStatusDivergedRefs getDivergedRefs() {
         return divergedRefs;
     }
 
@@ -157,8 +155,7 @@ public class RestRefSyncStatus {
      *
      * @return orphanedRefs
      **/
-    @Valid
-    public RestRefSyncStatusOrphanedRefs getOrphanedRefs() {
+    @Valid public RestRefSyncStatusOrphanedRefs getOrphanedRefs() {
         return orphanedRefs;
     }
 

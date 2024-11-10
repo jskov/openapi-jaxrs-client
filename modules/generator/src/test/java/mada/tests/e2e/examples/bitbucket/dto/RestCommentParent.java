@@ -136,8 +136,7 @@ public class RestCommentParent {
      *
      * @return anchor
      **/
-    @Valid
-    public RestCommentParentAnchor getAnchor() {
+    @Valid public RestCommentParentAnchor getAnchor() {
         return anchor;
     }
 
@@ -173,8 +172,7 @@ public class RestCommentParent {
      *
      * @return author
      **/
-    @Valid
-    public RestCommentParentAuthor getAuthor() {
+    @Valid public RestCommentParentAuthor getAuthor() {
         return author;
     }
 
@@ -200,8 +198,7 @@ public class RestCommentParent {
      *
      * @return comments
      **/
-    @Valid
-    public List<RestComment> getComments() {
+    @Valid public List<RestComment> getComments() {
         return comments;
     }
 
@@ -345,8 +342,7 @@ public class RestCommentParent {
      *
      * @return resolver
      **/
-    @Valid
-    public RestCommentParentResolver getResolver() {
+    @Valid public RestCommentParentResolver getResolver() {
         return resolver;
     }
 
@@ -415,7 +411,6 @@ public class RestCommentParent {
 
     /**
      * Indicates if this comment thread has been marked as resolved or not.
-     * 
      * @return threadResolved
      **/
     public Boolean isThreadResolved() {
@@ -454,8 +449,7 @@ public class RestCommentParent {
      *
      * @return threadResolver
      **/
-    @Valid
-    public RestCommentParentThreadResolver getThreadResolver() {
+    @Valid public RestCommentParentThreadResolver getThreadResolver() {
         return threadResolver;
     }
 
@@ -532,8 +526,7 @@ public class RestCommentParent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(anchor, anchored, author, comments, createdDate, html, id, pending, properties, reply, resolvedDate, resolver,
-                severity, state, text, threadResolved, threadResolvedDate, threadResolver, updatedDate, version);
+        return Objects.hash(anchor, anchored, author, comments, createdDate, html, id, pending, properties, reply, resolvedDate, resolver, severity, state, text, threadResolved, threadResolvedDate, threadResolver, updatedDate, version);
     }
 
     @Override

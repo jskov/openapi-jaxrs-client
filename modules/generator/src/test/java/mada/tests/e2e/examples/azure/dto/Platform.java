@@ -17,8 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  * The platform object describes the platform which the image in the manifest runs on. A full list of valid operating
  * system and architecture values are listed in the Go language documentation for $GOOS and $GOARCH
  */
-@Schema(
-        description = "The platform object describes the platform which the image in the manifest runs on. A full list of valid operating system and architecture values are listed in the Go language documentation for $GOOS and $GOARCH")
+@Schema(description = "The platform object describes the platform which the image in the manifest runs on. A full list of valid operating system and architecture values are listed in the Go language documentation for $GOOS and $GOARCH")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Platform {
     public static final String JSON_PROPERTY_ARCHITECTURE = "architecture";
@@ -28,8 +27,7 @@ public class Platform {
 
     public static final String JSON_PROPERTY_FEATURES = "features";
     @JsonbProperty(JSON_PROPERTY_FEATURES)
-    @Schema(
-            description = "The optional features field specifies an array of strings, each listing a required CPU feature (for example sse4 or aes")
+    @Schema(description = "The optional features field specifies an array of strings, each listing a required CPU feature (for example sse4 or aes")
     private List<String> features;
 
     public static final String JSON_PROPERTY_OS = "os";
@@ -39,8 +37,7 @@ public class Platform {
 
     public static final String JSON_PROPERTY_OS_FEATURES = "os.features";
     @JsonbProperty(JSON_PROPERTY_OS_FEATURES)
-    @Schema(
-            description = "The optional os.features field specifies an array of strings, each listing a required OS feature (for example on Windows win32k")
+    @Schema(description = "The optional os.features field specifies an array of strings, each listing a required OS feature (for example on Windows win32k")
     private List<String> os_features;
 
     public static final String JSON_PROPERTY_OS_VERSION = "os.version";
@@ -50,8 +47,7 @@ public class Platform {
 
     public static final String JSON_PROPERTY_VARIANT = "variant";
     @JsonbProperty(JSON_PROPERTY_VARIANT)
-    @Schema(
-            description = "The optional variant field specifies a variant of the CPU, for example armv6l to specify a particular CPU variant of the ARM CPU.")
+    @Schema(description = "The optional variant field specifies a variant of the CPU, for example armv6l to specify a particular CPU variant of the ARM CPU.")
     private String variant;
 
     public Platform architecture(String architecture) {
@@ -61,7 +57,6 @@ public class Platform {
 
     /**
      * Specifies the CPU architecture, for example amd64 or ppc64le.
-     * 
      * @return architecture
      **/
     public String getArchitecture() {
@@ -87,8 +82,7 @@ public class Platform {
 
     /**
      * The optional features field specifies an array of strings, each listing a required CPU feature (for example sse4 or
-     * aes.
-     * 
+   * aes.
      * @return features
      **/
     public List<String> getFeatures() {
@@ -106,7 +100,6 @@ public class Platform {
 
     /**
      * The os field specifies the operating system, for example linux or windows.
-     * 
      * @return os
      **/
     public String getOs() {
@@ -132,8 +125,7 @@ public class Platform {
 
     /**
      * The optional os.features field specifies an array of strings, each listing a required OS feature (for example on
-     * Windows win32k
-     * 
+   * Windows win32k
      * @return os_features
      **/
     public List<String> getOsFeatures() {
@@ -151,7 +143,6 @@ public class Platform {
 
     /**
      * The optional os.version field specifies the operating system version, for example 10.0.10586.
-     * 
      * @return os_version
      **/
     public String getOsVersion() {
@@ -168,9 +159,8 @@ public class Platform {
     }
 
     /**
-     * The optional variant field specifies a variant of the CPU, for example armv6l to specify a particular CPU variant of
-     * the ARM CPU.
-     * 
+     * The optional variant field specifies a variant of the CPU, for example armv6l to specify a particular CPU variant
+   * of the ARM CPU.
      * @return variant
      **/
     public String getVariant() {

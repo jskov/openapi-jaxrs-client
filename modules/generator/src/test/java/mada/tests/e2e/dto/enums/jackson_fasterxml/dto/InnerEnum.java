@@ -15,32 +15,32 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum InnerEnum {
-    I("I"),
-    J("J");
+  I("I"),
+  J("J");
 
-    private final String value;
+  private final String value;
 
-    InnerEnum(String value) {
-        this.value = value;
+  InnerEnum(String value) {
+    this.value = value;
+  }
+
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
+
+  @JsonCreator
+  public static InnerEnum fromValue(String value) {
+    for (InnerEnum b : InnerEnum.values()) {
+      if (Objects.equals(b.value, value)) {
+        return b;
+      }
     }
-
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static InnerEnum fromValue(String value) {
-        for (InnerEnum b : InnerEnum.values()) {
-            if (Objects.equals(b.value, value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
 }

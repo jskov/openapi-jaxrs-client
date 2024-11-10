@@ -35,42 +35,42 @@ public class RestPullRequestMergeability {
     private Boolean conflicted;
 
     public enum OutcomeEnum {
-        CLEAN("CLEAN"),
-        CONFLICTED("CONFLICTED"),
-        UNKNOWN("UNKNOWN");
+      CLEAN("CLEAN"),
+      CONFLICTED("CONFLICTED"),
+      UNKNOWN("UNKNOWN");
 
-        private final String value;
+      private final String value;
 
-        OutcomeEnum(String value) {
-            this.value = value;
-        }
+      OutcomeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class OutcomeEnumAdapter implements JsonbAdapter<OutcomeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(OutcomeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class OutcomeEnumAdapter implements JsonbAdapter<OutcomeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(OutcomeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public OutcomeEnum adaptFromJson(JsonString value) throws Exception {
-                for (OutcomeEnum b : OutcomeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public OutcomeEnum adaptFromJson(JsonString value) throws Exception {
+            for (OutcomeEnum b : OutcomeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type OutcomeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type OutcomeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_OUTCOME = "outcome";
     @JsonbProperty(JSON_PROPERTY_OUTCOME)
@@ -135,8 +135,7 @@ public class RestPullRequestMergeability {
      *
      * @return vetoes
      **/
-    @Valid
-    public List<RestRepositoryHookVeto> getVetoes() {
+    @Valid public List<RestRepositoryHookVeto> getVetoes() {
         return vetoes;
     }
 

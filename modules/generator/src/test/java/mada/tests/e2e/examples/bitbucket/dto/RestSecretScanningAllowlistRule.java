@@ -51,7 +51,6 @@ public class RestSecretScanningAllowlistRule {
 
     /**
      * The ID of the rule.
-     * 
      * @return id
      **/
     public Long getId() {
@@ -69,7 +68,6 @@ public class RestSecretScanningAllowlistRule {
 
     /**
      * If present, regular expression for matching a secret on a code line.
-     * 
      * @return lineRegex
      **/
     public String getLineRegex() {
@@ -87,7 +85,6 @@ public class RestSecretScanningAllowlistRule {
 
     /**
      * Human readable name for the rule.
-     * 
      * @return name
      **/
     public String getName() {
@@ -105,7 +102,6 @@ public class RestSecretScanningAllowlistRule {
 
     /**
      * If present, regular expression matching file names.
-     * 
      * @return pathRegex
      **/
     public String getPathRegex() {

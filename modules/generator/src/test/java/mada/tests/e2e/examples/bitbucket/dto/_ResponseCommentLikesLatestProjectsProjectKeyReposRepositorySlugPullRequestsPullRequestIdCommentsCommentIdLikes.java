@@ -54,8 +54,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPul
     @JsonbProperty(JSON_PROPERTY_VALUES)
     private List<RestApplicationUser> values;
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes isLastPage(
-            Boolean isLastPage) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes isLastPage(Boolean isLastPage) {
         this.isLastPage = isLastPage;
         return this;
     }
@@ -73,8 +72,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPul
         this.isLastPage = isLastPage;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes limit(
-            BigDecimal limit) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes limit(BigDecimal limit) {
         this.limit = limit;
         return this;
     }
@@ -92,8 +90,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPul
         this.limit = limit;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes nextPageStart(
-            Integer nextPageStart) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes nextPageStart(Integer nextPageStart) {
         this.nextPageStart = nextPageStart;
         return this;
     }
@@ -111,8 +108,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPul
         this.nextPageStart = nextPageStart;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes size(
-            BigDecimal size) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes size(BigDecimal size) {
         this.size = size;
         return this;
     }
@@ -130,8 +126,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPul
         this.size = size;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes start(
-            Integer start) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes start(Integer start) {
         this.start = start;
         return this;
     }
@@ -149,14 +144,12 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPul
         this.start = start;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes values(
-            List<RestApplicationUser> values) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes values(List<RestApplicationUser> values) {
         this.values = values;
         return this;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes addValuesItem(
-            RestApplicationUser valuesItem) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes addValuesItem(RestApplicationUser valuesItem) {
         if (this.values == null) {
             this.values = new ArrayList<>();
         }
@@ -169,8 +162,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPul
      *
      * @return values
      **/
-    @Valid
-    public List<RestApplicationUser> getValues() {
+    @Valid public List<RestApplicationUser> getValues() {
         return values;
     }
 
@@ -203,8 +195,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPul
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(
-                "class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes {");
+        sb.append("class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdLikes {");
         sb.append("\n    isLastPage: ").append(toIndentedString(isLastPage));
         sb.append("\n    limit: ").append(toIndentedString(limit));
         sb.append("\n    nextPageStart: ").append(toIndentedString(nextPageStart));

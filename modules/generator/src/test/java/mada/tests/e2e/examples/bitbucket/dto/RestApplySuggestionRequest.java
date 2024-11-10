@@ -55,8 +55,7 @@ public class RestApplySuggestionRequest {
      *
      * @return commentVersion
      **/
-    @Valid
-    public RestApplySuggestionRequestCommentVersion getCommentVersion() {
+    @Valid public RestApplySuggestionRequestCommentVersion getCommentVersion() {
         return commentVersion;
     }
 
@@ -92,8 +91,7 @@ public class RestApplySuggestionRequest {
      *
      * @return pullRequestVersion
      **/
-    @Valid
-    public RestApplySuggestionRequestPullRequestVersion getPullRequestVersion() {
+    @Valid public RestApplySuggestionRequestPullRequestVersion getPullRequestVersion() {
         return pullRequestVersion;
     }
 
@@ -111,8 +109,7 @@ public class RestApplySuggestionRequest {
      *
      * @return suggestionIndex
      **/
-    @Valid
-    public RestApplySuggestionRequestSuggestionIndex getSuggestionIndex() {
+    @Valid public RestApplySuggestionRequestSuggestionIndex getSuggestionIndex() {
         return suggestionIndex;
     }
 

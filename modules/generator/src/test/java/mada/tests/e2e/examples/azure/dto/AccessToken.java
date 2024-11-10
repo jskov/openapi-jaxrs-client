@@ -28,7 +28,6 @@ public class AccessToken {
 
     /**
      * The access token for performing authenticated requests.
-     * 
      * @return accessToken
      **/
     public String getAccessToken() {

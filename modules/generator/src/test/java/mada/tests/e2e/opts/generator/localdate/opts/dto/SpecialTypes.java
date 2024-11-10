@@ -28,17 +28,13 @@ public class SpecialTypes {
     public static final String JSON_PROPERTY_LOCAL_DATE = "localDate";
     @JsonProperty(JSON_PROPERTY_LOCAL_DATE)
     @JsonDeserialize(using = _LocalDateJacksonDeserializer.class)
-    @JsonSerialize(
-            using = _LocalDateJacksonSerializer.class,
-            include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(using = _LocalDateJacksonSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
     private LocalDate localDate;
 
     public static final String JSON_PROPERTY_LOCAL_DATE_TIME = "localDateTime";
     @JsonProperty(JSON_PROPERTY_LOCAL_DATE_TIME)
     @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-    @JsonSerialize(
-            using = _OffsetDateTimeJacksonSerializer.class,
-            include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
     private OffsetDateTime localDateTime;
 
     public static final String JSON_PROPERTY_LOCAL_TIME = "localTime";
@@ -48,17 +44,13 @@ public class SpecialTypes {
     public static final String JSON_PROPERTY_OFFSET_DATE_TIME = "offsetDateTime";
     @JsonProperty(JSON_PROPERTY_OFFSET_DATE_TIME)
     @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-    @JsonSerialize(
-            using = _OffsetDateTimeJacksonSerializer.class,
-            include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
     private OffsetDateTime offsetDateTime;
 
     public static final String JSON_PROPERTY_ZONED_DATE_TIME = "zonedDateTime";
     @JsonProperty(JSON_PROPERTY_ZONED_DATE_TIME)
     @JsonDeserialize(using = _OffsetDateTimeJacksonDeserializer.class)
-    @JsonSerialize(
-            using = _OffsetDateTimeJacksonSerializer.class,
-            include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
+    @JsonSerialize(using = _OffsetDateTimeJacksonSerializer.class, include = com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL)
     private OffsetDateTime zonedDateTime;
 
     public SpecialTypes aBigDecimal(BigDecimal aBigDecimal) {

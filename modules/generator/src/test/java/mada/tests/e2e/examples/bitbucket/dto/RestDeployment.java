@@ -67,46 +67,46 @@ public class RestDeployment {
     private RestDeploymentRepository repository;
 
     public enum StateEnum {
-        PENDING("PENDING"),
-        IN_PROGRESS("IN_PROGRESS"),
-        CANCELLED("CANCELLED"),
-        FAILED("FAILED"),
-        ROLLED_BACK("ROLLED_BACK"),
-        SUCCESSFUL("SUCCESSFUL"),
-        UNKNOWN("UNKNOWN");
+      PENDING("PENDING"),
+      IN_PROGRESS("IN_PROGRESS"),
+      CANCELLED("CANCELLED"),
+      FAILED("FAILED"),
+      ROLLED_BACK("ROLLED_BACK"),
+      SUCCESSFUL("SUCCESSFUL"),
+      UNKNOWN("UNKNOWN");
 
-        private final String value;
+      private final String value;
 
-        StateEnum(String value) {
-            this.value = value;
-        }
+      StateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StateEnum adaptFromJson(JsonString value) throws Exception {
-                for (StateEnum b : StateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StateEnum adaptFromJson(JsonString value) throws Exception {
+            for (StateEnum b : StateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATE = "state";
     @JsonbProperty(JSON_PROPERTY_STATE)
@@ -186,8 +186,7 @@ public class RestDeployment {
      *
      * @return environment
      **/
-    @Valid
-    public RestDeploymentEnvironment getEnvironment() {
+    @Valid public RestDeploymentEnvironment getEnvironment() {
         return environment;
     }
 
@@ -205,8 +204,7 @@ public class RestDeployment {
      *
      * @return fromCommit
      **/
-    @Valid
-    public RestDeploymentFromCommit getFromCommit() {
+    @Valid public RestDeploymentFromCommit getFromCommit() {
         return fromCommit;
     }
 
@@ -260,8 +258,7 @@ public class RestDeployment {
      *
      * @return repository
      **/
-    @Valid
-    public RestDeploymentRepository getRepository() {
+    @Valid public RestDeploymentRepository getRepository() {
         return repository;
     }
 
@@ -297,8 +294,7 @@ public class RestDeployment {
      *
      * @return toCommit
      **/
-    @Valid
-    public RestDeploymentToCommit getToCommit() {
+    @Valid public RestDeploymentToCommit getToCommit() {
         return toCommit;
     }
 
@@ -348,8 +344,7 @@ public class RestDeployment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(deploymentSequenceNumber, description, displayName, environment, fromCommit, key, lastUpdated, repository,
-                state, toCommit, url);
+        return Objects.hash(deploymentSequenceNumber, description, displayName, environment, fromCommit, key, lastUpdated, repository, state, toCommit, url);
     }
 
     @Override

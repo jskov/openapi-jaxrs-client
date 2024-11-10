@@ -35,8 +35,7 @@ public class _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySl
         return this;
     }
 
-    public _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_404 addErrorsItem(
-            RestErrorMessage errorsItem) {
+    public _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictionsId_404 addErrorsItem(RestErrorMessage errorsItem) {
         if (this.errors == null) {
             this.errors = new ArrayList<>();
         }
@@ -49,8 +48,7 @@ public class _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySl
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 

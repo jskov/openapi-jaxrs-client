@@ -162,8 +162,7 @@ public class _ResponseBuildStatusLatestCommitsCommitId {
      *
      * @return values
      **/
-    @Valid
-    public List<RestBuildStatus> getValues() {
+    @Valid public List<RestBuildStatus> getValues() {
         return values;
     }
 

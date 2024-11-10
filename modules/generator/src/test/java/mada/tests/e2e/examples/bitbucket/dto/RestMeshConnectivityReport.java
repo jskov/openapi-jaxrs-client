@@ -48,8 +48,7 @@ public class RestMeshConnectivityReport {
      *
      * @return reports
      **/
-    @Valid
-    public List<RestNodeConnectivityReport> getReports() {
+    @Valid public List<RestNodeConnectivityReport> getReports() {
         return reports;
     }
 

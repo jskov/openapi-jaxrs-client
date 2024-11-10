@@ -49,7 +49,6 @@ public class RepositoryChangeableAttributes {
 
     /**
      * Delete enabled.
-     * 
      * @return deleteEnabled
      **/
     public Boolean isDeleteEnabled() {
@@ -67,7 +66,6 @@ public class RepositoryChangeableAttributes {
 
     /**
      * List enabled.
-     * 
      * @return listEnabled
      **/
     public Boolean isListEnabled() {
@@ -85,7 +83,6 @@ public class RepositoryChangeableAttributes {
 
     /**
      * Read enabled.
-     * 
      * @return readEnabled
      **/
     public Boolean isReadEnabled() {
@@ -103,7 +100,6 @@ public class RepositoryChangeableAttributes {
 
     /**
      * Enables Teleport functionality on new images in the repository improving Container startup performance.
-     * 
      * @return teleportEnabled
      **/
     public Boolean isTeleportEnabled() {
@@ -121,7 +117,6 @@ public class RepositoryChangeableAttributes {
 
     /**
      * Write enabled.
-     * 
      * @return writeEnabled
      **/
     public Boolean isWriteEnabled() {

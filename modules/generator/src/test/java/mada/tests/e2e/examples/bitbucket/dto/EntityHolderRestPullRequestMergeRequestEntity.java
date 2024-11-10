@@ -31,8 +31,7 @@ public class EntityHolderRestPullRequestMergeRequestEntity {
 
     public static final String JSON_PROPERTY_AUTO_SUBJECT = "autoSubject";
     @JsonbProperty(JSON_PROPERTY_AUTO_SUBJECT)
-    @Schema(
-            example = "(Optional, 5.7+) true to prepend an auto-generated subject to the message (default), or false to use the message as-is")
+    @Schema(example = "(Optional, 5.7+) true to prepend an auto-generated subject to the message (default), or false to use the message as-is")
     private String autoSubject;
 
     public static final String JSON_PROPERTY_MESSAGE = "message";

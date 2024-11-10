@@ -162,8 +162,7 @@ public class _ResponseApiLatestMigrationExportsJobIdMessages {
      *
      * @return values
      **/
-    @Valid
-    public List<RestJobMessage> getValues() {
+    @Valid public List<RestJobMessage> getValues() {
         return values;
     }
 

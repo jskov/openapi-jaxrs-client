@@ -85,8 +85,7 @@ public class RestRefRestrictionMatcher {
      *
      * @return type
      **/
-    @Valid
-    public RestRefRestrictionMatcherType getType() {
+    @Valid public RestRefRestrictionMatcherType getType() {
         return type;
     }
 

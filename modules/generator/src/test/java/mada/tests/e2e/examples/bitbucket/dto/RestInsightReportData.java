@@ -68,8 +68,7 @@ public class RestInsightReportData {
      *
      * @return type
      **/
-    @Pattern(regexp = "BOOLEAN|DATE|DURATION|LINK|NUMBER|PERCENTAGE|TEXT")
-    public String getType() {
+    @Pattern(regexp = "BOOLEAN|DATE|DURATION|LINK|NUMBER|PERCENTAGE|TEXT") public String getType() {
         return type;
     }
 

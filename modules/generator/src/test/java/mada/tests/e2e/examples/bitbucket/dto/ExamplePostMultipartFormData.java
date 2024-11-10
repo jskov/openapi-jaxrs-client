@@ -41,8 +41,7 @@ public class ExamplePostMultipartFormData {
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @JsonbProperty(JSON_PROPERTY_TYPE)
-    @Schema(
-            description = "The type of hook script; supported values are \"PRE\" for pre-receive hooks and \"POST\" for post-receive hooks.")
+    @Schema(description = "The type of hook script; supported values are \"PRE\" for pre-receive hooks and \"POST\" for post-receive hooks.")
     private String type;
 
     public ExamplePostMultipartFormData content(String content) {
@@ -52,7 +51,6 @@ public class ExamplePostMultipartFormData {
 
     /**
      * The hook script contents.
-     * 
      * @return content
      **/
     public String getContent() {
@@ -70,7 +68,6 @@ public class ExamplePostMultipartFormData {
 
     /**
      * A description of the hook script (useful when querying registered hook scripts).
-     * 
      * @return description
      **/
     public String getDescription() {
@@ -88,7 +85,6 @@ public class ExamplePostMultipartFormData {
 
     /**
      * The name of the hook script (useful when querying registered hook scripts).
-     * 
      * @return name
      **/
     public String getName() {
@@ -106,7 +102,6 @@ public class ExamplePostMultipartFormData {
 
     /**
      * The type of hook script; supported values are "PRE" for pre-receive hooks and "POST" for post-receive hooks.
-     * 
      * @return type
      **/
     public String getType() {

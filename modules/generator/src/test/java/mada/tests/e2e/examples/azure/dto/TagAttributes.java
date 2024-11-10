@@ -39,7 +39,6 @@ public class TagAttributes {
 
     /**
      * Image name.
-     * 
      * @return imageName
      **/
     public String getImageName() {
@@ -57,7 +56,6 @@ public class TagAttributes {
 
     /**
      * Registry name.
-     * 
      * @return registry
      **/
     public String getRegistry() {
@@ -78,8 +76,7 @@ public class TagAttributes {
      *
      * @return tag
      **/
-    @Valid
-    public TagAttributesBase getTag() {
+    @Valid public TagAttributesBase getTag() {
         return tag;
     }
 

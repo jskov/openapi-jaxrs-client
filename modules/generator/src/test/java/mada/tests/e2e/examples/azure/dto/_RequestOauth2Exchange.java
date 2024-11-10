@@ -30,44 +30,44 @@ public class _RequestOauth2Exchange {
     /**
      * Can take a value of access_token_refresh_token, or access_token, or refresh_token.
      */
-    @Schema(enumeration = { "access_token_refresh_token", "access_token", "refresh_token" }, type = SchemaType.STRING)
+    @Schema(enumeration = {"access_token_refresh_token", "access_token", "refresh_token"}, type = SchemaType.STRING)
     public enum Grant_typeEnum {
-        ACCESS_TOKEN_REFRESH_TOKEN("access_token_refresh_token"),
-        ACCESS_TOKEN("access_token"),
-        REFRESH_TOKEN("refresh_token");
+      ACCESS_TOKEN_REFRESH_TOKEN("access_token_refresh_token"),
+      ACCESS_TOKEN("access_token"),
+      REFRESH_TOKEN("refresh_token");
 
-        private final String value;
+      private final String value;
 
-        Grant_typeEnum(String value) {
-            this.value = value;
-        }
+      Grant_typeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class Grant_typeEnumAdapter implements JsonbAdapter<Grant_typeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(Grant_typeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class Grant_typeEnumAdapter implements JsonbAdapter<Grant_typeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(Grant_typeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public Grant_typeEnum adaptFromJson(JsonString value) throws Exception {
-                for (Grant_typeEnum b : Grant_typeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public Grant_typeEnum adaptFromJson(JsonString value) throws Exception {
+            for (Grant_typeEnum b : Grant_typeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type Grant_typeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type Grant_typeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_GRANT_TYPE = "grant_type";
     @JsonbProperty(JSON_PROPERTY_GRANT_TYPE)
@@ -97,7 +97,6 @@ public class _RequestOauth2Exchange {
 
     /**
      * AAD access token, mandatory when grant_type is access_token_refresh_token or access_token.
-     * 
      * @return accessToken
      **/
     public String getAccessToken() {
@@ -115,7 +114,6 @@ public class _RequestOauth2Exchange {
 
     /**
      * Can take a value of access_token_refresh_token, or access_token, or refresh_token.
-     * 
      * @return grantType
      **/
     @NotNull public Grant_typeEnum getGrantType() {
@@ -133,7 +131,6 @@ public class _RequestOauth2Exchange {
 
     /**
      * AAD refresh token, mandatory when grant_type is access_token_refresh_token or refresh_token.
-     * 
      * @return refreshToken
      **/
     public String getRefreshToken() {
@@ -151,7 +148,6 @@ public class _RequestOauth2Exchange {
 
     /**
      * Indicates the name of your Azure container registry.
-     * 
      * @return service
      **/
     @NotNull public String getService() {
@@ -169,7 +165,6 @@ public class _RequestOauth2Exchange {
 
     /**
      * AAD tenant associated to the AAD credentials.
-     * 
      * @return tenant
      **/
     public String getTenant() {

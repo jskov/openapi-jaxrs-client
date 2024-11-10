@@ -48,7 +48,7 @@ public class TypeFoo extends AbstractType {
         }
         TypeFoo other = (TypeFoo) o;
         return Objects.equals(this.valueFooLong, other.valueFooLong) &&
-                super.equals(o);
+              super.equals(o);
     }
 
     @Override

@@ -108,8 +108,7 @@ public class RestPullRequestCondition {
      *
      * @return reviewers
      **/
-    @Valid
-    public List<RestApplicationUser> getReviewers() {
+    @Valid public List<RestApplicationUser> getReviewers() {
         return reviewers;
     }
 
@@ -127,8 +126,7 @@ public class RestPullRequestCondition {
      *
      * @return scope
      **/
-    @Valid
-    public RestPullRequestConditionScope getScope() {
+    @Valid public RestPullRequestConditionScope getScope() {
         return scope;
     }
 
@@ -146,8 +144,7 @@ public class RestPullRequestCondition {
      *
      * @return sourceRefMatcher
      **/
-    @Valid
-    public RestPullRequestConditionSourceRefMatcher getSourceRefMatcher() {
+    @Valid public RestPullRequestConditionSourceRefMatcher getSourceRefMatcher() {
         return sourceRefMatcher;
     }
 
@@ -165,8 +162,7 @@ public class RestPullRequestCondition {
      *
      * @return targetRefMatcher
      **/
-    @Valid
-    public RestPullRequestConditionTargetRefMatcher getTargetRefMatcher() {
+    @Valid public RestPullRequestConditionTargetRefMatcher getTargetRefMatcher() {
         return targetRefMatcher;
     }
 

@@ -59,44 +59,44 @@ public class RestMirroredRepository {
     private String repositoryId;
 
     public enum StatusEnum {
-        NOT_MIRRORED("NOT_MIRRORED"),
-        INITIALIZING("INITIALIZING"),
-        AVAILABLE("AVAILABLE"),
-        ERROR_INITIALIZING("ERROR_INITIALIZING"),
-        ERROR_AVAILABLE("ERROR_AVAILABLE");
+      NOT_MIRRORED("NOT_MIRRORED"),
+      INITIALIZING("INITIALIZING"),
+      AVAILABLE("AVAILABLE"),
+      ERROR_INITIALIZING("ERROR_INITIALIZING"),
+      ERROR_AVAILABLE("ERROR_AVAILABLE");
 
-        private final String value;
+      private final String value;
 
-        StatusEnum(String value) {
-            this.value = value;
-        }
+      StatusEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StatusEnumAdapter implements JsonbAdapter<StatusEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StatusEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StatusEnumAdapter implements JsonbAdapter<StatusEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StatusEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StatusEnum adaptFromJson(JsonString value) throws Exception {
-                for (StatusEnum b : StatusEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StatusEnum adaptFromJson(JsonString value) throws Exception {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StatusEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StatusEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATUS = "status";
     @JsonbProperty(JSON_PROPERTY_STATUS)
@@ -139,8 +139,7 @@ public class RestMirroredRepository {
      *
      * @return cloneUrls
      **/
-    @Valid
-    public List<RestNamedLink> getCloneUrls() {
+    @Valid public List<RestNamedLink> getCloneUrls() {
         return cloneUrls;
     }
 
@@ -202,8 +201,7 @@ public class RestMirroredRepository {
      *
      * @return pushUrls
      **/
-    @Valid
-    public List<RestNamedLink> getPushUrls() {
+    @Valid public List<RestNamedLink> getPushUrls() {
         return pushUrls;
     }
 

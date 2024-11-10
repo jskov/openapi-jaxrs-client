@@ -109,8 +109,7 @@ public class RestMirrorRepositorySynchronizationStatus {
      *
      * @return hashes
      **/
-    @Valid
-    public RestMirrorRepositorySynchronizationStatusHashes getHashes() {
+    @Valid public RestMirrorRepositorySynchronizationStatusHashes getHashes() {
         return hashes;
     }
 
@@ -229,8 +228,7 @@ public class RestMirrorRepositorySynchronizationStatus {
 
     @Override
     public int hashCode() {
-        return Objects.hash(externalRepoId, failedSyncCount, hashes, initialSyncDate, lastSyncDate, localProjectId, localRepoId,
-                upstreamId);
+        return Objects.hash(externalRepoId, failedSyncCount, hashes, initialSyncDate, lastSyncDate, localProjectId, localRepoId, upstreamId);
     }
 
     @Override

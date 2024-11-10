@@ -162,8 +162,7 @@ public class _ResponseApiLatestProfileRecentRepos {
      *
      * @return values
      **/
-    @Valid
-    public List<RestRepository> getValues() {
+    @Valid public List<RestRepository> getValues() {
         return values;
     }
 

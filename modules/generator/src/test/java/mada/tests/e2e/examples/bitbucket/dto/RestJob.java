@@ -58,49 +58,49 @@ public class RestJob {
     private Long startDate;
 
     public enum StateEnum {
-        INITIALISING("INITIALISING"),
-        READY("READY"),
-        RUNNING("RUNNING"),
-        FINALISING("FINALISING"),
-        COMPLETED("COMPLETED"),
-        FAILED("FAILED"),
-        CANCELING("CANCELING"),
-        CANCELED("CANCELED"),
-        TIMED_OUT("TIMED_OUT"),
-        ABORTED("ABORTED");
+      INITIALISING("INITIALISING"),
+      READY("READY"),
+      RUNNING("RUNNING"),
+      FINALISING("FINALISING"),
+      COMPLETED("COMPLETED"),
+      FAILED("FAILED"),
+      CANCELING("CANCELING"),
+      CANCELED("CANCELED"),
+      TIMED_OUT("TIMED_OUT"),
+      ABORTED("ABORTED");
 
-        private final String value;
+      private final String value;
 
-        StateEnum(String value) {
-            this.value = value;
-        }
+      StateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StateEnum adaptFromJson(JsonString value) throws Exception {
-                for (StateEnum b : StateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StateEnum adaptFromJson(JsonString value) throws Exception {
+            for (StateEnum b : StateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATE = "state";
     @JsonbProperty(JSON_PROPERTY_STATE)
@@ -163,8 +163,7 @@ public class RestJob {
      *
      * @return initiator
      **/
-    @Valid
-    public RestJobInitiator getInitiator() {
+    @Valid public RestJobInitiator getInitiator() {
         return initiator;
     }
 
@@ -200,8 +199,7 @@ public class RestJob {
      *
      * @return progress
      **/
-    @Valid
-    public RestJobProgress getProgress() {
+    @Valid public RestJobProgress getProgress() {
         return progress;
     }
 

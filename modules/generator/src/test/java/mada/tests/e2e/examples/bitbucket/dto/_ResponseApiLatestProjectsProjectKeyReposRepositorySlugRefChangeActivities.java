@@ -149,8 +149,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeAct
         return this;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities addValuesItem(
-            RestRepositoryRefChangeActivity valuesItem) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities addValuesItem(RestRepositoryRefChangeActivity valuesItem) {
         if (this.values == null) {
             this.values = new ArrayList<>();
         }
@@ -163,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeAct
      *
      * @return values
      **/
-    @Valid
-    public List<RestRepositoryRefChangeActivity> getValues() {
+    @Valid public List<RestRepositoryRefChangeActivity> getValues() {
         return values;
     }
 

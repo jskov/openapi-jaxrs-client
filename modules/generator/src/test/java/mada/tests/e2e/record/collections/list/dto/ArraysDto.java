@@ -19,33 +19,69 @@ import org.jspecify.annotations.Nullable;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record ArraysDto(
-        @JsonbProperty("booleans") @Nullable List<Boolean> booleans,
+        @JsonbProperty("booleans")
+        @Nullable
+        List<Boolean> booleans,
 
-        @JsonbProperty("bytes") @Nullable byte[] bytes,
+        @JsonbProperty("bytes")
+        @Nullable
+        byte[] bytes,
 
-        @JsonbProperty("ints") @Nullable List<Integer> ints,
+        @JsonbProperty("ints")
+        @Nullable
+        List<Integer> ints,
 
-        @JsonbProperty("longs") @Nullable List<Long> longs,
+        @JsonbProperty("longs")
+        @Nullable
+        List<Long> longs,
 
-        @JsonbProperty("refs") @Valid @Nullable List<Simple> refs,
+        @JsonbProperty("refs")
+        @Valid
+        @Nullable
+        List<Simple> refs,
 
-        @JsonbProperty("requiredBooleans") @Schema(required = true) @NotNull List<Boolean> requiredBooleans,
+        @JsonbProperty("requiredBooleans")
+        @Schema(required = true)
+        @NotNull
+        List<Boolean> requiredBooleans,
 
-        @JsonbProperty("requiredBytes") @Schema(required = true) @NotNull byte[] requiredBytes,
+        @JsonbProperty("requiredBytes")
+        @Schema(required = true)
+        @NotNull
+        byte[] requiredBytes,
 
-        @JsonbProperty("requiredInts") @Schema(required = true) @NotNull List<Integer> requiredInts,
+        @JsonbProperty("requiredInts")
+        @Schema(required = true)
+        @NotNull
+        List<Integer> requiredInts,
 
-        @JsonbProperty("requiredLongs") @Schema(required = true) @NotNull List<Long> requiredLongs,
+        @JsonbProperty("requiredLongs")
+        @Schema(required = true)
+        @NotNull
+        List<Long> requiredLongs,
 
-        @JsonbProperty("requiredRefs") @Schema(required = true) @NotNull @Valid List<Simple> requiredRefs,
+        @JsonbProperty("requiredRefs")
+        @Schema(required = true)
+        @NotNull @Valid
+        List<Simple> requiredRefs,
 
-        @JsonbProperty("requiredShorts") @Schema(required = true) @NotNull List<Short> requiredShorts,
+        @JsonbProperty("requiredShorts")
+        @Schema(required = true)
+        @NotNull
+        List<Short> requiredShorts,
 
-        @JsonbProperty("requiredStrings") @Schema(required = true) @NotNull List<String> requiredStrings,
+        @JsonbProperty("requiredStrings")
+        @Schema(required = true)
+        @NotNull
+        List<String> requiredStrings,
 
-        @JsonbProperty("shorts") @Nullable List<Short> shorts,
+        @JsonbProperty("shorts")
+        @Nullable
+        List<Short> shorts,
 
-        @JsonbProperty("strings") @Nullable List<String> strings) {
+        @JsonbProperty("strings")
+        @Nullable
+        List<String> strings) {
 
     public ArraysDto {
         Objects.requireNonNull(requiredBooleans, "Property requiredBooleans is required, cannot be null");

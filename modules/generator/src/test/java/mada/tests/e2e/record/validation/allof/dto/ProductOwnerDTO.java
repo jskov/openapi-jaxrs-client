@@ -19,11 +19,20 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record ProductOwnerDTO(
-        @JsonbProperty("email") @Schema(required = true) @NotNull @Size(min = 1, max = 150) String email,
+        @JsonbProperty("email")
+        @Schema(required = true)
+        @NotNull @Size(min = 1, max = 150)
+        String email,
 
-        @JsonbProperty("name") @Schema(required = true) @NotNull @Size(min = 1, max = 300) String name,
+        @JsonbProperty("name")
+        @Schema(required = true)
+        @NotNull @Size(min = 1, max = 300)
+        String name,
 
-        @JsonbProperty("user-id") @Schema(required = true) @NotNull @Size(min = 1, max = 100) String userId) {
+        @JsonbProperty("user-id")
+        @Schema(required = true)
+        @NotNull @Size(min = 1, max = 100)
+        String userId) {
 
     public ProductOwnerDTO {
         Objects.requireNonNull(email, "Property email is required, cannot be null");

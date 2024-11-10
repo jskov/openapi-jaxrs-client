@@ -375,8 +375,7 @@ public class CountryLocale {
 
     @Override
     public int hashCode() {
-        return Objects.hash(country, displayCountry, displayLanguage, displayName, displayScript, displayVariant, extensionKeys,
-                iso3Country, iso3Language, language, script, unicodeLocaleAttributes, unicodeLocaleKeys, variant);
+        return Objects.hash(country, displayCountry, displayLanguage, displayName, displayScript, displayVariant, extensionKeys, iso3Country, iso3Language, language, script, unicodeLocaleAttributes, unicodeLocaleKeys, variant);
     }
 
     @Override

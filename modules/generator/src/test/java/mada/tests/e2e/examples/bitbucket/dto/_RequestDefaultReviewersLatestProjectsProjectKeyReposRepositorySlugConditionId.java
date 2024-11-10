@@ -67,8 +67,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
         return this;
     }
 
-    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId addReviewersItem(
-            RestApplicationUser reviewersItem) {
+    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId addReviewersItem(RestApplicationUser reviewersItem) {
         if (this.reviewers == null) {
             this.reviewers = new ArrayList<>();
         }
@@ -81,8 +80,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
      *
      * @return reviewers
      **/
-    @Valid
-    public List<RestApplicationUser> getReviewers() {
+    @Valid public List<RestApplicationUser> getReviewers() {
         return reviewers;
     }
 
@@ -90,8 +88,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
         this.reviewers = reviewers;
     }
 
-    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId sourceMatcher(
-            _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher sourceMatcher) {
+    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId sourceMatcher(_RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher sourceMatcher) {
         this.sourceMatcher = sourceMatcher;
         return this;
     }
@@ -101,18 +98,15 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
      *
      * @return sourceMatcher
      **/
-    @Valid
-    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher getSourceMatcher() {
+    @Valid public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher getSourceMatcher() {
         return sourceMatcher;
     }
 
-    public void setSourceMatcher(
-            _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher sourceMatcher) {
+    public void setSourceMatcher(_RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher sourceMatcher) {
         this.sourceMatcher = sourceMatcher;
     }
 
-    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId targetMatcher(
-            _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdTargetMatcher targetMatcher) {
+    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId targetMatcher(_RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdTargetMatcher targetMatcher) {
         this.targetMatcher = targetMatcher;
         return this;
     }
@@ -122,13 +116,11 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
      *
      * @return targetMatcher
      **/
-    @Valid
-    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdTargetMatcher getTargetMatcher() {
+    @Valid public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdTargetMatcher getTargetMatcher() {
         return targetMatcher;
     }
 
-    public void setTargetMatcher(
-            _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdTargetMatcher targetMatcher) {
+    public void setTargetMatcher(_RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdTargetMatcher targetMatcher) {
         this.targetMatcher = targetMatcher;
     }
 

@@ -70,8 +70,7 @@ public class RestMeshMigrationRequest {
      *
      * @return maxBytesPerSecond
      **/
-    @Valid
-    public RestMeshMigrationRequestMaxBytesPerSecond getMaxBytesPerSecond() {
+    @Valid public RestMeshMigrationRequestMaxBytesPerSecond getMaxBytesPerSecond() {
         return maxBytesPerSecond;
     }
 

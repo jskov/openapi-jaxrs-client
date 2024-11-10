@@ -29,52 +29,52 @@ import java.util.Objects;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPermittedUser {
     public enum PermissionEnum {
-        USER_ADMIN("USER_ADMIN"),
-        PROJECT_VIEW("PROJECT_VIEW"),
-        REPO_READ("REPO_READ"),
-        REPO_WRITE("REPO_WRITE"),
-        REPO_ADMIN("REPO_ADMIN"),
-        PROJECT_READ("PROJECT_READ"),
-        PROJECT_WRITE("PROJECT_WRITE"),
-        REPO_CREATE("REPO_CREATE"),
-        PROJECT_ADMIN("PROJECT_ADMIN"),
-        LICENSED_USER("LICENSED_USER"),
-        PROJECT_CREATE("PROJECT_CREATE"),
-        ADMIN("ADMIN"),
-        SYS_ADMIN("SYS_ADMIN");
+      USER_ADMIN("USER_ADMIN"),
+      PROJECT_VIEW("PROJECT_VIEW"),
+      REPO_READ("REPO_READ"),
+      REPO_WRITE("REPO_WRITE"),
+      REPO_ADMIN("REPO_ADMIN"),
+      PROJECT_READ("PROJECT_READ"),
+      PROJECT_WRITE("PROJECT_WRITE"),
+      REPO_CREATE("REPO_CREATE"),
+      PROJECT_ADMIN("PROJECT_ADMIN"),
+      LICENSED_USER("LICENSED_USER"),
+      PROJECT_CREATE("PROJECT_CREATE"),
+      ADMIN("ADMIN"),
+      SYS_ADMIN("SYS_ADMIN");
 
-        private final String value;
+      private final String value;
 
-        PermissionEnum(String value) {
-            this.value = value;
-        }
+      PermissionEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class PermissionEnumAdapter implements JsonbAdapter<PermissionEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(PermissionEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class PermissionEnumAdapter implements JsonbAdapter<PermissionEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(PermissionEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public PermissionEnum adaptFromJson(JsonString value) throws Exception {
-                for (PermissionEnum b : PermissionEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public PermissionEnum adaptFromJson(JsonString value) throws Exception {
+            for (PermissionEnum b : PermissionEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PermissionEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PermissionEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_PERMISSION = "permission";
     @JsonbProperty(JSON_PROPERTY_PERMISSION)
@@ -113,8 +113,7 @@ public class RestPermittedUser {
      *
      * @return user
      **/
-    @Valid
-    public RestPermittedUserUser getUser() {
+    @Valid public RestPermittedUserUser getUser() {
         return user;
     }
 

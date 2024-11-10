@@ -39,7 +39,6 @@ public class ManifestAttributes_manifest_references {
 
     /**
      * CPU architecture.
-     * 
      * @return architecture
      **/
     public String getArchitecture() {
@@ -57,7 +56,6 @@ public class ManifestAttributes_manifest_references {
 
     /**
      * Manifest digest.
-     * 
      * @return digest
      **/
     public String getDigest() {
@@ -75,7 +73,6 @@ public class ManifestAttributes_manifest_references {
 
     /**
      * Operating system.
-     * 
      * @return os
      **/
     public String getOs() {

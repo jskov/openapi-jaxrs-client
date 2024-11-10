@@ -34,7 +34,6 @@ public class StamOpl {
 
     /**
      * Description afsenderNgl in StamOpl.
-     * 
      * @return afsenderNgl
      **/
     public String getAfsenderNgl() {
@@ -52,11 +51,9 @@ public class StamOpl {
 
     /**
      * Description kundeRefnr in StamOpl.
-     * 
      * @return kundeRefnr
      **/
-    @NotNull @Size(max = 7)
-    public Integer getKundeRefnr() {
+    @NotNull @Size(max = 7) public Integer getKundeRefnr() {
         return kundeRefnr;
     }
 

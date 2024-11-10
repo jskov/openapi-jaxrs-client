@@ -46,7 +46,7 @@ public class KontoDTO extends FacilitetDTO {
         }
         KontoDTO other = (KontoDTO) o;
         return Objects.equals(this.aendring, other.aendring) &&
-                super.equals(o);
+              super.equals(o);
     }
 
     @Override

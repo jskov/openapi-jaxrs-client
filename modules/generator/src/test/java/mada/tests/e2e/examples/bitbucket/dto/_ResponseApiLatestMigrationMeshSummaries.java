@@ -162,8 +162,7 @@ public class _ResponseApiLatestMigrationMeshSummaries {
      *
      * @return values
      **/
-    @Valid
-    public List<RestMeshMigrationSummary> getValues() {
+    @Valid public List<RestMeshMigrationSummary> getValues() {
         return values;
     }
 

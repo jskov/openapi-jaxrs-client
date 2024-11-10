@@ -35,8 +35,7 @@ public class Collisions {
      *
      * @return lowerCaseA
      **/
-    @Valid
-    public Collisiona getLowerCaseA() {
+    @Valid public Collisiona getLowerCaseA() {
         return lowerCaseA;
     }
 
@@ -54,8 +53,7 @@ public class Collisions {
      *
      * @return upperCaseA
      **/
-    @Valid
-    public CollisionAX getUpperCaseA() {
+    @Valid public CollisionAX getUpperCaseA() {
         return upperCaseA;
     }
 

@@ -28,42 +28,42 @@ import java.util.Objects;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestAssignStatusRequest {
     public enum StatusEnum {
-        UNAPPROVED("UNAPPROVED"),
-        NEEDS_WORK("NEEDS_WORK"),
-        APPROVED("APPROVED");
+      UNAPPROVED("UNAPPROVED"),
+      NEEDS_WORK("NEEDS_WORK"),
+      APPROVED("APPROVED");
 
-        private final String value;
+      private final String value;
 
-        StatusEnum(String value) {
-            this.value = value;
-        }
+      StatusEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StatusEnumAdapter implements JsonbAdapter<StatusEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StatusEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StatusEnumAdapter implements JsonbAdapter<StatusEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StatusEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StatusEnum adaptFromJson(JsonString value) throws Exception {
-                for (StatusEnum b : StatusEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StatusEnum adaptFromJson(JsonString value) throws Exception {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StatusEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StatusEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATUS = "status";
     @JsonbProperty(JSON_PROPERTY_STATUS)

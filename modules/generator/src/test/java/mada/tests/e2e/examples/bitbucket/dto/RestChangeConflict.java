@@ -42,8 +42,7 @@ public class RestChangeConflict {
      *
      * @return ourChange
      **/
-    @Valid
-    public RestChangeConflictOurChange getOurChange() {
+    @Valid public RestChangeConflictOurChange getOurChange() {
         return ourChange;
     }
 
@@ -61,8 +60,7 @@ public class RestChangeConflict {
      *
      * @return theirChange
      **/
-    @Valid
-    public RestChangeConflictTheirChange getTheirChange() {
+    @Valid public RestChangeConflictTheirChange getTheirChange() {
         return theirChange;
     }
 

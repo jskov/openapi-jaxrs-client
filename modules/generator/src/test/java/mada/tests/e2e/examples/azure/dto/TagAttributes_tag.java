@@ -29,7 +29,6 @@ public class TagAttributes_tag {
 
     /**
      * SignatureRecord value.
-     * 
      * @return signatureRecord
      **/
     public String getSignatureRecord() {

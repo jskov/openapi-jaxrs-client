@@ -31,8 +31,7 @@ public class WithRef {
      *
      * @return combined
      **/
-    @Valid
-    public WithRefCombined getCombined() {
+    @Valid public WithRefCombined getCombined() {
         return combined;
     }
 

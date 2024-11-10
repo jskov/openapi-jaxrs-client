@@ -43,8 +43,7 @@ public class OCIManifest {
      *
      * @return annotations
      **/
-    @Valid
-    public Annotations getAnnotations() {
+    @Valid public Annotations getAnnotations() {
         return annotations;
     }
 
@@ -62,8 +61,7 @@ public class OCIManifest {
      *
      * @return config
      **/
-    @Valid
-    public Descriptor getConfig() {
+    @Valid public Descriptor getConfig() {
         return config;
     }
 
@@ -86,11 +84,9 @@ public class OCIManifest {
 
     /**
      * List of V2 image layer information.
-     * 
      * @return layers
      **/
-    @Valid
-    public List<Descriptor> getLayers() {
+    @Valid public List<Descriptor> getLayers() {
         return layers;
     }
 

@@ -75,8 +75,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
         this.id = id;
     }
 
-    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher type(
-            _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType type) {
+    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcher type(_RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType type) {
         this.type = type;
         return this;
     }
@@ -86,8 +85,7 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
      *
      * @return type
      **/
-    @Valid
-    public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType getType() {
+    @Valid public _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType getType() {
         return type;
     }
 

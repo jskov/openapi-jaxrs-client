@@ -71,7 +71,6 @@ public class MicroprofileAnnotations {
 
     /**
      * text_description.
-     * 
      * @return descriptionAndExample
      **/
     public String getDescriptionAndExample() {
@@ -119,14 +118,12 @@ public class MicroprofileAnnotations {
     }
 
     public MicroprofileAnnotations readonlyRequiredAndDescriptionAndExample(String readonlyRequiredAndDescriptionAndExample) {
-        this.readonlyRequiredAndDescriptionAndExample = Objects.requireNonNull(readonlyRequiredAndDescriptionAndExample,
-                "Property readonlyRequiredAndDescriptionAndExample is required, cannot be null");
+        this.readonlyRequiredAndDescriptionAndExample = Objects.requireNonNull(readonlyRequiredAndDescriptionAndExample, "Property readonlyRequiredAndDescriptionAndExample is required, cannot be null");
         return this;
     }
 
     /**
      * text_description.
-     * 
      * @return readonlyRequiredAndDescriptionAndExample
      **/
     @NotNull public String getReadonlyRequiredAndDescriptionAndExample() {
@@ -134,19 +131,16 @@ public class MicroprofileAnnotations {
     }
 
     public void setReadonlyRequiredAndDescriptionAndExample(String readonlyRequiredAndDescriptionAndExample) {
-        this.readonlyRequiredAndDescriptionAndExample = Objects.requireNonNull(readonlyRequiredAndDescriptionAndExample,
-                "Property readonlyRequiredAndDescriptionAndExample is required, cannot be null");
+        this.readonlyRequiredAndDescriptionAndExample = Objects.requireNonNull(readonlyRequiredAndDescriptionAndExample, "Property readonlyRequiredAndDescriptionAndExample is required, cannot be null");
     }
 
     public MicroprofileAnnotations requiredAndDescription(String requiredAndDescription) {
-        this.requiredAndDescription = Objects.requireNonNull(requiredAndDescription,
-                "Property requiredAndDescription is required, cannot be null");
+        this.requiredAndDescription = Objects.requireNonNull(requiredAndDescription, "Property requiredAndDescription is required, cannot be null");
         return this;
     }
 
     /**
      * text_description.
-     * 
      * @return requiredAndDescription
      **/
     @NotNull public String getRequiredAndDescription() {
@@ -154,19 +148,16 @@ public class MicroprofileAnnotations {
     }
 
     public void setRequiredAndDescription(String requiredAndDescription) {
-        this.requiredAndDescription = Objects.requireNonNull(requiredAndDescription,
-                "Property requiredAndDescription is required, cannot be null");
+        this.requiredAndDescription = Objects.requireNonNull(requiredAndDescription, "Property requiredAndDescription is required, cannot be null");
     }
 
     public MicroprofileAnnotations requiredAndDescriptionAndExample(String requiredAndDescriptionAndExample) {
-        this.requiredAndDescriptionAndExample = Objects.requireNonNull(requiredAndDescriptionAndExample,
-                "Property requiredAndDescriptionAndExample is required, cannot be null");
+        this.requiredAndDescriptionAndExample = Objects.requireNonNull(requiredAndDescriptionAndExample, "Property requiredAndDescriptionAndExample is required, cannot be null");
         return this;
     }
 
     /**
      * text_description.
-     * 
      * @return requiredAndDescriptionAndExample
      **/
     @NotNull public String getRequiredAndDescriptionAndExample() {
@@ -174,8 +165,7 @@ public class MicroprofileAnnotations {
     }
 
     public void setRequiredAndDescriptionAndExample(String requiredAndDescriptionAndExample) {
-        this.requiredAndDescriptionAndExample = Objects.requireNonNull(requiredAndDescriptionAndExample,
-                "Property requiredAndDescriptionAndExample is required, cannot be null");
+        this.requiredAndDescriptionAndExample = Objects.requireNonNull(requiredAndDescriptionAndExample, "Property requiredAndDescriptionAndExample is required, cannot be null");
     }
 
     public MicroprofileAnnotations requiredAndExample(String requiredAndExample) {
@@ -203,7 +193,6 @@ public class MicroprofileAnnotations {
 
     /**
      * openapi property description.
-     * 
      * @return withDescription
      **/
     public String getWithDescription() {
@@ -254,8 +243,7 @@ public class MicroprofileAnnotations {
 
     @Override
     public int hashCode() {
-        return Objects.hash(descriptionAndExample, isReadonly, isRequired, readonlyRequiredAndDescriptionAndExample, requiredAndDescription,
-                requiredAndDescriptionAndExample, requiredAndExample, withDescription, withExample);
+        return Objects.hash(descriptionAndExample, isReadonly, isRequired, readonlyRequiredAndDescriptionAndExample, requiredAndDescription, requiredAndDescriptionAndExample, requiredAndExample, withDescription, withExample);
     }
 
     @Override

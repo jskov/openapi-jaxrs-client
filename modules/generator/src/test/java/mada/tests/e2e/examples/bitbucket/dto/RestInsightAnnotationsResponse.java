@@ -48,8 +48,7 @@ public class RestInsightAnnotationsResponse {
      *
      * @return annotations
      **/
-    @Valid
-    public List<RestInsightAnnotation> getAnnotations() {
+    @Valid public List<RestInsightAnnotation> getAnnotations() {
         return annotations;
     }
 

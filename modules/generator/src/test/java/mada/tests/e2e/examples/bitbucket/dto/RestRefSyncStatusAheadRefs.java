@@ -39,42 +39,42 @@ public class RestRefSyncStatusAheadRefs {
     private String id;
 
     public enum StateEnum {
-        AHEAD("AHEAD"),
-        DIVERGED("DIVERGED"),
-        ORPHANED("ORPHANED");
+      AHEAD("AHEAD"),
+      DIVERGED("DIVERGED"),
+      ORPHANED("ORPHANED");
 
-        private final String value;
+      private final String value;
 
-        StateEnum(String value) {
-            this.value = value;
-        }
+      StateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StateEnum adaptFromJson(JsonString value) throws Exception {
-                for (StateEnum b : StateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StateEnum adaptFromJson(JsonString value) throws Exception {
+            for (StateEnum b : StateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATE = "state";
     @JsonbProperty(JSON_PROPERTY_STATE)
@@ -86,41 +86,41 @@ public class RestRefSyncStatusAheadRefs {
     private Boolean tag;
 
     public enum TypeEnum {
-        BRANCH("BRANCH"),
-        TAG("TAG");
+      BRANCH("BRANCH"),
+      TAG("TAG");
 
-        private final String value;
+      private final String value;
 
-        TypeEnum(String value) {
-            this.value = value;
-        }
+      TypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(TypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(TypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public TypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (TypeEnum b : TypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public TypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @JsonbProperty(JSON_PROPERTY_TYPE)

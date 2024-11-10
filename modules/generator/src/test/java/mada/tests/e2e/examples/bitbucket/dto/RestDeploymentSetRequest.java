@@ -63,46 +63,46 @@ public class RestDeploymentSetRequest {
     private Long lastUpdated;
 
     public enum StateEnum {
-        PENDING("PENDING"),
-        IN_PROGRESS("IN_PROGRESS"),
-        CANCELLED("CANCELLED"),
-        FAILED("FAILED"),
-        ROLLED_BACK("ROLLED_BACK"),
-        SUCCESSFUL("SUCCESSFUL"),
-        UNKNOWN("UNKNOWN");
+      PENDING("PENDING"),
+      IN_PROGRESS("IN_PROGRESS"),
+      CANCELLED("CANCELLED"),
+      FAILED("FAILED"),
+      ROLLED_BACK("ROLLED_BACK"),
+      SUCCESSFUL("SUCCESSFUL"),
+      UNKNOWN("UNKNOWN");
 
-        private final String value;
+      private final String value;
 
-        StateEnum(String value) {
-            this.value = value;
-        }
+      StateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StateEnum adaptFromJson(JsonString value) throws Exception {
-                for (StateEnum b : StateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StateEnum adaptFromJson(JsonString value) throws Exception {
+            for (StateEnum b : StateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATE = "state";
     @JsonbProperty(JSON_PROPERTY_STATE)
@@ -116,8 +116,7 @@ public class RestDeploymentSetRequest {
     private String url;
 
     public RestDeploymentSetRequest deploymentSequenceNumber(Long deploymentSequenceNumber) {
-        this.deploymentSequenceNumber = Objects.requireNonNull(deploymentSequenceNumber,
-                "Property deploymentSequenceNumber is required, cannot be null");
+        this.deploymentSequenceNumber = Objects.requireNonNull(deploymentSequenceNumber, "Property deploymentSequenceNumber is required, cannot be null");
         return this;
     }
 
@@ -131,8 +130,7 @@ public class RestDeploymentSetRequest {
     }
 
     public void setDeploymentSequenceNumber(Long deploymentSequenceNumber) {
-        this.deploymentSequenceNumber = Objects.requireNonNull(deploymentSequenceNumber,
-                "Property deploymentSequenceNumber is required, cannot be null");
+        this.deploymentSequenceNumber = Objects.requireNonNull(deploymentSequenceNumber, "Property deploymentSequenceNumber is required, cannot be null");
     }
 
     public RestDeploymentSetRequest description(String description) {
@@ -145,8 +143,7 @@ public class RestDeploymentSetRequest {
      *
      * @return description
      **/
-    @NotNull @Size(min = 0, max = 255)
-    public String getDescription() {
+    @NotNull @Size(min = 0, max = 255) public String getDescription() {
         return description;
     }
 
@@ -164,8 +161,7 @@ public class RestDeploymentSetRequest {
      *
      * @return displayName
      **/
-    @NotNull @Size(min = 0, max = 255)
-    public String getDisplayName() {
+    @NotNull @Size(min = 0, max = 255) public String getDisplayName() {
         return displayName;
     }
 
@@ -183,8 +179,7 @@ public class RestDeploymentSetRequest {
      *
      * @return environment
      **/
-    @NotNull @Valid
-    public RestDeploymentEnvironment getEnvironment() {
+    @NotNull @Valid public RestDeploymentEnvironment getEnvironment() {
         return environment;
     }
 
@@ -202,8 +197,7 @@ public class RestDeploymentSetRequest {
      *
      * @return key
      **/
-    @NotNull @Size(min = 0, max = 255)
-    public String getKey() {
+    @NotNull @Size(min = 0, max = 255) public String getKey() {
         return key;
     }
 
@@ -217,12 +211,12 @@ public class RestDeploymentSetRequest {
     }
 
     /**
-     * Get lastUpdated minimum: 0L
+     * Get lastUpdated
+     * minimum: 0L
      *
      * @return lastUpdated
      **/
-    @Min(0L)
-    public Long getLastUpdated() {
+    @Min(0L) public Long getLastUpdated() {
         return lastUpdated;
     }
 
@@ -258,8 +252,7 @@ public class RestDeploymentSetRequest {
      *
      * @return url
      **/
-    @NotNull @Size(min = 0, max = 1024)
-    public String getUrl() {
+    @NotNull @Size(min = 0, max = 1024) public String getUrl() {
         return url;
     }
 

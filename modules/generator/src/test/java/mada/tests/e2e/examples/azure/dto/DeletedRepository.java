@@ -44,7 +44,6 @@ public class DeletedRepository {
 
     /**
      * SHA of the deleted image.
-     * 
      * @return manifestsDeleted
      **/
     public List<String> getManifestsDeleted() {
@@ -70,7 +69,6 @@ public class DeletedRepository {
 
     /**
      * Tag of the deleted image.
-     * 
      * @return tagsDeleted
      **/
     public List<String> getTagsDeleted() {

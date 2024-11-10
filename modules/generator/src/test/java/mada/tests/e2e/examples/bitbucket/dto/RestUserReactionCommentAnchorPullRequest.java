@@ -88,42 +88,42 @@ public class RestUserReactionCommentAnchorPullRequest {
     private List<RestPullRequestParticipant> reviewers;
 
     public enum StateEnum {
-        DECLINED("DECLINED"),
-        MERGED("MERGED"),
-        OPEN("OPEN");
+      DECLINED("DECLINED"),
+      MERGED("MERGED"),
+      OPEN("OPEN");
 
-        private final String value;
+      private final String value;
 
-        StateEnum(String value) {
-            this.value = value;
-        }
+      StateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StateEnum adaptFromJson(JsonString value) throws Exception {
-                for (StateEnum b : StateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StateEnum adaptFromJson(JsonString value) throws Exception {
+            for (StateEnum b : StateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATE = "state";
     @JsonbProperty(JSON_PROPERTY_STATE)
@@ -248,8 +248,7 @@ public class RestUserReactionCommentAnchorPullRequest {
      *
      * @return fromRef
      **/
-    @Valid
-    public RestUserReactionCommentAnchorPullRequestFromRef getFromRef() {
+    @Valid public RestUserReactionCommentAnchorPullRequestFromRef getFromRef() {
         return fromRef;
     }
 
@@ -365,8 +364,7 @@ public class RestUserReactionCommentAnchorPullRequest {
      *
      * @return participants
      **/
-    @Valid
-    public List<RestPullRequestParticipant> getParticipants() {
+    @Valid public List<RestPullRequestParticipant> getParticipants() {
         return participants;
     }
 
@@ -392,8 +390,7 @@ public class RestUserReactionCommentAnchorPullRequest {
      *
      * @return reviewers
      **/
-    @Valid
-    public List<RestPullRequestParticipant> getReviewers() {
+    @Valid public List<RestPullRequestParticipant> getReviewers() {
         return reviewers;
     }
 
@@ -447,8 +444,7 @@ public class RestUserReactionCommentAnchorPullRequest {
      *
      * @return toRef
      **/
-    @Valid
-    public RestUserReactionCommentAnchorPullRequestToRef getToRef() {
+    @Valid public RestUserReactionCommentAnchorPullRequestToRef getToRef() {
         return toRef;
     }
 
@@ -523,8 +519,7 @@ public class RestUserReactionCommentAnchorPullRequest {
 
     @Override
     public int hashCode() {
-        return Objects.hash(closed, closedDate, createdDate, description, draft, fromRef, htmlDescription, id, links, locked, open,
-                participants, reviewers, state, title, toRef, updatedDate, version);
+        return Objects.hash(closed, closedDate, createdDate, description, draft, fromRef, htmlDescription, id, links, locked, open, participants, reviewers, state, title, toRef, updatedDate, version);
     }
 
     @Override

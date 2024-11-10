@@ -29,44 +29,44 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRestrictionRequestMatcherType {
     public enum IdEnum {
-        ANY_REF("ANY_REF"),
-        BRANCH("BRANCH"),
-        PATTERN("PATTERN"),
-        MODEL_CATEGORY("MODEL_CATEGORY"),
-        MODEL_BRANCH("MODEL_BRANCH");
+      ANY_REF("ANY_REF"),
+      BRANCH("BRANCH"),
+      PATTERN("PATTERN"),
+      MODEL_CATEGORY("MODEL_CATEGORY"),
+      MODEL_BRANCH("MODEL_BRANCH");
 
-        private final String value;
+      private final String value;
 
-        IdEnum(String value) {
-            this.value = value;
-        }
+      IdEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class IdEnumAdapter implements JsonbAdapter<IdEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(IdEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class IdEnumAdapter implements JsonbAdapter<IdEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(IdEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public IdEnum adaptFromJson(JsonString value) throws Exception {
-                for (IdEnum b : IdEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public IdEnum adaptFromJson(JsonString value) throws Exception {
+            for (IdEnum b : IdEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type IdEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type IdEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_ID = "id";
     @JsonbProperty(JSON_PROPERTY_ID)

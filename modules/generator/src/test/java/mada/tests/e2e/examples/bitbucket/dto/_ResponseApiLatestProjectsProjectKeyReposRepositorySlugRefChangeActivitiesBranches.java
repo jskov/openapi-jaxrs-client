@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeAct
      *
      * @return values
      **/
-    @Valid
-    public List<RestMinimalRef> getValues() {
+    @Valid public List<RestMinimalRef> getValues() {
         return values;
     }
 

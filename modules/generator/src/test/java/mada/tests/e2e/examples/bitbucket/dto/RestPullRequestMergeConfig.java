@@ -58,8 +58,7 @@ public class RestPullRequestMergeConfig {
      *
      * @return commitMessageTemplate
      **/
-    @Valid
-    public RestPullRequestMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
+    @Valid public RestPullRequestMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
         return commitMessageTemplate;
     }
 
@@ -95,8 +94,7 @@ public class RestPullRequestMergeConfig {
      *
      * @return defaultStrategy
      **/
-    @Valid
-    public RestPullRequestMergeConfigDefaultStrategy getDefaultStrategy() {
+    @Valid public RestPullRequestMergeConfigDefaultStrategy getDefaultStrategy() {
         return defaultStrategy;
     }
 
@@ -122,8 +120,7 @@ public class RestPullRequestMergeConfig {
      *
      * @return strategies
      **/
-    @Valid
-    public List<RestPullRequestMergeStrategy> getStrategies() {
+    @Valid public List<RestPullRequestMergeStrategy> getStrategies() {
         return strategies;
     }
 

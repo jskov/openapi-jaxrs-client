@@ -37,7 +37,6 @@ public class ExampleCertificateMultipartFormData {
 
     /**
      * The X.509 certificate file to upload.
-     * 
      * @return certificate
      **/
     public byte[] getCertificate() {

@@ -257,8 +257,7 @@ public class BeanNaming {
 
     @Override
     public int hashCode() {
-        return Objects.hash(aCamelBool, aCamelInt, aLLCAPSBOOL, aLLCAPSINT, downBool, downInt, upperBool, upperInt, withSlash,
-                withUnderscore);
+        return Objects.hash(aCamelBool, aCamelInt, aLLCAPSBOOL, aLLCAPSINT, downBool, downInt, upperBool, upperInt, withSlash, withUnderscore);
     }
 
     @Override

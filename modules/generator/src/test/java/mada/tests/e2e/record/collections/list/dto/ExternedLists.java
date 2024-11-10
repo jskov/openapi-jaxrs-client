@@ -18,14 +18,25 @@ import org.jspecify.annotations.Nullable;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record ExternedLists(
-        @JsonbProperty("listDate") @Nullable List<LocalDate> listDate,
+        @JsonbProperty("listDate")
+        @Nullable
+        List<LocalDate> listDate,
 
-        @JsonbProperty("listDateTime") @Nullable List<OffsetDateTime> listDateTime,
+        @JsonbProperty("listDateTime")
+        @Nullable
+        List<OffsetDateTime> listDateTime,
 
-        @JsonbProperty("listInt") @Nullable List<Integer> listInt,
+        @JsonbProperty("listInt")
+        @Nullable
+        List<Integer> listInt,
 
-        @JsonbProperty("listSimple") @Valid @Nullable List<Simple> listSimple,
+        @JsonbProperty("listSimple")
+        @Valid
+        @Nullable
+        List<Simple> listSimple,
 
-        @JsonbProperty("listString") @Nullable List<String> listString) {
+        @JsonbProperty("listString")
+        @Nullable
+        List<String> listString) {
 
 }

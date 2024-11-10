@@ -19,40 +19,40 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @JsonbTypeAdapter(mada.tests.e2e.dto.validation.allof.dto.ProjectType.ProjectTypeAdapter.class)
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum ProjectType {
-    BUSINESS("BUSINESS"),
-    INFRASTRUCTURE("INFRASTRUCTURE"),
-    PLAYGROUND("PLAYGROUND"),
-    SYSTEM("SYSTEM");
+  BUSINESS("BUSINESS"),
+  INFRASTRUCTURE("INFRASTRUCTURE"),
+  PLAYGROUND("PLAYGROUND"),
+  SYSTEM("SYSTEM");
 
-    private final String value;
+  private final String value;
 
-    ProjectType(String value) {
-        this.value = value;
-    }
+  ProjectType(String value) {
+    this.value = value;
+  }
 
-    public String getValue() {
-        return value;
-    }
+  public String getValue() {
+    return value;
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    public static class ProjectTypeAdapter implements JsonbAdapter<ProjectType, JsonString> {
-        @Override
-        public JsonString adaptToJson(ProjectType e) throws Exception {
-            return Json.createValue(String.valueOf(e.value));
-        }
+  public static class ProjectTypeAdapter implements JsonbAdapter<ProjectType, JsonString> {
+      @Override
+      public JsonString adaptToJson(ProjectType e) throws Exception {
+          return Json.createValue(String.valueOf(e.value));
+      }
 
-        @Override
-        public ProjectType adaptFromJson(JsonString value) throws Exception {
-            for (ProjectType b : ProjectType.values()) {
-                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                    return b;
-                }
-            }
-            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ProjectType");
-        }
-    }
+      @Override
+      public ProjectType adaptFromJson(JsonString value) throws Exception {
+          for (ProjectType b : ProjectType.values()) {
+              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                  return b;
+              }
+          }
+          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ProjectType");
+      }
+  }
 }

@@ -38,42 +38,42 @@ public class RestAutoMergeRestrictedSettings {
      * The restriction state of this scope's project.
      */
     public enum RestrictionStateEnum {
-        NONE("NONE"),
-        RESTRICTED_UNMODIFIABLE("RESTRICTED_UNMODIFIABLE"),
-        RESTRICTED_MODIFIABLE("RESTRICTED_MODIFIABLE");
+      NONE("NONE"),
+      RESTRICTED_UNMODIFIABLE("RESTRICTED_UNMODIFIABLE"),
+      RESTRICTED_MODIFIABLE("RESTRICTED_MODIFIABLE");
 
-        private final String value;
+      private final String value;
 
-        RestrictionStateEnum(String value) {
-            this.value = value;
-        }
+      RestrictionStateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class RestrictionStateEnumAdapter implements JsonbAdapter<RestrictionStateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(RestrictionStateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class RestrictionStateEnumAdapter implements JsonbAdapter<RestrictionStateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(RestrictionStateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public RestrictionStateEnum adaptFromJson(JsonString value) throws Exception {
-                for (RestrictionStateEnum b : RestrictionStateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public RestrictionStateEnum adaptFromJson(JsonString value) throws Exception {
+            for (RestrictionStateEnum b : RestrictionStateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RestrictionStateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RestrictionStateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_RESTRICTION_STATE = "restrictionState";
     @JsonbProperty(JSON_PROPERTY_RESTRICTION_STATE)
@@ -111,7 +111,6 @@ public class RestAutoMergeRestrictedSettings {
 
     /**
      * The restriction state of this scope's project.
-     * 
      * @return restrictionState
      **/
     public RestrictionStateEnum getRestrictionState() {
@@ -129,11 +128,9 @@ public class RestAutoMergeRestrictedSettings {
 
     /**
      * The scope that these settings apply to.
-     * 
      * @return scope
      **/
-    @Valid
-    public RestAutoMergeRestrictedSettingsScope getScope() {
+    @Valid public RestAutoMergeRestrictedSettingsScope getScope() {
         return scope;
     }
 

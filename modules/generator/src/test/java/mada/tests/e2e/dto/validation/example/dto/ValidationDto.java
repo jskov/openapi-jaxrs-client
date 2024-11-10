@@ -82,13 +82,12 @@ public class ValidationDto {
     }
 
     /**
-     * a BigDecimal. minimum: "100" maximum: "1000"
-     * 
+     * a BigDecimal.
+     * minimum: "100"
+     * maximum: "1000"
      * @return aBigDecimal
      **/
-    @DecimalMin("100")
-    @DecimalMax("1000")
-    public BigDecimal getaBigDecimal() {
+    @DecimalMin("100") @DecimalMax("1000") public BigDecimal getaBigDecimal() {
         return aBigDecimal;
     }
 
@@ -102,13 +101,12 @@ public class ValidationDto {
     }
 
     /**
-     * With a "quoted" description. minimum: 0L maximum: 99999999L
-     * 
+     * With a "quoted" description.
+     * minimum: 0L
+     * maximum: 99999999L
      * @return aBigDouble
      **/
-    @Min(0L)
-    @Max(99999999L)
-    public Double getaBigDouble() {
+    @Min(0L) @Max(99999999L) public Double getaBigDouble() {
         return aBigDouble;
     }
 
@@ -122,13 +120,12 @@ public class ValidationDto {
     }
 
     /**
-     * a float. minimum: 0L maximum: 1000L
-     * 
+     * a float.
+     * minimum: 0L
+     * maximum: 1000L
      * @return aBigFloat
      **/
-    @Min(0L)
-    @Max(1000L)
-    public Float getaBigFloat() {
+    @Min(0L) @Max(1000L) public Float getaBigFloat() {
         return aBigFloat;
     }
 
@@ -142,13 +139,13 @@ public class ValidationDto {
     }
 
     /**
-     * Get badParsingOfRange minimum: 100L maximum: 99999999L
+     * Get badParsingOfRange
+     * minimum: 100L
+     * maximum: 99999999L
      *
      * @return badParsingOfRange
      **/
-    @Min(100L)
-    @Max(99999999L)
-    public Integer getBadParsingOfRange() {
+    @Min(100L) @Max(99999999L) public Integer getBadParsingOfRange() {
         return badParsingOfRange;
     }
 
@@ -162,13 +159,13 @@ public class ValidationDto {
     }
 
     /**
-     * Get intValue minimum: 10L maximum: 20L
+     * Get intValue
+     * minimum: 10L
+     * maximum: 20L
      *
      * @return intValue
      **/
-    @Min(10L)
-    @Max(20L)
-    public Integer getIntValue() {
+    @Min(10L) @Max(20L) public Integer getIntValue() {
         return intValue;
     }
 
@@ -186,8 +183,7 @@ public class ValidationDto {
      *
      * @return name
      **/
-    @NotNull @Size(min = 1, max = 50)
-    public String getName() {
+    @NotNull @Size(min = 1, max = 50) public String getName() {
         return name;
     }
 
@@ -205,8 +201,7 @@ public class ValidationDto {
      *
      * @return pattern
      **/
-    @Pattern(regexp = "^[a-zA-Z]{0,3}$")
-    public String getPattern() {
+    @Pattern(regexp = "^[a-zA-Z]{0,3}$") public String getPattern() {
         return pattern;
     }
 
@@ -224,8 +219,7 @@ public class ValidationDto {
      *
      * @return patternDigits
      **/
-    @Pattern(regexp = "^\\d{1,2}$")
-    public String getPatternDigits() {
+    @Pattern(regexp = "^\\d{1,2}$") public String getPatternDigits() {
         return patternDigits;
     }
 
@@ -277,9 +271,7 @@ public class ValidationDto {
      *
      * @return validObjects
      **/
-    @Valid
-    @Size(min = 1, max = 4)
-    public List<Environment> getValidObjects() {
+    @Valid @Size(min = 1, max = 4) public List<Environment> getValidObjects() {
         return validObjects;
     }
 
@@ -293,13 +285,13 @@ public class ValidationDto {
     }
 
     /**
-     * Get veryBigLong minimum: 100L maximum: 9999999999L
+     * Get veryBigLong
+     * minimum: 100L
+     * maximum: 9999999999L
      *
      * @return veryBigLong
      **/
-    @Min(100L)
-    @Max(9999999999L)
-    public Long getVeryBigLong() {
+    @Min(100L) @Max(9999999999L) public Long getVeryBigLong() {
         return veryBigLong;
     }
 
@@ -331,8 +323,7 @@ public class ValidationDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits,
-                primitivesShouldNotHaveValidate, validObjects, veryBigLong);
+        return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects, veryBigLong);
     }
 
     @Override

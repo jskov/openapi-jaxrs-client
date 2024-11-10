@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyPermissionsUsers {
      *
      * @return values
      **/
-    @Valid
-    public List<RestPermittedUser> getValues() {
+    @Valid public List<RestPermittedUser> getValues() {
         return values;
     }
 

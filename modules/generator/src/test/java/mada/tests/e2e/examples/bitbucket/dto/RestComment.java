@@ -141,8 +141,7 @@ public class RestComment {
      *
      * @return anchor
      **/
-    @Valid
-    public RestCommentAnchor getAnchor() {
+    @Valid public RestCommentAnchor getAnchor() {
         return anchor;
     }
 
@@ -178,8 +177,7 @@ public class RestComment {
      *
      * @return author
      **/
-    @Valid
-    public RestCommentAuthor getAuthor() {
+    @Valid public RestCommentAuthor getAuthor() {
         return author;
     }
 
@@ -205,8 +203,7 @@ public class RestComment {
      *
      * @return comments
      **/
-    @Valid
-    public List<RestComment> getComments() {
+    @Valid public List<RestComment> getComments() {
         return comments;
     }
 
@@ -278,8 +275,7 @@ public class RestComment {
      *
      * @return parent
      **/
-    @Valid
-    public RestCommentParent getParent() {
+    @Valid public RestCommentParent getParent() {
         return parent;
     }
 
@@ -369,8 +365,7 @@ public class RestComment {
      *
      * @return resolver
      **/
-    @Valid
-    public RestCommentResolver getResolver() {
+    @Valid public RestCommentResolver getResolver() {
         return resolver;
     }
 
@@ -439,7 +434,6 @@ public class RestComment {
 
     /**
      * Indicates if this comment thread has been marked as resolved or not.
-     * 
      * @return threadResolved
      **/
     public Boolean isThreadResolved() {
@@ -478,8 +472,7 @@ public class RestComment {
      *
      * @return threadResolver
      **/
-    @Valid
-    public RestCommentThreadResolver getThreadResolver() {
+    @Valid public RestCommentThreadResolver getThreadResolver() {
         return threadResolver;
     }
 
@@ -557,8 +550,7 @@ public class RestComment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(anchor, anchored, author, comments, createdDate, html, id, parent, pending, properties, reply, resolvedDate,
-                resolver, severity, state, text, threadResolved, threadResolvedDate, threadResolver, updatedDate, version);
+        return Objects.hash(anchor, anchored, author, comments, createdDate, html, id, parent, pending, properties, reply, resolvedDate, resolver, severity, state, text, threadResolved, threadResolvedDate, threadResolver, updatedDate, version);
     }
 
     @Override

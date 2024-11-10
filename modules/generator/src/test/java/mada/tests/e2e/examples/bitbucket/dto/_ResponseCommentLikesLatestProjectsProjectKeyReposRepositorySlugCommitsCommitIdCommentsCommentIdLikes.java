@@ -54,8 +54,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCom
     @JsonbProperty(JSON_PROPERTY_VALUES)
     private List<RestApplicationUser> values;
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes isLastPage(
-            Boolean isLastPage) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes isLastPage(Boolean isLastPage) {
         this.isLastPage = isLastPage;
         return this;
     }
@@ -91,8 +90,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCom
         this.limit = limit;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes nextPageStart(
-            Integer nextPageStart) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes nextPageStart(Integer nextPageStart) {
         this.nextPageStart = nextPageStart;
         return this;
     }
@@ -146,14 +144,12 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCom
         this.start = start;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes values(
-            List<RestApplicationUser> values) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes values(List<RestApplicationUser> values) {
         this.values = values;
         return this;
     }
 
-    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes addValuesItem(
-            RestApplicationUser valuesItem) {
+    public _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes addValuesItem(RestApplicationUser valuesItem) {
         if (this.values == null) {
             this.values = new ArrayList<>();
         }
@@ -166,8 +162,7 @@ public class _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCom
      *
      * @return values
      **/
-    @Valid
-    public List<RestApplicationUser> getValues() {
+    @Valid public List<RestApplicationUser> getValues() {
         return values;
     }
 

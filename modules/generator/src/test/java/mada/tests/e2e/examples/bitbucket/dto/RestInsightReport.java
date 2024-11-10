@@ -67,41 +67,41 @@ public class RestInsightReport {
     private String reporter;
 
     public enum ResultEnum {
-        FAIL("FAIL"),
-        PASS("PASS");
+      FAIL("FAIL"),
+      PASS("PASS");
 
-        private final String value;
+      private final String value;
 
-        ResultEnum(String value) {
-            this.value = value;
-        }
+      ResultEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class ResultEnumAdapter implements JsonbAdapter<ResultEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(ResultEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class ResultEnumAdapter implements JsonbAdapter<ResultEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(ResultEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public ResultEnum adaptFromJson(JsonString value) throws Exception {
-                for (ResultEnum b : ResultEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public ResultEnum adaptFromJson(JsonString value) throws Exception {
+            for (ResultEnum b : ResultEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ResultEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ResultEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_RESULT = "result";
     @JsonbProperty(JSON_PROPERTY_RESULT)
@@ -150,8 +150,7 @@ public class RestInsightReport {
      *
      * @return data
      **/
-    @Valid
-    public List<RestInsightReportData> getData() {
+    @Valid public List<RestInsightReportData> getData() {
         return data;
     }
 

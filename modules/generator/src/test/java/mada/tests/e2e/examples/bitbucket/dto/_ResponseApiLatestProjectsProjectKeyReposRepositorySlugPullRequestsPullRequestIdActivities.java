@@ -144,14 +144,12 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
         this.start = start;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities values(
-            List<RestPullRequestActivity> values) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities values(List<RestPullRequestActivity> values) {
         this.values = values;
         return this;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities addValuesItem(
-            RestPullRequestActivity valuesItem) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdActivities addValuesItem(RestPullRequestActivity valuesItem) {
         if (this.values == null) {
             this.values = new ArrayList<>();
         }
@@ -164,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
      *
      * @return values
      **/
-    @Valid
-    public List<RestPullRequestActivity> getValues() {
+    @Valid public List<RestPullRequestActivity> getValues() {
         return values;
     }
 

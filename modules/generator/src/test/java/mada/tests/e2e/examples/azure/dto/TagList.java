@@ -42,7 +42,6 @@ public class TagList {
 
     /**
      * Image name.
-     * 
      * @return imageName
      **/
     public String getImageName() {
@@ -60,7 +59,6 @@ public class TagList {
 
     /**
      * Registry name.
-     * 
      * @return registry
      **/
     public String getRegistry() {
@@ -86,11 +84,9 @@ public class TagList {
 
     /**
      * List of tag attribute details.
-     * 
      * @return tags
      **/
-    @Valid
-    public List<TagAttributesBase> getTags() {
+    @Valid public List<TagAttributesBase> getTags() {
         return tags;
     }
 

@@ -71,8 +71,7 @@ public class MultipartApiMethodsCreatePost {
      *
      * @return metadata
      **/
-    @Valid
-    public TemplateDTO getMetadata() {
+    @Valid public TemplateDTO getMetadata() {
         return metadata;
     }
 

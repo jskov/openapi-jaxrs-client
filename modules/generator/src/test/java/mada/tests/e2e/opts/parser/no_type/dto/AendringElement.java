@@ -43,7 +43,6 @@ public class AendringElement {
 
     /**
      * Ændring som beskrevet i KRO API.
-     * 
      * @return aendring
      **/
     @NotNull public String getAendring() {
@@ -61,7 +60,6 @@ public class AendringElement {
 
     /**
      * Ønsket værdi.
-     * 
      * @return ny
      **/
     public Object getNy() {
@@ -79,7 +77,6 @@ public class AendringElement {
 
     /**
      * Oprindelig værdi.
-     * 
      * @return oprindelig
      **/
     public Object getOprindelig() {
@@ -97,7 +94,6 @@ public class AendringElement {
 
     /**
      * Værdiens tekniske type (JAVA).
-     * 
      * @return valueType
      **/
     public String getValueType() {

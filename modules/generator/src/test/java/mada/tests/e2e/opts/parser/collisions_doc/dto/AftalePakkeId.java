@@ -34,8 +34,7 @@ public class AftalePakkeId {
      *
      * @return vaerdi
      **/
-    @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")
-    public UUID getVaerdi() {
+    @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") public UUID getVaerdi() {
         return vaerdi;
     }
 

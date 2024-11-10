@@ -82,8 +82,7 @@ public class RestDiff {
      *
      * @return destination
      **/
-    @Valid
-    public RestDiffDestination getDestination() {
+    @Valid public RestDiffDestination getDestination() {
         return destination;
     }
 
@@ -109,8 +108,7 @@ public class RestDiff {
      *
      * @return hunks
      **/
-    @Valid
-    public List<RestDiffHunk> getHunks() {
+    @Valid public List<RestDiffHunk> getHunks() {
         return hunks;
     }
 
@@ -136,8 +134,7 @@ public class RestDiff {
      *
      * @return lineComments
      **/
-    @Valid
-    public List<RestComment> getLineComments() {
+    @Valid public List<RestComment> getLineComments() {
         return lineComments;
     }
 
@@ -173,8 +170,7 @@ public class RestDiff {
      *
      * @return source
      **/
-    @Valid
-    public RestDiffSource getSource() {
+    @Valid public RestDiffSource getSource() {
         return source;
     }
 

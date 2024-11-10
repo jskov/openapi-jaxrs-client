@@ -42,7 +42,6 @@ public class AcrManifests {
 
     /**
      * Image name.
-     * 
      * @return imageName
      **/
     public String getImageName() {
@@ -68,11 +67,9 @@ public class AcrManifests {
 
     /**
      * List of manifests.
-     * 
      * @return manifests
      **/
-    @Valid
-    public List<ManifestAttributesBase> getManifests() {
+    @Valid public List<ManifestAttributesBase> getManifests() {
         return manifests;
     }
 
@@ -87,7 +84,6 @@ public class AcrManifests {
 
     /**
      * Registry name.
-     * 
      * @return registry
      **/
     public String getRegistry() {

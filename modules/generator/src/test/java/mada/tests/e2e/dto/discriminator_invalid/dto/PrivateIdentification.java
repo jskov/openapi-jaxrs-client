@@ -47,7 +47,7 @@ public class PrivateIdentification extends Identification {
         }
         PrivateIdentification other = (PrivateIdentification) o;
         return Objects.equals(this.sevenFirstCprDigits, other.sevenFirstCprDigits) &&
-                super.equals(o);
+              super.equals(o);
     }
 
     @Override

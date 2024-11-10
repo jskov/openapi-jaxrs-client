@@ -35,8 +35,7 @@ public class _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommits
         return this;
     }
 
-    public _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_404 addErrorsItem(
-            RestErrorMessage errorsItem) {
+    public _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdReportsKey_404 addErrorsItem(RestErrorMessage errorsItem) {
         if (this.errors == null) {
             this.errors = new ArrayList<>();
         }
@@ -49,8 +48,7 @@ public class _ResponseInsightsLatestProjectsProjectKeyReposRepositorySlugCommits
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 

@@ -19,9 +19,15 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record OwnerDTO(
-        @JsonbProperty("ad-group") @Schema(required = true) @NotNull @Size(min = 1, max = 100) String adGroup,
+        @JsonbProperty("ad-group")
+        @Schema(required = true)
+        @NotNull @Size(min = 1, max = 100)
+        String adGroup,
 
-        @JsonbProperty("email") @Schema(required = true) @NotNull @Size(min = 1, max = 100) String email) {
+        @JsonbProperty("email")
+        @Schema(required = true)
+        @NotNull @Size(min = 1, max = 100)
+        String email) {
 
     public OwnerDTO {
         Objects.requireNonNull(adGroup, "Property adGroup is required, cannot be null");

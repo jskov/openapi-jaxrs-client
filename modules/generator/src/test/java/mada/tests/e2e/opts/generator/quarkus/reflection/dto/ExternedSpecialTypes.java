@@ -54,8 +54,7 @@ public class ExternedSpecialTypes {
      *
      * @return anEnum
      **/
-    @Valid
-    public SimpleEnum getAnEnum() {
+    @Valid public SimpleEnum getAnEnum() {
         return anEnum;
     }
 

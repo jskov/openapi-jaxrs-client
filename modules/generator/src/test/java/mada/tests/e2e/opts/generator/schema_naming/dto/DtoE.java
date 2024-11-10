@@ -32,8 +32,7 @@ public class DtoE {
      *
      * @return memberInE
      **/
-    @NotNull @Valid
-    public EnumDescription getMemberInE() {
+    @NotNull @Valid public EnumDescription getMemberInE() {
         return memberInE;
     }
 

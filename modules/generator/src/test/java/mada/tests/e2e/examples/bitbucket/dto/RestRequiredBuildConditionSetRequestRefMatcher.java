@@ -85,8 +85,7 @@ public class RestRequiredBuildConditionSetRequestRefMatcher {
      *
      * @return type
      **/
-    @Valid
-    public RestRequiredBuildConditionSetRequestRefMatcherType getType() {
+    @Valid public RestRequiredBuildConditionSetRequestRefMatcherType getType() {
         return type;
     }
 

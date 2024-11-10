@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffP
      *
      * @return values
      **/
-    @Valid
-    public List<RestDiff> getValues() {
+    @Valid public List<RestDiff> getValues() {
         return values;
     }
 

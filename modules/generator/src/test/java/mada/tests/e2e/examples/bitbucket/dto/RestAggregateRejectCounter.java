@@ -86,8 +86,7 @@ public class RestAggregateRejectCounter {
      *
      * @return user
      **/
-    @Valid
-    public RestAggregateRejectCounterUser getUser() {
+    @Valid public RestAggregateRejectCounterUser getUser() {
         return user;
     }
 

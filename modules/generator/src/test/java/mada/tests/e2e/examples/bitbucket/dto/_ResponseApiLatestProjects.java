@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjects {
      *
      * @return values
      **/
-    @Valid
-    public List<RestProject> getValues() {
+    @Valid public List<RestProject> getValues() {
         return values;
     }
 

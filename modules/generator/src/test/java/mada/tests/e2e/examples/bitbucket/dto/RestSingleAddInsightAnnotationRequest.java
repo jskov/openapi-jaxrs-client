@@ -73,8 +73,7 @@ public class RestSingleAddInsightAnnotationRequest {
      *
      * @return externalId
      **/
-    @Size(min = 0, max = 450)
-    public String getExternalId() {
+    @Size(min = 0, max = 450) public String getExternalId() {
         return externalId;
     }
 
@@ -88,12 +87,12 @@ public class RestSingleAddInsightAnnotationRequest {
     }
 
     /**
-     * Get line minimum: 0L
+     * Get line
+     * minimum: 0L
      *
      * @return line
      **/
-    @Min(0L)
-    public Integer getLine() {
+    @Min(0L) public Integer getLine() {
         return line;
     }
 
@@ -129,8 +128,7 @@ public class RestSingleAddInsightAnnotationRequest {
      *
      * @return message
      **/
-    @NotNull @Size(min = 0, max = 2000)
-    public String getMessage() {
+    @NotNull @Size(min = 0, max = 2000) public String getMessage() {
         return message;
     }
 
@@ -148,8 +146,7 @@ public class RestSingleAddInsightAnnotationRequest {
      *
      * @return path
      **/
-    @Size(min = 0, max = 50000)
-    public String getPath() {
+    @Size(min = 0, max = 50000) public String getPath() {
         return path;
     }
 
@@ -167,8 +164,7 @@ public class RestSingleAddInsightAnnotationRequest {
      *
      * @return severity
      **/
-    @NotNull @Pattern(regexp = "LOW|MEDIUM|HIGH")
-    public String getSeverity() {
+    @NotNull @Pattern(regexp = "LOW|MEDIUM|HIGH") public String getSeverity() {
         return severity;
     }
 
@@ -186,8 +182,7 @@ public class RestSingleAddInsightAnnotationRequest {
      *
      * @return type
      **/
-    @Pattern(regexp = "VULNERABILITY|CODE_SMELL|BUG")
-    public String getType() {
+    @Pattern(regexp = "VULNERABILITY|CODE_SMELL|BUG") public String getType() {
         return type;
     }
 

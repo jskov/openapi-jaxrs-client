@@ -30,14 +30,12 @@ public class _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequests
     @JsonbProperty(JSON_PROPERTY_ERRORS)
     private List<RestErrorMessage> errors;
 
-    public _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_404 errors(
-            List<RestErrorMessage> errors) {
+    public _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_404 errors(List<RestErrorMessage> errors) {
         this.errors = errors;
         return this;
     }
 
-    public _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_404 addErrorsItem(
-            RestErrorMessage errorsItem) {
+    public _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdRebase_404 addErrorsItem(RestErrorMessage errorsItem) {
         if (this.errors == null) {
             this.errors = new ArrayList<>();
         }
@@ -50,8 +48,7 @@ public class _ResponseGitLatestProjectsProjectKeyReposRepositorySlugPullRequests
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 

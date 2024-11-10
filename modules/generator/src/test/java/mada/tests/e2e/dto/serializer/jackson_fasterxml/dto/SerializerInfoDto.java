@@ -179,8 +179,7 @@ public class SerializerInfoDto {
      *
      * @return mpAnnotations
      **/
-    @Valid
-    public MicroprofileAnnotations getMpAnnotations() {
+    @Valid public MicroprofileAnnotations getMpAnnotations() {
         return mpAnnotations;
     }
 
@@ -198,8 +197,7 @@ public class SerializerInfoDto {
      *
      * @return mpAnnotationsPropsOnly
      **/
-    @Valid
-    public MicroProfileAnnotationsPropsOnly getMpAnnotationsPropsOnly() {
+    @Valid public MicroProfileAnnotationsPropsOnly getMpAnnotationsPropsOnly() {
         return mpAnnotationsPropsOnly;
     }
 
@@ -226,8 +224,7 @@ public class SerializerInfoDto {
     }
 
     public SerializerInfoDto mustIncludeViaSchema(String mustIncludeViaSchema) {
-        this.mustIncludeViaSchema = Objects.requireNonNull(mustIncludeViaSchema,
-                "Property mustIncludeViaSchema is required, cannot be null");
+        this.mustIncludeViaSchema = Objects.requireNonNull(mustIncludeViaSchema, "Property mustIncludeViaSchema is required, cannot be null");
         return this;
     }
 
@@ -241,8 +238,7 @@ public class SerializerInfoDto {
     }
 
     public void setMustIncludeViaSchema(String mustIncludeViaSchema) {
-        this.mustIncludeViaSchema = Objects.requireNonNull(mustIncludeViaSchema,
-                "Property mustIncludeViaSchema is required, cannot be null");
+        this.mustIncludeViaSchema = Objects.requireNonNull(mustIncludeViaSchema, "Property mustIncludeViaSchema is required, cannot be null");
     }
 
     public SerializerInfoDto notNull(String notNull) {
@@ -362,8 +358,7 @@ public class SerializerInfoDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(_withDigit, alpha, beta, isNullable, isNullableViaSchema, mpAnnotations, mpAnnotationsPropsOnly, mustInclude,
-                mustIncludeViaSchema, notNull, notNullViaSchema, upperCase, withDashes, zapRenamed);
+        return Objects.hash(_withDigit, alpha, beta, isNullable, isNullableViaSchema, mpAnnotations, mpAnnotationsPropsOnly, mustInclude, mustIncludeViaSchema, notNull, notNullViaSchema, upperCase, withDashes, zapRenamed);
     }
 
     @Override

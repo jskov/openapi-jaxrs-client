@@ -28,7 +28,6 @@ public class RefreshToken {
 
     /**
      * The refresh token to be used for generating access tokens.
-     * 
      * @return refreshToken
      **/
     public String getRefreshToken() {

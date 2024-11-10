@@ -42,8 +42,7 @@ public class _RequestKeysLatestSshKeyId {
      *
      * @return projects
      **/
-    @Valid
-    public RestProject getProjects() {
+    @Valid public RestProject getProjects() {
         return projects;
     }
 
@@ -61,8 +60,7 @@ public class _RequestKeysLatestSshKeyId {
      *
      * @return repositories
      **/
-    @Valid
-    public RestRepository getRepositories() {
+    @Valid public RestRepository getRepositories() {
         return repositories;
     }
 

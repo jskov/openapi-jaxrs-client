@@ -16,9 +16,9 @@ import java.time.format.DateTimeFormatter;
 
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _LocalDateJacksonSerializer extends JsonSerializer<LocalDate> {
-    @Override
-    public void serialize(LocalDate value, JsonGenerator jgen, SerializerProvider provider)
-            throws IOException, JsonProcessingException {
-        jgen.writeString(value.format(DateTimeFormatter.ISO_LOCAL_DATE));
-    }
+  @Override
+  public void serialize(LocalDate value, JsonGenerator jgen, SerializerProvider provider)
+           throws IOException, JsonProcessingException {
+    jgen.writeString(value.format(DateTimeFormatter.ISO_LOCAL_DATE));
+  }
 }

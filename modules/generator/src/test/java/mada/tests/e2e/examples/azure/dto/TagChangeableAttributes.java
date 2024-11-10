@@ -43,7 +43,6 @@ public class TagChangeableAttributes {
 
     /**
      * Delete enabled.
-     * 
      * @return deleteEnabled
      **/
     public Boolean isDeleteEnabled() {
@@ -61,7 +60,6 @@ public class TagChangeableAttributes {
 
     /**
      * List enabled.
-     * 
      * @return listEnabled
      **/
     public Boolean isListEnabled() {
@@ -79,7 +77,6 @@ public class TagChangeableAttributes {
 
     /**
      * Read enabled.
-     * 
      * @return readEnabled
      **/
     public Boolean isReadEnabled() {
@@ -97,7 +94,6 @@ public class TagChangeableAttributes {
 
     /**
      * Write enabled.
-     * 
      * @return writeEnabled
      **/
     public Boolean isWriteEnabled() {

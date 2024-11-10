@@ -18,8 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class Omkostning {
     public static final String JSON_PROPERTY_NOTANR = "notanr";
     @JsonProperty(JSON_PROPERTY_NOTANR)
-    @Schema(
-            description = "Nummeret på gebyrnotaen, som de underliggende gebyrer hører til.<br>Hvis pakken er fra boligvejviseren, vil rådgiveren IKKE kunne ændre på omkostningerne i Kreditsagen. Derfor er det et krav, at alle oplysninger omkring omkostninger bliver sendt ind via API’et, hvis der skal bogføres omkostninger på den enkelte facilitet.<br>Format: Number(3)")
+    @Schema(description = "Nummeret på gebyrnotaen, som de underliggende gebyrer hører til.<br>Hvis pakken er fra boligvejviseren, vil rådgiveren IKKE kunne ændre på omkostningerne i Kreditsagen. Derfor er det et krav, at alle oplysninger omkring omkostninger bliver sendt ind via API’et, hvis der skal bogføres omkostninger på den enkelte facilitet.<br>Format: Number(3)")
     private Integer notanr;
 
     public Omkostning notanr(Integer notanr) {
@@ -28,16 +27,13 @@ public class Omkostning {
     }
 
     /**
-     * Nummeret på gebyrnotaen, som de underliggende gebyrer hører til.<br>
-     * Hvis pakken er fra boligvejviseren, vil rådgiveren IKKE kunne ændre på omkostningerne i Kreditsagen. Derfor er det et
-     * krav, at alle oplysninger omkring omkostninger bliver sendt ind via API’et, hvis der skal bogføres omkostninger på
-     * den enkelte facilitet.<br>
-     * Format: Number(3)
-     * 
+     * Nummeret på gebyrnotaen, som de underliggende gebyrer hører til.<br>Hvis pakken er fra boligvejviseren, vil
+   * rådgiveren IKKE kunne ændre på omkostningerne i Kreditsagen. Derfor er det et krav, at alle oplysninger omkring
+   * omkostninger bliver sendt ind via API’et, hvis der skal bogføres omkostninger på den enkelte facilitet.<br>Format:
+   * Number(3)
      * @return notanr
      **/
-    @Pattern(regexp = "^\\d{1,3}$")
-    public Integer getNotanr() {
+    @Pattern(regexp = "^\\d{1,3}$") public Integer getNotanr() {
         return notanr;
     }
 

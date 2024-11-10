@@ -54,8 +54,7 @@ public class RestGpgKey {
 
     public static final String JSON_PROPERTY_TEXT = "text";
     @JsonbProperty(JSON_PROPERTY_TEXT)
-    @Schema(
-            example = "-----BEGIN PGP SIGNATURE-----\n\niQEzBAABCAAdFiEEM8MrWnoxlp3K1lFY5BMGiWNefn4FAlkqKE4ACgkQ5BMGiWNe\nfn6/kggAyzKhDDqdVb3Rq02hiSqeqKa1JuKRqDmzIpa6Pxa+1CpCnxwaIVrGgIii\nvj0ZNJzL1Bm2xm0JasotJDiZq5pFKi0FfQ0WmskuhsW1VY/f08TltHpHvK2kHVRr\nGEMVDUb0nj0I7Duc8XTipiYoDGS1GvydNR/bu3SsFTcZyapXirQcTCRT6/Sn0/IP\npUeIwQo1qK4e8gTOhWhfWEiVig39lQhiZFtm5S/vfAY72/Rgp68zMYmwasMSnBgF\n/LLFW6lXAqZIoAP8AnmsMRjCH6mS98+/lxKq2+K71+2YUUIAnNEeO09Lufo3B3Da\nPbs7BpD28w4lKlzb2EQ0n0C9rrxdPA==\n=VZpm\n-----END PGP SIGNATURE-----\n")
+    @Schema(example = "-----BEGIN PGP SIGNATURE-----\n\niQEzBAABCAAdFiEEM8MrWnoxlp3K1lFY5BMGiWNefn4FAlkqKE4ACgkQ5BMGiWNe\nfn6/kggAyzKhDDqdVb3Rq02hiSqeqKa1JuKRqDmzIpa6Pxa+1CpCnxwaIVrGgIii\nvj0ZNJzL1Bm2xm0JasotJDiZq5pFKi0FfQ0WmskuhsW1VY/f08TltHpHvK2kHVRr\nGEMVDUb0nj0I7Duc8XTipiYoDGS1GvydNR/bu3SsFTcZyapXirQcTCRT6/Sn0/IP\npUeIwQo1qK4e8gTOhWhfWEiVig39lQhiZFtm5S/vfAY72/Rgp68zMYmwasMSnBgF\n/LLFW6lXAqZIoAP8AnmsMRjCH6mS98+/lxKq2+K71+2YUUIAnNEeO09Lufo3B3Da\nPbs7BpD28w4lKlzb2EQ0n0C9rrxdPA==\n=VZpm\n-----END PGP SIGNATURE-----\n")
     private String text;
 
     public RestGpgKey emailAddress(String emailAddress) {
@@ -148,8 +147,7 @@ public class RestGpgKey {
      *
      * @return subKeys
      **/
-    @Valid
-    public List<RestGpgSubKey> getSubKeys() {
+    @Valid public List<RestGpgSubKey> getSubKeys() {
         return subKeys;
     }
 

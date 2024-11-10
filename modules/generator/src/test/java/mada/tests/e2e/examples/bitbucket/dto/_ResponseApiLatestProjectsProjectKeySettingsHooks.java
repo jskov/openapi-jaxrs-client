@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeySettingsHooks {
      *
      * @return values
      **/
-    @Valid
-    public List<RestRepositoryHook> getValues() {
+    @Valid public List<RestRepositoryHook> getValues() {
         return values;
     }
 

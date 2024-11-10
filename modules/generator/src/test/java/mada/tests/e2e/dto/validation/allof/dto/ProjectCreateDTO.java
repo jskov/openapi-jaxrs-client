@@ -65,8 +65,7 @@ public class ProjectCreateDTO {
      *
      * @return cluster
      **/
-    @NotNull @Size(min = 1, max = 10)
-    public String getCluster() {
+    @NotNull @Size(min = 1, max = 10) public String getCluster() {
         return cluster;
     }
 
@@ -84,8 +83,7 @@ public class ProjectCreateDTO {
      *
      * @return description
      **/
-    @NotNull @Size(min = 1, max = 300)
-    public String getDescription() {
+    @NotNull @Size(min = 1, max = 300) public String getDescription() {
         return description;
     }
 
@@ -103,8 +101,7 @@ public class ProjectCreateDTO {
      *
      * @return displayName
      **/
-    @NotNull @Size(min = 1, max = 100)
-    public String getDisplayName() {
+    @NotNull @Size(min = 1, max = 100) public String getDisplayName() {
         return displayName;
     }
 
@@ -122,8 +119,7 @@ public class ProjectCreateDTO {
      *
      * @return name
      **/
-    @NotNull @Size(min = 1, max = 100)
-    public String getName() {
+    @NotNull @Size(min = 1, max = 100) public String getName() {
         return name;
     }
 
@@ -141,8 +137,7 @@ public class ProjectCreateDTO {
      *
      * @return owner
      **/
-    @NotNull @Valid
-    public OwnerDTO getOwner() {
+    @NotNull @Valid public OwnerDTO getOwner() {
         return owner;
     }
 
@@ -160,8 +155,7 @@ public class ProjectCreateDTO {
      *
      * @return productOwner
      **/
-    @NotNull @Valid
-    public ProductOwnerDTO getProductOwner() {
+    @NotNull @Valid public ProductOwnerDTO getProductOwner() {
         return productOwner;
     }
 
@@ -179,8 +173,7 @@ public class ProjectCreateDTO {
      *
      * @return type
      **/
-    @NotNull @Valid
-    public ProjectType getType() {
+    @NotNull @Valid public ProjectType getType() {
         return type;
     }
 

@@ -57,8 +57,7 @@ public class DtoA {
      *
      * @return refB
      **/
-    @Valid
-    public DtoB getRefB() {
+    @Valid public DtoB getRefB() {
         return refB;
     }
 
@@ -76,8 +75,7 @@ public class DtoA {
      *
      * @return refE
      **/
-    @Valid
-    public DtoE getRefE() {
+    @Valid public DtoE getRefE() {
         return refE;
     }
 

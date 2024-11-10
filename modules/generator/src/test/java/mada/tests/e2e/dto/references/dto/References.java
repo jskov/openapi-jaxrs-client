@@ -29,8 +29,7 @@ public class References {
      *
      * @return simple
      **/
-    @Valid
-    public Simple getSimple() {
+    @Valid public Simple getSimple() {
         return simple;
     }
 

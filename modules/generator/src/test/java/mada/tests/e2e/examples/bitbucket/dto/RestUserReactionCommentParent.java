@@ -136,8 +136,7 @@ public class RestUserReactionCommentParent {
      *
      * @return anchor
      **/
-    @Valid
-    public RestUserReactionCommentParentAnchor getAnchor() {
+    @Valid public RestUserReactionCommentParentAnchor getAnchor() {
         return anchor;
     }
 
@@ -173,8 +172,7 @@ public class RestUserReactionCommentParent {
      *
      * @return author
      **/
-    @Valid
-    public RestUserReactionCommentParentAuthor getAuthor() {
+    @Valid public RestUserReactionCommentParentAuthor getAuthor() {
         return author;
     }
 
@@ -200,8 +198,7 @@ public class RestUserReactionCommentParent {
      *
      * @return comments
      **/
-    @Valid
-    public List<RestComment> getComments() {
+    @Valid public List<RestComment> getComments() {
         return comments;
     }
 
@@ -345,8 +342,7 @@ public class RestUserReactionCommentParent {
      *
      * @return resolver
      **/
-    @Valid
-    public RestUserReactionCommentParentResolver getResolver() {
+    @Valid public RestUserReactionCommentParentResolver getResolver() {
         return resolver;
     }
 
@@ -415,7 +411,6 @@ public class RestUserReactionCommentParent {
 
     /**
      * Indicates if this comment thread has been marked as resolved or not.
-     * 
      * @return threadResolved
      **/
     public Boolean isThreadResolved() {
@@ -454,8 +449,7 @@ public class RestUserReactionCommentParent {
      *
      * @return threadResolver
      **/
-    @Valid
-    public RestUserReactionCommentParentThreadResolver getThreadResolver() {
+    @Valid public RestUserReactionCommentParentThreadResolver getThreadResolver() {
         return threadResolver;
     }
 
@@ -532,8 +526,7 @@ public class RestUserReactionCommentParent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(anchor, anchored, author, comments, createdDate, html, id, pending, properties, reply, resolvedDate, resolver,
-                severity, state, text, threadResolved, threadResolvedDate, threadResolver, updatedDate, version);
+        return Objects.hash(anchor, anchored, author, comments, createdDate, html, id, pending, properties, reply, resolvedDate, resolver, severity, state, text, threadResolved, threadResolvedDate, threadResolver, updatedDate, version);
     }
 
     @Override

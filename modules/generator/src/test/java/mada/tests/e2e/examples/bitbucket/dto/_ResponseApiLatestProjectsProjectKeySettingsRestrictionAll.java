@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeySettingsRestrictionAll {
      *
      * @return values
      **/
-    @Valid
-    public List<RestProjectSettingsRestriction> getValues() {
+    @Valid public List<RestProjectSettingsRestriction> getValues() {
         return values;
     }
 

@@ -34,42 +34,42 @@ public class RestDiffLine {
     private List<Long> commentIds;
 
     public enum ConflictMarkerEnum {
-        MARKER("MARKER"),
-        OURS("OURS"),
-        THEIRS("THEIRS");
+      MARKER("MARKER"),
+      OURS("OURS"),
+      THEIRS("THEIRS");
 
-        private final String value;
+      private final String value;
 
-        ConflictMarkerEnum(String value) {
-            this.value = value;
-        }
+      ConflictMarkerEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class ConflictMarkerEnumAdapter implements JsonbAdapter<ConflictMarkerEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(ConflictMarkerEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class ConflictMarkerEnumAdapter implements JsonbAdapter<ConflictMarkerEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(ConflictMarkerEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public ConflictMarkerEnum adaptFromJson(JsonString value) throws Exception {
-                for (ConflictMarkerEnum b : ConflictMarkerEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public ConflictMarkerEnum adaptFromJson(JsonString value) throws Exception {
+            for (ConflictMarkerEnum b : ConflictMarkerEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ConflictMarkerEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ConflictMarkerEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_CONFLICT_MARKER = "conflictMarker";
     @JsonbProperty(JSON_PROPERTY_CONFLICT_MARKER)

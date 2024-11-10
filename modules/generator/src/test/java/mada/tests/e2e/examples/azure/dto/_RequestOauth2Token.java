@@ -25,42 +25,42 @@ public class _RequestOauth2Token {
     /**
      * Grant type is expected to be refresh_token.
      */
-    @Schema(enumeration = { "refresh_token" }, type = SchemaType.STRING)
+    @Schema(enumeration = {"refresh_token"}, type = SchemaType.STRING)
     public enum Grant_typeEnum {
-        REFRESH_TOKEN("refresh_token");
+      REFRESH_TOKEN("refresh_token");
 
-        private final String value;
+      private final String value;
 
-        Grant_typeEnum(String value) {
-            this.value = value;
-        }
+      Grant_typeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class Grant_typeEnumAdapter implements JsonbAdapter<Grant_typeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(Grant_typeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class Grant_typeEnumAdapter implements JsonbAdapter<Grant_typeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(Grant_typeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public Grant_typeEnum adaptFromJson(JsonString value) throws Exception {
-                for (Grant_typeEnum b : Grant_typeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public Grant_typeEnum adaptFromJson(JsonString value) throws Exception {
+            for (Grant_typeEnum b : Grant_typeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type Grant_typeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type Grant_typeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_GRANT_TYPE = "grant_type";
     @JsonbProperty(JSON_PROPERTY_GRANT_TYPE)
@@ -75,9 +75,7 @@ public class _RequestOauth2Token {
 
     public static final String JSON_PROPERTY_SCOPE = "scope";
     @JsonbProperty(JSON_PROPERTY_SCOPE)
-    @Schema(
-            required = true,
-            description = "Which is expected to be a valid scope, and can be specified more than once for multiple scope requests. You obtained this from the Www-Authenticate response header from the challenge.")
+    @Schema(required = true, description = "Which is expected to be a valid scope, and can be specified more than once for multiple scope requests. You obtained this from the Www-Authenticate response header from the challenge.")
     private String scope;
 
     public static final String JSON_PROPERTY_SERVICE = "service";
@@ -92,7 +90,6 @@ public class _RequestOauth2Token {
 
     /**
      * Grant type is expected to be refresh_token.
-     * 
      * @return grantType
      **/
     @NotNull public Grant_typeEnum getGrantType() {
@@ -110,7 +107,6 @@ public class _RequestOauth2Token {
 
     /**
      * Must be a valid ACR refresh token.
-     * 
      * @return refreshToken
      **/
     @NotNull public String getRefreshToken() {
@@ -127,9 +123,8 @@ public class _RequestOauth2Token {
     }
 
     /**
-     * Which is expected to be a valid scope, and can be specified more than once for multiple scope requests. You obtained
-     * this from the Www-Authenticate response header from the challenge.
-     * 
+     * Which is expected to be a valid scope, and can be specified more than once for multiple scope requests. You
+   * obtained this from the Www-Authenticate response header from the challenge.
      * @return scope
      **/
     @NotNull public String getScope() {
@@ -147,7 +142,6 @@ public class _RequestOauth2Token {
 
     /**
      * Indicates the name of your Azure container registry.
-     * 
      * @return service
      **/
     @NotNull public String getService() {

@@ -48,8 +48,7 @@ public class RestPullRequestSettingsMergeConfig {
     @Schema(readOnly = true, example = "repository")
     private String type;
 
-    public RestPullRequestSettingsMergeConfig commitMessageTemplate(
-            RestPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate) {
+    public RestPullRequestSettingsMergeConfig commitMessageTemplate(RestPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate) {
         this.commitMessageTemplate = commitMessageTemplate;
         return this;
     }
@@ -59,8 +58,7 @@ public class RestPullRequestSettingsMergeConfig {
      *
      * @return commitMessageTemplate
      **/
-    @Valid
-    public RestPullRequestSettingsMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
+    @Valid public RestPullRequestSettingsMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
         return commitMessageTemplate;
     }
 
@@ -96,8 +94,7 @@ public class RestPullRequestSettingsMergeConfig {
      *
      * @return defaultStrategy
      **/
-    @Valid
-    public RestPullRequestSettingsMergeConfigDefaultStrategy getDefaultStrategy() {
+    @Valid public RestPullRequestSettingsMergeConfigDefaultStrategy getDefaultStrategy() {
         return defaultStrategy;
     }
 
@@ -123,8 +120,7 @@ public class RestPullRequestSettingsMergeConfig {
      *
      * @return strategies
      **/
-    @Valid
-    public List<RestPullRequestMergeStrategy> getStrategies() {
+    @Valid public List<RestPullRequestMergeStrategy> getStrategies() {
         return strategies;
     }
 

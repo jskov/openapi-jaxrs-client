@@ -34,42 +34,42 @@ public class RestAutoMergeProjectSettingsRequest {
     private Boolean enabled;
 
     public enum RestrictionActionEnum {
-        CREATE("CREATE"),
-        DELETE("DELETE"),
-        NONE("NONE");
+      CREATE("CREATE"),
+      DELETE("DELETE"),
+      NONE("NONE");
 
-        private final String value;
+      private final String value;
 
-        RestrictionActionEnum(String value) {
-            this.value = value;
-        }
+      RestrictionActionEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class RestrictionActionEnumAdapter implements JsonbAdapter<RestrictionActionEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(RestrictionActionEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class RestrictionActionEnumAdapter implements JsonbAdapter<RestrictionActionEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(RestrictionActionEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public RestrictionActionEnum adaptFromJson(JsonString value) throws Exception {
-                for (RestrictionActionEnum b : RestrictionActionEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public RestrictionActionEnum adaptFromJson(JsonString value) throws Exception {
+            for (RestrictionActionEnum b : RestrictionActionEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RestrictionActionEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RestrictionActionEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_RESTRICTION_ACTION = "restrictionAction";
     @JsonbProperty(JSON_PROPERTY_RESTRICTION_ACTION)

@@ -48,8 +48,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
     @Schema(readOnly = true, example = "repository")
     private String type;
 
-    public RestRepositoryPullRequestSettingsMergeConfig commitMessageTemplate(
-            RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate) {
+    public RestRepositoryPullRequestSettingsMergeConfig commitMessageTemplate(RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate) {
         this.commitMessageTemplate = commitMessageTemplate;
         return this;
     }
@@ -59,8 +58,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
      *
      * @return commitMessageTemplate
      **/
-    @Valid
-    public RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
+    @Valid public RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
         return commitMessageTemplate;
     }
 
@@ -86,8 +84,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
         this.commitSummaries = commitSummaries;
     }
 
-    public RestRepositoryPullRequestSettingsMergeConfig defaultStrategy(
-            RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy defaultStrategy) {
+    public RestRepositoryPullRequestSettingsMergeConfig defaultStrategy(RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy defaultStrategy) {
         this.defaultStrategy = defaultStrategy;
         return this;
     }
@@ -97,8 +94,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
      *
      * @return defaultStrategy
      **/
-    @Valid
-    public RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy getDefaultStrategy() {
+    @Valid public RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy getDefaultStrategy() {
         return defaultStrategy;
     }
 
@@ -124,8 +120,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
      *
      * @return strategies
      **/
-    @Valid
-    public List<RestPullRequestMergeStrategy> getStrategies() {
+    @Valid public List<RestPullRequestMergeStrategy> getStrategies() {
         return strategies;
     }
 

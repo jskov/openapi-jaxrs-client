@@ -162,8 +162,7 @@ public class _ResponseApiLatestAdminGroupsMoreMembers {
      *
      * @return values
      **/
-    @Valid
-    public List<RestDetailedUser> getValues() {
+    @Valid public List<RestDetailedUser> getValues() {
         return values;
     }
 

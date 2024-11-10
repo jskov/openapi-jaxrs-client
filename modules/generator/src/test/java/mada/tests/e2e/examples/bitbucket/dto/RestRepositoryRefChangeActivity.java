@@ -98,8 +98,7 @@ public class RestRepositoryRefChangeActivity {
      *
      * @return refChange
      **/
-    @Valid
-    public RestRepositoryRefChangeActivityRefChange getRefChange() {
+    @Valid public RestRepositoryRefChangeActivityRefChange getRefChange() {
         return refChange;
     }
 
@@ -117,8 +116,7 @@ public class RestRepositoryRefChangeActivity {
      *
      * @return repository
      **/
-    @Valid
-    public RestRepositoryRefChangeActivityRepository getRepository() {
+    @Valid public RestRepositoryRefChangeActivityRepository getRepository() {
         return repository;
     }
 
@@ -154,8 +152,7 @@ public class RestRepositoryRefChangeActivity {
      *
      * @return user
      **/
-    @Valid
-    public RestRepositoryRefChangeActivityUser getUser() {
+    @Valid public RestRepositoryRefChangeActivityUser getUser() {
         return user;
     }
 

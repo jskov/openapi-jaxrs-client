@@ -106,8 +106,7 @@ public class SpecialTypes {
      *
      * @return localTime
      **/
-    @Valid
-    public LocalTime getLocalTime() {
+    @Valid public LocalTime getLocalTime() {
         return localTime;
     }
 

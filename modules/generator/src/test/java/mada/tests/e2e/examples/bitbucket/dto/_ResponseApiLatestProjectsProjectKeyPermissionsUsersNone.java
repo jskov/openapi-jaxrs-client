@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyPermissionsUsersNone {
      *
      * @return values
      **/
-    @Valid
-    public List<RestApplicationUser> getValues() {
+    @Valid public List<RestApplicationUser> getValues() {
         return values;
     }
 

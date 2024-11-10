@@ -90,8 +90,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
         this.limit = limit;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments nextPageStart(
-            Integer nextPageStart) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments nextPageStart(Integer nextPageStart) {
         this.nextPageStart = nextPageStart;
         return this;
     }
@@ -145,14 +144,12 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
         this.start = start;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments values(
-            List<RestComment> values) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments values(List<RestComment> values) {
         this.values = values;
         return this;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments addValuesItem(
-            RestComment valuesItem) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments addValuesItem(RestComment valuesItem) {
         if (this.values == null) {
             this.values = new ArrayList<>();
         }
@@ -165,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
      *
      * @return values
      **/
-    @Valid
-    public List<RestComment> getValues() {
+    @Valid public List<RestComment> getValues() {
         return values;
     }
 

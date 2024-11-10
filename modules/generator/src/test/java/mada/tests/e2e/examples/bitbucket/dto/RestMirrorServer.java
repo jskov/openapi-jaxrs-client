@@ -48,41 +48,41 @@ public class RestMirrorServer {
     private OffsetDateTime lastSeenDate;
 
     public enum MirrorTypeEnum {
-        SINGLE("SINGLE"),
-        FARM("FARM");
+      SINGLE("SINGLE"),
+      FARM("FARM");
 
-        private final String value;
+      private final String value;
 
-        MirrorTypeEnum(String value) {
-            this.value = value;
-        }
+      MirrorTypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class MirrorTypeEnumAdapter implements JsonbAdapter<MirrorTypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(MirrorTypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class MirrorTypeEnumAdapter implements JsonbAdapter<MirrorTypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(MirrorTypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public MirrorTypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (MirrorTypeEnum b : MirrorTypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public MirrorTypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (MirrorTypeEnum b : MirrorTypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type MirrorTypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type MirrorTypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_MIRROR_TYPE = "mirrorType";
     @JsonbProperty(JSON_PROPERTY_MIRROR_TYPE)

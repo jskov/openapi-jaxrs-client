@@ -162,8 +162,7 @@ public class _ResponseApiLatestSecretScanningRules {
      *
      * @return values
      **/
-    @Valid
-    public List<RestSecretScanningRule> getValues() {
+    @Valid public List<RestSecretScanningRule> getValues() {
         return values;
     }
 

@@ -39,7 +39,6 @@ public class AcrErrorInfo {
 
     /**
      * Error code.
-     * 
      * @return code
      **/
     public String getCode() {
@@ -57,7 +56,6 @@ public class AcrErrorInfo {
 
     /**
      * Error details.
-     * 
      * @return detail
      **/
     public Object getDetail() {
@@ -75,7 +73,6 @@ public class AcrErrorInfo {
 
     /**
      * Error message.
-     * 
      * @return message
      **/
     public String getMessage() {

@@ -76,8 +76,7 @@ public class KontantHandlGaranti {
      *
      * @return ejendom
      **/
-    @Valid
-    public EjendomMini getEjendom() {
+    @Valid public EjendomMini getEjendom() {
         return ejendom;
     }
 
@@ -113,8 +112,7 @@ public class KontantHandlGaranti {
      *
      * @return omkostning
      **/
-    @Valid
-    public Omkostning getOmkostning() {
+    @Valid public Omkostning getOmkostning() {
         return omkostning;
     }
 
@@ -129,11 +127,9 @@ public class KontantHandlGaranti {
 
     /**
      * Description prodnr in Kontanthandelsgaranti.
-     * 
      * @return prodnr
      **/
-    @NotNull @Pattern(regexp = "^\\d{1,5}$")
-    public Integer getProdnr() {
+    @NotNull @Pattern(regexp = "^\\d{1,5}$") public Integer getProdnr() {
         return prodnr;
     }
 
@@ -148,11 +144,9 @@ public class KontantHandlGaranti {
 
     /**
      * Description refnr in Kontanthandelsgaranti.
-     * 
      * @return refnr
      **/
-    @NotNull @Pattern(regexp = "^\\d{1,7}$")
-    public Integer getRefnr() {
+    @NotNull @Pattern(regexp = "^\\d{1,7}$") public Integer getRefnr() {
         return refnr;
     }
 

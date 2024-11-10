@@ -204,8 +204,7 @@ public class SetsDto {
      *
      * @return refs
      **/
-    @Valid
-    public Set<Simple> getRefs() {
+    @Valid public Set<Simple> getRefs() {
         return refs;
     }
 
@@ -320,8 +319,7 @@ public class SetsDto {
      *
      * @return requiredRefs
      **/
-    @NotNull @Valid
-    public Set<Simple> getRequiredRefs() {
+    @NotNull @Valid public Set<Simple> getRequiredRefs() {
         return requiredRefs;
     }
 
@@ -454,8 +452,7 @@ public class SetsDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(booleans, bytes, ints, longs, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs,
-                requiredShorts, requiredStrings, shorts, strings);
+        return Objects.hash(booleans, bytes, ints, longs, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
     }
 
     @Override

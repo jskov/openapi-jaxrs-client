@@ -48,8 +48,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugBrowsePath_4
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 

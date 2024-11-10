@@ -48,8 +48,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlug_204 {
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 

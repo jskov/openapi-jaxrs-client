@@ -26,9 +26,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class RestX509Certificate {
     public static final String JSON_PROPERTY_FINGERPRINT = "fingerprint";
     @JsonbProperty(JSON_PROPERTY_FINGERPRINT)
-    @Schema(
-            description = "The SHA-256 fingerprint of the X.509 certificate",
-            example = "e5e8d632c0b86f5bd5ef9a0d55c58ba1fd7776f6bb7c35ca23d85d23281ce58f")
+    @Schema(description = "The SHA-256 fingerprint of the X.509 certificate", example = "e5e8d632c0b86f5bd5ef9a0d55c58ba1fd7776f6bb7c35ca23d85d23281ce58f")
     private String fingerprint;
 
     public static final String JSON_PROPERTY_ID = "id";
@@ -43,7 +41,6 @@ public class RestX509Certificate {
 
     /**
      * The SHA-256 fingerprint of the X.509 certificate
-     * 
      * @return fingerprint
      **/
     public String getFingerprint() {
@@ -61,7 +58,6 @@ public class RestX509Certificate {
 
     /**
      * The ID of the X.509 certificate
-     * 
      * @return id
      **/
     public Long getId() {

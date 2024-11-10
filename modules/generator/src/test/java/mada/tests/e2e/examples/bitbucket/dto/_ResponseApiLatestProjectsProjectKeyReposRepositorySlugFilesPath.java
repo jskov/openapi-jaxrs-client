@@ -162,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath {
      *
      * @return values
      **/
-    @Valid
-    public List<FileListResource> getValues() {
+    @Valid public List<FileListResource> getValues() {
         return values;
     }
 

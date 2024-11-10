@@ -162,8 +162,7 @@ public class _ResponseGpgLatestKeys {
      *
      * @return values
      **/
-    @Valid
-    public List<RestGpgKey> getValues() {
+    @Valid public List<RestGpgKey> getValues() {
         return values;
     }
 

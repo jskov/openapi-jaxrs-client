@@ -57,7 +57,6 @@ public class RestSecretScanningRule {
 
     /**
      * The ID of the rule.
-     * 
      * @return id
      **/
     public Long getId() {
@@ -75,7 +74,6 @@ public class RestSecretScanningRule {
 
     /**
      * If present, regular expression for matching a secret on a code line.
-     * 
      * @return lineRegex
      **/
     public String getLineRegex() {
@@ -93,7 +91,6 @@ public class RestSecretScanningRule {
 
     /**
      * Human readable name for the rule.
-     * 
      * @return name
      **/
     public String getName() {
@@ -111,7 +108,6 @@ public class RestSecretScanningRule {
 
     /**
      * If present, regular expression matching file names.
-     * 
      * @return pathRegex
      **/
     public String getPathRegex() {
@@ -129,11 +125,9 @@ public class RestSecretScanningRule {
 
     /**
      * The scope in which this rule was configured for.
-     * 
      * @return scope
      **/
-    @Valid
-    public RestSecretScanningRuleScope getScope() {
+    @Valid public RestSecretScanningRuleScope getScope() {
         return scope;
     }
 

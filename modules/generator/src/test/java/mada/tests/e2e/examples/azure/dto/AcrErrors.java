@@ -40,11 +40,9 @@ public class AcrErrors {
 
     /**
      * Array of detailed error.
-     * 
      * @return errors
      **/
-    @Valid
-    public List<AcrErrorInfo> getErrors() {
+    @Valid public List<AcrErrorInfo> getErrors() {
         return errors;
     }
 

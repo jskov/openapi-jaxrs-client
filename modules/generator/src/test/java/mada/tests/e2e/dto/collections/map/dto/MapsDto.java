@@ -272,8 +272,7 @@ public class MapsDto {
      *
      * @return bothRefs
      **/
-    @Valid
-    public Map<String, Simple> getBothRefs() {
+    @Valid public Map<String, Simple> getBothRefs() {
         return bothRefs;
     }
 
@@ -507,8 +506,7 @@ public class MapsDto {
      *
      * @return refs
      **/
-    @Valid
-    public Map<String, Simple> getRefs() {
+    @Valid public Map<String, Simple> getRefs() {
         return refs;
     }
 
@@ -623,8 +621,7 @@ public class MapsDto {
      *
      * @return requiredRefs
      **/
-    @NotNull @Valid
-    public Map<String, Simple> getRequiredRefs() {
+    @NotNull @Valid public Map<String, Simple> getRequiredRefs() {
         return requiredRefs;
     }
 
@@ -767,9 +764,7 @@ public class MapsDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs,
-                mapWithListValue, missingAdditionalProps, objects, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs,
-                requiredRefs, requiredShorts, requiredStrings, shorts, strings);
+        return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs, mapWithListValue, missingAdditionalProps, objects, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
     }
 
     @Override

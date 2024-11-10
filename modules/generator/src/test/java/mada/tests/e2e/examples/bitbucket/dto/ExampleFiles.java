@@ -38,8 +38,7 @@ public class ExampleFiles {
      *
      * @return files
      **/
-    @Valid
-    public ExampleJsonLastModifiedCallback getFiles() {
+    @Valid public ExampleJsonLastModifiedCallback getFiles() {
         return files;
     }
 

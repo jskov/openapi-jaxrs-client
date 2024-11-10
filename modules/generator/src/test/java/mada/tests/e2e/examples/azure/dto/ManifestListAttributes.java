@@ -24,8 +24,7 @@ public class ManifestListAttributes {
 
     public static final String JSON_PROPERTY_MEDIA_TYPE = "mediaType";
     @JsonbProperty(JSON_PROPERTY_MEDIA_TYPE)
-    @Schema(
-            description = "The MIME type of the referenced object. This will generally be application/vnd.docker.image.manifest.v2+json, but it could also be application/vnd.docker.image.manifest.v1+json")
+    @Schema(description = "The MIME type of the referenced object. This will generally be application/vnd.docker.image.manifest.v2+json, but it could also be application/vnd.docker.image.manifest.v1+json")
     private String mediaType;
 
     public static final String JSON_PROPERTY_PLATFORM = "platform";
@@ -44,7 +43,6 @@ public class ManifestListAttributes {
 
     /**
      * The digest of the content, as defined by the Registry V2 HTTP API Specification.
-     * 
      * @return digest
      **/
     public String getDigest() {
@@ -61,9 +59,8 @@ public class ManifestListAttributes {
     }
 
     /**
-     * The MIME type of the referenced object. This will generally be application/vnd.docker.image.manifest.v2+json, but it
-     * could also be application/vnd.docker.image.manifest.v1+json
-     * 
+     * The MIME type of the referenced object. This will generally be application/vnd.docker.image.manifest.v2+json, but
+   * it could also be application/vnd.docker.image.manifest.v1+json
      * @return mediaType
      **/
     public String getMediaType() {
@@ -84,8 +81,7 @@ public class ManifestListAttributes {
      *
      * @return platform
      **/
-    @Valid
-    public Platform getPlatform() {
+    @Valid public Platform getPlatform() {
         return platform;
     }
 
@@ -100,7 +96,6 @@ public class ManifestListAttributes {
 
     /**
      * The size in bytes of the object.
-     * 
      * @return size
      **/
     public Long getSize() {

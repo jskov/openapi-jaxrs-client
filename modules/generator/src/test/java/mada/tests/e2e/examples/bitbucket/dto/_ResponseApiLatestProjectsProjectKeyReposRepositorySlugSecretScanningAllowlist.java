@@ -144,14 +144,12 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanni
         this.start = start;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist values(
-            List<RestSecretScanningAllowlistRule> values) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist values(List<RestSecretScanningAllowlistRule> values) {
         this.values = values;
         return this;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist addValuesItem(
-            RestSecretScanningAllowlistRule valuesItem) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist addValuesItem(RestSecretScanningAllowlistRule valuesItem) {
         if (this.values == null) {
             this.values = new ArrayList<>();
         }
@@ -164,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanni
      *
      * @return values
      **/
-    @Valid
-    public List<RestSecretScanningAllowlistRule> getValues() {
+    @Valid public List<RestSecretScanningAllowlistRule> getValues() {
         return values;
     }
 

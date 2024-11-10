@@ -57,8 +57,7 @@ public class TagAttributesBase {
      *
      * @return changeableAttributes
      **/
-    @Valid
-    public TagChangeableAttributes getChangeableAttributes() {
+    @Valid public TagChangeableAttributes getChangeableAttributes() {
         return changeableAttributes;
     }
 
@@ -73,7 +72,6 @@ public class TagAttributesBase {
 
     /**
      * Tag created time.
-     * 
      * @return createdTime
      **/
     public String getCreatedTime() {
@@ -91,7 +89,6 @@ public class TagAttributesBase {
 
     /**
      * Tag digest.
-     * 
      * @return digest
      **/
     public String getDigest() {
@@ -109,7 +106,6 @@ public class TagAttributesBase {
 
     /**
      * Tag last update time.
-     * 
      * @return lastUpdateTime
      **/
     public String getLastUpdateTime() {
@@ -127,7 +123,6 @@ public class TagAttributesBase {
 
     /**
      * Tag name.
-     * 
      * @return name
      **/
     public String getName() {
@@ -145,7 +140,6 @@ public class TagAttributesBase {
 
     /**
      * Is signed.
-     * 
      * @return signed
      **/
     public Boolean isSigned() {

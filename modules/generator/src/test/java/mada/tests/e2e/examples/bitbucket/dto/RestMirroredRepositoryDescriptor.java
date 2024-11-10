@@ -60,8 +60,7 @@ public class RestMirroredRepositoryDescriptor {
      *
      * @return mirrorServer
      **/
-    @Valid
-    public RestMirroredRepositoryDescriptorMirrorServer getMirrorServer() {
+    @Valid public RestMirroredRepositoryDescriptorMirrorServer getMirrorServer() {
         return mirrorServer;
     }
 

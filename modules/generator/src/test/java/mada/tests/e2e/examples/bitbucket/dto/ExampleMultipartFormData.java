@@ -36,20 +36,17 @@ public class ExampleMultipartFormData {
 
     public static final String JSON_PROPERTY_MESSAGE = "message";
     @JsonbProperty(JSON_PROPERTY_MESSAGE)
-    @Schema(
-            description = "The message associated with this change, to be used as the commit message. Or null if the default message should be used.")
+    @Schema(description = "The message associated with this change, to be used as the commit message. Or null if the default message should be used.")
     private String message;
 
     public static final String JSON_PROPERTY_SOURCE_BRANCH = "sourceBranch";
     @JsonbProperty(JSON_PROPERTY_SOURCE_BRANCH)
-    @Schema(
-            description = "The starting point for <code>branch</code>. If provided and different from <code>branch</code>, <code>branch</code> will be created as a new branch, branching off from <code>sourceBranch</code>.")
+    @Schema(description = "The starting point for <code>branch</code>. If provided and different from <code>branch</code>, <code>branch</code> will be created as a new branch, branching off from <code>sourceBranch</code>.")
     private String sourceBranch;
 
     public static final String JSON_PROPERTY_SOURCE_COMMIT_ID = "sourceCommitId";
     @JsonbProperty(JSON_PROPERTY_SOURCE_COMMIT_ID)
-    @Schema(
-            description = "The commit ID of the file before it was edited, used to identify if content has changed. Or null if this is a new file")
+    @Schema(description = "The commit ID of the file before it was edited, used to identify if content has changed. Or null if this is a new file")
     private String sourceCommitId;
 
     public ExampleMultipartFormData branch(String branch) {
@@ -59,7 +56,6 @@ public class ExampleMultipartFormData {
 
     /**
      * The branch on which the <code>path</code> should be modified or created.
-     * 
      * @return branch
      **/
     public String getBranch() {
@@ -77,7 +73,6 @@ public class ExampleMultipartFormData {
 
     /**
      * The full content of the file at <code>path</code>.
-     * 
      * @return content
      **/
     public String getContent() {
@@ -95,8 +90,7 @@ public class ExampleMultipartFormData {
 
     /**
      * The message associated with this change, to be used as the commit message. Or null if the default message should be
-     * used.
-     * 
+   * used.
      * @return message
      **/
     public String getMessage() {
@@ -114,8 +108,7 @@ public class ExampleMultipartFormData {
 
     /**
      * The starting point for <code>branch</code>. If provided and different from <code>branch</code>, <code>branch</code>
-     * will be created as a new branch, branching off from <code>sourceBranch</code>.
-     * 
+   * will be created as a new branch, branching off from <code>sourceBranch</code>.
      * @return sourceBranch
      **/
     public String getSourceBranch() {
@@ -133,8 +126,7 @@ public class ExampleMultipartFormData {
 
     /**
      * The commit ID of the file before it was edited, used to identify if content has changed. Or null if this is a new
-     * file
-     * 
+   * file
      * @return sourceCommitId
      **/
     public String getSourceCommitId() {

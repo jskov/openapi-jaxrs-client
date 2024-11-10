@@ -42,8 +42,7 @@ public class ImageSignature {
      *
      * @return header
      **/
-    @Valid
-    public JWK getHeader() {
+    @Valid public JWK getHeader() {
         return header;
     }
 
@@ -58,7 +57,6 @@ public class ImageSignature {
 
     /**
      * The signed protected header.
-     * 
      * @return protected_
      **/
     public String getProtected() {
@@ -76,7 +74,6 @@ public class ImageSignature {
 
     /**
      * A signature for the image manifest, signed by a libtrust private key.
-     * 
      * @return signature
      **/
     public String getSignature() {

@@ -47,8 +47,7 @@ public class LogInitiator {
      *
      * @return initiator
      **/
-    @NotNull @Pattern(regexp = "\\S")
-    public String getInitiator() {
+    @NotNull @Pattern(regexp = "\\S") public String getInitiator() {
         return initiator;
     }
 
@@ -102,8 +101,7 @@ public class LogInitiator {
      *
      * @return type
      **/
-    @NotNull @Valid
-    public InitiatorType getType() {
+    @NotNull @Valid public InitiatorType getType() {
         return type;
     }
 

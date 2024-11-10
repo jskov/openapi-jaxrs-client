@@ -64,8 +64,7 @@ public class RestExportRequest {
      *
      * @return repositoriesRequest
      **/
-    @NotNull @Valid
-    public RestExportRequestRepositoriesRequest getRepositoriesRequest() {
+    @NotNull @Valid public RestExportRequestRepositoriesRequest getRepositoriesRequest() {
         return repositoriesRequest;
     }
 

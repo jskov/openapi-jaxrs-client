@@ -29,53 +29,52 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRepositoryPolicy {
     /**
-     * The permission required to delete repositories. Must be one of: "SYS_ADMIN", "ADMIN", "PROJECT_ADMIN", "REPO_ADMIN".
+     * The permission required to delete repositories. Must be one of: "SYS_ADMIN", "ADMIN", "PROJECT_ADMIN",
+   * "REPO_ADMIN".
      */
     public enum PermissionEnum {
-        SYS_ADMIN("SYS_ADMIN"),
-        ADMIN("ADMIN"),
-        PROJECT_ADMIN("PROJECT_ADMIN"),
-        REPO_ADMIN("REPO_ADMIN");
+      SYS_ADMIN("SYS_ADMIN"),
+      ADMIN("ADMIN"),
+      PROJECT_ADMIN("PROJECT_ADMIN"),
+      REPO_ADMIN("REPO_ADMIN");
 
-        private final String value;
+      private final String value;
 
-        PermissionEnum(String value) {
-            this.value = value;
-        }
+      PermissionEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class PermissionEnumAdapter implements JsonbAdapter<PermissionEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(PermissionEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class PermissionEnumAdapter implements JsonbAdapter<PermissionEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(PermissionEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public PermissionEnum adaptFromJson(JsonString value) throws Exception {
-                for (PermissionEnum b : PermissionEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public PermissionEnum adaptFromJson(JsonString value) throws Exception {
+            for (PermissionEnum b : PermissionEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PermissionEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type PermissionEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_PERMISSION = "permission";
     @JsonbProperty(JSON_PROPERTY_PERMISSION)
     @JsonbTypeAdapter(mada.tests.e2e.examples.bitbucket.dto.RestRepositoryPolicy.PermissionEnum.PermissionEnumAdapter.class)
-    @Schema(
-            description = "The permission required to delete repositories. Must be one of: \"SYS_ADMIN\", \"ADMIN\", \"PROJECT_ADMIN\", \"REPO_ADMIN\".",
-            example = "ADMIN")
+    @Schema(description = "The permission required to delete repositories. Must be one of: \"SYS_ADMIN\", \"ADMIN\", \"PROJECT_ADMIN\", \"REPO_ADMIN\".", example = "ADMIN")
     private PermissionEnum permission;
 
     public RestRepositoryPolicy permission(PermissionEnum permission) {
@@ -84,8 +83,8 @@ public class RestRepositoryPolicy {
     }
 
     /**
-     * The permission required to delete repositories. Must be one of: "SYS_ADMIN", "ADMIN", "PROJECT_ADMIN", "REPO_ADMIN".
-     * 
+     * The permission required to delete repositories. Must be one of: "SYS_ADMIN", "ADMIN", "PROJECT_ADMIN",
+   * "REPO_ADMIN".
      * @return permission
      **/
     public PermissionEnum getPermission() {

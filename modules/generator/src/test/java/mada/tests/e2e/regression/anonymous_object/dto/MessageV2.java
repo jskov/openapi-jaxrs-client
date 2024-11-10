@@ -28,7 +28,6 @@ public class MessageV2 {
 
     /**
      * Time the message was sent. Automatically generated at POST.
-     * 
      * @return sentAt
      **/
     public OffsetDateTime getSentAt() {

@@ -46,7 +46,6 @@ public class RestSecretScanningAllowlistRuleSetRequest {
 
     /**
      * Regular expression for matching a secret on a code line.
-     * 
      * @return lineRegex
      **/
     public String getLineRegex() {
@@ -64,7 +63,6 @@ public class RestSecretScanningAllowlistRuleSetRequest {
 
     /**
      * Human readable name for the rule.
-     * 
      * @return name
      **/
     public String getName() {
@@ -82,7 +80,6 @@ public class RestSecretScanningAllowlistRuleSetRequest {
 
     /**
      * Regular expression matching file names.
-     * 
      * @return pathRegex
      **/
     public String getPathRegex() {

@@ -44,8 +44,7 @@ public class RestPermittedGroup {
      *
      * @return group
      **/
-    @Valid
-    public RestPermittedGroupGroup getGroup() {
+    @Valid public RestPermittedGroupGroup getGroup() {
         return group;
     }
 

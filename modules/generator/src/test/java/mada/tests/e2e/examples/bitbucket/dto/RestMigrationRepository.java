@@ -29,46 +29,46 @@ import java.util.Objects;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestMigrationRepository {
     public enum MigrationStateEnum {
-        QUEUED("QUEUED"),
-        STAGING("STAGING"),
-        STAGED("STAGED"),
-        MIGRATED("MIGRATED"),
-        FAILED("FAILED"),
-        CANCELED("CANCELED"),
-        SKIPPED("SKIPPED");
+      QUEUED("QUEUED"),
+      STAGING("STAGING"),
+      STAGED("STAGED"),
+      MIGRATED("MIGRATED"),
+      FAILED("FAILED"),
+      CANCELED("CANCELED"),
+      SKIPPED("SKIPPED");
 
-        private final String value;
+      private final String value;
 
-        MigrationStateEnum(String value) {
-            this.value = value;
-        }
+      MigrationStateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class MigrationStateEnumAdapter implements JsonbAdapter<MigrationStateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(MigrationStateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class MigrationStateEnumAdapter implements JsonbAdapter<MigrationStateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(MigrationStateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public MigrationStateEnum adaptFromJson(JsonString value) throws Exception {
-                for (MigrationStateEnum b : MigrationStateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public MigrationStateEnum adaptFromJson(JsonString value) throws Exception {
+            for (MigrationStateEnum b : MigrationStateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type MigrationStateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type MigrationStateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_MIGRATION_STATE = "migrationState";
     @JsonbProperty(JSON_PROPERTY_MIGRATION_STATE)
@@ -107,8 +107,7 @@ public class RestMigrationRepository {
      *
      * @return repository
      **/
-    @Valid
-    public RestMigrationRepositoryRepository getRepository() {
+    @Valid public RestMigrationRepositoryRepository getRepository() {
         return repository;
     }
 

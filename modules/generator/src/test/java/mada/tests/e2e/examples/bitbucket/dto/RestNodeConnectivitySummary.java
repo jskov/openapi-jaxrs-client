@@ -42,8 +42,7 @@ public class RestNodeConnectivitySummary {
      *
      * @return node
      **/
-    @Valid
-    public RestNodeConnectivitySummaryNode getNode() {
+    @Valid public RestNodeConnectivitySummaryNode getNode() {
         return node;
     }
 
@@ -61,8 +60,7 @@ public class RestNodeConnectivitySummary {
      *
      * @return summary
      **/
-    @Valid
-    public RestNodeConnectivitySummarySummary getSummary() {
+    @Valid public RestNodeConnectivitySummarySummary getSummary() {
         return summary;
     }
 

@@ -70,8 +70,7 @@ public class _RequestApiLatestMigrationMesh {
      *
      * @return maxBytesPerSecond
      **/
-    @Valid
-    public _RequestApiLatestMigrationMeshMaxBytesPerSecond getMaxBytesPerSecond() {
+    @Valid public _RequestApiLatestMigrationMeshMaxBytesPerSecond getMaxBytesPerSecond() {
         return maxBytesPerSecond;
     }
 

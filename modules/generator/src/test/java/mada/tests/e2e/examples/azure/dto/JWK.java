@@ -34,7 +34,6 @@ public class JWK {
 
     /**
      * The algorithm used to sign or encrypt the JWT.
-     * 
      * @return alg
      **/
     public String getAlg() {
@@ -55,8 +54,7 @@ public class JWK {
      *
      * @return jwk
      **/
-    @Valid
-    public JWKHeader getJwk() {
+    @Valid public JWKHeader getJwk() {
         return jwk;
     }
 

@@ -115,8 +115,7 @@ public class Country {
      *
      * @return locale
      **/
-    @Valid
-    public CountryLocale getLocale() {
+    @Valid public CountryLocale getLocale() {
         return locale;
     }
 
@@ -236,8 +235,7 @@ public class Country {
 
     @Override
     public int hashCode() {
-        return Objects.hash(countryName, countryNameDK, countryNameGB, locale, numericCode, registeredAsBondCountry,
-                registeredAsShareCountry, threeLetterCode, twoLetterCode);
+        return Objects.hash(countryName, countryNameDK, countryNameGB, locale, numericCode, registeredAsBondCountry, registeredAsShareCountry, threeLetterCode, twoLetterCode);
     }
 
     @Override

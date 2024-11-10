@@ -29,8 +29,7 @@ public class AfregningCalculationResponse {
      *
      * @return omkostninger
      **/
-    @Valid
-    public Omkostninger getOmkostninger() {
+    @Valid public Omkostninger getOmkostninger() {
         return omkostninger;
     }
 

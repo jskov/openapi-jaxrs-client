@@ -90,8 +90,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
         this.limit = limit;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants nextPageStart(
-            Integer nextPageStart) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants nextPageStart(Integer nextPageStart) {
         this.nextPageStart = nextPageStart;
         return this;
     }
@@ -145,14 +144,12 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
         this.start = start;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants values(
-            List<RestPullRequestParticipant> values) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants values(List<RestPullRequestParticipant> values) {
         this.values = values;
         return this;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants addValuesItem(
-            RestPullRequestParticipant valuesItem) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdParticipants addValuesItem(RestPullRequestParticipant valuesItem) {
         if (this.values == null) {
             this.values = new ArrayList<>();
         }
@@ -165,8 +162,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
      *
      * @return values
      **/
-    @Valid
-    public List<RestPullRequestParticipant> getValues() {
+    @Valid public List<RestPullRequestParticipant> getValues() {
         return values;
     }
 

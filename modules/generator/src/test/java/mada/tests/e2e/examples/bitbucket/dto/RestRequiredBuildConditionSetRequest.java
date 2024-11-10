@@ -31,10 +31,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class RestRequiredBuildConditionSetRequest {
     public static final String JSON_PROPERTY_BUILD_PARENT_KEYS = "buildParentKeys";
     @JsonbProperty(JSON_PROPERTY_BUILD_PARENT_KEYS)
-    @Schema(
-            required = true,
-            description = "A non-empty list of build parent keys that require green builds for this merge check to pass",
-            example = "[\"build-key-1\",\"build-key-2\"]")
+    @Schema(required = true, description = "A non-empty list of build parent keys that require green builds for this merge check to pass", example = "[\"build-key-1\",\"build-key-2\"]")
     private List<String> buildParentKeys = new ArrayList<>();
 
     public static final String JSON_PROPERTY_EXEMPT_REF_MATCHER = "exemptRefMatcher";
@@ -58,11 +55,9 @@ public class RestRequiredBuildConditionSetRequest {
 
     /**
      * A non-empty list of build parent keys that require green builds for this merge check to pass.
-     * 
      * @return buildParentKeys
      **/
-    @NotNull @Size(min = 0, max = 100)
-    public List<String> getBuildParentKeys() {
+    @NotNull @Size(min = 0, max = 100) public List<String> getBuildParentKeys() {
         return buildParentKeys;
     }
 
@@ -80,8 +75,7 @@ public class RestRequiredBuildConditionSetRequest {
      *
      * @return exemptRefMatcher
      **/
-    @Valid
-    public RestRefMatcher getExemptRefMatcher() {
+    @Valid public RestRefMatcher getExemptRefMatcher() {
         return exemptRefMatcher;
     }
 
@@ -99,8 +93,7 @@ public class RestRequiredBuildConditionSetRequest {
      *
      * @return refMatcher
      **/
-    @NotNull @Valid
-    public RestRequiredBuildConditionSetRequestRefMatcher getRefMatcher() {
+    @NotNull @Valid public RestRequiredBuildConditionSetRequestRefMatcher getRefMatcher() {
         return refMatcher;
     }
 

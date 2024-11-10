@@ -162,8 +162,7 @@ public class _ResponseApiLatestAdminPermissionsUsersNone {
      *
      * @return values
      **/
-    @Valid
-    public List<RestApplicationUser> getValues() {
+    @Valid public List<RestApplicationUser> getValues() {
         return values;
     }
 

@@ -30,42 +30,42 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestUserReactionCommentParentAnchor {
     public enum DiffTypeEnum {
-        COMMIT("COMMIT"),
-        EFFECTIVE("EFFECTIVE"),
-        RANGE("RANGE");
+      COMMIT("COMMIT"),
+      EFFECTIVE("EFFECTIVE"),
+      RANGE("RANGE");
 
-        private final String value;
+      private final String value;
 
-        DiffTypeEnum(String value) {
-            this.value = value;
-        }
+      DiffTypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class DiffTypeEnumAdapter implements JsonbAdapter<DiffTypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(DiffTypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class DiffTypeEnumAdapter implements JsonbAdapter<DiffTypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(DiffTypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public DiffTypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (DiffTypeEnum b : DiffTypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public DiffTypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (DiffTypeEnum b : DiffTypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type DiffTypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type DiffTypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_DIFF_TYPE = "diffType";
     @JsonbProperty(JSON_PROPERTY_DIFF_TYPE)
@@ -73,41 +73,41 @@ public class RestUserReactionCommentParentAnchor {
     private DiffTypeEnum diffType;
 
     public enum FileTypeEnum {
-        FROM("FROM"),
-        TO("TO");
+      FROM("FROM"),
+      TO("TO");
 
-        private final String value;
+      private final String value;
 
-        FileTypeEnum(String value) {
-            this.value = value;
-        }
+      FileTypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class FileTypeEnumAdapter implements JsonbAdapter<FileTypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(FileTypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class FileTypeEnumAdapter implements JsonbAdapter<FileTypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(FileTypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public FileTypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (FileTypeEnum b : FileTypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public FileTypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (FileTypeEnum b : FileTypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type FileTypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type FileTypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_FILE_TYPE = "fileType";
     @JsonbProperty(JSON_PROPERTY_FILE_TYPE)
@@ -130,42 +130,42 @@ public class RestUserReactionCommentParentAnchor {
     private Boolean lineComment;
 
     public enum LineTypeEnum {
-        ADDED("ADDED"),
-        CONTEXT("CONTEXT"),
-        REMOVED("REMOVED");
+      ADDED("ADDED"),
+      CONTEXT("CONTEXT"),
+      REMOVED("REMOVED");
 
-        private final String value;
+      private final String value;
 
-        LineTypeEnum(String value) {
-            this.value = value;
-        }
+      LineTypeEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class LineTypeEnumAdapter implements JsonbAdapter<LineTypeEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(LineTypeEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class LineTypeEnumAdapter implements JsonbAdapter<LineTypeEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(LineTypeEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public LineTypeEnum adaptFromJson(JsonString value) throws Exception {
-                for (LineTypeEnum b : LineTypeEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public LineTypeEnum adaptFromJson(JsonString value) throws Exception {
+            for (LineTypeEnum b : LineTypeEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type LineTypeEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type LineTypeEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_LINE_TYPE = "lineType";
     @JsonbProperty(JSON_PROPERTY_LINE_TYPE)
@@ -308,8 +308,7 @@ public class RestUserReactionCommentParentAnchor {
      *
      * @return path
      **/
-    @Valid
-    public RestUserReactionCommentParentAnchorPath getPath() {
+    @Valid public RestUserReactionCommentParentAnchorPath getPath() {
         return path;
     }
 
@@ -327,8 +326,7 @@ public class RestUserReactionCommentParentAnchor {
      *
      * @return pullRequest
      **/
-    @Valid
-    public RestUserReactionCommentParentAnchorPullRequest getPullRequest() {
+    @Valid public RestUserReactionCommentParentAnchorPullRequest getPullRequest() {
         return pullRequest;
     }
 
@@ -346,8 +344,7 @@ public class RestUserReactionCommentParentAnchor {
      *
      * @return srcPath
      **/
-    @Valid
-    public RestUserReactionCommentParentAnchorSrcPath getSrcPath() {
+    @Valid public RestUserReactionCommentParentAnchorSrcPath getSrcPath() {
         return srcPath;
     }
 

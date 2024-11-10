@@ -40,7 +40,6 @@ public class DocsDto {
 
     /**
      * Danish characters æøåÆØÅ dóh!
-     * 
      * @return danishProperty
      **/
     public String getDanishProperty() {
@@ -57,8 +56,8 @@ public class DocsDto {
     }
 
     /**
-     * Property description. Property description line 2 Last line.
-     * 
+     * Property description. Property description line 2
+   * Last line.
      * @return dosProperty
      **/
     public String getDosProperty() {
@@ -75,8 +74,8 @@ public class DocsDto {
     }
 
     /**
-     * Property description. Property description line 2 Last line.
-     * 
+     * Property description. Property description line 2
+   * Last line.
      * @return property
      **/
     public String getProperty() {

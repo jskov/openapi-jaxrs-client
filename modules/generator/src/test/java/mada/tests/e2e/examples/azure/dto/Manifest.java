@@ -29,7 +29,6 @@ public class Manifest {
 
     /**
      * Schema version.
-     * 
      * @return schemaVersion
      **/
     public Short getSchemaVersion() {

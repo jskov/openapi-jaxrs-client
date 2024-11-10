@@ -108,43 +108,43 @@ public class RestRepositoryRefChangeActivityRepository {
     private String slug;
 
     public enum StateEnum {
-        AVAILABLE("AVAILABLE"),
-        INITIALISATION_FAILED("INITIALISATION_FAILED"),
-        INITIALISING("INITIALISING"),
-        OFFLINE("OFFLINE");
+      AVAILABLE("AVAILABLE"),
+      INITIALISATION_FAILED("INITIALISATION_FAILED"),
+      INITIALISING("INITIALISING"),
+      OFFLINE("OFFLINE");
 
-        private final String value;
+      private final String value;
 
-        StateEnum(String value) {
-            this.value = value;
-        }
+      StateEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(StateEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class StateEnumAdapter implements JsonbAdapter<StateEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(StateEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public StateEnum adaptFromJson(JsonString value) throws Exception {
-                for (StateEnum b : StateEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public StateEnum adaptFromJson(JsonString value) throws Exception {
+            for (StateEnum b : StateEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type StateEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_STATE = "state";
     @JsonbProperty(JSON_PROPERTY_STATE)
@@ -311,8 +311,7 @@ public class RestRepositoryRefChangeActivityRepository {
      *
      * @return origin
      **/
-    @Valid
-    public RestRepositoryRefChangeActivityRepositoryOrigin getOrigin() {
+    @Valid public RestRepositoryRefChangeActivityRepositoryOrigin getOrigin() {
         return origin;
     }
 
@@ -348,8 +347,7 @@ public class RestRepositoryRefChangeActivityRepository {
      *
      * @return project
      **/
-    @Valid
-    public RestRepositoryRefChangeActivityRepositoryProject getProject() {
+    @Valid public RestRepositoryRefChangeActivityRepositoryProject getProject() {
         return project;
     }
 
@@ -514,8 +512,7 @@ public class RestRepositoryRefChangeActivityRepository {
 
     @Override
     public int hashCode() {
-        return Objects.hash(archived, defaultBranch, description, forkable, hierarchyId, id, links, name, origin, partition, project,
-                public_, relatedLinks, scmId, scope, slug, state, statusMessage);
+        return Objects.hash(archived, defaultBranch, description, forkable, hierarchyId, id, links, name, origin, partition, project, public_, relatedLinks, scmId, scope, slug, state, statusMessage);
     }
 
     @Override

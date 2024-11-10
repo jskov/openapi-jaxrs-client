@@ -74,8 +74,7 @@ public class RestPullRequestSuggestion {
      *
      * @return fromRef
      **/
-    @Valid
-    public RestPullRequestSuggestionFromRef getFromRef() {
+    @Valid public RestPullRequestSuggestionFromRef getFromRef() {
         return fromRef;
     }
 
@@ -93,8 +92,7 @@ public class RestPullRequestSuggestion {
      *
      * @return refChange
      **/
-    @Valid
-    public RestPullRequestSuggestionRefChange getRefChange() {
+    @Valid public RestPullRequestSuggestionRefChange getRefChange() {
         return refChange;
     }
 
@@ -112,8 +110,7 @@ public class RestPullRequestSuggestion {
      *
      * @return repository
      **/
-    @Valid
-    public RestPullRequestSuggestionRepository getRepository() {
+    @Valid public RestPullRequestSuggestionRepository getRepository() {
         return repository;
     }
 
@@ -131,8 +128,7 @@ public class RestPullRequestSuggestion {
      *
      * @return toRef
      **/
-    @Valid
-    public RestPullRequestSuggestionToRef getToRef() {
+    @Valid public RestPullRequestSuggestionToRef getToRef() {
         return toRef;
     }
 

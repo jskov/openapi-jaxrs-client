@@ -44,41 +44,41 @@ public class RestMailConfiguration {
     private Integer port;
 
     public enum ProtocolEnum {
-        SMTP("SMTP"),
-        SMTPS("SMTPS");
+      SMTP("SMTP"),
+      SMTPS("SMTPS");
 
-        private final String value;
+      private final String value;
 
-        ProtocolEnum(String value) {
-            this.value = value;
-        }
+      ProtocolEnum(String value) {
+        this.value = value;
+      }
 
-        public String getValue() {
-            return value;
-        }
+      public String getValue() {
+          return value;
+      }
+
+      @Override
+      public String toString() {
+          return String.valueOf(value);
+      }
+
+      public static class ProtocolEnumAdapter implements JsonbAdapter<ProtocolEnum, JsonString> {
+          @Override
+          public JsonString adaptToJson(ProtocolEnum e) throws Exception {
+              return Json.createValue(String.valueOf(e.value));
+          }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static class ProtocolEnumAdapter implements JsonbAdapter<ProtocolEnum, JsonString> {
-            @Override
-            public JsonString adaptToJson(ProtocolEnum e) throws Exception {
-                return Json.createValue(String.valueOf(e.value));
-            }
-
-            @Override
-            public ProtocolEnum adaptFromJson(JsonString value) throws Exception {
-                for (ProtocolEnum b : ProtocolEnum.values()) {
-                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                        return b;
-                    }
+        public ProtocolEnum adaptFromJson(JsonString value) throws Exception {
+            for (ProtocolEnum b : ProtocolEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
                 }
-                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ProtocolEnum");
             }
-        }
-    }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type ProtocolEnum");
+          }
+      }
+  }
 
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
     @JsonbProperty(JSON_PROPERTY_PROTOCOL)

@@ -80,8 +80,7 @@ public class PostDto {
      * 
      * @return enumRef
      **/
-    @Valid
-    public AnEnum getEnumRef() {
+    @Valid public AnEnum getEnumRef() {
         return enumRef;
     }
 

@@ -162,8 +162,7 @@ public class _ResponseMirroringLatestRequests {
      *
      * @return values
      **/
-    @Valid
-    public List<RestMirroringRequest> getValues() {
+    @Valid public List<RestMirroringRequest> getValues() {
         return values;
     }
 

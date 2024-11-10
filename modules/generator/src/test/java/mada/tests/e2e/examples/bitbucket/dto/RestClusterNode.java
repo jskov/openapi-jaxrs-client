@@ -58,8 +58,7 @@ public class RestClusterNode {
      *
      * @return address
      **/
-    @Valid
-    public RestClusterNodeAddress getAddress() {
+    @Valid public RestClusterNodeAddress getAddress() {
         return address;
     }
 

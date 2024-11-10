@@ -108,8 +108,7 @@ public class RestWebhook {
      *
      * @return credentials
      **/
-    @Valid
-    public RestWebhookCredentials getCredentials() {
+    @Valid public RestWebhookCredentials getCredentials() {
         return credentials;
     }
 

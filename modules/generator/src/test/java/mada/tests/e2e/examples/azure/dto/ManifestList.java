@@ -45,11 +45,9 @@ public class ManifestList {
 
     /**
      * List of V2 image layer information.
-     * 
      * @return manifests
      **/
-    @Valid
-    public List<ManifestListAttributes> getManifests() {
+    @Valid public List<ManifestListAttributes> getManifests() {
         return manifests;
     }
 
@@ -64,7 +62,6 @@ public class ManifestList {
 
     /**
      * Media type for this Manifest.
-     * 
      * @return mediaType
      **/
     public String getMediaType() {

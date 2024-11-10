@@ -83,8 +83,7 @@ public class ManifestWrapper {
      *
      * @return annotations
      **/
-    @Valid
-    public Annotations getAnnotations() {
+    @Valid public Annotations getAnnotations() {
         return annotations;
     }
 
@@ -99,7 +98,6 @@ public class ManifestWrapper {
 
     /**
      * (V1) CPU architecture.
-     * 
      * @return architecture
      **/
     public String getArchitecture() {
@@ -120,8 +118,7 @@ public class ManifestWrapper {
      *
      * @return config
      **/
-    @Valid
-    public Descriptor getConfig() {
+    @Valid public Descriptor getConfig() {
         return config;
     }
 
@@ -144,11 +141,9 @@ public class ManifestWrapper {
 
     /**
      * (V1) List of layer information.
-     * 
      * @return fsLayers
      **/
-    @Valid
-    public List<FsLayer> getFsLayers() {
+    @Valid public List<FsLayer> getFsLayers() {
         return fsLayers;
     }
 
@@ -171,11 +166,9 @@ public class ManifestWrapper {
 
     /**
      * (V1) Image history.
-     * 
      * @return history
      **/
-    @Valid
-    public List<History> getHistory() {
+    @Valid public List<History> getHistory() {
         return history;
     }
 
@@ -198,11 +191,9 @@ public class ManifestWrapper {
 
     /**
      * (V2, OCI) List of V2 image layer information.
-     * 
      * @return layers
      **/
-    @Valid
-    public List<Descriptor> getLayers() {
+    @Valid public List<Descriptor> getLayers() {
         return layers;
     }
 
@@ -225,11 +216,9 @@ public class ManifestWrapper {
 
     /**
      * (ManifestList, OCIIndex) List of V2 image layer information.
-     * 
      * @return manifests
      **/
-    @Valid
-    public List<ManifestListAttributes> getManifests() {
+    @Valid public List<ManifestListAttributes> getManifests() {
         return manifests;
     }
 
@@ -244,7 +233,6 @@ public class ManifestWrapper {
 
     /**
      * Media type for this Manifest.
-     * 
      * @return mediaType
      **/
     public String getMediaType() {
@@ -262,7 +250,6 @@ public class ManifestWrapper {
 
     /**
      * (V1) Image name.
-     * 
      * @return name
      **/
     public String getName() {
@@ -288,11 +275,9 @@ public class ManifestWrapper {
 
     /**
      * (V1) Image signature.
-     * 
      * @return signatures
      **/
-    @Valid
-    public List<ImageSignature> getSignatures() {
+    @Valid public List<ImageSignature> getSignatures() {
         return signatures;
     }
 
@@ -307,7 +292,6 @@ public class ManifestWrapper {
 
     /**
      * (V1) Image tag.
-     * 
      * @return tag
      **/
     public String getTag() {

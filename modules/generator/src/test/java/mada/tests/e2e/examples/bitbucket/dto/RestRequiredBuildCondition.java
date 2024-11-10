@@ -29,9 +29,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class RestRequiredBuildCondition {
     public static final String JSON_PROPERTY_BUILD_PARENT_KEYS = "buildParentKeys";
     @JsonbProperty(JSON_PROPERTY_BUILD_PARENT_KEYS)
-    @Schema(
-            description = "A non-empty list of build parent keys that require green builds for this merge check to pass",
-            example = "[\"build-key-1\",\"build-key-2\"]")
+    @Schema(description = "A non-empty list of build parent keys that require green builds for this merge check to pass", example = "[\"build-key-1\",\"build-key-2\"]")
     private List<String> buildParentKeys;
 
     public static final String JSON_PROPERTY_EXEMPT_REF_MATCHER = "exemptRefMatcher";
@@ -62,7 +60,6 @@ public class RestRequiredBuildCondition {
 
     /**
      * A non-empty list of build parent keys that require green builds for this merge check to pass.
-     * 
      * @return buildParentKeys
      **/
     public List<String> getBuildParentKeys() {
@@ -83,8 +80,7 @@ public class RestRequiredBuildCondition {
      *
      * @return exemptRefMatcher
      **/
-    @Valid
-    public RestRequiredBuildConditionExemptRefMatcher getExemptRefMatcher() {
+    @Valid public RestRequiredBuildConditionExemptRefMatcher getExemptRefMatcher() {
         return exemptRefMatcher;
     }
 
@@ -120,8 +116,7 @@ public class RestRequiredBuildCondition {
      *
      * @return refMatcher
      **/
-    @Valid
-    public RestRequiredBuildConditionRefMatcher getRefMatcher() {
+    @Valid public RestRequiredBuildConditionRefMatcher getRefMatcher() {
         return refMatcher;
     }
 

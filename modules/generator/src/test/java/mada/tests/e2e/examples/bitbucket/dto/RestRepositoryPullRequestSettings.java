@@ -62,8 +62,7 @@ public class RestRepositoryPullRequestSettings {
      *
      * @return mergeConfig
      **/
-    @Valid
-    public RestRepositoryPullRequestSettingsMergeConfig getMergeConfig() {
+    @Valid public RestRepositoryPullRequestSettingsMergeConfig getMergeConfig() {
         return mergeConfig;
     }
 
@@ -117,8 +116,7 @@ public class RestRepositoryPullRequestSettings {
      *
      * @return requiredApprovers
      **/
-    @Valid
-    public RestRepositoryPullRequestSettingsRequiredApprovers getRequiredApprovers() {
+    @Valid public RestRepositoryPullRequestSettingsRequiredApprovers getRequiredApprovers() {
         return requiredApprovers;
     }
 
@@ -144,8 +142,7 @@ public class RestRepositoryPullRequestSettings {
         this.requiredApproversDeprecated = requiredApproversDeprecated;
     }
 
-    public RestRepositoryPullRequestSettings requiredSuccessfulBuilds(
-            RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds requiredSuccessfulBuilds) {
+    public RestRepositoryPullRequestSettings requiredSuccessfulBuilds(RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds requiredSuccessfulBuilds) {
         this.requiredSuccessfulBuilds = requiredSuccessfulBuilds;
         return this;
     }
@@ -155,8 +152,7 @@ public class RestRepositoryPullRequestSettings {
      *
      * @return requiredSuccessfulBuilds
      **/
-    @Valid
-    public RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds getRequiredSuccessfulBuilds() {
+    @Valid public RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds getRequiredSuccessfulBuilds() {
         return requiredSuccessfulBuilds;
     }
 
@@ -202,8 +198,7 @@ public class RestRepositoryPullRequestSettings {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mergeConfig, requiredAllApprovers, requiredAllTasksComplete, requiredApprovers, requiredApproversDeprecated,
-                requiredSuccessfulBuilds, requiredSuccessfulBuildsDeprecated);
+        return Objects.hash(mergeConfig, requiredAllApprovers, requiredAllTasksComplete, requiredApprovers, requiredApproversDeprecated, requiredSuccessfulBuilds, requiredSuccessfulBuildsDeprecated);
     }
 
     @Override

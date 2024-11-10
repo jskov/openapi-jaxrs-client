@@ -36,7 +36,6 @@ public class RepositoryTags {
 
     /**
      * Name of the image.
-     * 
      * @return name
      **/
     public String getName() {
@@ -62,7 +61,6 @@ public class RepositoryTags {
 
     /**
      * List of tags.
-     * 
      * @return tags
      **/
     public List<String> getTags() {

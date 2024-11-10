@@ -30,14 +30,12 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
     @JsonbProperty(JSON_PROPERTY_ERRORS)
     private List<RestErrorMessage> errors;
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_409 errors(
-            List<RestErrorMessage> errors) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_409 errors(List<RestErrorMessage> errors) {
         this.errors = errors;
         return this;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_409 addErrorsItem(
-            RestErrorMessage errorsItem) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_409 addErrorsItem(RestErrorMessage errorsItem) {
         if (this.errors == null) {
             this.errors = new ArrayList<>();
         }
@@ -50,8 +48,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 
@@ -79,8 +76,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(
-                "class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_409 {");
+        sb.append("class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdCommentsCommentIdApplySuggestion_409 {");
         sb.append("\n    errors: ").append(toIndentedString(errors));
         sb.append("\n}");
         return sb.toString();

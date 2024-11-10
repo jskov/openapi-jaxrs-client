@@ -39,7 +39,6 @@ public class ManifestAttributes {
 
     /**
      * Image name.
-     * 
      * @return imageName
      **/
     public String getImageName() {
@@ -60,8 +59,7 @@ public class ManifestAttributes {
      *
      * @return manifest
      **/
-    @Valid
-    public ManifestAttributesBase getManifest() {
+    @Valid public ManifestAttributesBase getManifest() {
         return manifest;
     }
 
@@ -76,7 +74,6 @@ public class ManifestAttributes {
 
     /**
      * Registry name.
-     * 
      * @return registry
      **/
     public String getRegistry() {

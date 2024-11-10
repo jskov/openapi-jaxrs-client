@@ -326,8 +326,7 @@ public class RestBitbucketLicense {
      *
      * @return status
      **/
-    @Valid
-    public RestBitbucketLicenseStatus getStatus() {
+    @Valid public RestBitbucketLicenseStatus getStatus() {
         return status;
     }
 
@@ -399,9 +398,7 @@ public class RestBitbucketLicense {
 
     @Override
     public int hashCode() {
-        return Objects.hash(creationDate, daysBeforeExpiry, expiryDate, gracePeriodEndDate, license, maintenanceExpiryDate,
-                maximumNumberOfUsers, numberOfDaysBeforeExpiry, numberOfDaysBeforeGracePeriodExpiry, numberOfDaysBeforeMaintenanceExpiry,
-                purchaseDate, serverId, status, supportEntitlementNumber, unlimitedNumberOfUsers);
+        return Objects.hash(creationDate, daysBeforeExpiry, expiryDate, gracePeriodEndDate, license, maintenanceExpiryDate, maximumNumberOfUsers, numberOfDaysBeforeExpiry, numberOfDaysBeforeGracePeriodExpiry, numberOfDaysBeforeMaintenanceExpiry, purchaseDate, serverId, status, supportEntitlementNumber, unlimitedNumberOfUsers);
     }
 
     @Override

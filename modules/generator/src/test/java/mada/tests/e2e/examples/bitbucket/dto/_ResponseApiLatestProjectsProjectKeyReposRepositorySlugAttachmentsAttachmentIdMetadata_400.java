@@ -30,14 +30,12 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsA
     @JsonbProperty(JSON_PROPERTY_ERRORS)
     private List<RestErrorMessage> errors;
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_400 errors(
-            List<RestErrorMessage> errors) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_400 errors(List<RestErrorMessage> errors) {
         this.errors = errors;
         return this;
     }
 
-    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_400 addErrorsItem(
-            RestErrorMessage errorsItem) {
+    public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_400 addErrorsItem(RestErrorMessage errorsItem) {
         if (this.errors == null) {
             this.errors = new ArrayList<>();
         }
@@ -50,8 +48,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsA
      *
      * @return errors
      **/
-    @Valid
-    public List<RestErrorMessage> getErrors() {
+    @Valid public List<RestErrorMessage> getErrors() {
         return errors;
     }
 

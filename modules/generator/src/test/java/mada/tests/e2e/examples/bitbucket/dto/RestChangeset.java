@@ -54,8 +54,7 @@ public class RestChangeset {
      *
      * @return changes
      **/
-    @Valid
-    public RestChangesetChanges getChanges() {
+    @Valid public RestChangesetChanges getChanges() {
         return changes;
     }
 
@@ -73,8 +72,7 @@ public class RestChangeset {
      *
      * @return fromCommit
      **/
-    @Valid
-    public RestChangesetFromCommit getFromCommit() {
+    @Valid public RestChangesetFromCommit getFromCommit() {
         return fromCommit;
     }
 
@@ -110,8 +108,7 @@ public class RestChangeset {
      *
      * @return repository
      **/
-    @Valid
-    public RestChangesetRepository getRepository() {
+    @Valid public RestChangesetRepository getRepository() {
         return repository;
     }
 
@@ -129,8 +126,7 @@ public class RestChangeset {
      *
      * @return toCommit
      **/
-    @Valid
-    public RestChangesetToCommit getToCommit() {
+    @Valid public RestChangesetToCommit getToCommit() {
         return toCommit;
     }
 

@@ -149,8 +149,7 @@ public class _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugC
         return this;
     }
 
-    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions addValuesItem(
-            RestRequiredBuildCondition valuesItem) {
+    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions addValuesItem(RestRequiredBuildCondition valuesItem) {
         if (this.values == null) {
             this.values = new ArrayList<>();
         }
@@ -163,8 +162,7 @@ public class _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugC
      *
      * @return values
      **/
-    @Valid
-    public List<RestRequiredBuildCondition> getValues() {
+    @Valid public List<RestRequiredBuildCondition> getValues() {
         return values;
     }
 

@@ -40,8 +40,7 @@ public class ViolationConstraint {
      *
      * @return violations
      **/
-    @Valid
-    public List<Violation> getViolations() {
+    @Valid public List<Violation> getViolations() {
         return violations;
     }
 

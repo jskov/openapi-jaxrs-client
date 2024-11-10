@@ -48,8 +48,7 @@ public class RestBulkUserRateLimitSettingsUpdateRequest {
      *
      * @return settings
      **/
-    @Valid
-    public RestBulkUserRateLimitSettingsUpdateRequestSettings getSettings() {
+    @Valid public RestBulkUserRateLimitSettingsUpdateRequestSettings getSettings() {
         return settings;
     }
 
