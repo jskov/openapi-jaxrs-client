@@ -27,158 +27,164 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestSettingsMergeConfig {
-  public static final String JSON_PROPERTY_COMMIT_MESSAGE_TEMPLATE = "commitMessageTemplate";
-  @JsonbProperty(JSON_PROPERTY_COMMIT_MESSAGE_TEMPLATE)
-  private RestPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate;
+    public static final String JSON_PROPERTY_COMMIT_MESSAGE_TEMPLATE = "commitMessageTemplate";
+    @JsonbProperty(JSON_PROPERTY_COMMIT_MESSAGE_TEMPLATE)
+    private RestPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate;
 
-  public static final String JSON_PROPERTY_COMMIT_SUMMARIES = "commitSummaries";
-  @JsonbProperty(JSON_PROPERTY_COMMIT_SUMMARIES)
-  private Integer commitSummaries;
+    public static final String JSON_PROPERTY_COMMIT_SUMMARIES = "commitSummaries";
+    @JsonbProperty(JSON_PROPERTY_COMMIT_SUMMARIES)
+    private Integer commitSummaries;
 
-  public static final String JSON_PROPERTY_DEFAULT_STRATEGY = "defaultStrategy";
-  @JsonbProperty(JSON_PROPERTY_DEFAULT_STRATEGY)
-  private RestPullRequestSettingsMergeConfigDefaultStrategy defaultStrategy;
+    public static final String JSON_PROPERTY_DEFAULT_STRATEGY = "defaultStrategy";
+    @JsonbProperty(JSON_PROPERTY_DEFAULT_STRATEGY)
+    private RestPullRequestSettingsMergeConfigDefaultStrategy defaultStrategy;
 
-  public static final String JSON_PROPERTY_STRATEGIES = "strategies";
-  @JsonbProperty(JSON_PROPERTY_STRATEGIES)
-  private List<RestPullRequestMergeStrategy> strategies;
+    public static final String JSON_PROPERTY_STRATEGIES = "strategies";
+    @JsonbProperty(JSON_PROPERTY_STRATEGIES)
+    private List<RestPullRequestMergeStrategy> strategies;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  @JsonbProperty(JSON_PROPERTY_TYPE)
-  @Schema(readOnly = true, example = "repository")
-  private String type;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @JsonbProperty(JSON_PROPERTY_TYPE)
+    @Schema(readOnly = true, example = "repository")
+    private String type;
 
-  public RestPullRequestSettingsMergeConfig commitMessageTemplate(RestPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate) {
-    this.commitMessageTemplate = commitMessageTemplate;
-    return this;
-  }
-
-  /**
-   * Get commitMessageTemplate
-   * @return commitMessageTemplate
-   **/
-  @Valid
-  public RestPullRequestSettingsMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
-    return commitMessageTemplate;
-  }
-
-  public void setCommitMessageTemplate(RestPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate) {
-    this.commitMessageTemplate = commitMessageTemplate;
-  }
-
-  public RestPullRequestSettingsMergeConfig commitSummaries(Integer commitSummaries) {
-    this.commitSummaries = commitSummaries;
-    return this;
-  }
-
-  /**
-   * Get commitSummaries
-   * @return commitSummaries
-   **/
-  public Integer getCommitSummaries() {
-    return commitSummaries;
-  }
-
-  public void setCommitSummaries(Integer commitSummaries) {
-    this.commitSummaries = commitSummaries;
-  }
-
-  public RestPullRequestSettingsMergeConfig defaultStrategy(RestPullRequestSettingsMergeConfigDefaultStrategy defaultStrategy) {
-    this.defaultStrategy = defaultStrategy;
-    return this;
-  }
-
-  /**
-   * Get defaultStrategy
-   * @return defaultStrategy
-   **/
-  @Valid
-  public RestPullRequestSettingsMergeConfigDefaultStrategy getDefaultStrategy() {
-    return defaultStrategy;
-  }
-
-  public void setDefaultStrategy(RestPullRequestSettingsMergeConfigDefaultStrategy defaultStrategy) {
-    this.defaultStrategy = defaultStrategy;
-  }
-
-  public RestPullRequestSettingsMergeConfig strategies(List<RestPullRequestMergeStrategy> strategies) {
-    this.strategies = strategies;
-    return this;
-  }
-
-  public RestPullRequestSettingsMergeConfig addStrategiesItem(RestPullRequestMergeStrategy strategiesItem) {
-    if (this.strategies == null) {
-      this.strategies = new ArrayList<>();
+    public RestPullRequestSettingsMergeConfig commitMessageTemplate(
+            RestPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate) {
+        this.commitMessageTemplate = commitMessageTemplate;
+        return this;
     }
-    this.strategies.add(strategiesItem);
-    return this;
-  }
 
-  /**
-   * Get strategies
-   * @return strategies
-   **/
-  @Valid
-  public List<RestPullRequestMergeStrategy> getStrategies() {
-    return strategies;
-  }
-
-  public void setStrategies(List<RestPullRequestMergeStrategy> strategies) {
-    this.strategies = strategies;
-  }
-
-  public RestPullRequestSettingsMergeConfig type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Get type
-   * @return type
-   **/
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get commitMessageTemplate
+     *
+     * @return commitMessageTemplate
+     **/
+    @Valid
+    public RestPullRequestSettingsMergeConfigCommitMessageTemplate getCommitMessageTemplate() {
+        return commitMessageTemplate;
     }
-    if (!(o instanceof RestPullRequestSettingsMergeConfig)) {
-      return false;
+
+    public void setCommitMessageTemplate(RestPullRequestSettingsMergeConfigCommitMessageTemplate commitMessageTemplate) {
+        this.commitMessageTemplate = commitMessageTemplate;
     }
-    RestPullRequestSettingsMergeConfig other = (RestPullRequestSettingsMergeConfig) o;
-    return Objects.equals(this.commitMessageTemplate, other.commitMessageTemplate) &&
-        Objects.equals(this.commitSummaries, other.commitSummaries) &&
-        Objects.equals(this.defaultStrategy, other.defaultStrategy) &&
-        Objects.equals(this.strategies, other.strategies) &&
-        Objects.equals(this.type, other.type);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(commitMessageTemplate, commitSummaries, defaultStrategy, strategies, type);
-  }
+    public RestPullRequestSettingsMergeConfig commitSummaries(Integer commitSummaries) {
+        this.commitSummaries = commitSummaries;
+        return this;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestPullRequestSettingsMergeConfig {");
-    sb.append("\n    commitMessageTemplate: ").append(toIndentedString(commitMessageTemplate));
-    sb.append("\n    commitSummaries: ").append(toIndentedString(commitSummaries));
-    sb.append("\n    defaultStrategy: ").append(toIndentedString(defaultStrategy));
-    sb.append("\n    strategies: ").append(toIndentedString(strategies));
-    sb.append("\n    type: ").append(toIndentedString(type));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    /**
+     * Get commitSummaries
+     *
+     * @return commitSummaries
+     **/
+    public Integer getCommitSummaries() {
+        return commitSummaries;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    public void setCommitSummaries(Integer commitSummaries) {
+        this.commitSummaries = commitSummaries;
+    }
+
+    public RestPullRequestSettingsMergeConfig defaultStrategy(RestPullRequestSettingsMergeConfigDefaultStrategy defaultStrategy) {
+        this.defaultStrategy = defaultStrategy;
+        return this;
+    }
+
+    /**
+     * Get defaultStrategy
+     *
+     * @return defaultStrategy
+     **/
+    @Valid
+    public RestPullRequestSettingsMergeConfigDefaultStrategy getDefaultStrategy() {
+        return defaultStrategy;
+    }
+
+    public void setDefaultStrategy(RestPullRequestSettingsMergeConfigDefaultStrategy defaultStrategy) {
+        this.defaultStrategy = defaultStrategy;
+    }
+
+    public RestPullRequestSettingsMergeConfig strategies(List<RestPullRequestMergeStrategy> strategies) {
+        this.strategies = strategies;
+        return this;
+    }
+
+    public RestPullRequestSettingsMergeConfig addStrategiesItem(RestPullRequestMergeStrategy strategiesItem) {
+        if (this.strategies == null) {
+            this.strategies = new ArrayList<>();
+        }
+        this.strategies.add(strategiesItem);
+        return this;
+    }
+
+    /**
+     * Get strategies
+     *
+     * @return strategies
+     **/
+    @Valid
+    public List<RestPullRequestMergeStrategy> getStrategies() {
+        return strategies;
+    }
+
+    public void setStrategies(List<RestPullRequestMergeStrategy> strategies) {
+        this.strategies = strategies;
+    }
+
+    public RestPullRequestSettingsMergeConfig type(String type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     **/
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestPullRequestSettingsMergeConfig)) {
+            return false;
+        }
+        RestPullRequestSettingsMergeConfig other = (RestPullRequestSettingsMergeConfig) o;
+        return Objects.equals(this.commitMessageTemplate, other.commitMessageTemplate) &&
+                Objects.equals(this.commitSummaries, other.commitSummaries) &&
+                Objects.equals(this.defaultStrategy, other.defaultStrategy) &&
+                Objects.equals(this.strategies, other.strategies) &&
+                Objects.equals(this.type, other.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(commitMessageTemplate, commitSummaries, defaultStrategy, strategies, type);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestPullRequestSettingsMergeConfig {");
+        sb.append("\n    commitMessageTemplate: ").append(toIndentedString(commitMessageTemplate));
+        sb.append("\n    commitSummaries: ").append(toIndentedString(commitSummaries));
+        sb.append("\n    defaultStrategy: ").append(toIndentedString(defaultStrategy));
+        sb.append("\n    strategies: ").append(toIndentedString(strategies));
+        sb.append("\n    type: ").append(toIndentedString(type));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

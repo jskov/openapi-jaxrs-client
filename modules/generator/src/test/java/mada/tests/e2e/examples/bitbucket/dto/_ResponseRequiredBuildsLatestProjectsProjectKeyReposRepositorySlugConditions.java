@@ -28,180 +28,187 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions {
-  public static final String JSON_PROPERTY_IS_LAST_PAGE = "isLastPage";
-  @JsonbProperty(JSON_PROPERTY_IS_LAST_PAGE)
-  private Boolean isLastPage;
+    public static final String JSON_PROPERTY_IS_LAST_PAGE = "isLastPage";
+    @JsonbProperty(JSON_PROPERTY_IS_LAST_PAGE)
+    private Boolean isLastPage;
 
-  public static final String JSON_PROPERTY_LIMIT = "limit";
-  @JsonbProperty(JSON_PROPERTY_LIMIT)
-  @Schema(example = "25")
-  private BigDecimal limit;
+    public static final String JSON_PROPERTY_LIMIT = "limit";
+    @JsonbProperty(JSON_PROPERTY_LIMIT)
+    @Schema(example = "25")
+    private BigDecimal limit;
 
-  public static final String JSON_PROPERTY_NEXT_PAGE_START = "nextPageStart";
-  @JsonbProperty(JSON_PROPERTY_NEXT_PAGE_START)
-  private Integer nextPageStart;
+    public static final String JSON_PROPERTY_NEXT_PAGE_START = "nextPageStart";
+    @JsonbProperty(JSON_PROPERTY_NEXT_PAGE_START)
+    private Integer nextPageStart;
 
-  public static final String JSON_PROPERTY_SIZE = "size";
-  @JsonbProperty(JSON_PROPERTY_SIZE)
-  @Schema(example = "1")
-  private BigDecimal size;
+    public static final String JSON_PROPERTY_SIZE = "size";
+    @JsonbProperty(JSON_PROPERTY_SIZE)
+    @Schema(example = "1")
+    private BigDecimal size;
 
-  public static final String JSON_PROPERTY_START = "start";
-  @JsonbProperty(JSON_PROPERTY_START)
-  private Integer start;
+    public static final String JSON_PROPERTY_START = "start";
+    @JsonbProperty(JSON_PROPERTY_START)
+    private Integer start;
 
-  public static final String JSON_PROPERTY_VALUES = "values";
-  @JsonbProperty(JSON_PROPERTY_VALUES)
-  private List<RestRequiredBuildCondition> values;
+    public static final String JSON_PROPERTY_VALUES = "values";
+    @JsonbProperty(JSON_PROPERTY_VALUES)
+    private List<RestRequiredBuildCondition> values;
 
-  public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions isLastPage(Boolean isLastPage) {
-    this.isLastPage = isLastPage;
-    return this;
-  }
-
-  /**
-   * Get isLastPage
-   * @return isLastPage
-   **/
-  public Boolean isIsLastPage() {
-    return isLastPage;
-  }
-
-  public void setIsLastPage(Boolean isLastPage) {
-    this.isLastPage = isLastPage;
-  }
-
-  public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions limit(BigDecimal limit) {
-    this.limit = limit;
-    return this;
-  }
-
-  /**
-   * Get limit
-   * @return limit
-   **/
-  public BigDecimal getLimit() {
-    return limit;
-  }
-
-  public void setLimit(BigDecimal limit) {
-    this.limit = limit;
-  }
-
-  public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions nextPageStart(Integer nextPageStart) {
-    this.nextPageStart = nextPageStart;
-    return this;
-  }
-
-  /**
-   * Get nextPageStart
-   * @return nextPageStart
-   **/
-  public Integer getNextPageStart() {
-    return nextPageStart;
-  }
-
-  public void setNextPageStart(Integer nextPageStart) {
-    this.nextPageStart = nextPageStart;
-  }
-
-  public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions size(BigDecimal size) {
-    this.size = size;
-    return this;
-  }
-
-  /**
-   * Get size
-   * @return size
-   **/
-  public BigDecimal getSize() {
-    return size;
-  }
-
-  public void setSize(BigDecimal size) {
-    this.size = size;
-  }
-
-  public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions start(Integer start) {
-    this.start = start;
-    return this;
-  }
-
-  /**
-   * Get start
-   * @return start
-   **/
-  public Integer getStart() {
-    return start;
-  }
-
-  public void setStart(Integer start) {
-    this.start = start;
-  }
-
-  public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions values(List<RestRequiredBuildCondition> values) {
-    this.values = values;
-    return this;
-  }
-
-  public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions addValuesItem(RestRequiredBuildCondition valuesItem) {
-    if (this.values == null) {
-      this.values = new ArrayList<>();
+    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions isLastPage(Boolean isLastPage) {
+        this.isLastPage = isLastPage;
+        return this;
     }
-    this.values.add(valuesItem);
-    return this;
-  }
 
-  /**
-   * Get values
-   * @return values
-   **/
-  @Valid
-  public List<RestRequiredBuildCondition> getValues() {
-    return values;
-  }
-
-  public void setValues(List<RestRequiredBuildCondition> values) {
-    this.values = values;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get isLastPage
+     *
+     * @return isLastPage
+     **/
+    public Boolean isIsLastPage() {
+        return isLastPage;
     }
-    if (!(o instanceof _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions)) {
-      return false;
+
+    public void setIsLastPage(Boolean isLastPage) {
+        this.isLastPage = isLastPage;
     }
-    _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions other = (_ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions) o;
-    return Objects.equals(this.isLastPage, other.isLastPage) &&
-        Objects.equals(this.limit, other.limit) &&
-        Objects.equals(this.nextPageStart, other.nextPageStart) &&
-        Objects.equals(this.size, other.size) &&
-        Objects.equals(this.start, other.start) &&
-        Objects.equals(this.values, other.values);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(isLastPage, limit, nextPageStart, size, start, values);
-  }
+    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions limit(BigDecimal limit) {
+        this.limit = limit;
+        return this;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions {");
-    sb.append("\n    isLastPage: ").append(toIndentedString(isLastPage));
-    sb.append("\n    limit: ").append(toIndentedString(limit));
-    sb.append("\n    nextPageStart: ").append(toIndentedString(nextPageStart));
-    sb.append("\n    size: ").append(toIndentedString(size));
-    sb.append("\n    start: ").append(toIndentedString(start));
-    sb.append("\n    values: ").append(toIndentedString(values));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    /**
+     * Get limit
+     *
+     * @return limit
+     **/
+    public BigDecimal getLimit() {
+        return limit;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    public void setLimit(BigDecimal limit) {
+        this.limit = limit;
+    }
+
+    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions nextPageStart(Integer nextPageStart) {
+        this.nextPageStart = nextPageStart;
+        return this;
+    }
+
+    /**
+     * Get nextPageStart
+     *
+     * @return nextPageStart
+     **/
+    public Integer getNextPageStart() {
+        return nextPageStart;
+    }
+
+    public void setNextPageStart(Integer nextPageStart) {
+        this.nextPageStart = nextPageStart;
+    }
+
+    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions size(BigDecimal size) {
+        this.size = size;
+        return this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return size
+     **/
+    public BigDecimal getSize() {
+        return size;
+    }
+
+    public void setSize(BigDecimal size) {
+        this.size = size;
+    }
+
+    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions start(Integer start) {
+        this.start = start;
+        return this;
+    }
+
+    /**
+     * Get start
+     *
+     * @return start
+     **/
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions values(List<RestRequiredBuildCondition> values) {
+        this.values = values;
+        return this;
+    }
+
+    public _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions addValuesItem(
+            RestRequiredBuildCondition valuesItem) {
+        if (this.values == null) {
+            this.values = new ArrayList<>();
+        }
+        this.values.add(valuesItem);
+        return this;
+    }
+
+    /**
+     * Get values
+     *
+     * @return values
+     **/
+    @Valid
+    public List<RestRequiredBuildCondition> getValues() {
+        return values;
+    }
+
+    public void setValues(List<RestRequiredBuildCondition> values) {
+        this.values = values;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions)) {
+            return false;
+        }
+        _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions other = (_ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions) o;
+        return Objects.equals(this.isLastPage, other.isLastPage) &&
+                Objects.equals(this.limit, other.limit) &&
+                Objects.equals(this.nextPageStart, other.nextPageStart) &&
+                Objects.equals(this.size, other.size) &&
+                Objects.equals(this.start, other.start) &&
+                Objects.equals(this.values, other.values);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isLastPage, limit, nextPageStart, size, start, values);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditions {");
+        sb.append("\n    isLastPage: ").append(toIndentedString(isLastPage));
+        sb.append("\n    limit: ").append(toIndentedString(limit));
+        sb.append("\n    nextPageStart: ").append(toIndentedString(nextPageStart));
+        sb.append("\n    size: ").append(toIndentedString(size));
+        sb.append("\n    start: ").append(toIndentedString(start));
+        sb.append("\n    values: ").append(toIndentedString(values));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

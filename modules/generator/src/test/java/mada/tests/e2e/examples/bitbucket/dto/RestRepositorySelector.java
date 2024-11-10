@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRepositorySelector {
-  public static final String JSON_PROPERTY_PROJECT_KEY = "projectKey";
-  @JsonbProperty(JSON_PROPERTY_PROJECT_KEY)
-  @Schema(example = "PRJ")
-  private String projectKey;
+    public static final String JSON_PROPERTY_PROJECT_KEY = "projectKey";
+    @JsonbProperty(JSON_PROPERTY_PROJECT_KEY)
+    @Schema(example = "PRJ")
+    private String projectKey;
 
-  public static final String JSON_PROPERTY_SLUG = "slug";
-  @JsonbProperty(JSON_PROPERTY_SLUG)
-  @Schema(example = "my-repo")
-  private String slug;
+    public static final String JSON_PROPERTY_SLUG = "slug";
+    @JsonbProperty(JSON_PROPERTY_SLUG)
+    @Schema(example = "my-repo")
+    private String slug;
 
-  public RestRepositorySelector projectKey(String projectKey) {
-    this.projectKey = projectKey;
-    return this;
-  }
-
-  /**
-   * Get projectKey
-   * @return projectKey
-   **/
-  public String getProjectKey() {
-    return projectKey;
-  }
-
-  public void setProjectKey(String projectKey) {
-    this.projectKey = projectKey;
-  }
-
-  public RestRepositorySelector slug(String slug) {
-    this.slug = slug;
-    return this;
-  }
-
-  /**
-   * Get slug
-   * @return slug
-   **/
-  public String getSlug() {
-    return slug;
-  }
-
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestRepositorySelector projectKey(String projectKey) {
+        this.projectKey = projectKey;
+        return this;
     }
-    if (!(o instanceof RestRepositorySelector)) {
-      return false;
+
+    /**
+     * Get projectKey
+     *
+     * @return projectKey
+     **/
+    public String getProjectKey() {
+        return projectKey;
     }
-    RestRepositorySelector other = (RestRepositorySelector) o;
-    return Objects.equals(this.projectKey, other.projectKey) &&
-        Objects.equals(this.slug, other.slug);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(projectKey, slug);
-  }
+    public void setProjectKey(String projectKey) {
+        this.projectKey = projectKey;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestRepositorySelector {");
-    sb.append("\n    projectKey: ").append(toIndentedString(projectKey));
-    sb.append("\n    slug: ").append(toIndentedString(slug));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestRepositorySelector slug(String slug) {
+        this.slug = slug;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get slug
+     *
+     * @return slug
+     **/
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestRepositorySelector)) {
+            return false;
+        }
+        RestRepositorySelector other = (RestRepositorySelector) o;
+        return Objects.equals(this.projectKey, other.projectKey) &&
+                Objects.equals(this.slug, other.slug);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(projectKey, slug);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestRepositorySelector {");
+        sb.append("\n    projectKey: ").append(toIndentedString(projectKey));
+        sb.append("\n    slug: ").append(toIndentedString(slug));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

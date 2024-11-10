@@ -41,17 +41,16 @@ public interface Jira_IntegrationApi {
     /**
      * Create Jira Issue.
      *
-     * Create a Jira issue and associate it with a comment on a pull request. This resource can only be used with comments
-     * on a pull request. Attempting to call this resource with a different type of comment (for example, a comment on a
-     * commit) will result in an error. The authenticated user must have <strong>REPO_READ</strong> permission for the
-     * repository containing the comment to call this resource. The JSON structure for the create issue format is specified
-     * by Jira's REST v2 API.
+     * Create a Jira issue and associate it with a comment on a pull request.
+     * This resource can only be used with comments on a pull request. Attempting to call this resource with a different
+     * type of comment (for example, a comment on a commit) will result in an error.
+     * The authenticated user must have <strong>REPO_READ</strong> permission for the repository containing the comment
+     * to call this resource.
+     * The JSON structure for the create issue format is specified by Jira's REST v2 API.
      *
      * @param commentId     the comment to associate the created Jira issue to (not null)
      * @param applicationId id of the Jira server (optional)
-     * @param dto           A String representation of the JSON format Jira create issue request see:
-     *                      <a href="https://docs.atlassian.com/jira/REST/server/#api/2/issue-createIssue">Jira REST API</a>
-     *                      (optional)
+     * @param dto           A String representation of the JSON format Jira create issue request see: <a href="https://docs.atlassian.com/jira/REST/server/#api/2/issue-createIssue">Jira REST API</a> (optional)
      * @return RestCommentJiraIssue
      */
     @POST
@@ -76,8 +75,7 @@ public interface Jira_IntegrationApi {
                             schema = @Schema(implementation = _ResponseJiraLatestCommentsCommentIdIssues_401.class)))
     })
     @Operation(summary = "Create Jira Issue")
-    RestCommentJiraIssue createIssue(@PathParam("commentId") @NotNull String commentId, @QueryParam("applicationId") String applicationId,
-            String dto);
+    RestCommentJiraIssue createIssue(@PathParam("commentId") @NotNull String commentId, @QueryParam("applicationId") String applicationId, String dto);
 
     /**
      * Get changesets for issue key.
@@ -95,14 +93,15 @@ public interface Jira_IntegrationApi {
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponseSchema(_ResponseJiraLatestIssuesIssueKeyCommits.class)
     @Operation(summary = "Get changesets for issue key")
-    _ResponseJiraLatestIssuesIssueKeyCommits getCommitsByIssueKey(@PathParam("issueKey") @NotNull String issueKey,
-            @QueryParam("maxChanges") String maxChanges, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseJiraLatestIssuesIssueKeyCommits getCommitsByIssueKey(@PathParam("issueKey") @NotNull String issueKey, @QueryParam("maxChanges") String maxChanges,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get entity link.
      *
-     * Retrieves the enchanced primary entitylink The authenticated user must have <strong>PROJECT_READ</strong> permission
-     * for the project having the primary enhanced entitylink.
+     * Retrieves the enchanced primary entitylink
+     * The authenticated user must have <strong>PROJECT_READ</strong> permission for the project having the primary
+     * enhanced entitylink.
      *
      * @param projectKey The project key (not null)
      * @return RestEnhancedEntityLink
@@ -117,8 +116,8 @@ public interface Jira_IntegrationApi {
     /**
      * Get issues for a pull request.
      *
-     * Retrieves Jira issue keys that are associated with the commits in the specified pull request. The number of commits
-     * checked for issues is limited to a default of 100.
+     * Retrieves Jira issue keys that are associated with the commits in the specified pull request. The number of
+     * commits checked for issues is limited to a default of 100.
      *
      * @param projectKey     The project key (not null)
      * @param pullRequestId  The pull request id (not null)
@@ -136,6 +135,6 @@ public interface Jira_IntegrationApi {
                             schema = @Schema(implementation = RestJiraIssue.class, type = SchemaType.ARRAY)))
     })
     @Operation(summary = "Get issues for a pull request")
-    List<RestJiraIssue> getIssueKeysForPullRequest(@PathParam("projectKey") @NotNull String projectKey,
-            @PathParam("pullRequestId") @NotNull String pullRequestId, @PathParam("repositorySlug") @NotNull String repositorySlug);
+    List<RestJiraIssue> getIssueKeysForPullRequest(@PathParam("projectKey") @NotNull String projectKey, @PathParam("pullRequestId") @NotNull String pullRequestId,
+            @PathParam("repositorySlug") @NotNull String repositorySlug);
 }

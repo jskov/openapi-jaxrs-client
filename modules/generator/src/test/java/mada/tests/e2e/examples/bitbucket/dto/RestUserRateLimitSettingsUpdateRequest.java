@@ -24,78 +24,80 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestUserRateLimitSettingsUpdateRequest {
-  public static final String JSON_PROPERTY_SETTINGS = "settings";
-  @JsonbProperty(JSON_PROPERTY_SETTINGS)
-  private RestUserRateLimitSettingsUpdateRequestSettings settings;
+    public static final String JSON_PROPERTY_SETTINGS = "settings";
+    @JsonbProperty(JSON_PROPERTY_SETTINGS)
+    private RestUserRateLimitSettingsUpdateRequestSettings settings;
 
-  public static final String JSON_PROPERTY_WHITELISTED = "whitelisted";
-  @JsonbProperty(JSON_PROPERTY_WHITELISTED)
-  private Boolean whitelisted;
+    public static final String JSON_PROPERTY_WHITELISTED = "whitelisted";
+    @JsonbProperty(JSON_PROPERTY_WHITELISTED)
+    private Boolean whitelisted;
 
-  public RestUserRateLimitSettingsUpdateRequest settings(RestUserRateLimitSettingsUpdateRequestSettings settings) {
-    this.settings = settings;
-    return this;
-  }
-
-  /**
-   * Get settings
-   * @return settings
-   **/
-  @Valid
-  public RestUserRateLimitSettingsUpdateRequestSettings getSettings() {
-    return settings;
-  }
-
-  public void setSettings(RestUserRateLimitSettingsUpdateRequestSettings settings) {
-    this.settings = settings;
-  }
-
-  public RestUserRateLimitSettingsUpdateRequest whitelisted(Boolean whitelisted) {
-    this.whitelisted = whitelisted;
-    return this;
-  }
-
-  /**
-   * Get whitelisted
-   * @return whitelisted
-   **/
-  public Boolean isWhitelisted() {
-    return whitelisted;
-  }
-
-  public void setWhitelisted(Boolean whitelisted) {
-    this.whitelisted = whitelisted;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestUserRateLimitSettingsUpdateRequest settings(RestUserRateLimitSettingsUpdateRequestSettings settings) {
+        this.settings = settings;
+        return this;
     }
-    if (!(o instanceof RestUserRateLimitSettingsUpdateRequest)) {
-      return false;
+
+    /**
+     * Get settings
+     *
+     * @return settings
+     **/
+    @Valid
+    public RestUserRateLimitSettingsUpdateRequestSettings getSettings() {
+        return settings;
     }
-    RestUserRateLimitSettingsUpdateRequest other = (RestUserRateLimitSettingsUpdateRequest) o;
-    return Objects.equals(this.settings, other.settings) &&
-        Objects.equals(this.whitelisted, other.whitelisted);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(settings, whitelisted);
-  }
+    public void setSettings(RestUserRateLimitSettingsUpdateRequestSettings settings) {
+        this.settings = settings;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestUserRateLimitSettingsUpdateRequest {");
-    sb.append("\n    settings: ").append(toIndentedString(settings));
-    sb.append("\n    whitelisted: ").append(toIndentedString(whitelisted));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestUserRateLimitSettingsUpdateRequest whitelisted(Boolean whitelisted) {
+        this.whitelisted = whitelisted;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get whitelisted
+     *
+     * @return whitelisted
+     **/
+    public Boolean isWhitelisted() {
+        return whitelisted;
+    }
+
+    public void setWhitelisted(Boolean whitelisted) {
+        this.whitelisted = whitelisted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestUserRateLimitSettingsUpdateRequest)) {
+            return false;
+        }
+        RestUserRateLimitSettingsUpdateRequest other = (RestUserRateLimitSettingsUpdateRequest) o;
+        return Objects.equals(this.settings, other.settings) &&
+                Objects.equals(this.whitelisted, other.whitelisted);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(settings, whitelisted);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestUserRateLimitSettingsUpdateRequest {");
+        sb.append("\n    settings: ").append(toIndentedString(settings));
+        sb.append("\n    whitelisted: ").append(toIndentedString(whitelisted));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

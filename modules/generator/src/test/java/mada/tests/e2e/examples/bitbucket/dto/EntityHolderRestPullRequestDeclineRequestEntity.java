@@ -24,78 +24,80 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EntityHolderRestPullRequestDeclineRequestEntity {
-  public static final String JSON_PROPERTY_COMMENT = "comment";
-  @JsonbProperty(JSON_PROPERTY_COMMENT)
-  @Schema(example = "An optional comment explaining why the pull request is being declined")
-  private String comment;
+    public static final String JSON_PROPERTY_COMMENT = "comment";
+    @JsonbProperty(JSON_PROPERTY_COMMENT)
+    @Schema(example = "An optional comment explaining why the pull request is being declined")
+    private String comment;
 
-  public static final String JSON_PROPERTY_VERSION = "version";
-  @JsonbProperty(JSON_PROPERTY_VERSION)
-  private Integer version;
+    public static final String JSON_PROPERTY_VERSION = "version";
+    @JsonbProperty(JSON_PROPERTY_VERSION)
+    private Integer version;
 
-  public EntityHolderRestPullRequestDeclineRequestEntity comment(String comment) {
-    this.comment = comment;
-    return this;
-  }
-
-  /**
-   * Get comment
-   * @return comment
-   **/
-  public String getComment() {
-    return comment;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
-
-  public EntityHolderRestPullRequestDeclineRequestEntity version(Integer version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Get version
-   * @return version
-   **/
-  public Integer getVersion() {
-    return version;
-  }
-
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public EntityHolderRestPullRequestDeclineRequestEntity comment(String comment) {
+        this.comment = comment;
+        return this;
     }
-    if (!(o instanceof EntityHolderRestPullRequestDeclineRequestEntity)) {
-      return false;
+
+    /**
+     * Get comment
+     *
+     * @return comment
+     **/
+    public String getComment() {
+        return comment;
     }
-    EntityHolderRestPullRequestDeclineRequestEntity other = (EntityHolderRestPullRequestDeclineRequestEntity) o;
-    return Objects.equals(this.comment, other.comment) &&
-        Objects.equals(this.version, other.version);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(comment, version);
-  }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class EntityHolderRestPullRequestDeclineRequestEntity {");
-    sb.append("\n    comment: ").append(toIndentedString(comment));
-    sb.append("\n    version: ").append(toIndentedString(version));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public EntityHolderRestPullRequestDeclineRequestEntity version(Integer version) {
+        this.version = version;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get version
+     *
+     * @return version
+     **/
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof EntityHolderRestPullRequestDeclineRequestEntity)) {
+            return false;
+        }
+        EntityHolderRestPullRequestDeclineRequestEntity other = (EntityHolderRestPullRequestDeclineRequestEntity) o;
+        return Objects.equals(this.comment, other.comment) &&
+                Objects.equals(this.version, other.version);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(comment, version);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class EntityHolderRestPullRequestDeclineRequestEntity {");
+        sb.append("\n    comment: ").append(toIndentedString(comment));
+        sb.append("\n    version: ").append(toIndentedString(version));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

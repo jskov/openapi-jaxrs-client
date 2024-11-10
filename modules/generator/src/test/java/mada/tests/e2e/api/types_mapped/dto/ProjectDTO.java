@@ -16,54 +16,55 @@ import javax.json.bind.annotation.JsonbProperty;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ProjectDTO {
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
-  private String description;
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
+    private String description;
 
-  public ProjectDTO description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Get description
-   * @return description
-   **/
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ProjectDTO description(String description) {
+        this.description = description;
+        return this;
     }
-    if (!(o instanceof ProjectDTO)) {
-      return false;
+
+    /**
+     * Get description
+     *
+     * @return description
+     **/
+    public String getDescription() {
+        return description;
     }
-    ProjectDTO other = (ProjectDTO) o;
-    return Objects.equals(this.description, other.description);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(description);
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProjectDTO {");
-    sb.append("\n    description: ").append(toIndentedString(description));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ProjectDTO)) {
+            return false;
+        }
+        ProjectDTO other = (ProjectDTO) o;
+        return Objects.equals(this.description, other.description);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(description);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ProjectDTO {");
+        sb.append("\n    description: ").append(toIndentedString(description));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

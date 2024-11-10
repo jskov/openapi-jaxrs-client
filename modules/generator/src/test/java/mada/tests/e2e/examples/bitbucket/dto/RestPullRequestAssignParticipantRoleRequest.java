@@ -28,117 +28,119 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestAssignParticipantRoleRequest {
-  public enum RoleEnum {
-    AUTHOR("AUTHOR"),
-    REVIEWER("REVIEWER"),
-    PARTICIPANT("PARTICIPANT");
+    public enum RoleEnum {
+        AUTHOR("AUTHOR"),
+        REVIEWER("REVIEWER"),
+        PARTICIPANT("PARTICIPANT");
 
-    private final String value;
+        private final String value;
 
-    RoleEnum(String value) {
-      this.value = value;
+        RoleEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static class RoleEnumAdapter implements JsonbAdapter<RoleEnum, JsonString> {
+            @Override
+            public JsonString adaptToJson(RoleEnum e) throws Exception {
+                return Json.createValue(String.valueOf(e.value));
+            }
+
+            @Override
+            public RoleEnum adaptFromJson(JsonString value) throws Exception {
+                for (RoleEnum b : RoleEnum.values()) {
+                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                        return b;
+                    }
+                }
+                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RoleEnum");
+            }
+        }
     }
 
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_ROLE = "role";
+    @JsonbProperty(JSON_PROPERTY_ROLE)
+    @JsonbTypeAdapter(mada.tests.e2e.examples.bitbucket.dto.RestPullRequestAssignParticipantRoleRequest.RoleEnum.RoleEnumAdapter.class)
+    private RoleEnum role;
+
+    public static final String JSON_PROPERTY_USER = "user";
+    @JsonbProperty(JSON_PROPERTY_USER)
+    private RestPullRequestAssignParticipantRoleRequestUser user;
+
+    public RestPullRequestAssignParticipantRoleRequest role(RoleEnum role) {
+        this.role = role;
+        return this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return role
+     **/
+    public RoleEnum getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEnum role) {
+        this.role = role;
+    }
+
+    public RestPullRequestAssignParticipantRoleRequest user(RestPullRequestAssignParticipantRoleRequestUser user) {
+        this.user = user;
+        return this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return user
+     **/
+    @Valid
+    public RestPullRequestAssignParticipantRoleRequestUser getUser() {
+        return user;
+    }
+
+    public void setUser(RestPullRequestAssignParticipantRoleRequestUser user) {
+        this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestPullRequestAssignParticipantRoleRequest)) {
+            return false;
+        }
+        RestPullRequestAssignParticipantRoleRequest other = (RestPullRequestAssignParticipantRoleRequest) o;
+        return Objects.equals(this.role, other.role) &&
+                Objects.equals(this.user, other.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role, user);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestPullRequestAssignParticipantRoleRequest {");
+        sb.append("\n    role: ").append(toIndentedString(role));
+        sb.append("\n    user: ").append(toIndentedString(user));
+        sb.append("\n}");
+        return sb.toString();
     }
 
-    public static class RoleEnumAdapter implements JsonbAdapter<RoleEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(RoleEnum e) throws Exception {
-        return Json.createValue(String.valueOf(e.value));
-      }
-
-      @Override
-      public RoleEnum adaptFromJson(JsonString value) throws Exception {
-        for (RoleEnum b : RoleEnum.values()) {
-          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-            return b;
-          }
-        }
-        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type RoleEnum");
-      }
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_ROLE = "role";
-  @JsonbProperty(JSON_PROPERTY_ROLE)
-  @JsonbTypeAdapter(mada.tests.e2e.examples.bitbucket.dto.RestPullRequestAssignParticipantRoleRequest.RoleEnum.RoleEnumAdapter.class)
-  private RoleEnum role;
-
-  public static final String JSON_PROPERTY_USER = "user";
-  @JsonbProperty(JSON_PROPERTY_USER)
-  private RestPullRequestAssignParticipantRoleRequestUser user;
-
-  public RestPullRequestAssignParticipantRoleRequest role(RoleEnum role) {
-    this.role = role;
-    return this;
-  }
-
-  /**
-   * Get role
-   * @return role
-   **/
-  public RoleEnum getRole() {
-    return role;
-  }
-
-  public void setRole(RoleEnum role) {
-    this.role = role;
-  }
-
-  public RestPullRequestAssignParticipantRoleRequest user(RestPullRequestAssignParticipantRoleRequestUser user) {
-    this.user = user;
-    return this;
-  }
-
-  /**
-   * Get user
-   * @return user
-   **/
-  @Valid
-  public RestPullRequestAssignParticipantRoleRequestUser getUser() {
-    return user;
-  }
-
-  public void setUser(RestPullRequestAssignParticipantRoleRequestUser user) {
-    this.user = user;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof RestPullRequestAssignParticipantRoleRequest)) {
-      return false;
-    }
-    RestPullRequestAssignParticipantRoleRequest other = (RestPullRequestAssignParticipantRoleRequest) o;
-    return Objects.equals(this.role, other.role) &&
-        Objects.equals(this.user, other.user);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(role, user);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestPullRequestAssignParticipantRoleRequest {");
-    sb.append("\n    role: ").append(toIndentedString(role));
-    sb.append("\n    user: ").append(toIndentedString(user));
-    sb.append("\n}");
-    return sb.toString();
-  }
-
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
 }

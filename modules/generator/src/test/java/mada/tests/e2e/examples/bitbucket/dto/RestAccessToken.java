@@ -25,102 +25,105 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestAccessToken {
-  public static final String JSON_PROPERTY_CREATED_DATE = "createdDate";
-  @JsonbProperty(JSON_PROPERTY_CREATED_DATE)
-  private OffsetDateTime createdDate;
+    public static final String JSON_PROPERTY_CREATED_DATE = "createdDate";
+    @JsonbProperty(JSON_PROPERTY_CREATED_DATE)
+    private OffsetDateTime createdDate;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  @Schema(example = "252973515069")
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    @Schema(example = "252973515069")
+    private String id;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(example = "My access token")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(example = "My access token")
+    private String name;
 
-  public RestAccessToken createdDate(OffsetDateTime createdDate) {
-    this.createdDate = createdDate;
-    return this;
-  }
-
-  /**
-   * Get createdDate
-   * @return createdDate
-   **/
-  public OffsetDateTime getCreatedDate() {
-    return createdDate;
-  }
-
-  public void setCreatedDate(OffsetDateTime createdDate) {
-    this.createdDate = createdDate;
-  }
-
-  public RestAccessToken id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public RestAccessToken name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestAccessToken createdDate(OffsetDateTime createdDate) {
+        this.createdDate = createdDate;
+        return this;
     }
-    if (!(o instanceof RestAccessToken)) {
-      return false;
+
+    /**
+     * Get createdDate
+     *
+     * @return createdDate
+     **/
+    public OffsetDateTime getCreatedDate() {
+        return createdDate;
     }
-    RestAccessToken other = (RestAccessToken) o;
-    return Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(createdDate, id, name);
-  }
+    public void setCreatedDate(OffsetDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestAccessToken {");
-    sb.append("\n    createdDate: ").append(toIndentedString(createdDate));
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestAccessToken id(String id) {
+        this.id = id;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public RestAccessToken name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestAccessToken)) {
+            return false;
+        }
+        RestAccessToken other = (RestAccessToken) o;
+        return Objects.equals(this.createdDate, other.createdDate) &&
+                Objects.equals(this.id, other.id) &&
+                Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(createdDate, id, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestAccessToken {");
+        sb.append("\n    createdDate: ").append(toIndentedString(createdDate));
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

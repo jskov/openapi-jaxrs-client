@@ -24,55 +24,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestMarkup {
-  public static final String JSON_PROPERTY_HTML = "html";
-  @JsonbProperty(JSON_PROPERTY_HTML)
-  @Schema(example = "<h1>Hello World!</h1>")
-  private String html;
+    public static final String JSON_PROPERTY_HTML = "html";
+    @JsonbProperty(JSON_PROPERTY_HTML)
+    @Schema(example = "<h1>Hello World!</h1>")
+    private String html;
 
-  public RestMarkup html(String html) {
-    this.html = html;
-    return this;
-  }
-
-  /**
-   * Get html
-   * @return html
-   **/
-  public String getHtml() {
-    return html;
-  }
-
-  public void setHtml(String html) {
-    this.html = html;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestMarkup html(String html) {
+        this.html = html;
+        return this;
     }
-    if (!(o instanceof RestMarkup)) {
-      return false;
+
+    /**
+     * Get html
+     *
+     * @return html
+     **/
+    public String getHtml() {
+        return html;
     }
-    RestMarkup other = (RestMarkup) o;
-    return Objects.equals(this.html, other.html);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(html);
-  }
+    public void setHtml(String html) {
+        this.html = html;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestMarkup {");
-    sb.append("\n    html: ").append(toIndentedString(html));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestMarkup)) {
+            return false;
+        }
+        RestMarkup other = (RestMarkup) o;
+        return Objects.equals(this.html, other.html);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(html);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestMarkup {");
+        sb.append("\n    html: ").append(toIndentedString(html));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

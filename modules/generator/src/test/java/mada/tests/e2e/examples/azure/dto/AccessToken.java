@@ -16,56 +16,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class AccessToken {
-  public static final String JSON_PROPERTY_ACCESS_TOKEN = "access_token";
-  @JsonbProperty(JSON_PROPERTY_ACCESS_TOKEN)
-  @Schema(description = "The access token for performing authenticated requests")
-  private String accessToken;
+    public static final String JSON_PROPERTY_ACCESS_TOKEN = "access_token";
+    @JsonbProperty(JSON_PROPERTY_ACCESS_TOKEN)
+    @Schema(description = "The access token for performing authenticated requests")
+    private String accessToken;
 
-  public AccessToken accessToken(String accessToken) {
-    this.accessToken = accessToken;
-    return this;
-  }
-
-  /**
-   * The access token for performing authenticated requests.
-   *
-   * @return accessToken
-   **/
-  public String getAccessToken() {
-    return accessToken;
-  }
-
-  public void setAccessToken(String accessToken) {
-    this.accessToken = accessToken;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AccessToken accessToken(String accessToken) {
+        this.accessToken = accessToken;
+        return this;
     }
-    if (!(o instanceof AccessToken)) {
-      return false;
+
+    /**
+     * The access token for performing authenticated requests.
+     * 
+     * @return accessToken
+     **/
+    public String getAccessToken() {
+        return accessToken;
     }
-    AccessToken other = (AccessToken) o;
-    return Objects.equals(this.accessToken, other.accessToken);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(accessToken);
-  }
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AccessToken {");
-    sb.append("\n    accessToken: ").append(toIndentedString(accessToken));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AccessToken)) {
+            return false;
+        }
+        AccessToken other = (AccessToken) o;
+        return Objects.equals(this.accessToken, other.accessToken);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(accessToken);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AccessToken {");
+        sb.append("\n    accessToken: ").append(toIndentedString(accessToken));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -82,5 +82,6 @@ public interface Params_QueryApi {
     @Path("/mixed")
     @Produces(MediaType.TEXT_PLAIN)
     @APIResponseSchema(String.class)
-    String apiParamsQueryMixedGet(@QueryParam("flag") boolean flag, @QueryParam("item") List<String> item, @QueryParam("name") String name);
+    String apiParamsQueryMixedGet(@QueryParam("flag") boolean flag, @QueryParam("item") List<String> item,
+            @QueryParam("name") String name);
 }

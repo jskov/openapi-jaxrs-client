@@ -16,56 +16,57 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SubB extends Super implements SubASubB {
-  public static final String JSON_PROPERTY_FOO = "foo";
-  @JsonProperty(JSON_PROPERTY_FOO)
-  private Integer foo;
+    public static final String JSON_PROPERTY_FOO = "foo";
+    @JsonProperty(JSON_PROPERTY_FOO)
+    private Integer foo;
 
-  public SubB foo(Integer foo) {
-    this.foo = foo;
-    return this;
-  }
-
-  /**
-   * Get foo
-   * @return foo
-   **/
-  public Integer getFoo() {
-    return foo;
-  }
-
-  public void setFoo(Integer foo) {
-    this.foo = foo;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public SubB foo(Integer foo) {
+        this.foo = foo;
+        return this;
     }
-    if (!(o instanceof SubB)) {
-      return false;
+
+    /**
+     * Get foo
+     *
+     * @return foo
+     **/
+    public Integer getFoo() {
+        return foo;
     }
-    SubB other = (SubB) o;
-    return Objects.equals(this.foo, other.foo) &&
-        super.equals(o);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(foo, super.hashCode());
-  }
+    public void setFoo(Integer foo) {
+        this.foo = foo;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SubB {");
-    sb.append("\n    ").append(toIndentedString(super.toString()));
-    sb.append("\n    foo: ").append(toIndentedString(foo));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SubB)) {
+            return false;
+        }
+        SubB other = (SubB) o;
+        return Objects.equals(this.foo, other.foo) &&
+                super.equals(o);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(foo, super.hashCode());
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SubB {");
+        sb.append("\n    ").append(toIndentedString(super.toString()));
+        sb.append("\n    foo: ").append(toIndentedString(foo));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

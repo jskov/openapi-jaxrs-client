@@ -26,63 +26,64 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _ResponseApiLatestAdminGitMeshNodesId_404 {
-  public static final String JSON_PROPERTY_ERRORS = "errors";
-  @JsonbProperty(JSON_PROPERTY_ERRORS)
-  private List<RestErrorMessage> errors;
+    public static final String JSON_PROPERTY_ERRORS = "errors";
+    @JsonbProperty(JSON_PROPERTY_ERRORS)
+    private List<RestErrorMessage> errors;
 
-  public _ResponseApiLatestAdminGitMeshNodesId_404 errors(List<RestErrorMessage> errors) {
-    this.errors = errors;
-    return this;
-  }
-
-  public _ResponseApiLatestAdminGitMeshNodesId_404 addErrorsItem(RestErrorMessage errorsItem) {
-    if (this.errors == null) {
-      this.errors = new ArrayList<>();
+    public _ResponseApiLatestAdminGitMeshNodesId_404 errors(List<RestErrorMessage> errors) {
+        this.errors = errors;
+        return this;
     }
-    this.errors.add(errorsItem);
-    return this;
-  }
 
-  /**
-   * Get errors
-   * @return errors
-   **/
-  @Valid
-  public List<RestErrorMessage> getErrors() {
-    return errors;
-  }
-
-  public void setErrors(List<RestErrorMessage> errors) {
-    this.errors = errors;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public _ResponseApiLatestAdminGitMeshNodesId_404 addErrorsItem(RestErrorMessage errorsItem) {
+        if (this.errors == null) {
+            this.errors = new ArrayList<>();
+        }
+        this.errors.add(errorsItem);
+        return this;
     }
-    if (!(o instanceof _ResponseApiLatestAdminGitMeshNodesId_404)) {
-      return false;
+
+    /**
+     * Get errors
+     *
+     * @return errors
+     **/
+    @Valid
+    public List<RestErrorMessage> getErrors() {
+        return errors;
     }
-    _ResponseApiLatestAdminGitMeshNodesId_404 other = (_ResponseApiLatestAdminGitMeshNodesId_404) o;
-    return Objects.equals(this.errors, other.errors);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(errors);
-  }
+    public void setErrors(List<RestErrorMessage> errors) {
+        this.errors = errors;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class _ResponseApiLatestAdminGitMeshNodesId_404 {");
-    sb.append("\n    errors: ").append(toIndentedString(errors));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof _ResponseApiLatestAdminGitMeshNodesId_404)) {
+            return false;
+        }
+        _ResponseApiLatestAdminGitMeshNodesId_404 other = (_ResponseApiLatestAdminGitMeshNodesId_404) o;
+        return Objects.equals(this.errors, other.errors);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class _ResponseApiLatestAdminGitMeshNodesId_404 {");
+        sb.append("\n    errors: ").append(toIndentedString(errors));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

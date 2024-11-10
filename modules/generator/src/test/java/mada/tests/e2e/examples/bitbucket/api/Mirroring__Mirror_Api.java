@@ -73,11 +73,11 @@ public interface Mirroring__Mirror_Api {
     /**
      * Get items in ref changes queue.
      *
-     * Retrieves a list of up to <code>plugin.mirroring.farm.max.ref.change.queue.dump.size</code> items currently in the
-     * ref changes queue. The ref changes queue is an internal component of every mirror farm, and is shared between all
-     * nodes. When the contents of an upstream repository changes, an item is added to this queue so that the mirror farm
-     * nodes know to synchronize. The mirror farm constantly polls and removes items from this queue for processing, so it
-     * is empty most of the time.
+     * Retrieves a list of up to <code>plugin.mirroring.farm.max.ref.change.queue.dump.size</code> items currently in
+     * the ref changes queue. The ref changes queue is an internal component of every mirror farm, and is shared between
+     * all nodes. When the contents of an upstream repository changes, an item is added to this queue so that the mirror
+     * farm nodes know to synchronize. The mirror farm constantly polls and removes items from this queue for
+     * processing, so it is empty most of the time.
      *
      * @return RestRefSyncQueue
      */
@@ -118,8 +118,7 @@ public interface Mirroring__Mirror_Api {
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponseSchema(_ResponseMirroringLatestSupportInfoRepoSyncStatus.class)
     @Operation(summary = "Get sync status of repositories")
-    _ResponseMirroringLatestSupportInfoRepoSyncStatus getRepoSyncStatus(@QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseMirroringLatestSupportInfoRepoSyncStatus getRepoSyncStatus(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get upstream servers.
@@ -135,8 +134,7 @@ public interface Mirroring__Mirror_Api {
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponseSchema(_ResponseMirroringLatestUpstreamServers.class)
     @Operation(summary = "Get upstream servers")
-    _ResponseMirroringLatestUpstreamServers listUpstreamServers(@QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseMirroringLatestUpstreamServers listUpstreamServers(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get upstream server by ID.
@@ -193,25 +191,11 @@ public interface Mirroring__Mirror_Api {
      * Get synchronization progress state.
      *
      * Retrieves synchronization progress state for the specified upstream server.If there's no progress to report, this
-     * resource will return
-     * 
-     * <pre>
-     * <code> {"discovering":false,"syncedRepos":0,"totalRepos":0}</code>
-     * </pre>
-     * 
-     * If there are repositories in the process of synchronizing, but the precise number hasn't been discovered yet, this
-     * resource will return:
-     * 
-     * <pre>
-     * <code> {"discovering":true,"syncedRepos":3,"totalRepos":100}</code>
-     * </pre>
-     * 
-     * If there is progress to report and the total number of repositories is known, this resource will return:
-     * 
-     * <pre>
-     *  <code>
-     * {"discovering":false,"syncedRepos":242,"totalRepos":1071}</code>
-     * </pre>
+     * resource will return <pre><code> {"discovering":false,"syncedRepos":0,"totalRepos":0}</code></pre> If there are
+     * repositories in the process of synchronizing, but the precise number hasn't been discovered yet, this resource
+     * will return: <pre><code> {"discovering":true,"syncedRepos":3,"totalRepos":100}</code></pre> If there is progress
+     * to report and the total number of repositories is known, this resource will return: <pre> <code>
+     * {"discovering":false,"syncedRepos":242,"totalRepos":1071}</code> </pre>
      *
      * @param upstreamId the upstream server ID to retrieve settings for (not null)
      * @return RestSyncProgress
@@ -256,12 +240,10 @@ public interface Mirroring__Mirror_Api {
                     responseCode = "404",
                     description = "The upstream server or the repository could not be found.",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdReposUpstreamRepoId_404.class)))
+                            schema = @Schema(implementation = _ResponseMirroringLatestUpstreamServersUpstreamIdReposUpstreamRepoId_404.class)))
     })
     @Operation(summary = "Get clone URLs")
-    RestMirroredRepository getMirroredRepository(@PathParam("upstreamRepoId") @NotNull String upstreamRepoId,
-            @PathParam("upstreamId") @NotNull String upstreamId);
+    RestMirroredRepository getMirroredRepository(@PathParam("upstreamRepoId") @NotNull String upstreamRepoId, @PathParam("upstreamId") @NotNull String upstreamId);
 
     /**
      * Get upstream settings.

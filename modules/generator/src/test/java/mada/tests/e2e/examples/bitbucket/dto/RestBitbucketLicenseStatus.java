@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestBitbucketLicenseStatus {
-  public static final String JSON_PROPERTY_CURRENT_NUMBER_OF_USERS = "currentNumberOfUsers";
-  @JsonbProperty(JSON_PROPERTY_CURRENT_NUMBER_OF_USERS)
-  @Schema(example = "2")
-  private Integer currentNumberOfUsers;
+    public static final String JSON_PROPERTY_CURRENT_NUMBER_OF_USERS = "currentNumberOfUsers";
+    @JsonbProperty(JSON_PROPERTY_CURRENT_NUMBER_OF_USERS)
+    @Schema(example = "2")
+    private Integer currentNumberOfUsers;
 
-  public static final String JSON_PROPERTY_SERVER_ID = "serverId";
-  @JsonbProperty(JSON_PROPERTY_SERVER_ID)
-  @Schema(example = "<actual server ID>")
-  private String serverId;
+    public static final String JSON_PROPERTY_SERVER_ID = "serverId";
+    @JsonbProperty(JSON_PROPERTY_SERVER_ID)
+    @Schema(example = "<actual server ID>")
+    private String serverId;
 
-  public RestBitbucketLicenseStatus currentNumberOfUsers(Integer currentNumberOfUsers) {
-    this.currentNumberOfUsers = currentNumberOfUsers;
-    return this;
-  }
-
-  /**
-   * Get currentNumberOfUsers
-   * @return currentNumberOfUsers
-   **/
-  public Integer getCurrentNumberOfUsers() {
-    return currentNumberOfUsers;
-  }
-
-  public void setCurrentNumberOfUsers(Integer currentNumberOfUsers) {
-    this.currentNumberOfUsers = currentNumberOfUsers;
-  }
-
-  public RestBitbucketLicenseStatus serverId(String serverId) {
-    this.serverId = serverId;
-    return this;
-  }
-
-  /**
-   * Get serverId
-   * @return serverId
-   **/
-  public String getServerId() {
-    return serverId;
-  }
-
-  public void setServerId(String serverId) {
-    this.serverId = serverId;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestBitbucketLicenseStatus currentNumberOfUsers(Integer currentNumberOfUsers) {
+        this.currentNumberOfUsers = currentNumberOfUsers;
+        return this;
     }
-    if (!(o instanceof RestBitbucketLicenseStatus)) {
-      return false;
+
+    /**
+     * Get currentNumberOfUsers
+     *
+     * @return currentNumberOfUsers
+     **/
+    public Integer getCurrentNumberOfUsers() {
+        return currentNumberOfUsers;
     }
-    RestBitbucketLicenseStatus other = (RestBitbucketLicenseStatus) o;
-    return Objects.equals(this.currentNumberOfUsers, other.currentNumberOfUsers) &&
-        Objects.equals(this.serverId, other.serverId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(currentNumberOfUsers, serverId);
-  }
+    public void setCurrentNumberOfUsers(Integer currentNumberOfUsers) {
+        this.currentNumberOfUsers = currentNumberOfUsers;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestBitbucketLicenseStatus {");
-    sb.append("\n    currentNumberOfUsers: ").append(toIndentedString(currentNumberOfUsers));
-    sb.append("\n    serverId: ").append(toIndentedString(serverId));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestBitbucketLicenseStatus serverId(String serverId) {
+        this.serverId = serverId;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get serverId
+     *
+     * @return serverId
+     **/
+    public String getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(String serverId) {
+        this.serverId = serverId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestBitbucketLicenseStatus)) {
+            return false;
+        }
+        RestBitbucketLicenseStatus other = (RestBitbucketLicenseStatus) o;
+        return Objects.equals(this.currentNumberOfUsers, other.currentNumberOfUsers) &&
+                Objects.equals(this.serverId, other.serverId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentNumberOfUsers, serverId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestBitbucketLicenseStatus {");
+        sb.append("\n    currentNumberOfUsers: ").append(toIndentedString(currentNumberOfUsers));
+        sb.append("\n    serverId: ").append(toIndentedString(serverId));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

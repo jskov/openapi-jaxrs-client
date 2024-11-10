@@ -24,55 +24,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestAutoMergeSettingsRequest {
-  public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @JsonbProperty(JSON_PROPERTY_ENABLED)
-  @Schema(example = "false")
-  private Boolean enabled;
+    public static final String JSON_PROPERTY_ENABLED = "enabled";
+    @JsonbProperty(JSON_PROPERTY_ENABLED)
+    @Schema(example = "false")
+    private Boolean enabled;
 
-  public RestAutoMergeSettingsRequest enabled(Boolean enabled) {
-    this.enabled = enabled;
-    return this;
-  }
-
-  /**
-   * Get enabled
-   * @return enabled
-   **/
-  public Boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestAutoMergeSettingsRequest enabled(Boolean enabled) {
+        this.enabled = enabled;
+        return this;
     }
-    if (!(o instanceof RestAutoMergeSettingsRequest)) {
-      return false;
+
+    /**
+     * Get enabled
+     *
+     * @return enabled
+     **/
+    public Boolean isEnabled() {
+        return enabled;
     }
-    RestAutoMergeSettingsRequest other = (RestAutoMergeSettingsRequest) o;
-    return Objects.equals(this.enabled, other.enabled);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(enabled);
-  }
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestAutoMergeSettingsRequest {");
-    sb.append("\n    enabled: ").append(toIndentedString(enabled));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestAutoMergeSettingsRequest)) {
+            return false;
+        }
+        RestAutoMergeSettingsRequest other = (RestAutoMergeSettingsRequest) o;
+        return Objects.equals(this.enabled, other.enabled);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(enabled);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestAutoMergeSettingsRequest {");
+        sb.append("\n    enabled: ").append(toIndentedString(enabled));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

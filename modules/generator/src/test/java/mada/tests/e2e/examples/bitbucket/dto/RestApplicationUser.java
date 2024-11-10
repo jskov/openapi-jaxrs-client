@@ -28,281 +28,290 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestApplicationUser {
-  public static final String JSON_PROPERTY_ACTIVE = "active";
-  @JsonbProperty(JSON_PROPERTY_ACTIVE)
-  private Boolean active;
+    public static final String JSON_PROPERTY_ACTIVE = "active";
+    @JsonbProperty(JSON_PROPERTY_ACTIVE)
+    private Boolean active;
 
-  public static final String JSON_PROPERTY_AVATAR_URL = "avatarUrl";
-  @JsonbProperty(JSON_PROPERTY_AVATAR_URL)
-  private String avatarUrl;
+    public static final String JSON_PROPERTY_AVATAR_URL = "avatarUrl";
+    @JsonbProperty(JSON_PROPERTY_AVATAR_URL)
+    private String avatarUrl;
 
-  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @Schema(example = "Jane Citizen")
-  private String displayName;
+    public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
+    @JsonbProperty(JSON_PROPERTY_DISPLAY_NAME)
+    @Schema(example = "Jane Citizen")
+    private String displayName;
 
-  public static final String JSON_PROPERTY_EMAIL_ADDRESS = "emailAddress";
-  @JsonbProperty(JSON_PROPERTY_EMAIL_ADDRESS)
-  @Schema(example = "jane@example.com")
-  private String emailAddress;
+    public static final String JSON_PROPERTY_EMAIL_ADDRESS = "emailAddress";
+    @JsonbProperty(JSON_PROPERTY_EMAIL_ADDRESS)
+    @Schema(example = "jane@example.com")
+    private String emailAddress;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  @Schema(readOnly = true, example = "101")
-  private Integer id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    @Schema(readOnly = true, example = "101")
+    private Integer id;
 
-  public static final String JSON_PROPERTY_LINKS = "links";
-  @JsonbProperty(JSON_PROPERTY_LINKS)
-  private Object links;
+    public static final String JSON_PROPERTY_LINKS = "links";
+    @JsonbProperty(JSON_PROPERTY_LINKS)
+    private Object links;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(example = "jcitizen")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(example = "jcitizen")
+    private String name;
 
-  public static final String JSON_PROPERTY_SLUG = "slug";
-  @JsonbProperty(JSON_PROPERTY_SLUG)
-  @Schema(example = "jcitizen")
-  private String slug;
+    public static final String JSON_PROPERTY_SLUG = "slug";
+    @JsonbProperty(JSON_PROPERTY_SLUG)
+    @Schema(example = "jcitizen")
+    private String slug;
 
-  public enum TypeEnum {
-    NORMAL("NORMAL"),
-    SERVICE("SERVICE");
+    public enum TypeEnum {
+        NORMAL("NORMAL"),
+        SERVICE("SERVICE");
 
-    private final String value;
+        private final String value;
 
-    TypeEnum(String value) {
-      this.value = value;
+        TypeEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
+            @Override
+            public JsonString adaptToJson(TypeEnum e) throws Exception {
+                return Json.createValue(String.valueOf(e.value));
+            }
+
+            @Override
+            public TypeEnum adaptFromJson(JsonString value) throws Exception {
+                for (TypeEnum b : TypeEnum.values()) {
+                    if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                        return b;
+                    }
+                }
+                throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
+            }
+        }
     }
 
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @JsonbProperty(JSON_PROPERTY_TYPE)
+    @JsonbTypeAdapter(mada.tests.e2e.examples.bitbucket.dto.RestApplicationUser.TypeEnum.TypeEnumAdapter.class)
+    private TypeEnum type;
+
+    public RestApplicationUser active(Boolean active) {
+        this.active = active;
+        return this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return active
+     **/
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public RestApplicationUser avatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+        return this;
+    }
+
+    /**
+     * Get avatarUrl
+     *
+     * @return avatarUrl
+     **/
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public RestApplicationUser displayName(String displayName) {
+        this.displayName = displayName;
+        return this;
+    }
+
+    /**
+     * Get displayName
+     *
+     * @return displayName
+     **/
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public RestApplicationUser emailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+        return this;
+    }
+
+    /**
+     * Get emailAddress
+     *
+     * @return emailAddress
+     **/
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public RestApplicationUser id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public RestApplicationUser links(Object links) {
+        this.links = links;
+        return this;
+    }
+
+    /**
+     * Get links
+     *
+     * @return links
+     **/
+    public Object getLinks() {
+        return links;
+    }
+
+    public void setLinks(Object links) {
+        this.links = links;
+    }
+
+    public RestApplicationUser name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public RestApplicationUser slug(String slug) {
+        this.slug = slug;
+        return this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return slug
+     **/
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public RestApplicationUser type(TypeEnum type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     **/
+    public TypeEnum getType() {
+        return type;
+    }
+
+    public void setType(TypeEnum type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestApplicationUser)) {
+            return false;
+        }
+        RestApplicationUser other = (RestApplicationUser) o;
+        return Objects.equals(this.active, other.active) &&
+                Objects.equals(this.avatarUrl, other.avatarUrl) &&
+                Objects.equals(this.displayName, other.displayName) &&
+                Objects.equals(this.emailAddress, other.emailAddress) &&
+                Objects.equals(this.id, other.id) &&
+                Objects.equals(this.links, other.links) &&
+                Objects.equals(this.name, other.name) &&
+                Objects.equals(this.slug, other.slug) &&
+                Objects.equals(this.type, other.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(active, avatarUrl, displayName, emailAddress, id, links, name, slug, type);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestApplicationUser {");
+        sb.append("\n    active: ").append(toIndentedString(active));
+        sb.append("\n    avatarUrl: ").append(toIndentedString(avatarUrl));
+        sb.append("\n    displayName: ").append(toIndentedString(displayName));
+        sb.append("\n    emailAddress: ").append(toIndentedString(emailAddress));
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n    links: ").append(toIndentedString(links));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n    slug: ").append(toIndentedString(slug));
+        sb.append("\n    type: ").append(toIndentedString(type));
+        sb.append("\n}");
+        return sb.toString();
     }
 
-    public static class TypeEnumAdapter implements JsonbAdapter<TypeEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(TypeEnum e) throws Exception {
-        return Json.createValue(String.valueOf(e.value));
-      }
-
-      @Override
-      public TypeEnum adaptFromJson(JsonString value) throws Exception {
-        for (TypeEnum b : TypeEnum.values()) {
-          if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-            return b;
-          }
-        }
-        throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type TypeEnum");
-      }
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
     }
-  }
-
-  public static final String JSON_PROPERTY_TYPE = "type";
-  @JsonbProperty(JSON_PROPERTY_TYPE)
-  @JsonbTypeAdapter(mada.tests.e2e.examples.bitbucket.dto.RestApplicationUser.TypeEnum.TypeEnumAdapter.class)
-  private TypeEnum type;
-
-  public RestApplicationUser active(Boolean active) {
-    this.active = active;
-    return this;
-  }
-
-  /**
-   * Get active
-   * @return active
-   **/
-  public Boolean isActive() {
-    return active;
-  }
-
-  public void setActive(Boolean active) {
-    this.active = active;
-  }
-
-  public RestApplicationUser avatarUrl(String avatarUrl) {
-    this.avatarUrl = avatarUrl;
-    return this;
-  }
-
-  /**
-   * Get avatarUrl
-   * @return avatarUrl
-   **/
-  public String getAvatarUrl() {
-    return avatarUrl;
-  }
-
-  public void setAvatarUrl(String avatarUrl) {
-    this.avatarUrl = avatarUrl;
-  }
-
-  public RestApplicationUser displayName(String displayName) {
-    this.displayName = displayName;
-    return this;
-  }
-
-  /**
-   * Get displayName
-   * @return displayName
-   **/
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  public void setDisplayName(String displayName) {
-    this.displayName = displayName;
-  }
-
-  public RestApplicationUser emailAddress(String emailAddress) {
-    this.emailAddress = emailAddress;
-    return this;
-  }
-
-  /**
-   * Get emailAddress
-   * @return emailAddress
-   **/
-  public String getEmailAddress() {
-    return emailAddress;
-  }
-
-  public void setEmailAddress(String emailAddress) {
-    this.emailAddress = emailAddress;
-  }
-
-  public RestApplicationUser id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public RestApplicationUser links(Object links) {
-    this.links = links;
-    return this;
-  }
-
-  /**
-   * Get links
-   * @return links
-   **/
-  public Object getLinks() {
-    return links;
-  }
-
-  public void setLinks(Object links) {
-    this.links = links;
-  }
-
-  public RestApplicationUser name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public RestApplicationUser slug(String slug) {
-    this.slug = slug;
-    return this;
-  }
-
-  /**
-   * Get slug
-   * @return slug
-   **/
-  public String getSlug() {
-    return slug;
-  }
-
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
-  public RestApplicationUser type(TypeEnum type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Get type
-   * @return type
-   **/
-  public TypeEnum getType() {
-    return type;
-  }
-
-  public void setType(TypeEnum type) {
-    this.type = type;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof RestApplicationUser)) {
-      return false;
-    }
-    RestApplicationUser other = (RestApplicationUser) o;
-    return Objects.equals(this.active, other.active) &&
-        Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.slug, other.slug) &&
-        Objects.equals(this.type, other.type);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(active, avatarUrl, displayName, emailAddress, id, links, name, slug, type);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestApplicationUser {");
-    sb.append("\n    active: ").append(toIndentedString(active));
-    sb.append("\n    avatarUrl: ").append(toIndentedString(avatarUrl));
-    sb.append("\n    displayName: ").append(toIndentedString(displayName));
-    sb.append("\n    emailAddress: ").append(toIndentedString(emailAddress));
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n    links: ").append(toIndentedString(links));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n    slug: ").append(toIndentedString(slug));
-    sb.append("\n    type: ").append(toIndentedString(type));
-    sb.append("\n}");
-    return sb.toString();
-  }
-
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
 }

@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestJobProgress {
-  public static final String JSON_PROPERTY_MESSAGE = "message";
-  @JsonbProperty(JSON_PROPERTY_MESSAGE)
-  @Schema(example = "Working on it...")
-  private String message;
+    public static final String JSON_PROPERTY_MESSAGE = "message";
+    @JsonbProperty(JSON_PROPERTY_MESSAGE)
+    @Schema(example = "Working on it...")
+    private String message;
 
-  public static final String JSON_PROPERTY_PERCENTAGE = "percentage";
-  @JsonbProperty(JSON_PROPERTY_PERCENTAGE)
-  @Schema(example = "42")
-  private Integer percentage;
+    public static final String JSON_PROPERTY_PERCENTAGE = "percentage";
+    @JsonbProperty(JSON_PROPERTY_PERCENTAGE)
+    @Schema(example = "42")
+    private Integer percentage;
 
-  public RestJobProgress message(String message) {
-    this.message = message;
-    return this;
-  }
-
-  /**
-   * Get message
-   * @return message
-   **/
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public RestJobProgress percentage(Integer percentage) {
-    this.percentage = percentage;
-    return this;
-  }
-
-  /**
-   * Get percentage
-   * @return percentage
-   **/
-  public Integer getPercentage() {
-    return percentage;
-  }
-
-  public void setPercentage(Integer percentage) {
-    this.percentage = percentage;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestJobProgress message(String message) {
+        this.message = message;
+        return this;
     }
-    if (!(o instanceof RestJobProgress)) {
-      return false;
+
+    /**
+     * Get message
+     *
+     * @return message
+     **/
+    public String getMessage() {
+        return message;
     }
-    RestJobProgress other = (RestJobProgress) o;
-    return Objects.equals(this.message, other.message) &&
-        Objects.equals(this.percentage, other.percentage);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(message, percentage);
-  }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestJobProgress {");
-    sb.append("\n    message: ").append(toIndentedString(message));
-    sb.append("\n    percentage: ").append(toIndentedString(percentage));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestJobProgress percentage(Integer percentage) {
+        this.percentage = percentage;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get percentage
+     *
+     * @return percentage
+     **/
+    public Integer getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(Integer percentage) {
+        this.percentage = percentage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestJobProgress)) {
+            return false;
+        }
+        RestJobProgress other = (RestJobProgress) o;
+        return Objects.equals(this.message, other.message) &&
+                Objects.equals(this.percentage, other.percentage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message, percentage);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestJobProgress {");
+        sb.append("\n    message: ").append(toIndentedString(message));
+        sb.append("\n    percentage: ").append(toIndentedString(percentage));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

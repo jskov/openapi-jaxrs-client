@@ -25,62 +25,63 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestBuildCapabilities {
-  public static final String JSON_PROPERTY_BUILD_STATUS = "buildStatus";
-  @JsonbProperty(JSON_PROPERTY_BUILD_STATUS)
-  private List<String> buildStatus;
+    public static final String JSON_PROPERTY_BUILD_STATUS = "buildStatus";
+    @JsonbProperty(JSON_PROPERTY_BUILD_STATUS)
+    private List<String> buildStatus;
 
-  public RestBuildCapabilities buildStatus(List<String> buildStatus) {
-    this.buildStatus = buildStatus;
-    return this;
-  }
-
-  public RestBuildCapabilities addBuildStatusItem(String buildStatusItem) {
-    if (this.buildStatus == null) {
-      this.buildStatus = new ArrayList<>();
+    public RestBuildCapabilities buildStatus(List<String> buildStatus) {
+        this.buildStatus = buildStatus;
+        return this;
     }
-    this.buildStatus.add(buildStatusItem);
-    return this;
-  }
 
-  /**
-   * Get buildStatus
-   * @return buildStatus
-   **/
-  public List<String> getBuildStatus() {
-    return buildStatus;
-  }
-
-  public void setBuildStatus(List<String> buildStatus) {
-    this.buildStatus = buildStatus;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestBuildCapabilities addBuildStatusItem(String buildStatusItem) {
+        if (this.buildStatus == null) {
+            this.buildStatus = new ArrayList<>();
+        }
+        this.buildStatus.add(buildStatusItem);
+        return this;
     }
-    if (!(o instanceof RestBuildCapabilities)) {
-      return false;
+
+    /**
+     * Get buildStatus
+     *
+     * @return buildStatus
+     **/
+    public List<String> getBuildStatus() {
+        return buildStatus;
     }
-    RestBuildCapabilities other = (RestBuildCapabilities) o;
-    return Objects.equals(this.buildStatus, other.buildStatus);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(buildStatus);
-  }
+    public void setBuildStatus(List<String> buildStatus) {
+        this.buildStatus = buildStatus;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestBuildCapabilities {");
-    sb.append("\n    buildStatus: ").append(toIndentedString(buildStatus));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestBuildCapabilities)) {
+            return false;
+        }
+        RestBuildCapabilities other = (RestBuildCapabilities) o;
+        return Objects.equals(this.buildStatus, other.buildStatus);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(buildStatus);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestBuildCapabilities {");
+        sb.append("\n    buildStatus: ").append(toIndentedString(buildStatus));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

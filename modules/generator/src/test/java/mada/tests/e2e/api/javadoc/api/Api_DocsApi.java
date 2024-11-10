@@ -53,7 +53,8 @@ public interface Api_DocsApi {
     String apiDocsDeprecatedGet();
 
     /**
-     * Javadoc start. But multiple lines of text. Last line.
+     * Javadoc start. But multiple lines of text.
+     * Last line.
      *
      * @return String
      */
@@ -87,8 +88,7 @@ public interface Api_DocsApi {
             @APIResponse(
                     responseCode = "401",
                     description = "Unauthorized Error",
-                    content = @Content(
-                            schema = @Schema(implementation = String.class),
+                    content = @Content(schema = @Schema(implementation = String.class),
                             mediaType = MediaType.TEXT_PLAIN)),
             @APIResponse(
                     responseCode = "409",

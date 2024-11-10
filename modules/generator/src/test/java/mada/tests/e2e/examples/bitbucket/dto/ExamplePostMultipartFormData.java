@@ -24,131 +24,132 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExamplePostMultipartFormData {
-  public static final String JSON_PROPERTY_CONTENT = "content";
-  @JsonbProperty(JSON_PROPERTY_CONTENT)
-  @Schema(description = "The hook script contents.")
-  private String content;
+    public static final String JSON_PROPERTY_CONTENT = "content";
+    @JsonbProperty(JSON_PROPERTY_CONTENT)
+    @Schema(description = "The hook script contents.")
+    private String content;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
-  @Schema(description = "A description of the hook script (useful when querying registered hook scripts).")
-  private String description;
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
+    @Schema(description = "A description of the hook script (useful when querying registered hook scripts).")
+    private String description;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(description = "The name of the hook script (useful when querying registered hook scripts).")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(description = "The name of the hook script (useful when querying registered hook scripts).")
+    private String name;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  @JsonbProperty(JSON_PROPERTY_TYPE)
-  @Schema(description = "The type of hook script; supported values are \"PRE\" for pre-receive hooks and \"POST\" for post-receive hooks.")
-  private String type;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @JsonbProperty(JSON_PROPERTY_TYPE)
+    @Schema(
+            description = "The type of hook script; supported values are \"PRE\" for pre-receive hooks and \"POST\" for post-receive hooks.")
+    private String type;
 
-  public ExamplePostMultipartFormData content(String content) {
-    this.content = content;
-    return this;
-  }
-
-  /**
-   * The hook script contents.
-   *
-   * @return content
-   **/
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  public ExamplePostMultipartFormData description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * A description of the hook script (useful when querying registered hook scripts).
-   *
-   * @return description
-   **/
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public ExamplePostMultipartFormData name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * The name of the hook script (useful when querying registered hook scripts).
-   *
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ExamplePostMultipartFormData type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * The type of hook script; supported values are "PRE" for pre-receive hooks and "POST" for post-receive hooks.
-   *
-   * @return type
-   **/
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ExamplePostMultipartFormData content(String content) {
+        this.content = content;
+        return this;
     }
-    if (!(o instanceof ExamplePostMultipartFormData)) {
-      return false;
+
+    /**
+     * The hook script contents.
+     * 
+     * @return content
+     **/
+    public String getContent() {
+        return content;
     }
-    ExamplePostMultipartFormData other = (ExamplePostMultipartFormData) o;
-    return Objects.equals(this.content, other.content) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.type, other.type);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(content, description, name, type);
-  }
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExamplePostMultipartFormData {");
-    sb.append("\n    content: ").append(toIndentedString(content));
-    sb.append("\n    description: ").append(toIndentedString(description));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n    type: ").append(toIndentedString(type));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public ExamplePostMultipartFormData description(String description) {
+        this.description = description;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * A description of the hook script (useful when querying registered hook scripts).
+     * 
+     * @return description
+     **/
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ExamplePostMultipartFormData name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * The name of the hook script (useful when querying registered hook scripts).
+     * 
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ExamplePostMultipartFormData type(String type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * The type of hook script; supported values are "PRE" for pre-receive hooks and "POST" for post-receive hooks.
+     * 
+     * @return type
+     **/
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExamplePostMultipartFormData)) {
+            return false;
+        }
+        ExamplePostMultipartFormData other = (ExamplePostMultipartFormData) o;
+        return Objects.equals(this.content, other.content) &&
+                Objects.equals(this.description, other.description) &&
+                Objects.equals(this.name, other.name) &&
+                Objects.equals(this.type, other.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(content, description, name, type);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ExamplePostMultipartFormData {");
+        sb.append("\n    content: ").append(toIndentedString(content));
+        sb.append("\n    description: ").append(toIndentedString(description));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n    type: ").append(toIndentedString(type));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

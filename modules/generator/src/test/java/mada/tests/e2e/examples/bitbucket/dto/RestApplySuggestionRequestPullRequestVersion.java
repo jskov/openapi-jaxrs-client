@@ -23,77 +23,79 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestApplySuggestionRequestPullRequestVersion {
-  public static final String JSON_PROPERTY_AS_INT = "asInt";
-  @JsonbProperty(JSON_PROPERTY_AS_INT)
-  private Integer asInt;
+    public static final String JSON_PROPERTY_AS_INT = "asInt";
+    @JsonbProperty(JSON_PROPERTY_AS_INT)
+    private Integer asInt;
 
-  public static final String JSON_PROPERTY_PRESENT = "present";
-  @JsonbProperty(JSON_PROPERTY_PRESENT)
-  private Boolean present;
+    public static final String JSON_PROPERTY_PRESENT = "present";
+    @JsonbProperty(JSON_PROPERTY_PRESENT)
+    private Boolean present;
 
-  public RestApplySuggestionRequestPullRequestVersion asInt(Integer asInt) {
-    this.asInt = asInt;
-    return this;
-  }
-
-  /**
-   * Get asInt
-   * @return asInt
-   **/
-  public Integer getAsInt() {
-    return asInt;
-  }
-
-  public void setAsInt(Integer asInt) {
-    this.asInt = asInt;
-  }
-
-  public RestApplySuggestionRequestPullRequestVersion present(Boolean present) {
-    this.present = present;
-    return this;
-  }
-
-  /**
-   * Get present
-   * @return present
-   **/
-  public Boolean isPresent() {
-    return present;
-  }
-
-  public void setPresent(Boolean present) {
-    this.present = present;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestApplySuggestionRequestPullRequestVersion asInt(Integer asInt) {
+        this.asInt = asInt;
+        return this;
     }
-    if (!(o instanceof RestApplySuggestionRequestPullRequestVersion)) {
-      return false;
+
+    /**
+     * Get asInt
+     *
+     * @return asInt
+     **/
+    public Integer getAsInt() {
+        return asInt;
     }
-    RestApplySuggestionRequestPullRequestVersion other = (RestApplySuggestionRequestPullRequestVersion) o;
-    return Objects.equals(this.asInt, other.asInt) &&
-        Objects.equals(this.present, other.present);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(asInt, present);
-  }
+    public void setAsInt(Integer asInt) {
+        this.asInt = asInt;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestApplySuggestionRequestPullRequestVersion {");
-    sb.append("\n    asInt: ").append(toIndentedString(asInt));
-    sb.append("\n    present: ").append(toIndentedString(present));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestApplySuggestionRequestPullRequestVersion present(Boolean present) {
+        this.present = present;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get present
+     *
+     * @return present
+     **/
+    public Boolean isPresent() {
+        return present;
+    }
+
+    public void setPresent(Boolean present) {
+        this.present = present;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestApplySuggestionRequestPullRequestVersion)) {
+            return false;
+        }
+        RestApplySuggestionRequestPullRequestVersion other = (RestApplySuggestionRequestPullRequestVersion) o;
+        return Objects.equals(this.asInt, other.asInt) &&
+                Objects.equals(this.present, other.present);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asInt, present);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestApplySuggestionRequestPullRequestVersion {");
+        sb.append("\n    asInt: ").append(toIndentedString(asInt));
+        sb.append("\n    present: ").append(toIndentedString(present));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -20,65 +20,65 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(description = "Acr error response describing why the operation failed")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class AcrErrors {
-  public static final String JSON_PROPERTY_ERRORS = "errors";
-  @JsonbProperty(JSON_PROPERTY_ERRORS)
-  @Schema(description = "Array of detailed error")
-  private List<AcrErrorInfo> errors;
+    public static final String JSON_PROPERTY_ERRORS = "errors";
+    @JsonbProperty(JSON_PROPERTY_ERRORS)
+    @Schema(description = "Array of detailed error")
+    private List<AcrErrorInfo> errors;
 
-  public AcrErrors errors(List<AcrErrorInfo> errors) {
-    this.errors = errors;
-    return this;
-  }
-
-  public AcrErrors addErrorsItem(AcrErrorInfo errorsItem) {
-    if (this.errors == null) {
-      this.errors = new ArrayList<>();
+    public AcrErrors errors(List<AcrErrorInfo> errors) {
+        this.errors = errors;
+        return this;
     }
-    this.errors.add(errorsItem);
-    return this;
-  }
 
-  /**
-   * Array of detailed error.
-   *
-   * @return errors
-   **/
-  @Valid
-  public List<AcrErrorInfo> getErrors() {
-    return errors;
-  }
-
-  public void setErrors(List<AcrErrorInfo> errors) {
-    this.errors = errors;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AcrErrors addErrorsItem(AcrErrorInfo errorsItem) {
+        if (this.errors == null) {
+            this.errors = new ArrayList<>();
+        }
+        this.errors.add(errorsItem);
+        return this;
     }
-    if (!(o instanceof AcrErrors)) {
-      return false;
+
+    /**
+     * Array of detailed error.
+     * 
+     * @return errors
+     **/
+    @Valid
+    public List<AcrErrorInfo> getErrors() {
+        return errors;
     }
-    AcrErrors other = (AcrErrors) o;
-    return Objects.equals(this.errors, other.errors);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(errors);
-  }
+    public void setErrors(List<AcrErrorInfo> errors) {
+        this.errors = errors;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AcrErrors {");
-    sb.append("\n    errors: ").append(toIndentedString(errors));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AcrErrors)) {
+            return false;
+        }
+        AcrErrors other = (AcrErrors) o;
+        return Objects.equals(this.errors, other.errors);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AcrErrors {");
+        sb.append("\n    errors: ").append(toIndentedString(errors));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

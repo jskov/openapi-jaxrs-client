@@ -26,63 +26,64 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestMeshConnectivityReport {
-  public static final String JSON_PROPERTY_REPORTS = "reports";
-  @JsonbProperty(JSON_PROPERTY_REPORTS)
-  private List<RestNodeConnectivityReport> reports;
+    public static final String JSON_PROPERTY_REPORTS = "reports";
+    @JsonbProperty(JSON_PROPERTY_REPORTS)
+    private List<RestNodeConnectivityReport> reports;
 
-  public RestMeshConnectivityReport reports(List<RestNodeConnectivityReport> reports) {
-    this.reports = reports;
-    return this;
-  }
-
-  public RestMeshConnectivityReport addReportsItem(RestNodeConnectivityReport reportsItem) {
-    if (this.reports == null) {
-      this.reports = new ArrayList<>();
+    public RestMeshConnectivityReport reports(List<RestNodeConnectivityReport> reports) {
+        this.reports = reports;
+        return this;
     }
-    this.reports.add(reportsItem);
-    return this;
-  }
 
-  /**
-   * Get reports
-   * @return reports
-   **/
-  @Valid
-  public List<RestNodeConnectivityReport> getReports() {
-    return reports;
-  }
-
-  public void setReports(List<RestNodeConnectivityReport> reports) {
-    this.reports = reports;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestMeshConnectivityReport addReportsItem(RestNodeConnectivityReport reportsItem) {
+        if (this.reports == null) {
+            this.reports = new ArrayList<>();
+        }
+        this.reports.add(reportsItem);
+        return this;
     }
-    if (!(o instanceof RestMeshConnectivityReport)) {
-      return false;
+
+    /**
+     * Get reports
+     *
+     * @return reports
+     **/
+    @Valid
+    public List<RestNodeConnectivityReport> getReports() {
+        return reports;
     }
-    RestMeshConnectivityReport other = (RestMeshConnectivityReport) o;
-    return Objects.equals(this.reports, other.reports);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(reports);
-  }
+    public void setReports(List<RestNodeConnectivityReport> reports) {
+        this.reports = reports;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestMeshConnectivityReport {");
-    sb.append("\n    reports: ").append(toIndentedString(reports));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestMeshConnectivityReport)) {
+            return false;
+        }
+        RestMeshConnectivityReport other = (RestMeshConnectivityReport) o;
+        return Objects.equals(this.reports, other.reports);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(reports);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestMeshConnectivityReport {");
+        sb.append("\n    reports: ").append(toIndentedString(reports));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

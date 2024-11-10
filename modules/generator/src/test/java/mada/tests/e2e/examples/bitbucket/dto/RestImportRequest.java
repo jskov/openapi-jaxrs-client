@@ -24,55 +24,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestImportRequest {
-  public static final String JSON_PROPERTY_ARCHIVE_PATH = "archivePath";
-  @JsonbProperty(JSON_PROPERTY_ARCHIVE_PATH)
-  @Schema(example = "Bitbucket_export_1.tar")
-  private String archivePath;
+    public static final String JSON_PROPERTY_ARCHIVE_PATH = "archivePath";
+    @JsonbProperty(JSON_PROPERTY_ARCHIVE_PATH)
+    @Schema(example = "Bitbucket_export_1.tar")
+    private String archivePath;
 
-  public RestImportRequest archivePath(String archivePath) {
-    this.archivePath = archivePath;
-    return this;
-  }
-
-  /**
-   * Get archivePath
-   * @return archivePath
-   **/
-  public String getArchivePath() {
-    return archivePath;
-  }
-
-  public void setArchivePath(String archivePath) {
-    this.archivePath = archivePath;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestImportRequest archivePath(String archivePath) {
+        this.archivePath = archivePath;
+        return this;
     }
-    if (!(o instanceof RestImportRequest)) {
-      return false;
+
+    /**
+     * Get archivePath
+     *
+     * @return archivePath
+     **/
+    public String getArchivePath() {
+        return archivePath;
     }
-    RestImportRequest other = (RestImportRequest) o;
-    return Objects.equals(this.archivePath, other.archivePath);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(archivePath);
-  }
+    public void setArchivePath(String archivePath) {
+        this.archivePath = archivePath;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestImportRequest {");
-    sb.append("\n    archivePath: ").append(toIndentedString(archivePath));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestImportRequest)) {
+            return false;
+        }
+        RestImportRequest other = (RestImportRequest) o;
+        return Objects.equals(this.archivePath, other.archivePath);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(archivePath);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestImportRequest {");
+        sb.append("\n    archivePath: ").append(toIndentedString(archivePath));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

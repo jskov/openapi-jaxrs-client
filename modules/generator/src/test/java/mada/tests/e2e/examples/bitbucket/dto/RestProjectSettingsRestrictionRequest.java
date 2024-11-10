@@ -25,105 +25,106 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestProjectSettingsRestrictionRequest {
-  public static final String JSON_PROPERTY_COMPONENT_KEY = "componentKey";
-  @JsonbProperty(JSON_PROPERTY_COMPONENT_KEY)
-  @Schema(example = "my-admin-component")
-  private String componentKey;
+    public static final String JSON_PROPERTY_COMPONENT_KEY = "componentKey";
+    @JsonbProperty(JSON_PROPERTY_COMPONENT_KEY)
+    @Schema(example = "my-admin-component")
+    private String componentKey;
 
-  public static final String JSON_PROPERTY_FEATURE_KEY = "featureKey";
-  @JsonbProperty(JSON_PROPERTY_FEATURE_KEY)
-  @Schema(required = true, example = "my-admin-feature")
-  private String featureKey;
+    public static final String JSON_PROPERTY_FEATURE_KEY = "featureKey";
+    @JsonbProperty(JSON_PROPERTY_FEATURE_KEY)
+    @Schema(required = true, example = "my-admin-feature")
+    private String featureKey;
 
-  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @JsonbProperty(JSON_PROPERTY_NAMESPACE)
-  @Schema(required = true, example = "org.featuredeveloper")
-  private String namespace;
+    public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+    @JsonbProperty(JSON_PROPERTY_NAMESPACE)
+    @Schema(required = true, example = "org.featuredeveloper")
+    private String namespace;
 
-  public RestProjectSettingsRestrictionRequest componentKey(String componentKey) {
-    this.componentKey = componentKey;
-    return this;
-  }
-
-  /**
-   * Get componentKey
-   * @return componentKey
-   **/
-  public String getComponentKey() {
-    return componentKey;
-  }
-
-  public void setComponentKey(String componentKey) {
-    this.componentKey = componentKey;
-  }
-
-  public RestProjectSettingsRestrictionRequest featureKey(String featureKey) {
-    this.featureKey = Objects.requireNonNull(featureKey, "Property featureKey is required, cannot be null");
-    return this;
-  }
-
-  /**
-   * Get featureKey
-   * @return featureKey
-   **/
-  @NotNull
-  public String getFeatureKey() {
-    return featureKey;
-  }
-
-  public void setFeatureKey(String featureKey) {
-    this.featureKey = Objects.requireNonNull(featureKey, "Property featureKey is required, cannot be null");
-  }
-
-  public RestProjectSettingsRestrictionRequest namespace(String namespace) {
-    this.namespace = Objects.requireNonNull(namespace, "Property namespace is required, cannot be null");
-    return this;
-  }
-
-  /**
-   * Get namespace
-   * @return namespace
-   **/
-  @NotNull
-  public String getNamespace() {
-    return namespace;
-  }
-
-  public void setNamespace(String namespace) {
-    this.namespace = Objects.requireNonNull(namespace, "Property namespace is required, cannot be null");
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestProjectSettingsRestrictionRequest componentKey(String componentKey) {
+        this.componentKey = componentKey;
+        return this;
     }
-    if (!(o instanceof RestProjectSettingsRestrictionRequest)) {
-      return false;
+
+    /**
+     * Get componentKey
+     *
+     * @return componentKey
+     **/
+    public String getComponentKey() {
+        return componentKey;
     }
-    RestProjectSettingsRestrictionRequest other = (RestProjectSettingsRestrictionRequest) o;
-    return Objects.equals(this.componentKey, other.componentKey) &&
-        Objects.equals(this.featureKey, other.featureKey) &&
-        Objects.equals(this.namespace, other.namespace);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(componentKey, featureKey, namespace);
-  }
+    public void setComponentKey(String componentKey) {
+        this.componentKey = componentKey;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestProjectSettingsRestrictionRequest {");
-    sb.append("\n    componentKey: ").append(toIndentedString(componentKey));
-    sb.append("\n    featureKey: ").append(toIndentedString(featureKey));
-    sb.append("\n    namespace: ").append(toIndentedString(namespace));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestProjectSettingsRestrictionRequest featureKey(String featureKey) {
+        this.featureKey = Objects.requireNonNull(featureKey, "Property featureKey is required, cannot be null");
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get featureKey
+     *
+     * @return featureKey
+     **/
+    @NotNull public String getFeatureKey() {
+        return featureKey;
+    }
+
+    public void setFeatureKey(String featureKey) {
+        this.featureKey = Objects.requireNonNull(featureKey, "Property featureKey is required, cannot be null");
+    }
+
+    public RestProjectSettingsRestrictionRequest namespace(String namespace) {
+        this.namespace = Objects.requireNonNull(namespace, "Property namespace is required, cannot be null");
+        return this;
+    }
+
+    /**
+     * Get namespace
+     *
+     * @return namespace
+     **/
+    @NotNull public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = Objects.requireNonNull(namespace, "Property namespace is required, cannot be null");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestProjectSettingsRestrictionRequest)) {
+            return false;
+        }
+        RestProjectSettingsRestrictionRequest other = (RestProjectSettingsRestrictionRequest) o;
+        return Objects.equals(this.componentKey, other.componentKey) &&
+                Objects.equals(this.featureKey, other.featureKey) &&
+                Objects.equals(this.namespace, other.namespace);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(componentKey, featureKey, namespace);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestProjectSettingsRestrictionRequest {");
+        sb.append("\n    componentKey: ").append(toIndentedString(componentKey));
+        sb.append("\n    featureKey: ").append(toIndentedString(featureKey));
+        sb.append("\n    namespace: ").append(toIndentedString(namespace));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

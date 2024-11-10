@@ -20,113 +20,115 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(description = "Returns the requested OCI Manifest file")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class OCIManifest {
-  public static final String JSON_PROPERTY_ANNOTATIONS = "annotations";
-  @JsonbProperty(JSON_PROPERTY_ANNOTATIONS)
-  private Annotations annotations;
+    public static final String JSON_PROPERTY_ANNOTATIONS = "annotations";
+    @JsonbProperty(JSON_PROPERTY_ANNOTATIONS)
+    private Annotations annotations;
 
-  public static final String JSON_PROPERTY_CONFIG = "config";
-  @JsonbProperty(JSON_PROPERTY_CONFIG)
-  private Descriptor config;
+    public static final String JSON_PROPERTY_CONFIG = "config";
+    @JsonbProperty(JSON_PROPERTY_CONFIG)
+    private Descriptor config;
 
-  public static final String JSON_PROPERTY_LAYERS = "layers";
-  @JsonbProperty(JSON_PROPERTY_LAYERS)
-  @Schema(description = "List of V2 image layer information")
-  private List<Descriptor> layers;
+    public static final String JSON_PROPERTY_LAYERS = "layers";
+    @JsonbProperty(JSON_PROPERTY_LAYERS)
+    @Schema(description = "List of V2 image layer information")
+    private List<Descriptor> layers;
 
-  public OCIManifest annotations(Annotations annotations) {
-    this.annotations = annotations;
-    return this;
-  }
-
-  /**
-   * Get annotations
-   * @return annotations
-   **/
-  @Valid
-  public Annotations getAnnotations() {
-    return annotations;
-  }
-
-  public void setAnnotations(Annotations annotations) {
-    this.annotations = annotations;
-  }
-
-  public OCIManifest config(Descriptor config) {
-    this.config = config;
-    return this;
-  }
-
-  /**
-   * Get config
-   * @return config
-   **/
-  @Valid
-  public Descriptor getConfig() {
-    return config;
-  }
-
-  public void setConfig(Descriptor config) {
-    this.config = config;
-  }
-
-  public OCIManifest layers(List<Descriptor> layers) {
-    this.layers = layers;
-    return this;
-  }
-
-  public OCIManifest addLayersItem(Descriptor layersItem) {
-    if (this.layers == null) {
-      this.layers = new ArrayList<>();
+    public OCIManifest annotations(Annotations annotations) {
+        this.annotations = annotations;
+        return this;
     }
-    this.layers.add(layersItem);
-    return this;
-  }
 
-  /**
-   * List of V2 image layer information.
-   *
-   * @return layers
-   **/
-  @Valid
-  public List<Descriptor> getLayers() {
-    return layers;
-  }
-
-  public void setLayers(List<Descriptor> layers) {
-    this.layers = layers;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get annotations
+     *
+     * @return annotations
+     **/
+    @Valid
+    public Annotations getAnnotations() {
+        return annotations;
     }
-    if (!(o instanceof OCIManifest)) {
-      return false;
+
+    public void setAnnotations(Annotations annotations) {
+        this.annotations = annotations;
     }
-    OCIManifest other = (OCIManifest) o;
-    return Objects.equals(this.annotations, other.annotations) &&
-        Objects.equals(this.config, other.config) &&
-        Objects.equals(this.layers, other.layers);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(annotations, config, layers);
-  }
+    public OCIManifest config(Descriptor config) {
+        this.config = config;
+        return this;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class OCIManifest {");
-    sb.append("\n    annotations: ").append(toIndentedString(annotations));
-    sb.append("\n    config: ").append(toIndentedString(config));
-    sb.append("\n    layers: ").append(toIndentedString(layers));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    /**
+     * Get config
+     *
+     * @return config
+     **/
+    @Valid
+    public Descriptor getConfig() {
+        return config;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    public void setConfig(Descriptor config) {
+        this.config = config;
+    }
+
+    public OCIManifest layers(List<Descriptor> layers) {
+        this.layers = layers;
+        return this;
+    }
+
+    public OCIManifest addLayersItem(Descriptor layersItem) {
+        if (this.layers == null) {
+            this.layers = new ArrayList<>();
+        }
+        this.layers.add(layersItem);
+        return this;
+    }
+
+    /**
+     * List of V2 image layer information.
+     * 
+     * @return layers
+     **/
+    @Valid
+    public List<Descriptor> getLayers() {
+        return layers;
+    }
+
+    public void setLayers(List<Descriptor> layers) {
+        this.layers = layers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof OCIManifest)) {
+            return false;
+        }
+        OCIManifest other = (OCIManifest) o;
+        return Objects.equals(this.annotations, other.annotations) &&
+                Objects.equals(this.config, other.config) &&
+                Objects.equals(this.layers, other.layers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(annotations, config, layers);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class OCIManifest {");
+        sb.append("\n    annotations: ").append(toIndentedString(annotations));
+        sb.append("\n    config: ").append(toIndentedString(config));
+        sb.append("\n    layers: ").append(toIndentedString(layers));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

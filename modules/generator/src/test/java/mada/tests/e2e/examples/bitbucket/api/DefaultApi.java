@@ -41,7 +41,8 @@ public interface DefaultApi {
                     description = "default response")
     })
     @Operation(summary = "Get pull requests in inbox")
-    void getPullRequests_2(@QueryParam("role") String role, @QueryParam("limit") int limit, @QueryParam("start") int start);
+    void getPullRequests_2(@QueryParam("role") String role, @QueryParam("limit") int limit,
+            @QueryParam("start") int start);
 
     /**
      * Get total number of pull requests in inbox.

@@ -24,78 +24,80 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRateLimitSettings {
-  public static final String JSON_PROPERTY_DEFAULT_SETTINGS = "defaultSettings";
-  @JsonbProperty(JSON_PROPERTY_DEFAULT_SETTINGS)
-  private RestRateLimitSettingsDefaultSettings defaultSettings;
+    public static final String JSON_PROPERTY_DEFAULT_SETTINGS = "defaultSettings";
+    @JsonbProperty(JSON_PROPERTY_DEFAULT_SETTINGS)
+    private RestRateLimitSettingsDefaultSettings defaultSettings;
 
-  public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @JsonbProperty(JSON_PROPERTY_ENABLED)
-  private Boolean enabled;
+    public static final String JSON_PROPERTY_ENABLED = "enabled";
+    @JsonbProperty(JSON_PROPERTY_ENABLED)
+    private Boolean enabled;
 
-  public RestRateLimitSettings defaultSettings(RestRateLimitSettingsDefaultSettings defaultSettings) {
-    this.defaultSettings = defaultSettings;
-    return this;
-  }
-
-  /**
-   * Get defaultSettings
-   * @return defaultSettings
-   **/
-  @Valid
-  public RestRateLimitSettingsDefaultSettings getDefaultSettings() {
-    return defaultSettings;
-  }
-
-  public void setDefaultSettings(RestRateLimitSettingsDefaultSettings defaultSettings) {
-    this.defaultSettings = defaultSettings;
-  }
-
-  public RestRateLimitSettings enabled(Boolean enabled) {
-    this.enabled = enabled;
-    return this;
-  }
-
-  /**
-   * Get enabled
-   * @return enabled
-   **/
-  public Boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestRateLimitSettings defaultSettings(RestRateLimitSettingsDefaultSettings defaultSettings) {
+        this.defaultSettings = defaultSettings;
+        return this;
     }
-    if (!(o instanceof RestRateLimitSettings)) {
-      return false;
+
+    /**
+     * Get defaultSettings
+     *
+     * @return defaultSettings
+     **/
+    @Valid
+    public RestRateLimitSettingsDefaultSettings getDefaultSettings() {
+        return defaultSettings;
     }
-    RestRateLimitSettings other = (RestRateLimitSettings) o;
-    return Objects.equals(this.defaultSettings, other.defaultSettings) &&
-        Objects.equals(this.enabled, other.enabled);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(defaultSettings, enabled);
-  }
+    public void setDefaultSettings(RestRateLimitSettingsDefaultSettings defaultSettings) {
+        this.defaultSettings = defaultSettings;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestRateLimitSettings {");
-    sb.append("\n    defaultSettings: ").append(toIndentedString(defaultSettings));
-    sb.append("\n    enabled: ").append(toIndentedString(enabled));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestRateLimitSettings enabled(Boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get enabled
+     *
+     * @return enabled
+     **/
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestRateLimitSettings)) {
+            return false;
+        }
+        RestRateLimitSettings other = (RestRateLimitSettings) o;
+        return Objects.equals(this.defaultSettings, other.defaultSettings) &&
+                Objects.equals(this.enabled, other.enabled);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(defaultSettings, enabled);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestRateLimitSettings {");
+        sb.append("\n    defaultSettings: ").append(toIndentedString(defaultSettings));
+        sb.append("\n    enabled: ").append(toIndentedString(enabled));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestTokenBucketSettings {
-  public static final String JSON_PROPERTY_CAPACITY = "capacity";
-  @JsonbProperty(JSON_PROPERTY_CAPACITY)
-  @Schema(example = "60")
-  private Integer capacity;
+    public static final String JSON_PROPERTY_CAPACITY = "capacity";
+    @JsonbProperty(JSON_PROPERTY_CAPACITY)
+    @Schema(example = "60")
+    private Integer capacity;
 
-  public static final String JSON_PROPERTY_FILL_RATE = "fillRate";
-  @JsonbProperty(JSON_PROPERTY_FILL_RATE)
-  @Schema(example = "5")
-  private Integer fillRate;
+    public static final String JSON_PROPERTY_FILL_RATE = "fillRate";
+    @JsonbProperty(JSON_PROPERTY_FILL_RATE)
+    @Schema(example = "5")
+    private Integer fillRate;
 
-  public RestTokenBucketSettings capacity(Integer capacity) {
-    this.capacity = capacity;
-    return this;
-  }
-
-  /**
-   * Get capacity
-   * @return capacity
-   **/
-  public Integer getCapacity() {
-    return capacity;
-  }
-
-  public void setCapacity(Integer capacity) {
-    this.capacity = capacity;
-  }
-
-  public RestTokenBucketSettings fillRate(Integer fillRate) {
-    this.fillRate = fillRate;
-    return this;
-  }
-
-  /**
-   * Get fillRate
-   * @return fillRate
-   **/
-  public Integer getFillRate() {
-    return fillRate;
-  }
-
-  public void setFillRate(Integer fillRate) {
-    this.fillRate = fillRate;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestTokenBucketSettings capacity(Integer capacity) {
+        this.capacity = capacity;
+        return this;
     }
-    if (!(o instanceof RestTokenBucketSettings)) {
-      return false;
+
+    /**
+     * Get capacity
+     *
+     * @return capacity
+     **/
+    public Integer getCapacity() {
+        return capacity;
     }
-    RestTokenBucketSettings other = (RestTokenBucketSettings) o;
-    return Objects.equals(this.capacity, other.capacity) &&
-        Objects.equals(this.fillRate, other.fillRate);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(capacity, fillRate);
-  }
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestTokenBucketSettings {");
-    sb.append("\n    capacity: ").append(toIndentedString(capacity));
-    sb.append("\n    fillRate: ").append(toIndentedString(fillRate));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestTokenBucketSettings fillRate(Integer fillRate) {
+        this.fillRate = fillRate;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get fillRate
+     *
+     * @return fillRate
+     **/
+    public Integer getFillRate() {
+        return fillRate;
+    }
+
+    public void setFillRate(Integer fillRate) {
+        this.fillRate = fillRate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestTokenBucketSettings)) {
+            return false;
+        }
+        RestTokenBucketSettings other = (RestTokenBucketSettings) o;
+        return Objects.equals(this.capacity, other.capacity) &&
+                Objects.equals(this.fillRate, other.fillRate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(capacity, fillRate);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestTokenBucketSettings {");
+        sb.append("\n    capacity: ").append(toIndentedString(capacity));
+        sb.append("\n    fillRate: ").append(toIndentedString(fillRate));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

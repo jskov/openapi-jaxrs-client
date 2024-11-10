@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class UserRename {
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(example = "jcitizen")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(example = "jcitizen")
+    private String name;
 
-  public static final String JSON_PROPERTY_NEW_NAME = "newName";
-  @JsonbProperty(JSON_PROPERTY_NEW_NAME)
-  @Schema(example = "jcitizen-new")
-  private String newName;
+    public static final String JSON_PROPERTY_NEW_NAME = "newName";
+    @JsonbProperty(JSON_PROPERTY_NEW_NAME)
+    @Schema(example = "jcitizen-new")
+    private String newName;
 
-  public UserRename name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public UserRename newName(String newName) {
-    this.newName = newName;
-    return this;
-  }
-
-  /**
-   * Get newName
-   * @return newName
-   **/
-  public String getNewName() {
-    return newName;
-  }
-
-  public void setNewName(String newName) {
-    this.newName = newName;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UserRename name(String name) {
+        this.name = name;
+        return this;
     }
-    if (!(o instanceof UserRename)) {
-      return false;
+
+    /**
+     * Get name
+     *
+     * @return name
+     **/
+    public String getName() {
+        return name;
     }
-    UserRename other = (UserRename) o;
-    return Objects.equals(this.name, other.name) &&
-        Objects.equals(this.newName, other.newName);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, newName);
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UserRename {");
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n    newName: ").append(toIndentedString(newName));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public UserRename newName(String newName) {
+        this.newName = newName;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get newName
+     *
+     * @return newName
+     **/
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserRename)) {
+            return false;
+        }
+        UserRename other = (UserRename) o;
+        return Objects.equals(this.name, other.name) &&
+                Objects.equals(this.newName, other.newName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, newName);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UserRename {");
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n    newName: ").append(toIndentedString(newName));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

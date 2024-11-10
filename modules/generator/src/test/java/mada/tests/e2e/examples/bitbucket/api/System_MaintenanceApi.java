@@ -218,8 +218,7 @@ public interface System_MaintenanceApi {
      *
      * Updates the global settings that enforces the maximum expiry of SSH keys and restrictions on SSH key types.
      *
-     * @param dto A request containing expiry length to be set for SSH keys and a list of SSH key type restrictions.
-     *            (optional)
+     * @param dto A request containing expiry length to be set for SSH keys and a list of SSH key type restrictions. (optional)
      */
     @PUT
     @Path("admin")
@@ -347,8 +346,8 @@ public interface System_MaintenanceApi {
     /**
      * Get cluster node information.
      *
-     * Gets information about the nodes that currently make up the stash cluster. The authenticated user must have the
-     * <strong>SYS_ADMIN</strong> permission to call this resource.
+     * Gets information about the nodes that currently make up the stash cluster.
+     * The authenticated user must have the <strong>SYS_ADMIN</strong> permission to call this resource.
      *
      * @return RestClusterInformation
      */
@@ -373,8 +372,9 @@ public interface System_MaintenanceApi {
     /**
      * Get the default branch.
      *
-     * Retrieves the configured global default branch, which is used when creating new repositories if an explicit default
-     * branch is not specified. The user must be authenticated to call this resource.
+     * Retrieves the configured global default branch, which is used when creating new repositories if an explicit
+     * default branch is not specified.
+     * The user must be authenticated to call this resource.
      */
     @GET
     @Path("api/latest/admin/default-branch")
@@ -395,8 +395,9 @@ public interface System_MaintenanceApi {
     /**
      * Update/Set default branch.
      *
-     * Configures the global default branch, which is used when creating new repositories if an explicit default branch is
-     * not specified. The authenticated user must have <strong>ADMIN</strong> permission to call this resource.
+     * Configures the global default branch, which is used when creating new repositories if an explicit default branch
+     * is not specified.
+     * The authenticated user must have <strong>ADMIN</strong> permission to call this resource.
      *
      * @param dto (optional)
      */
@@ -420,9 +421,9 @@ public interface System_MaintenanceApi {
     /**
      * Clear default branch.
      *
-     * Clears the global default branch, which is used when creating new repositories if an explicit default branch is not
-     * specified, if one has been configured. The authenticated user must have <strong>ADMIN</strong> permission to call
-     * this resource.
+     * Clears the global default branch, which is used when creating new repositories if an explicit default branch is
+     * not specified, if one has been configured.
+     * The authenticated user must have <strong>ADMIN</strong> permission to call this resource.
      */
     @DELETE
     @Path("api/latest/admin/default-branch")
@@ -443,7 +444,8 @@ public interface System_MaintenanceApi {
     /**
      * Get the control plane PEM.
      *
-     * Obtain the control plane PEM. The authenticated user must have **SYS_ADMIN** permission.
+     * Obtain the control plane PEM.
+     * The authenticated user must have **SYS_ADMIN** permission.
      */
     @GET
     @Path("api/latest/admin/git/mesh/config/control-plane.pem")
@@ -455,8 +457,7 @@ public interface System_MaintenanceApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to call this resource.",
-                    content = @Content(
-                            schema = @Schema(implementation = RestErrors.class),
+                    content = @Content(schema = @Schema(implementation = RestErrors.class),
                             mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Get the control plane PEM")
@@ -465,8 +466,8 @@ public interface System_MaintenanceApi {
     /**
      * Generate Mesh connectivity report.
      *
-     * Generates a connectivity report between the Bitbucket node(s) and the Mesh node(s). The authenticated user must have
-     * **SYS_ADMIN** permission.
+     * Generates a connectivity report between the Bitbucket node(s) and the Mesh node(s).
+     * The authenticated user must have **SYS_ADMIN** permission.
      *
      * @return RestMeshConnectivityReport
      */
@@ -491,7 +492,8 @@ public interface System_MaintenanceApi {
     /**
      * Get all registered Mesh nodes.
      *
-     * Get all the registered Mesh nodes. The authenticated user must have **SYS_ADMIN** permission.
+     * Get all the registered Mesh nodes.
+     * The authenticated user must have **SYS_ADMIN** permission.
      *
      * @return RestMeshNode
      */
@@ -515,7 +517,8 @@ public interface System_MaintenanceApi {
     /**
      * Register new Mesh node.
      *
-     * Register a new Mesh node. The authenticated user must have **SYS_ADMIN** permission.
+     * Register a new Mesh node.
+     * The authenticated user must have **SYS_ADMIN** permission.
      *
      * @param dto The request specifying the new Mesh node. (optional)
      * @return RestMeshNode
@@ -546,7 +549,8 @@ public interface System_MaintenanceApi {
     /**
      * Get Mesh node.
      *
-     * Get the registered Mesh node that matches the supplied ID. The authenticated user must have **SYS_ADMIN** permission.
+     * Get the registered Mesh node that matches the supplied ID.
+     * The authenticated user must have **SYS_ADMIN** permission.
      *
      * @param id The ID of the Mesh node. (not null)
      * @return RestMeshNode
@@ -576,7 +580,8 @@ public interface System_MaintenanceApi {
     /**
      * Update Mesh node.
      *
-     * Update a Mesh node. The authenticated user must have **SYS_ADMIN** permission.
+     * Update a Mesh node.
+     * The authenticated user must have **SYS_ADMIN** permission.
      *
      * @param id  The ID of the Mesh node to update. (not null)
      * @param dto The request specifying the updated Mesh node. (optional)
@@ -608,7 +613,8 @@ public interface System_MaintenanceApi {
     /**
      * Delete Mesh node.
      *
-     * Delete a Mesh node The authenticated user must have **SYS_ADMIN** permission.
+     * Delete a Mesh node
+     * The authenticated user must have **SYS_ADMIN** permission.
      *
      * @param force (optional)
      * @param id    (not null)
@@ -627,7 +633,8 @@ public interface System_MaintenanceApi {
     /**
      * Get support zips for all Mesh nodes.
      *
-     * Get the support zips for all the Mesh nodes. The authenticated user must have **SYS_ADMIN** permission.
+     * Get the support zips for all the Mesh nodes.
+     * The authenticated user must have **SYS_ADMIN** permission.
      */
     @GET
     @Path("api/latest/admin/git/mesh/support-zips")
@@ -639,8 +646,7 @@ public interface System_MaintenanceApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to call this resource.",
-                    content = @Content(
-                            schema = @Schema(implementation = RestErrors.class),
+                    content = @Content(schema = @Schema(implementation = RestErrors.class),
                             mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Get support zips for all Mesh nodes")
@@ -649,8 +655,8 @@ public interface System_MaintenanceApi {
     /**
      * Get support zip for node.
      *
-     * Get the support zip for the Mesh node that matches the specified ID. The authenticated user must have **SYS_ADMIN**
-     * permission.
+     * Get the support zip for the Mesh node that matches the specified ID.
+     * The authenticated user must have **SYS_ADMIN** permission.
      *
      * @param id The ID of the Mesh node. (not null)
      */
@@ -664,14 +670,12 @@ public interface System_MaintenanceApi {
             @APIResponse(
                     responseCode = "401",
                     description = "The currently authenticated user has insufficient permissions to call this resource.",
-                    content = @Content(
-                            schema = @Schema(implementation = RestErrors.class),
+                    content = @Content(schema = @Schema(implementation = RestErrors.class),
                             mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "404",
                     description = "The Mesh node does not exist.",
-                    content = @Content(
-                            schema = @Schema(implementation = RestErrors.class),
+                    content = @Content(schema = @Schema(implementation = RestErrors.class),
                             mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Get support zip for node")
@@ -681,10 +685,10 @@ public interface System_MaintenanceApi {
      * Get license details.
      *
      * Retrieves details about the current license, as well as the current status of the system with regards to the
-     * installed license. The status includes the current number of users applied toward the license limit, as well as any
-     * status messages about the license (warnings about expiry or user counts exceeding license limits). The authenticated
-     * user must have <b>ADMIN</b> permission. Unauthenticated users, and non-administrators, are not permitted to access
-     * license details.
+     * installed license. The status includes the current number of users applied toward the license limit, as well as
+     * any status messages about the license (warnings about expiry or user counts exceeding license limits).
+     * The authenticated user must have <b>ADMIN</b> permission. Unauthenticated users, and non-administrators, are not
+     * permitted to access license details.
      *
      * @return RestBitbucketLicense
      */
@@ -715,13 +719,15 @@ public interface System_MaintenanceApi {
      * Update license.
      *
      * Decodes the provided encoded license and sets it as the active license. If no license was provided, a 400 is
-     * returned. If the license cannot be decoded, or cannot be applied, a 409 is returned. Some possible reasons a license
-     * may not be applied include: - It is for a different product - It is already expired Otherwise, if the license is
-     * updated successfully, details for the new license are returned with a 200 response. <b>Warning</b>: It is possible to
-     * downgrade the license during update, applying a license with a lower number of permitted users. If the number of
-     * currently-licensed users exceeds the limits of the new license, pushing will be disabled until the licensed user
-     * count is brought into compliance with the new license. The authenticated user must have <b>SYS_ADMIN</b> permission.
-     * <b>ADMIN</b> users may <i>view</i> the current license details, but they may not <i>update</i> the license.
+     * returned. If the license cannot be decoded, or cannot be applied, a 409 is returned. Some possible reasons a
+     * license may not be applied include:
+     * - It is for a different product - It is already expired
+     * Otherwise, if the license is updated successfully, details for the new license are returned with a 200 response.
+     * <b>Warning</b>: It is possible to downgrade the license during update, applying a license with a lower number of
+     * permitted users. If the number of currently-licensed users exceeds the limits of the new license, pushing will be
+     * disabled until the licensed user count is brought into compliance with the new license.
+     * The authenticated user must have <b>SYS_ADMIN</b> permission. <b>ADMIN</b> users may <i>view</i> the current
+     * license details, but they may not <i>update</i> the license.
      *
      * @param dto a JSON payload containing the encoded license to apply (optional)
      * @return RestBitbucketLicense
@@ -758,8 +764,8 @@ public interface System_MaintenanceApi {
     /**
      * Get mail configuration.
      *
-     * Retrieves the current mail configuration. The authenticated user must have the <strong>SYS_ADMIN</strong> permission
-     * to call this resource.
+     * Retrieves the current mail configuration.
+     * The authenticated user must have the <strong>SYS_ADMIN</strong> permission to call this resource.
      *
      * @return RestMailConfiguration
      */
@@ -789,8 +795,8 @@ public interface System_MaintenanceApi {
     /**
      * Update mail configuration.
      *
-     * Updates the mail configuration. The authenticated user must have the <strong>SYS_ADMIN</strong> permission to call
-     * this resource.
+     * Updates the mail configuration.
+     * The authenticated user must have the <strong>SYS_ADMIN</strong> permission to call this resource.
      *
      * @param dto (optional)
      * @return RestMailConfiguration
@@ -822,8 +828,8 @@ public interface System_MaintenanceApi {
     /**
      * Delete mail configuration.
      *
-     * Deletes the current mail configuration. The authenticated user must have the <strong>SYS_ADMIN</strong> permission to
-     * call this resource.
+     * Deletes the current mail configuration.
+     * The authenticated user must have the <strong>SYS_ADMIN</strong> permission to call this resource.
      */
     @DELETE
     @Path("api/latest/admin/mail-server")
@@ -865,8 +871,8 @@ public interface System_MaintenanceApi {
     /**
      * Update server mail address.
      *
-     * Updates the server email address The authenticated user must have the <strong>ADMIN</strong> permission to call this
-     * resource.
+     * Updates the server email address
+     * The authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
      *
      * @param dto (optional)
      */
@@ -895,8 +901,8 @@ public interface System_MaintenanceApi {
     /**
      * Update mail configuration.
      *
-     * Clears the server email address. The authenticated user must have the <strong>ADMIN</strong> permission to call this
-     * resource.
+     * Clears the server email address.
+     * The authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
      */
     @DELETE
     @Path("api/latest/admin/mail-server/sender-address")
@@ -917,8 +923,8 @@ public interface System_MaintenanceApi {
     /**
      * Get rate limit history.
      *
-     * Retrieves the recent rate limit history for the instance. The authenticated user must have the <strong>ADMIN</strong>
-     * permission to call this resource.
+     * Retrieves the recent rate limit history for the instance.
+     * The authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
      *
      * @param order An optional sort category to arrange the results in descending order (optional)
      * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
@@ -952,7 +958,8 @@ public interface System_MaintenanceApi {
     /**
      * Get rate limit settings.
      *
-     * Retrieves the rate limit settings for the instance. The user must be authenticated to call this resource.
+     * Retrieves the rate limit settings for the instance.
+     * The user must be authenticated to call this resource.
      *
      * @return RestRateLimitSettings
      */
@@ -977,12 +984,12 @@ public interface System_MaintenanceApi {
     /**
      * Set rate limit.
      *
-     * Sets the rate limit settings for the instance. The authenticated user must have <strong>ADMIN</strong> permission to
-     * call this resource.
+     * Sets the rate limit settings for the instance.
+     * The authenticated user must have <strong>ADMIN</strong> permission to call this resource.
      *
      * @param dto Sets the rate limit settings for the instance.
-     * 
-     *            The authenticated user must have <strong>ADMIN</strong> permission to call this resource. (optional)
+
+The authenticated user must have <strong>ADMIN</strong> permission to call this resource. (optional)
      * @return RestRateLimitSettings
      */
     @PUT
@@ -1012,8 +1019,8 @@ public interface System_MaintenanceApi {
     /**
      * Get rate limit settings for user.
      *
-     * Retrieves the user-specific rate limit settings for the given user. The authenticated user must have
-     * <strong>ADMIN</strong> permission to call this resource.
+     * Retrieves the user-specific rate limit settings for the given user.
+     * The authenticated user must have <strong>ADMIN</strong> permission to call this resource.
      *
      * @param filter Optional filter (optional)
      * @param start  Start number for the page (inclusive). If not passed, first page is assumed. (optional)
@@ -1036,14 +1043,14 @@ public interface System_MaintenanceApi {
                             schema = @Schema(implementation = _ResponseApiLatestAdminRateLimitSettingsUsers_401.class)))
     })
     @Operation(summary = "Get rate limit settings for user")
-    _ResponseApiLatestAdminRateLimitSettingsUsers getAllRateLimitSettings(@QueryParam("filter") String filter,
-            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestAdminRateLimitSettingsUsers getAllRateLimitSettings(@QueryParam("filter") String filter, @QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Set rate limit settings for users.
      *
-     * Sets the given rate limit settings for the given users. The authenticated user must have <strong>ADMIN</strong>
-     * permission to call this resource.
+     * Sets the given rate limit settings for the given users.
+     * The authenticated user must have <strong>ADMIN</strong> permission to call this resource.
      *
      * @param dto (optional)
      * @return RestUserRateLimitSettings
@@ -1075,10 +1082,10 @@ public interface System_MaintenanceApi {
     /**
      * Get user specific rate limit settings.
      *
-     * Retrieves the user-specific rate limit settings for the given user. To call this resource, the user must be
-     * authenticated and either have <strong>ADMIN</strong> permission or be the same user as the one whose settings are
-     * requested. A user with <strong>ADMIN</strong> permission cannot get the settings of a user with
-     * <strong>SYS_ADMIN</strong> permission.
+     * Retrieves the user-specific rate limit settings for the given user.
+     * To call this resource, the user must be authenticated and either have <strong>ADMIN</strong> permission or be the
+     * same user as the one whose settings are requested. A user with <strong>ADMIN</strong> permission cannot get the
+     * settings of a user with <strong>SYS_ADMIN</strong> permission.
      *
      * @param userSlug The user slug. (not null)
      * @return RestUserRateLimitSettings
@@ -1109,8 +1116,8 @@ public interface System_MaintenanceApi {
     /**
      * Set rate limit settings for user.
      *
-     * Sets the given rate limit settings for the given user. The authenticated user must have <strong>ADMIN</strong>
-     * permission to call this resource.
+     * Sets the given rate limit settings for the given user.
+     * The authenticated user must have <strong>ADMIN</strong> permission to call this resource.
      *
      * @param userSlug The user slug. (not null)
      * @param dto      (optional)
@@ -1143,8 +1150,8 @@ public interface System_MaintenanceApi {
     /**
      * Delete user specific rate limit settings.
      *
-     * Deletes the user-specific rate limit settings for the given user. The authenticated user must have
-     * <strong>ADMIN</strong> permission to call this resource.
+     * Deletes the user-specific rate limit settings for the given user.
+     * The authenticated user must have <strong>ADMIN</strong> permission to call this resource.
      *
      * @param userSlug The user slug. (not null)
      */
@@ -1173,7 +1180,8 @@ public interface System_MaintenanceApi {
     /**
      * Get application properties.
      *
-     * Retrieve version information and other application properties. No authentication is required to call this resource.
+     * Retrieve version information and other application properties.
+     * No authentication is required to call this resource.
      *
      * @return RestApplicationProperties
      */
@@ -1187,7 +1195,8 @@ public interface System_MaintenanceApi {
     /**
      * Create a new hook script.
      *
-     * Create a new hook script. This endpoint requires **SYS_ADMIN** permission.
+     * Create a new hook script.
+     * This endpoint requires **SYS_ADMIN** permission.
      *
      * @param dto The multipart form data containing the hook script (optional)
      * @return RestHookScript
@@ -1250,7 +1259,8 @@ public interface System_MaintenanceApi {
     /**
      * Update a hook script.
      *
-     * Updates a hook script. This endpoint requires **SYS_ADMIN** permission.
+     * Updates a hook script.
+     * This endpoint requires **SYS_ADMIN** permission.
      *
      * @param scriptId The ID of the hook script (not null)
      * @param dto      The multipart form data containing the hook script (optional)
@@ -1293,7 +1303,8 @@ public interface System_MaintenanceApi {
     /**
      * Delete a hook script.
      *
-     * Deletes a registered hook script. This endpoint requires **SYS_ADMIN** permission.
+     * Deletes a registered hook script.
+     * This endpoint requires **SYS_ADMIN** permission.
      *
      * @param scriptId The ID of the hook script to delete (not null)
      */
@@ -1322,7 +1333,8 @@ public interface System_MaintenanceApi {
     /**
      * Get hook script content.
      *
-     * Retrieves the hook script content. This endpoint requires **SYS_ADMIN** permission.
+     * Retrieves the hook script content.
+     * This endpoint requires **SYS_ADMIN** permission.
      *
      * @param scriptId The ID of the hook script (not null)
      */
@@ -1350,7 +1362,8 @@ public interface System_MaintenanceApi {
     /**
      * Get all labels.
      *
-     * Returns a paged response of all the labels in the system. The user needs to be authenticated to use this resource.
+     * Returns a paged response of all the labels in the system.
+     * The user needs to be authenticated to use this resource.
      *
      * @param prefix (optional) prefix to filter the labels on. (optional)
      * @param start  Start number for the page (inclusive). If not passed, first page is assumed. (optional)
@@ -1379,7 +1392,8 @@ public interface System_MaintenanceApi {
     /**
      * Get label.
      *
-     * Returns a label. The user needs to be authenticated to use this resource.
+     * Returns a label.
+     * The user needs to be authenticated to use this resource.
      *
      * @param labelName the label name (not null)
      * @return RestLabel
@@ -1409,10 +1423,10 @@ public interface System_MaintenanceApi {
     /**
      * Get labelables for label.
      *
-     * Returns a page of labelables for a given label. Only labelables that the authenticated user has view access to will
-     * be returned.
+     * Returns a page of labelables for a given label.
+     * Only labelables that the authenticated user has view access to will be returned.
      *
-     * @param type      the type of labelables to be returned. Supported values: REPOSITORY (optional)
+     * @param type       the type of labelables to be returned. Supported values: REPOSITORY (optional)
      * @param labelName The page of labelables. (not null)
      * @param start     Start number for the page (inclusive). If not passed, first page is assumed. (optional)
      * @param limit     Number of items to return. If not passed, a page size of 25 is used. (optional)
@@ -1444,15 +1458,14 @@ public interface System_MaintenanceApi {
                             schema = @Schema(implementation = _ResponseApiLatestLabelsLabelNameLabeled_404.class)))
     })
     @Operation(summary = "Get labelables for label")
-    _ResponseApiLatestLabelsLabelNameLabeled getLabelables(@QueryParam("type") String type,
-            @PathParam("labelName") @NotNull String labelName, @QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestLabelsLabelNameLabeled getLabelables(@QueryParam("type") String type, @PathParam("labelName") @NotNull String labelName,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get current log level.
      *
-     * Retrieve the current log level for a given logger. The authenticated user must have <strong>ADMIN</strong> permission
-     * or higher to call this resource.
+     * Retrieve the current log level for a given logger.
+     * The authenticated user must have <strong>ADMIN</strong> permission or higher to call this resource.
      *
      * @param loggerName The name of the logger. (not null)
      * @return RestLogLevel
@@ -1477,8 +1490,8 @@ public interface System_MaintenanceApi {
     /**
      * Set log level.
      *
-     * Set the current log level for a given logger. The authenticated user must have <strong>ADMIN</strong> permission or
-     * higher to call this resource.
+     * Set the current log level for a given logger.
+     * The authenticated user must have <strong>ADMIN</strong> permission or higher to call this resource.
      *
      * @param levelName  The level to set the logger to. Either TRACE, DEBUG, INFO, WARN or ERROR (not null)
      * @param loggerName The name of the logger. (not null)
@@ -1508,8 +1521,8 @@ public interface System_MaintenanceApi {
     /**
      * Get root log level.
      *
-     * Retrieve the current log level for the root logger. The authenticated user must have <strong>ADMIN</strong>
-     * permission or higher to call this resource.
+     * Retrieve the current log level for the root logger.
+     * The authenticated user must have <strong>ADMIN</strong> permission or higher to call this resource.
      *
      * @return RestLogLevel
      */
@@ -1533,8 +1546,8 @@ public interface System_MaintenanceApi {
     /**
      * Set root log level.
      *
-     * Set the current log level for the root logger. The authenticated user must have <strong>ADMIN</strong> permission or
-     * higher to call this resource.
+     * Set the current log level for the root logger.
+     * The authenticated user must have <strong>ADMIN</strong> permission or higher to call this resource.
      *
      * @param levelName the level to set the logger to. Either TRACE, DEBUG, INFO, WARN or ERROR (not null)
      */
@@ -1563,23 +1576,36 @@ public interface System_MaintenanceApi {
     /**
      * Start export job.
      *
-     * Starts a background job that exports the selected repositories. Only 2 concurrent exports are supported _per cluster
-     * node_. If a request ends up on a node that is already running that many export jobs, the request will be rejected and
-     * an error returned. The response includes a description of the job that has been started, and its ID can be used to
-     * query these details again, including the current progress, warnings and errors that occurred while processing the
-     * job, and to interrupt and cancel the execution of this job. The request to start an export is similar to the one for
-     * previewing an export. Additionally, it accepts an optional parameter, `exportLocation`, which can be used to specify
-     * a _relative_ path within `data/migration/export` in the shared home directory. No locations outside of that directory
-     * will be accepted for exports. There are essentially three ways to select repositories for export. Regardless of which
-     * you use, a few general rules apply: - You can supply a list of selectors. The selection will be additive. -
-     * Repositories that are selected more than once due to overlapping selectors will be de-duplicated and effectively
-     * exported only once. - For every selected repository, its full fork hierarchy will be considered selected, even if
-     * parts of that hierarchy would otherwise not be matched by the provided selectors. For example, when you explicitly
-     * select a single repository only, but that repository is a fork, then its origin will be exported (and eventually
-     * imported), too. Now, a single repository can be selected like this: ``` { "projectKey": "PRJ", "slug": "my-repo" }
-     * ``` Second, all repositories in a specific project can be selected like this: ``` { "projectKey": "PRJ", "slug": *" }
-     * ``` And third, all projects and repositories in the system would be selected like this: ``` { "projectKey": "*",
-     * "slug": *" } ``` The authenticated user must have **ADMIN** permission or higher to call this resource.
+     * Starts a background job that exports the selected repositories.
+     * Only 2 concurrent exports are supported _per cluster node_. If a request ends up on a node that is already
+     * running that many export jobs, the request will be rejected and an error returned.
+     * The response includes a description of the job that has been started, and its ID can be used to query these
+     * details again, including the current progress, warnings and errors that occurred while processing the job, and to
+     * interrupt and cancel the execution of this job.
+     * The request to start an export is similar to the one for previewing an export. Additionally, it accepts an
+     * optional parameter, `exportLocation`, which can be used to specify a _relative_ path within
+     * `data/migration/export` in the shared home directory. No locations outside of that directory will be accepted for
+     * exports.
+     * There are essentially three ways to select repositories for export. Regardless of which you use, a few general
+     * rules apply:
+     * - You can supply a list of selectors. The selection will be additive. - Repositories that are selected more than
+     * once due to overlapping selectors will be de-duplicated and effectively exported only once. - For every selected
+     * repository, its full fork hierarchy will be considered selected, even if parts of that hierarchy would otherwise
+     * not be matched by the provided selectors. For example, when you explicitly select a single repository only, but
+     * that repository is a fork, then its origin will be exported (and eventually imported), too.
+     * Now, a single repository can be selected like this:
+     * ```
+     * {       "projectKey": "PRJ",       "slug": "my-repo" }
+     * ```
+     * Second, all repositories in a specific project can be selected like this:
+     * ```
+     * {       "projectKey": "PRJ",       "slug": *" }
+     * ```
+     * And third, all projects and repositories in the system would be selected like this:
+     * ```
+     * {       "projectKey": "*",       "slug": *" }
+     * ```
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param dto The request (optional)
      * @return RestJob
@@ -1615,17 +1641,19 @@ public interface System_MaintenanceApi {
     /**
      * Preview export.
      *
-     * Enumerates the projects and repositories that would be exported for a given export request. All affected repositories
-     * will be enumerated explicitly, and while projects are listed as individual items in responses from this endpoint,
-     * their presence does not imply that all their repositories are included. While this endpoint can be used to verify
-     * that all selectors in the request apply as intended, it should be noted that a subsequent, actual export might
-     * contain a different set of repositories, as they might have been added or deleted in the meantime. Note that the
-     * overall response from this endpoint can become very large when a lot of repositories end up in the selection. This is
-     * why the server is streaming the response while it is being generated (as opposed to creating it in memory and then
-     * sending it all at once) and it can be consumed in a streaming way, too. Also, due to the potential size of the
-     * response, projects and repositories are listed with fewer details than in other REST responses. For a more detailed
-     * description of selectors, see the endpoint documentation for starting an export. The authenticated user must have
-     * **ADMIN** permission or higher to call this resource.
+     * Enumerates the projects and repositories that would be exported for a given export request.
+     * All affected repositories will be enumerated explicitly, and while projects are listed as individual items in
+     * responses from this endpoint, their presence does not imply that all their repositories are included.
+     * While this endpoint can be used to verify that all selectors in the request apply as intended, it should be noted
+     * that a subsequent, actual export might contain a different set of repositories, as they might have been added or
+     * deleted in the meantime.
+     * Note that the overall response from this endpoint can become very large when a lot of repositories end up in the
+     * selection. This is why the server is streaming the response while it is being generated (as opposed to creating
+     * it in memory and then sending it all at once) and it can be consumed in a streaming way, too.
+     * Also, due to the potential size of the response, projects and repositories are listed with fewer details than in
+     * other REST responses.
+     * For a more detailed description of selectors, see the endpoint documentation for starting an export.
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param dto the export request (optional)
      * @return RestScopesExample
@@ -1657,8 +1685,8 @@ public interface System_MaintenanceApi {
     /**
      * Get export job details.
      *
-     * Gets the details, including the current status and progress, of the export job identified by the given ID. The
-     * authenticated user must have **ADMIN** permission or higher to call this resource.
+     * Gets the details, including the current status and progress, of the export job identified by the given ID.
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param jobId the ID of the job (not null)
      * @return RestJob
@@ -1688,13 +1716,15 @@ public interface System_MaintenanceApi {
     /**
      * Cancel export job.
      *
-     * Requests the cancellation of an export job. The request to cancel a job will be processed successfully if the job is
-     * actually still running. If it has already finished (successfully or with errors) or if it has already been canceled
-     * before, then an error will be returned. There might be a small delay between accepting the request and actually
-     * cancelling the job. In most cases, the delay will be close to instantaneously. In the unlikely case of communication
-     * issues across a cluster, it can however take a few seconds to cancel a job. A client should always actively query the
-     * job status to confirm that a job has been successfully canceled. The authenticated user must have **ADMIN**
-     * permission or higher to call this resource.
+     * Requests the cancellation of an export job.
+     * The request to cancel a job will be processed successfully if the job is actually still running. If it has
+     * already finished (successfully or with errors) or if it has already been canceled before, then an error will be
+     * returned.
+     * There might be a small delay between accepting the request and actually cancelling the job. In most cases, the
+     * delay will be close to instantaneously. In the unlikely case of communication issues across a cluster, it can
+     * however take a few seconds to cancel a job.
+     * A client should always actively query the job status to confirm that a job has been successfully canceled.
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param jobId the ID of the job to cancel (not null)
      */
@@ -1729,10 +1759,11 @@ public interface System_MaintenanceApi {
     /**
      * Get job messages.
      *
-     * Gets the messages generated by the job. Without any filter, all messages will be returned, but the response can
-     * optionally be filtered for the following severities. The severity parameter can be repeated to include multiple
-     * severities in one response. - INFO - WARN - ERROR The authenticated user must have **ADMIN** permission or higher to
-     * call this resource.
+     * Gets the messages generated by the job.
+     * Without any filter, all messages will be returned, but the response can optionally be filtered for the following
+     * severities. The severity parameter can be repeated to include multiple severities in one response.
+     * - INFO - WARN - ERROR
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param severity The severity to include in the results (optional)
      * @param jobId    The ID of the job (not null)
@@ -1762,18 +1793,18 @@ public interface System_MaintenanceApi {
                             schema = @Schema(implementation = _ResponseApiLatestMigrationExportsJobIdMessages_404.class)))
     })
     @Operation(summary = "Get job messages")
-    _ResponseApiLatestMigrationExportsJobIdMessages getExportJobMessages(@QueryParam("severity") String severity,
-            @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestMigrationExportsJobIdMessages getExportJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId,
+            @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Start import job.
      *
-     * Starts a background job that imports the specified archive. Only 1 import at a time is supported _per cluster_. If
-     * another request is made while an import is already running, the request will be rejected and an error returned. The
-     * path in the request must point to a valid archive file. The file must be located within the `data/migration/import`
-     * directory in the shared home directory. The authenticated user must have **ADMIN** permission or higher to call this
-     * resource.
+     * Starts a background job that imports the specified archive.
+     * Only 1 import at a time is supported _per cluster_. If another request is made while an import is already
+     * running, the request will be rejected and an error returned.
+     * The path in the request must point to a valid archive file. The file must be located within the
+     * `data/migration/import` directory in the shared home directory.
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param dto The request (optional)
      * @return RestJob
@@ -1809,8 +1840,8 @@ public interface System_MaintenanceApi {
     /**
      * Get import job status.
      *
-     * Gets the details, including the current status and progress, of the import job identified by the given ID. The
-     * authenticated user must have **ADMIN** permission or higher to call this resource.
+     * Gets the details, including the current status and progress, of the import job identified by the given ID.
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param jobId The ID of the job (not null)
      * @return RestJob
@@ -1840,14 +1871,17 @@ public interface System_MaintenanceApi {
     /**
      * Cancel import job.
      *
-     * Requests the cancellation of an import job. The request to cancel a job will be processed successfully if the job is
-     * actually still running. If it has already finished (successfully or with errors) or if it has already been canceled
-     * before, then an error will be returned. Note that import jobs are not canceled as instantaneously as export jobs.
-     * Rather, once the request has been accepted, there are a number of checkpoints at which the job will actually apply it
-     * and stop. This is to keep the system in a reasonably consistent state: - After the current fork hierarchy has been
-     * imported and verified. - Before the next repository is imported. - Before the next pull request is imported. A client
-     * should always actively query the job status to confirm that a job has been successfully canceled. The authenticated
-     * user must have **ADMIN** permission or higher to call this resource.
+     * Requests the cancellation of an import job.
+     * The request to cancel a job will be processed successfully if the job is actually still running. If it has
+     * already finished (successfully or with errors) or if it has already been canceled before, then an error will be
+     * returned.
+     * Note that import jobs are not canceled as instantaneously as export jobs. Rather, once the request has been
+     * accepted, there are a number of checkpoints at which the job will actually apply it and stop. This is to keep the
+     * system in a reasonably consistent state:
+     * - After the current fork hierarchy has been imported and verified. - Before the next repository is imported. -
+     * Before the next pull request is imported.
+     * A client should always actively query the job status to confirm that a job has been successfully canceled.
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param jobId the ID of the job to cancel (not null)
      */
@@ -1882,10 +1916,11 @@ public interface System_MaintenanceApi {
     /**
      * Get import job messages.
      *
-     * Gets the messages generated by the job. Without any filter, all messages will be returned, but the response can
-     * optionally be filtered for the following severities. The severity parameter can be repeated to include multiple
-     * severities in one response. - INFO - WARN - ERROR The authenticated user must have **ADMIN** permission or higher to
-     * call this resource.
+     * Gets the messages generated by the job.
+     * Without any filter, all messages will be returned, but the response can optionally be filtered for the following
+     * severities. The severity parameter can be repeated to include multiple severities in one response.
+     * - INFO - WARN - ERROR
+     * The authenticated user must have **ADMIN** permission or higher to call this resource.
      *
      * @param severity The severity to include in the results (optional)
      * @param jobId    The ID of the job (not null)
@@ -1915,28 +1950,38 @@ public interface System_MaintenanceApi {
                             schema = @Schema(implementation = _ResponseApiLatestMigrationImportsJobIdMessages_404.class)))
     })
     @Operation(summary = "Get import job messages")
-    _ResponseApiLatestMigrationImportsJobIdMessages getImportJobMessages(@QueryParam("severity") String severity,
-            @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestMigrationImportsJobIdMessages getImportJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId,
+            @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Start Mesh migration job.
      *
-     * Starts a background job that migrates selected projects/repositories to Mesh. Only 1 job is supported _per cluster_.
-     * The response includes a description of the job that has been started, and its ID can be used to query these details
-     * again, including the current progress, and to interrupt and cancel the execution of this job. The request to start a
-     * migration is similar to the one for previewing a migration. There are essentially three ways to select repositories
-     * for migration. Regardless of which you use, a few general rules apply: - You can supply a list of repository IDs and
-     * project IDs. The selection will be additive. All repositories in the system are migrated if both lists are empty. -
-     * Repositories that are selected more than once due to overlapping IDs will be de-duplicated and effectively migrated
-     * only once. - For every selected repository, its full fork hierarchy will be considered selected, even if parts of
-     * that hierarchy would otherwise not be matched by the provided IDs. For example, when you explicitly select a single
-     * repository only, but that repository is a fork, then its origin will be migrated too. Now, a single repository can be
-     * selected like this: ``` { "repositoryIds": [1] } ``` Multiple repositories can be selected like this: ``` {
-     * "repositoryIds": [1, 2] } ``` Second, all repositories in a specific project can be selected like this: ``` {
-     * "projectIds": [1] } ``` And third, all projects and repositories in the system would be selected like this: ``` {
-     * "projectIds": [], "repositoryIds": [] } ``` The authenticated user must have **SYS_ADMIN** permission to call this
-     * resource.
+     * Starts a background job that migrates selected projects/repositories to Mesh.
+     * Only 1 job is supported _per cluster_.
+     * The response includes a description of the job that has been started, and its ID can be used to query these
+     * details again, including the current progress, and to interrupt and cancel the execution of this job.
+     * The request to start a migration is similar to the one for previewing a migration.
+     * There are essentially three ways to select repositories for migration. Regardless of which you use, a few general
+     * rules apply:
+     * - You can supply a list of repository IDs and project IDs. The selection will be additive. All repositories
+     * in the system are migrated if both lists are empty.     - Repositories that are selected more than once due to
+     * overlapping IDs will be de-duplicated and     effectively migrated only once.     - For every selected
+     * repository, its full fork hierarchy will be considered selected, even if parts of that     hierarchy would
+     * otherwise not be matched by the provided IDs. For example, when you explicitly     select a single repository
+     * only, but that repository is a fork, then its origin will be migrated too.
+     * Now, a single repository can be selected like this:
+     * ```
+     * {      "repositoryIds": [1]      } ```
+     * Multiple repositories can be selected like this:
+     * ```
+     * {      "repositoryIds": [1, 2]      } ```
+     * Second, all repositories in a specific project can be selected like this:
+     * ```
+     * {      "projectIds": [1]      } ```
+     * And third, all projects and repositories in the system would be selected like this:
+     * ```
+     * {      "projectIds": [],      "repositoryIds": []      } ```
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
      * @param dto (optional)
      * @return RestJob
@@ -1972,16 +2017,18 @@ public interface System_MaintenanceApi {
     /**
      * Preview Mesh migration.
      *
-     * Enumerates the projects and repositories that would be migrated for a given request. All affected repositories will
-     * be enumerated explicitly, and while projects are listed as individual items in responses from this endpoint, their
-     * presence does not imply that all their repositories are included. While this endpoint can be used to verify that all
-     * selectors in the request apply as intended, it should be noted that a subsequent, actual export might contain a
-     * different set of repositories, as they might have been added or deleted in the meantime. Note that the overall
-     * response from this endpoint can become very large when a lot of repositories end up in the selection. This is why the
-     * server is streaming the response while it is being generated (as opposed to creating it in memory and then sending it
-     * all at once) and it can be consumed in a streaming way, too. Also, due to the potential size of the response,
-     * projects and repositories are listed with fewer details than in other REST responses. The authenticated user must
-     * have **SYS_ADMIN** permission to call this resource.
+     * Enumerates the projects and repositories that would be migrated for a given request.
+     * All affected repositories will be enumerated explicitly, and while projects are listed as individual items in
+     * responses from this endpoint, their presence does not imply that all their repositories are included.
+     * While this endpoint can be used to verify that all selectors in the request apply as intended, it should be noted
+     * that a subsequent, actual export might contain a different set of repositories, as they might have been added or
+     * deleted in the meantime.
+     * Note that the overall response from this endpoint can become very large when a lot of repositories end up in the
+     * selection. This is why the server is streaming the response while it is being generated (as opposed to creating
+     * it in memory and then sending it all at once) and it can be consumed in a streaming way, too.
+     * Also, due to the potential size of the response, projects and repositories are listed with fewer details than in
+     * other REST responses.
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
      * @param dto The export request (optional)
      * @return ExamplePreviewMigration
@@ -2013,23 +2060,21 @@ public interface System_MaintenanceApi {
     /**
      * Find repositories by Mesh migration state.
      *
-     * Searches for repositories in the system matching the specified criteria and enriches their MeshMigrationQueueState
-     * migration state if a migration is currently in progress. The currently active migration can optionally be specified
-     * by passing a migrationId, if known. If this isn't passed, an attempt is made to locate the active migration and its
-     * ID is used. If a migration is currently active, only repositories that are a part of the migration are filtered and
-     * returned. Otherwise, all repositories in the systems are filtered and returned. Filtering by state is ignored when no
-     * migration is currently in progress. In such a case, results are not enriched with their MeshMigrationQueueState
-     * migration state. The authenticated user must have **SYS_ADMIN** permission to call this resource.
+     * Searches for repositories in the system matching the specified criteria and enriches their
+     * MeshMigrationQueueState migration state if a migration is currently in progress.
+     * The currently active migration can optionally be specified by passing a migrationId, if known. If this isn't
+     * passed, an attempt is made to locate the active migration and its ID is used.
+     * If a migration is currently active, only repositories that are a part of the migration are filtered and returned.
+     * Otherwise, all repositories in the systems are filtered and returned.
+     * Filtering by state is ignored when no migration is currently in progress. In such a case, results are not
+     * enriched with their MeshMigrationQueueState migration state.
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
-     * @param migrationId (optional) The currently active migration job. If not passed, this is looked up internally.
-     *                    (optional)
-     * @param projectKey  (optional) The project key. Can be specified more than once to filter by more than one project.
-     *                    (optional)
+     * @param migrationId (optional) The currently active migration job. If not passed, this is looked up internally. (optional)
+     * @param projectKey  (optional) The project key. Can be specified more than once to filter by more than one project. (optional)
      * @param name        (optional) The repository name (optional)
-     * @param state       (optional) If a migration is active, the MeshMigrationQueueState state to filter results by. Can
-     *                    be specified more than once to filter by more than one state. (optional)
-     * @param remote      (optional) Whether the repository has been fully migrated to Mesh. If not present, all
-     *                    repositories are considered regardless of where they're located. (optional)
+     * @param state       (optional) If a migration is active, the MeshMigrationQueueState state to filter results by. Can be specified more than once to filter by more than one state. (optional)
+     * @param remote      (optional) Whether the repository has been fully migrated to Mesh. If not present, all repositories are considered regardless of where they're located. (optional)
      * @param start       Start number for the page (inclusive). If not passed, first page is assumed. (optional)
      * @param limit       Number of items to return. If not passed, a page size of 25 is used. (optional)
      * @return _ResponseApiLatestMigrationMeshRepos
@@ -2060,15 +2105,14 @@ public interface System_MaintenanceApi {
                             schema = @Schema(implementation = _ResponseApiLatestMigrationMeshRepos_404.class)))
     })
     @Operation(summary = "Find repositories by Mesh migration state")
-    _ResponseApiLatestMigrationMeshRepos searchMeshMigrationRepos(@QueryParam("migrationId") String migrationId,
-            @QueryParam("projectKey") String projectKey, @QueryParam("name") String name, @QueryParam("state") String state,
-            @QueryParam("remote") String remote, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestMigrationMeshRepos searchMeshMigrationRepos(@QueryParam("migrationId") String migrationId, @QueryParam("projectKey") String projectKey,
+            @QueryParam("name") String name, @QueryParam("state") String state, @QueryParam("remote") String remote, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get all Mesh migration job summaries.
      *
-     * Retrieve a page of Mesh migration job summaries. Jobs are ordered by when they were started, newest first. The
-     * authenticated user must have **SYS_ADMIN** permission to call this resource.
+     * Retrieve a page of Mesh migration job summaries. Jobs are ordered by when they were started, newest first.
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
      * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
      * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
@@ -2090,14 +2134,13 @@ public interface System_MaintenanceApi {
                             schema = @Schema(implementation = _ResponseApiLatestMigrationMeshSummaries_401.class)))
     })
     @Operation(summary = "Get all Mesh migration job summaries")
-    _ResponseApiLatestMigrationMeshSummaries getAllMeshMigrationSummaries(@QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestMigrationMeshSummaries getAllMeshMigrationSummaries(@QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get summary for Mesh migration job.
      *
-     * Gets the summary, including the queue status and progress, of the currently active Mesh migration job. The
-     * authenticated user must have **SYS_ADMIN** permission to call this resource.
+     * Gets the summary, including the queue status and progress, of the currently active Mesh migration job.
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
      * @return RestMeshMigrationSummary
      */
@@ -2127,8 +2170,8 @@ public interface System_MaintenanceApi {
     /**
      * Get Mesh migration job details.
      *
-     * Gets the details, including the current status and progress, of the job identified by the given ID. The authenticated
-     * user must have **SYS_ADMIN** permission to call this resource.
+     * Gets the details, including the current status and progress, of the job identified by the given ID.
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
      * @param jobId The ID of the job (not null)
      */
@@ -2161,13 +2204,15 @@ public interface System_MaintenanceApi {
     /**
      * Cancel Mesh migration job.
      *
-     * Requests the cancellation of a migration job. The request to cancel a job will be processed successfully if the job
-     * is actually still running. If it has already finished (successfully or with errors) or if it has already been
-     * canceled before, then an error will be returned. There might be a small delay between accepting the request and
-     * actually cancelling the job. In most cases, the delay will be close to instantaneously. In the unlikely case of
-     * communication issues across a cluster, it can however take a few seconds to cancel a job. A client should always
-     * actively query the job status to confirm that a job has been successfully canceled. The authenticated user must have
-     * **SYS_ADMIN** permission to call this resource.
+     * Requests the cancellation of a migration job.
+     * The request to cancel a job will be processed successfully if the job is actually still running. If it has
+     * already finished (successfully or with errors) or if it has already been canceled before, then an error will be
+     * returned.
+     * There might be a small delay between accepting the request and actually cancelling the job. In most cases, the
+     * delay will be close to instantaneously. In the unlikely case of communication issues across a cluster, it can
+     * however take a few seconds to cancel a job.
+     * A client should always actively query the job status to confirm that a job has been successfully canceled.
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
      * @param jobId The ID of the job to cancel (not null)
      */
@@ -2202,10 +2247,11 @@ public interface System_MaintenanceApi {
     /**
      * Get Mesh migration job messages.
      *
-     * Gets the messages generated by the job. Without any filter, all messages will be returned, but the response can
-     * optionally be filtered for the following severities. The severity parameter can be repeated to include multiple
-     * severities in one response. - INFO - WARN - ERROR The authenticated user must have **SYS_ADMIN** permission to call
-     * this resource.
+     * Gets the messages generated by the job.
+     * Without any filter, all messages will be returned, but the response can optionally be filtered for the following
+     * severities. The severity parameter can be repeated to include multiple severities in one response.
+     * - INFO      - WARN      - ERROR
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
      * @param severity The severity to include in the results (optional)
      * @param jobId    The ID of the job (not null)
@@ -2240,15 +2286,14 @@ public interface System_MaintenanceApi {
                             schema = @Schema(implementation = _ResponseApiLatestMigrationMeshJobIdMessages_404.class)))
     })
     @Operation(summary = "Get Mesh migration job messages")
-    _ResponseApiLatestMigrationMeshJobIdMessages getMeshMigrationJobMessages(@QueryParam("severity") String severity,
-            @PathParam("jobId") @NotNull String jobId, @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestMigrationMeshJobIdMessages getMeshMigrationJobMessages(@QueryParam("severity") String severity, @PathParam("jobId") @NotNull String jobId,
+            @QueryParam("subject") String subject, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get Mesh migration job summary.
      *
-     * Gets the summary, including the queue status and progress, of a Mesh migration job. The authenticated user must have
-     * **SYS_ADMIN** permission to call this resource.
+     * Gets the summary, including the queue status and progress, of a Mesh migration job.
+     * The authenticated user must have **SYS_ADMIN** permission to call this resource.
      *
      * @param jobId The ID of the job (not null)
      * @return RestMeshMigrationSummary
@@ -2284,41 +2329,33 @@ public interface System_MaintenanceApi {
     /**
      * Get all users.
      *
-     * Retrieve a page of users, optionally run through provided filters. Only authenticated users may call this resource.
-     * ### Permission Filters The following three sub-sections list parameters supported for permission filters (where
-     * <code>[root]</code> is the root permission filter name, e.g. <code>permission</code>, <code>permission.1</code> etc.)
-     * depending on the permission resource. The system determines which filter to apply (Global, Project or Repository
-     * permission) based on the `[root]` permission value. E.g. <code>ADMIN</code> is a global permission,
-     * <code>PROJECT_ADMIN</code> is a project permission and <code>REPO_ADMIN</code> is a repository permission. Note that
-     * the parameters for a given resource will be looked up in the order as they are listed below, that is e.g. for a
-     * project resource, if both <code>projectId</code> and <code>projectKey</code> are provided, the system will use
-     * <code>projectId</code> for the lookup.
-     * <h4>Global permissions</h4> The permission value under <code>[root]</code> is the only required and recognized
-     * parameter, as global permissions do not apply to a specific resource. Example valid filter:
-     * <code>permission=ADMIN</code>.
-     * <h4>Project permissions</h4> - <code>[root]</code>- specifies the project permission - <code>[root].projectId</code>
-     * - specifies the project ID to lookup the project by - <code>[root].projectKey</code> - specifies the project key to
-     * lookup the project by Example valid filter:
-     * <code>permission.1=PROJECT_ADMIN&amp;permission.1.projectKey=TEST_PROJECT</code>. #### Repository permissions -
-     * <code>[root]</code>- specifies the repository permission - <code>[root].projectId</code> - specifies the repository
-     * ID to lookup the repository by - <code>[root].projectKey</code> and <code>[root].repositorySlug</code>- specifies the
-     * project key and repository slug to lookup the repository by; both values <i>need to</i> be provided for this look up
-     * to be triggered Example valid filter:
+     * Retrieve a page of users, optionally run through provided filters.
+     * Only authenticated users may call this resource. ### Permission Filters
+     * The following three sub-sections list parameters supported for permission filters (where <code>[root]</code> is
+     * the root permission filter name, e.g. <code>permission</code>, <code>permission.1</code> etc.) depending on the
+     * permission resource. The system determines which filter to apply (Global, Project or Repository permission) based
+     * on the `[root]` permission value. E.g. <code>ADMIN</code> is a global permission, <code>PROJECT_ADMIN</code> is a
+     * project permission and <code>REPO_ADMIN</code> is a repository permission. Note that the parameters for a given
+     * resource will be looked up in the order as they are listed below, that is e.g. for a project resource, if both
+     * <code>projectId</code> and <code>projectKey</code> are provided, the system will use <code>projectId</code> for
+     * the lookup. <h4>Global permissions</h4>
+     * The permission value under <code>[root]</code> is the only required and recognized parameter, as global
+     * permissions do not apply to a specific resource.
+     * Example valid filter: <code>permission=ADMIN</code>. <h4>Project permissions</h4>
+     * - <code>[root]</code>- specifies the project permission - <code>[root].projectId</code> - specifies the project
+     * ID to lookup the project by - <code>[root].projectKey</code> - specifies the project key to lookup the project by
+     * Example valid filter: <code>permission.1=PROJECT_ADMIN&amp;permission.1.projectKey=TEST_PROJECT</code>. ####
+     * Repository permissions
+     * - <code>[root]</code>- specifies the repository permission - <code>[root].projectId</code> - specifies the
+     * repository ID to lookup the repository by - <code>[root].projectKey</code> and
+     * <code>[root].repositorySlug</code>- specifies the project key and     repository slug to lookup the repository
+     * by; both values <i>need to</i> be provided for this look up to be     triggered
+     * Example valid filter:
      * <code>permission.2=REPO_ADMIN&amp;permission.2.projectKey=TEST_PROJECT&amp;permission.2.repositorySlug=test_repo</code>.
      *
-     * @param filter       Return only users, whose username, name or email address <i>contain</i> the <code> filter</code>
-     *                     value (optional)
-     * @param permission_N The "root" of a single permission filter, similar to the <code>permission</code> parameter, where
-     *                     "N" is a natural number starting from 1. This allows clients to specify multiple permission
-     *                     filters, by providing consecutive filters as <code>permission.1</code>, <code>permission.2</code>
-     *                     etc. Note that the filters numbering has to start with 1 and be continuous for all filters to be
-     *                     processed. The total allowed number of permission filters is 50 and all filters exceeding that
-     *                     limit will be dropped. See the section "Permission Filters" above for more details on how the
-     *                     permission filters are processed. (optional)
-     * @param permission   The "root" of a permission filter, whose value must be a valid global, project, or repository
-     *                     permission. Additional filter parameters referring to this filter that specify the resource
-     *                     (project or repository) to apply the filter to must be prefixed with <code>permission.</code>.
-     *                     See the section "Permission Filters" above for more details. (optional)
+     * @param filter       Return only users, whose username, name or email address <i>contain</i> the <code> filter</code> value (optional)
+     * @param permission_N The "root" of a single permission filter, similar to the <code>permission</code> parameter, where "N" is a natural number starting from 1. This allows clients to specify multiple permission filters, by providing consecutive filters as <code>permission.1</code>, <code>permission.2</code> etc. Note that the filters numbering has to start with 1 and be continuous for all filters to be processed. The total allowed number of permission filters is 50 and all filters exceeding that limit will be dropped. See the section "Permission Filters" above for more details on how the permission filters are processed. (optional)
+     * @param permission   The "root" of a permission filter, whose value must be a valid global, project, or repository permission. Additional filter parameters referring to this filter that specify the resource (project or repository) to apply the filter to must be prefixed with <code>permission.</code>. See the section "Permission Filters" above for more details. (optional)
      * @param group        return only users who are members of the given group (optional)
      * @return RestApplicationUser
      */
@@ -2349,8 +2386,8 @@ public interface System_MaintenanceApi {
     /**
      * Update user details.
      *
-     * Update the currently authenticated user's details. The update will always be applied to the currently authenticated
-     * user.
+     * Update the currently authenticated user's details. The update will always be applied to the currently
+     * authenticated user.
      *
      * @param dto The user update details (optional)
      * @return RestApplicationUser
@@ -2443,21 +2480,21 @@ public interface System_MaintenanceApi {
     /**
      * Update user avatar.
      *
-     * Update the avatar for the user with the supplied <strong>slug</strong>. This resource accepts POST multipart form
-     * data, containing a single image in a form-field named 'avatar'. There are configurable server limits on both the
-     * dimensions (1024x1024 pixels by default) and uploaded file size (1MB by default). Several different image formats are
-     * supported, but <strong>PNG</strong> and <strong>JPEG</strong> are preferred due to the file size limit. This resource
-     * has Cross-Site Request Forgery (XSRF) protection. To allow the request to pass the XSRF check the caller needs to
-     * send an <code>X-Atlassian-Token</code> HTTP header with the value <code>no-check</code>. An example
-     * <a href="http://curl.haxx.se/">curl</a> request to upload an image name 'avatar.png' would be: ``` curl -X POST -u
-     * username:password -H "X-Atlassian-Token: no-check" http://example.com/rest/api/latest/users/jdoe/avatar.png -F
-     * avatar=@avatar.png ``` Users are always allowed to update their own avatar. To update someone else's avatar the
-     * authenticated user must have global <strong>ADMIN</strong> permission, or global <strong>SYS_ADMIN</strong>
-     * permission to update a <strong>SYS_ADMIN</strong> user's avatar.
+     * Update the avatar for the user with the supplied <strong>slug</strong>.
+     * This resource accepts POST multipart form data, containing a single image in a form-field named 'avatar'.
+     * There are configurable server limits on both the dimensions (1024x1024 pixels by default) and uploaded file size
+     * (1MB by default). Several different image formats are supported, but <strong>PNG</strong> and
+     * <strong>JPEG</strong> are preferred due to the file size limit.
+     * This resource has Cross-Site Request Forgery (XSRF) protection. To allow the request to pass the XSRF check the
+     * caller needs to send an <code>X-Atlassian-Token</code> HTTP header with the value <code>no-check</code>.
+     * An example <a href="http://curl.haxx.se/">curl</a> request to upload an image name 'avatar.png' would be: ```
+     * curl -X POST -u username:password -H "X-Atlassian-Token: no-check"
+     * http://example.com/rest/api/latest/users/jdoe/avatar.png -F avatar=@avatar.png ```
+     * Users are always allowed to update their own avatar. To update someone else's avatar the authenticated user must
+     * have global <strong>ADMIN</strong> permission, or global <strong>SYS_ADMIN</strong> permission to update a
+     * <strong>SYS_ADMIN</strong> user's avatar.
      *
-     * @param xAtlassianToken This resource has Cross-Site Request Forgery (XSRF) protection. To allow the request to pass
-     *                        the XSRF check the caller needs to send an <code>X-Atlassian-Token</code> HTTP header with the
-     *                        value <code>no-check</code>. (optional)
+     * @param xAtlassianToken This resource has Cross-Site Request Forgery (XSRF) protection. To allow the request to pass the XSRF check the caller needs to send an <code>X-Atlassian-Token</code> HTTP header with the value <code>no-check</code>. (optional)
      * @param userSlug        The user slug (not null)
      * @param dto             Multipart form data containing a single image in a form-field named 'avatar'. (optional)
      */
@@ -2482,15 +2519,15 @@ public interface System_MaintenanceApi {
                             mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Update user avatar")
-    void uploadAvatar_1(@HeaderParam("X-Atlassian-Token") String xAtlassianToken, @PathParam("userSlug") @NotNull String userSlug,
-            @Valid ExampleAvatarMultipartFormData dto);
+    void uploadAvatar_1(@HeaderParam("X-Atlassian-Token") String xAtlassianToken, @PathParam("userSlug") @NotNull String userSlug, @Valid ExampleAvatarMultipartFormData dto);
 
     /**
      * Delete user avatar.
      *
-     * Delete the avatar associated to a user. Users are always allowed to delete their own avatar. To delete someone else's
-     * avatar the authenticated user must have global <strong>ADMIN</strong> permission, or global
-     * <strong>SYS_ADMIN</strong> permission to update a <strong>SYS_ADMIN</strong> user's avatar.
+     * Delete the avatar associated to a user.
+     * Users are always allowed to delete their own avatar. To delete someone else's avatar the authenticated user must
+     * have global <strong>ADMIN</strong> permission, or global <strong>SYS_ADMIN</strong> permission to update a
+     * <strong>SYS_ADMIN</strong> user's avatar.
      *
      * @param userSlug The user slug (not null)
      * @return RestNamedLink
@@ -2576,8 +2613,8 @@ public interface System_MaintenanceApi {
     /**
      * Dismiss retention config notification.
      *
-     * Dismisses the retention config review notification displayed by the audit plugin for the user that's currently logged
-     * in.
+     * Dismisses the retention config review notification displayed by the audit plugin for the user that's currently
+     * logged in.
      */
     @DELETE
     @Path("audit/latest/notification-settings/retention-config-review")
@@ -2598,7 +2635,8 @@ public interface System_MaintenanceApi {
     /**
      * Get repository archive policy.
      *
-     * Retrieves the repository archive policy for the instance. The user must be authenticated to access this resource.
+     * Retrieves the repository archive policy for the instance.
+     * The user must be authenticated to access this resource.
      *
      * @return RestRepositoryPolicy
      */
@@ -2623,7 +2661,8 @@ public interface System_MaintenanceApi {
     /**
      * Update repository archive policy.
      *
-     * Sets the repository archive policy for the instance. The authenticated user must have <b>SYS_ADMIN</b> permission.
+     * Sets the repository archive policy for the instance.
+     * The authenticated user must have <b>SYS_ADMIN</b> permission.
      *
      * @param dto The request containing the details of the policy. (optional)
      * @return RestRepositoryPolicy
@@ -2655,7 +2694,8 @@ public interface System_MaintenanceApi {
     /**
      * Get repository delete policy.
      *
-     * Retrieves the repository delete policy for the instance. The user must be authenticated to access this resource.
+     * Retrieves the repository delete policy for the instance.
+     * The user must be authenticated to access this resource.
      *
      * @return RestRepositoryPolicy
      */
@@ -2680,7 +2720,8 @@ public interface System_MaintenanceApi {
     /**
      * Update the repository delete policy.
      *
-     * Sets the repository delete policy for the instance. The authenticated user must have <b>SYS_ADMIN</b> permission.
+     * Sets the repository delete policy for the instance.
+     * The authenticated user must have <b>SYS_ADMIN</b> permission.
      *
      * @param dto The request containing the details of the policy. (optional)
      * @return RestRepositoryPolicy

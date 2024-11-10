@@ -29,8 +29,7 @@ public interface AcrRepositoryApi {
      * List repositories.
      *
      * @param auth (not null)
-     * @param last Query parameter for the last item in previous query. Result set will include values lexically after last.
-     *             (optional)
+     * @param last Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
      * @param n    query parameter for max number of items (optional)
      * @return Repositories
      */
@@ -116,6 +115,5 @@ public interface AcrRepositoryApi {
                     responseCode = "200",
                     description = "The attributes are updated")
     })
-    AcrErrors Repository_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name,
-            @Valid RepositoryChangeableAttributes dto);
+    AcrErrors Repository_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @Valid RepositoryChangeableAttributes dto);
 }

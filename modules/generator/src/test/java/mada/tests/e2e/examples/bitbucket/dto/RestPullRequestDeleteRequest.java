@@ -23,54 +23,55 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestDeleteRequest {
-  public static final String JSON_PROPERTY_VERSION = "version";
-  @JsonbProperty(JSON_PROPERTY_VERSION)
-  private Integer version;
+    public static final String JSON_PROPERTY_VERSION = "version";
+    @JsonbProperty(JSON_PROPERTY_VERSION)
+    private Integer version;
 
-  public RestPullRequestDeleteRequest version(Integer version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Get version
-   * @return version
-   **/
-  public Integer getVersion() {
-    return version;
-  }
-
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestPullRequestDeleteRequest version(Integer version) {
+        this.version = version;
+        return this;
     }
-    if (!(o instanceof RestPullRequestDeleteRequest)) {
-      return false;
+
+    /**
+     * Get version
+     *
+     * @return version
+     **/
+    public Integer getVersion() {
+        return version;
     }
-    RestPullRequestDeleteRequest other = (RestPullRequestDeleteRequest) o;
-    return Objects.equals(this.version, other.version);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(version);
-  }
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestPullRequestDeleteRequest {");
-    sb.append("\n    version: ").append(toIndentedString(version));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestPullRequestDeleteRequest)) {
+            return false;
+        }
+        RestPullRequestDeleteRequest other = (RestPullRequestDeleteRequest) o;
+        return Objects.equals(this.version, other.version);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(version);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestPullRequestDeleteRequest {");
+        sb.append("\n    version: ").append(toIndentedString(version));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

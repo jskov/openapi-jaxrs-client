@@ -24,81 +24,83 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestX509Certificate {
-  public static final String JSON_PROPERTY_FINGERPRINT = "fingerprint";
-  @JsonbProperty(JSON_PROPERTY_FINGERPRINT)
-  @Schema(description = "The SHA-256 fingerprint of the X.509 certificate", example = "e5e8d632c0b86f5bd5ef9a0d55c58ba1fd7776f6bb7c35ca23d85d23281ce58f")
-  private String fingerprint;
+    public static final String JSON_PROPERTY_FINGERPRINT = "fingerprint";
+    @JsonbProperty(JSON_PROPERTY_FINGERPRINT)
+    @Schema(
+            description = "The SHA-256 fingerprint of the X.509 certificate",
+            example = "e5e8d632c0b86f5bd5ef9a0d55c58ba1fd7776f6bb7c35ca23d85d23281ce58f")
+    private String fingerprint;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  @Schema(description = "The ID of the X.509 certificate", example = "7")
-  private Long id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    @Schema(description = "The ID of the X.509 certificate", example = "7")
+    private Long id;
 
-  public RestX509Certificate fingerprint(String fingerprint) {
-    this.fingerprint = fingerprint;
-    return this;
-  }
-
-  /**
-   * The SHA-256 fingerprint of the X.509 certificate
-   *
-   * @return fingerprint
-   **/
-  public String getFingerprint() {
-    return fingerprint;
-  }
-
-  public void setFingerprint(String fingerprint) {
-    this.fingerprint = fingerprint;
-  }
-
-  public RestX509Certificate id(Long id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * The ID of the X.509 certificate
-   *
-   * @return id
-   **/
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestX509Certificate fingerprint(String fingerprint) {
+        this.fingerprint = fingerprint;
+        return this;
     }
-    if (!(o instanceof RestX509Certificate)) {
-      return false;
+
+    /**
+     * The SHA-256 fingerprint of the X.509 certificate
+     * 
+     * @return fingerprint
+     **/
+    public String getFingerprint() {
+        return fingerprint;
     }
-    RestX509Certificate other = (RestX509Certificate) o;
-    return Objects.equals(this.fingerprint, other.fingerprint) &&
-        Objects.equals(this.id, other.id);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(fingerprint, id);
-  }
+    public void setFingerprint(String fingerprint) {
+        this.fingerprint = fingerprint;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestX509Certificate {");
-    sb.append("\n    fingerprint: ").append(toIndentedString(fingerprint));
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestX509Certificate id(Long id) {
+        this.id = id;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * The ID of the X.509 certificate
+     * 
+     * @return id
+     **/
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestX509Certificate)) {
+            return false;
+        }
+        RestX509Certificate other = (RestX509Certificate) o;
+        return Objects.equals(this.fingerprint, other.fingerprint) &&
+                Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fingerprint, id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestX509Certificate {");
+        sb.append("\n    fingerprint: ").append(toIndentedString(fingerprint));
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

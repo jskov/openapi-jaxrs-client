@@ -26,63 +26,64 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestRebaseability {
-  public static final String JSON_PROPERTY_VETOES = "vetoes";
-  @JsonbProperty(JSON_PROPERTY_VETOES)
-  private List<RestRepositoryHookVeto> vetoes;
+    public static final String JSON_PROPERTY_VETOES = "vetoes";
+    @JsonbProperty(JSON_PROPERTY_VETOES)
+    private List<RestRepositoryHookVeto> vetoes;
 
-  public RestPullRequestRebaseability vetoes(List<RestRepositoryHookVeto> vetoes) {
-    this.vetoes = vetoes;
-    return this;
-  }
-
-  public RestPullRequestRebaseability addVetoesItem(RestRepositoryHookVeto vetoesItem) {
-    if (this.vetoes == null) {
-      this.vetoes = new ArrayList<>();
+    public RestPullRequestRebaseability vetoes(List<RestRepositoryHookVeto> vetoes) {
+        this.vetoes = vetoes;
+        return this;
     }
-    this.vetoes.add(vetoesItem);
-    return this;
-  }
 
-  /**
-   * Get vetoes
-   * @return vetoes
-   **/
-  @Valid
-  public List<RestRepositoryHookVeto> getVetoes() {
-    return vetoes;
-  }
-
-  public void setVetoes(List<RestRepositoryHookVeto> vetoes) {
-    this.vetoes = vetoes;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestPullRequestRebaseability addVetoesItem(RestRepositoryHookVeto vetoesItem) {
+        if (this.vetoes == null) {
+            this.vetoes = new ArrayList<>();
+        }
+        this.vetoes.add(vetoesItem);
+        return this;
     }
-    if (!(o instanceof RestPullRequestRebaseability)) {
-      return false;
+
+    /**
+     * Get vetoes
+     *
+     * @return vetoes
+     **/
+    @Valid
+    public List<RestRepositoryHookVeto> getVetoes() {
+        return vetoes;
     }
-    RestPullRequestRebaseability other = (RestPullRequestRebaseability) o;
-    return Objects.equals(this.vetoes, other.vetoes);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(vetoes);
-  }
+    public void setVetoes(List<RestRepositoryHookVeto> vetoes) {
+        this.vetoes = vetoes;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestPullRequestRebaseability {");
-    sb.append("\n    vetoes: ").append(toIndentedString(vetoes));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestPullRequestRebaseability)) {
+            return false;
+        }
+        RestPullRequestRebaseability other = (RestPullRequestRebaseability) o;
+        return Objects.equals(this.vetoes, other.vetoes);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(vetoes);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestPullRequestRebaseability {");
+        sb.append("\n    vetoes: ").append(toIndentedString(vetoes));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

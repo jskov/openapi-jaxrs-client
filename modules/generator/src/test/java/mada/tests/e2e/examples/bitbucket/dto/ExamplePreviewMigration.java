@@ -26,63 +26,64 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExamplePreviewMigration {
-  public static final String JSON_PROPERTY_REPOSITORIES = "repositories";
-  @JsonbProperty(JSON_PROPERTY_REPOSITORIES)
-  private List<RestRepository> repositories;
+    public static final String JSON_PROPERTY_REPOSITORIES = "repositories";
+    @JsonbProperty(JSON_PROPERTY_REPOSITORIES)
+    private List<RestRepository> repositories;
 
-  public ExamplePreviewMigration repositories(List<RestRepository> repositories) {
-    this.repositories = repositories;
-    return this;
-  }
-
-  public ExamplePreviewMigration addRepositoriesItem(RestRepository repositoriesItem) {
-    if (this.repositories == null) {
-      this.repositories = new ArrayList<>();
+    public ExamplePreviewMigration repositories(List<RestRepository> repositories) {
+        this.repositories = repositories;
+        return this;
     }
-    this.repositories.add(repositoriesItem);
-    return this;
-  }
 
-  /**
-   * Get repositories
-   * @return repositories
-   **/
-  @Valid
-  public List<RestRepository> getRepositories() {
-    return repositories;
-  }
-
-  public void setRepositories(List<RestRepository> repositories) {
-    this.repositories = repositories;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ExamplePreviewMigration addRepositoriesItem(RestRepository repositoriesItem) {
+        if (this.repositories == null) {
+            this.repositories = new ArrayList<>();
+        }
+        this.repositories.add(repositoriesItem);
+        return this;
     }
-    if (!(o instanceof ExamplePreviewMigration)) {
-      return false;
+
+    /**
+     * Get repositories
+     *
+     * @return repositories
+     **/
+    @Valid
+    public List<RestRepository> getRepositories() {
+        return repositories;
     }
-    ExamplePreviewMigration other = (ExamplePreviewMigration) o;
-    return Objects.equals(this.repositories, other.repositories);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(repositories);
-  }
+    public void setRepositories(List<RestRepository> repositories) {
+        this.repositories = repositories;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExamplePreviewMigration {");
-    sb.append("\n    repositories: ").append(toIndentedString(repositories));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExamplePreviewMigration)) {
+            return false;
+        }
+        ExamplePreviewMigration other = (ExamplePreviewMigration) o;
+        return Objects.equals(this.repositories, other.repositories);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(repositories);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ExamplePreviewMigration {");
+        sb.append("\n    repositories: ").append(toIndentedString(repositories));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

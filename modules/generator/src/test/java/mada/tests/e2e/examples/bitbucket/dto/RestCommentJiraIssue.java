@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestCommentJiraIssue {
-  public static final String JSON_PROPERTY_COMMENT_ID = "commentId";
-  @JsonbProperty(JSON_PROPERTY_COMMENT_ID)
-  @Schema(example = "1")
-  private Long commentId;
+    public static final String JSON_PROPERTY_COMMENT_ID = "commentId";
+    @JsonbProperty(JSON_PROPERTY_COMMENT_ID)
+    @Schema(example = "1")
+    private Long commentId;
 
-  public static final String JSON_PROPERTY_ISSUE_KEY = "issueKey";
-  @JsonbProperty(JSON_PROPERTY_ISSUE_KEY)
-  @Schema(example = "TEST-123")
-  private String issueKey;
+    public static final String JSON_PROPERTY_ISSUE_KEY = "issueKey";
+    @JsonbProperty(JSON_PROPERTY_ISSUE_KEY)
+    @Schema(example = "TEST-123")
+    private String issueKey;
 
-  public RestCommentJiraIssue commentId(Long commentId) {
-    this.commentId = commentId;
-    return this;
-  }
-
-  /**
-   * Get commentId
-   * @return commentId
-   **/
-  public Long getCommentId() {
-    return commentId;
-  }
-
-  public void setCommentId(Long commentId) {
-    this.commentId = commentId;
-  }
-
-  public RestCommentJiraIssue issueKey(String issueKey) {
-    this.issueKey = issueKey;
-    return this;
-  }
-
-  /**
-   * Get issueKey
-   * @return issueKey
-   **/
-  public String getIssueKey() {
-    return issueKey;
-  }
-
-  public void setIssueKey(String issueKey) {
-    this.issueKey = issueKey;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestCommentJiraIssue commentId(Long commentId) {
+        this.commentId = commentId;
+        return this;
     }
-    if (!(o instanceof RestCommentJiraIssue)) {
-      return false;
+
+    /**
+     * Get commentId
+     *
+     * @return commentId
+     **/
+    public Long getCommentId() {
+        return commentId;
     }
-    RestCommentJiraIssue other = (RestCommentJiraIssue) o;
-    return Objects.equals(this.commentId, other.commentId) &&
-        Objects.equals(this.issueKey, other.issueKey);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(commentId, issueKey);
-  }
+    public void setCommentId(Long commentId) {
+        this.commentId = commentId;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestCommentJiraIssue {");
-    sb.append("\n    commentId: ").append(toIndentedString(commentId));
-    sb.append("\n    issueKey: ").append(toIndentedString(issueKey));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestCommentJiraIssue issueKey(String issueKey) {
+        this.issueKey = issueKey;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get issueKey
+     *
+     * @return issueKey
+     **/
+    public String getIssueKey() {
+        return issueKey;
+    }
+
+    public void setIssueKey(String issueKey) {
+        this.issueKey = issueKey;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestCommentJiraIssue)) {
+            return false;
+        }
+        RestCommentJiraIssue other = (RestCommentJiraIssue) o;
+        return Objects.equals(this.commentId, other.commentId) &&
+                Objects.equals(this.issueKey, other.issueKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(commentId, issueKey);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestCommentJiraIssue {");
+        sb.append("\n    commentId: ").append(toIndentedString(commentId));
+        sb.append("\n    issueKey: ").append(toIndentedString(issueKey));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

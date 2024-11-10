@@ -25,107 +25,107 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestBranchDeleteRequest {
-  public static final String JSON_PROPERTY_DRY_RUN = "dryRun";
-  @JsonbProperty(JSON_PROPERTY_DRY_RUN)
-  @Schema(description = "Don't actually delete the ref name, just do a dry run")
-  private Boolean dryRun;
+    public static final String JSON_PROPERTY_DRY_RUN = "dryRun";
+    @JsonbProperty(JSON_PROPERTY_DRY_RUN)
+    @Schema(description = "Don't actually delete the ref name, just do a dry run")
+    private Boolean dryRun;
 
-  public static final String JSON_PROPERTY_END_POINT = "endPoint";
-  @JsonbProperty(JSON_PROPERTY_END_POINT)
-  @Schema(description = "Commit ID that the provided ref name is expected to point to")
-  private String endPoint;
+    public static final String JSON_PROPERTY_END_POINT = "endPoint";
+    @JsonbProperty(JSON_PROPERTY_END_POINT)
+    @Schema(description = "Commit ID that the provided ref name is expected to point to")
+    private String endPoint;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(description = "Name of the ref to be deleted")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(description = "Name of the ref to be deleted")
+    private String name;
 
-  public RestBranchDeleteRequest dryRun(Boolean dryRun) {
-    this.dryRun = dryRun;
-    return this;
-  }
-
-  /**
-   * Don't actually delete the ref name, just do a dry run.
-   *
-   * @return dryRun
-   **/
-  public Boolean isDryRun() {
-    return dryRun;
-  }
-
-  public void setDryRun(Boolean dryRun) {
-    this.dryRun = dryRun;
-  }
-
-  public RestBranchDeleteRequest endPoint(String endPoint) {
-    this.endPoint = endPoint;
-    return this;
-  }
-
-  /**
-   * Commit ID that the provided ref name is expected to point to.
-   *
-   * @return endPoint
-   **/
-  @Size(max = 40)
-  public String getEndPoint() {
-    return endPoint;
-  }
-
-  public void setEndPoint(String endPoint) {
-    this.endPoint = endPoint;
-  }
-
-  public RestBranchDeleteRequest name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the ref to be deleted.
-   *
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestBranchDeleteRequest dryRun(Boolean dryRun) {
+        this.dryRun = dryRun;
+        return this;
     }
-    if (!(o instanceof RestBranchDeleteRequest)) {
-      return false;
+
+    /**
+     * Don't actually delete the ref name, just do a dry run.
+     * 
+     * @return dryRun
+     **/
+    public Boolean isDryRun() {
+        return dryRun;
     }
-    RestBranchDeleteRequest other = (RestBranchDeleteRequest) o;
-    return Objects.equals(this.dryRun, other.dryRun) &&
-        Objects.equals(this.endPoint, other.endPoint) &&
-        Objects.equals(this.name, other.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(dryRun, endPoint, name);
-  }
+    public void setDryRun(Boolean dryRun) {
+        this.dryRun = dryRun;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestBranchDeleteRequest {");
-    sb.append("\n    dryRun: ").append(toIndentedString(dryRun));
-    sb.append("\n    endPoint: ").append(toIndentedString(endPoint));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestBranchDeleteRequest endPoint(String endPoint) {
+        this.endPoint = endPoint;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Commit ID that the provided ref name is expected to point to.
+     * 
+     * @return endPoint
+     **/
+    @Size(max = 40)
+    public String getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(String endPoint) {
+        this.endPoint = endPoint;
+    }
+
+    public RestBranchDeleteRequest name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Name of the ref to be deleted.
+     * 
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestBranchDeleteRequest)) {
+            return false;
+        }
+        RestBranchDeleteRequest other = (RestBranchDeleteRequest) o;
+        return Objects.equals(this.dryRun, other.dryRun) &&
+                Objects.equals(this.endPoint, other.endPoint) &&
+                Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dryRun, endPoint, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestBranchDeleteRequest {");
+        sb.append("\n    dryRun: ").append(toIndentedString(dryRun));
+        sb.append("\n    endPoint: ").append(toIndentedString(endPoint));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

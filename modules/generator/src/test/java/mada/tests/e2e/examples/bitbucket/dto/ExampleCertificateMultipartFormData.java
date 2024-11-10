@@ -25,56 +25,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExampleCertificateMultipartFormData {
-  public static final String JSON_PROPERTY_CERTIFICATE = "certificate";
-  @JsonbProperty(JSON_PROPERTY_CERTIFICATE)
-  @Schema(description = "The X.509 certificate file to upload.")
-  private byte[] certificate;
+    public static final String JSON_PROPERTY_CERTIFICATE = "certificate";
+    @JsonbProperty(JSON_PROPERTY_CERTIFICATE)
+    @Schema(description = "The X.509 certificate file to upload.")
+    private byte[] certificate;
 
-  public ExampleCertificateMultipartFormData certificate(byte[] certificate) {
-    this.certificate = certificate;
-    return this;
-  }
-
-  /**
-   * The X.509 certificate file to upload.
-   *
-   * @return certificate
-   **/
-  public byte[] getCertificate() {
-    return certificate;
-  }
-
-  public void setCertificate(byte[] certificate) {
-    this.certificate = certificate;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ExampleCertificateMultipartFormData certificate(byte[] certificate) {
+        this.certificate = certificate;
+        return this;
     }
-    if (!(o instanceof ExampleCertificateMultipartFormData)) {
-      return false;
+
+    /**
+     * The X.509 certificate file to upload.
+     * 
+     * @return certificate
+     **/
+    public byte[] getCertificate() {
+        return certificate;
     }
-    ExampleCertificateMultipartFormData other = (ExampleCertificateMultipartFormData) o;
-    return Arrays.equals(this.certificate, other.certificate);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(Arrays.hashCode(certificate));
-  }
+    public void setCertificate(byte[] certificate) {
+        this.certificate = certificate;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExampleCertificateMultipartFormData {");
-    sb.append("\n    certificate: ").append(toIndentedString(certificate));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExampleCertificateMultipartFormData)) {
+            return false;
+        }
+        ExampleCertificateMultipartFormData other = (ExampleCertificateMultipartFormData) o;
+        return Arrays.equals(this.certificate, other.certificate);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(Arrays.hashCode(certificate));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ExampleCertificateMultipartFormData {");
+        sb.append("\n    certificate: ").append(toIndentedString(certificate));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

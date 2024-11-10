@@ -24,55 +24,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestErasedUser {
-  public static final String JSON_PROPERTY_NEW_IDENTIFIER = "newIdentifier";
-  @JsonbProperty(JSON_PROPERTY_NEW_IDENTIFIER)
-  @Schema(example = "user-123ab")
-  private String newIdentifier;
+    public static final String JSON_PROPERTY_NEW_IDENTIFIER = "newIdentifier";
+    @JsonbProperty(JSON_PROPERTY_NEW_IDENTIFIER)
+    @Schema(example = "user-123ab")
+    private String newIdentifier;
 
-  public RestErasedUser newIdentifier(String newIdentifier) {
-    this.newIdentifier = newIdentifier;
-    return this;
-  }
-
-  /**
-   * Get newIdentifier
-   * @return newIdentifier
-   **/
-  public String getNewIdentifier() {
-    return newIdentifier;
-  }
-
-  public void setNewIdentifier(String newIdentifier) {
-    this.newIdentifier = newIdentifier;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestErasedUser newIdentifier(String newIdentifier) {
+        this.newIdentifier = newIdentifier;
+        return this;
     }
-    if (!(o instanceof RestErasedUser)) {
-      return false;
+
+    /**
+     * Get newIdentifier
+     *
+     * @return newIdentifier
+     **/
+    public String getNewIdentifier() {
+        return newIdentifier;
     }
-    RestErasedUser other = (RestErasedUser) o;
-    return Objects.equals(this.newIdentifier, other.newIdentifier);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(newIdentifier);
-  }
+    public void setNewIdentifier(String newIdentifier) {
+        this.newIdentifier = newIdentifier;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestErasedUser {");
-    sb.append("\n    newIdentifier: ").append(toIndentedString(newIdentifier));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestErasedUser)) {
+            return false;
+        }
+        RestErasedUser other = (RestErasedUser) o;
+        return Objects.equals(this.newIdentifier, other.newIdentifier);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(newIdentifier);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestErasedUser {");
+        sb.append("\n    newIdentifier: ").append(toIndentedString(newIdentifier));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

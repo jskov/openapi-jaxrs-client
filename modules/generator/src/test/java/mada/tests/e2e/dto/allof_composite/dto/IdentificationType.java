@@ -15,32 +15,32 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum IdentificationType {
-  VIRK_PERSON("VIRK_PERSON"),
-  SMS_MAIL("SMS_MAIL");
+    VIRK_PERSON("VIRK_PERSON"),
+    SMS_MAIL("SMS_MAIL");
 
-  private final String value;
+    private final String value;
 
-  IdentificationType(String value) {
-    this.value = value;
-  }
-
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static IdentificationType fromValue(String value) {
-    for (IdentificationType b : IdentificationType.values()) {
-      if (Objects.equals(b.value, value)) {
-        return b;
-      }
+    IdentificationType(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
+
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static IdentificationType fromValue(String value) {
+        for (IdentificationType b : IdentificationType.values()) {
+            if (Objects.equals(b.value, value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
 }

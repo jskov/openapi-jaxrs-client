@@ -19,38 +19,38 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @RegisterForReflection
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum SimpleEnum {
-  YES("YES"),
-  NO("NO");
+    YES("YES"),
+    NO("NO");
 
-  private final String value;
+    private final String value;
 
-  SimpleEnum(String value) {
-    this.value = value;
-  }
+    SimpleEnum(String value) {
+        this.value = value;
+    }
 
-  public String getValue() {
-    return value;
-  }
+    public String getValue() {
+        return value;
+    }
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 
-  public static class SimpleEnumAdapter implements JsonbAdapter<SimpleEnum, JsonString> {
-      @Override
-      public JsonString adaptToJson(SimpleEnum e) throws Exception {
-          return Json.createValue(String.valueOf(e.value));
-      }
+    public static class SimpleEnumAdapter implements JsonbAdapter<SimpleEnum, JsonString> {
+        @Override
+        public JsonString adaptToJson(SimpleEnum e) throws Exception {
+            return Json.createValue(String.valueOf(e.value));
+        }
 
-      @Override
-      public SimpleEnum adaptFromJson(JsonString value) throws Exception {
-          for (SimpleEnum b : SimpleEnum.values()) {
-              if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
-                  return b;
-              }
-          }
-          throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type SimpleEnum");
-      }
-  }
+        @Override
+        public SimpleEnum adaptFromJson(JsonString value) throws Exception {
+            for (SimpleEnum b : SimpleEnum.values()) {
+                if (String.valueOf(b.value).equalsIgnoreCase(value.getString())) {
+                    return b;
+                }
+            }
+            throw new IllegalStateException("Unable to deserialize '" + value.getString() + "' to type SimpleEnum");
+        }
+    }
 }

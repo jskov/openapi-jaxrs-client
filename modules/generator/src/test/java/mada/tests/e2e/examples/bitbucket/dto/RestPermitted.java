@@ -24,55 +24,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPermitted {
-  public static final String JSON_PROPERTY_PERMITTED = "permitted";
-  @JsonbProperty(JSON_PROPERTY_PERMITTED)
-  @Schema(example = "true")
-  private Boolean permitted;
+    public static final String JSON_PROPERTY_PERMITTED = "permitted";
+    @JsonbProperty(JSON_PROPERTY_PERMITTED)
+    @Schema(example = "true")
+    private Boolean permitted;
 
-  public RestPermitted permitted(Boolean permitted) {
-    this.permitted = permitted;
-    return this;
-  }
-
-  /**
-   * Get permitted
-   * @return permitted
-   **/
-  public Boolean isPermitted() {
-    return permitted;
-  }
-
-  public void setPermitted(Boolean permitted) {
-    this.permitted = permitted;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestPermitted permitted(Boolean permitted) {
+        this.permitted = permitted;
+        return this;
     }
-    if (!(o instanceof RestPermitted)) {
-      return false;
+
+    /**
+     * Get permitted
+     *
+     * @return permitted
+     **/
+    public Boolean isPermitted() {
+        return permitted;
     }
-    RestPermitted other = (RestPermitted) o;
-    return Objects.equals(this.permitted, other.permitted);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(permitted);
-  }
+    public void setPermitted(Boolean permitted) {
+        this.permitted = permitted;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestPermitted {");
-    sb.append("\n    permitted: ").append(toIndentedString(permitted));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestPermitted)) {
+            return false;
+        }
+        RestPermitted other = (RestPermitted) o;
+        return Objects.equals(this.permitted, other.permitted);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(permitted);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestPermitted {");
+        sb.append("\n    permitted: ").append(toIndentedString(permitted));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -24,174 +24,180 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestMergeStrategy {
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
-  @Schema(readOnly = true, example = "Always create a merge commit")
-  private String description;
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
+    @Schema(readOnly = true, example = "Always create a merge commit")
+    private String description;
 
-  public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @JsonbProperty(JSON_PROPERTY_ENABLED)
-  @Schema(readOnly = true)
-  private Boolean enabled;
+    public static final String JSON_PROPERTY_ENABLED = "enabled";
+    @JsonbProperty(JSON_PROPERTY_ENABLED)
+    @Schema(readOnly = true)
+    private Boolean enabled;
 
-  public static final String JSON_PROPERTY_FLAG = "flag";
-  @JsonbProperty(JSON_PROPERTY_FLAG)
-  @Schema(readOnly = true, example = "--no-ff")
-  private String flag;
+    public static final String JSON_PROPERTY_FLAG = "flag";
+    @JsonbProperty(JSON_PROPERTY_FLAG)
+    @Schema(readOnly = true, example = "--no-ff")
+    private String flag;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  @Schema(example = "no-ff")
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    @Schema(example = "no-ff")
+    private String id;
 
-  public static final String JSON_PROPERTY_LINKS = "links";
-  @JsonbProperty(JSON_PROPERTY_LINKS)
-  private Object links;
+    public static final String JSON_PROPERTY_LINKS = "links";
+    @JsonbProperty(JSON_PROPERTY_LINKS)
+    private Object links;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(readOnly = true, example = "Merge commit")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(readOnly = true, example = "Merge commit")
+    private String name;
 
-  public RestPullRequestMergeStrategy description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Get description
-   * @return description
-   **/
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public RestPullRequestMergeStrategy enabled(Boolean enabled) {
-    this.enabled = enabled;
-    return this;
-  }
-
-  /**
-   * Get enabled
-   * @return enabled
-   **/
-  public Boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  public RestPullRequestMergeStrategy flag(String flag) {
-    this.flag = flag;
-    return this;
-  }
-
-  /**
-   * Get flag
-   * @return flag
-   **/
-  public String getFlag() {
-    return flag;
-  }
-
-  public void setFlag(String flag) {
-    this.flag = flag;
-  }
-
-  public RestPullRequestMergeStrategy id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public RestPullRequestMergeStrategy links(Object links) {
-    this.links = links;
-    return this;
-  }
-
-  /**
-   * Get links
-   * @return links
-   **/
-  public Object getLinks() {
-    return links;
-  }
-
-  public void setLinks(Object links) {
-    this.links = links;
-  }
-
-  public RestPullRequestMergeStrategy name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestPullRequestMergeStrategy description(String description) {
+        this.description = description;
+        return this;
     }
-    if (!(o instanceof RestPullRequestMergeStrategy)) {
-      return false;
+
+    /**
+     * Get description
+     *
+     * @return description
+     **/
+    public String getDescription() {
+        return description;
     }
-    RestPullRequestMergeStrategy other = (RestPullRequestMergeStrategy) o;
-    return Objects.equals(this.description, other.description) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.flag, other.flag) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.name, other.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(description, enabled, flag, id, links, name);
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestPullRequestMergeStrategy {");
-    sb.append("\n    description: ").append(toIndentedString(description));
-    sb.append("\n    enabled: ").append(toIndentedString(enabled));
-    sb.append("\n    flag: ").append(toIndentedString(flag));
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n    links: ").append(toIndentedString(links));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestPullRequestMergeStrategy enabled(Boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get enabled
+     *
+     * @return enabled
+     **/
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public RestPullRequestMergeStrategy flag(String flag) {
+        this.flag = flag;
+        return this;
+    }
+
+    /**
+     * Get flag
+     *
+     * @return flag
+     **/
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public RestPullRequestMergeStrategy id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public RestPullRequestMergeStrategy links(Object links) {
+        this.links = links;
+        return this;
+    }
+
+    /**
+     * Get links
+     *
+     * @return links
+     **/
+    public Object getLinks() {
+        return links;
+    }
+
+    public void setLinks(Object links) {
+        this.links = links;
+    }
+
+    public RestPullRequestMergeStrategy name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestPullRequestMergeStrategy)) {
+            return false;
+        }
+        RestPullRequestMergeStrategy other = (RestPullRequestMergeStrategy) o;
+        return Objects.equals(this.description, other.description) &&
+                Objects.equals(this.enabled, other.enabled) &&
+                Objects.equals(this.flag, other.flag) &&
+                Objects.equals(this.id, other.id) &&
+                Objects.equals(this.links, other.links) &&
+                Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, enabled, flag, id, links, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestPullRequestMergeStrategy {");
+        sb.append("\n    description: ").append(toIndentedString(description));
+        sb.append("\n    enabled: ").append(toIndentedString(enabled));
+        sb.append("\n    flag: ").append(toIndentedString(flag));
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n    links: ").append(toIndentedString(links));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -29,111 +29,116 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRequiredBuildConditionSetRequest {
-  public static final String JSON_PROPERTY_BUILD_PARENT_KEYS = "buildParentKeys";
-  @JsonbProperty(JSON_PROPERTY_BUILD_PARENT_KEYS)
-  @Schema(required = true, description = "A non-empty list of build parent keys that require green builds for this merge check to pass", example = "[\"build-key-1\",\"build-key-2\"]")
-  private List<String> buildParentKeys = new ArrayList<>();
+    public static final String JSON_PROPERTY_BUILD_PARENT_KEYS = "buildParentKeys";
+    @JsonbProperty(JSON_PROPERTY_BUILD_PARENT_KEYS)
+    @Schema(
+            required = true,
+            description = "A non-empty list of build parent keys that require green builds for this merge check to pass",
+            example = "[\"build-key-1\",\"build-key-2\"]")
+    private List<String> buildParentKeys = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_EXEMPT_REF_MATCHER = "exemptRefMatcher";
-  @JsonbProperty(JSON_PROPERTY_EXEMPT_REF_MATCHER)
-  private RestRefMatcher exemptRefMatcher;
+    public static final String JSON_PROPERTY_EXEMPT_REF_MATCHER = "exemptRefMatcher";
+    @JsonbProperty(JSON_PROPERTY_EXEMPT_REF_MATCHER)
+    private RestRefMatcher exemptRefMatcher;
 
-  public static final String JSON_PROPERTY_REF_MATCHER = "refMatcher";
-  @JsonbProperty(JSON_PROPERTY_REF_MATCHER)
-  @Schema(required = true)
-  private RestRequiredBuildConditionSetRequestRefMatcher refMatcher;
+    public static final String JSON_PROPERTY_REF_MATCHER = "refMatcher";
+    @JsonbProperty(JSON_PROPERTY_REF_MATCHER)
+    @Schema(required = true)
+    private RestRequiredBuildConditionSetRequestRefMatcher refMatcher;
 
-  public RestRequiredBuildConditionSetRequest buildParentKeys(List<String> buildParentKeys) {
-    this.buildParentKeys = Objects.requireNonNull(buildParentKeys, "Property buildParentKeys is required, cannot be null");
-    return this;
-  }
-
-  public RestRequiredBuildConditionSetRequest addBuildParentKeysItem(String buildParentKeysItem) {
-    this.buildParentKeys.add(buildParentKeysItem);
-    return this;
-  }
-
-  /**
-   * A non-empty list of build parent keys that require green builds for this merge check to pass.
-   *
-   * @return buildParentKeys
-   **/
-  @NotNull @Size(min = 0, max = 100)
-  public List<String> getBuildParentKeys() {
-    return buildParentKeys;
-  }
-
-  public void setBuildParentKeys(List<String> buildParentKeys) {
-    this.buildParentKeys = Objects.requireNonNull(buildParentKeys, "Property buildParentKeys is required, cannot be null");
-  }
-
-  public RestRequiredBuildConditionSetRequest exemptRefMatcher(RestRefMatcher exemptRefMatcher) {
-    this.exemptRefMatcher = exemptRefMatcher;
-    return this;
-  }
-
-  /**
-   * Get exemptRefMatcher
-   * @return exemptRefMatcher
-   **/
-  @Valid
-  public RestRefMatcher getExemptRefMatcher() {
-    return exemptRefMatcher;
-  }
-
-  public void setExemptRefMatcher(RestRefMatcher exemptRefMatcher) {
-    this.exemptRefMatcher = exemptRefMatcher;
-  }
-
-  public RestRequiredBuildConditionSetRequest refMatcher(RestRequiredBuildConditionSetRequestRefMatcher refMatcher) {
-    this.refMatcher = Objects.requireNonNull(refMatcher, "Property refMatcher is required, cannot be null");
-    return this;
-  }
-
-  /**
-   * Get refMatcher
-   * @return refMatcher
-   **/
-  @NotNull @Valid
-  public RestRequiredBuildConditionSetRequestRefMatcher getRefMatcher() {
-    return refMatcher;
-  }
-
-  public void setRefMatcher(RestRequiredBuildConditionSetRequestRefMatcher refMatcher) {
-    this.refMatcher = Objects.requireNonNull(refMatcher, "Property refMatcher is required, cannot be null");
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestRequiredBuildConditionSetRequest buildParentKeys(List<String> buildParentKeys) {
+        this.buildParentKeys = Objects.requireNonNull(buildParentKeys, "Property buildParentKeys is required, cannot be null");
+        return this;
     }
-    if (!(o instanceof RestRequiredBuildConditionSetRequest)) {
-      return false;
+
+    public RestRequiredBuildConditionSetRequest addBuildParentKeysItem(String buildParentKeysItem) {
+        this.buildParentKeys.add(buildParentKeysItem);
+        return this;
     }
-    RestRequiredBuildConditionSetRequest other = (RestRequiredBuildConditionSetRequest) o;
-    return Objects.equals(this.buildParentKeys, other.buildParentKeys) &&
-        Objects.equals(this.exemptRefMatcher, other.exemptRefMatcher) &&
-        Objects.equals(this.refMatcher, other.refMatcher);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(buildParentKeys, exemptRefMatcher, refMatcher);
-  }
+    /**
+     * A non-empty list of build parent keys that require green builds for this merge check to pass.
+     * 
+     * @return buildParentKeys
+     **/
+    @NotNull @Size(min = 0, max = 100)
+    public List<String> getBuildParentKeys() {
+        return buildParentKeys;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestRequiredBuildConditionSetRequest {");
-    sb.append("\n    buildParentKeys: ").append(toIndentedString(buildParentKeys));
-    sb.append("\n    exemptRefMatcher: ").append(toIndentedString(exemptRefMatcher));
-    sb.append("\n    refMatcher: ").append(toIndentedString(refMatcher));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public void setBuildParentKeys(List<String> buildParentKeys) {
+        this.buildParentKeys = Objects.requireNonNull(buildParentKeys, "Property buildParentKeys is required, cannot be null");
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    public RestRequiredBuildConditionSetRequest exemptRefMatcher(RestRefMatcher exemptRefMatcher) {
+        this.exemptRefMatcher = exemptRefMatcher;
+        return this;
+    }
+
+    /**
+     * Get exemptRefMatcher
+     *
+     * @return exemptRefMatcher
+     **/
+    @Valid
+    public RestRefMatcher getExemptRefMatcher() {
+        return exemptRefMatcher;
+    }
+
+    public void setExemptRefMatcher(RestRefMatcher exemptRefMatcher) {
+        this.exemptRefMatcher = exemptRefMatcher;
+    }
+
+    public RestRequiredBuildConditionSetRequest refMatcher(RestRequiredBuildConditionSetRequestRefMatcher refMatcher) {
+        this.refMatcher = Objects.requireNonNull(refMatcher, "Property refMatcher is required, cannot be null");
+        return this;
+    }
+
+    /**
+     * Get refMatcher
+     *
+     * @return refMatcher
+     **/
+    @NotNull @Valid
+    public RestRequiredBuildConditionSetRequestRefMatcher getRefMatcher() {
+        return refMatcher;
+    }
+
+    public void setRefMatcher(RestRequiredBuildConditionSetRequestRefMatcher refMatcher) {
+        this.refMatcher = Objects.requireNonNull(refMatcher, "Property refMatcher is required, cannot be null");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestRequiredBuildConditionSetRequest)) {
+            return false;
+        }
+        RestRequiredBuildConditionSetRequest other = (RestRequiredBuildConditionSetRequest) o;
+        return Objects.equals(this.buildParentKeys, other.buildParentKeys) &&
+                Objects.equals(this.exemptRefMatcher, other.exemptRefMatcher) &&
+                Objects.equals(this.refMatcher, other.refMatcher);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(buildParentKeys, exemptRefMatcher, refMatcher);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestRequiredBuildConditionSetRequest {");
+        sb.append("\n    buildParentKeys: ").append(toIndentedString(buildParentKeys));
+        sb.append("\n    exemptRefMatcher: ").append(toIndentedString(exemptRefMatcher));
+        sb.append("\n    refMatcher: ").append(toIndentedString(refMatcher));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -24,103 +24,106 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestAttachmentMetadata {
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  @Schema(example = "1")
-  private Long id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    @Schema(example = "1")
+    private Long id;
 
-  public static final String JSON_PROPERTY_METADATA = "metadata";
-  @JsonbProperty(JSON_PROPERTY_METADATA)
-  @Schema(example = "{\\\"A\\\":\\\"B\\\"}")
-  private String metadata;
+    public static final String JSON_PROPERTY_METADATA = "metadata";
+    @JsonbProperty(JSON_PROPERTY_METADATA)
+    @Schema(example = "{\\\"A\\\":\\\"B\\\"}")
+    private String metadata;
 
-  public static final String JSON_PROPERTY_URL = "url";
-  @JsonbProperty(JSON_PROPERTY_URL)
-  @Schema(example = "test.com/test")
-  private String url;
+    public static final String JSON_PROPERTY_URL = "url";
+    @JsonbProperty(JSON_PROPERTY_URL)
+    @Schema(example = "test.com/test")
+    private String url;
 
-  public RestAttachmentMetadata id(Long id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public RestAttachmentMetadata metadata(String metadata) {
-    this.metadata = metadata;
-    return this;
-  }
-
-  /**
-   * Get metadata
-   * @return metadata
-   **/
-  public String getMetadata() {
-    return metadata;
-  }
-
-  public void setMetadata(String metadata) {
-    this.metadata = metadata;
-  }
-
-  public RestAttachmentMetadata url(String url) {
-    this.url = url;
-    return this;
-  }
-
-  /**
-   * Get url
-   * @return url
-   **/
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestAttachmentMetadata id(Long id) {
+        this.id = id;
+        return this;
     }
-    if (!(o instanceof RestAttachmentMetadata)) {
-      return false;
+
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    public Long getId() {
+        return id;
     }
-    RestAttachmentMetadata other = (RestAttachmentMetadata) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.metadata, other.metadata) &&
-        Objects.equals(this.url, other.url);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, metadata, url);
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestAttachmentMetadata {");
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n    metadata: ").append(toIndentedString(metadata));
-    sb.append("\n    url: ").append(toIndentedString(url));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestAttachmentMetadata metadata(String metadata) {
+        this.metadata = metadata;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get metadata
+     *
+     * @return metadata
+     **/
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    public RestAttachmentMetadata url(String url) {
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return url
+     **/
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestAttachmentMetadata)) {
+            return false;
+        }
+        RestAttachmentMetadata other = (RestAttachmentMetadata) o;
+        return Objects.equals(this.id, other.id) &&
+                Objects.equals(this.metadata, other.metadata) &&
+                Objects.equals(this.url, other.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, metadata, url);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestAttachmentMetadata {");
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n    metadata: ").append(toIndentedString(metadata));
+        sb.append("\n    url: ").append(toIndentedString(url));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRepositoryPullRequestSettingsRequiredApprovers {
-  public static final String JSON_PROPERTY_COUNT = "count";
-  @JsonbProperty(JSON_PROPERTY_COUNT)
-  @Schema(example = "3")
-  private String count;
+    public static final String JSON_PROPERTY_COUNT = "count";
+    @JsonbProperty(JSON_PROPERTY_COUNT)
+    @Schema(example = "3")
+    private String count;
 
-  public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @JsonbProperty(JSON_PROPERTY_ENABLED)
-  @Schema(example = "true")
-  private Boolean enabled;
+    public static final String JSON_PROPERTY_ENABLED = "enabled";
+    @JsonbProperty(JSON_PROPERTY_ENABLED)
+    @Schema(example = "true")
+    private Boolean enabled;
 
-  public RestRepositoryPullRequestSettingsRequiredApprovers count(String count) {
-    this.count = count;
-    return this;
-  }
-
-  /**
-   * Get count
-   * @return count
-   **/
-  public String getCount() {
-    return count;
-  }
-
-  public void setCount(String count) {
-    this.count = count;
-  }
-
-  public RestRepositoryPullRequestSettingsRequiredApprovers enabled(Boolean enabled) {
-    this.enabled = enabled;
-    return this;
-  }
-
-  /**
-   * Get enabled
-   * @return enabled
-   **/
-  public Boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestRepositoryPullRequestSettingsRequiredApprovers count(String count) {
+        this.count = count;
+        return this;
     }
-    if (!(o instanceof RestRepositoryPullRequestSettingsRequiredApprovers)) {
-      return false;
+
+    /**
+     * Get count
+     *
+     * @return count
+     **/
+    public String getCount() {
+        return count;
     }
-    RestRepositoryPullRequestSettingsRequiredApprovers other = (RestRepositoryPullRequestSettingsRequiredApprovers) o;
-    return Objects.equals(this.count, other.count) &&
-        Objects.equals(this.enabled, other.enabled);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(count, enabled);
-  }
+    public void setCount(String count) {
+        this.count = count;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestRepositoryPullRequestSettingsRequiredApprovers {");
-    sb.append("\n    count: ").append(toIndentedString(count));
-    sb.append("\n    enabled: ").append(toIndentedString(enabled));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestRepositoryPullRequestSettingsRequiredApprovers enabled(Boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get enabled
+     *
+     * @return enabled
+     **/
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestRepositoryPullRequestSettingsRequiredApprovers)) {
+            return false;
+        }
+        RestRepositoryPullRequestSettingsRequiredApprovers other = (RestRepositoryPullRequestSettingsRequiredApprovers) o;
+        return Objects.equals(this.count, other.count) &&
+                Objects.equals(this.enabled, other.enabled);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(count, enabled);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestRepositoryPullRequestSettingsRequiredApprovers {");
+        sb.append("\n    count: ").append(toIndentedString(count));
+        sb.append("\n    enabled: ").append(toIndentedString(enabled));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

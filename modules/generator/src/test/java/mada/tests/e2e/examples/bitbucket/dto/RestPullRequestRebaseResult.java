@@ -24,55 +24,56 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestRebaseResult {
-  public static final String JSON_PROPERTY_REF_CHANGE = "refChange";
-  @JsonbProperty(JSON_PROPERTY_REF_CHANGE)
-  private RestPullRequestRebaseResultRefChange refChange;
+    public static final String JSON_PROPERTY_REF_CHANGE = "refChange";
+    @JsonbProperty(JSON_PROPERTY_REF_CHANGE)
+    private RestPullRequestRebaseResultRefChange refChange;
 
-  public RestPullRequestRebaseResult refChange(RestPullRequestRebaseResultRefChange refChange) {
-    this.refChange = refChange;
-    return this;
-  }
-
-  /**
-   * Get refChange
-   * @return refChange
-   **/
-  @Valid
-  public RestPullRequestRebaseResultRefChange getRefChange() {
-    return refChange;
-  }
-
-  public void setRefChange(RestPullRequestRebaseResultRefChange refChange) {
-    this.refChange = refChange;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestPullRequestRebaseResult refChange(RestPullRequestRebaseResultRefChange refChange) {
+        this.refChange = refChange;
+        return this;
     }
-    if (!(o instanceof RestPullRequestRebaseResult)) {
-      return false;
+
+    /**
+     * Get refChange
+     *
+     * @return refChange
+     **/
+    @Valid
+    public RestPullRequestRebaseResultRefChange getRefChange() {
+        return refChange;
     }
-    RestPullRequestRebaseResult other = (RestPullRequestRebaseResult) o;
-    return Objects.equals(this.refChange, other.refChange);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(refChange);
-  }
+    public void setRefChange(RestPullRequestRebaseResultRefChange refChange) {
+        this.refChange = refChange;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestPullRequestRebaseResult {");
-    sb.append("\n    refChange: ").append(toIndentedString(refChange));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestPullRequestRebaseResult)) {
+            return false;
+        }
+        RestPullRequestRebaseResult other = (RestPullRequestRebaseResult) o;
+        return Objects.equals(this.refChange, other.refChange);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(refChange);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestPullRequestRebaseResult {");
+        sb.append("\n    refChange: ").append(toIndentedString(refChange));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

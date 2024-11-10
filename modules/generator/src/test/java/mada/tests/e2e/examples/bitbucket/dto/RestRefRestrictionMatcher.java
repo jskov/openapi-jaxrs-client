@@ -25,103 +25,106 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRefRestrictionMatcher {
-  public static final String JSON_PROPERTY_DISPLAY_ID = "displayId";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_ID)
-  @Schema(example = "main")
-  private String displayId;
+    public static final String JSON_PROPERTY_DISPLAY_ID = "displayId";
+    @JsonbProperty(JSON_PROPERTY_DISPLAY_ID)
+    @Schema(example = "main")
+    private String displayId;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  @Schema(example = "refs/heads/main")
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    @Schema(example = "refs/heads/main")
+    private String id;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  @JsonbProperty(JSON_PROPERTY_TYPE)
-  private RestRefRestrictionMatcherType type;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @JsonbProperty(JSON_PROPERTY_TYPE)
+    private RestRefRestrictionMatcherType type;
 
-  public RestRefRestrictionMatcher displayId(String displayId) {
-    this.displayId = displayId;
-    return this;
-  }
-
-  /**
-   * Get displayId
-   * @return displayId
-   **/
-  public String getDisplayId() {
-    return displayId;
-  }
-
-  public void setDisplayId(String displayId) {
-    this.displayId = displayId;
-  }
-
-  public RestRefRestrictionMatcher id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public RestRefRestrictionMatcher type(RestRefRestrictionMatcherType type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Get type
-   * @return type
-   **/
-  @Valid
-  public RestRefRestrictionMatcherType getType() {
-    return type;
-  }
-
-  public void setType(RestRefRestrictionMatcherType type) {
-    this.type = type;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestRefRestrictionMatcher displayId(String displayId) {
+        this.displayId = displayId;
+        return this;
     }
-    if (!(o instanceof RestRefRestrictionMatcher)) {
-      return false;
+
+    /**
+     * Get displayId
+     *
+     * @return displayId
+     **/
+    public String getDisplayId() {
+        return displayId;
     }
-    RestRefRestrictionMatcher other = (RestRefRestrictionMatcher) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(displayId, id, type);
-  }
+    public void setDisplayId(String displayId) {
+        this.displayId = displayId;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestRefRestrictionMatcher {");
-    sb.append("\n    displayId: ").append(toIndentedString(displayId));
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n    type: ").append(toIndentedString(type));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestRefRestrictionMatcher id(String id) {
+        this.id = id;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public RestRefRestrictionMatcher type(RestRefRestrictionMatcherType type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     **/
+    @Valid
+    public RestRefRestrictionMatcherType getType() {
+        return type;
+    }
+
+    public void setType(RestRefRestrictionMatcherType type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestRefRestrictionMatcher)) {
+            return false;
+        }
+        RestRefRestrictionMatcher other = (RestRefRestrictionMatcher) o;
+        return Objects.equals(this.displayId, other.displayId) &&
+                Objects.equals(this.id, other.id) &&
+                Objects.equals(this.type, other.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(displayId, id, type);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestRefRestrictionMatcher {");
+        sb.append("\n    displayId: ").append(toIndentedString(displayId));
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n    type: ").append(toIndentedString(type));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

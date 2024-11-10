@@ -25,56 +25,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExampleAvatarMultipartFormData {
-  public static final String JSON_PROPERTY_AVATAR = "avatar";
-  @JsonbProperty(JSON_PROPERTY_AVATAR)
-  @Schema(description = "The avatar file to upload.")
-  private byte[] avatar;
+    public static final String JSON_PROPERTY_AVATAR = "avatar";
+    @JsonbProperty(JSON_PROPERTY_AVATAR)
+    @Schema(description = "The avatar file to upload.")
+    private byte[] avatar;
 
-  public ExampleAvatarMultipartFormData avatar(byte[] avatar) {
-    this.avatar = avatar;
-    return this;
-  }
-
-  /**
-   * The avatar file to upload.
-   *
-   * @return avatar
-   **/
-  public byte[] getAvatar() {
-    return avatar;
-  }
-
-  public void setAvatar(byte[] avatar) {
-    this.avatar = avatar;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ExampleAvatarMultipartFormData avatar(byte[] avatar) {
+        this.avatar = avatar;
+        return this;
     }
-    if (!(o instanceof ExampleAvatarMultipartFormData)) {
-      return false;
+
+    /**
+     * The avatar file to upload.
+     * 
+     * @return avatar
+     **/
+    public byte[] getAvatar() {
+        return avatar;
     }
-    ExampleAvatarMultipartFormData other = (ExampleAvatarMultipartFormData) o;
-    return Arrays.equals(this.avatar, other.avatar);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(Arrays.hashCode(avatar));
-  }
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExampleAvatarMultipartFormData {");
-    sb.append("\n    avatar: ").append(toIndentedString(avatar));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExampleAvatarMultipartFormData)) {
+            return false;
+        }
+        ExampleAvatarMultipartFormData other = (ExampleAvatarMultipartFormData) o;
+        return Arrays.equals(this.avatar, other.avatar);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(Arrays.hashCode(avatar));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ExampleAvatarMultipartFormData {");
+        sb.append("\n    avatar: ").append(toIndentedString(avatar));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

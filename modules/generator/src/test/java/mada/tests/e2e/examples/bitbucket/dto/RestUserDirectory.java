@@ -24,127 +24,131 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestUserDirectory {
-  public static final String JSON_PROPERTY_ACTIVE = "active";
-  @JsonbProperty(JSON_PROPERTY_ACTIVE)
-  @Schema(example = "true")
-  private Boolean active;
+    public static final String JSON_PROPERTY_ACTIVE = "active";
+    @JsonbProperty(JSON_PROPERTY_ACTIVE)
+    @Schema(example = "true")
+    private Boolean active;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
-  @Schema(example = "This directory has users that are able to access Bitbucket DC")
-  private String description;
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
+    @Schema(example = "This directory has users that are able to access Bitbucket DC")
+    private String description;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(example = "Bitbucket Internal Directory")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(example = "Bitbucket Internal Directory")
+    private String name;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  @JsonbProperty(JSON_PROPERTY_TYPE)
-  @Schema(example = "Crowd")
-  private String type;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @JsonbProperty(JSON_PROPERTY_TYPE)
+    @Schema(example = "Crowd")
+    private String type;
 
-  public RestUserDirectory active(Boolean active) {
-    this.active = active;
-    return this;
-  }
-
-  /**
-   * Get active
-   * @return active
-   **/
-  public Boolean isActive() {
-    return active;
-  }
-
-  public void setActive(Boolean active) {
-    this.active = active;
-  }
-
-  public RestUserDirectory description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Get description
-   * @return description
-   **/
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public RestUserDirectory name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public RestUserDirectory type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Get type
-   * @return type
-   **/
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestUserDirectory active(Boolean active) {
+        this.active = active;
+        return this;
     }
-    if (!(o instanceof RestUserDirectory)) {
-      return false;
+
+    /**
+     * Get active
+     *
+     * @return active
+     **/
+    public Boolean isActive() {
+        return active;
     }
-    RestUserDirectory other = (RestUserDirectory) o;
-    return Objects.equals(this.active, other.active) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.type, other.type);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(active, description, name, type);
-  }
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestUserDirectory {");
-    sb.append("\n    active: ").append(toIndentedString(active));
-    sb.append("\n    description: ").append(toIndentedString(description));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n    type: ").append(toIndentedString(type));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestUserDirectory description(String description) {
+        this.description = description;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get description
+     *
+     * @return description
+     **/
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public RestUserDirectory name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public RestUserDirectory type(String type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     **/
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestUserDirectory)) {
+            return false;
+        }
+        RestUserDirectory other = (RestUserDirectory) o;
+        return Objects.equals(this.active, other.active) &&
+                Objects.equals(this.description, other.description) &&
+                Objects.equals(this.name, other.name) &&
+                Objects.equals(this.type, other.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(active, description, name, type);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestUserDirectory {");
+        sb.append("\n    active: ").append(toIndentedString(active));
+        sb.append("\n    description: ").append(toIndentedString(description));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n    type: ").append(toIndentedString(type));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

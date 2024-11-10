@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class GroupPickerContext {
-  public static final String JSON_PROPERTY_CONTEXT = "context";
-  @JsonbProperty(JSON_PROPERTY_CONTEXT)
-  @Schema(example = "user_a")
-  private String context;
+    public static final String JSON_PROPERTY_CONTEXT = "context";
+    @JsonbProperty(JSON_PROPERTY_CONTEXT)
+    @Schema(example = "user_a")
+    private String context;
 
-  public static final String JSON_PROPERTY_ITEM_NAME = "itemName";
-  @JsonbProperty(JSON_PROPERTY_ITEM_NAME)
-  @Schema(example = "group_a")
-  private String itemName;
+    public static final String JSON_PROPERTY_ITEM_NAME = "itemName";
+    @JsonbProperty(JSON_PROPERTY_ITEM_NAME)
+    @Schema(example = "group_a")
+    private String itemName;
 
-  public GroupPickerContext context(String context) {
-    this.context = context;
-    return this;
-  }
-
-  /**
-   * Get context
-   * @return context
-   **/
-  public String getContext() {
-    return context;
-  }
-
-  public void setContext(String context) {
-    this.context = context;
-  }
-
-  public GroupPickerContext itemName(String itemName) {
-    this.itemName = itemName;
-    return this;
-  }
-
-  /**
-   * Get itemName
-   * @return itemName
-   **/
-  public String getItemName() {
-    return itemName;
-  }
-
-  public void setItemName(String itemName) {
-    this.itemName = itemName;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public GroupPickerContext context(String context) {
+        this.context = context;
+        return this;
     }
-    if (!(o instanceof GroupPickerContext)) {
-      return false;
+
+    /**
+     * Get context
+     *
+     * @return context
+     **/
+    public String getContext() {
+        return context;
     }
-    GroupPickerContext other = (GroupPickerContext) o;
-    return Objects.equals(this.context, other.context) &&
-        Objects.equals(this.itemName, other.itemName);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(context, itemName);
-  }
+    public void setContext(String context) {
+        this.context = context;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class GroupPickerContext {");
-    sb.append("\n    context: ").append(toIndentedString(context));
-    sb.append("\n    itemName: ").append(toIndentedString(itemName));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public GroupPickerContext itemName(String itemName) {
+        this.itemName = itemName;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get itemName
+     *
+     * @return itemName
+     **/
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GroupPickerContext)) {
+            return false;
+        }
+        GroupPickerContext other = (GroupPickerContext) o;
+        return Objects.equals(this.context, other.context) &&
+                Objects.equals(this.itemName, other.itemName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(context, itemName);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class GroupPickerContext {");
+        sb.append("\n    context: ").append(toIndentedString(context));
+        sb.append("\n    itemName: ").append(toIndentedString(itemName));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -17,102 +17,105 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(name = "FullNameA")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class DtoA {
-  public static final String JSON_PROPERTY_MEMBER_A = "memberA";
-  @JsonbProperty(JSON_PROPERTY_MEMBER_A)
-  private Boolean memberA;
+    public static final String JSON_PROPERTY_MEMBER_A = "memberA";
+    @JsonbProperty(JSON_PROPERTY_MEMBER_A)
+    private Boolean memberA;
 
-  public static final String JSON_PROPERTY_REF_B = "refB";
-  @JsonbProperty(JSON_PROPERTY_REF_B)
-  private DtoB refB;
+    public static final String JSON_PROPERTY_REF_B = "refB";
+    @JsonbProperty(JSON_PROPERTY_REF_B)
+    private DtoB refB;
 
-  public static final String JSON_PROPERTY_REF_E = "refE";
-  @JsonbProperty(JSON_PROPERTY_REF_E)
-  private DtoE refE;
+    public static final String JSON_PROPERTY_REF_E = "refE";
+    @JsonbProperty(JSON_PROPERTY_REF_E)
+    private DtoE refE;
 
-  public DtoA memberA(Boolean memberA) {
-    this.memberA = memberA;
-    return this;
-  }
-
-  /**
-   * Get memberA
-   * @return memberA
-   **/
-  public Boolean isMemberA() {
-    return memberA;
-  }
-
-  public void setMemberA(Boolean memberA) {
-    this.memberA = memberA;
-  }
-
-  public DtoA refB(DtoB refB) {
-    this.refB = refB;
-    return this;
-  }
-
-  /**
-   * Get refB
-   * @return refB
-   **/
-  @Valid
-  public DtoB getRefB() {
-    return refB;
-  }
-
-  public void setRefB(DtoB refB) {
-    this.refB = refB;
-  }
-
-  public DtoA refE(DtoE refE) {
-    this.refE = refE;
-    return this;
-  }
-
-  /**
-   * Get refE
-   * @return refE
-   **/
-  @Valid
-  public DtoE getRefE() {
-    return refE;
-  }
-
-  public void setRefE(DtoE refE) {
-    this.refE = refE;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public DtoA memberA(Boolean memberA) {
+        this.memberA = memberA;
+        return this;
     }
-    if (!(o instanceof DtoA)) {
-      return false;
+
+    /**
+     * Get memberA
+     *
+     * @return memberA
+     **/
+    public Boolean isMemberA() {
+        return memberA;
     }
-    DtoA other = (DtoA) o;
-    return Objects.equals(this.memberA, other.memberA) &&
-        Objects.equals(this.refB, other.refB) &&
-        Objects.equals(this.refE, other.refE);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(memberA, refB, refE);
-  }
+    public void setMemberA(Boolean memberA) {
+        this.memberA = memberA;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DtoA {");
-    sb.append("\n    memberA: ").append(toIndentedString(memberA));
-    sb.append("\n    refB: ").append(toIndentedString(refB));
-    sb.append("\n    refE: ").append(toIndentedString(refE));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public DtoA refB(DtoB refB) {
+        this.refB = refB;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get refB
+     *
+     * @return refB
+     **/
+    @Valid
+    public DtoB getRefB() {
+        return refB;
+    }
+
+    public void setRefB(DtoB refB) {
+        this.refB = refB;
+    }
+
+    public DtoA refE(DtoE refE) {
+        this.refE = refE;
+        return this;
+    }
+
+    /**
+     * Get refE
+     *
+     * @return refE
+     **/
+    @Valid
+    public DtoE getRefE() {
+        return refE;
+    }
+
+    public void setRefE(DtoE refE) {
+        this.refE = refE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DtoA)) {
+            return false;
+        }
+        DtoA other = (DtoA) o;
+        return Objects.equals(this.memberA, other.memberA) &&
+                Objects.equals(this.refB, other.refB) &&
+                Objects.equals(this.refE, other.refE);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberA, refB, refE);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class DtoA {");
+        sb.append("\n    memberA: ").append(toIndentedString(memberA));
+        sb.append("\n    refB: ").append(toIndentedString(refB));
+        sb.append("\n    refE: ").append(toIndentedString(refE));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

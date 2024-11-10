@@ -24,103 +24,106 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestConnectivitySummary {
-  public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-  @JsonbProperty(JSON_PROPERTY_ERROR_MESSAGE)
-  @Schema(example = "Unable to connect to the node.")
-  private String errorMessage;
+    public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
+    @JsonbProperty(JSON_PROPERTY_ERROR_MESSAGE)
+    @Schema(example = "Unable to connect to the node.")
+    private String errorMessage;
 
-  public static final String JSON_PROPERTY_REACHABLE = "reachable";
-  @JsonbProperty(JSON_PROPERTY_REACHABLE)
-  @Schema(example = "true")
-  private Boolean reachable;
+    public static final String JSON_PROPERTY_REACHABLE = "reachable";
+    @JsonbProperty(JSON_PROPERTY_REACHABLE)
+    @Schema(example = "true")
+    private Boolean reachable;
 
-  public static final String JSON_PROPERTY_ROUND_TRIP_TIME = "roundTripTime";
-  @JsonbProperty(JSON_PROPERTY_ROUND_TRIP_TIME)
-  @Schema(example = "100")
-  private Long roundTripTime;
+    public static final String JSON_PROPERTY_ROUND_TRIP_TIME = "roundTripTime";
+    @JsonbProperty(JSON_PROPERTY_ROUND_TRIP_TIME)
+    @Schema(example = "100")
+    private Long roundTripTime;
 
-  public RestConnectivitySummary errorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-    return this;
-  }
-
-  /**
-   * Get errorMessage
-   * @return errorMessage
-   **/
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  public RestConnectivitySummary reachable(Boolean reachable) {
-    this.reachable = reachable;
-    return this;
-  }
-
-  /**
-   * Get reachable
-   * @return reachable
-   **/
-  public Boolean isReachable() {
-    return reachable;
-  }
-
-  public void setReachable(Boolean reachable) {
-    this.reachable = reachable;
-  }
-
-  public RestConnectivitySummary roundTripTime(Long roundTripTime) {
-    this.roundTripTime = roundTripTime;
-    return this;
-  }
-
-  /**
-   * Get roundTripTime
-   * @return roundTripTime
-   **/
-  public Long getRoundTripTime() {
-    return roundTripTime;
-  }
-
-  public void setRoundTripTime(Long roundTripTime) {
-    this.roundTripTime = roundTripTime;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestConnectivitySummary errorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+        return this;
     }
-    if (!(o instanceof RestConnectivitySummary)) {
-      return false;
+
+    /**
+     * Get errorMessage
+     *
+     * @return errorMessage
+     **/
+    public String getErrorMessage() {
+        return errorMessage;
     }
-    RestConnectivitySummary other = (RestConnectivitySummary) o;
-    return Objects.equals(this.errorMessage, other.errorMessage) &&
-        Objects.equals(this.reachable, other.reachable) &&
-        Objects.equals(this.roundTripTime, other.roundTripTime);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(errorMessage, reachable, roundTripTime);
-  }
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestConnectivitySummary {");
-    sb.append("\n    errorMessage: ").append(toIndentedString(errorMessage));
-    sb.append("\n    reachable: ").append(toIndentedString(reachable));
-    sb.append("\n    roundTripTime: ").append(toIndentedString(roundTripTime));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestConnectivitySummary reachable(Boolean reachable) {
+        this.reachable = reachable;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get reachable
+     *
+     * @return reachable
+     **/
+    public Boolean isReachable() {
+        return reachable;
+    }
+
+    public void setReachable(Boolean reachable) {
+        this.reachable = reachable;
+    }
+
+    public RestConnectivitySummary roundTripTime(Long roundTripTime) {
+        this.roundTripTime = roundTripTime;
+        return this;
+    }
+
+    /**
+     * Get roundTripTime
+     *
+     * @return roundTripTime
+     **/
+    public Long getRoundTripTime() {
+        return roundTripTime;
+    }
+
+    public void setRoundTripTime(Long roundTripTime) {
+        this.roundTripTime = roundTripTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestConnectivitySummary)) {
+            return false;
+        }
+        RestConnectivitySummary other = (RestConnectivitySummary) o;
+        return Objects.equals(this.errorMessage, other.errorMessage) &&
+                Objects.equals(this.reachable, other.reachable) &&
+                Objects.equals(this.roundTripTime, other.roundTripTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(errorMessage, reachable, roundTripTime);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestConnectivitySummary {");
+        sb.append("\n    errorMessage: ").append(toIndentedString(errorMessage));
+        sb.append("\n    reachable: ").append(toIndentedString(reachable));
+        sb.append("\n    roundTripTime: ").append(toIndentedString(roundTripTime));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

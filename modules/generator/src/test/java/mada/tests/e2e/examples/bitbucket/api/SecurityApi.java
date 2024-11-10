@@ -90,7 +90,8 @@ public interface SecurityApi {
     /**
      * Find repository secret scanning allowlist rules.
      *
-     * Find repository secret scanning allowlist rules by filtering. Repository **Admin** is required
+     * Find repository secret scanning allowlist rules by filtering.
+     * Repository **Admin** is required
      *
      * @param filter         Filter names by the provided text (optional)
      * @param projectKey     The project key. (not null)
@@ -108,36 +109,32 @@ public interface SecurityApi {
                     responseCode = "200",
                     description = "Page of allowlist rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The request was not a correctly formed allowlist rule. See returned error for more details",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_400.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The authenticated user is not permitted to view repository rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_401.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_401.class)))
     })
     @Operation(summary = "Find repository secret scanning allowlist rules")
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist search_2(@QueryParam("filter") String filter,
-            @PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug,
-            @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist search_2(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create repository secret scanning allowlist rule.
      *
-     * Create a new repository secret scanning allowlist rule. Repository allowlist rules are used when scanning the given
-     * repository. Repository **Admin** is required
+     * Create a new repository secret scanning allowlist rule. Repository allowlist rules are used when scanning the
+     * given repository.
+     * Repository **Admin** is required
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
-     * @param dto            Allowlist rule to create, either the line regular expression or the path regular expression
-     *                       must be present (not null)
+     * @param dto            Allowlist rule to create, either the line regular expression or the path regular expression must be present (not null)
      * @return RestSecretScanningAllowlistRule
      */
     @POST
@@ -154,23 +151,21 @@ public interface SecurityApi {
                     responseCode = "400",
                     description = "The request did not contain a correctly formed allowlist rule. See returned error for more details",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_400.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The authenticated user is not permitted to create repository rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_401.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlist_401.class)))
     })
     @Operation(summary = "Create repository secret scanning allowlist rule")
-    RestSecretScanningAllowlistRule createAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey,
-            @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
+    RestSecretScanningAllowlistRule createAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
 
     /**
      * Get a repository secret scanning allowlist rule.
      *
-     * Get a repository secret scanning allowlist rule by ID. Repository **Admin** is required
+     * Get a repository secret scanning allowlist rule by ID.
+     * Repository **Admin** is required
      *
      * @param projectKey     The project key. (not null)
      * @param id             The allowlist rule id. (not null)
@@ -190,23 +185,22 @@ public interface SecurityApi {
                     responseCode = "401",
                     description = "The authenticated user is not permitted to view repository allowlist rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The requested allowlist rule was not found",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_404.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_404.class)))
     })
     @Operation(summary = "Get a repository secret scanning allowlist rule")
-    RestSecretScanningAllowlistRule getAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey,
-            @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug);
+    RestSecretScanningAllowlistRule getAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id,
+            @PathParam("repositorySlug") @NotNull String repositorySlug);
 
     /**
      * Edit an existing repository secret scanning allowlist rule.
      *
-     * Edit a repository secret scanning allowlist rule. Repository **Admin** is required
+     * Edit a repository secret scanning allowlist rule.
+     * Repository **Admin** is required
      *
      * @param projectKey     The project key. (not null)
      * @param id             The allowlist rule id. (not null)
@@ -228,24 +222,22 @@ public interface SecurityApi {
                     responseCode = "400",
                     description = "The request did not contain a correctly formed allowlist rule. See returned error for more details",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_400.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The authenticated user is not permitted to edit repository allowlist rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class)))
     })
     @Operation(summary = "Edit an existing repository secret scanning allowlist rule")
-    RestSecretScanningAllowlistRule editAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey,
-            @PathParam("id") @NotNull String id, @PathParam("repositorySlug") @NotNull String repositorySlug,
-            @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
+    RestSecretScanningAllowlistRule editAllowlistRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id,
+            @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
 
     /**
      * Delete a repository secret scanning allowlist rule.
      *
-     * Delete a repository secret scanning allowlist rule with the provided ID. Repository **Admin** is required
+     * Delete a repository secret scanning allowlist rule with the provided ID.
+     * Repository **Admin** is required
      *
      * @param projectKey     The project key. (not null)
      * @param id             The allowlist rule id. (not null)
@@ -261,8 +253,7 @@ public interface SecurityApi {
                     responseCode = "401",
                     description = "The authenticated user is not permitted to delete repository allowlist rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningAllowlistId_401.class),
                             mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete a repository secret scanning allowlist rule")
@@ -285,8 +276,7 @@ public interface SecurityApi {
                     responseCode = "401",
                     description = "The authenticated user is not permitted to check whether a repository is exempt from secret scanning",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class)))
     })
     @Operation(summary = "Get whether a repository is exempt")
     void isRepoExempt();
@@ -294,8 +284,9 @@ public interface SecurityApi {
     /**
      * Exempt a repo from secret scanning.
      *
-     * Exempt a repository from being scanned for secrets <strong>Deprecated since 8.6</strong>. Exemptions are now managed
-     * by scope. Use POST /rest/api/1.0/secret-scanning/exempt for global scope Use POST
+     * Exempt a repository from being scanned for secrets
+     * <strong>Deprecated since 8.6</strong>. Exemptions are now managed by scope. Use POST
+     * /rest/api/1.0/secret-scanning/exempt for global scope Use POST
      * /rest/api/1.0/projects/{projectKey}/secret-scanning/exempt for the project scope
      */
     @PUT
@@ -308,15 +299,13 @@ public interface SecurityApi {
                     responseCode = "401",
                     description = "The authenticated user is not permitted to exempt a repository from secret scanning",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class),
                             mediaType = MediaType.APPLICATION_JSON)),
             @APIResponse(
                     responseCode = "409",
                     description = "At least one of specified repositories have already been previously made exempt.",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_409.class),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_409.class),
                             mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Exempt a repo from secret scanning")
@@ -337,8 +326,7 @@ public interface SecurityApi {
                     responseCode = "401",
                     description = "The authenticated user is not permitted to delete an exempt repository",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401.class),
                             mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete an exempt repository")
@@ -347,7 +335,8 @@ public interface SecurityApi {
     /**
      * Find repository secret scanning rules.
      *
-     * Find repository secret scanning rules by filtering. Repository **Admin** is required
+     * Find repository secret scanning rules by filtering.
+     * Repository **Admin** is required
      *
      * @param filter         Filter names by the provided text (optional)
      * @param projectKey     The project key. (not null)
@@ -365,25 +354,21 @@ public interface SecurityApi {
                     responseCode = "200",
                     description = "Page of rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules.class))),
             @APIResponse(
                     responseCode = "400",
                     description = "The request was not correctly formed rule. See returned error for more details",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_400.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The authenticated user is not permitted to view repository rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_401.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_401.class)))
     })
     @Operation(summary = "Find repository secret scanning rules")
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules search_3(@QueryParam("filter") String filter,
-            @PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug,
-            @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules search_3(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey,
+            @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create repository secret scanning rule.
@@ -393,8 +378,7 @@ public interface SecurityApi {
      *
      * @param projectKey     The project key. (not null)
      * @param repositorySlug The repository slug. (not null)
-     * @param dto            Rule to create, either the line regular expression or the path regular expression must be
-     *                       present (not null)
+     * @param dto            Rule to create, either the line regular expression or the path regular expression must be present (not null)
      * @return RestSecretScanningRule
      */
     @POST
@@ -411,23 +395,21 @@ public interface SecurityApi {
                     responseCode = "400",
                     description = "The request did not contain a correctly formed rule. See returned error for more details",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_400.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The authenticated user is not permitted to create repository rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_401.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRules_401.class)))
     })
     @Operation(summary = "Create repository secret scanning rule")
-    RestSecretScanningRule createRule_1(@PathParam("projectKey") @NotNull String projectKey,
-            @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
+    RestSecretScanningRule createRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
 
     /**
      * Get a repository secret scanning rule.
      *
-     * Get a repository secret scanning rule by ID. Repository **Admin** is required
+     * Get a repository secret scanning rule by ID.
+     * Repository **Admin** is required
      *
      * @param projectKey     The project key. (not null)
      * @param id             The rule id. (not null)
@@ -447,14 +429,12 @@ public interface SecurityApi {
                     responseCode = "401",
                     description = "The authenticated user is not permitted to view repository rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class))),
             @APIResponse(
                     responseCode = "404",
                     description = "The requested rule was not found",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_404.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_404.class)))
     })
     @Operation(summary = "Get a repository secret scanning rule")
     RestSecretScanningRule getRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id,
@@ -463,7 +443,8 @@ public interface SecurityApi {
     /**
      * Edit an existing repository secret scanning rule.
      *
-     * Edit a repository secret scanning rule. Repository **Admin** is required
+     * Edit a repository secret scanning rule.
+     * Repository **Admin** is required
      *
      * @param projectKey     The project key. (not null)
      * @param id             The rule id. (not null)
@@ -485,14 +466,12 @@ public interface SecurityApi {
                     responseCode = "400",
                     description = "The request did not contain a correctly formed rule. See returned error for more details",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_400.class))),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_400.class))),
             @APIResponse(
                     responseCode = "401",
                     description = "The authenticated user is not permitted to edit repository rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class)))
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class)))
     })
     @Operation(summary = "Edit an existing repository secret scanning rule")
     RestSecretScanningRule editRule_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id,
@@ -501,7 +480,8 @@ public interface SecurityApi {
     /**
      * Delete a repository secret scanning rule.
      *
-     * Delete a repository secret scanning rule with the provided ID. Repository **Admin** is required
+     * Delete a repository secret scanning rule with the provided ID.
+     * Repository **Admin** is required
      *
      * @param projectKey     The project key. (not null)
      * @param id             The rule id. (not null)
@@ -517,8 +497,7 @@ public interface SecurityApi {
                     responseCode = "401",
                     description = "The authenticated user is not permitted to delete repository rules",
                     content = @Content(
-                            schema = @Schema(
-                                    implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class),
+                            schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningRulesId_401.class),
                             mediaType = MediaType.APPLICATION_JSON))
     })
     @Operation(summary = "Delete a repository secret scanning rule")
@@ -528,7 +507,8 @@ public interface SecurityApi {
     /**
      * Find project secret scanning allowlist rules.
      *
-     * Find project secret scanning allowlist rules by filtering. Project **Admin** is required
+     * Find project secret scanning allowlist rules by filtering.
+     * Project **Admin** is required
      *
      * @param filter     Filter names by the provided text (optional)
      * @param projectKey The project key. (not null)
@@ -558,19 +538,18 @@ public interface SecurityApi {
                             schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist_401.class)))
     })
     @Operation(summary = "Find project secret scanning allowlist rules")
-    _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist searchAllowlistRule(@QueryParam("filter") String filter,
-            @PathParam("projectKey") @NotNull String projectKey, @QueryParam("order") String order, @QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist searchAllowlistRule(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create project secret scanning allowlist rule.
      *
      * Create a new project level secret scanning allowlist rule. Project allowlist rules are used when scanning all non
-     * exempt repositories in the provided project. Project **Admin** is required
+     * exempt repositories in the provided project.
+     * Project **Admin** is required
      *
      * @param projectKey The project key. (not null)
-     * @param dto        Allowlist rule to create, either the line regular expression or the path regular expression must be
-     *                   present (not null)
+     * @param dto        Allowlist rule to create, either the line regular expression or the path regular expression must be present (not null)
      * @return RestSecretScanningAllowlistRule
      */
     @POST
@@ -595,13 +574,13 @@ public interface SecurityApi {
                             schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlist_401.class)))
     })
     @Operation(summary = "Create project secret scanning allowlist rule")
-    RestSecretScanningAllowlistRule createAllowlistRule(@PathParam("projectKey") @NotNull String projectKey,
-            @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
+    RestSecretScanningAllowlistRule createAllowlistRule(@PathParam("projectKey") @NotNull String projectKey, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
 
     /**
      * Get a project secret scanning allowlist rule.
      *
-     * Get a project secret scanning allowlist rule by ID. Project **Admin** is required
+     * Get a project secret scanning allowlist rule by ID.
+     * Project **Admin** is required
      *
      * @param projectKey The project key. (not null)
      * @param id         The allowlist rule id. (not null)
@@ -628,13 +607,13 @@ public interface SecurityApi {
                             schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_404.class)))
     })
     @Operation(summary = "Get a project secret scanning allowlist rule")
-    RestSecretScanningAllowlistRule getAllowlistRule(@PathParam("projectKey") @NotNull String projectKey,
-            @PathParam("id") @NotNull String id);
+    RestSecretScanningAllowlistRule getAllowlistRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id);
 
     /**
      * Edit an existing project secret scanning allowlist rule.
      *
-     * Edit a project secret scanning allowlist rule. Project **Admin** is required
+     * Edit a project secret scanning allowlist rule.
+     * Project **Admin** is required
      *
      * @param projectKey The project key. (not null)
      * @param id         The allowlist rule id. (not null)
@@ -663,13 +642,13 @@ public interface SecurityApi {
                             schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningAllowlistId_401.class)))
     })
     @Operation(summary = "Edit an existing project secret scanning allowlist rule")
-    RestSecretScanningAllowlistRule editAllowlistRule(@PathParam("projectKey") @NotNull String projectKey,
-            @PathParam("id") @NotNull String id, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
+    RestSecretScanningAllowlistRule editAllowlistRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @NotNull @Valid RestSecretScanningAllowlistRuleSetRequest dto);
 
     /**
      * Delete a project secret scanning allowlist rule.
      *
-     * Delete a project secret scanning allowlist rule with the provided ID. Project **Admin** is required
+     * Delete a project secret scanning allowlist rule with the provided ID.
+     * Project **Admin** is required
      *
      * @param projectKey The project key. (not null)
      * @param id         The allowlist rule id. (not null)
@@ -695,8 +674,7 @@ public interface SecurityApi {
      *
      * Find repositories exempt from secret scanning in a project.
      *
-     * @param order Order by project name followed by repository name either ascending or descending, defaults to ascending.
-     *              (optional)
+     * @param order Order by project name followed by repository name either ascending or descending, defaults to ascending. (optional)
      * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
      * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
      * @return _ResponseApiLatestProjectsProjectKeySecretScanningExempt
@@ -717,13 +695,14 @@ public interface SecurityApi {
                             schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningExempt_401.class)))
     })
     @Operation(summary = "Find repos exempt from secret scanning for a project")
-    _ResponseApiLatestProjectsProjectKeySecretScanningExempt findExemptReposByProject(@QueryParam("order") String order,
-            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeySecretScanningExempt findExemptReposByProject(@QueryParam("order") String order, @QueryParam("start") BigDecimal start,
+            @QueryParam("limit") BigDecimal limit);
 
     /**
      * Bulk exempt repos from secret scanning.
      *
-     * Bulk exempt a list of repositories from being scanned for secrets. User must be have **PROJECT ADMIN** permissions.
+     * Bulk exempt a  list of repositories from being scanned for secrets. User must be have **PROJECT ADMIN**
+     * permissions.
      *
      * @param dto (optional)
      */
@@ -747,7 +726,8 @@ public interface SecurityApi {
     /**
      * Find project secret scanning rules.
      *
-     * Find project secret scanning rules by filtering. Project **Admin** is required
+     * Find project secret scanning rules by filtering.
+     * Project **Admin** is required
      *
      * @param filter     Filter names by the provided text (optional)
      * @param projectKey The project key. (not null)
@@ -777,19 +757,18 @@ public interface SecurityApi {
                             schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRules_401.class)))
     })
     @Operation(summary = "Find project secret scanning rules")
-    _ResponseApiLatestProjectsProjectKeySecretScanningRules search_1(@QueryParam("filter") String filter,
-            @PathParam("projectKey") @NotNull String projectKey, @QueryParam("order") String order, @QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestProjectsProjectKeySecretScanningRules search_1(@QueryParam("filter") String filter, @PathParam("projectKey") @NotNull String projectKey,
+            @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Create project secret scanning rule.
      *
-     * Create a new project level secret scanning rule. Project rules are used when scanning all non exempt repositories in
-     * the provided project. Project **Admin** is required
+     * Create a new project level secret scanning rule. Project rules are used when scanning all non exempt repositories
+     * in the provided project.
+     * Project **Admin** is required
      *
      * @param projectKey The project key. (not null)
-     * @param dto        Rule to create, either the line regular expression or the path regular expression must be present
-     *                   (not null)
+     * @param dto        Rule to create, either the line regular expression or the path regular expression must be present (not null)
      * @return RestSecretScanningRule
      */
     @POST
@@ -814,13 +793,13 @@ public interface SecurityApi {
                             schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRules_401.class)))
     })
     @Operation(summary = "Create project secret scanning rule")
-    RestSecretScanningRule createRule(@PathParam("projectKey") @NotNull String projectKey,
-            @NotNull @Valid RestSecretScanningRuleSetRequest dto);
+    RestSecretScanningRule createRule(@PathParam("projectKey") @NotNull String projectKey, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
 
     /**
      * Get a project secret scanning rule.
      *
-     * Get a project secret scanning rule by ID. Project **Admin** is required
+     * Get a project secret scanning rule by ID.
+     * Project **Admin** is required
      *
      * @param projectKey The project key. (not null)
      * @param id         The rule id. (not null)
@@ -852,7 +831,8 @@ public interface SecurityApi {
     /**
      * Edit an existing project secret scanning rule.
      *
-     * Edit a project secret scanning rule. Project **Admin** is required
+     * Edit a project secret scanning rule.
+     * Project **Admin** is required
      *
      * @param projectKey The project key. (not null)
      * @param id         The rule id. (not null)
@@ -881,13 +861,13 @@ public interface SecurityApi {
                             schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningRulesId_401.class)))
     })
     @Operation(summary = "Edit an existing project secret scanning rule")
-    RestSecretScanningRule editRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id,
-            @NotNull @Valid RestSecretScanningRuleSetRequest dto);
+    RestSecretScanningRule editRule(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull String id, @NotNull @Valid RestSecretScanningRuleSetRequest dto);
 
     /**
      * Delete a project secret scanning rule.
      *
-     * Delete a project secret scanning rule with the provided ID. Project **Admin** is required
+     * Delete a project secret scanning rule with the provided ID.
+     * Project **Admin** is required
      *
      * @param projectKey The project key. (not null)
      * @param id         The rule id. (not null)
@@ -913,8 +893,7 @@ public interface SecurityApi {
      *
      * Find all repositories exempt from secret scanning.
      *
-     * @param order Order by project name followed by repository name either ascending or descending, defaults to ascending.
-     *              (optional)
+     * @param order Order by project name followed by repository name either ascending or descending, defaults to ascending. (optional)
      * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
      * @param limit Number of items to return. If not passed, a page size of 25 is used. (optional)
      * @return _ResponseApiLatestSecretScanningExempt
@@ -941,7 +920,8 @@ public interface SecurityApi {
     /**
      * Bulk exempt repos from secret scanning.
      *
-     * Bulk exempt a list of repositories from being scanned for secrets. User must be have global **ADMIN** permissions.
+     * Bulk exempt a  list of repositories from being scanned for secrets. User must be have global **ADMIN**
+     * permissions.
      *
      * @param dto (optional)
      */
@@ -1008,8 +988,7 @@ public interface SecurityApi {
      *
      * Create a new global secret scanning rule. Global rules are used when scanning all non exempt repositories.
      *
-     * @param dto Rule to create, either the line regular expression or the path regular expression must be present (not
-     *            null)
+     * @param dto Rule to create, either the line regular expression or the path regular expression must be present (not null)
      * @return RestSecretScanningRule
      */
     @POST
@@ -1126,8 +1105,8 @@ public interface SecurityApi {
     /**
      * Get all X.509 certificates
      *
-     * Get all X.509 certificates that have been added to the system. The authenticated user must have the
-     * <strong>ADMIN</strong> permission to call this resource.
+     * Get all X.509 certificates that have been added to the system.
+     * The authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
      *
      * @return RestX509Certificate
      */
@@ -1152,9 +1131,9 @@ public interface SecurityApi {
     /**
      * Create an X.509 certificate
      *
-     * Create an X.509 certificate. This will add the given X.509 certificate to the system. Existing entries will not be
-     * overridden if an X.509 certificate already exists. Once added, an X.509 certificate cannot be updated. The
-     * authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
+     * Create an X.509 certificate. This will add the given X.509 certificate to the system. Existing entries will not
+     * be overridden if an X.509 certificate already exists. Once added, an X.509 certificate cannot be updated.
+     * The authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
      *
      * @param dto The multipart form data containing the certificate in a form-field named 'certificate' (not null)
      * @return RestX509Certificate
@@ -1188,10 +1167,12 @@ public interface SecurityApi {
      *
      * Update the certificate revocation list (CRL) entries for an issuer X.509 certificate in the system, identified by
      * <code>id</code>. This will add any new revoked X.509 certificates that were issued by the given issuer X.509
-     * certificate. This endpoint will schedule a request to asynchronously perform the task. Please allow time for the task
-     * to complete as it will vary depending on how many CRLs there are to retrieve and process. Note: CRL updates are
-     * scheduled to run every 24 hours. You may wish to trigger a refresh manually using this endpoint, otherwise, entries
-     * will be updated daily. The authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
+     * certificate.
+     * This endpoint will schedule a request to asynchronously perform the task. Please allow time for the task to
+     * complete as it will vary depending on how many CRLs there are to retrieve and process.
+     * Note: CRL updates are scheduled to run every 24 hours. You may wish to trigger a refresh manually using this
+     * endpoint, otherwise, entries will be updated daily.
+     * The authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
      *
      * @param id The ID of the issuer certificate. (not null)
      */
@@ -1219,8 +1200,8 @@ public interface SecurityApi {
     /**
      * Delete an X.509 certificate
      *
-     * Delete an X.509 certificate specified by the given ID. The authenticated user must have the <strong>ADMIN</strong>
-     * permission to call this resource.
+     * Delete an X.509 certificate specified by the given ID.
+     * The authenticated user must have the <strong>ADMIN</strong> permission to call this resource.
      *
      * @param id The ID of the X.509 certificate. (not null)
      */
@@ -1251,8 +1232,8 @@ public interface SecurityApi {
      * Get all GPG keys.
      *
      * Find all the keys for the currently authenticated user. Optionally, users with ADMIN and higher permissions may
-     * choose to specify the <code>user</code> parameter to retrieve GPG keys for another user. Only authenticated users may
-     * call this endpoint.
+     * choose to specify the <code>user</code> parameter to retrieve GPG keys for another user.
+     * Only authenticated users may call this endpoint.
      *
      * @param user  The name of the user to get keys for (optional; requires ADMIN permission or higher). (optional)
      * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
@@ -1281,9 +1262,9 @@ public interface SecurityApi {
     /**
      * Create a GPG key.
      *
-     * Add a GPG key to the authenticated user's account. Optionally, users with ADMIN and higher permissions may choose to
-     * specify the <code>user</code> parameter to add a GPG key for another user. Only authenticated users may call this
-     * endpoint.
+     * Add a GPG key to the authenticated user's account. Optionally, users with ADMIN and higher permissions may choose
+     * to specify the <code>user</code> parameter to add a GPG key for another user.
+     * Only authenticated users may call this endpoint.
      *
      * @param user The name of the user to add a key for (optional; requires ADMIN permission or higher). (optional)
      * @param dto  The request body. (optional)
@@ -1317,8 +1298,7 @@ public interface SecurityApi {
      *
      * Delete all GPG keys for a supplied user.
      *
-     * @param user The username of the user to delete the keys for. If no username is specified, the GPG keys will be
-     *             deleted for the currently authenticated user. (optional)
+     * @param user The username of the user to delete the keys for. If no username is specified, the GPG keys will be deleted for the currently authenticated user. (optional)
      */
     @DELETE
     @Path("gpg/latest/keys")

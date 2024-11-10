@@ -24,79 +24,81 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestNodeConnectivitySummary {
-  public static final String JSON_PROPERTY_NODE = "node";
-  @JsonbProperty(JSON_PROPERTY_NODE)
-  private RestNodeConnectivitySummaryNode node;
+    public static final String JSON_PROPERTY_NODE = "node";
+    @JsonbProperty(JSON_PROPERTY_NODE)
+    private RestNodeConnectivitySummaryNode node;
 
-  public static final String JSON_PROPERTY_SUMMARY = "summary";
-  @JsonbProperty(JSON_PROPERTY_SUMMARY)
-  private RestNodeConnectivitySummarySummary summary;
+    public static final String JSON_PROPERTY_SUMMARY = "summary";
+    @JsonbProperty(JSON_PROPERTY_SUMMARY)
+    private RestNodeConnectivitySummarySummary summary;
 
-  public RestNodeConnectivitySummary node(RestNodeConnectivitySummaryNode node) {
-    this.node = node;
-    return this;
-  }
-
-  /**
-   * Get node
-   * @return node
-   **/
-  @Valid
-  public RestNodeConnectivitySummaryNode getNode() {
-    return node;
-  }
-
-  public void setNode(RestNodeConnectivitySummaryNode node) {
-    this.node = node;
-  }
-
-  public RestNodeConnectivitySummary summary(RestNodeConnectivitySummarySummary summary) {
-    this.summary = summary;
-    return this;
-  }
-
-  /**
-   * Get summary
-   * @return summary
-   **/
-  @Valid
-  public RestNodeConnectivitySummarySummary getSummary() {
-    return summary;
-  }
-
-  public void setSummary(RestNodeConnectivitySummarySummary summary) {
-    this.summary = summary;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestNodeConnectivitySummary node(RestNodeConnectivitySummaryNode node) {
+        this.node = node;
+        return this;
     }
-    if (!(o instanceof RestNodeConnectivitySummary)) {
-      return false;
+
+    /**
+     * Get node
+     *
+     * @return node
+     **/
+    @Valid
+    public RestNodeConnectivitySummaryNode getNode() {
+        return node;
     }
-    RestNodeConnectivitySummary other = (RestNodeConnectivitySummary) o;
-    return Objects.equals(this.node, other.node) &&
-        Objects.equals(this.summary, other.summary);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(node, summary);
-  }
+    public void setNode(RestNodeConnectivitySummaryNode node) {
+        this.node = node;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestNodeConnectivitySummary {");
-    sb.append("\n    node: ").append(toIndentedString(node));
-    sb.append("\n    summary: ").append(toIndentedString(summary));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestNodeConnectivitySummary summary(RestNodeConnectivitySummarySummary summary) {
+        this.summary = summary;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get summary
+     *
+     * @return summary
+     **/
+    @Valid
+    public RestNodeConnectivitySummarySummary getSummary() {
+        return summary;
+    }
+
+    public void setSummary(RestNodeConnectivitySummarySummary summary) {
+        this.summary = summary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestNodeConnectivitySummary)) {
+            return false;
+        }
+        RestNodeConnectivitySummary other = (RestNodeConnectivitySummary) o;
+        return Objects.equals(this.node, other.node) &&
+                Objects.equals(this.summary, other.summary);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(node, summary);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestNodeConnectivitySummary {");
+        sb.append("\n    node: ").append(toIndentedString(node));
+        sb.append("\n    summary: ").append(toIndentedString(summary));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

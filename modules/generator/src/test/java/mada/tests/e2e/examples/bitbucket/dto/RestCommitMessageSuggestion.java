@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestCommitMessageSuggestion {
-  public static final String JSON_PROPERTY_BODY = "body";
-  @JsonbProperty(JSON_PROPERTY_BODY)
-  @Schema(example = "Merge in PROJECT_1/repo_1 from feature/feature-2 to main")
-  private String body;
+    public static final String JSON_PROPERTY_BODY = "body";
+    @JsonbProperty(JSON_PROPERTY_BODY)
+    @Schema(example = "Merge in PROJECT_1/repo_1 from feature/feature-2 to main")
+    private String body;
 
-  public static final String JSON_PROPERTY_TITLE = "title";
-  @JsonbProperty(JSON_PROPERTY_TITLE)
-  @Schema(example = "Pull request #2: add new feature")
-  private String title;
+    public static final String JSON_PROPERTY_TITLE = "title";
+    @JsonbProperty(JSON_PROPERTY_TITLE)
+    @Schema(example = "Pull request #2: add new feature")
+    private String title;
 
-  public RestCommitMessageSuggestion body(String body) {
-    this.body = body;
-    return this;
-  }
-
-  /**
-   * Get body
-   * @return body
-   **/
-  public String getBody() {
-    return body;
-  }
-
-  public void setBody(String body) {
-    this.body = body;
-  }
-
-  public RestCommitMessageSuggestion title(String title) {
-    this.title = title;
-    return this;
-  }
-
-  /**
-   * Get title
-   * @return title
-   **/
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestCommitMessageSuggestion body(String body) {
+        this.body = body;
+        return this;
     }
-    if (!(o instanceof RestCommitMessageSuggestion)) {
-      return false;
+
+    /**
+     * Get body
+     *
+     * @return body
+     **/
+    public String getBody() {
+        return body;
     }
-    RestCommitMessageSuggestion other = (RestCommitMessageSuggestion) o;
-    return Objects.equals(this.body, other.body) &&
-        Objects.equals(this.title, other.title);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(body, title);
-  }
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestCommitMessageSuggestion {");
-    sb.append("\n    body: ").append(toIndentedString(body));
-    sb.append("\n    title: ").append(toIndentedString(title));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestCommitMessageSuggestion title(String title) {
+        this.title = title;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestCommitMessageSuggestion)) {
+            return false;
+        }
+        RestCommitMessageSuggestion other = (RestCommitMessageSuggestion) o;
+        return Objects.equals(this.body, other.body) &&
+                Objects.equals(this.title, other.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(body, title);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestCommitMessageSuggestion {");
+        sb.append("\n    body: ").append(toIndentedString(body));
+        sb.append("\n    title: ").append(toIndentedString(title));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

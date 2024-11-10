@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate {
-  public static final String JSON_PROPERTY_BODY = "body";
-  @JsonbProperty(JSON_PROPERTY_BODY)
-  @Schema(example = "Merge in ${toProjectKey}/${toRepoSlug} from ${crossRepoProjectRepo}${fromRefName} to ${toRefName}")
-  private String body;
+    public static final String JSON_PROPERTY_BODY = "body";
+    @JsonbProperty(JSON_PROPERTY_BODY)
+    @Schema(example = "Merge in ${toProjectKey}/${toRepoSlug} from ${crossRepoProjectRepo}${fromRefName} to ${toRefName}")
+    private String body;
 
-  public static final String JSON_PROPERTY_TITLE = "title";
-  @JsonbProperty(JSON_PROPERTY_TITLE)
-  @Schema(example = "Pull request #${id}: ${title}")
-  private String title;
+    public static final String JSON_PROPERTY_TITLE = "title";
+    @JsonbProperty(JSON_PROPERTY_TITLE)
+    @Schema(example = "Pull request #${id}: ${title}")
+    private String title;
 
-  public RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate body(String body) {
-    this.body = body;
-    return this;
-  }
-
-  /**
-   * Get body
-   * @return body
-   **/
-  public String getBody() {
-    return body;
-  }
-
-  public void setBody(String body) {
-    this.body = body;
-  }
-
-  public RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate title(String title) {
-    this.title = title;
-    return this;
-  }
-
-  /**
-   * Get title
-   * @return title
-   **/
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate body(String body) {
+        this.body = body;
+        return this;
     }
-    if (!(o instanceof RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate)) {
-      return false;
+
+    /**
+     * Get body
+     *
+     * @return body
+     **/
+    public String getBody() {
+        return body;
     }
-    RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate other = (RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate) o;
-    return Objects.equals(this.body, other.body) &&
-        Objects.equals(this.title, other.title);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(body, title);
-  }
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate {");
-    sb.append("\n    body: ").append(toIndentedString(body));
-    sb.append("\n    title: ").append(toIndentedString(title));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate title(String title) {
+        this.title = title;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get title
+     *
+     * @return title
+     **/
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate)) {
+            return false;
+        }
+        RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate other = (RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate) o;
+        return Objects.equals(this.body, other.body) &&
+                Objects.equals(this.title, other.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(body, title);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate {");
+        sb.append("\n    body: ").append(toIndentedString(body));
+        sb.append("\n    title: ").append(toIndentedString(title));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

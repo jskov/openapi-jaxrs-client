@@ -13,32 +13,32 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class SubNoProps extends Super {
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SubNoProps)) {
+            return false;
+        }
+        return true;
     }
-    if (!(o instanceof SubNoProps)) {
-      return false;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode());
     }
-    return true;
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(super.hashCode());
-  }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SubNoProps {");
+        sb.append("\n    ").append(toIndentedString(super.toString()));
+        sb.append("\n}");
+        return sb.toString();
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SubNoProps {");
-    sb.append("\n    ").append(toIndentedString(super.toString()));
-    sb.append("\n}");
-    return sb.toString();
-  }
-
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

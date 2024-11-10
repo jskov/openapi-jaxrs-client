@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExampleSocketAddress {
-  public static final String JSON_PROPERTY_ADDRESS = "address";
-  @JsonbProperty(JSON_PROPERTY_ADDRESS)
-  @Schema(example = "node.example.com")
-  private String address;
+    public static final String JSON_PROPERTY_ADDRESS = "address";
+    @JsonbProperty(JSON_PROPERTY_ADDRESS)
+    @Schema(example = "node.example.com")
+    private String address;
 
-  public static final String JSON_PROPERTY_PORT = "port";
-  @JsonbProperty(JSON_PROPERTY_PORT)
-  @Schema(example = "8230")
-  private Integer port;
+    public static final String JSON_PROPERTY_PORT = "port";
+    @JsonbProperty(JSON_PROPERTY_PORT)
+    @Schema(example = "8230")
+    private Integer port;
 
-  public ExampleSocketAddress address(String address) {
-    this.address = address;
-    return this;
-  }
-
-  /**
-   * Get address
-   * @return address
-   **/
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public ExampleSocketAddress port(Integer port) {
-    this.port = port;
-    return this;
-  }
-
-  /**
-   * Get port
-   * @return port
-   **/
-  public Integer getPort() {
-    return port;
-  }
-
-  public void setPort(Integer port) {
-    this.port = port;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ExampleSocketAddress address(String address) {
+        this.address = address;
+        return this;
     }
-    if (!(o instanceof ExampleSocketAddress)) {
-      return false;
+
+    /**
+     * Get address
+     *
+     * @return address
+     **/
+    public String getAddress() {
+        return address;
     }
-    ExampleSocketAddress other = (ExampleSocketAddress) o;
-    return Objects.equals(this.address, other.address) &&
-        Objects.equals(this.port, other.port);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(address, port);
-  }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExampleSocketAddress {");
-    sb.append("\n    address: ").append(toIndentedString(address));
-    sb.append("\n    port: ").append(toIndentedString(port));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public ExampleSocketAddress port(Integer port) {
+        this.port = port;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get port
+     *
+     * @return port
+     **/
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExampleSocketAddress)) {
+            return false;
+        }
+        ExampleSocketAddress other = (ExampleSocketAddress) o;
+        return Objects.equals(this.address, other.address) &&
+                Objects.equals(this.port, other.port);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(address, port);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ExampleSocketAddress {");
+        sb.append("\n    address: ").append(toIndentedString(address));
+        sb.append("\n    port: ").append(toIndentedString(port));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

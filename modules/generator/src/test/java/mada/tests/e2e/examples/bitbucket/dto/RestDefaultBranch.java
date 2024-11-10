@@ -23,54 +23,55 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestDefaultBranch {
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    private String id;
 
-  public RestDefaultBranch id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestDefaultBranch id(String id) {
+        this.id = id;
+        return this;
     }
-    if (!(o instanceof RestDefaultBranch)) {
-      return false;
+
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    public String getId() {
+        return id;
     }
-    RestDefaultBranch other = (RestDefaultBranch) o;
-    return Objects.equals(this.id, other.id);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestDefaultBranch {");
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestDefaultBranch)) {
+            return false;
+        }
+        RestDefaultBranch other = (RestDefaultBranch) o;
+        return Objects.equals(this.id, other.id);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestDefaultBranch {");
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

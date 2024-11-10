@@ -26,109 +26,112 @@ import java.util.Set;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestBulkUserRateLimitSettingsUpdateRequest {
-  public static final String JSON_PROPERTY_SETTINGS = "settings";
-  @JsonbProperty(JSON_PROPERTY_SETTINGS)
-  private RestBulkUserRateLimitSettingsUpdateRequestSettings settings;
+    public static final String JSON_PROPERTY_SETTINGS = "settings";
+    @JsonbProperty(JSON_PROPERTY_SETTINGS)
+    private RestBulkUserRateLimitSettingsUpdateRequestSettings settings;
 
-  public static final String JSON_PROPERTY_USERNAMES = "usernames";
-  @JsonbProperty(JSON_PROPERTY_USERNAMES)
-  private Set<String> usernames;
+    public static final String JSON_PROPERTY_USERNAMES = "usernames";
+    @JsonbProperty(JSON_PROPERTY_USERNAMES)
+    private Set<String> usernames;
 
-  public static final String JSON_PROPERTY_WHITELISTED = "whitelisted";
-  @JsonbProperty(JSON_PROPERTY_WHITELISTED)
-  private Boolean whitelisted;
+    public static final String JSON_PROPERTY_WHITELISTED = "whitelisted";
+    @JsonbProperty(JSON_PROPERTY_WHITELISTED)
+    private Boolean whitelisted;
 
-  public RestBulkUserRateLimitSettingsUpdateRequest settings(RestBulkUserRateLimitSettingsUpdateRequestSettings settings) {
-    this.settings = settings;
-    return this;
-  }
-
-  /**
-   * Get settings
-   * @return settings
-   **/
-  @Valid
-  public RestBulkUserRateLimitSettingsUpdateRequestSettings getSettings() {
-    return settings;
-  }
-
-  public void setSettings(RestBulkUserRateLimitSettingsUpdateRequestSettings settings) {
-    this.settings = settings;
-  }
-
-  public RestBulkUserRateLimitSettingsUpdateRequest usernames(Set<String> usernames) {
-    this.usernames = usernames;
-    return this;
-  }
-
-  public RestBulkUserRateLimitSettingsUpdateRequest addUsernamesItem(String usernamesItem) {
-    if (this.usernames == null) {
-      this.usernames = new LinkedHashSet<>();
+    public RestBulkUserRateLimitSettingsUpdateRequest settings(RestBulkUserRateLimitSettingsUpdateRequestSettings settings) {
+        this.settings = settings;
+        return this;
     }
-    this.usernames.add(usernamesItem);
-    return this;
-  }
 
-  /**
-   * Get usernames
-   * @return usernames
-   **/
-  public Set<String> getUsernames() {
-    return usernames;
-  }
-
-  public void setUsernames(Set<String> usernames) {
-    this.usernames = usernames;
-  }
-
-  public RestBulkUserRateLimitSettingsUpdateRequest whitelisted(Boolean whitelisted) {
-    this.whitelisted = whitelisted;
-    return this;
-  }
-
-  /**
-   * Get whitelisted
-   * @return whitelisted
-   **/
-  public Boolean isWhitelisted() {
-    return whitelisted;
-  }
-
-  public void setWhitelisted(Boolean whitelisted) {
-    this.whitelisted = whitelisted;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get settings
+     *
+     * @return settings
+     **/
+    @Valid
+    public RestBulkUserRateLimitSettingsUpdateRequestSettings getSettings() {
+        return settings;
     }
-    if (!(o instanceof RestBulkUserRateLimitSettingsUpdateRequest)) {
-      return false;
+
+    public void setSettings(RestBulkUserRateLimitSettingsUpdateRequestSettings settings) {
+        this.settings = settings;
     }
-    RestBulkUserRateLimitSettingsUpdateRequest other = (RestBulkUserRateLimitSettingsUpdateRequest) o;
-    return Objects.equals(this.settings, other.settings) &&
-        Objects.equals(this.usernames, other.usernames) &&
-        Objects.equals(this.whitelisted, other.whitelisted);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(settings, usernames, whitelisted);
-  }
+    public RestBulkUserRateLimitSettingsUpdateRequest usernames(Set<String> usernames) {
+        this.usernames = usernames;
+        return this;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestBulkUserRateLimitSettingsUpdateRequest {");
-    sb.append("\n    settings: ").append(toIndentedString(settings));
-    sb.append("\n    usernames: ").append(toIndentedString(usernames));
-    sb.append("\n    whitelisted: ").append(toIndentedString(whitelisted));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestBulkUserRateLimitSettingsUpdateRequest addUsernamesItem(String usernamesItem) {
+        if (this.usernames == null) {
+            this.usernames = new LinkedHashSet<>();
+        }
+        this.usernames.add(usernamesItem);
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get usernames
+     *
+     * @return usernames
+     **/
+    public Set<String> getUsernames() {
+        return usernames;
+    }
+
+    public void setUsernames(Set<String> usernames) {
+        this.usernames = usernames;
+    }
+
+    public RestBulkUserRateLimitSettingsUpdateRequest whitelisted(Boolean whitelisted) {
+        this.whitelisted = whitelisted;
+        return this;
+    }
+
+    /**
+     * Get whitelisted
+     *
+     * @return whitelisted
+     **/
+    public Boolean isWhitelisted() {
+        return whitelisted;
+    }
+
+    public void setWhitelisted(Boolean whitelisted) {
+        this.whitelisted = whitelisted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestBulkUserRateLimitSettingsUpdateRequest)) {
+            return false;
+        }
+        RestBulkUserRateLimitSettingsUpdateRequest other = (RestBulkUserRateLimitSettingsUpdateRequest) o;
+        return Objects.equals(this.settings, other.settings) &&
+                Objects.equals(this.usernames, other.usernames) &&
+                Objects.equals(this.whitelisted, other.whitelisted);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(settings, usernames, whitelisted);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestBulkUserRateLimitSettingsUpdateRequest {");
+        sb.append("\n    settings: ").append(toIndentedString(settings));
+        sb.append("\n    usernames: ").append(toIndentedString(usernames));
+        sb.append("\n    whitelisted: ").append(toIndentedString(whitelisted));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

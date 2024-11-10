@@ -27,63 +27,65 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestBulkAddInsightAnnotationRequest {
-  public static final String JSON_PROPERTY_ANNOTATIONS = "annotations";
-  @JsonbProperty(JSON_PROPERTY_ANNOTATIONS)
-  private List<RestSingleAddInsightAnnotationRequest> annotations;
+    public static final String JSON_PROPERTY_ANNOTATIONS = "annotations";
+    @JsonbProperty(JSON_PROPERTY_ANNOTATIONS)
+    private List<RestSingleAddInsightAnnotationRequest> annotations;
 
-  public RestBulkAddInsightAnnotationRequest annotations(List<RestSingleAddInsightAnnotationRequest> annotations) {
-    this.annotations = annotations;
-    return this;
-  }
-
-  public RestBulkAddInsightAnnotationRequest addAnnotationsItem(RestSingleAddInsightAnnotationRequest annotationsItem) {
-    if (this.annotations == null) {
-      this.annotations = new ArrayList<>();
+    public RestBulkAddInsightAnnotationRequest annotations(List<RestSingleAddInsightAnnotationRequest> annotations) {
+        this.annotations = annotations;
+        return this;
     }
-    this.annotations.add(annotationsItem);
-    return this;
-  }
 
-  /**
-   * Get annotations
-   * @return annotations
-   **/
-  @Valid @Size(min = 1, max = 2147483647)
-  public List<RestSingleAddInsightAnnotationRequest> getAnnotations() {
-    return annotations;
-  }
-
-  public void setAnnotations(List<RestSingleAddInsightAnnotationRequest> annotations) {
-    this.annotations = annotations;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestBulkAddInsightAnnotationRequest addAnnotationsItem(RestSingleAddInsightAnnotationRequest annotationsItem) {
+        if (this.annotations == null) {
+            this.annotations = new ArrayList<>();
+        }
+        this.annotations.add(annotationsItem);
+        return this;
     }
-    if (!(o instanceof RestBulkAddInsightAnnotationRequest)) {
-      return false;
+
+    /**
+     * Get annotations
+     *
+     * @return annotations
+     **/
+    @Valid
+    @Size(min = 1, max = 2147483647)
+    public List<RestSingleAddInsightAnnotationRequest> getAnnotations() {
+        return annotations;
     }
-    RestBulkAddInsightAnnotationRequest other = (RestBulkAddInsightAnnotationRequest) o;
-    return Objects.equals(this.annotations, other.annotations);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(annotations);
-  }
+    public void setAnnotations(List<RestSingleAddInsightAnnotationRequest> annotations) {
+        this.annotations = annotations;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestBulkAddInsightAnnotationRequest {");
-    sb.append("\n    annotations: ").append(toIndentedString(annotations));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestBulkAddInsightAnnotationRequest)) {
+            return false;
+        }
+        RestBulkAddInsightAnnotationRequest other = (RestBulkAddInsightAnnotationRequest) o;
+        return Objects.equals(this.annotations, other.annotations);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(annotations);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestBulkAddInsightAnnotationRequest {");
+        sb.append("\n    annotations: ").append(toIndentedString(annotations));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

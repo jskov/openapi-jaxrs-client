@@ -16,54 +16,55 @@ import javax.json.bind.annotation.JsonbProperty;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class TilbudAftalepakkeOversigt {
-  public static final String JSON_PROPERTY_AFTALEPAKKE_ID_PARTNER_SALG = "aftalepakkeIdPartnerSalg";
-  @JsonbProperty(JSON_PROPERTY_AFTALEPAKKE_ID_PARTNER_SALG)
-  private String aftalepakkeIdPartnerSalg;
+    public static final String JSON_PROPERTY_AFTALEPAKKE_ID_PARTNER_SALG = "aftalepakkeIdPartnerSalg";
+    @JsonbProperty(JSON_PROPERTY_AFTALEPAKKE_ID_PARTNER_SALG)
+    private String aftalepakkeIdPartnerSalg;
 
-  public TilbudAftalepakkeOversigt aftalepakkeIdPartnerSalg(String aftalepakkeIdPartnerSalg) {
-    this.aftalepakkeIdPartnerSalg = aftalepakkeIdPartnerSalg;
-    return this;
-  }
-
-  /**
-   * Get aftalepakkeIdPartnerSalg
-   * @return aftalepakkeIdPartnerSalg
-   **/
-  public String getAftalepakkeIdPartnerSalg() {
-    return aftalepakkeIdPartnerSalg;
-  }
-
-  public void setAftalepakkeIdPartnerSalg(String aftalepakkeIdPartnerSalg) {
-    this.aftalepakkeIdPartnerSalg = aftalepakkeIdPartnerSalg;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public TilbudAftalepakkeOversigt aftalepakkeIdPartnerSalg(String aftalepakkeIdPartnerSalg) {
+        this.aftalepakkeIdPartnerSalg = aftalepakkeIdPartnerSalg;
+        return this;
     }
-    if (!(o instanceof TilbudAftalepakkeOversigt)) {
-      return false;
+
+    /**
+     * Get aftalepakkeIdPartnerSalg
+     *
+     * @return aftalepakkeIdPartnerSalg
+     **/
+    public String getAftalepakkeIdPartnerSalg() {
+        return aftalepakkeIdPartnerSalg;
     }
-    TilbudAftalepakkeOversigt other = (TilbudAftalepakkeOversigt) o;
-    return Objects.equals(this.aftalepakkeIdPartnerSalg, other.aftalepakkeIdPartnerSalg);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(aftalepakkeIdPartnerSalg);
-  }
+    public void setAftalepakkeIdPartnerSalg(String aftalepakkeIdPartnerSalg) {
+        this.aftalepakkeIdPartnerSalg = aftalepakkeIdPartnerSalg;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TilbudAftalepakkeOversigt {");
-    sb.append("\n    aftalepakkeIdPartnerSalg: ").append(toIndentedString(aftalepakkeIdPartnerSalg));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof TilbudAftalepakkeOversigt)) {
+            return false;
+        }
+        TilbudAftalepakkeOversigt other = (TilbudAftalepakkeOversigt) o;
+        return Objects.equals(this.aftalepakkeIdPartnerSalg, other.aftalepakkeIdPartnerSalg);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(aftalepakkeIdPartnerSalg);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TilbudAftalepakkeOversigt {");
+        sb.append("\n    aftalepakkeIdPartnerSalg: ").append(toIndentedString(aftalepakkeIdPartnerSalg));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

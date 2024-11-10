@@ -24,55 +24,56 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class EntityHolderRestPullRequestDeclineRequest {
-  public static final String JSON_PROPERTY_ENTITY = "entity";
-  @JsonbProperty(JSON_PROPERTY_ENTITY)
-  private EntityHolderRestPullRequestDeclineRequestEntity entity;
+    public static final String JSON_PROPERTY_ENTITY = "entity";
+    @JsonbProperty(JSON_PROPERTY_ENTITY)
+    private EntityHolderRestPullRequestDeclineRequestEntity entity;
 
-  public EntityHolderRestPullRequestDeclineRequest entity(EntityHolderRestPullRequestDeclineRequestEntity entity) {
-    this.entity = entity;
-    return this;
-  }
-
-  /**
-   * Get entity
-   * @return entity
-   **/
-  @Valid
-  public EntityHolderRestPullRequestDeclineRequestEntity getEntity() {
-    return entity;
-  }
-
-  public void setEntity(EntityHolderRestPullRequestDeclineRequestEntity entity) {
-    this.entity = entity;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public EntityHolderRestPullRequestDeclineRequest entity(EntityHolderRestPullRequestDeclineRequestEntity entity) {
+        this.entity = entity;
+        return this;
     }
-    if (!(o instanceof EntityHolderRestPullRequestDeclineRequest)) {
-      return false;
+
+    /**
+     * Get entity
+     *
+     * @return entity
+     **/
+    @Valid
+    public EntityHolderRestPullRequestDeclineRequestEntity getEntity() {
+        return entity;
     }
-    EntityHolderRestPullRequestDeclineRequest other = (EntityHolderRestPullRequestDeclineRequest) o;
-    return Objects.equals(this.entity, other.entity);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(entity);
-  }
+    public void setEntity(EntityHolderRestPullRequestDeclineRequestEntity entity) {
+        this.entity = entity;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class EntityHolderRestPullRequestDeclineRequest {");
-    sb.append("\n    entity: ").append(toIndentedString(entity));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof EntityHolderRestPullRequestDeclineRequest)) {
+            return false;
+        }
+        EntityHolderRestPullRequestDeclineRequest other = (EntityHolderRestPullRequestDeclineRequest) o;
+        return Objects.equals(this.entity, other.entity);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(entity);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class EntityHolderRestPullRequestDeclineRequest {");
+        sb.append("\n    entity: ").append(toIndentedString(entity));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

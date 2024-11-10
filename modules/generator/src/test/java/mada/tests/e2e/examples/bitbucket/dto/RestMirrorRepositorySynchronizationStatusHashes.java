@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestMirrorRepositorySynchronizationStatusHashes {
-  public static final String JSON_PROPERTY_CONTENT = "content";
-  @JsonbProperty(JSON_PROPERTY_CONTENT)
-  @Schema(example = "677513e1f2a93ff50e7b709e3c96454c23a3fcd40046ab385c4093e30809500a")
-  private String content;
+    public static final String JSON_PROPERTY_CONTENT = "content";
+    @JsonbProperty(JSON_PROPERTY_CONTENT)
+    @Schema(example = "677513e1f2a93ff50e7b709e3c96454c23a3fcd40046ab385c4093e30809500a")
+    private String content;
 
-  public static final String JSON_PROPERTY_METADATA = "metadata";
-  @JsonbProperty(JSON_PROPERTY_METADATA)
-  @Schema(example = "677513e1f2a93ff50e7b709e3c96454c23a3fcd40046ab385c4093e30809500a")
-  private String metadata;
+    public static final String JSON_PROPERTY_METADATA = "metadata";
+    @JsonbProperty(JSON_PROPERTY_METADATA)
+    @Schema(example = "677513e1f2a93ff50e7b709e3c96454c23a3fcd40046ab385c4093e30809500a")
+    private String metadata;
 
-  public RestMirrorRepositorySynchronizationStatusHashes content(String content) {
-    this.content = content;
-    return this;
-  }
-
-  /**
-   * Get content
-   * @return content
-   **/
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  public RestMirrorRepositorySynchronizationStatusHashes metadata(String metadata) {
-    this.metadata = metadata;
-    return this;
-  }
-
-  /**
-   * Get metadata
-   * @return metadata
-   **/
-  public String getMetadata() {
-    return metadata;
-  }
-
-  public void setMetadata(String metadata) {
-    this.metadata = metadata;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestMirrorRepositorySynchronizationStatusHashes content(String content) {
+        this.content = content;
+        return this;
     }
-    if (!(o instanceof RestMirrorRepositorySynchronizationStatusHashes)) {
-      return false;
+
+    /**
+     * Get content
+     *
+     * @return content
+     **/
+    public String getContent() {
+        return content;
     }
-    RestMirrorRepositorySynchronizationStatusHashes other = (RestMirrorRepositorySynchronizationStatusHashes) o;
-    return Objects.equals(this.content, other.content) &&
-        Objects.equals(this.metadata, other.metadata);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(content, metadata);
-  }
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestMirrorRepositorySynchronizationStatusHashes {");
-    sb.append("\n    content: ").append(toIndentedString(content));
-    sb.append("\n    metadata: ").append(toIndentedString(metadata));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestMirrorRepositorySynchronizationStatusHashes metadata(String metadata) {
+        this.metadata = metadata;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get metadata
+     *
+     * @return metadata
+     **/
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestMirrorRepositorySynchronizationStatusHashes)) {
+            return false;
+        }
+        RestMirrorRepositorySynchronizationStatusHashes other = (RestMirrorRepositorySynchronizationStatusHashes) o;
+        return Objects.equals(this.content, other.content) &&
+                Objects.equals(this.metadata, other.metadata);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(content, metadata);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestMirrorRepositorySynchronizationStatusHashes {");
+        sb.append("\n    content: ").append(toIndentedString(content));
+        sb.append("\n    metadata: ").append(toIndentedString(metadata));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

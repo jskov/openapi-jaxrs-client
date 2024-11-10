@@ -26,63 +26,64 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRefSyncQueue {
-  public static final String JSON_PROPERTY_VALUES = "values";
-  @JsonbProperty(JSON_PROPERTY_VALUES)
-  private List<RestFarmSynchronizationRequest> values;
+    public static final String JSON_PROPERTY_VALUES = "values";
+    @JsonbProperty(JSON_PROPERTY_VALUES)
+    private List<RestFarmSynchronizationRequest> values;
 
-  public RestRefSyncQueue values(List<RestFarmSynchronizationRequest> values) {
-    this.values = values;
-    return this;
-  }
-
-  public RestRefSyncQueue addValuesItem(RestFarmSynchronizationRequest valuesItem) {
-    if (this.values == null) {
-      this.values = new ArrayList<>();
+    public RestRefSyncQueue values(List<RestFarmSynchronizationRequest> values) {
+        this.values = values;
+        return this;
     }
-    this.values.add(valuesItem);
-    return this;
-  }
 
-  /**
-   * Get values
-   * @return values
-   **/
-  @Valid
-  public List<RestFarmSynchronizationRequest> getValues() {
-    return values;
-  }
-
-  public void setValues(List<RestFarmSynchronizationRequest> values) {
-    this.values = values;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestRefSyncQueue addValuesItem(RestFarmSynchronizationRequest valuesItem) {
+        if (this.values == null) {
+            this.values = new ArrayList<>();
+        }
+        this.values.add(valuesItem);
+        return this;
     }
-    if (!(o instanceof RestRefSyncQueue)) {
-      return false;
+
+    /**
+     * Get values
+     *
+     * @return values
+     **/
+    @Valid
+    public List<RestFarmSynchronizationRequest> getValues() {
+        return values;
     }
-    RestRefSyncQueue other = (RestRefSyncQueue) o;
-    return Objects.equals(this.values, other.values);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(values);
-  }
+    public void setValues(List<RestFarmSynchronizationRequest> values) {
+        this.values = values;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestRefSyncQueue {");
-    sb.append("\n    values: ").append(toIndentedString(values));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestRefSyncQueue)) {
+            return false;
+        }
+        RestRefSyncQueue other = (RestRefSyncQueue) o;
+        return Objects.equals(this.values, other.values);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(values);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestRefSyncQueue {");
+        sb.append("\n    values: ").append(toIndentedString(values));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

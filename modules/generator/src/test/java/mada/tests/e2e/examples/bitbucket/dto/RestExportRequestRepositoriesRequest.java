@@ -28,61 +28,62 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestExportRequestRepositoriesRequest {
-  public static final String JSON_PROPERTY_INCLUDES = "includes";
-  @JsonbProperty(JSON_PROPERTY_INCLUDES)
-  @Schema(required = true)
-  private Set<RestRepositorySelector> includes = new LinkedHashSet<>();
+    public static final String JSON_PROPERTY_INCLUDES = "includes";
+    @JsonbProperty(JSON_PROPERTY_INCLUDES)
+    @Schema(required = true)
+    private Set<RestRepositorySelector> includes = new LinkedHashSet<>();
 
-  public RestExportRequestRepositoriesRequest includes(Set<RestRepositorySelector> includes) {
-    this.includes = Objects.requireNonNull(includes, "Property includes is required, cannot be null");
-    return this;
-  }
-
-  public RestExportRequestRepositoriesRequest addIncludesItem(RestRepositorySelector includesItem) {
-    this.includes.add(includesItem);
-    return this;
-  }
-
-  /**
-   * Get includes
-   * @return includes
-   **/
-  @NotNull @Valid
-  public Set<RestRepositorySelector> getIncludes() {
-    return includes;
-  }
-
-  public void setIncludes(Set<RestRepositorySelector> includes) {
-    this.includes = Objects.requireNonNull(includes, "Property includes is required, cannot be null");
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestExportRequestRepositoriesRequest includes(Set<RestRepositorySelector> includes) {
+        this.includes = Objects.requireNonNull(includes, "Property includes is required, cannot be null");
+        return this;
     }
-    if (!(o instanceof RestExportRequestRepositoriesRequest)) {
-      return false;
+
+    public RestExportRequestRepositoriesRequest addIncludesItem(RestRepositorySelector includesItem) {
+        this.includes.add(includesItem);
+        return this;
     }
-    RestExportRequestRepositoriesRequest other = (RestExportRequestRepositoriesRequest) o;
-    return Objects.equals(this.includes, other.includes);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(includes);
-  }
+    /**
+     * Get includes
+     *
+     * @return includes
+     **/
+    @NotNull @Valid
+    public Set<RestRepositorySelector> getIncludes() {
+        return includes;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestExportRequestRepositoriesRequest {");
-    sb.append("\n    includes: ").append(toIndentedString(includes));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public void setIncludes(Set<RestRepositorySelector> includes) {
+        this.includes = Objects.requireNonNull(includes, "Property includes is required, cannot be null");
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestExportRequestRepositoriesRequest)) {
+            return false;
+        }
+        RestExportRequestRepositoriesRequest other = (RestExportRequestRepositoriesRequest) o;
+        return Objects.equals(this.includes, other.includes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(includes);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestExportRequestRepositoriesRequest {");
+        sb.append("\n    includes: ").append(toIndentedString(includes));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

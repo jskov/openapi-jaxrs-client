@@ -24,79 +24,81 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestChangeConflict {
-  public static final String JSON_PROPERTY_OUR_CHANGE = "ourChange";
-  @JsonbProperty(JSON_PROPERTY_OUR_CHANGE)
-  private RestChangeConflictOurChange ourChange;
+    public static final String JSON_PROPERTY_OUR_CHANGE = "ourChange";
+    @JsonbProperty(JSON_PROPERTY_OUR_CHANGE)
+    private RestChangeConflictOurChange ourChange;
 
-  public static final String JSON_PROPERTY_THEIR_CHANGE = "theirChange";
-  @JsonbProperty(JSON_PROPERTY_THEIR_CHANGE)
-  private RestChangeConflictTheirChange theirChange;
+    public static final String JSON_PROPERTY_THEIR_CHANGE = "theirChange";
+    @JsonbProperty(JSON_PROPERTY_THEIR_CHANGE)
+    private RestChangeConflictTheirChange theirChange;
 
-  public RestChangeConflict ourChange(RestChangeConflictOurChange ourChange) {
-    this.ourChange = ourChange;
-    return this;
-  }
-
-  /**
-   * Get ourChange
-   * @return ourChange
-   **/
-  @Valid
-  public RestChangeConflictOurChange getOurChange() {
-    return ourChange;
-  }
-
-  public void setOurChange(RestChangeConflictOurChange ourChange) {
-    this.ourChange = ourChange;
-  }
-
-  public RestChangeConflict theirChange(RestChangeConflictTheirChange theirChange) {
-    this.theirChange = theirChange;
-    return this;
-  }
-
-  /**
-   * Get theirChange
-   * @return theirChange
-   **/
-  @Valid
-  public RestChangeConflictTheirChange getTheirChange() {
-    return theirChange;
-  }
-
-  public void setTheirChange(RestChangeConflictTheirChange theirChange) {
-    this.theirChange = theirChange;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestChangeConflict ourChange(RestChangeConflictOurChange ourChange) {
+        this.ourChange = ourChange;
+        return this;
     }
-    if (!(o instanceof RestChangeConflict)) {
-      return false;
+
+    /**
+     * Get ourChange
+     *
+     * @return ourChange
+     **/
+    @Valid
+    public RestChangeConflictOurChange getOurChange() {
+        return ourChange;
     }
-    RestChangeConflict other = (RestChangeConflict) o;
-    return Objects.equals(this.ourChange, other.ourChange) &&
-        Objects.equals(this.theirChange, other.theirChange);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(ourChange, theirChange);
-  }
+    public void setOurChange(RestChangeConflictOurChange ourChange) {
+        this.ourChange = ourChange;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestChangeConflict {");
-    sb.append("\n    ourChange: ").append(toIndentedString(ourChange));
-    sb.append("\n    theirChange: ").append(toIndentedString(theirChange));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestChangeConflict theirChange(RestChangeConflictTheirChange theirChange) {
+        this.theirChange = theirChange;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get theirChange
+     *
+     * @return theirChange
+     **/
+    @Valid
+    public RestChangeConflictTheirChange getTheirChange() {
+        return theirChange;
+    }
+
+    public void setTheirChange(RestChangeConflictTheirChange theirChange) {
+        this.theirChange = theirChange;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestChangeConflict)) {
+            return false;
+        }
+        RestChangeConflict other = (RestChangeConflict) o;
+        return Objects.equals(this.ourChange, other.ourChange) &&
+                Objects.equals(this.theirChange, other.theirChange);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ourChange, theirChange);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestChangeConflict {");
+        sb.append("\n    ourChange: ").append(toIndentedString(ourChange));
+        sb.append("\n    theirChange: ").append(toIndentedString(theirChange));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

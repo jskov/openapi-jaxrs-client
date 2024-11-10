@@ -24,55 +24,56 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExampleFiles {
-  public static final String JSON_PROPERTY_FILES = "files";
-  @JsonbProperty(JSON_PROPERTY_FILES)
-  private ExampleJsonLastModifiedCallback files;
+    public static final String JSON_PROPERTY_FILES = "files";
+    @JsonbProperty(JSON_PROPERTY_FILES)
+    private ExampleJsonLastModifiedCallback files;
 
-  public ExampleFiles files(ExampleJsonLastModifiedCallback files) {
-    this.files = files;
-    return this;
-  }
-
-  /**
-   * Get files
-   * @return files
-   **/
-  @Valid
-  public ExampleJsonLastModifiedCallback getFiles() {
-    return files;
-  }
-
-  public void setFiles(ExampleJsonLastModifiedCallback files) {
-    this.files = files;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ExampleFiles files(ExampleJsonLastModifiedCallback files) {
+        this.files = files;
+        return this;
     }
-    if (!(o instanceof ExampleFiles)) {
-      return false;
+
+    /**
+     * Get files
+     *
+     * @return files
+     **/
+    @Valid
+    public ExampleJsonLastModifiedCallback getFiles() {
+        return files;
     }
-    ExampleFiles other = (ExampleFiles) o;
-    return Objects.equals(this.files, other.files);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(files);
-  }
+    public void setFiles(ExampleJsonLastModifiedCallback files) {
+        this.files = files;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExampleFiles {");
-    sb.append("\n    files: ").append(toIndentedString(files));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExampleFiles)) {
+            return false;
+        }
+        ExampleFiles other = (ExampleFiles) o;
+        return Objects.equals(this.files, other.files);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(files);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ExampleFiles {");
+        sb.append("\n    files: ").append(toIndentedString(files));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

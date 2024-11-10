@@ -23,77 +23,79 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestMeshMigrationRequestMaxBytesPerSecond {
-  public static final String JSON_PROPERTY_AS_LONG = "asLong";
-  @JsonbProperty(JSON_PROPERTY_AS_LONG)
-  private Long asLong;
+    public static final String JSON_PROPERTY_AS_LONG = "asLong";
+    @JsonbProperty(JSON_PROPERTY_AS_LONG)
+    private Long asLong;
 
-  public static final String JSON_PROPERTY_PRESENT = "present";
-  @JsonbProperty(JSON_PROPERTY_PRESENT)
-  private Boolean present;
+    public static final String JSON_PROPERTY_PRESENT = "present";
+    @JsonbProperty(JSON_PROPERTY_PRESENT)
+    private Boolean present;
 
-  public RestMeshMigrationRequestMaxBytesPerSecond asLong(Long asLong) {
-    this.asLong = asLong;
-    return this;
-  }
-
-  /**
-   * Get asLong
-   * @return asLong
-   **/
-  public Long getAsLong() {
-    return asLong;
-  }
-
-  public void setAsLong(Long asLong) {
-    this.asLong = asLong;
-  }
-
-  public RestMeshMigrationRequestMaxBytesPerSecond present(Boolean present) {
-    this.present = present;
-    return this;
-  }
-
-  /**
-   * Get present
-   * @return present
-   **/
-  public Boolean isPresent() {
-    return present;
-  }
-
-  public void setPresent(Boolean present) {
-    this.present = present;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestMeshMigrationRequestMaxBytesPerSecond asLong(Long asLong) {
+        this.asLong = asLong;
+        return this;
     }
-    if (!(o instanceof RestMeshMigrationRequestMaxBytesPerSecond)) {
-      return false;
+
+    /**
+     * Get asLong
+     *
+     * @return asLong
+     **/
+    public Long getAsLong() {
+        return asLong;
     }
-    RestMeshMigrationRequestMaxBytesPerSecond other = (RestMeshMigrationRequestMaxBytesPerSecond) o;
-    return Objects.equals(this.asLong, other.asLong) &&
-        Objects.equals(this.present, other.present);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(asLong, present);
-  }
+    public void setAsLong(Long asLong) {
+        this.asLong = asLong;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestMeshMigrationRequestMaxBytesPerSecond {");
-    sb.append("\n    asLong: ").append(toIndentedString(asLong));
-    sb.append("\n    present: ").append(toIndentedString(present));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestMeshMigrationRequestMaxBytesPerSecond present(Boolean present) {
+        this.present = present;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get present
+     *
+     * @return present
+     **/
+    public Boolean isPresent() {
+        return present;
+    }
+
+    public void setPresent(Boolean present) {
+        this.present = present;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestMeshMigrationRequestMaxBytesPerSecond)) {
+            return false;
+        }
+        RestMeshMigrationRequestMaxBytesPerSecond other = (RestMeshMigrationRequestMaxBytesPerSecond) o;
+        return Objects.equals(this.asLong, other.asLong) &&
+                Objects.equals(this.present, other.present);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asLong, present);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestMeshMigrationRequestMaxBytesPerSecond {");
+        sb.append("\n    asLong: ").append(toIndentedString(asLong));
+        sb.append("\n    present: ").append(toIndentedString(present));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

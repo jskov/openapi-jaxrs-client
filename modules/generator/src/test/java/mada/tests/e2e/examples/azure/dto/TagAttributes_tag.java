@@ -17,56 +17,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(description = "Tag")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class TagAttributes_tag {
-  public static final String JSON_PROPERTY_SIGNATURE_RECORD = "signatureRecord";
-  @JsonbProperty(JSON_PROPERTY_SIGNATURE_RECORD)
-  @Schema(description = "SignatureRecord value")
-  private String signatureRecord;
+    public static final String JSON_PROPERTY_SIGNATURE_RECORD = "signatureRecord";
+    @JsonbProperty(JSON_PROPERTY_SIGNATURE_RECORD)
+    @Schema(description = "SignatureRecord value")
+    private String signatureRecord;
 
-  public TagAttributes_tag signatureRecord(String signatureRecord) {
-    this.signatureRecord = signatureRecord;
-    return this;
-  }
-
-  /**
-   * SignatureRecord value.
-   *
-   * @return signatureRecord
-   **/
-  public String getSignatureRecord() {
-    return signatureRecord;
-  }
-
-  public void setSignatureRecord(String signatureRecord) {
-    this.signatureRecord = signatureRecord;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public TagAttributes_tag signatureRecord(String signatureRecord) {
+        this.signatureRecord = signatureRecord;
+        return this;
     }
-    if (!(o instanceof TagAttributes_tag)) {
-      return false;
+
+    /**
+     * SignatureRecord value.
+     * 
+     * @return signatureRecord
+     **/
+    public String getSignatureRecord() {
+        return signatureRecord;
     }
-    TagAttributes_tag other = (TagAttributes_tag) o;
-    return Objects.equals(this.signatureRecord, other.signatureRecord);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(signatureRecord);
-  }
+    public void setSignatureRecord(String signatureRecord) {
+        this.signatureRecord = signatureRecord;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TagAttributes_tag {");
-    sb.append("\n    signatureRecord: ").append(toIndentedString(signatureRecord));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof TagAttributes_tag)) {
+            return false;
+        }
+        TagAttributes_tag other = (TagAttributes_tag) o;
+        return Objects.equals(this.signatureRecord, other.signatureRecord);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(signatureRecord);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TagAttributes_tag {");
+        sb.append("\n    signatureRecord: ").append(toIndentedString(signatureRecord));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

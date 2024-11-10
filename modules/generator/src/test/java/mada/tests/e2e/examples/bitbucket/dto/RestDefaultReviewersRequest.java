@@ -27,135 +27,139 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestDefaultReviewersRequest {
-  public static final String JSON_PROPERTY_REQUIRED_APPROVALS = "requiredApprovals";
-  @JsonbProperty(JSON_PROPERTY_REQUIRED_APPROVALS)
-  @Schema(example = "1")
-  private Integer requiredApprovals;
+    public static final String JSON_PROPERTY_REQUIRED_APPROVALS = "requiredApprovals";
+    @JsonbProperty(JSON_PROPERTY_REQUIRED_APPROVALS)
+    @Schema(example = "1")
+    private Integer requiredApprovals;
 
-  public static final String JSON_PROPERTY_REVIEWERS = "reviewers";
-  @JsonbProperty(JSON_PROPERTY_REVIEWERS)
-  private List<RestApplicationUser> reviewers;
+    public static final String JSON_PROPERTY_REVIEWERS = "reviewers";
+    @JsonbProperty(JSON_PROPERTY_REVIEWERS)
+    private List<RestApplicationUser> reviewers;
 
-  public static final String JSON_PROPERTY_SOURCE_MATCHER = "sourceMatcher";
-  @JsonbProperty(JSON_PROPERTY_SOURCE_MATCHER)
-  private RestDefaultReviewersRequestSourceMatcher sourceMatcher;
+    public static final String JSON_PROPERTY_SOURCE_MATCHER = "sourceMatcher";
+    @JsonbProperty(JSON_PROPERTY_SOURCE_MATCHER)
+    private RestDefaultReviewersRequestSourceMatcher sourceMatcher;
 
-  public static final String JSON_PROPERTY_TARGET_MATCHER = "targetMatcher";
-  @JsonbProperty(JSON_PROPERTY_TARGET_MATCHER)
-  private RestDefaultReviewersRequestTargetMatcher targetMatcher;
+    public static final String JSON_PROPERTY_TARGET_MATCHER = "targetMatcher";
+    @JsonbProperty(JSON_PROPERTY_TARGET_MATCHER)
+    private RestDefaultReviewersRequestTargetMatcher targetMatcher;
 
-  public RestDefaultReviewersRequest requiredApprovals(Integer requiredApprovals) {
-    this.requiredApprovals = requiredApprovals;
-    return this;
-  }
-
-  /**
-   * Get requiredApprovals
-   * @return requiredApprovals
-   **/
-  public Integer getRequiredApprovals() {
-    return requiredApprovals;
-  }
-
-  public void setRequiredApprovals(Integer requiredApprovals) {
-    this.requiredApprovals = requiredApprovals;
-  }
-
-  public RestDefaultReviewersRequest reviewers(List<RestApplicationUser> reviewers) {
-    this.reviewers = reviewers;
-    return this;
-  }
-
-  public RestDefaultReviewersRequest addReviewersItem(RestApplicationUser reviewersItem) {
-    if (this.reviewers == null) {
-      this.reviewers = new ArrayList<>();
+    public RestDefaultReviewersRequest requiredApprovals(Integer requiredApprovals) {
+        this.requiredApprovals = requiredApprovals;
+        return this;
     }
-    this.reviewers.add(reviewersItem);
-    return this;
-  }
 
-  /**
-   * Get reviewers
-   * @return reviewers
-   **/
-  @Valid
-  public List<RestApplicationUser> getReviewers() {
-    return reviewers;
-  }
-
-  public void setReviewers(List<RestApplicationUser> reviewers) {
-    this.reviewers = reviewers;
-  }
-
-  public RestDefaultReviewersRequest sourceMatcher(RestDefaultReviewersRequestSourceMatcher sourceMatcher) {
-    this.sourceMatcher = sourceMatcher;
-    return this;
-  }
-
-  /**
-   * Get sourceMatcher
-   * @return sourceMatcher
-   **/
-  @Valid
-  public RestDefaultReviewersRequestSourceMatcher getSourceMatcher() {
-    return sourceMatcher;
-  }
-
-  public void setSourceMatcher(RestDefaultReviewersRequestSourceMatcher sourceMatcher) {
-    this.sourceMatcher = sourceMatcher;
-  }
-
-  public RestDefaultReviewersRequest targetMatcher(RestDefaultReviewersRequestTargetMatcher targetMatcher) {
-    this.targetMatcher = targetMatcher;
-    return this;
-  }
-
-  /**
-   * Get targetMatcher
-   * @return targetMatcher
-   **/
-  @Valid
-  public RestDefaultReviewersRequestTargetMatcher getTargetMatcher() {
-    return targetMatcher;
-  }
-
-  public void setTargetMatcher(RestDefaultReviewersRequestTargetMatcher targetMatcher) {
-    this.targetMatcher = targetMatcher;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get requiredApprovals
+     *
+     * @return requiredApprovals
+     **/
+    public Integer getRequiredApprovals() {
+        return requiredApprovals;
     }
-    if (!(o instanceof RestDefaultReviewersRequest)) {
-      return false;
+
+    public void setRequiredApprovals(Integer requiredApprovals) {
+        this.requiredApprovals = requiredApprovals;
     }
-    RestDefaultReviewersRequest other = (RestDefaultReviewersRequest) o;
-    return Objects.equals(this.requiredApprovals, other.requiredApprovals) &&
-        Objects.equals(this.reviewers, other.reviewers) &&
-        Objects.equals(this.sourceMatcher, other.sourceMatcher) &&
-        Objects.equals(this.targetMatcher, other.targetMatcher);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(requiredApprovals, reviewers, sourceMatcher, targetMatcher);
-  }
+    public RestDefaultReviewersRequest reviewers(List<RestApplicationUser> reviewers) {
+        this.reviewers = reviewers;
+        return this;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestDefaultReviewersRequest {");
-    sb.append("\n    requiredApprovals: ").append(toIndentedString(requiredApprovals));
-    sb.append("\n    reviewers: ").append(toIndentedString(reviewers));
-    sb.append("\n    sourceMatcher: ").append(toIndentedString(sourceMatcher));
-    sb.append("\n    targetMatcher: ").append(toIndentedString(targetMatcher));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestDefaultReviewersRequest addReviewersItem(RestApplicationUser reviewersItem) {
+        if (this.reviewers == null) {
+            this.reviewers = new ArrayList<>();
+        }
+        this.reviewers.add(reviewersItem);
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get reviewers
+     *
+     * @return reviewers
+     **/
+    @Valid
+    public List<RestApplicationUser> getReviewers() {
+        return reviewers;
+    }
+
+    public void setReviewers(List<RestApplicationUser> reviewers) {
+        this.reviewers = reviewers;
+    }
+
+    public RestDefaultReviewersRequest sourceMatcher(RestDefaultReviewersRequestSourceMatcher sourceMatcher) {
+        this.sourceMatcher = sourceMatcher;
+        return this;
+    }
+
+    /**
+     * Get sourceMatcher
+     *
+     * @return sourceMatcher
+     **/
+    @Valid
+    public RestDefaultReviewersRequestSourceMatcher getSourceMatcher() {
+        return sourceMatcher;
+    }
+
+    public void setSourceMatcher(RestDefaultReviewersRequestSourceMatcher sourceMatcher) {
+        this.sourceMatcher = sourceMatcher;
+    }
+
+    public RestDefaultReviewersRequest targetMatcher(RestDefaultReviewersRequestTargetMatcher targetMatcher) {
+        this.targetMatcher = targetMatcher;
+        return this;
+    }
+
+    /**
+     * Get targetMatcher
+     *
+     * @return targetMatcher
+     **/
+    @Valid
+    public RestDefaultReviewersRequestTargetMatcher getTargetMatcher() {
+        return targetMatcher;
+    }
+
+    public void setTargetMatcher(RestDefaultReviewersRequestTargetMatcher targetMatcher) {
+        this.targetMatcher = targetMatcher;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestDefaultReviewersRequest)) {
+            return false;
+        }
+        RestDefaultReviewersRequest other = (RestDefaultReviewersRequest) o;
+        return Objects.equals(this.requiredApprovals, other.requiredApprovals) &&
+                Objects.equals(this.reviewers, other.reviewers) &&
+                Objects.equals(this.sourceMatcher, other.sourceMatcher) &&
+                Objects.equals(this.targetMatcher, other.targetMatcher);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(requiredApprovals, reviewers, sourceMatcher, targetMatcher);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestDefaultReviewersRequest {");
+        sb.append("\n    requiredApprovals: ").append(toIndentedString(requiredApprovals));
+        sb.append("\n    reviewers: ").append(toIndentedString(reviewers));
+        sb.append("\n    sourceMatcher: ").append(toIndentedString(sourceMatcher));
+        sb.append("\n    targetMatcher: ").append(toIndentedString(targetMatcher));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

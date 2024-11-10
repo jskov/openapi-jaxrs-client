@@ -24,55 +24,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestLogLevel {
-  public static final String JSON_PROPERTY_LOG_LEVEL = "logLevel";
-  @JsonbProperty(JSON_PROPERTY_LOG_LEVEL)
-  @Schema(example = "DEBUG")
-  private String logLevel;
+    public static final String JSON_PROPERTY_LOG_LEVEL = "logLevel";
+    @JsonbProperty(JSON_PROPERTY_LOG_LEVEL)
+    @Schema(example = "DEBUG")
+    private String logLevel;
 
-  public RestLogLevel logLevel(String logLevel) {
-    this.logLevel = logLevel;
-    return this;
-  }
-
-  /**
-   * Get logLevel
-   * @return logLevel
-   **/
-  public String getLogLevel() {
-    return logLevel;
-  }
-
-  public void setLogLevel(String logLevel) {
-    this.logLevel = logLevel;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestLogLevel logLevel(String logLevel) {
+        this.logLevel = logLevel;
+        return this;
     }
-    if (!(o instanceof RestLogLevel)) {
-      return false;
+
+    /**
+     * Get logLevel
+     *
+     * @return logLevel
+     **/
+    public String getLogLevel() {
+        return logLevel;
     }
-    RestLogLevel other = (RestLogLevel) o;
-    return Objects.equals(this.logLevel, other.logLevel);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(logLevel);
-  }
+    public void setLogLevel(String logLevel) {
+        this.logLevel = logLevel;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestLogLevel {");
-    sb.append("\n    logLevel: ").append(toIndentedString(logLevel));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestLogLevel)) {
+            return false;
+        }
+        RestLogLevel other = (RestLogLevel) o;
+        return Objects.equals(this.logLevel, other.logLevel);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(logLevel);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestLogLevel {");
+        sb.append("\n    logLevel: ").append(toIndentedString(logLevel));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

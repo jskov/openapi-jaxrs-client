@@ -25,81 +25,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestUsernamePasswordCredentials {
-  public static final String JSON_PROPERTY_PASSWORD = "password";
-  @JsonbProperty(JSON_PROPERTY_PASSWORD)
-  @Schema(required = true, example = "secr3t")
-  private String password;
+    public static final String JSON_PROPERTY_PASSWORD = "password";
+    @JsonbProperty(JSON_PROPERTY_PASSWORD)
+    @Schema(required = true, example = "secr3t")
+    private String password;
 
-  public static final String JSON_PROPERTY_USERNAME = "username";
-  @JsonbProperty(JSON_PROPERTY_USERNAME)
-  @Schema(required = true, example = "user1")
-  private String username;
+    public static final String JSON_PROPERTY_USERNAME = "username";
+    @JsonbProperty(JSON_PROPERTY_USERNAME)
+    @Schema(required = true, example = "user1")
+    private String username;
 
-  public RestUsernamePasswordCredentials password(String password) {
-    this.password = Objects.requireNonNull(password, "Property password is required, cannot be null");
-    return this;
-  }
-
-  /**
-   * Get password
-   * @return password
-   **/
-  @NotNull
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = Objects.requireNonNull(password, "Property password is required, cannot be null");
-  }
-
-  public RestUsernamePasswordCredentials username(String username) {
-    this.username = Objects.requireNonNull(username, "Property username is required, cannot be null");
-    return this;
-  }
-
-  /**
-   * Get username
-   * @return username
-   **/
-  @NotNull
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = Objects.requireNonNull(username, "Property username is required, cannot be null");
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestUsernamePasswordCredentials password(String password) {
+        this.password = Objects.requireNonNull(password, "Property password is required, cannot be null");
+        return this;
     }
-    if (!(o instanceof RestUsernamePasswordCredentials)) {
-      return false;
+
+    /**
+     * Get password
+     *
+     * @return password
+     **/
+    @NotNull public String getPassword() {
+        return password;
     }
-    RestUsernamePasswordCredentials other = (RestUsernamePasswordCredentials) o;
-    return Objects.equals(this.password, other.password) &&
-        Objects.equals(this.username, other.username);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(password, username);
-  }
+    public void setPassword(String password) {
+        this.password = Objects.requireNonNull(password, "Property password is required, cannot be null");
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestUsernamePasswordCredentials {");
-    sb.append("\n    password: ").append(toIndentedString(password));
-    sb.append("\n    username: ").append(toIndentedString(username));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestUsernamePasswordCredentials username(String username) {
+        this.username = Objects.requireNonNull(username, "Property username is required, cannot be null");
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get username
+     *
+     * @return username
+     **/
+    @NotNull public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = Objects.requireNonNull(username, "Property username is required, cannot be null");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestUsernamePasswordCredentials)) {
+            return false;
+        }
+        RestUsernamePasswordCredentials other = (RestUsernamePasswordCredentials) o;
+        return Objects.equals(this.password, other.password) &&
+                Objects.equals(this.username, other.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(password, username);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestUsernamePasswordCredentials {");
+        sb.append("\n    password: ").append(toIndentedString(password));
+        sb.append("\n    username: ").append(toIndentedString(username));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

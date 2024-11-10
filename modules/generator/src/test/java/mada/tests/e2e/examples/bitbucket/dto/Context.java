@@ -24,55 +24,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Context {
-  public static final String JSON_PROPERTY_COMMIT_MESSAGE = "commitMessage";
-  @JsonbProperty(JSON_PROPERTY_COMMIT_MESSAGE)
-  @Schema(example = "Merging in latest from upstream.")
-  private String commitMessage;
+    public static final String JSON_PROPERTY_COMMIT_MESSAGE = "commitMessage";
+    @JsonbProperty(JSON_PROPERTY_COMMIT_MESSAGE)
+    @Schema(example = "Merging in latest from upstream.")
+    private String commitMessage;
 
-  public Context commitMessage(String commitMessage) {
-    this.commitMessage = commitMessage;
-    return this;
-  }
-
-  /**
-   * Get commitMessage
-   * @return commitMessage
-   **/
-  public String getCommitMessage() {
-    return commitMessage;
-  }
-
-  public void setCommitMessage(String commitMessage) {
-    this.commitMessage = commitMessage;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Context commitMessage(String commitMessage) {
+        this.commitMessage = commitMessage;
+        return this;
     }
-    if (!(o instanceof Context)) {
-      return false;
+
+    /**
+     * Get commitMessage
+     *
+     * @return commitMessage
+     **/
+    public String getCommitMessage() {
+        return commitMessage;
     }
-    Context other = (Context) o;
-    return Objects.equals(this.commitMessage, other.commitMessage);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(commitMessage);
-  }
+    public void setCommitMessage(String commitMessage) {
+        this.commitMessage = commitMessage;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Context {");
-    sb.append("\n    commitMessage: ").append(toIndentedString(commitMessage));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Context)) {
+            return false;
+        }
+        Context other = (Context) o;
+        return Objects.equals(this.commitMessage, other.commitMessage);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(commitMessage);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Context {");
+        sb.append("\n    commitMessage: ").append(toIndentedString(commitMessage));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

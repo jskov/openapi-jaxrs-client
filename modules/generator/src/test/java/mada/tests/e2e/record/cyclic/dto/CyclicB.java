@@ -17,9 +17,6 @@ import org.jspecify.annotations.Nullable;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record CyclicB(
-  @JsonbProperty("a")
-  @Valid
-  @Nullable
-  CyclicA a) {
+        @JsonbProperty("a") @Valid @Nullable CyclicA a) {
 
 }

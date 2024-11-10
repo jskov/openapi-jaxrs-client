@@ -26,63 +26,64 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestInsightAnnotationsResponse {
-  public static final String JSON_PROPERTY_ANNOTATIONS = "annotations";
-  @JsonbProperty(JSON_PROPERTY_ANNOTATIONS)
-  private List<RestInsightAnnotation> annotations;
+    public static final String JSON_PROPERTY_ANNOTATIONS = "annotations";
+    @JsonbProperty(JSON_PROPERTY_ANNOTATIONS)
+    private List<RestInsightAnnotation> annotations;
 
-  public RestInsightAnnotationsResponse annotations(List<RestInsightAnnotation> annotations) {
-    this.annotations = annotations;
-    return this;
-  }
-
-  public RestInsightAnnotationsResponse addAnnotationsItem(RestInsightAnnotation annotationsItem) {
-    if (this.annotations == null) {
-      this.annotations = new ArrayList<>();
+    public RestInsightAnnotationsResponse annotations(List<RestInsightAnnotation> annotations) {
+        this.annotations = annotations;
+        return this;
     }
-    this.annotations.add(annotationsItem);
-    return this;
-  }
 
-  /**
-   * Get annotations
-   * @return annotations
-   **/
-  @Valid
-  public List<RestInsightAnnotation> getAnnotations() {
-    return annotations;
-  }
-
-  public void setAnnotations(List<RestInsightAnnotation> annotations) {
-    this.annotations = annotations;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestInsightAnnotationsResponse addAnnotationsItem(RestInsightAnnotation annotationsItem) {
+        if (this.annotations == null) {
+            this.annotations = new ArrayList<>();
+        }
+        this.annotations.add(annotationsItem);
+        return this;
     }
-    if (!(o instanceof RestInsightAnnotationsResponse)) {
-      return false;
+
+    /**
+     * Get annotations
+     *
+     * @return annotations
+     **/
+    @Valid
+    public List<RestInsightAnnotation> getAnnotations() {
+        return annotations;
     }
-    RestInsightAnnotationsResponse other = (RestInsightAnnotationsResponse) o;
-    return Objects.equals(this.annotations, other.annotations);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(annotations);
-  }
+    public void setAnnotations(List<RestInsightAnnotation> annotations) {
+        this.annotations = annotations;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestInsightAnnotationsResponse {");
-    sb.append("\n    annotations: ").append(toIndentedString(annotations));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestInsightAnnotationsResponse)) {
+            return false;
+        }
+        RestInsightAnnotationsResponse other = (RestInsightAnnotationsResponse) o;
+        return Objects.equals(this.annotations, other.annotations);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(annotations);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestInsightAnnotationsResponse {");
+        sb.append("\n    annotations: ").append(toIndentedString(annotations));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

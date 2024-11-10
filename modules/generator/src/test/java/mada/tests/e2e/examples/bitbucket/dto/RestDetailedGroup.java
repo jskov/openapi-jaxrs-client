@@ -24,78 +24,80 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestDetailedGroup {
-  public static final String JSON_PROPERTY_DELETABLE = "deletable";
-  @JsonbProperty(JSON_PROPERTY_DELETABLE)
-  private Boolean deletable;
+    public static final String JSON_PROPERTY_DELETABLE = "deletable";
+    @JsonbProperty(JSON_PROPERTY_DELETABLE)
+    private Boolean deletable;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(example = "group-a")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(example = "group-a")
+    private String name;
 
-  public RestDetailedGroup deletable(Boolean deletable) {
-    this.deletable = deletable;
-    return this;
-  }
-
-  /**
-   * Get deletable
-   * @return deletable
-   **/
-  public Boolean isDeletable() {
-    return deletable;
-  }
-
-  public void setDeletable(Boolean deletable) {
-    this.deletable = deletable;
-  }
-
-  public RestDetailedGroup name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestDetailedGroup deletable(Boolean deletable) {
+        this.deletable = deletable;
+        return this;
     }
-    if (!(o instanceof RestDetailedGroup)) {
-      return false;
+
+    /**
+     * Get deletable
+     *
+     * @return deletable
+     **/
+    public Boolean isDeletable() {
+        return deletable;
     }
-    RestDetailedGroup other = (RestDetailedGroup) o;
-    return Objects.equals(this.deletable, other.deletable) &&
-        Objects.equals(this.name, other.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(deletable, name);
-  }
+    public void setDeletable(Boolean deletable) {
+        this.deletable = deletable;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestDetailedGroup {");
-    sb.append("\n    deletable: ").append(toIndentedString(deletable));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestDetailedGroup name(String name) {
+        this.name = name;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get name
+     *
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestDetailedGroup)) {
+            return false;
+        }
+        RestDetailedGroup other = (RestDetailedGroup) o;
+        return Objects.equals(this.deletable, other.deletable) &&
+                Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deletable, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestDetailedGroup {");
+        sb.append("\n    deletable: ").append(toIndentedString(deletable));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

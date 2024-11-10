@@ -25,82 +25,82 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestBranchCreateRequest {
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(description = "Name of the branch to be created")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(description = "Name of the branch to be created")
+    private String name;
 
-  public static final String JSON_PROPERTY_START_POINT = "startPoint";
-  @JsonbProperty(JSON_PROPERTY_START_POINT)
-  @Schema(description = "Commit ID from which the branch is created")
-  private String startPoint;
+    public static final String JSON_PROPERTY_START_POINT = "startPoint";
+    @JsonbProperty(JSON_PROPERTY_START_POINT)
+    @Schema(description = "Commit ID from which the branch is created")
+    private String startPoint;
 
-  public RestBranchCreateRequest name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the branch to be created.
-   *
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public RestBranchCreateRequest startPoint(String startPoint) {
-    this.startPoint = startPoint;
-    return this;
-  }
-
-  /**
-   * Commit ID from which the branch is created.
-   *
-   * @return startPoint
-   **/
-  @Size(max = 40)
-  public String getStartPoint() {
-    return startPoint;
-  }
-
-  public void setStartPoint(String startPoint) {
-    this.startPoint = startPoint;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestBranchCreateRequest name(String name) {
+        this.name = name;
+        return this;
     }
-    if (!(o instanceof RestBranchCreateRequest)) {
-      return false;
+
+    /**
+     * Name of the branch to be created.
+     * 
+     * @return name
+     **/
+    public String getName() {
+        return name;
     }
-    RestBranchCreateRequest other = (RestBranchCreateRequest) o;
-    return Objects.equals(this.name, other.name) &&
-        Objects.equals(this.startPoint, other.startPoint);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, startPoint);
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestBranchCreateRequest {");
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n    startPoint: ").append(toIndentedString(startPoint));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestBranchCreateRequest startPoint(String startPoint) {
+        this.startPoint = startPoint;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Commit ID from which the branch is created.
+     * 
+     * @return startPoint
+     **/
+    @Size(max = 40)
+    public String getStartPoint() {
+        return startPoint;
+    }
+
+    public void setStartPoint(String startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestBranchCreateRequest)) {
+            return false;
+        }
+        RestBranchCreateRequest other = (RestBranchCreateRequest) o;
+        return Objects.equals(this.name, other.name) &&
+                Objects.equals(this.startPoint, other.startPoint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, startPoint);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestBranchCreateRequest {");
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n    startPoint: ").append(toIndentedString(startPoint));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

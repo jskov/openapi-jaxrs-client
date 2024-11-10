@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestRepositoryHookVeto {
-  public static final String JSON_PROPERTY_DETAILED_MESSAGE = "detailedMessage";
-  @JsonbProperty(JSON_PROPERTY_DETAILED_MESSAGE)
-  @Schema(example = "You have insufficient permissions to rebase 'refs/heads/feature-branch'.")
-  private String detailedMessage;
+    public static final String JSON_PROPERTY_DETAILED_MESSAGE = "detailedMessage";
+    @JsonbProperty(JSON_PROPERTY_DETAILED_MESSAGE)
+    @Schema(example = "You have insufficient permissions to rebase 'refs/heads/feature-branch'.")
+    private String detailedMessage;
 
-  public static final String JSON_PROPERTY_SUMMARY_MESSAGE = "summaryMessage";
-  @JsonbProperty(JSON_PROPERTY_SUMMARY_MESSAGE)
-  @Schema(example = "Insufficient branch permissions")
-  private String summaryMessage;
+    public static final String JSON_PROPERTY_SUMMARY_MESSAGE = "summaryMessage";
+    @JsonbProperty(JSON_PROPERTY_SUMMARY_MESSAGE)
+    @Schema(example = "Insufficient branch permissions")
+    private String summaryMessage;
 
-  public RestRepositoryHookVeto detailedMessage(String detailedMessage) {
-    this.detailedMessage = detailedMessage;
-    return this;
-  }
-
-  /**
-   * Get detailedMessage
-   * @return detailedMessage
-   **/
-  public String getDetailedMessage() {
-    return detailedMessage;
-  }
-
-  public void setDetailedMessage(String detailedMessage) {
-    this.detailedMessage = detailedMessage;
-  }
-
-  public RestRepositoryHookVeto summaryMessage(String summaryMessage) {
-    this.summaryMessage = summaryMessage;
-    return this;
-  }
-
-  /**
-   * Get summaryMessage
-   * @return summaryMessage
-   **/
-  public String getSummaryMessage() {
-    return summaryMessage;
-  }
-
-  public void setSummaryMessage(String summaryMessage) {
-    this.summaryMessage = summaryMessage;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestRepositoryHookVeto detailedMessage(String detailedMessage) {
+        this.detailedMessage = detailedMessage;
+        return this;
     }
-    if (!(o instanceof RestRepositoryHookVeto)) {
-      return false;
+
+    /**
+     * Get detailedMessage
+     *
+     * @return detailedMessage
+     **/
+    public String getDetailedMessage() {
+        return detailedMessage;
     }
-    RestRepositoryHookVeto other = (RestRepositoryHookVeto) o;
-    return Objects.equals(this.detailedMessage, other.detailedMessage) &&
-        Objects.equals(this.summaryMessage, other.summaryMessage);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(detailedMessage, summaryMessage);
-  }
+    public void setDetailedMessage(String detailedMessage) {
+        this.detailedMessage = detailedMessage;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestRepositoryHookVeto {");
-    sb.append("\n    detailedMessage: ").append(toIndentedString(detailedMessage));
-    sb.append("\n    summaryMessage: ").append(toIndentedString(summaryMessage));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestRepositoryHookVeto summaryMessage(String summaryMessage) {
+        this.summaryMessage = summaryMessage;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get summaryMessage
+     *
+     * @return summaryMessage
+     **/
+    public String getSummaryMessage() {
+        return summaryMessage;
+    }
+
+    public void setSummaryMessage(String summaryMessage) {
+        this.summaryMessage = summaryMessage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestRepositoryHookVeto)) {
+            return false;
+        }
+        RestRepositoryHookVeto other = (RestRepositoryHookVeto) o;
+        return Objects.equals(this.detailedMessage, other.detailedMessage) &&
+                Objects.equals(this.summaryMessage, other.summaryMessage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(detailedMessage, summaryMessage);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestRepositoryHookVeto {");
+        sb.append("\n    detailedMessage: ").append(toIndentedString(detailedMessage));
+        sb.append("\n    summaryMessage: ").append(toIndentedString(summaryMessage));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

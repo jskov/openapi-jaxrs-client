@@ -23,77 +23,79 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestApplySuggestionRequestCommentVersion {
-  public static final String JSON_PROPERTY_AS_INT = "asInt";
-  @JsonbProperty(JSON_PROPERTY_AS_INT)
-  private Integer asInt;
+    public static final String JSON_PROPERTY_AS_INT = "asInt";
+    @JsonbProperty(JSON_PROPERTY_AS_INT)
+    private Integer asInt;
 
-  public static final String JSON_PROPERTY_PRESENT = "present";
-  @JsonbProperty(JSON_PROPERTY_PRESENT)
-  private Boolean present;
+    public static final String JSON_PROPERTY_PRESENT = "present";
+    @JsonbProperty(JSON_PROPERTY_PRESENT)
+    private Boolean present;
 
-  public RestApplySuggestionRequestCommentVersion asInt(Integer asInt) {
-    this.asInt = asInt;
-    return this;
-  }
-
-  /**
-   * Get asInt
-   * @return asInt
-   **/
-  public Integer getAsInt() {
-    return asInt;
-  }
-
-  public void setAsInt(Integer asInt) {
-    this.asInt = asInt;
-  }
-
-  public RestApplySuggestionRequestCommentVersion present(Boolean present) {
-    this.present = present;
-    return this;
-  }
-
-  /**
-   * Get present
-   * @return present
-   **/
-  public Boolean isPresent() {
-    return present;
-  }
-
-  public void setPresent(Boolean present) {
-    this.present = present;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestApplySuggestionRequestCommentVersion asInt(Integer asInt) {
+        this.asInt = asInt;
+        return this;
     }
-    if (!(o instanceof RestApplySuggestionRequestCommentVersion)) {
-      return false;
+
+    /**
+     * Get asInt
+     *
+     * @return asInt
+     **/
+    public Integer getAsInt() {
+        return asInt;
     }
-    RestApplySuggestionRequestCommentVersion other = (RestApplySuggestionRequestCommentVersion) o;
-    return Objects.equals(this.asInt, other.asInt) &&
-        Objects.equals(this.present, other.present);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(asInt, present);
-  }
+    public void setAsInt(Integer asInt) {
+        this.asInt = asInt;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestApplySuggestionRequestCommentVersion {");
-    sb.append("\n    asInt: ").append(toIndentedString(asInt));
-    sb.append("\n    present: ").append(toIndentedString(present));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestApplySuggestionRequestCommentVersion present(Boolean present) {
+        this.present = present;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get present
+     *
+     * @return present
+     **/
+    public Boolean isPresent() {
+        return present;
+    }
+
+    public void setPresent(Boolean present) {
+        this.present = present;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestApplySuggestionRequestCommentVersion)) {
+            return false;
+        }
+        RestApplySuggestionRequestCommentVersion other = (RestApplySuggestionRequestCommentVersion) o;
+        return Objects.equals(this.asInt, other.asInt) &&
+                Objects.equals(this.present, other.present);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asInt, present);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestApplySuggestionRequestCommentVersion {");
+        sb.append("\n    asInt: ").append(toIndentedString(asInt));
+        sb.append("\n    present: ").append(toIndentedString(present));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

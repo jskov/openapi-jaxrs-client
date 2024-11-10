@@ -38,14 +38,13 @@ public interface DashboardApi {
      * Get pull request suggestions.
      *
      * Retrieves a page of suggestions for pull requests that the currently authenticated user may wish to raise. Such
-     * suggestions are based on ref changes occurring and so contain the ref change that prompted the suggestion plus the
-     * time the change event occurred. Changes will be returned in descending order based on the time the change that
-     * prompted the suggestion occurred. Note that although the response is a page object, the interface does not support
-     * paging, however a limit can be applied to the size of the returned page.
+     * suggestions are based on ref changes occurring and so contain the ref change that prompted the suggestion plus
+     * the time the change event occurred. Changes will be returned in descending order based on the time the change
+     * that prompted the suggestion occurred.
+     * Note that although the response is a page object, the interface does not support paging, however a limit can be
+     * applied to the size of the returned page.
      *
-     * @param changesSince restrict pull request suggestions to be based on events that occurred since some timein the past.
-     *                     This is expressed in seconds since "now". So to return suggestionsbased only on activity within
-     *                     the past 48 hours, pass a value of 172800. (optional)
+     * @param changesSince restrict pull request suggestions to be based on events that occurred since some timein the past. This is expressed in seconds since "now". So to return suggestionsbased only on activity within the past 48 hours, pass a value of 172800. (optional)
      * @param limit        restricts the result set to return at most this many suggestions. (optional)
      * @return _ResponseApiLatestDashboardPullRequestSuggestions
      */
@@ -70,37 +69,20 @@ public interface DashboardApi {
                             schema = @Schema(implementation = _ResponseApiLatestDashboardPullRequestSuggestions_401.class)))
     })
     @Operation(summary = "Get pull request suggestions")
-    _ResponseApiLatestDashboardPullRequestSuggestions getPullRequestSuggestions(@QueryParam("changesSince") String changesSince,
-            @QueryParam("limit") String limit);
+    _ResponseApiLatestDashboardPullRequestSuggestions getPullRequestSuggestions(@QueryParam("changesSince") String changesSince, @QueryParam("limit") String limit);
 
     /**
      * Get pull requests for a user.
      *
-     * Retrieve a page of pull requests where a user is involved as either a reviewer, author or a participant. The request
-     * may be filtered by pull request state, role or participant status.
+     * Retrieve a page of pull requests where a user is involved as either a reviewer, author or a participant. The
+     * request may be filtered by pull request state, role or participant status.
      *
-     * @param closedSince       (optional, defaults to returning pull requests regardless of closed since date). Permits
-     *                          returning only pull requests with a closed timestamp set more recently that (now -
-     *                          closedSince). Units are in seconds. So for example if closed since 86400 is set only pull
-     *                          requests closed in the previous 24 hours will be returned. (optional)
-     * @param role              (optional, defaults to returning pull requests for any role). If a role is supplied only
-     *                          pull requests where the authenticated user is a participant in the given role will be
-     *                          returned. Either <strong>REVIEWER</strong>, <strong>AUTHOR</strong> or
-     *                          <strong>PARTICIPANT</strong>. (optional)
-     * @param participantStatus (optional, defaults to returning pull requests with any participant status). A comma
-     *                          separated list of participant status. That is, one or more of <strong>UNAPPROVED</strong>,
-     *                          <strong>NEEDS_WORK</strong>, or <strong>APPROVED</strong>. (optional)
-     * @param state             (optional, defaults to returning pull requests in any state). If a state is supplied only
-     *                          pull requests in the specified state will be returned. Either <strong>OPEN</strong>,
-     *                          <strong>DECLINED</strong> or <strong>MERGED</strong>. Omit this parameter to return pull
-     *                          request in any state. (optional)
+     * @param closedSince       (optional, defaults to returning pull requests regardless of closed since date). Permits returning only pull requests with a closed timestamp set more recently that (now - closedSince). Units are in seconds. So for example if closed since 86400 is set only pull requests closed in the previous 24 hours will be returned. (optional)
+     * @param role              (optional, defaults to returning pull requests for any role). If a role is supplied only pull requests where the authenticated user is a participant in the given role will be returned. Either <strong>REVIEWER</strong>, <strong>AUTHOR</strong> or <strong>PARTICIPANT</strong>. (optional)
+     * @param participantStatus (optional, defaults to returning pull requests with any participant status). A comma separated list of participant status. That is, one or more of <strong>UNAPPROVED</strong>, <strong>NEEDS_WORK</strong>, or <strong>APPROVED</strong>. (optional)
+     * @param state             (optional, defaults to returning pull requests in any state). If a state is supplied only pull requests in the specified state will be returned. Either <strong>OPEN</strong>, <strong>DECLINED</strong> or <strong>MERGED</strong>. Omit this parameter to return pull request in any state. (optional)
      * @param user              The name of the involved user, defaults to the current user. (optional)
-     * @param order             (optional, defaults to <strong>NEWEST</strong>) the order/(s) to return pull requests in;
-     *                          can choose from <strong>OLDEST</strong> (as in: "oldest first"), <strong>NEWEST</strong>,
-     *                          <strong>DRAFT_STATUS</strong>, <strong>PARTICIPANT_STATUS</strong>, and/or
-     *                          <strong>CLOSED_DATE</strong>. Where <strong>CLOSED_DATE</strong> is specified and the result
-     *                          set includes pull requests that are not in the closed state, these pull requests will appear
-     *                          first in the result set, followed by most recently closed pull requests. (optional)
+     * @param order             (optional, defaults to <strong>NEWEST</strong>) the order/(s) to return pull requests in; can choose from <strong>OLDEST</strong> (as in: "oldest first"), <strong>NEWEST</strong>, <strong>DRAFT_STATUS</strong>, <strong>PARTICIPANT_STATUS</strong>, and/or <strong>CLOSED_DATE</strong>. Where <strong>CLOSED_DATE</strong> is specified and the result set includes pull requests that are not in the closed state, these pull requests will appear first in the result set, followed by most recently closed pull requests. (optional)
      * @param start             Start number for the page (inclusive). If not passed, first page is assumed. (optional)
      * @param limit             Number of items to return. If not passed, a page size of 25 is used. (optional)
      * @return _ResponseApiLatestDashboardPullRequests
@@ -126,8 +108,6 @@ public interface DashboardApi {
                             schema = @Schema(implementation = _ResponseApiLatestDashboardPullRequests_401.class)))
     })
     @Operation(summary = "Get pull requests for a user")
-    _ResponseApiLatestDashboardPullRequests getPullRequests_1(@QueryParam("closedSince") String closedSince,
-            @QueryParam("role") String role, @QueryParam("participantStatus") String participantStatus, @QueryParam("state") String state,
-            @QueryParam("user") String user, @QueryParam("order") String order, @QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseApiLatestDashboardPullRequests getPullRequests_1(@QueryParam("closedSince") String closedSince, @QueryParam("role") String role,
+            @QueryParam("participantStatus") String participantStatus, @QueryParam("state") String state, @QueryParam("user") String user, @QueryParam("order") String order, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 }

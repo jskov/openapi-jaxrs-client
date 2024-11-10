@@ -27,85 +27,86 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class UserAndGroups {
-  public static final String JSON_PROPERTY_GROUPS = "groups";
-  @JsonbProperty(JSON_PROPERTY_GROUPS)
-  @Schema(required = true, example = "[\"group_a\",\"group_b\"]")
-  private Set<String> groups = new LinkedHashSet<>();
+    public static final String JSON_PROPERTY_GROUPS = "groups";
+    @JsonbProperty(JSON_PROPERTY_GROUPS)
+    @Schema(required = true, example = "[\"group_a\",\"group_b\"]")
+    private Set<String> groups = new LinkedHashSet<>();
 
-  public static final String JSON_PROPERTY_USER = "user";
-  @JsonbProperty(JSON_PROPERTY_USER)
-  @Schema(example = "user")
-  private String user;
+    public static final String JSON_PROPERTY_USER = "user";
+    @JsonbProperty(JSON_PROPERTY_USER)
+    @Schema(example = "user")
+    private String user;
 
-  public UserAndGroups groups(Set<String> groups) {
-    this.groups = Objects.requireNonNull(groups, "Property groups is required, cannot be null");
-    return this;
-  }
-
-  public UserAndGroups addGroupsItem(String groupsItem) {
-    this.groups.add(groupsItem);
-    return this;
-  }
-
-  /**
-   * Get groups
-   * @return groups
-   **/
-  @NotNull
-  public Set<String> getGroups() {
-    return groups;
-  }
-
-  public void setGroups(Set<String> groups) {
-    this.groups = Objects.requireNonNull(groups, "Property groups is required, cannot be null");
-  }
-
-  public UserAndGroups user(String user) {
-    this.user = user;
-    return this;
-  }
-
-  /**
-   * Get user
-   * @return user
-   **/
-  public String getUser() {
-    return user;
-  }
-
-  public void setUser(String user) {
-    this.user = user;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public UserAndGroups groups(Set<String> groups) {
+        this.groups = Objects.requireNonNull(groups, "Property groups is required, cannot be null");
+        return this;
     }
-    if (!(o instanceof UserAndGroups)) {
-      return false;
+
+    public UserAndGroups addGroupsItem(String groupsItem) {
+        this.groups.add(groupsItem);
+        return this;
     }
-    UserAndGroups other = (UserAndGroups) o;
-    return Objects.equals(this.groups, other.groups) &&
-        Objects.equals(this.user, other.user);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(groups, user);
-  }
+    /**
+     * Get groups
+     *
+     * @return groups
+     **/
+    @NotNull public Set<String> getGroups() {
+        return groups;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UserAndGroups {");
-    sb.append("\n    groups: ").append(toIndentedString(groups));
-    sb.append("\n    user: ").append(toIndentedString(user));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public void setGroups(Set<String> groups) {
+        this.groups = Objects.requireNonNull(groups, "Property groups is required, cannot be null");
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    public UserAndGroups user(String user) {
+        this.user = user;
+        return this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return user
+     **/
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserAndGroups)) {
+            return false;
+        }
+        UserAndGroups other = (UserAndGroups) o;
+        return Objects.equals(this.groups, other.groups) &&
+                Objects.equals(this.user, other.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groups, user);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UserAndGroups {");
+        sb.append("\n    groups: ").append(toIndentedString(groups));
+        sb.append("\n    user: ").append(toIndentedString(user));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -17,56 +17,57 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class KlarTilBeslutningsGrundlagResponse {
-  public static final String JSON_PROPERTY_SENEST_OPDAT = "senestOpdat";
-  @JsonbProperty(JSON_PROPERTY_SENEST_OPDAT)
-  @Schema(required = true)
-  private String senestOpdat;
+    public static final String JSON_PROPERTY_SENEST_OPDAT = "senestOpdat";
+    @JsonbProperty(JSON_PROPERTY_SENEST_OPDAT)
+    @Schema(required = true)
+    private String senestOpdat;
 
-  public KlarTilBeslutningsGrundlagResponse senestOpdat(String senestOpdat) {
-    this.senestOpdat = Objects.requireNonNull(senestOpdat, "Property senestOpdat is required, cannot be null");
-    return this;
-  }
-
-  /**
-   * Get senestOpdat
-   * @return senestOpdat
-   **/
-  @NotNull @Pattern(regexp = "^(\\d{4}-\\d{2}-\\d{2}-\\d{2}.\\d{2}.\\d{2}.\\d{6})$")
-  public String getSenestOpdat() {
-    return senestOpdat;
-  }
-
-  public void setSenestOpdat(String senestOpdat) {
-    this.senestOpdat = Objects.requireNonNull(senestOpdat, "Property senestOpdat is required, cannot be null");
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public KlarTilBeslutningsGrundlagResponse senestOpdat(String senestOpdat) {
+        this.senestOpdat = Objects.requireNonNull(senestOpdat, "Property senestOpdat is required, cannot be null");
+        return this;
     }
-    if (!(o instanceof KlarTilBeslutningsGrundlagResponse)) {
-      return false;
+
+    /**
+     * Get senestOpdat
+     *
+     * @return senestOpdat
+     **/
+    @NotNull @Pattern(regexp = "^(\\d{4}-\\d{2}-\\d{2}-\\d{2}.\\d{2}.\\d{2}.\\d{6})$")
+    public String getSenestOpdat() {
+        return senestOpdat;
     }
-    KlarTilBeslutningsGrundlagResponse other = (KlarTilBeslutningsGrundlagResponse) o;
-    return Objects.equals(this.senestOpdat, other.senestOpdat);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(senestOpdat);
-  }
+    public void setSenestOpdat(String senestOpdat) {
+        this.senestOpdat = Objects.requireNonNull(senestOpdat, "Property senestOpdat is required, cannot be null");
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class KlarTilBeslutningsGrundlagResponse {");
-    sb.append("\n    senestOpdat: ").append(toIndentedString(senestOpdat));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof KlarTilBeslutningsGrundlagResponse)) {
+            return false;
+        }
+        KlarTilBeslutningsGrundlagResponse other = (KlarTilBeslutningsGrundlagResponse) o;
+        return Objects.equals(this.senestOpdat, other.senestOpdat);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(senestOpdat);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class KlarTilBeslutningsGrundlagResponse {");
+        sb.append("\n    senestOpdat: ").append(toIndentedString(senestOpdat));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

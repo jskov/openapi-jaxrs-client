@@ -24,102 +24,105 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestChangesetToCommitAuthor {
-  public static final String JSON_PROPERTY_AVATAR_URL = "avatarUrl";
-  @JsonbProperty(JSON_PROPERTY_AVATAR_URL)
-  private String avatarUrl;
+    public static final String JSON_PROPERTY_AVATAR_URL = "avatarUrl";
+    @JsonbProperty(JSON_PROPERTY_AVATAR_URL)
+    private String avatarUrl;
 
-  public static final String JSON_PROPERTY_EMAIL_ADDRESS = "emailAddress";
-  @JsonbProperty(JSON_PROPERTY_EMAIL_ADDRESS)
-  @Schema(example = "charlie@example.com")
-  private String emailAddress;
+    public static final String JSON_PROPERTY_EMAIL_ADDRESS = "emailAddress";
+    @JsonbProperty(JSON_PROPERTY_EMAIL_ADDRESS)
+    @Schema(example = "charlie@example.com")
+    private String emailAddress;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(example = "Charlie")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(example = "Charlie")
+    private String name;
 
-  public RestChangesetToCommitAuthor avatarUrl(String avatarUrl) {
-    this.avatarUrl = avatarUrl;
-    return this;
-  }
-
-  /**
-   * Get avatarUrl
-   * @return avatarUrl
-   **/
-  public String getAvatarUrl() {
-    return avatarUrl;
-  }
-
-  public void setAvatarUrl(String avatarUrl) {
-    this.avatarUrl = avatarUrl;
-  }
-
-  public RestChangesetToCommitAuthor emailAddress(String emailAddress) {
-    this.emailAddress = emailAddress;
-    return this;
-  }
-
-  /**
-   * Get emailAddress
-   * @return emailAddress
-   **/
-  public String getEmailAddress() {
-    return emailAddress;
-  }
-
-  public void setEmailAddress(String emailAddress) {
-    this.emailAddress = emailAddress;
-  }
-
-  public RestChangesetToCommitAuthor name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestChangesetToCommitAuthor avatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+        return this;
     }
-    if (!(o instanceof RestChangesetToCommitAuthor)) {
-      return false;
+
+    /**
+     * Get avatarUrl
+     *
+     * @return avatarUrl
+     **/
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
-    RestChangesetToCommitAuthor other = (RestChangesetToCommitAuthor) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.name, other.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(avatarUrl, emailAddress, name);
-  }
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestChangesetToCommitAuthor {");
-    sb.append("\n    avatarUrl: ").append(toIndentedString(avatarUrl));
-    sb.append("\n    emailAddress: ").append(toIndentedString(emailAddress));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestChangesetToCommitAuthor emailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get emailAddress
+     *
+     * @return emailAddress
+     **/
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public RestChangesetToCommitAuthor name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestChangesetToCommitAuthor)) {
+            return false;
+        }
+        RestChangesetToCommitAuthor other = (RestChangesetToCommitAuthor) o;
+        return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+                Objects.equals(this.emailAddress, other.emailAddress) &&
+                Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(avatarUrl, emailAddress, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestChangesetToCommitAuthor {");
+        sb.append("\n    avatarUrl: ").append(toIndentedString(avatarUrl));
+        sb.append("\n    emailAddress: ").append(toIndentedString(emailAddress));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

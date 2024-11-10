@@ -141,11 +141,12 @@ public interface Mirroring__Upstream_Api {
     /**
      * Authenticate on behalf of a user.
      *
-     * Authenticates on behalf of a user. Used by mirrors to check the credentials supplied to them by users. If successful
-     * a user and their effective permissions are returned as follows - * For SSH credentials - all the effective user
-     * permissions are returned. * For all other credentials - the highest global permission is returned along with highest
-     * repository permission if repository ID is also provided in the request. Currently only username/password, bearer
-     * token and SSH credentials are supported.
+     * Authenticates on behalf of a user. Used by mirrors to check the credentials supplied to them by users. If
+     * successful a user and their effective permissions are returned as follows -
+     * * For SSH credentials - all the effective user permissions are returned. * For all other credentials - the
+     * highest global permission is returned along with highest repository permission if repository ID is also provided
+     * in the request.
+     * Currently only username/password, bearer token and SSH credentials are supported.
      *
      * @param dto (optional)
      * @return RestApplicationUserWithPermissions
@@ -220,8 +221,7 @@ public interface Mirroring__Upstream_Api {
      * Upgrade add-on for a mirror.
      *
      * Upgrades the add-on for the mirror server in question This endpoint can only be called by the mirror instance or
-     * system administrators<br>
-     * Since 5.8
+     * system administrators<br>Since 5.8
      *
      * @param mirrorId the ID of the mirror to upgrade (not null)
      * @param dto      (optional)
@@ -324,8 +324,7 @@ public interface Mirroring__Upstream_Api {
     /**
      * Get project.
      *
-     * Returns the requested project using its primary key ID.<br>
-     * Since 6.7
+     * Returns the requested project using its primary key ID.<br> Since 6.7
      *
      * @param projectId the ID of the requested project (not null)
      * @return RestProject
@@ -352,8 +351,7 @@ public interface Mirroring__Upstream_Api {
      *
      * Returns a page of repositories for a given project, enriched with a content hash.
      *
-     * @param includeDefaultBranch includes defaultBranchId in the response, if <code>true</code>. Default value is
-     *                             <code>false</code> (optional)
+     * @param includeDefaultBranch includes defaultBranchId in the response, if <code>true</code>. Default value is <code>false</code> (optional)
      * @param projectId            the id of the requested project (not null)
      * @param start                Start number for the page (inclusive). If not passed, first page is assumed. (optional)
      * @param limit                Number of items to return. If not passed, a page size of 25 is used. (optional)
@@ -375,17 +373,15 @@ public interface Mirroring__Upstream_Api {
                             schema = @Schema(implementation = _ResponseMirroringLatestProjectsProjectIdRepos_409.class)))
     })
     @Operation(summary = "Get hashes for repositories in project")
-    _ResponseMirroringLatestProjectsProjectIdRepos getAllReposForProject(@QueryParam("includeDefaultBranch") String includeDefaultBranch,
-            @PathParam("projectId") @NotNull String projectId, @QueryParam("start") BigDecimal start,
-            @QueryParam("limit") BigDecimal limit);
+    _ResponseMirroringLatestProjectsProjectIdRepos getAllReposForProject(@QueryParam("includeDefaultBranch") String includeDefaultBranch, @PathParam("projectId") @NotNull String projectId,
+            @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
     /**
      * Get content hashes for repositories.
      *
      * Returns a page of repositories enriched with a content hash and default branch.
      *
-     * @param includeDefaultBranch includes defaultBranchId for each repository in the response, if <code>true</code>.
-     *                             Default value is <code>false</code>. (optional)
+     * @param includeDefaultBranch includes defaultBranchId for each repository in the response, if <code>true</code>. Default value is <code>false</code>. (optional)
      * @return EnrichedRepository
      */
     @GET
@@ -431,15 +427,14 @@ public interface Mirroring__Upstream_Api {
                             schema = @Schema(implementation = _ResponseMirroringLatestReposRepoId_404.class)))
     })
     @Operation(summary = "Get content hash for a repository")
-    EnrichedRepository getContentHashById(@PathParam("repoId") @NotNull String repoId,
-            @QueryParam("includeDefaultBranch") boolean includeDefaultBranch);
+    EnrichedRepository getContentHashById(@PathParam("repoId") @NotNull String repoId, @QueryParam("includeDefaultBranch") boolean includeDefaultBranch);
 
     /**
      * Get mirrors for repository.
      *
      * Returns a page of mirrors for a repository. This resource will return <strong>all mirrors</strong> along with
-     * authorized links to the mirror's repository REST resource. To determine if a repository is available on the mirror,
-     * the returned URL needs to be called.
+     * authorized links to the mirror's repository REST resource. To determine if a repository is available on the
+     * mirror, the returned URL needs to be called.
      *
      * @param repoId the ID of the requested repository (not null)
      * @return RestMirroredRepositoryDescriptor

@@ -25,85 +25,87 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestScopesExample {
-  public static final String JSON_PROPERTY_LINKS = "links";
-  @JsonbProperty(JSON_PROPERTY_LINKS)
-  private Object links;
+    public static final String JSON_PROPERTY_LINKS = "links";
+    @JsonbProperty(JSON_PROPERTY_LINKS)
+    private Object links;
 
-  public static final String JSON_PROPERTY_SCOPES = "scopes";
-  @JsonbProperty(JSON_PROPERTY_SCOPES)
-  private List<Object> scopes;
+    public static final String JSON_PROPERTY_SCOPES = "scopes";
+    @JsonbProperty(JSON_PROPERTY_SCOPES)
+    private List<Object> scopes;
 
-  public RestScopesExample links(Object links) {
-    this.links = links;
-    return this;
-  }
-
-  /**
-   * Get links
-   * @return links
-   **/
-  public Object getLinks() {
-    return links;
-  }
-
-  public void setLinks(Object links) {
-    this.links = links;
-  }
-
-  public RestScopesExample scopes(List<Object> scopes) {
-    this.scopes = scopes;
-    return this;
-  }
-
-  public RestScopesExample addScopesItem(Object scopesItem) {
-    if (this.scopes == null) {
-      this.scopes = new ArrayList<>();
+    public RestScopesExample links(Object links) {
+        this.links = links;
+        return this;
     }
-    this.scopes.add(scopesItem);
-    return this;
-  }
 
-  /**
-   * Get scopes
-   * @return scopes
-   **/
-  public List<Object> getScopes() {
-    return scopes;
-  }
-
-  public void setScopes(List<Object> scopes) {
-    this.scopes = scopes;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get links
+     *
+     * @return links
+     **/
+    public Object getLinks() {
+        return links;
     }
-    if (!(o instanceof RestScopesExample)) {
-      return false;
+
+    public void setLinks(Object links) {
+        this.links = links;
     }
-    RestScopesExample other = (RestScopesExample) o;
-    return Objects.equals(this.links, other.links) &&
-        Objects.equals(this.scopes, other.scopes);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(links, scopes);
-  }
+    public RestScopesExample scopes(List<Object> scopes) {
+        this.scopes = scopes;
+        return this;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestScopesExample {");
-    sb.append("\n    links: ").append(toIndentedString(links));
-    sb.append("\n    scopes: ").append(toIndentedString(scopes));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestScopesExample addScopesItem(Object scopesItem) {
+        if (this.scopes == null) {
+            this.scopes = new ArrayList<>();
+        }
+        this.scopes.add(scopesItem);
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get scopes
+     *
+     * @return scopes
+     **/
+    public List<Object> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<Object> scopes) {
+        this.scopes = scopes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestScopesExample)) {
+            return false;
+        }
+        RestScopesExample other = (RestScopesExample) o;
+        return Objects.equals(this.links, other.links) &&
+                Objects.equals(this.scopes, other.scopes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(links, scopes);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestScopesExample {");
+        sb.append("\n    links: ").append(toIndentedString(links));
+        sb.append("\n    scopes: ").append(toIndentedString(scopes));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

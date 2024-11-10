@@ -26,63 +26,64 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 {
-  public static final String JSON_PROPERTY_ERRORS = "errors";
-  @JsonbProperty(JSON_PROPERTY_ERRORS)
-  private List<RestErrorMessage> errors;
+    public static final String JSON_PROPERTY_ERRORS = "errors";
+    @JsonbProperty(JSON_PROPERTY_ERRORS)
+    private List<RestErrorMessage> errors;
 
-  public _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 errors(List<RestErrorMessage> errors) {
-    this.errors = errors;
-    return this;
-  }
-
-  public _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 addErrorsItem(RestErrorMessage errorsItem) {
-    if (this.errors == null) {
-      this.errors = new ArrayList<>();
+    public _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 errors(List<RestErrorMessage> errors) {
+        this.errors = errors;
+        return this;
     }
-    this.errors.add(errorsItem);
-    return this;
-  }
 
-  /**
-   * Get errors
-   * @return errors
-   **/
-  @Valid
-  public List<RestErrorMessage> getErrors() {
-    return errors;
-  }
-
-  public void setErrors(List<RestErrorMessage> errors) {
-    this.errors = errors;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 addErrorsItem(RestErrorMessage errorsItem) {
+        if (this.errors == null) {
+            this.errors = new ArrayList<>();
+        }
+        this.errors.add(errorsItem);
+        return this;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401)) {
-      return false;
+
+    /**
+     * Get errors
+     *
+     * @return errors
+     **/
+    @Valid
+    public List<RestErrorMessage> getErrors() {
+        return errors;
     }
-    _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 other = (_ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401) o;
-    return Objects.equals(this.errors, other.errors);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(errors);
-  }
+    public void setErrors(List<RestErrorMessage> errors) {
+        this.errors = errors;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 {");
-    sb.append("\n    errors: ").append(toIndentedString(errors));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401)) {
+            return false;
+        }
+        _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 other = (_ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401) o;
+        return Objects.equals(this.errors, other.errors);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(errors);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeyEnabled_401 {");
+        sb.append("\n    errors: ").append(toIndentedString(errors));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

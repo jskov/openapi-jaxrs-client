@@ -16,54 +16,55 @@ import javax.json.bind.annotation.JsonbProperty;
  */
 @javax.annotation.Generated(value = "dk.mada.jaxrs.Generator")
 public class Simple {
-  public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
-  @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)
-  private Boolean aBoolean;
+    public static final String JSON_PROPERTY_A_BOOLEAN = "aBoolean";
+    @JsonbProperty(JSON_PROPERTY_A_BOOLEAN)
+    private Boolean aBoolean;
 
-  public Simple aBoolean(Boolean aBoolean) {
-    this.aBoolean = aBoolean;
-    return this;
-  }
-
-  /**
-   * Get aBoolean
-   * @return aBoolean
-   **/
-  public Boolean isaBoolean() {
-    return aBoolean;
-  }
-
-  public void setaBoolean(Boolean aBoolean) {
-    this.aBoolean = aBoolean;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Simple aBoolean(Boolean aBoolean) {
+        this.aBoolean = aBoolean;
+        return this;
     }
-    if (!(o instanceof Simple)) {
-      return false;
+
+    /**
+     * Get aBoolean
+     *
+     * @return aBoolean
+     **/
+    public Boolean isaBoolean() {
+        return aBoolean;
     }
-    Simple other = (Simple) o;
-    return Objects.equals(this.aBoolean, other.aBoolean);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(aBoolean);
-  }
+    public void setaBoolean(Boolean aBoolean) {
+        this.aBoolean = aBoolean;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Simple {");
-    sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Simple)) {
+            return false;
+        }
+        Simple other = (Simple) o;
+        return Objects.equals(this.aBoolean, other.aBoolean);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(aBoolean);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Simple {");
+        sb.append("\n    aBoolean: ").append(toIndentedString(aBoolean));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -23,77 +23,79 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestDetailedInvocationEventScope {
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    private String id;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  @JsonbProperty(JSON_PROPERTY_TYPE)
-  private String type;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @JsonbProperty(JSON_PROPERTY_TYPE)
+    private String type;
 
-  public RestDetailedInvocationEventScope id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public RestDetailedInvocationEventScope type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Get type
-   * @return type
-   **/
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestDetailedInvocationEventScope id(String id) {
+        this.id = id;
+        return this;
     }
-    if (!(o instanceof RestDetailedInvocationEventScope)) {
-      return false;
+
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    public String getId() {
+        return id;
     }
-    RestDetailedInvocationEventScope other = (RestDetailedInvocationEventScope) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, type);
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestDetailedInvocationEventScope {");
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n    type: ").append(toIndentedString(type));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestDetailedInvocationEventScope type(String type) {
+        this.type = type;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get type
+     *
+     * @return type
+     **/
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestDetailedInvocationEventScope)) {
+            return false;
+        }
+        RestDetailedInvocationEventScope other = (RestDetailedInvocationEventScope) o;
+        return Objects.equals(this.id, other.id) &&
+                Objects.equals(this.type, other.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestDetailedInvocationEventScope {");
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n    type: ").append(toIndentedString(type));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

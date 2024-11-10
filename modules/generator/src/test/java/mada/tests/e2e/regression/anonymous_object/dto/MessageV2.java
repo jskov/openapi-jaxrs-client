@@ -16,56 +16,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class MessageV2 {
-  public static final String JSON_PROPERTY_SENT_AT = "sentAt";
-  @JsonbProperty(JSON_PROPERTY_SENT_AT)
-  @Schema(readOnly = true, description = "Time the message was sent. Automatically generated at POST.")
-  private OffsetDateTime sentAt;
+    public static final String JSON_PROPERTY_SENT_AT = "sentAt";
+    @JsonbProperty(JSON_PROPERTY_SENT_AT)
+    @Schema(readOnly = true, description = "Time the message was sent. Automatically generated at POST.")
+    private OffsetDateTime sentAt;
 
-  public MessageV2 sentAt(OffsetDateTime sentAt) {
-    this.sentAt = sentAt;
-    return this;
-  }
-
-  /**
-   * Time the message was sent. Automatically generated at POST.
-   *
-   * @return sentAt
-   **/
-  public OffsetDateTime getSentAt() {
-    return sentAt;
-  }
-
-  public void setSentAt(OffsetDateTime sentAt) {
-    this.sentAt = sentAt;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public MessageV2 sentAt(OffsetDateTime sentAt) {
+        this.sentAt = sentAt;
+        return this;
     }
-    if (!(o instanceof MessageV2)) {
-      return false;
+
+    /**
+     * Time the message was sent. Automatically generated at POST.
+     * 
+     * @return sentAt
+     **/
+    public OffsetDateTime getSentAt() {
+        return sentAt;
     }
-    MessageV2 other = (MessageV2) o;
-    return Objects.equals(this.sentAt, other.sentAt);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(sentAt);
-  }
+    public void setSentAt(OffsetDateTime sentAt) {
+        this.sentAt = sentAt;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class MessageV2 {");
-    sb.append("\n    sentAt: ").append(toIndentedString(sentAt));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof MessageV2)) {
+            return false;
+        }
+        MessageV2 other = (MessageV2) o;
+        return Objects.equals(this.sentAt, other.sentAt);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(sentAt);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class MessageV2 {");
+        sb.append("\n    sentAt: ").append(toIndentedString(sentAt));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

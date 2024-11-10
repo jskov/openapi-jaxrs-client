@@ -26,131 +26,135 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestDeploymentEnvironment {
-  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @Schema(example = "US East Mirror")
-  private String displayName;
+    public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
+    @JsonbProperty(JSON_PROPERTY_DISPLAY_NAME)
+    @Schema(example = "US East Mirror")
+    private String displayName;
 
-  public static final String JSON_PROPERTY_KEY = "key";
-  @JsonbProperty(JSON_PROPERTY_KEY)
-  @Schema(example = "us-east-mirror")
-  private String key;
+    public static final String JSON_PROPERTY_KEY = "key";
+    @JsonbProperty(JSON_PROPERTY_KEY)
+    @Schema(example = "us-east-mirror")
+    private String key;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  @JsonbProperty(JSON_PROPERTY_TYPE)
-  @Schema(example = "production")
-  private String type;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @JsonbProperty(JSON_PROPERTY_TYPE)
+    @Schema(example = "production")
+    private String type;
 
-  public static final String JSON_PROPERTY_URL = "url";
-  @JsonbProperty(JSON_PROPERTY_URL)
-  @Schema(example = "https://foo-bar.production/us-east")
-  private String url;
+    public static final String JSON_PROPERTY_URL = "url";
+    @JsonbProperty(JSON_PROPERTY_URL)
+    @Schema(example = "https://foo-bar.production/us-east")
+    private String url;
 
-  public RestDeploymentEnvironment displayName(String displayName) {
-    this.displayName = displayName;
-    return this;
-  }
-
-  /**
-   * Get displayName
-   * @return displayName
-   **/
-  @Size(min = 0, max = 255)
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  public void setDisplayName(String displayName) {
-    this.displayName = displayName;
-  }
-
-  public RestDeploymentEnvironment key(String key) {
-    this.key = key;
-    return this;
-  }
-
-  /**
-   * Get key
-   * @return key
-   **/
-  @Size(min = 0, max = 255)
-  public String getKey() {
-    return key;
-  }
-
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  public RestDeploymentEnvironment type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Get type
-   * @return type
-   **/
-  @Pattern(regexp = "DEVELOPMENT|TESTING|STAGING|PRODUCTION")
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public RestDeploymentEnvironment url(String url) {
-    this.url = url;
-    return this;
-  }
-
-  /**
-   * Get url
-   * @return url
-   **/
-  @Size(min = 0, max = 1024)
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestDeploymentEnvironment displayName(String displayName) {
+        this.displayName = displayName;
+        return this;
     }
-    if (!(o instanceof RestDeploymentEnvironment)) {
-      return false;
+
+    /**
+     * Get displayName
+     *
+     * @return displayName
+     **/
+    @Size(min = 0, max = 255)
+    public String getDisplayName() {
+        return displayName;
     }
-    RestDeploymentEnvironment other = (RestDeploymentEnvironment) o;
-    return Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.url, other.url);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(displayName, key, type, url);
-  }
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestDeploymentEnvironment {");
-    sb.append("\n    displayName: ").append(toIndentedString(displayName));
-    sb.append("\n    key: ").append(toIndentedString(key));
-    sb.append("\n    type: ").append(toIndentedString(type));
-    sb.append("\n    url: ").append(toIndentedString(url));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestDeploymentEnvironment key(String key) {
+        this.key = key;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get key
+     *
+     * @return key
+     **/
+    @Size(min = 0, max = 255)
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public RestDeploymentEnvironment type(String type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     **/
+    @Pattern(regexp = "DEVELOPMENT|TESTING|STAGING|PRODUCTION")
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public RestDeploymentEnvironment url(String url) {
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return url
+     **/
+    @Size(min = 0, max = 1024)
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestDeploymentEnvironment)) {
+            return false;
+        }
+        RestDeploymentEnvironment other = (RestDeploymentEnvironment) o;
+        return Objects.equals(this.displayName, other.displayName) &&
+                Objects.equals(this.key, other.key) &&
+                Objects.equals(this.type, other.type) &&
+                Objects.equals(this.url, other.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(displayName, key, type, url);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestDeploymentEnvironment {");
+        sb.append("\n    displayName: ").append(toIndentedString(displayName));
+        sb.append("\n    key: ").append(toIndentedString(key));
+        sb.append("\n    type: ").append(toIndentedString(type));
+        sb.append("\n    url: ").append(toIndentedString(url));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

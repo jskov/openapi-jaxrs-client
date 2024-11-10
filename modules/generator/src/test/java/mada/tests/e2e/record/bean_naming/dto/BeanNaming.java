@@ -14,44 +14,24 @@ import org.jspecify.annotations.Nullable;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record BeanNaming(
-  @JsonbProperty("aCamelBool")
-  @Nullable
-  Boolean aCamelBool,
+        @JsonbProperty("aCamelBool") @Nullable Boolean aCamelBool,
 
-  @JsonbProperty("aCamelInt")
-  @Nullable
-  Integer aCamelInt,
+        @JsonbProperty("aCamelInt") @Nullable Integer aCamelInt,
 
-  @JsonbProperty("ALLCAPSBOOL")
-  @Nullable
-  Boolean aLLCAPSBOOL,
+        @JsonbProperty("ALLCAPSBOOL") @Nullable Boolean aLLCAPSBOOL,
 
-  @JsonbProperty("ALLCAPSINT")
-  @Nullable
-  Boolean aLLCAPSINT,
+        @JsonbProperty("ALLCAPSINT") @Nullable Boolean aLLCAPSINT,
 
-  @JsonbProperty("downBool")
-  @Nullable
-  Boolean downBool,
+        @JsonbProperty("downBool") @Nullable Boolean downBool,
 
-  @JsonbProperty("downInt")
-  @Nullable
-  Integer downInt,
+        @JsonbProperty("downInt") @Nullable Integer downInt,
 
-  @JsonbProperty("UpperBool")
-  @Nullable
-  Boolean upperBool,
+        @JsonbProperty("UpperBool") @Nullable Boolean upperBool,
 
-  @JsonbProperty("UpperInt")
-  @Nullable
-  Integer upperInt,
+        @JsonbProperty("UpperInt") @Nullable Integer upperInt,
 
-  @JsonbProperty("with-slash")
-  @Nullable
-  Boolean withSlash,
+        @JsonbProperty("with-slash") @Nullable Boolean withSlash,
 
-  @JsonbProperty("with_underscore")
-  @Nullable
-  Boolean withUnderscore) {
+        @JsonbProperty("with_underscore") @Nullable Boolean withUnderscore) {
 
 }

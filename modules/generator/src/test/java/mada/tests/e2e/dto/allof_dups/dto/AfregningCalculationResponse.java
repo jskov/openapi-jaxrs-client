@@ -15,55 +15,56 @@ import javax.validation.Valid;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class AfregningCalculationResponse {
-  public static final String JSON_PROPERTY_OMKOSTNINGER = "Omkostninger";
-  @JsonbProperty(JSON_PROPERTY_OMKOSTNINGER)
-  private Omkostninger omkostninger;
+    public static final String JSON_PROPERTY_OMKOSTNINGER = "Omkostninger";
+    @JsonbProperty(JSON_PROPERTY_OMKOSTNINGER)
+    private Omkostninger omkostninger;
 
-  public AfregningCalculationResponse omkostninger(Omkostninger omkostninger) {
-    this.omkostninger = omkostninger;
-    return this;
-  }
-
-  /**
-   * Get omkostninger
-   * @return omkostninger
-   **/
-  @Valid
-  public Omkostninger getOmkostninger() {
-    return omkostninger;
-  }
-
-  public void setOmkostninger(Omkostninger omkostninger) {
-    this.omkostninger = omkostninger;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public AfregningCalculationResponse omkostninger(Omkostninger omkostninger) {
+        this.omkostninger = omkostninger;
+        return this;
     }
-    if (!(o instanceof AfregningCalculationResponse)) {
-      return false;
+
+    /**
+     * Get omkostninger
+     *
+     * @return omkostninger
+     **/
+    @Valid
+    public Omkostninger getOmkostninger() {
+        return omkostninger;
     }
-    AfregningCalculationResponse other = (AfregningCalculationResponse) o;
-    return Objects.equals(this.omkostninger, other.omkostninger);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(omkostninger);
-  }
+    public void setOmkostninger(Omkostninger omkostninger) {
+        this.omkostninger = omkostninger;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AfregningCalculationResponse {");
-    sb.append("\n    omkostninger: ").append(toIndentedString(omkostninger));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AfregningCalculationResponse)) {
+            return false;
+        }
+        AfregningCalculationResponse other = (AfregningCalculationResponse) o;
+        return Objects.equals(this.omkostninger, other.omkostninger);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(omkostninger);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AfregningCalculationResponse {");
+        sb.append("\n    omkostninger: ").append(toIndentedString(omkostninger));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

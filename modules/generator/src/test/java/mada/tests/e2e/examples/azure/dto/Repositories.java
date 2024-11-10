@@ -19,64 +19,64 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(description = "List of repositories")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Repositories {
-  public static final String JSON_PROPERTY_REPOSITORIES = "repositories";
-  @JsonbProperty(JSON_PROPERTY_REPOSITORIES)
-  @Schema(description = "Repository names")
-  private List<String> repositories;
+    public static final String JSON_PROPERTY_REPOSITORIES = "repositories";
+    @JsonbProperty(JSON_PROPERTY_REPOSITORIES)
+    @Schema(description = "Repository names")
+    private List<String> repositories;
 
-  public Repositories repositories(List<String> repositories) {
-    this.repositories = repositories;
-    return this;
-  }
-
-  public Repositories addRepositoriesItem(String repositoriesItem) {
-    if (this.repositories == null) {
-      this.repositories = new ArrayList<>();
+    public Repositories repositories(List<String> repositories) {
+        this.repositories = repositories;
+        return this;
     }
-    this.repositories.add(repositoriesItem);
-    return this;
-  }
 
-  /**
-   * Repository names.
-   *
-   * @return repositories
-   **/
-  public List<String> getRepositories() {
-    return repositories;
-  }
-
-  public void setRepositories(List<String> repositories) {
-    this.repositories = repositories;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public Repositories addRepositoriesItem(String repositoriesItem) {
+        if (this.repositories == null) {
+            this.repositories = new ArrayList<>();
+        }
+        this.repositories.add(repositoriesItem);
+        return this;
     }
-    if (!(o instanceof Repositories)) {
-      return false;
+
+    /**
+     * Repository names.
+     * 
+     * @return repositories
+     **/
+    public List<String> getRepositories() {
+        return repositories;
     }
-    Repositories other = (Repositories) o;
-    return Objects.equals(this.repositories, other.repositories);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(repositories);
-  }
+    public void setRepositories(List<String> repositories) {
+        this.repositories = repositories;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Repositories {");
-    sb.append("\n    repositories: ").append(toIndentedString(repositories));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Repositories)) {
+            return false;
+        }
+        Repositories other = (Repositories) o;
+        return Objects.equals(this.repositories, other.repositories);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(repositories);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Repositories {");
+        sb.append("\n    repositories: ").append(toIndentedString(repositories));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

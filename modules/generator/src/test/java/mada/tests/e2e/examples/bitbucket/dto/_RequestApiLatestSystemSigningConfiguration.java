@@ -24,55 +24,56 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _RequestApiLatestSystemSigningConfiguration {
-  public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @JsonbProperty(JSON_PROPERTY_ENABLED)
-  @Schema(example = "false")
-  private Boolean enabled;
+    public static final String JSON_PROPERTY_ENABLED = "enabled";
+    @JsonbProperty(JSON_PROPERTY_ENABLED)
+    @Schema(example = "false")
+    private Boolean enabled;
 
-  public _RequestApiLatestSystemSigningConfiguration enabled(Boolean enabled) {
-    this.enabled = enabled;
-    return this;
-  }
-
-  /**
-   * Get enabled
-   * @return enabled
-   **/
-  public Boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public _RequestApiLatestSystemSigningConfiguration enabled(Boolean enabled) {
+        this.enabled = enabled;
+        return this;
     }
-    if (!(o instanceof _RequestApiLatestSystemSigningConfiguration)) {
-      return false;
+
+    /**
+     * Get enabled
+     *
+     * @return enabled
+     **/
+    public Boolean isEnabled() {
+        return enabled;
     }
-    _RequestApiLatestSystemSigningConfiguration other = (_RequestApiLatestSystemSigningConfiguration) o;
-    return Objects.equals(this.enabled, other.enabled);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(enabled);
-  }
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class _RequestApiLatestSystemSigningConfiguration {");
-    sb.append("\n    enabled: ").append(toIndentedString(enabled));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof _RequestApiLatestSystemSigningConfiguration)) {
+            return false;
+        }
+        _RequestApiLatestSystemSigningConfiguration other = (_RequestApiLatestSystemSigningConfiguration) o;
+        return Objects.equals(this.enabled, other.enabled);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(enabled);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class _RequestApiLatestSystemSigningConfiguration {");
+        sb.append("\n    enabled: ").append(toIndentedString(enabled));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

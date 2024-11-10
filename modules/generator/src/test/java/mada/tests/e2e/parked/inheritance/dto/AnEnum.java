@@ -17,32 +17,32 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum AnEnum {
-  VALUE_A("VALUE_A"),
-  VALUE_B("VALUE_B");
+    VALUE_A("VALUE_A"),
+    VALUE_B("VALUE_B");
 
-  private final String value;
+    private final String value;
 
-  AnEnum(String value) {
-    this.value = value;
-  }
-
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static AnEnum fromValue(String value) {
-    for (AnEnum b : AnEnum.values()) {
-      if (Objects.equals(b.value, value)) {
-        return b;
-      }
+    AnEnum(String value) {
+        this.value = value;
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
+
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static AnEnum fromValue(String value) {
+        for (AnEnum b : AnEnum.values()) {
+            if (Objects.equals(b.value, value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
 }

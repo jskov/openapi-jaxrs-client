@@ -24,79 +24,81 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestChangesetFromCommit {
-  public static final String JSON_PROPERTY_DISPLAY_ID = "displayId";
-  @JsonbProperty(JSON_PROPERTY_DISPLAY_ID)
-  @Schema(example = "abcdef0")
-  private String displayId;
+    public static final String JSON_PROPERTY_DISPLAY_ID = "displayId";
+    @JsonbProperty(JSON_PROPERTY_DISPLAY_ID)
+    @Schema(example = "abcdef0")
+    private String displayId;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  @JsonbProperty(JSON_PROPERTY_ID)
-  @Schema(example = "abcdef0123abcdef4567abcdef8987abcdef6543")
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    @JsonbProperty(JSON_PROPERTY_ID)
+    @Schema(example = "abcdef0123abcdef4567abcdef8987abcdef6543")
+    private String id;
 
-  public RestChangesetFromCommit displayId(String displayId) {
-    this.displayId = displayId;
-    return this;
-  }
-
-  /**
-   * Get displayId
-   * @return displayId
-   **/
-  public String getDisplayId() {
-    return displayId;
-  }
-
-  public void setDisplayId(String displayId) {
-    this.displayId = displayId;
-  }
-
-  public RestChangesetFromCommit id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestChangesetFromCommit displayId(String displayId) {
+        this.displayId = displayId;
+        return this;
     }
-    if (!(o instanceof RestChangesetFromCommit)) {
-      return false;
+
+    /**
+     * Get displayId
+     *
+     * @return displayId
+     **/
+    public String getDisplayId() {
+        return displayId;
     }
-    RestChangesetFromCommit other = (RestChangesetFromCommit) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(displayId, id);
-  }
+    public void setDisplayId(String displayId) {
+        this.displayId = displayId;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestChangesetFromCommit {");
-    sb.append("\n    displayId: ").append(toIndentedString(displayId));
-    sb.append("\n    id: ").append(toIndentedString(id));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestChangesetFromCommit id(String id) {
+        this.id = id;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get id
+     *
+     * @return id
+     **/
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestChangesetFromCommit)) {
+            return false;
+        }
+        RestChangesetFromCommit other = (RestChangesetFromCommit) o;
+        return Objects.equals(this.displayId, other.displayId) &&
+                Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(displayId, id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestChangesetFromCommit {");
+        sb.append("\n    displayId: ").append(toIndentedString(displayId));
+        sb.append("\n    id: ").append(toIndentedString(id));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

@@ -24,106 +24,106 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class ExamplePutMultipartFormData {
-  public static final String JSON_PROPERTY_CONTENT = "content";
-  @JsonbProperty(JSON_PROPERTY_CONTENT)
-  @Schema(description = "The hook script contents.")
-  private String content;
+    public static final String JSON_PROPERTY_CONTENT = "content";
+    @JsonbProperty(JSON_PROPERTY_CONTENT)
+    @Schema(description = "The hook script contents.")
+    private String content;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
-  @Schema(description = "A description of the hook script (useful when querying registered hook scripts).")
-  private String description;
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    @JsonbProperty(JSON_PROPERTY_DESCRIPTION)
+    @Schema(description = "A description of the hook script (useful when querying registered hook scripts).")
+    private String description;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(description = "The name of the hook script (useful when querying registered hook scripts).")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(description = "The name of the hook script (useful when querying registered hook scripts).")
+    private String name;
 
-  public ExamplePutMultipartFormData content(String content) {
-    this.content = content;
-    return this;
-  }
-
-  /**
-   * The hook script contents.
-   *
-   * @return content
-   **/
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  public ExamplePutMultipartFormData description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * A description of the hook script (useful when querying registered hook scripts).
-   *
-   * @return description
-   **/
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public ExamplePutMultipartFormData name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * The name of the hook script (useful when querying registered hook scripts).
-   *
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ExamplePutMultipartFormData content(String content) {
+        this.content = content;
+        return this;
     }
-    if (!(o instanceof ExamplePutMultipartFormData)) {
-      return false;
+
+    /**
+     * The hook script contents.
+     * 
+     * @return content
+     **/
+    public String getContent() {
+        return content;
     }
-    ExamplePutMultipartFormData other = (ExamplePutMultipartFormData) o;
-    return Objects.equals(this.content, other.content) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.name, other.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(content, description, name);
-  }
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ExamplePutMultipartFormData {");
-    sb.append("\n    content: ").append(toIndentedString(content));
-    sb.append("\n    description: ").append(toIndentedString(description));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public ExamplePutMultipartFormData description(String description) {
+        this.description = description;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * A description of the hook script (useful when querying registered hook scripts).
+     * 
+     * @return description
+     **/
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ExamplePutMultipartFormData name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * The name of the hook script (useful when querying registered hook scripts).
+     * 
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExamplePutMultipartFormData)) {
+            return false;
+        }
+        ExamplePutMultipartFormData other = (ExamplePutMultipartFormData) o;
+        return Objects.equals(this.content, other.content) &&
+                Objects.equals(this.description, other.description) &&
+                Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(content, description, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ExamplePutMultipartFormData {");
+        sb.append("\n    content: ").append(toIndentedString(content));
+        sb.append("\n    description: ").append(toIndentedString(description));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

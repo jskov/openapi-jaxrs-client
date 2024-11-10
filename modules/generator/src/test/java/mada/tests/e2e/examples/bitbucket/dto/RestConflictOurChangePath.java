@@ -26,135 +26,139 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestConflictOurChangePath {
-  public static final String JSON_PROPERTY_COMPONENTS = "components";
-  @JsonbProperty(JSON_PROPERTY_COMPONENTS)
-  @Schema(example = "[\"path\",\"to\",\"file.txt\"]")
-  private List<String> components;
+    public static final String JSON_PROPERTY_COMPONENTS = "components";
+    @JsonbProperty(JSON_PROPERTY_COMPONENTS)
+    @Schema(example = "[\"path\",\"to\",\"file.txt\"]")
+    private List<String> components;
 
-  public static final String JSON_PROPERTY_EXTENSION = "extension";
-  @JsonbProperty(JSON_PROPERTY_EXTENSION)
-  @Schema(example = "txt")
-  private String extension;
+    public static final String JSON_PROPERTY_EXTENSION = "extension";
+    @JsonbProperty(JSON_PROPERTY_EXTENSION)
+    @Schema(example = "txt")
+    private String extension;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  @JsonbProperty(JSON_PROPERTY_NAME)
-  @Schema(example = "file.txt")
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @JsonbProperty(JSON_PROPERTY_NAME)
+    @Schema(example = "file.txt")
+    private String name;
 
-  public static final String JSON_PROPERTY_PARENT = "parent";
-  @JsonbProperty(JSON_PROPERTY_PARENT)
-  @Schema(example = "path/to")
-  private String parent;
+    public static final String JSON_PROPERTY_PARENT = "parent";
+    @JsonbProperty(JSON_PROPERTY_PARENT)
+    @Schema(example = "path/to")
+    private String parent;
 
-  public RestConflictOurChangePath components(List<String> components) {
-    this.components = components;
-    return this;
-  }
-
-  public RestConflictOurChangePath addComponentsItem(String componentsItem) {
-    if (this.components == null) {
-      this.components = new ArrayList<>();
+    public RestConflictOurChangePath components(List<String> components) {
+        this.components = components;
+        return this;
     }
-    this.components.add(componentsItem);
-    return this;
-  }
 
-  /**
-   * Get components
-   * @return components
-   **/
-  public List<String> getComponents() {
-    return components;
-  }
-
-  public void setComponents(List<String> components) {
-    this.components = components;
-  }
-
-  public RestConflictOurChangePath extension(String extension) {
-    this.extension = extension;
-    return this;
-  }
-
-  /**
-   * Get extension
-   * @return extension
-   **/
-  public String getExtension() {
-    return extension;
-  }
-
-  public void setExtension(String extension) {
-    this.extension = extension;
-  }
-
-  public RestConflictOurChangePath name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   **/
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public RestConflictOurChangePath parent(String parent) {
-    this.parent = parent;
-    return this;
-  }
-
-  /**
-   * Get parent
-   * @return parent
-   **/
-  public String getParent() {
-    return parent;
-  }
-
-  public void setParent(String parent) {
-    this.parent = parent;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestConflictOurChangePath addComponentsItem(String componentsItem) {
+        if (this.components == null) {
+            this.components = new ArrayList<>();
+        }
+        this.components.add(componentsItem);
+        return this;
     }
-    if (!(o instanceof RestConflictOurChangePath)) {
-      return false;
+
+    /**
+     * Get components
+     *
+     * @return components
+     **/
+    public List<String> getComponents() {
+        return components;
     }
-    RestConflictOurChangePath other = (RestConflictOurChangePath) o;
-    return Objects.equals(this.components, other.components) &&
-        Objects.equals(this.extension, other.extension) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.parent, other.parent);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(components, extension, name, parent);
-  }
+    public void setComponents(List<String> components) {
+        this.components = components;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestConflictOurChangePath {");
-    sb.append("\n    components: ").append(toIndentedString(components));
-    sb.append("\n    extension: ").append(toIndentedString(extension));
-    sb.append("\n    name: ").append(toIndentedString(name));
-    sb.append("\n    parent: ").append(toIndentedString(parent));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public RestConflictOurChangePath extension(String extension) {
+        this.extension = extension;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get extension
+     *
+     * @return extension
+     **/
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public RestConflictOurChangePath name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public RestConflictOurChangePath parent(String parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return parent
+     **/
+    public String getParent() {
+        return parent;
+    }
+
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestConflictOurChangePath)) {
+            return false;
+        }
+        RestConflictOurChangePath other = (RestConflictOurChangePath) o;
+        return Objects.equals(this.components, other.components) &&
+                Objects.equals(this.extension, other.extension) &&
+                Objects.equals(this.name, other.name) &&
+                Objects.equals(this.parent, other.parent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(components, extension, name, parent);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestConflictOurChangePath {");
+        sb.append("\n    components: ").append(toIndentedString(components));
+        sb.append("\n    extension: ").append(toIndentedString(extension));
+        sb.append("\n    name: ").append(toIndentedString(name));
+        sb.append("\n    parent: ").append(toIndentedString(parent));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

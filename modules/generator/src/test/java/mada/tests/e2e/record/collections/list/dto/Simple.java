@@ -14,8 +14,6 @@ import org.jspecify.annotations.Nullable;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public record Simple(
-  @JsonbProperty("aBoolean")
-  @Nullable
-  Boolean aBoolean) {
+        @JsonbProperty("aBoolean") @Nullable Boolean aBoolean) {
 
 }

@@ -24,79 +24,81 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class _RequestKeysLatestSshKeyId {
-  public static final String JSON_PROPERTY_PROJECTS = "projects";
-  @JsonbProperty(JSON_PROPERTY_PROJECTS)
-  private RestProject projects;
+    public static final String JSON_PROPERTY_PROJECTS = "projects";
+    @JsonbProperty(JSON_PROPERTY_PROJECTS)
+    private RestProject projects;
 
-  public static final String JSON_PROPERTY_REPOSITORIES = "repositories";
-  @JsonbProperty(JSON_PROPERTY_REPOSITORIES)
-  private RestRepository repositories;
+    public static final String JSON_PROPERTY_REPOSITORIES = "repositories";
+    @JsonbProperty(JSON_PROPERTY_REPOSITORIES)
+    private RestRepository repositories;
 
-  public _RequestKeysLatestSshKeyId projects(RestProject projects) {
-    this.projects = projects;
-    return this;
-  }
-
-  /**
-   * Get projects
-   * @return projects
-   **/
-  @Valid
-  public RestProject getProjects() {
-    return projects;
-  }
-
-  public void setProjects(RestProject projects) {
-    this.projects = projects;
-  }
-
-  public _RequestKeysLatestSshKeyId repositories(RestRepository repositories) {
-    this.repositories = repositories;
-    return this;
-  }
-
-  /**
-   * Get repositories
-   * @return repositories
-   **/
-  @Valid
-  public RestRepository getRepositories() {
-    return repositories;
-  }
-
-  public void setRepositories(RestRepository repositories) {
-    this.repositories = repositories;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public _RequestKeysLatestSshKeyId projects(RestProject projects) {
+        this.projects = projects;
+        return this;
     }
-    if (!(o instanceof _RequestKeysLatestSshKeyId)) {
-      return false;
+
+    /**
+     * Get projects
+     *
+     * @return projects
+     **/
+    @Valid
+    public RestProject getProjects() {
+        return projects;
     }
-    _RequestKeysLatestSshKeyId other = (_RequestKeysLatestSshKeyId) o;
-    return Objects.equals(this.projects, other.projects) &&
-        Objects.equals(this.repositories, other.repositories);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(projects, repositories);
-  }
+    public void setProjects(RestProject projects) {
+        this.projects = projects;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class _RequestKeysLatestSshKeyId {");
-    sb.append("\n    projects: ").append(toIndentedString(projects));
-    sb.append("\n    repositories: ").append(toIndentedString(repositories));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    public _RequestKeysLatestSshKeyId repositories(RestRepository repositories) {
+        this.repositories = repositories;
+        return this;
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    /**
+     * Get repositories
+     *
+     * @return repositories
+     **/
+    @Valid
+    public RestRepository getRepositories() {
+        return repositories;
+    }
+
+    public void setRepositories(RestRepository repositories) {
+        this.repositories = repositories;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof _RequestKeysLatestSshKeyId)) {
+            return false;
+        }
+        _RequestKeysLatestSshKeyId other = (_RequestKeysLatestSshKeyId) o;
+        return Objects.equals(this.projects, other.projects) &&
+                Objects.equals(this.repositories, other.repositories);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(projects, repositories);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class _RequestKeysLatestSshKeyId {");
+        sb.append("\n    projects: ").append(toIndentedString(projects));
+        sb.append("\n    repositories: ").append(toIndentedString(repositories));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }

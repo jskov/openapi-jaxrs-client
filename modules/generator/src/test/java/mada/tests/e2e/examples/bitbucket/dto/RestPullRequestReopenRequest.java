@@ -23,54 +23,55 @@ import java.util.Objects;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class RestPullRequestReopenRequest {
-  public static final String JSON_PROPERTY_VERSION = "version";
-  @JsonbProperty(JSON_PROPERTY_VERSION)
-  private Integer version;
+    public static final String JSON_PROPERTY_VERSION = "version";
+    @JsonbProperty(JSON_PROPERTY_VERSION)
+    private Integer version;
 
-  public RestPullRequestReopenRequest version(Integer version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Get version
-   * @return version
-   **/
-  public Integer getVersion() {
-    return version;
-  }
-
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RestPullRequestReopenRequest version(Integer version) {
+        this.version = version;
+        return this;
     }
-    if (!(o instanceof RestPullRequestReopenRequest)) {
-      return false;
+
+    /**
+     * Get version
+     *
+     * @return version
+     **/
+    public Integer getVersion() {
+        return version;
     }
-    RestPullRequestReopenRequest other = (RestPullRequestReopenRequest) o;
-    return Objects.equals(this.version, other.version);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(version);
-  }
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RestPullRequestReopenRequest {");
-    sb.append("\n    version: ").append(toIndentedString(version));
-    sb.append("\n}");
-    return sb.toString();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RestPullRequestReopenRequest)) {
+            return false;
+        }
+        RestPullRequestReopenRequest other = (RestPullRequestReopenRequest) o;
+        return Objects.equals(this.version, other.version);
+    }
 
-  private String toIndentedString(Object o) {
-    return Objects.toString(o).replace("\n", "\n    ");
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(version);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class RestPullRequestReopenRequest {");
+        sb.append("\n    version: ").append(toIndentedString(version));
+        sb.append("\n}");
+        return sb.toString();
+    }
+
+    private String toIndentedString(Object o) {
+        return Objects.toString(o).replace("\n", "\n    ");
+    }
 }
