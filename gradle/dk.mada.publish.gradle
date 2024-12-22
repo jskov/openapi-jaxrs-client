@@ -7,7 +7,7 @@ publishing {
     repositories {
         maven {
             name = "dist"
-            url "file://${project.rootProject.file("build/dist").getAbsolutePath()}"
+            url = "file://${project.rootProject.file("build/dist").getAbsolutePath()}"
         }
     }
 }
