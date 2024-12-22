@@ -178,7 +178,7 @@ public class PropertyGenerator {
                 .getter(extGetter)
                 .setter(extSetter)
                 .jsonb(opts.isJsonb())
-                .renderJavadocMacroSpacer(!description.isPresent())
+                .renderJavadocMacroSpacer(true)
                 .multipartType(multipartType)
                 .jsonPropertyConstant(jsonPropertyConst)
                 .isNullable(isJaxrsNullable || isImpliedNullable)

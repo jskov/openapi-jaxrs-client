@@ -48,7 +48,7 @@ public final class StringRenderer {
      * @return a valid summary to render as javadoc, or null
      */
     public static Optional<String> makeValidPropertyJavadocSummary(String textIn) {
-        return makeValidJavadocSummary(textIn, "  ");
+        return makeValidJavadocSummary(textIn, "    ");
     }
 
     /**
@@ -81,6 +81,10 @@ public final class StringRenderer {
         text = text.lines()
                 .map(String::stripTrailing)
                 .collect(Collectors.joining(NL));
+
+        text = text
+                .replace("<br>", "<br>" + NL + NL)
+                .replace("<br/>", "<br/>" + NL + NL);
 
         // Replaces 2+ newlines with a single space.
         text = text.replaceAll("\n{2,}", "@@NL@@")
