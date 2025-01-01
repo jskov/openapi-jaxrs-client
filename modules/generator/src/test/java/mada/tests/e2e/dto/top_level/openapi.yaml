@@ -1,0 +1,92 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  '/v1/customers/{customerId}/nameAndAddresses':
+    get:
+      tags:
+        - Customer Information
+      parameters:
+        -
+          $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          $ref: '#/components/responses/getCustomerNameAndAddresses_200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+      operationId: getCustomerNameAndAddresses
+      summary: Get name and addresses for at specific customer
+components:
+  schemas:
+    customerId:
+      description: Uniqe key for the customer to access further information.
+      pattern: >-
+        ^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])-(2[0-3]|[01][0-9]).[0-5][0-9].[0-5][0-9].[0-9]{6}$
+      type: string
+    engagementInput:
+      description: "Input for creating engagement for existing legal entity"
+      type: object
+      properties:
+        addressProtection:
+          type: boolean
+          description: Protected address
+    errorMessage400:
+      description: Messages with HTTP error code 400  on operational issues related to path and header variables.
+      properties:
+        errorText:
+          $ref: '#/components/schemas/errorText'
+        code:
+          $ref: '#/components/schemas/MessageCode400'
+    errorText:
+      description: Additional explaining text to the user.
+      maxLength: 512
+      type: string
+    MessageCode400:
+      description: Message codes defined for HTTP Error code.
+      enum:
+        - BAD_REQUEST
+      type: string
+  requestBodies:
+    engagementRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/engagementInput'
+      required: true
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage400'
+      description: Bad input from user
+  parameters:
+    customerId:
+      name: customerId
+      description: Customer identification.
+      schema:
+        $ref: '#/components/schemas/customerId'
+      in: path
+      required: true
+  

@@ -4,7 +4,7 @@
 
 To prepare eclipse settings to get eclipse/vscode to work with APT run this task:
 
-    ./gradlew prepCodeGen
+    ./gradlew eclipse
 
 ## Testing notes
 
