@@ -131,6 +131,11 @@ public class PropertyGenerator {
         boolean isJaxrsNullable = prop.validation().isNullable().orElse(false);
         boolean isImpliedNullable = !isRequired;
         boolean isNotNull = !isJaxrsNullable && isRequired;
+        // See #707 - bean validation NotNull should apparently only relate to
+        // !isNullable
+        boolean beanValidationNotNull = !isJaxrsNullable;
+        logger.info("XX {} implied nullable : {} -> {}", getter, isImpliedNullable, isImpliedNullable || isJaxrsNullable);
+        logger.info("XX {} jaxrsNullable:{} notNull:{}", getter, isJaxrsNullable, beanValidationNotNull);
         if (isRequired) {
             schemaEntries.add("required = true");
         }

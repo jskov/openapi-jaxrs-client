@@ -432,6 +432,44 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-nullable-required**
+
+>TODO: Naming of this option
+
+>The [OpenApi nullable](https://swagger.io/docs/specification/v3_0/data-models/data-types/#null) flag, if true, signals that a field can be null.  
+>The [OpenApi required](https://swagger.io/docs/specification/v3_0/data-models/data-types/#required-properties) flag, if true, signals that a field is required.
+
+>In particular, note that a `required=true` field can validly be represented by a null-value (unless it is also marked `nullable=false`).
+
+>[Bean validation @NotNull](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/notnull) ensures that a field is not null (or validation, if/when invoked will fail).
+
+>The problem is how to interpret OpenApi `nullable`+`required` states in the context of Java Bean Validation.  
+>The API document is language agnostic so may not have the same idea of how to interpret these property states.
+
+>[Jackson @JsonProperty(required)`](https://www.javadoc.io/static/com.fasterxml.jackson.core/jackson-annotations/2.18.2/com/fasterxml/jackson/annotation/JsonProperty.html#required--) uses to require that a field is present during deserialization. It can be null (that is, the `nullable` state of the OpenApi document is not considered). But see also [jackson-databind-nullable](https://github.com/OpenAPITools/jackson-databind-nullable).
+
+>Similar, [Json Binding](https://jakarta.ee/specifications/jsonb/3.0/jakarta-jsonb-spec-3.0#null-value-handling) also ignores the `nullable` state of the OpenApi document. If a field is present, it is set (null or not), when deserializing a field.
+
+>So how to interpret a field that is `nullable=false`. As a Java EE developer, you would probably expect the field getter to be annotated as:
+>
+    @NonNull String getString();
+
+>But deserilizing the 
+
+TODO: how does rhyewhatsit mark @NotNull
+
+Start a general solution for:
+
+https://download.eclipse.org/microprofile/microprofile-open-api-3.1.1/microprofile-openapi-spec-3.1.1.html#_jakarta_bean_validation_annotations
+
+
+
+
+3.14.1 Null Java field
+
+
+
+
 **generator-use-bean-validation**
 
 >Allows you to disable the rendering of bean validation annotations.

@@ -10,6 +10,7 @@ package mada.tests.e2e.dto.validation.example.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Simple
@@ -29,6 +30,7 @@ public class Simple {
    * Get aBoolean
    * @return aBoolean
    **/
+  @NotNull
   public Boolean isaBoolean() {
     return aBoolean;
   }

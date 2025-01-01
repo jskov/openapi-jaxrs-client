@@ -54,7 +54,10 @@ public class ValidationGenerator {
 
         boolean isNullable = validation.isNullable().orElse(false);
         boolean isRequired = validation.isRequired().orElse(false);
-        boolean isNotNull = !isNullable && isRequired;
+//        boolean isNotNull = !isNullable && isRequired;
+        boolean isNotNull = !isNullable;
+        // THIS fixes Per's situation, but breaks 100 of 130 existing tests.
+        // determine how jackson and smallrye behave and adjust accordingly
         if (isNotNull) {
             imports.add(renderAnnotations, ValidationApi.NOT_NULL);
         }
