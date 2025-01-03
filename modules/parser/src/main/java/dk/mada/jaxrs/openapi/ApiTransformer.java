@@ -51,7 +51,7 @@ public class ApiTransformer {
     /** The multipart/form-data media type. */
     private static final String MULTIPART_FORM_DATA = "multipart/form-data";
     /** Component requestBodies prefix. */
-    private static final String REF_REQUESTBODIES_SCHEMAS = "#/components/requestBodies/";
+    private static final String REF_COMPONENTS_REQUESTBODIES = "#/components/requestBodies/";
 
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
@@ -199,10 +199,13 @@ public class ApiTransformer {
             return Optional.empty();
         }
 
+        // requestBody may be represented by a reference to the /components/requestBodies/ part
+        // of the OpenApi document. These are basically links to (properly defined) request
+        // bodies.
         String bodyRef = body.get$ref();
-        if (bodyRef != null && bodyRef.startsWith(REF_REQUESTBODIES_SCHEMAS)) {
+        if (bodyRef != null && bodyRef.startsWith(REF_COMPONENTS_REQUESTBODIES)) {
             // Body is defined via a reference
-            String bodyName = bodyRef.substring(REF_REQUESTBODIES_SCHEMAS.length());
+            String bodyName = bodyRef.substring(REF_COMPONENTS_REQUESTBODIES.length());
             body = requestBodies.get(bodyName);
         }
         if (body == null) {
