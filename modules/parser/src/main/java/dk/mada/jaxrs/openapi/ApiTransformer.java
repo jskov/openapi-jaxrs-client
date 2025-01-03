@@ -195,9 +195,8 @@ public class ApiTransformer {
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         StatusCode status = StatusCode.of(code);
-        
+
         String responseRef = resp.get$ref();
-        logger.info("response {} : {} : {}", resourcePath, responseRef, resp);
         if (responseRef != null && responseRef.startsWith(REF_COMPONENTS_RESPONSES)) {
             // response is defined via a reference
             String responseName = responseRef.substring(REF_COMPONENTS_RESPONSES.length());
