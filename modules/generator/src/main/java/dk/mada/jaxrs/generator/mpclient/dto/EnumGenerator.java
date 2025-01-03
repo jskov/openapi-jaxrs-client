@@ -139,10 +139,14 @@ public class EnumGenerator {
     private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
         String name = e.name();
         String value = e.value();
-        if (enumType == Primitive.INT) {
+        if (enumType == Primitive.SHORT || enumType == Primitive.NOFORMAT_INT) {
+            value = "(short)" + value;
+        } else if (enumType == Primitive.INT) {
             if (opts.isUseEnumUnknownDefault() && ENUM_INT_UNKNOWN_DEFAULT_STR.equals(value)) {
                 name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase(Locale.ROOT);
             }
+        } else if (enumType == Primitive.LONG) {
+            value = value + "L";
         } else {
             value = StringRenderer.quote(value);
         }
