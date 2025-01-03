@@ -3,18 +3,11 @@ openapi: 3.0.3
 info:
   title: openapi API Title
   description: openapi API description
-  termsOfService: openapi API TOS
   contact:
     name: openapi API contact name
-    url: openapi API contact url
-    email: openapi API contact email
   license:
     name: openapi API license name
-    url: openapi API license url
   version: openapi API Version
-externalDocs:
-  description: openapi API ext docs description
-  url: openapi API ext url
 tags: []
 paths:
   '/v1/customers/{customerId}/nameAndAddresses':
@@ -25,16 +18,8 @@ paths:
         -
           $ref: '#/components/parameters/customerId'
       responses:
-        '200':
-          $ref: '#/components/responses/getCustomerNameAndAddresses_200'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/ServerError'
-        '503':
-          $ref: '#/components/responses/Unavailable'
       operationId: getCustomerNameAndAddresses
       summary: Get name and addresses for at specific customer
     post:
@@ -45,8 +30,8 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/engagementRequest'
       responses:
-        '200':
-          $ref: '#/components/responses/getCustomerNameAndAddresses_200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
 components:
   schemas:
     customerId:
