@@ -12,6 +12,8 @@ dependencies {
 
     annotationProcessor (libs.immutablesApt)
     compileOnly         (libs.immutablesAnn)
+
+    compileOnly         (libs.jspecify)
 }
 
 publishing {

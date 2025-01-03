@@ -204,10 +204,13 @@ public class ApiTransformer {
         }
 
         ContentContext cc = new ContentContext(resourcePath, status, false, Location.RESPONSE, false);
+        Optional<String> description = Optional.ofNullable(resp).map(ApiResponse::getDescription);
+        io.swagger.v3.oas.models.media.Content content = resp != null ? resp.getContent() : null;
+
         return Response.builder()
                 .code(status)
-                .description(Optional.ofNullable(resp.getDescription()))
-                .content(selectContent(resp.getContent(), cc))
+                .description(description)
+                .content(selectContent(content, cc))
                 .build();
     }
 
@@ -407,7 +410,7 @@ public class ApiTransformer {
      * @param context the context where the content is looked up from
      * @return the selected (model) content
      */
-    public Content selectContent(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
+    public Content selectContent(io.swagger.v3.oas.models.media.@Nullable Content c, ContentContext context) {
         Reference ref;
         Set<String> mediaTypes;
 
