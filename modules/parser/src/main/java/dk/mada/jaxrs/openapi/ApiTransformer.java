@@ -52,6 +52,8 @@ public class ApiTransformer {
     private static final String MULTIPART_FORM_DATA = "multipart/form-data";
     /** Component requestBodies prefix. */
     private static final String REF_COMPONENTS_REQUESTBODIES = "#/components/requestBodies/";
+    /** Component responses prefix. */
+    private static final String REF_COMPONENTS_RESPONSES = "#/components/responses/";
 
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
@@ -71,6 +73,8 @@ public class ApiTransformer {
 
     /** OpenApi requestBodies mappings. */
     private final Map<String, io.swagger.v3.oas.models.parameters.RequestBody> requestBodies;
+    /** OpenApi responses mappings. */
+    private final Map<String, ApiResponse> responses;
 
     /**
      * Constructs a new API transformer instance.
@@ -96,6 +100,12 @@ public class ApiTransformer {
             requestBodies = components.getRequestBodies();
         } else {
             requestBodies = Map.of();
+        }
+
+        if (components != null && components.getResponses() != null) {
+            responses = components.getResponses();
+        } else {
+            responses = Map.of();
         }
     }
 
@@ -185,6 +195,15 @@ public class ApiTransformer {
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         StatusCode status = StatusCode.of(code);
+        
+        String responseRef = resp.get$ref();
+        logger.info("response {} : {} : {}", resourcePath, responseRef, resp);
+        if (responseRef != null && responseRef.startsWith(REF_COMPONENTS_RESPONSES)) {
+            // response is defined via a reference
+            String responseName = responseRef.substring(REF_COMPONENTS_RESPONSES.length());
+            resp = responses.get(responseName);
+        }
+
         ContentContext cc = new ContentContext(resourcePath, status, false, Location.RESPONSE, false);
         return Response.builder()
                 .code(status)

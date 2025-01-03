@@ -16,12 +16,19 @@ paths:
       tags:
         - Customer Information
       responses:
+        '200':
+          $ref: '#/components/responses/getCustomerDetails_200'
         '400':
           $ref: '#/components/responses/BadRequest'
       operationId: getCustomerNameAndAddresses
       summary: Get name and addresses for at specific customer
 components:
   schemas:
+    customerDetailsResponse:
+      type: object
+      properties:
+        guardianship:
+          type: string
     errorMessage400:
       description: Messages with HTTP error code 400  on operational issues related to path and header variables.
       properties:
@@ -45,3 +52,11 @@ components:
           schema:
             $ref: '#/components/schemas/errorMessage400'
       description: Bad input from user
+    getCustomerDetails_200:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/customerDetailsResponse'
+      description: |
+        Valid respose for get customer details.
+      
