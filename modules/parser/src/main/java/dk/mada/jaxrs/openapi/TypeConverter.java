@@ -63,6 +63,8 @@ public final class TypeConverter {
     private static final Logger logger = LoggerFactory.getLogger(TypeConverter.class);
     /** Component schema prefix. */
     private static final String REF_COMPONENTS_SCHEMAS = "#/components/schemas/";
+    /** Component requestBodies prefix. */
+    private static final String REF_REQUESTBODIES_SCHEMAS = "#/components/requestBodies/";
 
     /** Type names. */
     private final TypeNames typeNames;
@@ -178,6 +180,16 @@ public final class TypeConverter {
      */
     private ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName) {
         return reference(schema, propertyName, parentDtoName, false, null);
+    }
+
+    /**
+     * Converts a OpenApi $ref to a parser type reference.
+     *
+     * @param ref the OpenApi $ref string
+     * @return the created parser type reference
+     */
+    public ParserTypeRef toBareRefFromApi(String ref) {
+        return createDtoRef(ref, Validation.NO_VALIDATION);
     }
 
     /**
@@ -628,11 +640,20 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createDtoRef(String ref, Validation validation) {
-        if (ref == null || !ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
+        if (ref == null) {
             return null;
         }
+
+        String openapiId;
+        if (ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
+            openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
+        } else if (ref.startsWith(REF_REQUESTBODIES_SCHEMAS)) {
+            openapiId = ref.substring(REF_REQUESTBODIES_SCHEMAS.length());
+        } else {
+            return null;
+        }
+
         logger.trace(" - createDtoRef");
-        String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
         return parserRefs.makeDtoRef(openapiId, validation);
     }
 

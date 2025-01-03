@@ -66,6 +66,8 @@ public class ApiTransformer {
     /** List of operations added as the api is traversed. */
     private final List<Operation> ops = new ArrayList<>();
 
+    private OpenAPI specification;
+
     /**
      * Constructs a new API transformer instance.
      *
@@ -75,9 +77,10 @@ public class ApiTransformer {
      * @param contentSelector the content selector
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(Naming naming, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
+    public ApiTransformer(OpenAPI specification, Naming naming, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
             ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
+        this.specification = specification;
         this.naming = naming;
         this.leakedGenOpts = leakedGenOpts;
         this.typeConverter = typeConverter;
@@ -184,33 +187,60 @@ public class ApiTransformer {
         if (body == null) {
             return Optional.empty();
         }
-        MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
-        boolean createMultipartDto = leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null;
 
-        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST,
-                createMultipartDto);
-        Content content = selectContent(body.getContent(), cc);
+        Content content;
+        List<Parameter> formParameters;
 
-        if (createMultipartDto && mt != null && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
-            logger.debug("FORM-DATA: {}", mt);
-            Schema<?> schema = mt.getSchema();
-            ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
-            Content multipartBodyContent = Content.builder()
-                    .reference(multipartBody)
-                    .mediaTypes(List.of(MULTIPART_FORM_DATA))
+        io.swagger.v3.oas.models.media.Content bodyContent = body.getContent();
+        String bodyRef = body.get$ref();
+
+        if (bodyContent != null) {
+
+            // Body is defined inline
+            MediaType mt = bodyContent.get(MULTIPART_FORM_DATA);
+            boolean createMultipartDto = leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null;
+
+            ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST,
+                    createMultipartDto);
+            content = selectContent(bodyContent, cc);
+
+            if (createMultipartDto && mt != null && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
+                logger.debug("FORM-DATA: {}", mt);
+                Schema<?> schema = mt.getSchema();
+                ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
+                Content multipartBodyContent = Content.builder()
+                        .reference(multipartBody)
+                        .mediaTypes(List.of(MULTIPART_FORM_DATA))
+                        .build();
+
+                return Optional.of(
+                        RequestBody.builder()
+                                .description(Optional.of("Synthetic multipart body"))
+                                .content(multipartBodyContent)
+                                .formParameters(List.of())
+                                .isMultipartForm(true)
+                                .build());
+            }
+
+            formParameters = extractFormParameters(bodyContent);
+            logger.debug("GOT FORM PARAMS: {}", formParameters);
+
+        } else if (bodyRef != null) {
+
+            // Body is defined via a reference
+
+            // Have only seen bare refs (no validation/type info) - see test api/params/body_ref
+            ParserTypeRef bareRef = typeConverter.toBareRefFromApi(bodyRef);
+            content = Content.builder()
+                    .mediaTypes(List.of())
+                    .reference(bareRef)
                     .build();
-
-            return Optional.of(
-                    RequestBody.builder()
-                            .description(Optional.of("Synthetic multipart body"))
-                            .content(multipartBodyContent)
-                            .formParameters(List.of())
-                            .isMultipartForm(true)
-                            .build());
+            formParameters = List.of();
+        } else {
+            // Do not explode - but output will be bad(ish)
+            logger.warn("Body without content or ref at path: {}", resourcePath);
+            return Optional.empty();
         }
-
-        List<Parameter> formParameters = extractFormParameters(body.getContent());
-        logger.debug("GOT FORM PARAMS: {}", formParameters);
 
         if (!formParameters.isEmpty()) {
             // Suppress rendering of DTO if form parameters are rendered
