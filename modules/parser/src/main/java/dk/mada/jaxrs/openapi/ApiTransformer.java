@@ -29,6 +29,7 @@ import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
@@ -49,6 +50,8 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 public class ApiTransformer {
     /** The multipart/form-data media type. */
     private static final String MULTIPART_FORM_DATA = "multipart/form-data";
+    /** Component requestBodies prefix. */
+    private static final String REF_COMPONENTS_REQUESTBODIES = "#/components/requestBodies/";
 
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
@@ -66,16 +69,20 @@ public class ApiTransformer {
     /** List of operations added as the api is traversed. */
     private final List<Operation> ops = new ArrayList<>();
 
+    /** OpenApi requestBodies mappings. */
+    private final Map<String, io.swagger.v3.oas.models.parameters.RequestBody> requestBodies;
+
     /**
      * Constructs a new API transformer instance.
      *
+     * @param specification   the OpenApi specification
      * @param naming          the naming instance
      * @param leakedGenOpts   the leaked generator options
      * @param typeConverter   the type converter
      * @param contentSelector the content selector
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(Naming naming, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
+    public ApiTransformer(OpenAPI specification, Naming naming, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
             ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
         this.naming = naming;
@@ -83,6 +90,13 @@ public class ApiTransformer {
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
         this.contentSelector = contentSelector;
+
+        Components components = specification.getComponents();
+        if (components != null && components.getRequestBodies() != null) {
+            requestBodies = components.getRequestBodies();
+        } else {
+            requestBodies = Map.of();
+        }
     }
 
     /**
@@ -184,12 +198,33 @@ public class ApiTransformer {
         if (body == null) {
             return Optional.empty();
         }
-        MediaType mt = body.getContent().get(MULTIPART_FORM_DATA);
+
+        // requestBody may be represented by a reference to the /components/requestBodies/ part
+        // of the OpenApi document. These are basically links to (properly defined) request
+        // bodies.
+        String bodyRef = body.get$ref();
+        if (bodyRef != null && bodyRef.startsWith(REF_COMPONENTS_REQUESTBODIES)) {
+            // Body is defined via a reference
+            String bodyName = bodyRef.substring(REF_COMPONENTS_REQUESTBODIES.length());
+            body = requestBodies.get(bodyName);
+        }
+        if (body == null) {
+            return Optional.empty();
+        }
+
+        io.swagger.v3.oas.models.media.Content bodyContent = body.getContent();
+        if (bodyContent == null) {
+            // Do not explode - but output will be bad(ish)
+            logger.warn("Body without content or ref at path: {}", resourcePath);
+            return Optional.empty();
+        }
+
+        MediaType mt = bodyContent.get(MULTIPART_FORM_DATA);
         boolean createMultipartDto = leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null;
 
         ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST,
                 createMultipartDto);
-        Content content = selectContent(body.getContent(), cc);
+        Content content = selectContent(bodyContent, cc);
 
         if (createMultipartDto && mt != null && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
             logger.debug("FORM-DATA: {}", mt);
@@ -209,7 +244,7 @@ public class ApiTransformer {
                             .build());
         }
 
-        List<Parameter> formParameters = extractFormParameters(body.getContent());
+        List<Parameter> formParameters = extractFormParameters(bodyContent);
         logger.debug("GOT FORM PARAMS: {}", formParameters);
 
         if (!formParameters.isEmpty()) {

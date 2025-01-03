@@ -114,7 +114,7 @@ public final class Parser {
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
-        Operations operations = new ApiTransformer(naming, leakedGenOpts, typeConverter, contentSelector, securitySchemes)
+        Operations operations = new ApiTransformer(specification, naming, leakedGenOpts, typeConverter, contentSelector, securitySchemes)
                 .transform(specification);
         new DtoTransformer(typeConverter).transform(specification);
 

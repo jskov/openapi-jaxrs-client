@@ -631,6 +631,7 @@ public final class TypeConverter {
         if (ref == null || !ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
             return null;
         }
+
         logger.trace(" - createDtoRef");
         String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
         return parserRefs.makeDtoRef(openapiId, validation);
