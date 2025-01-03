@@ -49,6 +49,8 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 public class ApiTransformer {
     /** The multipart/form-data media type. */
     private static final String MULTIPART_FORM_DATA = "multipart/form-data";
+    /** Component requestBodies prefix. */
+    private static final String REF_REQUESTBODIES_SCHEMAS = "#/components/requestBodies/";
 
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
@@ -66,11 +68,13 @@ public class ApiTransformer {
     /** List of operations added as the api is traversed. */
     private final List<Operation> ops = new ArrayList<>();
 
-    private OpenAPI specification;
+    /** OpenApi requestBodies mappings. */
+    private final Map<String, io.swagger.v3.oas.models.parameters.RequestBody> requestBodies;
 
     /**
      * Constructs a new API transformer instance.
      *
+     * @param specification   the OpenApi specification
      * @param naming          the naming instance
      * @param leakedGenOpts   the leaked generator options
      * @param typeConverter   the type converter
@@ -80,7 +84,7 @@ public class ApiTransformer {
     public ApiTransformer(OpenAPI specification, Naming naming, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
             ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
-        this.specification = specification;
+        this.requestBodies = specification.getComponents().getRequestBodies();
         this.naming = naming;
         this.leakedGenOpts = leakedGenOpts;
         this.typeConverter = typeConverter;
@@ -188,59 +192,49 @@ public class ApiTransformer {
             return Optional.empty();
         }
 
-        Content content;
-        List<Parameter> formParameters;
+        String bodyRef = body.get$ref();
+        if (bodyRef != null && bodyRef.startsWith(REF_REQUESTBODIES_SCHEMAS)) {
+            // Body is defined via a reference
+            String bodyName = bodyRef.substring(REF_REQUESTBODIES_SCHEMAS.length());
+            body = requestBodies.get(bodyName);
+        }
+
+        logger.info("BODY in {}", body);
 
         io.swagger.v3.oas.models.media.Content bodyContent = body.getContent();
-        String bodyRef = body.get$ref();
-
-        if (bodyContent != null) {
-
-            // Body is defined inline
-            MediaType mt = bodyContent.get(MULTIPART_FORM_DATA);
-            boolean createMultipartDto = leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null;
-
-            ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST,
-                    createMultipartDto);
-            content = selectContent(bodyContent, cc);
-
-            if (createMultipartDto && mt != null && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
-                logger.debug("FORM-DATA: {}", mt);
-                Schema<?> schema = mt.getSchema();
-                ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
-                Content multipartBodyContent = Content.builder()
-                        .reference(multipartBody)
-                        .mediaTypes(List.of(MULTIPART_FORM_DATA))
-                        .build();
-
-                return Optional.of(
-                        RequestBody.builder()
-                                .description(Optional.of("Synthetic multipart body"))
-                                .content(multipartBodyContent)
-                                .formParameters(List.of())
-                                .isMultipartForm(true)
-                                .build());
-            }
-
-            formParameters = extractFormParameters(bodyContent);
-            logger.debug("GOT FORM PARAMS: {}", formParameters);
-
-        } else if (bodyRef != null) {
-
-            // Body is defined via a reference
-
-            // Have only seen bare refs (no validation/type info) - see test api/params/body_ref
-            ParserTypeRef bareRef = typeConverter.toBareRefFromApi(bodyRef);
-            content = Content.builder()
-                    .mediaTypes(List.of())
-                    .reference(bareRef)
-                    .build();
-            formParameters = List.of();
-        } else {
+        if (bodyContent == null) {
             // Do not explode - but output will be bad(ish)
             logger.warn("Body without content or ref at path: {}", resourcePath);
             return Optional.empty();
         }
+
+        MediaType mt = bodyContent.get(MULTIPART_FORM_DATA);
+        boolean createMultipartDto = leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null;
+
+        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST,
+                createMultipartDto);
+        Content content = selectContent(bodyContent, cc);
+
+        if (createMultipartDto && mt != null && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
+            logger.debug("FORM-DATA: {}", mt);
+            Schema<?> schema = mt.getSchema();
+            ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
+            Content multipartBodyContent = Content.builder()
+                    .reference(multipartBody)
+                    .mediaTypes(List.of(MULTIPART_FORM_DATA))
+                    .build();
+
+            return Optional.of(
+                    RequestBody.builder()
+                            .description(Optional.of("Synthetic multipart body"))
+                            .content(multipartBodyContent)
+                            .formParameters(List.of())
+                            .isMultipartForm(true)
+                            .build());
+        }
+
+        List<Parameter> formParameters = extractFormParameters(bodyContent);
+        logger.debug("GOT FORM PARAMS: {}", formParameters);
 
         if (!formParameters.isEmpty()) {
             // Suppress rendering of DTO if form parameters are rendered
