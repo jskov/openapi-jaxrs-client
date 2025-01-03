@@ -37,6 +37,16 @@ paths:
           $ref: '#/components/responses/Unavailable'
       operationId: getCustomerNameAndAddresses
       summary: Get name and addresses for at specific customer
+    post:
+      tags:
+        - Engagement
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        $ref: '#/components/requestBodies/engagementRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/getCustomerNameAndAddresses_200'
 components:
   schemas:
     customerId:
