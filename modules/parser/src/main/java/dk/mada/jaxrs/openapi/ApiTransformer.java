@@ -52,6 +52,8 @@ public class ApiTransformer {
     private static final String MULTIPART_FORM_DATA = "multipart/form-data";
     /** Component requestBodies prefix. */
     private static final String REF_COMPONENTS_REQUESTBODIES = "#/components/requestBodies/";
+    /** Component responses prefix. */
+    private static final String REF_COMPONENTS_RESPONSES = "#/components/responses/";
 
     private static final Logger logger = LoggerFactory.getLogger(ApiTransformer.class);
 
@@ -71,6 +73,8 @@ public class ApiTransformer {
 
     /** OpenApi requestBodies mappings. */
     private final Map<String, io.swagger.v3.oas.models.parameters.RequestBody> requestBodies;
+    /** OpenApi responses mappings. */
+    private final Map<String, ApiResponse> responses;
 
     /**
      * Constructs a new API transformer instance.
@@ -96,6 +100,12 @@ public class ApiTransformer {
             requestBodies = components.getRequestBodies();
         } else {
             requestBodies = Map.of();
+        }
+
+        if (components != null && components.getResponses() != null) {
+            responses = components.getResponses();
+        } else {
+            responses = Map.of();
         }
     }
 
@@ -185,11 +195,22 @@ public class ApiTransformer {
 
     private Response toResponse(String resourcePath, String code, ApiResponse resp) {
         StatusCode status = StatusCode.of(code);
+
+        String responseRef = resp.get$ref();
+        if (responseRef != null && responseRef.startsWith(REF_COMPONENTS_RESPONSES)) {
+            // response is defined via a reference
+            String responseName = responseRef.substring(REF_COMPONENTS_RESPONSES.length());
+            resp = responses.get(responseName);
+        }
+
         ContentContext cc = new ContentContext(resourcePath, status, false, Location.RESPONSE, false);
+        Optional<String> description = Optional.ofNullable(resp).map(ApiResponse::getDescription);
+        io.swagger.v3.oas.models.media.Content content = resp != null ? resp.getContent() : null;
+
         return Response.builder()
                 .code(status)
-                .description(Optional.ofNullable(resp.getDescription()))
-                .content(selectContent(resp.getContent(), cc))
+                .description(description)
+                .content(selectContent(content, cc))
                 .build();
     }
 
@@ -389,7 +410,7 @@ public class ApiTransformer {
      * @param context the context where the content is looked up from
      * @return the selected (model) content
      */
-    public Content selectContent(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
+    public Content selectContent(io.swagger.v3.oas.models.media.@Nullable Content c, ContentContext context) {
         Reference ref;
         Set<String> mediaTypes;
 
