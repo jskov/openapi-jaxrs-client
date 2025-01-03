@@ -199,8 +199,6 @@ public class ApiTransformer {
             body = requestBodies.get(bodyName);
         }
 
-        logger.info("BODY in {}", body);
-
         io.swagger.v3.oas.models.media.Content bodyContent = body.getContent();
         if (bodyContent == null) {
             // Do not explode - but output will be bad(ish)
