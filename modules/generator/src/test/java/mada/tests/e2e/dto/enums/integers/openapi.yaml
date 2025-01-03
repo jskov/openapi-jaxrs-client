@@ -1,0 +1,56 @@
+---
+# Partial from j.bolig customerdomain
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  contact:
+    name: openapi API contact name
+  license:
+    name: openapi API license name
+  version: openapi API Version
+tags: []
+paths:
+  '/v1/customers/engagements':
+    get:
+      tags:
+        - Customer Information
+      responses:
+        '200':
+          $ref: '#/components/schemas/customerEngagement'
+      operationId: getCustomerEngagement
+      summary: Get engagements (refNo) for a specific customer.
+components:
+  schemas:
+    roleCodeShort:
+      description: 'Role for the customer refnr relation. 1=Owner, 0=Related, Unknown role.'
+      enum:
+        - 0
+        - 1
+      type: integer
+    roleCodeInt:
+      description: 'Role for the customer refnr relation. 1=Owner, 0=Related, Unknown role.'
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+    roleCodeLong:
+      description: 'Role for the customer refnr relation. 1=Owner, 0=Related, Unknown role.'
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int64
+    customerEngagement:
+      description: |
+        Customer Engagement information.
+      type: object
+      properties:
+        roleCodeShort:
+          $ref: '#/components/schemas/roleCodeShort'
+        roleCodeInt:
+          $ref: '#/components/schemas/roleCodeInt'
+        roleCodeLong:
+          $ref: '#/components/schemas/roleCodeLong'
+          
