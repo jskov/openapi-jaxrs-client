@@ -29,6 +29,7 @@ import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
@@ -84,12 +85,18 @@ public class ApiTransformer {
     public ApiTransformer(OpenAPI specification, Naming naming, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
             ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
-        this.requestBodies = specification.getComponents().getRequestBodies();
         this.naming = naming;
         this.leakedGenOpts = leakedGenOpts;
         this.typeConverter = typeConverter;
         this.securitySchemes = securitySchemes;
         this.contentSelector = contentSelector;
+
+        Components components = specification.getComponents();
+        if (components != null && components.getRequestBodies() != null) {
+            requestBodies = components.getRequestBodies();
+        } else {
+            requestBodies = Map.of();
+        }
     }
 
     /**
@@ -197,6 +204,9 @@ public class ApiTransformer {
             // Body is defined via a reference
             String bodyName = bodyRef.substring(REF_REQUESTBODIES_SCHEMAS.length());
             body = requestBodies.get(bodyName);
+        }
+        if (body == null) {
+            return Optional.empty();
         }
 
         io.swagger.v3.oas.models.media.Content bodyContent = body.getContent();
