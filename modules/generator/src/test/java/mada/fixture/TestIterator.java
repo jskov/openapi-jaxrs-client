@@ -48,9 +48,7 @@ class TestIterator {
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
 //        String testNameContains = "manual";
-//        String testNameContains = "top_level";
-        String testNameContains = "api/params/body_ref";
-//        String testNameContains = "opts/generator/record";
+        String testNameContains = "responses_ref";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
