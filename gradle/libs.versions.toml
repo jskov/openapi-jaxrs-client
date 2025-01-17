@@ -6,7 +6,7 @@ jstachio   = "1.3.6"
 picocli    = "4.7.6"
 quarkus    = "3.17.7"
 slf4j      = "2.0.16"
-swagger    = "2.1.24"
+swagger    = "2.1.25"
 unit       = "5.11.4"
 
 [libraries]
