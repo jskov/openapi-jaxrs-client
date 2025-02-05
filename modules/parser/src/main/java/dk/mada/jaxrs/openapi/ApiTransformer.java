@@ -120,11 +120,13 @@ public class ApiTransformer {
         if (paths != null) {
             Set<Entry<String, PathItem>> pathEntries = paths.entrySet();
             if (pathEntries != null) {
-                for (Map.Entry<String, PathItem> pathsEntry : pathEntries) {
-                    String resourcePath = pathsEntry.getKey();
-                    PathItem path = pathsEntry.getValue();
-                    processPath(resourcePath, path);
-                }
+                pathEntries.stream()
+                        .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                        .forEach(pathsEntry -> {
+                            String resourcePath = pathsEntry.getKey();
+                            PathItem path = pathsEntry.getValue();
+                            processPath(resourcePath, path);
+                        });
             }
         }
         return new Operations(ops);
