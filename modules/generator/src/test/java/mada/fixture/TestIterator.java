@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.platform.suite.api.Suite;
@@ -26,6 +27,11 @@ class TestIterator {
     /** Directory where all test output is placed. */
     private static final Path OUTPUT_DIR = Paths.get("build/e2e");
 
+    @BeforeAll
+    static void logging() {
+        LoggerConfig.loadConfig("/logging-test.properties");
+    }
+
     /**
      * Make output dir at exit, so it is present, even if no test executes.
      * Otherwise Eclipse gets sad...
@@ -37,8 +43,6 @@ class TestIterator {
 
     @TestFactory
     List<DynamicTest> makeTests() throws IOException {
-        LoggerConfig.loadConfig("/logging-test.properties");
-
         Path testSrcDir = Paths.get("src/test/java").toAbsolutePath();
         Path rootDir = testSrcDir.resolve("mada/tests/e2e");
         logger.info("Scanning for tests in {}", rootDir);

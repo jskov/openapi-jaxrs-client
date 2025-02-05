@@ -73,7 +73,8 @@ public class EndToEndTester {
         try {
             new Generator().generateClient(cc, input, testOptions, outputDir);
         } catch (GeneratorBadInputException e) {
-            logger.info("BAD INPUT: {}", e.getMessage());
+            logger.info("BAD INPUT (enable FINE for stacktrace): {}", e.getMessage());
+            logger.debug("BAD INPUT", e);
 
             String badInputMessageContains = testOptions.getProperty("expected-bad-input-contains");
             assertThat(badInputMessageContains)
