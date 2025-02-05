@@ -45,7 +45,9 @@ public class DtoTransformer {
         Map<String, Schema> allDefinitions = getSchemas(specification);
         logger.debug("See schemas: {}", allDefinitions.keySet());
 
-        allDefinitions.forEach(typeConverter::createDto);
+        allDefinitions.entrySet().stream()
+                .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                .forEach(e -> typeConverter.createDto(e.getKey(), e.getValue()));
     }
 
     /**
