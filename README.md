@@ -1,3 +1,5 @@
+XXXX Parked work. Needs to handle non-null additionalinfo in the Resolver. And move examples/descriptions there. and, and, and...
+
 # An OpenAPI JAX-RS client code generator
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jskov_openapi-jaxrs-client&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jskov_openapi-jaxrs-client)
