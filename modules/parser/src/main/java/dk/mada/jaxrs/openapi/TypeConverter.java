@@ -500,7 +500,8 @@ public final class TypeConverter {
         Schema<?> schema = ri.schema;
         // If no type and reference, assume it is supplemental validation
         // information for the other type in a ComposedSchema.
-        if (schema.getType() == null && schema.get$ref() == null
+        if (!(schema instanceof Schema)
+                && schema.getType() == null && schema.get$ref() == null
                 && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
             logger.trace(" - createSupplementalValidation");
             return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
@@ -511,7 +512,10 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
 
-        if (schema instanceof ObjectSchema || schema.getType() == null) {
+        boolean isPlainSchema = schema instanceof ObjectSchema
+                || schema instanceof Schema;
+
+        if (isPlainSchema || schema.getType() == null) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
                 if (isPlainObject) {
