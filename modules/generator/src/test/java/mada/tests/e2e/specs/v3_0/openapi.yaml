@@ -1748,6 +1748,7 @@ components:
           type: number
         aString:
           type: string
+        object: {}
         plainObject:
           $ref: "#/components/schemas/PlainObject"
     References:
