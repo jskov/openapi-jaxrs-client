@@ -16,6 +16,7 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.model.AdditionalInfo;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.ImmutableValidation;
 import dk.mada.jaxrs.model.Property;
@@ -221,6 +222,7 @@ public final class TypeConverter {
                 this::createDateRef,
                 this::createUUIDRef,
                 this::createStringRef,
+                this::createAdditionalInfo,
                 this::createSupplementalValidation,
                 this::createObjectRef)
                 .map(tm -> tm.apply(ri))
@@ -386,15 +388,46 @@ public final class TypeConverter {
                         .distinct() // remove duplicates
                         .toList();
 
-                if (allOfRefs.size() == 1) {
+                logger.info("ALLOF: {}", allOfRefs);
+
+                List<ParserTypeAdditionalInfo> extraInfo = allOfRefs.stream()
+                        .map(ParserTypeRef::refType)
+                        .filter(ParserTypeAdditionalInfo.class::isInstance)
+                        .map(ParserTypeAdditionalInfo.class::cast)
+                        .toList();
+
+                List<ParserTypeRef> compositeTypes = allOfRefs.stream()
+                        .filter(ptr -> !(ptr.refType() instanceof ParserTypeAdditionalInfo))
+                        .toList();
+
+                if (compositeTypes.size() == 1) {
+                    AdditionalInfo info;
+                    if (extraInfo.isEmpty()) {
+                        info = AdditionalInfo.EMPTY;
+                    } else {
+                        ParserTypeAdditionalInfo first = extraInfo.getFirst();
+                        logger.info("ALL : {}", extraInfo);
+                        logger.info("SEE ref {}", first);
+                        info = first.additionalInfo();
+                        if (extraInfo.size() > 1) {
+                            logger.warn("TODO combining multipl additional infos!:");
+                        } else {
+                            logger.info("With info: {}", info);
+                        }
+                    }
+                    ParserTypeRef t = compositeTypes.getFirst();
                     logger.trace(" - createAllofRef, shortcut for duplicate");
-                    return parserRefs.of(allOfRefs.get(0), ri.validation);
+                    return parserRefs.of(t, ri.validation, info);
                 }
 
                 if (dtoName != null) {
-                    logger.trace(" - createAllofRef, composite: {}", allOfRefs);
+                    logger.trace(" - createAllofRef, composite: {}", compositeTypes);
 
-                    ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
+                    if (!extraInfo.isEmpty()) {
+                        logger.warn("Unhandled supplemental information: {}", extraInfo);
+                    }
+
+                    ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), compositeTypes);
                     return parserRefs.of(composite, ri.validation);
                 }
             }
@@ -496,13 +529,35 @@ public final class TypeConverter {
         return null;
     }
 
+    @Nullable private ParserTypeRef createAdditionalInfo(RefInfo ri) {
+        Schema<?> schema = ri.schema;
+        String description = schema.getDescription();
+
+        if (description != null
+                && schema.getType() == null && schema.get$ref() == null
+                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
+            logger.trace(" - createSupplementalInformation");
+            AdditionalInfo ai = new AdditionalInfo(description, List.of());
+            ParserTypeAdditionalInfo info = ParserTypeAdditionalInfo.of(TypeNames.MARKER_ADDITIONAL_INFO, ai);
+            return parserRefs.of(info, ri.validation);
+        }
+        return null;
+    }
+
     @Nullable private ParserTypeRef createSupplementalValidation(RefInfo ri) {
         Schema<?> schema = ri.schema;
         // If no type and reference, assume it is supplemental validation
         // information for the other type in a ComposedSchema.
-        if (!(schema instanceof Schema)
-                && schema.getType() == null && schema.get$ref() == null
-                && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
+        if (schema.getType() == null && schema.get$ref() == null
+                && (schema.getProperties() == null || schema.getProperties().isEmpty())
+                && (true || schema.getDescription() == null)) {
+
+            if (schema instanceof Schema
+                    && schema.getDescription() == null) {
+                logger.info("  XXX pass through: {}", schema);
+                return null;
+            }
+
             logger.trace(" - createSupplementalValidation");
             return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
         }
@@ -511,6 +566,8 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
+
+        logger.info("  XXX last instance : {}", schema);
 
         boolean isPlainSchema = schema instanceof ObjectSchema
                 || schema instanceof Schema;
@@ -599,6 +656,7 @@ public final class TypeConverter {
             return null;
         }
 
+        logger.info("YYYYY ALL OF");
         List<ParserTypeRef> allOfTypes = allOf.stream()
                 .map(this::toReference)
                 .toList();

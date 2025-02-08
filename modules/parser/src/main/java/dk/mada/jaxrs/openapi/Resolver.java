@@ -97,7 +97,7 @@ public final class Resolver {
         if (logger.isDebugEnabled()) {
             logger.debug("= Parsed DTOs:");
             unresolvedDtos.stream()
-                    .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
+                    .forEach(dto -> logger.debug(" - {}:{} {}", dto.openapiId(), dto.name(), dto));
         }
 
         Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, Resolver::isDtoReferenceOnly, false);
@@ -478,6 +478,10 @@ public final class Resolver {
         TypeReference resolvedRef = resolve(property.reference());
         Validation resolvedValidation = property.validation();
 
+        if (!resolvedRef.additionalInfo().isEmpty()) {
+            logger.info("RESOLVE:{} : {}", propName, resolvedRef.additionalInfo());
+        }
+        
         String location = parent.name() + ":" + propName;
         resolvedRef = assertOrFixupActualType(resolvedRef, resolvedValidation, location);
 
