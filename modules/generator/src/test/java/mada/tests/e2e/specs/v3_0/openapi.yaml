@@ -1,0 +1,2074 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: http://test.com/openapi API contact url
+    email: openapi API contact email
+  license:
+    name: openapi API license name
+    url: http://test.com/openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: http://test.com/openapi API ext url
+tags: []
+paths:
+  /api/docs/GET:
+    get:
+      tags:
+      - Api Docs
+      summary: op summary? with punctuation
+      description: op description
+      operationId: opId
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/docs/deprecated:
+    get:
+      tags:
+      - Api Docs
+      summary: op is deprecated!
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      deprecated: true
+  /api/docs/multi-line:
+    get:
+      tags:
+      - Api Docs
+      summary: |-
+        Javadoc start.
+        But multiple
+        lines of text.
+
+        Last line.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/docs/multiple-return-types:
+    post:
+      tags:
+      - Api Docs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Simple"
+      responses:
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Simple"
+        "200":
+          description: The registered cluster
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Simple"
+        "401":
+          description: Unauthorized Error
+          content:
+            text/plain:
+              schema:
+                type: string
+        "409":
+          description: Cluster already present
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Simple"
+        "500":
+          description: The internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Simple"
+  /api/docs/params/{in-path}:
+    get:
+      tags:
+      - Api Docs
+      summary: op is missing punctuation
+      parameters:
+      - name: in-path
+        in: path
+        description: path param description
+        required: true
+        schema:
+          type: string
+      - name: query
+        in: query
+        description: query param description
+        schema:
+          type: string
+      - name: query-deprecated
+        in: query
+        description: deprecated query param description
+        schema:
+          type: string
+        deprecated: true
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      requestBody:
+        description: dto description
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Simple"
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/docs/quoted:
+    get:
+      tags:
+      - Api Docs
+      summary: Summary with "quote" 'quote'
+      description: Description with "quote" 'quote'
+      responses:
+        "200":
+          description: Description with "quote" 'quote'
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Description with "quote" 'quote'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Simple"
+  /api/interfaces/interface:
+    get:
+      tags:
+      - Api Interfaces
+      responses:
+        "200":
+          description: interface instance
+          content:
+            application/json:
+              schema:
+                type: object
+                anyOf:
+                - $ref: "#/components/schemas/ImplA"
+                - $ref: "#/components/schemas/ImplB"
+                discriminator:
+                  propertyName: implName
+                  mapping:
+                    A: "#/components/schemas/ImplA"
+                    B: "#/components/schemas/ImplB"
+  /api/interfaces/list:
+    get:
+      tags:
+      - Api Interfaces
+      responses:
+        "200":
+          description: interface instance
+          content:
+            application/json:
+              schema:
+                type: array
+                anyOf:
+                - $ref: "#/components/schemas/ImplA"
+                - $ref: "#/components/schemas/ImplB"
+  /api/interfaces/super:
+    get:
+      tags:
+      - Api Interfaces
+      responses:
+        "200":
+          description: interface instance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  implDiscriminator:
+                    type: string
+                  superValue:
+                    format: int32
+                    type: integer
+                anyOf:
+                - $ref: "#/components/schemas/SubA"
+                - $ref: "#/components/schemas/SubB"
+                discriminator:
+                  propertyName: implDiscriminator
+                  mapping:
+                    subtype-A: "#/components/schemas/SubA"
+                    subtype-B: "#/components/schemas/SubB"
+  /api/methods/DELETE:
+    delete:
+      tags:
+      - Api Methods
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        "204":
+          description: No Content
+  /api/methods/GET:
+    get:
+      tags:
+      - Api Methods
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/methods/HEAD:
+    head:
+      tags:
+      - Api Methods
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/methods/POST:
+    post:
+      tags:
+      - Api Methods
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/methods/PUT:
+    put:
+      tags:
+      - Api Methods
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/params/body/boolean-primitive:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/boolean-wrapper:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/date:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalDate"
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/date-time:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OffsetDateTime"
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/inputstream:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              format: binary
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/params/body/list:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/list-simple:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Simple"
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/mixed/{in-path}:
+    get:
+      tags:
+      - Params Body
+      parameters:
+      - name: in-path
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: query
+        in: query
+        schema:
+          type: string
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Simple"
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/rename-entity-param/{dto}:
+    get:
+      tags:
+      - Params Body
+      parameters:
+      - name: dto
+        in: query
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Simple"
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/simple:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Simple"
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/body/time:
+    get:
+      tags:
+      - Params Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalTime"
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/boolean-primitive:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/boolean-wrapper:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/invalid-name-dashes:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: invalid-value
+        in: header
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/list:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/header/mixed:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: flag
+        in: header
+        schema:
+          type: boolean
+      - name: item
+        in: header
+        schema:
+          type: array
+          items:
+            type: string
+      - name: name
+        in: header
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path:
+    get:
+      tags:
+      - Params Path
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/byte/{byteId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: byteId
+        in: path
+        required: true
+        schema:
+          format: byte
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/int/{intId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: intId
+        in: path
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/long/{longId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: longId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/short/{shortId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: shortId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/path/string/{stringId}:
+    get:
+      tags:
+      - Params Path
+      parameters:
+      - name: stringId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/boolean-primitive:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: flag
+        in: query
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/boolean-wrapper:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: flag
+        in: query
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/dates:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: date
+        in: query
+        schema:
+          format: date
+          type: string
+      - name: date-time
+        in: query
+        schema:
+          format: date-time
+          type: string
+      - name: time
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/list:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: item
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/params/query/mixed:
+    get:
+      tags:
+      - Params Query
+      parameters:
+      - name: flag
+        in: query
+        schema:
+          type: boolean
+      - name: item
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: name
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/types/big-decimal:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: number
+  /api/types/boolean:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /api/types/byte:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: byte
+                type: string
+  /api/types/date:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LocalDate"
+  /api/types/date-time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OffsetDateTime"
+  /api/types/double:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: double
+                type: number
+  /api/types/float:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: float
+                type: number
+  /api/types/input-stream:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+  /api/types/input-stream-jpeg:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            image/jpeg:
+              schema:
+                format: binary
+                type: string
+  /api/types/int:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+  /api/types/list:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: int32
+                  type: integer
+  /api/types/list-date:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: date
+                  type: string
+                  example: 2022-03-10
+  /api/types/list-datetime:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: date-time
+                  type: string
+                  example: 2022-03-10T12:15:50-04:00
+  /api/types/list-simple:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Simple"
+  /api/types/list-time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  format: local-time
+                  type: string
+                  externalDocs:
+                    description: As defined by 'partial-time' in RFC3339
+                    url: https://www.rfc-editor.org/rfc/rfc3339.html#section-5.6
+                  example: 13:45:30.123456789
+  /api/types/long:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                format: int64
+                type: integer
+  /api/types/map:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/types/map-simple:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/Simple"
+  /api/types/set:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  format: int32
+                  type: integer
+  /api/types/set-simple:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  $ref: "#/components/schemas/Simple"
+  /api/types/short:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+  /api/types/simple:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Simple"
+  /api/types/string:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/types/time:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LocalTime"
+  /api/types/void:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "204":
+          description: No Content
+  /api/validation/body:
+    put:
+      tags:
+      - Api Bean Validation Body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Simple"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/validation/param/path/{env}:
+    get:
+      tags:
+      - Api Bean Validation Param
+      parameters:
+      - name: env
+        in: path
+        required: true
+        schema:
+          $ref: "#/components/schemas/Environment"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /dtos/bean-naming:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BeanNaming"
+  /dtos/collections/array:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArraysDto"
+  /dtos/collections/map:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MapsDto"
+  /dtos/collections/set:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SetsDto"
+  /dtos/collision:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Collisions"
+  /dtos/cyclic:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CyclicA"
+  /dtos/enums:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnumsDto"
+  /dtos/primitives:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Primitives"
+  /dtos/references:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/References"
+  /dtos/schema:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DtoA"
+  /dtos/serializer:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SerializerInfoDto"
+  /dtos/special-types:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpecialTypes"
+  /dtos/validation:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationDto"
+  /hyphen-path/hyphen-method:
+    get:
+      tags:
+      - Api Paths
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    AbstractType:
+      required:
+      - valueInteger
+      type: object
+      properties:
+        valueEnum:
+          $ref: "#/components/schemas/OtherEnum"
+        valueInteger:
+          format: int32
+          type: integer
+        valueString:
+          type: string
+      discriminator:
+        propertyName: implName
+        mapping:
+          FOO: "#/components/schemas/TypeFoo"
+          BAR: "#/components/schemas/TypeBar"
+    AnInterface:
+      type: object
+      discriminator:
+        propertyName: implName
+        mapping:
+          A: "#/components/schemas/ImplA"
+          B: "#/components/schemas/ImplB"
+    ArraysDto:
+      required:
+      - requiredBooleans
+      - requiredBytes
+      - requiredShorts
+      - requiredInts
+      - requiredLongs
+      - requiredStrings
+      - requiredRefs
+      type: object
+      properties:
+        booleans:
+          type: array
+          items:
+            type: boolean
+        bytes:
+          format: binary
+          type: string
+        shorts:
+          type: array
+          items:
+            type: integer
+        ints:
+          type: array
+          items:
+            format: int32
+            type: integer
+        longs:
+          type: array
+          items:
+            format: int64
+            type: integer
+        strings:
+          type: array
+          items:
+            type: string
+        refs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Simple"
+        requiredBooleans:
+          type: array
+          items:
+            type: boolean
+        requiredBytes:
+          format: binary
+          type: string
+        requiredShorts:
+          type: array
+          items:
+            type: integer
+        requiredInts:
+          type: array
+          items:
+            format: int32
+            type: integer
+        requiredLongs:
+          type: array
+          items:
+            format: int64
+            type: integer
+        requiredStrings:
+          type: array
+          items:
+            type: string
+        requiredRefs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Simple"
+    BeanNaming:
+      type: object
+      properties:
+        downBool:
+          type: boolean
+        aCamelBool:
+          type: boolean
+        UpperBool:
+          type: boolean
+        ALLCAPSBOOL:
+          type: boolean
+        downInt:
+          format: int32
+          type: integer
+        aCamelInt:
+          format: int32
+          type: integer
+        UpperInt:
+          format: int32
+          type: integer
+        ALLCAPSINT:
+          type: boolean
+    CollisionA:
+      description: Note that A sorts alphabetically before a
+      type: object
+      properties:
+        aCapitalBoolean:
+          type: boolean
+        aCapitalSet:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/Collisiona"
+        aCapitalMap:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Collisiona"
+    Collisiona:
+      description: Make sure this appears before CollisionA in the document
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+        aList:
+          type: array
+          items:
+            $ref: "#/components/schemas/CollisionA"
+    Collisions:
+      type: object
+      properties:
+        lowerCaseA:
+          $ref: "#/components/schemas/Collisiona"
+        upperCaseA:
+          $ref: "#/components/schemas/CollisionA"
+    CyclicA:
+      type: object
+      properties:
+        b:
+          $ref: "#/components/schemas/CyclicB"
+    CyclicB:
+      type: object
+      properties:
+        a:
+          $ref: "#/components/schemas/CyclicA"
+    DocsDto:
+      description: Class description
+      type: object
+      properties:
+        property:
+          description: |-
+            Property description.
+            Property description line 2
+
+            Last line.
+          type: string
+        dosProperty:
+          description: "Property description.\r\nProperty description line 2\r\n\r\
+            \nLast line."
+          type: string
+        danishProperty:
+          description: Danish characters æøåÆØÅ dóh!
+          type: string
+    DtoA:
+      type: object
+      properties:
+        memberA:
+          type: boolean
+        refB:
+          description: ref to object
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/DtoB"
+        refE:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/DtoE"
+          deprecated: true
+    DtoB:
+      type: object
+      properties:
+        memberB:
+          format: int32
+          type: integer
+    DtoE:
+      required:
+      - member-in-E
+      type: object
+      properties:
+        member-in-E:
+          description: enum in E
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/EnumDescription"
+    EnumDescription:
+      description: an enum
+      enum:
+      - VALUE_A
+      - VALUE_B
+      - VALUE_C
+      type: string
+    EnumWithDescription:
+      description: |-
+        A = foo
+        B == bar
+        C : colon
+      enum:
+      - VALUE_A
+      - VALUE_B
+      - VALUE_C
+      type: string
+    EnumsDto:
+      type: object
+      properties:
+        propertyEnumString:
+          enum:
+          - O
+          - M
+          - nexT
+          type: string
+        inner:
+          $ref: "#/components/schemas/InnerEnum"
+        lower:
+          $ref: "#/components/schemas/InnerLowerEnum"
+        mixed:
+          $ref: "#/components/schemas/InnerMixedEnum"
+        external:
+          $ref: "#/components/schemas/ExternalEnum"
+        externalLower:
+          $ref: "#/components/schemas/ExternalLowerEnum"
+        externalMixed:
+          $ref: "#/components/schemas/ExternalMixedEnum"
+        integerEnum:
+          $ref: "#/components/schemas/IntEnum"
+        stringIntegerEnum:
+          $ref: "#/components/schemas/StringIntEnum"
+    Environment:
+      enum:
+      - test
+      - qa
+      - production
+      type: string
+    ExternalEnum:
+      enum:
+      - E
+      - F
+      type: string
+    ExternalLowerEnum:
+      enum:
+      - low_ext_a
+      - low_ext_b
+      type: string
+    ExternalMixedEnum:
+      enum:
+      - low_EXT_a
+      - low_ext_B
+      type: string
+    ImplA:
+      type: object
+      properties:
+        implName:
+          type: string
+        foo:
+          format: int32
+          type: integer
+    ImplB:
+      type: object
+      properties:
+        implName:
+          type: string
+        bar:
+          format: int32
+          type: integer
+    InnerEnum:
+      enum:
+      - I
+      - J
+      type: string
+    InnerLowerEnum:
+      enum:
+      - lower_a
+      - lower_b
+      type: string
+    InnerMixedEnum:
+      enum:
+      - MIXED_a
+      - mixed_B
+      type: string
+    IntEnum:
+      format: int32
+      enum:
+      - 1
+      - 2
+      - -3
+      type: integer
+    LocalDate:
+      format: date
+      type: string
+      example: 2022-03-10
+    LocalDateTime:
+      format: date-time
+      type: string
+      example: 2022-03-10T12:15:50
+    LocalTime:
+      format: local-time
+      type: string
+      externalDocs:
+        description: As defined by 'partial-time' in RFC3339
+        url: https://www.rfc-editor.org/rfc/rfc3339.html#section-5.6
+      example: 13:45:30.123456789
+    MapsDto:
+      required:
+      - requiredBooleans
+      - requiredBytes
+      - requiredShorts
+      - requiredInts
+      - requiredLongs
+      - requiredStrings
+      - requiredRefs
+      type: object
+      properties:
+        booleans:
+          type: object
+          additionalProperties:
+            type: boolean
+        bytes:
+          type: object
+          additionalProperties:
+            format: byte
+            type: string
+        shorts:
+          type: object
+          additionalProperties:
+            type: integer
+        ints:
+          type: object
+          additionalProperties:
+            format: int32
+            type: integer
+        longs:
+          type: object
+          additionalProperties:
+            format: int64
+            type: integer
+        strings:
+          type: object
+          additionalProperties:
+            type: string
+        refs:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Simple"
+        requiredBooleans:
+          type: object
+          additionalProperties:
+            type: boolean
+        requiredBytes:
+          type: object
+          additionalProperties:
+            format: byte
+            type: string
+        requiredShorts:
+          type: object
+          additionalProperties:
+            type: integer
+        requiredInts:
+          type: object
+          additionalProperties:
+            format: int32
+            type: integer
+        requiredLongs:
+          type: object
+          additionalProperties:
+            format: int64
+            type: integer
+        requiredStrings:
+          type: object
+          additionalProperties:
+            type: string
+        requiredRefs:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Simple"
+        bothBooleans:
+          type: object
+          additionalProperties:
+            type: boolean
+        bothBytes:
+          type: object
+          additionalProperties:
+            format: byte
+            type: string
+        bothShorts:
+          type: object
+          additionalProperties:
+            type: integer
+        bothInts:
+          type: object
+          additionalProperties:
+            format: int32
+            type: integer
+        bothLongs:
+          type: object
+          additionalProperties:
+            format: int64
+            type: integer
+        bothStrings:
+          type: object
+          additionalProperties:
+            type: string
+        bothRefs:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Simple"
+    MicroProfileAnnotationsPropsOnly:
+      type: object
+      properties:
+        withDescription:
+          description: property description
+          type: string
+    OffsetDateTime:
+      format: date-time
+      type: string
+      example: 2022-03-10T12:15:50-04:00
+    OtherEnum:
+      enum:
+      - PROP_A
+      - PROP_B
+      type: string
+    PlainObject:
+      type: object
+    Primitives:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+        aByte:
+          format: byte
+          type: string
+        aShort:
+          type: integer
+        anInt:
+          format: int32
+          type: integer
+        aLong:
+          format: int64
+          type: integer
+        aFloat:
+          format: float
+          type: number
+        aDouble:
+          format: double
+          type: number
+        aString:
+          type: string
+        plainObject:
+          $ref: "#/components/schemas/PlainObject"
+    References:
+      type: object
+      properties:
+        simple:
+          $ref: "#/components/schemas/Simple"
+    SerializerInfoDto:
+      required:
+      - mustInclude
+      - mustIncludeViaSchema
+      - notNull
+      type: object
+      properties:
+        beta:
+          type: string
+        alpha:
+          type: string
+        zapRenamed:
+          type: string
+        UpperCase:
+          type: string
+        with-Dashes-:
+          type: string
+        "0withDigit":
+          type: string
+        mustInclude:
+          type: string
+        mustIncludeViaSchema:
+          type: string
+        notNull:
+          type: string
+        notNullViaSchema:
+          type: string
+          nullable: false
+        isNullable:
+          type: string
+        isNullableViaSchema:
+          type: string
+          nullable: true
+        mpAnnotationsPropsOnly:
+          $ref: "#/components/schemas/MicroProfileAnnotationsPropsOnly"
+    SetsDto:
+      required:
+      - requiredBooleans
+      - requiredBytes
+      - requiredShorts
+      - requiredInts
+      - requiredLongs
+      - requiredStrings
+      - requiredRefs
+      type: object
+      properties:
+        booleans:
+          uniqueItems: true
+          type: array
+          items:
+            type: boolean
+        bytes:
+          uniqueItems: true
+          type: array
+          items:
+            format: byte
+            type: string
+        shorts:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+        ints:
+          uniqueItems: true
+          type: array
+          items:
+            format: int32
+            type: integer
+        longs:
+          uniqueItems: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        strings:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        refs:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/Simple"
+        requiredBooleans:
+          uniqueItems: true
+          type: array
+          items:
+            type: boolean
+        requiredBytes:
+          uniqueItems: true
+          type: array
+          items:
+            format: byte
+            type: string
+        requiredShorts:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+        requiredInts:
+          uniqueItems: true
+          type: array
+          items:
+            format: int32
+            type: integer
+        requiredLongs:
+          uniqueItems: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        requiredStrings:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        requiredRefs:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/Simple"
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+    SimpleEnum:
+      enum:
+      - "YES"
+      - "NO"
+      type: string
+    SimpleEnumSchema:
+      description: description text enum
+      enum:
+      - "YES"
+      - "NO"
+      type: string
+    SpecialTypes:
+      required:
+      - localDateDescription
+      type: object
+      properties:
+        aBigDecimal:
+          type: number
+        zonedDateTime:
+          $ref: "#/components/schemas/ZonedDateTime"
+        offsetDateTime:
+          $ref: "#/components/schemas/OffsetDateTime"
+        localDateTime:
+          $ref: "#/components/schemas/LocalDateTime"
+        localDate:
+          $ref: "#/components/schemas/LocalDate"
+        localTime:
+          $ref: "#/components/schemas/LocalTime"
+        zonedDateTimeDescription:
+          description: description text
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ZonedDateTime"
+        localDateDescription:
+          description: description text
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/LocalDate"
+        localTimeDescription:
+          description: description text
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/LocalTime"
+        uuid:
+          $ref: "#/components/schemas/UUID"
+        anEnum:
+          $ref: "#/components/schemas/SimpleEnum"
+        anEnumSchema:
+          description: description text field
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/SimpleEnumSchema"
+    StringIntEnum:
+      description: "The values are digits, but the type is string. So will not be\
+        \ handled as integers, but are invalid Java identifiers."
+      enum:
+      - "1"
+      - "2"
+      - "-3"
+      type: string
+    SubA:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        bar:
+          format: int32
+          type: integer
+    SubB:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+        foo:
+          format: int32
+          type: integer
+    Super:
+      type: object
+      properties:
+        implDiscriminator:
+          type: string
+        superValue:
+          format: int32
+          type: integer
+      discriminator:
+        propertyName: implDiscriminator
+        mapping:
+          subtype-A: "#/components/schemas/SubA"
+          subtype-B: "#/components/schemas/SubB"
+    TypeBar:
+      required:
+      - valueInteger
+      - valueBarString
+      type: object
+      properties:
+        valueEnum:
+          $ref: "#/components/schemas/OtherEnum"
+        valueInteger:
+          format: int32
+          type: integer
+        valueString:
+          type: string
+        valueBarString:
+          type: string
+    TypeFoo:
+      required:
+      - valueInteger
+      type: object
+      properties:
+        valueEnum:
+          $ref: "#/components/schemas/OtherEnum"
+        valueInteger:
+          format: int32
+          type: integer
+        valueString:
+          type: string
+        valueFooLong:
+          format: int64
+          type: integer
+    UUID:
+      format: uuid
+      pattern: "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+      type: string
+    ValidationDto:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 1
+          type: string
+        intValue:
+          format: int32
+          maximum: 20
+          minimum: 10
+          type: integer
+        badParsingOfRange:
+          format: int32
+          maximum: 99999999
+          minimum: 100
+          type: integer
+        veryBigLong:
+          format: int64
+          maximum: 9999999999
+          minimum: 100
+          type: integer
+        aBigDouble:
+          format: double
+          description: With a "quoted" description
+          maximum: 99999999
+          minimum: 0
+          type: number
+        aBigFloat:
+          format: float
+          description: a float
+          maximum: 1000
+          minimum: 0
+          type: number
+        aBigDecimal:
+          description: a BigDecimal
+          maximum: 1000
+          minimum: 100
+          type: number
+        pattern:
+          pattern: "^[a-zA-Z]{0,3}$"
+          type: string
+        patternDigits:
+          pattern: "^\\d{1,2}$"
+          type: string
+        validObjects:
+          maxItems: 4
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Environment"
+        primitivesShouldNotHaveValidate:
+          type: array
+          items:
+            type: boolean
+    ZonedDateTime:
+      format: date-time
+      type: string
+      example: 2022-03-10T12:15:50-04:00
