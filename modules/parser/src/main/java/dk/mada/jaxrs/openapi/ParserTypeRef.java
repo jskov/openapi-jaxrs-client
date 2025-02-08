@@ -1,6 +1,7 @@
 package dk.mada.jaxrs.openapi;
 
 import org.immutables.value.Value.Immutable;
+import org.jspecify.annotations.Nullable;
 
 import dk.mada.jaxrs.model.AdditionalInfo;
 import dk.mada.jaxrs.model.Validation;
@@ -27,7 +28,7 @@ public interface ParserTypeRef extends Reference {
      * @param info        additional information if available
      * @return a reference to the type
      */
-    static ParserTypeRef of(Type refType, TypeName refTypeName, Validation validation, AdditionalInfo info) {
+    static ParserTypeRef of(Type refType, TypeName refTypeName, Validation validation, @Nullable AdditionalInfo info) {
         return ImmutableParserTypeRef.builder()
                 .refType(refType)
                 .refTypeName(refTypeName)
@@ -45,12 +46,7 @@ public interface ParserTypeRef extends Reference {
      * @return a reference to the type
      */
     static ParserTypeRef of(Type refType, TypeName refTypeName, Validation validation) {
-        return ImmutableParserTypeRef.builder()
-                .refType(refType)
-                .refTypeName(refTypeName)
-                .validation(validation)
-                .additionalInfo(AdditionalInfo.EMPTY)
-                .build();
+        return of(refType, refTypeName, validation, null);
     }
 
     /**

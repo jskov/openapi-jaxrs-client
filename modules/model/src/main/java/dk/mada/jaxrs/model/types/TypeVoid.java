@@ -29,7 +29,7 @@ public final class TypeVoid implements Type {
     /** {@return the reference to void} */
     public static TypeReference getRef() {
         if (refInstance == null) {
-            refInstance = TypeReference.of(get(), Validation.NO_VALIDATION, AdditionalInfo.EMPTY);
+            refInstance = TypeReference.of(get(), Validation.NO_VALIDATION, null);
         }
         return refInstance;
     }

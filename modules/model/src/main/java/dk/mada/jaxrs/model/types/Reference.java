@@ -1,5 +1,7 @@
 package dk.mada.jaxrs.model.types;
 
+import org.jspecify.annotations.Nullable;
+
 import dk.mada.jaxrs.model.AdditionalInfo;
 import dk.mada.jaxrs.model.Validation;
 
@@ -21,5 +23,5 @@ public interface Reference extends Type {
     Type refType();
 
     /** {@return additional information provided on the reference} */
-    AdditionalInfo additionalInfo();
+    @Nullable AdditionalInfo additionalInfo();
 }

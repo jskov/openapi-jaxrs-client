@@ -478,8 +478,9 @@ public final class Resolver {
         TypeReference resolvedRef = resolve(property.reference());
         Validation resolvedValidation = property.validation();
 
-        if (!resolvedRef.additionalInfo().isEmpty()) {
-            logger.info("RESOLVE:{} : {}", propName, resolvedRef.additionalInfo());
+        @Nullable AdditionalInfo additionalInfo = resolvedRef.additionalInfo();
+        if (additionalInfo != null) {
+            logger.info("RESOLVE:{} : {}", propName, additionalInfo);
         }
         
         String location = parent.name() + ":" + propName;
@@ -493,7 +494,9 @@ public final class Resolver {
                 TypeReference newInnerType = assertOrFixupActualType(innerRef, innerRef.validation(), location + " (map's value)");
                 if (!newInnerType.equals(innerRef)) {
                     TypeMap newMap = TypeMap.of(map.typeNames(), newInnerType);
-                    resolvedRef = TypeReference.of(newMap, resolvedRef.validation(), resolvedRef.additionalInfo());
+                    @Nullable
+                    AdditionalInfo additionalInfo2 = resolvedRef.additionalInfo();
+                    resolvedRef = TypeReference.of(newMap, resolvedRef.validation(), additionalInfo2);
                 }
             }
         }
@@ -779,6 +782,6 @@ public final class Resolver {
 
         // Convert parser DTO instance to model DTO instance
         // Wrap in a reference - or cyclic DTOs will not be possible
-        return TypeReference.of(remappedDto, Validation.NO_VALIDATION, AdditionalInfo.EMPTY);
+        return TypeReference.of(remappedDto, Validation.NO_VALIDATION, null);
     }
 }

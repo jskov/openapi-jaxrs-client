@@ -401,10 +401,8 @@ public final class TypeConverter {
                         .toList();
 
                 if (compositeTypes.size() == 1) {
-                    AdditionalInfo info;
-                    if (extraInfo.isEmpty()) {
-                        info = AdditionalInfo.EMPTY;
-                    } else {
+                    AdditionalInfo info = null;
+                    if (!extraInfo.isEmpty()) {
                         ParserTypeAdditionalInfo first = extraInfo.getFirst();
                         logger.info("ALL : {}", extraInfo);
                         logger.info("SEE ref {}", first);

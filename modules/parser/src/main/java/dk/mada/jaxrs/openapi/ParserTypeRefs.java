@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +51,7 @@ public class ParserTypeRefs {
      */
     public ParserTypeRef makeDtoRef(String name, Validation validation) {
         TypeName tn = typeNames.of(name);
-        return of(TypeUnknownAtParseTime.get(), tn, validation, AdditionalInfo.EMPTY);
+        return of(TypeUnknownAtParseTime.get(), tn, validation, null);
     }
 
     /**
@@ -79,10 +80,10 @@ public class ParserTypeRefs {
      * @return the parser reference
      */
     public ParserTypeRef of(Type type, Validation validation) {
-        return of(type, validation, AdditionalInfo.EMPTY);
+        return of(type, validation, null);
     }
 
-    private ParserTypeRef of(Type type, TypeName tn, Validation validation, AdditionalInfo info) {
+    private ParserTypeRef of(Type type, TypeName tn, Validation validation, @Nullable AdditionalInfo info) {
         parserReferences.computeIfAbsent(tn, t -> new ValidationRefs());
         ValidationRefs validationRefs = parserReferences.get(tn);
         return validationRefs.getOrAdd(validation, info, type, tn);
@@ -107,7 +108,7 @@ public class ParserTypeRefs {
         /** Parser references, mapped by their validation. */
         private final Map<Validation, Set<ParserTypeRef>> refsByValidation = new HashMap<>();
 
-        private ParserTypeRef getOrAdd(Validation validation, AdditionalInfo info, Type type, TypeName tn) {
+        private ParserTypeRef getOrAdd(Validation validation, @Nullable AdditionalInfo info, Type type, TypeName tn) {
             Set<ParserTypeRef> refs = refsByValidation.computeIfAbsent(validation, v -> new HashSet<ParserTypeRef>());
 
             for (ParserTypeRef ref : refs) {
@@ -119,7 +120,7 @@ public class ParserTypeRefs {
                 }
             }
 
-            ParserTypeRef newRef = ParserTypeRef.of(type, tn, validation);
+            ParserTypeRef newRef = ParserTypeRef.of(type, tn, validation, info);
             refs.add(newRef);
             logger.debug(" created type reference {}", newRef);
             return newRef;
