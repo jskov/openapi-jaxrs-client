@@ -1,5 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
+import dk.mada.jaxrs.model.AdditionalInfo;
 import dk.mada.jaxrs.model.Validation;
 
 /**
@@ -18,4 +19,7 @@ public interface Reference extends Type {
 
     /** {@return the referenced type} */
     Type refType();
+
+    /** {@return additional information provided on the reference} */
+    AdditionalInfo additionalInfo();
 }

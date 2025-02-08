@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.model.AdditionalInfo;
 import dk.mada.jaxrs.model.Validation;
 
 /**
@@ -19,10 +20,11 @@ public interface TypeReference extends Reference {
      *
      * @param refType    the type referenced
      * @param validation the validation requirements of the reference
+     * @param info       the additional information for the reference
      * @return a reference to the type
      */
-    static TypeReference of(Type refType, Validation validation) {
-        return ImmutableTypeReference.builder().refType(refType).validation(validation).build();
+    static TypeReference of(Type refType, Validation validation, AdditionalInfo info) {
+        return ImmutableTypeReference.builder().refType(refType).validation(validation).additionalInfo(info).build();
     }
 
     @Override

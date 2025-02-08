@@ -76,6 +76,8 @@ public final class TypeNames {
     public static final TypeName MARKER_NOFORMAT_INT = new TypeName("<noformat-int>");
     /** The type name marking an number of unknown format/size. */
     public static final TypeName MARKER_NOFORMAT_NUMBER = new TypeName("<noformat-number>");
+    /** The type name marking additional information provided on a reference. */
+    public static final TypeName MARKER_ADDITIONAL_INFO = new TypeName("<additional-info>");
 
     /** TypeName instances indexed by their name. */
     private final Map<String, TypeName> nameToInstances = new HashMap<>();
@@ -112,6 +114,7 @@ public final class TypeNames {
         nameToInstances.put(UUID.name(), UUID);
         nameToInstances.put(MARKER_UNKNOWN.name(), MARKER_UNKNOWN);
         nameToInstances.put(MARKER_VALIDATION.name(), MARKER_VALIDATION);
+        nameToInstances.put(MARKER_ADDITIONAL_INFO.name(), MARKER_ADDITIONAL_INFO);
     }
 
     /**

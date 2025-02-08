@@ -2,6 +2,7 @@ package dk.mada.jaxrs.openapi;
 
 import org.immutables.value.Value.Immutable;
 
+import dk.mada.jaxrs.model.AdditionalInfo;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
@@ -22,6 +23,24 @@ public interface ParserTypeRef extends Reference {
      *
      * @param refType     the type
      * @param refTypeName the type name
+     * @param validation  the validation information
+     * @param info        additional information if available
+     * @return a reference to the type
+     */
+    static ParserTypeRef of(Type refType, TypeName refTypeName, Validation validation, AdditionalInfo info) {
+        return ImmutableParserTypeRef.builder()
+                .refType(refType)
+                .refTypeName(refTypeName)
+                .validation(validation)
+                .additionalInfo(info)
+                .build();
+    }
+
+    /**
+     * Creates a new reference to a type (a primitive or special type)
+     *
+     * @param refType     the type
+     * @param refTypeName the type name
      * @param validation  the validation information if available
      * @return a reference to the type
      */
@@ -30,6 +49,7 @@ public interface ParserTypeRef extends Reference {
                 .refType(refType)
                 .refTypeName(refTypeName)
                 .validation(validation)
+                .additionalInfo(AdditionalInfo.EMPTY)
                 .build();
     }
 

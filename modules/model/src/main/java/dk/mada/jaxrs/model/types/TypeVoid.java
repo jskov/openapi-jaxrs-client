@@ -2,6 +2,7 @@ package dk.mada.jaxrs.model.types;
 
 import org.jspecify.annotations.Nullable;
 
+import dk.mada.jaxrs.model.AdditionalInfo;
 import dk.mada.jaxrs.model.Validation;
 
 /**
@@ -28,7 +29,7 @@ public final class TypeVoid implements Type {
     /** {@return the reference to void} */
     public static TypeReference getRef() {
         if (refInstance == null) {
-            refInstance = TypeReference.of(get(), Validation.NO_VALIDATION);
+            refInstance = TypeReference.of(get(), Validation.NO_VALIDATION, AdditionalInfo.EMPTY);
         }
         return refInstance;
     }

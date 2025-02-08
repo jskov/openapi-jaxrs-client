@@ -215,7 +215,7 @@ public class ApiGenerator {
         boolean replaceResponseWithInputStream = opts.getResponseInputStreamMediaTypes().stream()
                 .anyMatch(mediaTypes::contains);
         if (replaceResponseWithInputStream) {
-            returnTypeRef = TypeReference.of(TypeByteArray.getStream(), returnTypeRef.validation());
+            returnTypeRef = TypeReference.of(TypeByteArray.getStream(), returnTypeRef.validation(), returnTypeRef.additionalInfo());
             imports.add(returnTypeRef);
         }
 

@@ -15,6 +15,7 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.mada.jaxrs.model.AdditionalInfo;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Validation;
@@ -488,7 +489,7 @@ public final class Resolver {
                 TypeReference newInnerType = assertOrFixupActualType(innerRef, innerRef.validation(), location + " (map's value)");
                 if (!newInnerType.equals(innerRef)) {
                     TypeMap newMap = TypeMap.of(map.typeNames(), newInnerType);
-                    resolvedRef = TypeReference.of(newMap, resolvedRef.validation());
+                    resolvedRef = TypeReference.of(newMap, resolvedRef.validation(), resolvedRef.additionalInfo());
                 }
             }
         }
@@ -657,7 +658,8 @@ public final class Resolver {
         }
 
         Type resolvedT = resolveInner(t);
-        TypeReference res = dereferencedTypes.computeIfAbsent(ptr, p -> TypeReference.of(resolvedT, ptr.validation()));
+        TypeReference res = dereferencedTypes.computeIfAbsent(ptr,
+                p -> TypeReference.of(resolvedT, ptr.validation(), ptr.additionalInfo()));
 
         logger.debug("  resolve {} -> {}", ptr, res);
         return res;
@@ -773,6 +775,6 @@ public final class Resolver {
 
         // Convert parser DTO instance to model DTO instance
         // Wrap in a reference - or cyclic DTOs will not be possible
-        return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
+        return TypeReference.of(remappedDto, Validation.NO_VALIDATION, AdditionalInfo.EMPTY);
     }
 }
