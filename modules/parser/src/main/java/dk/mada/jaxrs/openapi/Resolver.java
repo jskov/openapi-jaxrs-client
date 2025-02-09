@@ -498,11 +498,9 @@ public final class Resolver {
         // merged with that of the type. If they conflict, fail (with some config to ignore)
         if (resolvedValidation.isEmptyValidation()) {
             resolvedValidation = resolvedRef.validation();
-        } else if (resolvedValidation == Validation.REQUIRED_VALIDATION) {
+        } else if (resolvedValidation.required()) {
             // handle simple required_validation since it is simplest - and probably enough for now
-            resolvedValidation = Validation.builder().from(resolvedRef.validation())
-                    .isRequired(true)
-                    .build();
+            resolvedValidation = Validations.required(resolvedRef.validation());
         }
 
         // allOf constructed DTOs need to be able to deserialize subsets
@@ -513,10 +511,7 @@ public final class Resolver {
         Set<String> relaxProps = dtoPropertiesToBeRelaxed.get(parent.typeName());
         if (relaxProps != null && relaxProps.contains(propName)) {
             logger.trace("     + relaxing validation");
-            resolvedValidation = Validation.builder().from(resolvedValidation)
-                    .isNullable(true)
-                    .isRequired(false)
-                    .build();
+            resolvedValidation = Validations.relax(resolvedValidation);
         }
 
         // TODO: get example from type, see mada.tests.e2e.regression.string_pattern.dto.KlarTilBeslutningsGrundlagResponse
@@ -773,6 +768,6 @@ public final class Resolver {
 
         // Convert parser DTO instance to model DTO instance
         // Wrap in a reference - or cyclic DTOs will not be possible
-        return TypeReference.of(remappedDto, Validation.NO_VALIDATION);
+        return TypeReference.of(remappedDto, Validations.emptyValidation());
     }
 }

@@ -28,7 +28,7 @@ public final class TypeVoid implements Type {
     /** {@return the reference to void} */
     public static TypeReference getRef() {
         if (refInstance == null) {
-            refInstance = TypeReference.of(get(), Validation.NO_VALIDATION);
+            refInstance = TypeReference.of(get(), Validation.empty());
         }
         return refInstance;
     }

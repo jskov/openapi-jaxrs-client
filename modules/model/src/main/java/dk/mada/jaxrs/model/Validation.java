@@ -3,60 +3,84 @@ package dk.mada.jaxrs.model;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import org.immutables.value.Value.Immutable;
+import org.jspecify.annotations.Nullable;
 
 /**
- * Models the validation requirements for a type/property/parameter.
+ * Models the validation requirements for a type or its reference.
+ *
+ * @param required   validation flag required
+ * @param nullable   validation flag nullable
+ * @param readonly   validation flag read-only
+ * @param _minItems  optional validation minimal items
+ * @param _maxItems  optional validation maxmimal items
+ * @param _minLength optional validation minimal length
+ * @param _maxLength optional validation maxmimal length
+ * @param _minimum   optional validation minimum
+ * @param _maximum   optional validation maximum
+ * @param _pattern   optional validation pattern
  */
-@Immutable
-public interface Validation {
-    /** No validation input. */
-    Validation NO_VALIDATION = Validation.builder()
-            .isRequired(false)
-            .build();
+public record Validation(
+        boolean required, boolean nullable, @Nullable Boolean readonly,
+        @Nullable Integer _minItems, @Nullable Integer _maxItems,
+        @Nullable Integer _minLength, @Nullable Integer _maxLength,
+        @Nullable BigDecimal _minimum, @Nullable BigDecimal _maximum,
+        @Nullable String _pattern) {
 
-    /** Simple required validation. */
-    Validation REQUIRED_VALIDATION = Validation.builder()
-            .isRequired(true)
-            .build();
+    private static Validation EMPTY_VALIDATION = new Validation(false, false, null, null, null, null, null, null, null, null);
+    private static Validation REQUIRED_VALIDATION = new Validation(true, false, null, null, null, null, null, null, null, null);
 
-    /** {@return a builder for this type} */
-    static ImmutableValidation.Builder builder() {
-        return ImmutableValidation.builder();
+    /** {@return an empty validation} */
+    public static Validation empty() {
+        return EMPTY_VALIDATION;
     }
 
-    /** {@return true if this is an empty validation, otherwise false} */
-    default boolean isEmptyValidation() {
-        return this == NO_VALIDATION;
+    /** {@return a validation which required set} */
+    public static Validation validationRequired() {
+        return REQUIRED_VALIDATION;
     }
 
-    /** {@return optional required state for the reference} */
-    Optional<Boolean> isRequired();
+    /** {@return true if this is a simple empty/no validation} */
+    public boolean isEmptyValidation() {
+        return this.equals(EMPTY_VALIDATION);
+    }
 
-    /** {@return optional nullable state for the reference} */
-    Optional<Boolean> isNullable();
+    /** {@return true if read-only is set} */
+    public boolean isReadOnly() {
+        return readonly != null && readonly.booleanValue();
+    }
 
-    /** {@return optional read-only state for the reference} */
-    Optional<Boolean> isReadonly();
+    /** {@return the optional minimal items} */
+    public Optional<Integer> minItems() {
+        return Optional.ofNullable(_minItems);
+    }
 
-    /** {@return optional validation minimum items} */
-    Optional<Integer> minItems();
+    /** {@return the optional maximal items} */
+    public Optional<Integer> maxItems() {
+        return Optional.ofNullable(_maxItems);
+    }
 
-    /** {@return optional validation maximum items} */
-    Optional<Integer> maxItems();
+    /** {@return the optional minimal length} */
+    public Optional<Integer> minLength() {
+        return Optional.ofNullable(_minLength);
+    }
 
-    /** {@return optional validation minimum length} */
-    Optional<Integer> minLength();
+    /** {@return the optional maximal length} */
+    public Optional<Integer> maxLength() {
+        return Optional.ofNullable(_maxLength);
+    }
 
-    /** {@return optional validation maximum length} */
-    Optional<Integer> maxLength();
+    /** {@return the optional minimum} */
+    public Optional<BigDecimal> minimum() {
+        return Optional.ofNullable(_minimum);
+    }
 
-    /** {@return optional validation minimum} */
-    Optional<BigDecimal> minimum();
+    /** {@return the optional maximum} */
+    public Optional<BigDecimal> maximum() {
+        return Optional.ofNullable(_maximum);
+    }
 
-    /** {@return optional validation maximum} */
-    Optional<BigDecimal> maximum();
-
-    /** {@return optional validation pattern} */
-    Optional<String> pattern();
+    /** {@return the optional pattern} */
+    public Optional<String> pattern() {
+        return Optional.ofNullable(_pattern);
+    }
 }

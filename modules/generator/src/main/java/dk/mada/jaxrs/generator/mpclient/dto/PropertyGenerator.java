@@ -128,7 +128,7 @@ public class PropertyGenerator {
 
         List<String> schemaEntries = new ArrayList<>();
         boolean isRequired = ti.isRequired();
-        boolean isJaxrsNullable = prop.validation().isNullable().orElse(false);
+        boolean isJaxrsNullable = prop.validation().nullable();
         boolean isImpliedNullable = !isRequired;
         boolean isNotNull = !isJaxrsNullable && isRequired;
         if (isRequired) {
@@ -137,7 +137,7 @@ public class PropertyGenerator {
         if (isJaxrsNullable) {
             schemaEntries.add("nullable = true");
         }
-        if (prop.validation().isReadonly().orElse(false)) {
+        if (prop.validation().isReadOnly()) {
             schemaEntries.add("readOnly = true");
         }
         consumeNonBlankEncoded(description, d -> schemaEntries.add("description = \"" + d + "\""));
@@ -289,7 +289,7 @@ public class PropertyGenerator {
         Type propType = prop.reference().refType();
         Type innerType = null;
         String defaultValue = null;
-        final boolean isRequired = prop.validation().isRequired().orElse(false);
+        final boolean isRequired = prop.validation().required();
         boolean isByteArray = false;
         boolean isStream = false;
         boolean isArray = false;

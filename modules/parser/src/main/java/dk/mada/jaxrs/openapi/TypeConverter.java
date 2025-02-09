@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -17,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.mada.jaxrs.model.Dto;
-import dk.mada.jaxrs.model.ImmutableValidation;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
@@ -79,9 +79,6 @@ public final class TypeConverter {
     /** Parser types. */
     private final ParserTypes parserTypes;
 
-    /** Validation instances to make sure we only get one of each. */
-    private final Set<Validation> validationInstances = new HashSet<>(Set.of(Validation.NO_VALIDATION, Validation.REQUIRED_VALIDATION));
-
     /**
      * Constructs a new type converter.
      *
@@ -130,9 +127,7 @@ public final class TypeConverter {
 
         if (context.isRequired()) {
             logger.debug(" overriding ptr validation to force required");
-            var withRequire = ImmutableValidation.builder().from(ptr.validation())
-                    .isRequired(true)
-                    .build();
+            var withRequire = Validations.required(ptr.validation());
             return ImmutableParserTypeRef.builder().from(ptr)
                     .validation(withRequire)
                     .build();
@@ -201,7 +196,7 @@ public final class TypeConverter {
         logger.debug("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
         logger.debug("ref {}", schemaRef);
 
-        Validation validation = extractValidation(schema, false);
+        Validation validation = Validations.extractValidation(schema, false);
         logger.debug("validation {}", validation);
 
         RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, context, validation, isFormRef);
@@ -409,7 +404,7 @@ public final class TypeConverter {
             if (oneOf != null && !oneOf.isEmpty()) {
                 List<ParserTypeRef> oneOfRefs = oneOf.stream()
                         .map(Schema::get$ref)
-                        .map(ref -> createDtoRef(ref, Validation.NO_VALIDATION))
+                        .map(ref -> createDtoRef(ref, Validations.emptyValidation()))
                         .filter(Objects::nonNull)
                         .toList();
 
@@ -612,13 +607,18 @@ public final class TypeConverter {
         }
 
         if (validations.size() != 1 || refs.size() != 1) {
-            logger.warn("Unabled to handle allOf for {} with {}", refs, validations);
+            logger.warn("Unabled to handle allOf for {}/{}: {} with {}", refs.size(), validations.size(), refs, validations);
+            String debugText = allOfTypes.stream().map(ParserTypeRef::toString).collect(Collectors.joining("\n "));
+            logger.trace("INPUT :\n {}", debugText);
             // bail for now
             return TypeObject.get();
         }
 
-        ParserTypeRef ref = refs.get(0);
-        Validation validation = validations.get(0);
+        ParserTypeRef ref = refs.getFirst();
+        Validation validation = validations.getFirst();
+
+        logger.trace(" OUT - {}", ref);
+        logger.trace(" OUT - {}", validation);
 
         return ParserTypeRef.of(ref.refTypeName(), validation);
     }
@@ -637,31 +637,6 @@ public final class TypeConverter {
         return parserRefs.makeDtoRef(openapiId, validation);
     }
 
-    private Validation extractValidation(@SuppressWarnings("rawtypes") Schema s, boolean required) {
-        Validation candidate = Validation.builder()
-                .isNullable(Optional.ofNullable(s.getNullable()))
-                .isReadonly(Optional.ofNullable(s.getReadOnly()))
-                .isRequired(Optional.of(required))
-                .maximum(Optional.ofNullable(s.getMaximum()))
-                .maxItems(Optional.ofNullable(s.getMaxItems()))
-                .maxLength(Optional.ofNullable(s.getMaxLength()))
-                .minimum(Optional.ofNullable(s.getMinimum()))
-                .minItems(Optional.ofNullable(s.getMinItems()))
-                .minLength(Optional.ofNullable(s.getMinLength()))
-                .pattern(Optional.ofNullable(s.getPattern()))
-                .build();
-
-        for (Validation v : validationInstances) {
-            if (v.equals(candidate)) {
-                return v;
-            }
-        }
-
-        // New instance
-        validationInstances.add(candidate);
-        return candidate;
-    }
-
     /**
      * Creates a synthetic DTO for passing multipart form parameters.
      *
@@ -673,7 +648,7 @@ public final class TypeConverter {
      */
     public ParserTypeRef createMultipartDto(String groupOpId, @SuppressWarnings("rawtypes") Schema schema) {
         String syntheticDtoName = naming.convertMultipartTypeName(groupOpId);
-        Validation requiredValidation = Validation.REQUIRED_VALIDATION;
+        Validation requiredValidation = Validation.validationRequired();
 
         logger.trace(" - createObjectRef, multipartform");
         @Nullable ParserTypeRef dtoRef = createDtoRef(REF_COMPONENTS_SCHEMAS + syntheticDtoName, requiredValidation);
@@ -722,7 +697,7 @@ public final class TypeConverter {
             Map<String, Reference> mapping = new HashMap<>();
             for (var e : disc.getMapping().entrySet()) {
                 String discName = e.getKey();
-                mapping.put(discName, createDtoRef(e.getValue(), Validation.NO_VALIDATION));
+                mapping.put(discName, createDtoRef(e.getValue(), Validations.emptyValidation()));
             }
             selector = SubtypeSelector.of(disc.getPropertyName(), mapping);
         }
@@ -796,7 +771,7 @@ public final class TypeConverter {
             logger.debug("   ref: {}", ref);
             logger.debug("   example: {}", exampleStr);
 
-            Validation validation = extractValidation(propSchema, requiredProperyNames.contains(propertyName));
+            Validation validation = Validations.extractValidation(propSchema, requiredProperyNames.contains(propertyName));
 
             props.add(Property.builder()
                     .name(propertyName)

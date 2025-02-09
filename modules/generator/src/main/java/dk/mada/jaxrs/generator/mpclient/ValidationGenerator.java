@@ -52,8 +52,8 @@ public class ValidationGenerator {
         Optional<String> decimalMaximum = Optional.empty();
         Optional<String> pattern;
 
-        boolean isNullable = validation.isNullable().orElse(false);
-        boolean isRequired = validation.isRequired().orElse(false);
+        boolean isNullable = validation.nullable();
+        boolean isRequired = validation.required();
         boolean isNotNull = !isNullable && isRequired;
         if (isNotNull) {
             imports.add(renderAnnotations, ValidationApi.NOT_NULL);
