@@ -23,6 +23,7 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.openapi.Validations;
 
 /**
  * Converts DTO properties to CtxProperties.
@@ -181,7 +182,7 @@ public class PropertyConverter {
         if (!resolvedValidation.equals(newValidation)) {
             if (resolution == PropertyConflictResolution.CLEAR) {
                 logger.debug("  clearing valiation: {} / {}", resolvedValidation, newValidation);
-                resolvedValidation = Validation.NO_VALIDATION;
+                resolvedValidation = Validations.emptyValidation();
             } else if (resolution == PropertyConflictResolution.FAIL) {
                 GeneratorBadInputException.failBadInput(conflictionMsg + "validation",
                         GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
