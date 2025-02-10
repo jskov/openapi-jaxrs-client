@@ -1,8 +1,7 @@
 package dk.mada.jaxrs.generator.mpclient.imports;
 
-import java.util.Optional;
-
 import dk.mada.jaxrs.generator.mpclient.imports.Imports.ImportRenderPrefs;
+import java.util.Optional;
 
 /**
  * Quarkus import paths.

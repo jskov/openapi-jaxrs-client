@@ -10,9 +10,4 @@ package dk.mada.jaxrs.generator.api;
  * @param showParserInfo a flag to allow showing parser info
  */
 public record ClientContext(
-        boolean overwrite,
-        GeneratorLogLevel logLevel,
-        boolean skipApi,
-        boolean skipDto,
-        boolean showParserInfo) {
-}
+        boolean overwrite, GeneratorLogLevel logLevel, boolean skipApi, boolean skipDto, boolean showParserInfo) {}

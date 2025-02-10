@@ -2,22 +2,20 @@ package dk.mada.jaxrs.openapi;
 
 import static java.util.stream.Collectors.toMap;
 
+import dk.mada.jaxrs.model.Dto;
+import dk.mada.jaxrs.model.naming.Naming;
+import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeName;
+import dk.mada.jaxrs.model.types.TypeNames;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import dk.mada.jaxrs.model.Dto;
-import dk.mada.jaxrs.model.naming.Naming;
-import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.model.types.TypeName;
-import dk.mada.jaxrs.model.types.TypeNames;
 
 /**
  * Renames types to avoid on-disk conflicts.
@@ -76,8 +74,7 @@ public final class ConflictRenamer {
                     .collect(toMap(ConflictRenamed::originalDtoName, cr -> cr));
         }
 
-        conflictRenamedDtos = dtos.stream()
-                .collect(toMap(dto -> dto, this::renameDto));
+        conflictRenamedDtos = dtos.stream().collect(toMap(dto -> dto, this::renameDto));
 
         return conflictRenamedDtos.values();
     }
@@ -130,14 +127,14 @@ public final class ConflictRenamer {
      */
     private int schemaOrderComparitor(Dto a, Dto b) {
         switch (naming.getRenameCaseConflictSchemaOrder()) {
-        case DOCUMENT_ORDER:
-            int aIndex = schemaNamesDeclarationOrder.indexOf(a.openapiId().name());
-            int bIndex = schemaNamesDeclarationOrder.indexOf(b.openapiId().name());
-            return Integer.compare(aIndex, bIndex);
-        case NAME_ORDER:
-            return a.openapiId().compareTo(b.openapiId());
-        default:
-            throw new IllegalStateException("Unhandled schema order " + naming.getRenameCaseConflictSchemaOrder());
+            case DOCUMENT_ORDER:
+                int aIndex = schemaNamesDeclarationOrder.indexOf(a.openapiId().name());
+                int bIndex = schemaNamesDeclarationOrder.indexOf(b.openapiId().name());
+                return Integer.compare(aIndex, bIndex);
+            case NAME_ORDER:
+                return a.openapiId().compareTo(b.openapiId());
+            default:
+                throw new IllegalStateException("Unhandled schema order " + naming.getRenameCaseConflictSchemaOrder());
         }
     }
 
@@ -148,8 +145,7 @@ public final class ConflictRenamer {
      * @param dtoName         the new name of the DTO
      * @param mpSchemaName    the new Schema name of the DTO
      */
-    record ConflictRenamed(String originalDtoName, String dtoName, String mpSchemaName) {
-    }
+    record ConflictRenamed(String originalDtoName, String dtoName, String mpSchemaName) {}
 
     /**
      * {@return a conflict renaming if required, or null}
@@ -163,8 +159,7 @@ public final class ConflictRenamer {
         String newTypeName = assignUniqueName(namespaceTypes, oldTypeName);
         String newMpSchemaName = assignUniqueName(namespaceMpSchemas, oldMpSchemaName);
 
-        if (oldTypeName.equals(newTypeName)
-                && oldMpSchemaName.equals(newMpSchemaName)) {
+        if (oldTypeName.equals(newTypeName) && oldMpSchemaName.equals(newMpSchemaName)) {
             return null;
         }
 
@@ -181,7 +176,6 @@ public final class ConflictRenamer {
     }
 
     private boolean isInConflict(Set<String> namespace, String name) {
-        return namespace.stream()
-                .anyMatch(s -> s.equalsIgnoreCase(name));
+        return namespace.stream().anyMatch(s -> s.equalsIgnoreCase(name));
     }
 }

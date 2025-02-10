@@ -2,6 +2,10 @@ package dk.mada.jaxrs.generator.cli;
 
 import static java.util.stream.Collectors.joining;
 
+import dk.mada.jaxrs.generator.api.ClientContext;
+import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.GeneratorService;
+import dk.mada.logging.LoggerConfig;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,15 +21,9 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
-
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import dk.mada.jaxrs.generator.api.ClientContext;
-import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
-import dk.mada.jaxrs.generator.api.GeneratorService;
-import dk.mada.logging.LoggerConfig;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Help.Visibility;
@@ -68,19 +66,30 @@ public final class Main implements Callable<Integer> {
     private boolean showParserInfo;
 
     /** Output directory for generated classes. */
-    @Nullable @Option(names = { "-o", "--output-directory" }, description = "Output directory for the generated classes.", required = true)
+    @Nullable @Option(
+            names = {"-o", "--output-directory"},
+            description = "Output directory for the generated classes.",
+            required = true)
     private Path outputDir;
 
     /** Flag to enable writing to existing directory. */
-    @Option(names = "--overwrite", description = "Write output to existing output directory, delete existing api/dto packages.")
+    @Option(
+            names = "--overwrite",
+            description = "Write output to existing output directory, delete existing api/dto packages.")
     private boolean overwrite;
 
     /** Input document. */
-    @Nullable @Option(names = { "-i", "--input" }, description = "OpenApi document input.", required = true)
+    @Nullable @Option(
+            names = {"-i", "--input"},
+            description = "OpenApi document input.",
+            required = true)
     private Path inputDocument;
 
     /** Configuration properties. */
-    @Nullable @Option(names = { "-c", "--config" }, description = "Configuration properties.", showDefaultValue = Visibility.ALWAYS)
+    @Nullable @Option(
+            names = {"-c", "--config"},
+            description = "Configuration properties.",
+            showDefaultValue = Visibility.ALWAYS)
     private Path configuration;
 
     /** Flag to disable generation of API classes. */
@@ -99,8 +108,7 @@ public final class Main implements Callable<Integer> {
     @Nullable @Option(names = "--dto-package", description = "Package to place the DTO classes in.")
     private String dtoPackage;
 
-    private Main() {
-    }
+    private Main() {}
 
     static class Version implements IVersionProvider {
         @Override
@@ -114,10 +122,7 @@ public final class Main implements Callable<Integer> {
 
                 String version = "Version: " + resourceProps.getProperty("version");
                 String builtOn = "Built on: " + resourceProps.getProperty("builtOn");
-                return new String[] {
-                        version,
-                        builtOn
-                };
+                return new String[] {version, builtOn};
             }
         }
     }
@@ -131,9 +136,8 @@ public final class Main implements Callable<Integer> {
             if (isNamedOption(argSpec, "-c")) {
                 String inputDocument = getInputDocument(argSpec.command().args());
                 if (inputDocument != null) {
-                    String configDefault = inputDocument
-                            .replaceFirst(".ya?ml$", ".properties")
-                            .replaceFirst(".json$", ".properties");
+                    String configDefault =
+                            inputDocument.replaceFirst(".ya?ml$", ".properties").replaceFirst(".json$", ".properties");
                     if (!configDefault.equals(inputDocument)) {
                         return configDefault;
                     }

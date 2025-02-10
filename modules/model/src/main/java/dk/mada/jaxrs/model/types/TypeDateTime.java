@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
-
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -42,23 +41,23 @@ public final class TypeDateTime implements Type {
      */
     public static synchronized TypeDateTime get(DateTimeVariant variant) {
         switch (variant) {
-        case LOCAL:
-            if (instanceLocal == null) {
-                instanceLocal = new TypeDateTime(TypeNames.LOCAL_DATE_TIME, "java.time.LocalDateTime");
-            }
-            return instanceLocal;
-        case OFFSET:
-            if (instanceOffset == null) {
-                instanceOffset = new TypeDateTime(TypeNames.OFFSET_DATE_TIME, "java.time.OffsetDateTime");
-            }
-            return instanceOffset;
-        case ZONED:
-            if (instanceZoned == null) {
-                instanceZoned = new TypeDateTime(TypeNames.ZONED_DATE_TIME, "java.time.ZonedDateTime");
-            }
-            return instanceZoned;
-        default:
-            throw new IllegalStateException("Unhandled variant " + variant);
+            case LOCAL:
+                if (instanceLocal == null) {
+                    instanceLocal = new TypeDateTime(TypeNames.LOCAL_DATE_TIME, "java.time.LocalDateTime");
+                }
+                return instanceLocal;
+            case OFFSET:
+                if (instanceOffset == null) {
+                    instanceOffset = new TypeDateTime(TypeNames.OFFSET_DATE_TIME, "java.time.OffsetDateTime");
+                }
+                return instanceOffset;
+            case ZONED:
+                if (instanceZoned == null) {
+                    instanceZoned = new TypeDateTime(TypeNames.ZONED_DATE_TIME, "java.time.ZonedDateTime");
+                }
+                return instanceZoned;
+            default:
+                throw new IllegalStateException("Unhandled variant " + variant);
         }
     }
 

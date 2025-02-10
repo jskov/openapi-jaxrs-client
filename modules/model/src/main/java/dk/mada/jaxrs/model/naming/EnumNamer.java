@@ -3,6 +3,8 @@ package dk.mada.jaxrs.model.naming;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
+import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,12 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import dk.mada.jaxrs.model.types.Primitive;
-import dk.mada.jaxrs.model.types.Type;
 
 /**
  * Uses default naming, but provides alternatives in case of naming conflicts.
@@ -50,8 +48,7 @@ public final class EnumNamer {
      * @param name  the assigned name to the enumeration entry
      * @param value the value of the enumeration entry
      */
-    public record EnumNameValue(String name, String value) {
-    }
+    public record EnumNameValue(String name, String value) {}
 
     /**
      * Constructs a new enumeration namer instance.
@@ -87,8 +84,7 @@ public final class EnumNamer {
 
     private void assignNames() {
         // Group by default names to detect conflicts
-        Map<String, List<String>> conflicts = values.stream()
-                .collect(groupingBy(this::simpleNamer));
+        Map<String, List<String>> conflicts = values.stream().collect(groupingBy(this::simpleNamer));
 
         for (String v : values) {
             final String defaultName = simpleNamer(v);

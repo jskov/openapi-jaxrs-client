@@ -1,10 +1,8 @@
 package dk.mada.jaxrs.model.api;
 
-import java.util.Set;
-
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.model.types.Reference;
+import java.util.Set;
+import org.immutables.value.Value.Immutable;
 
 /**
  * Models the content of a request or response.

@@ -1,8 +1,7 @@
 package dk.mada.jaxrs.model.naming;
 
-import java.util.Locale;
-
 import dk.mada.jaxrs.model.options.OptionReader;
+import java.util.Locale;
 
 /**
  * Definitions of naming options.
@@ -82,11 +81,13 @@ public class NamingOpts {
         propertyNamingConfig = or.getDefault("naming-rules-property", "REGEXP/_/-/; PROPERTYNAME");
         parameterNamingConfig = or.getDefault("naming-rules-parameter", "REGEXP/_/-/; PROPERTYNAME");
         enumConstantNamingConfig = or.getDefault("naming-rules-enum-constant", "REGEXP/-/_/; TYPENAME; UPCASE");
-        enumNumberConstantNamingConfig = or.getDefault("naming-rules-enum-number-constant", "REGEXP/-/NEG_/; PREPEND/NUMBER_/");
+        enumNumberConstantNamingConfig =
+                or.getDefault("naming-rules-enum-number-constant", "REGEXP/-/NEG_/; PREPEND/NUMBER_/");
         propertyEnumTypeNamingConfig = or.getDefault("naming-rules-property-enum-type", "TYPENAME; APPEND/Enum/");
 
         renameCaseConflicts = or.bool("naming-rename-case-conflicts", false);
-        renameCaseConflictsOrder = SchemaOrder.fromConfigName(or.getDefault("naming-rename-case-conflicts-order", "document-order"));
+        renameCaseConflictsOrder =
+                SchemaOrder.fromConfigName(or.getDefault("naming-rename-case-conflicts-order", "document-order"));
     }
 
     /** {@return true if types should be renamed to avoid conflicts on Windows} */

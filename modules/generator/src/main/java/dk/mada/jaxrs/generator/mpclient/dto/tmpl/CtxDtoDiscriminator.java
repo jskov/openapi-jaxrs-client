@@ -2,7 +2,6 @@ package dk.mada.jaxrs.generator.mpclient.dto.tmpl;
 
 import java.util.List;
 import java.util.Map;
-
 import org.immutables.value.Value.Immutable;
 import org.jspecify.annotations.Nullable;
 
@@ -26,8 +25,7 @@ public interface CtxDtoDiscriminator {
      * @param mappingName      the way it is referred to in the stream
      * @param vendorExtensions map of vendor extensions
      */
-    record ModelMapping(String modelName, String mappingName, @Nullable Map<String, String> vendorExtensions) {
-    }
+    record ModelMapping(String modelName, String mappingName, @Nullable Map<String, String> vendorExtensions) {}
 
     /** {@return the list of mapped models} */
     List<ModelMapping> mappedModels();

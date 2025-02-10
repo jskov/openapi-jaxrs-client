@@ -1,15 +1,5 @@
 package dk.mada.jaxrs.generator.mpclient.api;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.generator.mpclient.CommonPathFinder;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.MediaTypes;
@@ -48,6 +38,14 @@ import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * API generator.
@@ -122,9 +120,7 @@ public class ApiGenerator {
     private CtxApi toCtx(String classname, List<Operation> operations) {
         var imports = Imports.newApi(opts);
 
-        List<String> paths = operations.stream()
-                .map(Operation::path)
-                .toList();
+        List<String> paths = operations.stream().map(Operation::path).toList();
         String commonPath = commonPathFinder.findCommonPath(paths);
 
         int trimPathLength = commonPath.length();
@@ -138,9 +134,7 @@ public class ApiGenerator {
             imports.add(MicroProfile.REGISTER_REST_CLIENT);
         }
 
-        List<String> mpProviders = opts.getMpProviders().stream()
-                .sorted()
-                .toList();
+        List<String> mpProviders = opts.getMpProviders().stream().sorted().toList();
         if (!mpProviders.isEmpty()) {
             imports.add(MicroProfile.REGISTER_PROVIDER);
         }
@@ -188,8 +182,7 @@ public class ApiGenerator {
     private CtxOperationRef toCtxApiOperation(Imports imports, int trimPathLength, Operation op) {
         addOperationImports(imports, op);
 
-        String nickname = op.operationId()
-                .orElse(op.syntheticOpId());
+        String nickname = op.operationId().orElse(op.syntheticOpId());
 
         // Gets type for OK if present, or else default, or else void
         Reference returnTypeRef = getTypeForStatus(op, StatusCode.HTTP_OK)
@@ -198,12 +191,10 @@ public class ApiGenerator {
                 .orElse(TypeVoid.getRef());
 
         // If OK is declared as Void, replace with default type (if available)
-        Content okContent = getContentForStatus(op, StatusCode.HTTP_OK)
-                .orElse(null);
-        Content defaultContent = getContentForStatus(op, StatusCode.HTTP_DEFAULT)
-                .orElse(null);
-        if (okContent != null && okContent.reference().isVoid()
-                && defaultContent != null) {
+        Content okContent = getContentForStatus(op, StatusCode.HTTP_OK).orElse(null);
+        Content defaultContent =
+                getContentForStatus(op, StatusCode.HTTP_DEFAULT).orElse(null);
+        if (okContent != null && okContent.reference().isVoid() && defaultContent != null) {
             returnTypeRef = defaultContent.reference();
         }
 
@@ -212,8 +203,8 @@ public class ApiGenerator {
                 .or(() -> getMediaTypeForStatus(op, StatusCode.HTTP_CREATED))
                 .or(() -> getMediaTypeForStatus(op, StatusCode.HTTP_DEFAULT))
                 .orElse(Set.of());
-        boolean replaceResponseWithInputStream = opts.getResponseInputStreamMediaTypes().stream()
-                .anyMatch(mediaTypes::contains);
+        boolean replaceResponseWithInputStream =
+                opts.getResponseInputStreamMediaTypes().stream().anyMatch(mediaTypes::contains);
         if (replaceResponseWithInputStream) {
             returnTypeRef = TypeReference.of(TypeByteArray.getStream(), returnTypeRef.validation());
             imports.add(returnTypeRef);
@@ -227,7 +218,8 @@ public class ApiGenerator {
         Optional<String> producesMediaType = makeProduces(imports, op, returnTypeRef);
 
         List<CtxApiParam> allParams = getParams(imports, op);
-        List<CtxApiResponse> responses = getResponses(imports, op, producesMediaType.stream().toList());
+        List<CtxApiResponse> responses =
+                getResponses(imports, op, producesMediaType.stream().toList());
 
         boolean onlySimpleResponse = addResponseImports(imports, op);
 
@@ -267,13 +259,11 @@ public class ApiGenerator {
     }
 
     private Optional<Reference> getTypeForStatus(Operation op, StatusCode statusCode) {
-        return getContentForStatus(op, statusCode)
-                .map(Content::reference);
+        return getContentForStatus(op, statusCode).map(Content::reference);
     }
 
     private Optional<Set<String>> getMediaTypeForStatus(Operation op, StatusCode statusCode) {
-        return getContentForStatus(op, statusCode)
-                .map(Content::mediaTypes);
+        return getContentForStatus(op, statusCode).map(Content::mediaTypes);
     }
 
     private Optional<Content> getContentForStatus(Operation op, StatusCode statusCode) {
@@ -315,17 +305,13 @@ public class ApiGenerator {
 
         Response r = responses.get(0);
         boolean isContainer = r.content().reference().isContainer();
-        boolean isSimpleResponse = !isContainer
-                && r.code() == StatusCode.HTTP_OK
-                && !r.isVoid();
+        boolean isSimpleResponse = !isContainer && r.code() == StatusCode.HTTP_OK && !r.isVoid();
         logger.debug(" simple: {}", isSimpleResponse);
         return isSimpleResponse;
     }
 
     private void addOperationImports(Imports imports, Operation op) {
-        op.responses().stream()
-                .map(r -> r.content().reference())
-                .forEach(imports::add);
+        op.responses().stream().map(r -> r.content().reference()).forEach(imports::add);
     }
 
     /**
@@ -372,12 +358,10 @@ public class ApiGenerator {
 
             Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
 
-            boolean isNullableRef = type.isPrimitive(Primitive.STRING)
-                    || (!type.isPrimitive() || opts.isUseApiWrappedPrimitives());
+            boolean isNullableRef =
+                    type.isPrimitive(Primitive.STRING) || (!type.isPrimitive() || opts.isUseApiWrappedPrimitives());
             boolean validationAllowsNull = !valCtx.map(v -> v.notNull()).orElse(false);
-            boolean isNullable = validationAllowsNull
-                    && isNullableRef
-                    && (p.isQueryParam() || p.isHeaderParam());
+            boolean isNullable = validationAllowsNull && isNullableRef && (p.isQueryParam() || p.isHeaderParam());
             if (isNullable && opts.isJspecify()) {
                 imports.add(Jspecify.NULLABLE);
             }
@@ -406,16 +390,18 @@ public class ApiGenerator {
             Reference ref = body.content().reference();
             imports.add(ref);
 
-            String preferredDtoParamName = naming.convertEntityName(ref.typeName().name());
+            String preferredDtoParamName =
+                    naming.convertEntityName(ref.typeName().name());
 
             // Guard against (simple) conflict with other parameters
-            boolean dtoParamNameNotUnique = params.stream()
-                    .anyMatch(p -> p.paramName().equals(preferredDtoParamName));
+            boolean dtoParamNameNotUnique =
+                    params.stream().anyMatch(p -> p.paramName().equals(preferredDtoParamName));
             String dtoParamName = dtoParamNameNotUnique ? preferredDtoParamName + "Entity" : preferredDtoParamName;
 
             String dataType = paramDataType(ref);
 
-            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
+            Optional<CtxValidation> valCtx =
+                    validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
 
             boolean isMultipartForm = body.isMultipartForm();
             if (isMultipartForm) {
@@ -494,8 +480,7 @@ public class ApiGenerator {
                 .map(mt -> MediaTypes.toMediaType(imports, mt))
                 .filter(mt -> !opResponseMediaTypes.contains(mt));
 
-        String description = r.description()
-                .orElse("");
+        String description = r.description().orElse("");
 
         return CtxApiResponse.builder()
                 .baseType(baseType)
@@ -511,14 +496,13 @@ public class ApiGenerator {
 
     private Optional<String> makeConsumes(Imports imports, Operation op) {
         List<String> mediaTypes = op.requestBody()
-                .map(rb -> rb.content().mediaTypes().stream()
-                        .sorted()
-                        .distinct()
-                        .toList())
+                .map(rb ->
+                        rb.content().mediaTypes().stream().sorted().distinct().toList())
                 .orElse(List.of());
 
         ContentContext context = new ContentContext(op.path(), StatusCode.HTTP_DEFAULT, false, Location.REQUEST, false);
-        return model.contentSelector().selectPreferredMediaType(mediaTypes, context)
+        return model.contentSelector()
+                .selectPreferredMediaType(mediaTypes, context)
                 .map(mt -> MediaTypes.toMediaType(imports, mt));
     }
 
@@ -538,22 +522,20 @@ public class ApiGenerator {
     private Optional<String> makeProduces(Imports imports, Operation op, Reference returnTypeRef) {
         Optional<Response> mainResponse = getOperationMainResponse(op);
 
-        List<String> potentialMediaTypes = mainResponse
-                .map(r -> List.copyOf(r.content().mediaTypes()))
-                .orElse(List.of());
+        List<String> potentialMediaTypes =
+                mainResponse.map(r -> List.copyOf(r.content().mediaTypes())).orElse(List.of());
 
         // If there are no media types declared, and the return type is void
         // a produces media-type can be specified.
         if (potentialMediaTypes.isEmpty() && returnTypeRef.isVoid()) {
-            return opts.getVoidProducesMediaType()
-                    .map(mt -> MediaTypes.toMediaType(imports, mt));
+            return opts.getVoidProducesMediaType().map(mt -> MediaTypes.toMediaType(imports, mt));
         }
 
-        StatusCode code = mainResponse.map(Response::code)
-                .orElse(StatusCode.HTTP_DEFAULT);
+        StatusCode code = mainResponse.map(Response::code).orElse(StatusCode.HTTP_DEFAULT);
 
         ContentContext context = new ContentContext(op.path(), code, true, Location.RESPONSE, false);
-        return model.contentSelector().selectPreferredMediaType(potentialMediaTypes, context)
+        return model.contentSelector()
+                .selectPreferredMediaType(potentialMediaTypes, context)
                 .map(mt -> MediaTypes.toMediaType(imports, mt));
     }
 

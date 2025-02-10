@@ -1,10 +1,8 @@
 package dk.mada.jaxrs.model;
 
-import java.util.Map;
-
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.model.types.Reference;
+import java.util.Map;
+import org.immutables.value.Value.Immutable;
 
 /**
  * Sub-type selection information.
@@ -20,7 +18,9 @@ public interface SubtypeSelector {
      */
     static SubtypeSelector of(String propertyName, Map<String, Reference> typeMapping) {
         return ImmutableSubtypeSelector.builder()
-                .propertyName(propertyName).typeMapping(typeMapping).build();
+                .propertyName(propertyName)
+                .typeMapping(typeMapping)
+                .build();
     }
 
     /** {@return the name of the property holding the type selector} */

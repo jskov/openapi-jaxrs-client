@@ -2,7 +2,6 @@ package dk.mada.jaxrs.model.api;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.immutables.value.Value.Immutable;
 
 /**

@@ -8,7 +8,6 @@ import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,11 +57,9 @@ public final class NamingRules {
             // Applies regular expression replacement to input string
             "REGEXP", NamingRules::regexpOperation);
 
-    private NamingRules() {
-    }
+    private NamingRules() {}
 
-    record NamingRule(String name, UnaryOperator<String> converter) {
-    }
+    record NamingRule(String name, UnaryOperator<String> converter) {}
 
     /**
      * Builds a list of rules based on input configuration.

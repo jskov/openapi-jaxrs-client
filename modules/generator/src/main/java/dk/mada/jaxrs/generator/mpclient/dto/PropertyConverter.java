@@ -1,18 +1,5 @@
 package dk.mada.jaxrs.generator.mpclient.dto;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorBadInputException;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts.PropertyConflictResolution;
@@ -24,6 +11,17 @@ import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.openapi.Validations;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Converts DTO properties to CtxProperties.
@@ -50,8 +48,7 @@ public class PropertyConverter {
         resolution = opts.getPropertyConflictResolution();
     }
 
-    record DtoCtxProps(List<CtxProperty> props, List<CtxProperty> propsOpenapiOrder) {
-    }
+    record DtoCtxProps(List<CtxProperty> props, List<CtxProperty> propsOpenapiOrder) {}
 
     /**
      * Defines ctx properties for the DTO subject
@@ -66,8 +63,7 @@ public class PropertyConverter {
 
         Comparator<? super CtxProperty> propertySorter = propertySorter();
 
-        Stream<CtxProperty> propsStream = propsToRender.stream()
-                .map(p -> propertyGenerator.toCtxProperty(base, p));
+        Stream<CtxProperty> propsStream = propsToRender.stream().map(p -> propertyGenerator.toCtxProperty(base, p));
 
         if (propertySorter != null) {
             propsStream = propsStream.sorted(propertySorter);
@@ -77,8 +73,8 @@ public class PropertyConverter {
 
         if (logger.isDebugEnabled()) {
             logger.debug(" -- properties summary:");
-            propsToRender
-                    .forEach(p -> logger.debug(" {} : {}", p.name(), p.reference().refType()));
+            propsToRender.forEach(
+                    p -> logger.debug(" {} : {}", p.name(), p.reference().refType()));
         }
 
         return new DtoCtxProps(props, ctxPropsOpenapiOrder);
@@ -86,13 +82,10 @@ public class PropertyConverter {
 
     private List<CtxProperty> getPropsOpenApiOrder(List<Property> propsToRender, List<CtxProperty> props) {
         // Make the context properties accessible by name
-        Map<String, CtxProperty> byName = props.stream()
-                .collect(Collectors.toMap(CtxProperty::baseName, p -> p));
+        Map<String, CtxProperty> byName = props.stream().collect(Collectors.toMap(CtxProperty::baseName, p -> p));
 
         // Then map the openapi properties to context properties, keeping the order
-        return propsToRender.stream()
-                .map(p -> byName.get(p.name()))
-                .toList();
+        return propsToRender.stream().map(p -> byName.get(p.name())).toList();
     }
 
     /**
@@ -128,10 +121,10 @@ public class PropertyConverter {
      * @param order the OpenApi document order-index of the property
      * @param prop  the property
      */
-    record OrderedProperty(int order, Property prop) {
-    }
+    record OrderedProperty(int order, Property prop) {}
 
-    private Map<String, OrderedProperty> addCombinedProperties(String parentDtoName, Map<String, OrderedProperty> combinedProps, Dto dto) {
+    private Map<String, OrderedProperty> addCombinedProperties(
+            String parentDtoName, Map<String, OrderedProperty> combinedProps, Dto dto) {
         String dtoName = dto.name();
         for (Property newProp : dto.properties()) {
             String propName = newProp.name();
@@ -141,7 +134,8 @@ public class PropertyConverter {
                 OrderedProperty prevOrderedProp = combinedProps.get(propName);
                 Property prevProp = prevOrderedProp.prop();
 
-                String msg = "Dto " + parentDtoName + " in conflict with subtype " + dtoName + " about property " + propName + " ";
+                String msg = "Dto " + parentDtoName + " in conflict with subtype " + dtoName + " about property "
+                        + propName + " ";
 
                 assertSameType(msg, prevProp, newProp);
 
@@ -172,7 +166,8 @@ public class PropertyConverter {
         Type prevType = prevProp.reference().refType();
         Type newType = newProp.reference().refType();
         if (!prevType.equals(newType)) {
-            GeneratorBadInputException.failBadInput(conflictionMsg + "type", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+            GeneratorBadInputException.failBadInput(
+                    conflictionMsg + "type", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
         }
     }
 
@@ -184,8 +179,8 @@ public class PropertyConverter {
                 logger.debug("  clearing valiation: {} / {}", resolvedValidation, newValidation);
                 resolvedValidation = Validations.emptyValidation();
             } else if (resolution == PropertyConflictResolution.FAIL) {
-                GeneratorBadInputException.failBadInput(conflictionMsg + "validation",
-                        GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+                GeneratorBadInputException.failBadInput(
+                        conflictionMsg + "validation", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
             }
         }
         return resolvedValidation;
@@ -207,8 +202,8 @@ public class PropertyConverter {
                 logger.debug("  clearing description: {} / {}", resolvedDescription, newDescription);
                 resolvedDescription = Optional.empty();
             } else if (resolution == PropertyConflictResolution.FAIL) {
-                GeneratorBadInputException.failBadInput(conflictionMsg + "description",
-                        GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+                GeneratorBadInputException.failBadInput(
+                        conflictionMsg + "description", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
             }
         }
         return resolvedDescription;
@@ -222,8 +217,8 @@ public class PropertyConverter {
                 logger.debug("  clearing example: {} / {}", resolvedExample, newExample);
                 resolvedExample = Optional.empty();
             } else if (resolution == PropertyConflictResolution.FAIL) {
-                GeneratorBadInputException.failBadInput(conflictionMsg + "example",
-                        GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
+                GeneratorBadInputException.failBadInput(
+                        conflictionMsg + "example", GeneratorOpts.GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION);
             }
         }
         return resolvedExample;
@@ -231,14 +226,14 @@ public class PropertyConverter {
 
     private @Nullable Comparator<? super CtxProperty> propertySorter() {
         switch (order) {
-        case DOCUMENT_ORDER:
-            return null;
-        case ALPHABETICAL_ORDER:
-            return (a, b) -> a.name().compareTo(b.name());
-        case ALPHABETICAL_NOCASE_ORDER:
-            return (a, b) -> a.name().compareToIgnoreCase(b.name());
-        default:
-            throw new IllegalStateException("Unhandled ordering " + order);
+            case DOCUMENT_ORDER:
+                return null;
+            case ALPHABETICAL_ORDER:
+                return (a, b) -> a.name().compareTo(b.name());
+            case ALPHABETICAL_NOCASE_ORDER:
+                return (a, b) -> a.name().compareToIgnoreCase(b.name());
+            default:
+                throw new IllegalStateException("Unhandled ordering " + order);
         }
     }
 }

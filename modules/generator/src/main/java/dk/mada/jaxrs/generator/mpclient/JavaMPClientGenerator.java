@@ -1,22 +1,20 @@
 package dk.mada.jaxrs.generator.mpclient;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.exceptions.GeneratorException;
 import dk.mada.jaxrs.generator.mpclient.api.ApiGenerator;
 import dk.mada.jaxrs.generator.mpclient.dto.DtoGenerator;
 import dk.mada.jaxrs.model.Model;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Generate Java MicroProfile client classes.
  */
 public final class JavaMPClientGenerator {
     /** Constructs new instance. */
-    public JavaMPClientGenerator() {
-    }
+    public JavaMPClientGenerator() {}
 
     /**
      * Generates classes for java MP client.
@@ -39,7 +37,6 @@ public final class JavaMPClientGenerator {
             createDirs(dtoDir);
             new DtoGenerator(opts, templates, model).generateDtoClasses();
         }
-
     }
 
     private void createDirs(Path p) {

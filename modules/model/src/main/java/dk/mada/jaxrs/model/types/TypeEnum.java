@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
 import java.util.List;
-
 import org.immutables.value.Value.Immutable;
 
 /**

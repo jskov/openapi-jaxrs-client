@@ -16,6 +16,5 @@ public record CtxEnum(List<CtxEnumEntry> enumVars) {
      * @param value     the value suitable for rendering
      * @param wireValue the wire-value of the entry
      */
-    public record CtxEnumEntry(String name, String value, String wireValue) {
-    }
+    public record CtxEnumEntry(String name, String value, String wireValue) {}
 }

@@ -1,10 +1,8 @@
 package dk.mada.jaxrs.model;
 
-import java.util.Optional;
-
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.model.types.Reference;
+import java.util.Optional;
+import org.immutables.value.Value.Immutable;
 
 /**
  * Models a property in a DTO.

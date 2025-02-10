@@ -1,13 +1,11 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.List;
-
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
+import java.util.List;
+import org.immutables.value.Value.Immutable;
 
 /**
  * Type representing a composite class (schema with allOf) during parsing.
@@ -31,7 +29,8 @@ public interface ParserTypeComposite extends Type {
     static ParserTypeComposite of(TypeName typeName, List<ParserTypeRef> containsTypes) {
         return ImmutableParserTypeComposite.builder()
                 .typeName(typeName)
-                .containsTypes(containsTypes).build();
+                .containsTypes(containsTypes)
+                .build();
     }
 
     /** {@return the parser references to the composite parts of this type} */

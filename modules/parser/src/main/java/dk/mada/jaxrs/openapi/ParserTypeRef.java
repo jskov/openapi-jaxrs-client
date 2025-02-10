@@ -1,11 +1,10 @@
 package dk.mada.jaxrs.openapi;
 
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
+import org.immutables.value.Value.Immutable;
 
 /**
  * A reference to types used during parsing.

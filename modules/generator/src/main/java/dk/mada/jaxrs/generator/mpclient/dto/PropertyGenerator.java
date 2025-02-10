@@ -2,16 +2,6 @@ package dk.mada.jaxrs.generator.mpclient.dto;
 
 import static dk.mada.jaxrs.generator.mpclient.StringRenderer.consumeNonBlankEncoded;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
-
-import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
@@ -39,6 +29,14 @@ import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Property generator.
@@ -106,8 +104,7 @@ public class PropertyGenerator {
         String setter = "set" + names.camelized();
         String extGetter = getter;
         String extSetter = setter;
-        boolean isUseBigDecimalForDouble = opts.isUseBigDecimalForDouble()
-                && propType.isPrimitive(Primitive.DOUBLE);
+        boolean isUseBigDecimalForDouble = opts.isUseBigDecimalForDouble() && propType.isPrimitive(Primitive.DOUBLE);
         if (isUseBigDecimalForDouble) {
             getter = getter + "Double";
             setter = setter + "Double";
@@ -118,9 +115,7 @@ public class PropertyGenerator {
 
         Optional<String> description = prop.description();
 
-        boolean isUseEmptyCollections = opts.isUseEmptyCollections()
-                && ti.isContainer()
-                && !ti.isRequired();
+        boolean isUseEmptyCollections = opts.isUseEmptyCollections() && ti.isContainer() && !ti.isRequired();
         if (isUseEmptyCollections) {
             dtoImports.add(Jackson.JSON_IGNORE);
             getter = getter + "Nullable";
@@ -149,7 +144,8 @@ public class PropertyGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        Optional<CtxValidation> beanValidation = validationGenerator.makeValidation(dtoImports, propType, prop.validation());
+        Optional<CtxValidation> beanValidation =
+                validationGenerator.makeValidation(dtoImports, propType, prop.validation());
 
         String jsonPropertyConst = null;
         if (opts.isJackson() || opts.isJsonb() || parentDto.isMultipartForm()) {
@@ -216,8 +212,7 @@ public class PropertyGenerator {
         return ctx;
     }
 
-    record Names(String propertyName, String variableName, String camelized, String snaked) {
-    }
+    record Names(String propertyName, String variableName, String camelized, String snaked) {}
 
     private Names getNames(Property prop) {
         final String name = prop.name();
@@ -338,9 +333,19 @@ public class PropertyGenerator {
         final String typeName = propType.wrapperTypeName().name();
         final boolean isContainer = isArray || isMap || isSet;
 
-        return new TypeInfo(propType, typeName, innerType, innerTypeName, defaultValue,
-                isRequired, isContainer,
-                isByteArray, isStream, isArray, isMap, isSet);
+        return new TypeInfo(
+                propType,
+                typeName,
+                innerType,
+                innerTypeName,
+                defaultValue,
+                isRequired,
+                isContainer,
+                isByteArray,
+                isStream,
+                isArray,
+                isMap,
+                isSet);
     }
 
     record TypeInfo(
@@ -355,8 +360,7 @@ public class PropertyGenerator {
             boolean isStream,
             boolean isArray,
             boolean isMap,
-            boolean isSet) {
-    }
+            boolean isSet) {}
 
     record EnumInfo(
             @Nullable CtxEnum ctxEnum,

@@ -2,11 +2,6 @@ package dk.mada.jaxrs.generator.mpclient.dto;
 
 import static java.util.stream.Collectors.joining;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubjectBase;
@@ -19,6 +14,10 @@ import dk.mada.jaxrs.model.naming.EnumNamer.EnumNameValue;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 /**
  * Enumeration generator.
@@ -57,9 +56,7 @@ public class EnumGenerator {
     public CtxEnum toCtxEnum(Type enumType, List<String> values) {
         List<String> renderValues = addUnknownDefault(enumType, values);
         List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, renderValues)
-                .getEntries().stream()
-                .map(e -> toEnumEntry(enumType, e))
-                .toList();
+                .getEntries().stream().map(e -> toEnumEntry(enumType, e)).toList();
 
         return new CtxEnum(entries);
     }
@@ -79,8 +76,8 @@ public class EnumGenerator {
 
         Imports dtoImports = dsb.imports();
 
-        boolean namesMatchValues = ctxEnum.enumVars().stream()
-                .allMatch(e -> e.name().equals(e.wireValue()));
+        boolean namesMatchValues =
+                ctxEnum.enumVars().stream().allMatch(e -> e.name().equals(e.wireValue()));
         if (namesMatchValues) {
             return Optional.empty();
         }
@@ -122,8 +119,7 @@ public class EnumGenerator {
 
         boolean isIntEnum = enumType.isPrimitive(Primitive.INT);
 
-        if (isIntEnum
-                && values.contains(ENUM_INT_UNKNOWN_DEFAULT_STR)) {
+        if (isIntEnum && values.contains(ENUM_INT_UNKNOWN_DEFAULT_STR)) {
             return values;
         }
 
@@ -152,5 +148,4 @@ public class EnumGenerator {
         }
         return new CtxEnumEntry(name, value, e.value());
     }
-
 }

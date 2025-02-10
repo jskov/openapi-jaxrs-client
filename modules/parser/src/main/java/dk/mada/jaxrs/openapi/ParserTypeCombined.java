@@ -1,10 +1,9 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.List;
-
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
+import java.util.List;
 
 /**
  * Type representing a synthetic combined class during parsing.

@@ -15,7 +15,10 @@ public interface TypeArray extends TypeContainer {
      * @return an array type
      */
     static TypeArray of(TypeNames typeNames, Type innerType) {
-        return ImmutableTypeArray.builder().typeNames(typeNames).innerType(innerType).build();
+        return ImmutableTypeArray.builder()
+                .typeNames(typeNames)
+                .innerType(innerType)
+                .build();
     }
 
     @Override

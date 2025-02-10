@@ -12,8 +12,7 @@ public final class StringRenderer {
     /** System newline. */
     private static final String NL = System.lineSeparator();
 
-    private StringRenderer() {
-    }
+    private StringRenderer() {}
 
     /**
      * Make a summary valid for use in the API summary javadoc section.
@@ -60,9 +59,7 @@ public final class StringRenderer {
         String text = textIn;
 
         // Make sure there is sentence
-        if (!(text.contains(".")
-                || text.contains("!")
-                || text.contains("?"))) {
+        if (!(text.contains(".") || text.contains("!") || text.contains("?"))) {
             text = text + ".";
         }
 
@@ -101,7 +98,10 @@ public final class StringRenderer {
      * @return a single-line string
      */
     public static String encodeForString(String text) {
-        return text.replace("\\", "\\\\").replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"");
+        return text.replace("\\", "\\\\")
+                .replace("\r", "\\r")
+                .replace("\n", "\\n")
+                .replace("\"", "\\\"");
     }
 
     /**
@@ -127,10 +127,7 @@ public final class StringRenderer {
      */
     public static String encodeRegexp(String regexp) {
         String doubleHack = "@BACK_SLASHES@";
-        return regexp
-                .replace("\\\\", doubleHack)
-                .replace("\\", "\\\\")
-                .replace(doubleHack, "\\\\");
+        return regexp.replace("\\\\", doubleHack).replace("\\", "\\\\").replace(doubleHack, "\\\\");
     }
 
     /**
@@ -140,9 +137,6 @@ public final class StringRenderer {
      * @param consumer the consumer of the text
      */
     public static void consumeNonBlankEncoded(Optional<String> txt, Consumer<String> consumer) {
-        txt
-                .filter(s -> !s.isBlank())
-                .map(StringRenderer::encodeForString)
-                .ifPresent(consumer);
+        txt.filter(s -> !s.isBlank()).map(StringRenderer::encodeForString).ifPresent(consumer);
     }
 }

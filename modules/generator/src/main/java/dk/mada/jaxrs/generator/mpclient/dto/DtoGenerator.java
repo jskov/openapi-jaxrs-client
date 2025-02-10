@@ -3,17 +3,6 @@ package dk.mada.jaxrs.generator.mpclient.dto;
 import static dk.mada.jaxrs.generator.mpclient.StringRenderer.consumeNonBlankEncoded;
 import static java.util.stream.Collectors.joining;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Stream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.generator.mpclient.ExtraTemplate;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
@@ -40,6 +29,15 @@ import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.TypeInterface;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * DTO generator.
@@ -223,16 +221,15 @@ public class DtoGenerator {
             classModifiers = "abstract ";
         }
 
-        Optional<CtxDtoDiscriminator> discriminator = ds.subtypeSelector()
-                .map(this::buildSubtypeDiscriminator);
+        Optional<CtxDtoDiscriminator> discriminator = ds.subtypeSelector().map(this::buildSubtypeDiscriminator);
 
         if (discriminator.isPresent() && opts.isJackson()) {
             // Needs adaptor for jsonb
             ds.imports().add(Jackson.JSON_IGNORE_PROPERTIES, Jackson.JSON_SUB_TYPES, Jackson.JSON_TYPE_INFO);
         }
 
-        boolean recordCanonicalConstructor = opts.isUseRecordsRequireNull()
-                && ds.ctxProps().stream().anyMatch(CtxProperty::notNull);
+        boolean recordCanonicalConstructor =
+                opts.isUseRecordsRequireNull() && ds.ctxProps().stream().anyMatch(CtxProperty::notNull);
         if (recordCanonicalConstructor) {
             ds.imports().add(JavaUtil.OBJECTS);
         }
@@ -242,15 +239,13 @@ public class DtoGenerator {
         // Can only mark a POJO with @Nullable if all fields are so.
         // Otherwise the constructor will not be able to create a valid object.
         // (may be revised for POJOs with necessary default values)
-        boolean isNullablePojo = isPojo
-                && ds.ctxProps().stream().allMatch(c -> !c.madaProp().isNullable());
+        boolean isNullablePojo =
+                isPojo && ds.ctxProps().stream().allMatch(c -> !c.madaProp().isNullable());
         // Records are always suitable for annotation, because no constructor is created
-        boolean isNullableRecord = isRecord
-                && ds.ctxProps().stream().anyMatch(c -> c.madaProp().isNullable());
-        boolean isUsingJspecifyNullable = opts.isJspecify()
-                && (isNullableRecord || isNullablePojo);
-        boolean isUsingJspecifyNullUnmarked = opts.isJspecify()
-                && isPojo && !isNullablePojo;
+        boolean isNullableRecord =
+                isRecord && ds.ctxProps().stream().anyMatch(c -> c.madaProp().isNullable());
+        boolean isUsingJspecifyNullable = opts.isJspecify() && (isNullableRecord || isNullablePojo);
+        boolean isUsingJspecifyNullUnmarked = opts.isJspecify() && isPojo && !isNullablePojo;
 
         if (isUsingJspecifyNullable) {
             ds.imports().add(Jspecify.NULLABLE);
@@ -277,7 +272,8 @@ public class DtoGenerator {
                 .isEnumUnknownDefault(opts.isUseEnumUnknownDefault())
                 .isRenderPropertyOrderAnnotation(opts.isUsePropertyOrderAnnotation())
                 .isRenderSingleLineToString(opts.isUseSingleLineToString())
-                .isRenderToStringHelper(ds.extendsName().isPresent() || !ds.ctxProps().isEmpty())
+                .isRenderToStringHelper(
+                        ds.extendsName().isPresent() || !ds.ctxProps().isEmpty())
                 .isRecordCanonicalConstructor(recordCanonicalConstructor)
                 .isRecordBuilder(recordBuilder)
                 .isJspecify(isUsingJspecifyNullable)
@@ -290,9 +286,7 @@ public class DtoGenerator {
                 .appDescription(info.description())
                 .version(info.version())
                 .infoEmail(info.contact().email())
-
                 .imports(ds.imports().get())
-
                 .description(description.flatMap(StringRenderer::makeValidDtoJavadocSummary))
                 .packageName(opts.dtoPackage())
                 .classname(dto.name())
@@ -301,28 +295,22 @@ public class DtoGenerator {
                 .parent(ds.extendsName())
                 .isNullable(false)
                 .vendorExtensions(null)
-
                 .vars(ds.ctxProps())
-
                 .allowableValues(ctxEnum)
                 .dataType(ds.type().typeName().name())
-
                 .jackson(opts.isJackson())
-
                 .generatedAnnotationClass(opts.getGeneratorAnnotationClass())
                 .generatorClass(opts.generatorId())
                 .generatedDate(opts.getGeneratedAtTime())
-
                 .madaDto(mada)
                 .discriminator(discriminator)
-
                 .isRecord(dsb.isRecord())
                 .build();
     }
 
-    private record CustomSerializers(@SuppressWarnings("unused") Optional<String> deserializer,
-            @SuppressWarnings("unused") Optional<String> serializer) {
-    }
+    private record CustomSerializers(
+            @SuppressWarnings("unused") Optional<String> deserializer,
+            @SuppressWarnings("unused") Optional<String> serializer) {}
 
     private CustomSerializers defineLocalDateSerializer(DtoSubject ds) {
         Optional<String> deserializer = Optional.empty();
@@ -330,7 +318,8 @@ public class DtoGenerator {
 
         if (opts.isUseJacksonLocalDateSerializer()
                 && (ds.type().isDate()
-                        || ds.dto().properties().stream().anyMatch(p -> p.reference().isDate()))) {
+                        || ds.dto().properties().stream()
+                                .anyMatch(p -> p.reference().isDate()))) {
             if (opts.isAddJacksonLocalDateDeserializerTemplate()) {
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER);
             }
@@ -349,8 +338,7 @@ public class DtoGenerator {
 
     private CustomSerializers customDateTimeSerializers(DtoSubject ds) {
         if (opts.isUseJacksonDateTimeSerializer()
-                && (ds.type().isDateTime()
-                        || ds.ctxProps().stream().anyMatch(p -> p.isDateTime()))) {
+                && (ds.type().isDateTime() || ds.ctxProps().stream().anyMatch(p -> p.isDateTime()))) {
 
             ds.imports().add(Jackson.JSON_DESERIALIZE, Jackson.JSON_SERIALIZE);
 
@@ -371,7 +359,8 @@ public class DtoGenerator {
         if (opts.isAddJacksonLocalDateTimeSerializerTemplate()) {
             extraTemplates.add(ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER);
         }
-        return new CustomSerializers(opts.getJacksonLocalDateTimeDeserializer(), opts.getJacksonLocalDateTimeSerializer());
+        return new CustomSerializers(
+                opts.getJacksonLocalDateTimeDeserializer(), opts.getJacksonLocalDateTimeSerializer());
     }
 
     private CustomSerializers customOffsetDateTimeSerializers() {
@@ -381,14 +370,16 @@ public class DtoGenerator {
         if (opts.isAddJacksonOffsetDateTimeSerializerTemplate()) {
             extraTemplates.add(ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER);
         }
-        return new CustomSerializers(opts.getJacksonOffsetDateTimeDeserializer(), opts.getJacksonOffsetDateTimeSerializer());
+        return new CustomSerializers(
+                opts.getJacksonOffsetDateTimeDeserializer(), opts.getJacksonOffsetDateTimeSerializer());
     }
 
     private CtxDtoDiscriminator buildSubtypeDiscriminator(SubtypeSelector subtypeSelector) {
         CtxDtoDiscriminator discriminator;
         Map<String, String> vendorExt = null;
         List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
-                .map(e -> new CtxDtoDiscriminator.ModelMapping(e.getValue().typeName().name(), e.getKey(), vendorExt))
+                .map(e -> new CtxDtoDiscriminator.ModelMapping(
+                        e.getValue().typeName().name(), e.getKey(), vendorExt))
                 .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
                 .toList();
         discriminator = CtxDtoDiscriminator.builder()
@@ -408,11 +399,10 @@ public class DtoGenerator {
         } else {
             serializableInterface = Stream.of();
         }
-        Stream<String> dtoInterfaces = dto.implementsInterfaces().stream()
-                .map(ti -> ti.typeName().name());
-        String implementsInterfaces = Stream.concat(serializableInterface, dtoInterfaces)
-                .sorted()
-                .collect(joining(", "));
+        Stream<String> dtoInterfaces =
+                dto.implementsInterfaces().stream().map(ti -> ti.typeName().name());
+        String implementsInterfaces =
+                Stream.concat(serializableInterface, dtoInterfaces).sorted().collect(joining(", "));
         if (implementsInterfaces.isEmpty()) {
             return Optional.empty();
         }

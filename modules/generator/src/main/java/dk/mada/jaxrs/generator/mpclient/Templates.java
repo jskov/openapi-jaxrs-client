@@ -1,14 +1,5 @@
 package dk.mada.jaxrs.generator.mpclient;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts.LineEnding;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApi;
 import dk.mada.jaxrs.generator.mpclient.api.tmpl.CtxApiRenderer;
@@ -18,6 +9,13 @@ import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxExtraDateSerializer;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxExtraDateSerializerRenderer;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxInterface;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxInterfaceRenderer;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Templates processor.
@@ -112,10 +110,9 @@ public class Templates {
         try {
             // remove trailing spaces on a line.
             // if the line is all spaces, remove the full line (include the preceding newline)
-            String text = code
-                    .replaceAll("(?m)(" + System.lineSeparator() + ")? +$", "")
-                    .lines()
-                    .collect(Collectors.joining(lineEnding.lineBreak()))
+            String text = code.replaceAll("(?m)(" + System.lineSeparator() + ")? +$", "")
+                            .lines()
+                            .collect(Collectors.joining(lineEnding.lineBreak()))
                     + lineEnding.lineBreak();
 
             Files.writeString(output, text);

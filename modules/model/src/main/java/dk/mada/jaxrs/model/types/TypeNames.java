@@ -4,7 +4,6 @@ import static java.util.stream.Collectors.joining;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jspecify.annotations.Nullable;
 
 /**

@@ -1,20 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.Validation;
@@ -35,6 +20,19 @@ import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeValidation;
 import dk.mada.jaxrs.model.types.TypeVoid;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Works through a parsed model that contains parser type references and resolves them to pure model types.
@@ -70,7 +68,8 @@ public final class Resolver {
      * @param parserTypes     the types collected during parsing
      * @param conflictRenamer the conflict renamer
      */
-    public Resolver(ParserOpts parserOpts, TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
+    public Resolver(
+            ParserOpts parserOpts, TypeNames typeNames, ParserTypes parserTypes, ConflictRenamer conflictRenamer) {
         this.parserOpts = parserOpts;
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
@@ -95,21 +94,24 @@ public final class Resolver {
 
         if (logger.isDebugEnabled()) {
             logger.debug("= Parsed DTOs:");
-            unresolvedDtos.stream()
-                    .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
+            unresolvedDtos.stream().forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
-        Collection<Dto> withoutTypeRefDtos = loopedDtoRemapping("typeRef", unresolvedDtos, Resolver::isDtoReferenceOnly, false);
-        Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping("primitive", withoutTypeRefDtos, Resolver::isDtoPrimitiveWrapperOnly,
+        Collection<Dto> withoutTypeRefDtos =
+                loopedDtoRemapping("typeRef", unresolvedDtos, Resolver::isDtoReferenceOnly, false);
+        Collection<Dto> withoutPrimitiveDtos = loopedDtoRemapping(
+                "primitive",
+                withoutTypeRefDtos,
+                Resolver::isDtoPrimitiveWrapperOnly,
                 !parserOpts.isMapSimpleDtosToObject());
-        Collection<Dto> withoutModelTypes = loopedDtoRemapping("model types", withoutPrimitiveDtos, this::isDtoModelType, false);
+        Collection<Dto> withoutModelTypes =
+                loopedDtoRemapping("model types", withoutPrimitiveDtos, this::isDtoModelType, false);
 
         Collection<Dto> filteredDtos = withoutModelTypes;
 
         if (logger.isDebugEnabled()) {
             logger.debug("= Filtered DTOs:");
-            filteredDtos.stream()
-                    .forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
+            filteredDtos.stream().forEach(dto -> logger.debug(" - {}:{}", dto.openapiId(), dto.name()));
         }
 
         // Rename DTOs as a separate pass so there are stable
@@ -141,7 +143,8 @@ public final class Resolver {
      * @param skip   flag to skip the step
      * @return the (remaining) remapped DTOs
      */
-    private Collection<Dto> loopedDtoRemapping(String title, Collection<Dto> dtos, Predicate<Dto> filter, boolean skip) {
+    private Collection<Dto> loopedDtoRemapping(
+            String title, Collection<Dto> dtos, Predicate<Dto> filter, boolean skip) {
         Collection<Dto> output = dtos;
 
         if (skip) {
@@ -156,9 +159,8 @@ public final class Resolver {
         do {
             logger.debug(" {} pass {} with {} dtos", title, pass, output.size());
 
-            List<Dto> updated = output.stream()
-                    .filter(dto -> applyDtoFilter(filter, dto))
-                    .toList();
+            List<Dto> updated =
+                    output.stream().filter(dto -> applyDtoFilter(filter, dto)).toList();
             runAnotherPass = output.size() != updated.size();
             output = updated;
             pass++;
@@ -226,8 +228,7 @@ public final class Resolver {
      */
     private static boolean isDtoPrimitiveWrapperOnly(Dto dto) {
         Type dtoType = dto.reference().refType();
-        return !dto.isEnum()
-                && (dtoType.isPrimitive() || dtoType.isPlainObject());
+        return !dto.isEnum() && (dtoType.isPrimitive() || dtoType.isPlainObject());
     }
 
     /**
@@ -242,16 +243,16 @@ public final class Resolver {
         Type dtoType = dto.reference().refType();
         return (dtoType.isDate() && parserOpts.isJseLocalDate())
                 || (dtoType.isDateTime()
-                        && (parserOpts.isJseLocalDateTime() || parserOpts.isJseOffsetDateTime() || parserOpts.isJseZonedDateTime()))
+                        && (parserOpts.isJseLocalDateTime()
+                                || parserOpts.isJseOffsetDateTime()
+                                || parserOpts.isJseZonedDateTime()))
                 || (dtoType.isTime() && parserOpts.isJseLocalTime())
                 || (dtoType.isUUID() && parserOpts.isJseUUID());
     }
 
     private Collection<Dto> extractCompositeDtos(Collection<Dto> dtos) {
         logger.debug("Look for composite DTOs");
-        return dtos.stream()
-                .map(dto -> extractIfCompositeDto(dto, dtos))
-                .toList();
+        return dtos.stream().map(dto -> extractIfCompositeDto(dto, dtos)).toList();
     }
 
     private Dto extractIfCompositeDto(Dto dto, Collection<Dto> dtos) {
@@ -295,16 +296,12 @@ public final class Resolver {
                 .toList();
 
         if (logger.isDebugEnabled()) {
-            List<String> extendsNames = externalDtos.stream()
-                    .map(Dto::name)
-                    .sorted()
-                    .toList();
+            List<String> extendsNames =
+                    externalDtos.stream().map(Dto::name).sorted().toList();
             logger.debug("    extends {}", extendsNames);
         }
 
-        return Dto.builderFrom(dto)
-                .extendsParents(externalDtos)
-                .build();
+        return Dto.builderFrom(dto).extendsParents(externalDtos).build();
     }
 
     /**
@@ -333,10 +330,8 @@ public final class Resolver {
                 .toList();
 
         if (logger.isDebugEnabled()) {
-            List<String> combinesNames = combinesDtos.stream()
-                    .map(Dto::name)
-                    .sorted()
-                    .toList();
+            List<String> combinesNames =
+                    combinesDtos.stream().map(Dto::name).sorted().toList();
             logger.debug("    combines {}", combinesNames);
         }
 
@@ -352,15 +347,12 @@ public final class Resolver {
 
         // Remember the property names for the resolver so their
         // validation requirements can be relaxed.
-        Set<String> propNamesNeedingRelaxation = selectedProps.stream()
-                .map(Property::name)
-                .collect(Collectors.toSet());
+        Set<String> propNamesNeedingRelaxation =
+                selectedProps.stream().map(Property::name).collect(Collectors.toSet());
 
         dtoPropertiesToBeRelaxed.put(dto.typeName(), propNamesNeedingRelaxation);
 
-        return Dto.builderFrom(dto)
-                .properties(selectedProps)
-                .build();
+        return Dto.builderFrom(dto).properties(selectedProps).build();
     }
 
     private Dto getDtoWithOpenapiId(Collection<Dto> dtos, TypeName tn) {
@@ -378,9 +370,7 @@ public final class Resolver {
      */
     private List<Dto> dereferenceDtos(Collection<Dto> dtos) {
         logger.debug("==== Dereference DTOs");
-        return dtos.stream()
-                .map(this::derefDto)
-                .toList();
+        return dtos.stream().map(this::derefDto).toList();
     }
 
     /**
@@ -425,8 +415,7 @@ public final class Resolver {
         String parentName = parent.name();
         String dtoName = dto.name();
         logger.debug(" {} extends {}", dtoName, parentName);
-        List<Property> localProperties = dto.properties()
-                .stream()
+        List<Property> localProperties = dto.properties().stream()
                 .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))
                 .toList();
 
@@ -440,8 +429,7 @@ public final class Resolver {
     }
 
     private boolean isLocalToDto(Dto parent, String propertyName) {
-        return parent.properties().stream()
-                .noneMatch(prop -> propertyName.equals(prop.name()));
+        return parent.properties().stream().noneMatch(prop -> propertyName.equals(prop.name()));
     }
 
     private Dto derefDto(Dto dto) {
@@ -450,9 +438,8 @@ public final class Resolver {
         String name = dto.name();
         TypeName typeName = dto.typeName();
 
-        List<Dto> resolvedParents = dto.extendsParents().stream()
-                .map(this::derefDto)
-                .toList();
+        List<Dto> resolvedParents =
+                dto.extendsParents().stream().map(this::derefDto).toList();
 
         List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(typeName);
         logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
@@ -466,9 +453,7 @@ public final class Resolver {
     }
 
     private List<Property> derefProperties(Dto dto) {
-        return dto.properties().stream()
-                .map(p -> derefProperty(dto, p))
-                .toList();
+        return dto.properties().stream().map(p -> derefProperty(dto, p)).toList();
     }
 
     private Property derefProperty(Dto parent, Property property) {
@@ -485,7 +470,8 @@ public final class Resolver {
             Type innerType = map.innerType();
             if (innerType instanceof TypeReference innerRef) {
                 // Not resolving inner type - happens in depth by resolve() on the property
-                TypeReference newInnerType = assertOrFixupActualType(innerRef, innerRef.validation(), location + " (map's value)");
+                TypeReference newInnerType =
+                        assertOrFixupActualType(innerRef, innerRef.validation(), location + " (map's value)");
                 if (!newInnerType.equals(innerRef)) {
                     TypeMap newMap = TypeMap.of(map.typeNames(), newInnerType);
                     resolvedRef = TypeReference.of(newMap, resolvedRef.validation());
@@ -514,16 +500,21 @@ public final class Resolver {
             resolvedValidation = Validations.makeRelaxed(resolvedValidation);
         }
 
-        // TODO: get example from type, see mada.tests.e2e.regression.string_pattern.dto.KlarTilBeslutningsGrundlagResponse
+        // TODO: get example from type, see
+        // mada.tests.e2e.regression.string_pattern.dto.KlarTilBeslutningsGrundlagResponse
         // is should have:
         // @Schema(required = true, example = "2022-02-18-09.18.12.788990")
         Optional<String> resolvedExample = property.example();
 
-        logger.debug("    deref prop {}\n     from: {}\n           {}\n     to: {}\n         {}",
+        logger.debug(
+                "    deref prop {}\n     from: {}\n           {}\n     to: {}\n         {}",
                 propName,
-                property.reference(), property.validation(),
-                resolvedRef, resolvedValidation);
-        return Property.builder().from(property)
+                property.reference(),
+                property.validation(),
+                resolvedRef,
+                resolvedValidation);
+        return Property.builder()
+                .from(property)
                 .example(resolvedExample)
                 .reference(resolvedRef)
                 .validation(resolvedValidation)
@@ -550,8 +541,8 @@ public final class Resolver {
             logger.warn("Assuming type Object for {}", location);
             return resolve(ParserTypeRef.of(TypeNames.OBJECT, validation));
         } else {
-            throw new IllegalArgumentException(
-                    "Property " + location + " has no type! Set " + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
+            throw new IllegalArgumentException("Property " + location + " has no type! Set "
+                    + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
         }
     }
 
@@ -562,14 +553,13 @@ public final class Resolver {
      * @return operations with pure model types
      */
     public Operations operations(Operations ops) {
-        List<Operation> dereferenced = ops.getAll().stream()
-                .map(this::derefOp)
-                .toList();
+        List<Operation> dereferenced = ops.getAll().stream().map(this::derefOp).toList();
         return new Operations(dereferenced);
     }
 
     private Operation derefOp(Operation op) {
-        return Operation.builder().from(op)
+        return Operation.builder()
+                .from(op)
                 .responses(derefResponses(op.responses()))
                 .parameters(derefParams(op.parameters()))
                 .requestBody(op.requestBody().map(this::derefRequestBody))
@@ -577,38 +567,38 @@ public final class Resolver {
     }
 
     private RequestBody derefRequestBody(RequestBody requestBody) {
-        return RequestBody.builder().from(requestBody)
+        return RequestBody.builder()
+                .from(requestBody)
                 .content(derefContent(requestBody.content()))
                 .formParameters(derefParams(requestBody.formParameters()))
                 .build();
     }
 
     private List<Parameter> derefParams(List<Parameter> parameters) {
-        return parameters.stream()
-                .map(this::derefParam)
-                .toList();
+        return parameters.stream().map(this::derefParam).toList();
     }
 
     private Parameter derefParam(Parameter param) {
-        return Parameter.builder().from(param)
+        return Parameter.builder()
+                .from(param)
                 .reference(resolve(param.reference()))
                 .build();
     }
 
     private List<Response> derefResponses(List<Response> responses) {
-        return responses.stream()
-                .map(this::derefResponse)
-                .toList();
+        return responses.stream().map(this::derefResponse).toList();
     }
 
     private Response derefResponse(Response response) {
-        return Response.builder().from(response)
+        return Response.builder()
+                .from(response)
                 .content(derefContent(response.content()))
                 .build();
     }
 
     private Content derefContent(Content content) {
-        return Content.builder().from(content)
+        return Content.builder()
+                .from(content)
                 .reference(resolve(content.reference()))
                 .build();
     }
@@ -624,8 +614,7 @@ public final class Resolver {
         }
 
         // Remove empty validation chains
-        while (res.validation().isEmptyValidation()
-                && res.refType() instanceof TypeReference inner) {
+        while (res.validation().isEmptyValidation() && res.refType() instanceof TypeReference inner) {
             res = inner;
         }
 
@@ -647,8 +636,8 @@ public final class Resolver {
         // Terminate parsing early if the type cannot be resolve
         // so nobody gets confused at compile time instead
         if (abortOnResolverFailure && t == UNKNOWN_TYPE) {
-            throw new IllegalStateException(
-                    "Failed to resolve a pointer:\n " + ptr + "\nThis is probably a bug in openapi-jaxrs-client - please report!");
+            throw new IllegalStateException("Failed to resolve a pointer:\n " + ptr
+                    + "\nThis is probably a bug in openapi-jaxrs-client - please report!");
         }
 
         Type resolvedT = resolveInner(t);

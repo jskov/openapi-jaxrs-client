@@ -1,22 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.SubtypeSelector;
@@ -46,6 +29,21 @@ import io.swagger.v3.oas.models.media.ComposedSchema;
 import io.swagger.v3.oas.models.media.Discriminator;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.UUIDSchema;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Converts a specification schema to an internal model type.
@@ -82,8 +80,13 @@ public final class TypeConverter {
      * @param parserOpts    the parser options
      * @param leakedGenOpts the leaked generator options
      */
-    public TypeConverter(TypeNames typeNames, ParserTypes parserTypes, ParserTypeRefs parserRefs,
-            Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts leakedGenOpts) {
+    public TypeConverter(
+            TypeNames typeNames,
+            ParserTypes parserTypes,
+            ParserTypeRefs parserRefs,
+            Naming naming,
+            ParserOpts parserOpts,
+            LeakedGeneratorOpts leakedGenOpts) {
         this.typeNames = typeNames;
         this.parserTypes = parserTypes;
         this.parserRefs = parserRefs;
@@ -119,7 +122,8 @@ public final class TypeConverter {
         if (context.isRequired()) {
             logger.debug(" overriding ptr validation to force required");
             var withRequire = Validations.makeRequired(ptr.validation());
-            return ImmutableParserTypeRef.builder().from(ptr)
+            return ImmutableParserTypeRef.builder()
+                    .from(ptr)
                     .validation(withRequire)
                     .build();
         } else {
@@ -145,14 +149,12 @@ public final class TypeConverter {
             @Nullable String parentDtoName,
             @Nullable ContentContext context,
             Validation validation,
-            boolean isFormRef) {
-    }
+            boolean isFormRef) {}
 
     /**
      * The type mappers convert a schema configuration to a type refence if possible (or null otherwise).
      */
-    private interface TypeMapper extends Function<RefInfo, ParserTypeRef> {
-    }
+    private interface TypeMapper extends Function<RefInfo, ParserTypeRef> {}
 
     /**
      * Converts a OpenApi schema to parser type reference.
@@ -180,7 +182,11 @@ public final class TypeConverter {
      * @param context       the content context, or null
      * @return the found/created parser type reference
      */
-    public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef,
+    public ParserTypeRef reference(
+            Schema<?> schema,
+            @Nullable String propertyName,
+            @Nullable String parentDtoName,
+            boolean isFormRef,
             @Nullable ContentContext context) {
 
         SchemaParser sp = SchemaParser.of(schema);
@@ -188,7 +194,13 @@ public final class TypeConverter {
         String schemaType = sp.type();
         String schemaFormat = sp.format();
 
-        logger.debug("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
+        logger.debug(
+                "type/format: {}:{} {}/{} {}",
+                parentDtoName,
+                propertyName,
+                schemaType,
+                schemaFormat,
+                schema.getClass());
 
         Validation validation = Validations.extractValidation(schema, false);
         logger.debug("validation {}", validation);
@@ -196,23 +208,23 @@ public final class TypeConverter {
         RefInfo ri = new RefInfo(schema, sp, propertyName, parentDtoName, context, validation, isFormRef);
 
         ParserTypeRef refType = Stream.<TypeMapper>of(
-                this::createPrimitiveTypeRef,
-                this::createDtoRef,
-                this::createAnyofRef,
-                this::createArrayRef,
-                this::createByteArrayRef,
-                this::createMapRef,
-                this::createComposedValidation, // before allofRef, should be combined
-                this::createAllofRef,
-                this::createOneofRef,
-                this::createNumberRef,
-                this::createDateTimeRef,
-                this::createDateRef,
-                this::createTimeRef,
-                this::createUUIDRef,
-                this::createStringRef,
-                this::createSupplementalValidation,
-                this::createObjectRef)
+                        this::createPrimitiveTypeRef,
+                        this::createDtoRef,
+                        this::createAnyofRef,
+                        this::createArrayRef,
+                        this::createByteArrayRef,
+                        this::createMapRef,
+                        this::createComposedValidation, // before allofRef, should be combined
+                        this::createAllofRef,
+                        this::createOneofRef,
+                        this::createNumberRef,
+                        this::createDateTimeRef,
+                        this::createDateRef,
+                        this::createTimeRef,
+                        this::createUUIDRef,
+                        this::createStringRef,
+                        this::createSupplementalValidation,
+                        this::createObjectRef)
                 .map(tm -> tm.apply(ri))
                 .filter(Objects::nonNull)
                 .findFirst()
@@ -326,8 +338,7 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
         // FIXME:schema-parser
-        if (ri.schema instanceof ComposedSchema cs
-                && findTypeValidation(cs) instanceof ParserTypeRef ptr) {
+        if (ri.schema instanceof ComposedSchema cs && findTypeValidation(cs) instanceof ParserTypeRef ptr) {
             logger.trace(" - createComposedValidation");
             return ptr;
         }
@@ -340,9 +351,8 @@ public final class TypeConverter {
             logger.info("TRIGGER");
 
             // anyOf is classes implementing an interface
-            List<ParserTypeRef> anyOfRefs = sp.anyOfSchemas().stream()
-                    .map(this::toReference)
-                    .toList();
+            List<ParserTypeRef> anyOfRefs =
+                    sp.anyOfSchemas().stream().map(this::toReference).toList();
             List<String> anyOfNames = anyOfRefs.stream()
                     .map(ParserTypeRef::typeName)
                     .map(TypeName::name)
@@ -425,9 +435,8 @@ public final class TypeConverter {
                     // Handle oneof without descriminator
                     return createCombinedDto(ri, oneOfRefs);
                 } else {
-                    List<String> oneOfNames = oneOf.stream()
-                            .map(Schema::getName)
-                            .toList();
+                    List<String> oneOfNames =
+                            oneOf.stream().map(Schema::getName).toList();
                     logger.trace(" - createOneofRef {}", oneOfNames);
 
                     // regular object, but for now assumes there will
@@ -525,7 +534,8 @@ public final class TypeConverter {
 
         SchemaParser sp = ri.schemaParser();
         if (sp.isObject() || sp.type() == null) {
-            boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
+            boolean isPlainObject =
+                    schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
                 if (isPlainObject) {
                     logger.trace(" - createObjectRef, plain Object, no properties");
@@ -592,9 +602,7 @@ public final class TypeConverter {
             return null;
         }
 
-        List<ParserTypeRef> allOfTypes = allOf.stream()
-                .map(this::toReference)
-                .toList();
+        List<ParserTypeRef> allOfTypes = allOf.stream().map(this::toReference).toList();
 
         List<ParserTypeRef> refs = new ArrayList<>();
         List<Validation> validations = new ArrayList<>();
@@ -609,7 +617,12 @@ public final class TypeConverter {
         }
 
         if (validations.size() != 1 || refs.size() != 1) {
-            logger.warn("Unabled to handle allOf for {}/{}: {} with {}", refs.size(), validations.size(), refs, validations);
+            logger.warn(
+                    "Unabled to handle allOf for {}/{}: {} with {}",
+                    refs.size(),
+                    validations.size(),
+                    refs,
+                    validations);
             String debugText = allOfTypes.stream().map(ParserTypeRef::toString).collect(Collectors.joining("\n "));
             logger.trace("INPUT :\n {}", debugText);
             // bail for now
@@ -742,9 +755,7 @@ public final class TypeConverter {
             return List.of();
         }
 
-        return schemaEnumValues.stream()
-                .map(Object::toString)
-                .toList();
+        return schemaEnumValues.stream().map(Object::toString).toList();
     }
 
     private List<Property> readProperties(Schema<?> schema, String parentDtoName, boolean isMultipartForm) {
@@ -773,7 +784,8 @@ public final class TypeConverter {
             logger.debug("   ref: {}", ref);
             logger.debug("   example: {}", exampleStr);
 
-            Validation validation = Validations.extractValidation(propSchema, requiredProperyNames.contains(propertyName));
+            Validation validation =
+                    Validations.extractValidation(propSchema, requiredProperyNames.contains(propertyName));
 
             props.add(Property.builder()
                     .name(propertyName)

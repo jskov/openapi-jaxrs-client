@@ -9,5 +9,4 @@ package dk.mada.jaxrs.model;
  *
  * @see <a href="https://swagger.io/specification/#securityRequirementObject">securityRequirementObject</a>
  */
-public record SecurityScheme(String name) {
-}
+public record SecurityScheme(String name) {}

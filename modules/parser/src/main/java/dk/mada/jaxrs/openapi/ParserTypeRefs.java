@@ -2,19 +2,17 @@ package dk.mada.jaxrs.openapi;
 
 import static java.util.stream.Collectors.joining;
 
+import dk.mada.jaxrs.model.Validation;
+import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeName;
+import dk.mada.jaxrs.model.types.TypeNames;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import dk.mada.jaxrs.model.Validation;
-import dk.mada.jaxrs.model.types.Type;
-import dk.mada.jaxrs.model.types.TypeName;
-import dk.mada.jaxrs.model.types.TypeNames;
 
 /**
  * Constructs and keeps track of parser references.
@@ -114,18 +112,16 @@ public class ParserTypeRefs {
 
         public String info() {
             StringBuilder sb = new StringBuilder();
-            refsByValidation.entrySet().stream()
-                    .forEach(e -> {
-                        Validation v = e.getKey();
-                        Set<ParserTypeRef> ptrs = e.getValue();
+            refsByValidation.entrySet().stream().forEach(e -> {
+                Validation v = e.getKey();
+                Set<ParserTypeRef> ptrs = e.getValue();
 
-                        String refs = ptrs.stream()
-                                .map(r -> "ref@" + Integer.toHexString(r.hashCode()))
-                                .sorted()
-                                .collect(joining(", "));
-                        sb.append("  ").append(v).append(NL)
-                                .append("    ").append(refs).append(NL);
-                    });
+                String refs = ptrs.stream()
+                        .map(r -> "ref@" + Integer.toHexString(r.hashCode()))
+                        .sorted()
+                        .collect(joining(", "));
+                sb.append("  ").append(v).append(NL).append("    ").append(refs).append(NL);
+            });
             return sb.toString();
         }
     }

@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.naming;
 
 import javax.lang.model.SourceVersion;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

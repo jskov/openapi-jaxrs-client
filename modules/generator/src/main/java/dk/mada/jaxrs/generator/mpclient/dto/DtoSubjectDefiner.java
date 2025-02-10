@@ -1,12 +1,5 @@
 package dk.mada.jaxrs.generator.mpclient.dto;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.dto.PropertyConverter.DtoCtxProps;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxProperty;
@@ -17,6 +10,11 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Defines the subject matter of a DTO.
@@ -49,8 +47,7 @@ public class DtoSubjectDefiner {
      * @param isRecord flag for records
      * @param imports  the imports for the DTO
      */
-    record DtoSubjectBase(Dto dto, Type type, boolean isEnum, boolean isRecord, Imports imports) {
-    }
+    record DtoSubjectBase(Dto dto, Type type, boolean isEnum, boolean isRecord, Imports imports) {}
 
     /**
      * The DTO subject
@@ -61,8 +58,12 @@ public class DtoSubjectDefiner {
      * @param subtypeSelector   optional subtype selector (would be parent type for those with extends)
      * @param ctxProperties     the ctx properties of the DTO
      */
-    record DtoSubject(DtoSubjectBase base, boolean isPrimitiveEquals, Optional<String> extendsName,
-            Optional<SubtypeSelector> subtypeSelector, DtoCtxProps ctxProperties) {
+    record DtoSubject(
+            DtoSubjectBase base,
+            boolean isPrimitiveEquals,
+            Optional<String> extendsName,
+            Optional<SubtypeSelector> subtypeSelector,
+            DtoCtxProps ctxProperties) {
         public Imports imports() {
             return base.imports();
         }

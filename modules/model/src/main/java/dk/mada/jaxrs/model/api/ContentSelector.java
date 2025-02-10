@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,8 +54,8 @@ public class ContentSelector {
             return Optional.of(mediaTypes.iterator().next());
         }
 
-        List<Pattern> preferredMediaTypes = context.location() == Location.REQUEST ? preferredRequestMediaTypes
-                : preferredResponseMediaTypes;
+        List<Pattern> preferredMediaTypes =
+                context.location() == Location.REQUEST ? preferredRequestMediaTypes : preferredResponseMediaTypes;
 
         // Find first match in preference order
         for (Pattern p : preferredMediaTypes) {
@@ -70,8 +69,8 @@ public class ContentSelector {
         logger.warn("Preferred patterns: {}", preferredMediaTypes);
         logger.warn("Media types: {}", mediaTypes);
 
-        throw new IllegalStateException(
-                "Path " + context.resourcePath() + " has multiple content types. Use " + context.location().optionName() + " to select");
+        throw new IllegalStateException("Path " + context.resourcePath() + " has multiple content types. Use "
+                + context.location().optionName() + " to select");
     }
 
     /**
@@ -83,9 +82,12 @@ public class ContentSelector {
      * @param location           the location of the content
      * @param syntheticMultipart flag to communicate this context will get a synthetic multipart DTO created
      */
-    public record ContentContext(String resourcePath, StatusCode statuscode, boolean isRequired, Location location,
-            boolean syntheticMultipart) {
-    }
+    public record ContentContext(
+            String resourcePath,
+            StatusCode statuscode,
+            boolean isRequired,
+            Location location,
+            boolean syntheticMultipart) {}
 
     /** Location of the content to resolve. */
     public enum Location {

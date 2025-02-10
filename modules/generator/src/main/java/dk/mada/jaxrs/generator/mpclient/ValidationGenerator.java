@@ -1,15 +1,13 @@
 package dk.mada.jaxrs.generator.mpclient;
 
-import java.util.Optional;
-
-import org.jspecify.annotations.Nullable;
-
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.ValidationApi;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeContainer;
+import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Validation generator.
@@ -59,20 +57,21 @@ public class ValidationGenerator {
             imports.add(renderAnnotations, ValidationApi.NOT_NULL);
         }
         // Decide where to put @Valid. I expect this to be too simple...
-        if (type.isDto()
-                || (type instanceof TypeContainer tc && tc.innerType().isDto())) {
+        if (type.isDto() || (type instanceof TypeContainer tc && tc.innerType().isDto())) {
             valid = true;
             imports.add(renderAnnotations, ValidationApi.VALID);
         }
 
         // Note that OpenApi specification xItems/xLength both map to @Size
-        minLength = validation.minItems()
+        minLength = validation
+                .minItems()
                 .or(validation::minLength)
                 .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
         if (minLength.isPresent()) {
             imports.add(renderAnnotations, ValidationApi.SIZE);
         }
-        maxLength = validation.maxItems()
+        maxLength = validation
+                .maxItems()
                 .or(validation::maxLength)
                 .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
         if (maxLength.isPresent()) {
@@ -80,15 +79,11 @@ public class ValidationGenerator {
         }
 
         if (type.isBigDecimal()) {
-            decimalMinimum = validation.minimum()
-                    .map(min -> "\"" + min.toString() + "\"");
-            decimalMaximum = validation.maximum()
-                    .map(max -> "\"" + max.toString() + "\"");
+            decimalMinimum = validation.minimum().map(min -> "\"" + min.toString() + "\"");
+            decimalMaximum = validation.maximum().map(max -> "\"" + max.toString() + "\"");
         } else {
-            minimum = validation.minimum()
-                    .map(min -> Long.toString(min.longValue()) + "L");
-            maximum = validation.maximum()
-                    .map(max -> Long.toString(max.longValue()) + "L");
+            minimum = validation.minimum().map(min -> Long.toString(min.longValue()) + "L");
+            maximum = validation.maximum().map(max -> Long.toString(max.longValue()) + "L");
         }
         if (decimalMinimum.isPresent()) {
             imports.add(renderAnnotations, ValidationApi.DECIMAL_MIN);
@@ -103,8 +98,7 @@ public class ValidationGenerator {
             imports.add(renderAnnotations, ValidationApi.MAX);
         }
 
-        pattern = validation.pattern()
-                .map(StringRenderer::encodeRegexp);
+        pattern = validation.pattern().map(StringRenderer::encodeRegexp);
         if (pattern.isPresent()) {
             imports.add(renderAnnotations, ValidationApi.PATTERN);
         }

@@ -34,15 +34,20 @@ public class Dtos {
         StringBuilder sb = new StringBuilder("Types:").append(NL);
 
         sb.append(" DTOs: ").append(NL);
-        dtoItems.stream()
-                .sorted((a, b) -> a.name().compareTo(b.name()))
-                .forEach(dto -> {
-                    sb.append("  ").append(dto.name())
-                            .append(": ").append(dto.reference()).append(NL);
-                    dto.properties().stream()
-                            .sorted((a, b) -> a.name().compareTo(b.name()))
-                            .forEach(prop -> sb.append("    ").append(prop.name()).append(": ").append(prop.reference()).append(NL));
-                });
+        dtoItems.stream().sorted((a, b) -> a.name().compareTo(b.name())).forEach(dto -> {
+            sb.append("  ")
+                    .append(dto.name())
+                    .append(": ")
+                    .append(dto.reference())
+                    .append(NL);
+            dto.properties().stream()
+                    .sorted((a, b) -> a.name().compareTo(b.name()))
+                    .forEach(prop -> sb.append("    ")
+                            .append(prop.name())
+                            .append(": ")
+                            .append(prop.reference())
+                            .append(NL));
+        });
 
         return sb.toString();
     }

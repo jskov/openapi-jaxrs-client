@@ -8,8 +8,7 @@ import java.util.regex.Pattern;
  * Methods lifted directly from OpenApi-generator.
  */
 public final class OpenapiStringUtils {
-    private OpenapiStringUtils() {
-    }
+    private OpenapiStringUtils() {}
 
     /**
      * Camelize name (parameter, property, method, etc) with upper case for first letter copied from Twitter elephant bird.
@@ -48,7 +47,7 @@ public final class OpenapiStringUtils {
         // Replace all slashes with dots (package separator)
         Matcher m = camelizeSlashPattern.matcher(word);
         while (m.find()) {
-            word = m.replaceFirst("." + m.group(1)/* .toUpperCase() */);
+            word = m.replaceFirst("." + m.group(1) /* .toUpperCase() */);
             m = camelizeSlashPattern.matcher(word);
         }
 
@@ -64,7 +63,8 @@ public final class OpenapiStringUtils {
 
         m = camelizeSlashPattern.matcher(word);
         while (m.find()) {
-            word = m.replaceFirst("" + Character.toUpperCase(m.group(1).charAt(0)) + m.group(1).substring(1)/* .toUpperCase() */);
+            word = m.replaceFirst("" + Character.toUpperCase(m.group(1).charAt(0))
+                    + m.group(1).substring(1) /* .toUpperCase() */);
             m = camelizeSlashPattern.matcher(word);
         }
 

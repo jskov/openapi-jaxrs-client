@@ -41,9 +41,7 @@ public class OptionReader {
      * @return boolean-value of the option
      */
     public boolean bool(String name) {
-        return get(name)
-                .map(Boolean::parseBoolean)
-                .orElse(false);
+        return get(name).map(Boolean::parseBoolean).orElse(false);
     }
 
     /**
@@ -120,7 +118,6 @@ public class OptionReader {
      * @return the trimmed property value if present
      */
     public Optional<String> get(String name) {
-        return Optional.ofNullable(options.getProperty(name))
-                .map(String::trim);
+        return Optional.ofNullable(options.getProperty(name)).map(String::trim);
     }
 }

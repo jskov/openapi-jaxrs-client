@@ -33,8 +33,7 @@ public final class Operations {
 
     /** {@return the operations grouped by their group-id} */
     public Map<String, List<Operation>> getByGroup() {
-        return ops.stream()
-                .collect(Collectors.groupingBy(Operation::group));
+        return ops.stream().collect(Collectors.groupingBy(Operation::group));
     }
 
     @Override
@@ -57,7 +56,11 @@ public final class Operations {
             sb.append("  Op: ").append(op.syntheticOpId()).append(NL);
             if (!op.parameters().isEmpty()) {
                 sb.append("   Params:").append(NL);
-                op.parameters().forEach(p -> sb.append("    ").append(p.name()).append(" : ").append(p.reference()).append(NL));
+                op.parameters().forEach(p -> sb.append("    ")
+                        .append(p.name())
+                        .append(" : ")
+                        .append(p.reference())
+                        .append(NL));
             }
             op.requestBody().ifPresent(body -> {
                 sb.append("   Body:").append(NL);
@@ -65,8 +68,11 @@ public final class Operations {
             });
             if (!op.responses().isEmpty()) {
                 sb.append("    Responses:").append(NL);
-                op.responses().stream().forEach(
-                        resp -> sb.append("     ").append(resp.code()).append(" : ").append(resp.content().reference()).append(NL));
+                op.responses().stream().forEach(resp -> sb.append("     ")
+                        .append(resp.code())
+                        .append(" : ")
+                        .append(resp.content().reference())
+                        .append(NL));
             }
         });
     }

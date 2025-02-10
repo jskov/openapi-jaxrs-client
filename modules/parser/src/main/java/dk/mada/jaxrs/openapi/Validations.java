@@ -1,10 +1,9 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import dk.mada.jaxrs.model.Validation;
 import io.swagger.v3.oas.models.media.Schema;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Validation factory.
@@ -43,10 +42,16 @@ public final class Validations {
     public static Validation extractValidation(@SuppressWarnings("rawtypes") Schema s, boolean required) {
         Boolean nullableObj = s.getNullable();
         boolean nullable = nullableObj != null && nullableObj.booleanValue();
-        Validation candidate = new Validation(required, nullable, s.getReadOnly(),
-                s.getMinItems(), s.getMaxItems(),
-                s.getMinLength(), s.getMaxLength(),
-                s.getMinimum(), s.getMaximum(),
+        Validation candidate = new Validation(
+                required,
+                nullable,
+                s.getReadOnly(),
+                s.getMinItems(),
+                s.getMaxItems(),
+                s.getMinLength(),
+                s.getMaxLength(),
+                s.getMinimum(),
+                s.getMaximum(),
                 s.getPattern());
 
         return getInstance(candidate);
@@ -58,8 +63,17 @@ public final class Validations {
      * @param v the validation to relax
      */
     public static Validation makeRelaxed(Validation v) {
-        Validation candidate = new Validation(false, true, v.readonly(),
-                v._minItems(), v._maxItems(), v._minLength(), v._maxLength(), v._minimum(), v._maximum(), v._pattern());
+        Validation candidate = new Validation(
+                false,
+                true,
+                v.readonly(),
+                v._minItems(),
+                v._maxItems(),
+                v._minLength(),
+                v._maxLength(),
+                v._minimum(),
+                v._maximum(),
+                v._pattern());
         return getInstance(candidate);
     }
 
@@ -69,8 +83,17 @@ public final class Validations {
      * @param v the validation to enable require on
      */
     public static Validation makeRequired(Validation v) {
-        Validation candidate = new Validation(true, v.nullable(), v.readonly(),
-                v._minItems(), v._maxItems(), v._minLength(), v._maxLength(), v._minimum(), v._maximum(), v._pattern());
+        Validation candidate = new Validation(
+                true,
+                v.nullable(),
+                v.readonly(),
+                v._minItems(),
+                v._maxItems(),
+                v._minLength(),
+                v._maxLength(),
+                v._minimum(),
+                v._maximum(),
+                v._pattern());
         return getInstance(candidate);
     }
 
@@ -80,8 +103,17 @@ public final class Validations {
      * @param v the validation to enable require on
      */
     public static Validation makeNullable(Validation v) {
-        Validation candidate = new Validation(v.required(), true, v.readonly(),
-                v._minItems(), v._maxItems(), v._minLength(), v._maxLength(), v._minimum(), v._maximum(), v._pattern());
+        Validation candidate = new Validation(
+                v.required(),
+                true,
+                v.readonly(),
+                v._minItems(),
+                v._maxItems(),
+                v._minLength(),
+                v._maxLength(),
+                v._minimum(),
+                v._maximum(),
+                v._pattern());
         return getInstance(candidate);
     }
 

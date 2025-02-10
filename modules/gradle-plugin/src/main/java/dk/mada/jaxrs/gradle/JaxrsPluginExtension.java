@@ -1,10 +1,9 @@
 package dk.mada.jaxrs.gradle;
 
+import dk.mada.jaxrs.gradle.client.ClientDslContainer;
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.Property;
-
-import dk.mada.jaxrs.gradle.client.ClientDslContainer;
 
 /**
  * The JAXRS plugin extensions.

@@ -1,7 +1,7 @@
 package dk.mada.jaxrs.gradle.client;
 
+import dk.mada.jaxrs.gradle.JaxrsPlugin;
 import javax.inject.Inject;
-
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
@@ -16,8 +16,6 @@ import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.workers.WorkQueue;
 import org.gradle.workers.WorkerExecutor;
-
-import dk.mada.jaxrs.gradle.JaxrsPlugin;
 
 /**
  * Generate JAX-RS client code from an OpenApi document.
@@ -66,12 +64,15 @@ public abstract class GenerateClient extends DefaultTask {
     void generate() {
         Project project = getProject();
 
-        FileCollection pluginClasspath = project.getBuildscript().getConfigurations().findByName("classpath")
+        FileCollection pluginClasspath = project.getBuildscript()
+                .getConfigurations()
+                .findByName("classpath")
                 .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
         Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
         FileCollection combined = generatorClasspath.plus(pluginClasspath);
 
-        WorkQueue workQueue = getWorkerExecutor().classLoaderIsolation(workerSpec -> workerSpec.getClasspath().from(combined));
+        WorkQueue workQueue = getWorkerExecutor()
+                .classLoaderIsolation(workerSpec -> workerSpec.getClasspath().from(combined));
 
         workQueue.submit(GenerateClientWorker.class, p -> {
             p.getEchoFlag().set(project.getLogger().isEnabled(LogLevel.INFO));
