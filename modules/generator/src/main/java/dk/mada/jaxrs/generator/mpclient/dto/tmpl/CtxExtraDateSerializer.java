@@ -1,18 +1,15 @@
 package dk.mada.jaxrs.generator.mpclient.dto.tmpl;
 
+import io.jstach.jstache.JStache;
 import java.util.Optional;
 import java.util.SortedSet;
-
 import org.immutables.value.Value.Immutable;
-
-import io.jstach.jstache.JStache;
 
 /**
  * Context passed to Mustache when compiling an extra template.
  */
 @JStache(path = "extraDateSerializers")
 @Immutable
-
 public interface CtxExtraDateSerializer {
     /** {@return a builder for this type} */
     static ImmutableCtxExtraDateSerializer.Builder builder() {

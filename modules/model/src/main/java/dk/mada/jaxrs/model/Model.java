@@ -1,12 +1,11 @@
 package dk.mada.jaxrs.model;
 
-import java.util.List;
-import java.util.Set;
-
 import dk.mada.jaxrs.model.api.ContentSelector;
 import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.TypeInterface;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The transformed model of an OpenApi specification.
@@ -19,7 +18,11 @@ import dk.mada.jaxrs.model.types.TypeInterface;
  * @param securitySchemes the security schemes in the API
  * @param contentSelector selector to pick appropriate content
  */
-public record Model(Naming naming, Info info, Operations operations, Dtos dtos, Set<TypeInterface> interfaces,
+public record Model(
+        Naming naming,
+        Info info,
+        Operations operations,
+        Dtos dtos,
+        Set<TypeInterface> interfaces,
         List<SecurityScheme> securitySchemes,
-        ContentSelector contentSelector) {
-}
+        ContentSelector contentSelector) {}

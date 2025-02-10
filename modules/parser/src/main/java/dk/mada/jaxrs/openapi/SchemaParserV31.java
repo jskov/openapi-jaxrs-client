@@ -1,10 +1,8 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.Set;
-
-import org.jspecify.annotations.Nullable;
-
 import io.swagger.v3.oas.models.media.Schema;
+import java.util.Set;
+import org.jspecify.annotations.Nullable;
 
 /**
  * OpenApi V3.1.x parser details.
@@ -95,20 +93,17 @@ public final class SchemaParserV31 implements SchemaParser {
 
     @Override
     public boolean isDate(boolean acceptBrokenType) {
-        return "date".equals(format())
-                && (acceptBrokenType || isString());
+        return "date".equals(format()) && (acceptBrokenType || isString());
     }
 
     @Override
     public boolean isDateTime(boolean acceptBrokenType) {
-        return "date-time".equals(format())
-                && (acceptBrokenType || isString());
+        return "date-time".equals(format()) && (acceptBrokenType || isString());
     }
 
     @Override
     public boolean isMap() {
-        return schema.getAdditionalProperties() instanceof Schema<?>
-                && isObject();
+        return schema.getAdditionalProperties() instanceof Schema<?> && isObject();
     }
 
     @Override

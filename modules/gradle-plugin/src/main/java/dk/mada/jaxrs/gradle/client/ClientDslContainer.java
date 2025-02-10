@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.gradle.client;
 
 import javax.inject.Inject;
-
 import org.gradle.api.provider.Property;
 
 /**

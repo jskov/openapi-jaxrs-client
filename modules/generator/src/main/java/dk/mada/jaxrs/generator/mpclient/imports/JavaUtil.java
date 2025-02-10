@@ -1,10 +1,9 @@
 package dk.mada.jaxrs.generator.mpclient.imports;
 
+import dk.mada.jaxrs.generator.mpclient.imports.Imports.ImportRenderPrefs;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Set;
-
-import dk.mada.jaxrs.generator.mpclient.imports.Imports.ImportRenderPrefs;
 
 /**
  * Java util import paths.
@@ -36,10 +35,7 @@ public enum JavaUtil implements TypedImport {
 
     /** {@return the container implementation types} */
     public static Set<JavaUtil> containerImplementationTypes() {
-        return EnumSet.of(
-                JavaUtil.ARRAY_LIST,
-                JavaUtil.LINKED_HASH_SET,
-                JavaUtil.HASH_MAP);
+        return EnumSet.of(JavaUtil.ARRAY_LIST, JavaUtil.LINKED_HASH_SET, JavaUtil.HASH_MAP);
     }
 
     /** {@return the generic container list-type} */
@@ -49,9 +45,7 @@ public enum JavaUtil implements TypedImport {
 
     /** {@return the container list-types (including implementation)} */
     public static Set<JavaUtil> containerListImplementationTypes() {
-        return EnumSet.of(
-                JavaUtil.ARRAY_LIST,
-                JavaUtil.LIST);
+        return EnumSet.of(JavaUtil.ARRAY_LIST, JavaUtil.LIST);
     }
 
     /** {@return the genetic container map-type} */
@@ -61,9 +55,7 @@ public enum JavaUtil implements TypedImport {
 
     /** {@return the container map-types (including implementation)} */
     public static Set<JavaUtil> containerMapImplementationTypes() {
-        return EnumSet.of(
-                JavaUtil.HASH_MAP,
-                JavaUtil.MAP);
+        return EnumSet.of(JavaUtil.HASH_MAP, JavaUtil.MAP);
     }
 
     /** {@return the generic container set-type} */
@@ -73,9 +65,7 @@ public enum JavaUtil implements TypedImport {
 
     /** {@return the container set-types (including implementation)} */
     public static Set<JavaUtil> containerSetImplementationTypes() {
-        return EnumSet.of(
-                JavaUtil.LINKED_HASH_SET,
-                JavaUtil.SET);
+        return EnumSet.of(JavaUtil.LINKED_HASH_SET, JavaUtil.SET);
     }
 
     @Override

@@ -17,7 +17,8 @@ public class GeneratorBadInputException extends GeneratorException {
      * @param seeConfigOpt an optional option name that may help fix the problem
      * @param cause        the cause of the exception
      */
-    public GeneratorBadInputException(@Nullable String message, @Nullable String seeConfigOpt, @Nullable Throwable cause) {
+    public GeneratorBadInputException(
+            @Nullable String message, @Nullable String seeConfigOpt, @Nullable Throwable cause) {
         super(combinedMessage(message, seeConfigOpt), cause);
     }
 

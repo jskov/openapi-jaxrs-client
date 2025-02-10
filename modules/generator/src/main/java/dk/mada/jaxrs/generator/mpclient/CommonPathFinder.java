@@ -2,7 +2,6 @@ package dk.mada.jaxrs.generator.mpclient;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,8 +14,7 @@ public final class CommonPathFinder {
     private static final String SEP = "/";
 
     /** Constructs new instance. */
-    public CommonPathFinder() {
-    }
+    public CommonPathFinder() {}
 
     /**
      * Find longest common sub-path of the paths provided.

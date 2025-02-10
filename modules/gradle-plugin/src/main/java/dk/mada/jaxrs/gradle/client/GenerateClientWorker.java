@@ -1,5 +1,8 @@
 package dk.mada.jaxrs.gradle.client;
 
+import dk.mada.jaxrs.generator.api.ClientContext;
+import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
+import dk.mada.jaxrs.generator.api.GeneratorService;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.UncheckedIOException;
@@ -9,12 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.ServiceLoader;
-
 import org.gradle.workers.WorkAction;
-
-import dk.mada.jaxrs.generator.api.ClientContext;
-import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
-import dk.mada.jaxrs.generator.api.GeneratorService;
 
 /**
  * Worker which runs with a custom classpath where the generator service can be looked up.
@@ -61,7 +59,8 @@ public abstract class GenerateClientWorker implements WorkAction<GenerateClientW
         log("Total " + services.size() + " services");
 
         if (services.isEmpty()) {
-            throw new IllegalStateException("Did not find a required GeneratorService. Please review generatorGAV option!");
+            throw new IllegalStateException(
+                    "Did not find a required GeneratorService. Please review generatorGAV option!");
         }
         if (services.size() > 1) {
             throw new IllegalStateException("Cannot handle multiple GeneratorService implementations: " + services);

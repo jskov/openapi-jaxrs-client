@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
-
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -11,8 +10,7 @@ public final class TypeBigDecimal implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeBigDecimal instance;
 
-    private TypeBigDecimal() {
-    }
+    private TypeBigDecimal() {}
 
     /** {@return the single instance} */
     public static synchronized TypeBigDecimal get() {

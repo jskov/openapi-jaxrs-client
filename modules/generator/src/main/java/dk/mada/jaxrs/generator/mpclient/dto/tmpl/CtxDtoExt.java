@@ -2,7 +2,6 @@ package dk.mada.jaxrs.generator.mpclient.dto.tmpl;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.immutables.value.Value.Immutable;
 import org.jspecify.annotations.Nullable;
 

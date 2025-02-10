@@ -1,10 +1,8 @@
 package dk.mada.jaxrs.generator.mpclient.api.tmpl;
 
-import java.util.Optional;
-
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
+import java.util.Optional;
+import org.immutables.value.Value.Immutable;
 
 /**
  * Template data for an API operation parameter.

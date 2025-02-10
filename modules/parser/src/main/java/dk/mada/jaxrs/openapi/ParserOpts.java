@@ -1,9 +1,8 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.List;
-
 import dk.mada.jaxrs.model.api.ContentSelector;
 import dk.mada.jaxrs.model.options.OptionReader;
+import java.util.List;
 
 /**
  * parser-* configuration options.

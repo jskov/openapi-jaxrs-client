@@ -1,14 +1,12 @@
 package dk.mada.jaxrs.generator.mpclient.dto.tmpl;
 
+import io.jstach.jstache.JStache;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.SortedSet;
-
 import org.immutables.value.Value.Immutable;
 import org.jspecify.annotations.Nullable;
-
-import io.jstach.jstache.JStache;
 
 /**
  * Context passed to Mustache when compiling a model.

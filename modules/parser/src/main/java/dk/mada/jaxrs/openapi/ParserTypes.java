@@ -3,17 +3,6 @@ package dk.mada.jaxrs.openapi;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toSet;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
@@ -26,7 +15,6 @@ import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeDateTime;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeLocalTime;
-import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypePlainObject;
@@ -34,6 +22,15 @@ import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Types found while parsing.
@@ -117,16 +114,14 @@ public class ParserTypes {
      * @return an existing or new interface type
      */
     public TypeInterface getOrMakeInterface(TypeName tn, List<ParserTypeRef> anyOfRefs) {
-        Set<TypeName> usedTypeNames = anyOfRefs.stream()
-                .map(ParserTypeRef::typeName)
-                .collect(toSet());
+        Set<TypeName> usedTypeNames =
+                anyOfRefs.stream().map(ParserTypeRef::typeName).collect(toSet());
         return interfaces.computeIfAbsent(tn, k -> TypeInterface.of(dtoPackageName, tn, usedTypeNames));
     }
 
     /** {@return all the interfaces} */
     public Set<TypeInterface> getInterfaces() {
-        return interfaces.values().stream()
-                .collect(toSet());
+        return interfaces.values().stream().collect(toSet());
     }
 
     /**
@@ -172,8 +167,8 @@ public class ParserTypes {
      * @throws IllegalArgumentException if there is no type associated with the given type name
      */
     public Type get(TypeName tn) {
-        return find(tn)
-                .orElseThrow(() -> new IllegalArgumentException("No type referenced found by name " + tn.name()));
+        return find(tn).orElseThrow(
+                        () -> new IllegalArgumentException("No type referenced found by name " + tn.name()));
     }
 
     /**
@@ -244,11 +239,8 @@ public class ParserTypes {
                 newType = remapDto(openapiName, TypeArray.of(typeNames, ta.innerType()));
             } else if (type instanceof TypeSet ts) {
                 newType = remapDto(openapiName, TypeSet.of(typeNames, ts.innerType()));
-            } else if (type instanceof TypeMap) {
-                // no remapping of maps
-                // a DTO with properties of the same type may be represented like this
-                newType = null;
             } else {
+                // Note that TypeMap is not changed
                 newType = null;
             }
 
@@ -276,8 +268,7 @@ public class ParserTypes {
         boolean replaced;
         do {
             replaced = false;
-            if (targetType instanceof TypeReference tr
-                    && tr.validation().isEmptyValidation()) {
+            if (targetType instanceof TypeReference tr && tr.validation().isEmptyValidation()) {
                 logger.trace("  removing empty reference!");
                 targetType = tr.refType();
                 replaced = true;
@@ -288,7 +279,8 @@ public class ParserTypes {
 
         Type oldType = remappedDtoTypes.put(openapiName, targetType);
         if (oldType != null) {
-            throw new IllegalStateException("Dto " + openapiName + " remapped twice from " + oldType + " to " + targetType);
+            throw new IllegalStateException(
+                    "Dto " + openapiName + " remapped twice from " + oldType + " to " + targetType);
         }
 
         return targetType;
@@ -298,19 +290,14 @@ public class ParserTypes {
     public String info() {
         StringBuilder sb = new StringBuilder("Parser Types:").append(NL);
         sb.append(" Unmapped JSE: ");
-        sb.append(unmappedToJseTypes.stream()
-                .sorted()
-                .map(TypeName::name)
-                .collect(joining(", "))).append(NL);
+        sb.append(unmappedToJseTypes.stream().sorted().map(TypeName::name).collect(joining(", ")))
+                .append(NL);
 
         sb.append(" Mapped JSE: ").append(NL);
-        mappedToJseTypes.keySet().stream()
-                .sorted()
-                .forEach(tn -> {
-                    Type t = mappedToJseTypes.get(tn);
-                    sb.append("  ").append(tn.name())
-                            .append(": ").append(t).append(NL);
-                });
+        mappedToJseTypes.keySet().stream().sorted().forEach(tn -> {
+            Type t = mappedToJseTypes.get(tn);
+            sb.append("  ").append(tn.name()).append(": ").append(t).append(NL);
+        });
 
         sb.append(" Interfaces:").append(NL);
         interfaces.entrySet().stream()
@@ -318,8 +305,11 @@ public class ParserTypes {
                 .forEach(e -> {
                     TypeName tn = e.getKey();
                     TypeInterface ints = e.getValue();
-                    sb.append("  ").append(tn.name())
-                            .append(": ").append(ints.implementations()).append(NL);
+                    sb.append("  ")
+                            .append(tn.name())
+                            .append(": ")
+                            .append(ints.implementations())
+                            .append(NL);
                 });
 
         sb.append(" DTOs:").append(NL);
@@ -328,18 +318,20 @@ public class ParserTypes {
                 .forEach(e -> {
                     TypeName tn = e.getKey();
                     Dto dto = e.getValue();
-                    sb.append("  ").append(tn.name())
-                            .append(": ").append(dto.name()).append(" - ").append(dto.reference()).append(NL);
+                    sb.append("  ")
+                            .append(tn.name())
+                            .append(": ")
+                            .append(dto.name())
+                            .append(" - ")
+                            .append(dto.reference())
+                            .append(NL);
                 });
 
         sb.append(" Remapped DTOs: ").append(NL);
-        remappedDtoTypes.keySet().stream()
-                .sorted()
-                .forEach(tn -> {
-                    Type t = remappedDtoTypes.get(tn);
-                    sb.append("  ").append(tn.name())
-                            .append(": ").append(t).append(NL);
-                });
+        remappedDtoTypes.keySet().stream().sorted().forEach(tn -> {
+            Type t = remappedDtoTypes.get(tn);
+            sb.append("  ").append(tn.name()).append(": ").append(t).append(NL);
+        });
 
         return sb.toString();
     }

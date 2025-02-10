@@ -1,10 +1,5 @@
 package dk.mada.jaxrs.generator.mpclient;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Locale;
-import java.util.Properties;
-
 import dk.mada.jaxrs.generator.api.ClientContext;
 import dk.mada.jaxrs.generator.api.GeneratorLogLevel;
 import dk.mada.jaxrs.generator.api.GeneratorService;
@@ -24,6 +19,10 @@ import dk.mada.jaxrs.openapi.Parser;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
 import dk.mada.jaxrs.openapi.ParserOpts;
 import dk.mada.jaxrs.utils.DirectoryDeleter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Locale;
+import java.util.Properties;
 
 /**
  * Generates JAX-RS code.
@@ -35,7 +34,8 @@ public final class Generator implements GeneratorService {
     }
 
     @Override
-    public void generateClient(ClientContext clientContext, Path openapiDocument, final Properties options, Path destinationDir) {
+    public void generateClient(
+            ClientContext clientContext, Path openapiDocument, final Properties options, Path destinationDir) {
         Console.println("Generate client");
         Console.println(" Context: " + clientContext);
         Console.println(" OpenApi doc: " + openapiDocument);
@@ -49,8 +49,8 @@ public final class Generator implements GeneratorService {
             var optionReader = new OptionReader(options);
             var parserOpts = new ParserOpts(optionReader);
 
-            LeakedParserOpts leakedParserOpts = new LeakedParserOpts(parserOpts.isJseOffsetDateTime(), parserOpts.isJseLocalDateTime(),
-                    parserOpts.isJseLocalDate());
+            LeakedParserOpts leakedParserOpts = new LeakedParserOpts(
+                    parserOpts.isJseOffsetDateTime(), parserOpts.isJseLocalDateTime(), parserOpts.isJseLocalDate());
             var generatorOpts = new GeneratorOpts(optionReader, leakedParserOpts);
             var naming = new Naming(optionReader);
 
@@ -61,8 +61,11 @@ public final class Generator implements GeneratorService {
             TypeNames typeNames = new TypeNames();
 
             Type noFormatNumberType = getNoFormatType(typeNames, generatorOpts);
-            var leakedGeneratorOpts = new LeakedGeneratorOpts(TypeDateTime.get(generatorOpts.getDateTimeVariant()),
-                    generatorOpts.dtoPackage(), generatorOpts.isApiUseMultipartForm(), noFormatNumberType);
+            var leakedGeneratorOpts = new LeakedGeneratorOpts(
+                    TypeDateTime.get(generatorOpts.getDateTimeVariant()),
+                    generatorOpts.dtoPackage(),
+                    generatorOpts.isApiUseMultipartForm(),
+                    noFormatNumberType);
             Model model = new Parser(clientContext.showParserInfo(), typeNames, naming, parserOpts, leakedGeneratorOpts)
                     .parse(openapiDocument);
 
@@ -86,13 +89,15 @@ public final class Generator implements GeneratorService {
         } else if (TypeNames.DOUBLE.equals(tn) || TypeNames.DOUBLE_WRAPPER.equals(tn)) {
             return Primitive.DOUBLE;
         } else {
-            throw new GeneratorBadInputException(name + " is not a supported type for no-format number",
+            throw new GeneratorBadInputException(
+                    name + " is not a supported type for no-format number",
                     GeneratorOpts.GENERATOR_TYPE_NO_FORMAT_NUMBER);
         }
     }
 
     private void defineLatePrimitives(GeneratorOpts genOpts) {
-        Primitive desiredNoFormatIntType = Primitive.valueOf(genOpts.getNoFormatIntegerType().toUpperCase(Locale.ROOT));
+        Primitive desiredNoFormatIntType =
+                Primitive.valueOf(genOpts.getNoFormatIntegerType().toUpperCase(Locale.ROOT));
         Primitive.NOFORMAT_INT.setNoformatIntTypes(desiredNoFormatIntType);
     }
 

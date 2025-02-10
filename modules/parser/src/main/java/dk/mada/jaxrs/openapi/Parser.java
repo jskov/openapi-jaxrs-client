@@ -1,14 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.regex.Pattern;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.model.Dtos;
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
@@ -26,6 +17,13 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.AuthorizationValue;
 import io.swagger.v3.parser.core.models.ParseOptions;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Parses OpenAPI specification and transforms to local model classes.
@@ -60,7 +58,12 @@ public final class Parser {
      * @param parserOpts    the parser options
      * @param leakedGenOpts the leaked generator options
      */
-    public Parser(boolean showInfo, TypeNames typeNames, Naming naming, ParserOpts parserOpts, LeakedGeneratorOpts leakedGenOpts) {
+    public Parser(
+            boolean showInfo,
+            TypeNames typeNames,
+            Naming naming,
+            ParserOpts parserOpts,
+            LeakedGeneratorOpts leakedGenOpts) {
         this.showInfo = showInfo;
         this.typeNames = typeNames;
         this.naming = naming;
@@ -87,8 +90,8 @@ public final class Parser {
      * @param isUseMultipartBody a flag for use of multipart forms
      * @param noFormatNumberType the type to use for no-format numbers
      */
-    public record LeakedGeneratorOpts(TypeDateTime dateTimeType, String dtoPackage, boolean isUseMultipartBody, Type noFormatNumberType) {
-    }
+    public record LeakedGeneratorOpts(
+            TypeDateTime dateTimeType, String dtoPackage, boolean isUseMultipartBody, Type noFormatNumberType) {}
 
     /**
      * Parse the specified OpenApi specification.
@@ -120,7 +123,8 @@ public final class Parser {
 
         Info info = new InfoTransformer().transform(specification);
         List<SecurityScheme> securitySchemes = new SecurityTransformer().transform(specification);
-        Operations operations = new ApiTransformer(specification, naming, leakedGenOpts, typeConverter, contentSelector, securitySchemes)
+        Operations operations = new ApiTransformer(
+                        specification, naming, leakedGenOpts, typeConverter, contentSelector, securitySchemes)
                 .transform(specification);
         new DtoTransformer(typeConverter).transform(specification);
 
@@ -145,9 +149,7 @@ public final class Parser {
         Operations derefOps = resolver.operations(operations);
 
         if (showInfo) {
-            String infoResolved = "============== RESOLVED =====" + NL
-                    + dtos.info() + NL
-                    + derefOps.info();
+            String infoResolved = "============== RESOLVED =====" + NL + dtos.info() + NL + derefOps.info();
             logger.info("{}", infoResolved);
         }
 

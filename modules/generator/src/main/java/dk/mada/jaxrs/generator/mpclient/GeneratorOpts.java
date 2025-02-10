@@ -1,5 +1,11 @@
 package dk.mada.jaxrs.generator.mpclient;
 
+import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
+import dk.mada.jaxrs.model.options.OptionReader;
+import dk.mada.jaxrs.model.types.Primitive;
+import dk.mada.jaxrs.model.types.TypeDateTime;
+import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
+import dk.mada.jaxrs.model.types.TypeName;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,16 +15,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
-import dk.mada.jaxrs.model.options.OptionReader;
-import dk.mada.jaxrs.model.types.Primitive;
-import dk.mada.jaxrs.model.types.TypeDateTime;
-import dk.mada.jaxrs.model.types.TypeDateTime.DateTimeVariant;
-import dk.mada.jaxrs.model.types.TypeName;
 
 /**
  * Generator configuration options.
@@ -34,7 +32,8 @@ public final class GeneratorOpts {
     /** Generator option for DTO package. */
     public static final String GENERATOR_DTO_PACKAGE = "generator-dto-package";
     /** Generator option for property conflict resolution. */
-    public static final String GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION = "generator-use-property-conflict-resolution";
+    public static final String GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION =
+            "generator-use-property-conflict-resolution";
     /** Generator option for no-format number */
     public static final String GENERATOR_TYPE_NO_FORMAT_NUMBER = "generator-type-no-format-number";
 
@@ -71,9 +70,7 @@ public final class GeneratorOpts {
     public GeneratorOpts(OptionReader or, LeakedParserOpts leakedParserOpts) {
         this.or = or;
 
-        generatedAtTime = LocalDateTime.now()
-                .withNano(0)
-                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        generatedAtTime = LocalDateTime.now().withNano(0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         useJacksonFasterxml = or.bool("generator-jackson-fasterxml");
         boolean willUseJsonb = or.bool("generator-jsonb");
@@ -106,10 +103,9 @@ public final class GeneratorOpts {
         String value = or.getDefault("generator-dto-records-use-builder", "none");
         RecordBuilderControl control = RecordBuilderControl.from(value);
         recordBuilderPredicate = switch (control) {
-        case ALL -> tn -> true;
-        case NONE -> tn -> false;
-        case NAMED -> predicateFromNamed(value);
-        };
+            case ALL -> tn -> true;
+            case NONE -> tn -> false;
+            case NAMED -> predicateFromNamed(value);};
     }
 
     /**
@@ -119,8 +115,7 @@ public final class GeneratorOpts {
      * @param isJseLocalDateTime  true if the LocalDateTime DTO is represented by JSE
      * @param isJseLocalDate      true if the LocalDate DTO is represented by JSE
      */
-    public record LeakedParserOpts(boolean isJseOffsetDateTime, boolean isJseLocalDateTime, boolean isJseLocalDate) {
-    }
+    public record LeakedParserOpts(boolean isJseOffsetDateTime, boolean isJseLocalDateTime, boolean isJseLocalDate) {}
 
     /**
      * {@return the id of this generator}
@@ -226,8 +221,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return or.getOptDefault("generator-jackson-localdate-deserializer",
-                ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname());
+        return or.getOptDefault(
+                "generator-jackson-localdate-deserializer", ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER.classname());
     }
 
     /** {@return the optional jackson LocalDate serializer class name} */
@@ -235,8 +230,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return or.getOptDefault("generator-jackson-localdate-serializer",
-                ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
+        return or.getOptDefault(
+                "generator-jackson-localdate-serializer", ExtraTemplate.LOCAL_DATE_JACKSON_SERIALIZER.classname());
     }
 
     /** {@return the optional jackson LocalDateTime deserializer class name} */
@@ -244,7 +239,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return or.getOptDefault("generator-jackson-localdatetime-deserializer",
+        return or.getOptDefault(
+                "generator-jackson-localdatetime-deserializer",
                 ExtraTemplate.LOCAL_DATE_TIME_JACKSON_DESERIALIZER.classname());
     }
 
@@ -253,7 +249,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateTimeSerializer()) {
             return Optional.empty();
         }
-        return or.getOptDefault("generator-jackson-localdatetime-serializer",
+        return or.getOptDefault(
+                "generator-jackson-localdatetime-serializer",
                 ExtraTemplate.LOCAL_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
@@ -262,7 +259,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateSerializer()) {
             return Optional.empty();
         }
-        return or.getOptDefault("generator-jackson-offsetdatetime-deserializer",
+        return or.getOptDefault(
+                "generator-jackson-offsetdatetime-deserializer",
                 ExtraTemplate.OFFSET_DATE_TIME_JACKSON_DESERIALIZER.classname());
     }
 
@@ -271,7 +269,8 @@ public final class GeneratorOpts {
         if (!isUseJacksonLocalDateTimeSerializer()) {
             return Optional.empty();
         }
-        return or.getOptDefault("generator-jackson-offsetdatetime-serializer",
+        return or.getOptDefault(
+                "generator-jackson-offsetdatetime-serializer",
                 ExtraTemplate.OFFSET_DATE_TIME_JACKSON_SERIALIZER.classname());
     }
 
@@ -489,7 +488,8 @@ public final class GeneratorOpts {
 
     /** {@return the property conflict resolution to use} */
     public PropertyConflictResolution getPropertyConflictResolution() {
-        String resolution = or.getDefault(GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION, PropertyConflictResolution.FAIL.name());
+        String resolution =
+                or.getDefault(GENERATOR_USE_PROPERTY_CONFLICT_RESOLUTION, PropertyConflictResolution.FAIL.name());
         return PropertyConflictResolution.from(resolution);
     }
 
@@ -519,14 +519,12 @@ public final class GeneratorOpts {
 
     /** {@return the primitive type to use for integers without format} */
     public String getNoFormatIntegerType() {
-        return or.get("generator-type-no-format-integer")
-                .orElse(Primitive.SHORT.name());
+        return or.get("generator-type-no-format-integer").orElse(Primitive.SHORT.name());
     }
 
     /** {@return the primitive type to use for numbers without format} */
     public String getNoFormatNumberType() {
-        return or.get(GENERATOR_TYPE_NO_FORMAT_NUMBER)
-                .orElse(BigDecimal.class.getSimpleName());
+        return or.get(GENERATOR_TYPE_NO_FORMAT_NUMBER).orElse(BigDecimal.class.getSimpleName());
     }
 
     /** {@return true if generation of API classes should use multipart bodies.} */

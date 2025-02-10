@@ -1,8 +1,7 @@
 package dk.mada.jaxrs.model.types;
 
-import org.jspecify.annotations.Nullable;
-
 import dk.mada.jaxrs.model.Validation;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Special type for handing void type.
@@ -14,8 +13,7 @@ public final class TypeVoid implements Type {
     /** The single reference instance of this object. */
     @Nullable private static TypeReference refInstance;
 
-    private TypeVoid() {
-    }
+    private TypeVoid() {}
 
     /** {@return the type object representing void} */
     public static synchronized TypeVoid get() {

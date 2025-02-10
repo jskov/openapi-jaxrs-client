@@ -1,8 +1,8 @@
 package dk.mada.jaxrs.gradle;
 
+import dk.mada.jaxrs.gradle.client.GenerateClient;
 import java.util.Locale;
 import java.util.Set;
-
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
@@ -15,8 +15,6 @@ import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.SourceSetContainer;
 import org.gradle.api.tasks.TaskProvider;
-
-import dk.mada.jaxrs.gradle.client.GenerateClient;
 
 /**
  * Plugin for JAX-RS generator.
@@ -63,11 +61,14 @@ public class JaxrsPlugin implements Plugin<Project> {
         SourceSet mainSrcSet = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME);
 
         ProjectLayout pl = project.getLayout();
-        DirectoryProperty extSrcOutputDirectory = jaxrsExtension.getSrcOutputDirectory()
+        DirectoryProperty extSrcOutputDirectory = jaxrsExtension
+                .getSrcOutputDirectory()
                 .convention(pl.getProjectDirectory().dir("src/main/java-jaxrs"));
-        DirectoryProperty extBuildOutputDirectory = jaxrsExtension.getBuildOutputDirectory()
+        DirectoryProperty extBuildOutputDirectory = jaxrsExtension
+                .getBuildOutputDirectory()
                 .convention(pl.getBuildDirectory().dir("java-jaxrs"));
-        DirectoryProperty extOpenApiDocDirectory = jaxrsExtension.getOpenApiDocDirectory()
+        DirectoryProperty extOpenApiDocDirectory = jaxrsExtension
+                .getOpenApiDocDirectory()
                 .convention(pl.getProjectDirectory().dir("src/openapi"));
 
         jaxrsExtension.getClients().all(client -> {
@@ -82,8 +83,8 @@ public class JaxrsPlugin implements Plugin<Project> {
 
             String partialTaskName = toPartialTaskName(docName);
 
-            TaskProvider<DownloadOpenApiDocument> downloadTask = project.getTasks().register("downloadDoc" + partialTaskName,
-                    DownloadOpenApiDocument.class, t -> {
+            TaskProvider<DownloadOpenApiDocument> downloadTask = project.getTasks()
+                    .register("downloadDoc" + partialTaskName, DownloadOpenApiDocument.class, t -> {
                         Property<String> url = client.getDocumentDownloadUrl();
 
                         t.setDescription("Downloads OpenApi document for client " + docName);
@@ -92,8 +93,8 @@ public class JaxrsPlugin implements Plugin<Project> {
                         t.getOutputFile().set(extOpenApiDocDirectory.file(openapiDocumentName));
                     });
 
-            TaskProvider<GenerateClient> generateTask = project.getTasks().register("generateClient" + partialTaskName,
-                    GenerateClient.class, t -> {
+            TaskProvider<GenerateClient> generateTask = project.getTasks()
+                    .register("generateClient" + partialTaskName, GenerateClient.class, t -> {
                         t.setDescription("Generates JAX-RS client " + docName);
                         t.setGroup(CLIENT_TASK_GROUP);
                         t.getOutputDirectory().set(taskOutputDir);
@@ -117,8 +118,8 @@ public class JaxrsPlugin implements Plugin<Project> {
      * @param docName            the document name
      * @param tp                 the provider for the generator task
      */
-    private void addAsJavaCompileDependency(Project project, Property<Boolean> isPersistentSource, String docName,
-            TaskProvider<GenerateClient> tp) {
+    private void addAsJavaCompileDependency(
+            Project project, Property<Boolean> isPersistentSource, String docName, TaskProvider<GenerateClient> tp) {
         TaskProvider<Task> compileTp = project.getTasks().named(JavaPlugin.COMPILE_JAVA_TASK_NAME);
         compileTp.configure(compileTask -> {
             Provider<Set<GenerateClient>> optionalTasks = project.provider(() -> {
@@ -136,8 +137,7 @@ public class JaxrsPlugin implements Plugin<Project> {
 
     // Should probably use some variant of Identifiers:makeValid
     private String toPartialTaskName(String input) {
-        String s = input
-                .replaceAll("[^a-zA-Z0-9]", "");
+        String s = input.replaceAll("[^a-zA-Z0-9]", "");
         if (s.length() == 1) {
             return s.toUpperCase(Locale.ROOT);
         }

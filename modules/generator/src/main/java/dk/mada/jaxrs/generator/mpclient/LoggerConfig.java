@@ -32,7 +32,8 @@ public final class LoggerConfig {
     public static void loadConfig(String path) {
         try (InputStream configFile = LoggerConfig.class.getResourceAsStream(path)) {
             if (configFile == null) {
-                System.err.println("Failed to load logger configuration from " + path); // NOSONAR - logger probably not working!
+                System.err.println(
+                        "Failed to load logger configuration from " + path); // NOSONAR - logger probably not working!
             } else {
                 LogManager.getLogManager().updateConfiguration(configFile, null);
             }

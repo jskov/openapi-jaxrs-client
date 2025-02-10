@@ -1,13 +1,11 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.Collections;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
+import java.util.Collections;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Transforms OpenApi dtos (models) to local model objects.
@@ -60,7 +58,9 @@ public class DtoTransformer {
      */
     @SuppressWarnings("rawtypes")
     private static Map<String, Schema> getSchemas(OpenAPI openAPI) {
-        if (openAPI != null && openAPI.getComponents() != null && openAPI.getComponents().getSchemas() != null) {
+        if (openAPI != null
+                && openAPI.getComponents() != null
+                && openAPI.getComponents().getSchemas() != null) {
             return openAPI.getComponents().getSchemas();
         }
         return Collections.emptyMap();

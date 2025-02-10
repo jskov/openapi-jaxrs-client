@@ -1,10 +1,9 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.List;
-
 import dk.mada.jaxrs.model.SecurityScheme;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
+import java.util.List;
 
 /**
  * Transforms OpenApi security to local model objects.

@@ -2,18 +2,6 @@ package dk.mada.jaxrs.openapi;
 
 import static java.util.stream.Collectors.toSet;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
-
-import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.model.SecurityScheme;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.ContentSelector;
@@ -41,6 +29,16 @@ import io.swagger.v3.oas.models.parameters.PathParameter;
 import io.swagger.v3.oas.models.parameters.QueryParameter;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Transforms OpenApi operations to local model objects.
@@ -86,7 +84,11 @@ public class ApiTransformer {
      * @param contentSelector the content selector
      * @param securitySchemes the security schemes
      */
-    public ApiTransformer(OpenAPI specification, Naming naming, LeakedGeneratorOpts leakedGenOpts, TypeConverter typeConverter,
+    public ApiTransformer(
+            OpenAPI specification,
+            Naming naming,
+            LeakedGeneratorOpts leakedGenOpts,
+            TypeConverter typeConverter,
             ContentSelector contentSelector,
             List<SecurityScheme> securitySchemes) {
         this.naming = naming;
@@ -134,8 +136,7 @@ public class ApiTransformer {
 
     private void processPath(String resourcePath, PathItem path) {
         logger.info("Parsing API path {}", resourcePath);
-        path.readOperationsMap()
-                .forEach((httpMethod, op) -> processOp(resourcePath, httpMethod, op));
+        path.readOperationsMap().forEach((httpMethod, op) -> processOp(resourcePath, httpMethod, op));
     }
 
     private void processOp(String resourcePath, HttpMethod httpMethod, io.swagger.v3.oas.models.Operation op) {
@@ -186,10 +187,8 @@ public class ApiTransformer {
     }
 
     private String generateSyntheticOpId(String resourcePath, HttpMethod httpMethod) {
-        String opPath = resourcePath
-                .replaceAll("[{}/_]", "-")
-                .replaceFirst("^-", "")
-                .replaceFirst("-$", "");
+        String opPath =
+                resourcePath.replaceAll("[{}/_]", "-").replaceFirst("^-", "").replaceFirst("-$", "");
         String syntheticOpId = opPath + "-" + httpMethod.name().toLowerCase(Locale.ROOT);
 
         return naming.convertOperationName(syntheticOpId);
@@ -216,7 +215,8 @@ public class ApiTransformer {
                 .build();
     }
 
-    private Optional<RequestBody> getRequestBody(String groupOpId, String resourcePath, io.swagger.v3.oas.models.Operation op) {
+    private Optional<RequestBody> getRequestBody(
+            String groupOpId, String resourcePath, io.swagger.v3.oas.models.Operation op) {
         io.swagger.v3.oas.models.parameters.RequestBody body = op.getRequestBody();
         if (body == null) {
             return Optional.empty();
@@ -245,11 +245,17 @@ public class ApiTransformer {
         MediaType mt = bodyContent.get(MULTIPART_FORM_DATA);
         boolean createMultipartDto = leakedGenOpts.isUseMultipartBody() && mt != null && mt.getSchema() != null;
 
-        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, toBool(body.getRequired()), Location.REQUEST,
+        ContentContext cc = new ContentContext(
+                resourcePath,
+                StatusCode.HTTP_DEFAULT,
+                toBool(body.getRequired()),
+                Location.REQUEST,
                 createMultipartDto);
         Content content = selectContent(bodyContent, cc);
 
-        if (createMultipartDto && mt != null && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
+        if (createMultipartDto
+                && mt != null
+                && mt.getSchema() != null) { // Need to repeat as nullchecker does not see it
             logger.debug("FORM-DATA: {}", mt);
             Schema<?> schema = mt.getSchema();
             ParserTypeRef multipartBody = typeConverter.createMultipartDto(groupOpId, schema);
@@ -258,13 +264,12 @@ public class ApiTransformer {
                     .mediaTypes(List.of(MULTIPART_FORM_DATA))
                     .build();
 
-            return Optional.of(
-                    RequestBody.builder()
-                            .description(Optional.of("Synthetic multipart body"))
-                            .content(multipartBodyContent)
-                            .formParameters(List.of())
-                            .isMultipartForm(true)
-                            .build());
+            return Optional.of(RequestBody.builder()
+                    .description(Optional.of("Synthetic multipart body"))
+                    .content(multipartBodyContent)
+                    .formParameters(List.of())
+                    .isMultipartForm(true)
+                    .build());
         }
 
         List<Parameter> formParameters = extractFormParameters(bodyContent);
@@ -278,13 +283,12 @@ public class ApiTransformer {
                     .build();
         }
 
-        return Optional.of(
-                RequestBody.builder()
-                        .description(Optional.ofNullable(body.getDescription()))
-                        .content(content)
-                        .formParameters(formParameters)
-                        .isMultipartForm(false)
-                        .build());
+        return Optional.of(RequestBody.builder()
+                .description(Optional.ofNullable(body.getDescription()))
+                .content(content)
+                .formParameters(formParameters)
+                .isMultipartForm(false)
+                .build());
     }
 
     /**
@@ -300,7 +304,7 @@ public class ApiTransformer {
         }
 
         // form parameters via properties on body
-        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @SuppressWarnings({"rawtypes", "unchecked"})
         Map<String, Schema> props = mt.getSchema().getProperties();
         if (props == null) {
             return List.of();
@@ -352,9 +356,7 @@ public class ApiTransformer {
             return List.of();
         }
 
-        return params.stream()
-                .map(param -> toParam(resourcePath, param))
-                .toList();
+        return params.stream().map(param -> toParam(resourcePath, param)).toList();
     }
 
     private Parameter toParam(String resourcePath, io.swagger.v3.oas.models.parameters.Parameter param) {
@@ -367,7 +369,8 @@ public class ApiTransformer {
 
         boolean isParamRequired = toBool(param.getRequired());
 
-        ContentContext cc = new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, isParamRequired, Location.REQUEST, false);
+        ContentContext cc =
+                new ContentContext(resourcePath, StatusCode.HTTP_DEFAULT, isParamRequired, Location.REQUEST, false);
 
         Schema<?> schema = param.getSchema();
         if (schema == null) {
@@ -423,9 +426,7 @@ public class ApiTransformer {
             mediaTypes = c.keySet();
 
             @SuppressWarnings("rawtypes")
-            Set<Schema> schemas = c.values().stream()
-                    .map(MediaType::getSchema)
-                    .collect(toSet());
+            Set<Schema> schemas = c.values().stream().map(MediaType::getSchema).collect(toSet());
 
             if (schemas.isEmpty()) {
                 ref = TypeVoid.getRef();
@@ -446,10 +447,7 @@ public class ApiTransformer {
         }
         logger.debug("Content reference {}", ref);
 
-        return Content.builder()
-                .mediaTypes(mediaTypes)
-                .reference(ref)
-                .build();
+        return Content.builder().mediaTypes(mediaTypes).reference(ref).build();
     }
 
     private @Nullable Schema<?> getPreferredSchema(io.swagger.v3.oas.models.media.Content c, ContentContext context) {
@@ -458,9 +456,11 @@ public class ApiTransformer {
             return c.values().iterator().next().getSchema();
         }
 
-        String mediaTypeName = contentSelector.selectPreferredMediaType(c.keySet(), context)
-                .orElseThrow(() -> new IllegalStateException("Path " + context.resourcePath() + " has multiple content types. Use "
-                        + context.location().optionName() + " to select"));
+        String mediaTypeName = contentSelector
+                .selectPreferredMediaType(c.keySet(), context)
+                .orElseThrow(() ->
+                        new IllegalStateException("Path " + context.resourcePath() + " has multiple content types. Use "
+                                + context.location().optionName() + " to select"));
         MediaType mediaType = c.get(mediaTypeName);
         if (mediaType == null) {
             throw new IllegalStateException("The media-type name was just found?");

@@ -2,7 +2,6 @@ package dk.mada.jaxrs.model.types;
 
 import java.util.List;
 import java.util.Set;
-
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -24,7 +23,8 @@ public interface TypeInterface extends Type {
         return ImmutableTypeInterface.builder()
                 .typeName(typeName)
                 .packageName(packageName)
-                .implementations(implementations).build();
+                .implementations(implementations)
+                .build();
     }
 
     /** {@return the name of the package the interface is generated in} */

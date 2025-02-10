@@ -1,14 +1,12 @@
 package dk.mada.jaxrs.generator.mpclient.api.tmpl;
 
+import io.jstach.jstache.JStache;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.SortedSet;
-
 import org.immutables.value.Value.Immutable;
 import org.jspecify.annotations.Nullable;
-
-import io.jstach.jstache.JStache;
 
 /**
  * Context passed to Mustache when compiling an api.
@@ -40,8 +38,7 @@ public interface CtxApi {
      * @param url         the URL reference
      * @param summary     a summary of the documentation
      */
-    record CtxOperationExternalDoc(String description, String url, String summary) {
-    }
+    record CtxOperationExternalDoc(String description, String url, String summary) {}
 
     /** {@return a list of external documentation references} */
     List<CtxOperationExternalDoc> externalDocs();
@@ -59,8 +56,7 @@ public interface CtxApi {
      *
      * @param operation the operation context to reference
      */
-    record CtxOperationRef(CtxApiOp operation) {
-    }
+    record CtxOperationRef(CtxApiOp operation) {}
 
     /** {@return the operation contexts in this API class} */
     List<CtxOperationRef> operations();

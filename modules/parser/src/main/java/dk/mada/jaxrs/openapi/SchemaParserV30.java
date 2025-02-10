@@ -1,7 +1,5 @@
 package dk.mada.jaxrs.openapi;
 
-import org.jspecify.annotations.Nullable;
-
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.ComposedSchema;
@@ -13,6 +11,7 @@ import io.swagger.v3.oas.models.media.NumberSchema;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
+import org.jspecify.annotations.Nullable;
 
 /**
  * OpenApi V3.0.x parser details.
@@ -58,14 +57,12 @@ public final class SchemaParserV30 implements SchemaParser {
 
     @Override
     public boolean isAnyOf() {
-        return schema instanceof ComposedSchema
-                && schema().getAnyOf() != null;
+        return schema instanceof ComposedSchema && schema().getAnyOf() != null;
     }
 
     @Override
     public boolean isOneOf() {
-        return schema instanceof ComposedSchema
-                && schema().getOneOf() != null;
+        return schema instanceof ComposedSchema && schema().getOneOf() != null;
     }
 
     @Override
@@ -75,14 +72,12 @@ public final class SchemaParserV30 implements SchemaParser {
 
     @Override
     public boolean isDate(boolean acceptBrokenType) {
-        return "date".equals(format())
-                && (acceptBrokenType || schema() instanceof DateSchema);
+        return "date".equals(format()) && (acceptBrokenType || schema() instanceof DateSchema);
     }
 
     @Override
     public boolean isDateTime(boolean acceptBrokenType) {
-        return "date-time".equals(format())
-                && (acceptBrokenType || schema() instanceof DateTimeSchema);
+        return "date-time".equals(format()) && (acceptBrokenType || schema() instanceof DateTimeSchema);
     }
 
     @Override

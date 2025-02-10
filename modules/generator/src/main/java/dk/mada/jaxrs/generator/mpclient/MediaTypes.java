@@ -1,9 +1,8 @@
 package dk.mada.jaxrs.generator.mpclient;
 
-import java.util.Map;
-
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
+import java.util.Map;
 
 /**
  * Handling of media types.
@@ -21,8 +20,7 @@ public final class MediaTypes {
             "text/plain", "TEXT_PLAIN");
 
     /** Only static methods. */
-    private MediaTypes() {
-    }
+    private MediaTypes() {}
 
     /**
      * Convert input media type to the render representation.
@@ -41,5 +39,4 @@ public final class MediaTypes {
 
         return "MediaType." + mtConstant;
     }
-
 }

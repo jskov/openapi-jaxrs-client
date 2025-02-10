@@ -1,16 +1,14 @@
 package dk.mada.jaxrs.model.naming;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.model.naming.NamingOpts.SchemaOrder;
 import dk.mada.jaxrs.model.naming.NamingRules.NamingRule;
 import dk.mada.jaxrs.model.options.OptionReader;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Executes naming rules.
@@ -93,9 +91,7 @@ public class Naming {
     }
 
     private String makeRuleInfo(List<NamingRule> rules) {
-        return rules.stream()
-                .map(NamingRule::name)
-                .collect(Collectors.joining(", "));
+        return rules.stream().map(NamingRule::name).collect(Collectors.joining(", "));
     }
 
     /** {@return true if types should be renamed to avoid conflicts on Windows} */

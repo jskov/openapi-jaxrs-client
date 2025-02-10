@@ -19,7 +19,10 @@ public interface TypeMap extends TypeContainer {
      * @return a new map-type.
      */
     static TypeMap of(TypeNames typeNames, Type innerType) {
-        return ImmutableTypeMap.builder().typeNames(typeNames).innerType(innerType).build();
+        return ImmutableTypeMap.builder()
+                .typeNames(typeNames)
+                .innerType(innerType)
+                .build();
     }
 
     @Override

@@ -2,7 +2,6 @@ package dk.mada.jaxrs.model;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -20,14 +19,21 @@ import org.jspecify.annotations.Nullable;
  * @param _pattern   optional validation pattern
  */
 public record Validation(
-        boolean required, boolean nullable, @Nullable Boolean readonly,
-        @Nullable Integer _minItems, @Nullable Integer _maxItems,
-        @Nullable Integer _minLength, @Nullable Integer _maxLength,
-        @Nullable BigDecimal _minimum, @Nullable BigDecimal _maximum,
+        boolean required,
+        boolean nullable,
+        @Nullable Boolean readonly,
+        @Nullable Integer _minItems,
+        @Nullable Integer _maxItems,
+        @Nullable Integer _minLength,
+        @Nullable Integer _maxLength,
+        @Nullable BigDecimal _minimum,
+        @Nullable BigDecimal _maximum,
         @Nullable String _pattern) {
 
-    private static Validation EMPTY_VALIDATION = new Validation(false, false, null, null, null, null, null, null, null, null);
-    private static Validation REQUIRED_VALIDATION = new Validation(true, false, null, null, null, null, null, null, null, null);
+    private static Validation EMPTY_VALIDATION =
+            new Validation(false, false, null, null, null, null, null, null, null, null);
+    private static Validation REQUIRED_VALIDATION =
+            new Validation(true, false, null, null, null, null, null, null, null, null);
 
     /** {@return an empty validation} */
     public static Validation empty() {

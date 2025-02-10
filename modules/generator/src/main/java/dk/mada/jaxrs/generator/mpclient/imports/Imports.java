@@ -1,15 +1,5 @@
 package dk.mada.jaxrs.generator.mpclient.imports;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.NavigableSet;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dk.mada.jaxrs.generator.mpclient.ExtraTemplate;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.model.Property;
@@ -20,6 +10,14 @@ import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
+import java.util.Collection;
+import java.util.Map;
+import java.util.NavigableSet;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Keeps track of imports for a single template, taking generator options into consideration.
@@ -107,8 +105,7 @@ public final class Imports {
      * @return a new imports instance loaded with enumeration imports
      */
     public static Imports newApi(GeneratorOpts opts) {
-        return new Imports(opts, true, SourceType.API)
-                .add(JaxRs.RS_STAR);
+        return new Imports(opts, true, SourceType.API).add(JaxRs.RS_STAR);
     }
 
     /**
@@ -152,8 +149,7 @@ public final class Imports {
      * @return a new imports instance loaded with enumeration imports
      */
     public static Imports newEnum(GeneratorOpts opts, boolean includeObjects) {
-        return new Imports(opts, false, SourceType.ENUM)
-                .addEnumImports(true, includeObjects);
+        return new Imports(opts, false, SourceType.ENUM).addEnumImports(true, includeObjects);
     }
 
     /**
@@ -163,8 +159,7 @@ public final class Imports {
      * @return a new imports instance
      */
     public static Imports newInterface(GeneratorOpts opts) {
-        return new Imports(opts, false, SourceType.INTERFACE)
-                .addMicroProfileSchema();
+        return new Imports(opts, false, SourceType.INTERFACE).addMicroProfileSchema();
     }
 
     /**
@@ -175,8 +170,7 @@ public final class Imports {
      * @return a new imports instance
      */
     public static Imports newExtras(GeneratorOpts opts, ExtraTemplate tmpl) {
-        return new Imports(opts, false, SourceType.EXTRA)
-                .add(tmpl.requiredImports());
+        return new Imports(opts, false, SourceType.EXTRA).add(tmpl.requiredImports());
     }
 
     /**
@@ -201,8 +195,7 @@ public final class Imports {
      * @param properties the properties to add imports for
      */
     public void addPropertyImports(Collection<Property> properties) {
-        properties
-                .forEach(p -> add(p.reference()));
+        properties.forEach(p -> add(p.reference()));
     }
 
     /**
@@ -304,9 +297,7 @@ public final class Imports {
             addImports = JavaUtil.containerSetImplementationTypes();
         }
 
-        addImports.stream()
-                .map(JavaUtil::path)
-                .forEach(importedClasses::add);
+        addImports.stream().map(JavaUtil::path).forEach(importedClasses::add);
     }
 
     // FIXME: this should come out of the (outer) type's neededImports, surely?

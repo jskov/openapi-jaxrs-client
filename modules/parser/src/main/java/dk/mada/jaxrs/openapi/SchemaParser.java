@@ -1,13 +1,11 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.List;
-import java.util.Objects;
-
-import org.jspecify.annotations.Nullable;
-
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import io.swagger.v3.oas.models.SpecVersion;
 import io.swagger.v3.oas.models.media.Schema;
+import java.util.List;
+import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /**
  * OpenApi Schema parser.
@@ -142,9 +140,9 @@ public interface SchemaParser {
     static SchemaParser of(Schema<?> schema) {
         SpecVersion specVersion = schema.getSpecVersion();
         return switch (specVersion) {
-        case SpecVersion.V30 -> new SchemaParserV30(schema);
-        case SpecVersion.V31 -> new SchemaParserV31(schema);
-        default -> throw new IllegalStateException("Unhandled spec version " + specVersion);
+            case SpecVersion.V30 -> new SchemaParserV30(schema);
+            case SpecVersion.V31 -> new SchemaParserV31(schema);
+            default -> throw new IllegalStateException("Unhandled spec version " + specVersion);
         };
     }
 }

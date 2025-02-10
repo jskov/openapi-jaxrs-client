@@ -1,15 +1,13 @@
 package dk.mada.jaxrs.model;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeInterface;
 import dk.mada.jaxrs.model.types.TypeName;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import org.immutables.value.Value.Immutable;
 
 /**
  * Model of a DTO object.

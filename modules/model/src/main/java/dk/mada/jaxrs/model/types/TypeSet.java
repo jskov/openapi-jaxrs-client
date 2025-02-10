@@ -15,7 +15,10 @@ public interface TypeSet extends TypeContainer {
      * @return a set type
      */
     static TypeSet of(TypeNames typeNames, Type innerType) {
-        return ImmutableTypeSet.builder().typeNames(typeNames).innerType(innerType).build();
+        return ImmutableTypeSet.builder()
+                .typeNames(typeNames)
+                .innerType(innerType)
+                .build();
     }
 
     @Override

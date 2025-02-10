@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
-
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -11,8 +10,7 @@ public final class TypeUUID implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeUUID instance;
 
-    private TypeUUID() {
-    }
+    private TypeUUID() {}
 
     /** {@return the type object representing a UUID} */
     public static synchronized TypeUUID get() {

@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model;
 
 import java.util.Optional;
-
 import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
 

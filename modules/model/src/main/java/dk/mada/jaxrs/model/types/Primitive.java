@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
 import java.util.Objects;
-
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -77,7 +76,8 @@ public enum Primitive implements Type {
     @Override
     public TypeName typeName() {
         if (this == NOFORMAT_INT) {
-            return Objects.requireNonNull(noformatIntPrimitive, "No primitive type defined for noformat-int").javaPrimitive;
+            return Objects.requireNonNull(noformatIntPrimitive, "No primitive type defined for noformat-int")
+                    .javaPrimitive;
         }
         return javaPrimitive;
     }

@@ -1,10 +1,9 @@
 package dk.mada.jaxrs.openapi;
 
-import java.util.Optional;
-
 import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Info.Contact;
 import io.swagger.v3.oas.models.OpenAPI;
+import java.util.Optional;
 
 /**
  * Transforms OpenApi info to local model objects.

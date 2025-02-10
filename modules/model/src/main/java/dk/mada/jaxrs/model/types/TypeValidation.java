@@ -1,8 +1,7 @@
 package dk.mada.jaxrs.model.types;
 
-import org.immutables.value.Value.Immutable;
-
 import dk.mada.jaxrs.model.Validation;
+import org.immutables.value.Value.Immutable;
 
 /**
  * Validation annotations for a type.
@@ -19,7 +18,9 @@ public interface TypeValidation extends Type {
      */
     static TypeValidation of(Validation validation) {
         return ImmutableTypeValidation.builder()
-                .validation(validation).typeName(TypeNames.MARKER_VALIDATION).build();
+                .validation(validation)
+                .typeName(TypeNames.MARKER_VALIDATION)
+                .build();
     }
 
     /** {@return the validation carried by this dummy type} */

@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
-
 import org.jspecify.annotations.Nullable;
 
 /**

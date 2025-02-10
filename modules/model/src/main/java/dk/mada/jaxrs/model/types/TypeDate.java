@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.model.types;
 
 import java.util.Set;
-
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -11,8 +10,7 @@ public final class TypeDate implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeDate instance;
 
-    private TypeDate() {
-    }
+    private TypeDate() {}
 
     /** {@return the type object representing a date} */
     public static synchronized TypeDate get() {
