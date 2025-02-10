@@ -1,0 +1,43 @@
+---
+openapi: 3.1.0
+components:
+  schemas:
+    Simple:
+      type: object
+      properties:
+        aBoolean:
+          type: boolean
+info:
+  contact:
+    email: email@example.com
+    name: openapi API contact name
+    url: http://test.com/openapi API contact url
+  description: openapi API description
+  license:
+    name: openapi API license name
+    url: http://test.com/openapi API license url
+  termsOfService: openapi API TOS
+  title: openapi API Title
+  version: openapi API Version
+tags: []
+externalDocs:
+  description: openapi API ext docs description
+  url: http://test.com/openapi API ext url
+paths:
+  /api/docs/multiple-return-types:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Simple"
+        required: true
+      responses:
+        "200":
+          description: The registered cluster
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Simple"
