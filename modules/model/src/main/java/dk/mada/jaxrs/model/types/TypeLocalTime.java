@@ -14,8 +14,10 @@ import org.jspecify.annotations.Nullable;
 public final class TypeLocalTime implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeLocalTime instance;
-    /** The OpenApi custom format used for this type. */
-    public static final String OPENAPI_CUSTOM_FORMAT = "local-time";
+    /** The custom format from Quarkus. */
+    public static final String CUSTOM_TIME_FORMAT_QUARKUS = "local-time";
+    /** The OpenApi (not yet spec?) format from https://spec.openapis.org/registry/format/ */
+    public static final String TIME_FORMAT_OPENAPI = "time";
 
     private TypeLocalTime() {
     }

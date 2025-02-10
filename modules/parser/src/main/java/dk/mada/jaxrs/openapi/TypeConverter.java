@@ -42,18 +42,9 @@ import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeUUID;
 import dk.mada.jaxrs.model.types.TypeValidation;
 import dk.mada.jaxrs.openapi.Parser.LeakedGeneratorOpts;
-import io.swagger.v3.oas.models.media.ArraySchema;
-import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.ComposedSchema;
-import io.swagger.v3.oas.models.media.DateSchema;
-import io.swagger.v3.oas.models.media.DateTimeSchema;
 import io.swagger.v3.oas.models.media.Discriminator;
-import io.swagger.v3.oas.models.media.FileSchema;
-import io.swagger.v3.oas.models.media.MapSchema;
-import io.swagger.v3.oas.models.media.NumberSchema;
-import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.media.UUIDSchema;
 
 /**
@@ -127,7 +118,7 @@ public final class TypeConverter {
 
         if (context.isRequired()) {
             logger.debug(" overriding ptr validation to force required");
-            var withRequire = Validations.required(ptr.validation());
+            var withRequire = Validations.makeRequired(ptr.validation());
             return ImmutableParserTypeRef.builder().from(ptr)
                     .validation(withRequire)
                     .build();
@@ -139,7 +130,8 @@ public final class TypeConverter {
     /**
      * Contains reference information when converting a schema to a type reference.
      *
-     * @param schema        the openapi schema
+     * @param schema        the OpenApi schema to convert
+     * @param schemaParser  the schema parser
      * @param propertyName  the reference property
      * @param parentDtoName the optional name of the parent dto
      * @param context       the content context of the reference
@@ -148,6 +140,7 @@ public final class TypeConverter {
      */
     record RefInfo(
             Schema<?> schema,
+            SchemaParser schemaParser,
             @Nullable String propertyName,
             @Nullable String parentDtoName,
             @Nullable ContentContext context,
@@ -166,7 +159,7 @@ public final class TypeConverter {
      *
      * This serves as a lazy reference to something that will eventually be resolved to a type in the model.
      *
-     * @param schema        the OpenApi schema to convert
+     * @param schema        the schema
      * @param propertyName  the name of the property the type is associated with, or null
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @return the found/created parser type reference
@@ -189,31 +182,33 @@ public final class TypeConverter {
      */
     public ParserTypeRef reference(Schema<?> schema, @Nullable String propertyName, @Nullable String parentDtoName, boolean isFormRef,
             @Nullable ContentContext context) {
-        String schemaType = schema.getType();
-        String schemaFormat = schema.getFormat();
-        String schemaRef = schema.get$ref();
+
+        SchemaParser sp = SchemaParser.of(schema);
+
+        String schemaType = sp.type();
+        String schemaFormat = sp.format();
 
         logger.debug("type/format: {}:{} {}/{} {}", parentDtoName, propertyName, schemaType, schemaFormat, schema.getClass());
-        logger.debug("ref {}", schemaRef);
 
         Validation validation = Validations.extractValidation(schema, false);
         logger.debug("validation {}", validation);
 
-        RefInfo ri = new RefInfo(schema, propertyName, parentDtoName, context, validation, isFormRef);
+        RefInfo ri = new RefInfo(schema, sp, propertyName, parentDtoName, context, validation, isFormRef);
 
-        return Stream.<TypeMapper>of(
+        ParserTypeRef refType = Stream.<TypeMapper>of(
                 this::createPrimitiveTypeRef,
                 this::createDtoRef,
+                this::createAnyofRef,
                 this::createArrayRef,
                 this::createByteArrayRef,
                 this::createMapRef,
-                this::createAnyofRef,
                 this::createComposedValidation, // before allofRef, should be combined
                 this::createAllofRef,
                 this::createOneofRef,
                 this::createNumberRef,
                 this::createDateTimeRef,
                 this::createDateRef,
+                this::createTimeRef,
                 this::createUUIDRef,
                 this::createStringRef,
                 this::createSupplementalValidation,
@@ -222,6 +217,8 @@ public final class TypeConverter {
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("No type found for " + schema));
+        logger.debug(" converted to: {}", refType);
+        return refType;
     }
 
     /**
@@ -231,44 +228,55 @@ public final class TypeConverter {
      * @return the found reference or null
      */
     @Nullable private ParserTypeRef createPrimitiveTypeRef(RefInfo ri) {
-        // If the property declares a primitive type *and* allOf is defined
-        // (as happens from Quarkus 3) ignore the found primitive. It is not
-        // the full story.
-        if (ri.schema.getAllOf() != null) {
+        SchemaParser schemaParser = ri.schemaParser;
+
+        // V31 spec combines stuff on [string] which would match
+        // String in the below. So bail out.
+        if (schemaParser.isRef()) {
             return null;
         }
 
-        Type type = findPrimitive(ri.schema);
+        // If the property declares a primitive type *and* allOf is defined
+        // (as happens from Quarkus 3) ignore the found primitive. It is not
+        // the full story.
+        if (schemaParser.isAllOf()) {
+            return null;
+        }
+
+        Type type = findPrimitive(schemaParser);
         if (type == null) {
             return null;
         }
 
-        List<?> enumeration = ri.schema.getEnum();
-        if (enumeration == null || ri.propertyName == null) {
+        // As of OpenApi specification V3.1 the type encodes nullable - move it to the validation
+        Validation validation = ri.validation();
+        if (schemaParser.isNullable()) {
+            validation = Validations.makeNullable(validation);
+        }
+
+        if (!schemaParser.isEnumeration() || ri.propertyName == null) {
             String name = type.typeName().name();
             logger.trace(" - createPrimitiveTypeRef {}", name);
-            return parserRefs.of(type, ri.validation);
+            return parserRefs.of(type, validation);
         }
+        List<String> enumValues = schemaParser.enumerationValues();
 
         String enumTypeName = naming.convertPropertyEnumTypeName(ri.propertyName);
         TypeName typeName = typeNames.of(enumTypeName);
 
-        List<String> enumValues = enumeration.stream()
-                .map(Objects::toString)
-                .toList();
         String name = typeName.name();
         logger.trace(" - createPrimitiveTypeRef enum {} {} {}", name, type, enumValues);
-        return parserRefs.of(TypeEnum.of(typeName, type, enumValues), ri.validation);
+        return parserRefs.of(TypeEnum.of(typeName, type, enumValues), validation);
     }
 
     /**
      * Finds a primitive type matching the given OpenApi schema.
      *
-     * @param schema the schema to look for type/format for
+     * @param sp the schema parser
      * @return the matching primitive, or null if no matches found
      */
-    private static @Nullable Primitive findPrimitive(Schema<?> schema) {
-        String typeFormat = schema.getType() + ":" + Objects.toString(schema.getFormat(), "");
+    private @Nullable Primitive findPrimitive(SchemaParser sp) {
+        String typeFormat = sp.type() + ":" + Objects.toString(sp.format(), "");
         for (var p : Primitive.values()) {
             if (p.openapiTypeFormat().equals(typeFormat)) {
                 return p;
@@ -278,12 +286,12 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createArrayRef(RefInfo ri) {
-        if (ri.schema instanceof ArraySchema a) {
-            ParserTypeRef innerType = reference(a.getItems(), ri.propertyName, ri.parentDtoName);
+        SchemaParser sp = ri.schemaParser;
+        if (sp.isArray()) {
+            ParserTypeRef innerType = reference(sp.itemsSchema(), ri.propertyName, ri.parentDtoName);
             logger.trace(" - createArrayRef {}", innerType);
 
-            Boolean isUnique = a.getUniqueItems();
-            if (isUnique != null && isUnique.booleanValue()) {
+            if (sp.isUnique()) {
                 return parserRefs.of(TypeSet.of(typeNames, innerType), ri.validation);
             }
 
@@ -297,7 +305,7 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createByteArrayRef(RefInfo ri) {
-        if (ri.schema instanceof BinarySchema || ri.schema instanceof FileSchema) {
+        if (ri.schemaParser().isBinary()) {
             logger.trace(" - createByteArrayRef");
             boolean isStream = ri.isFormRef || ri.propertyName == null;
             TypeByteArray impl = isStream ? TypeByteArray.getStream() : TypeByteArray.getArray();
@@ -307,18 +315,17 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createMapRef(RefInfo ri) {
-        if (ri.schema instanceof MapSchema m) {
-            Object additionalProperties = m.getAdditionalProperties();
-            if (additionalProperties instanceof Schema<?> innerSchema) {
-                logger.trace(" - createMapRef");
-                Type innerType = toReference(innerSchema);
-                return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
-            }
+        SchemaParser sp = ri.schemaParser();
+        if (sp.isMap()) {
+            Type innerType = reference(sp.mapInnerSchema(), ri.propertyName, ri.parentDtoName);
+            logger.trace(" - createMapRef inner type: {}", innerType.typeName().name());
+            return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
         }
         return null;
     }
 
     @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
+        // FIXME:schema-parser
         if (ri.schema instanceof ComposedSchema cs
                 && findTypeValidation(cs) instanceof ParserTypeRef ptr) {
             logger.trace(" - createComposedValidation");
@@ -328,43 +335,44 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createAnyofRef(RefInfo ri) {
-        if (ri.schema instanceof ComposedSchema cs) {
+        SchemaParser sp = ri.schemaParser();
+        if (sp.isAnyOf()) {
+            logger.info("TRIGGER");
+
             // anyOf is classes implementing an interface
-            @SuppressWarnings("rawtypes")
-            List<Schema> anyOf = cs.getAnyOf();
-            if (anyOf != null && !anyOf.isEmpty()) {
-                List<ParserTypeRef> anyOfRefs = anyOf.stream()
-                        .map(this::toReference)
-                        .toList();
-                List<String> anyOfNames = anyOfRefs.stream()
-                        .map(ParserTypeRef::typeName)
-                        .map(TypeName::name)
-                        .sorted()
-                        .toList();
+            List<ParserTypeRef> anyOfRefs = sp.anyOfSchemas().stream()
+                    .map(this::toReference)
+                    .toList();
+            List<String> anyOfNames = anyOfRefs.stream()
+                    .map(ParserTypeRef::typeName)
+                    .map(TypeName::name)
+                    .sorted()
+                    .toList();
 
-                String interfaceName = cs.getName();
-                if (interfaceName == null) {
-                    interfaceName = String.join("", anyOfNames);
-                }
-
-                TypeName tn = typeNames.of(interfaceName);
-
-                logger.trace(" - createAnyofRef interface {} : {}", tn, anyOfRefs);
-
-                TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
-                return parserRefs.of(ti, ri.validation);
+            String interfaceName = sp.name();
+            if (interfaceName == null) {
+                interfaceName = String.join("", anyOfNames);
             }
+
+            TypeName tn = typeNames.of(interfaceName);
+
+            logger.trace(" - createAnyofRef interface {} : {}", tn, anyOfRefs);
+
+            TypeInterface ti = parserTypes.getOrMakeInterface(tn, anyOfRefs);
+            return parserRefs.of(ti, ri.validation);
         }
         return null;
     }
 
     @Nullable private ParserTypeRef createAllofRef(RefInfo ri) {
-        if (ri.schema instanceof ComposedSchema cs) {
+        SchemaParser sp = ri.schemaParser();
+        Schema<?> schema = sp.schema();
+        // FIXME:schema-parser
+        if (schema instanceof ComposedSchema cs) {
             @SuppressWarnings("rawtypes")
             List<Schema> allOf = cs.getAllOf();
 
             if (allOf != null && !allOf.isEmpty()) {
-
                 logger.trace("PROCESSING allOf:");
 
                 String dtoName = ri.parentDtoName();
@@ -398,9 +406,14 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createOneofRef(RefInfo ri) {
-        if (ri.schema instanceof ComposedSchema cs) {
+        SchemaParser sp = ri.schemaParser();
+
+        Schema<?> schema = sp.schema();
+
+        if (sp.isOneOf()) {
+
             @SuppressWarnings("rawtypes")
-            List<Schema> oneOf = cs.getOneOf();
+            List<Schema> oneOf = sp.oneOfSchemas();
             if (oneOf != null && !oneOf.isEmpty()) {
                 List<ParserTypeRef> oneOfRefs = oneOf.stream()
                         .map(Schema::get$ref)
@@ -408,7 +421,7 @@ public final class TypeConverter {
                         .filter(Objects::nonNull)
                         .toList();
 
-                if (cs.getDiscriminator() == null && !oneOfRefs.isEmpty()) {
+                if (schema.getDiscriminator() == null && !oneOfRefs.isEmpty()) {
                     // Handle oneof without descriminator
                     return createCombinedDto(ri, oneOfRefs);
                 } else {
@@ -448,7 +461,7 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createNumberRef(RefInfo ri) {
-        if (ri.schema instanceof NumberSchema) {
+        if (ri.schemaParser().isNumber()) {
             logger.trace(" - createNumberRef");
             return parserRefs.of(noFormatNumberType, ri.validation);
         }
@@ -456,7 +469,7 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createDateTimeRef(RefInfo ri) {
-        if (isDateTimeType(ri.schema)) {
+        if (ri.schemaParser().isDateTime(parserOpts.isFixupNullTypeDates())) {
             logger.trace(" - createDateTimeRef");
             return parserRefs.of(dateTimeType, ri.validation);
         }
@@ -464,9 +477,17 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createDateRef(RefInfo ri) {
-        if (isDateType(ri.schema)) {
+        if (ri.schemaParser().isDate(parserOpts.isFixupNullTypeDates())) {
             logger.trace(" - createDateRef");
             return parserRefs.of(TypeDate.get(), ri.validation);
+        }
+        return null;
+    }
+
+    @Nullable private ParserTypeRef createTimeRef(RefInfo ri) {
+        if (ri.schemaParser().isTime()) {
+            logger.trace(" - createTimeRef");
+            return parserRefs.of(TypeLocalTime.get(), ri.validation);
         }
         return null;
     }
@@ -480,12 +501,8 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createStringRef(RefInfo ri) {
-        if (ri.schema instanceof StringSchema) {
+        if (ri.schemaParser().isString()) {
             logger.trace(" - createStringRef");
-            if (TypeLocalTime.OPENAPI_CUSTOM_FORMAT.equals(ri.schema.getFormat())) {
-                return parserRefs.of(TypeLocalTime.get(), ri.validation);
-            }
-
             return parserRefs.of(Primitive.STRING, ri.validation);
         }
         return null;
@@ -495,7 +512,7 @@ public final class TypeConverter {
         Schema<?> schema = ri.schema;
         // If no type and reference, assume it is supplemental validation
         // information for the other type in a ComposedSchema.
-        if (schema.getType() == null && schema.get$ref() == null
+        if (ri.schemaParser.type() == null
                 && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
             logger.trace(" - createSupplementalValidation");
             return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
@@ -506,7 +523,8 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createObjectRef(RefInfo ri) {
         Schema<?> schema = ri.schema;
 
-        if (schema instanceof ObjectSchema || schema.getType() == null) {
+        SchemaParser sp = ri.schemaParser();
+        if (sp.isObject() || sp.type() == null) {
             boolean isPlainObject = schema.getProperties() == null || schema.getProperties().isEmpty();
             if (ri.propertyName == null) {
                 if (isPlainObject) {
@@ -559,22 +577,6 @@ public final class TypeConverter {
         logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
         Dto dto = createDto(syntheticDtoName, schema);
         return parserRefs.of(dto, ri.validation);
-    }
-
-    private boolean isDateType(Schema<?> schema) {
-        return schema instanceof DateSchema
-                || isBrokenDateTimeType(schema, "date");
-    }
-
-    private boolean isDateTimeType(Schema<?> schema) {
-        return schema instanceof DateTimeSchema
-                || isBrokenDateTimeType(schema, "date-time");
-    }
-
-    private boolean isBrokenDateTimeType(Schema<?> schema, String format) {
-        return parserOpts.isFixupNullTypeDates()
-                && schema.getType() == null
-                && format.equals(schema.getFormat());
     }
 
     /**

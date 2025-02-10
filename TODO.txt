@@ -2,6 +2,15 @@
 * TypeLocalTime and TypeDateTime should be passive carriers of the type.
   Let the generator handle the java-specific implementations (make the model simpler, and more generic).
 
+# v31
+API:
+  * .../map
+    does not handle object inner types because of createSupplementalValidation
+  * /api/params/body/boolean-primitive
+    @NotNull on primitive
+  * still a lot of instanceof in the TypeConverter so the "all" document used in the specs
+    tests must be woefully incomplete
+
 # Others
 
 o Make options self-documenting

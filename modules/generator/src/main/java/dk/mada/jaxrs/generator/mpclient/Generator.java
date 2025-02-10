@@ -31,6 +31,7 @@ import dk.mada.jaxrs.utils.DirectoryDeleter;
 public final class Generator implements GeneratorService {
     /** Constructs new instance. */
     public Generator() {
+        // empty
     }
 
     @Override

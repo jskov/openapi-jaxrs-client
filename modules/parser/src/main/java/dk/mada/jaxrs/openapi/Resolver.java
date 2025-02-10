@@ -500,7 +500,7 @@ public final class Resolver {
             resolvedValidation = resolvedRef.validation();
         } else if (resolvedValidation.required()) {
             // handle simple required_validation since it is simplest - and probably enough for now
-            resolvedValidation = Validations.required(resolvedRef.validation());
+            resolvedValidation = Validations.makeRequired(resolvedRef.validation());
         }
 
         // allOf constructed DTOs need to be able to deserialize subsets
@@ -511,7 +511,7 @@ public final class Resolver {
         Set<String> relaxProps = dtoPropertiesToBeRelaxed.get(parent.typeName());
         if (relaxProps != null && relaxProps.contains(propName)) {
             logger.trace("     + relaxing validation");
-            resolvedValidation = Validations.relax(resolvedValidation);
+            resolvedValidation = Validations.makeRelaxed(resolvedValidation);
         }
 
         // TODO: get example from type, see mada.tests.e2e.regression.string_pattern.dto.KlarTilBeslutningsGrundlagResponse
