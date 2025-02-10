@@ -1,0 +1,52 @@
+---
+openapi: 3.1.0
+components:
+  schemas:
+    ImplA:
+      type: object
+      properties:
+        implName:
+          type: string
+        foo:
+          type: integer
+          format: int32
+    ImplB:
+      type: object
+      properties:
+        implName:
+          type: string
+        bar:
+          type: integer
+          format: int32
+info:
+  contact:
+    email: email@example.com
+    name: openapi API contact name
+    url: http://test.com/openapi API contact url
+  description: openapi API description
+  license:
+    name: openapi API license name
+    url: http://test.com/openapi API license url
+  termsOfService: openapi API TOS
+  title: openapi API Title
+  version: openapi API Version
+tags: []
+externalDocs:
+  description: openapi API ext docs description
+  url: http://test.com/openapi API ext url
+paths:
+  /api/interfaces/list:
+    get:
+      responses:
+        "200":
+          description: interface instance
+          content:
+            application/json:
+              schema:
+                type: array
+                anyOf:
+                - $ref: "#/components/schemas/ImplA"
+                - $ref: "#/components/schemas/ImplB"
+      summary: Get Interface List
+      tags:
+      - Api Interfaces
