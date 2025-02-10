@@ -11,11 +11,11 @@ info:
   contact:
     email: email@example.com
     name: openapi API contact name
-    url: http://test.com/openapi API contact url
+    url: http://test.com/https://contact.url
   description: openapi API description
   license:
     name: openapi API license name
-    url: http://test.com/openapi API license url
+    url: http://test.com/https://license.url
   termsOfService: openapi API TOS
   title: openapi API Title
   version: openapi API Version

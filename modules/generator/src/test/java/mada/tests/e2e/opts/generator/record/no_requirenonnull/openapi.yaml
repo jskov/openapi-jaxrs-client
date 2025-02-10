@@ -6,11 +6,11 @@ info:
   termsOfService: openapi API TOS
   contact:
     name: openapi API contact name
-    url: openapi API contact url
+    url: https://contact.url
     email: email@example.com
   license:
     name: openapi API license name
-    url: openapi API license url
+    url: https://license.url
   version: openapi API Version
 paths:
   /dtos/validation:
