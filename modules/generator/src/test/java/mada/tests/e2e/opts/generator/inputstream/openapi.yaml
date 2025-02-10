@@ -1,4 +1,7 @@
 openapi: 3.0.1
+info:
+  title: openapi API Title
+  version: 0.0.0+info_version
 paths:
   /employees/{userId}/info:
     get:

@@ -1,5 +1,8 @@
 ---
 openapi: 3.0.3
+info:
+  title: openapi API Title
+  version: 0.0.0+info_version
 paths:
   /dtos/bean-naming:
     get:
