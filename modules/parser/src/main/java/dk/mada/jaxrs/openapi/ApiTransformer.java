@@ -156,9 +156,9 @@ public class ApiTransformer {
         Optional<RequestBody> requestBody = getRequestBody(groupOperationId, resourcePath, op);
         requestBody.ifPresent(rb -> parameters.addAll(rb.formParameters()));
 
-        List<Response> responses;
+        List<Response> opResponses;
         if (op.getResponses() != null) {
-            responses = op.getResponses().entrySet().stream()
+            opResponses = op.getResponses().entrySet().stream()
                     .map(e -> {
                         String code = e.getKey();
                         ApiResponse resp = e.getValue();
@@ -166,7 +166,7 @@ public class ApiTransformer {
                     })
                     .toList();
         } else {
-            responses = List.of();
+            opResponses = List.of();
         }
 
         ops.add(Operation.builder()
@@ -178,7 +178,7 @@ public class ApiTransformer {
                 .syntheticOpId(syntheticOperationId)
                 .httpMethod(toModelHttpMethod(httpMethod))
                 .path(resourcePath)
-                .responses(responses)
+                .responses(opResponses)
                 .parameters(parameters)
                 .requestBody(requestBody)
                 .addAuthorizationHeader(shouldAddAuthHeader(op))
@@ -431,8 +431,6 @@ public class ApiTransformer {
                 ref = TypeVoid.getRef();
             } else {
                 @Nullable Schema<?> ss = getPreferredSchema(c, context);
-
-                logger.trace("SCHEMA: {}", ss);
 
                 if (ss == null) {
                     // This happens in some documents - and can be used to redirect to

@@ -9,8 +9,10 @@ import io.swagger.v3.oas.models.media.Schema;
 /**
  * Validation factory.
  */
-public class Validations {
+public final class Validations {
+    /** The empty validation instance. */
     private static final Validation EMPTY_VALIDATION = Validation.empty();
+    /** The required validation instance. */
     private static final Validation REQUIRED_VALIDATION = Validation.validationRequired();
 
     /** Validation instances to make sure we only get one of each. */
@@ -51,11 +53,11 @@ public class Validations {
     }
 
     /**
-     * {@return a more relax validation; not required and nullable}
+     * {@return a more relaxed validation; not required and nullable}
      *
      * @param v the validation to relax
      */
-    public static Validation relax(Validation v) {
+    public static Validation makeRelaxed(Validation v) {
         Validation candidate = new Validation(false, true, v.readonly(),
                 v._minItems(), v._maxItems(), v._minLength(), v._maxLength(), v._minimum(), v._maximum(), v._pattern());
         return getInstance(candidate);
@@ -66,8 +68,19 @@ public class Validations {
      *
      * @param v the validation to enable require on
      */
-    public static Validation required(Validation v) {
+    public static Validation makeRequired(Validation v) {
         Validation candidate = new Validation(true, v.nullable(), v.readonly(),
+                v._minItems(), v._maxItems(), v._minLength(), v._maxLength(), v._minimum(), v._maximum(), v._pattern());
+        return getInstance(candidate);
+    }
+
+    /**
+     * {@return a validation that allows the type to be null}
+     *
+     * @param v the validation to enable require on
+     */
+    public static Validation makeNullable(Validation v) {
+        Validation candidate = new Validation(v.required(), true, v.readonly(),
                 v._minItems(), v._maxItems(), v._minLength(), v._maxLength(), v._minimum(), v._maximum(), v._pattern());
         return getInstance(candidate);
     }

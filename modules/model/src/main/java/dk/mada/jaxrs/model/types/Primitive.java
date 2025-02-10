@@ -6,6 +6,12 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Primitive types of the java language (plus String).
+ *
+ * There is https://swagger.io/specification/#data-types and there is https://spec.openapis.org/registry/format/ But
+ * Quarkus/smallrye-open-api implements formatted numbers as integers.
+ * https://github.com/smallrye/smallrye-open-api/pull/2128
+ * 
+ * So three combatants...
  */
 public enum Primitive implements Type {
     /** The boolean. */
@@ -16,14 +22,18 @@ public enum Primitive implements Type {
      * @see <a href="https://swagger.io/specification/#data-types">spec</a>
      */
     NOFORMAT_INT("integer:", TypeNames.MARKER_NOFORMAT_INT, TypeNames.MARKER_NOFORMAT_INT),
-    /** The byte. */
+    /** The byte via (legacy) https://swagger.io/specification/#data-types. */
     BYTE("string:byte", TypeNames.BYTE, TypeNames.BYTE_WRAPPER),
-    /**
-     * The short. This cannot be represented by spec's type/format.
-     *
-     * @see <a href="https://swagger.io/specification/#data-types">spec</a>
-     */
+    /** The byte via smallrye #2128. */
+    BYTE_INT("integer:int8", TypeNames.BYTE, TypeNames.BYTE_WRAPPER),
+    /** The byte via https://spec.openapis.org/registry/format/. */
+    BYTE_NUMBER("number:int8", TypeNames.BYTE, TypeNames.BYTE_WRAPPER),
+    /** The short - not mapped in legacy https://swagger.io/specification/#data-types. */
     SHORT("undef", TypeNames.SHORT, TypeNames.SHORT_WRAPPER),
+    /** The short via smallrye #2128. */
+    SHORT_INT("integer:int16", TypeNames.SHORT, TypeNames.SHORT_WRAPPER),
+    /** The byte via https://spec.openapis.org/registry/format/. */
+    SHORT_NUMBER("number:int16", TypeNames.SHORT, TypeNames.SHORT_WRAPPER),
     /** The integer. */
     INT("integer:int32", TypeNames.INTEGER, TypeNames.INTEGER_WRAPPER),
     /** The long. */

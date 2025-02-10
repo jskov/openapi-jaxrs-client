@@ -109,6 +109,12 @@ public final class Parser {
             throw new IllegalStateException("No output from parsing document " + spec);
         }
 
+        List<String> parserMessages = result.getMessages();
+        if (parserMessages != null && !parserMessages.isEmpty()) {
+            logger.warn("Parser messages for {}:", spec);
+            parserMessages.forEach(s -> logger.warn(" {}", s));
+        }
+
         ParserTypes parserTypes = new ParserTypes(typeNames, parserOpts, leakedGenOpts);
         var typeConverter = new TypeConverter(typeNames, parserTypes, parserRefs, naming, parserOpts, leakedGenOpts);
 

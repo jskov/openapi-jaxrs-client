@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterAll;
@@ -51,8 +50,11 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
+        String testNameContains = "manual";
 //        String testNameContains = "dto/validation/a";
-        String testNameContains = "string_pattern";
+//        String testNameContains = "e2e/specs/v3_0";
+//        String testNameContains = "e2e/specs/v3_1/all";
+//        String testNameContains = "e2e/specs/v3_1/anyof";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
@@ -86,7 +88,7 @@ class TestIterator {
                         new EndToEndTester().runTest(OUTPUT_DIR, pkgPrefix, testRootDir, testOutputDir));
                 })
                 .sorted((a, b) -> a.getDisplayName().compareTo(b.getDisplayName()))
-                .collect(Collectors.toList());
+                .toList();
         }
     }
 }
