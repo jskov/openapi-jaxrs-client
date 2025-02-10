@@ -9,7 +9,9 @@ public final class TypePlainObject implements Type {
     /** The single instance of this object. */
     @Nullable private static TypePlainObject instance;
 
-    private TypePlainObject() {}
+    private TypePlainObject() {
+        // empty
+    }
 
     /** {@return the type object representing a plain Object} */
     public static synchronized TypePlainObject get() {

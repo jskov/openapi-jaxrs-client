@@ -10,7 +10,9 @@ public final class TypeUUID implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeUUID instance;
 
-    private TypeUUID() {}
+    private TypeUUID() {
+        // empty
+    }
 
     /** {@return the type object representing a UUID} */
     public static synchronized TypeUUID get() {

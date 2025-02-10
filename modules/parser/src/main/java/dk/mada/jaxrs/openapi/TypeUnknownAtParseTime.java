@@ -13,7 +13,9 @@ public final class TypeUnknownAtParseTime implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeUnknownAtParseTime instance;
 
-    private TypeUnknownAtParseTime() {}
+    private TypeUnknownAtParseTime() {
+        // empty
+    }
 
     /** {@return the type representing a yet to be defined type} */
     public static synchronized TypeUnknownAtParseTime get() {

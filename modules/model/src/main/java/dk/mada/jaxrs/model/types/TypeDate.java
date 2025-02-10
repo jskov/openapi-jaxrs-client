@@ -10,7 +10,9 @@ public final class TypeDate implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeDate instance;
 
-    private TypeDate() {}
+    private TypeDate() {
+        // empty
+    }
 
     /** {@return the type object representing a date} */
     public static synchronized TypeDate get() {

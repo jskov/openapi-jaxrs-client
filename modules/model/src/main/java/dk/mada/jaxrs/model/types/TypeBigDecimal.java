@@ -10,7 +10,9 @@ public final class TypeBigDecimal implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeBigDecimal instance;
 
-    private TypeBigDecimal() {}
+    private TypeBigDecimal() {
+        // empty
+    }
 
     /** {@return the single instance} */
     public static synchronized TypeBigDecimal get() {

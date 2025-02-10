@@ -9,7 +9,9 @@ public final class TypeObject implements Type {
     /** The single instance of this object. */
     @Nullable private static TypeObject instance;
 
-    private TypeObject() {}
+    private TypeObject() {
+        // empty
+    }
 
     /** {@return the type object representing a base object} */
     public static synchronized TypeObject get() {
