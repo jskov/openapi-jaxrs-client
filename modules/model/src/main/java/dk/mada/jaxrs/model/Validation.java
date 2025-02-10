@@ -30,9 +30,11 @@ public record Validation(
         @Nullable BigDecimal _maximum,
         @Nullable String _pattern) {
 
-    private static Validation EMPTY_VALIDATION =
+    /** Validation with no requirements to the type. */
+    private static final Validation EMPTY_VALIDATION =
             new Validation(false, false, null, null, null, null, null, null, null, null);
-    private static Validation REQUIRED_VALIDATION =
+    /** Validation where type is required. */
+    private static final Validation REQUIRED_VALIDATION =
             new Validation(true, false, null, null, null, null, null, null, null, null);
 
     /** {@return an empty validation} */

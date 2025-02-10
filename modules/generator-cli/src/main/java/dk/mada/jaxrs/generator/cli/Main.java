@@ -108,7 +108,9 @@ public final class Main implements Callable<Integer> {
     @Nullable @Option(names = "--dto-package", description = "Package to place the DTO classes in.")
     private String dtoPackage;
 
-    private Main() {}
+    private Main() {
+        // empty
+    }
 
     static class Version implements IVersionProvider {
         @Override

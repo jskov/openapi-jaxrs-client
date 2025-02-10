@@ -18,7 +18,9 @@ public final class TypeLocalTime implements Type {
     /** The OpenApi (not yet spec?) format from https://spec.openapis.org/registry/format/ */
     public static final String TIME_FORMAT_OPENAPI = "time";
 
-    private TypeLocalTime() {}
+    private TypeLocalTime() {
+        // empty
+    }
 
     /** {@return the type object representing local-time} */
     public static synchronized TypeLocalTime get() {

@@ -13,7 +13,9 @@ public final class TypeVoid implements Type {
     /** The single reference instance of this object. */
     @Nullable private static TypeReference refInstance;
 
-    private TypeVoid() {}
+    private TypeVoid() {
+        // empty
+    }
 
     /** {@return the type object representing void} */
     public static synchronized TypeVoid get() {

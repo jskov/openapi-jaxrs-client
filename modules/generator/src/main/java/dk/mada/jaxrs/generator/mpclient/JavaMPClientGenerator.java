@@ -14,7 +14,9 @@ import java.nio.file.Path;
  */
 public final class JavaMPClientGenerator {
     /** Constructs new instance. */
-    public JavaMPClientGenerator() {}
+    public JavaMPClientGenerator() {
+        // empty
+    }
 
     /**
      * Generates classes for java MP client.

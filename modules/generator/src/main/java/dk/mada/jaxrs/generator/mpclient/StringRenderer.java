@@ -12,7 +12,9 @@ public final class StringRenderer {
     /** System newline. */
     private static final String NL = System.lineSeparator();
 
-    private StringRenderer() {}
+    private StringRenderer() {
+        // empty
+    }
 
     /**
      * Make a summary valid for use in the API summary javadoc section.

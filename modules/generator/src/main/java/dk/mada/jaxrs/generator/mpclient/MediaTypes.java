@@ -20,7 +20,9 @@ public final class MediaTypes {
             "text/plain", "TEXT_PLAIN");
 
     /** Only static methods. */
-    private MediaTypes() {}
+    private MediaTypes() {
+        // empty
+    }
 
     /**
      * Convert input media type to the render representation.

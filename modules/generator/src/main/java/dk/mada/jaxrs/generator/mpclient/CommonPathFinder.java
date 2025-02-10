@@ -14,7 +14,9 @@ public final class CommonPathFinder {
     private static final String SEP = "/";
 
     /** Constructs new instance. */
-    public CommonPathFinder() {}
+    public CommonPathFinder() {
+        // empty
+    }
 
     /**
      * Find longest common sub-path of the paths provided.

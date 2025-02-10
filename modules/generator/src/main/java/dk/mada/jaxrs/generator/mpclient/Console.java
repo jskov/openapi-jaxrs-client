@@ -5,6 +5,7 @@ package dk.mada.jaxrs.generator.mpclient;
  */
 public final class Console {
     private Console() {
+        // empty
     }
 
     /**

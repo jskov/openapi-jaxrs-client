@@ -57,8 +57,16 @@ public final class NamingRules {
             // Applies regular expression replacement to input string
             "REGEXP", NamingRules::regexpOperation);
 
-    private NamingRules() {}
+    private NamingRules() {
+        // empty
+    }
 
+    /**
+     * A naming rule.
+     *
+     * @param name the name of the rule
+     * @param converter the conversion logic
+     */
     record NamingRule(String name, UnaryOperator<String> converter) {}
 
     /**
