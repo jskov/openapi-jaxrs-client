@@ -7,7 +7,7 @@ info:
   contact:
     name: openapi API contact name
     url: http://test.com
-    email: openapi API contact email
+    email: email@example.com
   license:
     name: openapi API license name
     url: http://test.com

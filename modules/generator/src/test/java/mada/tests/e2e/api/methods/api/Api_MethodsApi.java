@@ -3,7 +3,7 @@
  * openapi API description
  *
  * The version of the OpenAPI document: openapi API Version
- * Contact: openapi API contact email
+ * Contact: email@example.com
  */
 
 package mada.tests.e2e.api.methods.api;

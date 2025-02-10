@@ -207,7 +207,7 @@ index 00000000..325a5078
 + * openapi API description
 + *
 + * The version of the OpenAPI document: openapi API Version
-+ * Contact: openapi API contact email
++ * Contact: email@example.com
 + */
 +
 +package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
@@ -261,7 +261,7 @@ index 00000000..5fcf8156
 + * openapi API description
 + *
 + * The version of the OpenAPI document: openapi API Version
-+ * Contact: openapi API contact email
++ * Contact: email@example.com
 + */
 +
 +package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
@@ -411,7 +411,7 @@ index 00000000..6298b621
 + * openapi API description
 + *
 + * The version of the OpenAPI document: openapi API Version
-+ * Contact: openapi API contact email
++ * Contact: email@example.com
 + */
 +
 +package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
@@ -472,7 +472,7 @@ index 00000000..0ca01277
 + * openapi API description
 + *
 + * The version of the OpenAPI document: openapi API Version
-+ * Contact: openapi API contact email
++ * Contact: email@example.com
 + */
 +
 +package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
