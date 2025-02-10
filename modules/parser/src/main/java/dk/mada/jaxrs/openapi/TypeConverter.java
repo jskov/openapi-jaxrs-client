@@ -130,7 +130,7 @@ public final class TypeConverter {
     /**
      * Contains reference information when converting a schema to a type reference.
      *
-     * @param schema        the openapi schema
+     * @param schema        the OpenApi schema to convert
      * @param schemaParser  the schema parser
      * @param propertyName  the reference property
      * @param parentDtoName the optional name of the parent dto
@@ -217,7 +217,7 @@ public final class TypeConverter {
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("No type found for " + schema));
-        logger.info(" to XXX: {}", refType);
+        logger.debug(" converted to: {}", refType);
         return refType;
     }
 

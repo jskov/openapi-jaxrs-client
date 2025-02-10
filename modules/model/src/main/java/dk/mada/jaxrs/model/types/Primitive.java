@@ -10,7 +10,7 @@ import org.jspecify.annotations.Nullable;
  * There is https://swagger.io/specification/#data-types and there is https://spec.openapis.org/registry/format/ But
  * Quarkus/smallrye-open-api implements formatted numbers as integers.
  * https://github.com/smallrye/smallrye-open-api/pull/2128
- * 
+ *
  * So three combatants...
  */
 public enum Primitive implements Type {
