@@ -118,6 +118,7 @@ public enum Primitive implements Type {
 
     @Override
     public boolean isPrimitive() {
-        return true;
+        // String is not a *real* primitive
+        return this != STRING;
     }
 }

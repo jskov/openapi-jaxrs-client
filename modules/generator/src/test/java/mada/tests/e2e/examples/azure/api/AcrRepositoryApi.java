@@ -30,7 +30,7 @@ public interface AcrRepositoryApi {
    *
    * @param auth  (not null)
    * @param last Query parameter for the last item in previous query. Result set will include values lexically after last. (optional)
-   * @param n query parameter for max number of items (optional)
+   * @param n query parameter for max number of items
    * @return Repositories
    */
   @GET

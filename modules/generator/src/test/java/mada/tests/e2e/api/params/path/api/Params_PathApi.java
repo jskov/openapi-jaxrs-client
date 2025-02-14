@@ -30,50 +30,50 @@ public interface Params_PathApi {
   /**
    * apiParamsPathByteByteIdGet.
    *
-   * @param byteId  (not null)
+   * @param byteId
    * @return String
    */
   @GET
   @Path("/byte/{byteId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathByteByteIdGet(@PathParam("byteId") @NotNull byte byteId);
+  String apiParamsPathByteByteIdGet(@PathParam("byteId") byte byteId);
 
   /**
    * apiParamsPathIntIntIdGet.
    *
-   * @param intId  (not null)
+   * @param intId
    * @return String
    */
   @GET
   @Path("/int/{intId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathIntIntIdGet(@PathParam("intId") @NotNull int intId);
+  String apiParamsPathIntIntIdGet(@PathParam("intId") int intId);
 
   /**
    * apiParamsPathLongLongIdGet.
    *
-   * @param longId  (not null)
+   * @param longId
    * @return String
    */
   @GET
   @Path("/long/{longId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathLongLongIdGet(@PathParam("longId") @NotNull long longId);
+  String apiParamsPathLongLongIdGet(@PathParam("longId") long longId);
 
   /**
    * apiParamsPathShortShortIdGet.
    *
-   * @param shortId  (not null)
+   * @param shortId
    * @return String
    */
   @GET
   @Path("/short/{shortId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathShortShortIdGet(@PathParam("shortId") @NotNull short shortId);
+  String apiParamsPathShortShortIdGet(@PathParam("shortId") short shortId);
 
   /**
    * apiParamsPathStringStringIdGet.

@@ -1491,7 +1491,7 @@ A JSON document may be provided to use as the settings for the hook. These struc
    *
    * @param projectKey The project key. (not null)
    * @param hookKey The hook key. (not null)
-   * @param contentLength The content length. (optional)
+   * @param contentLength The content length.
    * @return RestRepositoryHook
    */
   @PUT
@@ -1660,7 +1660,7 @@ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for t
    *
    * @param projectKey The project key. (not null)
    * @param event List of <code>com.atlassian.webhooks.WebhookEvent</code> IDs to filter for (optional)
-   * @param statistics <code>true</code> if statistics should be provided for all found webhooks (optional)
+   * @param statistics <code>true</code> if statistics should be provided for all found webhooks
    */
   @GET
   @Path("api/latest/projects/{projectKey}/webhooks")
@@ -1709,8 +1709,8 @@ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for t
 The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for the specified project to call this resource.
    *
    * @param projectKey The project key. (not null)
-   * @param webhookId  (optional)
-   * @param sslVerificationRequired  (optional)
+   * @param webhookId
+   * @param sslVerificationRequired
    * @param url The url in which to connect to (optional)
    * @param dto Basic authentication credentials, if required. (optional)
    * @return RestWebhookRequestResponse

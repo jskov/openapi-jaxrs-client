@@ -9,6 +9,7 @@ import dk.mada.jaxrs.model.api.Operations;
 import dk.mada.jaxrs.model.api.Parameter;
 import dk.mada.jaxrs.model.api.RequestBody;
 import dk.mada.jaxrs.model.api.Response;
+import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
@@ -228,7 +229,8 @@ public final class Resolver {
      */
     private static boolean isDtoPrimitiveWrapperOnly(Dto dto) {
         Type dtoType = dto.reference().refType();
-        return !dto.isEnum() && (dtoType.isPrimitive() || dtoType.isPlainObject());
+        return !dto.isEnum()
+                && (dtoType.isPrimitive() || dtoType.isPrimitive(Primitive.STRING) || dtoType.isPlainObject());
     }
 
     /**

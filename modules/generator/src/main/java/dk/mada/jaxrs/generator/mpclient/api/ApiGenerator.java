@@ -356,7 +356,12 @@ public class ApiGenerator {
             Validation validation = ref.validation();
             logger.debug("See param {} : {} : {}", paramName, type, validation);
 
-            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
+            Optional<CtxValidation> valCtx;
+            if (type.isPrimitive() && !opts.isUseApiWrappedPrimitives()) {
+                valCtx = Optional.empty();
+            } else {
+                valCtx = validationGenerator.makeValidation(imports, type, validation);
+            }
 
             boolean isNullableRef =
                     type.isPrimitive(Primitive.STRING) || (!type.isPrimitive() || opts.isUseApiWrappedPrimitives());
@@ -398,10 +403,15 @@ public class ApiGenerator {
                     params.stream().anyMatch(p -> p.paramName().equals(preferredDtoParamName));
             String dtoParamName = dtoParamNameNotUnique ? preferredDtoParamName + "Entity" : preferredDtoParamName;
 
-            String dataType = paramDataType(ref);
+            Type type = ref.refType();
+            String dataType = paramDataType(type);
 
-            Optional<CtxValidation> valCtx =
-                    validationGenerator.makeValidation(imports, ref.refType(), ref.validation());
+            Optional<CtxValidation> valCtx;
+            if (type.isPrimitive() && !opts.isUseApiWrappedPrimitives()) {
+                valCtx = Optional.empty();
+            } else {
+                valCtx = validationGenerator.makeValidation(imports, type, ref.validation());
+            }
 
             boolean isMultipartForm = body.isMultipartForm();
             if (isMultipartForm) {

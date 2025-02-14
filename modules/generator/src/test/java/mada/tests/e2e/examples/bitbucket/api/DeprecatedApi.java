@@ -466,7 +466,7 @@ The authenticated user must have the **REPO_READ** (or higher) permission for th
 <strong>Deprecated in 8.0 to be removed in 9.0.</strong>
    *
    * @param projectKey The project key. (not null)
-   * @param commentId  (not null)
+   * @param commentId
    * @param commitId The commit id. (not null)
    * @param repositorySlug The repository slug. (not null)
    * @param start Start number for the page (inclusive). If not passed, first page is assumed. (optional)
@@ -485,7 +485,7 @@ The authenticated user must have the **REPO_READ** (or higher) permission for th
                  content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_404.class)))
   })
   @Operation(summary = "Get comment likes")
-  _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes getLikers(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
+  _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes getLikers(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("start") BigDecimal start, @QueryParam("limit") BigDecimal limit);
 
   /**
    * Like a commit comment.
@@ -496,7 +496,7 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
 <strong>Deprecated in 8.0 to be removed in 9.0.</strong> Likes have been replaced with reactions. For backwards compatibility, the <pre>thumbsup</pre> reaction is treated as a like.
    *
    * @param projectKey The project key. (not null)
-   * @param commentId  (not null)
+   * @param commentId
    * @param commitId The commit id. (not null)
    * @param repositorySlug The repository slug. (not null)
    */
@@ -512,7 +512,7 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
                  content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Like a commit comment")
-  void like(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
+  void like(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
 
   /**
    * Unlike a commit comment.
@@ -523,7 +523,7 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
 <strong>Deprecated in 8.0 to be removed in 9.0.</strong> Likes have been replaced with reactions. For backwards compatibility, the <pre>thumbsup</pre> reaction is treated as a like.
    *
    * @param projectKey The project key. (not null)
-   * @param commentId  (not null)
+   * @param commentId
    * @param commitId The commit id. (not null)
    * @param repositorySlug The repository slug. (not null)
    */
@@ -539,7 +539,7 @@ The authenticated user must have the <strong>REPO_READ</strong> (or higher) perm
                  content = @Content(schema = @Schema(implementation = _ResponseCommentLikesLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdCommentsCommentIdLikes_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Unlike a commit comment")
-  void unlike(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") @NotNull long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
+  void unlike(@PathParam("projectKey") @NotNull String projectKey, @PathParam("commentId") long commentId, @PathParam("commitId") @NotNull String commitId, @PathParam("repositorySlug") @NotNull String repositorySlug);
 
   /**
    * Get pull request comment likes.

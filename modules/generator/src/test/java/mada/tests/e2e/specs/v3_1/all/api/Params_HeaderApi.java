@@ -21,7 +21,7 @@ public interface Params_HeaderApi {
   /**
    * Query Boolean Primitive.
    *
-   * @param flag  (optional)
+   * @param flag
    * @return String
    */
   @GET
@@ -34,7 +34,7 @@ public interface Params_HeaderApi {
   /**
    * Query Boolean Wrapper.
    *
-   * @param flag  (optional)
+   * @param flag
    * @return String
    */
   @GET
@@ -47,7 +47,7 @@ public interface Params_HeaderApi {
   /**
    * Param Needs Renaming.
    *
-   * @param invalidValue  (optional)
+   * @param invalidValue
    * @return String
    */
   @GET
@@ -73,7 +73,7 @@ public interface Params_HeaderApi {
   /**
    * Query List.
    *
-   * @param flag  (optional)
+   * @param flag
    * @param item  (optional)
    * @param name  (optional)
    * @return String

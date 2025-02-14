@@ -328,7 +328,7 @@ Currently only username/password, bearer token and SSH credentials are supported
    * Returns a repository enriched with a content hash and default branch
    *
    * @param repoId the ID of the requested repository (not null)
-   * @param includeDefaultBranch  (optional)
+   * @param includeDefaultBranch
    * @return EnrichedRepository
    */
   @GET

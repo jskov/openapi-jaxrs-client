@@ -446,10 +446,10 @@ The user must be authenticated and have <strong>REPO_ADMIN</strong> permission f
 
 The authenticated user must have <strong>REPO_READ</strong> permission for the specified repository to call this resource.
    *
-   * @param boostMatches Controls whether exact and prefix matches will be boosted to the top (optional)
+   * @param boostMatches Controls whether exact and prefix matches will be boosted to the top
    * @param projectKey The project key. (not null)
    * @param orderBy Ordering of refs either ALPHABETICAL (by name) or MODIFICATION (last updated) (optional)
-   * @param details Whether to retrieve plugin-provided metadata about each branch (optional)
+   * @param details Whether to retrieve plugin-provided metadata about each branch
    * @param filterText The text to match on (optional)
    * @param repositorySlug The repository slug. (not null)
    * @param base Base branch or tag to compare each branch to (for the metadata providers that uses that information (optional)
@@ -2179,7 +2179,7 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
    * @param projectKey The project key. (not null)
    * @param event List of <code>com.atlassian.webhooks.WebhookEvent</code> IDs to filter for (optional)
    * @param repositorySlug The repository slug. (not null)
-   * @param statistics <code>true</code> if statistics should be provided for all found webhooks (optional)
+   * @param statistics <code>true</code> if statistics should be provided for all found webhooks
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/webhooks")
@@ -2232,7 +2232,7 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
    * @param scopeType Scopes to filter by. This parameter can be specified once e.g. "scopeType=repository", or twice e.g. "scopeType=repository&scopeType=project", to filter by more than one scope level.  (optional)
    * @param event List of <code>com.atlassian.webhooks.WebhookEvent</code> ids to filter for (optional)
    * @param repositorySlug The repository slug. (not null)
-   * @param statistics <code>true</code> if statistics should be provided for all found webhooks (optional)
+   * @param statistics <code>true</code> if statistics should be provided for all found webhooks
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/webhooks/search")
@@ -2254,7 +2254,7 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
 The authenticated user must have <strong>REPO_ADMIN</strong> permission for the specified repository to call this resource.
    *
    * @param projectKey The project key. (not null)
-   * @param webhookId  (optional)
+   * @param webhookId
    * @param sslVerificationRequired Whether SSL verification is required for the specified webhook URL. Default value is  <code>true</code>. (optional)
    * @param repositorySlug The repository slug. (not null)
    * @param url The url in which to connect to (optional)
