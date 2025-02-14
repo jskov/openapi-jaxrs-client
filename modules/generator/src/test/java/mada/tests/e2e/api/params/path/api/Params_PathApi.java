@@ -30,7 +30,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathByteByteIdGet.
    *
-   * @param byteId  (not null)
+   * @param byteId
    * @return String
    */
   @GET
@@ -42,7 +42,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathIntIntIdGet.
    *
-   * @param intId  (not null)
+   * @param intId
    * @return String
    */
   @GET
@@ -54,7 +54,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathLongLongIdGet.
    *
-   * @param longId  (not null)
+   * @param longId
    * @return String
    */
   @GET
@@ -66,7 +66,7 @@ public interface Params_PathApi {
   /**
    * apiParamsPathShortShortIdGet.
    *
-   * @param shortId  (not null)
+   * @param shortId
    * @return String
    */
   @GET
