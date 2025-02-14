@@ -37,7 +37,7 @@ public interface Params_PathApi {
   @Path("/byte/{byteId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathByteByteIdGet(@PathParam("byteId") @NotNull byte byteId);
+  String apiParamsPathByteByteIdGet(@PathParam("byteId") byte byteId);
 
   /**
    * apiParamsPathIntIntIdGet.
@@ -49,7 +49,7 @@ public interface Params_PathApi {
   @Path("/int/{intId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathIntIntIdGet(@PathParam("intId") @NotNull int intId);
+  String apiParamsPathIntIntIdGet(@PathParam("intId") int intId);
 
   /**
    * apiParamsPathLongLongIdGet.
@@ -61,7 +61,7 @@ public interface Params_PathApi {
   @Path("/long/{longId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathLongLongIdGet(@PathParam("longId") @NotNull long longId);
+  String apiParamsPathLongLongIdGet(@PathParam("longId") long longId);
 
   /**
    * apiParamsPathShortShortIdGet.
@@ -73,7 +73,7 @@ public interface Params_PathApi {
   @Path("/short/{shortId}")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsPathShortShortIdGet(@PathParam("shortId") @NotNull short shortId);
+  String apiParamsPathShortShortIdGet(@PathParam("shortId") short shortId);
 
   /**
    * apiParamsPathStringStringIdGet.

@@ -50,7 +50,7 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-        String testNameContains = "manual";
+        String testNameContains = "api/params/path";
 //        String testNameContains = "dto/validation/a";
 //        String testNameContains = "e2e/specs/v3_0";
 //        String testNameContains = "e2e/specs/v3_1/all";
