@@ -37,7 +37,7 @@ public interface Params_BodyApi {
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   @Operation(summary = "Query Boolean Primitive")
-  String apiParamsBodyBooleanPrimitiveGet(@NotNull boolean dto);
+  String apiParamsBodyBooleanPrimitiveGet(boolean dto);
 
   /**
    * Query Boolean Wrapper.
@@ -51,7 +51,7 @@ public interface Params_BodyApi {
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   @Operation(summary = "Query Boolean Wrapper")
-  String apiParamsBodyBooleanWrapperGet(@NotNull boolean dto);
+  String apiParamsBodyBooleanWrapperGet(boolean dto);
 
   /**
    * Query Date.
