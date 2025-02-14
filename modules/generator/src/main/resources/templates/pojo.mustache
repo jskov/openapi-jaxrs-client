@@ -140,18 +140,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
    * Get {{name}}
   {{/description}}
   {{#validation}}
-  {{#minimum}}
-   * minimum: {{.}}
-  {{/minimum}}
-  {{#decimalMinimum}}
-   * minimum: {{{.}}}
-  {{/decimalMinimum}}
-  {{#maximum}}
-   * maximum: {{.}}
-  {{/maximum}}
-  {{#decimalMaximum}}
-   * maximum: {{{.}}}
-  {{/decimalMaximum}}
+  {{javadoc}}
   {{/validation}}
 {{#madaProp.renderJavadocMacroSpacer}}
    *

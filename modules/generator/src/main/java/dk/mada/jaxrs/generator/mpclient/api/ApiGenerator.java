@@ -365,7 +365,8 @@ public class ApiGenerator {
 
             boolean isNullableRef =
                     type.isPrimitive(Primitive.STRING) || (!type.isPrimitive() || opts.isUseApiWrappedPrimitives());
-            boolean validationAllowsNull = !valCtx.map(v -> v.notNull()).orElse(false);
+            boolean isBeanValidationNotNull = !validation.nullable() && validation.required();
+            boolean validationAllowsNull = !isBeanValidationNotNull;
             boolean isNullable = validationAllowsNull && isNullableRef && (p.isQueryParam() || p.isHeaderParam());
             if (isNullable && opts.isJspecify()) {
                 imports.add(Jspecify.NULLABLE);
