@@ -26,7 +26,7 @@ public interface Params_BodyApi {
   /**
    * apiParamsBodyBooleanPrimitiveGet.
    *
-   * @param dto  (optional)
+   * @param dto
    * @return String
    */
   @GET
@@ -39,7 +39,7 @@ public interface Params_BodyApi {
   /**
    * apiParamsBodyBooleanWrapperGet.
    *
-   * @param dto  (optional)
+   * @param dto
    * @return String
    */
   @GET
