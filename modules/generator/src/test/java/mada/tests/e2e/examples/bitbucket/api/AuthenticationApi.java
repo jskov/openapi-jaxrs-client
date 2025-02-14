@@ -686,7 +686,7 @@ public interface AuthenticationApi {
    * Get project SSH keys.
    * Retrieves all project-related access keys for the SSH key with id <code>keyId</code>. If the current user is not an admin any of the projects the key provides access to, none are returned.
    *
-   * @param keyId  (not null)
+   * @param keyId
    */
   @GET
   @Path("keys/latest/ssh/{keyId}/projects")
@@ -697,7 +697,7 @@ public interface AuthenticationApi {
                  content = @Content(schema = @Schema(implementation = _ResponseKeysLatestSshKeyIdProjects_404.class)))
   })
   @Operation(summary = "Get project SSH keys")
-  void getForProjects(@PathParam("keyId") @NotNull int keyId);
+  void getForProjects(@PathParam("keyId") int keyId);
 
   /**
    * Get repository SSH key.

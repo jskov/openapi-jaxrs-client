@@ -500,8 +500,8 @@ The authenticated user must have **SYS_ADMIN** permission.
 
 The authenticated user must have **SYS_ADMIN** permission.
    *
-   * @param force  (optional)
-   * @param id  (not null)
+   * @param force
+   * @param id
    */
   @DELETE
   @Path("api/latest/admin/git/mesh/nodes/{id}")
@@ -510,7 +510,7 @@ The authenticated user must have **SYS_ADMIN** permission.
     @APIResponse(responseCode = "default", description = "default response")
   })
   @Operation(summary = "Delete Mesh node")
-  void delete_2(@QueryParam("force") boolean force, @PathParam("id") @NotNull long id);
+  void delete_2(@QueryParam("force") boolean force, @PathParam("id") long id);
 
   /**
    * Get support zips for all Mesh nodes.

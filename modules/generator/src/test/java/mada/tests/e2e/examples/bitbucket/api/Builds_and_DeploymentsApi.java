@@ -281,7 +281,7 @@ The user must have REPO_ADMIN.
    * Get build status statistics for commit.
    * Gets statistics regarding the builds associated with a commit
    *
-   * @param includeUnique include a unique build result if there is either only one failed build, only one in-progress build or only one successful build (optional)
+   * @param includeUnique include a unique build result if there is either only one failed build, only one in-progress build or only one successful build
    * @param commitId full SHA1 of the commit (not null)
    * @return RestBuildStats
    */
@@ -600,7 +600,7 @@ These fields are optional:
 
    *
    * @param projectKey The project that the repository belongs to (not null)
-   * @param id  (not null)
+   * @param id
    * @param repositorySlug The repository being used (not null)
    * @param dto The request specifying the required build parent keys, ref matcher and exemption matcher (optional)
    * @return RestRequiredBuildCondition
@@ -618,7 +618,7 @@ These fields are optional:
                  content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditionId_401.class)))
   })
   @Operation(summary = "Update a required builds merge check")
-  RestRequiredBuildCondition updateRequiredBuildsMergeCheck(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull long id, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRequiredBuildConditionSetRequest dto);
+  RestRequiredBuildCondition updateRequiredBuildsMergeCheck(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") long id, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid RestRequiredBuildConditionSetRequest dto);
 
   /**
    * Delete a required builds merge check.
@@ -627,7 +627,7 @@ These fields are optional:
 The authenticated user must have **REPO_ADMIN** permission for the target repository to delete a required build merge check.
    *
    * @param projectKey The project that the repository belongs to (not null)
-   * @param id  (not null)
+   * @param id
    * @param repositorySlug The repository being used (not null)
    */
   @DELETE
@@ -638,7 +638,7 @@ The authenticated user must have **REPO_ADMIN** permission for the target reposi
                  content = @Content(schema = @Schema(implementation = _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugConditionId_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a required builds merge check")
-  void deleteRequiredBuildsMergeCheck(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull long id, @PathParam("repositorySlug") @NotNull String repositorySlug);
+  void deleteRequiredBuildsMergeCheck(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") long id, @PathParam("repositorySlug") @NotNull String repositorySlug);
 
   /**
    * Get required builds merge checks.

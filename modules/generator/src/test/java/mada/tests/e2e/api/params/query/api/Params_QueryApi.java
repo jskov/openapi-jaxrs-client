@@ -22,7 +22,7 @@ public interface Params_QueryApi {
   /**
    * apiParamsQueryBooleanPrimitiveGet.
    *
-   * @param flag  (optional)
+   * @param flag
    * @return String
    */
   @GET
@@ -34,7 +34,7 @@ public interface Params_QueryApi {
   /**
    * apiParamsQueryBooleanWrapperGet.
    *
-   * @param flag  (optional)
+   * @param flag
    * @return String
    */
   @GET
@@ -72,7 +72,7 @@ public interface Params_QueryApi {
   /**
    * apiParamsQueryMixedGet.
    *
-   * @param flag  (optional)
+   * @param flag
    * @param item  (optional)
    * @param name  (optional)
    * @return String

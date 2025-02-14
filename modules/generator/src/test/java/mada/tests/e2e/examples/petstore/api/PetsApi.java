@@ -26,7 +26,7 @@ public interface PetsApi {
   /**
    * List all pets.
    *
-   * @param limit How many items to return at one time (max 100) (optional)
+   * @param limit How many items to return at one time (max 100)
    * @return List<Pet>
    */
   @GET

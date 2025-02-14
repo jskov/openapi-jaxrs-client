@@ -2140,7 +2140,7 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
    * Delete the default reviewer pull request condition associated with the given ID.
    *
    * @param projectKey The project key. (not null)
-   * @param id  (not null)
+   * @param id
    * @param repositorySlug The repository slug. (not null)
    */
   @DELETE
@@ -2151,7 +2151,7 @@ The authenticated user must have <b>PROJECT_ADMIN</b> permission for the specifi
                  content = @Content(schema = @Schema(implementation = _ResponseDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId_404.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Delete a default reviewer condition")
-  void deletePullRequestCondition_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") @NotNull int id, @PathParam("repositorySlug") @NotNull String repositorySlug);
+  void deletePullRequestCondition_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("id") int id, @PathParam("repositorySlug") @NotNull String repositorySlug);
 
   /**
    * Get configured default reviewers.

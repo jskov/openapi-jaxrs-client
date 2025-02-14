@@ -23,7 +23,7 @@ public interface Params_QueryApi {
   /**
    * Query Boolean Primitive.
    *
-   * @param flag  (optional)
+   * @param flag
    * @return String
    */
   @GET
@@ -36,7 +36,7 @@ public interface Params_QueryApi {
   /**
    * Query Boolean Wrapper.
    *
-   * @param flag  (optional)
+   * @param flag
    * @return String
    */
   @GET
@@ -77,7 +77,7 @@ public interface Params_QueryApi {
   /**
    * Query List.
    *
-   * @param flag  (optional)
+   * @param flag
    * @param item  (optional)
    * @param name  (optional)
    * @return String
