@@ -356,7 +356,12 @@ public class ApiGenerator {
             Validation validation = ref.validation();
             logger.debug("See param {} : {} : {}", paramName, type, validation);
 
-            Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
+            Optional<CtxValidation> valCtx;
+            if (type.isPrimitive()) {
+                valCtx = Optional.empty();
+            } else {
+                valCtx = validationGenerator.makeValidation(imports, type, validation);
+            }
 
             boolean isNullableRef =
                     type.isPrimitive(Primitive.STRING) || (!type.isPrimitive() || opts.isUseApiWrappedPrimitives());

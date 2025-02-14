@@ -82,11 +82,7 @@ public interface Type {
         return false;
     }
 
-    /**
-     * Return true if this type is a primitive.
-     *
-     * @return true if this is a primitive type
-     */
+    /** {@return true if this type is a Java primitive} */
     default boolean isPrimitive() {
         return false;
     }
