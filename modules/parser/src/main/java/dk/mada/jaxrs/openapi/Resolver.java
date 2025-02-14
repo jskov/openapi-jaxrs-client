@@ -229,7 +229,8 @@ public final class Resolver {
      */
     private static boolean isDtoPrimitiveWrapperOnly(Dto dto) {
         Type dtoType = dto.reference().refType();
-        return !dto.isEnum() && (dtoType.isPrimitive() || dtoType.isPrimitive(Primitive.STRING) || dtoType.isPlainObject());
+        return !dto.isEnum()
+                && (dtoType.isPrimitive() || dtoType.isPrimitive(Primitive.STRING) || dtoType.isPlainObject());
     }
 
     /**
