@@ -28,7 +28,7 @@ public interface Params_BodyApi {
   /**
    * Query Boolean Primitive.
    *
-   * @param dto  (not null)
+   * @param dto
    * @return String
    */
   @GET
@@ -42,7 +42,7 @@ public interface Params_BodyApi {
   /**
    * Query Boolean Wrapper.
    *
-   * @param dto  (not null)
+   * @param dto
    * @return String
    */
   @GET
