@@ -151,7 +151,10 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
 {{#vendorExtensions.x-extra-annotation}}
   {{{vendorExtensions.x-extra-annotation}}}
 {{/vendorExtensions.x-extra-annotation}}
-{{#validation}}  {{>beanValidation}}{{/validation}}
+{{#validation}}
+  {{>beanValidation}}
+
+{{/validation}}
   {{#madaProp.isUseEmptyCollections}}
    {{#jackson}}
   @JsonIgnore
