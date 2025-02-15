@@ -40,7 +40,7 @@ public interface ManifestApi {
     @APIResponse(responseCode = "200", description = "Returns the requested manifest file in a larger combined group",
                  content = @Content(schema = @Schema(implementation = ManifestWrapper.class)))
   })
-  ManifestWrapper Manifests_Get(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @HeaderParam("accept") String accept);
+  ManifestWrapper Manifests_Get(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @HeaderParam("accept") String accept);
 
   /**
    * Put the manifest identified by `name` and `reference` where `reference` can be a tag or digest.
@@ -60,7 +60,7 @@ public interface ManifestApi {
     @APIResponse(responseCode = "201", description = "The manifest is updated",
                  content = @Content(schema = @Schema(implementation = Object.class)))
   })
-  Object Manifests_Create(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @NotNull @Valid Manifest dto);
+  Object Manifests_Create(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @NotNull @Valid Manifest dto);
 
   /**
    * Delete the manifest identified by `name` and `reference`. Note that a manifest can _only_ be deleted by `digest`.
@@ -77,5 +77,5 @@ public interface ManifestApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "202", description = "The manifest has been deleted")
   })
-  AcrErrors Manifests_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
+  AcrErrors Manifests_Delete(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
 }

@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.api.security.individual.api;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -36,5 +37,5 @@ public interface Api_TypesApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No Content")
   })
-  void apiSecurityOnGet(@HeaderParam("Authorization") String auth);
+  void apiSecurityOnGet(@HeaderParam("Authorization") @NotNull String auth);
 }

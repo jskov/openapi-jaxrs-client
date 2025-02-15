@@ -42,7 +42,7 @@ public record Validation(
         return EMPTY_VALIDATION;
     }
 
-    /** {@return a validation which required set} */
+    /** {@return a validation with required set} */
     public static Validation validationRequired() {
         return REQUIRED_VALIDATION;
     }

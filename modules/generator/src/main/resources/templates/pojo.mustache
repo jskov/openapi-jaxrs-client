@@ -135,33 +135,26 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   /**
   {{#description}}
    * {{.}}
+   *
   {{/description}}
   {{^description}}
    * Get {{name}}
   {{/description}}
-  {{#validation}}
-  {{#minimum}}
-   * minimum: {{.}}
-  {{/minimum}}
-  {{#decimalMinimum}}
-   * minimum: {{{.}}}
-  {{/decimalMinimum}}
-  {{#maximum}}
-   * maximum: {{.}}
-  {{/maximum}}
-  {{#decimalMaximum}}
-   * maximum: {{{.}}}
-  {{/decimalMaximum}}
-  {{/validation}}
-{{#madaProp.renderJavadocMacroSpacer}}
+{{#validation}}
+{{#javadoc}}
+{{.}}
    *
-{{/madaProp.renderJavadocMacroSpacer}}
+{{/javadoc}}
+{{/validation}}
    * @return {{name}}
    **/
- {{#vendorExtensions.x-extra-annotation}}
+{{#vendorExtensions.x-extra-annotation}}
   {{{vendorExtensions.x-extra-annotation}}}
-  {{/vendorExtensions.x-extra-annotation}}
-{{#validation}}  {{>beanValidation}}{{/validation}}
+{{/vendorExtensions.x-extra-annotation}}
+{{#validation}}
+  {{>beanValidation}}
+
+{{/validation}}
   {{#madaProp.isUseEmptyCollections}}
    {{#jackson}}
   @JsonIgnore

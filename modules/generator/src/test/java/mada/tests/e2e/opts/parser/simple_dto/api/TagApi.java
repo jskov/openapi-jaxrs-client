@@ -7,6 +7,7 @@
 package mada.tests.e2e.opts.parser.simple_dto.api;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import mada.tests.e2e.opts.parser.simple_dto.dto.NoPropsDto;
@@ -29,7 +30,7 @@ public interface TagApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "Success")
   })
-  void addPost(@HeaderParam("Authorization") String auth, @Valid PropDto dto);
+  void addPost(@HeaderParam("Authorization") @NotNull String auth, @Valid PropDto dto);
 
   /**
    * addPut.
@@ -42,5 +43,5 @@ public interface TagApi {
   @APIResponses({
     @APIResponse(responseCode = "204", description = "Success")
   })
-  void addPut(@HeaderParam("Authorization") String auth, @Valid NoPropsDto dto);
+  void addPut(@HeaderParam("Authorization") @NotNull String auth, @Valid NoPropsDto dto);
 }

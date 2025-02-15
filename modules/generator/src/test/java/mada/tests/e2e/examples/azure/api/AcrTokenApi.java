@@ -60,7 +60,7 @@ public interface AcrTokenApi {
     @APIResponse(responseCode = "200", description = "Access token acquired",
                  content = @Content(schema = @Schema(implementation = AccessToken.class)))
   })
-  AccessToken AccessTokens_GetFromLogin(@HeaderParam("Authorization") String auth, @QueryParam("service") @NotNull String service, @QueryParam("scope") @NotNull String scope);
+  AccessToken AccessTokens_GetFromLogin(@HeaderParam("Authorization") @NotNull String auth, @QueryParam("service") @NotNull String service, @QueryParam("scope") @NotNull String scope);
 
   /**
    * Exchange ACR Refresh token for an ACR Access Token

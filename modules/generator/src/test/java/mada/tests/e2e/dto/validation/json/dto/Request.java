@@ -31,6 +31,7 @@ public class Request {
    * Get taxation
    * minimum: 100L
    * maximum: 999L
+   *
    * @return taxation
    **/
   @Min(100L) @Max(999L)

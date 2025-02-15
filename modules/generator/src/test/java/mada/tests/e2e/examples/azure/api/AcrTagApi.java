@@ -43,7 +43,7 @@ public interface AcrTagApi {
     @APIResponse(responseCode = "200", description = "Tag details of a repository",
                  content = @Content(schema = @Schema(implementation = TagList.class)))
   })
-  TagList Tag_GetList(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @QueryParam("last") String last, @QueryParam("n") short n, @QueryParam("orderby") String orderby, @QueryParam("digest") String digest);
+  TagList Tag_GetList(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @QueryParam("last") String last, @QueryParam("n") short n, @QueryParam("orderby") String orderby, @QueryParam("digest") String digest);
 
   /**
    * Get tag attributes by tag
@@ -62,7 +62,7 @@ public interface AcrTagApi {
     @APIResponse(responseCode = "200", description = "Tag attributes",
                  content = @Content(schema = @Schema(implementation = TagAttributes.class)))
   })
-  TagAttributes Tag_GetAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
+  TagAttributes Tag_GetAttributes(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
 
   /**
    * Delete tag
@@ -80,7 +80,7 @@ public interface AcrTagApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "202", description = "The tag is deleted")
   })
-  AcrErrors Tag_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
+  AcrErrors Tag_Delete(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference);
 
   /**
    * Update tag attributes
@@ -100,5 +100,5 @@ public interface AcrTagApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "200", description = "The attributes are updated")
   })
-  AcrErrors Tag_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @Valid TagChangeableAttributes dto);
+  AcrErrors Tag_UpdateAttributes(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("reference") @NotNull String reference, @Valid TagChangeableAttributes dto);
 }

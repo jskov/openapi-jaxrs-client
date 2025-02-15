@@ -78,6 +78,7 @@ public class ValidationDto {
 
   /**
    * a BigDecimal.
+   *
    * minimum: "100"
    * maximum: "1000"
    *
@@ -104,6 +105,7 @@ public class ValidationDto {
 
   /**
    * With a "quoted" description.
+   *
    * minimum: 0L
    * maximum: 99999999L
    *
@@ -135,6 +137,7 @@ public class ValidationDto {
 
   /**
    * a float.
+   *
    * minimum: 0L
    * maximum: 1000L
    *
@@ -158,6 +161,7 @@ public class ValidationDto {
    * Get badParsingOfRange
    * minimum: 100L
    * maximum: 999L
+   *
    * @return badParsingOfRange
    **/
   @Min(100L) @Max(999L)
@@ -178,6 +182,7 @@ public class ValidationDto {
    * Get intValue
    * minimum: 10L
    * maximum: 20L
+   *
    * @return intValue
    **/
   @Min(10L) @Max(20L)

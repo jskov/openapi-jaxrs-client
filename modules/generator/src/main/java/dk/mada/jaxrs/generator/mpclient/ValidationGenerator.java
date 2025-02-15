@@ -12,9 +12,11 @@ import org.jspecify.annotations.Nullable;
 /**
  * Validation generator.
  *
- * Prepared bean validation contexts for template rendering.
+ * Prepare Java Bean validation contexts for template rendering.
  */
 public class ValidationGenerator {
+    /** The platform line separator. */
+    private static final String NL = System.lineSeparator();
     /** Generator options. */
     private final GeneratorOpts opts;
 
@@ -36,102 +38,94 @@ public class ValidationGenerator {
      * @return an optional validation rendering context
      */
     public Optional<CtxValidation> makeValidation(Imports imports, Type type, @Nullable Validation validation) {
-        if (validation == null) {
+        if (validation == null || !opts.isUseBeanValidation()) {
             return Optional.empty();
         }
 
-        boolean renderAnnotations = opts.isUseBeanValidation();
-        boolean valid = false;
-        Optional<String> minLength;
-        Optional<String> maxLength;
-        Optional<String> minimum = Optional.empty();
-        Optional<String> maximum = Optional.empty();
-        Optional<String> decimalMinimum = Optional.empty();
-        Optional<String> decimalMaximum = Optional.empty();
-        Optional<String> pattern;
+        String renderedValidation = "";
+        String javadocPropertyComment = "";
+        String javadoc = "";
 
         boolean isNullable = validation.nullable();
         boolean isRequired = validation.required();
-        boolean isNotNull = !isNullable && isRequired;
-        if (isNotNull) {
-            imports.add(renderAnnotations, ValidationApi.NOT_NULL);
+        if (isRequired && !isNullable) {
+            renderedValidation += "@NotNull ";
+            javadocPropertyComment += " (not null)";
+            imports.add(ValidationApi.NOT_NULL);
+        } else {
+            javadocPropertyComment += " (optional)";
+            // FIXME: missing default value here
         }
         // Decide where to put @Valid. I expect this to be too simple...
         if (type.isDto() || (type instanceof TypeContainer tc && tc.innerType().isDto())) {
-            valid = true;
-            imports.add(renderAnnotations, ValidationApi.VALID);
+            renderedValidation += "@Valid ";
+            imports.add(ValidationApi.VALID);
+        }
+
+        // pattern = validation.pattern().map(StringRenderer::encodeRegexp);
+        if (validation._pattern() != null) {
+            String pattern = StringRenderer.encodeRegexp(validation._pattern());
+            imports.add(ValidationApi.PATTERN);
+            renderedValidation += "@Pattern(regexp = \"" + pattern + "\") ";
         }
 
         // Note that OpenApi specification xItems/xLength both map to @Size
-        minLength = validation
+        String sizeMin = validation
                 .minItems()
                 .or(validation::minLength)
-                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
-        if (minLength.isPresent()) {
-            imports.add(renderAnnotations, ValidationApi.SIZE);
-        }
-        maxLength = validation
+                .map(i -> Integer.toString(i)) // NOSONAR - not enough information to select variant
+                .orElse(null);
+        String sizeMax = validation
                 .maxItems()
                 .or(validation::maxLength)
-                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
-        if (maxLength.isPresent()) {
-            imports.add(renderAnnotations, ValidationApi.SIZE);
+                .map(i -> Integer.toString(i)) // NOSONAR - not enough information to select variant
+                .orElse(null);
+
+        if (sizeMin != null || sizeMax != null) {
+            imports.add(ValidationApi.SIZE);
+            if (sizeMin != null && sizeMax != null) {
+                renderedValidation += "@Size(min = " + sizeMin + ", max = " + sizeMax + ") ";
+            } else if (sizeMin != null) {
+                renderedValidation += "@Size(min = " + sizeMin + ") ";
+            } else {
+                renderedValidation += "@Size(max = " + sizeMax + ") ";
+            }
         }
 
-        if (type.isBigDecimal()) {
-            decimalMinimum = validation.minimum().map(min -> "\"" + min.toString() + "\"");
-            decimalMaximum = validation.maximum().map(max -> "\"" + max.toString() + "\"");
+        String min = null;
+        String max = null;
+        if (validation._minimum() != null) {
+            if (type.isBigDecimal()) {
+                min = "\"" + validation._minimum().toString() + "\"";
+                renderedValidation += "@DecimalMin(" + min + ") ";
+                imports.add(ValidationApi.DECIMAL_MIN);
+            } else {
+                min = Long.toString(validation._minimum().longValue()) + "L";
+                renderedValidation += "@Min(" + min + ") ";
+                imports.add(ValidationApi.MIN);
+            }
+            javadoc += NL + "   * minimum: " + min;
+        }
+        if (validation._maximum() != null) {
+            if (type.isBigDecimal()) {
+                max = "\"" + validation._maximum().toString() + "\"";
+                renderedValidation += "@DecimalMax(" + max + ") ";
+                imports.add(ValidationApi.DECIMAL_MAX);
+            } else {
+                max = Long.toString(validation._maximum().longValue()) + "L";
+                renderedValidation += "@Max(" + max + ") ";
+                imports.add(ValidationApi.MAX);
+            }
+            javadoc += NL + "   * maximum: " + max;
+        }
+
+        if (javadoc.isEmpty()) {
+            javadoc = null;
         } else {
-            minimum = validation.minimum().map(min -> Long.toString(min.longValue()) + "L");
-            maximum = validation.maximum().map(max -> Long.toString(max.longValue()) + "L");
-        }
-        if (decimalMinimum.isPresent()) {
-            imports.add(renderAnnotations, ValidationApi.DECIMAL_MIN);
-        }
-        if (minimum.isPresent()) {
-            imports.add(renderAnnotations, ValidationApi.MIN);
-        }
-        if (decimalMinimum.isPresent()) {
-            imports.add(renderAnnotations, ValidationApi.DECIMAL_MAX);
-        }
-        if (maximum.isPresent()) {
-            imports.add(renderAnnotations, ValidationApi.MAX);
+            // Trim initial newline
+            javadoc = javadoc.substring(1);
         }
 
-        pattern = validation.pattern().map(StringRenderer::encodeRegexp);
-        if (pattern.isPresent()) {
-            imports.add(renderAnnotations, ValidationApi.PATTERN);
-        }
-
-        CtxValidation valCtx = CtxValidation.builder()
-                .minLength(minLength)
-                .maxLength(maxLength)
-                .minimum(minimum)
-                .maximum(maximum)
-                .decimalMinimum(decimalMinimum)
-                .decimalMaximum(decimalMaximum)
-                .pattern(pattern)
-                .valid(valid)
-                .notNull(isNotNull)
-                .renderAnnotations(renderAnnotations)
-                .build();
-
-        return Optional.of(valCtx);
-    }
-
-    /** {@return a validation context for required values} */
-    public CtxValidation makeRequired() {
-        return CtxValidation.builder()
-                .minLength(Optional.empty())
-                .maxLength(Optional.empty())
-                .minimum(Optional.empty())
-                .maximum(Optional.empty())
-                .decimalMinimum(Optional.empty())
-                .decimalMaximum(Optional.empty())
-                .pattern(Optional.empty())
-                .valid(false)
-                .notNull(true)
-                .renderAnnotations(opts.isUseBeanValidation())
-                .build();
+        return Optional.of(new CtxValidation(renderedValidation, javadocPropertyComment, javadoc));
     }
 }
