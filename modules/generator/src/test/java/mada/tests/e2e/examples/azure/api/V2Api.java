@@ -7,6 +7,7 @@
 
 package mada.tests.e2e.examples.azure.api;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import mada.tests.e2e.examples.azure.dto.AcrErrors;
@@ -32,5 +33,5 @@ public interface V2Api {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "200", description = "Successful response. API v2 supported")
   })
-  AcrErrors V2Support_Check(@HeaderParam("Authorization") String auth);
+  AcrErrors V2Support_Check(@HeaderParam("Authorization") @NotNull String auth);
 }

@@ -37,7 +37,7 @@ public interface LayerApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "201", description = "The blob has been created in the registry and is available at the provided location.")
   })
-  void Blob_Mount(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @QueryParam("from") @NotNull String from, @QueryParam("mount") @NotNull String mount);
+  void Blob_Mount(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @QueryParam("from") @NotNull String from, @QueryParam("mount") @NotNull String mount);
 
   /**
    * Retrieve the blob from the registry identified by digest.
@@ -57,7 +57,7 @@ public interface LayerApi {
                  content = @Content(schema = @Schema(implementation = InputStream.class))),
     @APIResponse(responseCode = "307", description = "The blob identified by digest is available at the provided location.")
   })
-  InputStream Blob_Get(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("digest") @NotNull String digest);
+  InputStream Blob_Get(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("digest") @NotNull String digest);
 
   /**
    * Same as GET, except only the headers are returned.
@@ -76,7 +76,7 @@ public interface LayerApi {
     @APIResponse(responseCode = "200", description = "The blob identified by digest is available. The blob content will be present in the body of the response."),
     @APIResponse(responseCode = "307", description = "The blob identified by digest is available at the provided location.")
   })
-  AcrErrors Blob_Check(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("digest") @NotNull String digest);
+  AcrErrors Blob_Check(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("digest") @NotNull String digest);
 
   /**
    * Removes an already uploaded blob.
@@ -95,7 +95,7 @@ public interface LayerApi {
     @APIResponse(responseCode = "202", description = "The blob identified by digest is available. The blob content will be present in the body of the response.",
                  content = @Content(schema = @Schema(implementation = InputStream.class)))
   })
-  AcrErrors Blob_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @PathParam("digest") @NotNull String digest);
+  AcrErrors Blob_Delete(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @PathParam("digest") @NotNull String digest);
 
   /**
    * Retrieve status of upload identified by uuid. The primary purpose of this endpoint is to resolve the current status of a resumable upload.
@@ -112,7 +112,7 @@ public interface LayerApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "204", description = "The upload is known and in progress. The last received offset is available in the Range header.")
   })
-  AcrErrors Blob_GetStatus(@HeaderParam("Authorization") String auth, @PathParam("nextBlobUuidLink") @NotNull String nextBlobUuidLink);
+  AcrErrors Blob_GetStatus(@HeaderParam("Authorization") @NotNull String auth, @PathParam("nextBlobUuidLink") @NotNull String nextBlobUuidLink);
 
   /**
    * Complete the upload, providing all the data in the body, if necessary. A request without a body will just complete the upload with previously uploaded content.
@@ -131,7 +131,7 @@ public interface LayerApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "201", description = "The upload has been completed and accepted by the registry.")
   })
-  void Blob_EndUpload(@HeaderParam("Authorization") String auth, @QueryParam("digest") @NotNull String digest, @PathParam("nextBlobUuidLink") @NotNull String nextBlobUuidLink, Object dto);
+  void Blob_EndUpload(@HeaderParam("Authorization") @NotNull String auth, @QueryParam("digest") @NotNull String digest, @PathParam("nextBlobUuidLink") @NotNull String nextBlobUuidLink, Object dto);
 
   /**
    * Cancel outstanding upload processes, releasing associated resources. If this is not called, the unfinished uploads will eventually timeout.
@@ -148,7 +148,7 @@ public interface LayerApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "204", description = "The upload has been successfully deleted.")
   })
-  AcrErrors Blob_CancelUpload(@HeaderParam("Authorization") String auth, @PathParam("nextBlobUuidLink") @NotNull String nextBlobUuidLink);
+  AcrErrors Blob_CancelUpload(@HeaderParam("Authorization") @NotNull String auth, @PathParam("nextBlobUuidLink") @NotNull String nextBlobUuidLink);
 
   /**
    * Upload a stream of data without completing the upload.
@@ -167,5 +167,5 @@ public interface LayerApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "202", description = "The stream of data has been accepted and the current progress is available in the range header. The updated upload location is available in the Location header.")
   })
-  AcrErrors Blob_Upload(@HeaderParam("Authorization") String auth, @PathParam("nextBlobUuidLink") @NotNull String nextBlobUuidLink, @NotNull Object dto);
+  AcrErrors Blob_Upload(@HeaderParam("Authorization") @NotNull String auth, @PathParam("nextBlobUuidLink") @NotNull String nextBlobUuidLink, @NotNull Object dto);
 }

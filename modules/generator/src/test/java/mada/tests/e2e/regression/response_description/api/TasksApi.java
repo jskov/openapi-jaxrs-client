@@ -8,6 +8,7 @@
 
 package mada.tests.e2e.regression.response_description.api;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -28,5 +29,5 @@ public interface TasksApi {
     @APIResponse(responseCode = "204", description = "")
   })
   @Operation(summary = "Delete a task.")
-  void deleteTask(@HeaderParam("Authorization") String auth);
+  void deleteTask(@HeaderParam("Authorization") @NotNull String auth);
 }

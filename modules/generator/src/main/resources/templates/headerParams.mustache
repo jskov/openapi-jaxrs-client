@@ -1,1 +1,1 @@
-{{#isHeaderParam}}@HeaderParam("{{baseName}}") {{>nullableParam}}{{{dataType}}} {{paramName}}{{/isHeaderParam}}
+{{#isHeaderParam}}@HeaderParam("{{baseName}}") {{#validation}}{{>beanValidation}}{{/validation}}{{>nullableParam}}{{{dataType}}} {{paramName}}{{/isHeaderParam}}

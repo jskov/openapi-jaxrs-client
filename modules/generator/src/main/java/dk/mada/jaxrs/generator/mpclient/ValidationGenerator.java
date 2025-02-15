@@ -68,8 +68,7 @@ public class ValidationGenerator {
 
         boolean isNullable = validation.nullable();
         boolean isRequired = validation.required();
-        boolean isNotNull = !isNullable && isRequired;
-        if (isNotNull) {
+        if (isRequired && !isNullable) {
             renderedValidation += "@NotNull ";
             javadocPropertyComment += " (not null)";
             imports.add(ValidationApi.NOT_NULL);

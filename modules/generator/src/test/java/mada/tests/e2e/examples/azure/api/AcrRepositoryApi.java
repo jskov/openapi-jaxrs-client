@@ -42,7 +42,7 @@ public interface AcrRepositoryApi {
     @APIResponse(responseCode = "200", description = "Returns a list of repositories",
                  content = @Content(schema = @Schema(implementation = Repositories.class)))
   })
-  Repositories Repository_GetList(@HeaderParam("Authorization") String auth, @QueryParam("last") String last, @QueryParam("n") short n);
+  Repositories Repository_GetList(@HeaderParam("Authorization") @NotNull String auth, @QueryParam("last") String last, @QueryParam("n") short n);
 
   /**
    * Get repository attributes
@@ -60,7 +60,7 @@ public interface AcrRepositoryApi {
     @APIResponse(responseCode = "200", description = "Returns a list of attributes",
                  content = @Content(schema = @Schema(implementation = RepositoryAttributes.class)))
   })
-  RepositoryAttributes Repository_GetAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name);
+  RepositoryAttributes Repository_GetAttributes(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name);
 
   /**
    * Delete the repository identified by `name`
@@ -78,7 +78,7 @@ public interface AcrRepositoryApi {
     @APIResponse(responseCode = "202", description = "The repository is deleted",
                  content = @Content(schema = @Schema(implementation = DeletedRepository.class)))
   })
-  AcrErrors Repository_Delete(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name);
+  AcrErrors Repository_Delete(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name);
 
   /**
    * Update the attribute identified by `name` where `reference` is the name of the repository.
@@ -97,5 +97,5 @@ public interface AcrRepositoryApi {
                  content = @Content(schema = @Schema(implementation = AcrErrors.class))),
     @APIResponse(responseCode = "200", description = "The attributes are updated")
   })
-  AcrErrors Repository_UpdateAttributes(@HeaderParam("Authorization") String auth, @PathParam("name") @NotNull String name, @Valid RepositoryChangeableAttributes dto);
+  AcrErrors Repository_UpdateAttributes(@HeaderParam("Authorization") @NotNull String auth, @PathParam("name") @NotNull String name, @Valid RepositoryChangeableAttributes dto);
 }
