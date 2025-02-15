@@ -89,6 +89,7 @@ public class RestSingleAddInsightAnnotationRequest {
   /**
    * Get line
    * minimum: 0L
+   *
    * @return line
    **/
   @Min(0L)

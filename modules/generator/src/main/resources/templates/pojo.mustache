@@ -148,9 +148,9 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
 {{/validation}}
    * @return {{name}}
    **/
- {{#vendorExtensions.x-extra-annotation}}
+{{#vendorExtensions.x-extra-annotation}}
   {{{vendorExtensions.x-extra-annotation}}}
-  {{/vendorExtensions.x-extra-annotation}}
+{{/vendorExtensions.x-extra-annotation}}
 {{#validation}}  {{>beanValidation}}{{/validation}}
   {{#madaProp.isUseEmptyCollections}}
    {{#jackson}}

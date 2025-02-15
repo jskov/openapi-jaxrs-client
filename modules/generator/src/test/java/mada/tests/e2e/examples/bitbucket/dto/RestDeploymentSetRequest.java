@@ -213,6 +213,7 @@ public class RestDeploymentSetRequest {
   /**
    * Get lastUpdated
    * minimum: 0L
+   *
    * @return lastUpdated
    **/
   @Min(0L)

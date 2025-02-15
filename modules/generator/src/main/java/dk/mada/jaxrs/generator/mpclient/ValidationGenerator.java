@@ -149,9 +149,4 @@ public class ValidationGenerator {
 
         return Optional.of(new CtxValidation(renderedValidation, javadocPropertyComment, javadoc));
     }
-
-    /** {@return a validation context for required values} */
-    public CtxValidation makeRequired() {
-        return new CtxValidation("", "", "");
-    }
 }

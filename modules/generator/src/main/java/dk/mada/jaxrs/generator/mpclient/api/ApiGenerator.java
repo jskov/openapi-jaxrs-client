@@ -327,17 +327,20 @@ public class ApiGenerator {
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
         List<CtxApiParam> params = new ArrayList<>();
         if (op.addAuthorizationHeader()) {
+            Primitive type = Primitive.STRING;
+            Optional<CtxValidation> validation = validationGenerator.makeValidation(imports, type, Validation.validationRequired());
+
             params.add(CtxApiParam.builder()
                     .baseName("Authorization")
                     .paramName("auth")
-                    .dataType(Primitive.STRING.typeName().name())
+                    .dataType(type.typeName().name())
                     .isContainer(false)
                     .isBodyParam(false)
                     .isFormParam(false)
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
-                    .validation(Optional.of(validationGenerator.makeRequired()))
+                    .validation(validation)
                     .isMultipartForm(false)
                     .isNullable(false)
                     .build());
