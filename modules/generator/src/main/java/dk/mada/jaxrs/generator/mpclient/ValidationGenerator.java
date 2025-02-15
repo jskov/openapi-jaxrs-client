@@ -28,6 +28,8 @@ public class ValidationGenerator {
     public ValidationGenerator(GeneratorOpts opts) {
         this.opts = opts;
     }
+    
+    // https://download.eclipse.org/microprofile/microprofile-open-api-3.1.1/microprofile-openapi-spec-3.1.1.html#_jakarta_bean_validation_annotations
 
     //    * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#validation}}{{#notNull}} (not null){{/notNull}}{{^notNull}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/notNull}}{{/validation}}
 
@@ -76,7 +78,6 @@ minLength not set, maxLength set
             imports.add(ValidationApi.VALID);
         }
 
-        
         // specifics
         Optional<String> minLength;
         Optional<String> maxLength;
@@ -115,7 +116,7 @@ minLength not set, maxLength set
         if (minimum.isPresent()) {
             imports.add(ValidationApi.MIN);
         }
-        if (decimalMinimum.isPresent()) {
+        if (decimalMaximum.isPresent()) {
             imports.add(ValidationApi.DECIMAL_MAX);
         }
         if (maximum.isPresent()) {
