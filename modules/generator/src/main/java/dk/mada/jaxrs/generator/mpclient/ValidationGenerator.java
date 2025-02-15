@@ -29,26 +29,6 @@ public class ValidationGenerator {
         this.opts = opts;
     }
 
-    // https://download.eclipse.org/microprofile/microprofile-open-api-3.1.1/microprofile-openapi-spec-3.1.1.html#_jakarta_bean_validation_annotations
-
-    //    * @param {{paramName}} {{#description}}{{description}}{{/description}}{{#validation}}{{#notNull}} (not
-    // null){{/notNull}}{{^notNull}} (optional{{#defaultValue}}, default to
-    // {{{.}}}{{/defaultValue}}){{/notNull}}{{/validation}}
-
-    /*
-
-    {{#renderAnnotations}}{{#notNull}}@NotNull {{/notNull}}{{#valid}}@Valid {{/valid}}{{#pattern}}@Pattern(regexp = "{{{pattern}}}") {{/pattern}}{{!
-    minLength && maxLength set
-    }}{{#minLength}}{{#maxLength}}@Size(min = {{minLength}}, max = {{maxLength}}) {{/maxLength}}{{/minLength}}{{!
-    minLength set, maxLength not
-    }}{{#minLength}}{{^maxLength}}@Size(min = {{minLength}}) {{/maxLength}}{{/minLength}}{{!
-    minLength not set, maxLength set
-    }}{{^minLength}}{{#maxLength}}@Size(max = {{.}}) {{/maxLength}}{{/minLength}}{{!
-    }}{{#minimum}}@Min({{.}}) {{/minimum}}{{#decimalMinimum}}@DecimalMin({{{.}}}) {{/decimalMinimum}}{{#maximum}}@Max({{.}}) {{/maximum}}{{#decimalMaximum}}@DecimalMax({{{.}}}) {{/decimalMaximum}}{{/renderAnnotations}}
-
-
-        */
-
     /**
      * Generate validation rendering context from type and validation information.
      *
