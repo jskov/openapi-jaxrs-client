@@ -70,7 +70,11 @@ minLength not set, maxLength set
         boolean isNotNull = !isNullable && isRequired;
         if (isNotNull) {
             renderedValidation += "@NotNull ";
+            javadocPropertyComment += " (not null)";
             imports.add(ValidationApi.NOT_NULL);
+        } else {
+            javadocPropertyComment += " (optional)";
+            // FIXME: missing default value here
         }
         // Decide where to put @Valid. I expect this to be too simple...
         if (type.isDto() || (type instanceof TypeContainer tc && tc.innerType().isDto())) {
@@ -85,8 +89,15 @@ minLength not set, maxLength set
         Optional<String> maximum = Optional.empty();
         Optional<String> decimalMinimum = Optional.empty();
         Optional<String> decimalMaximum = Optional.empty();
-        Optional<String> pattern;
-        
+        //Optional<String> pattern;
+
+        //pattern = validation.pattern().map(StringRenderer::encodeRegexp);
+        if (validation._pattern() != null) {
+            String pattern = StringRenderer.encodeRegexp(validation._pattern());
+            imports.add(ValidationApi.PATTERN);
+            renderedValidation += "@Pattern(regexp = \"" + pattern + "\") ";
+        }
+
         // Note that OpenApi specification xItems/xLength both map to @Size
         minLength = validation
                 .minItems()
@@ -121,11 +132,6 @@ minLength not set, maxLength set
         }
         if (maximum.isPresent()) {
             imports.add(ValidationApi.MAX);
-        }
-
-        pattern = validation.pattern().map(StringRenderer::encodeRegexp);
-        if (pattern.isPresent()) {
-            imports.add(ValidationApi.PATTERN);
         }
 
         return Optional.of(new CtxValidation(renderedValidation, javadocPropertyComment, javadoc));
