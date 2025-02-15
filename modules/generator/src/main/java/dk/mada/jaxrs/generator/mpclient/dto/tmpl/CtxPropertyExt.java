@@ -63,9 +63,6 @@ public interface CtxPropertyExt {
     /** {@return the summary as a java string, or null} */
     @Nullable String descriptionString();
 
-    /** {@return true if a spacer is needed before javadoc macros} */
-    boolean renderJavadocMacroSpacer();
-
     /** {@return the multipart type associated with this property, or null} */
     @Nullable String multipartType();
 

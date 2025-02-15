@@ -135,16 +135,17 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   /**
   {{#description}}
    * {{.}}
+   *
   {{/description}}
   {{^description}}
    * Get {{name}}
   {{/description}}
-  {{#validation}}
-  {{javadoc}}
-  {{/validation}}
-{{#madaProp.renderJavadocMacroSpacer}}
+{{#validation}}
+{{#javadoc}}
+{{.}}
    *
-{{/madaProp.renderJavadocMacroSpacer}}
+{{/javadoc}}
+{{/validation}}
    * @return {{name}}
    **/
  {{#vendorExtensions.x-extra-annotation}}
