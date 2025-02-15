@@ -17,6 +17,8 @@ import dk.mada.jaxrs.model.types.TypeContainer;
  * Prepare Java Bean validation contexts for template rendering.
  */
 public class ValidationGenerator {
+    /** The platform line separator. */
+    private static final String NL = System.lineSeparator();
     /** Generator options. */
     private final GeneratorOpts opts;
 
@@ -60,7 +62,7 @@ minLength not set, maxLength set
         if (validation == null || !opts.isUseBeanValidation()) {
             return Optional.empty();
         }
-        
+
         String renderedValidation = "";
         String javadocPropertyComment = "";
         String javadoc = "";
@@ -82,15 +84,6 @@ minLength not set, maxLength set
             imports.add(ValidationApi.VALID);
         }
 
-        // specifics
-        Optional<String> minLength;
-        Optional<String> maxLength;
-        Optional<String> minimum = Optional.empty();
-        Optional<String> maximum = Optional.empty();
-        Optional<String> decimalMinimum = Optional.empty();
-        Optional<String> decimalMaximum = Optional.empty();
-        //Optional<String> pattern;
-
         //pattern = validation.pattern().map(StringRenderer::encodeRegexp);
         if (validation._pattern() != null) {
             String pattern = StringRenderer.encodeRegexp(validation._pattern());
@@ -99,21 +92,40 @@ minLength not set, maxLength set
         }
 
         // Note that OpenApi specification xItems/xLength both map to @Size
-        minLength = validation
+        String min = validation
                 .minItems()
                 .or(validation::minLength)
-                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
-        if (minLength.isPresent()) {
-            imports.add(ValidationApi.SIZE);
-        }
-        maxLength = validation
+                .map(i -> Integer.toString(i)) // NOSONAR - not enough information to select variant
+                .orElse(null);
+        String max = validation
                 .maxItems()
                 .or(validation::maxLength)
-                .map(i -> Integer.toString(i)); // NOSONAR - not enough information to select variant
-        if (maxLength.isPresent()) {
-            imports.add(ValidationApi.SIZE);
-        }
+                .map(i -> Integer.toString(i)) // NOSONAR - not enough information to select variant
+                .orElse(null);
 
+        if (min != null || max != null) {
+            imports.add(ValidationApi.SIZE);
+            if (min != null && max != null) {
+                renderedValidation += "@Size(min = " + min + ", max = " + max + ") "; 
+            } else if (min != null) {
+                renderedValidation += "@Size(min = " + min + ") ";
+            } else {
+                renderedValidation += "@Size(max = " + max + ") ";
+            }
+        }
+/*        
+        if (type.isBigDecimal()) {
+            if (min != null) {
+                javadoc += " * minimum: " + min + NL;
+            }
+            if (max != null) {
+                javadoc += " * maximum: " + max + NL;
+            }
+        } else {
+            
+        }
+        */
+/*
         if (type.isBigDecimal()) {
             decimalMinimum = validation.minimum().map(min -> "\"" + min.toString() + "\"");
             decimalMaximum = validation.maximum().map(max -> "\"" + max.toString() + "\"");
@@ -133,7 +145,7 @@ minLength not set, maxLength set
         if (maximum.isPresent()) {
             imports.add(ValidationApi.MAX);
         }
-
+*/
         return Optional.of(new CtxValidation(renderedValidation, javadocPropertyComment, javadoc));
     }
 
