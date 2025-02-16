@@ -34,6 +34,10 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
         public final boolean exclusiveMinimum;
         /** The validation's flag for exclusive maximum. */
         public final boolean exclusiveMaximum;
+        /** True if maximum is zero. */
+        public final boolean maximumIsZero;
+        /** True if minimum is zero. */
+        public final boolean minimumIsZero;
 
         /** The validation in rendered form. Changed as transformers operate on the state. */
         private String rendered = "";
@@ -94,6 +98,9 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
                 } else {
                     minimum = Long.toString(validation._minimum().longValue()) + "L";
                 }
+                minimumIsZero = "\"0\"".equals(minimum) || "0L".equals(minimum);
+            } else {
+                minimumIsZero = false;
             }
 
             if (validation._maximum() != null) {
@@ -102,6 +109,9 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
                 } else {
                     maximum = Long.toString(validation._maximum().longValue()) + "L";
                 }
+                maximumIsZero = "\"0\"".equals(maximum) || "0L".equals(maximum);
+            } else {
+                maximumIsZero = false;
             }
             exclusiveMinimum = validation._exclusiveMinimum() == Boolean.TRUE;
             exclusiveMaximum = validation._exclusiveMaximum() == Boolean.TRUE;

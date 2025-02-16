@@ -39,8 +39,8 @@ public class MicroProfileTransformers {
      */
     public static State transformNegative(State state) {
         if (state.isNumberOrInteger()
-                && state.exclusiveMaximum
-                && ("\"0\"".equals(state.maximum) || "0L".equals(state.maximum))) {
+                && state.minimum == null
+                && state.exclusiveMaximum && state.maximumIsZero) {
             state.addValidation("@Negative ");
             state.addImport(ValidationApi.NEGATIVE);
             state.maximum = null;
@@ -56,8 +56,8 @@ public class MicroProfileTransformers {
      */
     public static State transformNegativeOrZero(State state) {
         if (state.isNumberOrInteger()
-                && !state.exclusiveMaximum
-                && ("\"0\"".equals(state.maximum) || "0L".equals(state.maximum))) {
+                && state.minimum == null
+                && !state.exclusiveMaximum && state.maximumIsZero) {
             state.addValidation("@NegativeOrZero ");
             state.addImport(ValidationApi.NEGATIVE_OR_ZERO);
             state.maximum = null;
@@ -65,4 +65,37 @@ public class MicroProfileTransformers {
         return state;
     }
 
+    /**
+     * Transforms @Positive annotation.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
+    public static State transformPositive(State state) {
+        if (state.isNumberOrInteger()
+                && state.maximum == null
+                && state.exclusiveMinimum && state.minimumIsZero) {
+            state.addValidation("@Positive ");
+            state.addImport(ValidationApi.POSITIVE);
+            state.minimum = null;
+        }
+        return state;
+    }
+
+    /**
+     * Transforms @PositiveOrZero annotation.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
+    public static State transformPositiveOrZero(State state) {
+        if (state.isNumberOrInteger()
+                && state.maximum == null
+                && !state.exclusiveMinimum && state.minimumIsZero) {
+            state.addValidation("@PositiveOrZero ");
+            state.addImport(ValidationApi.POSITIVE_OR_ZERO);
+            state.minimum = null;
+        }
+        return state;
+    }
 }
