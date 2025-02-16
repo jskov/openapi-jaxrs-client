@@ -15,6 +15,8 @@ public enum ValidationApi implements TypedImport {
     MAX("javax.validation.constraints.Max"),
     /** Min. */
     MIN("javax.validation.constraints.Min"),
+    /** NotEmpty. */
+    NOT_EMPTY("javax.validation.constraints.NotEmpty"),
     /** NotNull. */
     NOT_NULL("javax.validation.constraints.NotNull"),
     /** Pattern. */

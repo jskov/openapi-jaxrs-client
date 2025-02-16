@@ -282,6 +282,11 @@ public final class GeneratorOpts {
         return or.getOptDefault("generator-jackson-offsetdatetime-wire-format", "ISO_OFFSET_DATE_TIME");
     }
 
+    /** {@return the extra MP validation rules} */
+    public boolean isUseMpValidationRules() {
+        return or.bool("generator-use-mp-validation-rules", true);
+    }
+
     /** {@return the optional MP client config key} */
     public Optional<String> getMpClientConfigKey() {
         return or.get("generator-mp-api-register-rest-client");

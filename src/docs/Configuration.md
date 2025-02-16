@@ -521,6 +521,12 @@ instead of OffsetDateTime.
 >
     default value: false
 
+**generator-use-mp-validation-rules**
+
+>Use the additional [Bean Validation transformation rules](https://download.eclipse.org/microprofile/microprofile-open-api-3.1.1/microprofile-openapi-spec-3.1.1.html#_jakarta_bean_validation_annotations) defined by MicroProfile.
+
+>
+    default value: true
 
 **generator-dto-use-openapi-schema**
 
