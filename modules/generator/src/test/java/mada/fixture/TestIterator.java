@@ -52,8 +52,8 @@ class TestIterator {
         // Handy when working on a single test
 //        String testNameContains = "opts/generator/validation/body";
 //        String testNameContains = "dto/validation/a";
-//        String testNameContains = "e2e/specs/v3_0";
-        String testNameContains = "e2e/specs/v3_1/all";
+        String testNameContains = "e2e/specs/v3_0";
+//        String testNameContains = "e2e/specs/v3_1/all";
 //        String testNameContains = "e2e/specs/v3_1/anyof";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
