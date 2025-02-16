@@ -151,21 +151,23 @@ public class ValidationGenerator {
         state = transformPattern(state);
         state = transformSizeItems(state);
         state = transformSizeLength(state);
+        state = transformDecimalMin(state);
+        state = transformMin(state);
         
         String min = null;
         String max = null;
-        if (validation._minimum() != null) {
-            if (type.isBigDecimal()) {
-                min = "\"" + validation._minimum().toString() + "\"";
-                state.addValidation("@DecimalMin(" + min + ") ");
-                imports.add(ValidationApi.DECIMAL_MIN);
-            } else {
-                min = Long.toString(validation._minimum().longValue()) + "L";
-                state.addValidation("@Min(" + min + ") ");
-                imports.add(ValidationApi.MIN);
-            }
-            state.addJavadoc("   * minimum: " + min);
-        }
+//        if (validation._minimum() != null) {
+//            if (type.isBigDecimal()) {
+//                min = "\"" + validation._minimum().toString() + "\"";
+//                state.addValidation("@DecimalMin(" + min + ") ");
+//                imports.add(ValidationApi.DECIMAL_MIN);
+//            } else {
+//                min = Long.toString(validation._minimum().longValue()) + "L";
+//                state.addValidation("@Min(" + min + ") ");
+//                imports.add(ValidationApi.MIN);
+//            }
+//            state.addJavadoc("   * minimum: " + min);
+//        }
         if (validation._maximum() != null) {
             if (type.isBigDecimal()) {
                 max = "\"" + validation._maximum().toString() + "\"";
@@ -242,6 +244,26 @@ public class ValidationGenerator {
             }
             state.minLength = null;
             state.maxLength = null;
+        }
+        return state;
+    }
+
+    private State transformDecimalMin(State state) {
+        if (state.minimum != null && state.type.isBigDecimal()) {
+            state.addValidation("@DecimalMin(" + state.minimum + ") ");
+            state.addImport(ValidationApi.DECIMAL_MIN);
+            state.addJavadoc("   * minimum: " + state.minimum);
+            state.minimum = null;
+        }
+        return state;
+    }
+
+    private State transformMin(State state) {
+        if (state.minimum != null && !state.type.isBigDecimal()) {
+            state.addValidation("@Min(" + state.minimum + ") ");
+            state.addImport(ValidationApi.MIN);
+            state.addJavadoc("   * minimum: " + state.minimum);
+            state.minimum = null;
         }
         return state;
     }
