@@ -18,8 +18,14 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Negative;
+import javax.validation.constraints.NegativeOrZero;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -56,6 +62,41 @@ public class ValidationDto {
   @Schema(required = true)
   private String name;
 
+  public static final String JSON_PROPERTY_NEGATIVE_BIG_DECIMAL = "negativeBigDecimal";
+  @JsonbProperty(JSON_PROPERTY_NEGATIVE_BIG_DECIMAL)
+  private BigDecimal negativeBigDecimal;
+
+  public static final String JSON_PROPERTY_NEGATIVE_INT = "negativeInt";
+  @JsonbProperty(JSON_PROPERTY_NEGATIVE_INT)
+  private Integer negativeInt;
+
+  public static final String JSON_PROPERTY_NEGATIVE_OR_ZERO_BIG_DECIMAL = "negativeOrZeroBigDecimal";
+  @JsonbProperty(JSON_PROPERTY_NEGATIVE_OR_ZERO_BIG_DECIMAL)
+  private BigDecimal negativeOrZeroBigDecimal;
+
+  public static final String JSON_PROPERTY_NEGATIVE_OR_ZERO_INT = "negativeOrZeroInt";
+  @JsonbProperty(JSON_PROPERTY_NEGATIVE_OR_ZERO_INT)
+  private Integer negativeOrZeroInt;
+
+  public static final String JSON_PROPERTY_NOT_BLANK_STRING = "notBlankString";
+  @JsonbProperty(JSON_PROPERTY_NOT_BLANK_STRING)
+  @Schema(required = true)
+  private String notBlankString;
+
+  public static final String JSON_PROPERTY_NOT_EMPTY_ARRAY = "notEmptyArray";
+  @JsonbProperty(JSON_PROPERTY_NOT_EMPTY_ARRAY)
+  @Schema(required = true)
+  private List<String> notEmptyArray = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_NOT_EMPTY_DTO = "notEmptyDto";
+  @JsonbProperty(JSON_PROPERTY_NOT_EMPTY_DTO)
+  private Simple notEmptyDto;
+
+  public static final String JSON_PROPERTY_NOT_EMPTY_STRING = "notEmptyString";
+  @JsonbProperty(JSON_PROPERTY_NOT_EMPTY_STRING)
+  @Schema(required = true)
+  private String notEmptyString;
+
   public static final String JSON_PROPERTY_PATTERN = "pattern";
   @JsonbProperty(JSON_PROPERTY_PATTERN)
   private String pattern;
@@ -64,9 +105,37 @@ public class ValidationDto {
   @JsonbProperty(JSON_PROPERTY_PATTERN_DIGITS)
   private String patternDigits;
 
+  public static final String JSON_PROPERTY_POSITIVE_BIG_DECIMAL = "positiveBigDecimal";
+  @JsonbProperty(JSON_PROPERTY_POSITIVE_BIG_DECIMAL)
+  private BigDecimal positiveBigDecimal;
+
+  public static final String JSON_PROPERTY_POSITIVE_INT = "positiveInt";
+  @JsonbProperty(JSON_PROPERTY_POSITIVE_INT)
+  private Integer positiveInt;
+
+  public static final String JSON_PROPERTY_POSITIVE_OR_ZERO_BIG_DECIMAL = "positiveOrZeroBigDecimal";
+  @JsonbProperty(JSON_PROPERTY_POSITIVE_OR_ZERO_BIG_DECIMAL)
+  private BigDecimal positiveOrZeroBigDecimal;
+
+  public static final String JSON_PROPERTY_POSITIVE_OR_ZERO_INT = "positiveOrZeroInt";
+  @JsonbProperty(JSON_PROPERTY_POSITIVE_OR_ZERO_INT)
+  private Integer positiveOrZeroInt;
+
   public static final String JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE = "primitivesShouldNotHaveValidate";
   @JsonbProperty(JSON_PROPERTY_PRIMITIVES_SHOULD_NOT_HAVE_VALIDATE)
   private List<Boolean> primitivesShouldNotHaveValidate;
+
+  public static final String JSON_PROPERTY_SIZED_ARRAY = "sizedArray";
+  @JsonbProperty(JSON_PROPERTY_SIZED_ARRAY)
+  private List<String> sizedArray;
+
+  public static final String JSON_PROPERTY_SIZED_OBJECT = "sizedObject";
+  @JsonbProperty(JSON_PROPERTY_SIZED_OBJECT)
+  private Simple sizedObject;
+
+  public static final String JSON_PROPERTY_SIZED_STRING = "sizedString";
+  @JsonbProperty(JSON_PROPERTY_SIZED_STRING)
+  private String sizedString;
 
   public static final String JSON_PROPERTY_VALID_OBJECTS = "validObjects";
   @JsonbProperty(JSON_PROPERTY_VALID_OBJECTS)
@@ -202,6 +271,163 @@ public class ValidationDto {
     this.name = Objects.requireNonNull(name, "Property name is required, cannot be null");
   }
 
+  public ValidationDto negativeBigDecimal(BigDecimal negativeBigDecimal) {
+    this.negativeBigDecimal = negativeBigDecimal;
+    return this;
+  }
+
+  /**
+   * Get negativeBigDecimal
+   * maximum: "0"
+   *
+   * @return negativeBigDecimal
+   **/
+  @Negative
+  public BigDecimal getNegativeBigDecimal() {
+    return negativeBigDecimal;
+  }
+
+  public void setNegativeBigDecimal(BigDecimal negativeBigDecimal) {
+    this.negativeBigDecimal = negativeBigDecimal;
+  }
+
+  public ValidationDto negativeInt(Integer negativeInt) {
+    this.negativeInt = negativeInt;
+    return this;
+  }
+
+  /**
+   * Get negativeInt
+   * maximum: 0L
+   *
+   * @return negativeInt
+   **/
+  @Negative
+  public Integer getNegativeInt() {
+    return negativeInt;
+  }
+
+  public void setNegativeInt(Integer negativeInt) {
+    this.negativeInt = negativeInt;
+  }
+
+  public ValidationDto negativeOrZeroBigDecimal(BigDecimal negativeOrZeroBigDecimal) {
+    this.negativeOrZeroBigDecimal = negativeOrZeroBigDecimal;
+    return this;
+  }
+
+  /**
+   * Get negativeOrZeroBigDecimal
+   * maximum: "0"
+   *
+   * @return negativeOrZeroBigDecimal
+   **/
+  @NegativeOrZero
+  public BigDecimal getNegativeOrZeroBigDecimal() {
+    return negativeOrZeroBigDecimal;
+  }
+
+  public void setNegativeOrZeroBigDecimal(BigDecimal negativeOrZeroBigDecimal) {
+    this.negativeOrZeroBigDecimal = negativeOrZeroBigDecimal;
+  }
+
+  public ValidationDto negativeOrZeroInt(Integer negativeOrZeroInt) {
+    this.negativeOrZeroInt = negativeOrZeroInt;
+    return this;
+  }
+
+  /**
+   * Get negativeOrZeroInt
+   * maximum: 0L
+   *
+   * @return negativeOrZeroInt
+   **/
+  @NegativeOrZero
+  public Integer getNegativeOrZeroInt() {
+    return negativeOrZeroInt;
+  }
+
+  public void setNegativeOrZeroInt(Integer negativeOrZeroInt) {
+    this.negativeOrZeroInt = negativeOrZeroInt;
+  }
+
+  public ValidationDto notBlankString(String notBlankString) {
+    this.notBlankString = Objects.requireNonNull(notBlankString, "Property notBlankString is required, cannot be null");
+    return this;
+  }
+
+  /**
+   * Get notBlankString
+   * @return notBlankString
+   **/
+  @NotNull @NotBlank
+  public String getNotBlankString() {
+    return notBlankString;
+  }
+
+  public void setNotBlankString(String notBlankString) {
+    this.notBlankString = Objects.requireNonNull(notBlankString, "Property notBlankString is required, cannot be null");
+  }
+
+  public ValidationDto notEmptyArray(List<String> notEmptyArray) {
+    this.notEmptyArray = Objects.requireNonNull(notEmptyArray, "Property notEmptyArray is required, cannot be null");
+    return this;
+  }
+
+  public ValidationDto addNotEmptyArrayItem(String notEmptyArrayItem) {
+    this.notEmptyArray.add(notEmptyArrayItem);
+    return this;
+  }
+
+  /**
+   * Get notEmptyArray
+   * @return notEmptyArray
+   **/
+  @NotNull @NotEmpty
+  public List<String> getNotEmptyArray() {
+    return notEmptyArray;
+  }
+
+  public void setNotEmptyArray(List<String> notEmptyArray) {
+    this.notEmptyArray = Objects.requireNonNull(notEmptyArray, "Property notEmptyArray is required, cannot be null");
+  }
+
+  public ValidationDto notEmptyDto(Simple notEmptyDto) {
+    this.notEmptyDto = notEmptyDto;
+    return this;
+  }
+
+  /**
+   * Get notEmptyDto
+   * @return notEmptyDto
+   **/
+  @Valid
+  public Simple getNotEmptyDto() {
+    return notEmptyDto;
+  }
+
+  public void setNotEmptyDto(Simple notEmptyDto) {
+    this.notEmptyDto = notEmptyDto;
+  }
+
+  public ValidationDto notEmptyString(String notEmptyString) {
+    this.notEmptyString = Objects.requireNonNull(notEmptyString, "Property notEmptyString is required, cannot be null");
+    return this;
+  }
+
+  /**
+   * Get notEmptyString
+   * @return notEmptyString
+   **/
+  @NotNull @NotEmpty
+  public String getNotEmptyString() {
+    return notEmptyString;
+  }
+
+  public void setNotEmptyString(String notEmptyString) {
+    this.notEmptyString = Objects.requireNonNull(notEmptyString, "Property notEmptyString is required, cannot be null");
+  }
+
   public ValidationDto pattern(String pattern) {
     this.pattern = pattern;
     return this;
@@ -238,6 +464,86 @@ public class ValidationDto {
     this.patternDigits = patternDigits;
   }
 
+  public ValidationDto positiveBigDecimal(BigDecimal positiveBigDecimal) {
+    this.positiveBigDecimal = positiveBigDecimal;
+    return this;
+  }
+
+  /**
+   * Get positiveBigDecimal
+   * minimum: "0"
+   *
+   * @return positiveBigDecimal
+   **/
+  @Positive
+  public BigDecimal getPositiveBigDecimal() {
+    return positiveBigDecimal;
+  }
+
+  public void setPositiveBigDecimal(BigDecimal positiveBigDecimal) {
+    this.positiveBigDecimal = positiveBigDecimal;
+  }
+
+  public ValidationDto positiveInt(Integer positiveInt) {
+    this.positiveInt = positiveInt;
+    return this;
+  }
+
+  /**
+   * Get positiveInt
+   * minimum: 0L
+   *
+   * @return positiveInt
+   **/
+  @Positive
+  public Integer getPositiveInt() {
+    return positiveInt;
+  }
+
+  public void setPositiveInt(Integer positiveInt) {
+    this.positiveInt = positiveInt;
+  }
+
+  public ValidationDto positiveOrZeroBigDecimal(BigDecimal positiveOrZeroBigDecimal) {
+    this.positiveOrZeroBigDecimal = positiveOrZeroBigDecimal;
+    return this;
+  }
+
+  /**
+   * Get positiveOrZeroBigDecimal
+   * minimum: "0"
+   *
+   * @return positiveOrZeroBigDecimal
+   **/
+  @PositiveOrZero
+  public BigDecimal getPositiveOrZeroBigDecimal() {
+    return positiveOrZeroBigDecimal;
+  }
+
+  public void setPositiveOrZeroBigDecimal(BigDecimal positiveOrZeroBigDecimal) {
+    this.positiveOrZeroBigDecimal = positiveOrZeroBigDecimal;
+  }
+
+  public ValidationDto positiveOrZeroInt(Integer positiveOrZeroInt) {
+    this.positiveOrZeroInt = positiveOrZeroInt;
+    return this;
+  }
+
+  /**
+   * Get positiveOrZeroInt
+   * minimum: 0L
+   *
+   * @return positiveOrZeroInt
+   **/
+  @PositiveOrZero
+  public Integer getPositiveOrZeroInt() {
+    return positiveOrZeroInt;
+  }
+
+  public void setPositiveOrZeroInt(Integer positiveOrZeroInt) {
+    this.positiveOrZeroInt = positiveOrZeroInt;
+  }
+
   public ValidationDto primitivesShouldNotHaveValidate(List<Boolean> primitivesShouldNotHaveValidate) {
     this.primitivesShouldNotHaveValidate = primitivesShouldNotHaveValidate;
     return this;
@@ -261,6 +567,68 @@ public class ValidationDto {
 
   public void setPrimitivesShouldNotHaveValidate(List<Boolean> primitivesShouldNotHaveValidate) {
     this.primitivesShouldNotHaveValidate = primitivesShouldNotHaveValidate;
+  }
+
+  public ValidationDto sizedArray(List<String> sizedArray) {
+    this.sizedArray = sizedArray;
+    return this;
+  }
+
+  public ValidationDto addSizedArrayItem(String sizedArrayItem) {
+    if (this.sizedArray == null) {
+      this.sizedArray = new ArrayList<>();
+    }
+    this.sizedArray.add(sizedArrayItem);
+    return this;
+  }
+
+  /**
+   * Get sizedArray
+   * @return sizedArray
+   **/
+  @Size(min = 1, max = 50)
+  public List<String> getSizedArray() {
+    return sizedArray;
+  }
+
+  public void setSizedArray(List<String> sizedArray) {
+    this.sizedArray = sizedArray;
+  }
+
+  public ValidationDto sizedObject(Simple sizedObject) {
+    this.sizedObject = sizedObject;
+    return this;
+  }
+
+  /**
+   * Get sizedObject
+   * @return sizedObject
+   **/
+  @Valid
+  public Simple getSizedObject() {
+    return sizedObject;
+  }
+
+  public void setSizedObject(Simple sizedObject) {
+    this.sizedObject = sizedObject;
+  }
+
+  public ValidationDto sizedString(String sizedString) {
+    this.sizedString = sizedString;
+    return this;
+  }
+
+  /**
+   * Get sizedString
+   * @return sizedString
+   **/
+  @Size(min = 1, max = 50)
+  public String getSizedString() {
+    return sizedString;
+  }
+
+  public void setSizedString(String sizedString) {
+    this.sizedString = sizedString;
   }
 
   public ValidationDto validObjects(List<Environment> validObjects) {
@@ -325,16 +693,31 @@ public class ValidationDto {
         Objects.equals(this.badParsingOfRange, other.badParsingOfRange) &&
         Objects.equals(this.intValue, other.intValue) &&
         Objects.equals(this.name, other.name) &&
+        Objects.equals(this.negativeBigDecimal, other.negativeBigDecimal) &&
+        Objects.equals(this.negativeInt, other.negativeInt) &&
+        Objects.equals(this.negativeOrZeroBigDecimal, other.negativeOrZeroBigDecimal) &&
+        Objects.equals(this.negativeOrZeroInt, other.negativeOrZeroInt) &&
+        Objects.equals(this.notBlankString, other.notBlankString) &&
+        Objects.equals(this.notEmptyArray, other.notEmptyArray) &&
+        Objects.equals(this.notEmptyDto, other.notEmptyDto) &&
+        Objects.equals(this.notEmptyString, other.notEmptyString) &&
         Objects.equals(this.pattern, other.pattern) &&
         Objects.equals(this.patternDigits, other.patternDigits) &&
+        Objects.equals(this.positiveBigDecimal, other.positiveBigDecimal) &&
+        Objects.equals(this.positiveInt, other.positiveInt) &&
+        Objects.equals(this.positiveOrZeroBigDecimal, other.positiveOrZeroBigDecimal) &&
+        Objects.equals(this.positiveOrZeroInt, other.positiveOrZeroInt) &&
         Objects.equals(this.primitivesShouldNotHaveValidate, other.primitivesShouldNotHaveValidate) &&
+        Objects.equals(this.sizedArray, other.sizedArray) &&
+        Objects.equals(this.sizedObject, other.sizedObject) &&
+        Objects.equals(this.sizedString, other.sizedString) &&
         Objects.equals(this.validObjects, other.validObjects) &&
         Objects.equals(this.veryBigLong, other.veryBigLong);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, pattern, patternDigits, primitivesShouldNotHaveValidate, validObjects, veryBigLong);
+    return Objects.hash(aBigDecimal, aBigDouble, aBigFloat, badParsingOfRange, intValue, name, negativeBigDecimal, negativeInt, negativeOrZeroBigDecimal, negativeOrZeroInt, notBlankString, notEmptyArray, notEmptyDto, notEmptyString, pattern, patternDigits, positiveBigDecimal, positiveInt, positiveOrZeroBigDecimal, positiveOrZeroInt, primitivesShouldNotHaveValidate, sizedArray, sizedObject, sizedString, validObjects, veryBigLong);
   }
 
   @Override
@@ -347,9 +730,24 @@ public class ValidationDto {
     sb.append("\n    badParsingOfRange: ").append(toIndentedString(badParsingOfRange));
     sb.append("\n    intValue: ").append(toIndentedString(intValue));
     sb.append("\n    name: ").append(toIndentedString(name));
+    sb.append("\n    negativeBigDecimal: ").append(toIndentedString(negativeBigDecimal));
+    sb.append("\n    negativeInt: ").append(toIndentedString(negativeInt));
+    sb.append("\n    negativeOrZeroBigDecimal: ").append(toIndentedString(negativeOrZeroBigDecimal));
+    sb.append("\n    negativeOrZeroInt: ").append(toIndentedString(negativeOrZeroInt));
+    sb.append("\n    notBlankString: ").append(toIndentedString(notBlankString));
+    sb.append("\n    notEmptyArray: ").append(toIndentedString(notEmptyArray));
+    sb.append("\n    notEmptyDto: ").append(toIndentedString(notEmptyDto));
+    sb.append("\n    notEmptyString: ").append(toIndentedString(notEmptyString));
     sb.append("\n    pattern: ").append(toIndentedString(pattern));
     sb.append("\n    patternDigits: ").append(toIndentedString(patternDigits));
+    sb.append("\n    positiveBigDecimal: ").append(toIndentedString(positiveBigDecimal));
+    sb.append("\n    positiveInt: ").append(toIndentedString(positiveInt));
+    sb.append("\n    positiveOrZeroBigDecimal: ").append(toIndentedString(positiveOrZeroBigDecimal));
+    sb.append("\n    positiveOrZeroInt: ").append(toIndentedString(positiveOrZeroInt));
     sb.append("\n    primitivesShouldNotHaveValidate: ").append(toIndentedString(primitivesShouldNotHaveValidate));
+    sb.append("\n    sizedArray: ").append(toIndentedString(sizedArray));
+    sb.append("\n    sizedObject: ").append(toIndentedString(sizedObject));
+    sb.append("\n    sizedString: ").append(toIndentedString(sizedString));
     sb.append("\n    validObjects: ").append(toIndentedString(validObjects));
     sb.append("\n    veryBigLong: ").append(toIndentedString(veryBigLong));
     sb.append("\n}");
