@@ -152,35 +152,9 @@ public class ValidationGenerator {
         state = transformSizeItems(state);
         state = transformSizeLength(state);
         state = transformDecimalMin(state);
+        state = transformDecimalMax(state);
         state = transformMin(state);
-        
-        String min = null;
-        String max = null;
-//        if (validation._minimum() != null) {
-//            if (type.isBigDecimal()) {
-//                min = "\"" + validation._minimum().toString() + "\"";
-//                state.addValidation("@DecimalMin(" + min + ") ");
-//                imports.add(ValidationApi.DECIMAL_MIN);
-//            } else {
-//                min = Long.toString(validation._minimum().longValue()) + "L";
-//                state.addValidation("@Min(" + min + ") ");
-//                imports.add(ValidationApi.MIN);
-//            }
-//            state.addJavadoc("   * minimum: " + min);
-//        }
-        if (validation._maximum() != null) {
-            if (type.isBigDecimal()) {
-                max = "\"" + validation._maximum().toString() + "\"";
-                state.addValidation("@DecimalMax(" + max + ") ");
-                imports.add(ValidationApi.DECIMAL_MAX);
-            } else {
-                max = Long.toString(validation._maximum().longValue()) + "L";
-                state.addValidation("@Max(" + max + ") ");
-                imports.add(ValidationApi.MAX);
-            }
-            state.addJavadoc("   * maximum: " + max);
-        }
-
+        state = transformMax(state);
 
         return Optional.of(state.build());
     }
@@ -258,12 +232,32 @@ public class ValidationGenerator {
         return state;
     }
 
+    private State transformDecimalMax(State state) {
+        if (state.maximum != null && state.type.isBigDecimal()) {
+            state.addValidation("@DecimalMax(" + state.maximum + ") ");
+            state.addImport(ValidationApi.DECIMAL_MAX);
+            state.addJavadoc("   * maximum: " + state.maximum);
+            state.maximum = null;
+        }
+        return state;
+    }
+
     private State transformMin(State state) {
         if (state.minimum != null && !state.type.isBigDecimal()) {
             state.addValidation("@Min(" + state.minimum + ") ");
             state.addImport(ValidationApi.MIN);
             state.addJavadoc("   * minimum: " + state.minimum);
             state.minimum = null;
+        }
+        return state;
+    }
+
+    private State transformMax(State state) {
+        if (state.maximum != null && !state.type.isBigDecimal()) {
+            state.addValidation("@Max(" + state.maximum + ") ");
+            state.addImport(ValidationApi.MAX);
+            state.addJavadoc("   * maximum: " + state.maximum);
+            state.maximum = null;
         }
         return state;
     }
