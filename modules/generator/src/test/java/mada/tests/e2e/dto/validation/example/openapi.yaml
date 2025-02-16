@@ -44,12 +44,27 @@ components:
     ValidationDto:
       required:
       - name
+      - notEmptyString
+      - notEmptyArray
+      - notBlankString
       type: object
       properties:
         name:
           maxLength: 50
           minLength: 1
           type: string
+        sizedString:
+          maxLength: 50
+          minLength: 1
+          type: string
+        sizedArray:
+          maxItems: 50
+          minItems: 1
+          type: array
+          items:
+            type: string
+        sizedObject:
+          $ref: "#/components/schemas/Simple"
         intValue:
           format: int32
           maximum: 20
@@ -93,7 +108,52 @@ components:
           minItems: 1
           type: array
           items:
-            $ref: '#/components/schemas/Environment'
+            $ref: "#/components/schemas/Environment"
+        notEmptyString:
+          minLength: 1
+          type: string
+        notEmptyArray:
+          minItems: 1
+          type: array
+          items:
+            type: string
+        notEmptyDto:
+          $ref: "#/components/schemas/Simple"
+        notBlankString:
+          pattern: \S
+          type: string
+        negativeInt:
+          format: int32
+          maximum: 0
+          exclusiveMaximum: true
+          type: integer
+        negativeBigDecimal:
+          maximum: 0
+          exclusiveMaximum: true
+          type: number
+        negativeOrZeroInt:
+          format: int32
+          maximum: 0
+          type: integer
+        negativeOrZeroBigDecimal:
+          maximum: 0
+          type: number
+        positiveInt:
+          format: int32
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+        positiveBigDecimal:
+          minimum: 0
+          exclusiveMinimum: true
+          type: number
+        positiveOrZeroInt:
+          format: int32
+          minimum: 0
+          type: integer
+        positiveOrZeroBigDecimal:
+          minimum: 0
+          type: number
         primitivesShouldNotHaveValidate:
           type: array
           items:
