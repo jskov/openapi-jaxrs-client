@@ -72,6 +72,15 @@ public class ValidationGenerator {
             this::transformMin,
             this::transformMax);
 
+    /**
+     * Transforms @Nullable annotation.
+     *
+     * This transformer does not clear the source state, so should
+     * not be rerun.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformNullable(State state) {
         if (state.isRequired && !state.isNullable) {
             state.addValidation("@NotNull ");
@@ -84,6 +93,15 @@ public class ValidationGenerator {
         return state;
     }
 
+    /**
+     * Transforms @Valid annotation.
+     *
+     * This transformer does not clear the source state, so should
+     * not be rerun.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformValid(State state) {
         // Decide where to put @Valid. I expect this to be too simple...
         if (state.type.isDto()
@@ -94,16 +112,28 @@ public class ValidationGenerator {
         return state;
     }
 
+    /**
+     * Transforms @Pattern annotation.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformPattern(State state) {
         if (state.pattern != null) {
             state.addValidation("@Pattern(regexp = \"" + state.pattern + "\") ");
-            ;
+
             state.pattern = null;
             state.addImport(ValidationApi.PATTERN);
         }
         return state;
     }
 
+    /**
+     * Transforms @Size annotation from min/maxItems.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformSizeItems(State state) {
         if (state.minItems != null || state.maxItems != null) {
             state.addImport(ValidationApi.SIZE);
@@ -120,6 +150,12 @@ public class ValidationGenerator {
         return state;
     }
 
+    /**
+     * Transforms @Size annotation from min/maxLength.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformSizeLength(State state) {
         if (state.minLength != null || state.maxLength != null) {
             state.addImport(ValidationApi.SIZE);
@@ -136,6 +172,12 @@ public class ValidationGenerator {
         return state;
     }
 
+    /**
+     * Transforms @DecimalMin annotation.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformDecimalMin(State state) {
         if (state.minimum != null && state.type.isBigDecimal()) {
             state.addValidation("@DecimalMin(" + state.minimum + ") ");
@@ -146,6 +188,12 @@ public class ValidationGenerator {
         return state;
     }
 
+    /**
+     * Transforms @DecimalMax annotation.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformDecimalMax(State state) {
         if (state.maximum != null && state.type.isBigDecimal()) {
             state.addValidation("@DecimalMax(" + state.maximum + ") ");
@@ -156,6 +204,12 @@ public class ValidationGenerator {
         return state;
     }
 
+    /**
+     * Transforms @Min annotation.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformMin(State state) {
         if (state.minimum != null && !state.type.isBigDecimal()) {
             state.addValidation("@Min(" + state.minimum + ") ");
@@ -166,6 +220,12 @@ public class ValidationGenerator {
         return state;
     }
 
+    /**
+     * Transforms @Max annotation.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
     private State transformMax(State state) {
         if (state.maximum != null && !state.type.isBigDecimal()) {
             state.addValidation("@Max(" + state.maximum + ") ");
@@ -173,10 +233,6 @@ public class ValidationGenerator {
             state.addJavadoc("   * maximum: " + state.maximum);
             state.maximum = null;
         }
-        return state;
-    }
-
-    private State transform(State state) {
         return state;
     }
 
