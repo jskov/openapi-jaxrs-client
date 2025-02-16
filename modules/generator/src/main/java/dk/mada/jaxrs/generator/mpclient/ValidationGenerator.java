@@ -149,37 +149,9 @@ public class ValidationGenerator {
         state = transformNullable(state);
         state = transformValid(state);
         state = transformPattern(state);
+        state = transformSizeItems(state);
+        state = transformSizeLength(state);
         
-//        // pattern = validation.pattern().map(StringRenderer::encodeRegexp);
-//        if (validation._pattern() != null) {
-//            String pattern = StringRenderer.encodeRegexp(validation._pattern());
-//            imports.add(ValidationApi.PATTERN);
-//            state.addValidation("@Pattern(regexp = \"" + pattern + "\") ");;
-//        }
-
-        // Note that OpenApi specification xItems/xLength both map to @Size
-        String sizeMin = validation
-                .minItems()
-                .or(validation::minLength)
-                .map(i -> Integer.toString(i)) // NOSONAR - not enough information to select variant
-                .orElse(null);
-        String sizeMax = validation
-                .maxItems()
-                .or(validation::maxLength)
-                .map(i -> Integer.toString(i)) // NOSONAR - not enough information to select variant
-                .orElse(null);
-
-        if (sizeMin != null || sizeMax != null) {
-            imports.add(ValidationApi.SIZE);
-            if (sizeMin != null && sizeMax != null) {
-                state.addValidation("@Size(min = " + sizeMin + ", max = " + sizeMax + ") ");
-            } else if (sizeMin != null) {
-                state.addValidation("@Size(min = " + sizeMin + ") ");
-            } else {
-                state.addValidation("@Size(max = " + sizeMax + ") ");
-            }
-        }
-
         String min = null;
         String max = null;
         if (validation._minimum() != null) {
@@ -237,6 +209,39 @@ public class ValidationGenerator {
             state.addValidation("@Pattern(regexp = \"" + state.pattern + "\") ");;
             state.pattern = null;
             state.addImport(ValidationApi.PATTERN);
+        }
+        return state;
+    }
+
+    
+    private State transformSizeItems(State state) {
+        if (state.minItems != null || state.maxItems != null) {
+            state.addImport(ValidationApi.SIZE);
+            if (state.minItems != null && state.maxItems != null) {
+                state.addValidation("@Size(min = " + state.minItems + ", max = " + state.maxItems + ") ");
+            } else if (state.minItems != null) {
+                state.addValidation("@Size(min = " + state.minItems + ") ");
+            } else {
+                state.addValidation("@Size(max = " + state.maxItems + ") ");
+            }
+            state.minItems = null;
+            state.maxItems = null;
+        }
+        return state;
+    }
+
+    private State transformSizeLength(State state) {
+        if (state.minLength != null || state.maxLength != null) {
+            state.addImport(ValidationApi.SIZE);
+            if (state.minLength != null && state.maxLength != null) {
+                state.addValidation("@Size(min = " + state.minLength + ", max = " + state.maxLength + ") ");
+            } else if (state.minLength != null) {
+                state.addValidation("@Size(min = " + state.minLength + ") ");
+            } else {
+                state.addValidation("@Size(max = " + state.maxLength + ") ");
+            }
+            state.minLength = null;
+            state.maxLength = null;
         }
         return state;
     }
