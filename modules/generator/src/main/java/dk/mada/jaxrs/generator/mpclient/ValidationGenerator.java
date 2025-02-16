@@ -55,6 +55,40 @@ public class ValidationGenerator {
             this.type = type;
             isNullable = validation.nullable();
             isRequired = validation.required();
+            
+            if (validation._pattern() != null) {
+                pattern = StringRenderer.encodeRegexp(validation._pattern());
+            }
+            
+            if (validation._minItems() != null) {
+                minItems = Integer.toString(validation._minItems());
+            }
+            if (validation._maxItems() != null) {
+                maxItems = Integer.toString(validation._maxItems());
+            }
+
+            if (validation._minLength() != null) {
+                minLength = Integer.toString(validation._minLength());
+            }
+            if (validation._maxLength() != null) {
+                maxLength = Integer.toString(validation._maxLength());
+            }
+
+            if (validation._minimum() != null) {
+                if (type.isBigDecimal()) {
+                    minimum = "\"" + validation._minimum().toString() + "\"";
+                } else {
+                    minimum = Long.toString(validation._minimum().longValue()) + "L";
+                }
+            }
+
+            if (validation._maximum() != null) {
+                if (type.isBigDecimal()) {
+                    maximum = "\"" + validation._maximum().toString() + "\"";
+                } else {
+                    maximum = Long.toString(validation._maximum().longValue()) + "L";
+                }
+            }
         }
         
         public boolean isCompleted() {
@@ -114,13 +148,14 @@ public class ValidationGenerator {
         State state = new State(imports, type, validation);
         state = transformNullable(state);
         state = transformValid(state);
+        state = transformPattern(state);
         
-        // pattern = validation.pattern().map(StringRenderer::encodeRegexp);
-        if (validation._pattern() != null) {
-            String pattern = StringRenderer.encodeRegexp(validation._pattern());
-            imports.add(ValidationApi.PATTERN);
-            state.addValidation("@Pattern(regexp = \"" + pattern + "\") ");;
-        }
+//        // pattern = validation.pattern().map(StringRenderer::encodeRegexp);
+//        if (validation._pattern() != null) {
+//            String pattern = StringRenderer.encodeRegexp(validation._pattern());
+//            imports.add(ValidationApi.PATTERN);
+//            state.addValidation("@Pattern(regexp = \"" + pattern + "\") ");;
+//        }
 
         // Note that OpenApi specification xItems/xLength both map to @Size
         String sizeMin = validation
@@ -194,6 +229,19 @@ public class ValidationGenerator {
             state.addValidation("@Valid ");
             state.addImport(ValidationApi.VALID);
         }
+        return state;
+    }
+
+    private State transformPattern(State state) {
+        if (state.pattern != null) {
+            state.addValidation("@Pattern(regexp = \"" + state.pattern + "\") ");;
+            state.pattern = null;
+            state.addImport(ValidationApi.PATTERN);
+        }
+        return state;
+    }
+
+    private State transform(State state) {
         return state;
     }
 }
