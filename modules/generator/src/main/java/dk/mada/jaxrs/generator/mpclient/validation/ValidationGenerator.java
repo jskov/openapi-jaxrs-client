@@ -57,7 +57,9 @@ public class ValidationGenerator {
         state = StandardTransformators.transformNullable(state);
         state = StandardTransformators.transformValid(state);
 
-        for (var transformer : fallbackTransformers) {
+        List<ValidationTransformer> activeTransformers = fallbackTransformers;
+
+        for (var transformer : activeTransformers) {
             if (state.isCompleted()) {
                 break;
             }
