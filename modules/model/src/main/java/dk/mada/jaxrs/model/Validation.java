@@ -15,7 +15,9 @@ import org.jspecify.annotations.Nullable;
  * @param _minLength optional validation minimal length
  * @param _maxLength optional validation maxmimal length
  * @param _minimum   optional validation minimum
+ * @param _exclusiveMinimum optional validation exclusive-minimum
  * @param _maximum   optional validation maximum
+ * @param _exclusiveMaximum optional validation exclusive-maximum
  * @param _pattern   optional validation pattern
  */
 public record Validation(
@@ -27,15 +29,17 @@ public record Validation(
         @Nullable Integer _minLength,
         @Nullable Integer _maxLength,
         @Nullable BigDecimal _minimum,
+        @Nullable Boolean _exclusiveMinimum,
         @Nullable BigDecimal _maximum,
+        @Nullable Boolean _exclusiveMaximum,
         @Nullable String _pattern) {
 
     /** Validation with no requirements to the type. */
     private static final Validation EMPTY_VALIDATION =
-            new Validation(false, false, null, null, null, null, null, null, null, null);
+            new Validation(false, false, null, null, null, null, null, null, null, null, null, null);
     /** Validation where type is required. */
     private static final Validation REQUIRED_VALIDATION =
-            new Validation(true, false, null, null, null, null, null, null, null, null);
+            new Validation(true, false, null, null, null, null, null, null, null, null, null, null);
 
     /** {@return an empty validation} */
     public static Validation empty() {

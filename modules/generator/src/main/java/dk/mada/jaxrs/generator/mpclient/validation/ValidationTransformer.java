@@ -5,6 +5,7 @@ import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.ValidationApi;
 import dk.mada.jaxrs.model.Validation;
+import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import java.util.function.Function;
 import org.jspecify.annotations.Nullable;
@@ -23,10 +24,16 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
         public final Imports imports;
         /** The type the validation is for. */
         public final Type type;
+        /** Flag for type being number or integer. */
+        private final boolean numberOrInteger;
         /** The type's nullable state. */
         final boolean isNullable;
         /** The type's required state. */
         final boolean isRequired;
+        /** The validation's flag for exclusive minimum. */
+        public final boolean exclusiveMinimum;
+        /** The validation's flag for exclusive maximum. */
+        public final boolean exclusiveMaximum;
 
         /** The validation in rendered form. Changed as transformers operate on the state. */
         private String rendered = "";
@@ -96,8 +103,21 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
                     maximum = Long.toString(validation._maximum().longValue()) + "L";
                 }
             }
+            exclusiveMinimum = validation._exclusiveMinimum() == Boolean.TRUE;
+            exclusiveMaximum = validation._exclusiveMaximum() == Boolean.TRUE;
+
+            boolean numberOrInteger = type.isBigDecimal();
+            if (type instanceof Primitive p) {
+                numberOrInteger |= p.isNumber();
+            }
+            this.numberOrInteger = numberOrInteger;
         }
 
+        /** {@return true if the type is a number or integer} */
+        public boolean isNumberOrInteger() {
+            return numberOrInteger;
+        }
+        
         /** {@return true if all the variable validations fields have been processed} */
         public boolean isCompleted() {
             return pattern == null
