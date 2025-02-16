@@ -29,6 +29,39 @@ public class ValidationGenerator {
         this.opts = opts;
     }
 
+    private final static class State {
+        private String rendered = "";
+        private String propComment = "";
+        private String javadoc = "";
+        
+        @Nullable String pattern;
+        @Nullable String minItems;
+        @Nullable String maxItems;
+        @Nullable String minLength;
+        @Nullable String maxLength;
+        @Nullable String minimum;
+        @Nullable String maximum;
+        
+        public void addValidation(String s) {
+            rendered += s;
+        }
+        public void addPropComment(String s) {
+            propComment += s;
+        }
+        public void addJavadoc(String s) {
+            javadoc += NL + s;
+        }
+        
+        public CtxValidation build() {
+            String j = null;
+            if (!javadoc.isEmpty()) {
+                // Trim initial newline
+                j = javadoc.substring(1);
+            }
+            return new CtxValidation(rendered, propComment, j);
+        }
+    }
+    
     /**
      * Generate validation rendering context from type and validation information.
      *
@@ -42,31 +75,31 @@ public class ValidationGenerator {
             return Optional.empty();
         }
 
-        String renderedValidation = "";
-        String javadocPropertyComment = "";
-        String javadoc = "";
-
+        State state = new State();
+        
         boolean isNullable = validation.nullable();
         boolean isRequired = validation.required();
         if (isRequired && !isNullable) {
-            renderedValidation += "@NotNull ";
-            javadocPropertyComment += " (not null)";
+            state.addValidation("@NotNull ");
+            state.addPropComment(" (not null)");
             imports.add(ValidationApi.NOT_NULL);
         } else {
-            javadocPropertyComment += " (optional)";
+            state.addPropComment(" (optional)");
             // FIXME: missing default value here
         }
         // Decide where to put @Valid. I expect this to be too simple...
         if (type.isDto() || (type instanceof TypeContainer tc && tc.innerType().isDto())) {
-            renderedValidation += "@Valid ";
+            state.addValidation("@Valid ");
             imports.add(ValidationApi.VALID);
         }
 
+        
+        
         // pattern = validation.pattern().map(StringRenderer::encodeRegexp);
         if (validation._pattern() != null) {
             String pattern = StringRenderer.encodeRegexp(validation._pattern());
             imports.add(ValidationApi.PATTERN);
-            renderedValidation += "@Pattern(regexp = \"" + pattern + "\") ";
+            state.addValidation("@Pattern(regexp = \"" + pattern + "\") ");;
         }
 
         // Note that OpenApi specification xItems/xLength both map to @Size
@@ -84,11 +117,11 @@ public class ValidationGenerator {
         if (sizeMin != null || sizeMax != null) {
             imports.add(ValidationApi.SIZE);
             if (sizeMin != null && sizeMax != null) {
-                renderedValidation += "@Size(min = " + sizeMin + ", max = " + sizeMax + ") ";
+                state.addValidation("@Size(min = " + sizeMin + ", max = " + sizeMax + ") ");
             } else if (sizeMin != null) {
-                renderedValidation += "@Size(min = " + sizeMin + ") ";
+                state.addValidation("@Size(min = " + sizeMin + ") ");
             } else {
-                renderedValidation += "@Size(max = " + sizeMax + ") ";
+                state.addValidation("@Size(max = " + sizeMax + ") ");
             }
         }
 
@@ -97,35 +130,29 @@ public class ValidationGenerator {
         if (validation._minimum() != null) {
             if (type.isBigDecimal()) {
                 min = "\"" + validation._minimum().toString() + "\"";
-                renderedValidation += "@DecimalMin(" + min + ") ";
+                state.addValidation("@DecimalMin(" + min + ") ");
                 imports.add(ValidationApi.DECIMAL_MIN);
             } else {
                 min = Long.toString(validation._minimum().longValue()) + "L";
-                renderedValidation += "@Min(" + min + ") ";
+                state.addValidation("@Min(" + min + ") ");
                 imports.add(ValidationApi.MIN);
             }
-            javadoc += NL + "   * minimum: " + min;
+            state.addJavadoc("   * minimum: " + min);
         }
         if (validation._maximum() != null) {
             if (type.isBigDecimal()) {
                 max = "\"" + validation._maximum().toString() + "\"";
-                renderedValidation += "@DecimalMax(" + max + ") ";
+                state.addValidation("@DecimalMax(" + max + ") ");
                 imports.add(ValidationApi.DECIMAL_MAX);
             } else {
                 max = Long.toString(validation._maximum().longValue()) + "L";
-                renderedValidation += "@Max(" + max + ") ";
+                state.addValidation("@Max(" + max + ") ");
                 imports.add(ValidationApi.MAX);
             }
-            javadoc += NL + "   * maximum: " + max;
+            state.addJavadoc("   * maximum: " + max);
         }
 
-        if (javadoc.isEmpty()) {
-            javadoc = null;
-        } else {
-            // Trim initial newline
-            javadoc = javadoc.substring(1);
-        }
 
-        return Optional.of(new CtxValidation(renderedValidation, javadocPropertyComment, javadoc));
+        return Optional.of(state.build());
     }
 }
