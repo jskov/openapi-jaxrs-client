@@ -1,5 +1,7 @@
-package dk.mada.jaxrs.generator.mpclient;
+package dk.mada.jaxrs.generator.mpclient.validation;
 
+import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
+import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.ValidationApi;
@@ -21,6 +23,16 @@ public class ValidationGenerator {
     private static final String NL = System.lineSeparator();
     /** Generator options. */
     private final GeneratorOpts opts;
+
+    /** The fallback transformers. These were the original transformers. */
+    private List<ValidationTransformer> fallbackTransformers = List.of(
+            this::transformPattern,
+            this::transformSizeItems,
+            this::transformSizeLength,
+            this::transformDecimalMin,
+            this::transformDecimalMax,
+            this::transformMin,
+            this::transformMax);
 
     /**
      * Constructs new instance.
@@ -62,15 +74,6 @@ public class ValidationGenerator {
         }
         return Optional.of(state.build());
     }
-
-    private List<ValidationTransformer> fallbackTransformers = List.of(
-            this::transformPattern,
-            this::transformSizeItems,
-            this::transformSizeLength,
-            this::transformDecimalMin,
-            this::transformDecimalMax,
-            this::transformMin,
-            this::transformMax);
 
     /**
      * Transforms @Nullable annotation.

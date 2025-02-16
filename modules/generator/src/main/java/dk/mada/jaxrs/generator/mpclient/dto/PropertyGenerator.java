@@ -5,7 +5,6 @@ import static dk.mada.jaxrs.generator.mpclient.StringRenderer.consumeNonBlankEnc
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
 import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
-import dk.mada.jaxrs.generator.mpclient.ValidationGenerator;
 import dk.mada.jaxrs.generator.mpclient.dto.DtoSubjectDefiner.DtoSubjectBase;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxEnum;
 import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxProperty;
@@ -18,6 +17,7 @@ import dk.mada.jaxrs.generator.mpclient.imports.JavaUtil;
 import dk.mada.jaxrs.generator.mpclient.imports.JaxRs;
 import dk.mada.jaxrs.generator.mpclient.imports.RestEasy;
 import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
+import dk.mada.jaxrs.generator.mpclient.validation.ValidationGenerator;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
 import dk.mada.jaxrs.model.naming.Naming;
