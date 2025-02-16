@@ -23,13 +23,13 @@ public class ValidationGenerator {
 
     /** The fallback transformers. These were the original transformers. */
     private List<ValidationTransformer> fallbackTransformers = List.of(
-            StandardTransformators::transformPattern,
-            StandardTransformators::transformSizeItems,
-            StandardTransformators::transformSizeLength,
-            StandardTransformators::transformDecimalMin,
-            StandardTransformators::transformDecimalMax,
-            StandardTransformators::transformMin,
-            StandardTransformators::transformMax);
+            StandardTransformers::transformPattern,
+            StandardTransformers::transformSizeItems,
+            StandardTransformers::transformSizeLength,
+            StandardTransformers::transformDecimalMin,
+            StandardTransformers::transformDecimalMax,
+            StandardTransformers::transformMin,
+            StandardTransformers::transformMax);
 
     /**
      * Constructs new instance.
@@ -54,8 +54,8 @@ public class ValidationGenerator {
         }
 
         State state = new State(imports, type, validation);
-        state = StandardTransformators.transformNullable(state);
-        state = StandardTransformators.transformValid(state);
+        state = StandardTransformers.transformNullable(state);
+        state = StandardTransformers.transformValid(state);
 
         List<ValidationTransformer> activeTransformers = fallbackTransformers;
 

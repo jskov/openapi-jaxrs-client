@@ -4,7 +4,13 @@ import dk.mada.jaxrs.generator.mpclient.imports.ValidationApi;
 import dk.mada.jaxrs.generator.mpclient.validation.ValidationTransformer.State;
 import dk.mada.jaxrs.model.types.TypeContainer;
 
-public class StandardTransformators {
+/**
+ * Standard transformers.
+ *
+ * These provide a fall-back handling of validation annotations
+ * if no more specific transformers have been in play.
+ */
+public class StandardTransformers {
 
     /**
      * Transforms @Nullable annotation.
