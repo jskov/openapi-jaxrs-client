@@ -9,8 +9,8 @@ package mada.tests.e2e.api.types_mediatypes.dto;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -58,7 +58,7 @@ public class LogOrigin {
    * Get applicationHostId
    * @return applicationHostId
    **/
-  @NotNull @Pattern(regexp = "\\S")
+  @NotNull @NotBlank
   public String getApplicationHostId() {
     return applicationHostId;
   }
@@ -76,7 +76,7 @@ public class LogOrigin {
    * Get applicationName
    * @return applicationName
    **/
-  @NotNull @Pattern(regexp = "\\S")
+  @NotNull @NotBlank
   public String getApplicationName() {
     return applicationName;
   }
@@ -94,7 +94,7 @@ public class LogOrigin {
    * Get applicationVersion
    * @return applicationVersion
    **/
-  @NotNull @Pattern(regexp = "\\S")
+  @NotNull @NotBlank
   public String getApplicationVersion() {
     return applicationVersion;
   }
@@ -130,7 +130,7 @@ public class LogOrigin {
    * Get environment
    * @return environment
    **/
-  @NotNull @Pattern(regexp = "\\S")
+  @NotNull @NotBlank
   public String getEnvironment() {
     return environment;
   }

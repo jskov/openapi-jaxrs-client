@@ -9,8 +9,8 @@ package mada.tests.e2e.api.types_mediatypes.dto;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -46,7 +46,7 @@ public class LogInitiator {
    * Get initiator
    * @return initiator
    **/
-  @NotNull @Pattern(regexp = "\\S")
+  @NotNull @NotBlank
   public String getInitiator() {
     return initiator;
   }

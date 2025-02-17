@@ -18,9 +18,14 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Negative;
+import javax.validation.constraints.NegativeOrZero;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -273,11 +278,9 @@ public class ValidationDto {
 
   /**
    * Get negativeBigDecimal
-   * maximum: "0"
-   *
    * @return negativeBigDecimal
    **/
-  @DecimalMax("0")
+  @Negative
   public BigDecimal getNegativeBigDecimal() {
     return negativeBigDecimal;
   }
@@ -293,11 +296,9 @@ public class ValidationDto {
 
   /**
    * Get negativeInt
-   * maximum: 0L
-   *
    * @return negativeInt
    **/
-  @Max(0L)
+  @Negative
   public Integer getNegativeInt() {
     return negativeInt;
   }
@@ -313,11 +314,9 @@ public class ValidationDto {
 
   /**
    * Get negativeOrZeroBigDecimal
-   * maximum: "0"
-   *
    * @return negativeOrZeroBigDecimal
    **/
-  @DecimalMax("0")
+  @NegativeOrZero
   public BigDecimal getNegativeOrZeroBigDecimal() {
     return negativeOrZeroBigDecimal;
   }
@@ -333,11 +332,9 @@ public class ValidationDto {
 
   /**
    * Get negativeOrZeroInt
-   * maximum: 0L
-   *
    * @return negativeOrZeroInt
    **/
-  @Max(0L)
+  @NegativeOrZero
   public Integer getNegativeOrZeroInt() {
     return negativeOrZeroInt;
   }
@@ -355,7 +352,7 @@ public class ValidationDto {
    * Get notBlankString
    * @return notBlankString
    **/
-  @NotNull @Pattern(regexp = "\\S")
+  @NotNull @NotBlank
   public String getNotBlankString() {
     return notBlankString;
   }
@@ -378,7 +375,7 @@ public class ValidationDto {
    * Get notEmptyArray
    * @return notEmptyArray
    **/
-  @NotNull @Size(min = 1)
+  @NotNull @NotEmpty
   public List<String> getNotEmptyArray() {
     return notEmptyArray;
   }
@@ -466,11 +463,9 @@ public class ValidationDto {
 
   /**
    * Get positiveBigDecimal
-   * minimum: "0"
-   *
    * @return positiveBigDecimal
    **/
-  @DecimalMin("0")
+  @Positive
   public BigDecimal getPositiveBigDecimal() {
     return positiveBigDecimal;
   }
@@ -486,11 +481,9 @@ public class ValidationDto {
 
   /**
    * Get positiveInt
-   * minimum: 0L
-   *
    * @return positiveInt
    **/
-  @Min(0L)
+  @Positive
   public Integer getPositiveInt() {
     return positiveInt;
   }
@@ -506,11 +499,9 @@ public class ValidationDto {
 
   /**
    * Get positiveOrZeroBigDecimal
-   * minimum: "0"
-   *
    * @return positiveOrZeroBigDecimal
    **/
-  @DecimalMin("0")
+  @PositiveOrZero
   public BigDecimal getPositiveOrZeroBigDecimal() {
     return positiveOrZeroBigDecimal;
   }
@@ -526,11 +517,9 @@ public class ValidationDto {
 
   /**
    * Get positiveOrZeroInt
-   * minimum: 0L
-   *
    * @return positiveOrZeroInt
    **/
-  @Min(0L)
+  @PositiveOrZero
   public Integer getPositiveOrZeroInt() {
     return positiveOrZeroInt;
   }
