@@ -33,13 +33,14 @@ public class ValidationGenerator {
             StandardTransformers::transformMax);
 
     /** Additional transformers used by MicroProfile. */
-    private static final List<ValidationTransformer> MICROPROFILE_TRANSFORMERS =
-            List.of(MicroProfileTransformers::transformNotEmpty,
-                    MicroProfileTransformers::transformNegative,
-                    MicroProfileTransformers::transformNegativeOrZero,
-                    MicroProfileTransformers::transformPositive,
-                    MicroProfileTransformers::transformPositiveOrZero,
-                    MicroProfileTransformers::transformNotBlank);
+    private static final List<ValidationTransformer> MICROPROFILE_TRANSFORMERS = List.of(
+            MicroProfileTransformers::transformNotEmptyString,
+            MicroProfileTransformers::transformNotEmptyArray,
+            MicroProfileTransformers::transformNegative,
+            MicroProfileTransformers::transformNegativeOrZero,
+            MicroProfileTransformers::transformPositive,
+            MicroProfileTransformers::transformPositiveOrZero,
+            MicroProfileTransformers::transformNotBlank);
 
     /** The transformers configured for use. */
     private final List<ValidationTransformer> activeTransformers;

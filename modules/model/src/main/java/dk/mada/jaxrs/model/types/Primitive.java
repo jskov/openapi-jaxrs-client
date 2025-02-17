@@ -121,13 +121,18 @@ public enum Primitive implements Type {
         // String is not a *real* primitive
         return this != STRING;
     }
-    
-    /** 
+
+    /**
      * {@return true if this primitive is a OpenApi number}
      *
      * Note that there is an overlap with integer.
      */
     public boolean isNumber() {
-        return this == BYTE_NUMBER || this == SHORT_NUMBER || this == INT || this == LONG || this == FLOAT || this == DOUBLE; 
+        return this == BYTE_NUMBER
+                || this == SHORT_NUMBER
+                || this == INT
+                || this == LONG
+                || this == FLOAT
+                || this == DOUBLE;
     }
 }
