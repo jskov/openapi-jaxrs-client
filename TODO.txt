@@ -6,8 +6,6 @@
 API:
   * .../map
     does not handle object inner types because of createSupplementalValidation
-  * /api/params/body/boolean-primitive
-    @NotNull on primitive
   * still a lot of instanceof in the TypeConverter so the "all" document used in the specs
     tests must be woefully incomplete
 
