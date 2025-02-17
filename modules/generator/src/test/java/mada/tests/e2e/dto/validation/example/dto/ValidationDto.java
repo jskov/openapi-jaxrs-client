@@ -278,8 +278,6 @@ public class ValidationDto {
 
   /**
    * Get negativeBigDecimal
-   * maximum: "0"
-   *
    * @return negativeBigDecimal
    **/
   @Negative
@@ -298,8 +296,6 @@ public class ValidationDto {
 
   /**
    * Get negativeInt
-   * maximum: 0L
-   *
    * @return negativeInt
    **/
   @Negative
@@ -318,8 +314,6 @@ public class ValidationDto {
 
   /**
    * Get negativeOrZeroBigDecimal
-   * maximum: "0"
-   *
    * @return negativeOrZeroBigDecimal
    **/
   @NegativeOrZero
@@ -338,8 +332,6 @@ public class ValidationDto {
 
   /**
    * Get negativeOrZeroInt
-   * maximum: 0L
-   *
    * @return negativeOrZeroInt
    **/
   @NegativeOrZero
@@ -471,8 +463,6 @@ public class ValidationDto {
 
   /**
    * Get positiveBigDecimal
-   * minimum: "0"
-   *
    * @return positiveBigDecimal
    **/
   @Positive
@@ -491,8 +481,6 @@ public class ValidationDto {
 
   /**
    * Get positiveInt
-   * minimum: 0L
-   *
    * @return positiveInt
    **/
   @Positive
@@ -511,8 +499,6 @@ public class ValidationDto {
 
   /**
    * Get positiveOrZeroBigDecimal
-   * minimum: "0"
-   *
    * @return positiveOrZeroBigDecimal
    **/
   @PositiveOrZero
@@ -531,8 +517,6 @@ public class ValidationDto {
 
   /**
    * Get positiveOrZeroInt
-   * minimum: 0L
-   *
    * @return positiveOrZeroInt
    **/
   @PositiveOrZero
