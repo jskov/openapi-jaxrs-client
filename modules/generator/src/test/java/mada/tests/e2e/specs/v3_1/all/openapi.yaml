@@ -745,11 +745,26 @@ components:
       type: object
       required:
       - name
+      - notEmptyString
+      - notEmptyArray
+      - notBlankString
       properties:
         name:
           type: string
           minLength: 1
           maxLength: 50
+        sizedString:
+          type: string
+          minLength: 1
+          maxLength: 50
+        sizedArray:
+          type: array
+          maxItems: 50
+          minItems: 1
+          items:
+            type: string
+        sizedObject:
+          $ref: "#/components/schemas/Simple"
         intValue:
           type: integer
           format: int32
@@ -794,6 +809,47 @@ components:
           minItems: 1
           items:
             $ref: "#/components/schemas/Environment"
+        notEmptyString:
+          type: string
+          minLength: 1
+        notEmptyArray:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        notEmptyDto:
+          $ref: "#/components/schemas/Simple"
+        notBlankString:
+          type: string
+          pattern: \S
+        negativeInt:
+          type: integer
+          format: int32
+          exclusiveMaximum: 0
+        negativeBigDecimal:
+          type: number
+          exclusiveMaximum: 0
+        negativeOrZeroInt:
+          type: integer
+          format: int32
+          maximum: 0
+        negativeOrZeroBigDecimal:
+          type: number
+          maximum: 0
+        positiveInt:
+          type: integer
+          exclusiveMinimum: 0
+          format: int32
+        positiveBigDecimal:
+          type: number
+          exclusiveMinimum: 0
+        positiveOrZeroInt:
+          type: integer
+          format: int32
+          minimum: 0
+        positiveOrZeroBigDecimal:
+          type: number
+          minimum: 0
         primitivesShouldNotHaveValidate:
           type: array
           items:
@@ -803,15 +859,60 @@ components:
       format: date-time
       examples:
       - 2022-03-10T12:15:50-04:00
+    microprofile-annotations:
+      type: object
+      required:
+      - isRequired
+      - requiredAndDescriptionAndExample
+      - requiredAndExample
+      - requiredAndDescription
+      - readonlyRequiredAndDescriptionAndExample
+      description: openapi class description
+      properties:
+        withDescription:
+          type: string
+          description: openapi property description
+        withExample:
+          type: string
+          examples:
+          - openapi property example
+        isRequired:
+          type: string
+        requiredAndDescriptionAndExample:
+          type: string
+          examples:
+          - text_example
+          description: text_description
+        requiredAndExample:
+          type: string
+          examples:
+          - text_example
+        requiredAndDescription:
+          type: string
+          description: text_description
+        descriptionAndExample:
+          type: string
+          examples:
+          - text_example
+          description: text_description
+        isReadonly:
+          type: string
+          readOnly: true
+        readonlyRequiredAndDescriptionAndExample:
+          type: string
+          readOnly: true
+          examples:
+          - text_example
+          description: text_description
 info:
   contact:
     email: email@example.com
     name: openapi API contact name
-    url: http://test.com/https://contact.url
+    url: http://test.com/openapi API contact url
   description: openapi API description
   license:
     name: openapi API license name
-    url: http://test.com/https://license.url
+    url: http://test.com/openapi API license url
   termsOfService: openapi API TOS
   title: openapi API Title
   version: openapi API Version
@@ -1842,7 +1943,6 @@ paths:
                   format: local-time
                   examples:
                   - "13:45:30.123456789"
-                  # Quoted to avoid breaking Jackson, see https://github.com/smallrye/smallrye-open-api/issues/2193
                   externalDocs:
                     description: As defined by 'partial-time' in RFC3339
                     url: https://www.rfc-editor.org/rfc/rfc3339.html#section-5.6

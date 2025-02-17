@@ -15,10 +15,22 @@ public enum ValidationApi implements TypedImport {
     MAX("javax.validation.constraints.Max"),
     /** Min. */
     MIN("javax.validation.constraints.Min"),
+    /** Negative. */
+    NEGATIVE("javax.validation.constraints.Negative"),
+    /** Negative or zero. */
+    NEGATIVE_OR_ZERO("javax.validation.constraints.NegativeOrZero"),
+    /** NotBlank. */
+    NOT_BLANK("javax.validation.constraints.NotBlank"),
+    /** NotEmpty. */
+    NOT_EMPTY("javax.validation.constraints.NotEmpty"),
     /** NotNull. */
     NOT_NULL("javax.validation.constraints.NotNull"),
     /** Pattern. */
     PATTERN("javax.validation.constraints.Pattern"),
+    /** Positive. */
+    POSITIVE("javax.validation.constraints.Positive"),
+    /** Positive or zero. */
+    POSITIVE_OR_ZERO("javax.validation.constraints.PositiveOrZero"),
     /** Size. */
     SIZE("javax.validation.constraints.Size"),
     /** Valid. */

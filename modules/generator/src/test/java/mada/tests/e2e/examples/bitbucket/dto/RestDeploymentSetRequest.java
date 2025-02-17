@@ -21,8 +21,8 @@ import jakarta.json.bind.adapter.JsonbAdapter;
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.json.bind.annotation.JsonbTypeAdapter;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -212,11 +212,9 @@ public class RestDeploymentSetRequest {
 
   /**
    * Get lastUpdated
-   * minimum: 0L
-   *
    * @return lastUpdated
    **/
-  @Min(0L)
+  @PositiveOrZero
   public Long getLastUpdated() {
     return lastUpdated;
   }

@@ -6,11 +6,11 @@ info:
   termsOfService: openapi API TOS
   contact:
     name: openapi API contact name
-    url: http://test.com/https://contact.url
+    url: http://test.com/openapi API contact url
     email: email@example.com
   license:
     name: openapi API license name
-    url: http://test.com/https://license.url
+    url: http://test.com/openapi API license url
   version: openapi API Version
 externalDocs:
   description: openapi API ext docs description
@@ -1788,6 +1788,8 @@ components:
         isNullableViaSchema:
           type: string
           nullable: true
+        mpAnnotations:
+          $ref: "#/components/schemas/microprofile-annotations"
         mpAnnotationsPropsOnly:
           $ref: "#/components/schemas/MicroProfileAnnotationsPropsOnly"
     SetsDto:
@@ -2014,12 +2016,27 @@ components:
     ValidationDto:
       required:
       - name
+      - notEmptyString
+      - notEmptyArray
+      - notBlankString
       type: object
       properties:
         name:
           maxLength: 50
           minLength: 1
           type: string
+        sizedString:
+          maxLength: 50
+          minLength: 1
+          type: string
+        sizedArray:
+          maxItems: 50
+          minItems: 1
+          type: array
+          items:
+            type: string
+        sizedObject:
+          $ref: "#/components/schemas/Simple"
         intValue:
           format: int32
           maximum: 20
@@ -2064,6 +2081,51 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Environment"
+        notEmptyString:
+          minLength: 1
+          type: string
+        notEmptyArray:
+          minItems: 1
+          type: array
+          items:
+            type: string
+        notEmptyDto:
+          $ref: "#/components/schemas/Simple"
+        notBlankString:
+          pattern: \S
+          type: string
+        negativeInt:
+          format: int32
+          maximum: 0
+          exclusiveMaximum: true
+          type: integer
+        negativeBigDecimal:
+          maximum: 0
+          exclusiveMaximum: true
+          type: number
+        negativeOrZeroInt:
+          format: int32
+          maximum: 0
+          type: integer
+        negativeOrZeroBigDecimal:
+          maximum: 0
+          type: number
+        positiveInt:
+          format: int32
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+        positiveBigDecimal:
+          minimum: 0
+          exclusiveMinimum: true
+          type: number
+        positiveOrZeroInt:
+          format: int32
+          minimum: 0
+          type: integer
+        positiveOrZeroBigDecimal:
+          minimum: 0
+          type: number
         primitivesShouldNotHaveValidate:
           type: array
           items:
@@ -2072,3 +2134,43 @@ components:
       format: date-time
       type: string
       example: 2022-03-10T12:15:50-04:00
+    microprofile-annotations:
+      description: openapi class description
+      required:
+      - isRequired
+      - requiredAndDescriptionAndExample
+      - requiredAndExample
+      - requiredAndDescription
+      - readonlyRequiredAndDescriptionAndExample
+      type: object
+      properties:
+        withDescription:
+          description: openapi property description
+          type: string
+        withExample:
+          type: string
+          example: openapi property example
+        isRequired:
+          type: string
+        requiredAndDescriptionAndExample:
+          description: text_description
+          type: string
+          example: text_example
+        requiredAndExample:
+          type: string
+          example: text_example
+        requiredAndDescription:
+          description: text_description
+          type: string
+        descriptionAndExample:
+          description: text_description
+          type: string
+          example: text_example
+        isReadonly:
+          type: string
+          readOnly: true
+        readonlyRequiredAndDescriptionAndExample:
+          description: text_description
+          type: string
+          readOnly: true
+          example: text_example

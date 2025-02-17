@@ -16,9 +16,9 @@
 package mada.tests.e2e.examples.bitbucket.dto;
 
 import jakarta.json.bind.annotation.JsonbProperty;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -88,11 +88,9 @@ public class RestSingleAddInsightAnnotationRequest {
 
   /**
    * Get line
-   * minimum: 0L
-   *
    * @return line
    **/
-  @Min(0L)
+  @PositiveOrZero
   public Integer getLine() {
     return line;
   }

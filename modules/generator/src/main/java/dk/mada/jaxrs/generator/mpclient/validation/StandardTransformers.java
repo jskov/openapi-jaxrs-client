@@ -11,6 +11,10 @@ import dk.mada.jaxrs.model.types.TypeContainer;
  * if no more specific transformers have been in play.
  */
 public class StandardTransformers {
+    /** Prevent creation of instances. */
+    private StandardTransformers() {
+        // empty
+    }
 
     /**
      * Transforms @Nullable annotation.

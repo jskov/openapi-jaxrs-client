@@ -5,6 +5,7 @@ import dk.mada.jaxrs.generator.mpclient.dto.tmpl.CtxValidation;
 import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.imports.ValidationApi;
 import dk.mada.jaxrs.model.Validation;
+import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import java.util.function.Function;
 import org.jspecify.annotations.Nullable;
@@ -23,10 +24,20 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
         public final Imports imports;
         /** The type the validation is for. */
         public final Type type;
+        /** Flag for type being number or integer. */
+        private final boolean numberOrInteger;
         /** The type's nullable state. */
         final boolean isNullable;
         /** The type's required state. */
         final boolean isRequired;
+        /** The validation's flag for exclusive minimum. */
+        public final boolean exclusiveMinimum;
+        /** The validation's flag for exclusive maximum. */
+        public final boolean exclusiveMaximum;
+        /** True if maximum is zero. */
+        public final boolean maximumIsZero;
+        /** True if minimum is zero. */
+        public final boolean minimumIsZero;
 
         /** The validation in rendered form. Changed as transformers operate on the state. */
         private String rendered = "";
@@ -87,6 +98,9 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
                 } else {
                     minimum = Long.toString(validation._minimum().longValue()) + "L";
                 }
+                minimumIsZero = "\"0\"".equals(minimum) || "0L".equals(minimum);
+            } else {
+                minimumIsZero = false;
             }
 
             if (validation._maximum() != null) {
@@ -95,7 +109,28 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
                 } else {
                     maximum = Long.toString(validation._maximum().longValue()) + "L";
                 }
+                maximumIsZero = "\"0\"".equals(maximum) || "0L".equals(maximum);
+            } else {
+                maximumIsZero = false;
             }
+            exclusiveMinimum = Boolean.TRUE.equals(validation._exclusiveMinimum());
+            exclusiveMaximum = Boolean.TRUE.equals(validation._exclusiveMaximum());
+
+            boolean numberOrInteger = type.isBigDecimal();
+            if (type instanceof Primitive p) {
+                numberOrInteger |= p.isNumber();
+            }
+            this.numberOrInteger = numberOrInteger;
+        }
+
+        /** {@return true if the type is a number or integer} */
+        public boolean isNumberOrInteger() {
+            return numberOrInteger;
+        }
+
+        /** {@return true if the type is a string} */
+        public boolean isString() {
+            return type.isPrimitive(Primitive.STRING);
         }
 
         /** {@return true if all the variable validations fields have been processed} */

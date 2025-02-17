@@ -6,6 +6,7 @@ import dk.mada.jaxrs.generator.mpclient.imports.Imports;
 import dk.mada.jaxrs.generator.mpclient.validation.ValidationTransformer.State;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.jspecify.annotations.Nullable;
@@ -22,7 +23,7 @@ public class ValidationGenerator {
     private final GeneratorOpts opts;
 
     /** The fallback transformers. These were the original transformers. */
-    private List<ValidationTransformer> fallbackTransformers = List.of(
+    private static final List<ValidationTransformer> FALLBACK_TRANSFORMERS = List.of(
             StandardTransformers::transformPattern,
             StandardTransformers::transformSizeItems,
             StandardTransformers::transformSizeLength,
@@ -31,6 +32,19 @@ public class ValidationGenerator {
             StandardTransformers::transformMin,
             StandardTransformers::transformMax);
 
+    /** Additional transformers used by MicroProfile. */
+    private static final List<ValidationTransformer> MICROPROFILE_TRANSFORMERS = List.of(
+            MicroProfileTransformers::transformNotEmptyString,
+            MicroProfileTransformers::transformNotEmptyArray,
+            MicroProfileTransformers::transformNegative,
+            MicroProfileTransformers::transformNegativeOrZero,
+            MicroProfileTransformers::transformPositive,
+            MicroProfileTransformers::transformPositiveOrZero,
+            MicroProfileTransformers::transformNotBlank);
+
+    /** The transformers configured for use. */
+    private final List<ValidationTransformer> activeTransformers;
+
     /**
      * Constructs new instance.
      *
@@ -38,6 +52,12 @@ public class ValidationGenerator {
      */
     public ValidationGenerator(GeneratorOpts opts) {
         this.opts = opts;
+
+        activeTransformers = new ArrayList<>();
+        if (opts.isUseMpValidationRules()) {
+            activeTransformers.addAll(MICROPROFILE_TRANSFORMERS);
+        }
+        activeTransformers.addAll(FALLBACK_TRANSFORMERS);
     }
 
     /**
@@ -56,8 +76,6 @@ public class ValidationGenerator {
         State state = new State(imports, type, validation);
         state = StandardTransformers.transformNullable(state);
         state = StandardTransformers.transformValid(state);
-
-        List<ValidationTransformer> activeTransformers = fallbackTransformers;
 
         for (var transformer : activeTransformers) {
             if (state.isCompleted()) {

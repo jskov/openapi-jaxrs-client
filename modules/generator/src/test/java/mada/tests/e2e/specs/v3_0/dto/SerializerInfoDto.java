@@ -40,6 +40,10 @@ public class SerializerInfoDto {
   @Schema(nullable = true)
   private String isNullableViaSchema;
 
+  public static final String JSON_PROPERTY_MP_ANNOTATIONS = "mpAnnotations";
+  @JsonbProperty(JSON_PROPERTY_MP_ANNOTATIONS)
+  private MicroprofileAnnotations mpAnnotations;
+
   public static final String JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY = "mpAnnotationsPropsOnly";
   @JsonbProperty(JSON_PROPERTY_MP_ANNOTATIONS_PROPS_ONLY)
   private MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly;
@@ -158,6 +162,24 @@ public class SerializerInfoDto {
 
   public void setIsNullableViaSchema(String isNullableViaSchema) {
     this.isNullableViaSchema = isNullableViaSchema;
+  }
+
+  public SerializerInfoDto mpAnnotations(MicroprofileAnnotations mpAnnotations) {
+    this.mpAnnotations = mpAnnotations;
+    return this;
+  }
+
+  /**
+   * Get mpAnnotations
+   * @return mpAnnotations
+   **/
+  @Valid
+  public MicroprofileAnnotations getMpAnnotations() {
+    return mpAnnotations;
+  }
+
+  public void setMpAnnotations(MicroprofileAnnotations mpAnnotations) {
+    this.mpAnnotations = mpAnnotations;
   }
 
   public SerializerInfoDto mpAnnotationsPropsOnly(MicroProfileAnnotationsPropsOnly mpAnnotationsPropsOnly) {
@@ -314,6 +336,7 @@ public class SerializerInfoDto {
         Objects.equals(this.beta, other.beta) &&
         Objects.equals(this.isNullable, other.isNullable) &&
         Objects.equals(this.isNullableViaSchema, other.isNullableViaSchema) &&
+        Objects.equals(this.mpAnnotations, other.mpAnnotations) &&
         Objects.equals(this.mpAnnotationsPropsOnly, other.mpAnnotationsPropsOnly) &&
         Objects.equals(this.mustInclude, other.mustInclude) &&
         Objects.equals(this.mustIncludeViaSchema, other.mustIncludeViaSchema) &&
@@ -326,7 +349,7 @@ public class SerializerInfoDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(_withDigit, alpha, beta, isNullable, isNullableViaSchema, mpAnnotationsPropsOnly, mustInclude, mustIncludeViaSchema, notNull, notNullViaSchema, upperCase, withDashes, zapRenamed);
+    return Objects.hash(_withDigit, alpha, beta, isNullable, isNullableViaSchema, mpAnnotations, mpAnnotationsPropsOnly, mustInclude, mustIncludeViaSchema, notNull, notNullViaSchema, upperCase, withDashes, zapRenamed);
   }
 
   @Override
@@ -338,6 +361,7 @@ public class SerializerInfoDto {
     sb.append("\n    beta: ").append(toIndentedString(beta));
     sb.append("\n    isNullable: ").append(toIndentedString(isNullable));
     sb.append("\n    isNullableViaSchema: ").append(toIndentedString(isNullableViaSchema));
+    sb.append("\n    mpAnnotations: ").append(toIndentedString(mpAnnotations));
     sb.append("\n    mpAnnotationsPropsOnly: ").append(toIndentedString(mpAnnotationsPropsOnly));
     sb.append("\n    mustInclude: ").append(toIndentedString(mustInclude));
     sb.append("\n    mustIncludeViaSchema: ").append(toIndentedString(mustIncludeViaSchema));

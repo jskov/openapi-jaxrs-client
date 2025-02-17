@@ -51,7 +51,9 @@ public final class Validations {
                 s.getMinLength(),
                 s.getMaxLength(),
                 s.getMinimum(),
+                s.getExclusiveMinimum(),
                 s.getMaximum(),
+                s.getExclusiveMaximum(),
                 s.getPattern());
 
         return getInstance(candidate);
@@ -72,7 +74,9 @@ public final class Validations {
                 v._minLength(),
                 v._maxLength(),
                 v._minimum(),
+                v._exclusiveMinimum(),
                 v._maximum(),
+                v._exclusiveMaximum(),
                 v._pattern());
         return getInstance(candidate);
     }
@@ -92,7 +96,9 @@ public final class Validations {
                 v._minLength(),
                 v._maxLength(),
                 v._minimum(),
+                v._exclusiveMinimum(),
                 v._maximum(),
+                v._exclusiveMaximum(),
                 v._pattern());
         return getInstance(candidate);
     }
@@ -112,7 +118,9 @@ public final class Validations {
                 v._minLength(),
                 v._maxLength(),
                 v._minimum(),
+                v._exclusiveMinimum(),
                 v._maximum(),
+                v._exclusiveMaximum(),
                 v._pattern());
         return getInstance(candidate);
     }
