@@ -7,10 +7,15 @@ import dk.mada.jaxrs.model.types.TypeArray;
 /**
  * MicroProfile transformers.
  *
- * These provide transformers matching <a href="https://download.eclipse.org/microprofile/microprofile-open-api-3.1.1/microprofile-openapi-spec-3.1.1.html#_jakarta_bean_validation_annotations"/>.
+ * These provide transformers matching <a href="https://download.eclipse.org/microprofile/microprofile-open-api-3.1.1/microprofile-openapi-spec-3.1.1.html#_jakarta_bean_validation_annotations">MP Validations</a>.
  * These are additions to the StandardTransformers so cannot stand alone.
  */
 public class MicroProfileTransformers {
+    /** Prevent creation of instances. */
+    private MicroProfileTransformers() {
+        // empty
+    }
+
     /**
      * Transforms @NotEmpty annotation for strings.
      *

@@ -113,8 +113,8 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
             } else {
                 maximumIsZero = false;
             }
-            exclusiveMinimum = validation._exclusiveMinimum() == Boolean.TRUE;
-            exclusiveMaximum = validation._exclusiveMaximum() == Boolean.TRUE;
+            exclusiveMinimum = Boolean.TRUE.equals(validation._exclusiveMinimum());
+            exclusiveMaximum = Boolean.TRUE.equals(validation._exclusiveMaximum());
 
             boolean numberOrInteger = type.isBigDecimal();
             if (type instanceof Primitive p) {
