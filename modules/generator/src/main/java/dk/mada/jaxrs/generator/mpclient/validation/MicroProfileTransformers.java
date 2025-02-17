@@ -23,7 +23,7 @@ public class MicroProfileTransformers {
      * @return the updated state
      */
     public static State transformNotEmpty(State state) {
-        if (state.type.isPrimitive(Primitive.STRING) && "1".equals(state.minLength) && state.maxLength == null) {
+        if (state.isString() && "1".equals(state.minLength) && state.maxLength == null) {
             state.addValidation("@NotEmpty ");
             state.addImport(ValidationApi.NOT_EMPTY);
             state.minLength = null;
@@ -95,6 +95,22 @@ public class MicroProfileTransformers {
             state.addValidation("@PositiveOrZero ");
             state.addImport(ValidationApi.POSITIVE_OR_ZERO);
             state.minimum = null;
+        }
+        return state;
+    }
+
+    /**
+     * Transforms @NotBlank annotation.
+     *
+     * @param state the previous state
+     * @return the updated state
+     */
+    public static State transformNotBlank(State state) {
+        if (state.isString()
+                && "\\\\S".equals(state.pattern)) {
+            state.addValidation("@NotBlank ");
+            state.addImport(ValidationApi.NOT_BLANK);
+            state.pattern = null;
         }
         return state;
     }

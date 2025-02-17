@@ -38,7 +38,8 @@ public class ValidationGenerator {
                     MicroProfileTransformers::transformNegative,
                     MicroProfileTransformers::transformNegativeOrZero,
                     MicroProfileTransformers::transformPositive,
-                    MicroProfileTransformers::transformPositiveOrZero);
+                    MicroProfileTransformers::transformPositiveOrZero,
+                    MicroProfileTransformers::transformNotBlank);
 
     /** The transformers configured for use. */
     private final List<ValidationTransformer> activeTransformers;

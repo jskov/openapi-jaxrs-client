@@ -19,6 +19,8 @@ public enum ValidationApi implements TypedImport {
     NEGATIVE("javax.validation.constraints.Negative"),
     /** Negative or zero. */
     NEGATIVE_OR_ZERO("javax.validation.constraints.NegativeOrZero"),
+    /** NotBlank. */
+    NOT_BLANK("javax.validation.constraints.NotBlank"),
     /** NotEmpty. */
     NOT_EMPTY("javax.validation.constraints.NotEmpty"),
     /** NotNull. */

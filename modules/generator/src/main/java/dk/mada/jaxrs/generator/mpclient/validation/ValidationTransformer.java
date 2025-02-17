@@ -127,7 +127,12 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
         public boolean isNumberOrInteger() {
             return numberOrInteger;
         }
-        
+
+        /** {@return true if the type is a string} */
+        public boolean isString() {
+            return type.isPrimitive(Primitive.STRING);
+        }
+
         /** {@return true if all the variable validations fields have been processed} */
         public boolean isCompleted() {
             return pattern == null
