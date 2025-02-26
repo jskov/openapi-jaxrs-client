@@ -102,7 +102,10 @@ While the code generation output is the primary goal of the project, I also use 
 
 I like Open Source just as much as the next guy.
 
-This tool provides infrastructure to whomever uses it, so it should be Open Source. And it is (Apache License).
+This tool provides infrastructure to whomever uses it, so it should be Open Source.
+
+And it is; the main body of code is covered by the [European Union Public Licence](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).  
+Except for the [templates](./modules/generator/src/main/resources/templates) and the single class [OpenapiStringUtils](modules/generator/src/main/java/dk/mada/jaxrs/generator/mpclient/dto/OpenapiStringUtils.java), which are covered by the [Apache License](./LICENSE-apache).
 
 But (my definition of) stability and quality of the generator's output is more important to me than being able to accept changes from other parties.  
 It is a tool I rely on to provide a difference for colleagues at work.
