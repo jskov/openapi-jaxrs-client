@@ -4,7 +4,7 @@
  * The version of the OpenAPI document: 1.0.0-SNAPSHOT
  */
 
-package mada.tests.e2e.opts.generator.jackson.custom_dates;
+package mada.tests.support.serializers;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

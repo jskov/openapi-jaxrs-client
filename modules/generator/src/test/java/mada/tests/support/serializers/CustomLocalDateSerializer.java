@@ -1,4 +1,4 @@
-package mada.tests.e2e.opts.generator.jackson.custom_dates;
+package mada.tests.support.serializers;
 
 import java.io.IOException;
 import java.time.LocalDate;
