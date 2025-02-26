@@ -7,6 +7,9 @@
 package mada.tests.e2e.dto.allof_composite.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,6 +21,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class KontantHandlGaranti {
+  public static final String JSON_PROPERTY_AFDRAG_DATO = "afdragDato";
+  @JsonProperty(JSON_PROPERTY_AFDRAG_DATO)
+  @JsonDeserialize(using = mada.tests.support.serializers.CustomLocalDateDeserializer.class)
+  @JsonSerialize(using = mada.tests.support.serializers.CustomLocalDateSerializer.class)
+  @Schema(description = "Dato for næste afvikling")
+  private LocalDate afdragDato;
+
   public static final String JSON_PROPERTY_AFSENDER_NGL = "afsenderNgl";
   @JsonProperty(JSON_PROPERTY_AFSENDER_NGL)
   private String afsenderNgl;
@@ -47,6 +57,24 @@ public class KontantHandlGaranti {
   public static final String JSON_PROPERTY_SAGSTYPE = "sagstype";
   @JsonProperty(JSON_PROPERTY_SAGSTYPE)
   private Integer sagstype;
+
+  public KontantHandlGaranti afdragDato(LocalDate afdragDato) {
+    this.afdragDato = afdragDato;
+    return this;
+  }
+
+  /**
+   * Dato for næste afvikling.
+   *
+   * @return afdragDato
+   **/
+  public LocalDate getAfdragDato() {
+    return afdragDato;
+  }
+
+  public void setAfdragDato(LocalDate afdragDato) {
+    this.afdragDato = afdragDato;
+  }
 
   public KontantHandlGaranti afsenderNgl(String afsenderNgl) {
     this.afsenderNgl = afsenderNgl;
@@ -182,7 +210,8 @@ public class KontantHandlGaranti {
       return false;
     }
     KontantHandlGaranti other = (KontantHandlGaranti) o;
-    return Objects.equals(this.afsenderNgl, other.afsenderNgl) &&
+    return Objects.equals(this.afdragDato, other.afdragDato) &&
+        Objects.equals(this.afsenderNgl, other.afsenderNgl) &&
         Objects.equals(this.ejendom, other.ejendom) &&
         Objects.equals(this.kundeRefnr, other.kundeRefnr) &&
         Objects.equals(this.omkostning, other.omkostning) &&
@@ -193,13 +222,14 @@ public class KontantHandlGaranti {
 
   @Override
   public int hashCode() {
-    return Objects.hash(afsenderNgl, ejendom, kundeRefnr, omkostning, prodnr, refnr, sagstype);
+    return Objects.hash(afdragDato, afsenderNgl, ejendom, kundeRefnr, omkostning, prodnr, refnr, sagstype);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class KontantHandlGaranti {");
+    sb.append("\n    afdragDato: ").append(toIndentedString(afdragDato));
     sb.append("\n    afsenderNgl: ").append(toIndentedString(afsenderNgl));
     sb.append("\n    ejendom: ").append(toIndentedString(ejendom));
     sb.append("\n    kundeRefnr: ").append(toIndentedString(kundeRefnr));

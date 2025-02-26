@@ -317,9 +317,7 @@ public class DtoGenerator {
         Optional<String> serializer = Optional.empty();
 
         if (opts.isUseJacksonLocalDateSerializer()
-                && (ds.type().isDate()
-                        || ds.dto().properties().stream()
-                                .anyMatch(p -> p.reference().isDate()))) {
+                && (ds.type().isDate() || ds.ctxProps().stream().anyMatch(p -> p.isDate()))) {
             if (opts.isAddJacksonLocalDateDeserializerTemplate()) {
                 extraTemplates.add(ExtraTemplate.LOCAL_DATE_JACKSON_DESERIALIZER);
             }

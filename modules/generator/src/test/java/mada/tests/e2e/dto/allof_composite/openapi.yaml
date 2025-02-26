@@ -85,6 +85,12 @@ components:
           $ref: '#/components/schemas/EjendomMini'
         omkostning:
           $ref: '#/components/schemas/Omkostning'
+        # The below added to inject a date for testing of
+        # https://github.com/jskov/openapi-jaxrs-client/issues/806
+        afdragDato:
+          format: date
+          description: Dato for næste afvikling
+          type: string
 
     EjendomMini:
       required:
