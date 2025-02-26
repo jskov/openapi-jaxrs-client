@@ -7,6 +7,9 @@
 package mada.tests.e2e.dto.allof_composite.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,6 +21,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public class Kontanthandelsgaranti {
+  public static final String JSON_PROPERTY_AFDRAG_DATO = "afdragDato";
+  @JsonProperty(JSON_PROPERTY_AFDRAG_DATO)
+  @JsonDeserialize(using = mada.tests.support.serializers.CustomLocalDateDeserializer.class)
+  @JsonSerialize(using = mada.tests.support.serializers.CustomLocalDateSerializer.class)
+  @Schema(description = "Dato for næste afvikling")
+  private LocalDate afdragDato;
+
   public static final String JSON_PROPERTY_EJENDOM = "ejendom";
   @JsonProperty(JSON_PROPERTY_EJENDOM)
   private EjendomMini ejendom;
@@ -35,6 +45,24 @@ public class Kontanthandelsgaranti {
   @JsonProperty(JSON_PROPERTY_REFNR)
   @Schema(required = true, description = "Description refnr in Kontanthandelsgaranti")
   private Integer refnr;
+
+  public Kontanthandelsgaranti afdragDato(LocalDate afdragDato) {
+    this.afdragDato = afdragDato;
+    return this;
+  }
+
+  /**
+   * Dato for næste afvikling.
+   *
+   * @return afdragDato
+   **/
+  public LocalDate getAfdragDato() {
+    return afdragDato;
+  }
+
+  public void setAfdragDato(LocalDate afdragDato) {
+    this.afdragDato = afdragDato;
+  }
 
   public Kontanthandelsgaranti ejendom(EjendomMini ejendom) {
     this.ejendom = ejendom;
@@ -119,7 +147,8 @@ public class Kontanthandelsgaranti {
       return false;
     }
     Kontanthandelsgaranti other = (Kontanthandelsgaranti) o;
-    return Objects.equals(this.ejendom, other.ejendom) &&
+    return Objects.equals(this.afdragDato, other.afdragDato) &&
+        Objects.equals(this.ejendom, other.ejendom) &&
         Objects.equals(this.omkostning, other.omkostning) &&
         Objects.equals(this.prodnr, other.prodnr) &&
         Objects.equals(this.refnr, other.refnr);
@@ -127,13 +156,14 @@ public class Kontanthandelsgaranti {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ejendom, omkostning, prodnr, refnr);
+    return Objects.hash(afdragDato, ejendom, omkostning, prodnr, refnr);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Kontanthandelsgaranti {");
+    sb.append("\n    afdragDato: ").append(toIndentedString(afdragDato));
     sb.append("\n    ejendom: ").append(toIndentedString(ejendom));
     sb.append("\n    omkostning: ").append(toIndentedString(omkostning));
     sb.append("\n    prodnr: ").append(toIndentedString(prodnr));
