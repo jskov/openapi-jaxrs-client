@@ -72,12 +72,29 @@ public enum Primitive implements Type {
         this.noformatIntPrimitive = wantedNoformatIntPrimitive;
     }
 
+    /** {@return the selected noformat-int instance} */
+    private Primitive getSelectedNoFormatIntType() {
+        return Objects.requireNonNull(this.noformatIntPrimitive, "No primitive type selected for noformat-int");
+    }
+
+    /**
+     * {@return the resolved primitive for this instance}
+     *
+     * This will replace noformat-int with the actual type selected by the user.
+     */
+    public Primitive getResolvedPrimitive() {
+        if (this == Primitive.NOFORMAT_INT) {
+            return getSelectedNoFormatIntType();
+        } else {
+            return this;
+        }
+    }
+
     /** {@return the type name of this type} */
     @Override
     public TypeName typeName() {
         if (this == NOFORMAT_INT) {
-            return Objects.requireNonNull(noformatIntPrimitive, "No primitive type defined for noformat-int")
-                    .javaPrimitive;
+            return getSelectedNoFormatIntType().javaPrimitive;
         }
         return javaPrimitive;
     }
@@ -86,7 +103,7 @@ public enum Primitive implements Type {
     @Override
     public TypeName wrapperTypeName() {
         if (this == NOFORMAT_INT) {
-            return Objects.requireNonNull(noformatIntPrimitive, "No wrapper type defined for noformat-int").wrapperType;
+            return getSelectedNoFormatIntType().wrapperType;
         }
         return wrapperType;
     }
@@ -133,6 +150,7 @@ public enum Primitive implements Type {
                 || this == INT
                 || this == LONG
                 || this == FLOAT
-                || this == DOUBLE;
+                || this == DOUBLE
+                || this == NOFORMAT_INT;
     }
 }
