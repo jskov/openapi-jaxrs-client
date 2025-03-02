@@ -19,9 +19,9 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Schema(enumeration = {"1", "2", "-3", "9128196858096508589"})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum Int64Enum {
-  ___1(1L),
-  ___2(2L),
-  _3(-3L),
+  NUMBER_1(1L),
+  NUMBER_2(2L),
+  NUMBER_NEG_3(-3L),
   UNKNOWN_DEFAULT_OPEN_API(9128196858096508589L);
 
   private final long value;

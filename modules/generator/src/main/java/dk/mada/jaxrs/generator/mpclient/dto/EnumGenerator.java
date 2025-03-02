@@ -20,8 +20,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Enumeration generator.
@@ -29,8 +27,6 @@ import org.slf4j.LoggerFactory;
  * Prepares an enumeration context for template rendering.
  */
 public class EnumGenerator {
-    private static final Logger logger = LoggerFactory.getLogger(EnumGenerator.class);
-
     /** Enumeration name for unknown values. */
     private static final String ENUM_UNKNOWN_DEFAULT_OPEN_API = "unknown_default_open_api";
     /** Enumeration values for unknown entries. */
@@ -132,8 +128,6 @@ public class EnumGenerator {
         if (values.contains(ENUM_UNKNOWN_DEFAULT_OPEN_API)) {
             return null;
         }
-
-        logger.info("SEE {} :: {}", enumType, values);
         if (enumType instanceof Primitive p && p.isNumber()) {
             p = p.getResolvedPrimitive();
             return ENUM_UNKNOWN_DEFAULT_VALUE_STR.getOrDefault(p, "unknown_" + p.name());
@@ -144,12 +138,10 @@ public class EnumGenerator {
 
     private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e, @Nullable String unknownDefault) {
         String name = e.name();
-
-        logger.info("SEE {} : {} / {}", e.name(), e.value(), unknownDefault);
-
         if (e.value().equals(unknownDefault)) {
             name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase(Locale.ROOT);
         }
+
         String value = e.value();
         if (enumType instanceof Primitive p && p.isNumber()) {
             p = p.getResolvedPrimitive();
