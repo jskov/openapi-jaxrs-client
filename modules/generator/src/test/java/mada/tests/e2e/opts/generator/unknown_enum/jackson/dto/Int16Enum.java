@@ -14,13 +14,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * Int16Enum
  */
-@Schema(enumeration = {"1", "2", "-3", "unknown_default_open_api"})
+@Schema(enumeration = {"1", "2", "-3", "-8531"})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum Int16Enum {
-  ___1((short)1),
-  ___2((short)2),
-  _3((short)-3),
-  UNKNOWN_DEFAULT_OPEN_API((short)2125323949);
+  NUMBER_1((short)1),
+  NUMBER_2((short)2),
+  NUMBER_NEG_3((short)-3),
+  UNKNOWN_DEFAULT_OPEN_API((short)-8531);
 
   private final short value;
 

@@ -14,13 +14,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 /**
  * Int64Enum
  */
-@Schema(enumeration = {"1", "2", "-3", "unknown_default_open_api"})
+@Schema(enumeration = {"1", "2", "-3", "9128196858096508589"})
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public enum Int64Enum {
   ___1(1L),
   ___2(2L),
   _3(-3L),
-  UNKNOWN_DEFAULT_OPEN_API(2125323949);
+  UNKNOWN_DEFAULT_OPEN_API(9128196858096508589L);
 
   private final long value;
 

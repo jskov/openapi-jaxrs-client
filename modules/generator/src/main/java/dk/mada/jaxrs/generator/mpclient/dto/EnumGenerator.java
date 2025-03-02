@@ -17,7 +17,11 @@ import dk.mada.jaxrs.model.types.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Enumeration generator.
@@ -25,10 +29,15 @@ import java.util.Optional;
  * Prepares an enumeration context for template rendering.
  */
 public class EnumGenerator {
-    /** Enumeration for unknown values. */
+    private static final Logger logger = LoggerFactory.getLogger(EnumGenerator.class);
+
+    /** Enumeration name for unknown values. */
     private static final String ENUM_UNKNOWN_DEFAULT_OPEN_API = "unknown_default_open_api";
-    /** Enumeration for unknown integer values. */
-    private static final String ENUM_INT_UNKNOWN_DEFAULT_STR = Integer.toString(2125323949); // 0x7EADDEAD
+    /** Enumeration values for unknown entries. */
+    private static final Map<Primitive, String> ENUM_UNKNOWN_DEFAULT_VALUE_STR = Map.of(
+            Primitive.SHORT, Short.toString((short) 0xdead),
+            Primitive.INT, Integer.toString(0x7eaddead),
+            Primitive.LONG, Long.toString(0x07eaddeaddeaddeadL));
 
     /** Naming. */
     private final Naming naming;
@@ -54,9 +63,18 @@ public class EnumGenerator {
      * @return the enumeration context
      */
     public CtxEnum toCtxEnum(Type enumType, List<String> values) {
-        List<String> renderValues = addUnknownDefault(enumType, values);
+        @Nullable String unknownDefault = findValidUnknownDefault(enumType, values);
+
+        List<String> renderValues = new ArrayList<>();
+        renderValues.addAll(values);
+        if (unknownDefault != null) {
+            renderValues.add(unknownDefault);
+        }
+
         List<CtxEnumEntry> entries = new EnumNamer(naming, enumType, renderValues)
-                .getEntries().stream().map(e -> toEnumEntry(enumType, e)).toList();
+                .getEntries().stream()
+                        .map(e -> toEnumEntry(enumType, e, unknownDefault))
+                        .toList();
 
         return new CtxEnum(entries);
     }
@@ -101,51 +119,49 @@ public class EnumGenerator {
     }
 
     /**
-     * Adds unknown default enumeration if needed.
+     * Find (if possible) a value that can serve as an undefined default.
      *
-     * A magic integer is used for integer types.
-     *
-     * @param enumType the enumeration type
-     * @param values   the input enumeration values
-     * @return the input values, plus unknown default if needed
+     * @param enumType the type of the enumeration
+     * @param values the known values
+     * @return a value that is valid for the type and does not appear in the known values, or null if this is not possible
      */
-    private List<String> addUnknownDefault(Type enumType, List<String> values) {
+    private @Nullable String findValidUnknownDefault(Type enumType, List<String> values) {
         if (!opts.isUseEnumUnknownDefault()) {
-            return values;
+            return null;
         }
         if (values.contains(ENUM_UNKNOWN_DEFAULT_OPEN_API)) {
-            return values;
+            return null;
         }
 
-        boolean isIntEnum = enumType.isPrimitive(Primitive.INT);
-
-        if (isIntEnum && values.contains(ENUM_INT_UNKNOWN_DEFAULT_STR)) {
-            return values;
-        }
-
-        List<String> renderValues = new ArrayList<>(values);
-        if (isIntEnum) {
-            renderValues.add(ENUM_INT_UNKNOWN_DEFAULT_STR);
+        logger.info("SEE {} :: {}", enumType, values);
+        if (enumType instanceof Primitive p && p.isNumber()) {
+            p = p.getResolvedPrimitive();
+            return ENUM_UNKNOWN_DEFAULT_VALUE_STR.getOrDefault(p, "unknown_" + p.name());
         } else {
-            renderValues.add(ENUM_UNKNOWN_DEFAULT_OPEN_API);
+            return ENUM_UNKNOWN_DEFAULT_OPEN_API;
         }
-        return renderValues;
     }
 
-    private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e) {
+    private CtxEnumEntry toEnumEntry(Type enumType, EnumNameValue e, @Nullable String unknownDefault) {
         String name = e.name();
+
+        logger.info("SEE {} : {} / {}", e.name(), e.value(), unknownDefault);
+
+        if (e.value().equals(unknownDefault)) {
+            name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase(Locale.ROOT);
+        }
         String value = e.value();
-        if (enumType == Primitive.SHORT || enumType == Primitive.NOFORMAT_INT) {
-            value = "(short)" + value;
-        } else if (enumType == Primitive.INT) {
-            if (opts.isUseEnumUnknownDefault() && ENUM_INT_UNKNOWN_DEFAULT_STR.equals(value)) {
-                name = ENUM_UNKNOWN_DEFAULT_OPEN_API.toUpperCase(Locale.ROOT);
+        if (enumType instanceof Primitive p && p.isNumber()) {
+            p = p.getResolvedPrimitive();
+            if (p == Primitive.SHORT) {
+                value = "(short)" + value;
+            } else if (p == Primitive.LONG) {
+                value = value + "L";
             }
-        } else if (enumType == Primitive.LONG) {
-            value = value + "L";
         } else {
             value = StringRenderer.quote(value);
         }
+
         return new CtxEnumEntry(name, value, e.value());
     }
 }

@@ -70,13 +70,14 @@ components:
       - MIXED_a
       - mixed_B
       type: string
-    Int8Enum:
-        format: byte
-        type: string
-        enum:
-        - "1"
-        - "2"
-        - "-3"
+# Unlikely to happen - and requires some handling in the parser too
+#    Int8Enum:
+#        format: byte
+#        type: string
+#        enum:
+#        - "1"
+#        - "2"
+#        - "-3"
     Int16Enum:
       type: integer
       enum:
