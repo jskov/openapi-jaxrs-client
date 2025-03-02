@@ -4,7 +4,8 @@ package dk.mada.jaxrs.model.api;
  * HTTP status codes.
  *
  * The HttpURLConnection constants in enumeration-form. And then some from
- * https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+ * https://developer.mozilla.org/en-US/docs/Web/HTTP/Status and
+ * https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
  */
 public enum StatusCode {
     /**
@@ -15,11 +16,13 @@ public enum StatusCode {
     HTTP_DEFAULT(0),
 
     /** Continue. */
-    CONTINUE(100),
+    HTTP_CONTINUE(100),
     /** Switching Protocols. */
-    SWITCHING_PROTOCOLS(101),
+    HTTP_SWITCHING_PROTOCOLS(101),
+    /** Processing. */
+    HTTP_PROCESSING(102),
     /** Early hints. */
-    EARLY_HINTS(103),
+    HTTP_EARLY_HINTS(103),
 
     /** OK. */
     HTTP_OK(200),
@@ -36,11 +39,11 @@ public enum StatusCode {
     /** Partial Content. */
     HTTP_PARTIAL(206),
     /** Multi-Status. */
-    MULTI_STATUS(207),
+    HTTP_MULTI_STATUS(207),
     /** Already Reported. */
-    ALREADY_REPORTED(208),
+    HTTP_ALREADY_REPORTED(208),
     /** IM Used. */
-    IM_USED(226),
+    HTTP_IM_USED(226),
 
     /** Multiple Choices. */
     HTTP_MULT_CHOICE(300),
@@ -59,7 +62,7 @@ public enum StatusCode {
     /** Temporary Redirect. */
     HTTP_TEMPORARY_REDIRECT(307),
     /** Permanent Redirect. */
-    PERMANENT_REDIRECT(308),
+    HTTP_PERMANENT_REDIRECT(308),
 
     /** Bad Request. */
     HTTP_BAD_REQUEST(400),
@@ -93,6 +96,14 @@ public enum StatusCode {
     HTTP_REQ_TOO_LONG(414),
     /** Unsupported Media Type. */
     HTTP_UNSUPPORTED_TYPE(415),
+    /** Range Not Satisfiable. */
+    HTTP_RANGE_NOT_SATISFIABLE(416),
+    /** Expectation Failed. */
+    HTTP_EXPECTATION_FAILED(417),
+    /** I'm a teapot. */
+    HTTP_IM_A_TEAPOT(418),
+    /** Misdirected Request. */
+    HTTP_MISDIRECTED_REQUEST(421),
     /** Unprocessable Entity. */
     HTTP_UNPROCESSABLE_ENTITY(422),
     /** Locked. */
@@ -100,17 +111,17 @@ public enum StatusCode {
     /** Failed dependency. */
     HTTP_FAILED_DEPENDENCY(424),
     /** Too early. */
-    TOO_EARLY(425),
+    HTTP_TOO_EARLY(425),
     /** Upgrade Required. */
-    UPGRADE_REQUIRED(426),
+    HTTP_UPGRADE_REQUIRED(426),
     /** Precondition Required. */
-    PRECONDITION_REQUIRED(428),
+    HTTP_PRECONDITION_REQUIRED(428),
     /** Too Many Requests. */
-    TOO_MANY_REQUESTS(429),
+    HTTP_TOO_MANY_REQUESTS(429),
     /** Request Header Fields Too Large. */
-    REQUEST_HEADER_FIELDS_TOO_LARGE(431),
+    HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE(431),
     /** Unavailable For Legal Reasons. */
-    UNAVAILABLE_FOR_LEGAL_REASONS(451),
+    HTTP_UNAVAILABLE_FOR_LEGAL_REASONS(451),
 
     /** Internal Server Error. */
     HTTP_INTERNAL_ERROR(500),
@@ -125,15 +136,15 @@ public enum StatusCode {
     /** HTTP Version Not Supported. */
     HTTP_VERSION(505),
     /** Variant Also Negotiates. */
-    VARIANT_ALSO_NEGOTIATES(506),
+    HTTP_VARIANT_ALSO_NEGOTIATES(506),
     /** Insufficient Storage. */
-    INSUFFICIENT_STORAGE(507),
+    HTTP_INSUFFICIENT_STORAGE(507),
     /** Loop Detected. */
-    LOOP_DETECTED(508),
+    HTTP_LOOP_DETECTED(508),
     /** Not Extended. */
-    NOT_EXTENDED(510),
+    HTTP_NOT_EXTENDED(510),
     /** Network Authentication Required. */
-    NETWORK_AUTHENTICATION_REQUIRED(511);
+    HTTP_NETWORK_AUTHENTICATION_REQUIRED(511);
 
     /** Status code. */
     private final int code;
