@@ -97,12 +97,13 @@ components:
       - "1"
       - "2"
       - "-3"
-    NumberEnum:
-      type: number
-      enum:
-      - "1"
-      - "2"
-      - "-3"
+# Seems unlikely that anyone would use this
+#    NumberEnum:
+#      type: number
+#      enum:
+#      - "1"
+#      - "2"
+#      - "-3"
     StringIntEnum:
       description: "The values are digits, but the type is string. So will not be\
         \ handled as integers, but are invalid Java identifiers."
