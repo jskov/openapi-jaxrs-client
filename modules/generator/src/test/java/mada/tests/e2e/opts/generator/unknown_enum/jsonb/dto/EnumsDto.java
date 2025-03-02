@@ -37,10 +37,6 @@ public class EnumsDto {
   @JsonbProperty(JSON_PROPERTY_INNER)
   private InnerEnum inner;
 
-  public static final String JSON_PROPERTY_INTEGER_ENUM = "integerEnum";
-  @JsonbProperty(JSON_PROPERTY_INTEGER_ENUM)
-  private IntEnum integerEnum;
-
   public static final String JSON_PROPERTY_LOWER = "lower";
   @JsonbProperty(JSON_PROPERTY_LOWER)
   private InnerLowerEnum lower;
@@ -170,24 +166,6 @@ public class EnumsDto {
     this.inner = inner;
   }
 
-  public EnumsDto integerEnum(IntEnum integerEnum) {
-    this.integerEnum = integerEnum;
-    return this;
-  }
-
-  /**
-   * Get integerEnum
-   * @return integerEnum
-   **/
-  @Valid
-  public IntEnum getIntegerEnum() {
-    return integerEnum;
-  }
-
-  public void setIntegerEnum(IntEnum integerEnum) {
-    this.integerEnum = integerEnum;
-  }
-
   public EnumsDto lower(InnerLowerEnum lower) {
     this.lower = lower;
     return this;
@@ -272,7 +250,6 @@ public class EnumsDto {
         Objects.equals(this.externalLower, other.externalLower) &&
         Objects.equals(this.externalMixed, other.externalMixed) &&
         Objects.equals(this.inner, other.inner) &&
-        Objects.equals(this.integerEnum, other.integerEnum) &&
         Objects.equals(this.lower, other.lower) &&
         Objects.equals(this.mixed, other.mixed) &&
         Objects.equals(this.propertyEnumString, other.propertyEnumString) &&
@@ -281,7 +258,7 @@ public class EnumsDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(external, externalLower, externalMixed, inner, integerEnum, lower, mixed, propertyEnumString, stringIntegerEnum);
+    return Objects.hash(external, externalLower, externalMixed, inner, lower, mixed, propertyEnumString, stringIntegerEnum);
   }
 
   @Override
@@ -292,7 +269,6 @@ public class EnumsDto {
     sb.append("\n    externalLower: ").append(toIndentedString(externalLower));
     sb.append("\n    externalMixed: ").append(toIndentedString(externalMixed));
     sb.append("\n    inner: ").append(toIndentedString(inner));
-    sb.append("\n    integerEnum: ").append(toIndentedString(integerEnum));
     sb.append("\n    lower: ").append(toIndentedString(lower));
     sb.append("\n    mixed: ").append(toIndentedString(mixed));
     sb.append("\n    propertyEnumString: ").append(toIndentedString(propertyEnumString));
