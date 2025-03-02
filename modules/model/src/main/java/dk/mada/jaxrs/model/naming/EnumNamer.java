@@ -28,8 +28,6 @@ public final class EnumNamer {
 
     /** Naming. */
     private final Naming naming;
-    /** Enumeration value type. */
-    private final Type enumValueType;
     /** Suffix number counter per name prefix. */
     private final Map<String, AtomicInteger> nameNumbering = new HashMap<>();
     /** Name to values. These are ordered by the enumeration values. */
@@ -38,9 +36,8 @@ public final class EnumNamer {
     private final List<String> values;
     /** The assigned names of the values. */
     private final Set<String> assignedNames = new HashSet<>();
-
-    /** Flag for all values are numbers. */
-    private boolean allNumbers;
+    /** Flag for using number-naming for entries. */
+    private final boolean useNumberNaming;
 
     /**
      * An enumeration name-to-value assignment.
@@ -59,14 +56,23 @@ public final class EnumNamer {
      */
     public EnumNamer(Naming naming, Type enumValueType, List<String> values) {
         this.naming = naming;
-        this.enumValueType = enumValueType;
         this.values = values;
-        this.allNumbers = isAllValuesNumbers(values);
+        this.useNumberNaming = isAllValuesNumbers(enumValueType, values);
 
         assignNames();
     }
 
-    private static boolean isAllValuesNumbers(List<String> values) {
+    /**
+     * Find out if it is safe to use number naming for enumeration entries.
+     *
+     * @param enumValueType the enumeration type
+     * @param values the enumeration values
+     * @return true if the type is numeric, or all the values are numbers
+     */
+    private static boolean isAllValuesNumbers(Type enumValueType, List<String> values) {
+        if (enumValueType instanceof Primitive p && p.isNumber()) {
+            return true;
+        }
         for (String v : values) {
             try {
                 Integer.parseInt(v);
@@ -125,11 +131,11 @@ public final class EnumNamer {
     }
 
     private String simpleNamer(String n) {
-        if (enumValueType == Primitive.INT || allNumbers) {
+        if (useNumberNaming) {
             return naming.convertEnumNumberName(n);
+        } else {
+            return naming.convertEnumName(n);
         }
-
-        return naming.convertEnumName(n);
     }
 
     /**
