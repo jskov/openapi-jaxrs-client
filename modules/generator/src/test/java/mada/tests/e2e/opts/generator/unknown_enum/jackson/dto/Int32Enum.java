@@ -12,11 +12,11 @@ import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * IntEnum
+ * Int32Enum
  */
 @Schema(enumeration = {"1", "2", "-3", "2125323949"}, type = SchemaType.INTEGER, format = "int32")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public enum IntEnum {
+public enum Int32Enum {
   NUMBER_1(1),
   NUMBER_2(2),
   NUMBER_NEG_3(-3),
@@ -24,7 +24,7 @@ public enum IntEnum {
 
   private final int value;
 
-  IntEnum(int value) {
+  Int32Enum(int value) {
     this.value = value;
   }
 
@@ -39,8 +39,8 @@ public enum IntEnum {
   }
 
   @JsonCreator
-  public static IntEnum fromValue(int value) {
-    for (IntEnum b : IntEnum.values()) {
+  public static Int32Enum fromValue(int value) {
+    for (Int32Enum b : Int32Enum.values()) {
       if (b.value == value) {
         return b;
       }
