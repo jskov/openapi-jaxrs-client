@@ -7,7 +7,8 @@ plugins {
 apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
 
 ext {
-    builtOn = LocalDate.now()
+    builtOn = project.getProviders().provider(() -> LocalDate.now().toString());
+    appVersion = project.getProviders().gradleProperty("version")
 }
 
 dependencies {
@@ -34,13 +35,15 @@ application {
 }
 
 processResources {
-    inputs.property("version", project.version)
-    inputs.property("builtOn", builtOn)
+    def capturedAppVersion = appVersion
+    def capturedBuiltOn = builtOn
+    inputs.property("version", capturedAppVersion)
+    inputs.property("builtOn", capturedBuiltOn)
 
     filesMatching("**/openapi-jaxrs-client-version.properties") {
         filter(s -> s
-            .replaceAll("version.*", "version = ${project.version}")
-            .replaceAll("builtOn.*", "builtOn = ${builtOn}")
+            .replaceAll("version.*", "version = ${capturedAppVersion.get()}")
+            .replaceAll("builtOn.*", "builtOn = ${capturedBuiltOn.get()}")
         )
     }
 }

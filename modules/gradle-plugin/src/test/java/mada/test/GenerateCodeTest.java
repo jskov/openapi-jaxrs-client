@@ -20,6 +20,7 @@ class GenerateCodeTest {
 
     @Test
     void canRun() throws IOException {
+    	Files.createDirectories(testProjectDir);
         String version = System.getProperty("releaseVersion", "0.0.0-SNAPSHOT");
 
         createBuildFile("""
@@ -31,7 +32,7 @@ class GenerateCodeTest {
              generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:@VERSION@"
              clients {
                petstore {
-                 download("https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/tests/v3.0/pass/petstore.yaml")
+                 download("https://raw.githubusercontent.com/swagger-api/swagger-petstore/refs/heads/master/src/main/resources/openapi.yaml")
                }
              }
            }
@@ -40,20 +41,25 @@ class GenerateCodeTest {
         createFile(testProjectDir.resolve("src/openapi/petstore.properties"), """
 generator-api-package = dk.mada.petstore.api
 generator-dto-package = dk.mada.petstore.dto
+
+parser-api-preferred-request-mediatypes  = application/json
+parser-api-preferred-response-mediatypes = application/json
             """);
         
         BuildResult result = GradleRunner.create()
                 .withProjectDir(testProjectDir.toFile())
-                .withArguments("-s", "generateClientPetstore")
+                .withArguments("-s", "--warning-mode", "all", "generateClientPetstore")
                 .withPluginClasspath()
                 .withDebug(true)
                 .build();
         
         assertThat(result.getOutput())
-            .contains("Generate client");
+            .contains("Generate client")
+            .doesNotContain("deprecated")
+            .doesNotContain("warning");
         
         assertThat(testProjectDir.resolve("src/main/java-jaxrs/petstore"))
-            .isDirectoryRecursivelyContaining("glob:**/api/PetsApi.java")
+            .isDirectoryRecursivelyContaining("glob:**/api/PetApi.java")
             .isDirectoryRecursivelyContaining("glob:**/dto/Pet.java");
     }
 
