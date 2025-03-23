@@ -493,14 +493,13 @@ public class ApiGenerator {
 
         String description = r.description().orElse("");
 
-        return CtxApiResponse.builder()
-                .baseType(baseType)
-                .code(r.code().asOpenApiStatus())
-                .containerType(containerType)
-                .description(StringRenderer.encodeForString(description))
-                .isUnique(isUnique)
-                .mediaType(mediaType)
-                .build();
+        return new CtxApiResponse(
+                r.code().asOpenApiStatus(),
+                StringRenderer.encodeForString(description),
+                baseType,
+                containerType,
+                mediaType,
+                isUnique);
     }
 
     // TODO: these should be combined smarter - base should take Content as argument instead, avoid use of streams
