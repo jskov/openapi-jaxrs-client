@@ -8,7 +8,6 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.RegularFileProperty;
-import org.gradle.api.logging.LogLevel;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
@@ -52,9 +51,22 @@ public abstract class GenerateClient extends DefaultTask {
     @Input
     public abstract Property<String> getGeneratorGav();
 
+    /** The combined plugin and configured classpath. */
+    private final FileCollection combined;
+    /** Flag for echoing output. */
+    private final boolean echoEnabled;
+
     /** Create new instance. */
     public GenerateClient() { // NOSONAR - must be public for Gradle to be happy
-        // empty
+        Project project = getProject();
+        FileCollection pluginClasspath = project.getBuildscript()
+                .getConfigurations()
+                .findByName("classpath")
+                .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
+        Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
+        combined = generatorClasspath.plus(pluginClasspath);
+
+        echoEnabled = project.getLogger().isInfoEnabled();
     }
 
     /**
@@ -62,20 +74,11 @@ public abstract class GenerateClient extends DefaultTask {
      */
     @TaskAction
     void generate() {
-        Project project = getProject();
-
-        FileCollection pluginClasspath = project.getBuildscript()
-                .getConfigurations()
-                .findByName("classpath")
-                .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
-        Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
-        FileCollection combined = generatorClasspath.plus(pluginClasspath);
-
         WorkQueue workQueue = getWorkerExecutor()
                 .classLoaderIsolation(workerSpec -> workerSpec.getClasspath().from(combined));
 
         workQueue.submit(GenerateClientWorker.class, p -> {
-            p.getEchoFlag().set(project.getLogger().isEnabled(LogLevel.INFO));
+            p.getEchoFlag().set(echoEnabled);
             p.getOutputDirectory().set(getOutputDirectory());
             p.getOpenapiDocument().set(getOpenApiDocument());
             p.getGeneratorConfig().set(getGeneratorProperties());
