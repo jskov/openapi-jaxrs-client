@@ -25,7 +25,7 @@ jobs:
           validate-wrappers: true
 
       - name: Build release
-        run: ./gradlew publishPlugin -s -Pversion=${BUILD_LABEL/gradle\/} -Porg.gradle.configuration-cache=false
+        run: ./gradlew publishPlugin -s -Pversion=${BUILD_LABEL/gradle\/} --no-build-cache --no-configuration-cache
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
