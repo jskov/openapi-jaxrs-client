@@ -10,9 +10,6 @@ dependencies {
     implementation      (libs.logger)
     implementation      (libs.swaggerParser)
 
-    annotationProcessor (libs.immutablesApt)
-    compileOnly         (libs.immutablesAnn)
-
     compileOnly         (libs.jspecify)
 }
 

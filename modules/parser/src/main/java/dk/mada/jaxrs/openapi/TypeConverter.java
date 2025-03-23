@@ -122,10 +122,7 @@ public final class TypeConverter {
         if (context.isRequired()) {
             logger.debug(" overriding ptr validation to force required");
             var withRequire = Validations.makeRequired(ptr.validation());
-            return ImmutableParserTypeRef.builder()
-                    .from(ptr)
-                    .validation(withRequire)
-                    .build();
+            return new ParserTypeRef(ptr.refType(), ptr.refTypeName(), withRequire);
         } else {
             return ptr;
         }

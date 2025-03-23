@@ -5,20 +5,24 @@ import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
 import java.util.List;
-import org.immutables.value.Value.Immutable;
 
 /**
  * Type representing a composite class (schema with allOf) during parsing.
  *
- * The composite may include both internal properties (basically captured as an anonymous placeholder DTO that will not
- * be part of the final model) and references to types that have not been resolved yet. So a TypeComposite DTO needs to
- * be constructed in two steps;
+ * The composite may include both internal properties (basically captured as an
+ * anonymous placeholder DTO that will not be part of the final model) and
+ * references to types that have not been resolved yet. So a TypeComposite DTO
+ * needs to be constructed in two steps;
  *
- * (1) during parsing, where the internal properties can be copied from the placeholder DTO, and (2) during resolving,
- * where the referenced DTOs are now known, and can be used for copying their properties (or extension).
+ * (1) during parsing, where the internal properties can be copied from the
+ * placeholder DTO, and (2) during resolving, where the referenced DTOs are now
+ * known, and can be used for copying their properties (or extension).
+ *
+ * @param typeName      the type name
+ * @param containsTypes the parser references to the composite parts of this
+ *                      type
  */
-@Immutable
-public interface ParserTypeComposite extends Type {
+public record ParserTypeComposite(TypeName typeName, List<ParserTypeRef> containsTypes) implements Type {
     /**
      * Creates a type for a composite class.
      *
@@ -27,14 +31,8 @@ public interface ParserTypeComposite extends Type {
      * @return a composite type
      */
     static ParserTypeComposite of(TypeName typeName, List<ParserTypeRef> containsTypes) {
-        return ImmutableParserTypeComposite.builder()
-                .typeName(typeName)
-                .containsTypes(containsTypes)
-                .build();
+        return new ParserTypeComposite(typeName, containsTypes);
     }
-
-    /** {@return the parser references to the composite parts of this type} */
-    List<ParserTypeRef> containsTypes();
 
     /**
      * Returns a list of the internal DTOs in this composite.
@@ -43,7 +41,7 @@ public interface ParserTypeComposite extends Type {
      *
      * @return a list of the internal DTOs in this composite
      */
-    default List<Dto> internalDtos() {
+    public List<Dto> internalDtos() {
         return containsTypes().stream()
                 .filter(ptr -> ptr.refTypeName().name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER))
                 .map(ParserTypeRef::refType)
@@ -53,7 +51,7 @@ public interface ParserTypeComposite extends Type {
     }
 
     /** {@return a list of the externally referenced type names} */
-    default List<TypeName> externalDtoReferences() {
+    public List<TypeName> externalDtoReferences() {
         return containsTypes().stream()
                 .map(ptr -> ptr.refTypeName())
                 .filter(tn -> !tn.name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER))

@@ -4,18 +4,28 @@ import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
-import org.immutables.value.Value.Immutable;
 
 /**
  * A reference to types used during parsing.
  *
- * This is necessary, because the model may not yet have been populated with DTOs that are defined further down in the
- * schema.
+ * This is necessary, because the model may not yet have been populated with
+ * DTOs that are defined further down in the schema.
  *
- * When the entire scheme is parsed, these will be dereferenced to proper model TypeRefs.
+ * When the entire scheme is parsed, these will be dereferenced to proper model
+ * TypeRefs.
+ *
+ * @param refType     the referenced type - note that this may be unknown
+ * @param refTypeName the referenced type name
+ * @param validation  the validation
+ *
  */
-@Immutable
-public interface ParserTypeRef extends Reference {
+public record ParserTypeRef(Type refType, TypeName refTypeName, Validation validation) implements Reference {
+
+    @Override
+    public TypeName typeName() {
+        return refTypeName();
+    }
+
     /**
      * Creates a new reference to a type (a primitive or special type)
      *
@@ -25,11 +35,7 @@ public interface ParserTypeRef extends Reference {
      * @return a reference to the type
      */
     static ParserTypeRef of(Type refType, TypeName refTypeName, Validation validation) {
-        return ImmutableParserTypeRef.builder()
-                .refType(refType)
-                .refTypeName(refTypeName)
-                .validation(validation)
-                .build();
+        return new ParserTypeRef(refType, refTypeName, validation);
     }
 
     /**
@@ -41,17 +47,5 @@ public interface ParserTypeRef extends Reference {
      */
     static ParserTypeRef of(TypeName refTypeName, Validation validation) {
         return of(TypeUnknownAtParseTime.get(), refTypeName, validation);
-    }
-
-    /** {@return the referenced type name} */
-    TypeName refTypeName();
-
-    /** {@return the referenced type - note that this may be unknown} */
-    @Override
-    Type refType();
-
-    @Override
-    default TypeName typeName() {
-        return refTypeName();
     }
 }

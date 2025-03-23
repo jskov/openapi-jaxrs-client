@@ -139,11 +139,7 @@ public class ApiGenerator {
             imports.add(MicroProfile.REGISTER_PROVIDER);
         }
 
-        CtxApiExt apiExt = CtxApiExt.builder()
-                .mpRestClientConfigKey(clientKey)
-                .mpProviders(mpProviders)
-                .isJspecify(opts.isJspecify())
-                .build();
+        CtxApiExt apiExt = new CtxApiExt(clientKey, mpProviders, opts.isJspecify());
 
         Info info = model.info();
         return CtxApi.builder()
@@ -497,14 +493,13 @@ public class ApiGenerator {
 
         String description = r.description().orElse("");
 
-        return CtxApiResponse.builder()
-                .baseType(baseType)
-                .code(r.code().asOpenApiStatus())
-                .containerType(containerType)
-                .description(StringRenderer.encodeForString(description))
-                .isUnique(isUnique)
-                .mediaType(mediaType)
-                .build();
+        return new CtxApiResponse(
+                r.code().asOpenApiStatus(),
+                StringRenderer.encodeForString(description),
+                baseType,
+                containerType,
+                mediaType,
+                isUnique);
     }
 
     // TODO: these should be combined smarter - base should take Content as argument instead, avoid use of streams
