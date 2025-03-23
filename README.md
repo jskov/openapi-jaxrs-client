@@ -69,11 +69,11 @@ The output looks something like [this (petstore)](./modules/generator/src/test/j
 
 The current plans for future releases are (note, no time commitments):
 
-**0.11.x**
+**0.12.x**
 
-* Native generator executables
+* Remaining open generator issues.
 * More code/package documentation.
-* Documentation index with references to the various tests/examples.
+* Documentation index with references to the various tests/examples (use mkdocs).
 
 **1.0.x ideas**
 
