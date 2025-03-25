@@ -15,7 +15,7 @@ import java.util.Objects;
  * SubB
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SubB extends Super implements SubASubB {
+public class SubB extends Super implements SubA_SubB {
   public static final String JSON_PROPERTY_FOO = "foo";
   @JsonProperty(JSON_PROPERTY_FOO)
   private Integer foo;

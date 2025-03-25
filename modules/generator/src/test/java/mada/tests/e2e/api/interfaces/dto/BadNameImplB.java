@@ -6,21 +6,21 @@
  * Contact: email@example.com
  */
 
-package mada.tests.e2e.specs.v3_0.dto;
+package mada.tests.e2e.api.interfaces.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
- * SubA
+ * BadNameImplB
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SubA extends Super implements SubA_SubB {
+public class BadNameImplB {
   public static final String JSON_PROPERTY_BAR = "bar";
   @JsonbProperty(JSON_PROPERTY_BAR)
   private Integer bar;
 
-  public SubA bar(Integer bar) {
+  public BadNameImplB bar(Integer bar) {
     this.bar = bar;
     return this;
   }
@@ -42,24 +42,22 @@ public class SubA extends Super implements SubA_SubB {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof SubA)) {
+    if (!(o instanceof BadNameImplB)) {
       return false;
     }
-    SubA other = (SubA) o;
-    return Objects.equals(this.bar, other.bar) &&
-        super.equals(o);
+    BadNameImplB other = (BadNameImplB) o;
+    return Objects.equals(this.bar, other.bar);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bar, super.hashCode());
+    return Objects.hash(bar);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SubA {");
-    sb.append("\n    ").append(toIndentedString(super.toString()));
+    sb.append("class BadNameImplB {");
     sb.append("\n    bar: ").append(toIndentedString(bar));
     sb.append("\n}");
     return sb.toString();

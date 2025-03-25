@@ -10,8 +10,8 @@ package mada.tests.e2e.specs.v3_1.all.api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import mada.tests.e2e.specs.v3_1.all.dto.ImplAImplB;
-import mada.tests.e2e.specs.v3_1.all.dto.SubASubB;
+import mada.tests.e2e.specs.v3_1.all.dto.ImplA_ImplB;
+import mada.tests.e2e.specs.v3_1.all.dto.SubA_SubB;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
@@ -22,36 +22,36 @@ public interface Api_InterfacesApi {
   /**
    * Get Interface.
    *
-   * @return ImplAImplB
+   * @return ImplA_ImplB
    */
   @GET
   @Path("/interface")
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ImplAImplB.class)
+  @APIResponseSchema(ImplA_ImplB.class)
   @Operation(summary = "Get Interface")
-  ImplAImplB apiInterfacesInterfaceGet();
+  ImplA_ImplB apiInterfacesInterfaceGet();
 
   /**
    * Get Interface List.
    *
-   * @return ImplAImplB
+   * @return ImplA_ImplB
    */
   @GET
   @Path("/list")
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ImplAImplB.class)
+  @APIResponseSchema(ImplA_ImplB.class)
   @Operation(summary = "Get Interface List")
-  ImplAImplB apiInterfacesListGet();
+  ImplA_ImplB apiInterfacesListGet();
 
   /**
    * Get Super.
    *
-   * @return SubASubB
+   * @return SubA_SubB
    */
   @GET
   @Path("/super")
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(SubASubB.class)
+  @APIResponseSchema(SubA_SubB.class)
   @Operation(summary = "Get Super")
-  SubASubB apiInterfacesSuperGet();
+  SubA_SubB apiInterfacesSuperGet();
 }

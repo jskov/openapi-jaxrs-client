@@ -358,10 +358,10 @@ public final class TypeConverter {
 
             String interfaceName = sp.name();
             if (interfaceName == null) {
-                interfaceName = String.join("", anyOfNames);
+                interfaceName = String.join("_", anyOfNames);
             }
 
-            TypeName tn = typeNames.of(interfaceName);
+            TypeName tn = typeNames.of(naming.convertTypeName(interfaceName));
 
             logger.trace(" - createAnyofRef interface {} : {}", tn, anyOfRefs);
 

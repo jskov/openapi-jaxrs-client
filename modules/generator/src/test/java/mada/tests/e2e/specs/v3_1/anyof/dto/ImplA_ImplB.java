@@ -11,5 +11,5 @@ package mada.tests.e2e.specs.v3_1.anyof.dto;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 @Schema(anyOf = { ImplA.class, ImplB.class })
-public interface ImplAImplB {
+public interface ImplA_ImplB {
 }

@@ -131,16 +131,19 @@ public class DtoGenerator {
     }
 
     private CtxInterface makeCtxInterface(TypeInterface ti) {
-        var imports = Imports.newInterface(opts);
+        Naming naming = model.naming();
 
+        var imports = Imports.newInterface(opts);
         String implementations = ti.implementations().stream()
-                .map(tn -> tn.name() + ".class")
+                .map(tn -> naming.convertTypeName(tn.name()) + ".class")
                 .sorted()
                 .collect(joining(", "));
 
+        String interfaceClassname = naming.convertTypeName(ti.typeName().name());
+
         Info info = model.info();
         return CtxInterface.builder()
-                .classname(ti.typeName().name())
+                .classname(interfaceClassname)
                 .appDescription(info.description())
                 .appName(info.title())
                 .version(info.version())
