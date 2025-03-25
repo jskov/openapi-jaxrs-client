@@ -8,5 +8,5 @@
 
 package mada.tests.e2e.opts.generator.openapi_schema.dto;
 
-public interface SubASubB {
+public interface SubA_SubB {
 }

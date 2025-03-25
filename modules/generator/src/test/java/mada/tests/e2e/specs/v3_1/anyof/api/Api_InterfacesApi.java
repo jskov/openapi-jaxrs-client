@@ -10,7 +10,7 @@ package mada.tests.e2e.specs.v3_1.anyof.api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import mada.tests.e2e.specs.v3_1.anyof.dto.ImplAImplB;
+import mada.tests.e2e.specs.v3_1.anyof.dto.ImplA_ImplB;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 
@@ -21,11 +21,11 @@ public interface Api_InterfacesApi {
   /**
    * Get Interface List.
    *
-   * @return ImplAImplB
+   * @return ImplA_ImplB
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  @APIResponseSchema(ImplAImplB.class)
+  @APIResponseSchema(ImplA_ImplB.class)
   @Operation(summary = "Get Interface List")
-  ImplAImplB apiInterfacesListGet();
+  ImplA_ImplB apiInterfacesListGet();
 }

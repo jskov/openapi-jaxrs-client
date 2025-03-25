@@ -6,10 +6,10 @@
  * Contact: email@example.com
  */
 
-package mada.tests.e2e.specs.v3_1.all.dto;
+package mada.tests.e2e.api.interfaces.dto;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-@Schema(anyOf = { SubA.class, SubB.class })
-public interface SubASubB {
+@Schema(anyOf = { BadNameImplB.class, BadName_ImplA.class, ImplA.class, ImplB.class })
+public interface BadNameImplB_BadName_ImplA_ImplA_ImplB {
 }

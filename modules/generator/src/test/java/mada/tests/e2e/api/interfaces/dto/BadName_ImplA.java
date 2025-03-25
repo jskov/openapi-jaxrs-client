@@ -6,35 +6,35 @@
  * Contact: email@example.com
  */
 
-package mada.tests.e2e.specs.v3_0.dto;
+package mada.tests.e2e.api.interfaces.dto;
 
 import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
- * SubA
+ * BadName_ImplA
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class SubA extends Super implements SubA_SubB {
-  public static final String JSON_PROPERTY_BAR = "bar";
-  @JsonbProperty(JSON_PROPERTY_BAR)
-  private Integer bar;
+public class BadName_ImplA {
+  public static final String JSON_PROPERTY_FOO = "foo";
+  @JsonbProperty(JSON_PROPERTY_FOO)
+  private Integer foo;
 
-  public SubA bar(Integer bar) {
-    this.bar = bar;
+  public BadName_ImplA foo(Integer foo) {
+    this.foo = foo;
     return this;
   }
 
   /**
-   * Get bar
-   * @return bar
+   * Get foo
+   * @return foo
    **/
-  public Integer getBar() {
-    return bar;
+  public Integer getFoo() {
+    return foo;
   }
 
-  public void setBar(Integer bar) {
-    this.bar = bar;
+  public void setFoo(Integer foo) {
+    this.foo = foo;
   }
 
   @Override
@@ -42,25 +42,23 @@ public class SubA extends Super implements SubA_SubB {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof SubA)) {
+    if (!(o instanceof BadName_ImplA)) {
       return false;
     }
-    SubA other = (SubA) o;
-    return Objects.equals(this.bar, other.bar) &&
-        super.equals(o);
+    BadName_ImplA other = (BadName_ImplA) o;
+    return Objects.equals(this.foo, other.foo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bar, super.hashCode());
+    return Objects.hash(foo);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SubA {");
-    sb.append("\n    ").append(toIndentedString(super.toString()));
-    sb.append("\n    bar: ").append(toIndentedString(bar));
+    sb.append("class BadName_ImplA {");
+    sb.append("\n    foo: ").append(toIndentedString(foo));
     sb.append("\n}");
     return sb.toString();
   }

@@ -28,6 +28,8 @@ paths:
             application/json:
               schema:
                 anyOf:
+                - $ref: '#/components/schemas/BadName.ImplA'
+                - $ref: '#/components/schemas/BadName-ImplB'
                 - $ref: '#/components/schemas/ImplA'
                 - $ref: '#/components/schemas/ImplB'
   /api/interfaces/list:
@@ -42,10 +44,24 @@ paths:
               schema:
                 type: array
                 anyOf:
+                - $ref: '#/components/schemas/BadName.ImplA'
+                - $ref: '#/components/schemas/BadName-ImplB'
                 - $ref: '#/components/schemas/ImplA'
                 - $ref: '#/components/schemas/ImplB'
 components:
   schemas:
+    BadName.ImplA:
+      type: object
+      properties:
+        foo:
+          format: int32
+          type: integer
+    BadName-ImplB:
+      type: object
+      properties:
+        bar:
+          format: int32
+          type: integer
     ImplA:
       type: object
       properties:

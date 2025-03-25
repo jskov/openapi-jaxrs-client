@@ -15,7 +15,7 @@ import javax.json.bind.annotation.JsonbProperty;
  * ImplA
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class ImplA implements ImplAImplB {
+public class ImplA implements ImplA_ImplB {
   public static final String JSON_PROPERTY_FOO = "foo";
   @JsonbProperty(JSON_PROPERTY_FOO)
   private Integer foo;

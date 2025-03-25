@@ -6,10 +6,10 @@
  * Contact: email@example.com
  */
 
-package mada.tests.e2e.api.interfaces.dto;
+package mada.tests.e2e.dto.inheritance.jackson_fasterxml.dto;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-@Schema(anyOf = { ImplA.class, ImplB.class })
-public interface ImplAImplB {
+@Schema(anyOf = { SubA.class, SubB.class })
+public interface SubA_SubB {
 }
