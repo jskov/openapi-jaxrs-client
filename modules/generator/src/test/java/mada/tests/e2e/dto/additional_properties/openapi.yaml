@@ -1,0 +1,36 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /dtos/additional_properties:
+    get:
+      tags:
+      - Resource Dtos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event.read'
+components:
+  schemas:
+    # from https://stoplight.io/api/v1/projects/teamup/api/nodes/reference/generated_docs_public.yaml
+    Event.read:
+      title: Read Event
+      description: Content of an event when fetching a single event
+      type: object
+      properties:
+        custom:
+          title: Custom field values for user-defined custom event fields.
+          description: This is an object with custom field ids as keys and values as strings or arrays of strings for fields of type "choice".
+          type: object
+          example:
+            field1: value
+            choicefield:
+              - a
+              - b
+          nullable: true
+          additionalProperties: true

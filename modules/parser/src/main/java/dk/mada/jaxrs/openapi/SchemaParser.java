@@ -2,6 +2,7 @@ package dk.mada.jaxrs.openapi;
 
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import io.swagger.v3.oas.models.SpecVersion;
+import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import java.util.List;
 import java.util.Objects;
@@ -73,7 +74,13 @@ public interface SchemaParser {
     /** {@return the schema defining the inner type of a map} */
     @SuppressWarnings("rawtypes")
     default Schema<?> mapInnerSchema() {
-        return (Schema<?>) schema().getAdditionalProperties();
+        Object propType = schema().getAdditionalProperties();
+        // It may be a plain boolean - true means allowing custom additional properties, false means no additional
+        // properties allowed. False not handled; just reacting on the type.
+        if (propType instanceof Boolean) {
+            return new ObjectSchema();
+        }
+        return (Schema<?>) propType;
     }
 
     /** {@return true if the type is nullable} */
