@@ -34,19 +34,4 @@ java {
     withSourcesJar()
 }
 
-tasks.named('jar') {
-    group = "Module generator"
-    archiveBaseName = "generator"
-}
-
-tasks.named('sourcesJar') {
-    group = "Module generator"
-    archiveBaseName = "generator"
-}
-
-tasks.named('javadocJar') {
-    group = "Module generator"
-    archiveBaseName = "generator"
-}
-
 task preCommit(dependsOn: ['check', 'javadoc'])
