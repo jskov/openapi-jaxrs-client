@@ -26,21 +26,23 @@ paths:
         - application/json
       produces:
         - application/json
-      parameters:
-        - name: request
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/Request'
+      requestBody:
+        description: dto description
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Request"
       responses:
-        '200':
+        "200":
           description: OK
-          schema:
-            $ref: '#/definitions/Response'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
   /dtos/primitives:
     get:
       tags:
-      - Resource Dtos
+      - ap
       responses:
         "200":
           description: OK

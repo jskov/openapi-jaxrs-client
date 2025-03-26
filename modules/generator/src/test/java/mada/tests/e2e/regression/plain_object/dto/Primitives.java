@@ -1,7 +1,9 @@
 /*
- * Naked Object Test
+ * openapi API Title
+ * openapi API description
  *
- * The version of the OpenAPI document: v1
+ * The version of the OpenAPI document: openapi API Version
+ * Contact: email@example.com
  */
 
 package mada.tests.e2e.regression.plain_object.dto;
@@ -10,10 +12,10 @@ import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
- * QuarkusObject
+ * Primitives
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class QuarkusObject {
+public class Primitives {
   public static final String JSON_PROPERTY_AN_OBJECT = "anObject";
   @JsonbProperty(JSON_PROPERTY_AN_OBJECT)
   private Object anObject;
@@ -30,7 +32,7 @@ public class QuarkusObject {
   @JsonbProperty(JSON_PROPERTY_PLAIN_OBJECT)
   private Object plainObject;
 
-  public QuarkusObject anObject(Object anObject) {
+  public Primitives anObject(Object anObject) {
     this.anObject = anObject;
     return this;
   }
@@ -47,7 +49,7 @@ public class QuarkusObject {
     this.anObject = anObject;
   }
 
-  public QuarkusObject aString(String aString) {
+  public Primitives aString(String aString) {
     this.aString = aString;
     return this;
   }
@@ -64,7 +66,7 @@ public class QuarkusObject {
     this.aString = aString;
   }
 
-  public QuarkusObject object(Object object) {
+  public Primitives object(Object object) {
     this.object = object;
     return this;
   }
@@ -81,7 +83,7 @@ public class QuarkusObject {
     this.object = object;
   }
 
-  public QuarkusObject plainObject(Object plainObject) {
+  public Primitives plainObject(Object plainObject) {
     this.plainObject = plainObject;
     return this;
   }
@@ -103,10 +105,10 @@ public class QuarkusObject {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof QuarkusObject)) {
+    if (!(o instanceof Primitives)) {
       return false;
     }
-    QuarkusObject other = (QuarkusObject) o;
+    Primitives other = (Primitives) o;
     return Objects.equals(this.anObject, other.anObject) &&
         Objects.equals(this.aString, other.aString) &&
         Objects.equals(this.object, other.object) &&
@@ -121,7 +123,7 @@ public class QuarkusObject {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class QuarkusObject {");
+    sb.append("class Primitives {");
     sb.append("\n    anObject: ").append(toIndentedString(anObject));
     sb.append("\n    aString: ").append(toIndentedString(aString));
     sb.append("\n    object: ").append(toIndentedString(object));
