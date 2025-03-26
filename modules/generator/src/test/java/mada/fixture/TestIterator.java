@@ -52,7 +52,7 @@ class TestIterator {
         // Handy when working on a single test
 //        String testNameContains = "opts/generator/validation/body";
 //        String testNameContains = "unknown_enum";
-        String testNameContains = "api/interfaces";
+        String testNameContains = "opts/generator/security";
 //        String testNameContains = "e2e/specs/v3_0";
 //        String testNameContains = "e2e/specs/v3_1/all";
 //        String testNameContains = "e2e/specs/v3_1/anyof";

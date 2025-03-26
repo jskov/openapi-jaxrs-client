@@ -1,0 +1,35 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: https://contact.url
+    email: email@example.com
+  license:
+    name: openapi API license name
+    url: https://license.url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths:
+  /api/security/on:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "204":
+          description: No Content
+      security:
+      - jwt: []
+  /api/security/off:
+    get:
+      tags:
+      - Api Types
+      responses:
+        "204":
+          description: No Content

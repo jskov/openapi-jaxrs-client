@@ -2,6 +2,7 @@ package dk.mada.jaxrs.generator.mpclient.api;
 
 import dk.mada.jaxrs.generator.mpclient.CommonPathFinder;
 import dk.mada.jaxrs.generator.mpclient.GeneratorOpts;
+import dk.mada.jaxrs.generator.mpclient.GeneratorOpts.AuthHeader;
 import dk.mada.jaxrs.generator.mpclient.MediaTypes;
 import dk.mada.jaxrs.generator.mpclient.StringRenderer;
 import dk.mada.jaxrs.generator.mpclient.Templates;
@@ -322,7 +323,12 @@ public class ApiGenerator {
      */
     private List<CtxApiParam> getParams(Imports imports, Operation op) {
         List<CtxApiParam> params = new ArrayList<>();
-        if (op.addAuthorizationHeader()) {
+
+        AuthHeader authHeaderPref = opts.getAuthHeaderSelection();
+        boolean addAuthHeader =
+                authHeaderPref == AuthHeader.ON || (authHeaderPref == AuthHeader.API && op.addAuthorizationHeader());
+
+        if (addAuthHeader) {
             Primitive type = Primitive.STRING;
             Optional<CtxValidation> validation =
                     validationGenerator.makeValidation(imports, type, Validation.validationRequired());

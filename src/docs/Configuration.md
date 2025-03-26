@@ -169,12 +169,28 @@ The options are grouped into three sections:
 >
     default value: false
 
+**generator-api-use-authorization-header**
+
+>Allows you to control use of @HeaderParam("Authorization") on resource methods.
+
+>Possible values are:
+
+> * api: the header is added as specified by the API document (default)
+
+> * on: always add the header
+
+> * off: never add the header
+
+>
+    default value: api
+
 **generator-api-use-multipartform**
 
 >Allows you to bundle @FormParam parameters into a @MultipartForm multipart body.
 
 >
     default value: false
+
 
 **generator-api-void-produces-mediatype**
 

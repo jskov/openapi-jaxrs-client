@@ -485,6 +485,12 @@ public final class GeneratorOpts {
         return LineEnding.from(le);
     }
 
+    /** {@return the selection of how to render authorization header argument in resources} */
+    public AuthHeader getAuthHeaderSelection() {
+        String le = or.getDefault("generator-api-use-authorization-header", AuthHeader.API.name());
+        return AuthHeader.from(le);
+    }
+
     /** {@return the property sorting order to use} */
     public PropertyOrder getPropertyOrder() {
         String order = or.getDefault("generator-use-property-order", PropertyOrder.ALPHABETICAL_NOCASE_ORDER.name());
@@ -627,6 +633,28 @@ public final class GeneratorOpts {
                 }
             }
             throw new IllegalArgumentException("Unknown LineEnding " + name);
+        }
+    }
+
+    /**
+     * Authorization header control.
+     */
+    public enum AuthHeader {
+        /** API - use what is dictated by the API (this is the default). */
+        API,
+        /** Enable on all resource methods. */
+        ON,
+        /** Disable. */
+        OFF;
+
+        /**
+         * Converts property value to enumeration value.
+         *
+         * @param value the input property value
+         * @return the matching authorization header selection
+         */
+        public static AuthHeader from(String value) {
+            return AuthHeader.valueOf(value.toUpperCase(Locale.ROOT));
         }
     }
 
