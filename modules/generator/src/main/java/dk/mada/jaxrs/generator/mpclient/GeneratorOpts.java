@@ -487,7 +487,7 @@ public final class GeneratorOpts {
 
     /** {@return the selection of how to render authorization header argument in resources} */
     public AuthHeader getAuthHeaderSelection() {
-        String le = or.getDefault("generator-use-authorization-header", AuthHeader.API.name());
+        String le = or.getDefault("generator-api-use-authorization-header", AuthHeader.API.name());
         return AuthHeader.from(le);
     }
 
