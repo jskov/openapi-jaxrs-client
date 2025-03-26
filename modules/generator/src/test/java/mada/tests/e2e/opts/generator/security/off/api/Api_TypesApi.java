@@ -8,7 +8,6 @@
 
 package mada.tests.e2e.opts.generator.security.off.api;
 
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -19,25 +18,21 @@ public interface Api_TypesApi {
 
   /**
    * apiSecurityOffGet.
-   *
-   * @param auth  (not null)
    */
   @GET
   @Path("/off")
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No Content")
   })
-  void apiSecurityOffGet(@HeaderParam("Authorization") @NotNull String auth);
+  void apiSecurityOffGet();
 
   /**
    * apiSecurityOnGet.
-   *
-   * @param auth  (not null)
    */
   @GET
   @Path("/on")
   @APIResponses({
     @APIResponse(responseCode = "204", description = "No Content")
   })
-  void apiSecurityOnGet(@HeaderParam("Authorization") @NotNull String auth);
+  void apiSecurityOnGet();
 }
