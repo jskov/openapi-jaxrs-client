@@ -1707,6 +1707,9 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/Simple"
+        objects:
+          type: object
+          additionalProperties: {}
     MicroProfileAnnotationsPropsOnly:
       type: object
       properties:

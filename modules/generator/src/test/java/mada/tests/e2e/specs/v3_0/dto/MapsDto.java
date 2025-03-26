@@ -65,6 +65,10 @@ public class MapsDto {
   @JsonbProperty(JSON_PROPERTY_LONGS)
   private Map<String, Long> longs;
 
+  public static final String JSON_PROPERTY_OBJECTS = "objects";
+  @JsonbProperty(JSON_PROPERTY_OBJECTS)
+  private Map<String, Object> objects;
+
   public static final String JSON_PROPERTY_REFS = "refs";
   @JsonbProperty(JSON_PROPERTY_REFS)
   private Map<String, Simple> refs;
@@ -388,6 +392,31 @@ public class MapsDto {
     this.longs = longs;
   }
 
+  public MapsDto objects(Map<String, Object> objects) {
+    this.objects = objects;
+    return this;
+  }
+
+  public MapsDto putObjectsItem(String key, Object objectsItem) {
+    if (this.objects == null) {
+      this.objects = new HashMap<>();
+    }
+    this.objects.put(key, objectsItem);
+    return this;
+  }
+
+  /**
+   * Get objects
+   * @return objects
+   **/
+  public Map<String, Object> getObjects() {
+    return objects;
+  }
+
+  public void setObjects(Map<String, Object> objects) {
+    this.objects = objects;
+  }
+
   public MapsDto refs(Map<String, Simple> refs) {
     this.refs = refs;
     return this;
@@ -645,6 +674,7 @@ public class MapsDto {
         Objects.equals(this.bytes, other.bytes) &&
         Objects.equals(this.ints, other.ints) &&
         Objects.equals(this.longs, other.longs) &&
+        Objects.equals(this.objects, other.objects) &&
         Objects.equals(this.refs, other.refs) &&
         Objects.equals(this.requiredBooleans, other.requiredBooleans) &&
         Objects.equals(this.requiredBytes, other.requiredBytes) &&
@@ -659,7 +689,7 @@ public class MapsDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
+    return Objects.hash(booleans, bothBooleans, bothBytes, bothInts, bothLongs, bothRefs, bothShorts, bothStrings, bytes, ints, longs, objects, refs, requiredBooleans, requiredBytes, requiredInts, requiredLongs, requiredRefs, requiredShorts, requiredStrings, shorts, strings);
   }
 
   @Override
@@ -677,6 +707,7 @@ public class MapsDto {
     sb.append("\n    bytes: ").append(toIndentedString(bytes));
     sb.append("\n    ints: ").append(toIndentedString(ints));
     sb.append("\n    longs: ").append(toIndentedString(longs));
+    sb.append("\n    objects: ").append(toIndentedString(objects));
     sb.append("\n    refs: ").append(toIndentedString(refs));
     sb.append("\n    requiredBooleans: ").append(toIndentedString(requiredBooleans));
     sb.append("\n    requiredBytes: ").append(toIndentedString(requiredBytes));
