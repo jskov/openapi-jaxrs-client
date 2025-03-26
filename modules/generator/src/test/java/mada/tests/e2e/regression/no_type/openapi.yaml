@@ -30,10 +30,6 @@ components:
         aendring:
           description: Ændring som beskrevet i KRO API
           type: string
+        # This one is missing a type definition
         oprindelig:
           description: Oprindelig værdi
-        ny:
-          description: Ønsket værdi
-        valueType:
-          description: Værdiens tekniske type (JAVA)
-          type: string
