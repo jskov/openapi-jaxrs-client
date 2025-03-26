@@ -33,9 +33,15 @@ definitions:
   Response:
     type: object
     properties: {}
+  # The {}-syntax is used by Quarkus for plain object, and it causes problems in the specs test. Fine here though?! 
   QuarkusObject:
     type: object
     properties:
       aString:
         type: string
       anObject: {}
+      object: {}
+      plainObject:
+        $ref: "#/components/schemas/Response"
+
+      
