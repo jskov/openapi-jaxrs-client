@@ -19,7 +19,6 @@ import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
-import dk.mada.jaxrs.model.types.TypeValidation;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -535,16 +534,17 @@ public final class Resolver {
      * @return the input type is valid, or a fallback type if so configured
      */
     private TypeReference assertOrFixupActualType(TypeReference typeRef, Validation validation, String location) {
-        if (!(typeRef.refType() instanceof TypeValidation)) {
-            return typeRef;
-        }
-
-        if (fixupMissingType) {
-            logger.warn("Assuming type Object for {}", location);
-            return resolve(ParserTypeRef.of(TypeNames.OBJECT, validation));
+    	FIXME: Breaks bitbucket test - see TypeConverter fallback, may be related (or not)
+        if ((typeRef.refType() instanceof TypeUndefined)) {
+            if (fixupMissingType) {
+                logger.warn("Assuming type Object for {}", location);
+                return resolve(ParserTypeRef.of(TypeNames.OBJECT, validation));
+            } else {
+                throw new IllegalArgumentException("Property " + location + " has no type! Set "
+                        + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
+            }
         } else {
-            throw new IllegalArgumentException("Property " + location + " has no type! Set "
-                    + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
+            return typeRef;
         }
     }
 

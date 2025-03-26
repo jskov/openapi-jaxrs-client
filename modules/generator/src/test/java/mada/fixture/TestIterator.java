@@ -51,16 +51,17 @@ class TestIterator {
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
 //        String testNameContains = "opts/generator/validation/body";
-        String testNameContains = "plain_object";
-//        String testNameContains = "api/interfaces";
+        String testNameContains = "bitbucket";
+//        String testNameContains = "api/validation";
 //        String testNameContains = "e2e/specs/v3_0";
 //        String testNameContains = "e2e/specs/v3_1/all";
 //        String testNameContains = "e2e/specs/v3_1/anyof";
+        String test2NameContains = "XXNONE";
 
         boolean runAllTests = Boolean.parseBoolean(System.getProperty("run_all_tests"));
         Predicate<? super Path> filterByProperty = p -> testDir.isEmpty() || p.toString().contains(testDir);
         Predicate<? super Path> filterByName = p ->
-            runAllTests || p.toString().contains(testNameContains);
+            runAllTests || p.toString().contains(testNameContains) || p.toString().contains(test2NameContains);
 
         Predicate<? super Path> testFilter = testDir.isEmpty() ? filterByName : filterByProperty;
 

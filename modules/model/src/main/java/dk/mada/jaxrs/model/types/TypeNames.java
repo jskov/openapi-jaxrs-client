@@ -69,6 +69,8 @@ public final class TypeNames {
     public static final TypeName UUID = new TypeName("UUID");
     /** The type name for a validation marker - not a real type. */
     public static final TypeName MARKER_VALIDATION = new TypeName("<VALIDATION>");
+    /** The type name for an undefined (missing) type at parse time - not a real type. */
+    public static final TypeName MARKER_UNDEFINED = new TypeName("<UNDEFINED>");
     /** The type name for an unknown type at parse time - not a real type. */
     public static final TypeName MARKER_UNKNOWN = new TypeName("<UNKNOWN>");
     /** The type name marking an integer of unknown format/size. */
@@ -109,6 +111,7 @@ public final class TypeNames {
         nameToInstances.put(BYTE_ARRAY.name(), BYTE_ARRAY);
         nameToInstances.put(INPUT_STREAM.name(), INPUT_STREAM);
         nameToInstances.put(UUID.name(), UUID);
+        nameToInstances.put(MARKER_UNDEFINED.name(), MARKER_UNDEFINED);
         nameToInstances.put(MARKER_UNKNOWN.name(), MARKER_UNKNOWN);
         nameToInstances.put(MARKER_VALIDATION.name(), MARKER_VALIDATION);
     }
