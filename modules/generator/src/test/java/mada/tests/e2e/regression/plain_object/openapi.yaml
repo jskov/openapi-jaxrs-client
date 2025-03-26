@@ -1,8 +1,21 @@
 ---
 openapi: 3.0.3
 info:
-  version: v1
-  title: Naked Object Test
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: http://test.com/openapi API contact url
+    email: email@example.com
+  license:
+    name: openapi API license name
+    url: http://test.com/openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: http://test.com/openapi API ext url
+tags: []
 paths:
   /v1/ap/ag:
     put:
@@ -35,25 +48,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Primitives"
-definitions:
-  Request:
-    type: object
-    properties:
-      Id:
-        format: int64
-        type: integer
-  Response:
-    type: object
-    properties: {}
-  # The {}-syntax is used by Quarkus for plain object, and it causes problems in the specs test. Fine here though?! 
-  QuarkusObject:
-    type: object
-    properties:
-      aString:
-        type: string
-      anObject: {}
-      object: {}
-      plainObject:
-        $ref: "#/components/schemas/Response"
+components:
+  schemas:
+    Request:
+      type: object
+      properties:
+        Id:
+          format: int64
+          type: integer
+    Response:
+      type: object
+      properties: {}
+    # The {}-syntax is used by Quarkus for plain object. When just expressed in a DTO it is fine.
+    # But when referenced with validation from a resource (see /dtos/primitives) it broke the resolver.  
+    Primitives:
+      type: object
+      properties:
+        aString:
+          type: string
+        anObject: {}
+        object: {}
+        plainObject:
+          $ref: "#/components/schemas/Response"
 
       
