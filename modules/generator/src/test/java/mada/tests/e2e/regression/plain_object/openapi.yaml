@@ -33,3 +33,9 @@ definitions:
   Response:
     type: object
     properties: {}
+  QuarkusObject:
+    type: object
+    properties:
+      aString:
+        type: string
+      anObject: {}
