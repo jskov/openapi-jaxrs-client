@@ -534,7 +534,6 @@ public final class Resolver {
      * @return the input type is valid, or a fallback type if so configured
      */
     private TypeReference assertOrFixupActualType(TypeReference typeRef, Validation validation, String location) {
-    	FIXME: Breaks bitbucket test - see TypeConverter fallback, may be related (or not)
         if ((typeRef.refType() instanceof TypeUndefined)) {
             if (fixupMissingType) {
                 logger.warn("Assuming type Object for {}", location);

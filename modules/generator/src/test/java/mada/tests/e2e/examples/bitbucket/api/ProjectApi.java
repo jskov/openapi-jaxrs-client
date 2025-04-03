@@ -31,7 +31,6 @@ import mada.tests.e2e.examples.bitbucket.dto.RestBranch;
 import mada.tests.e2e.examples.bitbucket.dto.RestDetailedInvocation;
 import mada.tests.e2e.examples.bitbucket.dto.RestHookScriptConfig;
 import mada.tests.e2e.examples.bitbucket.dto.RestHookScriptTriggers;
-import mada.tests.e2e.examples.bitbucket.dto.RestInvocationHistory;
 import mada.tests.e2e.examples.bitbucket.dto.RestMinimalRef;
 import mada.tests.e2e.examples.bitbucket.dto.RestPermitted;
 import mada.tests.e2e.examples.bitbucket.dto.RestProject;
@@ -44,7 +43,6 @@ import mada.tests.e2e.examples.bitbucket.dto.RestRepositoryHook;
 import mada.tests.e2e.examples.bitbucket.dto.RestRestrictionRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestWebhook;
 import mada.tests.e2e.examples.bitbucket.dto.RestWebhookCredentials;
-import mada.tests.e2e.examples.bitbucket.dto.RestWebhookRequestResponse;
 import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHooksHookKeyAvatar_401;
 import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestHooksHookKeyAvatar_404;
 import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProjects;
@@ -1713,7 +1711,7 @@ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for t
    * @param sslVerificationRequired
    * @param url The url in which to connect to (optional)
    * @param dto Basic authentication credentials, if required. (optional)
-   * @return RestWebhookRequestResponse
+   * @return Object
    */
   @POST
   @Path("api/latest/projects/{projectKey}/webhooks/test")
@@ -1721,14 +1719,14 @@ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for t
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A webhook.",
-                 content = @Content(schema = @Schema(implementation = RestWebhookRequestResponse.class))),
+                 content = @Content(schema = @Schema(implementation = Object.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to test a connection.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksTest_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project does not exist.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksTest_404.class)))
   })
   @Operation(summary = "Test webhook")
-  RestWebhookRequestResponse testWebhook(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("webhookId") int webhookId, @QueryParam("sslVerificationRequired") boolean sslVerificationRequired, @QueryParam("url") String url, @Valid RestWebhookCredentials dto);
+  Object testWebhook(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("webhookId") int webhookId, @QueryParam("sslVerificationRequired") boolean sslVerificationRequired, @QueryParam("url") String url, @Valid RestWebhookCredentials dto);
 
   /**
    * Get webhook.
@@ -1837,21 +1835,21 @@ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for t
    * @param projectKey The project key. (not null)
    * @param webhookId ID of the webhook (not null)
    * @param event The string ID of a specific event to retrieve the last invocation for. May be empty, in which case all events are considered (optional)
-   * @return RestInvocationHistory
+   * @return Object
    */
   @GET
   @Path("api/latest/projects/{projectKey}/webhooks/{webhookId}/statistics")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A webhook invocation dataset.",
-                 content = @Content(schema = @Schema(implementation = RestInvocationHistory.class))),
+                 content = @Content(schema = @Schema(implementation = Object.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to get webhook statistics in the project.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatistics_401.class))),
     @APIResponse(responseCode = "404", description = "The specified project does not exist, or the webhook does not exist in the project.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatistics_404.class)))
   })
   @Operation(summary = "Get webhook statistics")
-  RestInvocationHistory getStatistics(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event);
+  Object getStatistics(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event);
 
   /**
    * Get webhook statistics summary.
@@ -1861,14 +1859,14 @@ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for t
    *
    * @param projectKey The project key. (not null)
    * @param webhookId ID of the webhook (not null)
-   * @return RestInvocationHistory
+   * @return Object
    */
   @GET
   @Path("api/latest/projects/{projectKey}/webhooks/{webhookId}/statistics/summary")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A webhook invocation dataset.",
-                 content = @Content(schema = @Schema(implementation = RestInvocationHistory.class))),
+                 content = @Content(schema = @Schema(implementation = Object.class))),
     @APIResponse(responseCode = "204", description = "No webhook invocations exist."),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to get webhook statistics summary in the project.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatisticsSummary_401.class))),
@@ -1876,7 +1874,7 @@ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission for t
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyWebhooksWebhookIdStatisticsSummary_404.class)))
   })
   @Operation(summary = "Get webhook statistics summary")
-  RestInvocationHistory getStatisticsSummary(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId);
+  Object getStatisticsSummary(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId);
 
   /**
    * Search for ref restrictions.

@@ -16,7 +16,6 @@
 package mada.tests.e2e.examples.bitbucket.dto;
 
 import jakarta.json.bind.annotation.JsonbProperty;
-import jakarta.validation.Valid;
 import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -52,7 +51,7 @@ public class RestBranch {
 
   public static final String JSON_PROPERTY_TYPE = "type";
   @JsonbProperty(JSON_PROPERTY_TYPE)
-  private RefType type;
+  private Object type;
 
   public RestBranch default_(Boolean default_) {
     this.default_ = default_;
@@ -139,7 +138,7 @@ public class RestBranch {
     this.latestCommit = latestCommit;
   }
 
-  public RestBranch type(RefType type) {
+  public RestBranch type(Object type) {
     this.type = type;
     return this;
   }
@@ -148,12 +147,11 @@ public class RestBranch {
    * Get type
    * @return type
    **/
-  @Valid
-  public RefType getType() {
+  public Object getType() {
     return type;
   }
 
-  public void setType(RefType type) {
+  public void setType(Object type) {
     this.type = type;
   }
 
