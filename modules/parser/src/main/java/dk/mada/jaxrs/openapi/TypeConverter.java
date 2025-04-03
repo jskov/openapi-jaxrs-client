@@ -71,9 +71,6 @@ public final class TypeConverter {
     /**
      * Constructs a new type converter.
      *
-     * This operated by looking up types, creating if missing, in the types
-     * instance.
-     *
      * @param typeNames     the type names
      * @param parserTypes   the parser types
      * @param parserRefs    the parser references
@@ -353,8 +350,6 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createAnyofRef(RefInfo ri) {
         SchemaParser sp = ri.schemaParser();
         if (sp.isAnyOf()) {
-            logger.info("TRIGGER");
-
             // anyOf is classes implementing an interface
             List<ParserTypeRef> anyOfRefs =
                     sp.anyOfSchemas().stream().map(this::toReference).toList();
@@ -553,7 +548,7 @@ public final class TypeConverter {
                     } else {
                         // This fallback is used when creating plain DTOs - or references to them.
                         // Explore a better understanding and cleanup at some time...
-                        logger.info(" - createObjectRef, plain Object?");
+                        logger.debug(" - createObjectRef, plain Object?");
                         return parserRefs.of(TypeObject.get(), ri.validation);
                     }
                 }
@@ -564,8 +559,6 @@ public final class TypeConverter {
             Dto dto = createDto(syntheticDtoName, schema);
             return parserRefs.of(dto, ri.validation);
         }
-
-        logger.info("XXX {}", sp.name());
 
         return null;
     }
