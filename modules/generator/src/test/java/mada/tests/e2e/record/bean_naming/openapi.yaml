@@ -43,3 +43,7 @@ components:
           type: boolean
         with_underscore:
           type: boolean
+        a_different_camel_bool:
+          type: boolean
+        i-number:
+          type: integer

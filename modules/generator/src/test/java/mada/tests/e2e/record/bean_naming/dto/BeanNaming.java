@@ -22,6 +22,10 @@ public record BeanNaming(
   @Nullable
   Integer aCamelInt,
 
+  @JsonbProperty("a_different_camel_bool")
+  @Nullable
+  Boolean aDifferentCamelBool,
+
   @JsonbProperty("ALLCAPSBOOL")
   @Nullable
   Boolean aLLCAPSBOOL,
@@ -37,6 +41,10 @@ public record BeanNaming(
   @JsonbProperty("downInt")
   @Nullable
   Integer downInt,
+
+  @JsonbProperty("i-number")
+  @Nullable
+  Short iNumber,
 
   @JsonbProperty("UpperBool")
   @Nullable

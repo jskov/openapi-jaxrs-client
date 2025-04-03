@@ -22,6 +22,10 @@ public class BeanNaming {
   @JsonbProperty(JSON_PROPERTY_A_CAMEL_INT)
   private Integer aCamelInt;
 
+  public static final String JSON_PROPERTY_A_DIFFERENT_CAMEL_BOOL = "a_different_camel_bool";
+  @JsonbProperty(JSON_PROPERTY_A_DIFFERENT_CAMEL_BOOL)
+  private Boolean aDifferentCamelBool;
+
   public static final String JSON_PROPERTY_ALLCAPSBOOL = "ALLCAPSBOOL";
   @JsonbProperty(JSON_PROPERTY_ALLCAPSBOOL)
   private Boolean aLLCAPSBOOL;
@@ -37,6 +41,10 @@ public class BeanNaming {
   public static final String JSON_PROPERTY_DOWN_INT = "downInt";
   @JsonbProperty(JSON_PROPERTY_DOWN_INT)
   private Integer downInt;
+
+  public static final String JSON_PROPERTY_I_NUMBER = "i-number";
+  @JsonbProperty(JSON_PROPERTY_I_NUMBER)
+  private Short iNumber;
 
   public static final String JSON_PROPERTY_UPPER_BOOL = "UpperBool";
   @JsonbProperty(JSON_PROPERTY_UPPER_BOOL)
@@ -86,6 +94,23 @@ public class BeanNaming {
 
   public void setaCamelInt(Integer aCamelInt) {
     this.aCamelInt = aCamelInt;
+  }
+
+  public BeanNaming aDifferentCamelBool(Boolean aDifferentCamelBool) {
+    this.aDifferentCamelBool = aDifferentCamelBool;
+    return this;
+  }
+
+  /**
+   * Get aDifferentCamelBool
+   * @return aDifferentCamelBool
+   **/
+  public Boolean isaDifferentCamelBool() {
+    return aDifferentCamelBool;
+  }
+
+  public void setaDifferentCamelBool(Boolean aDifferentCamelBool) {
+    this.aDifferentCamelBool = aDifferentCamelBool;
   }
 
   public BeanNaming aLLCAPSBOOL(Boolean aLLCAPSBOOL) {
@@ -154,6 +179,23 @@ public class BeanNaming {
 
   public void setDownInt(Integer downInt) {
     this.downInt = downInt;
+  }
+
+  public BeanNaming iNumber(Short iNumber) {
+    this.iNumber = iNumber;
+    return this;
+  }
+
+  /**
+   * Get iNumber
+   * @return iNumber
+   **/
+  public Short getiNumber() {
+    return iNumber;
+  }
+
+  public void setiNumber(Short iNumber) {
+    this.iNumber = iNumber;
   }
 
   public BeanNaming upperBool(Boolean upperBool) {
@@ -235,10 +277,12 @@ public class BeanNaming {
     BeanNaming other = (BeanNaming) o;
     return Objects.equals(this.aCamelBool, other.aCamelBool) &&
         Objects.equals(this.aCamelInt, other.aCamelInt) &&
+        Objects.equals(this.aDifferentCamelBool, other.aDifferentCamelBool) &&
         Objects.equals(this.aLLCAPSBOOL, other.aLLCAPSBOOL) &&
         Objects.equals(this.aLLCAPSINT, other.aLLCAPSINT) &&
         Objects.equals(this.downBool, other.downBool) &&
         Objects.equals(this.downInt, other.downInt) &&
+        Objects.equals(this.iNumber, other.iNumber) &&
         Objects.equals(this.upperBool, other.upperBool) &&
         Objects.equals(this.upperInt, other.upperInt) &&
         Objects.equals(this.withSlash, other.withSlash) &&
@@ -247,7 +291,7 @@ public class BeanNaming {
 
   @Override
   public int hashCode() {
-    return Objects.hash(aCamelBool, aCamelInt, aLLCAPSBOOL, aLLCAPSINT, downBool, downInt, upperBool, upperInt, withSlash, withUnderscore);
+    return Objects.hash(aCamelBool, aCamelInt, aDifferentCamelBool, aLLCAPSBOOL, aLLCAPSINT, downBool, downInt, iNumber, upperBool, upperInt, withSlash, withUnderscore);
   }
 
   @Override
@@ -256,10 +300,12 @@ public class BeanNaming {
     sb.append("class BeanNaming {");
     sb.append("\n    aCamelBool: ").append(toIndentedString(aCamelBool));
     sb.append("\n    aCamelInt: ").append(toIndentedString(aCamelInt));
+    sb.append("\n    aDifferentCamelBool: ").append(toIndentedString(aDifferentCamelBool));
     sb.append("\n    aLLCAPSBOOL: ").append(toIndentedString(aLLCAPSBOOL));
     sb.append("\n    aLLCAPSINT: ").append(toIndentedString(aLLCAPSINT));
     sb.append("\n    downBool: ").append(toIndentedString(downBool));
     sb.append("\n    downInt: ").append(toIndentedString(downInt));
+    sb.append("\n    iNumber: ").append(toIndentedString(iNumber));
     sb.append("\n    upperBool: ").append(toIndentedString(upperBool));
     sb.append("\n    upperInt: ").append(toIndentedString(upperInt));
     sb.append("\n    withSlash: ").append(toIndentedString(withSlash));

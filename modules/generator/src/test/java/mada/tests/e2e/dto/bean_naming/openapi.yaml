@@ -43,3 +43,10 @@ components:
           type: boolean
         with_underscore:
           type: boolean
+        # Jackson and JsonBinding use special (broken?) conventions when translating xX field names
+        # But https://github.com/fasterxml/jackson-databind/issues/653
+        # implies this translation eventually needs an option here
+        a_different_camel_bool:
+          type: boolean
+        i-number:
+          type: integer
