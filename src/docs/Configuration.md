@@ -45,19 +45,6 @@ The options are grouped into three sections:
 >
 	default value:
 
-**parser-fixup-missing-type**
-
->This option allows accepting properties where the type has not been specified.
-
->When set, these properties will take on the type of Object. This will make it possible to generate DTOs, but these will probably not work with de/serialization.
-
->Note: this handling conflicts with detection of the declaration propertyName:{} - which is also Object.
->So this option will disappear and implicitly always be enabled in a later release.
-
->
-    default value: false
-
-
 **parser-fixup-null-type-dates**
 
 >This option allows accepting type=null/format=date (or date-time) as date/date-time types.

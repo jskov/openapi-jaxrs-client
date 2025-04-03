@@ -55,8 +55,6 @@ public final class Resolver {
     private final ConflictRenamer conflictRenamer;
     /** Configuration to abort on resolver failure. */
     private final boolean abortOnResolverFailure;
-    /** Configuration to fixup missing type. */
-    private final boolean fixupMissingType;
     /** Dto-to-property-names that need validation to be relaxed. */
     private final Map<TypeName, Set<String>> dtoPropertiesToBeRelaxed = new HashMap<>();
 
@@ -76,7 +74,6 @@ public final class Resolver {
         this.conflictRenamer = conflictRenamer;
 
         abortOnResolverFailure = parserOpts.isAbortOnResolverFailure();
-        fixupMissingType = parserOpts.isFixupMissingType();
     }
 
     /**
@@ -463,16 +460,14 @@ public final class Resolver {
         TypeReference resolvedRef = resolve(property.reference());
         Validation resolvedValidation = property.validation();
 
-        String location = parent.name() + ":" + propName;
-        resolvedRef = assertOrFixupActualType(resolvedRef, resolvedValidation, location);
+        resolvedRef = ensureTypeDefined(resolvedRef, resolvedValidation);
 
         // A Map's inner type may be undefined, try to fix it
         if (resolvedRef.refType() instanceof TypeMap map) {
             Type innerType = map.innerType();
             if (innerType instanceof TypeReference innerRef) {
                 // Not resolving inner type - happens in depth by resolve() on the property
-                TypeReference newInnerType =
-                        assertOrFixupActualType(innerRef, innerRef.validation(), location + " (map's value)");
+                TypeReference newInnerType = ensureTypeDefined(innerRef, innerRef.validation());
                 if (!newInnerType.equals(innerRef)) {
                     TypeMap newMap = TypeMap.of(map.typeNames(), newInnerType);
                     resolvedRef = TypeReference.of(newMap, resolvedRef.validation());
@@ -523,25 +518,22 @@ public final class Resolver {
     }
 
     /**
-     * Assert on or fixup undeclared types.
+     * Translate undefined type to Object.
      *
-     * Terminate parsing if type is "just" validation. This happens if no type is provided in the OpenApi document. This
-     * check should live in resolve(), but then the error cannot provide location hints.
+     * This happens both for fields where no type has been specified (in top-down designs) and
+     * if a field only as additional properties.
+     *
+     * It is not possible to tell these apart via the information provided by the OpenApi parser.
+     * So there is little reason (but probably confusion) gained by controlling this translation by an option.
+     * Therefore always just map to Object.
      *
      * @param typeRef    the type reference
      * @param validation the validation of the type reference
-     * @param location   location to print in case of failure
-     * @return the input type is valid, or a fallback type if so configured
+     * @return a defined type
      */
-    private TypeReference assertOrFixupActualType(TypeReference typeRef, Validation validation, String location) {
+    private TypeReference ensureTypeDefined(TypeReference typeRef, Validation validation) {
         if ((typeRef.refType() instanceof TypeUndefined)) {
-            if (fixupMissingType) {
-                logger.warn("Assuming type Object for {}", location);
-                return resolve(ParserTypeRef.of(TypeNames.OBJECT, validation));
-            } else {
-                throw new IllegalArgumentException("Property " + location + " has no type! Set "
-                        + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
-            }
+            return resolve(ParserTypeRef.of(TypeNames.OBJECT, validation));
         } else {
             return typeRef;
         }

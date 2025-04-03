@@ -62,7 +62,7 @@ components:
       type: object
       properties: {}
     # The {}-syntax is used by Quarkus for plain object. When just expressed in a DTO it is fine.
-    # But when referenced with validation from a resource (see /dtos/primitives) it broke the resolver.  
+    # But when referenced with validation from a resource (see /dtos/primitives) it broke the resolver.
     Primitives:
       type: object
       properties:
@@ -72,5 +72,3 @@ components:
         object: {}
         plainObject:
           $ref: "#/components/schemas/Response"
-
-      

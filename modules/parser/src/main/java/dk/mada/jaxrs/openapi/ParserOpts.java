@@ -87,11 +87,6 @@ public final class ParserOpts {
         return or.bool("parser-fixup-null-type-dates", false);
     }
 
-    /** {@return true if missing type should be fixed} */
-    public boolean isFixupMissingType() {
-        return or.bool(PARSER_FIXUP_MISSING_TYPE, false);
-    }
-
     /** {@return true if resolver should be abort on unknown types} */
     public boolean isAbortOnResolverFailure() {
         return or.bool("parser-abort-on-resolver-failure", true);
