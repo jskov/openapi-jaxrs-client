@@ -223,10 +223,11 @@ public class PropertyGenerator {
         // of a 'xX'-prefixed field to be named 'getxX'. Although
         // this is different from Bean Spec naming for getters/setters.
         //
-        // See https://github.com/FasterXML/jackson-databind/blob/2.15...
-        // /src/main/java/com/fasterxml/jackson/databind/introspect...
-        // /DefaultAccessorNamingStrategy.java#L182
-        if (name.length() > 1 && Character.isUpperCase(name.charAt(1))) {
+        // See <a
+        // href="https://github.com/FasterXML/jackson-databind/blob/2.15/src/main/java/com/fasterxml/jackson/databind/introspect/DefaultAccessorNamingStrategy.java#L182">this</a>.
+        //
+        // <a href="https://github.com/fasterxml/jackson-databind/issues/653">This</a> suggests an option may be needed.
+        if (camelized.length() > 1 && Character.isUpperCase(camelized.charAt(1))) {
             camelized = Character.toLowerCase(name.charAt(0)) + camelized.substring(1);
         }
 
