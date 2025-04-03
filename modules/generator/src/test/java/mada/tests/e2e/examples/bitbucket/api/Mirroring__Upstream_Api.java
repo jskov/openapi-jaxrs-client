@@ -24,7 +24,6 @@ import mada.tests.e2e.examples.bitbucket.dto.EnrichedRepository;
 import mada.tests.e2e.examples.bitbucket.dto.RestAnalyticsSettings;
 import mada.tests.e2e.examples.bitbucket.dto.RestApplicationUserWithPermissions;
 import mada.tests.e2e.examples.bitbucket.dto.RestAuthenticationRequest;
-import mada.tests.e2e.examples.bitbucket.dto.RestMirrorAuthToken;
 import mada.tests.e2e.examples.bitbucket.dto.RestMirrorServer;
 import mada.tests.e2e.examples.bitbucket.dto.RestMirrorUpgradeRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestMirroredRepositoryDescriptor;
@@ -234,19 +233,19 @@ Currently only username/password, bearer token and SSH credentials are supported
    * Returns an authentication token for the mirror server in question
    *
    * @param mirrorId the mirror ID (not null)
-   * @return RestMirrorAuthToken
+   * @return Object
    */
   @GET
   @Path("/mirrorServers/{mirrorId}/token")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "the mirror auth token",
-                 content = @Content(schema = @Schema(implementation = RestMirrorAuthToken.class))),
+                 content = @Content(schema = @Schema(implementation = Object.class))),
     @APIResponse(responseCode = "404", description = "The mirror could not be found.",
                  content = @Content(schema = @Schema(implementation = _ResponseMirroringLatestMirrorServersMirrorIdToken_404.class)))
   })
   @Operation(summary = "Get mirror auth token")
-  RestMirrorAuthToken getAuthToken(@PathParam("mirrorId") @NotNull String mirrorId);
+  Object getAuthToken(@PathParam("mirrorId") @NotNull String mirrorId);
 
   /**
    * Get HTML for remote-connect web-panel on mirror.

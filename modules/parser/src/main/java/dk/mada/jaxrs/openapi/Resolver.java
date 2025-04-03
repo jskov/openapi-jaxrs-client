@@ -19,7 +19,6 @@ import dk.mada.jaxrs.model.types.TypeName;
 import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
-import dk.mada.jaxrs.model.types.TypeValidation;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,8 +55,6 @@ public final class Resolver {
     private final ConflictRenamer conflictRenamer;
     /** Configuration to abort on resolver failure. */
     private final boolean abortOnResolverFailure;
-    /** Configuration to fixup missing type. */
-    private final boolean fixupMissingType;
     /** Dto-to-property-names that need validation to be relaxed. */
     private final Map<TypeName, Set<String>> dtoPropertiesToBeRelaxed = new HashMap<>();
 
@@ -77,7 +74,6 @@ public final class Resolver {
         this.conflictRenamer = conflictRenamer;
 
         abortOnResolverFailure = parserOpts.isAbortOnResolverFailure();
-        fixupMissingType = parserOpts.isFixupMissingType();
     }
 
     /**
@@ -464,23 +460,6 @@ public final class Resolver {
         TypeReference resolvedRef = resolve(property.reference());
         Validation resolvedValidation = property.validation();
 
-        String location = parent.name() + ":" + propName;
-        resolvedRef = assertOrFixupActualType(resolvedRef, resolvedValidation, location);
-
-        // A Map's inner type may be undefined, try to fix it
-        if (resolvedRef.refType() instanceof TypeMap map) {
-            Type innerType = map.innerType();
-            if (innerType instanceof TypeReference innerRef) {
-                // Not resolving inner type - happens in depth by resolve() on the property
-                TypeReference newInnerType =
-                        assertOrFixupActualType(innerRef, innerRef.validation(), location + " (map's value)");
-                if (!newInnerType.equals(innerRef)) {
-                    TypeMap newMap = TypeMap.of(map.typeNames(), newInnerType);
-                    resolvedRef = TypeReference.of(newMap, resolvedRef.validation());
-                }
-            }
-        }
-
         // The type may provide validation - use that if there is none on the property
         // TODO: If the property has validation, it should probably be attempted
         // merged with that of the type. If they conflict, fail (with some config to ignore)
@@ -521,31 +500,6 @@ public final class Resolver {
                 .reference(resolvedRef)
                 .validation(resolvedValidation)
                 .build();
-    }
-
-    /**
-     * Assert on or fixup undeclared types.
-     *
-     * Terminate parsing if type is "just" validation. This happens if no type is provided in the OpenApi document. This
-     * check should live in resolve(), but then the error cannot provide location hints.
-     *
-     * @param typeRef    the type reference
-     * @param validation the validation of the type reference
-     * @param location   location to print in case of failure
-     * @return the input type is valid, or a fallback type if so configured
-     */
-    private TypeReference assertOrFixupActualType(TypeReference typeRef, Validation validation, String location) {
-        if (!(typeRef.refType() instanceof TypeValidation)) {
-            return typeRef;
-        }
-
-        if (fixupMissingType) {
-            logger.warn("Assuming type Object for {}", location);
-            return resolve(ParserTypeRef.of(TypeNames.OBJECT, validation));
-        } else {
-            throw new IllegalArgumentException("Property " + location + " has no type! Set "
-                    + ParserOpts.PARSER_FIXUP_MISSING_TYPE + "=true to assume Object");
-        }
     }
 
     /**

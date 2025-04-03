@@ -42,7 +42,6 @@ import mada.tests.e2e.examples.bitbucket.dto.RestDiff;
 import mada.tests.e2e.examples.bitbucket.dto.RestGitTagCreateRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestHookScriptConfig;
 import mada.tests.e2e.examples.bitbucket.dto.RestHookScriptTriggers;
-import mada.tests.e2e.examples.bitbucket.dto.RestInvocationHistory;
 import mada.tests.e2e.examples.bitbucket.dto.RestLabel;
 import mada.tests.e2e.examples.bitbucket.dto.RestRefRestriction;
 import mada.tests.e2e.examples.bitbucket.dto.RestRefSyncRequest;
@@ -56,7 +55,6 @@ import mada.tests.e2e.examples.bitbucket.dto.RestTag;
 import mada.tests.e2e.examples.bitbucket.dto.RestUserReaction;
 import mada.tests.e2e.examples.bitbucket.dto.RestWebhook;
 import mada.tests.e2e.examples.bitbucket.dto.RestWebhookCredentials;
-import mada.tests.e2e.examples.bitbucket.dto.RestWebhookRequestResponse;
 import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProfileRecentRepos;
 import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProfileRecentRepos_400;
 import mada.tests.e2e.examples.bitbucket.dto._ResponseApiLatestProfileRecentRepos_401;
@@ -2259,7 +2257,7 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
    * @param repositorySlug The repository slug. (not null)
    * @param url The url in which to connect to (optional)
    * @param dto Basic authentication credentials, if required. (optional)
-   * @return RestWebhookRequestResponse
+   * @return Object
    */
   @POST
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/webhooks/test")
@@ -2267,14 +2265,14 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A webhook.",
-                 content = @Content(schema = @Schema(implementation = RestWebhookRequestResponse.class))),
+                 content = @Content(schema = @Schema(implementation = Object.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to test a connection.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksTest_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksTest_404.class)))
   })
   @Operation(summary = "Test webhook")
-  RestWebhookRequestResponse testWebhook_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("webhookId") int webhookId, @QueryParam("sslVerificationRequired") String sslVerificationRequired, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("url") String url, @Valid RestWebhookCredentials dto);
+  Object testWebhook_1(@PathParam("projectKey") @NotNull String projectKey, @QueryParam("webhookId") int webhookId, @QueryParam("sslVerificationRequired") String sslVerificationRequired, @PathParam("repositorySlug") @NotNull String repositorySlug, @QueryParam("url") String url, @Valid RestWebhookCredentials dto);
 
   /**
    * Get webhook.
@@ -2389,21 +2387,21 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
    * @param webhookId ID of the webhook (not null)
    * @param event The string ID of a specific event to retrieve the last invocation for. May be empty, in which case all events are considered (optional)
    * @param repositorySlug The repository slug. (not null)
-   * @return RestInvocationHistory
+   * @return Object
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/webhooks/{webhookId}/statistics")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A webhook invocation dataset.",
-                 content = @Content(schema = @Schema(implementation = RestInvocationHistory.class))),
+                 content = @Content(schema = @Schema(implementation = Object.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to get webhook statistics in the repository.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatistics_401.class))),
     @APIResponse(responseCode = "404", description = "The specified repository does not exist, or the webhook does not exist in the repository.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatistics_404.class)))
   })
   @Operation(summary = "Get webhook statistics")
-  RestInvocationHistory getStatistics_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event, @PathParam("repositorySlug") @NotNull String repositorySlug);
+  Object getStatistics_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @QueryParam("event") String event, @PathParam("repositorySlug") @NotNull String repositorySlug);
 
   /**
    * Get webhook statistics summary.
@@ -2414,21 +2412,21 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission for the 
    * @param projectKey The project key. (not null)
    * @param webhookId ID of the webhook (not null)
    * @param repositorySlug The repository slug. (not null)
-   * @return RestInvocationHistory
+   * @return Object
    */
   @GET
   @Path("api/latest/projects/{projectKey}/repos/{repositorySlug}/webhooks/{webhookId}/statistics/summary")
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "A webhook invocation dataset.",
-                 content = @Content(schema = @Schema(implementation = RestInvocationHistory.class))),
+                 content = @Content(schema = @Schema(implementation = Object.class))),
     @APIResponse(responseCode = "401", description = "The currently authenticated user has insufficient permissions to get webhook statistics summary in the repository.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_401.class))),
     @APIResponse(responseCode = "404", description = "The repository does not exist, or the webhook does not exist in the repository.",
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_404.class)))
   })
   @Operation(summary = "Get webhook statistics summary")
-  RestInvocationHistory getStatisticsSummary_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @PathParam("repositorySlug") @NotNull String repositorySlug);
+  Object getStatisticsSummary_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("webhookId") @NotNull String webhookId, @PathParam("repositorySlug") @NotNull String repositorySlug);
 
   /**
    * Search for repositories.

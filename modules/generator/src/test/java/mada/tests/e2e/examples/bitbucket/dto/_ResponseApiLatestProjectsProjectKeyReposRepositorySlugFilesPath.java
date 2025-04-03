@@ -16,7 +16,6 @@
 package mada.tests.e2e.examples.bitbucket.dto;
 
 import jakarta.json.bind.annotation.JsonbProperty;
-import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath {
 
   public static final String JSON_PROPERTY_VALUES = "values";
   @JsonbProperty(JSON_PROPERTY_VALUES)
-  private List<FileListResource> values;
+  private List<Object> values;
 
   public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath isLastPage(Boolean isLastPage) {
     this.isLastPage = isLastPage;
@@ -139,12 +138,12 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath {
     this.start = start;
   }
 
-  public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath values(List<FileListResource> values) {
+  public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath values(List<Object> values) {
     this.values = values;
     return this;
   }
 
-  public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath addValuesItem(FileListResource valuesItem) {
+  public _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath addValuesItem(Object valuesItem) {
     if (this.values == null) {
       this.values = new ArrayList<>();
     }
@@ -156,12 +155,11 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<FileListResource> getValues() {
+  public List<Object> getValues() {
     return values;
   }
 
-  public void setValues(List<FileListResource> values) {
+  public void setValues(List<Object> values) {
     this.values = values;
   }
 

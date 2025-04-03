@@ -433,10 +433,9 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/Simple"
-# FIXME: this breaks Map handling because createSupplementalValidation captures bad data
-#        objects:
-#          type: object
-#          additionalProperties: {}
+        objects:
+          type: object
+          additionalProperties: {}
     MicroProfileAnnotationsPropsOnly:
       type: object
       properties:
@@ -480,6 +479,7 @@ components:
           format: double
         aString:
           type: string
+        object: {}
         plainObject:
           $ref: "#/components/schemas/PlainObject"
     References:
@@ -520,6 +520,8 @@ components:
           type:
           - string
           - "null"
+        mpAnnotations:
+          $ref: "#/components/schemas/microprofile-annotations"
         mpAnnotationsPropsOnly:
           $ref: "#/components/schemas/MicroProfileAnnotationsPropsOnly"
     SetsDto:

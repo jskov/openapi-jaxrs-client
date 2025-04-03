@@ -29,7 +29,6 @@ import mada.tests.e2e.examples.bitbucket.dto.RestDeployment;
 import mada.tests.e2e.examples.bitbucket.dto.RestDeploymentSetRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestInsightAnnotationsResponse;
 import mada.tests.e2e.examples.bitbucket.dto.RestInsightReport;
-import mada.tests.e2e.examples.bitbucket.dto.RestMultipleBuildStats;
 import mada.tests.e2e.examples.bitbucket.dto.RestRequiredBuildCondition;
 import mada.tests.e2e.examples.bitbucket.dto.RestRequiredBuildConditionSetRequest;
 import mada.tests.e2e.examples.bitbucket.dto.RestSetInsightReportRequest;
@@ -262,7 +261,7 @@ The user must have REPO_ADMIN.
    * Produces a list of the build statistics for multiple commits. Commits <em>without any builds associated with them</em> will not be returned.<br> For example if the commit <code>e00cf62997a027bbf785614a93e2e55bb331d268</code> does not have any build statuses associated with it, it will not be present in the response.
    *
    * @param dto full SHA1 of each commit (optional)
-   * @return RestMultipleBuildStats
+   * @return Object
    */
   @POST
   @Path("build-status/latest/commits/stats")
@@ -270,12 +269,12 @@ The user must have REPO_ADMIN.
   @Produces(MediaType.APPLICATION_JSON)
   @APIResponses({
     @APIResponse(responseCode = "200", description = "The number of successful/failed/in-progress/cancelled/unknown builds for each commit (with the caveat that the commits <em>without any builds associated with them</em> will not be present in the response)",
-                 content = @Content(schema = @Schema(implementation = RestMultipleBuildStats.class))),
+                 content = @Content(schema = @Schema(implementation = Object.class))),
     @APIResponse(responseCode = "401", description = "The user is not authenticated or does not have the <strong>LICENSED</strong> permission",
                  content = @Content(schema = @Schema(implementation = _ResponseBuildStatusLatestCommitsStats_401.class)))
   })
   @Operation(summary = "Get build status statistics for multiple commits")
-  RestMultipleBuildStats getMultipleBuildStatusStats(List<String> dto);
+  Object getMultipleBuildStatusStats(List<String> dto);
 
   /**
    * Get build status statistics for commit.

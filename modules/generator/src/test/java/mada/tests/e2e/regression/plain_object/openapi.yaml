@@ -1,7 +1,21 @@
-swagger: '2.0'
+---
+openapi: 3.0.3
 info:
-  version: v1
-  title: Naked Object Test
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: http://test.com/openapi API contact url
+    email: email@example.com
+  license:
+    name: openapi API license name
+    url: http://test.com/openapi API license url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: http://test.com/openapi API ext url
+tags: []
 paths:
   /v1/ap/ag:
     put:
@@ -12,24 +26,49 @@ paths:
         - application/json
       produces:
         - application/json
-      parameters:
-        - name: request
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/Request'
+      requestBody:
+        description: dto description
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Request"
       responses:
-        '200':
+        "200":
           description: OK
-          schema:
-            $ref: '#/definitions/Response'
-definitions:
-  Request:
-    type: object
-    properties:
-      Id:
-        format: int64
-        type: integer
-  Response:
-    type: object
-    properties: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
+  /dtos/primitives:
+    get:
+      tags:
+      - ap
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Primitives"
+components:
+  schemas:
+    Request:
+      type: object
+      properties:
+        Id:
+          format: int64
+          type: integer
+    Response:
+      type: object
+      properties: {}
+    # The {}-syntax is used by Quarkus for plain object. When just expressed in a DTO it is fine.
+    # But when referenced with validation from a resource (see /dtos/primitives) it broke the resolver.
+    Primitives:
+      type: object
+      properties:
+        aString:
+          type: string
+        anObject: {}
+        object: {}
+        plainObject:
+          $ref: "#/components/schemas/Response"

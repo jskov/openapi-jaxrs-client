@@ -71,8 +71,6 @@ public final class TypeConverter {
     /**
      * Constructs a new type converter.
      *
-     * This operated by looking up types, creating if missing, in the types instance.
-     *
      * @param typeNames     the type names
      * @param parserTypes   the parser types
      * @param parserRefs    the parser references
@@ -110,7 +108,8 @@ public final class TypeConverter {
     /**
      * Creates the schema reference, but overrides the required state.
      *
-     * This is used from parameters, where the required property comes from the parameter.
+     * This is used from parameters, where the required property comes from the
+     * parameter.
      *
      * @param schema  the OpenApi schema to convert
      * @param context the context of the reference
@@ -149,17 +148,20 @@ public final class TypeConverter {
             boolean isFormRef) {}
 
     /**
-     * The type mappers convert a schema configuration to a type refence if possible (or null otherwise).
+     * The type mappers convert a schema configuration to a type refence if possible
+     * (or null otherwise).
      */
     private interface TypeMapper extends Function<RefInfo, ParserTypeRef> {}
 
     /**
      * Converts a OpenApi schema to parser type reference.
      *
-     * This serves as a lazy reference to something that will eventually be resolved to a type in the model.
+     * This serves as a lazy reference to something that will eventually be resolved
+     * to a type in the model.
      *
      * @param schema        the schema
-     * @param propertyName  the name of the property the type is associated with, or null
+     * @param propertyName  the name of the property the type is associated with, or
+     *                      null
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @return the found/created parser type reference
      */
@@ -170,10 +172,12 @@ public final class TypeConverter {
     /**
      * Converts a OpenApi schema to parser type reference.
      *
-     * This serves as a lazy reference to something that will eventually be resolved to a type in the model.
+     * This serves as a lazy reference to something that will eventually be resolved
+     * to a type in the model.
      *
      * @param schema        the OpenApi schema to convert
-     * @param propertyName  the name of the property the type is associated with, or null
+     * @param propertyName  the name of the property the type is associated with, or
+     *                      null
      * @param parentDtoName the name of the DTO this schema is part of, or null
      * @param isFormRef     true if the reference is a form parameter/field.
      * @param context       the content context, or null
@@ -257,7 +261,8 @@ public final class TypeConverter {
             return null;
         }
 
-        // As of OpenApi specification V3.1 the type encodes nullable - move it to the validation
+        // As of OpenApi specification V3.1 the type encodes nullable - move it to the
+        // validation
         Validation validation = ri.validation();
         if (schemaParser.isNullable()) {
             validation = Validations.makeNullable(validation);
@@ -345,8 +350,6 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createAnyofRef(RefInfo ri) {
         SchemaParser sp = ri.schemaParser();
         if (sp.isAnyOf()) {
-            logger.info("TRIGGER");
-
             // anyOf is classes implementing an interface
             List<ParserTypeRef> anyOfRefs =
                     sp.anyOfSchemas().stream().map(this::toReference).toList();
@@ -516,9 +519,10 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createSupplementalValidation(RefInfo ri) {
         Schema<?> schema = ri.schema;
-        // If no type and reference, assume it is supplemental validation
+        // If not part of a DTO, and no type and reference, assume it is supplemental validation
         // information for the other type in a ComposedSchema.
-        if (ri.schemaParser.type() == null
+        if (ri.parentDtoName == null
+                && ri.schemaParser.type() == null
                 && (schema.getProperties() == null || schema.getProperties().isEmpty())) {
             logger.trace(" - createSupplementalValidation");
             return parserRefs.of(TypeValidation.of(ri.validation), ri.validation);
@@ -530,6 +534,7 @@ public final class TypeConverter {
         Schema<?> schema = ri.schema;
 
         SchemaParser sp = ri.schemaParser();
+
         if (sp.isObject() || sp.type() == null) {
             boolean isPlainObject =
                     schema.getProperties() == null || schema.getProperties().isEmpty();
@@ -543,7 +548,7 @@ public final class TypeConverter {
                     } else {
                         // This fallback is used when creating plain DTOs - or references to them.
                         // Explore a better understanding and cleanup at some time...
-                        logger.info(" - createObjectRef, plain Object?");
+                        logger.debug(" - createObjectRef, plain Object?");
                         return parserRefs.of(TypeObject.get(), ri.validation);
                     }
                 }
@@ -554,6 +559,7 @@ public final class TypeConverter {
             Dto dto = createDto(syntheticDtoName, schema);
             return parserRefs.of(dto, ri.validation);
         }
+
         return null;
     }
 
@@ -563,7 +569,8 @@ public final class TypeConverter {
             return false;
         }
 
-        // Synchronization with ApiTransformer which may generate a synthetic multipart DTO
+        // Synchronization with ApiTransformer which may generate a synthetic multipart
+        // DTO
         return !context.syntheticMultipart();
     }
 

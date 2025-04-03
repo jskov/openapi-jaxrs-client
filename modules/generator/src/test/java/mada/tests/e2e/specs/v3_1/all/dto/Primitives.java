@@ -48,6 +48,10 @@ public class Primitives {
   @JsonbProperty(JSON_PROPERTY_A_STRING)
   private String aString;
 
+  public static final String JSON_PROPERTY_OBJECT = "object";
+  @JsonbProperty(JSON_PROPERTY_OBJECT)
+  private Object object;
+
   public static final String JSON_PROPERTY_PLAIN_OBJECT = "plainObject";
   @JsonbProperty(JSON_PROPERTY_PLAIN_OBJECT)
   private Object plainObject;
@@ -188,6 +192,23 @@ public class Primitives {
     this.aString = aString;
   }
 
+  public Primitives object(Object object) {
+    this.object = object;
+    return this;
+  }
+
+  /**
+   * Get object
+   * @return object
+   **/
+  public Object getObject() {
+    return object;
+  }
+
+  public void setObject(Object object) {
+    this.object = object;
+  }
+
   public Primitives plainObject(Object plainObject) {
     this.plainObject = plainObject;
     return this;
@@ -222,12 +243,13 @@ public class Primitives {
         Objects.equals(this.anInt, other.anInt) &&
         Objects.equals(this.aShort, other.aShort) &&
         Objects.equals(this.aString, other.aString) &&
+        Objects.equals(this.object, other.object) &&
         Objects.equals(this.plainObject, other.plainObject);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aBoolean, aByte, aDouble, aFloat, aLong, anInt, aShort, aString, plainObject);
+    return Objects.hash(aBoolean, aByte, aDouble, aFloat, aLong, anInt, aShort, aString, object, plainObject);
   }
 
   @Override
@@ -242,6 +264,7 @@ public class Primitives {
     sb.append("\n    anInt: ").append(toIndentedString(anInt));
     sb.append("\n    aShort: ").append(toIndentedString(aShort));
     sb.append("\n    aString: ").append(toIndentedString(aString));
+    sb.append("\n    object: ").append(toIndentedString(object));
     sb.append("\n    plainObject: ").append(toIndentedString(plainObject));
     sb.append("\n}");
     return sb.toString();

@@ -1707,6 +1707,9 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/Simple"
+        objects:
+          type: object
+          additionalProperties: {}
     MicroProfileAnnotationsPropsOnly:
       type: object
       properties:
@@ -1748,6 +1751,7 @@ components:
           type: number
         aString:
           type: string
+        object: {}
         plainObject:
           $ref: "#/components/schemas/PlainObject"
     References:

@@ -1,7 +1,9 @@
 /*
- * Naked Object Test
+ * openapi API Title
+ * openapi API description
  *
- * The version of the OpenAPI document: v1
+ * The version of the OpenAPI document: openapi API Version
+ * Contact: email@example.com
  */
 
 package mada.tests.e2e.regression.plain_object.dto;
