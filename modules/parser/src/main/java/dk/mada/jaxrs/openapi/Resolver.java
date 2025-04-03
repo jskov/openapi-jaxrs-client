@@ -460,21 +460,6 @@ public final class Resolver {
         TypeReference resolvedRef = resolve(property.reference());
         Validation resolvedValidation = property.validation();
 
-        resolvedRef = ensureTypeDefined(resolvedRef, resolvedValidation);
-
-        // A Map's inner type may be undefined, try to fix it
-        if (resolvedRef.refType() instanceof TypeMap map) {
-            Type innerType = map.innerType();
-            if (innerType instanceof TypeReference innerRef) {
-                // Not resolving inner type - happens in depth by resolve() on the property
-                TypeReference newInnerType = ensureTypeDefined(innerRef, innerRef.validation());
-                if (!newInnerType.equals(innerRef)) {
-                    TypeMap newMap = TypeMap.of(map.typeNames(), newInnerType);
-                    resolvedRef = TypeReference.of(newMap, resolvedRef.validation());
-                }
-            }
-        }
-
         // The type may provide validation - use that if there is none on the property
         // TODO: If the property has validation, it should probably be attempted
         // merged with that of the type. If they conflict, fail (with some config to ignore)
@@ -515,28 +500,6 @@ public final class Resolver {
                 .reference(resolvedRef)
                 .validation(resolvedValidation)
                 .build();
-    }
-
-    /**
-     * Translate undefined type to Object.
-     *
-     * This happens both for fields where no type has been specified (in top-down designs) and
-     * if a field only as additional properties.
-     *
-     * It is not possible to tell these apart via the information provided by the OpenApi parser.
-     * So there is little reason (but probably confusion) gained by controlling this translation by an option.
-     * Therefore always just map to Object.
-     *
-     * @param typeRef    the type reference
-     * @param validation the validation of the type reference
-     * @return a defined type
-     */
-    private TypeReference ensureTypeDefined(TypeReference typeRef, Validation validation) {
-        if ((typeRef.refType() instanceof TypeUndefined)) {
-            return resolve(ParserTypeRef.of(TypeNames.OBJECT, validation));
-        } else {
-            return typeRef;
-        }
     }
 
     /**

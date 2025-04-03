@@ -540,14 +540,6 @@ public final class TypeConverter {
 
         SchemaParser sp = ri.schemaParser();
 
-        if (sp.type() == null && schema.getDescription() != null) {
-            // This handles a special case of top-down documents where properties are missing a type definition (see
-            // no_type tests).
-            // Handled by catching properties with description.
-            // Unfortunately, this conflicts with the plain object syntax ("propertyName:{}") so this hack will probably
-            // have to be removed at some time.
-            return parserRefs.of(TypeUndefined.get(), ri.validation);
-        }
         if (sp.isObject() || sp.type() == null) {
             boolean isPlainObject =
                     schema.getProperties() == null || schema.getProperties().isEmpty();
