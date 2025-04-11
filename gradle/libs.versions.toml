@@ -37,7 +37,7 @@ quarkusBom          = { module = "io.quarkus.platform:quarkus-bom", version.ref 
 swaggerParser       = { module = "io.swagger.parser.v3:swagger-parser", version.ref = "swagger" }
 
 unit                = { module = "org.junit.jupiter:junit-jupiter", version.ref = "unit" }
-unitPlatform        = { module = "org.junit.platform:junit-platform-runner", version = "1.12.1" }
+unitPlatform        = { module = "org.junit.platform:junit-platform-runner", version = "1.12.2" }
 
 [bundles]
 
