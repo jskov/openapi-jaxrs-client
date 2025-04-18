@@ -105,7 +105,8 @@ public final class GeneratorOpts {
         recordBuilderPredicate = switch (control) {
             case ALL -> tn -> true;
             case NONE -> tn -> false;
-            case NAMED -> predicateFromNamed(value);};
+            case NAMED -> predicateFromNamed(value);
+        };
     }
 
     /**
