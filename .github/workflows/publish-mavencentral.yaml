@@ -37,12 +37,12 @@ jobs:
           BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
 
       - name: Upload and Release Bundle
-        uses: jskov/action-nexus-publish@e02fa0f6309eec0fe0fee666f6242966ed32b997
-        # v1.1
+        uses: jskov/action-nexus-publish@8145b6173999b6367355a220c2cd961f54e6b259
+        # v1.2
         with:
           companion_suffixes: '.jar, .module, -javadoc.jar, -sources.jar, -cli.jar'
-          ossrh_username: ${{ secrets.OSSRH_USERNAME }}
-          ossrh_token: ${{ secrets.OSSRH_TOKEN }}
+          portal_username: ${{ secrets.PORTAL_USERNAME }}
+          portal_token: ${{ secrets.PORTAL_TOKEN }}
           signing_key: ${{ secrets.SIGNING_KEY }}
           signing_key_secret: ${{ secrets.SIGNING_KEY_SECRET }}
           search_directory: build/dist
