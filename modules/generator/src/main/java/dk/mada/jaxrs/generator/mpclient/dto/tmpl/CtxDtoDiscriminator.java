@@ -2,21 +2,14 @@ package dk.mada.jaxrs.generator.mpclient.dto.tmpl;
 
 import java.util.List;
 import java.util.Map;
-import org.immutables.value.Value.Immutable;
 import org.jspecify.annotations.Nullable;
 
 /**
  * Custom extensions. In separate (mada.) context so they are easier to spot in the templates.
+ * @param propertyBaseName the name of the property with the selector string
+ * @param mappedModels the list of mapped models
  */
-@Immutable
-public interface CtxDtoDiscriminator {
-    /** {@return a builder for this type} */
-    static ImmutableCtxDtoDiscriminator.Builder builder() {
-        return ImmutableCtxDtoDiscriminator.builder();
-    }
-
-    /** {@return the name of the property with the selector string} */
-    String propertyBaseName();
+public record CtxDtoDiscriminator(String propertyBaseName, List<ModelMapping> mappedModels) {
 
     /**
      * Defines a mapping between a model (DTO) name and a name used in the serialization stream.
@@ -25,8 +18,5 @@ public interface CtxDtoDiscriminator {
      * @param mappingName      the way it is referred to in the stream
      * @param vendorExtensions map of vendor extensions
      */
-    record ModelMapping(String modelName, String mappingName, @Nullable Map<String, String> vendorExtensions) {}
-
-    /** {@return the list of mapped models} */
-    List<ModelMapping> mappedModels();
+    public record ModelMapping(String modelName, String mappingName, @Nullable Map<String, String> vendorExtensions) {}
 }
