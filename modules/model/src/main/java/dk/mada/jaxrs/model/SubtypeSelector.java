@@ -2,30 +2,11 @@ package dk.mada.jaxrs.model;
 
 import dk.mada.jaxrs.model.types.Reference;
 import java.util.Map;
-import org.immutables.value.Value.Immutable;
 
 /**
  * Sub-type selection information.
+ *
+ * @param propertyName the name of the property holding the type selector
+ * @param typeMapping the mapping from names to types
  */
-@Immutable
-public interface SubtypeSelector {
-    /**
-     * Creates a new subtype selector instance.
-     *
-     * @param propertyName the name of the property containing the sub-type selection
-     * @param typeMapping  the sub-type mapping
-     * @return a new instance
-     */
-    static SubtypeSelector of(String propertyName, Map<String, Reference> typeMapping) {
-        return ImmutableSubtypeSelector.builder()
-                .propertyName(propertyName)
-                .typeMapping(typeMapping)
-                .build();
-    }
-
-    /** {@return the name of the property holding the type selector} */
-    String propertyName();
-
-    /** {@return the mapping from names to types} */
-    Map<String, Reference> typeMapping();
-}
+public record SubtypeSelector(String propertyName, Map<String, Reference> typeMapping) {}

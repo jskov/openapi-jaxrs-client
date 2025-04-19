@@ -740,7 +740,7 @@ public final class TypeConverter {
                 String discName = e.getKey();
                 mapping.put(discName, createRefFromRefOrSchemaName(e.getValue(), Validations.emptyValidation()));
             }
-            selector = SubtypeSelector.of(disc.getPropertyName(), mapping);
+            selector = new SubtypeSelector(disc.getPropertyName(), mapping);
         }
 
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))
