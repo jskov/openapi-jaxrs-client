@@ -25,6 +25,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 )
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "implName", visible = true)
 @JsonSubTypes({
+  @JsonSubTypes.Type(value = NamedLowercase.class, name = "LOWERCASE"),
   @JsonSubTypes.Type(value = TypeNamedBar.class, name = "BAR"),
   @JsonSubTypes.Type(value = TypeNamedFoo.class, name = "FOO"),
 })

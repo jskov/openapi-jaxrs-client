@@ -376,18 +376,14 @@ public class DtoGenerator {
     }
 
     private CtxDtoDiscriminator buildSubtypeDiscriminator(SubtypeSelector subtypeSelector) {
-        CtxDtoDiscriminator discriminator;
         Map<String, String> vendorExt = null;
+
         List<CtxDtoDiscriminator.ModelMapping> mapping = subtypeSelector.typeMapping().entrySet().stream()
                 .map(e -> new CtxDtoDiscriminator.ModelMapping(
                         e.getValue().typeName().name(), e.getKey(), vendorExt))
                 .sorted((a, b) -> a.modelName().compareTo(b.modelName()))
                 .toList();
-        discriminator = CtxDtoDiscriminator.builder()
-                .propertyBaseName(subtypeSelector.propertyName())
-                .mappedModels(mapping)
-                .build();
-        return discriminator;
+        return new CtxDtoDiscriminator(subtypeSelector.propertyName(), mapping);
     }
 
     private Optional<String> defineInterfaces(DtoSubject ds) {

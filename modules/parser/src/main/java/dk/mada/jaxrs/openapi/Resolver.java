@@ -2,6 +2,7 @@ package dk.mada.jaxrs.openapi;
 
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.api.Content;
 import dk.mada.jaxrs.model.api.Operation;
@@ -439,6 +440,9 @@ public final class Resolver {
         List<Dto> resolvedParents =
                 dto.extendsParents().stream().map(this::derefDto).toList();
 
+        Optional<SubtypeSelector> resolvedSubtypeSelector =
+                dto.subtypeSelector().map(this::derefSubtypeSelector);
+
         List<TypeInterface> implementsInterfaces = parserTypes.getInterfacesImplementedBy(typeName);
         logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
         logger.debug(" - implements: {}", implementsInterfaces);
@@ -447,7 +451,14 @@ public final class Resolver {
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto))
                 .implementsInterfaces(implementsInterfaces)
+                .subtypeSelector(resolvedSubtypeSelector)
                 .build();
+    }
+
+    private SubtypeSelector derefSubtypeSelector(SubtypeSelector sts) {
+        Map<String, Reference> dereferencedMapping = sts.typeMapping().entrySet().stream()
+                .collect(Collectors.toMap(e -> e.getKey(), e -> resolve(e.getValue())));
+        return new SubtypeSelector(sts.propertyName(), dereferencedMapping);
     }
 
     private List<Property> derefProperties(Dto dto) {
