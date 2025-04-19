@@ -140,7 +140,7 @@ public class ApiGenerator {
             imports.add(MicroProfile.REGISTER_PROVIDER);
         }
 
-        CtxApiExt apiExt = new CtxApiExt(clientKey, mpProviders, opts.isJspecify());
+        CtxApiExt apiExt = new CtxApiExt(clientKey, mpProviders, opts.isJspecify(), opts.getApiAdditionalAnnotations());
 
         Info info = model.info();
         return CtxApi.builder()

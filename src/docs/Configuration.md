@@ -139,6 +139,19 @@ The options are grouped into three sections:
 
 ## Generator options
 
+**generator-api-additional-annotations**
+
+>Allows you to add annotations to each API resource class.
+
+>You can separate lines with the newline escape (\n). If you need to use this in strings, add an extra escape (\\n).
+
+>The lines are added before the @Generated line, so could in theory be abused for all sorts of things.
+>If you get too exotic with this option, and something breaks in a later release, you get to keep both parts.
+
+>
+    default value:
+
+
 **generator-api-default-name**
 
 > Default name of the API file if not specified via groups in the OpenApi document.

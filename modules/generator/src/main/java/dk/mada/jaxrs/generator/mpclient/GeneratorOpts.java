@@ -288,6 +288,11 @@ public final class GeneratorOpts {
         return or.bool("generator-use-mp-validation-rules", true);
     }
 
+    /** {@return the optional additional API annotations} */
+    public List<String> getApiAdditionalAnnotations() {
+        return or.getListNewlineDefault("generator-api-additional-annotations", "");
+    }
+
     /** {@return the optional MP client config key} */
     public Optional<String> getMpClientConfigKey() {
         return or.get("generator-mp-api-register-rest-client");

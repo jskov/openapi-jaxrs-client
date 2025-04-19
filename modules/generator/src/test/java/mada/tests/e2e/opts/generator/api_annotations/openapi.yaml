@@ -1,0 +1,14 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi-examples API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /call/one:
+    get:
+      tags:
+      - One
+  /call/two:
+    get:
+      tags:
+      - Two

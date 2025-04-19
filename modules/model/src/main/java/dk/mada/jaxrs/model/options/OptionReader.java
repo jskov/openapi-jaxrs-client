@@ -22,19 +22,6 @@ public class OptionReader {
     }
 
     /**
-     * Splits and trims string by comma.
-     *
-     * @param input the input to split
-     * @return the list of trimmed elements
-     */
-    public static List<String> splitByComma(String input) {
-        return Stream.of(input.split(","))
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .toList();
-    }
-
-    /**
      * Read boolean property, defaulting to false if missing.
      *
      * @param name the name of the option.
@@ -97,6 +84,18 @@ public class OptionReader {
     }
 
     /**
+     * Read newline-separated list option with default value.
+     *
+     * @param name         the option name
+     * @param defaultValue the default value, if the option is not present
+     * @return the property value
+     */
+    public List<String> getListNewlineDefault(String name, String defaultValue) {
+        String value = options.getProperty(name, defaultValue);
+        return splitByNewline(value.trim());
+    }
+
+    /**
      * Read optional option with default value.
      *
      * @param name         the option name
@@ -119,5 +118,30 @@ public class OptionReader {
      */
     public Optional<String> get(String name) {
         return Optional.ofNullable(options.getProperty(name)).map(String::trim);
+    }
+
+    /**
+     * Splits and trims string by comma.
+     *
+     * @param input the input to split
+     * @return the list of trimmed elements
+     */
+    public static List<String> splitByComma(String input) {
+        return Stream.of(input.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
+    }
+
+    /**
+     * Splits string by newline.
+     *
+     * Uses \n marker to split lines.
+     *
+     * @param input the input to split
+     * @return the list of separated lines
+     */
+    public static List<String> splitByNewline(String input) {
+        return Stream.of(input.split("\\n")).filter(s -> !s.isEmpty()).toList();
     }
 }
