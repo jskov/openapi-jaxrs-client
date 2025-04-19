@@ -139,6 +139,14 @@ The options are grouped into three sections:
 
 ## Generator options
 
+**generator-api-add-annotations**
+
+>Allows you to add annotations to each API resource class.
+
+>
+    default value:
+
+
 **generator-api-default-name**
 
 > Default name of the API file if not specified via groups in the OpenApi document.
@@ -158,7 +166,6 @@ The options are grouped into three sections:
 
 >
     default value: false
-
 **generator-api-use-authorization-header**
 
 >Allows you to control use of @HeaderParam("Authorization") on resource methods.
