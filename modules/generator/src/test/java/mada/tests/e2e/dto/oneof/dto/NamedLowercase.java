@@ -12,15 +12,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * _named_lowercase
+ * NamedLowercase
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class _named_lowercase extends AbstractTypeBySchemaName {
+public class NamedLowercase {
   public static final String JSON_PROPERTY_VALUE_STRING = "valueString";
   @JsonProperty(JSON_PROPERTY_VALUE_STRING)
   private String valueString;
 
-  public _named_lowercase valueString(String valueString) {
+  public NamedLowercase valueString(String valueString) {
     this.valueString = valueString;
     return this;
   }
@@ -42,24 +42,22 @@ public class _named_lowercase extends AbstractTypeBySchemaName {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _named_lowercase)) {
+    if (!(o instanceof NamedLowercase)) {
       return false;
     }
-    _named_lowercase other = (_named_lowercase) o;
-    return Objects.equals(this.valueString, other.valueString) &&
-        super.equals(o);
+    NamedLowercase other = (NamedLowercase) o;
+    return Objects.equals(this.valueString, other.valueString);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(valueString, super.hashCode());
+    return Objects.hash(valueString);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class _named_lowercase {");
-    sb.append("\n    ").append(toIndentedString(super.toString()));
+    sb.append("class NamedLowercase {");
     sb.append("\n    valueString: ").append(toIndentedString(valueString));
     sb.append("\n}");
     return sb.toString();

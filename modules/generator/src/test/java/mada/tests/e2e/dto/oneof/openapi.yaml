@@ -114,12 +114,12 @@ components:
         mapping:
           FOO: 'TypeNamedFoo'
           BAR: 'TypeNamedBar'
-          LOWERCASE: '_named_lowercase'
+          LOWERCASE: 'named-lowercase'
       # This was added manually
       oneOf:
         - $ref: '#/components/schemas/TypeNamedBar'
         - $ref: '#/components/schemas/TypeNamedFoo'
-        - $ref: '#/components/schemas/_named_lowercase'
+        - $ref: '#/components/schemas/named-lowercase'
     TypeNamedBar:
       type: object
       properties:
@@ -130,7 +130,7 @@ components:
       properties:
         valueString:
           type: string
-    '_named_lowercase':
+    'named-lowercase':
       type: object
       properties:
         valueString:
