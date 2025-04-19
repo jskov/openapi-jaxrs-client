@@ -656,6 +656,8 @@ public final class TypeConverter {
     /**
      * Creates a new parser type reference from schema name or reference.
      *
+     * The schema-name-variant is used for <a href="https://spec.openapis.org/oas/v3.1.0#fixed-fields-20">discriminators</a>.
+     *
      * @param refOrSchemaName the reference (#/components/schemas/SCHEMANAME) or just SCHEMANAME
      * @param validation the validation for the reference
      * @return the type reference
