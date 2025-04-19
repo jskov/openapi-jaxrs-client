@@ -1,1 +1,1 @@
-Test that @RegisterRestClient can be added to resources.
+Test that additional custom annotations can be added to resources.
