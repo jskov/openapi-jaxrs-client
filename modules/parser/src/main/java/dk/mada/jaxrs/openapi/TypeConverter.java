@@ -650,10 +650,31 @@ public final class TypeConverter {
         if (ref == null || !ref.startsWith(REF_COMPONENTS_SCHEMAS)) {
             return null;
         }
+        return createRefFromRefOrSchemaName(ref, validation);
+    }
 
-        logger.trace(" - createDtoRef");
-        String openapiId = ref.substring(REF_COMPONENTS_SCHEMAS.length());
-        return parserRefs.makeDtoRef(openapiId, validation);
+    
+    /**
+     * Creates a new parser type reference from schema name or reference.
+     *
+     * @param refOrSchemaName the reference (#/components/schemas/SCHEMANAME) or just SCHEMANAME
+     * @param validation the validation for the reference
+     * @return the type reference
+     */
+    @Nullable private ParserTypeRef createRefFromRefOrSchemaName(String refOrSchemaName, Validation validation) {
+        if (refOrSchemaName == null) {
+            return null;
+        }
+
+        String openapiSchemaId;
+        if (refOrSchemaName.startsWith(REF_COMPONENTS_SCHEMAS)) {
+            openapiSchemaId = refOrSchemaName.substring(REF_COMPONENTS_SCHEMAS.length());
+        } else {
+            openapiSchemaId = refOrSchemaName;
+        }
+        
+        logger.trace(" - createDtoRef to {}", openapiSchemaId);
+        return parserRefs.makeDtoRef(openapiSchemaId, validation);
     }
 
     /**
@@ -716,7 +737,7 @@ public final class TypeConverter {
             Map<String, Reference> mapping = new HashMap<>();
             for (var e : disc.getMapping().entrySet()) {
                 String discName = e.getKey();
-                mapping.put(discName, createDtoRef(e.getValue(), Validations.emptyValidation()));
+                mapping.put(discName, createRefFromRefOrSchemaName(e.getValue(), Validations.emptyValidation()));
             }
             selector = SubtypeSelector.of(disc.getPropertyName(), mapping);
         }

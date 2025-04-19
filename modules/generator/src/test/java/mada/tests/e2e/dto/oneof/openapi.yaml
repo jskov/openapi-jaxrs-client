@@ -50,6 +50,23 @@ components:
       oneOf:
         - $ref: '#/components/schemas/TypeFoo'
         - $ref: '#/components/schemas/TypeBar'
+    AbstractTypeBySchemaName:
+      required:
+      - valueInteger
+      type: object
+      properties:
+        valueEnum:
+          $ref: '#/components/schemas/OtherEnum'
+        valueInteger:
+          format: int32
+          type: integer
+        valueString:
+          type: string
+      discriminator:
+        propertyName: implName
+        mapping:
+          FOO: 'TypeFoo'
+          BAR: 'TypeBar'
     OtherEnum:
       enum:
       - PROP_A
