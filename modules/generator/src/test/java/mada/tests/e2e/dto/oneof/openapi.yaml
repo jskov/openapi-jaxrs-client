@@ -46,10 +46,12 @@ components:
         mapping:
           FOO: '#/components/schemas/TypeFoo'
           BAR: '#/components/schemas/TypeBar'
+          lowercase: '#/components/schemas/type-lowercase'
       # This was added manually
       oneOf:
         - $ref: '#/components/schemas/TypeFoo'
         - $ref: '#/components/schemas/TypeBar'
+        - $ref: '#/components/schemas/type-lowercase'
     OtherEnum:
       enum:
       - PROP_A
@@ -82,6 +84,21 @@ components:
         valueFooLong:
           format: int64
           type: integer
+    'type-lowercase':
+       required:
+       - valueInteger
+       type: object
+       properties:
+         valueEnum:
+           $ref: '#/components/schemas/OtherEnum'
+         valueInteger:
+           format: int32
+           type: integer
+         valueString:
+           type: string
+         valueFooLong:
+           format: int64
+           type: integer
     # The below was added for testing fix of https://github.com/jskov/openapi-jaxrs-client/issues/845
     # Note that the discriminator Mapping values are schema names, not refs
     AbstractTypeBySchemaName:
@@ -97,16 +114,23 @@ components:
         mapping:
           FOO: 'TypeNamedFoo'
           BAR: 'TypeNamedBar'
+          LOWERCASE: '_named_lowercase'
       # This was added manually
       oneOf:
         - $ref: '#/components/schemas/TypeNamedBar'
         - $ref: '#/components/schemas/TypeNamedFoo'
+        - $ref: '#/components/schemas/_named_lowercase'
     TypeNamedBar:
       type: object
       properties:
         valueString:
           type: string
     TypeNamedFoo:
+      type: object
+      properties:
+        valueString:
+          type: string
+    '_named_lowercase':
       type: object
       properties:
         valueString:
