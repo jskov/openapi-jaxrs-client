@@ -431,7 +431,7 @@ public final class TypeConverter {
                         .filter(Objects::nonNull)
                         .toList();
 
-                if (schema.getDiscriminator() == null && !oneOfRefs.isEmpty()) {
+                if (schema.getDiscriminator() == null && oneOfRefs != null && !oneOfRefs.isEmpty()) {
                     // Handle oneof without descriminator
                     return createCombinedDto(ri, oneOfRefs);
                 } else {

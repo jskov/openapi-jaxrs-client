@@ -19,11 +19,11 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
     /**
      * State of validation input while being transformed to rendered output.
      */
-    public final class State {
+    final class State {
         /** The DTO/API imports. */
-        public final Imports imports;
+        final Imports imports;
         /** The type the validation is for. */
-        public final Type type;
+        final Type type;
         /** Flag for type being number or integer. */
         private final boolean numberOrInteger;
         /** The type's nullable state. */
@@ -31,13 +31,13 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
         /** The type's required state. */
         final boolean isRequired;
         /** The validation's flag for exclusive minimum. */
-        public final boolean exclusiveMinimum;
+        final boolean exclusiveMinimum;
         /** The validation's flag for exclusive maximum. */
-        public final boolean exclusiveMaximum;
+        final boolean exclusiveMaximum;
         /** True if maximum is zero. */
-        public final boolean maximumIsZero;
+        final boolean maximumIsZero;
         /** True if minimum is zero. */
-        public final boolean minimumIsZero;
+        final boolean minimumIsZero;
 
         /** The validation in rendered form. Changed as transformers operate on the state. */
         private String rendered = "";
@@ -68,7 +68,7 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
          * @param type       the type
          * @param validation the validation
          */
-        public State(Imports imports, Type type, Validation validation) {
+        State(Imports imports, Type type, Validation validation) {
             this.imports = imports;
             this.type = type;
             isNullable = validation.nullable();
@@ -116,11 +116,11 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
             exclusiveMinimum = Boolean.TRUE.equals(validation._exclusiveMinimum());
             exclusiveMaximum = Boolean.TRUE.equals(validation._exclusiveMaximum());
 
-            boolean numberOrInteger = type.isBigDecimal();
+            boolean tmpNumberOrInteger = type.isBigDecimal();
             if (type instanceof Primitive p) {
-                numberOrInteger |= p.isNumber();
+                tmpNumberOrInteger |= p.isNumber();
             }
-            this.numberOrInteger = numberOrInteger;
+            this.numberOrInteger = tmpNumberOrInteger;
         }
 
         /** {@return true if the type is a number or integer} */

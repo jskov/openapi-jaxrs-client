@@ -225,15 +225,11 @@ public class PropertyConverter {
     }
 
     private @Nullable Comparator<? super CtxProperty> propertySorter() {
-        switch (order) {
-            case DOCUMENT_ORDER:
-                return null;
-            case ALPHABETICAL_ORDER:
-                return (a, b) -> a.name().compareTo(b.name());
-            case ALPHABETICAL_NOCASE_ORDER:
-                return (a, b) -> a.name().compareToIgnoreCase(b.name());
-            default:
-                throw new IllegalStateException("Unhandled ordering " + order);
-        }
+        return switch (order) {
+            case DOCUMENT_ORDER -> null;
+            case ALPHABETICAL_ORDER -> (a, b) -> a.name().compareTo(b.name());
+            case ALPHABETICAL_NOCASE_ORDER -> (a, b) -> a.name().compareToIgnoreCase(b.name());
+            default -> throw new IllegalStateException("Unhandled ordering " + order);
+        };
     }
 }

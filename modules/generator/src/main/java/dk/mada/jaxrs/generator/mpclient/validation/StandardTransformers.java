@@ -10,7 +10,7 @@ import dk.mada.jaxrs.model.types.TypeContainer;
  * These provide a fall-back handling of validation annotations
  * if no more specific transformers have been in play.
  */
-public class StandardTransformers {
+public final class StandardTransformers {
     /** Prevent creation of instances. */
     private StandardTransformers() {
         // empty
