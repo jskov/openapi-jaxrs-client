@@ -82,3 +82,32 @@ components:
         valueFooLong:
           format: int64
           type: integer
+    # The below was added for testing fix of https://github.com/jskov/openapi-jaxrs-client/issues/845
+    # Note that the discriminator Mapping values are schema names, not refs
+    AbstractTypeBySchemaName:
+      required:
+      - valueInteger
+      type: object
+      properties:
+        valueInteger:
+          format: int32
+          type: integer
+      discriminator:
+        propertyName: implName
+        mapping:
+          FOO: 'TypeNamedFoo'
+          BAR: 'TypeNamedBar'
+      # This was added manually
+      oneOf:
+        - $ref: '#/components/schemas/TypeNamedBar'
+        - $ref: '#/components/schemas/TypeNamedFoo'
+    TypeNamedBar:
+      type: object
+      properties:
+        valueString:
+          type: string
+    TypeNamedFoo:
+      type: object
+      properties:
+        valueString:
+          type: string
