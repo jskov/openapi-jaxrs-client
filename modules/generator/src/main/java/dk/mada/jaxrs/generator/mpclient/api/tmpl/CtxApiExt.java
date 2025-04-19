@@ -9,6 +9,7 @@ import java.util.Optional;
  * @param mpRestClientConfigKey the optional micro profile rest client config key
  * @param mpProviders the fully qualified class names of MP providers
  * @param isJspecify true if jspecify Nullable annotations should be used
+ * @param additionalAnnotations a list of additional annotation lines
  */
 public record CtxApiExt(
         Optional<String> mpRestClientConfigKey,
