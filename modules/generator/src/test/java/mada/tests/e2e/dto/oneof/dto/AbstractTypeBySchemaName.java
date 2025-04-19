@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.Objects;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -26,41 +25,15 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 )
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "implName", visible = true)
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = TypeBar.class, name = "BAR"),
-  @JsonSubTypes.Type(value = TypeFoo.class, name = "FOO"),
+  @JsonSubTypes.Type(value = TypeNamedBar.class, name = "BAR"),
+  @JsonSubTypes.Type(value = TypeNamedFoo.class, name = "FOO"),
 })
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
 public abstract class AbstractTypeBySchemaName {
-  public static final String JSON_PROPERTY_VALUE_ENUM = "valueEnum";
-  @JsonProperty(JSON_PROPERTY_VALUE_ENUM)
-  private OtherEnum valueEnum;
-
   public static final String JSON_PROPERTY_VALUE_INTEGER = "valueInteger";
   @JsonProperty(JSON_PROPERTY_VALUE_INTEGER)
   @Schema(required = true)
   private Integer valueInteger;
-
-  public static final String JSON_PROPERTY_VALUE_STRING = "valueString";
-  @JsonProperty(JSON_PROPERTY_VALUE_STRING)
-  private String valueString;
-
-  public AbstractTypeBySchemaName valueEnum(OtherEnum valueEnum) {
-    this.valueEnum = valueEnum;
-    return this;
-  }
-
-  /**
-   * Get valueEnum
-   * @return valueEnum
-   **/
-  @Valid
-  public OtherEnum getValueEnum() {
-    return valueEnum;
-  }
-
-  public void setValueEnum(OtherEnum valueEnum) {
-    this.valueEnum = valueEnum;
-  }
 
   public AbstractTypeBySchemaName valueInteger(Integer valueInteger) {
     this.valueInteger = Objects.requireNonNull(valueInteger, "Property valueInteger is required, cannot be null");
@@ -80,23 +53,6 @@ public abstract class AbstractTypeBySchemaName {
     this.valueInteger = Objects.requireNonNull(valueInteger, "Property valueInteger is required, cannot be null");
   }
 
-  public AbstractTypeBySchemaName valueString(String valueString) {
-    this.valueString = valueString;
-    return this;
-  }
-
-  /**
-   * Get valueString
-   * @return valueString
-   **/
-  public String getValueString() {
-    return valueString;
-  }
-
-  public void setValueString(String valueString) {
-    this.valueString = valueString;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -106,23 +62,19 @@ public abstract class AbstractTypeBySchemaName {
       return false;
     }
     AbstractTypeBySchemaName other = (AbstractTypeBySchemaName) o;
-    return Objects.equals(this.valueEnum, other.valueEnum) &&
-        Objects.equals(this.valueInteger, other.valueInteger) &&
-        Objects.equals(this.valueString, other.valueString);
+    return Objects.equals(this.valueInteger, other.valueInteger);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(valueEnum, valueInteger, valueString);
+    return Objects.hash(valueInteger);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AbstractTypeBySchemaName {");
-    sb.append("\n    valueEnum: ").append(toIndentedString(valueEnum));
     sb.append("\n    valueInteger: ").append(toIndentedString(valueInteger));
-    sb.append("\n    valueString: ").append(toIndentedString(valueString));
     sb.append("\n}");
     return sb.toString();
   }
