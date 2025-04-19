@@ -653,7 +653,6 @@ public final class TypeConverter {
         return createRefFromRefOrSchemaName(ref, validation);
     }
 
-    
     /**
      * Creates a new parser type reference from schema name or reference.
      *
@@ -672,7 +671,7 @@ public final class TypeConverter {
         } else {
             openapiSchemaId = refOrSchemaName;
         }
-        
+
         logger.trace(" - createDtoRef to {}", openapiSchemaId);
         return parserRefs.makeDtoRef(openapiSchemaId, validation);
     }
