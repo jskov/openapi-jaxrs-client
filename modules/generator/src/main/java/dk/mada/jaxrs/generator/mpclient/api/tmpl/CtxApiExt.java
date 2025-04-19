@@ -10,4 +10,8 @@ import java.util.Optional;
  * @param mpProviders the fully qualified class names of MP providers
  * @param isJspecify true if jspecify Nullable annotations should be used
  */
-public record CtxApiExt(Optional<String> mpRestClientConfigKey, List<String> mpProviders, boolean isJspecify) {}
+public record CtxApiExt(
+        Optional<String> mpRestClientConfigKey,
+        List<String> mpProviders,
+        boolean isJspecify,
+        List<String> additionalAnnotations) {}

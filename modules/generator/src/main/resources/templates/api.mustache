@@ -6,6 +6,9 @@ package {{packageName}};
 import {{.}};
 {{/imports}}
 
+{{#madaApi.additionalAnnotations}}
+{{.}}
+{{/madaApi.additionalAnnotations}}
 {{>generatedAnnotation}}
 {{#madaApi.mpProviders}}
 @RegisterProvider({{.}}.class)
