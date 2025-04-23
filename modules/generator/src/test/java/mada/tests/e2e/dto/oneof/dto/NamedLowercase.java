@@ -15,7 +15,7 @@ import java.util.Objects;
  * NamedLowercase
  */
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class NamedLowercase {
+public class NamedLowercase extends AbstractTypeBySchemaName {
   public static final String JSON_PROPERTY_VALUE_STRING = "valueString";
   @JsonProperty(JSON_PROPERTY_VALUE_STRING)
   private String valueString;
@@ -46,18 +46,20 @@ public class NamedLowercase {
       return false;
     }
     NamedLowercase other = (NamedLowercase) o;
-    return Objects.equals(this.valueString, other.valueString);
+    return Objects.equals(this.valueString, other.valueString) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(valueString);
+    return Objects.hash(valueString, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class NamedLowercase {");
+    sb.append("\n    ").append(toIndentedString(super.toString()));
     sb.append("\n    valueString: ").append(toIndentedString(valueString));
     sb.append("\n}");
     return sb.toString();

@@ -114,7 +114,7 @@ components:
         mapping:
           FOO: 'TypeNamedFoo'
           BAR: 'TypeNamedBar'
-          LOWERCASE: 'named-lowercase'
+          key-lower-case: 'named-lowercase'
       # This was added manually
       oneOf:
         - $ref: '#/components/schemas/TypeNamedBar'
