@@ -16,5 +16,7 @@ tasks.named('sonar') {
 sonar {
     properties {
         property 'sonar.coverage.jacoco.xmlReportPaths', "${project.rootDir}/build/reports/jacoco/combinedCoverageReport/combinedCoverageReport.xml"
+        // Exclude javadoc test as it mixes encodings which Sonar does not like
+        property "sonar.exclusions","**/src/test/java/mada/tests/e2e/api/javadoc/**/*"
     }
 }
