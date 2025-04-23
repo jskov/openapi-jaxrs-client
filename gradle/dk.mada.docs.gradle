@@ -1,0 +1,59 @@
+// Creates aggregate javadoc
+
+def allSrc = project.layout.buildDir.dir("src")
+def docsDir = project.layout.buildDir.dir("dist/docs")
+def javadocDir = project.layout.buildDir.dir("dist/docs/javadoc")
+
+tasks.register('bundle-src', Copy) {
+    dependsOn(':generator:compileJava')
+    dependsOn(':model:compileJava')
+
+    into allSrc
+    
+    from project(':generator').sourceSets.main.allJava
+    from project(':generator').file("build/generated/sources/annotationProcessor/java/main")
+    from project(':generator-api').sourceSets.main.allJava
+    from project(':generator-cli').sourceSets.main.allJava
+    from project(':model').sourceSets.main.allJava
+    from project(':model').file("build/generated/sources/annotationProcessor/java/main")
+    from project(':parser').sourceSets.main.allJava
+}
+
+tasks.register('aggregate-javadoc', Exec) {
+    dependsOn('bundle-src')
+    mustRunAfter('mkdocs')
+
+    def deps = project(':generator').configurations.compileClasspath
+        .plus(project(':generator-api').configurations.compileClasspath)
+        .plus(project(':generator-cli').configurations.compileClasspath)
+        .plus(project(':model').configurations.compileClasspath)
+        .plus(project(':model').configurations.annotationProcessor)
+        .plus(project(':parser').configurations.compileClasspath)
+        .asPath
+
+    inputs.property('dependencies', deps)
+    inputs.dir(allSrc)
+    outputs.dir(javadocDir)
+
+    executable = "javadoc"
+    args("-d", javadocDir.get().getAsFile())
+    args("--source-path", allSrc.get().getAsFile())
+    args("-subpackages", "dk.mada.jaxrs.generator.api:dk.mada.jaxrs.generator.cli:dk.mada.jaxrs.generator.mpclient:dk.mada.jaxrs.model:dk.mada.jaxrs.openapi")
+    args("--class-path", deps)
+}
+
+tasks.register('mkdocs', Exec) {
+    inputs.dir("src/docs")
+    inputs.file("src/mkdocs.yaml")
+    outputs.dir(docsDir)
+    
+    executable = 'mkdocs'
+    args("build")    
+    args("-d", docsDir.get().getAsFile().getAbsolutePath())
+    args("-f", "src/mkdocs.yaml")
+}
+
+tasks.register('docs') {
+    dependsOn('mkdocs')
+    dependsOn('aggregate-javadoc')
+}
