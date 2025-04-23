@@ -1,0 +1,52 @@
+# Project information
+site_name: OpenAPI client code generator
+site_url: https://github.com/jskov/openapi-jaxrs-client
+site_author: Jesper Skov
+site_description: >-
+  Alternative to openapi-generator with focus on Java JAX-RS/MicroProfile client generation.
+
+# Repository
+repo_name: jskov/openapi-jaxrs-client
+repo_url: https://github.com/jskov/openapi-jaxrs-client
+
+# Copyright
+copyright: Copyright &copy; 2021 - 2025 Jesper Skov
+
+docs_dir: docs
+
+nav:
+- 'Welcome': 'index.md'
+- 'Invocation':
+  - 'Invocation': 'invocation/index.md'
+  - 'Gradle': 'invocation/Gradle.md'
+  - 'CLI': 'invocation/Cli.md'
+- 'Configuration':
+   - 'Configuration': 'config/index.md'
+   - 'Parser': 'config/Configuration-parser.md'
+   - 'Naming': 'config/Configuration-naming.md'
+   - 'Generator': 'config/Configuration-generator.md'
+- 'Development':
+  - 'Release.md'
+  - 'Development.md'
+- 'Javadoc' : 'https://jskov.github.io/openapi-jaxrs-client/javadoc'
+- 'Issues': https://github.com/jskov/openapi-jaxrs-client/issues
+
+
+# Configuration
+theme:
+  name: material
+  features:
+    - toc.integrate
+    - navigation.indexes
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      baselevel: 2

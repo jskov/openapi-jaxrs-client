@@ -1,6 +1,12 @@
-# Using the Gradle plugin
+The Gradle plugin is available from [Gradle Plugins](https://plugins.gradle.org/plugin/dk.mada.jaxrs).
 
-See examples in [the openapi-jaxrs-client-examples repository](https://github.com/jskov/openapi-jaxrs-client-examples).
+
+!!! note "Veracity Note"
+
+    The Gradle plugin is not signed, nor published to MavenCentral so you can verify that it is reproducible.  
+    I will [fix](https://github.com/jskov/openapi-jaxrs-client/issues/856) this eventually by also publishing to MavenCentral.
+
+See an example of plugin use at [the openapi-jaxrs-client-examples repository](https://github.com/jskov/openapi-jaxrs-client-examples).
 
 ## Activation
 
@@ -8,9 +14,13 @@ Activate the plugin with:
 
 ```gradle
 plugins {
-    id 'dk.mada.jaxrs' version "0.11.5"
+    id 'dk.mada.jaxrs' version "0.12.0"
 }
 ```
+
+!!! warning "Different release cadence"
+
+    The Gradle plugin is not changed often, so it is (often) versioned differently from the generator artifacts.
 
 ## Tasks
 
@@ -99,7 +109,8 @@ jaxrs {
     'endpoint-b' {
        ...
     }
-    # etc
+
+    // etc...
 }
 ```
 
@@ -116,7 +127,8 @@ Please do not read too much into the names; you are most welcome to use whatever
 **Pure**
 
     The OpenApi document is the source for the generated client java code.
-    So the generated code is not "source", and should not be checked into version control.
+    So the generated code is not "source", and should not be checked into
+    version control.
 
 If you use the `transientSource()` method in the client configuration, the code is generated before each Gradle compilation.  
 And the code is generated below `build/java-jaxrs`, so it does not risk ending up in version control.
@@ -126,7 +138,8 @@ You have to invoke the generator task, so the source code is available to your I
 
 **Pragmatic**
 
-    Both OpenApi document and generated client java code is checked into version control.
+    Both OpenApi document and generated client java code is checked into
+    version control.
 
 When there are changes to the OpenApi document and/or the generator, you invoke the generate task.  
 And can then review the differences, so you know what changed at both levels.

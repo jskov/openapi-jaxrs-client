@@ -1,0 +1,59 @@
+name: Publish documentation
+
+on:
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install mkdocs
+        run: |
+          sudo apt-get update
+          sudo apt-get install mkdocs mkdocs-material
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244
+        # v4
+        with:
+          validate-wrappers: true
+
+      - name: Build Docs
+        run: ./gradlew docs
+        env:
+          BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
+
+      - name: Package
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/dist/docs
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
