@@ -387,7 +387,8 @@ public final class Resolver {
         for (Dto dto : dtos) {
             dto.subtypeSelector().ifPresent(subtypes -> {
                 for (Reference r : subtypes.typeMapping().values()) {
-                    dtosWithSuper.put(r.typeName(), dto);
+                    TypeName resolvedSubtypeName = resolve(r).typeName();
+                    dtosWithSuper.put(resolvedSubtypeName, dto);
                 }
             });
         }
