@@ -37,7 +37,7 @@ jobs:
           BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
 
       - name: Upload and Release Bundle
-        uses: jskov/action-nexus-publish@8145b6173999b6367355a220c2cd961f54e6b259
+        uses: jskov/action-maven-publish@8145b6173999b6367355a220c2cd961f54e6b259
         # v1.2
         with:
           companion_suffixes: '.jar, .module, -javadoc.jar, -sources.jar, -cli.jar'
