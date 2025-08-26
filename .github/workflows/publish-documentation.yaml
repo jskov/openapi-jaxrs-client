@@ -38,7 +38,7 @@ jobs:
           BUILD_LABEL: ${{ github.head_ref || github.ref_name }}
 
       - name: Package
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: build/dist/docs
 
