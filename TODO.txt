@@ -16,3 +16,9 @@ o Generator option to use primitive types for non-optional fields
 o Generator flag to select primitives/wrappers in API parameters
 o Responses @APIResponse are not handling Maps correctly. Need an example to work from.
 o Handle form parameters. See disabled tests params/form/* and examples/azure
+
+# Eclipse
+* Gradle 9.1.0/eclipse runs differently now, confusing mustache
+  mkdir -f -p modules/generator/bin/eclipseApt
+  cd modules/generator/bin/eclipseApt
+  ln -s ../../src/main/resources/templates .
