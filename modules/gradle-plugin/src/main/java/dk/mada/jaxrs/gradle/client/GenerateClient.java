@@ -66,12 +66,11 @@ public abstract class GenerateClient extends DefaultTask {
         // Extend configuration with the dependencies from the plugin itself
         @Nullable ScriptHandler buildscript = project.getBuildscript();
         if (buildscript != null) {
-            @Nullable Configuration classpathConfiguration = buildscript
-                    .getConfigurations()
-                    .findByName("classpath");
+            @Nullable Configuration classpathConfiguration =
+                    buildscript.getConfigurations().findByName("classpath");
             if (classpathConfiguration != null) {
-                FileCollection pluginClasspath = classpathConfiguration
-                        .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
+                FileCollection pluginClasspath = classpathConfiguration.filter(
+                        s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
                 generatorClasspath = generatorClasspath.plus(pluginClasspath);
             }
         }
