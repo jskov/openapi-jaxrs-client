@@ -1,0 +1,29 @@
+---
+openapi: 3.1.0
+info:
+  contact:
+    email: email@example.com
+    name: openapi API contact name
+    url: http://test.com/https://contact.url
+  description: openapi API description
+  license:
+    name: openapi API license name
+    url: http://test.com/https://license.url
+  termsOfService: openapi API TOS
+  title: openapi API Title
+  version: openapi API Version
+tags: []
+externalDocs:
+  description: openapi API ext docs description
+  url: http://test.com/openapi API ext url
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type:
+            - string
+            - "null"
+          description: The id of the account.
+          readOnly: true
