@@ -301,7 +301,11 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createArrayRef(RefInfo ri) {
         SchemaParser sp = ri.schemaParser;
+        if ("ownership".equals(ri.propertyName)) {
+            logger.info("SEE {} : {}", ri.propertyName, ri.schema);
+        }
         if (sp.isArray()) {
+            
             ParserTypeRef innerType = reference(sp.itemsSchema(), ri.propertyName, ri.parentDtoName);
             logger.trace(" - createArrayRef {}", innerType);
 
@@ -349,6 +353,8 @@ public final class TypeConverter {
 
     @Nullable private ParserTypeRef createAnyofRef(RefInfo ri) {
         SchemaParser sp = ri.schemaParser();
+        
+
         if (sp.isAnyOf()) {
             // anyOf is classes implementing an interface
             List<ParserTypeRef> anyOfRefs =
