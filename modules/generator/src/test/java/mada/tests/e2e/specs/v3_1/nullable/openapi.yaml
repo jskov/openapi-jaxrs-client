@@ -27,3 +27,11 @@ components:
             - "null"
           description: The id of the account.
           readOnly: true
+        ownership:
+          type:
+            - array
+            - "null"
+          uniqueItems: true
+          items:
+            type: string
+          description: Details concerning ownership of the account.
