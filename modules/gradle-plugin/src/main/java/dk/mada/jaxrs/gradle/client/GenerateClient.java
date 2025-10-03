@@ -8,6 +8,7 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.RegularFileProperty;
+import org.gradle.api.initialization.dsl.ScriptHandler;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
@@ -15,6 +16,7 @@ import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.workers.WorkQueue;
 import org.gradle.workers.WorkerExecutor;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Generate JAX-RS client code from an OpenApi document.
@@ -59,13 +61,21 @@ public abstract class GenerateClient extends DefaultTask {
     /** Create new instance. */
     public GenerateClient() { // NOSONAR - must be public for Gradle to be happy
         Project project = getProject();
-        FileCollection pluginClasspath = project.getBuildscript()
-                .getConfigurations()
-                .findByName("classpath")
-                .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
-        Configuration generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
-        combined = generatorClasspath.plus(pluginClasspath);
+        FileCollection generatorClasspath = project.getConfigurations().getByName(JaxrsPlugin.CONFIGURATION_NAME);
 
+        // Extend configuration with the dependencies from the plugin itself
+        @Nullable ScriptHandler buildscript = project.getBuildscript();
+        if (buildscript != null) {
+            @Nullable Configuration classpathConfiguration = buildscript
+                    .getConfigurations()
+                    .findByName("classpath");
+            if (classpathConfiguration != null) {
+                FileCollection pluginClasspath = classpathConfiguration
+                        .filter(s -> s.getName().contains("plugin") || s.getName().contains("jaxrs"));
+                generatorClasspath = generatorClasspath.plus(pluginClasspath);
+            }
+        }
+        combined = generatorClasspath;
         echoEnabled = project.getLogger().isInfoEnabled();
     }
 
