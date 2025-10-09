@@ -25,6 +25,21 @@ public interface SchemaParser {
     /** {@return the schema type, or null} */
     @Nullable String type();
 
+    /**
+     * {@return true if no type is defined for the schema}
+     *
+     * This is used to recognize the empty, non-boolean variant of free-form objects:
+     *
+     * <pre>
+     * schema:
+     *  type: object
+     *  additionalProperties: {}
+     * </pre>
+     */
+    default boolean isTypeless() {
+        return type() == null;
+    }
+
     /** {@return the schema format, or null} */
     @Nullable String format();
 
@@ -75,12 +90,24 @@ public interface SchemaParser {
     @SuppressWarnings("rawtypes")
     default Schema<?> mapInnerSchema() {
         Object propType = schema().getAdditionalProperties();
-        // It may be a plain boolean - true means allowing custom additional properties, false means no additional
-        // properties allowed. False not handled; just reacting on the type.
+
+        // Free-form objects.
+        // See https://swagger.io/docs/specification/v3_0/data-models/dictionaries/ (search for Free-Form Objects)
+        // This catches the boolean variant. The value must actually be true, but this cannot be determined from the
+        // type.
         if (propType instanceof Boolean) {
             return new ObjectSchema();
         }
-        return (Schema<?>) propType;
+        if (propType instanceof Schema<?> innerSchema) {
+            if (of(innerSchema).isTypeless()) {
+                // This is the other variant of the free-form object
+                return new ObjectSchema();
+            }
+            // Otherwise it should be converted to a richer object (elsewhere)
+            return innerSchema;
+        } else {
+            throw new IllegalStateException("Unhandled semantics for additionalProperties, seeing: " + propType);
+        }
     }
 
     /** {@return true if the type is nullable} */

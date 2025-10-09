@@ -12,7 +12,6 @@ import org.immutables.value.Value.Immutable;
 /**
  * Model of a DTO object.
  */
-
 @Immutable
 public interface Dto extends Type {
     /**

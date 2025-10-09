@@ -1,5 +1,5 @@
 ---
-openapi: 3.0.3
+openapi: 3.0.4
 info:
   title: openapi-examples API
   version: 1.0.0-SNAPSHOT
@@ -13,27 +13,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Event.read'
-  # From BD, generated for API 3.0.4
-  /kkt-income/incomes:
-    patch:
-      operationId: patchIncome
-      requestBody:
-        description: Only 'description' and 'isWorkingDraft' are allowed to be patched
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: {}
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event.read'
 components:
   schemas:
+    # The no-type variant of free-form objects
+    FreeFormObject:
+      type: object
+      properties:
+        fromTypeless:
+          type: object
+          additionalProperties: {}
+        fromBoolean:
+          type: object
+          additionalProperties: true
+
     # from https://stoplight.io/api/v1/projects/teamup/api/nodes/reference/generated_docs_public.yaml
     Event.read:
       title: Read Event
@@ -59,5 +51,4 @@ components:
         type: array
         items:
           type: string
-    
           
