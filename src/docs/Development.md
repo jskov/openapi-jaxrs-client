@@ -83,3 +83,9 @@ $ ./gradlew publish
 $ java -jar build/dist/ojc-0.0.0-SNAPSHOT-cli.jar --api-package foo.bar.api --dto-package foo.bar.dto -i modules/generator/src/test/java/mada/tests/e2e/examples/petstore/openapi.yaml -o /tmp/xx
 ```
 
+
+
+# Eclipse
+
+Be sure to avoid using buildship
+
