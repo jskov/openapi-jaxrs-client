@@ -34,9 +34,12 @@ public interface DefaultApi {
    * @param label  (not null)
    * @param ref
    * @param dto Only 'description' and 'isWorkingDraft' are allowed to be patched (not null)
+   * @return Event_read
    */
   @PATCH
   @Path("kkt-income/incomes/{ref}/{label}")
   @Consumes(MediaType.APPLICATION_JSON)
-  void patchIncome(@PathParam("label") @NotNull String label, @PathParam("ref") int ref, @NotNull Map<String, Object> dto);
+  @Produces(MediaType.APPLICATION_JSON)
+  @APIResponseSchema(Event_read.class)
+  Event_read patchIncome(@PathParam("label") @NotNull String label, @PathParam("ref") int ref, @NotNull Map<String, Object> dto);
 }

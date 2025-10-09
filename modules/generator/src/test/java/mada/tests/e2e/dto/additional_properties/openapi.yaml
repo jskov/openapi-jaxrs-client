@@ -37,6 +37,13 @@ paths:
             schema:
               type: object
               additionalProperties: {}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event.read'
 components:
   schemas:
     # from https://stoplight.io/api/v1/projects/teamup/api/nodes/reference/generated_docs_public.yaml
