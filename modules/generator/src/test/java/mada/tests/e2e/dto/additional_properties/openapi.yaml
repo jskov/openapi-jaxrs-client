@@ -14,21 +14,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Event.read'
   # From BD, generated for API 3.0.4
-  /kkt-income/incomes/{ref}/{label}:
+  /kkt-income/incomes:
     patch:
       operationId: patchIncome
-      parameters:
-        - required: true
-          name: label
-          in: path
-          schema:
-            type: string
-        - required: true
-          name: ref
-          in: path
-          schema:
-            format: int32
-            type: integer
       requestBody:
         description: Only 'description' and 'isWorkingDraft' are allowed to be patched
         required: true
