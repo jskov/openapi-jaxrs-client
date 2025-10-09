@@ -34,7 +34,7 @@ paths:
 components:
   schemas:
     # The no-type variant of free-form objects
-    FreeFormObject:
+    FreeFormProperties:
       type: object
       properties:
         fromTypeless:
@@ -43,6 +43,12 @@ components:
         fromBoolean:
           type: object
           additionalProperties: true
+    FreeFormObject:
+      type: object
+      properties:
+        additional-property:
+          type: string
+      additionalProperties: true
 
     # from https://stoplight.io/api/v1/projects/teamup/api/nodes/reference/generated_docs_public.yaml
     Event.read:
