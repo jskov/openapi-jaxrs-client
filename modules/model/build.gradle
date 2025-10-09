@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${project.rootDir}/gradle/dk.mada.java.gradle"
+apply plugin: 'com.diffplug.eclipse.apt'
 
 dependencies {
     implementation      (libs.logger)

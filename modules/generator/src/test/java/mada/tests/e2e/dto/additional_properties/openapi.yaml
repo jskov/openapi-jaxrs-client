@@ -6,8 +6,6 @@ info:
 paths:
   /dtos/additional_properties:
     get:
-      tags:
-      - Resource Dtos
       responses:
         "200":
           description: OK
@@ -15,6 +13,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Event.read'
+  # From BD, generated for API 3.0.4
+  /kkt-income/incomes/{ref}/{label}:
+    patch:
+      operationId: patchIncome
+      parameters:
+        - required: true
+          name: label
+          in: path
+          schema:
+            type: string
+        - required: true
+          name: ref
+          in: path
+          schema:
+            format: int32
+            type: integer
+      requestBody:
+        description: Only 'description' and 'isWorkingDraft' are allowed to be patched
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
 components:
   schemas:
     # from https://stoplight.io/api/v1/projects/teamup/api/nodes/reference/generated_docs_public.yaml
@@ -34,3 +56,13 @@ components:
               - b
           nullable: true
           additionalProperties: true
+    # From https://github.com/jskov/openapi-jaxrs-client/issues/817
+    # FIXME: need better rendering with extends
+    MultivaluedHashMapStringString:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+    
+          
