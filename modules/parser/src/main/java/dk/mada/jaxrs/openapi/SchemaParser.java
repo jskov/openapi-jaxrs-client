@@ -2,7 +2,6 @@ package dk.mada.jaxrs.openapi;
 
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import io.swagger.v3.oas.models.SpecVersion;
-import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +23,21 @@ public interface SchemaParser {
 
     /** {@return the schema type, or null} */
     @Nullable String type();
+
+    /**
+     * {@return true if no type is defined for the schema}
+     *
+     * This is used to recognize the empty, non-boolean variant of free-form objects:
+     *
+     * <pre>
+     * schema:
+     *  type: object
+     *  additionalProperties: {}
+     * </pre>
+     */
+    default boolean isTypeless() {
+        return type() == null;
+    }
 
     /** {@return the schema format, or null} */
     @Nullable String format();
@@ -71,16 +85,38 @@ public interface SchemaParser {
     /** {@return true if the schema defines a map} */
     boolean isMap();
 
-    /** {@return the schema defining the inner type of a map} */
+    /**
+     * {@return the schema defining the inner type of a map}
+     *
+     * This should only be called if the map is not a free-form object.
+     *
+     * @see isFreeFormObject
+     **/
     @SuppressWarnings("rawtypes")
-    default Schema<?> mapInnerSchema() {
+    default Schema<?> getMapInnerSchema() {
         Object propType = schema().getAdditionalProperties();
-        // It may be a plain boolean - true means allowing custom additional properties, false means no additional
-        // properties allowed. False not handled; just reacting on the type.
-        if (propType instanceof Boolean) {
-            return new ObjectSchema();
+        if (propType instanceof Schema<?> innerSchema) {
+            return innerSchema;
+        } else {
+            throw new IllegalStateException("Unhandled semantics for additionalProperties, seeing: " + propType);
         }
-        return (Schema<?>) propType;
+    }
+
+    /**
+     * Detects free-form objects.
+     *
+     * This is only relevant for map-types.
+     *
+     * See https://swagger.io/docs/specification/v3_0/data-models/dictionaries/ (search for Free-Form Objects)
+     *
+     * @return true if the schema looks like a free-form object
+     */
+    default boolean isFreeFormObject() {
+        Object propType = schema().getAdditionalProperties();
+        boolean isBooleanVariant = propType instanceof Boolean;
+        boolean isTypelessVariant =
+                (propType instanceof Schema<?> innerSchema) && of(innerSchema).isTypeless();
+        return isBooleanVariant || isTypelessVariant;
     }
 
     /** {@return true if the type is nullable} */
