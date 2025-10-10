@@ -71,8 +71,8 @@ public interface Dto extends Type {
     /** {@return an optional sub-type mapping} */
     Optional<SubtypeSelector> subtypeSelector();
 
-    /** {@return the parents that this DTO extends} */
-    Set<Dto> extendsParents();
+    /** {@return the types that this DTO extends} */
+    Set<Type> extendsTypes();
 
     /** {@return true if this instance is used as a multipart form body} */
     boolean isMultipartForm();
