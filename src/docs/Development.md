@@ -83,3 +83,19 @@ $ ./gradlew publish
 $ java -jar build/dist/ojc-0.0.0-SNAPSHOT-cli.jar --api-package foo.bar.api --dto-package foo.bar.dto -i modules/generator/src/test/java/mada/tests/e2e/examples/petstore/openapi.yaml -o /tmp/xx
 ```
 
+
+
+# Eclipse
+
+Be sure to avoid using buildship.
+
+find . -name bin -o -name .factorypath -o -name .classpath | xargs echo rm -rf
+
+./gradlew eclipse
+
+* Import main projet.
+* Select in Package Explorer and import, import the sub modules.
+* model will fail - edit its APT compiler output folder to be relative (.apt_generated + for test)
+
+Seems to settle. What a pain!
+
