@@ -21,7 +21,6 @@ import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -201,7 +200,7 @@ public final class Resolver {
                 && !dto.isEnum()
                 && dto.implementsInterfaces().isEmpty()
                 && !dto.subtypeSelector().isPresent()
-                && dto.extendsParents().isEmpty();
+                && dto.extendsTypes().isEmpty();
 
         if (isRefOnly
                 && dto.reference() instanceof ParserTypeRef ptr
@@ -300,7 +299,7 @@ public final class Resolver {
             logger.debug("    extends {}", extendsNames);
         }
 
-        return Dto.builderFrom(dto).extendsParents(externalDtos).build();
+        return Dto.builderFrom(dto).extendsTypes(externalDtos).build();
     }
 
     /**
@@ -404,28 +403,33 @@ public final class Resolver {
      * Make a link to the parent and remove inherited properties.
      *
      * @param dto    the dto to change
-     * @param parent the parent dto, or null
+     * @param parentType the parent type, or null
      * @return the updated dto
      */
-    private Dto adjustToParentExtension(Dto dto, @Nullable Dto parent) {
-        if (parent == null) {
+    private Dto adjustToParentExtension(Dto dto, @Nullable Type parentType) {
+        if (parentType == null) {
             return dto;
         }
 
-        String parentName = parent.name();
-        String dtoName = dto.name();
-        logger.debug(" {} extends {}", dtoName, parentName);
-        List<Property> localProperties = dto.properties().stream()
-                .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))
-                .toList();
+        if (parentType instanceof Dto parent) {
+            String parentName = parent.name();
+            String dtoName = dto.name();
+            logger.debug(" {} extends {}", dtoName, parentName);
+            List<Property> localProperties = dto.properties().stream()
+                    .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))
+                    .toList();
 
-        ArrayList<Dto> newParents = new ArrayList<>(dto.extendsParents());
-        newParents.add(parent);
+            HashSet<Type> newParents = new HashSet<>();
+            newParents.addAll(dto.extendsTypes());
+            newParents.add(parent);
 
-        return Dto.builderFrom(dto)
-                .extendsParents(newParents)
-                .properties(localProperties)
-                .build();
+            return Dto.builderFrom(dto)
+                    .extendsTypes(newParents)
+                    .properties(localProperties)
+                    .build();
+        } else {
+            return dto;
+        }
     }
 
     private boolean isLocalToDto(Dto parent, String propertyName) {
@@ -438,8 +442,15 @@ public final class Resolver {
         String name = dto.name();
         TypeName typeName = dto.typeName();
 
-        List<Dto> resolvedParents =
-                dto.extendsParents().stream().map(this::derefDto).toList();
+        List<Type> resolvedParents = dto.extendsTypes().stream()
+                .map(t -> {
+                    if (t instanceof Dto edto) {
+                        return derefDto(edto);
+                    } else {
+                        return t;
+                    }
+                })
+                .toList();
 
         Optional<SubtypeSelector> resolvedSubtypeSelector =
                 dto.subtypeSelector().map(this::derefSubtypeSelector);
@@ -448,7 +459,7 @@ public final class Resolver {
         logger.debug(" - deref DTO {} : {}", name, dtoTypeRef);
         logger.debug(" - implements: {}", implementsInterfaces);
         return Dto.builderFrom(dto)
-                .extendsParents(resolvedParents)
+                .extendsTypes(resolvedParents)
                 .reference(resolve(dtoTypeRef))
                 .properties(derefProperties(dto))
                 .implementsInterfaces(implementsInterfaces)

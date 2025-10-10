@@ -743,6 +743,7 @@ public final class TypeConverter {
             selector = new SubtypeSelector(disc.getPropertyName(), mapping);
         }
 
+        List<Type> extendsTypes = List.of();
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))
                 .mpSchemaName(mpSchemaName)
                 .description(Optional.ofNullable(schema.getDescription()))
@@ -752,7 +753,7 @@ public final class TypeConverter {
                 .enumValues(getEnumValues(schema))
                 .implementsInterfaces(List.of())
                 .subtypeSelector(Optional.ofNullable(selector))
-                .extendsParents(List.of())
+                .extendsTypes(extendsTypes)
                 .isMultipartForm(isMultipartForm)
                 .build();
 
