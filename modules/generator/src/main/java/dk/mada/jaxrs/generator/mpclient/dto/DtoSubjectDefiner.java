@@ -166,7 +166,7 @@ public class DtoSubjectDefiner {
             if (dto instanceof TypeMap tm) {
                 logger.info("XXXXX see {}", tm.isFreeFormObject());
             }
-//            return Optional.of("HashMappish<S, O>");
+            //            return Optional.of("HashMappish<S, O>");
         }
         return Optional.empty();
     }

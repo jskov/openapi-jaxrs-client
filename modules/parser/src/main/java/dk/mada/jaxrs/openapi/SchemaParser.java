@@ -2,7 +2,6 @@ package dk.mada.jaxrs.openapi;
 
 import dk.mada.jaxrs.model.types.TypeLocalTime;
 import io.swagger.v3.oas.models.SpecVersion;
-import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import java.util.List;
 import java.util.Objects;
@@ -113,11 +112,10 @@ public interface SchemaParser {
     default boolean isFreeFormObject() {
         Object propType = schema().getAdditionalProperties();
         boolean isBooleanVariant = propType instanceof Boolean;
-        boolean isTypelessVariant = (propType instanceof Schema<?> innerSchema) && of(innerSchema).isTypeless();
+        boolean isTypelessVariant =
+                (propType instanceof Schema<?> innerSchema) && of(innerSchema).isTypeless();
         return isBooleanVariant || isTypelessVariant;
     }
-    
-    
 
     /** {@return true if the type is nullable} */
     boolean isNullable();

@@ -210,7 +210,7 @@ public final class TypeConverter {
 
         ParserTypeRef refType = Stream.<TypeMapper>of(
                         this::createPrimitiveTypeRef,
-                        //this::createFreeFormDtoRef,
+                        // this::createFreeFormDtoRef,
                         this::createDtoRef,
                         this::createAnyofRef,
                         this::createArrayRef,
@@ -329,17 +329,17 @@ public final class TypeConverter {
         return null;
     }
 
-//    @Nullable private ParserTypeRef createFreeFormDtoRef(RefInfo ri) {
-//        SchemaParser sp = ri.schemaParser();
-//        if (sp.isMap()) {
-//            if (sp.isFreeFormObject()) {
-//                logger.info("DTO SEES FREE FROM");
-//                return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
-//            }
-//        }
-//        
-//        return null;
-//    }
+    //    @Nullable private ParserTypeRef createFreeFormDtoRef(RefInfo ri) {
+    //        SchemaParser sp = ri.schemaParser();
+    //        if (sp.isMap()) {
+    //            if (sp.isFreeFormObject()) {
+    //                logger.info("DTO SEES FREE FROM");
+    //                return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
+    //            }
+    //        }
+    //
+    //        return null;
+    //    }
 
     @Nullable private ParserTypeRef createMapRef(RefInfo ri) {
         SchemaParser sp = ri.schemaParser();
@@ -348,10 +348,11 @@ public final class TypeConverter {
                 logger.info("GOTCHA");
                 return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
             }
-            
+
             Type innerType = reference(sp.getMapInnerSchema(), ri.propertyName, ri.parentDtoName);
             logger.trace(" - createMapRef inner type: {}", innerType.typeName().name());
-            logger.info("XXX - createMapRef inner type: {}", innerType.typeName().name());
+            logger.info(
+                    "XXX - createMapRef inner type: {}", innerType.typeName().name());
             return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
         }
         return null;
@@ -576,10 +577,9 @@ public final class TypeConverter {
             String dtoNamePrefix = isPlainObject ? "" : ri.parentDtoName;
             String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(ri.propertyName);
             Dto dto = createDto(syntheticDtoName, schema);
-            
+
             logger.info("LAST CREATED {}", dto.name());
-            
-            
+
             return parserRefs.of(dto, ri.validation);
         }
 
@@ -673,12 +673,11 @@ public final class TypeConverter {
             if (sp.isMap()) {
                 if (sp.isFreeFormObject()) {
                     logger.info("CONVERT TO FREE FORM {}", dtoRef.typeName());
-                    //return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
+                    // return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
                 }
             }
         }
-        
-        
+
         return dtoRef;
     }
 
@@ -746,9 +745,9 @@ public final class TypeConverter {
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
         ParserTypeRef dtoType = reference(schema, null, dtoName);
-        
+
         logger.info("DTOS created {} : {}", dtoName, dtoType);
-        
+
         return createDto(dtoName, dtoType, false, schema);
     }
 
@@ -787,7 +786,7 @@ public final class TypeConverter {
             logger.info("DTO name {} is INNER with {}", dtoName, tm.innerType());
             extendsTypes = List.of(tm.innerType());
         }
-        
+
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))
                 .mpSchemaName(mpSchemaName)
                 .description(Optional.ofNullable(schema.getDescription()))

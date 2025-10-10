@@ -29,7 +29,7 @@ public interface TypeMap extends TypeContainer {
     /**
      * Creates a new free-form object-type instance.
      *
-     * This has a hardwired value type of Object. 
+     * This has a hardwired value type of Object.
      *
      * @param typeNames the type names instance
      * @return a new map-type
@@ -45,7 +45,7 @@ public interface TypeMap extends TypeContainer {
 
     /** {@return true if this is a free-from object} */
     boolean isFreeFormObject();
-    
+
     @Override
     default String containerImplementation() {
         return "HashMap";
