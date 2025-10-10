@@ -22,8 +22,29 @@ public interface TypeMap extends TypeContainer {
         return ImmutableTypeMap.builder()
                 .typeNames(typeNames)
                 .innerType(innerType)
+                .isFreeFormObject(false)
                 .build();
     }
+
+    /**
+     * Creates a new free-form object-type instance.
+     *
+     * This has a hardwired value type of Object.
+     *
+     * @param typeNames the type names instance
+     * @return a new map-type
+     * @see <a href="https://swagger.io/docs/specification/v3_0/data-models/dictionaries/">swagger docs</a> (search for Free-Form Objects)
+     */
+    static TypeMap newFreeFormObject(TypeNames typeNames) {
+        return ImmutableTypeMap.builder()
+                .typeNames(typeNames)
+                .innerType(TypeObject.get())
+                .isFreeFormObject(true)
+                .build();
+    }
+
+    /** {@return true if this is a free-from object} */
+    boolean isFreeFormObject();
 
     @Override
     default String containerImplementation() {

@@ -1,13 +1,11 @@
 ---
-openapi: 3.0.3
+openapi: 3.0.4
 info:
   title: openapi-examples API
   version: 1.0.0-SNAPSHOT
 paths:
   /dtos/additional_properties:
     get:
-      tags:
-      - Resource Dtos
       responses:
         "200":
           description: OK
@@ -15,8 +13,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Event.read'
+  /free-form-object/typeless:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+  /free-form-object/boolean:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
 components:
   schemas:
+    # The no-type variant of free-form objects
+    FreeFormProperties:
+      type: object
+      properties:
+        fromTypeless:
+          type: object
+          additionalProperties: {}
+        fromBoolean:
+          type: object
+          additionalProperties: true
+
     # from https://stoplight.io/api/v1/projects/teamup/api/nodes/reference/generated_docs_public.yaml
     Event.read:
       title: Read Event

@@ -331,7 +331,11 @@ public final class TypeConverter {
     @Nullable private ParserTypeRef createMapRef(RefInfo ri) {
         SchemaParser sp = ri.schemaParser();
         if (sp.isMap()) {
-            Type innerType = reference(sp.mapInnerSchema(), ri.propertyName, ri.parentDtoName);
+            if (sp.isFreeFormObject()) {
+                return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
+            }
+
+            Type innerType = reference(sp.getMapInnerSchema(), ri.propertyName, ri.parentDtoName);
             logger.trace(" - createMapRef inner type: {}", innerType.typeName().name());
             return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
         }
