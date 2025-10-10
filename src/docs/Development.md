@@ -95,7 +95,7 @@ find . -name bin -o -name .factorypath -o -name .classpath | xargs echo rm -rf
 
 * Import main projet.
 * Select in Package Explorer and import, import the sub modules.
-* model will fail - delte its .factorypath (again)
+* model will fail - edit its APT compiler output folder to be relative (.apt_generated + for test)
 
 Seems to settle. What a pain!
 
