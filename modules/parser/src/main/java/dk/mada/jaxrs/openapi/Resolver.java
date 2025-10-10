@@ -21,7 +21,6 @@ import dk.mada.jaxrs.model.types.TypeNames;
 import dk.mada.jaxrs.model.types.TypeReference;
 import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -419,11 +418,10 @@ public final class Resolver {
             List<Property> localProperties = dto.properties().stream()
                     .filter(dtoProperty -> isLocalToDto(parent, dtoProperty.name()))
                     .toList();
-    
+
             HashSet<Type> newParents = new HashSet<>();
             newParents.addAll(dto.extendsTypes());
             newParents.add(parent);
-
             return Dto.builderFrom(dto)
                     .extendsTypes(newParents)
                     .properties(localProperties)
@@ -443,16 +441,15 @@ public final class Resolver {
         String name = dto.name();
         TypeName typeName = dto.typeName();
 
-        List<Type> resolvedParents =
-                dto.extendsTypes().stream()
-                    .map(t -> {
-                        if (t instanceof Dto edto) {
-                            return derefDto(edto);   
-                        } else {
-                            return t;
-                        }
-                    })
-                    .toList();
+        List<Type> resolvedParents = dto.extendsTypes().stream()
+                .map(t -> {
+                    if (t instanceof Dto edto) {
+                        return derefDto(edto);
+                    } else {
+                        return t;
+                    }
+                })
+                .toList();
 
         Optional<SubtypeSelector> resolvedSubtypeSelector =
                 dto.subtypeSelector().map(this::derefSubtypeSelector);

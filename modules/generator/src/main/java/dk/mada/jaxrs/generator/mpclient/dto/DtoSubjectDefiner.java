@@ -12,7 +12,6 @@ import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

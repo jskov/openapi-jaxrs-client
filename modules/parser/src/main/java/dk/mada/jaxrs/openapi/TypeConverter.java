@@ -782,7 +782,6 @@ public final class TypeConverter {
             selector = new SubtypeSelector(disc.getPropertyName(), mapping);
         }
 
-        
         List<Type> extendsTypes = List.of();
         if (dtoType.refType() instanceof TypeMap tm) {
             logger.info("DTO name {} is INNER with {}", dtoName, tm.innerType());
