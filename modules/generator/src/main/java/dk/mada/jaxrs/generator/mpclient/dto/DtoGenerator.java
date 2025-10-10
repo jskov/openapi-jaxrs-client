@@ -28,7 +28,9 @@ import dk.mada.jaxrs.model.Info;
 import dk.mada.jaxrs.model.Model;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.naming.Naming;
+import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeInterface;
+import dk.mada.jaxrs.model.types.TypeMap;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -218,6 +220,13 @@ public class DtoGenerator {
         }
 
         Optional<String> implementsInterfaces = defineInterfaces(ds);
+
+        FIXME: is this the right place?
+        String x = "";
+        if (dto.reference() instanceof TypeMap tc) {
+            x = tc.isFreeFormObject() + " : " + tc.containerImplementationDeclaration();
+        }
+        logger.info("TI {} : {}", dto.typeName(), dto.reference());
 
         String classModifiers = null;
         if (ds.subtypeSelector().isPresent()) {
