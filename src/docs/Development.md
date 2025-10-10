@@ -87,5 +87,15 @@ $ java -jar build/dist/ojc-0.0.0-SNAPSHOT-cli.jar --api-package foo.bar.api --dt
 
 # Eclipse
 
-Be sure to avoid using buildship
+Be sure to avoid using buildship.
+
+find . -name bin -o -name .factorypath -o -name .classpath | xargs echo rm -rf
+
+./gradlew eclipse
+
+* Import main projet.
+* Select in Package Explorer and import, import the sub modules.
+* model will fail - delte its .factorypath (again)
+
+Seems to settle. What a pain!
 
