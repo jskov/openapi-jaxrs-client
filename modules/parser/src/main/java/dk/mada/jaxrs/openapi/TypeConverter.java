@@ -345,7 +345,6 @@ public final class TypeConverter {
         SchemaParser sp = ri.schemaParser();
         if (sp.isMap()) {
             if (sp.isFreeFormObject()) {
-                logger.info("GOTCHA");
                 return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
             }
 

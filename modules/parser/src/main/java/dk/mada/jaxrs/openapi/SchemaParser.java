@@ -108,6 +108,8 @@ public interface SchemaParser {
      * This is only relevant for map-types.
      *
      * See https://swagger.io/docs/specification/v3_0/data-models/dictionaries/ (search for Free-Form Objects)
+     *
+     * @return true if the schema looks like a free-form object
      */
     default boolean isFreeFormObject() {
         Object propType = schema().getAdditionalProperties();
