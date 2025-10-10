@@ -12,6 +12,7 @@ import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeByteArray;
+import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeInterface;
@@ -781,9 +782,9 @@ public final class TypeConverter {
         }
 
         List<Type> extendsTypes = List.of();
-        if (dtoType.refType() instanceof TypeMap tm) {
-            logger.info("DTO name {} is INNER with {}", dtoName, tm.innerType());
-            extendsTypes = List.of(tm.innerType());
+        if (dtoType.refType() instanceof TypeContainer tc) {
+            // A DTO may be a container and so needs to extend the container type implementation
+            extendsTypes = List.of(tc);
         }
 
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))

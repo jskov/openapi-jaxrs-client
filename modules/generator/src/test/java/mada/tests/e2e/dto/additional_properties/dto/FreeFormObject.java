@@ -45,8 +45,8 @@ public class FreeFormObject extends HashMap<String, Object> {
       return false;
     }
     FreeFormObject other = (FreeFormObject) o;
-    return Objects.equals(this.additionalProperty, other.additionalProperty)
-            && super.equals(o);
+    return Objects.equals(this.additionalProperty, other.additionalProperty) &&
+        super.equals(o);
   }
 
   @Override
@@ -58,7 +58,7 @@ public class FreeFormObject extends HashMap<String, Object> {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class FreeFormObject {");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("\n    ").append(toIndentedString(super.toString()));
     sb.append("\n    additionalProperty: ").append(toIndentedString(additionalProperty));
     sb.append("\n}");
     return sb.toString();
