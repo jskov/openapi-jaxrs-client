@@ -10,6 +10,7 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
 import java.util.List;
@@ -144,7 +145,13 @@ public class DtoSubjectDefiner {
         logger.debug("See DTO {} with parents {}", dtoName, extendsTypes);
 
         if (extendsTypes.size() == 1) {
-            String singleParentName = extendsTypes.iterator().next().typeName().name();
+            Type singleParentType = List.copyOf(extendsTypes).getFirst();
+            String singleParentName;
+            if (singleParentType instanceof TypeContainer tc) {
+                singleParentName = tc.containerImplementationDeclaration();
+            } else {
+                singleParentName = singleParentType.typeName().name();
+            }
             logger.debug(" : single parent {}", singleParentName);
             return Optional.of(singleParentName);
         } else {

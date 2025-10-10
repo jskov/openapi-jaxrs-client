@@ -12,6 +12,9 @@ public interface TypeContainer extends Type {
     /** {@return the java implementation used to instantiate this container} */
     String containerImplementation();
 
+    /** {@return the java implementation declaration with generic types} */
+    String containerImplementationDeclaration();
+
     /** {@return the type names instance} */
     TypeNames typeNames();
 

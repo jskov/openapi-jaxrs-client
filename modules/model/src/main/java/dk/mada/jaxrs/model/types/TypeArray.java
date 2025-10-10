@@ -26,6 +26,12 @@ public interface TypeArray extends TypeContainer {
         return "ArrayList";
     }
 
+    @Override
+    default String containerImplementationDeclaration() {
+        String innerName = innerType().wrapperTypeName().name();
+        return "ArrayList<" + innerName + ">";
+    }
+
     /**
      * {@return the type name}
      *

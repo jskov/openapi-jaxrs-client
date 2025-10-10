@@ -51,6 +51,12 @@ public interface TypeMap extends TypeContainer {
         return "HashMap";
     }
 
+    @Override
+    default String containerImplementationDeclaration() {
+        String innerName = innerType().wrapperTypeName().name();
+        return "HashMap<String, " + innerName + ">";
+    }
+
     /**
      * {@return the type name}
      *
