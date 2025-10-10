@@ -210,6 +210,7 @@ public final class TypeConverter {
 
         ParserTypeRef refType = Stream.<TypeMapper>of(
                         this::createPrimitiveTypeRef,
+                        //this::createFreeFormDtoRef,
                         this::createDtoRef,
                         this::createAnyofRef,
                         this::createArrayRef,
@@ -328,11 +329,29 @@ public final class TypeConverter {
         return null;
     }
 
+//    @Nullable private ParserTypeRef createFreeFormDtoRef(RefInfo ri) {
+//        SchemaParser sp = ri.schemaParser();
+//        if (sp.isMap()) {
+//            if (sp.isFreeFormObject()) {
+//                logger.info("DTO SEES FREE FROM");
+//                return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
+//            }
+//        }
+//        
+//        return null;
+//    }
+
     @Nullable private ParserTypeRef createMapRef(RefInfo ri) {
         SchemaParser sp = ri.schemaParser();
         if (sp.isMap()) {
-            Type innerType = reference(sp.mapInnerSchema(), ri.propertyName, ri.parentDtoName);
+            if (sp.isFreeFormObject()) {
+                logger.info("GOTCHA");
+                return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
+            }
+            
+            Type innerType = reference(sp.getMapInnerSchema(), ri.propertyName, ri.parentDtoName);
             logger.trace(" - createMapRef inner type: {}", innerType.typeName().name());
+            logger.info("XXX - createMapRef inner type: {}", innerType.typeName().name());
             return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
         }
         return null;
@@ -557,6 +576,10 @@ public final class TypeConverter {
             String dtoNamePrefix = isPlainObject ? "" : ri.parentDtoName;
             String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(ri.propertyName);
             Dto dto = createDto(syntheticDtoName, schema);
+            
+            logger.info("LAST CREATED {}", dto.name());
+            
+            
             return parserRefs.of(dto, ri.validation);
         }
 
@@ -643,7 +666,20 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createDtoRef(RefInfo ri) {
-        return createDtoRef(ri.schema.get$ref(), ri.validation);
+        @Nullable ParserTypeRef dtoRef = createDtoRef(ri.schema.get$ref(), ri.validation);
+        if (dtoRef != null) {
+            logger.info("Created {}", dtoRef.typeName());
+            SchemaParser sp = ri.schemaParser();
+            if (sp.isMap()) {
+                if (sp.isFreeFormObject()) {
+                    logger.info("CONVERT TO FREE FORM {}", dtoRef.typeName());
+                    //return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
+                }
+            }
+        }
+        
+        
+        return dtoRef;
     }
 
     @Nullable private ParserTypeRef createDtoRef(String ref, Validation validation) {
@@ -710,6 +746,9 @@ public final class TypeConverter {
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
         ParserTypeRef dtoType = reference(schema, null, dtoName);
+        
+        logger.info("DTOS created {} : {}", dtoName, dtoType);
+        
         return createDto(dtoName, dtoType, false, schema);
     }
 
@@ -743,6 +782,13 @@ public final class TypeConverter {
             selector = new SubtypeSelector(disc.getPropertyName(), mapping);
         }
 
+        
+        List<Type> extendsTypes = List.of();
+        if (dtoType.refType() instanceof TypeMap tm) {
+            logger.info("DTO name {} is INNER with {}", dtoName, tm.innerType());
+            extendsTypes = List.of(tm.innerType());
+        }
+        
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))
                 .mpSchemaName(mpSchemaName)
                 .description(Optional.ofNullable(schema.getDescription()))
@@ -752,7 +798,7 @@ public final class TypeConverter {
                 .enumValues(getEnumValues(schema))
                 .implementsInterfaces(List.of())
                 .subtypeSelector(Optional.ofNullable(selector))
-                .extendsParents(List.of())
+                .extendsTypes(extendsTypes)
                 .isMultipartForm(isMultipartForm)
                 .build();
 

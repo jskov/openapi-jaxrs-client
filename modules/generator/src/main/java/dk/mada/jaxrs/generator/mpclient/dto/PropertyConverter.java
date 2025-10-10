@@ -104,9 +104,13 @@ public class PropertyConverter {
         // If this Dto extends more than one other Dto
         // it cannot be done in Java. So fold properties
         // from the parents into this Dto.
-        Set<Dto> externalDtos = dto.extendsParents();
+        Set<Type> externalDtos = dto.extendsTypes();
         if (externalDtos.size() > 1) {
-            externalDtos.forEach(ed -> addCombinedProperties(dtoName, combinedProps, ed));
+            externalDtos.forEach(ed -> {
+                if (ed instanceof Dto edto) {
+                    addCombinedProperties(dtoName, combinedProps, edto);
+                }
+            });
         }
 
         return combinedProps.values().stream()

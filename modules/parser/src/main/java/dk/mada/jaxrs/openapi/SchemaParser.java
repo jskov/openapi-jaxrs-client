@@ -86,29 +86,38 @@ public interface SchemaParser {
     /** {@return true if the schema defines a map} */
     boolean isMap();
 
-    /** {@return the schema defining the inner type of a map} */
+    /**
+     * {@return the schema defining the inner type of a map}
+     *
+     * This should only be called if the map is not a free-form object.
+     *
+     * @see isFreeFormObject
+     **/
     @SuppressWarnings("rawtypes")
-    default Schema<?> mapInnerSchema() {
+    default Schema<?> getMapInnerSchema() {
         Object propType = schema().getAdditionalProperties();
-
-        // Free-form objects.
-        // See https://swagger.io/docs/specification/v3_0/data-models/dictionaries/ (search for Free-Form Objects)
-        // This catches the boolean variant. The value must actually be true, but this cannot be determined from the
-        // type.
-        if (propType instanceof Boolean) {
-            return new ObjectSchema();
-        }
         if (propType instanceof Schema<?> innerSchema) {
-            if (of(innerSchema).isTypeless()) {
-                // This is the other variant of the free-form object
-                return new ObjectSchema();
-            }
-            // Otherwise it should be converted to a richer object (elsewhere)
             return innerSchema;
         } else {
             throw new IllegalStateException("Unhandled semantics for additionalProperties, seeing: " + propType);
         }
     }
+
+    /**
+     * Detects free-form objects.
+     *
+     * This is only relevant for map-types.
+     *
+     * See https://swagger.io/docs/specification/v3_0/data-models/dictionaries/ (search for Free-Form Objects)
+     */
+    default boolean isFreeFormObject() {
+        Object propType = schema().getAdditionalProperties();
+        boolean isBooleanVariant = propType instanceof Boolean;
+        boolean isTypelessVariant = (propType instanceof Schema<?> innerSchema) && of(innerSchema).isTypeless();
+        return isBooleanVariant || isTypelessVariant;
+    }
+    
+    
 
     /** {@return true if the type is nullable} */
     boolean isNullable();

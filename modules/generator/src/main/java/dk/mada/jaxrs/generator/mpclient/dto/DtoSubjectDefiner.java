@@ -10,6 +10,9 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeMap;
+import dk.mada.jaxrs.model.types.TypeName;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -138,17 +141,33 @@ public class DtoSubjectDefiner {
      */
     private Optional<String> getExtends(Dto dto) {
         String dtoName = dto.name();
-        Set<Dto> parents = dto.extendsParents();
-        logger.debug("See DTO {} with parents {}", dtoName, parents);
+        Set<Type> extendsTypes = dto.extendsTypes();
+        logger.debug("See DTO {} with parents {}", dtoName, extendsTypes);
 
-        if (parents.size() == 1) {
-            String singleParentName = parents.iterator().next().name();
+        if (extendsTypes.size() == 1) {
+            String singleParentName = extendsTypes.iterator().next().typeName().name();
             logger.debug(" : single parent {}", singleParentName);
             return Optional.of(singleParentName);
         } else {
             if (logger.isDebugEnabled()) {
-                parents.forEach(p -> logger.debug(" parent {} : {}", p.openapiId(), p));
+                extendsTypes.forEach(p -> {
+                    TypeName tn = p.typeName();
+                    if (p instanceof Dto d) {
+                        tn = d.openapiId();
+                    }
+                    logger.debug(" parent {} : {}", tn, p);
+                });
             }
+        }
+        if (dto.name().contains("FreeFormObject")) {
+            logger.info("HERE {}", dto);
+            if (dto.extendsTypes() instanceof TypeMap d) {
+                logger.info("See extends {}", d);
+            }
+            if (dto instanceof TypeMap tm) {
+                logger.info("XXXXX see {}", tm.isFreeFormObject());
+            }
+//            return Optional.of("HashMappish<S, O>");
         }
         return Optional.empty();
     }
