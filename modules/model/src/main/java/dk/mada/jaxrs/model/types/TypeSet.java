@@ -26,6 +26,12 @@ public interface TypeSet extends TypeContainer {
         return "LinkedHashSet";
     }
 
+    @Override
+    default String containerImplementationDeclaration() {
+        String innerName = innerType().wrapperTypeName().name();
+        return "LinkedHashSet<String, " + innerName + ">";
+    }
+
     /**
      * {@return the type name}
      *

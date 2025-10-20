@@ -43,6 +43,12 @@ components:
         fromBoolean:
           type: object
           additionalProperties: true
+    FreeFormObject:
+      type: object
+      properties:
+        additional-property:
+          type: string
+      additionalProperties: true
 
     # from https://stoplight.io/api/v1/projects/teamup/api/nodes/reference/generated_docs_public.yaml
     Event.read:
@@ -61,3 +67,12 @@ components:
               - b
           nullable: true
           additionalProperties: true
+    # From https://github.com/jskov/openapi-jaxrs-client/issues/817
+    # FIXME: need better rendering with extends
+    MultivaluedHashMapStringString:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+          

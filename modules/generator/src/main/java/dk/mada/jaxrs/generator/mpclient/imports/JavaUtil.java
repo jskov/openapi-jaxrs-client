@@ -48,6 +48,11 @@ public enum JavaUtil implements TypedImport {
         return EnumSet.of(JavaUtil.ARRAY_LIST, JavaUtil.LIST);
     }
 
+    /** {@return the container implementation list-type} */
+    public static JavaUtil containerListImplementationTypeOnly() {
+        return JavaUtil.ARRAY_LIST;
+    }
+
     /** {@return the genetic container map-type} */
     public static JavaUtil containerMapType() {
         return JavaUtil.MAP;
@@ -58,6 +63,11 @@ public enum JavaUtil implements TypedImport {
         return EnumSet.of(JavaUtil.HASH_MAP, JavaUtil.MAP);
     }
 
+    /** {@return the container implementation map-type} */
+    public static JavaUtil containerMapImplementationTypeOnly() {
+        return JavaUtil.HASH_MAP;
+    }
+
     /** {@return the generic container set-type} */
     public static JavaUtil containerSetType() {
         return JavaUtil.SET;
@@ -66,6 +76,11 @@ public enum JavaUtil implements TypedImport {
     /** {@return the container set-types (including implementation)} */
     public static Set<JavaUtil> containerSetImplementationTypes() {
         return EnumSet.of(JavaUtil.LINKED_HASH_SET, JavaUtil.SET);
+    }
+
+    /** {@return the container implementation set-type} */
+    public static JavaUtil containerSetImplementationTypeOnly() {
+        return JavaUtil.LINKED_HASH_SET;
     }
 
     @Override

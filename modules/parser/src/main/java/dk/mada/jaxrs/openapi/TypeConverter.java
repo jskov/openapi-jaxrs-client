@@ -12,6 +12,7 @@ import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeByteArray;
+import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeDate;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeInterface;
@@ -210,6 +211,7 @@ public final class TypeConverter {
 
         ParserTypeRef refType = Stream.<TypeMapper>of(
                         this::createPrimitiveTypeRef,
+                        // this::createFreeFormDtoRef,
                         this::createDtoRef,
                         this::createAnyofRef,
                         this::createArrayRef,
@@ -328,6 +330,18 @@ public final class TypeConverter {
         return null;
     }
 
+    //    @Nullable private ParserTypeRef createFreeFormDtoRef(RefInfo ri) {
+    //        SchemaParser sp = ri.schemaParser();
+    //        if (sp.isMap()) {
+    //            if (sp.isFreeFormObject()) {
+    //                logger.info("DTO SEES FREE FROM");
+    //                return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
+    //            }
+    //        }
+    //
+    //        return null;
+    //    }
+
     @Nullable private ParserTypeRef createMapRef(RefInfo ri) {
         SchemaParser sp = ri.schemaParser();
         if (sp.isMap()) {
@@ -337,6 +351,8 @@ public final class TypeConverter {
 
             Type innerType = reference(sp.getMapInnerSchema(), ri.propertyName, ri.parentDtoName);
             logger.trace(" - createMapRef inner type: {}", innerType.typeName().name());
+            logger.info(
+                    "XXX - createMapRef inner type: {}", innerType.typeName().name());
             return parserRefs.of(TypeMap.of(typeNames, innerType), ri.validation);
         }
         return null;
@@ -561,6 +577,9 @@ public final class TypeConverter {
             String dtoNamePrefix = isPlainObject ? "" : ri.parentDtoName;
             String syntheticDtoName = dtoNamePrefix + naming.convertTypeName(ri.propertyName);
             Dto dto = createDto(syntheticDtoName, schema);
+
+            logger.info("LAST CREATED {}", dto.name());
+
             return parserRefs.of(dto, ri.validation);
         }
 
@@ -647,7 +666,19 @@ public final class TypeConverter {
     }
 
     @Nullable private ParserTypeRef createDtoRef(RefInfo ri) {
-        return createDtoRef(ri.schema.get$ref(), ri.validation);
+        @Nullable ParserTypeRef dtoRef = createDtoRef(ri.schema.get$ref(), ri.validation);
+        if (dtoRef != null) {
+            logger.info("Created {}", dtoRef.typeName());
+            SchemaParser sp = ri.schemaParser();
+            if (sp.isMap()) {
+                if (sp.isFreeFormObject()) {
+                    logger.info("CONVERT TO FREE FORM {}", dtoRef.typeName());
+                    // return parserRefs.of(TypeMap.newFreeFormObject(typeNames), ri.validation);
+                }
+            }
+        }
+
+        return dtoRef;
     }
 
     @Nullable private ParserTypeRef createDtoRef(String ref, Validation validation) {
@@ -714,6 +745,9 @@ public final class TypeConverter {
      */
     public Dto createDto(String dtoName, Schema<?> schema) {
         ParserTypeRef dtoType = reference(schema, null, dtoName);
+
+        logger.info("DTOS created {} : {}", dtoName, dtoType);
+
         return createDto(dtoName, dtoType, false, schema);
     }
 
@@ -748,6 +782,11 @@ public final class TypeConverter {
         }
 
         List<Type> extendsTypes = List.of();
+        if (dtoType.refType() instanceof TypeContainer tc) {
+            // A DTO may be a container and so needs to extend the container type implementation
+            extendsTypes = List.of(tc);
+        }
+
         Dto dto = Dto.builder(modelName, typeNames.of(modelName))
                 .mpSchemaName(mpSchemaName)
                 .description(Optional.ofNullable(schema.getDescription()))

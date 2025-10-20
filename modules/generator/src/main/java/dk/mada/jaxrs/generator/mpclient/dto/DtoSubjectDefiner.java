@@ -10,6 +10,8 @@ import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.SubtypeSelector;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
+import dk.mada.jaxrs.model.types.TypeContainer;
+import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeName;
 import java.util.List;
 import java.util.Optional;
@@ -95,6 +97,8 @@ public class DtoSubjectDefiner {
     public DtoSubject defineDtoSubject(Dto dto) {
         Type dtoType = dto.reference().refType();
 
+        // Parent extension is a parameter for determining DTO rendering type - so needs to be computed early, imports
+        // added later
         Optional<String> extendsParent = getExtends(dto);
         Optional<SubtypeSelector> subtypeSelector = dto.subtypeSelector();
 
@@ -110,6 +114,13 @@ public class DtoSubjectDefiner {
             dtoImports = Imports.newRecord(opts);
         } else {
             dtoImports = Imports.newDto(opts);
+        }
+
+        // Now imports are available, add for those needed by DTOs extending a container
+        if (!extendsParent.isEmpty()
+                && dto.reference().refType() instanceof TypeContainer tc) {
+            dtoImports.addContainerImplementationType(tc);
+            dtoImports.add(tc.innerType());
         }
 
         DtoSubjectBase base = new DtoSubjectBase(dto, dtoType, isEnum, isRecord, dtoImports);
@@ -143,7 +154,13 @@ public class DtoSubjectDefiner {
         logger.debug("See DTO {} with parents {}", dtoName, extendsTypes);
 
         if (extendsTypes.size() == 1) {
-            String singleParentName = extendsTypes.iterator().next().typeName().name();
+            Type singleParentType = List.copyOf(extendsTypes).getFirst();
+            String singleParentName;
+            if (singleParentType instanceof TypeContainer tc) {
+                singleParentName = tc.containerImplementationDeclaration();
+            } else {
+                singleParentName = singleParentType.typeName().name();
+            }
             logger.debug(" : single parent {}", singleParentName);
             return Optional.of(singleParentName);
         } else {
