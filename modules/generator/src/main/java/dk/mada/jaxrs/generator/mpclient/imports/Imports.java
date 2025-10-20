@@ -259,7 +259,6 @@ public final class Imports {
      * @return the imports instance
      */
     public Imports add(Type type) {
-        logger.info("IMPORTS for {}", type);
         String typeName = type.typeName().name();
         UserMappedImport mappedToExternalType = externalTypeMapping.get(typeName);
         if (mappedToExternalType != null) {
