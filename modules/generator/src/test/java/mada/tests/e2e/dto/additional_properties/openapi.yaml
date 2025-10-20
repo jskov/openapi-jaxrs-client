@@ -81,4 +81,3 @@ components:
         uniqueItems: true
         items:
           type: string
-          
