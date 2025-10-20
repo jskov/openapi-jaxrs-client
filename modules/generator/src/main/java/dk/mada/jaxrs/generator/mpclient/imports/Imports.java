@@ -300,6 +300,23 @@ public final class Imports {
         addImports.stream().map(JavaUtil::path).forEach(importedClasses::add);
     }
 
+    /**
+     * Adds implementation types for containers (without the generic type).
+     *
+     * This is used for DTOs extending containers.
+     *
+     * @param tc the container type
+     */
+    public void addContainerImplementationType(TypeContainer tc) {
+        if (tc instanceof TypeArray) {
+            importedClasses.add(JavaUtil.containerListImplementationTypeOnly().path());
+        } else if (tc instanceof TypeMap) {
+            importedClasses.add(JavaUtil.containerMapImplementationTypeOnly().path());
+        } else if (tc instanceof TypeSet) {
+            importedClasses.add(JavaUtil.containerSetImplementationTypeOnly().path());
+        }
+    }
+
     // FIXME: this should come out of the (outer) type's neededImports, surely?
     private void addJavaGenericContainerImports(Type t) {
         if (t instanceof TypeArray) {

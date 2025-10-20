@@ -9,6 +9,7 @@ package mada.tests.e2e.examples.azure.dto;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 import java.time.OffsetDateTime;
+import java.util.HashMap;
 import java.util.Objects;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -17,7 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
  */
 @Schema(description = "Additional information provided through arbitrary metadata.")
 @javax.annotation.processing.Generated(value = "dk.mada.jaxrs.Generator")
-public class Annotations {
+public class Annotations extends HashMap<String, Object> {
   public static final String JSON_PROPERTY_ORG_OPENCONTAINERS_IMAGE_AUTHORS = "org.opencontainers.image.authors";
   @JsonbProperty(JSON_PROPERTY_ORG_OPENCONTAINERS_IMAGE_AUTHORS)
   @Schema(description = "Contact details of the people or organization responsible for the image.")
@@ -314,18 +315,20 @@ public class Annotations {
         Objects.equals(this.org_opencontainers_image_title, other.org_opencontainers_image_title) &&
         Objects.equals(this.org_opencontainers_image_url, other.org_opencontainers_image_url) &&
         Objects.equals(this.org_opencontainers_image_vendor, other.org_opencontainers_image_vendor) &&
-        Objects.equals(this.org_opencontainers_image_version, other.org_opencontainers_image_version);
+        Objects.equals(this.org_opencontainers_image_version, other.org_opencontainers_image_version) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(org_opencontainers_image_authors, org_opencontainers_image_created, org_opencontainers_image_description, org_opencontainers_image_documentation, org_opencontainers_image_licenses, org_opencontainers_image_ref_name, org_opencontainers_image_revision, org_opencontainers_image_source, org_opencontainers_image_title, org_opencontainers_image_url, org_opencontainers_image_vendor, org_opencontainers_image_version);
+    return Objects.hash(org_opencontainers_image_authors, org_opencontainers_image_created, org_opencontainers_image_description, org_opencontainers_image_documentation, org_opencontainers_image_licenses, org_opencontainers_image_ref_name, org_opencontainers_image_revision, org_opencontainers_image_source, org_opencontainers_image_title, org_opencontainers_image_url, org_opencontainers_image_vendor, org_opencontainers_image_version, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Annotations {");
+    sb.append("\n    ").append(toIndentedString(super.toString()));
     sb.append("\n    org_opencontainers_image_authors: ").append(toIndentedString(org_opencontainers_image_authors));
     sb.append("\n    org_opencontainers_image_created: ").append(toIndentedString(org_opencontainers_image_created));
     sb.append("\n    org_opencontainers_image_description: ").append(toIndentedString(org_opencontainers_image_description));
