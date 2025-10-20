@@ -317,7 +317,7 @@ public final class Imports {
             importedClasses.add(JavaUtil.containerSetImplementationTypeOnly().path());
         }
     }
-    
+
     // FIXME: this should come out of the (outer) type's neededImports, surely?
     private void addJavaGenericContainerImports(Type t) {
         if (t instanceof TypeArray) {
