@@ -68,7 +68,6 @@ components:
           nullable: true
           additionalProperties: true
     # From https://github.com/jskov/openapi-jaxrs-client/issues/817
-    # FIXME: need better rendering with extends
     MultivaluedHashMapStringString:
       type: object
       additionalProperties:
