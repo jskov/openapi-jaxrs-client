@@ -601,6 +601,11 @@ public final class TypeConverter {
     /**
      * Handle (only) allOf-use for assigning validation to a type.
      *
+     * Note that this only returns something for the first referenced type.
+     * createAllofRef handles the actual merging.
+     *
+     * At this point (2025.10.21) it is unclear why this conversion is relevant.
+     *
      * @param cs the composed schema
      * @return a referenced type with validation added, or null
      */
@@ -625,26 +630,47 @@ public final class TypeConverter {
             }
         }
 
-        if (validations.size() != 1 || refs.size() != 1) {
+        int validationsCount = validations.size();
+        int refsCount = refs.size();
+
+        // Everything breaks without this - why?
+        if (validationsCount != 1 || refsCount != 1) {
+            return TypeObject.get();
+            
+        }
+        
+        Validation validation;
+        if (validationsCount == 1) {
+            validation = validations.getFirst();
+        } else {
+            // This happens for constructs such as this:
+            // VehicleRequestDto:
+            //  type: object
+            //   allOf:
+            //    - $ref: "#/components/schemas/FinancialItemRequestDto"
+            //   properties:
+            // ...
+            validation = Validation.empty();
+            if (validationsCount != 0) {
+                logger.warn(
+                        "Unable to handle allOf with multiple validations {}/{}: {} with {}",
+                        refsCount,
+                        validationsCount,
+                        refs,
+                        validations);
+            }
+        }
+
+        if (refs.isEmpty()) {
             logger.warn(
-                    "Unabled to handle allOf for {}/{}: {} with {}",
-                    refs.size(),
-                    validations.size(),
-                    refs,
-                    validations);
+                    "Unabled to handle allOf for {}/{}: {} with {}", refsCount, validationsCount, refs, validations);
             String debugText = allOfTypes.stream().map(ParserTypeRef::toString).collect(Collectors.joining("\n "));
             logger.trace("INPUT :\n {}", debugText);
             // bail for now
             return TypeObject.get();
+        } else {
+            return ParserTypeRef.of(refs.getFirst().refTypeName(), validation);
         }
-
-        ParserTypeRef ref = refs.getFirst();
-        Validation validation = validations.getFirst();
-
-        logger.trace(" OUT - {}", ref);
-        logger.trace(" OUT - {}", validation);
-
-        return ParserTypeRef.of(ref.refTypeName(), validation);
     }
 
     @Nullable private ParserTypeRef createDtoRef(RefInfo ri) {

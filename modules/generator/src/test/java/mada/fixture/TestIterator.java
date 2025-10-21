@@ -50,9 +50,9 @@ class TestIterator {
 
         // Replace with partial test name (or empty to run all tests)
         // Handy when working on a single test
-//        String testNameContains = "opts/generator/validation/body";
-//        String testNameContains = "unknown_enum";
-        String testNameContains = "additional_properties";
+        String testNameContains = "allof_composite";
+//        String testNameContains = "manual";
+//        String testNameContains = "additional_properties";
 //        String testNameContains = "e2e/specs/v3_0";
 //        String testNameContains = "e2e/specs/v3_1/all";
 //        String testNameContains = "e2e/specs/v3_1/anyof";
