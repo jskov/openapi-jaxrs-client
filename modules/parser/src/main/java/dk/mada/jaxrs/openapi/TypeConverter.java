@@ -40,7 +40,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -343,11 +342,49 @@ public final class TypeConverter {
         return null;
     }
 
+    /**
+     * Handles (only) allOf compositions containing binding a type and validation.
+     *
+     * It may look like this:
+     * <pre>
+     * schema:
+     *   allOf:
+     *    - $ref: '#/components/schemas/Environment'
+     *    - nullable: false
+     * </pre>
+     *
+     * For other allOf constructs it will return null, and thus let createAllofRef deal with it.
+     *
+     * @param ri the ref info to examine
+     * @return a referenced type with validation added, or null
+     */
     @Nullable private ParserTypeRef createComposedValidation(RefInfo ri) {
         // FIXME:schema-parser
-        if (ri.schema instanceof ComposedSchema cs && findTypeValidation(cs) instanceof ParserTypeRef ptr) {
-            logger.trace(" - createComposedValidation");
-            return ptr;
+        if (ri.schema instanceof ComposedSchema cs) {
+            @SuppressWarnings("rawtypes")
+            List<Schema> allOf = cs.getAllOf();
+            if (allOf == null) {
+                return null;
+            }
+
+            List<ParserTypeRef> allOfTypes =
+                    allOf.stream().map(this::toReference).toList();
+            List<ParserTypeRef> refs = new ArrayList<>();
+            List<Validation> validations = new ArrayList<>();
+            for (ParserTypeRef ptr : allOfTypes) {
+                if (ptr.refType() instanceof TypeValidation tv) {
+                    validations.add(tv.validation());
+                } else if (!ptr.validation().isEmptyValidation()) {
+                    validations.add(ptr.validation());
+                } else {
+                    refs.add(ptr);
+                }
+            }
+
+            if (validations.size() == 1 && refs.size() == 1) {
+                logger.trace(" - createComposedValidation");
+                return ParserTypeRef.of(refs.getFirst().refTypeName(), validations.getFirst());
+            }
         }
         return null;
     }
@@ -596,81 +633,6 @@ public final class TypeConverter {
         logger.trace("Inline response object for path {}: {}", resourcePath, syntheticDtoName);
         Dto dto = createDto(syntheticDtoName, schema);
         return parserRefs.of(dto, ri.validation);
-    }
-
-    /**
-     * Handle (only) allOf-use for assigning validation to a type.
-     *
-     * Note that this only returns something for the first referenced type.
-     * createAllofRef handles the actual merging.
-     *
-     * At this point (2025.10.21) it is unclear why this conversion is relevant.
-     *
-     * @param cs the composed schema
-     * @return a referenced type with validation added, or null
-     */
-    private @Nullable Type findTypeValidation(ComposedSchema cs) {
-        @SuppressWarnings("rawtypes")
-        List<Schema> allOf = cs.getAllOf();
-        if (allOf == null) {
-            return null;
-        }
-
-        List<ParserTypeRef> allOfTypes = allOf.stream().map(this::toReference).toList();
-
-        List<ParserTypeRef> refs = new ArrayList<>();
-        List<Validation> validations = new ArrayList<>();
-        for (ParserTypeRef ptr : allOfTypes) {
-            if (ptr.refType() instanceof TypeValidation tv) {
-                validations.add(tv.validation());
-            } else if (!ptr.validation().isEmptyValidation()) {
-                validations.add(ptr.validation());
-            } else {
-                refs.add(ptr);
-            }
-        }
-
-        int validationsCount = validations.size();
-        int refsCount = refs.size();
-
-        // Everything breaks without this - why?
-        if (validationsCount != 1 || refsCount != 1) {
-            return TypeObject.get();
-            
-        }
-        
-        Validation validation;
-        if (validationsCount == 1) {
-            validation = validations.getFirst();
-        } else {
-            // This happens for constructs such as this:
-            // VehicleRequestDto:
-            //  type: object
-            //   allOf:
-            //    - $ref: "#/components/schemas/FinancialItemRequestDto"
-            //   properties:
-            // ...
-            validation = Validation.empty();
-            if (validationsCount != 0) {
-                logger.warn(
-                        "Unable to handle allOf with multiple validations {}/{}: {} with {}",
-                        refsCount,
-                        validationsCount,
-                        refs,
-                        validations);
-            }
-        }
-
-        if (refs.isEmpty()) {
-            logger.warn(
-                    "Unabled to handle allOf for {}/{}: {} with {}", refsCount, validationsCount, refs, validations);
-            String debugText = allOfTypes.stream().map(ParserTypeRef::toString).collect(Collectors.joining("\n "));
-            logger.trace("INPUT :\n {}", debugText);
-            // bail for now
-            return TypeObject.get();
-        } else {
-            return ParserTypeRef.of(refs.getFirst().refTypeName(), validation);
-        }
     }
 
     @Nullable private ParserTypeRef createDtoRef(RefInfo ri) {
