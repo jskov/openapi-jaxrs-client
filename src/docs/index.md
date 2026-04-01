@@ -53,18 +53,15 @@ If you think that is a problem, the project is fortunately Open Source, and you 
 
 The current plans for future releases are (note, no time commitments):
 
-**0.12.x**
-
-* Remaining open generator issues.
-* More code/package documentation.
-* Documentation index with references to the various tests/examples (use mkdocs).
-
 **0.13.x**
 
 * Tests should get a do-over to ensure smaller (better targed) tests and permutations to cover all inputs (spec versions) and outputs (serializers, DTO classes/records).
 * Option renaming to be more consistent.
 * Option documentation with examples (and links to simplified tests)
 * Switch defaults options (e.g. use records)
+* Remaining open generator issues.
+* More code/package documentation.
+* Documentation index with references to the various tests/examples (use mkdocs).
 
 **1.0.x ideas**
 

@@ -14,7 +14,7 @@ Activate the plugin with:
 
 ```gradle
 plugins {
-    id 'dk.mada.jaxrs' version "0.12.0"
+    id 'dk.mada.jaxrs' version "0.13.0"
 }
 ```
 
@@ -56,7 +56,7 @@ The use of a generator GAV allows the Gradle plugin to go without too many chang
 ```groovy
 jaxrs {
     // Specify the generator implementation GAV
-    generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.10.3"
+    generatorGAV = "dk.mada.jaxrs:openapi-jaxrs-client:0.13.0"
 
     // Optionally override the folder where OpenApi documents are stored
     //openApiDocDirectory = file("src/openapi")

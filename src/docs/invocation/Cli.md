@@ -45,7 +45,7 @@ parser-api-preferred-request-mediatypes = application/json
 parser-api-preferred-response-mediatypes = application/json
 EOF
 
-$ $ java -jar generator-cli-0.12.3-cli.jar --api-package foo.bar.api --dto-package foo.bar.dto -i petstore.yaml -o /tmp/output
+$ $ java -jar generator-cli-0.13.0-cli.jar --api-package foo.bar.api --dto-package foo.bar.dto -i petstore.yaml -o /tmp/output
 [2025-04-23 17:23:39] [INFO] Reads OpenApi document from petstore.yaml
 [2025-04-23 17:23:39] [INFO] Generates files in /tmp/output
 [2025-04-23 17:23:39] [INFO] Reading config from petstore.properties
