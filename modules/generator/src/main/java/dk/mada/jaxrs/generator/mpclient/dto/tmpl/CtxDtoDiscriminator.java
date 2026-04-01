@@ -18,5 +18,6 @@ public record CtxDtoDiscriminator(String propertyBaseName, List<ModelMapping> ma
      * @param mappingName      the way it is referred to in the stream
      * @param vendorExtensions map of vendor extensions
      */
-    public record ModelMapping(String modelName, String mappingName, @Nullable Map<String, String> vendorExtensions) {}
+    public record ModelMapping(
+            String modelName, String mappingName, @Nullable Map<String, String> vendorExtensions) {}
 }
