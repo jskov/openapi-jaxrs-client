@@ -10,9 +10,12 @@ import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.initialization.dsl.ScriptHandler;
 import org.gradle.api.provider.Property;
+import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
 import org.gradle.api.tasks.OutputDirectory;
+import org.gradle.api.tasks.PathSensitive;
+import org.gradle.api.tasks.PathSensitivity;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.workers.WorkQueue;
 import org.gradle.workers.WorkerExecutor;
@@ -27,6 +30,7 @@ import org.jspecify.annotations.Nullable;
  * The task configuration and classpath is used to start a worker action which makes the actual call to the generator
  * service implementation.
  */
+@CacheableTask
 public abstract class GenerateClient extends DefaultTask {
     /** {@return the injected worker executor} */
     @SuppressWarnings("JavaxInjectOnAbstractMethod") // This is the Gradle way
@@ -38,10 +42,12 @@ public abstract class GenerateClient extends DefaultTask {
     public abstract DirectoryProperty getOutputDirectory();
 
     /** {@return the OpenAPI document read by the generator} */
+    @PathSensitive(PathSensitivity.ABSOLUTE)
     @InputFile
     public abstract RegularFileProperty getOpenApiDocument();
 
     /** {@return the generator properties} */
+    @PathSensitive(PathSensitivity.ABSOLUTE)
     @InputFile
     public abstract RegularFileProperty getGeneratorProperties();
 
