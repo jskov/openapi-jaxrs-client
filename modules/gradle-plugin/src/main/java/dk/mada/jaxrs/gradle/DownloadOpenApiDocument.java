@@ -9,16 +9,18 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import org.gradle.api.DefaultTask;
-import org.gradle.api.UncheckedIOException;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
+import org.gradle.work.DisableCachingByDefault;
 
 /**
  * Task for downloading OpenApi documents.
  */
+@DisableCachingByDefault(
+        because = "Remove service is the only one knowing if there are changes to the OpenApi document")
 public abstract class DownloadOpenApiDocument extends DefaultTask {
     /** Sibling extensions deleted before a new document is downloaded. */
     private static final List<String> DELETE_SUFFIXES = List.of(".yaml", ".yml", ".json");
@@ -36,10 +38,10 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
         // The OpenApi document at the remote location can be
         // changed at any time - so it always needs to be downloaded when the task runs.
         // We assume the user knows when it is necessary to re-download the document.
-        getOutputs().upToDateWhen(t -> false);
+        getOutputs().upToDateWhen(_ -> false);
 
         // But only download if the URL is actually specified.
-        onlyIf(t -> getDocumentUrl().isPresent());
+        onlyIf(_ -> getDocumentUrl().isPresent());
     }
 
     /**
@@ -60,7 +62,7 @@ public abstract class DownloadOpenApiDocument extends DefaultTask {
             }
             deleteSiblingDocuments(toPath);
         } catch (IOException | URISyntaxException e) {
-            throw new UncheckedIOException("Failed to download file from " + url + " to " + toPath, e);
+            throw new IllegalStateException("Failed to download file from " + url + " to " + toPath, e);
         }
     }
 
