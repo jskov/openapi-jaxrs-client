@@ -18,6 +18,13 @@ public interface TypeContainer extends Type {
     /** {@return the type names instance} */
     TypeNames typeNames();
 
+    /**
+     * {@return the type name but includes runtime annotations}
+     *
+     * @param runtimeAnnotations the runtime annotations to prefix
+     */
+    String typeNameWithRuntimeAnnotations(String runtimeAnnotations);
+
     @Override
     default boolean isContainer() {
         return true;
