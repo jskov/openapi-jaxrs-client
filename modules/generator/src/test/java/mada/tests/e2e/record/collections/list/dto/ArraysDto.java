@@ -36,9 +36,8 @@ public record ArraysDto(
   List<Long> longs,
 
   @JsonbProperty("refs")
-  @Valid
   @Nullable
-  List<Simple> refs,
+  List<@Valid Simple> refs,
 
   @JsonbProperty("requiredBooleans")
   @Schema(required = true)
@@ -62,8 +61,8 @@ public record ArraysDto(
 
   @JsonbProperty("requiredRefs")
   @Schema(required = true)
-  @NotNull @Valid
-  List<Simple> requiredRefs,
+  @NotNull
+  List<@Valid Simple> requiredRefs,
 
   @JsonbProperty("requiredShorts")
   @Schema(required = true)

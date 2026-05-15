@@ -156,8 +156,7 @@ public class _ResponseMirroringLatestSupportInfoRepoSyncStatus {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestMirrorRepositorySynchronizationStatus> getValues() {
+  public List<@Valid RestMirrorRepositorySynchronizationStatus> getValues() {
     return values;
   }
 

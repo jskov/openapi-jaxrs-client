@@ -51,8 +51,7 @@ public class RestSshKeySettings {
    * Get keyTypeRestrictions
    * @return keyTypeRestrictions
    **/
-  @Valid
-  public List<RestSshKeyTypeRestriction> getKeyTypeRestrictions() {
+  public List<@Valid RestSshKeyTypeRestriction> getKeyTypeRestrictions() {
     return keyTypeRestrictions;
   }
 

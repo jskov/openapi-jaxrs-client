@@ -122,8 +122,7 @@ public class RestDiffHunk {
    * Get segments
    * @return segments
    **/
-  @Valid
-  public List<RestDiffSegment> getSegments() {
+  public List<@Valid RestDiffSegment> getSegments() {
     return segments;
   }
 

@@ -156,8 +156,7 @@ public class _ResponseSshLatestKeys {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestSshKey> getValues() {
+  public List<@Valid RestSshKey> getValues() {
     return values;
   }
 

@@ -290,8 +290,8 @@ public class ValidationDto {
    * Get validObjects
    * @return validObjects
    **/
-  @Valid @Size(min = 1, max = 4)
-  public List<Environment> getValidObjects() {
+  @Size(min = 1, max = 4)
+  public List<@Valid Environment> getValidObjects() {
     return validObjects;
   }
 

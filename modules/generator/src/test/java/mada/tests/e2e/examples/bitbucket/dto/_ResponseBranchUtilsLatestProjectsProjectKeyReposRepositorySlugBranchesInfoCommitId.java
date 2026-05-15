@@ -156,8 +156,7 @@ public class _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBran
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestMinimalRef> getValues() {
+  public List<@Valid RestMinimalRef> getValues() {
     return values;
   }
 

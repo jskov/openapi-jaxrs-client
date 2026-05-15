@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeyHookScripts {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestHookScriptConfig> getValues() {
+  public List<@Valid RestHookScriptConfig> getValues() {
     return values;
   }
 

@@ -27,7 +27,11 @@ public final class StandardTransformers {
      */
     public static State transformNullable(State state) {
         if (state.isRequired && !state.isNullable) {
-            state.addValidation("@NotNull ");
+            if (state.type instanceof TypeContainer) {
+                state.addContainerValidation("@NotNull ");
+            } else {
+                state.addValidation("@NotNull ");
+            }
             state.addPropComment(" (not null)");
             state.addImport(ValidationApi.NOT_NULL);
         } else {
@@ -82,11 +86,11 @@ public final class StandardTransformers {
         if (state.minItems != null || state.maxItems != null) {
             state.addImport(ValidationApi.SIZE);
             if (state.minItems != null && state.maxItems != null) {
-                state.addValidation("@Size(min = " + state.minItems + ", max = " + state.maxItems + ") ");
+                state.addContainerValidation("@Size(min = " + state.minItems + ", max = " + state.maxItems + ") ");
             } else if (state.minItems != null) {
-                state.addValidation("@Size(min = " + state.minItems + ") ");
+                state.addContainerValidation("@Size(min = " + state.minItems + ") ");
             } else {
-                state.addValidation("@Size(max = " + state.maxItems + ") ");
+                state.addContainerValidation("@Size(max = " + state.maxItems + ") ");
             }
             state.minItems = null;
             state.maxItems = null;

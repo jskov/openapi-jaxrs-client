@@ -148,8 +148,7 @@ public class RestInsightReport {
    * Get data
    * @return data
    **/
-  @Valid
-  public List<RestInsightReportData> getData() {
+  public List<@Valid RestInsightReportData> getData() {
     return data;
   }
 

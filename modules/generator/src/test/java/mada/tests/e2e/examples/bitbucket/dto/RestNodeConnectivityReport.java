@@ -69,8 +69,7 @@ public class RestNodeConnectivityReport {
    * Get summaries
    * @return summaries
    **/
-  @Valid
-  public List<RestNodeConnectivitySummary> getSummaries() {
+  public List<@Valid RestNodeConnectivitySummary> getSummaries() {
     return summaries;
   }
 

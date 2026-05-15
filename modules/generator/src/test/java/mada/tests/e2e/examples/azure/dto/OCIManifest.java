@@ -87,8 +87,7 @@ public class OCIManifest {
    *
    * @return layers
    **/
-  @Valid
-  public List<Descriptor> getLayers() {
+  public List<@Valid Descriptor> getLayers() {
     return layers;
   }
 

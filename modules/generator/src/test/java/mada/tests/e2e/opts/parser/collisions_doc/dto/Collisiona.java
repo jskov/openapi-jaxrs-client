@@ -63,8 +63,7 @@ public class Collisiona {
    * Get aList
    * @return aList
    **/
-  @Valid
-  public List<CollisionAX> getaList() {
+  public List<@Valid CollisionAX> getaList() {
     return aList;
   }
 

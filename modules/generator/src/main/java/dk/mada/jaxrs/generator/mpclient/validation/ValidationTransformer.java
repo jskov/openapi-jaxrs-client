@@ -39,8 +39,10 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
         /** True if minimum is zero. */
         final boolean minimumIsZero;
 
-        /** The validation in rendered form. Changed as transformers operate on the state. */
-        private String rendered = "";
+        /** The validation relevant for outer container. Changed as transformers operate on the state. */
+        private String renderedForContainer = "";
+        /** The validation relevant for inner contained type. Changed as transformers operate on the state.*/
+        private String renderedForContained = "";
         /** The javadoc property comment in rendered form. Changed as transformers operate on the state. */
         private String propComment = "";
         /** The javadoc comment in rendered form. Changed as transformers operate on the state. */
@@ -150,7 +152,16 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
          * @param part the part
          */
         public void addValidation(String part) {
-            rendered += part;
+            renderedForContained += part;
+        }
+
+        /**
+         * Add container part.
+         *
+         * @param part the part
+         */
+        public void addContainerValidation(String part) {
+            renderedForContainer += part;
         }
 
         /**
@@ -182,7 +193,7 @@ interface ValidationTransformer extends Function<ValidationTransformer.State, Va
                 // Trim initial newline
                 j = javadoc.substring(1);
             }
-            return new CtxValidation(rendered, propComment, j);
+            return new CtxValidation(renderedForContained, renderedForContainer, propComment, j);
         }
 
         /**

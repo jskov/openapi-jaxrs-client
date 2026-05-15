@@ -142,8 +142,7 @@ public class RestGpgKey {
    * Get subKeys
    * @return subKeys
    **/
-  @Valid
-  public List<RestGpgSubKey> getSubKeys() {
+  public List<@Valid RestGpgSubKey> getSubKeys() {
     return subKeys;
   }
 

@@ -65,8 +65,7 @@ public class OCIIndex {
    *
    * @return manifests
    **/
-  @Valid
-  public List<ManifestListAttributes> getManifests() {
+  public List<@Valid ManifestListAttributes> getManifests() {
     return manifests;
   }
 

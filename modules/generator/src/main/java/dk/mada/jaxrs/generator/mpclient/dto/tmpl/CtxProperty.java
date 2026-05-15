@@ -29,6 +29,14 @@ public interface CtxProperty {
     /** {@return the java type name} */
     String datatypeWithEnum();
 
+    /**
+     * {@return the java type including validation annotations}
+     *
+     * This is separate from {@code datatypeWithEnum} to allow validation annotations to be
+     * (eventually) moved from getters to fields.
+     **/
+    String datatypeWithValidation();
+
     /** {@return the name of the getter} */
     String getter();
 

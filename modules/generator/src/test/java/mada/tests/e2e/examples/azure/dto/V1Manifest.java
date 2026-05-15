@@ -86,8 +86,7 @@ public class V1Manifest {
    *
    * @return fsLayers
    **/
-  @Valid
-  public List<FsLayer> getFsLayers() {
+  public List<@Valid FsLayer> getFsLayers() {
     return fsLayers;
   }
 
@@ -113,8 +112,7 @@ public class V1Manifest {
    *
    * @return history
    **/
-  @Valid
-  public List<History> getHistory() {
+  public List<@Valid History> getHistory() {
     return history;
   }
 
@@ -158,8 +156,7 @@ public class V1Manifest {
    *
    * @return signatures
    **/
-  @Valid
-  public List<ImageSignature> getSignatures() {
+  public List<@Valid ImageSignature> getSignatures() {
     return signatures;
   }
 

@@ -156,8 +156,7 @@ public class _ResponseAccessTokensLatestUsersUserSlug {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestAccessToken> getValues() {
+  public List<@Valid RestAccessToken> getValues() {
     return values;
   }
 

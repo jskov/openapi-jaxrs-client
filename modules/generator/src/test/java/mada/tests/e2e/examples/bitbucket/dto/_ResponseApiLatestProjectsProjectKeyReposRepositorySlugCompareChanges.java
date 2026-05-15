@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareChang
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestChange> getValues() {
+  public List<@Valid RestChange> getValues() {
     return values;
   }
 

@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeySecretScanningExempt {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestRepository> getValues() {
+  public List<@Valid RestRepository> getValues() {
     return values;
   }
 

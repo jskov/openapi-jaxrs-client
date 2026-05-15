@@ -156,8 +156,7 @@ public class _ResponseApiLatestMigrationMeshJobIdMessages {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestJobMessage> getValues() {
+  public List<@Valid RestJobMessage> getValues() {
     return values;
   }
 

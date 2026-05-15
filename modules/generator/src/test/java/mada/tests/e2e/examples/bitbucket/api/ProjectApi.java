@@ -1927,7 +1927,7 @@ The authenticated user must have <strong>PROJECT_ADMIN</strong> permission or hi
                  content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictions_401.class)))
   })
   @Operation(summary = "Create multiple ref restrictions")
-  RestRefRestriction createRestrictions(@PathParam("projectKey") @NotNull String projectKey, @Valid List<RestRestrictionRequest> dto);
+  RestRefRestriction createRestrictions(@PathParam("projectKey") @NotNull String projectKey, List<@Valid RestRestrictionRequest> dto);
 
   /**
    * Get a ref restriction.
