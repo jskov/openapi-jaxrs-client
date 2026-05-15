@@ -156,8 +156,7 @@ public class _ResponseApiLatestAdminPermissionsGroupsNone {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestDetailedGroup> getValues() {
+  public List<@Valid RestDetailedGroup> getValues() {
     return values;
   }
 

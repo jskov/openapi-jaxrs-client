@@ -353,8 +353,7 @@ public class RestCommentThreadDiffAnchorPullRequest {
    * Get participants
    * @return participants
    **/
-  @Valid
-  public List<RestPullRequestParticipant> getParticipants() {
+  public List<@Valid RestPullRequestParticipant> getParticipants() {
     return participants;
   }
 
@@ -379,8 +378,7 @@ public class RestCommentThreadDiffAnchorPullRequest {
    * Get reviewers
    * @return reviewers
    **/
-  @Valid
-  public List<RestPullRequestParticipant> getReviewers() {
+  public List<@Valid RestPullRequestParticipant> getReviewers() {
     return reviewers;
   }
 

@@ -48,8 +48,8 @@ public class RestBulkAddInsightAnnotationRequest {
    * Get annotations
    * @return annotations
    **/
-  @Valid @Size(min = 1, max = 2147483647)
-  public List<RestSingleAddInsightAnnotationRequest> getAnnotations() {
+  @Size(min = 1, max = 2147483647)
+  public List<@Valid RestSingleAddInsightAnnotationRequest> getAnnotations() {
     return annotations;
   }
 

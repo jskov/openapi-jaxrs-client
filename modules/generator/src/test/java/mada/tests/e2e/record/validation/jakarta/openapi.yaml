@@ -1,0 +1,66 @@
+---
+openapi: 3.0.3
+info:
+  title: openapi API Title
+  description: openapi API description
+  termsOfService: openapi API TOS
+  contact:
+    name: openapi API contact name
+    url: https://contact.url
+    email: email@example.com
+  license:
+    name: openapi API license name
+    url: https://license.url
+  version: openapi API Version
+externalDocs:
+  description: openapi API ext docs description
+  url: openapi API ext url
+tags: []
+paths: []
+components:
+  schemas:
+    LicenseGroup:
+      type: object
+      required:
+        - numbers
+        - strings
+        - requiredLicenses
+      properties:
+        licenses:
+          type: array
+          maxItems: 4
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/ZLicense"
+        requiredLicenses:
+          type: array
+          maxItems: 4
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/ZLicense"
+        # List of -100 integers with value 7+
+        numbers:
+          type: array
+          maxItems: 100
+          minimum: 7
+          items:
+            type: integer
+            format: int32
+        # List of 4-8 strings of null/length 0-2
+        strings:
+          type: array
+          maxItems: 8
+          minItems: 4
+          # Not handling notempty vs notempty on the strings
+          items:
+            type: string
+# TODO: cannot handle this yet
+#            nullable: true
+#            maxItems: 2
+
+    ZLicense:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid

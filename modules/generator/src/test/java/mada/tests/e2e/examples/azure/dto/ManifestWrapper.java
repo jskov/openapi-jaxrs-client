@@ -145,8 +145,7 @@ public class ManifestWrapper {
    *
    * @return fsLayers
    **/
-  @Valid
-  public List<FsLayer> getFsLayers() {
+  public List<@Valid FsLayer> getFsLayers() {
     return fsLayers;
   }
 
@@ -172,8 +171,7 @@ public class ManifestWrapper {
    *
    * @return history
    **/
-  @Valid
-  public List<History> getHistory() {
+  public List<@Valid History> getHistory() {
     return history;
   }
 
@@ -199,8 +197,7 @@ public class ManifestWrapper {
    *
    * @return layers
    **/
-  @Valid
-  public List<Descriptor> getLayers() {
+  public List<@Valid Descriptor> getLayers() {
     return layers;
   }
 
@@ -226,8 +223,7 @@ public class ManifestWrapper {
    *
    * @return manifests
    **/
-  @Valid
-  public List<ManifestListAttributes> getManifests() {
+  public List<@Valid ManifestListAttributes> getManifests() {
     return manifests;
   }
 
@@ -289,8 +285,7 @@ public class ManifestWrapper {
    *
    * @return signatures
    **/
-  @Valid
-  public List<ImageSignature> getSignatures() {
+  public List<@Valid ImageSignature> getSignatures() {
     return signatures;
   }
 

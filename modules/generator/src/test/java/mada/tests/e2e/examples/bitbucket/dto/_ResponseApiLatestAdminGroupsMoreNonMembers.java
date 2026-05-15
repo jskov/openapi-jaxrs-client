@@ -156,8 +156,7 @@ public class _ResponseApiLatestAdminGroupsMoreNonMembers {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestDetailedUser> getValues() {
+  public List<@Valid RestDetailedUser> getValues() {
     return values;
   }
 

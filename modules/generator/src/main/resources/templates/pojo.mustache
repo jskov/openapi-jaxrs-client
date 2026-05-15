@@ -160,7 +160,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   @JsonIgnore
    {{/jackson}}
   {{/madaProp.isUseEmptyCollections}}
-  {{>nullablePrefix}}public {{{datatypeWithEnum}}} {{getter}}() {
+  {{>nullablePrefix}}public {{{datatypeWithValidation}}} {{getter}}() {
     return {{name}};
   }
   {{#madaProp.isUseBigDecimalForDouble}}
@@ -175,7 +175,7 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
   {{#madaProp.isUseEmptyCollections}}
 
 {{#validation}}  {{>beanValidation}}{{/validation}}
-  {{>nullablePrefix}}public {{{datatypeWithEnum}}} {{madaProp.getter}}() {
+  {{>nullablePrefix}}public {{{datatypeWithValidation}}} {{madaProp.getter}}() {
     if (this.{{name}} == null) {
       this.{{name}} = {{{defaultValue}}};
     }

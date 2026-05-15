@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeyPermissionsGroups {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestPermittedGroup> getValues() {
+  public List<@Valid RestPermittedGroup> getValues() {
     return values;
   }
 

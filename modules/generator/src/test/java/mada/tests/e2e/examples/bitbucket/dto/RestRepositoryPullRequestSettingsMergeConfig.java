@@ -118,8 +118,7 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
    * Get strategies
    * @return strategies
    **/
-  @Valid
-  public List<RestPullRequestMergeStrategy> getStrategies() {
+  public List<@Valid RestPullRequestMergeStrategy> getStrategies() {
     return strategies;
   }
 

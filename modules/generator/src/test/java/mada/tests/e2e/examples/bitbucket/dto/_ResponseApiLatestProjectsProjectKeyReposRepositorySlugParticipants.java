@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugParticipants
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestApplicationUser> getValues() {
+  public List<@Valid RestApplicationUser> getValues() {
     return values;
   }
 

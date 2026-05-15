@@ -330,20 +330,20 @@ public class ApiGenerator {
 
         if (addAuthHeader) {
             Primitive type = Primitive.STRING;
-            Optional<CtxValidation> validation =
-                    validationGenerator.makeValidation(imports, type, Validation.validationRequired());
+            ValidationAndType validationAndType =
+                    renderValidationAndType(imports, type, Validation.validationRequired());
 
             params.add(CtxApiParam.builder()
                     .baseName("Authorization")
                     .paramName("auth")
-                    .dataType(type.typeName().name())
+                    .dataType(validationAndType.typeNameWithValidation())
+                    .validation(validationAndType.valCtx())
                     .isContainer(false)
                     .isBodyParam(false)
                     .isFormParam(false)
                     .isHeaderParam(true)
                     .isPathParam(false)
                     .isQueryParam(false)
-                    .validation(validation)
                     .isMultipartForm(false)
                     .isNullable(false)
                     .build());
@@ -357,17 +357,11 @@ public class ApiGenerator {
             String paramName = naming.convertParameterName(name);
 
             Type type = ref.refType();
-            String dataType = paramDataType(type);
 
             Validation validation = ref.validation();
             logger.debug("See param {} : {} : {}", paramName, type, validation);
 
-            Optional<CtxValidation> valCtx;
-            if (type.isPrimitive() && !opts.isUseApiWrappedPrimitives()) {
-                valCtx = Optional.empty();
-            } else {
-                valCtx = validationGenerator.makeValidation(imports, type, validation);
-            }
+            ValidationAndType validationAndType = renderValidationAndType(imports, type, ref.validation());
 
             boolean isNullableRef =
                     type.isPrimitive(Primitive.STRING) || (!type.isPrimitive() || opts.isUseApiWrappedPrimitives());
@@ -381,8 +375,8 @@ public class ApiGenerator {
             ImmutableCtxApiParam param = CtxApiParam.builder()
                     .baseName(name)
                     .paramName(paramName)
-                    .dataType(dataType)
-                    .validation(valCtx)
+                    .dataType(validationAndType.typeNameWithValidation())
+                    .validation(validationAndType.valCtx())
                     .description(p.description())
                     .isContainer(false)
                     .isBodyParam(false)
@@ -411,14 +405,8 @@ public class ApiGenerator {
             String dtoParamName = dtoParamNameNotUnique ? preferredDtoParamName + "Entity" : preferredDtoParamName;
 
             Type type = ref.refType();
-            String dataType = paramDataType(type);
 
-            Optional<CtxValidation> valCtx;
-            if (type.isPrimitive() && !opts.isUseApiWrappedPrimitives()) {
-                valCtx = Optional.empty();
-            } else {
-                valCtx = validationGenerator.makeValidation(imports, type, ref.validation());
-            }
+            ValidationAndType validationAndType = renderValidationAndType(imports, type, ref.validation());
 
             boolean isMultipartForm = body.isMultipartForm();
             if (isMultipartForm) {
@@ -427,8 +415,8 @@ public class ApiGenerator {
             CtxApiParam bodyParam = CtxApiParam.builder()
                     .baseName("unused")
                     .paramName(dtoParamName)
-                    .dataType(dataType)
-                    .validation(valCtx)
+                    .dataType(validationAndType.typeNameWithValidation())
+                    .validation(validationAndType.valCtx())
                     .description(body.description())
                     .isContainer(false)
                     .isBodyParam(true)
@@ -453,10 +441,47 @@ public class ApiGenerator {
         return params;
     }
 
-    private String paramDataType(Type type) {
-        return opts.isUseApiWrappedPrimitives()
-                ? type.wrapperTypeName().name()
-                : type.typeName().name();
+    /**
+     * Combined validation and type rendering.
+     *
+     * @param valCtx the optional rendered validation
+     * @param typeNameWithValidation the rendered type including validation
+     */
+    record ValidationAndType(Optional<CtxValidation> valCtx, String typeNameWithValidation) {}
+
+    /**
+     * Renders validation and type.
+     *
+     * Moves some validation annotations around for container types.
+     *
+     * Matching {@code PropertyGenerator}
+     *
+     * @param imports the imports for the file
+     * @param type the type
+     * @param validation the validation
+     * @return the rendered validation and type
+     */
+    private ValidationAndType renderValidationAndType(Imports imports, Type type, Validation validation) {
+        Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
+        if (type.isPrimitive() && !opts.isUseApiWrappedPrimitives()) {
+            valCtx = Optional.empty();
+        }
+
+        String renderedType;
+        if (type instanceof TypeContainer tc) {
+            renderedType = tc.typeNameWithRuntimeAnnotations(
+                    valCtx.map(x -> x.renderedValidation()).orElse(""));
+
+            valCtx = valCtx.map(x ->
+                    new CtxValidation(x.renderedContainerValidation(), "unused", x.javadocParamComment(), x.javadoc()));
+
+        } else {
+            renderedType = opts.isUseApiWrappedPrimitives()
+                    ? type.wrapperTypeName().name()
+                    : type.typeName().name();
+        }
+
+        return new ValidationAndType(valCtx, renderedType);
     }
 
     private List<CtxApiResponse> getResponses(Imports imports, Operation op, List<String> producesMediaTypes) {

@@ -193,8 +193,7 @@ public class ArraysDto {
    * Get refs
    * @return refs
    **/
-  @Valid
-  public List<Simple> getRefs() {
+  public List<@Valid Simple> getRefs() {
     return refs;
   }
 
@@ -303,8 +302,8 @@ public class ArraysDto {
    * Get requiredRefs
    * @return requiredRefs
    **/
-  @NotNull @Valid
-  public List<Simple> getRequiredRefs() {
+  @NotNull
+  public List<@Valid Simple> getRequiredRefs() {
     return requiredRefs;
   }
 

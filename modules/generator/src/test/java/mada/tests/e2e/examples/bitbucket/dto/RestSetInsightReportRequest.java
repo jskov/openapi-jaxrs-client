@@ -122,8 +122,8 @@ public class RestSetInsightReportRequest {
    * Get data
    * @return data
    **/
-  @NotNull @Valid @Size(min = 0, max = 6)
-  public List<RestInsightReportData> getData() {
+  @NotNull @Size(min = 0, max = 6)
+  public List<@Valid RestInsightReportData> getData() {
     return data;
   }
 

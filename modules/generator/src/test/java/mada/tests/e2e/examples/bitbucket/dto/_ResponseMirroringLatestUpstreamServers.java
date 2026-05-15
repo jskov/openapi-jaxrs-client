@@ -156,8 +156,7 @@ public class _ResponseMirroringLatestUpstreamServers {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestUpstreamServer> getValues() {
+  public List<@Valid RestUpstreamServer> getValues() {
     return values;
   }
 

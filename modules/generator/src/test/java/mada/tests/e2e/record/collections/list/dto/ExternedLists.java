@@ -31,9 +31,8 @@ public record ExternedLists(
   List<Integer> listInt,
 
   @JsonbProperty("listSimple")
-  @Valid
   @Nullable
-  List<Simple> listSimple,
+  List<@Valid Simple> listSimple,
 
   @JsonbProperty("listString")
   @Nullable

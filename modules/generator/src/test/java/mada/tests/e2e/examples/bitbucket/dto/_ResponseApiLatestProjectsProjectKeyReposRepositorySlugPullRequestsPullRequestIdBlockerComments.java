@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestComment> getValues() {
+  public List<@Valid RestComment> getValues() {
     return values;
   }
 

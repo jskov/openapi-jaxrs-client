@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugTags {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestTag> getValues() {
+  public List<@Valid RestTag> getValues() {
     return values;
   }
 

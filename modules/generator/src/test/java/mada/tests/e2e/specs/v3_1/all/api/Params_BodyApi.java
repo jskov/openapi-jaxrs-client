@@ -121,7 +121,7 @@ public interface Params_BodyApi {
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
   @Operation(summary = "Query List Simple")
-  String apiParamsBodyListSimpleGet(@NotNull @Valid List<Simple> dto);
+  String apiParamsBodyListSimpleGet(@NotNull List<@Valid Simple> dto);
 
   /**
    * Query List.

@@ -20,11 +20,13 @@ import dk.mada.jaxrs.generator.mpclient.imports.UserMappedImport;
 import dk.mada.jaxrs.generator.mpclient.validation.ValidationGenerator;
 import dk.mada.jaxrs.model.Dto;
 import dk.mada.jaxrs.model.Property;
+import dk.mada.jaxrs.model.Validation;
 import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeArray;
 import dk.mada.jaxrs.model.types.TypeByteArray;
+import dk.mada.jaxrs.model.types.TypeContainer;
 import dk.mada.jaxrs.model.types.TypeEnum;
 import dk.mada.jaxrs.model.types.TypeMap;
 import dk.mada.jaxrs.model.types.TypeReference;
@@ -95,9 +97,12 @@ public class PropertyGenerator {
         Type propType = ti.propType();
         logger.trace(" {}", propType);
 
+        String typeName = ti.typeName();
+        @Nullable String innerTypeName = ti.innerTypeName();
+
         // Add import if required
-        addTypeImports(dtoImports, ti.typeName());
-        addTypeImports(dtoImports, ti.innerTypeName());
+        addTypeImports(dtoImports, typeName);
+        addTypeImports(dtoImports, innerTypeName);
 
         String getterPrefix = getterPrefix(prop);
         String getter = getterPrefix + names.camelized();
@@ -144,8 +149,7 @@ public class PropertyGenerator {
             dtoImports.addMicroProfileSchema();
         }
 
-        Optional<CtxValidation> beanValidation =
-                validationGenerator.makeValidation(dtoImports, propType, prop.validation());
+        ValidationAndType renderValidationAndType = renderValidationAndType(dtoImports, ti, prop.validation());
 
         String jsonPropertyConst = null;
         if (opts.isJackson() || opts.isJsonb() || parentDto.isMultipartForm()) {
@@ -162,7 +166,7 @@ public class PropertyGenerator {
         }
 
         CtxPropertyExt mada = CtxPropertyExt.builder()
-                .innerDatatypeWithEnum(ti.innerTypeName())
+                .innerDatatypeWithEnum(innerTypeName)
                 .enumClassName(ei.enumClassName())
                 .enumTypeName(ei.enumTypeName())
                 .enumSchemaOptions(Optional.ofNullable(ei.enumSchema()))
@@ -183,8 +187,9 @@ public class PropertyGenerator {
         String propertyName = names.propertyName();
         CtxProperty ctx = CtxProperty.builder()
                 .baseName(propertyName)
-                .datatypeWithEnum(ti.typeName())
-                .dataType(ti.innerTypeName())
+                .datatypeWithEnum(typeName)
+                .datatypeWithValidation(renderValidationAndType.typeNameWithValidation())
+                .dataType(innerTypeName)
                 .name(names.variableName())
                 .nameInCamelCase(names.camelized())
                 .nameInSnakeCase(names.snaked())
@@ -203,12 +208,47 @@ public class PropertyGenerator {
                 .notNull(isNotNull)
                 .example(prop.example())
                 .allowableValues(ei.ctxEnum())
-                .validation(beanValidation)
+                .validation(renderValidationAndType.valCtx())
                 .madaProp(mada)
                 .build();
 
         logger.debug("property {} : {}", propertyName, ctx);
         return ctx;
+    }
+
+    /**
+     * Combined validation and type rendering.
+     *
+     * @param valCtx the optional rendered validation
+     * @param typeNameWithValidation the rendered type including validation
+     */
+    record ValidationAndType(Optional<CtxValidation> valCtx, String typeNameWithValidation) {}
+
+    /**
+     * Renders validation and type.
+     *
+     * Moves some validation annotations around for container types.
+     *
+     * Matching {@code ApiGenerator}
+     *
+     * @param imports the imports for the file
+     * @param ti the property type information
+     * @param validation the validation
+     * @return the rendered validation and type
+     */
+    private ValidationAndType renderValidationAndType(Imports imports, TypeInfo ti, Validation validation) {
+        Type type = ti.propType();
+        Optional<CtxValidation> valCtx = validationGenerator.makeValidation(imports, type, validation);
+        String typeNameWithValidation = ti.typeName();
+        if (type instanceof TypeContainer tc) {
+            typeNameWithValidation = tc.typeNameWithRuntimeAnnotations(
+                    valCtx.map(x -> x.renderedValidation()).orElse(""));
+
+            valCtx = valCtx.map(x ->
+                    new CtxValidation(x.renderedContainerValidation(), "unused", x.javadocParamComment(), x.javadoc()));
+        }
+
+        return new ValidationAndType(valCtx, typeNameWithValidation);
     }
 
     record Names(String propertyName, String variableName, String camelized, String snaked) {}
