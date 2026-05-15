@@ -40,7 +40,12 @@ public interface TypeArray extends TypeContainer {
      */
     @Override
     default TypeName typeName() {
+        return typeNames().of(typeNameWithRuntimeAnnotations(""));
+    }
+
+    @Override
+    default String typeNameWithRuntimeAnnotations(String runtimeAnnotations) {
         String innerName = innerType().wrapperTypeName().name();
-        return typeNames().of("List<" + innerName + ">");
+        return "List<" + runtimeAnnotations + innerName + ">";
     }
 }
