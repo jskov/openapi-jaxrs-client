@@ -156,8 +156,7 @@ public class _ResponseApiLatestMigrationMeshRepos {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestMigrationRepository> getValues() {
+  public List<@Valid RestMigrationRepository> getValues() {
     return values;
   }
 

@@ -215,8 +215,7 @@ public class Pet {
    * Get tags
    * @return tags
    **/
-  @Valid
-  public List<Tag> getTags() {
+  public List<@Valid Tag> getTags() {
     return tags;
   }
 

@@ -106,8 +106,7 @@ public class RestDiff {
    * Get hunks
    * @return hunks
    **/
-  @Valid
-  public List<RestDiffHunk> getHunks() {
+  public List<@Valid RestDiffHunk> getHunks() {
     return hunks;
   }
 
@@ -132,8 +131,7 @@ public class RestDiff {
    * Get lineComments
    * @return lineComments
    **/
-  @Valid
-  public List<RestComment> getLineComments() {
+  public List<@Valid RestComment> getLineComments() {
     return lineComments;
   }
 

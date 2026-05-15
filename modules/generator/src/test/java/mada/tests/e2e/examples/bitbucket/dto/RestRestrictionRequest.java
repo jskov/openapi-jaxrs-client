@@ -116,8 +116,7 @@ public class RestRestrictionRequest {
    * Get accessKeys
    * @return accessKeys
    **/
-  @Valid
-  public List<RestSshAccessKey> getAccessKeys() {
+  public List<@Valid RestSshAccessKey> getAccessKeys() {
     return accessKeys;
   }
 
@@ -262,8 +261,7 @@ public class RestRestrictionRequest {
    * Get users
    * @return users
    **/
-  @Valid
-  public List<RestApplicationUser> getUsers() {
+  public List<@Valid RestApplicationUser> getUsers() {
     return users;
   }
 

@@ -43,8 +43,7 @@ public class AcrErrors {
    *
    * @return errors
    **/
-  @Valid
-  public List<AcrErrorInfo> getErrors() {
+  public List<@Valid AcrErrorInfo> getErrors() {
     return errors;
   }
 

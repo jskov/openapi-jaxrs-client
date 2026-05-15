@@ -201,8 +201,7 @@ public class RestComment {
    * Get comments
    * @return comments
    **/
-  @Valid
-  public List<RestComment> getComments() {
+  public List<@Valid RestComment> getComments() {
     return comments;
   }
 

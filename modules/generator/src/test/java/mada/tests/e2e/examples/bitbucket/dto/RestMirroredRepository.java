@@ -137,8 +137,7 @@ public class RestMirroredRepository {
    * Get cloneUrls
    * @return cloneUrls
    **/
-  @Valid
-  public List<RestNamedLink> getCloneUrls() {
+  public List<@Valid RestNamedLink> getCloneUrls() {
     return cloneUrls;
   }
 
@@ -197,8 +196,7 @@ public class RestMirroredRepository {
    * Get pushUrls
    * @return pushUrls
    **/
-  @Valid
-  public List<RestNamedLink> getPushUrls() {
+  public List<@Valid RestNamedLink> getPushUrls() {
     return pushUrls;
   }
 

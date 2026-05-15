@@ -202,8 +202,7 @@ public class ExampleJsonLastModifiedCallbackLatestCommit {
    * Get parents
    * @return parents
    **/
-  @Valid
-  public List<RestMinimalCommit> getParents() {
+  public List<@Valid RestMinimalCommit> getParents() {
     return parents;
   }
 

@@ -47,8 +47,7 @@ public class ExamplePreviewMigration {
    * Get repositories
    * @return repositories
    **/
-  @Valid
-  public List<RestRepository> getRepositories() {
+  public List<@Valid RestRepository> getRepositories() {
     return repositories;
   }
 

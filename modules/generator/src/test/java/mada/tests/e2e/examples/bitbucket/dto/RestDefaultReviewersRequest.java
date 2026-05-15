@@ -78,8 +78,7 @@ public class RestDefaultReviewersRequest {
    * Get reviewers
    * @return reviewers
    **/
-  @Valid
-  public List<RestApplicationUser> getReviewers() {
+  public List<@Valid RestApplicationUser> getReviewers() {
     return reviewers;
   }
 

@@ -156,8 +156,7 @@ public class _ResponseApiLatestDashboardPullRequestSuggestions {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestPullRequestSuggestion> getValues() {
+  public List<@Valid RestPullRequestSuggestion> getValues() {
     return values;
   }
 

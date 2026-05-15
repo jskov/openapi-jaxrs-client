@@ -156,8 +156,7 @@ public class _ResponseJiraLatestIssuesIssueKeyCommits {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestChangeset> getValues() {
+  public List<@Valid RestChangeset> getValues() {
     return values;
   }
 

@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPermissionsU
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestPermittedUser> getValues() {
+  public List<@Valid RestPermittedUser> getValues() {
     return values;
   }
 

@@ -2512,7 +2512,7 @@ The authenticated user must have <strong>REPO_ADMIN</strong> permission or highe
                  content = @Content(schema = @Schema(implementation = _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySlugRestrictions_401.class)))
   })
   @Operation(summary = "Create multiple ref restrictions")
-  RestRefRestriction createRestrictions_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, @Valid List<RestRestrictionRequest> dto);
+  RestRefRestriction createRestrictions_1(@PathParam("projectKey") @NotNull String projectKey, @PathParam("repositorySlug") @NotNull String repositorySlug, List<@Valid RestRestrictionRequest> dto);
 
   /**
    * Get a ref restriction.

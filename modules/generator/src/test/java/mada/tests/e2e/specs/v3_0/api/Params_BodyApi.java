@@ -113,7 +113,7 @@ public interface Params_BodyApi {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsBodyListSimpleGet(@Valid List<Simple> dto);
+  String apiParamsBodyListSimpleGet(List<@Valid Simple> dto);
 
   /**
    * apiParamsBodyMixedInPathGet.

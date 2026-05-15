@@ -156,8 +156,7 @@ public class _ResponseApiLatestAdminUsers {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestDetailedUser> getValues() {
+  public List<@Valid RestDetailedUser> getValues() {
     return values;
   }
 

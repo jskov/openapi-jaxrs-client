@@ -73,8 +73,7 @@ public class RestClusterInformation {
    * Get nodes
    * @return nodes
    **/
-  @Valid
-  public List<RestClusterNode> getNodes() {
+  public List<@Valid RestClusterNode> getNodes() {
     return nodes;
   }
 

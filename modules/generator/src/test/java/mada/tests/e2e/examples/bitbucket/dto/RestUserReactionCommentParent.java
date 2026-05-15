@@ -196,8 +196,7 @@ public class RestUserReactionCommentParent {
    * Get comments
    * @return comments
    **/
-  @Valid
-  public List<RestComment> getComments() {
+  public List<@Valid RestComment> getComments() {
     return comments;
   }
 

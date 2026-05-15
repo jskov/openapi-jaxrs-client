@@ -156,8 +156,7 @@ public class _ResponseApiLatestAdminRateLimitHistory {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestAggregateRejectCounter> getValues() {
+  public List<@Valid RestAggregateRejectCounter> getValues() {
     return values;
   }
 

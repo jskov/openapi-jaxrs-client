@@ -545,7 +545,7 @@ Project **Admin** is required
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestProjectsProjectKeySecretScanningExempt_401.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Bulk exempt repos from secret scanning")
-  void bulkAddExemptRepositories_1(@Valid Set<RestRepositorySelector> dto);
+  void bulkAddExemptRepositories_1(Set<@Valid RestRepositorySelector> dto);
 
   /**
    * Find project secret scanning rules.
@@ -706,7 +706,7 @@ Project **Admin** is required
                  content = @Content(schema = @Schema(implementation = _ResponseApiLatestSecretScanningExempt_409.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Bulk exempt repos from secret scanning")
-  void bulkAddExemptRepositories(@Valid Set<RestRepositorySelector> dto);
+  void bulkAddExemptRepositories(Set<@Valid RestRepositorySelector> dto);
 
   /**
    * Find global secret scanning rules.

@@ -156,8 +156,7 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestDiff> getValues() {
+  public List<@Valid RestDiff> getValues() {
     return values;
   }
 

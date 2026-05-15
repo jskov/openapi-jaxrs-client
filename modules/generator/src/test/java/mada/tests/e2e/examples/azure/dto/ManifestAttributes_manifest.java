@@ -66,8 +66,7 @@ public class ManifestAttributes_manifest {
    *
    * @return references
    **/
-  @Valid
-  public List<ManifestAttributes_manifest_references> getReferences() {
+  public List<@Valid ManifestAttributes_manifest_references> getReferences() {
     return references;
   }
 

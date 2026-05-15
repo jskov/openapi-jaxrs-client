@@ -266,8 +266,7 @@ public class MapsDto {
    * Get bothRefs
    * @return bothRefs
    **/
-  @Valid
-  public Map<String, Simple> getBothRefs() {
+  public Map<String, @Valid Simple> getBothRefs() {
     return bothRefs;
   }
 
@@ -492,8 +491,7 @@ public class MapsDto {
    * Get refs
    * @return refs
    **/
-  @Valid
-  public Map<String, Simple> getRefs() {
+  public Map<String, @Valid Simple> getRefs() {
     return refs;
   }
 
@@ -607,8 +605,8 @@ public class MapsDto {
    * Get requiredRefs
    * @return requiredRefs
    **/
-  @NotNull @Valid
-  public Map<String, Simple> getRequiredRefs() {
+  @NotNull
+  public Map<String, @Valid Simple> getRequiredRefs() {
     return requiredRefs;
   }
 

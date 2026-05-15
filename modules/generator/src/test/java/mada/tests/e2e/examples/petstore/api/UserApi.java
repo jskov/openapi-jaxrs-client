@@ -64,7 +64,7 @@ public interface UserApi {
                  content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON))
   })
   @Operation(summary = "Creates list of users with given input array.")
-  User createUsersWithListInput(@Valid List<User> dto);
+  User createUsersWithListInput(List<@Valid User> dto);
 
   /**
    * Logs user into the system.

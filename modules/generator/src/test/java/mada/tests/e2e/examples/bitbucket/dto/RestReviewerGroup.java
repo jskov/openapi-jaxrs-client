@@ -156,8 +156,7 @@ public class RestReviewerGroup {
    * Get users
    * @return users
    **/
-  @Valid
-  public List<ApplicationUser> getUsers() {
+  public List<@Valid ApplicationUser> getUsers() {
     return users;
   }
 

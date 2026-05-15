@@ -156,8 +156,7 @@ public class _ResponseApiLatestAdminRateLimitSettingsUsers {
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestUserRateLimitSettings> getValues() {
+  public List<@Valid RestUserRateLimitSettings> getValues() {
     return values;
   }
 

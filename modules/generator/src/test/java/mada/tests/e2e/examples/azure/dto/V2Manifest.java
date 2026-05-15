@@ -70,8 +70,7 @@ public class V2Manifest {
    *
    * @return layers
    **/
-  @Valid
-  public List<Descriptor> getLayers() {
+  public List<@Valid Descriptor> getLayers() {
     return layers;
   }
 

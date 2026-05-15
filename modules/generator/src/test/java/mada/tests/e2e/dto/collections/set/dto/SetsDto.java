@@ -199,8 +199,7 @@ public class SetsDto {
    * Get refs
    * @return refs
    **/
-  @Valid
-  public Set<Simple> getRefs() {
+  public Set<@Valid Simple> getRefs() {
     return refs;
   }
 
@@ -314,8 +313,8 @@ public class SetsDto {
    * Get requiredRefs
    * @return requiredRefs
    **/
-  @NotNull @Valid
-  public Set<Simple> getRequiredRefs() {
+  @NotNull
+  public Set<@Valid Simple> getRequiredRefs() {
     return requiredRefs;
   }
 

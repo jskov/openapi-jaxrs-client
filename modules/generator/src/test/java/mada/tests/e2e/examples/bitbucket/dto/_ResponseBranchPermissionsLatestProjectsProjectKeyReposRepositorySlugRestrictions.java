@@ -156,8 +156,7 @@ public class _ResponseBranchPermissionsLatestProjectsProjectKeyReposRepositorySl
    * Get values
    * @return values
    **/
-  @Valid
-  public List<RestRefRestriction> getValues() {
+  public List<@Valid RestRefRestriction> getValues() {
     return values;
   }
 

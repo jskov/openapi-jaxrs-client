@@ -71,7 +71,7 @@ public record {{classname}}{{#parent}} extends {{{.}}}{{/parent}}{{#madaDto.impl
   @Nullable
     {{/madaProp.isNullable}}
   {{/madaDto.isJspecify}}
-  {{{datatypeWithEnum}}} {{name}}{{^-last}},
+  {{{datatypeWithValidation}}} {{name}}{{^-last}},
 
 {{/-last}}{{#-last}}) {
 {{/-last}}

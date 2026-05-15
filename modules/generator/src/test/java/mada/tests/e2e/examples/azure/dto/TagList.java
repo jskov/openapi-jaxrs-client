@@ -89,8 +89,7 @@ public class TagList {
    *
    * @return tags
    **/
-  @Valid
-  public List<TagAttributesBase> getTags() {
+  public List<@Valid TagAttributesBase> getTags() {
     return tags;
   }
 

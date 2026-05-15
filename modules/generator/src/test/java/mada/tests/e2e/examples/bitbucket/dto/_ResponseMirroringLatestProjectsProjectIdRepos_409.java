@@ -47,8 +47,7 @@ public class _ResponseMirroringLatestProjectsProjectIdRepos_409 {
    * Get errors
    * @return errors
    **/
-  @Valid
-  public List<RestErrorMessage> getErrors() {
+  public List<@Valid RestErrorMessage> getErrors() {
     return errors;
   }
 

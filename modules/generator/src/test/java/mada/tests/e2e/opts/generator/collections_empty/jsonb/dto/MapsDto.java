@@ -291,13 +291,11 @@ public class MapsDto {
    * Get bothRefs
    * @return bothRefs
    **/
-  @Valid
-  public Map<String, Simple> getBothRefsNullable() {
+  public Map<String, @Valid Simple> getBothRefsNullable() {
     return bothRefs;
   }
 
-  @Valid
-  public Map<String, Simple> getBothRefs() {
+  public Map<String, @Valid Simple> getBothRefs() {
     if (this.bothRefs == null) {
       this.bothRefs = new HashMap<>();
     }
@@ -517,13 +515,11 @@ public class MapsDto {
    * Get refs
    * @return refs
    **/
-  @Valid
-  public Map<String, Simple> getRefsNullable() {
+  public Map<String, @Valid Simple> getRefsNullable() {
     return refs;
   }
 
-  @Valid
-  public Map<String, Simple> getRefs() {
+  public Map<String, @Valid Simple> getRefs() {
     if (this.refs == null) {
       this.refs = new HashMap<>();
     }
@@ -640,8 +636,8 @@ public class MapsDto {
    * Get requiredRefs
    * @return requiredRefs
    **/
-  @NotNull @Valid
-  public Map<String, Simple> getRequiredRefs() {
+  @NotNull
+  public Map<String, @Valid Simple> getRequiredRefs() {
     return requiredRefs;
   }
 
