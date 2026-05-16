@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_400
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_400)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_400 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugDiffPath_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

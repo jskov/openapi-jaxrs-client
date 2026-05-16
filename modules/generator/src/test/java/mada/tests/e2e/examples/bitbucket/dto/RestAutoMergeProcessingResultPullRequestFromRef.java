@@ -181,15 +181,14 @@ public class RestAutoMergeProcessingResultPullRequestFromRef {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoMergeProcessingResultPullRequestFromRef)) {
-      return false;
+    if (o instanceof RestAutoMergeProcessingResultPullRequestFromRef other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.latestCommit, other.latestCommit) &&
+              Objects.equals(this.repository, other.repository) &&
+              Objects.equals(this.type, other.type);
     }
-    RestAutoMergeProcessingResultPullRequestFromRef other = (RestAutoMergeProcessingResultPullRequestFromRef) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.latestCommit, other.latestCommit) &&
-        Objects.equals(this.repository, other.repository) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

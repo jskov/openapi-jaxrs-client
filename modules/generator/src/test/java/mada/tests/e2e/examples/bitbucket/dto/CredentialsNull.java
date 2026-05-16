@@ -141,15 +141,14 @@ public class CredentialsNull {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof CredentialsNull)) {
-      return false;
+    if (o instanceof CredentialsNull other) {
+      return Objects.equals(this.algorithm, other.algorithm) &&
+              Objects.equals(this.password, other.password) &&
+              Objects.equals(this.publicKey, other.publicKey) &&
+              Objects.equals(this.token, other.token) &&
+              Objects.equals(this.username, other.username);
     }
-    CredentialsNull other = (CredentialsNull) o;
-    return Objects.equals(this.algorithm, other.algorithm) &&
-        Objects.equals(this.password, other.password) &&
-        Objects.equals(this.publicKey, other.publicKey) &&
-        Objects.equals(this.token, other.token) &&
-        Objects.equals(this.username, other.username);
+    return false;
   }
 
   @Override

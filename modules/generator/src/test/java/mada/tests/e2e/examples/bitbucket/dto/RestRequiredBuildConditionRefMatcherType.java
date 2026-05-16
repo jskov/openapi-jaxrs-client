@@ -117,12 +117,11 @@ public class RestRequiredBuildConditionRefMatcherType {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRequiredBuildConditionRefMatcherType)) {
-      return false;
+    if (o instanceof RestRequiredBuildConditionRefMatcherType other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name);
     }
-    RestRequiredBuildConditionRefMatcherType other = (RestRequiredBuildConditionRefMatcherType) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

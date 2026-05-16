@@ -133,13 +133,12 @@ public class RestAnnouncementBanner {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAnnouncementBanner)) {
-      return false;
+    if (o instanceof RestAnnouncementBanner other) {
+      return Objects.equals(this.audience, other.audience) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.message, other.message);
     }
-    RestAnnouncementBanner other = (RestAnnouncementBanner) o;
-    return Objects.equals(this.audience, other.audience) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.message, other.message);
+    return false;
   }
 
   @Override

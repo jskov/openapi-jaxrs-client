@@ -60,11 +60,10 @@ public class _ResponseApiLatestLabelsLabelNameLabeled_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestLabelsLabelNameLabeled_400)) {
-      return false;
+    if (o instanceof _ResponseApiLatestLabelsLabelNameLabeled_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestLabelsLabelNameLabeled_400 other = (_ResponseApiLatestLabelsLabelNameLabeled_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

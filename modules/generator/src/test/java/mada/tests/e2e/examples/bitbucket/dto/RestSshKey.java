@@ -226,19 +226,18 @@ public class RestSshKey {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshKey)) {
-      return false;
+    if (o instanceof RestSshKey other) {
+      return Objects.equals(this.algorithmType, other.algorithmType) &&
+              Objects.equals(this.bitLength, other.bitLength) &&
+              Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.expiryDays, other.expiryDays) &&
+              Objects.equals(this.fingerprint, other.fingerprint) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.label, other.label) &&
+              Objects.equals(this.lastAuthenticated, other.lastAuthenticated) &&
+              Objects.equals(this.text, other.text);
     }
-    RestSshKey other = (RestSshKey) o;
-    return Objects.equals(this.algorithmType, other.algorithmType) &&
-        Objects.equals(this.bitLength, other.bitLength) &&
-        Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.expiryDays, other.expiryDays) &&
-        Objects.equals(this.fingerprint, other.fingerprint) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.label, other.label) &&
-        Objects.equals(this.lastAuthenticated, other.lastAuthenticated) &&
-        Objects.equals(this.text, other.text);
+    return false;
   }
 
   @Override

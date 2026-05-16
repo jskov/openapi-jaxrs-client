@@ -73,12 +73,11 @@ public class ExampleRequirements {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleRequirements)) {
-      return false;
+    if (o instanceof ExampleRequirements other) {
+      return Objects.equals(this.count, other.count) &&
+              Objects.equals(this.enabled, other.enabled);
     }
-    ExampleRequirements other = (ExampleRequirements) o;
-    return Objects.equals(this.count, other.count) &&
-        Objects.equals(this.enabled, other.enabled);
+    return false;
   }
 
   @Override

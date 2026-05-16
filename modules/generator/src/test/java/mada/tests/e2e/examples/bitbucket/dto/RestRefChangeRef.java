@@ -136,13 +136,12 @@ public class RestRefChangeRef {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefChangeRef)) {
-      return false;
+    if (o instanceof RestRefChangeRef other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRefChangeRef other = (RestRefChangeRef) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

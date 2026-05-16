@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPermissionsU
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPermissionsUsers_409)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPermissionsUsers_409 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPermissionsUsers_409 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugPermissionsUsers_409) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

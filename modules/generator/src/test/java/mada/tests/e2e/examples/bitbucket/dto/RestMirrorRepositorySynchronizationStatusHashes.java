@@ -73,12 +73,11 @@ public class RestMirrorRepositorySynchronizationStatusHashes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirrorRepositorySynchronizationStatusHashes)) {
-      return false;
+    if (o instanceof RestMirrorRepositorySynchronizationStatusHashes other) {
+      return Objects.equals(this.content, other.content) &&
+              Objects.equals(this.metadata, other.metadata);
     }
-    RestMirrorRepositorySynchronizationStatusHashes other = (RestMirrorRepositorySynchronizationStatusHashes) o;
-    return Objects.equals(this.content, other.content) &&
-        Objects.equals(this.metadata, other.metadata);
+    return false;
   }
 
   @Override

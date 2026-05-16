@@ -60,11 +60,10 @@ public class _ResponseAccessTokensLatestProjectsProjectKeyTokenId_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseAccessTokensLatestProjectsProjectKeyTokenId_404)) {
-      return false;
+    if (o instanceof _ResponseAccessTokensLatestProjectsProjectKeyTokenId_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseAccessTokensLatestProjectsProjectKeyTokenId_404 other = (_ResponseAccessTokensLatestProjectsProjectKeyTokenId_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -51,11 +51,10 @@ public class RestSystemSigningConfiguration {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSystemSigningConfiguration)) {
-      return false;
+    if (o instanceof RestSystemSigningConfiguration other) {
+      return Objects.equals(this.enabled, other.enabled);
     }
-    RestSystemSigningConfiguration other = (RestSystemSigningConfiguration) o;
-    return Objects.equals(this.enabled, other.enabled);
+    return false;
   }
 
   @Override

@@ -73,12 +73,11 @@ public class RestPullRequestFinishReviewRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestFinishReviewRequest)) {
-      return false;
+    if (o instanceof RestPullRequestFinishReviewRequest other) {
+      return Objects.equals(this.commentText, other.commentText) &&
+              Objects.equals(this.participantStatus, other.participantStatus);
     }
-    RestPullRequestFinishReviewRequest other = (RestPullRequestFinishReviewRequest) o;
-    return Objects.equals(this.commentText, other.commentText) &&
-        Objects.equals(this.participantStatus, other.participantStatus);
+    return false;
   }
 
   @Override

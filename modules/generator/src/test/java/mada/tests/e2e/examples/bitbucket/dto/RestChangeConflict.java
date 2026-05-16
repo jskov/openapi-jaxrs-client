@@ -73,12 +73,11 @@ public class RestChangeConflict {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestChangeConflict)) {
-      return false;
+    if (o instanceof RestChangeConflict other) {
+      return Objects.equals(this.ourChange, other.ourChange) &&
+              Objects.equals(this.theirChange, other.theirChange);
     }
-    RestChangeConflict other = (RestChangeConflict) o;
-    return Objects.equals(this.ourChange, other.ourChange) &&
-        Objects.equals(this.theirChange, other.theirChange);
+    return false;
   }
 
   @Override

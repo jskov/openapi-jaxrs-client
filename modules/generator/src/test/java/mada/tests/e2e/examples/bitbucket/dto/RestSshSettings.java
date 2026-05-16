@@ -139,15 +139,14 @@ public class RestSshSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshSettings)) {
-      return false;
+    if (o instanceof RestSshSettings other) {
+      return Objects.equals(this.accessKeysEnabled, other.accessKeysEnabled) &&
+              Objects.equals(this.baseUrl, other.baseUrl) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.fingerprint, other.fingerprint) &&
+              Objects.equals(this.port, other.port);
     }
-    RestSshSettings other = (RestSshSettings) o;
-    return Objects.equals(this.accessKeysEnabled, other.accessKeysEnabled) &&
-        Objects.equals(this.baseUrl, other.baseUrl) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.fingerprint, other.fingerprint) &&
-        Objects.equals(this.port, other.port);
+    return false;
   }
 
   @Override

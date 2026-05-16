@@ -217,15 +217,14 @@ public class RestRejectedRef {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRejectedRef)) {
-      return false;
+    if (o instanceof RestRejectedRef other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.tag, other.tag) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRejectedRef other = (RestRejectedRef) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.tag, other.tag) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

@@ -94,13 +94,12 @@ public class RestPerson {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPerson)) {
-      return false;
+    if (o instanceof RestPerson other) {
+      return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.name, other.name);
     }
-    RestPerson other = (RestPerson) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

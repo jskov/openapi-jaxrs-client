@@ -185,17 +185,16 @@ public class LogEntryV2 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof LogEntryV2)) {
-      return false;
+    if (o instanceof LogEntryV2 other) {
+      return Objects.equals(this.correlationId, other.correlationId) &&
+              Objects.equals(this.initiator, other.initiator) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.operation, other.operation) &&
+              Objects.equals(this.operationCategory, other.operationCategory) &&
+              Objects.equals(this.origin, other.origin) &&
+              Objects.equals(this.timeOfEvent, other.timeOfEvent);
     }
-    LogEntryV2 other = (LogEntryV2) o;
-    return Objects.equals(this.correlationId, other.correlationId) &&
-        Objects.equals(this.initiator, other.initiator) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.operation, other.operation) &&
-        Objects.equals(this.operationCategory, other.operationCategory) &&
-        Objects.equals(this.origin, other.origin) &&
-        Objects.equals(this.timeOfEvent, other.timeOfEvent);
+    return false;
   }
 
   @Override

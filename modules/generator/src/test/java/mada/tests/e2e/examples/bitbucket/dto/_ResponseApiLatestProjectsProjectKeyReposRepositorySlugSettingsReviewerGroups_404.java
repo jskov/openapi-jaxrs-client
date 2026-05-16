@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsRevi
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_404 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsReviewerGroups_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -73,12 +73,11 @@ public class RestConflict {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestConflict)) {
-      return false;
+    if (o instanceof RestConflict other) {
+      return Objects.equals(this.ourChange, other.ourChange) &&
+              Objects.equals(this.theirChange, other.theirChange);
     }
-    RestConflict other = (RestConflict) o;
-    return Objects.equals(this.ourChange, other.ourChange) &&
-        Objects.equals(this.theirChange, other.theirChange);
+    return false;
   }
 
   @Override

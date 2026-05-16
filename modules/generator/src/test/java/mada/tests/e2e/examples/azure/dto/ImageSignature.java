@@ -91,13 +91,12 @@ public class ImageSignature {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ImageSignature)) {
-      return false;
+    if (o instanceof ImageSignature other) {
+      return Objects.equals(this.header, other.header) &&
+              Objects.equals(this.protected_, other.protected_) &&
+              Objects.equals(this.signature, other.signature);
     }
-    ImageSignature other = (ImageSignature) o;
-    return Objects.equals(this.header, other.header) &&
-        Objects.equals(this.protected_, other.protected_) &&
-        Objects.equals(this.signature, other.signature);
+    return false;
   }
 
   @Override

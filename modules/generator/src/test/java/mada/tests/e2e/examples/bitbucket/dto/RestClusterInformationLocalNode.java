@@ -139,15 +139,14 @@ public class RestClusterInformationLocalNode {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestClusterInformationLocalNode)) {
-      return false;
+    if (o instanceof RestClusterInformationLocalNode other) {
+      return Objects.equals(this.address, other.address) &&
+              Objects.equals(this.buildVersion, other.buildVersion) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.local, other.local) &&
+              Objects.equals(this.name, other.name);
     }
-    RestClusterInformationLocalNode other = (RestClusterInformationLocalNode) o;
-    return Objects.equals(this.address, other.address) &&
-        Objects.equals(this.buildVersion, other.buildVersion) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.local, other.local) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

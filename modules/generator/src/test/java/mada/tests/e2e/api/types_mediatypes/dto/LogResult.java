@@ -63,12 +63,11 @@ public class LogResult {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof LogResult)) {
-      return false;
+    if (o instanceof LogResult other) {
+      return Objects.equals(this.durationForAddingEvent, other.durationForAddingEvent) &&
+              Objects.equals(this.timeOfEvent, other.timeOfEvent);
     }
-    LogResult other = (LogResult) o;
-    return Objects.equals(this.durationForAddingEvent, other.durationForAddingEvent) &&
-        Objects.equals(this.timeOfEvent, other.timeOfEvent);
+    return false;
   }
 
   @Override

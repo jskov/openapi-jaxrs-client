@@ -318,21 +318,20 @@ public class RestDeployment {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDeployment)) {
-      return false;
+    if (o instanceof RestDeployment other) {
+      return Objects.equals(this.deploymentSequenceNumber, other.deploymentSequenceNumber) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.displayName, other.displayName) &&
+              Objects.equals(this.environment, other.environment) &&
+              Objects.equals(this.fromCommit, other.fromCommit) &&
+              Objects.equals(this.key, other.key) &&
+              Objects.equals(this.lastUpdated, other.lastUpdated) &&
+              Objects.equals(this.repository, other.repository) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.toCommit, other.toCommit) &&
+              Objects.equals(this.url, other.url);
     }
-    RestDeployment other = (RestDeployment) o;
-    return Objects.equals(this.deploymentSequenceNumber, other.deploymentSequenceNumber) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.environment, other.environment) &&
-        Objects.equals(this.fromCommit, other.fromCommit) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.lastUpdated, other.lastUpdated) &&
-        Objects.equals(this.repository, other.repository) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.toCommit, other.toCommit) &&
-        Objects.equals(this.url, other.url);
+    return false;
   }
 
   @Override

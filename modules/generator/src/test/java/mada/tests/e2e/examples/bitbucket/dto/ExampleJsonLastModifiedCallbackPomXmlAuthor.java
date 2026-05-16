@@ -94,13 +94,12 @@ public class ExampleJsonLastModifiedCallbackPomXmlAuthor {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleJsonLastModifiedCallbackPomXmlAuthor)) {
-      return false;
+    if (o instanceof ExampleJsonLastModifiedCallbackPomXmlAuthor other) {
+      return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.name, other.name);
     }
-    ExampleJsonLastModifiedCallbackPomXmlAuthor other = (ExampleJsonLastModifiedCallbackPomXmlAuthor) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

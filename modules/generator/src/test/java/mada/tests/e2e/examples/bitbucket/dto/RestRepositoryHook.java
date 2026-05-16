@@ -115,14 +115,13 @@ public class RestRepositoryHook {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryHook)) {
-      return false;
+    if (o instanceof RestRepositoryHook other) {
+      return Objects.equals(this.configured, other.configured) &&
+              Objects.equals(this.details, other.details) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.scope, other.scope);
     }
-    RestRepositoryHook other = (RestRepositoryHook) o;
-    return Objects.equals(this.configured, other.configured) &&
-        Objects.equals(this.details, other.details) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.scope, other.scope);
+    return false;
   }
 
   @Override

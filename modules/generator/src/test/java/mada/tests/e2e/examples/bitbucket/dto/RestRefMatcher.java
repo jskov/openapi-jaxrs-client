@@ -96,13 +96,12 @@ public class RestRefMatcher {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefMatcher)) {
-      return false;
+    if (o instanceof RestRefMatcher other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRefMatcher other = (RestRefMatcher) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

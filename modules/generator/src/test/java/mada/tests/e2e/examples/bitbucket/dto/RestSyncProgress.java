@@ -91,13 +91,12 @@ public class RestSyncProgress {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSyncProgress)) {
-      return false;
+    if (o instanceof RestSyncProgress other) {
+      return Objects.equals(this.discovering, other.discovering) &&
+              Objects.equals(this.syncedRepos, other.syncedRepos) &&
+              Objects.equals(this.totalRepos, other.totalRepos);
     }
-    RestSyncProgress other = (RestSyncProgress) o;
-    return Objects.equals(this.discovering, other.discovering) &&
-        Objects.equals(this.syncedRepos, other.syncedRepos) &&
-        Objects.equals(this.totalRepos, other.totalRepos);
+    return false;
   }
 
   @Override

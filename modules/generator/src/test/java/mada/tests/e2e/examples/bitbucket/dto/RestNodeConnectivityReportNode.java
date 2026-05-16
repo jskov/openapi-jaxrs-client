@@ -136,13 +136,12 @@ public class RestNodeConnectivityReportNode {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestNodeConnectivityReportNode)) {
-      return false;
+    if (o instanceof RestNodeConnectivityReportNode other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.type, other.type);
     }
-    RestNodeConnectivityReportNode other = (RestNodeConnectivityReportNode) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

@@ -51,11 +51,10 @@ public class EntityHolderRestPullRequestMergeRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof EntityHolderRestPullRequestMergeRequest)) {
-      return false;
+    if (o instanceof EntityHolderRestPullRequestMergeRequest other) {
+      return Objects.equals(this.entity, other.entity);
     }
-    EntityHolderRestPullRequestMergeRequest other = (EntityHolderRestPullRequestMergeRequest) o;
-    return Objects.equals(this.entity, other.entity);
+    return false;
   }
 
   @Override

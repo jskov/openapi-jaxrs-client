@@ -72,12 +72,11 @@ public class RestRateLimitSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRateLimitSettings)) {
-      return false;
+    if (o instanceof RestRateLimitSettings other) {
+      return Objects.equals(this.defaultSettings, other.defaultSettings) &&
+              Objects.equals(this.enabled, other.enabled);
     }
-    RestRateLimitSettings other = (RestRateLimitSettings) o;
-    return Objects.equals(this.defaultSettings, other.defaultSettings) &&
-        Objects.equals(this.enabled, other.enabled);
+    return false;
   }
 
   @Override

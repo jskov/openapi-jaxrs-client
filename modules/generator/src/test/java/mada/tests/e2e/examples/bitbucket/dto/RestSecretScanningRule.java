@@ -146,15 +146,14 @@ public class RestSecretScanningRule {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSecretScanningRule)) {
-      return false;
+    if (o instanceof RestSecretScanningRule other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.lineRegex, other.lineRegex) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.pathRegex, other.pathRegex) &&
+              Objects.equals(this.scope, other.scope);
     }
-    RestSecretScanningRule other = (RestSecretScanningRule) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.lineRegex, other.lineRegex) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.pathRegex, other.pathRegex) &&
-        Objects.equals(this.scope, other.scope);
+    return false;
   }
 
   @Override

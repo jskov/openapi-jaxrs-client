@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKey_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKey_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKey_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKey_404 other = (_ResponseApiLatestProjectsProjectKey_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

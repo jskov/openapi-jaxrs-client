@@ -60,11 +60,10 @@ public class _ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_4
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_401)) {
-      return false;
+    if (o instanceof _ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_401 other = (_ResponseKeysLatestProjectsProjectKeySshKeyIdPermissionPermission_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

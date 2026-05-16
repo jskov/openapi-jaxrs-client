@@ -123,14 +123,13 @@ public class RestDeploymentEnvironment {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDeploymentEnvironment)) {
-      return false;
+    if (o instanceof RestDeploymentEnvironment other) {
+      return Objects.equals(this.displayName, other.displayName) &&
+              Objects.equals(this.key, other.key) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.url, other.url);
     }
-    RestDeploymentEnvironment other = (RestDeploymentEnvironment) o;
-    return Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.url, other.url);
+    return false;
   }
 
   @Override

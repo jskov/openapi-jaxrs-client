@@ -73,12 +73,11 @@ public class _RequestKeysLatestSshKeyId {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestKeysLatestSshKeyId)) {
-      return false;
+    if (o instanceof _RequestKeysLatestSshKeyId other) {
+      return Objects.equals(this.projects, other.projects) &&
+              Objects.equals(this.repositories, other.repositories);
     }
-    _RequestKeysLatestSshKeyId other = (_RequestKeysLatestSshKeyId) o;
-    return Objects.equals(this.projects, other.projects) &&
-        Objects.equals(this.repositories, other.repositories);
+    return false;
   }
 
   @Override

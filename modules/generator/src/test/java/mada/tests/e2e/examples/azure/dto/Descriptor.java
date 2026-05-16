@@ -147,15 +147,14 @@ public class Descriptor {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Descriptor)) {
-      return false;
+    if (o instanceof Descriptor other) {
+      return Objects.equals(this.annotations, other.annotations) &&
+              Objects.equals(this.digest, other.digest) &&
+              Objects.equals(this.mediaType, other.mediaType) &&
+              Objects.equals(this.size, other.size) &&
+              Objects.equals(this.urls, other.urls);
     }
-    Descriptor other = (Descriptor) o;
-    return Objects.equals(this.annotations, other.annotations) &&
-        Objects.equals(this.digest, other.digest) &&
-        Objects.equals(this.mediaType, other.mediaType) &&
-        Objects.equals(this.size, other.size) &&
-        Objects.equals(this.urls, other.urls);
+    return false;
   }
 
   @Override

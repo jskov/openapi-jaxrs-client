@@ -162,16 +162,15 @@ public class RestRepositoryRefChangeActivity {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryRefChangeActivity)) {
-      return false;
+    if (o instanceof RestRepositoryRefChangeActivity other) {
+      return Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.refChange, other.refChange) &&
+              Objects.equals(this.repository, other.repository) &&
+              Objects.equals(this.trigger, other.trigger) &&
+              Objects.equals(this.user, other.user);
     }
-    RestRepositoryRefChangeActivity other = (RestRepositoryRefChangeActivity) o;
-    return Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.refChange, other.refChange) &&
-        Objects.equals(this.repository, other.repository) &&
-        Objects.equals(this.trigger, other.trigger) &&
-        Objects.equals(this.user, other.user);
+    return false;
   }
 
   @Override

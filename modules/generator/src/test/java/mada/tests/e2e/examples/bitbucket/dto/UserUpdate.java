@@ -95,13 +95,12 @@ public class UserUpdate {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof UserUpdate)) {
-      return false;
+    if (o instanceof UserUpdate other) {
+      return Objects.equals(this.displayName, other.displayName) &&
+              Objects.equals(this.email, other.email) &&
+              Objects.equals(this.name, other.name);
     }
-    UserUpdate other = (UserUpdate) o;
-    return Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.email, other.email) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

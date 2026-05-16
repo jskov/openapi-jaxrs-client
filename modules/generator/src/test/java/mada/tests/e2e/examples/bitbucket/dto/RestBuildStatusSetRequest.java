@@ -327,21 +327,20 @@ public class RestBuildStatusSetRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBuildStatusSetRequest)) {
-      return false;
+    if (o instanceof RestBuildStatusSetRequest other) {
+      return Objects.equals(this.buildNumber, other.buildNumber) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.duration, other.duration) &&
+              Objects.equals(this.key, other.key) &&
+              Objects.equals(this.lastUpdated, other.lastUpdated) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.parent, other.parent) &&
+              Objects.equals(this.ref, other.ref) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.testResults, other.testResults) &&
+              Objects.equals(this.url, other.url);
     }
-    RestBuildStatusSetRequest other = (RestBuildStatusSetRequest) o;
-    return Objects.equals(this.buildNumber, other.buildNumber) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.duration, other.duration) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.lastUpdated, other.lastUpdated) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.parent, other.parent) &&
-        Objects.equals(this.ref, other.ref) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.testResults, other.testResults) &&
-        Objects.equals(this.url, other.url);
+    return false;
   }
 
   @Override

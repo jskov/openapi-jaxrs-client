@@ -91,13 +91,12 @@ public class TagAttributes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof TagAttributes)) {
-      return false;
+    if (o instanceof TagAttributes other) {
+      return Objects.equals(this.imageName, other.imageName) &&
+              Objects.equals(this.registry, other.registry) &&
+              Objects.equals(this.tag, other.tag);
     }
-    TagAttributes other = (TagAttributes) o;
-    return Objects.equals(this.imageName, other.imageName) &&
-        Objects.equals(this.registry, other.registry) &&
-        Objects.equals(this.tag, other.tag);
+    return false;
   }
 
   @Override

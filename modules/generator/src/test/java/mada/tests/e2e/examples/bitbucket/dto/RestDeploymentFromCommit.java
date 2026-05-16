@@ -73,12 +73,11 @@ public class RestDeploymentFromCommit {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDeploymentFromCommit)) {
-      return false;
+    if (o instanceof RestDeploymentFromCommit other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id);
     }
-    RestDeploymentFromCommit other = (RestDeploymentFromCommit) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id);
+    return false;
   }
 
   @Override

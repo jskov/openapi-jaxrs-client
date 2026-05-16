@@ -160,16 +160,15 @@ public class ManifestChangeableAttributes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ManifestChangeableAttributes)) {
-      return false;
+    if (o instanceof ManifestChangeableAttributes other) {
+      return Objects.equals(this.deleteEnabled, other.deleteEnabled) &&
+              Objects.equals(this.listEnabled, other.listEnabled) &&
+              Objects.equals(this.quarantineDetails, other.quarantineDetails) &&
+              Objects.equals(this.quarantineState, other.quarantineState) &&
+              Objects.equals(this.readEnabled, other.readEnabled) &&
+              Objects.equals(this.writeEnabled, other.writeEnabled);
     }
-    ManifestChangeableAttributes other = (ManifestChangeableAttributes) o;
-    return Objects.equals(this.deleteEnabled, other.deleteEnabled) &&
-        Objects.equals(this.listEnabled, other.listEnabled) &&
-        Objects.equals(this.quarantineDetails, other.quarantineDetails) &&
-        Objects.equals(this.quarantineState, other.quarantineState) &&
-        Objects.equals(this.readEnabled, other.readEnabled) &&
-        Objects.equals(this.writeEnabled, other.writeEnabled);
+    return false;
   }
 
   @Override

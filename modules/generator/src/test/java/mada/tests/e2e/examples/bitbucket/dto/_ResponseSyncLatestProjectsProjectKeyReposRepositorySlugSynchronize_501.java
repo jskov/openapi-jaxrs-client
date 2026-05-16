@@ -60,11 +60,10 @@ public class _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_501)) {
-      return false;
+    if (o instanceof _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_501 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_501 other = (_ResponseSyncLatestProjectsProjectKeyReposRepositorySlugSynchronize_501) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

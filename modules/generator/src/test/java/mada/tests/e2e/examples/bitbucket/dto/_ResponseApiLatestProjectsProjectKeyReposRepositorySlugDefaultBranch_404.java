@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranc
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_404 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugDefaultBranch_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

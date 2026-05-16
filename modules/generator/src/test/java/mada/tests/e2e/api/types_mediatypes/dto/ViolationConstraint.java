@@ -52,11 +52,10 @@ public class ViolationConstraint {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ViolationConstraint)) {
-      return false;
+    if (o instanceof ViolationConstraint other) {
+      return Objects.equals(this.violations, other.violations);
     }
-    ViolationConstraint other = (ViolationConstraint) o;
-    return Objects.equals(this.violations, other.violations);
+    return false;
   }
 
   @Override

@@ -299,20 +299,19 @@ public class RestRestrictionRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRestrictionRequest)) {
-      return false;
+    if (o instanceof RestRestrictionRequest other) {
+      return Objects.equals(this.accessKeyIds, other.accessKeyIds) &&
+              Objects.equals(this.accessKeys, other.accessKeys) &&
+              Objects.equals(this.groupNames, other.groupNames) &&
+              Objects.equals(this.groups, other.groups) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.matcher, other.matcher) &&
+              Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.users, other.users) &&
+              Objects.equals(this.userSlugs, other.userSlugs);
     }
-    RestRestrictionRequest other = (RestRestrictionRequest) o;
-    return Objects.equals(this.accessKeyIds, other.accessKeyIds) &&
-        Objects.equals(this.accessKeys, other.accessKeys) &&
-        Objects.equals(this.groupNames, other.groupNames) &&
-        Objects.equals(this.groups, other.groups) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.matcher, other.matcher) &&
-        Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.users, other.users) &&
-        Objects.equals(this.userSlugs, other.userSlugs);
+    return false;
   }
 
   @Override

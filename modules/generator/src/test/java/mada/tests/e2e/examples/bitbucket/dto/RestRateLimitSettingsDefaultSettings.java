@@ -73,12 +73,11 @@ public class RestRateLimitSettingsDefaultSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRateLimitSettingsDefaultSettings)) {
-      return false;
+    if (o instanceof RestRateLimitSettingsDefaultSettings other) {
+      return Objects.equals(this.capacity, other.capacity) &&
+              Objects.equals(this.fillRate, other.fillRate);
     }
-    RestRateLimitSettingsDefaultSettings other = (RestRateLimitSettingsDefaultSettings) o;
-    return Objects.equals(this.capacity, other.capacity) &&
-        Objects.equals(this.fillRate, other.fillRate);
+    return false;
   }
 
   @Override

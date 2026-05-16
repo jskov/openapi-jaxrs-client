@@ -119,12 +119,11 @@ public class RestMigrationRepository {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMigrationRepository)) {
-      return false;
+    if (o instanceof RestMigrationRepository other) {
+      return Objects.equals(this.migrationState, other.migrationState) &&
+              Objects.equals(this.repository, other.repository);
     }
-    RestMigrationRepository other = (RestMigrationRepository) o;
-    return Objects.equals(this.migrationState, other.migrationState) &&
-        Objects.equals(this.repository, other.repository);
+    return false;
   }
 
   @Override

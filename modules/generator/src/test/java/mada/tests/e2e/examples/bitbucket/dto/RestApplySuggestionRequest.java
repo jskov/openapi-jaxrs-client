@@ -121,14 +121,13 @@ public class RestApplySuggestionRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestApplySuggestionRequest)) {
-      return false;
+    if (o instanceof RestApplySuggestionRequest other) {
+      return Objects.equals(this.commentVersion, other.commentVersion) &&
+              Objects.equals(this.commitMessage, other.commitMessage) &&
+              Objects.equals(this.pullRequestVersion, other.pullRequestVersion) &&
+              Objects.equals(this.suggestionIndex, other.suggestionIndex);
     }
-    RestApplySuggestionRequest other = (RestApplySuggestionRequest) o;
-    return Objects.equals(this.commentVersion, other.commentVersion) &&
-        Objects.equals(this.commitMessage, other.commitMessage) &&
-        Objects.equals(this.pullRequestVersion, other.pullRequestVersion) &&
-        Objects.equals(this.suggestionIndex, other.suggestionIndex);
+    return false;
   }
 
   @Override

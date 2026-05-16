@@ -60,11 +60,10 @@ public class _ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_400)) {
-      return false;
+    if (o instanceof _ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_400 other = (_ResponseDefaultReviewersLatestProjectsProjectKeyConditionId_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

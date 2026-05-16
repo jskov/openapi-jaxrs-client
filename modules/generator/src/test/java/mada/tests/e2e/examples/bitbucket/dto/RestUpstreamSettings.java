@@ -122,12 +122,11 @@ public class RestUpstreamSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUpstreamSettings)) {
-      return false;
+    if (o instanceof RestUpstreamSettings other) {
+      return Objects.equals(this.mode, other.mode) &&
+              Objects.equals(this.projectIds, other.projectIds);
     }
-    RestUpstreamSettings other = (RestUpstreamSettings) o;
-    return Objects.equals(this.mode, other.mode) &&
-        Objects.equals(this.projectIds, other.projectIds);
+    return false;
   }
 
   @Override

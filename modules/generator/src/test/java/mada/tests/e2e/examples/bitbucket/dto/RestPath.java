@@ -127,14 +127,13 @@ public class RestPath {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPath)) {
-      return false;
+    if (o instanceof RestPath other) {
+      return Objects.equals(this.components, other.components) &&
+              Objects.equals(this.extension, other.extension) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.parent, other.parent);
     }
-    RestPath other = (RestPath) o;
-    return Objects.equals(this.components, other.components) &&
-        Objects.equals(this.extension, other.extension) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.parent, other.parent);
+    return false;
   }
 
   @Override

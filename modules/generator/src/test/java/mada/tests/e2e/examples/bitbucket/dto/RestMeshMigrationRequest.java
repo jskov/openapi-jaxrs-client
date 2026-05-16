@@ -132,14 +132,13 @@ public class RestMeshMigrationRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMeshMigrationRequest)) {
-      return false;
+    if (o instanceof RestMeshMigrationRequest other) {
+      return Objects.equals(this.all, other.all) &&
+              Objects.equals(this.maxBytesPerSecond, other.maxBytesPerSecond) &&
+              Objects.equals(this.projectIds, other.projectIds) &&
+              Objects.equals(this.repositoryIds, other.repositoryIds);
     }
-    RestMeshMigrationRequest other = (RestMeshMigrationRequest) o;
-    return Objects.equals(this.all, other.all) &&
-        Objects.equals(this.maxBytesPerSecond, other.maxBytesPerSecond) &&
-        Objects.equals(this.projectIds, other.projectIds) &&
-        Objects.equals(this.repositoryIds, other.repositoryIds);
+    return false;
   }
 
   @Override

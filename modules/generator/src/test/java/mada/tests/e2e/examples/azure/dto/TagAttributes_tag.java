@@ -45,11 +45,10 @@ public class TagAttributes_tag {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof TagAttributes_tag)) {
-      return false;
+    if (o instanceof TagAttributes_tag other) {
+      return Objects.equals(this.signatureRecord, other.signatureRecord);
     }
-    TagAttributes_tag other = (TagAttributes_tag) o;
-    return Objects.equals(this.signatureRecord, other.signatureRecord);
+    return false;
   }
 
   @Override

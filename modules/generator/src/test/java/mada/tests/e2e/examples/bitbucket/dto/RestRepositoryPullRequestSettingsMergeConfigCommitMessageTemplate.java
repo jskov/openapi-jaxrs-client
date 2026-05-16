@@ -73,12 +73,11 @@ public class RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate)) {
-      return false;
+    if (o instanceof RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate other) {
+      return Objects.equals(this.body, other.body) &&
+              Objects.equals(this.title, other.title);
     }
-    RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate other = (RestRepositoryPullRequestSettingsMergeConfigCommitMessageTemplate) o;
-    return Objects.equals(this.body, other.body) &&
-        Objects.equals(this.title, other.title);
+    return false;
   }
 
   @Override

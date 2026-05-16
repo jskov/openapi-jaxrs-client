@@ -138,15 +138,14 @@ public class EntityHolderRestPullRequestMergeRequestEntity {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof EntityHolderRestPullRequestMergeRequestEntity)) {
-      return false;
+    if (o instanceof EntityHolderRestPullRequestMergeRequestEntity other) {
+      return Objects.equals(this.autoMerge, other.autoMerge) &&
+              Objects.equals(this.autoSubject, other.autoSubject) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.strategyId, other.strategyId) &&
+              Objects.equals(this.version, other.version);
     }
-    EntityHolderRestPullRequestMergeRequestEntity other = (EntityHolderRestPullRequestMergeRequestEntity) o;
-    return Objects.equals(this.autoMerge, other.autoMerge) &&
-        Objects.equals(this.autoSubject, other.autoSubject) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.strategyId, other.strategyId) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

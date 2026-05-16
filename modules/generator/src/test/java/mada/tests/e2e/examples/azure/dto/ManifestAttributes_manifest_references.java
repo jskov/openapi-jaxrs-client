@@ -91,13 +91,12 @@ public class ManifestAttributes_manifest_references {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ManifestAttributes_manifest_references)) {
-      return false;
+    if (o instanceof ManifestAttributes_manifest_references other) {
+      return Objects.equals(this.architecture, other.architecture) &&
+              Objects.equals(this.digest, other.digest) &&
+              Objects.equals(this.os, other.os);
     }
-    ManifestAttributes_manifest_references other = (ManifestAttributes_manifest_references) o;
-    return Objects.equals(this.architecture, other.architecture) &&
-        Objects.equals(this.digest, other.digest) &&
-        Objects.equals(this.os, other.os);
+    return false;
   }
 
   @Override

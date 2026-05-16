@@ -181,15 +181,14 @@ public class RestPullRequestToRef {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestToRef)) {
-      return false;
+    if (o instanceof RestPullRequestToRef other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.latestCommit, other.latestCommit) &&
+              Objects.equals(this.repository, other.repository) &&
+              Objects.equals(this.type, other.type);
     }
-    RestPullRequestToRef other = (RestPullRequestToRef) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.latestCommit, other.latestCommit) &&
-        Objects.equals(this.repository, other.repository) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

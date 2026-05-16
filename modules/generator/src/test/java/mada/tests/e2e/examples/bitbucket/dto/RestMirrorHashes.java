@@ -73,12 +73,11 @@ public class RestMirrorHashes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirrorHashes)) {
-      return false;
+    if (o instanceof RestMirrorHashes other) {
+      return Objects.equals(this.content, other.content) &&
+              Objects.equals(this.metadata, other.metadata);
     }
-    RestMirrorHashes other = (RestMirrorHashes) o;
-    return Objects.equals(this.content, other.content) &&
-        Objects.equals(this.metadata, other.metadata);
+    return false;
   }
 
   @Override

@@ -72,12 +72,11 @@ public class RestPullRequestDeclineRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestDeclineRequest)) {
-      return false;
+    if (o instanceof RestPullRequestDeclineRequest other) {
+      return Objects.equals(this.comment, other.comment) &&
+              Objects.equals(this.version, other.version);
     }
-    RestPullRequestDeclineRequest other = (RestPullRequestDeclineRequest) o;
-    return Objects.equals(this.comment, other.comment) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

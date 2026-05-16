@@ -61,11 +61,10 @@ public class RestExportRequestRepositoriesRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestExportRequestRepositoriesRequest)) {
-      return false;
+    if (o instanceof RestExportRequestRepositoriesRequest other) {
+      return Objects.equals(this.includes, other.includes);
     }
-    RestExportRequestRepositoriesRequest other = (RestExportRequestRepositoriesRequest) o;
-    return Objects.equals(this.includes, other.includes);
+    return false;
   }
 
   @Override

@@ -76,12 +76,11 @@ public class RestExportRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestExportRequest)) {
-      return false;
+    if (o instanceof RestExportRequest other) {
+      return Objects.equals(this.exportLocation, other.exportLocation) &&
+              Objects.equals(this.repositoriesRequest, other.repositoriesRequest);
     }
-    RestExportRequest other = (RestExportRequest) o;
-    return Objects.equals(this.exportLocation, other.exportLocation) &&
-        Objects.equals(this.repositoriesRequest, other.repositoriesRequest);
+    return false;
   }
 
   @Override

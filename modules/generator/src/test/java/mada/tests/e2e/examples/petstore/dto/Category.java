@@ -73,12 +73,11 @@ public class Category {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Category)) {
-      return false;
+    if (o instanceof Category other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name);
     }
-    Category other = (Category) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

@@ -95,13 +95,12 @@ public class RestUserReaction {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUserReaction)) {
-      return false;
+    if (o instanceof RestUserReaction other) {
+      return Objects.equals(this.comment, other.comment) &&
+              Objects.equals(this.emoticon, other.emoticon) &&
+              Objects.equals(this.user, other.user);
     }
-    RestUserReaction other = (RestUserReaction) o;
-    return Objects.equals(this.comment, other.comment) &&
-        Objects.equals(this.emoticon, other.emoticon) &&
-        Objects.equals(this.user, other.user);
+    return false;
   }
 
   @Override

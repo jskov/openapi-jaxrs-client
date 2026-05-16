@@ -94,13 +94,12 @@ public class ExampleJsonLastModifiedCallbackReadmeMdAuthor {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleJsonLastModifiedCallbackReadmeMdAuthor)) {
-      return false;
+    if (o instanceof ExampleJsonLastModifiedCallbackReadmeMdAuthor other) {
+      return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.name, other.name);
     }
-    ExampleJsonLastModifiedCallbackReadmeMdAuthor other = (ExampleJsonLastModifiedCallbackReadmeMdAuthor) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

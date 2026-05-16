@@ -83,13 +83,12 @@ public class ExceptionInformation {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExceptionInformation)) {
-      return false;
+    if (o instanceof ExceptionInformation other) {
+      return Objects.equals(this.cause, other.cause) &&
+              Objects.equals(this.exceptionClass, other.exceptionClass) &&
+              Objects.equals(this.message, other.message);
     }
-    ExceptionInformation other = (ExceptionInformation) o;
-    return Objects.equals(this.cause, other.cause) &&
-        Objects.equals(this.exceptionClass, other.exceptionClass) &&
-        Objects.equals(this.message, other.message);
+    return false;
   }
 
   @Override

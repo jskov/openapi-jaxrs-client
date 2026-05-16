@@ -95,13 +95,12 @@ public class RestAttachmentMetadata {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAttachmentMetadata)) {
-      return false;
+    if (o instanceof RestAttachmentMetadata other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.metadata, other.metadata) &&
+              Objects.equals(this.url, other.url);
     }
-    RestAttachmentMetadata other = (RestAttachmentMetadata) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.metadata, other.metadata) &&
-        Objects.equals(this.url, other.url);
+    return false;
   }
 
   @Override

@@ -70,12 +70,11 @@ public class RestApplySuggestionRequestCommentVersion {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestApplySuggestionRequestCommentVersion)) {
-      return false;
+    if (o instanceof RestApplySuggestionRequestCommentVersion other) {
+      return Objects.equals(this.asInt, other.asInt) &&
+              Objects.equals(this.present, other.present);
     }
-    RestApplySuggestionRequestCommentVersion other = (RestApplySuggestionRequestCommentVersion) o;
-    return Objects.equals(this.asInt, other.asInt) &&
-        Objects.equals(this.present, other.present);
+    return false;
   }
 
   @Override

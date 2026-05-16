@@ -244,18 +244,17 @@ public class RestMailConfiguration {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMailConfiguration)) {
-      return false;
+    if (o instanceof RestMailConfiguration other) {
+      return Objects.equals(this.hostname, other.hostname) &&
+              Objects.equals(this.password, other.password) &&
+              Objects.equals(this.port, other.port) &&
+              Objects.equals(this.protocol, other.protocol) &&
+              Objects.equals(this.requireStartTls, other.requireStartTls) &&
+              Objects.equals(this.senderAddress, other.senderAddress) &&
+              Objects.equals(this.username, other.username) &&
+              Objects.equals(this.useStartTls, other.useStartTls);
     }
-    RestMailConfiguration other = (RestMailConfiguration) o;
-    return Objects.equals(this.hostname, other.hostname) &&
-        Objects.equals(this.password, other.password) &&
-        Objects.equals(this.port, other.port) &&
-        Objects.equals(this.protocol, other.protocol) &&
-        Objects.equals(this.requireStartTls, other.requireStartTls) &&
-        Objects.equals(this.senderAddress, other.senderAddress) &&
-        Objects.equals(this.username, other.username) &&
-        Objects.equals(this.useStartTls, other.useStartTls);
+    return false;
   }
 
   @Override

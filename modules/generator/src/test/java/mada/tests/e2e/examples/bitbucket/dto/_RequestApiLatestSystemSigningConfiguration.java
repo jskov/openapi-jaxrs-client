@@ -51,11 +51,10 @@ public class _RequestApiLatestSystemSigningConfiguration {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestApiLatestSystemSigningConfiguration)) {
-      return false;
+    if (o instanceof _RequestApiLatestSystemSigningConfiguration other) {
+      return Objects.equals(this.enabled, other.enabled);
     }
-    _RequestApiLatestSystemSigningConfiguration other = (_RequestApiLatestSystemSigningConfiguration) o;
-    return Objects.equals(this.enabled, other.enabled);
+    return false;
   }
 
   @Override

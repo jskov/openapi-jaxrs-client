@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeAct
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities_401 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugRefChangeActivities_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

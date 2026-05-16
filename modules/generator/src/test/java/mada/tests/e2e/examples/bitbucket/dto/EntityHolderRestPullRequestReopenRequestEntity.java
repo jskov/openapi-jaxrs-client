@@ -49,11 +49,10 @@ public class EntityHolderRestPullRequestReopenRequestEntity {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof EntityHolderRestPullRequestReopenRequestEntity)) {
-      return false;
+    if (o instanceof EntityHolderRestPullRequestReopenRequestEntity other) {
+      return Objects.equals(this.version, other.version);
     }
-    EntityHolderRestPullRequestReopenRequestEntity other = (EntityHolderRestPullRequestReopenRequestEntity) o;
-    return Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

@@ -193,17 +193,16 @@ public class RestSingleAddInsightAnnotationRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSingleAddInsightAnnotationRequest)) {
-      return false;
+    if (o instanceof RestSingleAddInsightAnnotationRequest other) {
+      return Objects.equals(this.externalId, other.externalId) &&
+              Objects.equals(this.line, other.line) &&
+              Objects.equals(this.link, other.link) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.path, other.path) &&
+              Objects.equals(this.severity, other.severity) &&
+              Objects.equals(this.type, other.type);
     }
-    RestSingleAddInsightAnnotationRequest other = (RestSingleAddInsightAnnotationRequest) o;
-    return Objects.equals(this.externalId, other.externalId) &&
-        Objects.equals(this.line, other.line) &&
-        Objects.equals(this.link, other.link) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.path, other.path) &&
-        Objects.equals(this.severity, other.severity) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

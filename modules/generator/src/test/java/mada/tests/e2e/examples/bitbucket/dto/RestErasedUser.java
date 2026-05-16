@@ -51,11 +51,10 @@ public class RestErasedUser {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestErasedUser)) {
-      return false;
+    if (o instanceof RestErasedUser other) {
+      return Objects.equals(this.newIdentifier, other.newIdentifier);
     }
-    RestErasedUser other = (RestErasedUser) o;
-    return Objects.equals(this.newIdentifier, other.newIdentifier);
+    return false;
   }
 
   @Override

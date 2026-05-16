@@ -49,11 +49,10 @@ public class RestDefaultBranch {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDefaultBranch)) {
-      return false;
+    if (o instanceof RestDefaultBranch other) {
+      return Objects.equals(this.id, other.id);
     }
-    RestDefaultBranch other = (RestDefaultBranch) o;
-    return Objects.equals(this.id, other.id);
+    return false;
   }
 
   @Override

@@ -60,11 +60,10 @@ public class _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_401)) {
-      return false;
+    if (o instanceof _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_401 other = (_ResponseGitLatestProjectsProjectKeyReposRepositorySlugTags_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

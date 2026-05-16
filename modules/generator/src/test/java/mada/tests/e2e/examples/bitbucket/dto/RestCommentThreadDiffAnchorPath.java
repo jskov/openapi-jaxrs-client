@@ -127,14 +127,13 @@ public class RestCommentThreadDiffAnchorPath {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommentThreadDiffAnchorPath)) {
-      return false;
+    if (o instanceof RestCommentThreadDiffAnchorPath other) {
+      return Objects.equals(this.components, other.components) &&
+              Objects.equals(this.extension, other.extension) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.parent, other.parent);
     }
-    RestCommentThreadDiffAnchorPath other = (RestCommentThreadDiffAnchorPath) o;
-    return Objects.equals(this.components, other.components) &&
-        Objects.equals(this.extension, other.extension) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.parent, other.parent);
+    return false;
   }
 
   @Override

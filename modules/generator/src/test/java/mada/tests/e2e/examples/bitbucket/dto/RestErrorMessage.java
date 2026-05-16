@@ -91,13 +91,12 @@ public class RestErrorMessage {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestErrorMessage)) {
-      return false;
+    if (o instanceof RestErrorMessage other) {
+      return Objects.equals(this.context, other.context) &&
+              Objects.equals(this.exceptionName, other.exceptionName) &&
+              Objects.equals(this.message, other.message);
     }
-    RestErrorMessage other = (RestErrorMessage) o;
-    return Objects.equals(this.context, other.context) &&
-        Objects.equals(this.exceptionName, other.exceptionName) &&
-        Objects.equals(this.message, other.message);
+    return false;
   }
 
   @Override

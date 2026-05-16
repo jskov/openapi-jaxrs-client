@@ -205,18 +205,17 @@ public class RestMirrorRepositorySynchronizationStatus {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirrorRepositorySynchronizationStatus)) {
-      return false;
+    if (o instanceof RestMirrorRepositorySynchronizationStatus other) {
+      return Objects.equals(this.externalRepoId, other.externalRepoId) &&
+              Objects.equals(this.failedSyncCount, other.failedSyncCount) &&
+              Objects.equals(this.hashes, other.hashes) &&
+              Objects.equals(this.initialSyncDate, other.initialSyncDate) &&
+              Objects.equals(this.lastSyncDate, other.lastSyncDate) &&
+              Objects.equals(this.localProjectId, other.localProjectId) &&
+              Objects.equals(this.localRepoId, other.localRepoId) &&
+              Objects.equals(this.upstreamId, other.upstreamId);
     }
-    RestMirrorRepositorySynchronizationStatus other = (RestMirrorRepositorySynchronizationStatus) o;
-    return Objects.equals(this.externalRepoId, other.externalRepoId) &&
-        Objects.equals(this.failedSyncCount, other.failedSyncCount) &&
-        Objects.equals(this.hashes, other.hashes) &&
-        Objects.equals(this.initialSyncDate, other.initialSyncDate) &&
-        Objects.equals(this.lastSyncDate, other.lastSyncDate) &&
-        Objects.equals(this.localProjectId, other.localProjectId) &&
-        Objects.equals(this.localRepoId, other.localRepoId) &&
-        Objects.equals(this.upstreamId, other.upstreamId);
+    return false;
   }
 
   @Override

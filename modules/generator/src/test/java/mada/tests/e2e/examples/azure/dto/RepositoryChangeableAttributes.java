@@ -137,15 +137,14 @@ public class RepositoryChangeableAttributes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RepositoryChangeableAttributes)) {
-      return false;
+    if (o instanceof RepositoryChangeableAttributes other) {
+      return Objects.equals(this.deleteEnabled, other.deleteEnabled) &&
+              Objects.equals(this.listEnabled, other.listEnabled) &&
+              Objects.equals(this.readEnabled, other.readEnabled) &&
+              Objects.equals(this.teleportEnabled, other.teleportEnabled) &&
+              Objects.equals(this.writeEnabled, other.writeEnabled);
     }
-    RepositoryChangeableAttributes other = (RepositoryChangeableAttributes) o;
-    return Objects.equals(this.deleteEnabled, other.deleteEnabled) &&
-        Objects.equals(this.listEnabled, other.listEnabled) &&
-        Objects.equals(this.readEnabled, other.readEnabled) &&
-        Objects.equals(this.teleportEnabled, other.teleportEnabled) &&
-        Objects.equals(this.writeEnabled, other.writeEnabled);
+    return false;
   }
 
   @Override

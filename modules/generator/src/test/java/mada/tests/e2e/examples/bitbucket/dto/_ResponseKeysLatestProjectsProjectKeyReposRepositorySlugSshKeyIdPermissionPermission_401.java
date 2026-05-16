@@ -60,11 +60,10 @@ public class _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPer
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPermissionPermission_401)) {
-      return false;
+    if (o instanceof _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPermissionPermission_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPermissionPermission_401 other = (_ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSshKeyIdPermissionPermission_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -73,12 +73,11 @@ public class RestJiraIssue {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestJiraIssue)) {
-      return false;
+    if (o instanceof RestJiraIssue other) {
+      return Objects.equals(this.key, other.key) &&
+              Objects.equals(this.url, other.url);
     }
-    RestJiraIssue other = (RestJiraIssue) o;
-    return Objects.equals(this.key, other.key) &&
-        Objects.equals(this.url, other.url);
+    return false;
   }
 
   @Override

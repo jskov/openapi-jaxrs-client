@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404 other = (_ResponseApiLatestProjectsProjectKeySettingsAutoDecline_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

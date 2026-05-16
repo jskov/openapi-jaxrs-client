@@ -60,11 +60,10 @@ public class _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_40
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_401)) {
-      return false;
+    if (o instanceof _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_401 other = (_ResponseAccessTokensLatestProjectsProjectKeyReposRepositorySlug_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

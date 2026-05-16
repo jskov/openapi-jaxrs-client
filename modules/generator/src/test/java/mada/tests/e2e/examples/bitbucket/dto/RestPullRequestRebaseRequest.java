@@ -51,11 +51,10 @@ public class RestPullRequestRebaseRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestRebaseRequest)) {
-      return false;
+    if (o instanceof RestPullRequestRebaseRequest other) {
+      return Objects.equals(this.version, other.version);
     }
-    RestPullRequestRebaseRequest other = (RestPullRequestRebaseRequest) o;
-    return Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

@@ -95,13 +95,12 @@ public class RestCreateTagRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCreateTagRequest)) {
-      return false;
+    if (o instanceof RestCreateTagRequest other) {
+      return Objects.equals(this.message, other.message) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.startPoint, other.startPoint);
     }
-    RestCreateTagRequest other = (RestCreateTagRequest) o;
-    return Objects.equals(this.message, other.message) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.startPoint, other.startPoint);
+    return false;
   }
 
   @Override

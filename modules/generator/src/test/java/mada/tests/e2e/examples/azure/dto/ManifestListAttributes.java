@@ -113,14 +113,13 @@ public class ManifestListAttributes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ManifestListAttributes)) {
-      return false;
+    if (o instanceof ManifestListAttributes other) {
+      return Objects.equals(this.digest, other.digest) &&
+              Objects.equals(this.mediaType, other.mediaType) &&
+              Objects.equals(this.platform, other.platform) &&
+              Objects.equals(this.size, other.size);
     }
-    ManifestListAttributes other = (ManifestListAttributes) o;
-    return Objects.equals(this.digest, other.digest) &&
-        Objects.equals(this.mediaType, other.mediaType) &&
-        Objects.equals(this.platform, other.platform) &&
-        Objects.equals(this.size, other.size);
+    return false;
   }
 
   @Override

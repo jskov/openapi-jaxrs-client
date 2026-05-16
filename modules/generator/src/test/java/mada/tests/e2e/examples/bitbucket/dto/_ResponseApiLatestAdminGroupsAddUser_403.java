@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminGroupsAddUser_403 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminGroupsAddUser_403)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminGroupsAddUser_403 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminGroupsAddUser_403 other = (_ResponseApiLatestAdminGroupsAddUser_403) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

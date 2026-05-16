@@ -53,11 +53,10 @@ public class RestBearerTokenCredentials {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBearerTokenCredentials)) {
-      return false;
+    if (o instanceof RestBearerTokenCredentials other) {
+      return Objects.equals(this.token, other.token);
     }
-    RestBearerTokenCredentials other = (RestBearerTokenCredentials) o;
-    return Objects.equals(this.token, other.token);
+    return false;
   }
 
   @Override

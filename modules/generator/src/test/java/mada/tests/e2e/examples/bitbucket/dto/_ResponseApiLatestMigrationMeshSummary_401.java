@@ -60,11 +60,10 @@ public class _ResponseApiLatestMigrationMeshSummary_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestMigrationMeshSummary_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestMigrationMeshSummary_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestMigrationMeshSummary_401 other = (_ResponseApiLatestMigrationMeshSummary_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

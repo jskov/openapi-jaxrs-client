@@ -115,12 +115,11 @@ public class RestReviewerGroupScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestReviewerGroupScope)) {
-      return false;
+    if (o instanceof RestReviewerGroupScope other) {
+      return Objects.equals(this.resourceId, other.resourceId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestReviewerGroupScope other = (RestReviewerGroupScope) o;
-    return Objects.equals(this.resourceId, other.resourceId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

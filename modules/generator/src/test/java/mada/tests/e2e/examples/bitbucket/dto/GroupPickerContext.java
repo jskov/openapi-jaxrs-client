@@ -73,12 +73,11 @@ public class GroupPickerContext {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof GroupPickerContext)) {
-      return false;
+    if (o instanceof GroupPickerContext other) {
+      return Objects.equals(this.context, other.context) &&
+              Objects.equals(this.itemName, other.itemName);
     }
-    GroupPickerContext other = (GroupPickerContext) o;
-    return Objects.equals(this.context, other.context) &&
-        Objects.equals(this.itemName, other.itemName);
+    return false;
   }
 
   @Override

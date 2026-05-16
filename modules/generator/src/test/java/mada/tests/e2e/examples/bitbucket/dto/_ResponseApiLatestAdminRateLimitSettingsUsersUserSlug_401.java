@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401 other = (_ResponseApiLatestAdminRateLimitSettingsUsersUserSlug_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

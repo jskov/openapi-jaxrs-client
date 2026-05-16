@@ -217,15 +217,14 @@ public class RestRefSyncStatusAheadRefs {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefSyncStatusAheadRefs)) {
-      return false;
+    if (o instanceof RestRefSyncStatusAheadRefs other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.tag, other.tag) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRefSyncStatusAheadRefs other = (RestRefSyncStatusAheadRefs) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.tag, other.tag) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

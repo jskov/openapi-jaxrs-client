@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffP
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath_404 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugCompareDiffPath_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

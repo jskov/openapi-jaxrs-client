@@ -96,13 +96,12 @@ public class RestAuthenticationRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAuthenticationRequest)) {
-      return false;
+    if (o instanceof RestAuthenticationRequest other) {
+      return Objects.equals(this.credentials, other.credentials) &&
+              Objects.equals(this.repositoryId, other.repositoryId) &&
+              Objects.equals(this.requiredPermissionsOnly, other.requiredPermissionsOnly);
     }
-    RestAuthenticationRequest other = (RestAuthenticationRequest) o;
-    return Objects.equals(this.credentials, other.credentials) &&
-        Objects.equals(this.repositoryId, other.repositoryId) &&
-        Objects.equals(this.requiredPermissionsOnly, other.requiredPermissionsOnly);
+    return false;
   }
 
   @Override

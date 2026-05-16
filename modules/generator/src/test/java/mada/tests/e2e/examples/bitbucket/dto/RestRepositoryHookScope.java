@@ -115,12 +115,11 @@ public class RestRepositoryHookScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryHookScope)) {
-      return false;
+    if (o instanceof RestRepositoryHookScope other) {
+      return Objects.equals(this.resourceId, other.resourceId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRepositoryHookScope other = (RestRepositoryHookScope) o;
-    return Objects.equals(this.resourceId, other.resourceId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

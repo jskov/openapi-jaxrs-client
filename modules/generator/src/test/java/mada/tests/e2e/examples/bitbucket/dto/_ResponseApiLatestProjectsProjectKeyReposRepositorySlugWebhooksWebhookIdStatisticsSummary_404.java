@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebh
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_404 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugWebhooksWebhookIdStatisticsSummary_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -60,11 +60,10 @@ public class _ResponseBuildStatusLatestCommitsCommitId_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseBuildStatusLatestCommitsCommitId_400)) {
-      return false;
+    if (o instanceof _ResponseBuildStatusLatestCommitsCommitId_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseBuildStatusLatestCommitsCommitId_400 other = (_ResponseBuildStatusLatestCommitsCommitId_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

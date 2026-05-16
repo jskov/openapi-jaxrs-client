@@ -49,11 +49,10 @@ public class RestPullRequestDeleteRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestDeleteRequest)) {
-      return false;
+    if (o instanceof RestPullRequestDeleteRequest other) {
+      return Objects.equals(this.version, other.version);
     }
-    RestPullRequestDeleteRequest other = (RestPullRequestDeleteRequest) o;
-    return Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

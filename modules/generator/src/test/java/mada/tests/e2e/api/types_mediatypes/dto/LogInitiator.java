@@ -112,14 +112,13 @@ public class LogInitiator {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof LogInitiator)) {
-      return false;
+    if (o instanceof LogInitiator other) {
+      return Objects.equals(this.initiator, other.initiator) &&
+              Objects.equals(this.remoteHostId, other.remoteHostId) &&
+              Objects.equals(this.remoteIp, other.remoteIp) &&
+              Objects.equals(this.type, other.type);
     }
-    LogInitiator other = (LogInitiator) o;
-    return Objects.equals(this.initiator, other.initiator) &&
-        Objects.equals(this.remoteHostId, other.remoteHostId) &&
-        Objects.equals(this.remoteIp, other.remoteIp) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

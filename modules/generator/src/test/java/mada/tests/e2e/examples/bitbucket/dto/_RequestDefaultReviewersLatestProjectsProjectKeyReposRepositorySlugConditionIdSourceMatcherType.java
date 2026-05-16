@@ -117,12 +117,11 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType)) {
-      return false;
+    if (o instanceof _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name);
     }
-    _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType other = (_RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionIdSourceMatcherType) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

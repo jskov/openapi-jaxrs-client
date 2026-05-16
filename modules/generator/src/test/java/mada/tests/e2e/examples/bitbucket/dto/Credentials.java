@@ -27,10 +27,10 @@ public class Credentials {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Credentials)) {
-      return false;
+    if (o instanceof Credentials other) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   @Override

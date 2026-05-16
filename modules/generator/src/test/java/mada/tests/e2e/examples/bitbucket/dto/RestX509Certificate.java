@@ -75,12 +75,11 @@ public class RestX509Certificate {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestX509Certificate)) {
-      return false;
+    if (o instanceof RestX509Certificate other) {
+      return Objects.equals(this.fingerprint, other.fingerprint) &&
+              Objects.equals(this.id, other.id);
     }
-    RestX509Certificate other = (RestX509Certificate) o;
-    return Objects.equals(this.fingerprint, other.fingerprint) &&
-        Objects.equals(this.id, other.id);
+    return false;
   }
 
   @Override

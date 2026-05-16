@@ -97,13 +97,12 @@ public class RestInsightReportData {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestInsightReportData)) {
-      return false;
+    if (o instanceof RestInsightReportData other) {
+      return Objects.equals(this.title, other.title) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.value, other.value);
     }
-    RestInsightReportData other = (RestInsightReportData) o;
-    return Objects.equals(this.title, other.title) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.value, other.value);
+    return false;
   }
 
   @Override

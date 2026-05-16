@@ -60,11 +60,10 @@ public class _ResponseMirroringLatestReposRepoId_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseMirroringLatestReposRepoId_404)) {
-      return false;
+    if (o instanceof _ResponseMirroringLatestReposRepoId_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseMirroringLatestReposRepoId_404 other = (_ResponseMirroringLatestReposRepoId_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

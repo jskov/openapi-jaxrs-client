@@ -78,12 +78,11 @@ public class OCIIndex {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof OCIIndex)) {
-      return false;
+    if (o instanceof OCIIndex other) {
+      return Objects.equals(this.annotations, other.annotations) &&
+              Objects.equals(this.manifests, other.manifests);
     }
-    OCIIndex other = (OCIIndex) o;
-    return Objects.equals(this.annotations, other.annotations) &&
-        Objects.equals(this.manifests, other.manifests);
+    return false;
   }
 
   @Override

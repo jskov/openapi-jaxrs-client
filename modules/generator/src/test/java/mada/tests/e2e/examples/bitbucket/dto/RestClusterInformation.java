@@ -103,13 +103,12 @@ public class RestClusterInformation {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestClusterInformation)) {
-      return false;
+    if (o instanceof RestClusterInformation other) {
+      return Objects.equals(this.localNode, other.localNode) &&
+              Objects.equals(this.nodes, other.nodes) &&
+              Objects.equals(this.running, other.running);
     }
-    RestClusterInformation other = (RestClusterInformation) o;
-    return Objects.equals(this.localNode, other.localNode) &&
-        Objects.equals(this.nodes, other.nodes) &&
-        Objects.equals(this.running, other.running);
+    return false;
   }
 
   @Override

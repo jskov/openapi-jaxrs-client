@@ -60,11 +60,10 @@ public class _ResponseApiLatestHookScriptsScriptId_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestHookScriptsScriptId_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestHookScriptsScriptId_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestHookScriptsScriptId_401 other = (_ResponseApiLatestHookScriptsScriptId_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

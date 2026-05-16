@@ -73,12 +73,11 @@ public class RestCommentJiraIssue {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommentJiraIssue)) {
-      return false;
+    if (o instanceof RestCommentJiraIssue other) {
+      return Objects.equals(this.commentId, other.commentId) &&
+              Objects.equals(this.issueKey, other.issueKey);
     }
-    RestCommentJiraIssue other = (RestCommentJiraIssue) o;
-    return Objects.equals(this.commentId, other.commentId) &&
-        Objects.equals(this.issueKey, other.issueKey);
+    return false;
   }
 
   @Override

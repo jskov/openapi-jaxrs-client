@@ -179,15 +179,14 @@ public class RestGitTagCreateRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestGitTagCreateRequest)) {
-      return false;
+    if (o instanceof RestGitTagCreateRequest other) {
+      return Objects.equals(this.force, other.force) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.startPoint, other.startPoint) &&
+              Objects.equals(this.type, other.type);
     }
-    RestGitTagCreateRequest other = (RestGitTagCreateRequest) o;
-    return Objects.equals(this.force, other.force) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.startPoint, other.startPoint) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

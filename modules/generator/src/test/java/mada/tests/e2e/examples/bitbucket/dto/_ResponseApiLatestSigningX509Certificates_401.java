@@ -60,11 +60,10 @@ public class _ResponseApiLatestSigningX509Certificates_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestSigningX509Certificates_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestSigningX509Certificates_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestSigningX509Certificates_401 other = (_ResponseApiLatestSigningX509Certificates_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

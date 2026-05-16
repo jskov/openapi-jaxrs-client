@@ -51,11 +51,10 @@ public class RestLabel {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestLabel)) {
-      return false;
+    if (o instanceof RestLabel other) {
+      return Objects.equals(this.name, other.name);
     }
-    RestLabel other = (RestLabel) o;
-    return Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

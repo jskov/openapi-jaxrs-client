@@ -139,13 +139,12 @@ public class RestRefSyncRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefSyncRequest)) {
-      return false;
+    if (o instanceof RestRefSyncRequest other) {
+      return Objects.equals(this.action, other.action) &&
+              Objects.equals(this.context, other.context) &&
+              Objects.equals(this.refId, other.refId);
     }
-    RestRefSyncRequest other = (RestRefSyncRequest) o;
-    return Objects.equals(this.action, other.action) &&
-        Objects.equals(this.context, other.context) &&
-        Objects.equals(this.refId, other.refId);
+    return false;
   }
 
   @Override

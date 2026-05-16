@@ -51,11 +51,10 @@ public class RestImportRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestImportRequest)) {
-      return false;
+    if (o instanceof RestImportRequest other) {
+      return Objects.equals(this.archivePath, other.archivePath);
     }
-    RestImportRequest other = (RestImportRequest) o;
-    return Objects.equals(this.archivePath, other.archivePath);
+    return false;
   }
 
   @Override

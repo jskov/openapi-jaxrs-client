@@ -229,19 +229,18 @@ public class RestWebhook {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestWebhook)) {
-      return false;
+    if (o instanceof RestWebhook other) {
+      return Objects.equals(this.active, other.active) &&
+              Objects.equals(this.configuration, other.configuration) &&
+              Objects.equals(this.credentials, other.credentials) &&
+              Objects.equals(this.events, other.events) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.scopeType, other.scopeType) &&
+              Objects.equals(this.sslVerificationRequired, other.sslVerificationRequired) &&
+              Objects.equals(this.statistics, other.statistics) &&
+              Objects.equals(this.url, other.url);
     }
-    RestWebhook other = (RestWebhook) o;
-    return Objects.equals(this.active, other.active) &&
-        Objects.equals(this.configuration, other.configuration) &&
-        Objects.equals(this.credentials, other.credentials) &&
-        Objects.equals(this.events, other.events) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.scopeType, other.scopeType) &&
-        Objects.equals(this.sslVerificationRequired, other.sslVerificationRequired) &&
-        Objects.equals(this.statistics, other.statistics) &&
-        Objects.equals(this.url, other.url);
+    return false;
   }
 
   @Override

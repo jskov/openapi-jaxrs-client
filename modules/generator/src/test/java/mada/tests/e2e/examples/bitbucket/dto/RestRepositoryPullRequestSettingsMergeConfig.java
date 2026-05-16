@@ -148,15 +148,14 @@ public class RestRepositoryPullRequestSettingsMergeConfig {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryPullRequestSettingsMergeConfig)) {
-      return false;
+    if (o instanceof RestRepositoryPullRequestSettingsMergeConfig other) {
+      return Objects.equals(this.commitMessageTemplate, other.commitMessageTemplate) &&
+              Objects.equals(this.commitSummaries, other.commitSummaries) &&
+              Objects.equals(this.defaultStrategy, other.defaultStrategy) &&
+              Objects.equals(this.strategies, other.strategies) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRepositoryPullRequestSettingsMergeConfig other = (RestRepositoryPullRequestSettingsMergeConfig) o;
-    return Objects.equals(this.commitMessageTemplate, other.commitMessageTemplate) &&
-        Objects.equals(this.commitSummaries, other.commitSummaries) &&
-        Objects.equals(this.defaultStrategy, other.defaultStrategy) &&
-        Objects.equals(this.strategies, other.strategies) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

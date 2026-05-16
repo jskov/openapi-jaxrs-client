@@ -127,14 +127,13 @@ public class RestDiffDestination {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDiffDestination)) {
-      return false;
+    if (o instanceof RestDiffDestination other) {
+      return Objects.equals(this.components, other.components) &&
+              Objects.equals(this.extension, other.extension) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.parent, other.parent);
     }
-    RestDiffDestination other = (RestDiffDestination) o;
-    return Objects.equals(this.components, other.components) &&
-        Objects.equals(this.extension, other.extension) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.parent, other.parent);
+    return false;
   }
 
   @Override

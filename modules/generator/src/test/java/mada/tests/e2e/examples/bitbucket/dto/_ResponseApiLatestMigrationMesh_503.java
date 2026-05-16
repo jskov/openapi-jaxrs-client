@@ -60,11 +60,10 @@ public class _ResponseApiLatestMigrationMesh_503 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestMigrationMesh_503)) {
-      return false;
+    if (o instanceof _ResponseApiLatestMigrationMesh_503 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestMigrationMesh_503 other = (_ResponseApiLatestMigrationMesh_503) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -178,16 +178,15 @@ public class Platform {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Platform)) {
-      return false;
+    if (o instanceof Platform other) {
+      return Objects.equals(this.architecture, other.architecture) &&
+              Objects.equals(this.features, other.features) &&
+              Objects.equals(this.os, other.os) &&
+              Objects.equals(this.os_features, other.os_features) &&
+              Objects.equals(this.os_version, other.os_version) &&
+              Objects.equals(this.variant, other.variant);
     }
-    Platform other = (Platform) o;
-    return Objects.equals(this.architecture, other.architecture) &&
-        Objects.equals(this.features, other.features) &&
-        Objects.equals(this.os, other.os) &&
-        Objects.equals(this.os_features, other.os_features) &&
-        Objects.equals(this.os_version, other.os_version) &&
-        Objects.equals(this.variant, other.variant);
+    return false;
   }
 
   @Override

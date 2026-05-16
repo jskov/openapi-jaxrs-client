@@ -162,16 +162,15 @@ public class LogOrigin {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof LogOrigin)) {
-      return false;
+    if (o instanceof LogOrigin other) {
+      return Objects.equals(this.applicationHostId, other.applicationHostId) &&
+              Objects.equals(this.applicationName, other.applicationName) &&
+              Objects.equals(this.applicationVersion, other.applicationVersion) &&
+              Objects.equals(this.domain, other.domain) &&
+              Objects.equals(this.environment, other.environment) &&
+              Objects.equals(this.platform, other.platform);
     }
-    LogOrigin other = (LogOrigin) o;
-    return Objects.equals(this.applicationHostId, other.applicationHostId) &&
-        Objects.equals(this.applicationName, other.applicationName) &&
-        Objects.equals(this.applicationVersion, other.applicationVersion) &&
-        Objects.equals(this.domain, other.domain) &&
-        Objects.equals(this.environment, other.environment) &&
-        Objects.equals(this.platform, other.platform);
+    return false;
   }
 
   @Override

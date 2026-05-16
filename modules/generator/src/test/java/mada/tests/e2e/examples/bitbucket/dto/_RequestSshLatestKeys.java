@@ -226,19 +226,18 @@ public class _RequestSshLatestKeys {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestSshLatestKeys)) {
-      return false;
+    if (o instanceof _RequestSshLatestKeys other) {
+      return Objects.equals(this.algorithmType, other.algorithmType) &&
+              Objects.equals(this.bitLength, other.bitLength) &&
+              Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.expiryDays, other.expiryDays) &&
+              Objects.equals(this.fingerprint, other.fingerprint) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.label, other.label) &&
+              Objects.equals(this.lastAuthenticated, other.lastAuthenticated) &&
+              Objects.equals(this.text, other.text);
     }
-    _RequestSshLatestKeys other = (_RequestSshLatestKeys) o;
-    return Objects.equals(this.algorithmType, other.algorithmType) &&
-        Objects.equals(this.bitLength, other.bitLength) &&
-        Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.expiryDays, other.expiryDays) &&
-        Objects.equals(this.fingerprint, other.fingerprint) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.label, other.label) &&
-        Objects.equals(this.lastAuthenticated, other.lastAuthenticated) &&
-        Objects.equals(this.text, other.text);
+    return false;
   }
 
   @Override

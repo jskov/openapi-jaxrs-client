@@ -73,12 +73,11 @@ public class RestBitbucketLicenseStatus {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBitbucketLicenseStatus)) {
-      return false;
+    if (o instanceof RestBitbucketLicenseStatus other) {
+      return Objects.equals(this.currentNumberOfUsers, other.currentNumberOfUsers) &&
+              Objects.equals(this.serverId, other.serverId);
     }
-    RestBitbucketLicenseStatus other = (RestBitbucketLicenseStatus) o;
-    return Objects.equals(this.currentNumberOfUsers, other.currentNumberOfUsers) &&
-        Objects.equals(this.serverId, other.serverId);
+    return false;
   }
 
   @Override

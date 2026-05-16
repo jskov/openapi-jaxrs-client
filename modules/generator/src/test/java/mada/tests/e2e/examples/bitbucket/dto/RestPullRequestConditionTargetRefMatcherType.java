@@ -117,12 +117,11 @@ public class RestPullRequestConditionTargetRefMatcherType {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestConditionTargetRefMatcherType)) {
-      return false;
+    if (o instanceof RestPullRequestConditionTargetRefMatcherType other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name);
     }
-    RestPullRequestConditionTargetRefMatcherType other = (RestPullRequestConditionTargetRefMatcherType) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

@@ -99,11 +99,10 @@ public class RestRepositoryPolicy {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryPolicy)) {
-      return false;
+    if (o instanceof RestRepositoryPolicy other) {
+      return Objects.equals(this.permission, other.permission);
     }
-    RestRepositoryPolicy other = (RestRepositoryPolicy) o;
-    return Objects.equals(this.permission, other.permission);
+    return false;
   }
 
   @Override

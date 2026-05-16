@@ -248,18 +248,17 @@ public class RestMirroredRepositoryDescriptorMirrorServer {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirroredRepositoryDescriptorMirrorServer)) {
-      return false;
+    if (o instanceof RestMirroredRepositoryDescriptorMirrorServer other) {
+      return Objects.equals(this.baseUrl, other.baseUrl) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.lastSeenDate, other.lastSeenDate) &&
+              Objects.equals(this.mirrorType, other.mirrorType) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.productType, other.productType) &&
+              Objects.equals(this.productVersion, other.productVersion);
     }
-    RestMirroredRepositoryDescriptorMirrorServer other = (RestMirroredRepositoryDescriptorMirrorServer) o;
-    return Objects.equals(this.baseUrl, other.baseUrl) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.lastSeenDate, other.lastSeenDate) &&
-        Objects.equals(this.mirrorType, other.mirrorType) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.productType, other.productType) &&
-        Objects.equals(this.productVersion, other.productVersion);
+    return false;
   }
 
   @Override

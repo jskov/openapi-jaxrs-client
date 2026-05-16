@@ -72,12 +72,11 @@ public class RestUserRateLimitSettingsUpdateRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUserRateLimitSettingsUpdateRequest)) {
-      return false;
+    if (o instanceof RestUserRateLimitSettingsUpdateRequest other) {
+      return Objects.equals(this.settings, other.settings) &&
+              Objects.equals(this.whitelisted, other.whitelisted);
     }
-    RestUserRateLimitSettingsUpdateRequest other = (RestUserRateLimitSettingsUpdateRequest) o;
-    return Objects.equals(this.settings, other.settings) &&
-        Objects.equals(this.whitelisted, other.whitelisted);
+    return false;
   }
 
   @Override

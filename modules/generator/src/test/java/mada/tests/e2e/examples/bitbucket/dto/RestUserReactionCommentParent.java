@@ -484,30 +484,29 @@ public class RestUserReactionCommentParent {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUserReactionCommentParent)) {
-      return false;
+    if (o instanceof RestUserReactionCommentParent other) {
+      return Objects.equals(this.anchor, other.anchor) &&
+              Objects.equals(this.anchored, other.anchored) &&
+              Objects.equals(this.author, other.author) &&
+              Objects.equals(this.comments, other.comments) &&
+              Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.html, other.html) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.pending, other.pending) &&
+              Objects.equals(this.properties, other.properties) &&
+              Objects.equals(this.reply, other.reply) &&
+              Objects.equals(this.resolvedDate, other.resolvedDate) &&
+              Objects.equals(this.resolver, other.resolver) &&
+              Objects.equals(this.severity, other.severity) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.text, other.text) &&
+              Objects.equals(this.threadResolved, other.threadResolved) &&
+              Objects.equals(this.threadResolvedDate, other.threadResolvedDate) &&
+              Objects.equals(this.threadResolver, other.threadResolver) &&
+              Objects.equals(this.updatedDate, other.updatedDate) &&
+              Objects.equals(this.version, other.version);
     }
-    RestUserReactionCommentParent other = (RestUserReactionCommentParent) o;
-    return Objects.equals(this.anchor, other.anchor) &&
-        Objects.equals(this.anchored, other.anchored) &&
-        Objects.equals(this.author, other.author) &&
-        Objects.equals(this.comments, other.comments) &&
-        Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.html, other.html) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.pending, other.pending) &&
-        Objects.equals(this.properties, other.properties) &&
-        Objects.equals(this.reply, other.reply) &&
-        Objects.equals(this.resolvedDate, other.resolvedDate) &&
-        Objects.equals(this.resolver, other.resolver) &&
-        Objects.equals(this.severity, other.severity) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.text, other.text) &&
-        Objects.equals(this.threadResolved, other.threadResolved) &&
-        Objects.equals(this.threadResolvedDate, other.threadResolvedDate) &&
-        Objects.equals(this.threadResolver, other.threadResolver) &&
-        Objects.equals(this.updatedDate, other.updatedDate) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

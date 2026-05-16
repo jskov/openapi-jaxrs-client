@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAuto
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_400)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_400 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoMerge_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -82,12 +82,11 @@ public class RestSshKeySettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshKeySettings)) {
-      return false;
+    if (o instanceof RestSshKeySettings other) {
+      return Objects.equals(this.keyTypeRestrictions, other.keyTypeRestrictions) &&
+              Objects.equals(this.maxExpiryDays, other.maxExpiryDays);
     }
-    RestSshKeySettings other = (RestSshKeySettings) o;
-    return Objects.equals(this.keyTypeRestrictions, other.keyTypeRestrictions) &&
-        Objects.equals(this.maxExpiryDays, other.maxExpiryDays);
+    return false;
   }
 
   @Override

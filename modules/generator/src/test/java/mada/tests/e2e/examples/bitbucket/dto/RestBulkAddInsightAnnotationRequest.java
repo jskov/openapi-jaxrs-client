@@ -62,11 +62,10 @@ public class RestBulkAddInsightAnnotationRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBulkAddInsightAnnotationRequest)) {
-      return false;
+    if (o instanceof RestBulkAddInsightAnnotationRequest other) {
+      return Objects.equals(this.annotations, other.annotations);
     }
-    RestBulkAddInsightAnnotationRequest other = (RestBulkAddInsightAnnotationRequest) o;
-    return Objects.equals(this.annotations, other.annotations);
+    return false;
   }
 
   @Override

@@ -373,24 +373,23 @@ public class RestDetailedUser {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDetailedUser)) {
-      return false;
+    if (o instanceof RestDetailedUser other) {
+      return Objects.equals(this.active, other.active) &&
+              Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.deletable, other.deletable) &&
+              Objects.equals(this.directoryName, other.directoryName) &&
+              Objects.equals(this.displayName, other.displayName) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.lastAuthenticationTimestamp, other.lastAuthenticationTimestamp) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.mutableDetails, other.mutableDetails) &&
+              Objects.equals(this.mutableGroups, other.mutableGroups) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.slug, other.slug) &&
+              Objects.equals(this.type, other.type);
     }
-    RestDetailedUser other = (RestDetailedUser) o;
-    return Objects.equals(this.active, other.active) &&
-        Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.deletable, other.deletable) &&
-        Objects.equals(this.directoryName, other.directoryName) &&
-        Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.lastAuthenticationTimestamp, other.lastAuthenticationTimestamp) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.mutableDetails, other.mutableDetails) &&
-        Objects.equals(this.mutableGroups, other.mutableGroups) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.slug, other.slug) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

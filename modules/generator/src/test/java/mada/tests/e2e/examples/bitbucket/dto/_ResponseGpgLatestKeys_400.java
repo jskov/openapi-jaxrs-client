@@ -60,11 +60,10 @@ public class _ResponseGpgLatestKeys_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseGpgLatestKeys_400)) {
-      return false;
+    if (o instanceof _ResponseGpgLatestKeys_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseGpgLatestKeys_400 other = (_ResponseGpgLatestKeys_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

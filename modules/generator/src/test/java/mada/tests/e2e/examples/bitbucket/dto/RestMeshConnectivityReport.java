@@ -60,11 +60,10 @@ public class RestMeshConnectivityReport {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMeshConnectivityReport)) {
-      return false;
+    if (o instanceof RestMeshConnectivityReport other) {
+      return Objects.equals(this.reports, other.reports);
     }
-    RestMeshConnectivityReport other = (RestMeshConnectivityReport) o;
-    return Objects.equals(this.reports, other.reports);
+    return false;
   }
 
   @Override

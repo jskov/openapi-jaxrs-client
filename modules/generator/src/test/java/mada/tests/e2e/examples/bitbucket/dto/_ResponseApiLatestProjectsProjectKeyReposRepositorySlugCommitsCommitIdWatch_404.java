@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommi
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_404 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugCommitsCommitIdWatch_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -245,18 +245,17 @@ public class RestMirrorServer {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirrorServer)) {
-      return false;
+    if (o instanceof RestMirrorServer other) {
+      return Objects.equals(this.baseUrl, other.baseUrl) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.lastSeenDate, other.lastSeenDate) &&
+              Objects.equals(this.mirrorType, other.mirrorType) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.productType, other.productType) &&
+              Objects.equals(this.productVersion, other.productVersion);
     }
-    RestMirrorServer other = (RestMirrorServer) o;
-    return Objects.equals(this.baseUrl, other.baseUrl) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.lastSeenDate, other.lastSeenDate) &&
-        Objects.equals(this.mirrorType, other.mirrorType) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.productType, other.productType) &&
-        Objects.equals(this.productVersion, other.productVersion);
+    return false;
   }
 
   @Override

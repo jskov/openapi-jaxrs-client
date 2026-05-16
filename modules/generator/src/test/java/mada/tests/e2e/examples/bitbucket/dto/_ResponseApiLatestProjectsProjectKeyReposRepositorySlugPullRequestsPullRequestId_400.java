@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_400)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_400 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestId_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

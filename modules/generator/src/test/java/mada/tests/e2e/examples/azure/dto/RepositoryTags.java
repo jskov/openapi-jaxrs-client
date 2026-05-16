@@ -78,12 +78,11 @@ public class RepositoryTags {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RepositoryTags)) {
-      return false;
+    if (o instanceof RepositoryTags other) {
+      return Objects.equals(this.name, other.name) &&
+              Objects.equals(this.tags, other.tags);
     }
-    RepositoryTags other = (RepositoryTags) o;
-    return Objects.equals(this.name, other.name) &&
-        Objects.equals(this.tags, other.tags);
+    return false;
   }
 
   @Override

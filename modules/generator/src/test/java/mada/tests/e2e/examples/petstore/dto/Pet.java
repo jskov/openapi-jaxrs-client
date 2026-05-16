@@ -228,16 +228,15 @@ public class Pet {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Pet)) {
-      return false;
+    if (o instanceof Pet other) {
+      return Objects.equals(this.category, other.category) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.photoUrls, other.photoUrls) &&
+              Objects.equals(this.status, other.status) &&
+              Objects.equals(this.tags, other.tags);
     }
-    Pet other = (Pet) o;
-    return Objects.equals(this.category, other.category) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.photoUrls, other.photoUrls) &&
-        Objects.equals(this.status, other.status) &&
-        Objects.equals(this.tags, other.tags);
+    return false;
   }
 
   @Override

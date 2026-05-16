@@ -99,13 +99,12 @@ public class RestSshCredentials {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshCredentials)) {
-      return false;
+    if (o instanceof RestSshCredentials other) {
+      return Objects.equals(this.algorithm, other.algorithm) &&
+              Objects.equals(this.publicKey, other.publicKey) &&
+              Objects.equals(this.username, other.username);
     }
-    RestSshCredentials other = (RestSshCredentials) o;
-    return Objects.equals(this.algorithm, other.algorithm) &&
-        Objects.equals(this.publicKey, other.publicKey) &&
-        Objects.equals(this.username, other.username);
+    return false;
   }
 
   @Override

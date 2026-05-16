@@ -172,16 +172,15 @@ public class RestPullRequestCondition {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestCondition)) {
-      return false;
+    if (o instanceof RestPullRequestCondition other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.requiredApprovals, other.requiredApprovals) &&
+              Objects.equals(this.reviewers, other.reviewers) &&
+              Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.sourceRefMatcher, other.sourceRefMatcher) &&
+              Objects.equals(this.targetRefMatcher, other.targetRefMatcher);
     }
-    RestPullRequestCondition other = (RestPullRequestCondition) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.requiredApprovals, other.requiredApprovals) &&
-        Objects.equals(this.reviewers, other.reviewers) &&
-        Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.sourceRefMatcher, other.sourceRefMatcher) &&
-        Objects.equals(this.targetRefMatcher, other.targetRefMatcher);
+    return false;
   }
 
   @Override

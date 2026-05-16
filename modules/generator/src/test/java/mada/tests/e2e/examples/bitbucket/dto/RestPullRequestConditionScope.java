@@ -115,12 +115,11 @@ public class RestPullRequestConditionScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestConditionScope)) {
-      return false;
+    if (o instanceof RestPullRequestConditionScope other) {
+      return Objects.equals(this.resourceId, other.resourceId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestPullRequestConditionScope other = (RestPullRequestConditionScope) o;
-    return Objects.equals(this.resourceId, other.resourceId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

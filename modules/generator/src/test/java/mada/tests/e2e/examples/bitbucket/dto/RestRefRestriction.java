@@ -209,17 +209,16 @@ public class RestRefRestriction {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefRestriction)) {
-      return false;
+    if (o instanceof RestRefRestriction other) {
+      return Objects.equals(this.accessKeys, other.accessKeys) &&
+              Objects.equals(this.groups, other.groups) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.matcher, other.matcher) &&
+              Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.users, other.users);
     }
-    RestRefRestriction other = (RestRefRestriction) o;
-    return Objects.equals(this.accessKeys, other.accessKeys) &&
-        Objects.equals(this.groups, other.groups) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.matcher, other.matcher) &&
-        Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.users, other.users);
+    return false;
   }
 
   @Override

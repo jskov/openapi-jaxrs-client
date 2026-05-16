@@ -136,13 +136,12 @@ public class RestPullRequestSuggestionFromRef {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestSuggestionFromRef)) {
-      return false;
+    if (o instanceof RestPullRequestSuggestionFromRef other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.type, other.type);
     }
-    RestPullRequestSuggestionFromRef other = (RestPullRequestSuggestionFromRef) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

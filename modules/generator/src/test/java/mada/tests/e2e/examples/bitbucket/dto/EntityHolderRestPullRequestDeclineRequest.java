@@ -51,11 +51,10 @@ public class EntityHolderRestPullRequestDeclineRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof EntityHolderRestPullRequestDeclineRequest)) {
-      return false;
+    if (o instanceof EntityHolderRestPullRequestDeclineRequest other) {
+      return Objects.equals(this.entity, other.entity);
     }
-    EntityHolderRestPullRequestDeclineRequest other = (EntityHolderRestPullRequestDeclineRequest) o;
-    return Objects.equals(this.entity, other.entity);
+    return false;
   }
 
   @Override

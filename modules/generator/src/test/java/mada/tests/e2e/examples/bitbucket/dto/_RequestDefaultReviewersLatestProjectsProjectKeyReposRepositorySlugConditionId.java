@@ -127,14 +127,13 @@ public class _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlug
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId)) {
-      return false;
+    if (o instanceof _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId other) {
+      return Objects.equals(this.requiredApprovals, other.requiredApprovals) &&
+              Objects.equals(this.reviewers, other.reviewers) &&
+              Objects.equals(this.sourceMatcher, other.sourceMatcher) &&
+              Objects.equals(this.targetMatcher, other.targetMatcher);
     }
-    _RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId other = (_RequestDefaultReviewersLatestProjectsProjectKeyReposRepositorySlugConditionId) o;
-    return Objects.equals(this.requiredApprovals, other.requiredApprovals) &&
-        Objects.equals(this.reviewers, other.reviewers) &&
-        Objects.equals(this.sourceMatcher, other.sourceMatcher) &&
-        Objects.equals(this.targetMatcher, other.targetMatcher);
+    return false;
   }
 
   @Override

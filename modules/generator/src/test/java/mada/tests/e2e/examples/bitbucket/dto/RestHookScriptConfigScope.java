@@ -115,12 +115,11 @@ public class RestHookScriptConfigScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestHookScriptConfigScope)) {
-      return false;
+    if (o instanceof RestHookScriptConfigScope other) {
+      return Objects.equals(this.resourceId, other.resourceId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestHookScriptConfigScope other = (RestHookScriptConfigScope) o;
-    return Objects.equals(this.resourceId, other.resourceId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

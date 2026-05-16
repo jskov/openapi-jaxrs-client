@@ -60,11 +60,10 @@ public class _ResponsePoliciesLatestAdminReposArchive_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponsePoliciesLatestAdminReposArchive_401)) {
-      return false;
+    if (o instanceof _ResponsePoliciesLatestAdminReposArchive_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponsePoliciesLatestAdminReposArchive_401 other = (_ResponsePoliciesLatestAdminReposArchive_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

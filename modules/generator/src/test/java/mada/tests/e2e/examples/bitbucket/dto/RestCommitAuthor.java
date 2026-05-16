@@ -94,13 +94,12 @@ public class RestCommitAuthor {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommitAuthor)) {
-      return false;
+    if (o instanceof RestCommitAuthor other) {
+      return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.name, other.name);
     }
-    RestCommitAuthor other = (RestCommitAuthor) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

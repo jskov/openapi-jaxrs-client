@@ -104,13 +104,12 @@ public class RestHookScriptConfig {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestHookScriptConfig)) {
-      return false;
+    if (o instanceof RestHookScriptConfig other) {
+      return Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.script, other.script) &&
+              Objects.equals(this.triggerIds, other.triggerIds);
     }
-    RestHookScriptConfig other = (RestHookScriptConfig) o;
-    return Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.script, other.script) &&
-        Objects.equals(this.triggerIds, other.triggerIds);
+    return false;
   }
 
   @Override

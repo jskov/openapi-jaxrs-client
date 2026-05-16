@@ -160,16 +160,15 @@ public class RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy)) {
-      return false;
+    if (o instanceof RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy other) {
+      return Objects.equals(this.description, other.description) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.flag, other.flag) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.name, other.name);
     }
-    RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy other = (RestRepositoryPullRequestSettingsMergeConfigDefaultStrategy) o;
-    return Objects.equals(this.description, other.description) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.flag, other.flag) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

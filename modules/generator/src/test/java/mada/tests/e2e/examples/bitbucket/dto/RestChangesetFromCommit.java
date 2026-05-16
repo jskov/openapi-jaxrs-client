@@ -73,12 +73,11 @@ public class RestChangesetFromCommit {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestChangesetFromCommit)) {
-      return false;
+    if (o instanceof RestChangesetFromCommit other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id);
     }
-    RestChangesetFromCommit other = (RestChangesetFromCommit) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id);
+    return false;
   }
 
   @Override

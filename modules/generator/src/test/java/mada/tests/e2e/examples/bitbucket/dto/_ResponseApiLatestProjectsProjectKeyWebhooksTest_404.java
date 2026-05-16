@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyWebhooksTest_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyWebhooksTest_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyWebhooksTest_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyWebhooksTest_404 other = (_ResponseApiLatestProjectsProjectKeyWebhooksTest_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

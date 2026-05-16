@@ -117,14 +117,13 @@ public class RestApplicationProperties {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestApplicationProperties)) {
-      return false;
+    if (o instanceof RestApplicationProperties other) {
+      return Objects.equals(this.buildDate, other.buildDate) &&
+              Objects.equals(this.buildNumber, other.buildNumber) &&
+              Objects.equals(this.displayName, other.displayName) &&
+              Objects.equals(this.version, other.version);
     }
-    RestApplicationProperties other = (RestApplicationProperties) o;
-    return Objects.equals(this.buildDate, other.buildDate) &&
-        Objects.equals(this.buildNumber, other.buildNumber) &&
-        Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

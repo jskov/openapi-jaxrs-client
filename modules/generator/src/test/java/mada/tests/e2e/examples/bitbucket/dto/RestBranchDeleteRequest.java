@@ -100,13 +100,12 @@ public class RestBranchDeleteRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBranchDeleteRequest)) {
-      return false;
+    if (o instanceof RestBranchDeleteRequest other) {
+      return Objects.equals(this.dryRun, other.dryRun) &&
+              Objects.equals(this.endPoint, other.endPoint) &&
+              Objects.equals(this.name, other.name);
     }
-    RestBranchDeleteRequest other = (RestBranchDeleteRequest) o;
-    return Objects.equals(this.dryRun, other.dryRun) &&
-        Objects.equals(this.endPoint, other.endPoint) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

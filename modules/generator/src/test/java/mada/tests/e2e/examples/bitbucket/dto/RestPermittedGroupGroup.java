@@ -51,11 +51,10 @@ public class RestPermittedGroupGroup {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPermittedGroupGroup)) {
-      return false;
+    if (o instanceof RestPermittedGroupGroup other) {
+      return Objects.equals(this.name, other.name);
     }
-    RestPermittedGroupGroup other = (RestPermittedGroupGroup) o;
-    return Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

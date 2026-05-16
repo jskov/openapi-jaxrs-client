@@ -180,17 +180,16 @@ public class RestMeshMigrationSummary {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMeshMigrationSummary)) {
-      return false;
+    if (o instanceof RestMeshMigrationSummary other) {
+      return Objects.equals(this.endTime, other.endTime) &&
+              Objects.equals(this.jobId, other.jobId) &&
+              Objects.equals(this.maxBandwidth, other.maxBandwidth) &&
+              Objects.equals(this.progress, other.progress) &&
+              Objects.equals(this.queue, other.queue) &&
+              Objects.equals(this.startTime, other.startTime) &&
+              Objects.equals(this.state, other.state);
     }
-    RestMeshMigrationSummary other = (RestMeshMigrationSummary) o;
-    return Objects.equals(this.endTime, other.endTime) &&
-        Objects.equals(this.jobId, other.jobId) &&
-        Objects.equals(this.maxBandwidth, other.maxBandwidth) &&
-        Objects.equals(this.progress, other.progress) &&
-        Objects.equals(this.queue, other.queue) &&
-        Objects.equals(this.startTime, other.startTime) &&
-        Objects.equals(this.state, other.state);
+    return false;
   }
 
   @Override

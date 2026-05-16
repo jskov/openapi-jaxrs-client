@@ -51,11 +51,10 @@ public class Context {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Context)) {
-      return false;
+    if (o instanceof Context other) {
+      return Objects.equals(this.commitMessage, other.commitMessage);
     }
-    Context other = (Context) o;
-    return Objects.equals(this.commitMessage, other.commitMessage);
+    return false;
   }
 
   @Override

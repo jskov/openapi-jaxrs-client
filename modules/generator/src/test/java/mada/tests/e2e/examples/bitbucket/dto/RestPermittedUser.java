@@ -125,12 +125,11 @@ public class RestPermittedUser {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPermittedUser)) {
-      return false;
+    if (o instanceof RestPermittedUser other) {
+      return Objects.equals(this.permission, other.permission) &&
+              Objects.equals(this.user, other.user);
     }
-    RestPermittedUser other = (RestPermittedUser) o;
-    return Objects.equals(this.permission, other.permission) &&
-        Objects.equals(this.user, other.user);
+    return false;
   }
 
   @Override

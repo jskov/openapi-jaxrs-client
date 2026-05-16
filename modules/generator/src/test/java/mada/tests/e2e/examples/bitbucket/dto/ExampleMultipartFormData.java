@@ -144,15 +144,14 @@ public class ExampleMultipartFormData {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleMultipartFormData)) {
-      return false;
+    if (o instanceof ExampleMultipartFormData other) {
+      return Objects.equals(this.branch, other.branch) &&
+              Objects.equals(this.content, other.content) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.sourceBranch, other.sourceBranch) &&
+              Objects.equals(this.sourceCommitId, other.sourceCommitId);
     }
-    ExampleMultipartFormData other = (ExampleMultipartFormData) o;
-    return Objects.equals(this.branch, other.branch) &&
-        Objects.equals(this.content, other.content) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.sourceBranch, other.sourceBranch) &&
-        Objects.equals(this.sourceCommitId, other.sourceCommitId);
+    return false;
   }
 
   @Override

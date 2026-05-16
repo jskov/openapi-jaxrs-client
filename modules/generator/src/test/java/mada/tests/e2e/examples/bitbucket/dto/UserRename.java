@@ -73,12 +73,11 @@ public class UserRename {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof UserRename)) {
-      return false;
+    if (o instanceof UserRename other) {
+      return Objects.equals(this.name, other.name) &&
+              Objects.equals(this.newName, other.newName);
     }
-    UserRename other = (UserRename) o;
-    return Objects.equals(this.name, other.name) &&
-        Objects.equals(this.newName, other.newName);
+    return false;
   }
 
   @Override

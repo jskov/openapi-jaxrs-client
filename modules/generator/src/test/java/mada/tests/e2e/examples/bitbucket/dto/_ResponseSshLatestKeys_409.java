@@ -60,11 +60,10 @@ public class _ResponseSshLatestKeys_409 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseSshLatestKeys_409)) {
-      return false;
+    if (o instanceof _ResponseSshLatestKeys_409 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseSshLatestKeys_409 other = (_ResponseSshLatestKeys_409) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

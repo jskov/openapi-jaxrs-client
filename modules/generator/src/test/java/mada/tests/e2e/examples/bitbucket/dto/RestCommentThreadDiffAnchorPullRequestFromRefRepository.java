@@ -470,28 +470,27 @@ public class RestCommentThreadDiffAnchorPullRequestFromRefRepository {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommentThreadDiffAnchorPullRequestFromRefRepository)) {
-      return false;
+    if (o instanceof RestCommentThreadDiffAnchorPullRequestFromRefRepository other) {
+      return Objects.equals(this.archived, other.archived) &&
+              Objects.equals(this.defaultBranch, other.defaultBranch) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.forkable, other.forkable) &&
+              Objects.equals(this.hierarchyId, other.hierarchyId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.origin, other.origin) &&
+              Objects.equals(this.partition, other.partition) &&
+              Objects.equals(this.project, other.project) &&
+              Objects.equals(this.public_, other.public_) &&
+              Objects.equals(this.relatedLinks, other.relatedLinks) &&
+              Objects.equals(this.scmId, other.scmId) &&
+              Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.slug, other.slug) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.statusMessage, other.statusMessage);
     }
-    RestCommentThreadDiffAnchorPullRequestFromRefRepository other = (RestCommentThreadDiffAnchorPullRequestFromRefRepository) o;
-    return Objects.equals(this.archived, other.archived) &&
-        Objects.equals(this.defaultBranch, other.defaultBranch) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.forkable, other.forkable) &&
-        Objects.equals(this.hierarchyId, other.hierarchyId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.origin, other.origin) &&
-        Objects.equals(this.partition, other.partition) &&
-        Objects.equals(this.project, other.project) &&
-        Objects.equals(this.public_, other.public_) &&
-        Objects.equals(this.relatedLinks, other.relatedLinks) &&
-        Objects.equals(this.scmId, other.scmId) &&
-        Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.slug, other.slug) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.statusMessage, other.statusMessage);
+    return false;
   }
 
   @Override

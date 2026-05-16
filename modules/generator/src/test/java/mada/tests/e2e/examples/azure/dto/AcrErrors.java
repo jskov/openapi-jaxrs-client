@@ -56,11 +56,10 @@ public class AcrErrors {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof AcrErrors)) {
-      return false;
+    if (o instanceof AcrErrors other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    AcrErrors other = (AcrErrors) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

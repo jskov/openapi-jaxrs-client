@@ -198,18 +198,17 @@ public class RestDetailedInvocation {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDetailedInvocation)) {
-      return false;
+    if (o instanceof RestDetailedInvocation other) {
+      return Objects.equals(this.duration, other.duration) &&
+              Objects.equals(this.event, other.event) &&
+              Objects.equals(this.eventScope, other.eventScope) &&
+              Objects.equals(this.finish, other.finish) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.request, other.request) &&
+              Objects.equals(this.result, other.result) &&
+              Objects.equals(this.start, other.start);
     }
-    RestDetailedInvocation other = (RestDetailedInvocation) o;
-    return Objects.equals(this.duration, other.duration) &&
-        Objects.equals(this.event, other.event) &&
-        Objects.equals(this.eventScope, other.eventScope) &&
-        Objects.equals(this.finish, other.finish) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.request, other.request) &&
-        Objects.equals(this.result, other.result) &&
-        Objects.equals(this.start, other.start);
+    return false;
   }
 
   @Override

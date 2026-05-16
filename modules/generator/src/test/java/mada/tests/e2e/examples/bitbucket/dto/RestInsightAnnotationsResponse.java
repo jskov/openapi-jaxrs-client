@@ -60,11 +60,10 @@ public class RestInsightAnnotationsResponse {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestInsightAnnotationsResponse)) {
-      return false;
+    if (o instanceof RestInsightAnnotationsResponse other) {
+      return Objects.equals(this.annotations, other.annotations);
     }
-    RestInsightAnnotationsResponse other = (RestInsightAnnotationsResponse) o;
-    return Objects.equals(this.annotations, other.annotations);
+    return false;
   }
 
   @Override

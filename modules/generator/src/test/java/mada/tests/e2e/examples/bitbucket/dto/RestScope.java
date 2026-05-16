@@ -115,12 +115,11 @@ public class RestScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestScope)) {
-      return false;
+    if (o instanceof RestScope other) {
+      return Objects.equals(this.resourceId, other.resourceId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestScope other = (RestScope) o;
-    return Objects.equals(this.resourceId, other.resourceId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

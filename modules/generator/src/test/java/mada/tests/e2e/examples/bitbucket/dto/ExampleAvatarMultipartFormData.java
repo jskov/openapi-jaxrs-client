@@ -53,11 +53,10 @@ public class ExampleAvatarMultipartFormData {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleAvatarMultipartFormData)) {
-      return false;
+    if (o instanceof ExampleAvatarMultipartFormData other) {
+      return Arrays.equals(this.avatar, other.avatar);
     }
-    ExampleAvatarMultipartFormData other = (ExampleAvatarMultipartFormData) o;
-    return Arrays.equals(this.avatar, other.avatar);
+    return false;
   }
 
   @Override

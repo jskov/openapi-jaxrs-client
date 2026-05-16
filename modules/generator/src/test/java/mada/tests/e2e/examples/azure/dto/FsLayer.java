@@ -45,11 +45,10 @@ public class FsLayer {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof FsLayer)) {
-      return false;
+    if (o instanceof FsLayer other) {
+      return Objects.equals(this.blobSum, other.blobSum);
     }
-    FsLayer other = (FsLayer) o;
-    return Objects.equals(this.blobSum, other.blobSum);
+    return false;
   }
 
   @Override

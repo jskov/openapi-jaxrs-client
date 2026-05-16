@@ -95,13 +95,12 @@ public class RestAccessToken {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAccessToken)) {
-      return false;
+    if (o instanceof RestAccessToken other) {
+      return Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name);
     }
-    RestAccessToken other = (RestAccessToken) o;
-    return Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

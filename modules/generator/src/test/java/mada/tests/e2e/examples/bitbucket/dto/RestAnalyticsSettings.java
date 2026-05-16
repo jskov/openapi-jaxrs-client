@@ -94,13 +94,12 @@ public class RestAnalyticsSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAnalyticsSettings)) {
-      return false;
+    if (o instanceof RestAnalyticsSettings other) {
+      return Objects.equals(this.canCollectAnalytics, other.canCollectAnalytics) &&
+              Objects.equals(this.serverTime, other.serverTime) &&
+              Objects.equals(this.supportEntitlementNumber, other.supportEntitlementNumber);
     }
-    RestAnalyticsSettings other = (RestAnalyticsSettings) o;
-    return Objects.equals(this.canCollectAnalytics, other.canCollectAnalytics) &&
-        Objects.equals(this.serverTime, other.serverTime) &&
-        Objects.equals(this.supportEntitlementNumber, other.supportEntitlementNumber);
+    return false;
   }
 
   @Override

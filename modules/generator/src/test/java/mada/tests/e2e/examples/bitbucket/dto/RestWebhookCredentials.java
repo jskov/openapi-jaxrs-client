@@ -70,12 +70,11 @@ public class RestWebhookCredentials {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestWebhookCredentials)) {
-      return false;
+    if (o instanceof RestWebhookCredentials other) {
+      return Objects.equals(this.password, other.password) &&
+              Objects.equals(this.username, other.username);
     }
-    RestWebhookCredentials other = (RestWebhookCredentials) o;
-    return Objects.equals(this.password, other.password) &&
-        Objects.equals(this.username, other.username);
+    return false;
   }
 
   @Override

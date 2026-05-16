@@ -83,13 +83,12 @@ public class Violation {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Violation)) {
-      return false;
+    if (o instanceof Violation other) {
+      return Objects.equals(this.message, other.message) &&
+              Objects.equals(this.propertyPath, other.propertyPath) &&
+              Objects.equals(this.rootBeanClass, other.rootBeanClass);
     }
-    Violation other = (Violation) o;
-    return Objects.equals(this.message, other.message) &&
-        Objects.equals(this.propertyPath, other.propertyPath) &&
-        Objects.equals(this.rootBeanClass, other.rootBeanClass);
+    return false;
   }
 
   @Override

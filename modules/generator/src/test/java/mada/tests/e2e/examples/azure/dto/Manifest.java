@@ -45,11 +45,10 @@ public class Manifest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Manifest)) {
-      return false;
+    if (o instanceof Manifest other) {
+      return Objects.equals(this.schemaVersion, other.schemaVersion);
     }
-    Manifest other = (Manifest) o;
-    return Objects.equals(this.schemaVersion, other.schemaVersion);
+    return false;
   }
 
   @Override

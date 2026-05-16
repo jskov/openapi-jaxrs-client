@@ -70,12 +70,11 @@ public class RestSshKeySettingsMaxExpiryDays {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshKeySettingsMaxExpiryDays)) {
-      return false;
+    if (o instanceof RestSshKeySettingsMaxExpiryDays other) {
+      return Objects.equals(this.asInt, other.asInt) &&
+              Objects.equals(this.present, other.present);
     }
-    RestSshKeySettingsMaxExpiryDays other = (RestSshKeySettingsMaxExpiryDays) o;
-    return Objects.equals(this.asInt, other.asInt) &&
-        Objects.equals(this.present, other.present);
+    return false;
   }
 
   @Override

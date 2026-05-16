@@ -140,15 +140,14 @@ public class RestPullRequestSuggestion {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestSuggestion)) {
-      return false;
+    if (o instanceof RestPullRequestSuggestion other) {
+      return Objects.equals(this.changeTme, other.changeTme) &&
+              Objects.equals(this.fromRef, other.fromRef) &&
+              Objects.equals(this.refChange, other.refChange) &&
+              Objects.equals(this.repository, other.repository) &&
+              Objects.equals(this.toRef, other.toRef);
     }
-    RestPullRequestSuggestion other = (RestPullRequestSuggestion) o;
-    return Objects.equals(this.changeTme, other.changeTme) &&
-        Objects.equals(this.fromRef, other.fromRef) &&
-        Objects.equals(this.refChange, other.refChange) &&
-        Objects.equals(this.repository, other.repository) &&
-        Objects.equals(this.toRef, other.toRef);
+    return false;
   }
 
   @Override

@@ -217,15 +217,14 @@ public class RestRefSyncStatusOrphanedRefs {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefSyncStatusOrphanedRefs)) {
-      return false;
+    if (o instanceof RestRefSyncStatusOrphanedRefs other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.tag, other.tag) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRefSyncStatusOrphanedRefs other = (RestRefSyncStatusOrphanedRefs) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.tag, other.tag) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

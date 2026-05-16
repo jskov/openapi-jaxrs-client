@@ -121,14 +121,13 @@ public class ExamplePostMultipartFormData {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExamplePostMultipartFormData)) {
-      return false;
+    if (o instanceof ExamplePostMultipartFormData other) {
+      return Objects.equals(this.content, other.content) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.type, other.type);
     }
-    ExamplePostMultipartFormData other = (ExamplePostMultipartFormData) o;
-    return Objects.equals(this.content, other.content) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

@@ -68,12 +68,11 @@ public class JWK {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof JWK)) {
-      return false;
+    if (o instanceof JWK other) {
+      return Objects.equals(this.alg, other.alg) &&
+              Objects.equals(this.jwk, other.jwk);
     }
-    JWK other = (JWK) o;
-    return Objects.equals(this.alg, other.alg) &&
-        Objects.equals(this.jwk, other.jwk);
+    return false;
   }
 
   @Override

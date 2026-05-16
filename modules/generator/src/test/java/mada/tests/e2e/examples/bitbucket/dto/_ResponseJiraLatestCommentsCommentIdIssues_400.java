@@ -60,11 +60,10 @@ public class _ResponseJiraLatestCommentsCommentIdIssues_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseJiraLatestCommentsCommentIdIssues_400)) {
-      return false;
+    if (o instanceof _ResponseJiraLatestCommentsCommentIdIssues_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseJiraLatestCommentsCommentIdIssues_400 other = (_ResponseJiraLatestCommentsCommentIdIssues_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

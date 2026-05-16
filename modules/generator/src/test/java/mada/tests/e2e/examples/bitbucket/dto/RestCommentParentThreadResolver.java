@@ -265,19 +265,18 @@ public class RestCommentParentThreadResolver {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommentParentThreadResolver)) {
-      return false;
+    if (o instanceof RestCommentParentThreadResolver other) {
+      return Objects.equals(this.active, other.active) &&
+              Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.displayName, other.displayName) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.slug, other.slug) &&
+              Objects.equals(this.type, other.type);
     }
-    RestCommentParentThreadResolver other = (RestCommentParentThreadResolver) o;
-    return Objects.equals(this.active, other.active) &&
-        Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.slug, other.slug) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

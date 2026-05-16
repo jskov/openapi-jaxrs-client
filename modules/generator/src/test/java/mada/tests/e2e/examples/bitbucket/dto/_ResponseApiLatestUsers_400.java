@@ -60,11 +60,10 @@ public class _ResponseApiLatestUsers_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestUsers_400)) {
-      return false;
+    if (o instanceof _ResponseApiLatestUsers_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestUsers_400 other = (_ResponseApiLatestUsers_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

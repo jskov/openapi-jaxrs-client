@@ -73,12 +73,11 @@ public class ExampleSocketAddress {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleSocketAddress)) {
-      return false;
+    if (o instanceof ExampleSocketAddress other) {
+      return Objects.equals(this.address, other.address) &&
+              Objects.equals(this.port, other.port);
     }
-    ExampleSocketAddress other = (ExampleSocketAddress) o;
-    return Objects.equals(this.address, other.address) &&
-        Objects.equals(this.port, other.port);
+    return false;
   }
 
   @Override

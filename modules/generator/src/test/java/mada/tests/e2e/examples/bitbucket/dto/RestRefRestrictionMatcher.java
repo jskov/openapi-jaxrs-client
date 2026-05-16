@@ -96,13 +96,12 @@ public class RestRefRestrictionMatcher {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefRestrictionMatcher)) {
-      return false;
+    if (o instanceof RestRefRestrictionMatcher other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRefRestrictionMatcher other = (RestRefRestrictionMatcher) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

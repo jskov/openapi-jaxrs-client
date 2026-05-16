@@ -165,16 +165,15 @@ public class RestRefSyncStatus {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefSyncStatus)) {
-      return false;
+    if (o instanceof RestRefSyncStatus other) {
+      return Objects.equals(this.aheadRefs, other.aheadRefs) &&
+              Objects.equals(this.available, other.available) &&
+              Objects.equals(this.divergedRefs, other.divergedRefs) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.lastSync, other.lastSync) &&
+              Objects.equals(this.orphanedRefs, other.orphanedRefs);
     }
-    RestRefSyncStatus other = (RestRefSyncStatus) o;
-    return Objects.equals(this.aheadRefs, other.aheadRefs) &&
-        Objects.equals(this.available, other.available) &&
-        Objects.equals(this.divergedRefs, other.divergedRefs) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.lastSync, other.lastSync) &&
-        Objects.equals(this.orphanedRefs, other.orphanedRefs);
+    return false;
   }
 
   @Override

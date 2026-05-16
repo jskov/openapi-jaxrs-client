@@ -137,15 +137,14 @@ public class JWKHeader {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof JWKHeader)) {
-      return false;
+    if (o instanceof JWKHeader other) {
+      return Objects.equals(this.crv, other.crv) &&
+              Objects.equals(this.kid, other.kid) &&
+              Objects.equals(this.kty, other.kty) &&
+              Objects.equals(this.x, other.x) &&
+              Objects.equals(this.y, other.y);
     }
-    JWKHeader other = (JWKHeader) o;
-    return Objects.equals(this.crv, other.crv) &&
-        Objects.equals(this.kid, other.kid) &&
-        Objects.equals(this.kty, other.kty) &&
-        Objects.equals(this.x, other.x) &&
-        Objects.equals(this.y, other.y);
+    return false;
   }
 
   @Override

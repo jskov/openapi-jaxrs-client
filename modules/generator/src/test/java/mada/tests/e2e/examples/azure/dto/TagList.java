@@ -102,13 +102,12 @@ public class TagList {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof TagList)) {
-      return false;
+    if (o instanceof TagList other) {
+      return Objects.equals(this.imageName, other.imageName) &&
+              Objects.equals(this.registry, other.registry) &&
+              Objects.equals(this.tags, other.tags);
     }
-    TagList other = (TagList) o;
-    return Objects.equals(this.imageName, other.imageName) &&
-        Objects.equals(this.registry, other.registry) &&
-        Objects.equals(this.tags, other.tags);
+    return false;
   }
 
   @Override

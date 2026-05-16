@@ -60,11 +60,10 @@ public class _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBran
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_409)) {
-      return false;
+    if (o instanceof _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_409 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_409 other = (_ResponseBranchUtilsLatestProjectsProjectKeyReposRepositorySlugBranches_409) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

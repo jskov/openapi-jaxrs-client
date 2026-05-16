@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_40
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_404 other = (_ResponseApiLatestProjectsProjectKeySettingsHooksHookKeySettings_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

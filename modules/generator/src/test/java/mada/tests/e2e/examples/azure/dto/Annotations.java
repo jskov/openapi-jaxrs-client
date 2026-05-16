@@ -300,23 +300,22 @@ public class Annotations extends HashMap<String, Object> {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Annotations)) {
-      return false;
+    if (o instanceof Annotations other) {
+      return Objects.equals(this.org_opencontainers_image_authors, other.org_opencontainers_image_authors) &&
+              Objects.equals(this.org_opencontainers_image_created, other.org_opencontainers_image_created) &&
+              Objects.equals(this.org_opencontainers_image_description, other.org_opencontainers_image_description) &&
+              Objects.equals(this.org_opencontainers_image_documentation, other.org_opencontainers_image_documentation) &&
+              Objects.equals(this.org_opencontainers_image_licenses, other.org_opencontainers_image_licenses) &&
+              Objects.equals(this.org_opencontainers_image_ref_name, other.org_opencontainers_image_ref_name) &&
+              Objects.equals(this.org_opencontainers_image_revision, other.org_opencontainers_image_revision) &&
+              Objects.equals(this.org_opencontainers_image_source, other.org_opencontainers_image_source) &&
+              Objects.equals(this.org_opencontainers_image_title, other.org_opencontainers_image_title) &&
+              Objects.equals(this.org_opencontainers_image_url, other.org_opencontainers_image_url) &&
+              Objects.equals(this.org_opencontainers_image_vendor, other.org_opencontainers_image_vendor) &&
+              Objects.equals(this.org_opencontainers_image_version, other.org_opencontainers_image_version) &&
+              super.equals(o);
     }
-    Annotations other = (Annotations) o;
-    return Objects.equals(this.org_opencontainers_image_authors, other.org_opencontainers_image_authors) &&
-        Objects.equals(this.org_opencontainers_image_created, other.org_opencontainers_image_created) &&
-        Objects.equals(this.org_opencontainers_image_description, other.org_opencontainers_image_description) &&
-        Objects.equals(this.org_opencontainers_image_documentation, other.org_opencontainers_image_documentation) &&
-        Objects.equals(this.org_opencontainers_image_licenses, other.org_opencontainers_image_licenses) &&
-        Objects.equals(this.org_opencontainers_image_ref_name, other.org_opencontainers_image_ref_name) &&
-        Objects.equals(this.org_opencontainers_image_revision, other.org_opencontainers_image_revision) &&
-        Objects.equals(this.org_opencontainers_image_source, other.org_opencontainers_image_source) &&
-        Objects.equals(this.org_opencontainers_image_title, other.org_opencontainers_image_title) &&
-        Objects.equals(this.org_opencontainers_image_url, other.org_opencontainers_image_url) &&
-        Objects.equals(this.org_opencontainers_image_vendor, other.org_opencontainers_image_vendor) &&
-        Objects.equals(this.org_opencontainers_image_version, other.org_opencontainers_image_version) &&
-        super.equals(o);
+    return false;
   }
 
   @Override

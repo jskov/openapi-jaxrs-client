@@ -60,11 +60,10 @@ public class _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_40
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_404)) {
-      return false;
+    if (o instanceof _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_404 other = (_ResponseBranchPermissionsLatestProjectsProjectKeyRestrictionsId_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override
