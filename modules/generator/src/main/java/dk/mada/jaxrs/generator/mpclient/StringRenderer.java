@@ -122,14 +122,20 @@ public final class StringRenderer {
     /**
      * Encode regular expression to be used in an annotation argument.
      *
-     * Backslashes need to be doubled.
-     *
      * @param regexp the regular expression to encode
      * @return the encoded regular expression
      */
     public static String encodeRegexp(String regexp) {
-        String doubleHack = "@BACK_SLASHES@";
-        return regexp.replace("\\\\", doubleHack).replace("\\", "\\\\").replace(doubleHack, "\\\\");
+        String out = regexp;
+        String safeHavenMarker = "@SOMETHING_THAT_should_NOT_appear_in_regular-Expressions@";
+
+        // Backslashes need to be doubled
+        out = out.replace("\\\\", safeHavenMarker).replace("\\", "\\\\").replace(safeHavenMarker, "\\\\");
+
+        // Quotes must be protected
+        out = out.replace("\\\"", safeHavenMarker).replace("\"", "\\\"").replace(safeHavenMarker, "\\\"");
+
+        return out;
     }
 
     /**
