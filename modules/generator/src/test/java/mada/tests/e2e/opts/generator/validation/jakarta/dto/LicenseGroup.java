@@ -145,10 +145,10 @@ public class LicenseGroup {
       return true;
     }
     if (o instanceof LicenseGroup other) {
-	    return Objects.equals(this.licenses, other.licenses) &&
-	        Objects.equals(this.numbers, other.numbers) &&
-	        Objects.equals(this.requiredLicenses, other.requiredLicenses) &&
-	        Objects.equals(this.strings, other.strings);
+      return Objects.equals(this.licenses, other.licenses) &&
+              Objects.equals(this.numbers, other.numbers) &&
+              Objects.equals(this.requiredLicenses, other.requiredLicenses) &&
+              Objects.equals(this.strings, other.strings);
     }
     return false;
   }

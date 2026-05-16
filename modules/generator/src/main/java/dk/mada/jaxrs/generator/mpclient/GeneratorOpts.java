@@ -165,7 +165,7 @@ public final class GeneratorOpts {
 
     /** {@return true if rendering of equals should use pattern-matching} */
     public boolean isUseEqualsPatternMatching() {
-    	// No separate switch since it is available from Java 14 (and thus both in 21 and 25)
+        // No separate switch since it is available from Java 14 (and thus both in 21 and 25)
         return isJakarta();
     }
 

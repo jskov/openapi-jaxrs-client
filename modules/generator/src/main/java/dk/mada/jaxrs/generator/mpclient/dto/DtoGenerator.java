@@ -269,6 +269,7 @@ public class DtoGenerator {
                 .schemaOptions(schemaOptions)
                 .implementsInterfaces(implementsInterfaces)
                 .isEqualsPrimitive(ds.isPrimitiveEquals())
+                .isEqualsPatternMatching(opts.isUseEqualsPatternMatching())
                 .quarkusRegisterForReflection(opts.isUseRegisterForReflection())
                 .varsOpenapiOrder(ds.ctxPropsOpenApiOrder())
                 .classModifiers(Optional.ofNullable(classModifiers))

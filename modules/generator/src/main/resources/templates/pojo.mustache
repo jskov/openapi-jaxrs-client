@@ -215,14 +215,29 @@ public {{madaDto.classModifiers}}class {{classname}}{{#parent}} extends {{{.}}}{
     if (this == o) {
       return true;
     }
+    {{#madaDto.isEqualsPatternMatching}}
+    if (o instanceof {{classname}} {{classVarName}}) {
+      {{#hasVars}}
+      return {{#vars}}{{^madaProp.isByteArray}}Objects{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays{{/madaProp.isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{^-last}} &&
+              {{/-last}}{{/vars}}{{#parent}} &&
+              super.equals(o){{/parent}};
+      {{/hasVars}}
+      {{^hasVars}}
+      return true;
+      {{/hasVars}}
+    }
+    return false;
+    {{/madaDto.isEqualsPatternMatching}}
+    {{^madaDto.isEqualsPatternMatching}}
     if (!(o instanceof {{classname}})) {
       return false;
-    }{{#hasVars}}
-    {{classname}} {{classVarName}} = ({{classname}}) o;
+    }
+    {{classname}} {{classVarName}} = ({{classname}}) o;{{#hasVars}}
     return {{#vars}}{{^madaProp.isByteArray}}Objects{{/madaProp.isByteArray}}{{#madaProp.isByteArray}}Arrays{{/madaProp.isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{^-last}} &&
         {{/-last}}{{/vars}}{{#parent}} &&
         super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
     return true;{{/hasVars}}
+    {{/madaDto.isEqualsPatternMatching}}
   }
 
   @Override

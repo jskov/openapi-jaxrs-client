@@ -44,7 +44,7 @@ public class ZLicense {
       return true;
     }
     if (o instanceof ZLicense other) {
-    	return Objects.equals(this.uuid, other.uuid);
+      return Objects.equals(this.uuid, other.uuid);
     }
     return false;
   }
