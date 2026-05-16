@@ -103,8 +103,8 @@ public final class GeneratorOpts {
         String value = or.getDefault("generator-dto-records-use-builder", "none");
         RecordBuilderControl control = RecordBuilderControl.from(value);
         recordBuilderPredicate = switch (control) {
-            case ALL -> tn -> true;
-            case NONE -> tn -> false;
+            case ALL -> _ -> true;
+            case NONE -> _ -> false;
             case NAMED -> predicateFromNamed(value);
         };
     }
@@ -161,6 +161,12 @@ public final class GeneratorOpts {
     /** {@return true if rendering for jakarta, false if rendering for javax} */
     public boolean isJakarta() {
         return useJakarta;
+    }
+
+    /** {@return true if rendering of equals should use pattern-matching} */
+    public boolean isUseEqualsPatternMatching() {
+    	// No separate switch since it is available from Java 14 (and thus both in 21 and 25)
+        return isJakarta();
     }
 
     /** {@return true if rendering with jspecify annotations} */
