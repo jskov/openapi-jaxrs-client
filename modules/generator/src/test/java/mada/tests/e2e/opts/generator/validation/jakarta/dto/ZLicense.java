@@ -43,11 +43,10 @@ public class ZLicense {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ZLicense)) {
-      return false;
+    if (o instanceof ZLicense other) {
+    	return Objects.equals(this.uuid, other.uuid);
     }
-    ZLicense other = (ZLicense) o;
-    return Objects.equals(this.uuid, other.uuid);
+    return false;
   }
 
   @Override
