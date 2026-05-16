@@ -172,16 +172,15 @@ public class RestGpgKey {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestGpgKey)) {
-      return false;
+    if (o instanceof RestGpgKey other) {
+      return Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.expiryDate, other.expiryDate) &&
+              Objects.equals(this.fingerprint, other.fingerprint) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.subKeys, other.subKeys) &&
+              Objects.equals(this.text, other.text);
     }
-    RestGpgKey other = (RestGpgKey) o;
-    return Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.expiryDate, other.expiryDate) &&
-        Objects.equals(this.fingerprint, other.fingerprint) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.subKeys, other.subKeys) &&
-        Objects.equals(this.text, other.text);
+    return false;
   }
 
   @Override

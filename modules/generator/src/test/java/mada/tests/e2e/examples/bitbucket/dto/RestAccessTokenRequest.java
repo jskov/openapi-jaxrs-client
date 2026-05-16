@@ -104,13 +104,12 @@ public class RestAccessTokenRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAccessTokenRequest)) {
-      return false;
+    if (o instanceof RestAccessTokenRequest other) {
+      return Objects.equals(this.expiryDays, other.expiryDays) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.permissions, other.permissions);
     }
-    RestAccessTokenRequest other = (RestAccessTokenRequest) o;
-    return Objects.equals(this.expiryDays, other.expiryDays) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.permissions, other.permissions);
+    return false;
   }
 
   @Override

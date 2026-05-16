@@ -243,17 +243,16 @@ public class RestMirroredRepository {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirroredRepository)) {
-      return false;
+    if (o instanceof RestMirroredRepository other) {
+      return Objects.equals(this.available, other.available) &&
+              Objects.equals(this.cloneUrls, other.cloneUrls) &&
+              Objects.equals(this.lastUpdated, other.lastUpdated) &&
+              Objects.equals(this.mirrorName, other.mirrorName) &&
+              Objects.equals(this.pushUrls, other.pushUrls) &&
+              Objects.equals(this.repositoryId, other.repositoryId) &&
+              Objects.equals(this.status, other.status);
     }
-    RestMirroredRepository other = (RestMirroredRepository) o;
-    return Objects.equals(this.available, other.available) &&
-        Objects.equals(this.cloneUrls, other.cloneUrls) &&
-        Objects.equals(this.lastUpdated, other.lastUpdated) &&
-        Objects.equals(this.mirrorName, other.mirrorName) &&
-        Objects.equals(this.pushUrls, other.pushUrls) &&
-        Objects.equals(this.repositoryId, other.repositoryId) &&
-        Objects.equals(this.status, other.status);
+    return false;
   }
 
   @Override

@@ -215,18 +215,17 @@ public class ExampleJsonLastModifiedCallbackPomXml {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleJsonLastModifiedCallbackPomXml)) {
-      return false;
+    if (o instanceof ExampleJsonLastModifiedCallbackPomXml other) {
+      return Objects.equals(this.author, other.author) &&
+              Objects.equals(this.authorTimestamp, other.authorTimestamp) &&
+              Objects.equals(this.committer, other.committer) &&
+              Objects.equals(this.committerTimestamp, other.committerTimestamp) &&
+              Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.parents, other.parents);
     }
-    ExampleJsonLastModifiedCallbackPomXml other = (ExampleJsonLastModifiedCallbackPomXml) o;
-    return Objects.equals(this.author, other.author) &&
-        Objects.equals(this.authorTimestamp, other.authorTimestamp) &&
-        Objects.equals(this.committer, other.committer) &&
-        Objects.equals(this.committerTimestamp, other.committerTimestamp) &&
-        Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.parents, other.parents);
+    return false;
   }
 
   @Override

@@ -229,17 +229,16 @@ public class RestMeshNode {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMeshNode)) {
-      return false;
+    if (o instanceof RestMeshNode other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.lastSeenDate, other.lastSeenDate) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.offline, other.offline) &&
+              Objects.equals(this.rpcId, other.rpcId) &&
+              Objects.equals(this.rpcUrl, other.rpcUrl) &&
+              Objects.equals(this.state, other.state);
     }
-    RestMeshNode other = (RestMeshNode) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.lastSeenDate, other.lastSeenDate) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.offline, other.offline) &&
-        Objects.equals(this.rpcId, other.rpcId) &&
-        Objects.equals(this.rpcUrl, other.rpcUrl) &&
-        Objects.equals(this.state, other.state);
+    return false;
   }
 
   @Override

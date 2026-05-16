@@ -117,12 +117,11 @@ public class RestDefaultReviewersRequestSourceMatcherType {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDefaultReviewersRequestSourceMatcherType)) {
-      return false;
+    if (o instanceof RestDefaultReviewersRequestSourceMatcherType other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name);
     }
-    RestDefaultReviewersRequestSourceMatcherType other = (RestDefaultReviewersRequestSourceMatcherType) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

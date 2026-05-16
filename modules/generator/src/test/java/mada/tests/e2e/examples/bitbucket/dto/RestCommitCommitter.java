@@ -94,13 +94,12 @@ public class RestCommitCommitter {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommitCommitter)) {
-      return false;
+    if (o instanceof RestCommitCommitter other) {
+      return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.name, other.name);
     }
-    RestCommitCommitter other = (RestCommitCommitter) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

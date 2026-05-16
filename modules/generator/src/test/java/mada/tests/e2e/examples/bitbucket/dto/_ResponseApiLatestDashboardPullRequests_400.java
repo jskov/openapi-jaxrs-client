@@ -60,11 +60,10 @@ public class _ResponseApiLatestDashboardPullRequests_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestDashboardPullRequests_400)) {
-      return false;
+    if (o instanceof _ResponseApiLatestDashboardPullRequests_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestDashboardPullRequests_400 other = (_ResponseApiLatestDashboardPullRequests_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -91,13 +91,12 @@ public class ApiResponse {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ApiResponse)) {
-      return false;
+    if (o instanceof ApiResponse other) {
+      return Objects.equals(this.code, other.code) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.type, other.type);
     }
-    ApiResponse other = (ApiResponse) o;
-    return Objects.equals(this.code, other.code) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

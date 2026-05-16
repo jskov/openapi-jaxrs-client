@@ -98,13 +98,12 @@ public class RestSecretScanningRuleSetRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSecretScanningRuleSetRequest)) {
-      return false;
+    if (o instanceof RestSecretScanningRuleSetRequest other) {
+      return Objects.equals(this.lineRegex, other.lineRegex) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.pathRegex, other.pathRegex);
     }
-    RestSecretScanningRuleSetRequest other = (RestSecretScanningRuleSetRequest) o;
-    return Objects.equals(this.lineRegex, other.lineRegex) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.pathRegex, other.pathRegex);
+    return false;
   }
 
   @Override

@@ -94,13 +94,12 @@ public class ExampleJsonLastModifiedCallbackLatestCommitCommitter {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleJsonLastModifiedCallbackLatestCommitCommitter)) {
-      return false;
+    if (o instanceof ExampleJsonLastModifiedCallbackLatestCommitCommitter other) {
+      return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.name, other.name);
     }
-    ExampleJsonLastModifiedCallbackLatestCommitCommitter other = (ExampleJsonLastModifiedCallbackLatestCommitCommitter) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

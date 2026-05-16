@@ -184,15 +184,14 @@ public class RestProjectSettingsRestriction {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestProjectSettingsRestriction)) {
-      return false;
+    if (o instanceof RestProjectSettingsRestriction other) {
+      return Objects.equals(this.componentKey, other.componentKey) &&
+              Objects.equals(this.featureKey, other.featureKey) &&
+              Objects.equals(this.namespace, other.namespace) &&
+              Objects.equals(this.processedState, other.processedState) &&
+              Objects.equals(this.project, other.project);
     }
-    RestProjectSettingsRestriction other = (RestProjectSettingsRestriction) o;
-    return Objects.equals(this.componentKey, other.componentKey) &&
-        Objects.equals(this.featureKey, other.featureKey) &&
-        Objects.equals(this.namespace, other.namespace) &&
-        Objects.equals(this.processedState, other.processedState) &&
-        Objects.equals(this.project, other.project);
+    return false;
   }
 
   @Override

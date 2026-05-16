@@ -73,12 +73,11 @@ public class RestRepositoryPullRequestSettingsRequiredApprovers {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryPullRequestSettingsRequiredApprovers)) {
-      return false;
+    if (o instanceof RestRepositoryPullRequestSettingsRequiredApprovers other) {
+      return Objects.equals(this.count, other.count) &&
+              Objects.equals(this.enabled, other.enabled);
     }
-    RestRepositoryPullRequestSettingsRequiredApprovers other = (RestRepositoryPullRequestSettingsRequiredApprovers) o;
-    return Objects.equals(this.count, other.count) &&
-        Objects.equals(this.enabled, other.enabled);
+    return false;
   }
 
   @Override

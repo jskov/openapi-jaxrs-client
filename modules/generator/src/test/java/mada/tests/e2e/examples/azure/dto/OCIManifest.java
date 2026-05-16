@@ -100,13 +100,12 @@ public class OCIManifest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof OCIManifest)) {
-      return false;
+    if (o instanceof OCIManifest other) {
+      return Objects.equals(this.annotations, other.annotations) &&
+              Objects.equals(this.config, other.config) &&
+              Objects.equals(this.layers, other.layers);
     }
-    OCIManifest other = (OCIManifest) o;
-    return Objects.equals(this.annotations, other.annotations) &&
-        Objects.equals(this.config, other.config) &&
-        Objects.equals(this.layers, other.layers);
+    return false;
   }
 
   @Override

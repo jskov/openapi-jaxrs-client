@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminLicense_409 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminLicense_409)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminLicense_409 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminLicense_409 other = (_ResponseApiLatestAdminLicense_409) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

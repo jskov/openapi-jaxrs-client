@@ -262,20 +262,19 @@ public class ManifestAttributesBase {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ManifestAttributesBase)) {
-      return false;
+    if (o instanceof ManifestAttributesBase other) {
+      return Objects.equals(this.architecture, other.architecture) &&
+              Objects.equals(this.changeableAttributes, other.changeableAttributes) &&
+              Objects.equals(this.configMediaType, other.configMediaType) &&
+              Objects.equals(this.createdTime, other.createdTime) &&
+              Objects.equals(this.digest, other.digest) &&
+              Objects.equals(this.imageSize, other.imageSize) &&
+              Objects.equals(this.lastUpdateTime, other.lastUpdateTime) &&
+              Objects.equals(this.mediaType, other.mediaType) &&
+              Objects.equals(this.os, other.os) &&
+              Objects.equals(this.tags, other.tags);
     }
-    ManifestAttributesBase other = (ManifestAttributesBase) o;
-    return Objects.equals(this.architecture, other.architecture) &&
-        Objects.equals(this.changeableAttributes, other.changeableAttributes) &&
-        Objects.equals(this.configMediaType, other.configMediaType) &&
-        Objects.equals(this.createdTime, other.createdTime) &&
-        Objects.equals(this.digest, other.digest) &&
-        Objects.equals(this.imageSize, other.imageSize) &&
-        Objects.equals(this.lastUpdateTime, other.lastUpdateTime) &&
-        Objects.equals(this.mediaType, other.mediaType) &&
-        Objects.equals(this.os, other.os) &&
-        Objects.equals(this.tags, other.tags);
+    return false;
   }
 
   @Override

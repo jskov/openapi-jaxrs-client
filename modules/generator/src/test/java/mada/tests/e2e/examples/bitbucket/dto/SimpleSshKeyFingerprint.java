@@ -70,12 +70,11 @@ public class SimpleSshKeyFingerprint {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof SimpleSshKeyFingerprint)) {
-      return false;
+    if (o instanceof SimpleSshKeyFingerprint other) {
+      return Objects.equals(this.algorithm, other.algorithm) &&
+              Objects.equals(this.value, other.value);
     }
-    SimpleSshKeyFingerprint other = (SimpleSshKeyFingerprint) o;
-    return Objects.equals(this.algorithm, other.algorithm) &&
-        Objects.equals(this.value, other.value);
+    return false;
   }
 
   @Override

@@ -45,11 +45,10 @@ public class History {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof History)) {
-      return false;
+    if (o instanceof History other) {
+      return Objects.equals(this.v1Compatibility, other.v1Compatibility);
     }
-    History other = (History) o;
-    return Objects.equals(this.v1Compatibility, other.v1Compatibility);
+    return false;
   }
 
   @Override

@@ -95,13 +95,12 @@ public class EnrichedRepositoryProperties {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof EnrichedRepositoryProperties)) {
-      return false;
+    if (o instanceof EnrichedRepositoryProperties other) {
+      return Objects.equals(this.contentHash, other.contentHash) &&
+              Objects.equals(this.defaultBranchId, other.defaultBranchId) &&
+              Objects.equals(this.metadataHash, other.metadataHash);
     }
-    EnrichedRepositoryProperties other = (EnrichedRepositoryProperties) o;
-    return Objects.equals(this.contentHash, other.contentHash) &&
-        Objects.equals(this.defaultBranchId, other.defaultBranchId) &&
-        Objects.equals(this.metadataHash, other.metadataHash);
+    return false;
   }
 
   @Override

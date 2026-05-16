@@ -73,12 +73,11 @@ public class RestClusterNodeAddress {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestClusterNodeAddress)) {
-      return false;
+    if (o instanceof RestClusterNodeAddress other) {
+      return Objects.equals(this.address, other.address) &&
+              Objects.equals(this.port, other.port);
     }
-    RestClusterNodeAddress other = (RestClusterNodeAddress) o;
-    return Objects.equals(this.address, other.address) &&
-        Objects.equals(this.port, other.port);
+    return false;
   }
 
   @Override

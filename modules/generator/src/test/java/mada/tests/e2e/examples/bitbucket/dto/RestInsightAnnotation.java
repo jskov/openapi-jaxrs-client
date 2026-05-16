@@ -205,18 +205,17 @@ public class RestInsightAnnotation {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestInsightAnnotation)) {
-      return false;
+    if (o instanceof RestInsightAnnotation other) {
+      return Objects.equals(this.externalId, other.externalId) &&
+              Objects.equals(this.line, other.line) &&
+              Objects.equals(this.link, other.link) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.path, other.path) &&
+              Objects.equals(this.reportKey, other.reportKey) &&
+              Objects.equals(this.severity, other.severity) &&
+              Objects.equals(this.type, other.type);
     }
-    RestInsightAnnotation other = (RestInsightAnnotation) o;
-    return Objects.equals(this.externalId, other.externalId) &&
-        Objects.equals(this.line, other.line) &&
-        Objects.equals(this.link, other.link) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.path, other.path) &&
-        Objects.equals(this.reportKey, other.reportKey) &&
-        Objects.equals(this.severity, other.severity) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

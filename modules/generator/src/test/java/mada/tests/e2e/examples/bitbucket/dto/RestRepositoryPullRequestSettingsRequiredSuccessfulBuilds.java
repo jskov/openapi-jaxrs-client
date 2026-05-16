@@ -73,12 +73,11 @@ public class RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds)) {
-      return false;
+    if (o instanceof RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds other) {
+      return Objects.equals(this.count, other.count) &&
+              Objects.equals(this.enabled, other.enabled);
     }
-    RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds other = (RestRepositoryPullRequestSettingsRequiredSuccessfulBuilds) o;
-    return Objects.equals(this.count, other.count) &&
-        Objects.equals(this.enabled, other.enabled);
+    return false;
   }
 
   @Override

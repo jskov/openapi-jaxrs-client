@@ -361,25 +361,24 @@ public class RestBitbucketLicense {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBitbucketLicense)) {
-      return false;
+    if (o instanceof RestBitbucketLicense other) {
+      return Objects.equals(this.creationDate, other.creationDate) &&
+              Objects.equals(this.daysBeforeExpiry, other.daysBeforeExpiry) &&
+              Objects.equals(this.expiryDate, other.expiryDate) &&
+              Objects.equals(this.gracePeriodEndDate, other.gracePeriodEndDate) &&
+              Objects.equals(this.license, other.license) &&
+              Objects.equals(this.maintenanceExpiryDate, other.maintenanceExpiryDate) &&
+              Objects.equals(this.maximumNumberOfUsers, other.maximumNumberOfUsers) &&
+              Objects.equals(this.numberOfDaysBeforeExpiry, other.numberOfDaysBeforeExpiry) &&
+              Objects.equals(this.numberOfDaysBeforeGracePeriodExpiry, other.numberOfDaysBeforeGracePeriodExpiry) &&
+              Objects.equals(this.numberOfDaysBeforeMaintenanceExpiry, other.numberOfDaysBeforeMaintenanceExpiry) &&
+              Objects.equals(this.purchaseDate, other.purchaseDate) &&
+              Objects.equals(this.serverId, other.serverId) &&
+              Objects.equals(this.status, other.status) &&
+              Objects.equals(this.supportEntitlementNumber, other.supportEntitlementNumber) &&
+              Objects.equals(this.unlimitedNumberOfUsers, other.unlimitedNumberOfUsers);
     }
-    RestBitbucketLicense other = (RestBitbucketLicense) o;
-    return Objects.equals(this.creationDate, other.creationDate) &&
-        Objects.equals(this.daysBeforeExpiry, other.daysBeforeExpiry) &&
-        Objects.equals(this.expiryDate, other.expiryDate) &&
-        Objects.equals(this.gracePeriodEndDate, other.gracePeriodEndDate) &&
-        Objects.equals(this.license, other.license) &&
-        Objects.equals(this.maintenanceExpiryDate, other.maintenanceExpiryDate) &&
-        Objects.equals(this.maximumNumberOfUsers, other.maximumNumberOfUsers) &&
-        Objects.equals(this.numberOfDaysBeforeExpiry, other.numberOfDaysBeforeExpiry) &&
-        Objects.equals(this.numberOfDaysBeforeGracePeriodExpiry, other.numberOfDaysBeforeGracePeriodExpiry) &&
-        Objects.equals(this.numberOfDaysBeforeMaintenanceExpiry, other.numberOfDaysBeforeMaintenanceExpiry) &&
-        Objects.equals(this.purchaseDate, other.purchaseDate) &&
-        Objects.equals(this.serverId, other.serverId) &&
-        Objects.equals(this.status, other.status) &&
-        Objects.equals(this.supportEntitlementNumber, other.supportEntitlementNumber) &&
-        Objects.equals(this.unlimitedNumberOfUsers, other.unlimitedNumberOfUsers);
+    return false;
   }
 
   @Override

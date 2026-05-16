@@ -127,14 +127,13 @@ public class RestDefaultReviewersRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDefaultReviewersRequest)) {
-      return false;
+    if (o instanceof RestDefaultReviewersRequest other) {
+      return Objects.equals(this.requiredApprovals, other.requiredApprovals) &&
+              Objects.equals(this.reviewers, other.reviewers) &&
+              Objects.equals(this.sourceMatcher, other.sourceMatcher) &&
+              Objects.equals(this.targetMatcher, other.targetMatcher);
     }
-    RestDefaultReviewersRequest other = (RestDefaultReviewersRequest) o;
-    return Objects.equals(this.requiredApprovals, other.requiredApprovals) &&
-        Objects.equals(this.reviewers, other.reviewers) &&
-        Objects.equals(this.sourceMatcher, other.sourceMatcher) &&
-        Objects.equals(this.targetMatcher, other.targetMatcher);
+    return false;
   }
 
   @Override

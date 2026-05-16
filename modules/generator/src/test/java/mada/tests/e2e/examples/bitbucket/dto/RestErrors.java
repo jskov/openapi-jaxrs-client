@@ -60,11 +60,10 @@ public class RestErrors {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestErrors)) {
-      return false;
+    if (o instanceof RestErrors other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    RestErrors other = (RestErrors) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

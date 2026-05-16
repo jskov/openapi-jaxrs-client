@@ -60,11 +60,10 @@ public class _ResponseApiLatestMigrationImportsJobId_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestMigrationImportsJobId_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestMigrationImportsJobId_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestMigrationImportsJobId_401 other = (_ResponseApiLatestMigrationImportsJobId_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

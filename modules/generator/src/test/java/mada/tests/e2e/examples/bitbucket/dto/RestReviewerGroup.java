@@ -169,16 +169,15 @@ public class RestReviewerGroup {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestReviewerGroup)) {
-      return false;
+    if (o instanceof RestReviewerGroup other) {
+      return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.users, other.users);
     }
-    RestReviewerGroup other = (RestReviewerGroup) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.users, other.users);
+    return false;
   }
 
   @Override

@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminCluster_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminCluster_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminCluster_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminCluster_401 other = (_ResponseApiLatestAdminCluster_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

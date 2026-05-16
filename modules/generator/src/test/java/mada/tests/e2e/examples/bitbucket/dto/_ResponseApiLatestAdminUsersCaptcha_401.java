@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminUsersCaptcha_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminUsersCaptcha_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminUsersCaptcha_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminUsersCaptcha_401 other = (_ResponseApiLatestAdminUsersCaptcha_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

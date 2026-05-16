@@ -70,12 +70,11 @@ public class Tag {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Tag)) {
-      return false;
+    if (o instanceof Tag other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name);
     }
-    Tag other = (Tag) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

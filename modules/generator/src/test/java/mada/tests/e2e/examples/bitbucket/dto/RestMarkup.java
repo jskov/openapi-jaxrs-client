@@ -51,11 +51,10 @@ public class RestMarkup {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMarkup)) {
-      return false;
+    if (o instanceof RestMarkup other) {
+      return Objects.equals(this.html, other.html);
     }
-    RestMarkup other = (RestMarkup) o;
-    return Objects.equals(this.html, other.html);
+    return false;
   }
 
   @Override

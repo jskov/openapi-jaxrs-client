@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHook
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_404 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsHooksHookKeySettings_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

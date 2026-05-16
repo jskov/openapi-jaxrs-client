@@ -145,13 +145,12 @@ public class RestPullRequestMergeability {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestMergeability)) {
-      return false;
+    if (o instanceof RestPullRequestMergeability other) {
+      return Objects.equals(this.conflicted, other.conflicted) &&
+              Objects.equals(this.outcome, other.outcome) &&
+              Objects.equals(this.vetoes, other.vetoes);
     }
-    RestPullRequestMergeability other = (RestPullRequestMergeability) o;
-    return Objects.equals(this.conflicted, other.conflicted) &&
-        Objects.equals(this.outcome, other.outcome) &&
-        Objects.equals(this.vetoes, other.vetoes);
+    return false;
   }
 
   @Override

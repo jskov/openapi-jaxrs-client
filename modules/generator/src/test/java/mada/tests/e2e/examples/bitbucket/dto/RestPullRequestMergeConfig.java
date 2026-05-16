@@ -148,15 +148,14 @@ public class RestPullRequestMergeConfig {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestMergeConfig)) {
-      return false;
+    if (o instanceof RestPullRequestMergeConfig other) {
+      return Objects.equals(this.commitMessageTemplate, other.commitMessageTemplate) &&
+              Objects.equals(this.commitSummaries, other.commitSummaries) &&
+              Objects.equals(this.defaultStrategy, other.defaultStrategy) &&
+              Objects.equals(this.strategies, other.strategies) &&
+              Objects.equals(this.type, other.type);
     }
-    RestPullRequestMergeConfig other = (RestPullRequestMergeConfig) o;
-    return Objects.equals(this.commitMessageTemplate, other.commitMessageTemplate) &&
-        Objects.equals(this.commitSummaries, other.commitSummaries) &&
-        Objects.equals(this.defaultStrategy, other.defaultStrategy) &&
-        Objects.equals(this.strategies, other.strategies) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

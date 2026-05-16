@@ -60,11 +60,10 @@ public class _ResponsePoliciesLatestAdminReposDelete_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponsePoliciesLatestAdminReposDelete_400)) {
-      return false;
+    if (o instanceof _ResponsePoliciesLatestAdminReposDelete_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponsePoliciesLatestAdminReposDelete_400 other = (_ResponsePoliciesLatestAdminReposDelete_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

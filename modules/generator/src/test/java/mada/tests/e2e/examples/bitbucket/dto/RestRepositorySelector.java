@@ -73,12 +73,11 @@ public class RestRepositorySelector {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositorySelector)) {
-      return false;
+    if (o instanceof RestRepositorySelector other) {
+      return Objects.equals(this.projectKey, other.projectKey) &&
+              Objects.equals(this.slug, other.slug);
     }
-    RestRepositorySelector other = (RestRepositorySelector) o;
-    return Objects.equals(this.projectKey, other.projectKey) &&
-        Objects.equals(this.slug, other.slug);
+    return false;
   }
 
   @Override

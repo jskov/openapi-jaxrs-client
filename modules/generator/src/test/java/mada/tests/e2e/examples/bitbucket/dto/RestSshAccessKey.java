@@ -169,14 +169,13 @@ public class RestSshAccessKey {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshAccessKey)) {
-      return false;
+    if (o instanceof RestSshAccessKey other) {
+      return Objects.equals(this.key, other.key) &&
+              Objects.equals(this.permission, other.permission) &&
+              Objects.equals(this.project, other.project) &&
+              Objects.equals(this.repository, other.repository);
     }
-    RestSshAccessKey other = (RestSshAccessKey) o;
-    return Objects.equals(this.key, other.key) &&
-        Objects.equals(this.permission, other.permission) &&
-        Objects.equals(this.project, other.project) &&
-        Objects.equals(this.repository, other.repository);
+    return false;
   }
 
   @Override

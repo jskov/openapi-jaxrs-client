@@ -182,15 +182,14 @@ public class RestRefChange {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefChange)) {
-      return false;
+    if (o instanceof RestRefChange other) {
+      return Objects.equals(this.fromHash, other.fromHash) &&
+              Objects.equals(this.ref, other.ref) &&
+              Objects.equals(this.refId, other.refId) &&
+              Objects.equals(this.toHash, other.toHash) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRefChange other = (RestRefChange) o;
-    return Objects.equals(this.fromHash, other.fromHash) &&
-        Objects.equals(this.ref, other.ref) &&
-        Objects.equals(this.refId, other.refId) &&
-        Objects.equals(this.toHash, other.toHash) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

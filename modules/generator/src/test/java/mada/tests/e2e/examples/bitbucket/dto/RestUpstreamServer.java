@@ -222,15 +222,14 @@ public class RestUpstreamServer {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUpstreamServer)) {
-      return false;
+    if (o instanceof RestUpstreamServer other) {
+      return Objects.equals(this.apiBaseUrl, other.apiBaseUrl) &&
+              Objects.equals(this.baseUrl, other.baseUrl) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.type, other.type);
     }
-    RestUpstreamServer other = (RestUpstreamServer) o;
-    return Objects.equals(this.apiBaseUrl, other.apiBaseUrl) &&
-        Objects.equals(this.baseUrl, other.baseUrl) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

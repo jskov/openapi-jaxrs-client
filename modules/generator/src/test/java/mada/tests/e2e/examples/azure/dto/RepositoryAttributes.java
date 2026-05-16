@@ -183,17 +183,16 @@ public class RepositoryAttributes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RepositoryAttributes)) {
-      return false;
+    if (o instanceof RepositoryAttributes other) {
+      return Objects.equals(this.changeableAttributes, other.changeableAttributes) &&
+              Objects.equals(this.createdTime, other.createdTime) &&
+              Objects.equals(this.imageName, other.imageName) &&
+              Objects.equals(this.lastUpdateTime, other.lastUpdateTime) &&
+              Objects.equals(this.manifestCount, other.manifestCount) &&
+              Objects.equals(this.registry, other.registry) &&
+              Objects.equals(this.tagCount, other.tagCount);
     }
-    RepositoryAttributes other = (RepositoryAttributes) o;
-    return Objects.equals(this.changeableAttributes, other.changeableAttributes) &&
-        Objects.equals(this.createdTime, other.createdTime) &&
-        Objects.equals(this.imageName, other.imageName) &&
-        Objects.equals(this.lastUpdateTime, other.lastUpdateTime) &&
-        Objects.equals(this.manifestCount, other.manifestCount) &&
-        Objects.equals(this.registry, other.registry) &&
-        Objects.equals(this.tagCount, other.tagCount);
+    return false;
   }
 
   @Override

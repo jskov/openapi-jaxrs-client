@@ -102,13 +102,12 @@ public class AcrManifests {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof AcrManifests)) {
-      return false;
+    if (o instanceof AcrManifests other) {
+      return Objects.equals(this.imageName, other.imageName) &&
+              Objects.equals(this.manifests, other.manifests) &&
+              Objects.equals(this.registry, other.registry);
     }
-    AcrManifests other = (AcrManifests) o;
-    return Objects.equals(this.imageName, other.imageName) &&
-        Objects.equals(this.manifests, other.manifests) &&
-        Objects.equals(this.registry, other.registry);
+    return false;
   }
 
   @Override

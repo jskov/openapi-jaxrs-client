@@ -140,13 +140,12 @@ public class RestConflictOurChange {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestConflictOurChange)) {
-      return false;
+    if (o instanceof RestConflictOurChange other) {
+      return Objects.equals(this.path, other.path) &&
+              Objects.equals(this.srcPath, other.srcPath) &&
+              Objects.equals(this.type, other.type);
     }
-    RestConflictOurChange other = (RestConflictOurChange) o;
-    return Objects.equals(this.path, other.path) &&
-        Objects.equals(this.srcPath, other.srcPath) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

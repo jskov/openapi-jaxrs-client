@@ -103,13 +103,12 @@ public class RestBulkUserRateLimitSettingsUpdateRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBulkUserRateLimitSettingsUpdateRequest)) {
-      return false;
+    if (o instanceof RestBulkUserRateLimitSettingsUpdateRequest other) {
+      return Objects.equals(this.settings, other.settings) &&
+              Objects.equals(this.usernames, other.usernames) &&
+              Objects.equals(this.whitelisted, other.whitelisted);
     }
-    RestBulkUserRateLimitSettingsUpdateRequest other = (RestBulkUserRateLimitSettingsUpdateRequest) o;
-    return Objects.equals(this.settings, other.settings) &&
-        Objects.equals(this.usernames, other.usernames) &&
-        Objects.equals(this.whitelisted, other.whitelisted);
+    return false;
   }
 
   @Override

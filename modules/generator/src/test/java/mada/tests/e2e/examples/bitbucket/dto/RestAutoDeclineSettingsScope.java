@@ -115,12 +115,11 @@ public class RestAutoDeclineSettingsScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoDeclineSettingsScope)) {
-      return false;
+    if (o instanceof RestAutoDeclineSettingsScope other) {
+      return Objects.equals(this.resourceId, other.resourceId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestAutoDeclineSettingsScope other = (RestAutoDeclineSettingsScope) o;
-    return Objects.equals(this.resourceId, other.resourceId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

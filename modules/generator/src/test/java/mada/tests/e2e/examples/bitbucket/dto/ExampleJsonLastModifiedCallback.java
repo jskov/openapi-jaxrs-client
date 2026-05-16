@@ -95,13 +95,12 @@ public class ExampleJsonLastModifiedCallback {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleJsonLastModifiedCallback)) {
-      return false;
+    if (o instanceof ExampleJsonLastModifiedCallback other) {
+      return Objects.equals(this.latestCommit, other.latestCommit) &&
+              Objects.equals(this.pomXml, other.pomXml) &&
+              Objects.equals(this.readmeMd, other.readmeMd);
     }
-    ExampleJsonLastModifiedCallback other = (ExampleJsonLastModifiedCallback) o;
-    return Objects.equals(this.latestCommit, other.latestCommit) &&
-        Objects.equals(this.pomXml, other.pomXml) &&
-        Objects.equals(this.readmeMd, other.readmeMd);
+    return false;
   }
 
   @Override

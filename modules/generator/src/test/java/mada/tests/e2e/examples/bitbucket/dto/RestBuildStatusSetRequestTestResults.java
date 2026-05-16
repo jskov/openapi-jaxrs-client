@@ -95,13 +95,12 @@ public class RestBuildStatusSetRequestTestResults {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBuildStatusSetRequestTestResults)) {
-      return false;
+    if (o instanceof RestBuildStatusSetRequestTestResults other) {
+      return Objects.equals(this.failed, other.failed) &&
+              Objects.equals(this.skipped, other.skipped) &&
+              Objects.equals(this.successful, other.successful);
     }
-    RestBuildStatusSetRequestTestResults other = (RestBuildStatusSetRequestTestResults) o;
-    return Objects.equals(this.failed, other.failed) &&
-        Objects.equals(this.skipped, other.skipped) &&
-        Objects.equals(this.successful, other.successful);
+    return false;
   }
 
   @Override

@@ -314,21 +314,20 @@ public class RestUserReactionCommentParentAnchorPullRequestToRefRepositoryOrigin
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUserReactionCommentParentAnchorPullRequestToRefRepositoryOriginProject)) {
-      return false;
+    if (o instanceof RestUserReactionCommentParentAnchorPullRequestToRefRepositoryOriginProject other) {
+      return Objects.equals(this.avatar, other.avatar) &&
+              Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.key, other.key) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.namespace, other.namespace) &&
+              Objects.equals(this.public_, other.public_) &&
+              Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.type, other.type);
     }
-    RestUserReactionCommentParentAnchorPullRequestToRefRepositoryOriginProject other = (RestUserReactionCommentParentAnchorPullRequestToRefRepositoryOriginProject) o;
-    return Objects.equals(this.avatar, other.avatar) &&
-        Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.namespace, other.namespace) &&
-        Objects.equals(this.public_, other.public_) &&
-        Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

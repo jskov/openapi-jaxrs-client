@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequests
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_401 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugPullRequestsPullRequestIdBlockerComments_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

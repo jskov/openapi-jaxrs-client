@@ -95,13 +95,12 @@ public class RestCreateBranchRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCreateBranchRequest)) {
-      return false;
+    if (o instanceof RestCreateBranchRequest other) {
+      return Objects.equals(this.message, other.message) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.startPoint, other.startPoint);
     }
-    RestCreateBranchRequest other = (RestCreateBranchRequest) o;
-    return Objects.equals(this.message, other.message) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.startPoint, other.startPoint);
+    return false;
   }
 
   @Override

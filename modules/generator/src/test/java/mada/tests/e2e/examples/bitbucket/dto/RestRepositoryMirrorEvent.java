@@ -136,13 +136,12 @@ public class RestRepositoryMirrorEvent {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryMirrorEvent)) {
-      return false;
+    if (o instanceof RestRepositoryMirrorEvent other) {
+      return Objects.equals(this.mirrorRepoId, other.mirrorRepoId) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.upstreamRepoId, other.upstreamRepoId);
     }
-    RestRepositoryMirrorEvent other = (RestRepositoryMirrorEvent) o;
-    return Objects.equals(this.mirrorRepoId, other.mirrorRepoId) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.upstreamRepoId, other.upstreamRepoId);
+    return false;
   }
 
   @Override

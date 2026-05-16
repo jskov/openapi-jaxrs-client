@@ -60,11 +60,10 @@ public class RestRefSyncQueue {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRefSyncQueue)) {
-      return false;
+    if (o instanceof RestRefSyncQueue other) {
+      return Objects.equals(this.values, other.values);
     }
-    RestRefSyncQueue other = (RestRefSyncQueue) o;
-    return Objects.equals(this.values, other.values);
+    return false;
   }
 
   @Override

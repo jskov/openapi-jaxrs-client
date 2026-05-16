@@ -280,19 +280,18 @@ public class RestInsightReport {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestInsightReport)) {
-      return false;
+    if (o instanceof RestInsightReport other) {
+      return Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.data, other.data) &&
+              Objects.equals(this.details, other.details) &&
+              Objects.equals(this.key, other.key) &&
+              Objects.equals(this.link, other.link) &&
+              Objects.equals(this.logoUrl, other.logoUrl) &&
+              Objects.equals(this.reporter, other.reporter) &&
+              Objects.equals(this.result, other.result) &&
+              Objects.equals(this.title, other.title);
     }
-    RestInsightReport other = (RestInsightReport) o;
-    return Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.data, other.data) &&
-        Objects.equals(this.details, other.details) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.link, other.link) &&
-        Objects.equals(this.logoUrl, other.logoUrl) &&
-        Objects.equals(this.reporter, other.reporter) &&
-        Objects.equals(this.result, other.result) &&
-        Objects.equals(this.title, other.title);
+    return false;
   }
 
   @Override

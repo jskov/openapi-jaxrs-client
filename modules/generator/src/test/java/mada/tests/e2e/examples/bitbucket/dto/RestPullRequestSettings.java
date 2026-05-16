@@ -51,11 +51,10 @@ public class RestPullRequestSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestSettings)) {
-      return false;
+    if (o instanceof RestPullRequestSettings other) {
+      return Objects.equals(this.mergeConfig, other.mergeConfig);
     }
-    RestPullRequestSettings other = (RestPullRequestSettings) o;
-    return Objects.equals(this.mergeConfig, other.mergeConfig);
+    return false;
   }
 
   @Override

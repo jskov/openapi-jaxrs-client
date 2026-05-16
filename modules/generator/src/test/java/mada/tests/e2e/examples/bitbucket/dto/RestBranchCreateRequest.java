@@ -77,12 +77,11 @@ public class RestBranchCreateRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBranchCreateRequest)) {
-      return false;
+    if (o instanceof RestBranchCreateRequest other) {
+      return Objects.equals(this.name, other.name) &&
+              Objects.equals(this.startPoint, other.startPoint);
     }
-    RestBranchCreateRequest other = (RestBranchCreateRequest) o;
-    return Objects.equals(this.name, other.name) &&
-        Objects.equals(this.startPoint, other.startPoint);
+    return false;
   }
 
   @Override

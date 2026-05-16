@@ -244,18 +244,17 @@ public class _RequestApiLatestAdminMailServer {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestApiLatestAdminMailServer)) {
-      return false;
+    if (o instanceof _RequestApiLatestAdminMailServer other) {
+      return Objects.equals(this.hostname, other.hostname) &&
+              Objects.equals(this.password, other.password) &&
+              Objects.equals(this.port, other.port) &&
+              Objects.equals(this.protocol, other.protocol) &&
+              Objects.equals(this.requireStartTls, other.requireStartTls) &&
+              Objects.equals(this.senderAddress, other.senderAddress) &&
+              Objects.equals(this.username, other.username) &&
+              Objects.equals(this.useStartTls, other.useStartTls);
     }
-    _RequestApiLatestAdminMailServer other = (_RequestApiLatestAdminMailServer) o;
-    return Objects.equals(this.hostname, other.hostname) &&
-        Objects.equals(this.password, other.password) &&
-        Objects.equals(this.port, other.port) &&
-        Objects.equals(this.protocol, other.protocol) &&
-        Objects.equals(this.requireStartTls, other.requireStartTls) &&
-        Objects.equals(this.senderAddress, other.senderAddress) &&
-        Objects.equals(this.username, other.username) &&
-        Objects.equals(this.useStartTls, other.useStartTls);
+    return false;
   }
 
   @Override

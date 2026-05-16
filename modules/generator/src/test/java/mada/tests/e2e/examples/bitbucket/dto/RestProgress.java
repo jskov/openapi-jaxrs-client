@@ -73,12 +73,11 @@ public class RestProgress {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestProgress)) {
-      return false;
+    if (o instanceof RestProgress other) {
+      return Objects.equals(this.message, other.message) &&
+              Objects.equals(this.percentage, other.percentage);
     }
-    RestProgress other = (RestProgress) o;
-    return Objects.equals(this.message, other.message) &&
-        Objects.equals(this.percentage, other.percentage);
+    return false;
   }
 
   @Override

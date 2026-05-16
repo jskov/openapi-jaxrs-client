@@ -101,13 +101,12 @@ public class V2Manifest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof V2Manifest)) {
-      return false;
+    if (o instanceof V2Manifest other) {
+      return Objects.equals(this.config, other.config) &&
+              Objects.equals(this.layers, other.layers) &&
+              Objects.equals(this.mediaType, other.mediaType);
     }
-    V2Manifest other = (V2Manifest) o;
-    return Objects.equals(this.config, other.config) &&
-        Objects.equals(this.layers, other.layers) &&
-        Objects.equals(this.mediaType, other.mediaType);
+    return false;
   }
 
   @Override

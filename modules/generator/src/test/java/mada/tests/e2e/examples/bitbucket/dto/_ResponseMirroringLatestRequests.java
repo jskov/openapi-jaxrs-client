@@ -169,16 +169,15 @@ public class _ResponseMirroringLatestRequests {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseMirroringLatestRequests)) {
-      return false;
+    if (o instanceof _ResponseMirroringLatestRequests other) {
+      return Objects.equals(this.isLastPage, other.isLastPage) &&
+              Objects.equals(this.limit, other.limit) &&
+              Objects.equals(this.nextPageStart, other.nextPageStart) &&
+              Objects.equals(this.size, other.size) &&
+              Objects.equals(this.start, other.start) &&
+              Objects.equals(this.values, other.values);
     }
-    _ResponseMirroringLatestRequests other = (_ResponseMirroringLatestRequests) o;
-    return Objects.equals(this.isLastPage, other.isLastPage) &&
-        Objects.equals(this.limit, other.limit) &&
-        Objects.equals(this.nextPageStart, other.nextPageStart) &&
-        Objects.equals(this.size, other.size) &&
-        Objects.equals(this.start, other.start) &&
-        Objects.equals(this.values, other.values);
+    return false;
   }
 
   @Override

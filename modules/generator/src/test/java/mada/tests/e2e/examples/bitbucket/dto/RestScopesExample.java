@@ -80,12 +80,11 @@ public class RestScopesExample {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestScopesExample)) {
-      return false;
+    if (o instanceof RestScopesExample other) {
+      return Objects.equals(this.links, other.links) &&
+              Objects.equals(this.scopes, other.scopes);
     }
-    RestScopesExample other = (RestScopesExample) o;
-    return Objects.equals(this.links, other.links) &&
-        Objects.equals(this.scopes, other.scopes);
+    return false;
   }
 
   @Override

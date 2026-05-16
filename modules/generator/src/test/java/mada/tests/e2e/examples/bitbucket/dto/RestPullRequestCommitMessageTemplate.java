@@ -73,12 +73,11 @@ public class RestPullRequestCommitMessageTemplate {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestCommitMessageTemplate)) {
-      return false;
+    if (o instanceof RestPullRequestCommitMessageTemplate other) {
+      return Objects.equals(this.body, other.body) &&
+              Objects.equals(this.title, other.title);
     }
-    RestPullRequestCommitMessageTemplate other = (RestPullRequestCommitMessageTemplate) o;
-    return Objects.equals(this.body, other.body) &&
-        Objects.equals(this.title, other.title);
+    return false;
   }
 
   @Override

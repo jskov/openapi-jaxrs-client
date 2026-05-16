@@ -181,15 +181,14 @@ public class RestUserReactionCommentParentAnchorPullRequestToRef {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUserReactionCommentParentAnchorPullRequestToRef)) {
-      return false;
+    if (o instanceof RestUserReactionCommentParentAnchorPullRequestToRef other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.latestCommit, other.latestCommit) &&
+              Objects.equals(this.repository, other.repository) &&
+              Objects.equals(this.type, other.type);
     }
-    RestUserReactionCommentParentAnchorPullRequestToRef other = (RestUserReactionCommentParentAnchorPullRequestToRef) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.latestCommit, other.latestCommit) &&
-        Objects.equals(this.repository, other.repository) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

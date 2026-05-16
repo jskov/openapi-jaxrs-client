@@ -76,12 +76,11 @@ public class RestUsernamePasswordCredentials {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUsernamePasswordCredentials)) {
-      return false;
+    if (o instanceof RestUsernamePasswordCredentials other) {
+      return Objects.equals(this.password, other.password) &&
+              Objects.equals(this.username, other.username);
     }
-    RestUsernamePasswordCredentials other = (RestUsernamePasswordCredentials) o;
-    return Objects.equals(this.password, other.password) &&
-        Objects.equals(this.username, other.username);
+    return false;
   }
 
   @Override

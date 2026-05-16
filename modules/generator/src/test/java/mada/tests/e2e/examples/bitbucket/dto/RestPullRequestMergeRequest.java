@@ -138,15 +138,14 @@ public class RestPullRequestMergeRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestMergeRequest)) {
-      return false;
+    if (o instanceof RestPullRequestMergeRequest other) {
+      return Objects.equals(this.autoMerge, other.autoMerge) &&
+              Objects.equals(this.autoSubject, other.autoSubject) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.strategyId, other.strategyId) &&
+              Objects.equals(this.version, other.version);
     }
-    RestPullRequestMergeRequest other = (RestPullRequestMergeRequest) o;
-    return Objects.equals(this.autoMerge, other.autoMerge) &&
-        Objects.equals(this.autoSubject, other.autoSubject) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.strategyId, other.strategyId) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

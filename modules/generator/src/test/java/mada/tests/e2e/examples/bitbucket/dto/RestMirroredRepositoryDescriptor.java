@@ -72,12 +72,11 @@ public class RestMirroredRepositoryDescriptor {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirroredRepositoryDescriptor)) {
-      return false;
+    if (o instanceof RestMirroredRepositoryDescriptor other) {
+      return Objects.equals(this.links, other.links) &&
+              Objects.equals(this.mirrorServer, other.mirrorServer);
     }
-    RestMirroredRepositoryDescriptor other = (RestMirroredRepositoryDescriptor) o;
-    return Objects.equals(this.links, other.links) &&
-        Objects.equals(this.mirrorServer, other.mirrorServer);
+    return false;
   }
 
   @Override

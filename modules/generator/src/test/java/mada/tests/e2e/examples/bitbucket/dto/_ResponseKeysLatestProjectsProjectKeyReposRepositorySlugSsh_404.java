@@ -60,11 +60,10 @@ public class _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_404)) {
-      return false;
+    if (o instanceof _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_404 other = (_ResponseKeysLatestProjectsProjectKeyReposRepositorySlugSsh_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

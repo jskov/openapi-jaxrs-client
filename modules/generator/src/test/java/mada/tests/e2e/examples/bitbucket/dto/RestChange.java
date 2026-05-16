@@ -352,21 +352,20 @@ public class RestChange {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestChange)) {
-      return false;
+    if (o instanceof RestChange other) {
+      return Objects.equals(this.conflict, other.conflict) &&
+              Objects.equals(this.contentId, other.contentId) &&
+              Objects.equals(this.executable, other.executable) &&
+              Objects.equals(this.fromContentId, other.fromContentId) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.nodeType, other.nodeType) &&
+              Objects.equals(this.path, other.path) &&
+              Objects.equals(this.percentUnchanged, other.percentUnchanged) &&
+              Objects.equals(this.srcExecutable, other.srcExecutable) &&
+              Objects.equals(this.srcPath, other.srcPath) &&
+              Objects.equals(this.type, other.type);
     }
-    RestChange other = (RestChange) o;
-    return Objects.equals(this.conflict, other.conflict) &&
-        Objects.equals(this.contentId, other.contentId) &&
-        Objects.equals(this.executable, other.executable) &&
-        Objects.equals(this.fromContentId, other.fromContentId) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.nodeType, other.nodeType) &&
-        Objects.equals(this.path, other.path) &&
-        Objects.equals(this.percentUnchanged, other.percentUnchanged) &&
-        Objects.equals(this.srcExecutable, other.srcExecutable) &&
-        Objects.equals(this.srcPath, other.srcPath) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

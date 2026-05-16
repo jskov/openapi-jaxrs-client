@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAuto
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_401 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugSettingsAutoDecline_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

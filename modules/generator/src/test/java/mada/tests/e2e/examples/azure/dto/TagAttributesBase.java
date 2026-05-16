@@ -160,16 +160,15 @@ public class TagAttributesBase {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof TagAttributesBase)) {
-      return false;
+    if (o instanceof TagAttributesBase other) {
+      return Objects.equals(this.changeableAttributes, other.changeableAttributes) &&
+              Objects.equals(this.createdTime, other.createdTime) &&
+              Objects.equals(this.digest, other.digest) &&
+              Objects.equals(this.lastUpdateTime, other.lastUpdateTime) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.signed, other.signed);
     }
-    TagAttributesBase other = (TagAttributesBase) o;
-    return Objects.equals(this.changeableAttributes, other.changeableAttributes) &&
-        Objects.equals(this.createdTime, other.createdTime) &&
-        Objects.equals(this.digest, other.digest) &&
-        Objects.equals(this.lastUpdateTime, other.lastUpdateTime) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.signed, other.signed);
+    return false;
   }
 
   @Override

@@ -239,18 +239,17 @@ public class RestHookScriptConfigScript {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestHookScriptConfigScript)) {
-      return false;
+    if (o instanceof RestHookScriptConfigScript other) {
+      return Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.pluginKey, other.pluginKey) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.updatedDate, other.updatedDate) &&
+              Objects.equals(this.version, other.version);
     }
-    RestHookScriptConfigScript other = (RestHookScriptConfigScript) o;
-    return Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.pluginKey, other.pluginKey) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.updatedDate, other.updatedDate) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

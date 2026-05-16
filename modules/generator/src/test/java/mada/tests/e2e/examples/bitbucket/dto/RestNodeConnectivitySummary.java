@@ -73,12 +73,11 @@ public class RestNodeConnectivitySummary {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestNodeConnectivitySummary)) {
-      return false;
+    if (o instanceof RestNodeConnectivitySummary other) {
+      return Objects.equals(this.node, other.node) &&
+              Objects.equals(this.summary, other.summary);
     }
-    RestNodeConnectivitySummary other = (RestNodeConnectivitySummary) o;
-    return Objects.equals(this.node, other.node) &&
-        Objects.equals(this.summary, other.summary);
+    return false;
   }
 
   @Override

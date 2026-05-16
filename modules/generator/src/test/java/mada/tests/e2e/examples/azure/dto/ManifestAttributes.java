@@ -91,13 +91,12 @@ public class ManifestAttributes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ManifestAttributes)) {
-      return false;
+    if (o instanceof ManifestAttributes other) {
+      return Objects.equals(this.imageName, other.imageName) &&
+              Objects.equals(this.manifest, other.manifest) &&
+              Objects.equals(this.registry, other.registry);
     }
-    ManifestAttributes other = (ManifestAttributes) o;
-    return Objects.equals(this.imageName, other.imageName) &&
-        Objects.equals(this.manifest, other.manifest) &&
-        Objects.equals(this.registry, other.registry);
+    return false;
   }
 
   @Override

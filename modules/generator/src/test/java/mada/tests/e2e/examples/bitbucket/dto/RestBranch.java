@@ -160,16 +160,15 @@ public class RestBranch {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBranch)) {
-      return false;
+    if (o instanceof RestBranch other) {
+      return Objects.equals(this.default_, other.default_) &&
+              Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.latestChangeset, other.latestChangeset) &&
+              Objects.equals(this.latestCommit, other.latestCommit) &&
+              Objects.equals(this.type, other.type);
     }
-    RestBranch other = (RestBranch) o;
-    return Objects.equals(this.default_, other.default_) &&
-        Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.latestChangeset, other.latestChangeset) &&
-        Objects.equals(this.latestCommit, other.latestCommit) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

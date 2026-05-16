@@ -116,12 +116,11 @@ public class RestSecretScanningRuleScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSecretScanningRuleScope)) {
-      return false;
+    if (o instanceof RestSecretScanningRuleScope other) {
+      return Objects.equals(this.resourceId, other.resourceId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestSecretScanningRuleScope other = (RestSecretScanningRuleScope) o;
-    return Objects.equals(this.resourceId, other.resourceId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

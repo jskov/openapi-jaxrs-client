@@ -91,13 +91,12 @@ public class RestEmoticon {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestEmoticon)) {
-      return false;
+    if (o instanceof RestEmoticon other) {
+      return Objects.equals(this.shortcut, other.shortcut) &&
+              Objects.equals(this.url, other.url) &&
+              Objects.equals(this.value, other.value);
     }
-    RestEmoticon other = (RestEmoticon) o;
-    return Objects.equals(this.shortcut, other.shortcut) &&
-        Objects.equals(this.url, other.url) &&
-        Objects.equals(this.value, other.value);
+    return false;
   }
 
   @Override

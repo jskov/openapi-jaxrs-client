@@ -173,14 +173,13 @@ public class RestPullRequestActivity {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestActivity)) {
-      return false;
+    if (o instanceof RestPullRequestActivity other) {
+      return Objects.equals(this.action, other.action) &&
+              Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.user, other.user);
     }
-    RestPullRequestActivity other = (RestPullRequestActivity) o;
-    return Objects.equals(this.action, other.action) &&
-        Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.user, other.user);
+    return false;
   }
 
   @Override

@@ -60,11 +60,10 @@ public class _ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_400 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_400)) {
-      return false;
+    if (o instanceof _ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_400 other = (_ResponseMirroringLatestUpstreamServersUpstreamIdSettingsMode_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

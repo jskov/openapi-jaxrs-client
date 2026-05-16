@@ -73,12 +73,11 @@ public class RestNamedLink {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestNamedLink)) {
-      return false;
+    if (o instanceof RestNamedLink other) {
+      return Objects.equals(this.href, other.href) &&
+              Objects.equals(this.name, other.name);
     }
-    RestNamedLink other = (RestNamedLink) o;
-    return Objects.equals(this.href, other.href) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

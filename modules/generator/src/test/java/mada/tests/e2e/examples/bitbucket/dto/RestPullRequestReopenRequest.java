@@ -49,11 +49,10 @@ public class RestPullRequestReopenRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestReopenRequest)) {
-      return false;
+    if (o instanceof RestPullRequestReopenRequest other) {
+      return Objects.equals(this.version, other.version);
     }
-    RestPullRequestReopenRequest other = (RestPullRequestReopenRequest) o;
-    return Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

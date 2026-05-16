@@ -133,15 +133,14 @@ public class RestBuildStats {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBuildStats)) {
-      return false;
+    if (o instanceof RestBuildStats other) {
+      return Objects.equals(this.cancelled, other.cancelled) &&
+              Objects.equals(this.failed, other.failed) &&
+              Objects.equals(this.inProgress, other.inProgress) &&
+              Objects.equals(this.successful, other.successful) &&
+              Objects.equals(this.unknown, other.unknown);
     }
-    RestBuildStats other = (RestBuildStats) o;
-    return Objects.equals(this.cancelled, other.cancelled) &&
-        Objects.equals(this.failed, other.failed) &&
-        Objects.equals(this.inProgress, other.inProgress) &&
-        Objects.equals(this.successful, other.successful) &&
-        Objects.equals(this.unknown, other.unknown);
+    return false;
   }
 
   @Override

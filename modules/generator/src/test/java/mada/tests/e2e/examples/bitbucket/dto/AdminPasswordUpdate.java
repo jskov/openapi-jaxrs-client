@@ -95,13 +95,12 @@ public class AdminPasswordUpdate {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof AdminPasswordUpdate)) {
-      return false;
+    if (o instanceof AdminPasswordUpdate other) {
+      return Objects.equals(this.name, other.name) &&
+              Objects.equals(this.password, other.password) &&
+              Objects.equals(this.passwordConfirm, other.passwordConfirm);
     }
-    AdminPasswordUpdate other = (AdminPasswordUpdate) o;
-    return Objects.equals(this.name, other.name) &&
-        Objects.equals(this.password, other.password) &&
-        Objects.equals(this.passwordConfirm, other.passwordConfirm);
+    return false;
   }
 
   @Override

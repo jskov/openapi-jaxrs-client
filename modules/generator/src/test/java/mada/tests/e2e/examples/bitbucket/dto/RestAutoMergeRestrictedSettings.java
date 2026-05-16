@@ -145,13 +145,12 @@ public class RestAutoMergeRestrictedSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoMergeRestrictedSettings)) {
-      return false;
+    if (o instanceof RestAutoMergeRestrictedSettings other) {
+      return Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.restrictionState, other.restrictionState) &&
+              Objects.equals(this.scope, other.scope);
     }
-    RestAutoMergeRestrictedSettings other = (RestAutoMergeRestrictedSettings) o;
-    return Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.restrictionState, other.restrictionState) &&
-        Objects.equals(this.scope, other.scope);
+    return false;
   }
 
   @Override

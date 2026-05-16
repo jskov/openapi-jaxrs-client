@@ -168,16 +168,15 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath other) {
+      return Objects.equals(this.isLastPage, other.isLastPage) &&
+              Objects.equals(this.limit, other.limit) &&
+              Objects.equals(this.nextPageStart, other.nextPageStart) &&
+              Objects.equals(this.size, other.size) &&
+              Objects.equals(this.start, other.start) &&
+              Objects.equals(this.values, other.values);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugFilesPath) o;
-    return Objects.equals(this.isLastPage, other.isLastPage) &&
-        Objects.equals(this.limit, other.limit) &&
-        Objects.equals(this.nextPageStart, other.nextPageStart) &&
-        Objects.equals(this.size, other.size) &&
-        Objects.equals(this.start, other.start) &&
-        Objects.equals(this.values, other.values);
+    return false;
   }
 
   @Override

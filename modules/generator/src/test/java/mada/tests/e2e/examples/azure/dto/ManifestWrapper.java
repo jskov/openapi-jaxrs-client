@@ -316,21 +316,20 @@ public class ManifestWrapper {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ManifestWrapper)) {
-      return false;
+    if (o instanceof ManifestWrapper other) {
+      return Objects.equals(this.annotations, other.annotations) &&
+              Objects.equals(this.architecture, other.architecture) &&
+              Objects.equals(this.config, other.config) &&
+              Objects.equals(this.fsLayers, other.fsLayers) &&
+              Objects.equals(this.history, other.history) &&
+              Objects.equals(this.layers, other.layers) &&
+              Objects.equals(this.manifests, other.manifests) &&
+              Objects.equals(this.mediaType, other.mediaType) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.signatures, other.signatures) &&
+              Objects.equals(this.tag, other.tag);
     }
-    ManifestWrapper other = (ManifestWrapper) o;
-    return Objects.equals(this.annotations, other.annotations) &&
-        Objects.equals(this.architecture, other.architecture) &&
-        Objects.equals(this.config, other.config) &&
-        Objects.equals(this.fsLayers, other.fsLayers) &&
-        Objects.equals(this.history, other.history) &&
-        Objects.equals(this.layers, other.layers) &&
-        Objects.equals(this.manifests, other.manifests) &&
-        Objects.equals(this.mediaType, other.mediaType) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.signatures, other.signatures) &&
-        Objects.equals(this.tag, other.tag);
+    return false;
   }
 
   @Override

@@ -73,12 +73,11 @@ public class RestSshAccessKeyLocations {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshAccessKeyLocations)) {
-      return false;
+    if (o instanceof RestSshAccessKeyLocations other) {
+      return Objects.equals(this.projects, other.projects) &&
+              Objects.equals(this.repositories, other.repositories);
     }
-    RestSshAccessKeyLocations other = (RestSshAccessKeyLocations) o;
-    return Objects.equals(this.projects, other.projects) &&
-        Objects.equals(this.repositories, other.repositories);
+    return false;
   }
 
   @Override

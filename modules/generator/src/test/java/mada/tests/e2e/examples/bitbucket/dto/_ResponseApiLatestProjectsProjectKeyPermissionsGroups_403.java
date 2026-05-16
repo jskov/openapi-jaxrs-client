@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyPermissionsGroups_403 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyPermissionsGroups_403)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyPermissionsGroups_403 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyPermissionsGroups_403 other = (_ResponseApiLatestProjectsProjectKeyPermissionsGroups_403) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -74,12 +74,11 @@ public class RestPermittedGroup {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPermittedGroup)) {
-      return false;
+    if (o instanceof RestPermittedGroup other) {
+      return Objects.equals(this.group, other.group) &&
+              Objects.equals(this.permission, other.permission);
     }
-    RestPermittedGroup other = (RestPermittedGroup) o;
-    return Objects.equals(this.group, other.group) &&
-        Objects.equals(this.permission, other.permission);
+    return false;
   }
 
   @Override

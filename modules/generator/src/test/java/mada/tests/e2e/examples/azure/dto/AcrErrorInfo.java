@@ -91,13 +91,12 @@ public class AcrErrorInfo {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof AcrErrorInfo)) {
-      return false;
+    if (o instanceof AcrErrorInfo other) {
+      return Objects.equals(this.code, other.code) &&
+              Objects.equals(this.detail, other.detail) &&
+              Objects.equals(this.message, other.message);
     }
-    AcrErrorInfo other = (AcrErrorInfo) o;
-    return Objects.equals(this.code, other.code) &&
-        Objects.equals(this.detail, other.detail) &&
-        Objects.equals(this.message, other.message);
+    return false;
   }
 
   @Override

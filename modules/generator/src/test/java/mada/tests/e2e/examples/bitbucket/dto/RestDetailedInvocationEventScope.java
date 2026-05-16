@@ -70,12 +70,11 @@ public class RestDetailedInvocationEventScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDetailedInvocationEventScope)) {
-      return false;
+    if (o instanceof RestDetailedInvocationEventScope other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.type, other.type);
     }
-    RestDetailedInvocationEventScope other = (RestDetailedInvocationEventScope) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

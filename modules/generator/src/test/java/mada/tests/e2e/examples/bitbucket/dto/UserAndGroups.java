@@ -82,12 +82,11 @@ public class UserAndGroups {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof UserAndGroups)) {
-      return false;
+    if (o instanceof UserAndGroups other) {
+      return Objects.equals(this.groups, other.groups) &&
+              Objects.equals(this.user, other.user);
     }
-    UserAndGroups other = (UserAndGroups) o;
-    return Objects.equals(this.groups, other.groups) &&
-        Objects.equals(this.user, other.user);
+    return false;
   }
 
   @Override

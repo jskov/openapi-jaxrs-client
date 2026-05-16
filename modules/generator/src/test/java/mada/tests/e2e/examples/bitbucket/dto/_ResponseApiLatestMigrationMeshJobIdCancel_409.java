@@ -60,11 +60,10 @@ public class _ResponseApiLatestMigrationMeshJobIdCancel_409 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestMigrationMeshJobIdCancel_409)) {
-      return false;
+    if (o instanceof _ResponseApiLatestMigrationMeshJobIdCancel_409 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestMigrationMeshJobIdCancel_409 other = (_ResponseApiLatestMigrationMeshJobIdCancel_409) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

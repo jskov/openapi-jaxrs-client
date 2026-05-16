@@ -72,12 +72,11 @@ public class EntityHolderRestPullRequestDeclineRequestEntity {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof EntityHolderRestPullRequestDeclineRequestEntity)) {
-      return false;
+    if (o instanceof EntityHolderRestPullRequestDeclineRequestEntity other) {
+      return Objects.equals(this.comment, other.comment) &&
+              Objects.equals(this.version, other.version);
     }
-    EntityHolderRestPullRequestDeclineRequestEntity other = (EntityHolderRestPullRequestDeclineRequestEntity) o;
-    return Objects.equals(this.comment, other.comment) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

@@ -120,12 +120,11 @@ public class RestAutoMergeProcessingResult {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoMergeProcessingResult)) {
-      return false;
+    if (o instanceof RestAutoMergeProcessingResult other) {
+      return Objects.equals(this.autoMergeProcessingStatus, other.autoMergeProcessingStatus) &&
+              Objects.equals(this.pullRequest, other.pullRequest);
     }
-    RestAutoMergeProcessingResult other = (RestAutoMergeProcessingResult) o;
-    return Objects.equals(this.autoMergeProcessingStatus, other.autoMergeProcessingStatus) &&
-        Objects.equals(this.pullRequest, other.pullRequest);
+    return false;
   }
 
   @Override

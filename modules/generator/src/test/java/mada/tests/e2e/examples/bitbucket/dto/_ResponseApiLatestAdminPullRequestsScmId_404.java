@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminPullRequestsScmId_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminPullRequestsScmId_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminPullRequestsScmId_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminPullRequestsScmId_404 other = (_ResponseApiLatestAdminPullRequestsScmId_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

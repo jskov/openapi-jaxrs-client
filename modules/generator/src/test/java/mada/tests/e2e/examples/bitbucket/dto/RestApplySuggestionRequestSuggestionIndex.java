@@ -70,12 +70,11 @@ public class RestApplySuggestionRequestSuggestionIndex {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestApplySuggestionRequestSuggestionIndex)) {
-      return false;
+    if (o instanceof RestApplySuggestionRequestSuggestionIndex other) {
+      return Objects.equals(this.asInt, other.asInt) &&
+              Objects.equals(this.present, other.present);
     }
-    RestApplySuggestionRequestSuggestionIndex other = (RestApplySuggestionRequestSuggestionIndex) o;
-    return Objects.equals(this.asInt, other.asInt) &&
-        Objects.equals(this.present, other.present);
+    return false;
   }
 
   @Override

@@ -97,13 +97,12 @@ public class RestAggregateRejectCounter {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAggregateRejectCounter)) {
-      return false;
+    if (o instanceof RestAggregateRejectCounter other) {
+      return Objects.equals(this.lastRejectTime, other.lastRejectTime) &&
+              Objects.equals(this.rejectCount, other.rejectCount) &&
+              Objects.equals(this.user, other.user);
     }
-    RestAggregateRejectCounter other = (RestAggregateRejectCounter) o;
-    return Objects.equals(this.lastRejectTime, other.lastRejectTime) &&
-        Objects.equals(this.rejectCount, other.rejectCount) &&
-        Objects.equals(this.user, other.user);
+    return false;
   }
 
   @Override

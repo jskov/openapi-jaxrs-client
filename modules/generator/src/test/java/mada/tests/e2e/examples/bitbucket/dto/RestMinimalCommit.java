@@ -73,12 +73,11 @@ public class RestMinimalCommit {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMinimalCommit)) {
-      return false;
+    if (o instanceof RestMinimalCommit other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id);
     }
-    RestMinimalCommit other = (RestMinimalCommit) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id);
+    return false;
   }
 
   @Override

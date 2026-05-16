@@ -79,12 +79,11 @@ public class ManifestList {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ManifestList)) {
-      return false;
+    if (o instanceof ManifestList other) {
+      return Objects.equals(this.manifests, other.manifests) &&
+              Objects.equals(this.mediaType, other.mediaType);
     }
-    ManifestList other = (ManifestList) o;
-    return Objects.equals(this.manifests, other.manifests) &&
-        Objects.equals(this.mediaType, other.mediaType);
+    return false;
   }
 
   @Override

@@ -115,12 +115,11 @@ public class RestPullRequestAssignParticipantRoleRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestAssignParticipantRoleRequest)) {
-      return false;
+    if (o instanceof RestPullRequestAssignParticipantRoleRequest other) {
+      return Objects.equals(this.role, other.role) &&
+              Objects.equals(this.user, other.user);
     }
-    RestPullRequestAssignParticipantRoleRequest other = (RestPullRequestAssignParticipantRoleRequest) o;
-    return Objects.equals(this.role, other.role) &&
-        Objects.equals(this.user, other.user);
+    return false;
   }
 
   @Override

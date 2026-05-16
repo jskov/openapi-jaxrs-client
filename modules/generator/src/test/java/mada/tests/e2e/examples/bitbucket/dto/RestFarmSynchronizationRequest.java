@@ -161,14 +161,13 @@ public class RestFarmSynchronizationRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestFarmSynchronizationRequest)) {
-      return false;
+    if (o instanceof RestFarmSynchronizationRequest other) {
+      return Objects.equals(this.attempt, other.attempt) &&
+              Objects.equals(this.createdAt, other.createdAt) &&
+              Objects.equals(this.externalRepoId, other.externalRepoId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestFarmSynchronizationRequest other = (RestFarmSynchronizationRequest) o;
-    return Objects.equals(this.attempt, other.attempt) &&
-        Objects.equals(this.createdAt, other.createdAt) &&
-        Objects.equals(this.externalRepoId, other.externalRepoId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

@@ -187,15 +187,14 @@ public class _RequestOauth2Exchange {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestOauth2Exchange)) {
-      return false;
+    if (o instanceof _RequestOauth2Exchange other) {
+      return Objects.equals(this.accessToken, other.accessToken) &&
+              Objects.equals(this.grantType, other.grantType) &&
+              Objects.equals(this.refreshToken, other.refreshToken) &&
+              Objects.equals(this.service, other.service) &&
+              Objects.equals(this.tenant, other.tenant);
     }
-    _RequestOauth2Exchange other = (_RequestOauth2Exchange) o;
-    return Objects.equals(this.accessToken, other.accessToken) &&
-        Objects.equals(this.grantType, other.grantType) &&
-        Objects.equals(this.refreshToken, other.refreshToken) &&
-        Objects.equals(this.service, other.service) &&
-        Objects.equals(this.tenant, other.tenant);
+    return false;
   }
 
   @Override

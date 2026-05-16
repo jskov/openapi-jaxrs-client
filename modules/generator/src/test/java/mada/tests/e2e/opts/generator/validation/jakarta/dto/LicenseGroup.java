@@ -144,14 +144,13 @@ public class LicenseGroup {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof LicenseGroup)) {
-      return false;
+    if (o instanceof LicenseGroup other) {
+      return Objects.equals(this.licenses, other.licenses) &&
+              Objects.equals(this.numbers, other.numbers) &&
+              Objects.equals(this.requiredLicenses, other.requiredLicenses) &&
+              Objects.equals(this.strings, other.strings);
     }
-    LicenseGroup other = (LicenseGroup) o;
-    return Objects.equals(this.licenses, other.licenses) &&
-        Objects.equals(this.numbers, other.numbers) &&
-        Objects.equals(this.requiredLicenses, other.requiredLicenses) &&
-        Objects.equals(this.strings, other.strings);
+    return false;
   }
 
   @Override

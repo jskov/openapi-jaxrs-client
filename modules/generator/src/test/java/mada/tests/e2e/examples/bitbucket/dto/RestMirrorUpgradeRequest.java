@@ -117,14 +117,13 @@ public class RestMirrorUpgradeRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirrorUpgradeRequest)) {
-      return false;
+    if (o instanceof RestMirrorUpgradeRequest other) {
+      return Objects.equals(this.addonDescriptorUri, other.addonDescriptorUri) &&
+              Objects.equals(this.baseUrl, other.baseUrl) &&
+              Objects.equals(this.productType, other.productType) &&
+              Objects.equals(this.productVersion, other.productVersion);
     }
-    RestMirrorUpgradeRequest other = (RestMirrorUpgradeRequest) o;
-    return Objects.equals(this.addonDescriptorUri, other.addonDescriptorUri) &&
-        Objects.equals(this.baseUrl, other.baseUrl) &&
-        Objects.equals(this.productType, other.productType) &&
-        Objects.equals(this.productVersion, other.productVersion);
+    return false;
   }
 
   @Override

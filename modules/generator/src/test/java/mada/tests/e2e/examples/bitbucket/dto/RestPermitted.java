@@ -51,11 +51,10 @@ public class RestPermitted {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPermitted)) {
-      return false;
+    if (o instanceof RestPermitted other) {
+      return Objects.equals(this.permitted, other.permitted);
     }
-    RestPermitted other = (RestPermitted) o;
-    return Objects.equals(this.permitted, other.permitted);
+    return false;
   }
 
   @Override

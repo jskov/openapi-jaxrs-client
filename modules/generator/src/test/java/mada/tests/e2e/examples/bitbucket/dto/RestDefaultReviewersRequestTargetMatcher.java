@@ -96,13 +96,12 @@ public class RestDefaultReviewersRequestTargetMatcher {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDefaultReviewersRequestTargetMatcher)) {
-      return false;
+    if (o instanceof RestDefaultReviewersRequestTargetMatcher other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.type, other.type);
     }
-    RestDefaultReviewersRequestTargetMatcher other = (RestDefaultReviewersRequestTargetMatcher) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

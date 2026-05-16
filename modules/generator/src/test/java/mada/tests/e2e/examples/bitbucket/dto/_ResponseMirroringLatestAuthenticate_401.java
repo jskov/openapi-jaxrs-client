@@ -60,11 +60,10 @@ public class _ResponseMirroringLatestAuthenticate_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseMirroringLatestAuthenticate_401)) {
-      return false;
+    if (o instanceof _ResponseMirroringLatestAuthenticate_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseMirroringLatestAuthenticate_401 other = (_ResponseMirroringLatestAuthenticate_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

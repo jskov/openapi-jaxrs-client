@@ -155,16 +155,15 @@ public class FilePart {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof FilePart)) {
-      return false;
+    if (o instanceof FilePart other) {
+      return Objects.equals(this.contentType, other.contentType) &&
+              Objects.equals(this.formField, other.formField) &&
+              Objects.equals(this.inputStream, other.inputStream) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.size, other.size) &&
+              Objects.equals(this.value, other.value);
     }
-    FilePart other = (FilePart) o;
-    return Objects.equals(this.contentType, other.contentType) &&
-        Objects.equals(this.formField, other.formField) &&
-        Objects.equals(this.inputStream, other.inputStream) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.size, other.size) &&
-        Objects.equals(this.value, other.value);
+    return false;
   }
 
   @Override

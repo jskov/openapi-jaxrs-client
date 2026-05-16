@@ -117,14 +117,13 @@ public class RestUserDirectory {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUserDirectory)) {
-      return false;
+    if (o instanceof RestUserDirectory other) {
+      return Objects.equals(this.active, other.active) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.type, other.type);
     }
-    RestUserDirectory other = (RestUserDirectory) o;
-    return Objects.equals(this.active, other.active) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

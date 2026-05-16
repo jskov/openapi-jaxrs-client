@@ -94,13 +94,12 @@ public class RestChangesetToCommitAuthor {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestChangesetToCommitAuthor)) {
-      return false;
+    if (o instanceof RestChangesetToCommitAuthor other) {
+      return Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.name, other.name);
     }
-    RestChangesetToCommitAuthor other = (RestChangesetToCommitAuthor) o;
-    return Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

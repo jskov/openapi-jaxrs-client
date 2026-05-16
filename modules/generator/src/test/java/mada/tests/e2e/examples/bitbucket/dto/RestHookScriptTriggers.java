@@ -59,11 +59,10 @@ public class RestHookScriptTriggers {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestHookScriptTriggers)) {
-      return false;
+    if (o instanceof RestHookScriptTriggers other) {
+      return Objects.equals(this.triggerIds, other.triggerIds);
     }
-    RestHookScriptTriggers other = (RestHookScriptTriggers) o;
-    return Objects.equals(this.triggerIds, other.triggerIds);
+    return false;
   }
 
   @Override

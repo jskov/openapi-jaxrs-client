@@ -55,11 +55,10 @@ public class Repositories {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Repositories)) {
-      return false;
+    if (o instanceof Repositories other) {
+      return Objects.equals(this.repositories, other.repositories);
     }
-    Repositories other = (Repositories) o;
-    return Objects.equals(this.repositories, other.repositories);
+    return false;
   }
 
   @Override

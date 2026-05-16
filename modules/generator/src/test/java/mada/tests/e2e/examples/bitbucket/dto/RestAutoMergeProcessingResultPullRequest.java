@@ -477,28 +477,27 @@ public class RestAutoMergeProcessingResultPullRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoMergeProcessingResultPullRequest)) {
-      return false;
+    if (o instanceof RestAutoMergeProcessingResultPullRequest other) {
+      return Objects.equals(this.closed, other.closed) &&
+              Objects.equals(this.closedDate, other.closedDate) &&
+              Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.draft, other.draft) &&
+              Objects.equals(this.fromRef, other.fromRef) &&
+              Objects.equals(this.htmlDescription, other.htmlDescription) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.locked, other.locked) &&
+              Objects.equals(this.open, other.open) &&
+              Objects.equals(this.participants, other.participants) &&
+              Objects.equals(this.reviewers, other.reviewers) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.title, other.title) &&
+              Objects.equals(this.toRef, other.toRef) &&
+              Objects.equals(this.updatedDate, other.updatedDate) &&
+              Objects.equals(this.version, other.version);
     }
-    RestAutoMergeProcessingResultPullRequest other = (RestAutoMergeProcessingResultPullRequest) o;
-    return Objects.equals(this.closed, other.closed) &&
-        Objects.equals(this.closedDate, other.closedDate) &&
-        Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.draft, other.draft) &&
-        Objects.equals(this.fromRef, other.fromRef) &&
-        Objects.equals(this.htmlDescription, other.htmlDescription) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.locked, other.locked) &&
-        Objects.equals(this.open, other.open) &&
-        Objects.equals(this.participants, other.participants) &&
-        Objects.equals(this.reviewers, other.reviewers) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.title, other.title) &&
-        Objects.equals(this.toRef, other.toRef) &&
-        Objects.equals(this.updatedDate, other.updatedDate) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

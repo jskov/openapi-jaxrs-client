@@ -60,11 +60,10 @@ public class RestPullRequestRebaseability {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestRebaseability)) {
-      return false;
+    if (o instanceof RestPullRequestRebaseability other) {
+      return Objects.equals(this.vetoes, other.vetoes);
     }
-    RestPullRequestRebaseability other = (RestPullRequestRebaseability) o;
-    return Objects.equals(this.vetoes, other.vetoes);
+    return false;
   }
 
   @Override

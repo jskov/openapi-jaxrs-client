@@ -73,12 +73,11 @@ public class RestCommitMessageSuggestion {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommitMessageSuggestion)) {
-      return false;
+    if (o instanceof RestCommitMessageSuggestion other) {
+      return Objects.equals(this.body, other.body) &&
+              Objects.equals(this.title, other.title);
     }
-    RestCommitMessageSuggestion other = (RestCommitMessageSuggestion) o;
-    return Objects.equals(this.body, other.body) &&
-        Objects.equals(this.title, other.title);
+    return false;
   }
 
   @Override

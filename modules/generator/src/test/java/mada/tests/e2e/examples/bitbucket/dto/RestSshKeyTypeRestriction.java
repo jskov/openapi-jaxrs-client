@@ -97,13 +97,12 @@ public class RestSshKeyTypeRestriction {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshKeyTypeRestriction)) {
-      return false;
+    if (o instanceof RestSshKeyTypeRestriction other) {
+      return Objects.equals(this.algorithm, other.algorithm) &&
+              Objects.equals(this.allowed, other.allowed) &&
+              Objects.equals(this.minKeyLength, other.minKeyLength);
     }
-    RestSshKeyTypeRestriction other = (RestSshKeyTypeRestriction) o;
-    return Objects.equals(this.algorithm, other.algorithm) &&
-        Objects.equals(this.allowed, other.allowed) &&
-        Objects.equals(this.minKeyLength, other.minKeyLength);
+    return false;
   }
 
   @Override

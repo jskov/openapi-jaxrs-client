@@ -217,17 +217,16 @@ public class ApplicationUser {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ApplicationUser)) {
-      return false;
+    if (o instanceof ApplicationUser other) {
+      return Objects.equals(this.active, other.active) &&
+              Objects.equals(this.displayName, other.displayName) &&
+              Objects.equals(this.emailAddress, other.emailAddress) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.slug, other.slug) &&
+              Objects.equals(this.type, other.type);
     }
-    ApplicationUser other = (ApplicationUser) o;
-    return Objects.equals(this.active, other.active) &&
-        Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.emailAddress, other.emailAddress) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.slug, other.slug) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

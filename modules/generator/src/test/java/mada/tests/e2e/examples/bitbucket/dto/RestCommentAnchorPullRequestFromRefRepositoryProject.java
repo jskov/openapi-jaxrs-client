@@ -314,21 +314,20 @@ public class RestCommentAnchorPullRequestFromRefRepositoryProject {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommentAnchorPullRequestFromRefRepositoryProject)) {
-      return false;
+    if (o instanceof RestCommentAnchorPullRequestFromRefRepositoryProject other) {
+      return Objects.equals(this.avatar, other.avatar) &&
+              Objects.equals(this.avatarUrl, other.avatarUrl) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.key, other.key) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.namespace, other.namespace) &&
+              Objects.equals(this.public_, other.public_) &&
+              Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.type, other.type);
     }
-    RestCommentAnchorPullRequestFromRefRepositoryProject other = (RestCommentAnchorPullRequestFromRefRepositoryProject) o;
-    return Objects.equals(this.avatar, other.avatar) &&
-        Objects.equals(this.avatarUrl, other.avatarUrl) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.namespace, other.namespace) &&
-        Objects.equals(this.public_, other.public_) &&
-        Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

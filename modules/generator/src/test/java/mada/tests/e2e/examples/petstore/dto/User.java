@@ -206,18 +206,17 @@ public class User {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof User)) {
-      return false;
+    if (o instanceof User other) {
+      return Objects.equals(this.email, other.email) &&
+              Objects.equals(this.firstName, other.firstName) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.lastName, other.lastName) &&
+              Objects.equals(this.password, other.password) &&
+              Objects.equals(this.phone, other.phone) &&
+              Objects.equals(this.username, other.username) &&
+              Objects.equals(this.userStatus, other.userStatus);
     }
-    User other = (User) o;
-    return Objects.equals(this.email, other.email) &&
-        Objects.equals(this.firstName, other.firstName) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.lastName, other.lastName) &&
-        Objects.equals(this.password, other.password) &&
-        Objects.equals(this.phone, other.phone) &&
-        Objects.equals(this.username, other.username) &&
-        Objects.equals(this.userStatus, other.userStatus);
+    return false;
   }
 
   @Override

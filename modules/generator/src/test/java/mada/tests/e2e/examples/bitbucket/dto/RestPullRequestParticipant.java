@@ -219,15 +219,14 @@ public class RestPullRequestParticipant {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestParticipant)) {
-      return false;
+    if (o instanceof RestPullRequestParticipant other) {
+      return Objects.equals(this.approved, other.approved) &&
+              Objects.equals(this.lastReviewedCommit, other.lastReviewedCommit) &&
+              Objects.equals(this.role, other.role) &&
+              Objects.equals(this.status, other.status) &&
+              Objects.equals(this.user, other.user);
     }
-    RestPullRequestParticipant other = (RestPullRequestParticipant) o;
-    return Objects.equals(this.approved, other.approved) &&
-        Objects.equals(this.lastReviewedCommit, other.lastReviewedCommit) &&
-        Objects.equals(this.role, other.role) &&
-        Objects.equals(this.status, other.status) &&
-        Objects.equals(this.user, other.user);
+    return false;
   }
 
   @Override

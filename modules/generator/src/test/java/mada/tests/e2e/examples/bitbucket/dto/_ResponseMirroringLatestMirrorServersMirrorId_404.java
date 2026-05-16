@@ -60,11 +60,10 @@ public class _ResponseMirroringLatestMirrorServersMirrorId_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseMirroringLatestMirrorServersMirrorId_404)) {
-      return false;
+    if (o instanceof _ResponseMirroringLatestMirrorServersMirrorId_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseMirroringLatestMirrorServersMirrorId_404 other = (_ResponseMirroringLatestMirrorServersMirrorId_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

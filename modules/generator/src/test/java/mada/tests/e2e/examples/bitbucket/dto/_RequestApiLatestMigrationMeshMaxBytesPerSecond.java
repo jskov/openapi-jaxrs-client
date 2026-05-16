@@ -70,12 +70,11 @@ public class _RequestApiLatestMigrationMeshMaxBytesPerSecond {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestApiLatestMigrationMeshMaxBytesPerSecond)) {
-      return false;
+    if (o instanceof _RequestApiLatestMigrationMeshMaxBytesPerSecond other) {
+      return Objects.equals(this.asLong, other.asLong) &&
+              Objects.equals(this.present, other.present);
     }
-    _RequestApiLatestMigrationMeshMaxBytesPerSecond other = (_RequestApiLatestMigrationMeshMaxBytesPerSecond) o;
-    return Objects.equals(this.asLong, other.asLong) &&
-        Objects.equals(this.present, other.present);
+    return false;
   }
 
   @Override

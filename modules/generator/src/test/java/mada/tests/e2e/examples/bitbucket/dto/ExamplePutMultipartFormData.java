@@ -98,13 +98,12 @@ public class ExamplePutMultipartFormData {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExamplePutMultipartFormData)) {
-      return false;
+    if (o instanceof ExamplePutMultipartFormData other) {
+      return Objects.equals(this.content, other.content) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.name, other.name);
     }
-    ExamplePutMultipartFormData other = (ExamplePutMultipartFormData) o;
-    return Objects.equals(this.content, other.content) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

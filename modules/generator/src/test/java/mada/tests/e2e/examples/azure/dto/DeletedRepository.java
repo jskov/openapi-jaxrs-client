@@ -86,12 +86,11 @@ public class DeletedRepository {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof DeletedRepository)) {
-      return false;
+    if (o instanceof DeletedRepository other) {
+      return Objects.equals(this.manifestsDeleted, other.manifestsDeleted) &&
+              Objects.equals(this.tagsDeleted, other.tagsDeleted);
     }
-    DeletedRepository other = (DeletedRepository) o;
-    return Objects.equals(this.manifestsDeleted, other.manifestsDeleted) &&
-        Objects.equals(this.tagsDeleted, other.tagsDeleted);
+    return false;
   }
 
   @Override

@@ -95,13 +95,12 @@ public class RestProperties {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestProperties)) {
-      return false;
+    if (o instanceof RestProperties other) {
+      return Objects.equals(this.contentHash, other.contentHash) &&
+              Objects.equals(this.defaultBranchId, other.defaultBranchId) &&
+              Objects.equals(this.metadataHash, other.metadataHash);
     }
-    RestProperties other = (RestProperties) o;
-    return Objects.equals(this.contentHash, other.contentHash) &&
-        Objects.equals(this.defaultBranchId, other.defaultBranchId) &&
-        Objects.equals(this.metadataHash, other.metadataHash);
+    return false;
   }
 
   @Override

@@ -51,11 +51,10 @@ public class ExampleFiles {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleFiles)) {
-      return false;
+    if (o instanceof ExampleFiles other) {
+      return Objects.equals(this.files, other.files);
     }
-    ExampleFiles other = (ExampleFiles) o;
-    return Objects.equals(this.files, other.files);
+    return false;
   }
 
   @Override

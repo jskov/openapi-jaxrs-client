@@ -117,14 +117,13 @@ public class RestRawAccessToken {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRawAccessToken)) {
-      return false;
+    if (o instanceof RestRawAccessToken other) {
+      return Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.token, other.token);
     }
-    RestRawAccessToken other = (RestRawAccessToken) o;
-    return Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.token, other.token);
+    return false;
   }
 
   @Override

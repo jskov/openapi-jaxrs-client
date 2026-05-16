@@ -196,17 +196,16 @@ public class RestDiff {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDiff)) {
-      return false;
+    if (o instanceof RestDiff other) {
+      return Objects.equals(this.binary, other.binary) &&
+              Objects.equals(this.destination, other.destination) &&
+              Objects.equals(this.hunks, other.hunks) &&
+              Objects.equals(this.lineComments, other.lineComments) &&
+              Objects.equals(this.properties, other.properties) &&
+              Objects.equals(this.source, other.source) &&
+              Objects.equals(this.truncated, other.truncated);
     }
-    RestDiff other = (RestDiff) o;
-    return Objects.equals(this.binary, other.binary) &&
-        Objects.equals(this.destination, other.destination) &&
-        Objects.equals(this.hunks, other.hunks) &&
-        Objects.equals(this.lineComments, other.lineComments) &&
-        Objects.equals(this.properties, other.properties) &&
-        Objects.equals(this.source, other.source) &&
-        Objects.equals(this.truncated, other.truncated);
+    return false;
   }
 
   @Override

@@ -70,12 +70,11 @@ public class RestSshKeyTypeRestrictionMinKeyLength {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSshKeyTypeRestrictionMinKeyLength)) {
-      return false;
+    if (o instanceof RestSshKeyTypeRestrictionMinKeyLength other) {
+      return Objects.equals(this.asInt, other.asInt) &&
+              Objects.equals(this.present, other.present);
     }
-    RestSshKeyTypeRestrictionMinKeyLength other = (RestSshKeyTypeRestrictionMinKeyLength) o;
-    return Objects.equals(this.asInt, other.asInt) &&
-        Objects.equals(this.present, other.present);
+    return false;
   }
 
   @Override

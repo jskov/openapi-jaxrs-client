@@ -51,11 +51,10 @@ public class RestAutoMergeSettingsRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoMergeSettingsRequest)) {
-      return false;
+    if (o instanceof RestAutoMergeSettingsRequest other) {
+      return Objects.equals(this.enabled, other.enabled);
     }
-    RestAutoMergeSettingsRequest other = (RestAutoMergeSettingsRequest) o;
-    return Objects.equals(this.enabled, other.enabled);
+    return false;
   }
 
   @Override

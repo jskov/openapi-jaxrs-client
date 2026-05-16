@@ -186,17 +186,16 @@ public class RestDiffHunk {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDiffHunk)) {
-      return false;
+    if (o instanceof RestDiffHunk other) {
+      return Objects.equals(this.context, other.context) &&
+              Objects.equals(this.destinationLine, other.destinationLine) &&
+              Objects.equals(this.destinationSpan, other.destinationSpan) &&
+              Objects.equals(this.segments, other.segments) &&
+              Objects.equals(this.sourceLine, other.sourceLine) &&
+              Objects.equals(this.sourceSpan, other.sourceSpan) &&
+              Objects.equals(this.truncated, other.truncated);
     }
-    RestDiffHunk other = (RestDiffHunk) o;
-    return Objects.equals(this.context, other.context) &&
-        Objects.equals(this.destinationLine, other.destinationLine) &&
-        Objects.equals(this.destinationSpan, other.destinationSpan) &&
-        Objects.equals(this.segments, other.segments) &&
-        Objects.equals(this.sourceLine, other.sourceLine) &&
-        Objects.equals(this.sourceSpan, other.sourceSpan) &&
-        Objects.equals(this.truncated, other.truncated);
+    return false;
   }
 
   @Override

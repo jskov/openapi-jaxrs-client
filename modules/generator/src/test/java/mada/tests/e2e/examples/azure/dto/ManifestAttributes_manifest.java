@@ -79,12 +79,11 @@ public class ManifestAttributes_manifest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ManifestAttributes_manifest)) {
-      return false;
+    if (o instanceof ManifestAttributes_manifest other) {
+      return Objects.equals(this.quarantineTag, other.quarantineTag) &&
+              Objects.equals(this.references, other.references);
     }
-    ManifestAttributes_manifest other = (ManifestAttributes_manifest) o;
-    return Objects.equals(this.quarantineTag, other.quarantineTag) &&
-        Objects.equals(this.references, other.references);
+    return false;
   }
 
   @Override

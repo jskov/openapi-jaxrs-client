@@ -207,16 +207,15 @@ public class RestDiffLine {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDiffLine)) {
-      return false;
+    if (o instanceof RestDiffLine other) {
+      return Objects.equals(this.commentIds, other.commentIds) &&
+              Objects.equals(this.conflictMarker, other.conflictMarker) &&
+              Objects.equals(this.destination, other.destination) &&
+              Objects.equals(this.line, other.line) &&
+              Objects.equals(this.source, other.source) &&
+              Objects.equals(this.truncated, other.truncated);
     }
-    RestDiffLine other = (RestDiffLine) o;
-    return Objects.equals(this.commentIds, other.commentIds) &&
-        Objects.equals(this.conflictMarker, other.conflictMarker) &&
-        Objects.equals(this.destination, other.destination) &&
-        Objects.equals(this.line, other.line) &&
-        Objects.equals(this.source, other.source) &&
-        Objects.equals(this.truncated, other.truncated);
+    return false;
   }
 
   @Override

@@ -60,11 +60,10 @@ public class _ResponseApiLatestGroups_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestGroups_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestGroups_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestGroups_401 other = (_ResponseApiLatestGroups_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

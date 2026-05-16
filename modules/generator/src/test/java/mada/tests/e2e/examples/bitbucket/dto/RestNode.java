@@ -136,13 +136,12 @@ public class RestNode {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestNode)) {
-      return false;
+    if (o instanceof RestNode other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.type, other.type);
     }
-    RestNode other = (RestNode) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

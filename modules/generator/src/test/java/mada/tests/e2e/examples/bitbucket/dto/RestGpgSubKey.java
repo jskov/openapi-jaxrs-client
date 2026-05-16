@@ -71,12 +71,11 @@ public class RestGpgSubKey {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestGpgSubKey)) {
-      return false;
+    if (o instanceof RestGpgSubKey other) {
+      return Objects.equals(this.expiryDate, other.expiryDate) &&
+              Objects.equals(this.fingerprint, other.fingerprint);
     }
-    RestGpgSubKey other = (RestGpgSubKey) o;
-    return Objects.equals(this.expiryDate, other.expiryDate) &&
-        Objects.equals(this.fingerprint, other.fingerprint);
+    return false;
   }
 
   @Override

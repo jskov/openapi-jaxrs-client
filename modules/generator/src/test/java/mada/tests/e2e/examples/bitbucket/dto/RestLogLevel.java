@@ -51,11 +51,10 @@ public class RestLogLevel {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestLogLevel)) {
-      return false;
+    if (o instanceof RestLogLevel other) {
+      return Objects.equals(this.logLevel, other.logLevel);
     }
-    RestLogLevel other = (RestLogLevel) o;
-    return Objects.equals(this.logLevel, other.logLevel);
+    return false;
   }
 
   @Override

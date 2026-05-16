@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminPermissionsGroups_409 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminPermissionsGroups_409)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminPermissionsGroups_409 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminPermissionsGroups_409 other = (_ResponseApiLatestAdminPermissionsGroups_409) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

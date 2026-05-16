@@ -139,15 +139,14 @@ public class RestEnhancedEntityLink {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestEnhancedEntityLink)) {
-      return false;
+    if (o instanceof RestEnhancedEntityLink other) {
+      return Objects.equals(this.applicationLinkId, other.applicationLinkId) &&
+              Objects.equals(this.displayUrl, other.displayUrl) &&
+              Objects.equals(this.projectId, other.projectId) &&
+              Objects.equals(this.projectKey, other.projectKey) &&
+              Objects.equals(this.projectName, other.projectName);
     }
-    RestEnhancedEntityLink other = (RestEnhancedEntityLink) o;
-    return Objects.equals(this.applicationLinkId, other.applicationLinkId) &&
-        Objects.equals(this.displayUrl, other.displayUrl) &&
-        Objects.equals(this.projectId, other.projectId) &&
-        Objects.equals(this.projectKey, other.projectKey) &&
-        Objects.equals(this.projectName, other.projectName);
+    return false;
   }
 
   @Override

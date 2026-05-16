@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminMailServer_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminMailServer_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminMailServer_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminMailServer_404 other = (_ResponseApiLatestAdminMailServer_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

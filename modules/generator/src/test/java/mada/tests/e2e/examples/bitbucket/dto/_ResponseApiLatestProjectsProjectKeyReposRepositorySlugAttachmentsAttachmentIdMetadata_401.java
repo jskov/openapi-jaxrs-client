@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsA
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_401 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugAttachmentsAttachmentIdMetadata_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

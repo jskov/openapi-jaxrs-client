@@ -60,11 +60,10 @@ public class _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugC
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugCondition_400)) {
-      return false;
+    if (o instanceof _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugCondition_400 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugCondition_400 other = (_ResponseRequiredBuildsLatestProjectsProjectKeyReposRepositorySlugCondition_400) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -368,20 +368,19 @@ public class RestUserReactionCommentParentAnchor {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUserReactionCommentParentAnchor)) {
-      return false;
+    if (o instanceof RestUserReactionCommentParentAnchor other) {
+      return Objects.equals(this.diffType, other.diffType) &&
+              Objects.equals(this.fileType, other.fileType) &&
+              Objects.equals(this.fromHash, other.fromHash) &&
+              Objects.equals(this.line, other.line) &&
+              Objects.equals(this.lineComment, other.lineComment) &&
+              Objects.equals(this.lineType, other.lineType) &&
+              Objects.equals(this.path, other.path) &&
+              Objects.equals(this.pullRequest, other.pullRequest) &&
+              Objects.equals(this.srcPath, other.srcPath) &&
+              Objects.equals(this.toHash, other.toHash);
     }
-    RestUserReactionCommentParentAnchor other = (RestUserReactionCommentParentAnchor) o;
-    return Objects.equals(this.diffType, other.diffType) &&
-        Objects.equals(this.fileType, other.fileType) &&
-        Objects.equals(this.fromHash, other.fromHash) &&
-        Objects.equals(this.line, other.line) &&
-        Objects.equals(this.lineComment, other.lineComment) &&
-        Objects.equals(this.lineType, other.lineType) &&
-        Objects.equals(this.path, other.path) &&
-        Objects.equals(this.pullRequest, other.pullRequest) &&
-        Objects.equals(this.srcPath, other.srcPath) &&
-        Objects.equals(this.toHash, other.toHash);
+    return false;
   }
 
   @Override

@@ -60,11 +60,10 @@ public class _ResponseApiLatestMigrationImports_503 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestMigrationImports_503)) {
-      return false;
+    if (o instanceof _ResponseApiLatestMigrationImports_503 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestMigrationImports_503 other = (_ResponseApiLatestMigrationImports_503) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

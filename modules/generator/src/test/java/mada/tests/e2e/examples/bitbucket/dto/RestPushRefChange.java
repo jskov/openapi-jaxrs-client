@@ -243,16 +243,15 @@ public class RestPushRefChange {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPushRefChange)) {
-      return false;
+    if (o instanceof RestPushRefChange other) {
+      return Objects.equals(this.fromHash, other.fromHash) &&
+              Objects.equals(this.ref, other.ref) &&
+              Objects.equals(this.refId, other.refId) &&
+              Objects.equals(this.toHash, other.toHash) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.updatedType, other.updatedType);
     }
-    RestPushRefChange other = (RestPushRefChange) o;
-    return Objects.equals(this.fromHash, other.fromHash) &&
-        Objects.equals(this.ref, other.ref) &&
-        Objects.equals(this.refId, other.refId) &&
-        Objects.equals(this.toHash, other.toHash) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.updatedType, other.updatedType);
+    return false;
   }
 
   @Override

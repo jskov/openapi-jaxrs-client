@@ -115,12 +115,11 @@ public class RestRestrictionRequestScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRestrictionRequestScope)) {
-      return false;
+    if (o instanceof RestRestrictionRequestScope other) {
+      return Objects.equals(this.resourceId, other.resourceId) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRestrictionRequestScope other = (RestRestrictionRequestScope) o;
-    return Objects.equals(this.resourceId, other.resourceId) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

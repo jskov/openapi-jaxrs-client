@@ -108,13 +108,12 @@ public class RestRequiredBuildConditionSetRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRequiredBuildConditionSetRequest)) {
-      return false;
+    if (o instanceof RestRequiredBuildConditionSetRequest other) {
+      return Objects.equals(this.buildParentKeys, other.buildParentKeys) &&
+              Objects.equals(this.exemptRefMatcher, other.exemptRefMatcher) &&
+              Objects.equals(this.refMatcher, other.refMatcher);
     }
-    RestRequiredBuildConditionSetRequest other = (RestRequiredBuildConditionSetRequest) o;
-    return Objects.equals(this.buildParentKeys, other.buildParentKeys) &&
-        Objects.equals(this.exemptRefMatcher, other.exemptRefMatcher) &&
-        Objects.equals(this.refMatcher, other.refMatcher);
+    return false;
   }
 
   @Override

@@ -209,16 +209,15 @@ public class Order {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Order)) {
-      return false;
+    if (o instanceof Order other) {
+      return Objects.equals(this.complete, other.complete) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.petId, other.petId) &&
+              Objects.equals(this.quantity, other.quantity) &&
+              Objects.equals(this.shipDate, other.shipDate) &&
+              Objects.equals(this.status, other.status);
     }
-    Order other = (Order) o;
-    return Objects.equals(this.complete, other.complete) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.petId, other.petId) &&
-        Objects.equals(this.quantity, other.quantity) &&
-        Objects.equals(this.shipDate, other.shipDate) &&
-        Objects.equals(this.status, other.status);
+    return false;
   }
 
   @Override

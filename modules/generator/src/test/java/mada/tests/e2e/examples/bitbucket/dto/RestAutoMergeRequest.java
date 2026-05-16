@@ -161,16 +161,15 @@ public class RestAutoMergeRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoMergeRequest)) {
-      return false;
+    if (o instanceof RestAutoMergeRequest other) {
+      return Objects.equals(this.autoSubject, other.autoSubject) &&
+              Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.fromHash, other.fromHash) &&
+              Objects.equals(this.message, other.message) &&
+              Objects.equals(this.strategyId, other.strategyId) &&
+              Objects.equals(this.toRefId, other.toRefId);
     }
-    RestAutoMergeRequest other = (RestAutoMergeRequest) o;
-    return Objects.equals(this.autoSubject, other.autoSubject) &&
-        Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.fromHash, other.fromHash) &&
-        Objects.equals(this.message, other.message) &&
-        Objects.equals(this.strategyId, other.strategyId) &&
-        Objects.equals(this.toRefId, other.toRefId);
+    return false;
   }
 
   @Override

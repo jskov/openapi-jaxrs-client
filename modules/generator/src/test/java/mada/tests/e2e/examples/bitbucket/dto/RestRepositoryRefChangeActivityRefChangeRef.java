@@ -136,13 +136,12 @@ public class RestRepositoryRefChangeActivityRefChangeRef {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryRefChangeActivityRefChangeRef)) {
-      return false;
+    if (o instanceof RestRepositoryRefChangeActivityRefChangeRef other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.type, other.type);
     }
-    RestRepositoryRefChangeActivityRefChangeRef other = (RestRepositoryRefChangeActivityRefChangeRef) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

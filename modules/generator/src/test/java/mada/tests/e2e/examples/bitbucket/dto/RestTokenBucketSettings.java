@@ -73,12 +73,11 @@ public class RestTokenBucketSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestTokenBucketSettings)) {
-      return false;
+    if (o instanceof RestTokenBucketSettings other) {
+      return Objects.equals(this.capacity, other.capacity) &&
+              Objects.equals(this.fillRate, other.fillRate);
     }
-    RestTokenBucketSettings other = (RestTokenBucketSettings) o;
-    return Objects.equals(this.capacity, other.capacity) &&
-        Objects.equals(this.fillRate, other.fillRate);
+    return false;
   }
 
   @Override

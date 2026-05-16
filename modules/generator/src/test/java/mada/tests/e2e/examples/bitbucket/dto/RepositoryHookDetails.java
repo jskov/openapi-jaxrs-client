@@ -266,17 +266,16 @@ public class RepositoryHookDetails {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RepositoryHookDetails)) {
-      return false;
+    if (o instanceof RepositoryHookDetails other) {
+      return Objects.equals(this.configFormKey, other.configFormKey) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.key, other.key) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.supportedScopes, other.supportedScopes) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.version, other.version);
     }
-    RepositoryHookDetails other = (RepositoryHookDetails) o;
-    return Objects.equals(this.configFormKey, other.configFormKey) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.supportedScopes, other.supportedScopes) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.version, other.version);
+    return false;
   }
 
   @Override

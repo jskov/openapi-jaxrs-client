@@ -154,16 +154,15 @@ public class RestChangesetChanges {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestChangesetChanges)) {
-      return false;
+    if (o instanceof RestChangesetChanges other) {
+      return Objects.equals(this.isLastPage, other.isLastPage) &&
+              Objects.equals(this.limit, other.limit) &&
+              Objects.equals(this.nextPageStart, other.nextPageStart) &&
+              Objects.equals(this.size, other.size) &&
+              Objects.equals(this.start, other.start) &&
+              Objects.equals(this.values, other.values);
     }
-    RestChangesetChanges other = (RestChangesetChanges) o;
-    return Objects.equals(this.isLastPage, other.isLastPage) &&
-        Objects.equals(this.limit, other.limit) &&
-        Objects.equals(this.nextPageStart, other.nextPageStart) &&
-        Objects.equals(this.size, other.size) &&
-        Objects.equals(this.start, other.start) &&
-        Objects.equals(this.values, other.values);
+    return false;
   }
 
   @Override

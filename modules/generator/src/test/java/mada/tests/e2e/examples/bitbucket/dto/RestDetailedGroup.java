@@ -72,12 +72,11 @@ public class RestDetailedGroup {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDetailedGroup)) {
-      return false;
+    if (o instanceof RestDetailedGroup other) {
+      return Objects.equals(this.deletable, other.deletable) &&
+              Objects.equals(this.name, other.name);
     }
-    RestDetailedGroup other = (RestDetailedGroup) o;
-    return Objects.equals(this.deletable, other.deletable) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

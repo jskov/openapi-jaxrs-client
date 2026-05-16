@@ -49,11 +49,10 @@ public class _RequestApiLatestAdminDefaultBranch {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestApiLatestAdminDefaultBranch)) {
-      return false;
+    if (o instanceof _RequestApiLatestAdminDefaultBranch other) {
+      return Objects.equals(this.id, other.id);
     }
-    _RequestApiLatestAdminDefaultBranch other = (_RequestApiLatestAdminDefaultBranch) o;
-    return Objects.equals(this.id, other.id);
+    return false;
   }
 
   @Override

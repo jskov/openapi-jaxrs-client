@@ -70,12 +70,11 @@ public class RestApplySuggestionRequestPullRequestVersion {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestApplySuggestionRequestPullRequestVersion)) {
-      return false;
+    if (o instanceof RestApplySuggestionRequestPullRequestVersion other) {
+      return Objects.equals(this.asInt, other.asInt) &&
+              Objects.equals(this.present, other.present);
     }
-    RestApplySuggestionRequestPullRequestVersion other = (RestApplySuggestionRequestPullRequestVersion) o;
-    return Objects.equals(this.asInt, other.asInt) &&
-        Objects.equals(this.present, other.present);
+    return false;
   }
 
   @Override

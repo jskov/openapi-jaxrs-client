@@ -164,14 +164,13 @@ public class _RequestOauth2Token {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestOauth2Token)) {
-      return false;
+    if (o instanceof _RequestOauth2Token other) {
+      return Objects.equals(this.grantType, other.grantType) &&
+              Objects.equals(this.refreshToken, other.refreshToken) &&
+              Objects.equals(this.scope, other.scope) &&
+              Objects.equals(this.service, other.service);
     }
-    _RequestOauth2Token other = (_RequestOauth2Token) o;
-    return Objects.equals(this.grantType, other.grantType) &&
-        Objects.equals(this.refreshToken, other.refreshToken) &&
-        Objects.equals(this.scope, other.scope) &&
-        Objects.equals(this.service, other.service);
+    return false;
   }
 
   @Override

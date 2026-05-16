@@ -145,13 +145,12 @@ public class RestDiffSegment {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDiffSegment)) {
-      return false;
+    if (o instanceof RestDiffSegment other) {
+      return Objects.equals(this.lines, other.lines) &&
+              Objects.equals(this.truncated, other.truncated) &&
+              Objects.equals(this.type, other.type);
     }
-    RestDiffSegment other = (RestDiffSegment) o;
-    return Objects.equals(this.lines, other.lines) &&
-        Objects.equals(this.truncated, other.truncated) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

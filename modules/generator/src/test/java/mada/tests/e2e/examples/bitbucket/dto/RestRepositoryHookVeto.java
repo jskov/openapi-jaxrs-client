@@ -73,12 +73,11 @@ public class RestRepositoryHookVeto {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryHookVeto)) {
-      return false;
+    if (o instanceof RestRepositoryHookVeto other) {
+      return Objects.equals(this.detailedMessage, other.detailedMessage) &&
+              Objects.equals(this.summaryMessage, other.summaryMessage);
     }
-    RestRepositoryHookVeto other = (RestRepositoryHookVeto) o;
-    return Objects.equals(this.detailedMessage, other.detailedMessage) &&
-        Objects.equals(this.summaryMessage, other.summaryMessage);
+    return false;
   }
 
   @Override

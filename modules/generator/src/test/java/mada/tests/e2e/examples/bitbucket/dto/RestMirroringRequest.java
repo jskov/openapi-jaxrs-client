@@ -306,19 +306,18 @@ public class RestMirroringRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMirroringRequest)) {
-      return false;
+    if (o instanceof RestMirroringRequest other) {
+      return Objects.equals(this.addonDescriptorUri, other.addonDescriptorUri) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.mirrorBaseUrl, other.mirrorBaseUrl) &&
+              Objects.equals(this.mirrorId, other.mirrorId) &&
+              Objects.equals(this.mirrorName, other.mirrorName) &&
+              Objects.equals(this.mirrorType, other.mirrorType) &&
+              Objects.equals(this.productType, other.productType) &&
+              Objects.equals(this.productVersion, other.productVersion) &&
+              Objects.equals(this.state, other.state);
     }
-    RestMirroringRequest other = (RestMirroringRequest) o;
-    return Objects.equals(this.addonDescriptorUri, other.addonDescriptorUri) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.mirrorBaseUrl, other.mirrorBaseUrl) &&
-        Objects.equals(this.mirrorId, other.mirrorId) &&
-        Objects.equals(this.mirrorName, other.mirrorName) &&
-        Objects.equals(this.mirrorType, other.mirrorType) &&
-        Objects.equals(this.productType, other.productType) &&
-        Objects.equals(this.productVersion, other.productVersion) &&
-        Objects.equals(this.state, other.state);
+    return false;
   }
 
   @Override

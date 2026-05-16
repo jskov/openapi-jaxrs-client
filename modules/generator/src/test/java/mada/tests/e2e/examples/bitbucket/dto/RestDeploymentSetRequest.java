@@ -264,18 +264,17 @@ public class RestDeploymentSetRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestDeploymentSetRequest)) {
-      return false;
+    if (o instanceof RestDeploymentSetRequest other) {
+      return Objects.equals(this.deploymentSequenceNumber, other.deploymentSequenceNumber) &&
+              Objects.equals(this.description, other.description) &&
+              Objects.equals(this.displayName, other.displayName) &&
+              Objects.equals(this.environment, other.environment) &&
+              Objects.equals(this.key, other.key) &&
+              Objects.equals(this.lastUpdated, other.lastUpdated) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.url, other.url);
     }
-    RestDeploymentSetRequest other = (RestDeploymentSetRequest) o;
-    return Objects.equals(this.deploymentSequenceNumber, other.deploymentSequenceNumber) &&
-        Objects.equals(this.description, other.description) &&
-        Objects.equals(this.displayName, other.displayName) &&
-        Objects.equals(this.environment, other.environment) &&
-        Objects.equals(this.key, other.key) &&
-        Objects.equals(this.lastUpdated, other.lastUpdated) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.url, other.url);
+    return false;
   }
 
   @Override

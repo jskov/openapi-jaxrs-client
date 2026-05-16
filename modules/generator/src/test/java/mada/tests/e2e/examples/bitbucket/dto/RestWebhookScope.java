@@ -70,12 +70,11 @@ public class RestWebhookScope {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestWebhookScope)) {
-      return false;
+    if (o instanceof RestWebhookScope other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.type, other.type);
     }
-    RestWebhookScope other = (RestWebhookScope) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

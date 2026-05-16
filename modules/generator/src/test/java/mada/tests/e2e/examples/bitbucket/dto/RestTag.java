@@ -202,16 +202,15 @@ public class RestTag {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestTag)) {
-      return false;
+    if (o instanceof RestTag other) {
+      return Objects.equals(this.displayId, other.displayId) &&
+              Objects.equals(this.hash, other.hash) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.latestChangeset, other.latestChangeset) &&
+              Objects.equals(this.latestCommit, other.latestCommit) &&
+              Objects.equals(this.type, other.type);
     }
-    RestTag other = (RestTag) o;
-    return Objects.equals(this.displayId, other.displayId) &&
-        Objects.equals(this.hash, other.hash) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.latestChangeset, other.latestChangeset) &&
-        Objects.equals(this.latestCommit, other.latestCommit) &&
-        Objects.equals(this.type, other.type);
+    return false;
   }
 
   @Override

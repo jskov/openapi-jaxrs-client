@@ -138,15 +138,14 @@ public class RestChangeset {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestChangeset)) {
-      return false;
+    if (o instanceof RestChangeset other) {
+      return Objects.equals(this.changes, other.changes) &&
+              Objects.equals(this.fromCommit, other.fromCommit) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.repository, other.repository) &&
+              Objects.equals(this.toCommit, other.toCommit);
     }
-    RestChangeset other = (RestChangeset) o;
-    return Objects.equals(this.changes, other.changes) &&
-        Objects.equals(this.fromCommit, other.fromCommit) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.repository, other.repository) &&
-        Objects.equals(this.toCommit, other.toCommit);
+    return false;
   }
 
   @Override

@@ -181,15 +181,14 @@ public class RestJobMessage {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestJobMessage)) {
-      return false;
+    if (o instanceof RestJobMessage other) {
+      return Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.severity, other.severity) &&
+              Objects.equals(this.subject, other.subject) &&
+              Objects.equals(this.text, other.text);
     }
-    RestJobMessage other = (RestJobMessage) o;
-    return Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.severity, other.severity) &&
-        Objects.equals(this.subject, other.subject) &&
-        Objects.equals(this.text, other.text);
+    return false;
   }
 
   @Override

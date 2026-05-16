@@ -59,11 +59,10 @@ public class RestBuildCapabilities {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestBuildCapabilities)) {
-      return false;
+    if (o instanceof RestBuildCapabilities other) {
+      return Objects.equals(this.buildStatus, other.buildStatus);
     }
-    RestBuildCapabilities other = (RestBuildCapabilities) o;
-    return Objects.equals(this.buildStatus, other.buildStatus);
+    return false;
   }
 
   @Override

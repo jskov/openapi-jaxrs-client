@@ -51,11 +51,10 @@ public class Group {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Group)) {
-      return false;
+    if (o instanceof Group other) {
+      return Objects.equals(this.name, other.name);
     }
-    Group other = (Group) o;
-    return Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

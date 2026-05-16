@@ -44,11 +44,10 @@ public class AccessToken {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof AccessToken)) {
-      return false;
+    if (o instanceof AccessToken other) {
+      return Objects.equals(this.accessToken, other.accessToken);
     }
-    AccessToken other = (AccessToken) o;
-    return Objects.equals(this.accessToken, other.accessToken);
+    return false;
   }
 
   @Override

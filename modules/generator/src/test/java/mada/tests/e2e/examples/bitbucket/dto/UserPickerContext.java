@@ -73,12 +73,11 @@ public class UserPickerContext {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof UserPickerContext)) {
-      return false;
+    if (o instanceof UserPickerContext other) {
+      return Objects.equals(this.context, other.context) &&
+              Objects.equals(this.itemName, other.itemName);
     }
-    UserPickerContext other = (UserPickerContext) o;
-    return Objects.equals(this.context, other.context) &&
-        Objects.equals(this.itemName, other.itemName);
+    return false;
   }
 
   @Override

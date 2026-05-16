@@ -137,13 +137,12 @@ public class _RequestApiLatestAdminBanner {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestApiLatestAdminBanner)) {
-      return false;
+    if (o instanceof _RequestApiLatestAdminBanner other) {
+      return Objects.equals(this.audience, other.audience) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.message, other.message);
     }
-    _RequestApiLatestAdminBanner other = (_RequestApiLatestAdminBanner) o;
-    return Objects.equals(this.audience, other.audience) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.message, other.message);
+    return false;
   }
 
   @Override

@@ -96,13 +96,12 @@ public class ExampleSettingsMap {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleSettingsMap)) {
-      return false;
+    if (o instanceof ExampleSettingsMap other) {
+      return Objects.equals(this.boolean_key, other.boolean_key) &&
+              Objects.equals(this.long_key, other.long_key) &&
+              Objects.equals(this.string_key, other.string_key);
     }
-    ExampleSettingsMap other = (ExampleSettingsMap) o;
-    return Objects.equals(this.boolean_key, other.boolean_key) &&
-        Objects.equals(this.long_key, other.long_key) &&
-        Objects.equals(this.string_key, other.string_key);
+    return false;
   }
 
   @Override

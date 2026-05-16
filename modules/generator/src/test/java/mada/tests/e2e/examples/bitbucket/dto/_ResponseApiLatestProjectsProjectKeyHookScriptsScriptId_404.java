@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404 other = (_ResponseApiLatestProjectsProjectKeyHookScriptsScriptId_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

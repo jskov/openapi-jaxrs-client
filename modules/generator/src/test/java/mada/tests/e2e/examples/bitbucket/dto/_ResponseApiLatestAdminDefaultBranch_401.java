@@ -60,11 +60,10 @@ public class _ResponseApiLatestAdminDefaultBranch_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestAdminDefaultBranch_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestAdminDefaultBranch_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestAdminDefaultBranch_401 other = (_ResponseApiLatestAdminDefaultBranch_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

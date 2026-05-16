@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanni
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugSecretScanningExempt_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

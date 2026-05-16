@@ -243,16 +243,15 @@ public class RestRepositoryRefChangeActivityRefChange {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryRefChangeActivityRefChange)) {
-      return false;
+    if (o instanceof RestRepositoryRefChangeActivityRefChange other) {
+      return Objects.equals(this.fromHash, other.fromHash) &&
+              Objects.equals(this.ref, other.ref) &&
+              Objects.equals(this.refId, other.refId) &&
+              Objects.equals(this.toHash, other.toHash) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.updatedType, other.updatedType);
     }
-    RestRepositoryRefChangeActivityRefChange other = (RestRepositoryRefChangeActivityRefChange) o;
-    return Objects.equals(this.fromHash, other.fromHash) &&
-        Objects.equals(this.ref, other.ref) &&
-        Objects.equals(this.refId, other.refId) &&
-        Objects.equals(this.toHash, other.toHash) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.updatedType, other.updatedType);
+    return false;
   }
 
   @Override

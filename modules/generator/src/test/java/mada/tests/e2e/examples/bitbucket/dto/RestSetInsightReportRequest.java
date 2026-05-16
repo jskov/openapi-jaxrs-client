@@ -241,19 +241,18 @@ public class RestSetInsightReportRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSetInsightReportRequest)) {
-      return false;
+    if (o instanceof RestSetInsightReportRequest other) {
+      return Objects.equals(this.coverageProviderKey, other.coverageProviderKey) &&
+              Objects.equals(this.createdDate, other.createdDate) &&
+              Objects.equals(this.data, other.data) &&
+              Objects.equals(this.details, other.details) &&
+              Objects.equals(this.link, other.link) &&
+              Objects.equals(this.logoUrl, other.logoUrl) &&
+              Objects.equals(this.reporter, other.reporter) &&
+              Objects.equals(this.result, other.result) &&
+              Objects.equals(this.title, other.title);
     }
-    RestSetInsightReportRequest other = (RestSetInsightReportRequest) o;
-    return Objects.equals(this.coverageProviderKey, other.coverageProviderKey) &&
-        Objects.equals(this.createdDate, other.createdDate) &&
-        Objects.equals(this.data, other.data) &&
-        Objects.equals(this.details, other.details) &&
-        Objects.equals(this.link, other.link) &&
-        Objects.equals(this.logoUrl, other.logoUrl) &&
-        Objects.equals(this.reporter, other.reporter) &&
-        Objects.equals(this.result, other.result) &&
-        Objects.equals(this.title, other.title);
+    return false;
   }
 
   @Override

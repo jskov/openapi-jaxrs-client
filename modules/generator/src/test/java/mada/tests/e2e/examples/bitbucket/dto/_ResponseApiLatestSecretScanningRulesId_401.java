@@ -60,11 +60,10 @@ public class _ResponseApiLatestSecretScanningRulesId_401 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestSecretScanningRulesId_401)) {
-      return false;
+    if (o instanceof _ResponseApiLatestSecretScanningRulesId_401 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestSecretScanningRulesId_401 other = (_ResponseApiLatestSecretScanningRulesId_401) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

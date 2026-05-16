@@ -60,11 +60,10 @@ public class _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_404 
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_404)) {
-      return false;
+    if (o instanceof _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_404 other = (_ResponseApiLatestProjectsProjectKeyReposRepositorySlugLicense_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

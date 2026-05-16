@@ -160,16 +160,15 @@ public class RestPullRequestMergeStrategy {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestMergeStrategy)) {
-      return false;
+    if (o instanceof RestPullRequestMergeStrategy other) {
+      return Objects.equals(this.description, other.description) &&
+              Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.flag, other.flag) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.links, other.links) &&
+              Objects.equals(this.name, other.name);
     }
-    RestPullRequestMergeStrategy other = (RestPullRequestMergeStrategy) o;
-    return Objects.equals(this.description, other.description) &&
-        Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.flag, other.flag) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.links, other.links) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

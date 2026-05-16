@@ -95,13 +95,12 @@ public class RestNodeConnectivitySummarySummary {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestNodeConnectivitySummarySummary)) {
-      return false;
+    if (o instanceof RestNodeConnectivitySummarySummary other) {
+      return Objects.equals(this.errorMessage, other.errorMessage) &&
+              Objects.equals(this.reachable, other.reachable) &&
+              Objects.equals(this.roundTripTime, other.roundTripTime);
     }
-    RestNodeConnectivitySummarySummary other = (RestNodeConnectivitySummarySummary) o;
-    return Objects.equals(this.errorMessage, other.errorMessage) &&
-        Objects.equals(this.reachable, other.reachable) &&
-        Objects.equals(this.roundTripTime, other.roundTripTime);
+    return false;
   }
 
   @Override

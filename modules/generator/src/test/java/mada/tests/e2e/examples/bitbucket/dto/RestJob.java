@@ -277,19 +277,18 @@ public class RestJob {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestJob)) {
-      return false;
+    if (o instanceof RestJob other) {
+      return Objects.equals(this.endDate, other.endDate) &&
+              Objects.equals(this.id, other.id) &&
+              Objects.equals(this.initiator, other.initiator) &&
+              Objects.equals(this.nodeId, other.nodeId) &&
+              Objects.equals(this.progress, other.progress) &&
+              Objects.equals(this.startDate, other.startDate) &&
+              Objects.equals(this.state, other.state) &&
+              Objects.equals(this.type, other.type) &&
+              Objects.equals(this.updatedDate, other.updatedDate);
     }
-    RestJob other = (RestJob) o;
-    return Objects.equals(this.endDate, other.endDate) &&
-        Objects.equals(this.id, other.id) &&
-        Objects.equals(this.initiator, other.initiator) &&
-        Objects.equals(this.nodeId, other.nodeId) &&
-        Objects.equals(this.progress, other.progress) &&
-        Objects.equals(this.startDate, other.startDate) &&
-        Objects.equals(this.state, other.state) &&
-        Objects.equals(this.type, other.type) &&
-        Objects.equals(this.updatedDate, other.updatedDate);
+    return false;
   }
 
   @Override

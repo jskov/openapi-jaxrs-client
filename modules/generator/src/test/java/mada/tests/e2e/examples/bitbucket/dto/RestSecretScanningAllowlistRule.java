@@ -121,14 +121,13 @@ public class RestSecretScanningAllowlistRule {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestSecretScanningAllowlistRule)) {
-      return false;
+    if (o instanceof RestSecretScanningAllowlistRule other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.lineRegex, other.lineRegex) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.pathRegex, other.pathRegex);
     }
-    RestSecretScanningAllowlistRule other = (RestSecretScanningAllowlistRule) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.lineRegex, other.lineRegex) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.pathRegex, other.pathRegex);
+    return false;
   }
 
   @Override

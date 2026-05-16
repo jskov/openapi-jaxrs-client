@@ -113,14 +113,13 @@ public class TagChangeableAttributes {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof TagChangeableAttributes)) {
-      return false;
+    if (o instanceof TagChangeableAttributes other) {
+      return Objects.equals(this.deleteEnabled, other.deleteEnabled) &&
+              Objects.equals(this.listEnabled, other.listEnabled) &&
+              Objects.equals(this.readEnabled, other.readEnabled) &&
+              Objects.equals(this.writeEnabled, other.writeEnabled);
     }
-    TagChangeableAttributes other = (TagChangeableAttributes) o;
-    return Objects.equals(this.deleteEnabled, other.deleteEnabled) &&
-        Objects.equals(this.listEnabled, other.listEnabled) &&
-        Objects.equals(this.readEnabled, other.readEnabled) &&
-        Objects.equals(this.writeEnabled, other.writeEnabled);
+    return false;
   }
 
   @Override

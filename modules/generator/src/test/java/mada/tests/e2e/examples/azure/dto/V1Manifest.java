@@ -187,16 +187,15 @@ public class V1Manifest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof V1Manifest)) {
-      return false;
+    if (o instanceof V1Manifest other) {
+      return Objects.equals(this.architecture, other.architecture) &&
+              Objects.equals(this.fsLayers, other.fsLayers) &&
+              Objects.equals(this.history, other.history) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.signatures, other.signatures) &&
+              Objects.equals(this.tag, other.tag);
     }
-    V1Manifest other = (V1Manifest) o;
-    return Objects.equals(this.architecture, other.architecture) &&
-        Objects.equals(this.fsLayers, other.fsLayers) &&
-        Objects.equals(this.history, other.history) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.signatures, other.signatures) &&
-        Objects.equals(this.tag, other.tag);
+    return false;
   }
 
   @Override

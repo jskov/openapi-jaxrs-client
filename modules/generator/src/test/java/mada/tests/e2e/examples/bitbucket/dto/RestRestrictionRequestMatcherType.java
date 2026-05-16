@@ -117,12 +117,11 @@ public class RestRestrictionRequestMatcherType {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRestrictionRequestMatcherType)) {
-      return false;
+    if (o instanceof RestRestrictionRequestMatcherType other) {
+      return Objects.equals(this.id, other.id) &&
+              Objects.equals(this.name, other.name);
     }
-    RestRestrictionRequestMatcherType other = (RestRestrictionRequestMatcherType) o;
-    return Objects.equals(this.id, other.id) &&
-        Objects.equals(this.name, other.name);
+    return false;
   }
 
   @Override

@@ -92,11 +92,10 @@ public class RestPullRequestAssignStatusRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestPullRequestAssignStatusRequest)) {
-      return false;
+    if (o instanceof RestPullRequestAssignStatusRequest other) {
+      return Objects.equals(this.status, other.status);
     }
-    RestPullRequestAssignStatusRequest other = (RestPullRequestAssignStatusRequest) o;
-    return Objects.equals(this.status, other.status);
+    return false;
   }
 
   @Override

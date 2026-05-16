@@ -132,14 +132,13 @@ public class _RequestApiLatestMigrationMesh {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _RequestApiLatestMigrationMesh)) {
-      return false;
+    if (o instanceof _RequestApiLatestMigrationMesh other) {
+      return Objects.equals(this.all, other.all) &&
+              Objects.equals(this.maxBytesPerSecond, other.maxBytesPerSecond) &&
+              Objects.equals(this.projectIds, other.projectIds) &&
+              Objects.equals(this.repositoryIds, other.repositoryIds);
     }
-    _RequestApiLatestMigrationMesh other = (_RequestApiLatestMigrationMesh) o;
-    return Objects.equals(this.all, other.all) &&
-        Objects.equals(this.maxBytesPerSecond, other.maxBytesPerSecond) &&
-        Objects.equals(this.projectIds, other.projectIds) &&
-        Objects.equals(this.repositoryIds, other.repositoryIds);
+    return false;
   }
 
   @Override

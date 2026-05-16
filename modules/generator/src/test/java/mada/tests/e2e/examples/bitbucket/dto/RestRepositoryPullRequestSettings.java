@@ -179,17 +179,16 @@ public class RestRepositoryPullRequestSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestRepositoryPullRequestSettings)) {
-      return false;
+    if (o instanceof RestRepositoryPullRequestSettings other) {
+      return Objects.equals(this.mergeConfig, other.mergeConfig) &&
+              Objects.equals(this.requiredAllApprovers, other.requiredAllApprovers) &&
+              Objects.equals(this.requiredAllTasksComplete, other.requiredAllTasksComplete) &&
+              Objects.equals(this.requiredApprovers, other.requiredApprovers) &&
+              Objects.equals(this.requiredApproversDeprecated, other.requiredApproversDeprecated) &&
+              Objects.equals(this.requiredSuccessfulBuilds, other.requiredSuccessfulBuilds) &&
+              Objects.equals(this.requiredSuccessfulBuildsDeprecated, other.requiredSuccessfulBuildsDeprecated);
     }
-    RestRepositoryPullRequestSettings other = (RestRepositoryPullRequestSettings) o;
-    return Objects.equals(this.mergeConfig, other.mergeConfig) &&
-        Objects.equals(this.requiredAllApprovers, other.requiredAllApprovers) &&
-        Objects.equals(this.requiredAllTasksComplete, other.requiredAllTasksComplete) &&
-        Objects.equals(this.requiredApprovers, other.requiredApprovers) &&
-        Objects.equals(this.requiredApproversDeprecated, other.requiredApproversDeprecated) &&
-        Objects.equals(this.requiredSuccessfulBuilds, other.requiredSuccessfulBuilds) &&
-        Objects.equals(this.requiredSuccessfulBuildsDeprecated, other.requiredSuccessfulBuildsDeprecated);
+    return false;
   }
 
   @Override

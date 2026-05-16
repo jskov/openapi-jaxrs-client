@@ -127,14 +127,13 @@ public class RestCommentParentAnchorSrcPath {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestCommentParentAnchorSrcPath)) {
-      return false;
+    if (o instanceof RestCommentParentAnchorSrcPath other) {
+      return Objects.equals(this.components, other.components) &&
+              Objects.equals(this.extension, other.extension) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.parent, other.parent);
     }
-    RestCommentParentAnchorSrcPath other = (RestCommentParentAnchorSrcPath) o;
-    return Objects.equals(this.components, other.components) &&
-        Objects.equals(this.extension, other.extension) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.parent, other.parent);
+    return false;
   }
 
   @Override

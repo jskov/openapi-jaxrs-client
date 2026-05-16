@@ -60,11 +60,10 @@ public class ExamplePreviewMigration {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExamplePreviewMigration)) {
-      return false;
+    if (o instanceof ExamplePreviewMigration other) {
+      return Objects.equals(this.repositories, other.repositories);
     }
-    ExamplePreviewMigration other = (ExamplePreviewMigration) o;
-    return Objects.equals(this.repositories, other.repositories);
+    return false;
   }
 
   @Override

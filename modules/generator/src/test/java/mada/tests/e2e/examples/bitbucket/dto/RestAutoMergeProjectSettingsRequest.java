@@ -116,12 +116,11 @@ public class RestAutoMergeProjectSettingsRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoMergeProjectSettingsRequest)) {
-      return false;
+    if (o instanceof RestAutoMergeProjectSettingsRequest other) {
+      return Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.restrictionAction, other.restrictionAction);
     }
-    RestAutoMergeProjectSettingsRequest other = (RestAutoMergeProjectSettingsRequest) o;
-    return Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.restrictionAction, other.restrictionAction);
+    return false;
   }
 
   @Override

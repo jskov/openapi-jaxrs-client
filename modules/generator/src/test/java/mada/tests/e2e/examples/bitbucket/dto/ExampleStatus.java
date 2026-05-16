@@ -73,12 +73,11 @@ public class ExampleStatus {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleStatus)) {
-      return false;
+    if (o instanceof ExampleStatus other) {
+      return Objects.equals(this.currentNumberOfUsers, other.currentNumberOfUsers) &&
+              Objects.equals(this.serverId, other.serverId);
     }
-    ExampleStatus other = (ExampleStatus) o;
-    return Objects.equals(this.currentNumberOfUsers, other.currentNumberOfUsers) &&
-        Objects.equals(this.serverId, other.serverId);
+    return false;
   }
 
   @Override

@@ -60,11 +60,10 @@ public class _ResponseKeysLatestProjectsProjectKeySshKeyId_404 {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof _ResponseKeysLatestProjectsProjectKeySshKeyId_404)) {
-      return false;
+    if (o instanceof _ResponseKeysLatestProjectsProjectKeySshKeyId_404 other) {
+      return Objects.equals(this.errors, other.errors);
     }
-    _ResponseKeysLatestProjectsProjectKeySshKeyId_404 other = (_ResponseKeysLatestProjectsProjectKeySshKeyId_404) o;
-    return Objects.equals(this.errors, other.errors);
+    return false;
   }
 
   @Override

@@ -44,11 +44,10 @@ public class RefreshToken {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RefreshToken)) {
-      return false;
+    if (o instanceof RefreshToken other) {
+      return Objects.equals(this.refreshToken, other.refreshToken);
     }
-    RefreshToken other = (RefreshToken) o;
-    return Objects.equals(this.refreshToken, other.refreshToken);
+    return false;
   }
 
   @Override

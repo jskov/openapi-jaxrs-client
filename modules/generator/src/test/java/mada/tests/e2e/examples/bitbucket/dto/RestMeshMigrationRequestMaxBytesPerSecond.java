@@ -70,12 +70,11 @@ public class RestMeshMigrationRequestMaxBytesPerSecond {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestMeshMigrationRequestMaxBytesPerSecond)) {
-      return false;
+    if (o instanceof RestMeshMigrationRequestMaxBytesPerSecond other) {
+      return Objects.equals(this.asLong, other.asLong) &&
+              Objects.equals(this.present, other.present);
     }
-    RestMeshMigrationRequestMaxBytesPerSecond other = (RestMeshMigrationRequestMaxBytesPerSecond) o;
-    return Objects.equals(this.asLong, other.asLong) &&
-        Objects.equals(this.present, other.present);
+    return false;
   }
 
   @Override

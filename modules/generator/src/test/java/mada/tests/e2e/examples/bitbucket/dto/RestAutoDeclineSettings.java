@@ -96,13 +96,12 @@ public class RestAutoDeclineSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestAutoDeclineSettings)) {
-      return false;
+    if (o instanceof RestAutoDeclineSettings other) {
+      return Objects.equals(this.enabled, other.enabled) &&
+              Objects.equals(this.inactivityWeeks, other.inactivityWeeks) &&
+              Objects.equals(this.scope, other.scope);
     }
-    RestAutoDeclineSettings other = (RestAutoDeclineSettings) o;
-    return Objects.equals(this.enabled, other.enabled) &&
-        Objects.equals(this.inactivityWeeks, other.inactivityWeeks) &&
-        Objects.equals(this.scope, other.scope);
+    return false;
   }
 
   @Override

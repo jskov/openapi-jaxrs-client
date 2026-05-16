@@ -94,13 +94,12 @@ public class RestUserRateLimitSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestUserRateLimitSettings)) {
-      return false;
+    if (o instanceof RestUserRateLimitSettings other) {
+      return Objects.equals(this.settings, other.settings) &&
+              Objects.equals(this.user, other.user) &&
+              Objects.equals(this.whitelisted, other.whitelisted);
     }
-    RestUserRateLimitSettings other = (RestUserRateLimitSettings) o;
-    return Objects.equals(this.settings, other.settings) &&
-        Objects.equals(this.user, other.user) &&
-        Objects.equals(this.whitelisted, other.whitelisted);
+    return false;
   }
 
   @Override

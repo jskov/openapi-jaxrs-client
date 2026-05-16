@@ -139,15 +139,14 @@ public class ExampleSettings {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleSettings)) {
-      return false;
+    if (o instanceof ExampleSettings other) {
+      return Objects.equals(this.booleanValue, other.booleanValue) &&
+              Objects.equals(this.doubleValue, other.doubleValue) &&
+              Objects.equals(this.integerValue, other.integerValue) &&
+              Objects.equals(this.longValue, other.longValue) &&
+              Objects.equals(this.stringValue, other.stringValue);
     }
-    ExampleSettings other = (ExampleSettings) o;
-    return Objects.equals(this.booleanValue, other.booleanValue) &&
-        Objects.equals(this.doubleValue, other.doubleValue) &&
-        Objects.equals(this.integerValue, other.integerValue) &&
-        Objects.equals(this.longValue, other.longValue) &&
-        Objects.equals(this.stringValue, other.stringValue);
+    return false;
   }
 
   @Override

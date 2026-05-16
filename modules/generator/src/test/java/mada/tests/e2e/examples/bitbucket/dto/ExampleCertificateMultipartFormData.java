@@ -53,11 +53,10 @@ public class ExampleCertificateMultipartFormData {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ExampleCertificateMultipartFormData)) {
-      return false;
+    if (o instanceof ExampleCertificateMultipartFormData other) {
+      return Arrays.equals(this.certificate, other.certificate);
     }
-    ExampleCertificateMultipartFormData other = (ExampleCertificateMultipartFormData) o;
-    return Arrays.equals(this.certificate, other.certificate);
+    return false;
   }
 
   @Override

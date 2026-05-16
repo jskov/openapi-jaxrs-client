@@ -127,14 +127,13 @@ public class RestConflictChangeSrcPath {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RestConflictChangeSrcPath)) {
-      return false;
+    if (o instanceof RestConflictChangeSrcPath other) {
+      return Objects.equals(this.components, other.components) &&
+              Objects.equals(this.extension, other.extension) &&
+              Objects.equals(this.name, other.name) &&
+              Objects.equals(this.parent, other.parent);
     }
-    RestConflictChangeSrcPath other = (RestConflictChangeSrcPath) o;
-    return Objects.equals(this.components, other.components) &&
-        Objects.equals(this.extension, other.extension) &&
-        Objects.equals(this.name, other.name) &&
-        Objects.equals(this.parent, other.parent);
+    return false;
   }
 
   @Override
