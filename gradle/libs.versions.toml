@@ -6,7 +6,7 @@ jstachio   = "1.3.7"
 picocli    = "4.7.7"
 quarkus    = "3.35.4"
 slf4j      = "2.0.18"
-swagger    = "2.1.42"
+swagger    = "2.1.43"
 
 [libraries]
 assertJ             = { module = "org.assertj:assertj-core", version.ref = "assertj" }
