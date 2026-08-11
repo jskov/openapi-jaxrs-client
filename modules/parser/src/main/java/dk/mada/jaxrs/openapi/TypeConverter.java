@@ -203,7 +203,7 @@ public final class TypeConverter {
                 schemaFormat,
                 schema.getClass());
 
-        Validation validation = Validations.extractValidation(schema, false);
+        Validation validation = Validations.extractValidation(sp, false);
         logger.debug("validation {}", validation);
 
         RefInfo ri = new RefInfo(schema, sp, propertyName, parentDtoName, context, validation, isFormRef);
@@ -261,12 +261,7 @@ public final class TypeConverter {
             return null;
         }
 
-        // As of OpenApi specification V3.1 the type encodes nullable - move it to the
-        // validation
         Validation validation = ri.validation();
-        if (schemaParser.isNullable()) {
-            validation = Validations.makeNullable(validation);
-        }
 
         if (!schemaParser.isEnumeration() || ri.propertyName == null) {
             String name = type.typeName().name();
@@ -809,8 +804,9 @@ public final class TypeConverter {
             logger.debug("   ref: {}", ref);
             logger.debug("   example: {}", exampleStr);
 
-            Validation validation =
-                    Validations.extractValidation(propSchema, requiredProperyNames.contains(propertyName));
+            SchemaParser sp = SchemaParser.of(propSchema);
+
+            Validation validation = Validations.extractValidation(sp, requiredProperyNames.contains(propertyName));
 
             props.add(Property.builder()
                     .name(propertyName)

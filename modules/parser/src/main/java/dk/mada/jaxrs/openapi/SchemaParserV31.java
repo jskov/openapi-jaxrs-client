@@ -131,7 +131,6 @@ public final class SchemaParserV31 implements SchemaParser {
     }
 
     private boolean typesContainsJust(String typeName) {
-        Set<String> types = schema.getTypes();
-        return types != null && types.size() == 1 && types.contains(typeName);
+        return typeName.equals(type);
     }
 }

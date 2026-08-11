@@ -130,6 +130,7 @@ public class PropertyGenerator {
         boolean isRequired = ti.isRequired();
         boolean isJaxrsNullable = prop.validation().nullable();
         boolean isImpliedNullable = !isRequired;
+        boolean isNullable = isJaxrsNullable || isImpliedNullable;
         boolean isNotNull = !isJaxrsNullable && isRequired;
         if (isRequired) {
             schemaEntries.add("required = true");
@@ -180,7 +181,7 @@ public class PropertyGenerator {
                 .jsonb(opts.isJsonb())
                 .multipartType(multipartType)
                 .jsonPropertyConstant(jsonPropertyConst)
-                .isNullable(isJaxrsNullable || isImpliedNullable)
+                .isNullable(isNullable)
                 .isRequireNonNull(isNotNull && opts.isUsePojoRequireNonNull())
                 .build();
 
