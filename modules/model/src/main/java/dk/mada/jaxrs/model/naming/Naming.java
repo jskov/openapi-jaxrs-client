@@ -247,7 +247,7 @@ public class Naming {
     private String convert(List<NamingRule> rules, String input) {
         String result = input;
         logger.trace(" convert '{}'", input);
-        if (input.startsWith(PARSER_INTERNAL_PROPERTIES_NAME_MARKER)) {
+        if (isParserInternalName(input)) {
             logger.trace("  ignored, internal naming");
             return input;
         }
@@ -258,5 +258,21 @@ public class Naming {
             result = newResult;
         }
         return result;
+    }
+
+    /**
+     * {@return the input, marked as an internal parser name}
+     * @param input the input text to mark as an internal parser name
+     */
+    public static String makeParserInternalName(String input) {
+        return PARSER_INTERNAL_PROPERTIES_NAME_MARKER + input;
+    }
+
+    /**
+     * {@return true if the name contains the internal parser marker}
+     * @param input the input text to test
+     **/
+    public static boolean isParserInternalName(String input) {
+        return input.contains(PARSER_INTERNAL_PROPERTIES_NAME_MARKER);
     }
 }

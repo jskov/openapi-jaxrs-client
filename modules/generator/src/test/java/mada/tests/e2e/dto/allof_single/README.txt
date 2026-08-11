@@ -25,3 +25,7 @@ Quarkus 3+ generates new output when fields are annotated with @Schema such as:
 
 
 Looks the same in editor.swagger.io.
+
+
+winget:
+    example with type allof having just one entry

@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.openapi;
 
 import dk.mada.jaxrs.model.Dto;
-import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Type;
 import dk.mada.jaxrs.model.types.TypeName;
 import java.util.List;
@@ -43,7 +42,7 @@ public record ParserTypeComposite(TypeName typeName, List<ParserTypeRef> contain
      */
     public List<Dto> internalDtos() {
         return containsTypes().stream()
-                .filter(ptr -> ptr.refTypeName().name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER))
+                .filter(ptr -> ptr.refTypeName().isInternalParserName())
                 .map(ParserTypeRef::refType)
                 .filter(Dto.class::isInstance)
                 .map(Dto.class::cast)
@@ -54,7 +53,7 @@ public record ParserTypeComposite(TypeName typeName, List<ParserTypeRef> contain
     public List<TypeName> externalDtoReferences() {
         return containsTypes().stream()
                 .map(ptr -> ptr.refTypeName())
-                .filter(tn -> !tn.name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER))
+                .filter(tn -> !tn.isInternalParserName())
                 .toList();
     }
 }

@@ -427,7 +427,7 @@ public final class TypeConverter {
                 if (dtoName == null) {
                     internalPropertyName = null;
                 } else {
-                    internalPropertyName = Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER + dtoName;
+                    internalPropertyName = Naming.makeParserInternalName(dtoName);
                 }
 
                 // Note the removal of duplicates, necessary for the allof_dups test
@@ -435,6 +435,14 @@ public final class TypeConverter {
                         .map(s -> reference(s, internalPropertyName, dtoName))
                         .distinct() // remove duplicates
                         .toList();
+
+                if (dtoName != null
+                        && allOfRefs.size() == 1
+                        && allOfRefs.getFirst().typeName().isInternalParserName()) {
+                    logger.trace(" - createAllofRef, collapsing props-only to plain DTO");
+                    ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
+                    return parserRefs.of(composite, ri.validation);
+                }
 
                 if (allOfRefs.size() == 1) {
                     logger.trace(" - createAllofRef, shortcut for duplicate");

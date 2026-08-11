@@ -57,4 +57,13 @@ components:
       - VALUE_B
       - VALUE_C
       type: string
-  
+    # From winget, issue #1042
+    SearchRequestMatch:
+      description: Model containing manifest request match schema.
+      allOf:
+        - type: object
+          properties:
+            KeyWord:
+              type: string
+            MatchType:
+              type: string
