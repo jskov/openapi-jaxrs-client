@@ -41,6 +41,7 @@ import dk.mada.jaxrs.model.types.TypeSet;
 import dk.mada.jaxrs.model.types.TypeVoid;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -328,14 +329,20 @@ public class ApiGenerator {
         boolean addAuthHeader =
                 authHeaderPref == AuthHeader.ON || (authHeaderPref == AuthHeader.API && op.addAuthorizationHeader());
 
+        // For keeping track of parameter naming conflicts
+        Set<String> assignedNames = new HashSet<>();
+
         if (addAuthHeader) {
             Primitive type = Primitive.STRING;
             ValidationAndType validationAndType =
                     renderValidationAndType(imports, type, Validation.validationRequired());
 
+            String paramName = "auth";
+            assignedNames.add(paramName);
+
             params.add(CtxApiParam.builder()
                     .baseName("Authorization")
-                    .paramName("auth")
+                    .paramName(paramName)
                     .dataType(validationAndType.typeNameWithValidation())
                     .validation(validationAndType.valCtx())
                     .isContainer(false)
@@ -355,6 +362,10 @@ public class ApiGenerator {
 
             String name = p.name();
             String paramName = naming.convertParameterName(name);
+            if (assignedNames.contains(paramName)) {
+                paramName = paramName + p.nameConflictSuffixExt();
+            }
+            assignedNames.add(paramName);
 
             Type type = ref.refType();
 

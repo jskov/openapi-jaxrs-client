@@ -45,14 +45,14 @@ public interface Params_HeaderApi {
    * apiParamsHeaderCollisionGet.
    *
    * @param version  (optional)
-   * @param version  (optional)
+   * @param versionQuery  (optional)
    * @return String
    */
   @GET
   @Path("/collision")
   @Produces(MediaType.TEXT_PLAIN)
   @APIResponseSchema(String.class)
-  String apiParamsHeaderCollisionGet(@HeaderParam("version") String versionHeader, @QueryParam("version") String version);
+  String apiParamsHeaderCollisionGet(@HeaderParam("version") String version, @QueryParam("version") String versionQuery);
 
   /**
    * apiParamsHeaderInvalidNameDashesGet.

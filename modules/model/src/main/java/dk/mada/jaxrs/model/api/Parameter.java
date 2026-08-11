@@ -34,4 +34,18 @@ public interface Parameter {
 
     /** {@return true if the parameter is a form parameter, otherwise false} */
     boolean isFormParam();
+
+    /** {@return an extension of the name used for conflict handling} */
+    default String nameConflictSuffixExt() {
+        if (isHeaderParam()) {
+            return "Header";
+        }
+        if (isPathParam()) {
+            return "Path";
+        }
+        if (isQueryParam()) {
+            return "Query";
+        }
+        return "Form";
+    }
 }
