@@ -42,6 +42,19 @@ public interface Params_HeaderApi {
   String apiParamsHeaderBooleanWrapperGet(@HeaderParam("flag") boolean flag);
 
   /**
+   * apiParamsHeaderCollisionGet.
+   *
+   * @param version  (optional)
+   * @param versionQuery  (optional)
+   * @return String
+   */
+  @GET
+  @Path("/collision")
+  @Produces(MediaType.TEXT_PLAIN)
+  @APIResponseSchema(String.class)
+  String apiParamsHeaderCollisionGet(@HeaderParam("version") String version, @QueryParam("version") String versionQuery);
+
+  /**
    * apiParamsHeaderInvalidNameDashesGet.
    *
    * @param invalidValue
