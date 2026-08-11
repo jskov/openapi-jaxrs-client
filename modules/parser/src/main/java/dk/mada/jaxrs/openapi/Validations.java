@@ -1,7 +1,6 @@
 package dk.mada.jaxrs.openapi;
 
 import dk.mada.jaxrs.model.Validation;
-import io.swagger.v3.oas.models.media.Schema;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,26 +34,24 @@ public final class Validations {
     /**
      * Get a local Validation model objects from a schema.
      *
-     * @param s        the schema
+     * @param sp       the schema parser
      * @param required the required state
      * @return a model validation instance
      */
-    public static Validation extractValidation(@SuppressWarnings("rawtypes") Schema s, boolean required) {
-        Boolean nullableObj = s.getNullable();
-        boolean nullable = nullableObj != null && nullableObj.booleanValue();
+    public static Validation extractValidation(SchemaParser sp, boolean required) {
         Validation candidate = new Validation(
                 required,
-                nullable,
-                s.getReadOnly(),
-                s.getMinItems(),
-                s.getMaxItems(),
-                s.getMinLength(),
-                s.getMaxLength(),
-                s.getMinimum(),
-                s.getExclusiveMinimum(),
-                s.getMaximum(),
-                s.getExclusiveMaximum(),
-                s.getPattern());
+                sp.isNullable(),
+                sp.schema().getReadOnly(),
+                sp.schema().getMinItems(),
+                sp.schema().getMaxItems(),
+                sp.schema().getMinLength(),
+                sp.schema().getMaxLength(),
+                sp.schema().getMinimum(),
+                sp.schema().getExclusiveMinimum(),
+                sp.schema().getMaximum(),
+                sp.schema().getExclusiveMaximum(),
+                sp.schema().getPattern());
 
         return getInstance(candidate);
     }
@@ -90,28 +87,6 @@ public final class Validations {
         Validation candidate = new Validation(
                 true,
                 v.nullable(),
-                v.readonly(),
-                v._minItems(),
-                v._maxItems(),
-                v._minLength(),
-                v._maxLength(),
-                v._minimum(),
-                v._exclusiveMinimum(),
-                v._maximum(),
-                v._exclusiveMaximum(),
-                v._pattern());
-        return getInstance(candidate);
-    }
-
-    /**
-     * {@return a validation that allows the type to be null}
-     *
-     * @param v the validation to enable require on
-     */
-    public static Validation makeNullable(Validation v) {
-        Validation candidate = new Validation(
-                v.required(),
-                true,
                 v.readonly(),
                 v._minItems(),
                 v._maxItems(),
