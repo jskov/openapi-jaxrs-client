@@ -1,0 +1,68 @@
+---
+openapi: 3.1.0
+info:
+  contact:
+    email: email@example.com
+    name: openapi API contact name
+    url: http://test.com/https://contact.url
+  description: openapi API description
+  license:
+    name: openapi API license name
+    url: http://test.com/https://license.url
+  termsOfService: openapi API TOS
+  title: openapi API Title
+  version: openapi API Version
+tags: []
+externalDocs:
+  description: openapi API ext docs description
+  url: http://test.com/openapi API ext url
+components:
+  schemas:
+    Account:
+      type: object
+      required:
+        - string-nullable
+        - string-not-nullable
+        - array-nullable
+        - array-not-nullable
+        - set-nullable
+        - set-not-nullable
+      properties:
+        string-nullable:
+          type:
+            - string
+            - "null"
+          description: The id of the account.
+          readOnly: true
+        string-nullable-not-required:
+          type:
+            - string
+            - "null"
+          description: The id of the account.
+          readOnly: true
+        string-not-nullable:
+          type: string
+          description: The id of the account.
+          readOnly: true
+        array-nullable:
+          type:
+            - array
+            - "null"
+          items:
+            type: string
+        array-not-nullable:
+          type: array
+          items:
+            type: string
+        set-nullable:
+          type:
+            - array
+            - "null"
+          uniqueItems: true
+          items:
+            type: string
+        set-not-nullable:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
