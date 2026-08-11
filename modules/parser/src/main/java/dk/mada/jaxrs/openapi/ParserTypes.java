@@ -4,7 +4,6 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toSet;
 
 import dk.mada.jaxrs.model.Dto;
-import dk.mada.jaxrs.model.naming.Naming;
 import dk.mada.jaxrs.model.types.Primitive;
 import dk.mada.jaxrs.model.types.Reference;
 import dk.mada.jaxrs.model.types.Type;
@@ -156,7 +155,7 @@ public class ParserTypes {
     }
 
     private boolean excludeInternalDtoProperties(TypeName tn) {
-        return !tn.name().contains(Naming.PARSER_INTERNAL_PROPERTIES_NAME_MARKER);
+        return !tn.isInternalParserName();
     }
 
     /**
