@@ -37,6 +37,12 @@ components:
           $ref: '#/components/schemas/CyclicB'
     CyclicB:
       type: object
+      required:
+        - fieldIsNotNullable
       properties:
         a:
           $ref: '#/components/schemas/CyclicA'
+        fieldIsNullable:
+          type: string
+        fieldIsNotNullable:
+          type: string
