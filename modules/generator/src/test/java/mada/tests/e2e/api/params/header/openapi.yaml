@@ -109,3 +109,25 @@ paths:
             text/plain:
               schema:
                 type: string
+
+  # As seen in winget api, header and query param name collisions
+  /api/params/header/collision:
+    get:
+      tags:
+      - Params Header
+      parameters:
+      - name: version
+        in: header
+        schema:
+          type: string
+      - name: version
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
