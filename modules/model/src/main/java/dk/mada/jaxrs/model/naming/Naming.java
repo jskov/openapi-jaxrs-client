@@ -265,6 +265,7 @@ public class Naming {
      * @param input the input text to mark as an internal parser name
      */
     public static String makeParserInternalName(String input) {
+        logger.info("NOW adding: {}", PARSER_INTERNAL_PROPERTIES_NAME_MARKER+input);
         return PARSER_INTERNAL_PROPERTIES_NAME_MARKER + input;
     }
 

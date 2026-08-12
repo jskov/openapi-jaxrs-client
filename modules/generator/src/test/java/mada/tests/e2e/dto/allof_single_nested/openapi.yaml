@@ -1,0 +1,60 @@
+---
+openapi: 3.0.3
+info:
+  title: jboss-helloworld
+  version: "1.0"
+servers:
+- url: /jboss-helloworld
+paths:
+  /services/tests:
+    get:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DtoA'
+components:
+  schemas:
+    ManifestSchema:
+      description: Model containing Manifest Schema.
+      allOf:
+        - $ref: '#/components/schemas/PackageSchema'
+        - type: object
+          properties:
+            Versions:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/VersionSchema'
+                  - type: object
+                    properties:
+                      Locales:
+                        type: string
+                  - type: object
+                    properties:
+                      Installers:
+                        type: string
+    # Version Schema
+    VersionSchema:
+      description: Model containing Version Schema
+      allOf:
+        - type: object
+          properties:
+            PackageVersion:
+              type: string
+      required:
+        - PackageVersion
+
+    PackageSchema:
+      description: Model containing Package Schema
+      allOf:
+        - type: object
+          properties:
+            PackageIdentifier:
+              type: string
+      required:
+        - PackageIdentifier

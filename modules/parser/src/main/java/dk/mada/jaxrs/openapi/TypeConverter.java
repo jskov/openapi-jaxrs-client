@@ -437,11 +437,13 @@ public final class TypeConverter {
                         .toList();
 
                 if (dtoName != null
-                        && allOfRefs.size() == 1
-                        && allOfRefs.getFirst().typeName().isInternalParserName()) {
-                    logger.trace(" - createAllofRef, collapsing props-only to plain DTO");
-                    ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
-                    return parserRefs.of(composite, ri.validation);
+                        && allOfRefs.size() == 1) {
+                     TypeName refdTypename = allOfRefs.getFirst().typeName();
+                     if (refdTypename.isInternalParserName()) {
+                        logger.info(" - createAllofRef, collapsing props-only {} to plain DTO {}", refdTypename.name(), dtoName);
+                        ParserTypeComposite composite = ParserTypeComposite.of(typeNames.of(dtoName), allOfRefs);
+                        return parserRefs.of(composite, ri.validation);
+                     }
                 }
 
                 if (allOfRefs.size() == 1) {
